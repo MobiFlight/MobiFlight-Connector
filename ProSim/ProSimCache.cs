@@ -226,7 +226,7 @@ namespace MobiFlight.ProSim
         {
             { "System.Int32", ("writeInt", "Int!") },
             { "System.Double", ("writeFloat", "Float!") },
-            { "System.Boolean", ("writeBoolean", "Boolean!") }
+            { "System.Boolean", ("writeBool", "Boolean!") }
         };
 
         private void WriteOutValue(string datarefPath, object value)

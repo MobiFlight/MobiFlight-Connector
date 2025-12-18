@@ -103,12 +103,12 @@ namespace MobiFlight.Tests.ProSim
             {
                 { "System.Int32", ("writeInt", "Int!") },
                 { "System.Double", ("writeFloat", "Float!") },
-                { "System.Boolean", ("writeBoolean", "Boolean!") }
+                { "System.Boolean", ("writeBool", "Boolean!") }
             };
 
             Assert.AreEqual("writeInt", mutationLookup["System.Int32"].method);
             Assert.AreEqual("writeFloat", mutationLookup["System.Double"].method);
-            Assert.AreEqual("writeBoolean", mutationLookup["System.Boolean"].method);
+            Assert.AreEqual("writeBool", mutationLookup["System.Boolean"].method);
         }
 
         [TestMethod()]
@@ -147,8 +147,8 @@ namespace MobiFlight.Tests.ProSim
 
             // Assert
             Assert.IsNotNull(capturedRequest, "Expected a GraphQL request to be sent");
-            Assert.IsTrue(capturedRequest.Query.Contains("writeBoolean"),
-                $"Expected mutation to contain 'writeBoolean', but got: {capturedRequest.Query}");
+            Assert.IsTrue(capturedRequest.Query.Contains("writeBool"),
+                $"Expected mutation to contain 'writeBool', but got: {capturedRequest.Query}");
             Assert.IsTrue(capturedRequest.Query.Contains("$name") && capturedRequest.Query.Contains("$value"),
                 $"Expected mutation to use variables, but got: {capturedRequest.Query}");
             Assert.IsNotNull(capturedRequest.Variables, "Expected variables to be set");
@@ -276,8 +276,8 @@ namespace MobiFlight.Tests.ProSim
 
             // Assert
             Assert.IsNotNull(capturedRequest, "Expected a GraphQL request to be sent");
-            Assert.IsTrue(capturedRequest.Query.Contains("writeBoolean"),
-                $"Expected mutation to contain 'writeBoolean', but got: {capturedRequest.Query}");
+            Assert.IsTrue(capturedRequest.Query.Contains("writeBool"),
+                $"Expected mutation to contain 'writeBool', but got: {capturedRequest.Query}");
             Assert.IsNotNull(capturedRequest.Variables, "Expected variables to be set");
         }
 
@@ -317,8 +317,8 @@ namespace MobiFlight.Tests.ProSim
 
             // Assert
             Assert.IsNotNull(capturedRequest, "Expected a GraphQL request to be sent");
-            Assert.IsTrue(capturedRequest.Query.Contains("writeBoolean"),
-                $"Expected mutation to contain 'writeBoolean', but got: {capturedRequest.Query}");
+            Assert.IsTrue(capturedRequest.Query.Contains("writeBool"),
+                $"Expected mutation to contain 'writeBool', but got: {capturedRequest.Query}");
             Assert.IsNotNull(capturedRequest.Variables, "Expected variables to be set");
         }
 
