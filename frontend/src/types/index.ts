@@ -23,3 +23,7 @@ export type {
 export type { 
   Project 
 } from "./project"
+
+export type {
+  CommunityPost
+} from "./feed"

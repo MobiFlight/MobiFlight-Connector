@@ -150,6 +150,10 @@ namespace MobiFlight.UI
             Properties.Settings.Default.PropertyChanged += (s, e) =>
             {
                 PublishSettings();
+                if (e.PropertyName == "RecentFiles")
+                {
+                    PublishRecentProjectList();
+                }
             };
 
             Properties.Settings.Default.SettingsSaving += (s, e) =>
@@ -240,6 +244,22 @@ namespace MobiFlight.UI
             MessageExchange.Instance.Subscribe<CommandProjectToolbar>((message) =>
             {
                 commandProjectToolbarHandler.Handle(message);
+            });
+
+            MessageExchange.Instance.Subscribe<CommandDiscardChanges>((message) =>
+            {
+                ProjectHasUnsavedChanges = false;
+                SetTitle("");
+            });
+
+            MessageExchange.Instance.Subscribe<CommandOpenLinkInBrowser>((message) =>
+            {
+                if (!message.Url.IsValidUrl())
+                {
+                    Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
+                    return;
+                }
+                Process.Start(message.Url);
             });
         }
 
@@ -390,7 +410,7 @@ namespace MobiFlight.UI
             RestoreWindowsPositionAndZoomLevel();
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
+        private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
 #if (!DEBUG)
@@ -446,6 +466,113 @@ namespace MobiFlight.UI
             Refresh();
 
             PublishSettings();
+            try
+            {
+                await CleanRecentFilesAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Exception in CleanRecentFilesAsync: {ex.Message}", LogSeverity.Error);
+            }
+
+            PublishRecentProjectList();
+        }
+
+        // Remove non-existing recent files asynchronously but return only after UI changes persisted.
+        // Caller can await to guarantee the settings are updated before using RecentFiles.
+        private async Task CleanRecentFilesAsync()
+        {
+            var recentSnapshot = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+            
+            var missingFiles = await Task.Run(() => CheckForMissingFiles(recentSnapshot)).ConfigureAwait(false);
+
+            if (missingFiles.Count == 0) return;
+
+            // Handle require to invoke settings update on UI thread
+            if (!IsHandleCreated) return;
+
+            var tcs = new TaskCompletionSource<bool>();
+            BeginInvoke((Action)(() =>
+            {
+                try
+                {
+                    RemoveMissingFilesFromSettings(missingFiles);
+                    tcs.SetResult(true);
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
+            }));
+            await tcs.Task.ConfigureAwait(false);
+        }
+
+        internal static List<string> CheckForMissingFiles(IEnumerable<string> recentFiles)
+        {
+            var missingFiles = new List<string>();
+            if (recentFiles == null) return missingFiles;
+
+            foreach (var f in recentFiles)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(f) || !File.Exists(f))
+                        missingFiles.Add(f);
+                }
+                catch
+                {
+                    // Treat IO errors as missing; keep scanning
+                    missingFiles.Add(f);
+                }
+            }
+
+            return missingFiles;
+        }
+
+        internal void RemoveMissingFilesFromSettings(IEnumerable<string> missingFiles)
+        {
+            if (missingFiles == null) return;
+
+            var changed = false;
+            foreach (var f in missingFiles)
+            {
+                if (!Properties.Settings.Default.RecentFiles.Contains(f)) continue;
+
+                Properties.Settings.Default.RecentFiles.Remove(f);
+                Log.Instance.log($"Recent Project List - File doesn't exist: '{f}' removed.", LogSeverity.Info);
+                changed = true;
+            }
+
+            if (changed)
+            {
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void PublishRecentProjectList()
+        {
+            var recentFiles = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+            var recentProjects = new List<ProjectInfo>();
+            Task.Run(() =>
+            {
+                foreach (var project in recentFiles)
+                {
+                    try
+                    {
+                        var p = new Project();
+                        p.FilePath = project;
+                        p.OpenFile(suppressMigrationLogging: true);
+                        p.DetermineProjectInfos();
+
+                        recentProjects.Add(p.ToProjectInfo());
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Could not load recent project file {project}: {ex.Message}", LogSeverity.Warn);
+                    }
+                }
+                MessageExchange.Instance.Publish(new RecentProjects() { Projects = recentProjects });
+            }).ConfigureAwait(false);
         }
 
         private void PublishSettings()
@@ -454,6 +581,7 @@ namespace MobiFlight.UI
 
             if (execManager == null) return;
 
+            MessageExchange.Instance.Publish(new MobiFlight.BrowserMessages.Outgoing.BoardDefinitions() { Definitions = BoardDefinitions.Boards });
             MessageExchange.Instance.Publish(new JoystickDefinitions() { Definitions = execManager.GetJoystickManager().Definitions });
             MessageExchange.Instance.Publish(new MidiControllerDefinitions() { Definitions = execManager.GetMidiBoardManager().Definitions.Values.ToList() });
         }
@@ -815,6 +943,7 @@ namespace MobiFlight.UI
                 this.Invoke(new EventHandler(ExecManager_OnInitialModuleLookupFinished), new object[] { sender, e });
                 return;
             }
+
             StartupProgressValue = 70;
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Checking for Firmware Updates..." });
             CheckForFirmwareUpdates();
@@ -832,6 +961,7 @@ namespace MobiFlight.UI
             UpdateAllConnectionIcons();
 
             UpdateStatusBarModuleInformation();
+            PublishRecentProjectList();
 
             // Track config loaded event
             AppTelemetry.Instance.TrackStart();
@@ -1114,11 +1244,7 @@ namespace MobiFlight.UI
                     LoadConfig(file);
                     return;
                 }
-            } //if 
-
-
-            // Initialize properly the empty project state.
-            CreateNewProject();
+            } //if
         }
 
 #if ARCAZE
@@ -1787,6 +1913,7 @@ namespace MobiFlight.UI
             }
             Properties.Settings.Default.RecentFiles.Insert(0, fileName);
             Properties.Settings.Default.Save();
+            PublishRecentProjectList();
         }
 
         /// <summary>
@@ -1873,6 +2000,7 @@ namespace MobiFlight.UI
                 {
                     var newProject = new Project() { FilePath = fileName };
                     newProject.OpenFile();
+                    newProject.DetermineProjectInfos();
                     execManager.Project = newProject;
                 }
                 else
@@ -2092,7 +2220,7 @@ namespace MobiFlight.UI
 
         private void SetProjectNameInTitle()
         {
-            SetTitle(execManager.Project.Name);
+            SetTitle(execManager.Project?.Name ?? string.Empty);
         }
 
         /// <summary>
@@ -2105,6 +2233,7 @@ namespace MobiFlight.UI
             // errors during save and show it in a dialog instead of crashing.
             try
             {
+                execManager.Project.DetermineProjectInfos();
                 execManager.Project.SaveFile();
             }
             catch (Exception ex)
@@ -2113,6 +2242,7 @@ namespace MobiFlight.UI
                 return;
             }
 
+            MessageExchange.Instance.Publish(execManager.Project);
             _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
         }
@@ -2124,7 +2254,7 @@ namespace MobiFlight.UI
             simConnectToolStripMenuItem.Enabled = true;
             simConnectToolStripMenuItem.ToolTipText = "Some configs are using MSFS2020 presets -> WASM module required";
 
-            if (!ContainsConfigOfSourceType(execManager.ConfigItems, new SimConnectSource()))
+            if (!execManager.Project.ContainsConfigOfSourceType(new SimConnectSource()))
             {
                 simConnectToolStripMenuItem.Image = Properties.Resources.disabled;
                 simConnectToolStripMenuItem.Visible = false;
@@ -2153,7 +2283,7 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Enabled = true;
             xPlaneDirectToolStripMenuItem.ToolTipText = "Some configs are using XPlane DataRefs/Commands -> XPlane direct required";
 
-            if (!ContainsConfigOfSourceType(execManager.ConfigItems, new XplaneSource()))
+            if (!execManager.Project.ContainsConfigOfSourceType(new XplaneSource()))
             {
                 xPlaneDirectToolStripMenuItem.Image = Properties.Resources.disabled;
                 xPlaneDirectToolStripMenuItem.Visible = false;
@@ -2177,7 +2307,7 @@ namespace MobiFlight.UI
             FsuipcToolStripMenuItem.Enabled = true;
             FsuipcToolStripMenuItem.ToolTipText = "Some configs are using FSUIPC -> FSUIPC required";
 
-            if (!ContainsConfigOfSourceType(execManager.ConfigItems, new FsuipcSource()))
+            if (!execManager.Project.ContainsConfigOfSourceType(new FsuipcSource()))
             {
                 FsuipcToolStripMenuItem.Image = Properties.Resources.disabled;
                 FsuipcToolStripMenuItem.Visible = false;
@@ -2230,7 +2360,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
         /// </summary>
-        public void newFileToolStripMenuItem_Click(object sender, EventArgs e)
+        public void newFileToolStripMenuItem_Click(CommandMainMenuOptions options)
         {
             if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmNewConfig"),
@@ -2240,15 +2370,18 @@ namespace MobiFlight.UI
                 return;
             }
 
-            CreateNewProject();
+            CreateNewProject(options.Project);
         } //toolStripMenuItem3_Click()
 
-        public void CreateNewProject()
+        public void CreateNewProject(Project project)
         {
-            var project = new Project() { Name = i18n._tr("DefaultProjectName") };
             project.ConfigFiles.Add(CreateDefaultConfigFile());
             execManager.Project = project;
-            ResetProjectAndConfigChanges();
+
+            // Indicate that the new project has unsaved changes
+            // because it was never saved before.
+            ProjectHasUnsavedChanges = true;
+            SetProjectNameInTitle();
         }
 
         public void AddNewFileToProject()
@@ -2274,18 +2407,47 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// gets triggered if user uses quick save button from toolbar
+        /// gets triggered if user uses clicks save button from toolbar
         /// </summary>
         public void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            // if filename of loaded file is known use it
-            if (execManager.Project.FilePath != null)
+            var currentProject = execManager.Project;
+
+            // if no filename is known yet
+            // trigger save as dialog
+            if (currentProject.FilePath == null)
             {
-                SaveConfig(execManager.Project.FilePath);
+                saveAsToolStripMenuItem_Click(sender, e);
                 return;
             }
-            // otherwise trigger normal open file dialog
-            saveAsToolStripMenuItem_Click(sender, e);
+
+            // if the file extension is outdated
+            if (!currentProject.FilePath.EndsWith(Project.FileExtension))
+            {
+                // migrate the file extension
+                var newFilePath = currentProject.MigrateFileExtension();
+
+                // we can't just save
+                // if there is a file with that name already
+                if (File.Exists(newFilePath))
+                {
+
+                    // in that case show the "save as"-dialog
+                    saveAsToolStripMenuItem_Click(sender, e);
+                    return;
+                }
+
+                // if no conflict, we can show a notification 
+                // to the user to let them know we saved it with a new name
+                MessageExchange.Instance.Publish(new Notification()
+                {
+                    Event = "ProjectFileExtensionMigrated"
+                });
+            }
+
+            // if the file extension is ok, just save
+            // without any notifications or user interactions
+            SaveConfig(execManager.Project.FilePath);
         } //saveToolStripButton_Click()
 
         /// <summary>
@@ -2827,6 +2989,27 @@ namespace MobiFlight.UI
             }
 
             MessageBox.Show("Logs successfully copied to the clipboard.", "Copy to clipboard");
+        }
+
+        internal void updateProjectSettings(Project project)
+        {
+            execManager.Project.Name = project.Name;
+            execManager.Project.Sim = project.Sim;
+            execManager.Project.UseFsuipc = project.UseFsuipc;
+            execManager.Project.Aircraft = project.Aircraft;
+            saveToolStripButton_Click(null, null);
+        }
+
+        internal void RecentFilesRemove(int index)
+        {
+            var recentFiles = Properties.Settings.Default.RecentFiles;
+
+            if (index < 0 || index >= recentFiles.Count)
+                return;
+
+            recentFiles.RemoveAt(index);
+            Properties.Settings.Default.RecentFiles = recentFiles;
+            Properties.Settings.Default.Save();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

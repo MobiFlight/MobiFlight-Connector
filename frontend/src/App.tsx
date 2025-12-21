@@ -8,13 +8,16 @@ import Settings from "./types/settings"
 import _ from "lodash"
 import { useProjectStore } from "./stores/projectStore"
 import { MainMenu } from "./components/MainMenu"
-import { useSettingsStore } from "./stores/settingsStore"
+import { useRecentProjects, useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
 import {
+  BoardDefinitions,
+  ExecutionState,
   HubHopState,
   JoystickDefinitions,
   MidiControllerDefinitions,
   OverlayState,
+  RecentProjects,
 } from "./types/messages"
 import {
   useKeyAccelerators,
@@ -26,20 +29,38 @@ import { useTheme } from "@/lib/hooks/useTheme"
 import { ToastNotificationHandler } from "./components/notifications/ToastNotificationHandler"
 import { useHubHopStateActions } from "./stores/stateStore"
 
+import testProject from "@/../tests/data/project.testdata.json" with { type: "json" }
+import testJsDefinition from "@/../tests/data/joystick.definition.json" with { type: "json" }
+import testMidiDefinition from "@/../tests/data/midicontroller.definition.json" with { type: "json" }
+import testRecentProjects from "@/../tests/data/recentProjects.testdata.json" with { type: "json" }
+
+import {
+  MidiControllerDefinition,
+  JoystickDefinition,
+} from "@/types/definitions"
+import DebugInfo from "@/components/DebugInfo"
+import { useExecutionStateStore } from "@/stores/executionStateStore"
+import { ProjectInfo } from "@/types/project"
+
 function App() {
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
-  const { setProject, setHasChanged } = useProjectStore()
+  const { project, setProject, setHasChanged } = useProjectStore()
+  const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
-  const { setJoystickDefinitions, setMidiControllerDefinitions } =
-    useControllerDefinitionsStore()
+  const {
+    setBoardDefinitions,
+    setJoystickDefinitions,
+    setMidiControllerDefinitions,
+  } = useControllerDefinitionsStore()
+
+  const { setIsRunning, setIsTesting } = useExecutionStateStore()
 
   const setHubHopState = useHubHopStateActions()
   useKeyAccelerators(GlobalKeyAccelerators, true)
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
   const { theme } = useTheme()
-  const windowSize = { x: window.innerWidth, y: window.innerHeight }
 
   // State for startup progress from app messages
   const [appStartupProgress, setAppStartupProgress] = useState<StatusBarUpdate>(
@@ -72,6 +93,12 @@ function App() {
     setProject(project)
   })
 
+  useAppMessage("RecentProjects", (message) => {
+    const recentProjects = message.payload as RecentProjects
+    setRecentProjects(recentProjects.Projects)
+    console.log("List of Recent Projects received", recentProjects.Projects)
+  })
+
   useAppMessage("Settings", (message) => {
     const settings = message.payload as Settings
     console.log("Settings message received", settings)
@@ -80,6 +107,15 @@ function App() {
     const language = settings.Language.split("-")[0]
     if (!_.isEmpty(language)) i18next.changeLanguage(settings.Language)
     else i18next.changeLanguage()
+  })
+
+  useAppMessage("BoardDefinitions", (message) => {
+    const boardDefinitions = message.payload as BoardDefinitions
+    console.log(
+      "BoardDefinitions message received",
+      boardDefinitions.Definitions,
+    )
+    setBoardDefinitions(boardDefinitions.Definitions)
   })
 
   useAppMessage("JoystickDefinitions", (message) => {
@@ -118,11 +154,43 @@ function App() {
   })
 
   useEffect(() => {
-    if (startupProgress.Value == 100) {
-      console.log("Finished loading, navigating to config page")
-      navigate("/config")
+    if (startupProgress.Value == 100 && location.pathname == "/index.html") {
+      console.log("Finished loading, navigating to home")
+      navigate("/home")
     }
   }, [startupProgress.Value, navigate])
+
+  // this is only for easier UI testing
+  // while developing the UI
+  useEffect(() => {
+    if (
+      process.env.NODE_ENV === "development" &&
+      queryParameters.get("testdata") === "true" &&
+      !project // Only if no project loaded yet
+    ) {
+      setProject(testProject as Project)
+      setRecentProjects(testRecentProjects as ProjectInfo[])
+      setJoystickDefinitions([testJsDefinition as JoystickDefinition])
+
+      setMidiControllerDefinitions([
+        testMidiDefinition as MidiControllerDefinition,
+      ])
+    }
+  }, [
+    project,
+    queryParameters,
+    setJoystickDefinitions,
+    setMidiControllerDefinitions,
+    setProject,
+    setRecentProjects,
+  ])
+
+  useAppMessage("ExecutionState", (message) => {
+    console.log("ExecutionState message received", message.payload)
+    const { IsRunning, IsTesting } = message.payload as ExecutionState
+    setIsRunning(IsRunning)
+    setIsTesting(IsTesting)
+  })
 
   return (
     <>
@@ -130,25 +198,17 @@ function App() {
         <LoaderOverlay open={overlayVisible} onOpenChange={setOverlayVisible} />
       )}
       {outlet ? (
-        <div className="flex h-svh flex-row p-0 select-none">
+        <div className="flex h-svh flex-row overflow-hidden p-0 select-none">
           {/* <Sidebar /> */}
           <div className="flex grow flex-col">
             <MainMenu />
 
             {/* Uncomment the Navbar if needed */}
             {/* <Navbar /> */}
-            <div className="flex grow flex-col overflow-hidden p-2">
+            <div className="flex grow flex-col overflow-hidden">
               <Outlet />
             </div>
-            <div className="flex flex-row justify-end gap-2 px-5">
-              <div className="text-muted-foreground text-xs">
-                {windowSize.x}x{windowSize.y}
-              </div>
-              <div className="text-muted-foreground text-xs">
-                MobiFlight 2025
-              </div>
-              <div className="text-muted-foreground text-xs">Version 1.0.0</div>
-            </div>
+            <DebugInfo />
           </div>
         </div>
       ) : (

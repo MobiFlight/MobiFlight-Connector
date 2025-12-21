@@ -24,8 +24,8 @@ namespace MobiFlight.ProSim
 
         private readonly Dictionary<string, IDisposable> _subscriptions = new Dictionary<string, IDisposable>();
 
-        // ProSim SDK object
-        private GraphQLHttpClient _connection;
+        // ProSim SDK object 
+        private IGraphQLWebSocketClient _connection;
         
         // Heartbeat timer to keep WebSocket connection active
         private Timer _heartbeatTimer;
@@ -205,20 +205,28 @@ namespace MobiFlight.ProSim
                 else
                 {
                     // Create new cache entry
-                    _subscribedDataRefs[datarefPath] = new CachedDataRef
+                    var newCachedRef = new CachedDataRef
                     {
                         Path = datarefPath,
                         Value = value,
                     };
+
+                    // Set DataRefDescription if available
+                    if (_dataRefDescriptions.TryGetValue(datarefPath, out var description))
+                    {
+                        newCachedRef.DataRefDescription = description;
+                    }
+
+                    _subscribedDataRefs[datarefPath] = newCachedRef;
                 }
             }
         }
 
-        private readonly Dictionary<string, string> mutationLookup = new Dictionary<string, string>
+        private readonly Dictionary<string, (string method, string graphqlType)> mutationLookup = new Dictionary<string, (string, string)>
         {
-            { "System.Int32", "writeInt" },
-            { "System.Double", "writeFloat" },
-            { "System.Boolean", "writeBoolean" }
+            { "System.Int32", ("writeInt", "Int!") },
+            { "System.Double", ("writeFloat", "Float!") },
+            { "System.Boolean", ("writeBool", "Boolean!") }
         };
 
         private void WriteOutValue(string datarefPath, object value)
@@ -254,23 +262,26 @@ namespace MobiFlight.ProSim
                     return;
                 }
 
-                if (!mutationLookup.TryGetValue(description.DataType, out var method))
+                if (!mutationLookup.TryGetValue(description.DataType, out var mutation))
                 {
                     return;
                 }
+
+                var (method, graphqlType) = mutation;
 
                 Task.Run(async () => {
                     try
                     {
                         var query = $@"
-mutation {{
+mutation ($name: String!, $value: {graphqlType}) {{
 	dataRef {{
-		{method}(name: ""{datarefPath}"", value: {value})
+		{method}(name: $name, value: $value)
 	}}
 }}";
                         await _connection.SendMutationAsync<object>(new GraphQL.GraphQLRequest
                         {
-                            Query = query
+                            Query = query,
+                            Variables = new { name = datarefPath, value }
                         });
                     }
                     catch
@@ -434,11 +445,11 @@ mutation {{
             return _connected && _connection != null;
         }
 
-        public double readDataref(string datarefPath)
+        public object readDataref(string datarefPath)
         {
             if (!IsConnected())
             {
-                return 0;
+                return (double)0;
             }
 
             try
@@ -446,25 +457,36 @@ mutation {{
                 if (!_subscriptions.ContainsKey(datarefPath))
                 {
                     SubscribeToDataRef(datarefPath);
-                    return 0;
+                    return (double)0;
                 }
 
-                if (!_subscribedDataRefs.ContainsKey(datarefPath))
+                lock (_subscribedDataRefs)
                 {
-                    // Wait for data to be returned by the subscription
-                    return 0;
-                }
-                
-                // Return the cached value (continuously updated by the subscription)
-                var value = _subscribedDataRefs[datarefPath].Value;
-                var returnValue = (value == null) ? 0 : Convert.ToDouble(value);
+                    if (!_subscribedDataRefs.ContainsKey(datarefPath))
+                    {
+                        // Wait for data to be returned by the subscription
+                        return (double)0;
+                    }
 
-                return returnValue;
+                    // Cache the dictionary value to avoid redundant lookups
+                    var subscribedDataRef = _subscribedDataRefs[datarefPath];
+                    var value = subscribedDataRef.Value;
+
+                    if (subscribedDataRef.DataRefDescription.DataType == "System.String")
+                    {
+                        return value;
+                    }
+
+                    var returnValue = (value == null) ? 0 : Convert.ToDouble(value);
+
+                    return returnValue;
+                }
+
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"Error reading dataref {datarefPath}: {ex.Message}", LogSeverity.Error);
-                return 0;
+                return (double)0;
             }
         }
 
@@ -517,7 +539,7 @@ mutation {{
                     }
                     else if (targetDataType == "System.Boolean")
                     {
-                        transformedValue = Convert.ToInt32(value) > 0;
+                        transformedValue = Convert.ToBoolean(value);
                     }
                 }
                 catch

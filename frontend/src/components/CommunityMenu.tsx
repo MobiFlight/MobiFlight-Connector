@@ -23,7 +23,7 @@ export const CommunityMenu = () => {
         variant={"default"}
         onClick={() => handleMenuItemClick({ action: "help.donate" })}
       >
-        <IconHeartDollar className="fill-none stroke-white text-white group-hover:stroke-white dark:stroke-pink-600" />
+        <IconHeartDollar className="fill-none stroke-white text-white group-hover:stroke-white dark:stroke-pink-600 dark:group-hover:stroke-white transition-colors" />
         Support us
       </Button>
       <Button

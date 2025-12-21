@@ -27,7 +27,7 @@ const ConfigItemTableHeader = forwardRef<
               <TableHead
                 key={header.id}
                 className={cn(
-                  "bg-primary sticky top-0 z-50 px-1 text-white dark:bg-blue-950",
+                  "bg-primary sticky top-0 z-50 px-1 text-primary-foreground",
                   className,
                 )}
               >

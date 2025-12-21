@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ModuleType>MobiFlight Mega</ModuleType>
-  <ModuleName>ProtoBoard-v2</ModuleName>
+  <ModuleName>Prototyping Board (Multiplexer)</ModuleName>
   <PowerSavingTime>600</PowerSavingTime>
   <Button Name="Button 3" Pin="4" />
   <Button Name="Button 4" Pin="5" />
@@ -12,7 +12,7 @@
   <Output Name="LED 3" Pin="9" />
   <Output Name="LED 4" Pin="10" />
   <Output Name="LED 5" Pin="11" />
-  <Output Name="LED 6" Pin="12" />
+  <Output Name="LED 6" Pin="13" />
   <Button Name="Switch 1-1" Pin="22" />
   <Button Name="Switch 1-3" Pin="24" />
   <Button Name="Switch 2-1" Pin="14" />
@@ -42,9 +42,11 @@
   <Button Name="Encoder 2 Push" Pin="33" />
   <Encoder Name="Encoder 3" PinLeft="44" PinRight="46" EncoderType="2" />
   <Button Name="Encoder 3 Push" Pin="67" />
+  <Encoder Name="Encoder 4" PinLeft="68" PinRight="69" EncoderType="2" />
+  <Button Name="Encoder 4 Push" Pin="12" />
   <Servo Name="Servo 1" DataPin="35" />
   <Servo Name="Servo 2" DataPin="34" />
-  <Stepper Name="Stepper 1" Pin1="36" Pin2="38" Pin3="40" Pin4="42" BtnPin="0" Mode="0" Backlash="0" Deactivate="false" Profile="0" />
+  <Stepper Name="Stepper 1" Pin1="36" Pin2="38" Pin3="40" Pin4="42" BtnPin="0" Mode="1" Backlash="6" Deactivate="false" Profile="1" />
   <ShiftRegister Name="ShiftRegister 1" LatchPin="45" ClockPin="47" DataPin="49" NumModules="1" />
   <InputShiftRegister Name="InputShifter" LatchPin="51" ClockPin="52" DataPin="53" NumModules="1" />
   <AnalogInput Name="POT 1" Pin="54" Sensitivity="5" />

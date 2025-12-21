@@ -43,7 +43,7 @@ namespace MobiFlight.CustomDevices
 
             devices = JsonBackedObject.LoadDefinitions<CustomDevice>(files.ToArray(), "Devices/mfdevice.schema.json",
                 onSuccess: (device, definitionFile) => {
-                    Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info);
+                    Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Debug);
                     device.BasePath = Path.GetDirectoryName(Path.GetDirectoryName(definitionFile));
                 },
                 onError: () => LoadingError = true

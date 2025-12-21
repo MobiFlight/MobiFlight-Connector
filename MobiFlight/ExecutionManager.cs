@@ -118,10 +118,12 @@ namespace MobiFlight
             {
                 if (_project == value) return;
                 _project = value;
+
                 _project.ProjectChanged += (s, e) =>
                 {
                     OnProjectChanged?.Invoke(this, Project);
                 };
+
                 OnProjectChanged?.Invoke(this, Project);
             }
         }
@@ -635,6 +637,8 @@ namespace MobiFlight
         private void InitInputEventExecutor()
         {
             _inputEventExecutors.Clear();
+
+            if (Project == null || Project.ConfigFiles == null) return;
 
             foreach (var configFile in Project.ConfigFiles)
             {

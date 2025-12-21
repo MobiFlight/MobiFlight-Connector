@@ -160,9 +160,15 @@ namespace MobiFlight.Tests
         public void Execute_ShouldUpdateStatus_WhenProSimNotConnected()
         {
             // Arrange
-            var cfg = new OutputConfigItem { Active = true, Source = new ProSimSource() };
+            var proSimSource = new ProSimSource
+            {
+                ProSimDataRef = new ProSimDataRef { Path = "test/dataref" }
+            };
+            var cfg = new OutputConfigItem { Active = true, Source = proSimSource };
+            
             var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockProSimCache.Setup(c => c.IsConnected()).Returns(false);
+            mockProSimCache.Setup(c => c.readDataref(It.IsAny<string>())).Returns(0.0);
 
             // Act
             executor.Execute(cfg, updatedValues);
@@ -172,6 +178,7 @@ namespace MobiFlight.Tests
 
             // Arrange
             mockProSimCache.Setup(c => c.IsConnected()).Returns(true);
+            mockProSimCache.Setup(c => c.readDataref(It.IsAny<string>())).Returns(0.0);
 
             // Act
             executor.Execute(cfg, updatedValues);

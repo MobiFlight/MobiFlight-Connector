@@ -55,7 +55,24 @@
         "DefaultUpload": false
       },
       {
+        "Name": "Prototyping Board - Multiplexer (SMD)",
+        "Description": "The device definitions, with SMD Multiplexer, for the Prototyping Board from the Community Shop",
+        "File": "prototyping-board.mega.multiplexer.smd.mfmc",
+        "DefaultUpload": false
+      },
+      {
         "Name": "Prototyping Board - Multiplexer",
+        "Description": "The device definitions, with Multiplexer, for the Prototyping Board from the Community Shop",
+        "File": "prototyping-board.mega.multiplexer.mfmc",
+        "DefaultUpload": false
+      },
+      {
+        "Name": "Prototyping Board - v2.1",
+        "Description": "The device definitions for the Prototyping Board with version 2.1.x, now legacy",
+        "File": "prototyping-board.mega.mfmc",
+        "DefaultUpload": false
+      },{
+        "Name": "Prototyping Board - v2.1 (Multiplexer)",
         "Description": "The device definitions, with Multiplexer, for the Prototyping Board from the Community Shop",
         "File": "prototyping-board.mega.multiplexer.mfmc",
         "DefaultUpload": false

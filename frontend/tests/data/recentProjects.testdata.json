@@ -1,0 +1,338 @@
+[
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "miniCOCKPIT miniFCU/ SN-FF7-AF3",
+            "-"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Starship-MiniFCU-MiniEFIS-V2.mfproj",
+        "Name": "Starship-MiniFCU+miniEFIS-V1",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "miniCOCKPIT miniFCU/ SN-E98-277",
+            "Spektrum Radio / JS-05727530-0203-11f0-8001-444553540000",
+            "TCA Sidestick X Pilot / JS-70fad9d0-f2e3-11ee-8001-444553540000",
+            "TCA  Quadrant Airbus Pilot / JS-70fb00e0-f2e3-11ee-8002-444553540000"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\FBW-A320DEV.mfproj",
+        "Name": "FBW-A320DEV",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "",
+            "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\New Project.mfproj",
+        "Name": "Test",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\precondition-v1.1-test-migrated-optimized.mfproj",
+        "Name": "New Project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "PU CDU V2 / JS-1daec020-eca7-11ef-8001-444553540000",
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\CRJ_PUCDUV2_CPT_PROFILE_737NG_KP_9RKoh\\CRJ PU AIR KOREA MCDU  737NG KP CAPTAIN.mcc",
+        "Name": "Air Korea MCDU",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-",
+            "ProtoBoard-v2/ SN-3F1-FDD",
+            "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Delta_Force_bug_minimum_example_AdvWS.mfproj",
+        "Name": "unsaved",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "WINWING Orion Joystick Base 2 + JGRIP-F16 / JS-3145ad90-c6f2-11ef-8001-444553540000"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\test-orphaned.mfproj",
+        "Name": "unsaved",
+        "Sim": "msfs",
+        "UseFsuipc": true
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "Mini OverheadSMD/ SN-E46454936324482F"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Mini Overhead SMD - FBW.mfproj",
+        "Name": "Mini Overhead SMD - FBW",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "",
+            "-",
+            "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000",
+            "Alpha Flight Controls / JS-9da32d30-41e0-11ed-8001-444553540000",
+            "MCDU 1_5/ SN-aaa-15c",
+            "CORE_MCP_v17_3/ SN-ffb-7e7",
+            "CPT_EFIS_v5_3/ SN-a1e-039"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\aero2023-combined-display.mfproj",
+        "Name": "aero2023-combined-display",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-",
+            "ProtoBoard-v2/ SN-777-0BC",
+            "MobiFlight Mega/ SN-B1C-682"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\joystick-workaround.mcc",
+        "Name": "joystick-workaround",
+        "Sim": "msfs",
+        "UseFsuipc": true
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-",
+            "C172RadioStack/ SN-c2b-a22",
+            "C172Left/ SN-33a-cbd",
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Homecockpit_C172_v0.9.mfproj",
+        "Name": "Homecockpit_C172",
+        "Sim": "msfs",
+        "UseFsuipc": true
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "WINWING FCU-320 / JS-8f2dfb10-fd8f-11ee-8001-444553540000",
+            "-",
+            "PFC Radio Module/ SN-777-0BC",
+            "Cessna Panel 2855 / JS-cb4c6870-85f8-11ee-8004-444553540000",
+            "T.A320 Pilot / JS-4e284670-85f8-11ee-8002-444553540000",
+            "Warning Panel/ SN-6GD-1BB",
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\A321 Toliss Extra.mfproj",
+        "Name": "MobiFlight Project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-",
+            "Pro Flight Multi Panel / JS-\\\\?\\hid#vid_06a3&pid_0d06#a&27a27da8&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Saitek-Multi-Panel.mfproj",
+        "Name": "New Project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "FliteSim FFB (UDP) / JS-UDP-FFB"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\flitesim-FFB.mfproj",
+        "Name": "FliteSim FFB Complete Config",
+        "Sim": "xplane",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-",
+            "FCU Cube / JS-5CEE68613138",
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\wingflex-fcu.mfproj",
+        "Name": "Test project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-",
+            "FCU Cube / JS-5CEE68613138",
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\wingflex-fcu.migrate.mfproj",
+        "Name": "Test project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\precondition-v1.1-test.mfproj",
+        "Name": "New Project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "",
+            "FCU Cube / JS-5CEE68613138"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\merge-multiple.testmfproj.optimized.mfproj",
+        "Name": "Test project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "",
+            "FCU Cube / JS-5CEE68613138"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\merge-multiple.testmfproj.mfproj",
+        "Name": "Test project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\precondition-v1.1-test-migrated.mfproj",
+        "Name": "New Project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "MCDU 1_5/ SN-aaa-15c",
+            "CORE_MCP_v17_3/ SN-ffb-7e7",
+            "CPT_EFIS_v5_3/ SN-a1e-039",
+            "-",
+            "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000",
+            "Alpha Flight Controls / JS-9da32d30-41e0-11ed-8001-444553540000",
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\aero2023-combined-display.mcc",
+        "Name": "aero2023-combined-display",
+        "Sim": "msfs",
+        "UseFsuipc": true
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "-",
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\dnd.mfproj",
+        "Name": "New Project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            ""
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Test-Rename.mfproj",
+        "Name": "Test",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "MPK mini 3 / MI-163179739"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\New Project.mfproj",
+        "Name": "New Project",
+        "Sim": null,
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Honeycomb-Bravo-Template.mfproj",
+        "Name": "Renamed project",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "ProtoBoard-v2/ SN-3F1-FDD"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Shop-Test-Demo-Board.mfproj",
+        "Name": "Shop Test",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    },
+    {
+        "Aircraft": [],
+        "Controllers": [
+            "Mini OverheadSMD/ SN-E4627CA7130D1D33"
+        ],
+        "Favorite": false,
+        "FilePath": ".\\Mini Overhead SMD - FBW.mcc",
+        "Name": "Mini Overhead SMD - FBW",
+        "Sim": "msfs",
+        "UseFsuipc": false
+    }
+]

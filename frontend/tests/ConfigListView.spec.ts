@@ -3,7 +3,7 @@ import { IConfigItem } from "../src/types"
 
 test("Confirm empty list view", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithEmptyData()
+  await configListPage.mobiFlightPage.initWithEmptyData()
   const noConfigsMessage = page.getByText(
     "This is a new configuration. Please add some items.",
   )
@@ -27,7 +27,7 @@ test("Confirm empty list view", async ({ configListPage, page }) => {
 
 test("Confirm populated list view", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await expect(
     page.getByRole("cell", { name: "No results." }),
   ).not.toBeVisible()
@@ -35,7 +35,7 @@ test("Confirm populated list view", async ({ configListPage, page }) => {
 
 test("Confirm active toggle is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.setupConfigItemEditConfirmationResponse()
   const firstRow = page.locator("tbody tr").nth(1)
   const toggleSwitch = firstRow.getByRole("switch")
@@ -50,7 +50,7 @@ test("Confirm edit function for name is working", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.setupConfigItemEditConfirmationResponse()
   await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
@@ -89,7 +89,7 @@ test("Confirm edit function for name is working", async ({
 
 test("Confirm status icons working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
 
   const PreconditionIcon = configListPage.getStatusIconInRow("Precondition", 1)
   const TestIcon = configListPage.getStatusIconInRow("Test", 1)
@@ -179,13 +179,61 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
   }
 })
 
+test("Confirm status icons are initialized correctly when status is not present", async ({
+  configListPage,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData()
+
+  const PreconditionIcon = configListPage.getStatusIconInRow("Precondition", 1)
+  const TestIcon = configListPage.getStatusIconInRow("Test", 1)
+  const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
+
+  const statusTests = [
+    {
+      status: { Precondition: "not satisfied" },
+      icon: PreconditionIcon,
+      toolTipText: "Precondition is not satisfied.",
+      alwaysVisible: true,
+    },
+    {
+      status: { Test: "Executing" },
+      icon: TestIcon,
+      toolTipText: "This config is currently being tested.",
+      alwaysVisible: true,
+    },
+    {
+      status: { ConfigRef: "Missing" },
+      icon: ConfigRefIcon,
+      toolTipText: "One or more referenced configs are missing.",
+      alwaysVisible: true,
+    },
+  ]
+
+  // enable icons one by one and verify
+  for (const test of statusTests) {
+    await configListPage.updateConfigItemStatus(0, test.status)
+    await expect(test.icon).toBeVisible()
+    await expect(test.icon).toHaveAttribute("aria-disabled", "false")
+  }
+
+  const configItem = configListPage.getConfigItemByIndex(0)
+  delete configItem.Status
+  await configListPage.configValueFullUpdate([configItem], 0)
+
+  // all icons should be disabled now
+  await expect(PreconditionIcon).toHaveAttribute("aria-disabled", "true")
+  await expect(TestIcon).toHaveAttribute("aria-disabled", "true")
+  await expect(ConfigRefIcon).toHaveAttribute("aria-disabled", "true")
+})
+
 test.describe("Drag and drop tests", () => {
   test("Confirm single drag n drop is working", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
     await page.getByRole("row").nth(1).getByRole("button").first().hover()
     await page.mouse.down()
@@ -212,7 +260,7 @@ test.describe("Drag and drop tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -257,7 +305,7 @@ test.describe("Drag and drop tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -323,7 +371,7 @@ test.describe("Drag and drop tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -360,7 +408,7 @@ test.describe("Drag and drop tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -396,7 +444,7 @@ test.describe("Drag and drop tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -446,7 +494,7 @@ test.describe("Drag and drop tests", () => {
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await expect(page.locator("html")).toHaveAttribute("class", "light")
   await page.getByRole("button", { name: "Toggle dark mode" }).click()
   await expect(page.locator("html")).toHaveAttribute("class", "dark")
@@ -498,7 +546,7 @@ test.describe("Filter toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
 
     const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
     const rows = page.locator("tbody tr")
@@ -532,7 +580,7 @@ test.describe("Filter toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
 
     const configTypeFilterButton = page.getByRole("button", {
       name: "Config Type",
@@ -580,7 +628,7 @@ test.describe("Filter toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     const rows = page.locator("tbody tr")
     const clearFilterOption = page.getByRole("option", {
       name: "Clear filters",
@@ -621,7 +669,7 @@ test.describe("Filter toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     const rows = page.locator("tbody tr")
     const clearFilterOption = page.getByRole("option", {
       name: "Clear filters",
@@ -663,7 +711,7 @@ test.describe("Filter toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     const rows = page.locator("tbody tr")
     const clearFilterOption = page.getByRole("option", {
       name: "Clear filters",
@@ -704,14 +752,14 @@ test.describe("Filter toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
 
     const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
     await searchTextBox.fill("Test")
     await expect(searchTextBox).toHaveValue("Test")
 
-    await configListPage.initWithTestDataAndSpecificProjectName(
-      "Specific Project",
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+      { Name: "Specific Project" },
     )
 
     await expect(searchTextBox).toHaveValue("")
@@ -722,7 +770,7 @@ test.describe("Filter toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
     await searchTextBox.fill("foobar")
     const clearButton = page
@@ -766,7 +814,7 @@ test.describe("Controller device labels are displayed correctly", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.initControllerDefinitions()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await expect(
       page.getByRole("cell", { name: "Line-Select-Key 1L" }),
     ).toBeVisible()
@@ -778,7 +826,7 @@ test.describe("Controller device labels are displayed correctly", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.initControllerDefinitions()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
 
     const midiButtonRow = page
       .getByRole("row")
@@ -811,7 +859,7 @@ test("Confirm `Controller Settings` link is working", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
 
   const controllerSettingsLabel = page
@@ -833,13 +881,10 @@ test("Confirm Raw and Final Value update correctly", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
 
-  const rawValue = page.getByRole("row").nth(1).getByTitle("RawValue")
-  const finalValue = page
-    .getByRole("row")
-    .nth(1)
-    .getByTitle("Value", { exact: true })
+  const rawValue = page.getByRole("row").nth(1).getByTestId("raw-value")
+  const finalValue = page.getByRole("row").nth(1).getByTestId("final-value")
 
   await configListPage.updateConfigItemRawAndFinalValue(0, "1234", "5678")
   await expect(rawValue).toHaveText("1234")
@@ -857,28 +902,30 @@ test.describe("Responsiveness: Full Screen", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
-    const activeColumn = page.getByRole("cell", { name: "Active" }).first()
-    const nameColumn = page.getByRole("cell", { name: "Name" }).first()
-    const controllerColumn = page
-      .getByRole("cell", { name: "Controller" })
-      .first()
-    const deviceColumn = page.getByRole("cell", { name: "Device" }).first()
-    const statusColumn = page.getByRole("cell", { name: "Status" }).first()
-    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first()
-    const finalValueColumn = page
-      .getByRole("cell", { name: "Final Value" })
-      .first()
-    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first()
+    await configListPage.mobiFlightPage.initWithTestData()
 
-    await expect(activeColumn).toBeVisible()
-    await expect(nameColumn).toBeVisible()
-    await expect(controllerColumn).toBeVisible()
-    await expect(deviceColumn).toBeVisible()
-    await expect(statusColumn).toBeVisible()
-    await expect(rawValueColumn).toBeVisible()
-    await expect(finalValueColumn).toBeVisible()
-    await expect(actionsColumn).toBeVisible()
+    const columnHeaders = [
+      { name: "Active", visible: true },
+      { name: "Name", visible: true },
+      { name: "Controller", visible: true },
+      { name: "Device", visible: true },
+      { name: "Status", visible: true },
+      { name: "Raw Value", visible: true },
+      { name: "Final Value", visible: true },
+      { name: "Actions", visible: true },
+    ]
+
+    for (const header of columnHeaders) {
+      const column = page
+        .getByRole("columnheader", { name: header.name })
+        .first()
+
+      if (!header.visible) {
+        await expect(column).not.toBeVisible()
+        continue
+      }
+      await expect(column).toBeVisible()
+    }
   })
 })
 
@@ -889,28 +936,30 @@ test.describe("Responsiveness: Medium Screen", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
-    const activeColumn = page.getByRole("cell", { name: "Active" }).first()
-    const nameColumn = page.getByRole("cell", { name: "Name" }).first()
-    const controllerColumn = page
-      .getByRole("cell", { name: "Controller" })
-      .first()
-    const deviceColumn = page.getByRole("cell", { name: "Device" }).first()
-    const statusColumn = page.getByRole("cell", { name: "Status" }).first()
-    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first()
-    const finalValueColumn = page
-      .getByRole("cell", { name: "Final Value" })
-      .first()
-    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first()
+    await configListPage.mobiFlightPage.initWithTestData()
 
-    await expect(activeColumn).toBeVisible()
-    await expect(nameColumn).toBeVisible()
-    await expect(controllerColumn).not.toBeVisible()
-    await expect(deviceColumn).toBeVisible()
-    await expect(statusColumn).toBeVisible()
-    await expect(rawValueColumn).toBeVisible()
-    await expect(finalValueColumn).toBeVisible()
-    await expect(actionsColumn).toBeVisible()
+    const columnHeaders = [
+      { name: "Active", visible: true },
+      { name: "Name", visible: true },
+      { name: "Controller", visible: false },
+      { name: "Device", visible: true },
+      { name: "Status", visible: true },
+      { name: "Raw Value", visible: true },
+      { name: "Final Value", visible: true },
+      { name: "Actions", visible: true },
+    ]
+
+    for (const header of columnHeaders) {
+      const column = page
+        .getByRole("columnheader", { name: header.name })
+        .first()
+
+      if (!header.visible) {
+        await expect(column).not.toBeVisible()
+        continue
+      }
+      await expect(column).toBeVisible()
+    }
   })
 })
 
@@ -921,28 +970,30 @@ test.describe("Responsiveness: Small Screen", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
-    const activeColumn = page.getByRole("cell", { name: "Active" }).first()
-    const nameColumn = page.getByRole("cell", { name: "Name" }).first()
-    const controllerColumn = page
-      .getByRole("cell", { name: "Controller" })
-      .first()
-    const deviceColumn = page.getByRole("cell", { name: "Device" }).first()
-    const statusColumn = page.getByRole("cell", { name: "Status" }).first()
-    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first()
-    const finalValueColumn = page
-      .getByRole("cell", { name: "Final Value" })
-      .first()
-    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first()
+    await configListPage.mobiFlightPage.initWithTestData()
 
-    await expect(activeColumn).toBeVisible()
-    await expect(nameColumn).toBeVisible()
-    await expect(controllerColumn).not.toBeVisible()
-    await expect(deviceColumn).toBeVisible()
-    await expect(statusColumn).toBeVisible()
-    await expect(rawValueColumn).toBeVisible()
-    await expect(finalValueColumn).toBeVisible()
-    await expect(actionsColumn).toBeVisible()
+    const columnHeaders = [
+      { name: "Active", visible: true },
+      { name: "Name", visible: true },
+      { name: "Controller", visible: false },
+      { name: "Device", visible: true },
+      { name: "Status", visible: true },
+      { name: "Raw Value", visible: true },
+      { name: "Final Value", visible: true },
+      { name: "Actions", visible: true },
+    ]
+
+    for (const header of columnHeaders) {
+      const column = page
+        .getByRole("columnheader", { name: header.name })
+        .first()
+
+      if (!header.visible) {
+        await expect(column).not.toBeVisible()
+        continue
+      }
+      await expect(column).toBeVisible()
+    }
   })
 })
 
@@ -953,7 +1004,7 @@ test.describe("Selection: Select / Deselect actions", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -968,7 +1019,7 @@ test.describe("Selection: Select / Deselect actions", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -988,7 +1039,7 @@ test.describe("Selection: Select / Deselect actions", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -1020,7 +1071,7 @@ test.describe("Selection: Select / Deselect actions", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
 
     const firstRow = page.getByRole("row").nth(1)
@@ -1051,7 +1102,7 @@ test.describe("Selection: Select / Deselect actions", () => {
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
 
     const firstRow = page.getByRole("row").nth(1)

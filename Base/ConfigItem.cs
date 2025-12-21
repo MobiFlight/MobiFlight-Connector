@@ -23,7 +23,7 @@ namespace MobiFlight.Base
         public string RawValue { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
-        public  Dictionary<ConfigItemStatusType, string> Status { get; set; }
+        public Dictionary<ConfigItemStatusType, string> Status { get; set; }
         public ConfigValueOnlyItem() { }
         public ConfigValueOnlyItem(IConfigValueOnlyItem item)
         {
@@ -124,5 +124,65 @@ namespace MobiFlight.Base
                    Value == item.Value &&
                    Status.SequenceEqual(item.Status);
         }
+
+        #region JsonConverter ShouldSerialize methods
+        /// <summary>
+        /// Determines whether the <see cref="Preconditions"/> property should be serialized by JsonConverter.
+        /// </summary>
+        /// <returns><see langword="true"/> if <see cref="Preconditions"/> is not null and contains one or more elements;
+        /// otherwise, <see langword="false"/>.</returns>
+        public bool ShouldSerializePreconditions()
+        {
+            return Preconditions != null && Preconditions.Count > 0;
+        }
+
+        /// <summary>
+        /// Determines whether the <see cref="Modifiers"/> property should be serialized by JsonConverter.
+        /// </summary>
+        /// <returns><see langword="true"/> if <see cref="Modifiers"/> is not null and contains one or more elements; 
+        /// otherwise, <see langword="false"/>.</returns>
+        public bool ShouldSerializeModifiers()
+        {
+            return Modifiers != null && Modifiers.Items.Count > 0;
+        }
+
+        /// <summary>
+        /// Determines whether the <see cref="ConfigRefs"/> property should be serialized by JsonConverter.
+        /// </summary>
+        /// <returns><see langword="true"/> if <see cref="ConfigRefs"/> is not null and contains one or more elements; 
+        /// otherwise, <see langword="false"/>.</returns>
+        public bool ShouldSerializeConfigRefs()
+        {
+            return ConfigRefs != null && ConfigRefs.Count > 0;
+        }
+
+        /// <summary>
+        /// Determines whether the <see cref="Status"/> property should be serialized by JsonConverter.
+        /// </summary>
+        /// <returns><see langword="true"/> if <see cref="Status"/> is not null and contains one or more elements; 
+        /// otherwise, <see langword="false"/>.</returns>
+        public bool ShouldSerializeStatus()
+        {
+            return Status != null && Status.Keys.Count > 0;
+        }
+
+        /// <summary>
+        /// Determines whether the <see cref="RawValue"/> property should be serialized by JsonConverter.
+        /// </summary>
+        /// <returns><see langword="true"/> if <see cref="RawValue"/> is not null or empty; otherwise, <see langword="false"/>.</returns>
+        public bool ShouldSerializeRawValue()
+        {
+            return !string.IsNullOrEmpty(RawValue);
+        }
+
+        /// <summary>
+        /// Determines whether the <see cref="Value"/> property should be serialized by JsonConverter.
+        /// </summary>
+        /// <returns><see langword="true"/> if <see cref="Value"/> is not null or empty; otherwise, <see langword="false"/>.</returns>
+        public bool ShouldSerializeValue()
+        {
+            return !string.IsNullOrEmpty(Value);
+        }
+        #endregion
     }
 }

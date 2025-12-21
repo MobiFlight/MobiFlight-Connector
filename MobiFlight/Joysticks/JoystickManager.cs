@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
+using MobiFlight.Joysticks.AuthentiKit;
 using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.VKB;
 using MobiFlight.Joysticks.Winwing;
@@ -84,7 +85,7 @@ namespace MobiFlight
             var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(
                 jsonFiles, 
                 schemaFilePath,
-                onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info),
+                onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Debug),
                 onError: () => LoadingError = true
             );
 
@@ -114,7 +115,14 @@ namespace MobiFlight
                 {
                     foreach (Joystick js in Joysticks.Values)
                     {
-                        js?.Update();
+                        try
+                        {
+                            js?.Update();
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Instance.log($"An exception occurred during joystick update for {js.Name}: {ex.Message}", LogSeverity.Error);
+                        }
                     }
                 }
             }
@@ -125,7 +133,7 @@ namespace MobiFlight
             catch (Exception ex)
             {
                 // something else has happened
-                Log.Instance.log($"An exception occured during update {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"An exception occurred during update {ex.Message}", LogSeverity.Error);
             }
         }
 
@@ -246,6 +254,15 @@ namespace MobiFlight
                         productName = hidDevice.GetProductName();
                     }
                     js = new VKBDevice(diJoystick, GetDefinitionByInstanceName(productName.Trim()));
+                }
+                else if (d.InstanceName.Trim() == "AuthentiKit")
+                {
+                    var authentikitDefinition = GetDefinitionByInstanceName(d.InstanceName.Trim());
+                    js = new AuthentiKit(diJoystick, authentikitDefinition);
+                }
+                else if (HidControllerFactory.CanCreate(d.InstanceName)) {
+                    // skip, it will be handled later
+                    continue;
                 }
                 else
                 {

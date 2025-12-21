@@ -32,6 +32,9 @@ namespace MobiFlight.UI.Panels.Action
                 proSimDatarefPanel1.TransformOptionsGroup.syncFromConfig(fsuipcOffsetInputAction);
             }
             proSimDatarefPanel1.TransformOptionsGroup.ShowValuePanel(true);
+
+            // Load datarefs when panel is shown, in case Load event fired before Init
+            proSimDatarefPanel1.LoadDataRefDescriptions();
         }
 
         public void Init(IExecutionManager executionManager)

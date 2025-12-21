@@ -1293,9 +1293,17 @@ namespace MobiFlight
 
         // Sets the connected module's power save mode. True turns power save on,
         // false turns power save off.
-        public void SetPowerSaveMode(bool mode)
+        public virtual void SetPowerSaveMode(bool mode)
         {
             Log.Instance.log($"Setting power save for {this.Name} ({this.Port}) to {mode}", LogSeverity.Debug);
+
+            // Guard against null CmdMessenger (e.g., before Connect() is called)
+            if (_cmdMessenger == null)
+            {
+                Log.Instance.log("CmdMessenger not initialized, skipping SetPowerSaveMode command.", LogSeverity.Debug);
+                return;
+            }
+
             // Send the power save wakeup command. No timeout is used so this will still work with older firmware
             // that doesn't respond to the SetPowerSavingMode command.
             SendCommand command = new SendCommand((int)MobiFlightModule.Command.SetPowerSavingMode);
@@ -1329,10 +1337,7 @@ namespace MobiFlight
 
         public void Stop()
         {
-            // Always clear the cache 
-            // also in case maybe later something goes wrong
-            // we will simply resend the value in that case
-            // when we start again
+            // Always clear the cache
             lastValue.Clear();
 
             // we have to make sure to not send messages

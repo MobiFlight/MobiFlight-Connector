@@ -13,7 +13,7 @@
       "DelayAfterFirmwareUpdate": 0,
       "DtrEnable": true,
       "MessageSize": 90,
-      "EEPROMSize": 1496
+      "EEPROMSize": 2016
     },
     "HardwareIds": [
       "^VID_2341&PID_0010",
@@ -37,13 +37,14 @@
       "DelayAfterFirmwareUpdate": 0,
       "FirmwareBaseName": "miniCOCKPIT_miniFCU_mega",
       "FirmwareExtension": "hex",
-      "LatestFirmwareVersion": "1.0.1",
+      "LatestFirmwareVersion": "1.0.5",
       "FriendlyName": "miniCOCKPIT miniFCU",
       "MobiFlightType": "miniCOCKPIT miniFCU mega",
-      "ResetFirmwareFile": "reset.miniFCU_20241117.ino.hex",
+      "ResetFirmwareFile": "reset.miniFCU_20251113.ino.hex",
       "CustomDeviceTypes": [
         "miniCOCKPIT_miniFCU",
-        "miniCOCKPIT_miniEFIS"
+        "miniCOCKPIT_miniEFIS",
+        "miniCOCKPIT_miniOVHD"
       ],
       "Community": {
         "Project": "miniCOCKPIT",
@@ -55,7 +56,7 @@
     "ModuleLimits": {
       "MaxAnalogInputs": 16,
       "MaxInputShifters": 4,
-      "MaxButtons": 68,
+      "MaxButtons": 133,
       "MaxEncoders": 20,
       "MaxLcdI2C": 2,
       "MaxLedSegments": 4,
@@ -700,7 +701,239 @@
         "isPWM": false,
         "Pin": 99,
         "Name": "EFIS_CHRONO"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 100,
+        "Name": "OVHD_FLAP3"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 101,
+        "Name": "OVHD_AI_WING"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 102,
+        "Name": "OVHD_AI_ENG"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 103,
+        "Name": "OVHD_PB_WIN_HEAT"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 104,
+        "Name": "OVHD_APU_START"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 105,
+        "Name": "OVHD_APU_MASTER"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 106,
+        "Name": "OVHD_EXT_PWR"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 107,
+        "Name": "OVHD_APU_BLEED"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 108,
+        "Name": "OVHD_CALL"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 109,
+        "Name": "OVHD_STROBE_ON"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 110,
+        "Name": "OVHD_STROBE_AUTO"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 111,
+        "Name": "OVHD_STROBE_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 112,
+        "Name": "OVHD_BEACON_ON"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 113,
+        "Name": "OVHD_BEACON_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 114,
+        "Name": "OVHD_NAV_LOGO_2"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 115,
+        "Name": "OVHD_NAV_LOGO_1"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 116,
+        "Name": "OVHD_NAV_LOGO_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 117,
+        "Name": "OVHD_RWY_RETURN_OFF_ON"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 118,
+        "Name": "OVHD_RWY_RETURN_OFF_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 119,
+        "Name": "OVHD_LAND_ON"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 120,
+        "Name": "OVHD_LAND_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 121,
+        "Name": "OVHD_LAND_RETRACT"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 122,
+        "Name": "OVHD_NOSE_TO"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 123,
+        "Name": "OVHD_NOSE_TAXI"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 124,
+        "Name": "OVHD_NOSE_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 125,
+        "Name": "OVHD_DOME_BRT"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 126,
+        "Name": "OVHD_DOME_DIM"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 127,
+        "Name": "OVHD_DOME_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 128,
+        "Name": "OVHD_BELTS_ON"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 129,
+        "Name": "OVHD_BELTS_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 130,
+        "Name": "OVHD_WIPER_OFF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 131,
+        "Name": "OVHD_WIPER_SLOW"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 132,
+        "Name": "OVHD_WIPER_FAST"
       }
+
     ]
   }
   

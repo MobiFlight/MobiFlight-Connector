@@ -36,6 +36,9 @@ namespace MobiFlight
         protected JoystickState State = null;
         private HidStream Stream;
 
+        /// <summary>
+        /// This map defines how a usageId maps to a JoystickState property name.
+        /// </summary>
         private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
         {
             [48] = "X",
@@ -454,7 +457,7 @@ namespace MobiFlight
             }
         }
 
-        private int GetValueForAxisFromState(int currentAxis, JoystickState state)
+        protected int GetValueForAxisFromState(int currentAxis, JoystickState state)
         {
             String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();
             if (RawAxisName.Contains("Slider"))
@@ -467,7 +470,7 @@ namespace MobiFlight
             return (int)state.GetType().GetProperty(RawAxisName).GetValue(state, null);
         }
 
-        private bool StateExists()
+        protected bool StateExists()
         {
             return State != null;
         }
