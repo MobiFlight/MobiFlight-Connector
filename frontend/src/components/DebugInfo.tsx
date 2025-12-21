@@ -24,7 +24,7 @@ const DebugInfo = () => {
               <div className="text-muted-foreground text-xs">
                 MobiFlight 2025
               </div>
-              <div className="text-muted-foreground text-xs">Version 1.0.0</div>
+              <div className="text-muted-foreground text-xs">Version 0.9.0</div>
             </div>
   )
 }
