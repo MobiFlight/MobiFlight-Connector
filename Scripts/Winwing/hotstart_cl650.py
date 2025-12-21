@@ -18,7 +18,7 @@ Two tasks are started independently for each available CDU device.
 
 Tasks are started independently for each CDU device to ensure each device can update quickly, particularly when players might be performing shared cockpit flights.
 
-Upon a failed connection while dispatching updates to MobiFlight, the handle_device_update function use `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
+Upon a failed connection while dispatching updates to MobiFlight, the handle_device_update function uses `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
 The failed message is picked back up and dispatched to MobiFlight. This ensures a user's device eventually receives the updated display contents and doesn't hang which would require the user to cycle the page again.
 """
 
@@ -152,18 +152,19 @@ def generate_display_json(cdu_data: CduData) -> str:
 
     for row in range(CDU_ROWS):
 
-        character_styles = list(cdu_data[row]["style"])
-        row_text = cdu_data[row]["text"]
+        if row in cdu_data:
+            character_styles = list(cdu_data[row]["style"])
+            row_text = cdu_data[row]["text"]
 
-        if len(row_text) == 0:
-            for _ in range(CDU_COLUMNS):
-                display_data.append((" ", CduCharacterColor.WHITE, CduCharacterSize.SMALL)) # fill up empty line if text was empty
-        else: 
-            for character_index in range(CDU_COLUMNS):
-                if character_index < len(row_text): # or populate text with styles
-                    display_data.append((row_text[character_index], CduCharacterColor.from_style(character_styles[character_index]), CduCharacterSize.from_style(character_styles[character_index])))
-                else:
-                    display_data.append((" ", CduCharacterColor.WHITE, CduCharacterSize.SMALL)) # fill up rest of characters, but this is very unlikely to hit as datarefs have full characters
+            if len(row_text) == 0:
+                for _ in range(CDU_COLUMNS):
+                    display_data.append((" ", CduCharacterColor.WHITE, CduCharacterSize.SMALL)) # fill up empty line if text was empty
+            else: 
+                for character_index in range(CDU_COLUMNS):
+                    if character_index < len(row_text): # or populate text with styles
+                        display_data.append((row_text[character_index], CduCharacterColor.from_style(character_styles[character_index]), CduCharacterSize.from_style(character_styles[character_index])))
+                    else:
+                        display_data.append((" ", CduCharacterColor.WHITE, CduCharacterSize.SMALL)) # fill up rest of characters, but this is very unlikely to hit as datarefs have full characters
 
     return json.dumps({"Target": "Display", "Data": display_data})
 
@@ -173,7 +174,7 @@ def process_datarefs(values: dict[str, str]) -> CduData:
 
     for dataref_name, dataref_value in values.items():
         short_name = dataref_name[dataref_name.rfind('/')+1:] # strip everything before last '/', CL650/CDU/1/screen/text_line0 becomes text_line0
-        re_match = DATAREF_PROCESS_PATTERN.fullmatch(short_name) # applies compiled regular expression to extracts part of name
+        re_match = DATAREF_PROCESS_PATTERN.fullmatch(short_name) # applies compiled regular expression to extract part of name
         if re_match is None:
             # no match
             logging.error("error trying to extract type and line number from dataref: %s", short_name)
@@ -237,11 +238,7 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
                 if elapsed < rate_limit_time:
                     await asyncio.sleep(rate_limit_time - elapsed)
 
-
-                # print("****************************Update*****************************************")
                 cdu_data = process_datarefs(values)
-                # print_cdu_data(cdu_data)
-                # print("***************************************************************************")        
 
                 display_json = generate_display_json(cdu_data)
                 await websocket.send(display_json)
@@ -334,7 +331,6 @@ async def get_available_devices() -> list[CduDevice]:
 
 
 async def main():
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     available_devices = await get_available_devices()
 
 
