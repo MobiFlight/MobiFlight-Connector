@@ -167,10 +167,12 @@ namespace MobiFlight.Joysticks.VKB
             byte sequenceNo = Report[2];
             // Sequence number should increment once per report, but if the encoder is spun fast some reports can be missed.
             // Firmware is capable of transmitting up to 250 updates per second.
-            if (((lastSeqNo + 1) & 0xFF) != sequenceNo)
+            if (lastSeqNo != -1 && ((sequenceNo - lastSeqNo) & 0xFF) > 5) // Only log large skips, do not log first message.
             {
-                Log.Instance.log("Some VKB encoder messages may have been missed", LogSeverity.Debug);
-                // Not a problem since API reports absolute state, so the updates are just received on the next received message.
+                Log.Instance.log($"Some VKB encoder messages may have been missed ({lastSeqNo}->{sequenceNo})", LogSeverity.Debug);
+                // A few lost messages are not a problem since API reports absolute state,
+                // so the updates are just received on the next received message.
+                // When many packets are lost, this may however be interesting diagnostic data. Threshold of 5 missed steps is somewhat arbitrary.
             }
             lastSeqNo = sequenceNo;
             byte encoderCount = Report[3];
