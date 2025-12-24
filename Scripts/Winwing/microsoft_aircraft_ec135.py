@@ -180,18 +180,20 @@ class MobiFlightVariableRequests:
     def get(self, variableString: str):
         if variableString not in self.sim_var_name_to_id:
             # add new variable
-            id = len(self.sim_vars) + 1
-            self.sim_vars[id] = SimVariable(id, variableString)
-            self.sim_var_name_to_id[variableString] = id
+            var_id = len(self.sim_vars) + 1
+            self.sim_vars[var_id] = SimVariable(var_id, variableString)
+            self.sim_var_name_to_id[variableString] = var_id
             # subscribe to variable data change
-            offset = (id - 1) * sizeof(FLOAT)
-            self.add_to_client_data_definition(id, offset, sizeof(FLOAT))
-            self.subscribe_to_data_change(self.CLIENT_DATA_AREA_LVARS, id, id)
+            offset = (var_id - 1) * sizeof(FLOAT)
+            self.add_to_client_data_definition(var_id, offset, sizeof(FLOAT))
+            self.subscribe_to_data_change(self.CLIENT_DATA_AREA_LVARS, var_id, var_id)
             self.send_command("MF.SimVars.Add." + variableString)
         # determine id and return value
         variable_id = self.sim_var_name_to_id[variableString]
         sim_var = self.sim_vars[variable_id]
         wait_counter = 0
+        # NOTE: SimConnect Python wrapper runs CallDispatch() in a background thread.
+        # The wait loop below relies on async callbacks and is safe.
         while wait_counter < 50:  # wait max 500ms
             if sim_var.float_value is None:
                 sleep(0.01)  # wait 10ms
@@ -214,7 +216,7 @@ class MobiFlightVariableRequests:
         self.send_command("MF.SimVars.Clear")
 
 # ========================= Logging =========================
-def setupLogging(logFileName):
+def setup_Logging(logFileName):
     logFormatter = logging.Formatter("%(asctime)s [%(levelname)-5.5s]  %(message)s")
     rootLogger = logging.getLogger()
     rootLogger.setLevel(logging.DEBUG)
@@ -230,7 +232,7 @@ CDU_COLUMNS = 24
 CDU_ROWS = 14
 LARGE = 0
 SMALL = 1
-Cell = Union[list, List[Union[str, str, int]]]
+Cell = List[Union[str, int]]  # [] or [char, colour, size]
 
 def empty_grid() -> List[List[Cell]]:
     return [[[] for _ in range(CDU_COLUMNS)] for _ in range(CDU_ROWS)]
@@ -287,7 +289,7 @@ def draw_columns(grid: List[List[Cell]], left_labels: List[str], right_labels: L
         row += 1
         if row > CONTENT_LAST_ROW: break
 
-def as01(v) -> int:
+def get_state(v) -> int:
     try:
         if v is None: return 0
         if isinstance(v, bool): return 1 if v else 0
@@ -366,7 +368,7 @@ class McduSocket:
 # ========================= MAIN =========================
 if __name__ == "__main__":
     # Uncomment to log to file + console:
-    # setupLogging("SimConnectMobiFlight.log")
+    # setup_Logging("SimConnectMobiFlight.log")
 
     # SimConnect / MobiFlight var reader
     sm = SimConnectMobiFlight()
@@ -383,73 +385,83 @@ if __name__ == "__main__":
     put_text_center(grid, "MISC", 6, colour="k", size=LARGE)
     mcdu.send_grid(grid)
 
+    """
+    NOTE:
+    vr.get() is only potentially blocking during first-time registration of an LVAR,
+    while waiting for the initial SimConnect client-data callback.
+    After initialization, all LVAR values are updated asynchronously via
+    client_data_callback_handler(), and subsequent vr.get() calls are simple
+    non-blocking dictionary reads.
+    
+    Therefore, no external batching loop is required here.
+    """
     while True:
         try:
             # HELPERS
-            cdsPage     = as01(vr.get("(L:cdsPage)"))
-            cdsBreaker  = as01(vr.get("(L:brkCDS1)"))
+            cdsPage     = get_state(vr.get("(L:cdsPage)"))
+            cdsBreaker  = get_state(vr.get("(L:brkCDS1)"))
             
             # LEFT
-            engine1Fail = as01(vr.get("(L:engine1Fail)"))     # ENG FAIL
-            eng1OilPr   = as01(vr.get("(L:engine1OilPress)")) # ENG OIL P
-            fadec1Fail  = as01(vr.get("(L:fadecFail1)"))      # FADEC FAIL
-            eng1FuelPr  = as01(vr.get("(L:fuelPress1)"))      # FUEL PRESS
-            eng1Idle    = as01(vr.get("(L:eng1Idle)"))        # ENG IDLE
-            train1      = as01(vr.get("(L:train1)"))          # TRAIN
-            train1idle  = as01(vr.get("(L:trainIdle1)"))      # TRAIN IDLE
-            eng1Manual  = as01(vr.get("(L:eng1Manual)"))      # ENG MANUAL
-            twinsgrip1  = as01(vr.get("(L:twinsgrip1)"))      # TWIST GRIP
-            fuelValve1  = as01(vr.get("(L:fuelValve1)"))      # FUEL VALVE
-            primePump1  = as01(vr.get("(L:primePump1)"))      # PRIME PUMP
-            degraded1   = as01(vr.get("(L:degraded1)"))       # DEGRADED
-            redund1     = as01(vr.get("(L:redund1)"))         # REDUND
-            eng1HydPr   = as01(vr.get("(L:hydraulic1)"))      # HYD PRESS
-            gen1disc    = as01(vr.get("(L:genDiscon1)"))      # GEN DISCON
-            inverter1   = as01(vr.get("(L:inv1)"))            # INVERTER
-            fireTest1Ext= as01(vr.get("(L:fireTest1Ext)"))    # FIRE EXT
-            fireTest1   = as01(vr.get("(L:fireTest1)"))       # FIRE TEST
-            bustie1     = as01(vr.get("(L:bustie1)"))         # BUS TIE
-            starter1    = as01(vr.get("(L:starter1)"))        # STARTER
+            engine1Fail = get_state(vr.get("(L:engine1Fail)"))     # ENG FAIL
+            eng1OilPr   = get_state(vr.get("(L:engine1OilPress)")) # ENG OIL P
+            fadec1Fail  = get_state(vr.get("(L:fadecFail1)"))      # FADEC FAIL
+            eng1FuelPr  = get_state(vr.get("(L:fuelPress1)"))      # FUEL PRESS
+            eng1Idle    = get_state(vr.get("(L:eng1Idle)"))        # ENG IDLE
+            train1      = get_state(vr.get("(L:train1)"))          # TRAIN
+            train1idle  = get_state(vr.get("(L:trainIdle1)"))      # TRAIN IDLE
+            eng1Manual  = get_state(vr.get("(L:eng1Manual)"))      # ENG MANUAL
+            twinsgrip1  = get_state(vr.get("(L:twinsgrip1)"))      # TWIST GRIP
+            fuelValve1  = get_state(vr.get("(L:fuelValve1)"))      # FUEL VALVE
+            primePump1  = get_state(vr.get("(L:primePump1)"))      # PRIME PUMP
+            degraded1   = get_state(vr.get("(L:degraded1)"))       # DEGRADED
+            redund1     = get_state(vr.get("(L:redund1)"))         # REDUND
+            eng1HydPr   = get_state(vr.get("(L:hydraulic1)"))      # HYD PRESS
+            gen1disc    = get_state(vr.get("(L:genDiscon1)"))      # GEN DISCON
+            inverter1   = get_state(vr.get("(L:inv1)"))            # INVERTER
+            fireTest1Ext= get_state(vr.get("(L:fireTest1Ext)"))    # FIRE EXT
+            fireTest1   = get_state(vr.get("(L:fireTest1)"))       # FIRE TEST
+            bustie1     = get_state(vr.get("(L:bustie1)"))         # BUS TIE
+            starter1    = get_state(vr.get("(L:starter1)"))        # STARTER
 
             # RIGHT
-            engine2Fail = as01(vr.get("(L:engine2Fail)"))     # ENG FAIL
-            eng2OilPr   = as01(vr.get("(L:engine2OilPress)")) # ENG OIL P
-            fadec2Fail  = as01(vr.get("(L:fadecFail2)"))      # FADEC FAIL
-            eng2FuelPr  = as01(vr.get("(L:fuelPress2)"))      # FUEL PRESS
-            eng2Idle    = as01(vr.get("(L:eng2Idle)"))        # ENG IDLE
-            train2      = as01(vr.get("(L:train2)"))          # TRAIN
-            train2idle  = as01(vr.get("(L:trainIdle2)"))      # TRAIN IDLE
-            eng2Manual  = as01(vr.get("(L:eng2Manual)"))      # ENG MANUAL
-            twinsgrip2  = as01(vr.get("(L:twinsgrip2)"))      # TWIST GRIP
-            fuelValve2  = as01(vr.get("(L:fuelValve2)"))      # FUEL VALVE
-            primePump2  = as01(vr.get("(L:primePump2)"))      # PRIME PUMP
-            degraded2   = as01(vr.get("(L:degraded2)"))       # DEGRADED
-            redund2     = as01(vr.get("(L:redund2)"))         # REDUND
-            eng2HydPr   = as01(vr.get("(L:hydraulic2)"))      # HYD PRESS
-            gen2disc    = as01(vr.get("(L:genDiscon2)"))      # GEN DISCON
-            inverter2   = as01(vr.get("(L:inv2)"))            # INVERTER
-            fireTest2Ext= as01(vr.get("(L:fireTest2Ext)"))    # FIRE EXT
-            fireTest2   = as01(vr.get("(L:fireTest2)"))       # FIRE TEST
-            bustie2     = as01(vr.get("(L:bustie2)"))         # BUS TIE
-            starter2    = as01(vr.get("(L:starter2)"))        # STARTER
+            engine2Fail = get_state(vr.get("(L:engine2Fail)"))     # ENG FAIL
+            eng2OilPr   = get_state(vr.get("(L:engine2OilPress)")) # ENG OIL P
+            fadec2Fail  = get_state(vr.get("(L:fadecFail2)"))      # FADEC FAIL
+            eng2FuelPr  = get_state(vr.get("(L:fuelPress2)"))      # FUEL PRESS
+            eng2Idle    = get_state(vr.get("(L:eng2Idle)"))        # ENG IDLE
+            train2      = get_state(vr.get("(L:train2)"))          # TRAIN
+            train2idle  = get_state(vr.get("(L:trainIdle2)"))      # TRAIN IDLE
+            eng2Manual  = get_state(vr.get("(L:eng2Manual)"))      # ENG MANUAL
+            twinsgrip2  = get_state(vr.get("(L:twinsgrip2)"))      # TWIST GRIP
+            fuelValve2  = get_state(vr.get("(L:fuelValve2)"))      # FUEL VALVE
+            primePump2  = get_state(vr.get("(L:primePump2)"))      # PRIME PUMP
+            degraded2   = get_state(vr.get("(L:degraded2)"))       # DEGRADED
+            redund2     = get_state(vr.get("(L:redund2)"))         # REDUND
+            eng2HydPr   = get_state(vr.get("(L:hydraulic2)"))      # HYD PRESS
+            gen2disc    = get_state(vr.get("(L:genDiscon2)"))      # GEN DISCON
+            inverter2   = get_state(vr.get("(L:inv2)"))            # INVERTER
+            fireTest2Ext= get_state(vr.get("(L:fireTest2Ext)"))    # FIRE EXT
+            fireTest2   = get_state(vr.get("(L:fireTest2)"))       # FIRE TEST
+            bustie2     = get_state(vr.get("(L:bustie2)"))         # BUS TIE
+            starter2    = get_state(vr.get("(L:starter2)"))        # STARTER
 
             # MISC
-            xmsnOilTemp= as01(vr.get("(L:xmsnOilTemp)"))      # XMSN OIL T
-            rotorBrake = as01(vr.get("(L:rotorBrake)"))       # ROTOR BRAKE
-            autopilot  = as01(vr.get("(L:autopilot)"))        # AUTOPILOT
-            fuelPumpAf = as01(vr.get("(L:fuelPumpAft)"))      # F PUMP AFT
-            fuelPumpFw = as01(vr.get("(L:fuelPumpFwd)"))      # F PUMP FWD
-            batDisc    = as01(vr.get("(L:batDisc)"))          # BAT DISCON
-            extPower   = as01(vr.get("(L:extPower)"))         # EXT POWER
-            shedEmer   = as01(vr.get("(L:shedEmer)"))         # SHED EMER
+            xmsnOilTemp= get_state(vr.get("(L:xmsnOilTemp)"))      # XMSN OIL T
+            rotorBrake = get_state(vr.get("(L:rotorBrake)"))       # ROTOR BRAKE
+            autopilot  = get_state(vr.get("(L:autopilot)"))        # AUTOPILOT
+            fuelPumpAf = get_state(vr.get("(L:fuelPumpAft)"))      # F PUMP AFT
+            fuelPumpFw = get_state(vr.get("(L:fuelPumpFwd)"))      # F PUMP FWD
+            batDisc    = get_state(vr.get("(L:batDisc)"))          # BAT DISCON
+            extPower   = get_state(vr.get("(L:extPower)"))         # EXT POWER
+            shedEmer   = get_state(vr.get("(L:shedEmer)"))         # SHED EMER
 
             # GREEN
-            pitotPilot = as01(vr.get("(L:pitotPilot)"))       # P/S-HTR-P
-            pitotCoPi  = as01(vr.get("(L:pitotCoPilot)"))     # P/S-HTR-C
-            cdsAck     = as01(vr.get("(L:cdsSelfTestAcknoledge)"))       # CDS PASSED & INP PASSED
-            landLight  = as01(vr.get("(L:landLight)"))        # LDG LIGHT
-            landLiExt  = as01(vr.get("(L:landLightExtr)"))    # LDG LIGHT RET/EXT
-            airCond    = as01(vr.get("(L:airCond)"))          # AIR COND
+            pitotPilot = get_state(vr.get("(L:pitotPilot)"))       # P/S-HTR-P
+            pitotCoPi  = get_state(vr.get("(L:pitotCoPilot)"))     # P/S-HTR-C
+            cdsAck     = get_state(vr.get("(L:cdsSelfTestAcknoledge)"))       # CDS PASSED & INP PASSED
+            landLight  = get_state(vr.get("(L:landLight)"))        # LDG LIGHT
+            landLiExt  = get_state(vr.get("(L:landLightExtr)"))    # LDG LIGHT RET/EXT
+            airCond    = get_state(vr.get("(L:airCond)"))          # AIR COND
             
             # Rolling (compacted) lists
             # -------- Build rolling (compacted) lists --------
