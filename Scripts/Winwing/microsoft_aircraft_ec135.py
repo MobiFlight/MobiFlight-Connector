@@ -363,7 +363,7 @@ class McduSocket:
                     # Ignore errors during socket close; best effort cleanup
                     pass
                 self.ws = None
-        logging.debug("MCDU send failed after retry.")
+        logging.warning("MCDU send failed after retry.")
 
 # ========================= MAIN =========================
 if __name__ == "__main__":
