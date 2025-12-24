@@ -340,8 +340,8 @@ class McduSocket:
             except Exception:
                 try:
                     self.ws.close()
-                except Exception:
-                    pass
+                except Exception as e:
+                    logging.debug(f"Exception during ws.close(): {e}")
                 self.ws = None
 
     def send_grid(self, grid: List[List[Cell]]):
