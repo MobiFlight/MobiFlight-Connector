@@ -463,7 +463,6 @@ if __name__ == "__main__":
             landLiExt  = get_state(vr.get("(L:landLightExtr)"))    # LDG LIGHT RET/EXT
             airCond    = get_state(vr.get("(L:airCond)"))          # AIR COND
             
-            # Rolling (compacted) lists
             # -------- Build rolling (compacted) lists --------
             left_pairs = [
                 (engine1Fail,  "ENG FAIL"),
