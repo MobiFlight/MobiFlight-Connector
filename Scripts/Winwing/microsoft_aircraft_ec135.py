@@ -4,11 +4,12 @@
 # CREDITS: Koseng on GitHub and his MSFSPythonSimConnectMobiFlightExtension (https://github.com/Koseng/MSFSPythonSimConnectMobiFlightExtension)
 
 import json
-import logging, logging.handlers
+import logging
+import logging.handlers
 import ctypes
 from ctypes import wintypes
 from time import sleep, time
-from typing import List, Tuple, Union, Optional
+from typing import List, Union, Optional
 from itertools import chain
 from websocket import create_connection, WebSocket, WebSocketException
 
@@ -62,6 +63,15 @@ from ctypes import sizeof
 from ctypes.wintypes import FLOAT
 
 class SimVariable:
+    """
+    Represents a simulation variable used in MobiFlight variable requests.
+
+    Attributes:
+        id (int): Unique identifier for the simulation variable.
+        name (str): Name of the simulation variable.
+        float_value (float, optional): The current value of the variable as a float.
+        initialized (bool): Indicates whether the variable has been initialized.
+    """
     def __init__(self, id, name, float_value=None):
         self.id = id
         self.name = name
@@ -71,6 +81,14 @@ class SimVariable:
         return f"Id={self.id}, value={self.float_value}, name={self.name}"
 
 class MobiFlightVariableRequests:
+    """
+    Manages SimConnect variable requests for MobiFlight integration.
+
+    This class handles the setup and management of SimConnect client data areas,
+    variable subscriptions, and callbacks for MobiFlight LVARs. It provides methods
+    to add variable definitions, subscribe to data changes, and process incoming
+    client data from the simulator.
+    """
     def __init__(self, simConnect: SimConnectMobiFlight):
         logging.info("MobiFlightVariableRequests __init__")
         self.sm = simConnect
@@ -270,23 +288,23 @@ def draw_columns(grid: List[List[Cell]], left_labels: List[str], right_labels: L
         if row > CONTENT_LAST_ROW: break
 
 def as01(v) -> int:
-	try:
-		if v is None: return 0
-		if isinstance(v, bool): return 1 if v else 0
-		if isinstance(v, (int, float)):
-			f = float(v)
-			if f < 0.5: return 0
-			elif f < 1.5: return 1
-			else: return 2
-		s = str(v).strip().strip('"').strip("'").lower()
-		if s in ("2", "two"): return 2
-		if s in ("1", "true", "on", "yes", "y"): return 1
-		if s in ("0", "false", "off", "no", "n", ""): return 0
-		f = float(s)
-		if f < 0.5: return 0
-		elif f < 1.5: return 1
-		else: return 2
-	except: return 0
+    try:
+        if v is None: return 0
+        if isinstance(v, bool): return 1 if v else 0
+        if isinstance(v, (int, float)):
+            f = float(v)
+            if f < 0.5: return 0
+            elif f < 1.5: return 1
+            else: return 2
+        s = str(v).strip().strip('"').strip("'").lower()
+        if s in ("2", "two"): return 2
+        if s in ("1", "true", "on", "yes", "y"): return 1
+        if s in ("0", "false", "off", "no", "n", ""): return 0
+        f = float(s)
+        if f < 0.5: return 0
+        elif f < 1.5: return 1
+        else: return 2
+    except: return 0
 
 
 # ========================= Simple persistent WebSocket =========================
@@ -509,7 +527,7 @@ if __name__ == "__main__":
             # Draw & send
             grid = empty_grid()
             put_text_center(grid, "MISC", 6, colour="k", size=LARGE)
-            if cdsBreaker == 1: #Check if CDS has power
+            if cdsBreaker == 1:  # Check if CDS has power
                 # left/right columns (clears rows 1..6 internally)
                 draw_columns(grid, visible_left, visible_right)
 
