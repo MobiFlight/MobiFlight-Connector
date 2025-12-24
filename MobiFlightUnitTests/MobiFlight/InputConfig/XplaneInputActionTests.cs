@@ -1,11 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
@@ -19,9 +15,9 @@ namespace MobiFlight.InputConfig.Tests
             XplaneInputAction o = generateTestObject();
             XplaneInputAction c = (XplaneInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
-            Assert.AreEqual(o.InputType, c.InputType, "InputType not the same");
-            Assert.AreEqual(o.Path, c.Path, "Path not the same");
-            Assert.AreEqual(o.Expression, c.Expression, "Expression not the same");
+            Assert.AreEqual(c.InputType, o.InputType, "InputType not the same");
+            Assert.AreEqual(c.Path, o.Path, "Path not the same");
+            Assert.AreEqual(c.Expression, o.Expression, "Expression not the same");
         }
 
         private XplaneInputAction generateTestObject()
@@ -47,9 +43,9 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.InputType, "DataRef", "InputType not the same");
-            Assert.AreEqual(o.Path,"/my/test/path1", "Path not the same");
-            Assert.AreEqual(o.Expression, "$+2");
+            Assert.AreEqual("DataRef", o.InputType, "InputType not the same");
+            Assert.AreEqual("/my/test/path1", o.Path, "Path not the same");
+            Assert.AreEqual("$+2", o.Expression);
         }
 
         [TestMethod()]
@@ -91,7 +87,7 @@ namespace MobiFlight.InputConfig.Tests
             };
 
             o.execute(cacheCollection, null, new List<ConfigRefValue>());
-            Assert.AreEqual(1, xplaneCacheMock.Writes.Count, "The message count is not as expected");
+            Assert.HasCount(1, xplaneCacheMock.Writes, "The message count is not as expected");
 
             xplaneCacheMock.Clear();
             // validate config references work
@@ -100,7 +96,7 @@ namespace MobiFlight.InputConfig.Tests
             configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
             o.execute(cacheCollection, null, configrefs);
 
-            Assert.AreEqual(1, xplaneCacheMock.Writes.Count, "The message count is not as expected");
+            Assert.HasCount(1, xplaneCacheMock.Writes, "The message count is not as expected");
             Assert.AreEqual(2, xplaneCacheMock.Writes[0].Value, "The Write Value is wrong");
         }
 

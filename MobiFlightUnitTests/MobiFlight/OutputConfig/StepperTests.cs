@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.OutputConfig;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.OutputConfig.Tests
@@ -79,7 +74,7 @@ namespace MobiFlight.OutputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual("Address", o.Address);
-            Assert.AreEqual(true, o.CompassMode);
+            Assert.IsTrue(o.CompassMode);
             Assert.AreEqual(1000, o.InputRev);
             Assert.AreEqual(2040, o.OutputRev);
             Assert.AreEqual(1024, o.TestValue);

@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.InputConfig;
-using System;
 using System.IO;
 using System.Xml;
 
@@ -148,8 +147,8 @@ namespace MobiFlight.Tests.ProSim
             string result = sw.ToString();
             
             // Verify the XML contains the expected attributes
-            Assert.IsTrue(result.Contains("path=\"test/dataref/path\""), "XML should contain path attribute");
-            Assert.IsTrue(result.Contains("expression=\"$ * 2\""), "XML should contain expression attribute");
+            Assert.Contains("path=\"test/dataref/path\"", result, "XML should contain path attribute");
+            Assert.Contains("expression=\"$ * 2\"", result, "XML should contain expression attribute");
         }
 
         [TestMethod()]
@@ -173,8 +172,8 @@ namespace MobiFlight.Tests.ProSim
             string result = sw.ToString();
             
             // Verify the XML contains the expected attributes
-            Assert.IsTrue(result.Contains("path=\"\""), "XML should contain empty path attribute");
-            Assert.IsTrue(result.Contains("expression=\"\""), "XML should contain empty expression attribute");
+            Assert.Contains("path=\"\"", result, "XML should contain empty path attribute");
+            Assert.Contains("expression=\"\"", result, "XML should contain empty expression attribute");
         }
 
         [TestMethod()]
@@ -254,7 +253,7 @@ namespace MobiFlight.Tests.ProSim
             XmlReader xmlReader = XmlReader.Create(sr, readerSettings);
             xmlReader.ReadToDescendant("ProSimInputAction");
             deserialized.ReadXml(xmlReader);
-            
+
             // Verify round trip
             Assert.AreEqual(original.Path, deserialized.Path, "Path should be preserved through XML round trip");
             Assert.AreEqual(original.Expression, deserialized.Expression, "Expression should be preserved through XML round trip");
@@ -290,10 +289,10 @@ namespace MobiFlight.Tests.ProSim
             XmlReader xmlReader = XmlReader.Create(sr, readerSettings);
             xmlReader.ReadToDescendant("ProSimInputAction");
             deserialized.ReadXml(xmlReader);
-            
+
             // Verify round trip
             Assert.AreEqual(original.Path, deserialized.Path, "Path should be preserved through XML round trip");
             Assert.AreEqual(original.Expression, deserialized.Expression, "Expression should be preserved through XML round trip");
         }
     }
-} 
+}

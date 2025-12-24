@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.BrowserMessages.Incoming.Converter;
 using Newtonsoft.Json;
 using System;
@@ -97,14 +97,14 @@ namespace MobiFlight.InputConfig.Tests
             cfg.onChange = new VariableInputAction();
             
             var result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 1);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(1, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
 
 
             cfg.onChange = new MSFS2020CustomInputAction();
 
             result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 0);
+            Assert.HasCount(0, result);
         }
 
         [TestMethod()]

@@ -1,13 +1,13 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@plugin 'tailwindcss-animate';
+@plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
   --ring-width-2: 1px;
 
-  --breakpoint-md: 49rem;
+  --breakpoint-md: 50rem;
   --breakpoint-lg: 63rem;
   --breakpoint-xl: 74rem;
   --breakpoint-3xl: 99rem;
@@ -119,13 +119,13 @@
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 220 60% 50%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 219.6 60% 50%;
+    --primary-foreground: 210 10% 99%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
+    --accent: 0 0% 92.1%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -138,32 +138,53 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --custom1: 48 100% 67%; /* yellow */
   }
   .dark {
-    --background: 220 25% 6%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    /* Base hue */
+    --base-hue-dark: 240;
+    --base-saturation-dark: 6.2;
+
+    --background: var(--base-hue-dark) var(--base-saturation-dark) 8.8%; /* main app background */
+    --foreground: 210 40% 92%; /* almost-white text */
+
+    /* Surfaces */
+    --card: var(--base-hue-dark) var(--base-saturation-dark) 10.8%; /* panels / cards */
+    --card-foreground: 210 40% 96%;
+    --popover: var(--base-hue-dark) var(--base-saturation-dark) 7.8%;
+    --popover-foreground: 210 40% 96%;
+
+    /* Accent / primary (Discord blurple style) */
+    --primary: 219.6 65% 30%; /* accent color, e.g. buttons, sliders */
+    --primary-foreground: 219.6 65% 94%;
+
+    /* Secondary / subtle backgrounds (sidebars, chips, etc.) */
+    --secondary: var(--base-hue-dark) var(--base-saturation-dark) 14%;
+    --secondary-foreground: 210 40% 96%;
+    /* sidebar feed */
+    --muted: var(--base-hue-dark) var(--base-saturation-dark) 14%;
+    --muted-foreground: var(--base-hue-dark) var(--base-saturation-dark) 70%;
+
+    /* Hover / accent surfaces */
+    --accent: var(--base-hue-dark) var(--base-saturation-dark) 14.8%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Destructive */
+    --destructive: 0 63% 48%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+
+    /* Borders / inputs / focus */
+    --border: var(--base-hue-dark) var(--base-saturation-dark) 18%;
+    --input: var(--base-hue-dark) var(--base-saturation-dark) 28%;
+    --ring: 219.6 65% 45%; /* brighter blurple for focus ring */
+
+    /* Charts – tuned to sit nicely on dark gray */
+    --chart-1: 227 82% 66%; /* blurple */
+    --chart-2: 151 55% 46%; /* teal/green */
+    --chart-3: 37 88% 60%; /* orange */
+    --chart-4: 280 70% 60%; /* purple */
+    --chart-5: 340 75% 60%; /* pink/red */
+    --custom1: 48 100% 67%; /* yellow */
   }
 }
 
@@ -199,3 +220,24 @@
     cursor: pointer;
   }
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .inset-shadow-l-sm {
+    --tw-inset-shadow: inset 0 0 2px var(--tw-inset-shadow-color, rgb(0 0 0 / 0.05));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    clip-path: inset(0px 0px 0px 2px);
+  }
+}
+
+@custom-variant vxs (@media (min-height: 500px));
+@custom-variant vsm (@media (min-height: 650px));
+@custom-variant vlg (@media (min-height: 900px));
+@custom-variant vxl (@media (min-height: 1200px));

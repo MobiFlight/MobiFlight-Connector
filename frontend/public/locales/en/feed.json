@@ -1,0 +1,78 @@
+{
+  "community": [
+    {
+      "date": "2025-11-30",
+      "title": "Cleared for new flight levels!",
+      "content": [
+        "This year I went all in — I now work full time on MobiFlight to push the project to next levels.",
+        "Your financial support is crucial to cover my living costs and sustain ongoing development."
+      ],
+      "featured": false,
+      "tags": ["community"],
+      "media": {
+        "type": "image",
+        "src": "/feed/full-time.jpg",
+        "alt": "Cleared for new flight levels!",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "Support Us!",
+        "url": "https://mobiflight.com/donate"
+      }
+    },
+    {
+      "date": "2025-11-30",
+      "title": "New products in the MobiFlight Store",
+      "content": [
+        "Check out the latest additions to our store, including new modules and accessories to enhance your flight simulation experience."
+      ],
+      "featured": true,
+      "tags": ["shop"],
+      "media": {
+        "type": "image",
+        "src": "/feed/shop-new-boards.jpg",
+        "alt": "New products in MobiFlight Store",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "Check them out now!",
+        "url": "https://shop.mobiflight.com"
+      }
+    },
+    {
+      "date": "2025-11-30",
+      "title": "Subscribe to Our Newsletter",
+      "content": [
+        "Stay up-to-date with the **latest news, tutorials, and community highlights** by subscribing to [our newsletter](https://mobiflight.com/newsletter)."
+      ],
+      "action": {
+        "title": "Subscribe",
+        "url": "https://mobiflight.com/newsletter"
+      },
+      "media": {
+        "type": "image",
+        "src": "/feed/newsletter-subscribe.jpg",
+        "alt": "Subscribe to Our Newsletter",
+        "className": "bg-gray-100 dark:bg-gray-100"
+      },
+      "tags": ["community"]
+    },
+    {
+      "date": "2025-12-04",
+      "title": "Meet MobiFlight at FSWeekend 2026!",
+      "content": [
+        "We're excited to announce that MobiFlight will be present at FSWeekend 2026! Come meet the team, see live demos, and get exclusive insights into upcoming features."
+      ],
+      "action": {
+        "title": "Learn More",
+        "url": "https://flightsimweekend.com/"
+      },
+      "media": {
+        "type": "image",
+        "src": "/feed/fsweekend-2025.jpg",
+        "alt": "Meet the team at FSWeekend 2026"
+      },
+      "tags": ["events"]
+    }
+  ]
+}

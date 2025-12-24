@@ -40,12 +40,13 @@
             this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
             this.fsuipcHintLabel = new System.Windows.Forms.Label();
             this.OffsetTypePanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.OffsetTypeVariableRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.OffsetTypeSimConnectRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeFsuipRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeXplaneRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeProSimRadioButton = new System.Windows.Forms.RadioButton();
+            this.OffsetTypeVariableRadioButton = new System.Windows.Forms.RadioButton();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.modifierPanel1 = new MobiFlight.UI.Panels.OutputWizard.ModifierPanel();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
@@ -67,6 +68,8 @@
             this.fsuipcTabPage.SuspendLayout();
             this.FsuipcSettingsPanel.SuspendLayout();
             this.OffsetTypePanel.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.compareTabPage.SuspendLayout();
             this.referencesGroupBox.SuspendLayout();
             this.displayTabPage.SuspendLayout();
@@ -146,27 +149,26 @@
             // 
             // OffsetTypePanel
             // 
-            this.OffsetTypePanel.Controls.Add(this.label1);
-            this.OffsetTypePanel.Controls.Add(this.OffsetTypeVariableRadioButton);
-            this.OffsetTypePanel.Controls.Add(this.OffsetTypeSimConnectRadioButton);
-            this.OffsetTypePanel.Controls.Add(this.OffsetTypeFsuipRadioButton);
-            this.OffsetTypePanel.Controls.Add(this.OffsetTypeXplaneRadioButton);
-            this.OffsetTypePanel.Controls.Add(this.OffsetTypeProSimRadioButton);
+            this.OffsetTypePanel.Controls.Add(this.groupBox1);
             resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
             this.OffsetTypePanel.Name = "OffsetTypePanel";
             // 
-            // label1
+            // groupBox1
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            this.groupBox1.Controls.Add(this.flowLayoutPanel1);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
             // 
-            // OffsetTypeVariableRadioButton
+            // flowLayoutPanel1
             // 
-            resources.ApplyResources(this.OffsetTypeVariableRadioButton, "OffsetTypeVariableRadioButton");
-            this.OffsetTypeVariableRadioButton.Name = "OffsetTypeVariableRadioButton";
-            this.OffsetTypeVariableRadioButton.TabStop = true;
-            this.OffsetTypeVariableRadioButton.UseVisualStyleBackColor = true;
-            this.OffsetTypeVariableRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
+            this.flowLayoutPanel1.Controls.Add(this.OffsetTypeSimConnectRadioButton);
+            this.flowLayoutPanel1.Controls.Add(this.OffsetTypeFsuipRadioButton);
+            this.flowLayoutPanel1.Controls.Add(this.OffsetTypeXplaneRadioButton);
+            this.flowLayoutPanel1.Controls.Add(this.OffsetTypeProSimRadioButton);
+            this.flowLayoutPanel1.Controls.Add(this.OffsetTypeVariableRadioButton);
+            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // OffsetTypeSimConnectRadioButton
             // 
@@ -199,6 +201,14 @@
             this.OffsetTypeProSimRadioButton.TabStop = true;
             this.OffsetTypeProSimRadioButton.UseVisualStyleBackColor = true;
             this.OffsetTypeProSimRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
+            // 
+            // OffsetTypeVariableRadioButton
+            // 
+            resources.ApplyResources(this.OffsetTypeVariableRadioButton, "OffsetTypeVariableRadioButton");
+            this.OffsetTypeVariableRadioButton.Name = "OffsetTypeVariableRadioButton";
+            this.OffsetTypeVariableRadioButton.TabStop = true;
+            this.OffsetTypeVariableRadioButton.UseVisualStyleBackColor = true;
+            this.OffsetTypeVariableRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
             // 
             // compareTabPage
             // 
@@ -298,7 +308,7 @@
             // 
             resources.ApplyResources(this.testValuePanel1, "testValuePanel1");
             this.testValuePanel1.Name = "testValuePanel1";
-            this.testValuePanel1.Result = "\'\'\'\'\'\'\'\'\'\'";
+            this.testValuePanel1.Result = "\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'";
             // 
             // ConfigWizard
             // 
@@ -320,7 +330,9 @@
             this.fsuipcTabPage.PerformLayout();
             this.FsuipcSettingsPanel.ResumeLayout(false);
             this.OffsetTypePanel.ResumeLayout(false);
-            this.OffsetTypePanel.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.compareTabPage.ResumeLayout(false);
             this.referencesGroupBox.ResumeLayout(false);
             this.displayTabPage.ResumeLayout(false);
@@ -358,7 +370,6 @@
         private Panels.Config.SimConnectPanel simConnectPanel1;
         private System.Windows.Forms.RadioButton OffsetTypeVariableRadioButton;
         private Panels.Config.VariablePanel variablePanel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label fsuipcHintLabel;
         private Panels.Config.PreconditionPanel preconditionPanel;
         private Panels.OutputWizard.DisplayPanel displayPanel1;
@@ -368,5 +379,7 @@
         private Panels.Config.TestValuePanel testValuePanel1;
         private System.Windows.Forms.RadioButton OffsetTypeProSimRadioButton;
         private Panels.Config.ProSimDataRefPanel proSimDatarefPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

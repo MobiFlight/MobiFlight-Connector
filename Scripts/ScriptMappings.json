@@ -9,6 +9,12 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "inibuilds-a340",
+      "ScriptName": "ini_a340_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "fnx_3",
       "ScriptName": "fenix_winwing_cdu.py"
     },
@@ -105,8 +111,26 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "aircraft-ec135",
-      "ScriptName": "microsoft_aircraft_ec135.py"
+      "AircraftIdSnippet": "challenger 650",
+      "ScriptName": "hotstart_cl650.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "rotate md-11",
+      "ScriptName": "rotate_md11.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "rotate md-80",
+      "ScriptName": "rotate_md80.py"
+    }
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "microsoft_aircraft_ec135",
+      "ScriptName": "microsoft_aircraft_ec135.py.py"
     }
   ]
 }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using MobiFlight;
+﻿using MobiFlight.Base;
 using MobiFlight.InputConfig;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Input
 {
@@ -28,11 +23,41 @@ namespace MobiFlight.UI.Panels.Input
             }
         }
 
+        private ProjectInfo _projectInfo;
+        public ProjectInfo ProjectInfo
+        {
+            get { return _projectInfo; }
+            set
+            {
+                if (_projectInfo == value) return;
+                _projectInfo = value;
+                UpdateActionPanelCallbacks(_projectInfo);
+            }
+        }
+
+        private InputConfigItem _currentConfig;
+        public InputConfigItem CurrentConfig
+        {
+            get { return _currentConfig; }
+            set
+            {
+                _currentConfig = value;
+                UpdateActionPanelCallbacks(ProjectInfo);
+            }
+        }
+
+        private void UpdateActionPanelCallbacks(ProjectInfo projectInfo)
+        {
+            onChangeActionTypePanel.ProjectInfo = projectInfo;
+            onChangeActionTypePanel.CurrentConfig = CurrentConfig;
+            onChangeActionTypePanel.ActionTypeChanged -= onChangeActionTypePanel_ActionTypeChanged;
+            onChangeActionTypePanel.ActionTypeChanged += onChangeActionTypePanel_ActionTypeChanged;
+        }
+
         public AnalogPanel()
         {
             InitializeComponent();
-
-            onChangeActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onChangeActionTypePanel_ActionTypeChanged);
+            UpdateActionPanelCallbacks(null);
             onChangeActionTypePanel.CopyPasteFeatureActive(false);
         }
 

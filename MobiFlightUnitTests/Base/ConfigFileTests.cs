@@ -1,5 +1,4 @@
-﻿using MobiFlight.Base;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.OutputConfig;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -81,7 +80,7 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.FileName, deserializedConfigFile.FileName);
             Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
             Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
-            Assert.AreEqual(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems.Count);
+            Assert.HasCount(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems);
 
             configFile.ConfigItems.Add(CreateOutputConfigItem());
             configFile.ConfigItems.Add(CreateInputConfigItem());
@@ -92,8 +91,8 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.FileName, deserializedConfigFile.FileName);
             Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
             Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
-            Assert.AreEqual(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems.Count);
-            Assert.IsTrue(configFile.ConfigItems.Count == 2);
+            Assert.HasCount(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems);
+            Assert.HasCount(2, configFile.ConfigItems);
 
             Assert.AreEqual((configFile.ConfigItems[0] as OutputConfigItem).Device, (deserializedConfigFile.ConfigItems[0] as OutputConfigItem).Device);
             Assert.AreEqual((configFile.ConfigItems[1] as InputConfigItem).Device, (deserializedConfigFile.ConfigItems[1] as InputConfigItem).Device);
@@ -119,7 +118,7 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.FileName, newConfigFile.FileName);
             Assert.AreEqual(configFile.ReferenceOnly, newConfigFile.ReferenceOnly);
             Assert.AreEqual(configFile.EmbedContent, newConfigFile.EmbedContent);
-            Assert.AreEqual(configFile.ConfigItems.Count, newConfigFile.ConfigItems.Count);
+            Assert.HasCount(configFile.ConfigItems.Count, newConfigFile.ConfigItems);
         }
 
         [TestMethod]
@@ -143,7 +142,7 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.FileName, deserializedConfigFile.FileName);
             Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
             Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
-            Assert.AreEqual(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems.Count);
+            Assert.HasCount(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems);
         }
 
         [TestMethod()]
@@ -201,9 +200,9 @@ namespace MobiFlight.Base.Tests
             var cfgItem1 = CreateOutputConfigItem();
             var cfgItem2 = cfgItem1.Clone() as OutputConfigItem;
             var cfgFile = new ConfigFile() { ConfigItems = new List<IConfigItem>() { cfgItem1, cfgItem2 } };
-            
+
             Assert.IsTrue(cfgFile.HasDuplicateGuids());
-            
+
             cfgFile.RemoveDuplicateGuids();
 
             Assert.IsFalse(cfgFile.HasDuplicateGuids());

@@ -113,4 +113,31 @@ namespace MobiFlight.Base
                 this.ProSimDataRef.Equals((obj as ProSimSource).ProSimDataRef);
         }
     }
+
+    /// <summary>
+    /// Creates Source instances based on sim type strings.
+    /// </summary>
+    /// <returns>Source instance corresponding to the specified sim type. Returns null for unknown sim names.</returns>
+    public static class SourceFactory
+    {
+        public static Source Create(string sim)
+        {
+            switch (sim)
+            {
+                case "msfs":
+                    return new SimConnectSource();
+                case "xplane":
+                    return new XplaneSource();
+                case "prosim":
+                    return new ProSimSource();
+                case "p3d":
+                case "fsx":
+                    return new FsuipcSource();
+            }
+
+            Log.Instance.log($"SourceFactory: Unknown sim '{sim}', returning null", LogSeverity.Error);
+            // return null for unknown sim names
+            return null;
+        }
+    }
 }

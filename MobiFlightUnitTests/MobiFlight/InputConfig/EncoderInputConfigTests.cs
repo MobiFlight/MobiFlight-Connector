@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.BrowserMessages.Incoming.Converter;
 using Newtonsoft.Json;
 using System;
@@ -44,10 +44,10 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("encoder");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual((o.onLeft as EventIdInputAction).EventId, 12345, "EventId not the same");
-            Assert.AreEqual((o.onLeftFast as JeehellInputAction).EventId, 127, "EventId not the same");
-            Assert.AreEqual((o.onRight as JeehellInputAction).EventId, 126, "EventId not the same");
-            Assert.AreEqual((o.onRightFast as JeehellInputAction).EventId, 125, "EventId not the same");
+            Assert.AreEqual(12345, (o.onLeft as EventIdInputAction).EventId, "EventId not the same");
+            Assert.AreEqual(127, (o.onLeftFast as JeehellInputAction).EventId, "EventId not the same");
+            Assert.AreEqual(126, (o.onRight as JeehellInputAction).EventId, "EventId not the same");
+            Assert.AreEqual(125, (o.onRightFast as JeehellInputAction).EventId, "EventId not the same");
         }
 
         [TestMethod()]
@@ -109,8 +109,8 @@ namespace MobiFlight.InputConfig.Tests
             cfg.onRightFast = new MSFS2020CustomInputAction();
 
             var result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 1);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(1, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
 
             cfg.onLeft = new VariableInputAction();
             cfg.onLeftFast = new VariableInputAction();
@@ -118,9 +118,9 @@ namespace MobiFlight.InputConfig.Tests
             cfg.onRightFast = new MSFS2020CustomInputAction();
 
             result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 2);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[1].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(2, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[1].GetType());
 
             cfg.onLeft = new VariableInputAction();
             cfg.onLeftFast = new VariableInputAction();
@@ -128,10 +128,10 @@ namespace MobiFlight.InputConfig.Tests
             cfg.onRightFast = new MSFS2020CustomInputAction();
 
             result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 3);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[1].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[2].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(3, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[1].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[2].GetType());
 
             cfg.onLeft = new VariableInputAction();
             cfg.onLeftFast = new VariableInputAction();
@@ -139,11 +139,11 @@ namespace MobiFlight.InputConfig.Tests
             cfg.onRightFast = new VariableInputAction();
 
             result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 4);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[1].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[2].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[3].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(4, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[1].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[2].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[3].GetType());
         }
 
         [TestMethod()]

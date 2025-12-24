@@ -35,17 +35,17 @@ namespace MobiFlightUnitTests.Base.Migration
 
             // Assert
             var device = result["ConfigFiles"][0]["ConfigItems"][0]["Device"];
-            
+
             // New properties should exist
             Assert.AreEqual("LED1", device["pin"].ToString());
             Assert.AreEqual(255, device["brightness"].Value<int>());
-            Assert.AreEqual(true, device["pwmMode"].Value<bool>());
-            
+            Assert.IsTrue(device["pwmMode"].Value<bool>());
+
             // Old properties should be removed
             Assert.IsNull(device["DisplayPin"]);
             Assert.IsNull(device["DisplayPinBrightness"]);
             Assert.IsNull(device["DisplayPinPWM"]);
-            
+
             // Non-migrated properties should remain
             Assert.AreEqual("Test Output", device["Name"].ToString());
             Assert.AreEqual("Output", device["Type"].ToString());
@@ -84,13 +84,13 @@ namespace MobiFlightUnitTests.Base.Migration
             // Assert
             var device1 = result["ConfigFiles"][0]["ConfigItems"][0]["Device"];
             var device2 = result["ConfigFiles"][0]["ConfigItems"][1]["Device"];
-            
+
             Assert.AreEqual("LED1", device1["pin"].ToString());
             Assert.AreEqual(200, device1["brightness"].Value<int>());
             Assert.IsNull(device1["DisplayPin"]);
-            
+
             Assert.AreEqual("LED2", device2["pin"].ToString());
-            Assert.AreEqual(false, device2["pwmMode"].Value<bool>());
+            Assert.IsFalse(device2["pwmMode"].Value<bool>());
             Assert.IsNull(device2["DisplayPin"]);
         }
 
@@ -119,7 +119,7 @@ namespace MobiFlightUnitTests.Base.Migration
 
             // Assert
             var device = result["ConfigFiles"][0]["ConfigItems"][0]["Device"];
-            
+
             Assert.AreEqual("LED1", device["pin"].ToString());
             Assert.IsNull(device["brightness"]); // Should not exist if not in source
             Assert.IsNull(device["pwmMode"]); // Should not exist if not in source
@@ -151,7 +151,7 @@ namespace MobiFlightUnitTests.Base.Migration
 
             // Assert
             var device = result["ConfigFiles"][0]["ConfigItems"][0]["Device"];
-            
+
             // Original properties should remain unchanged for non-Output devices
             Assert.AreEqual("BTN1", device["DisplayPin"].ToString());
             Assert.AreEqual(128, device["DisplayPinBrightness"].Value<int>());
@@ -245,7 +245,7 @@ namespace MobiFlightUnitTests.Base.Migration
             // Assert
             var device1 = result["ConfigFiles"][0]["ConfigItems"][0]["Device"];
             var device2 = result["ConfigFiles"][1]["ConfigItems"][0]["Device"];
-            
+
             Assert.AreEqual("LED1", device1["pin"].ToString());
             Assert.AreEqual(100, device2["brightness"].Value<int>());
         }
@@ -277,7 +277,7 @@ namespace MobiFlightUnitTests.Base.Migration
             // Assert - Original document should be unchanged
             Assert.AreEqual("LED1", originalPin);
             Assert.AreEqual("LED1", inputDocument["ConfigFiles"][0]["ConfigItems"][0]["Device"]["DisplayPin"].ToString());
-            
+
             // Result should be different
             Assert.IsNull(result["ConfigFiles"][0]["ConfigItems"][0]["Device"]["DisplayPin"]);
             Assert.AreEqual("LED1", result["ConfigFiles"][0]["ConfigItems"][0]["Device"]["pin"].ToString());

@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight;
 using System.Collections.Generic;
 
 namespace MobiFlight.Tests
@@ -46,7 +45,7 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.IsNotNull(board.AvrDudeSettings.BaudRates);
-            Assert.AreEqual(1, board.AvrDudeSettings.BaudRates.Count);
+            Assert.HasCount(1, board.AvrDudeSettings.BaudRates);
             Assert.AreEqual("115200", board.AvrDudeSettings.BaudRates[0]);
         }
 
@@ -73,7 +72,7 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual(existingBaudRates, board.AvrDudeSettings.BaudRates);
-            Assert.AreEqual(2, board.AvrDudeSettings.BaudRates.Count);
+            Assert.HasCount(2, board.AvrDudeSettings.BaudRates);
             Assert.AreEqual("9600", board.AvrDudeSettings.BaudRates[0]);
             Assert.AreEqual("57600", board.AvrDudeSettings.BaudRates[1]);
         }
@@ -476,7 +475,7 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.IsNotNull(board.AvrDudeSettings.BaudRates);
-            Assert.AreEqual(1, board.AvrDudeSettings.BaudRates.Count);
+            Assert.HasCount(1, board.AvrDudeSettings.BaudRates);
             Assert.AreEqual("57600", board.AvrDudeSettings.BaudRates[0]);
             Assert.AreEqual("reset.hex", board.Info.ResetFirmwareFile);
             Assert.AreEqual("legacy_firmware", board.Info.FirmwareBaseName);
@@ -514,7 +513,7 @@ namespace MobiFlight.Tests
 
             // Assert
             // BaudRates should not be overwritten
-            Assert.AreEqual(1, board.AvrDudeSettings.BaudRates.Count);
+            Assert.HasCount(1, board.AvrDudeSettings.BaudRates);
             Assert.AreEqual("9600", board.AvrDudeSettings.BaudRates[0]);
             
             // ResetFirmwareFile should not be overwritten
@@ -561,7 +560,7 @@ namespace MobiFlight.Tests
             board.Migrate();
 
             // Assert - Results should be the same after multiple calls
-            Assert.AreEqual(1, board.AvrDudeSettings.BaudRates.Count);
+            Assert.HasCount(1, board.AvrDudeSettings.BaudRates);
             Assert.AreEqual("115200", board.AvrDudeSettings.BaudRates[0]);
             Assert.AreEqual("reset.hex", board.Info.ResetFirmwareFile);
             Assert.AreEqual("firmware_base", board.Info.FirmwareBaseName);

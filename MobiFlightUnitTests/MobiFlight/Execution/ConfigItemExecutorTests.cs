@@ -73,7 +73,7 @@ namespace MobiFlight.Tests
             executor.Execute(cfg, updatedValues);
 
             // Assert
-            Assert.AreEqual(0, updatedValues.Count);
+            Assert.IsEmpty(updatedValues);
         }
 
         [TestMethod]
@@ -98,8 +98,8 @@ namespace MobiFlight.Tests
 
             // Assert
             // verify that are status is cleared
-            Assert.AreEqual(1, updatedValues.Count);
-            Assert.AreEqual(0, cfg.Status.Count);
+            Assert.HasCount(1, updatedValues);
+            Assert.IsEmpty(cfg.Status);
         }
 
         [TestMethod]
@@ -124,8 +124,8 @@ namespace MobiFlight.Tests
 
             // Assert
             // verify that are status is cleared
-            Assert.AreEqual(1, updatedValues.Count);
-            Assert.AreEqual(0, cfg.Status.Count);
+            Assert.HasCount(1, updatedValues);
+            Assert.IsEmpty(cfg.Status);
         }
 
         [TestMethod]
@@ -140,7 +140,7 @@ namespace MobiFlight.Tests
             executor.Execute(cfg, updatedValues);
 
             // Assert
-            Assert.AreEqual(1, updatedValues.Count);
+            Assert.HasCount(1, updatedValues);
             Assert.AreEqual("XPLANE_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
 
             
@@ -152,17 +152,23 @@ namespace MobiFlight.Tests
 
             // Assert
             // verify that are status is cleared
-            Assert.AreEqual(1, updatedValues.Count);
-            Assert.AreEqual(0, cfg.Status.Count);
+            Assert.HasCount(1, updatedValues);
+            Assert.IsEmpty(cfg.Status);
         }
 
         [TestMethod]
         public void Execute_ShouldUpdateStatus_WhenProSimNotConnected()
         {
             // Arrange
-            var cfg = new OutputConfigItem { Active = true, Source = new ProSimSource() };
+            var proSimSource = new ProSimSource
+            {
+                ProSimDataRef = new ProSimDataRef { Path = "test/dataref" }
+            };
+            var cfg = new OutputConfigItem { Active = true, Source = proSimSource };
+            
             var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockProSimCache.Setup(c => c.IsConnected()).Returns(false);
+            mockProSimCache.Setup(c => c.readDataref(It.IsAny<string>())).Returns(0.0);
 
             // Act
             executor.Execute(cfg, updatedValues);
@@ -172,14 +178,15 @@ namespace MobiFlight.Tests
 
             // Arrange
             mockProSimCache.Setup(c => c.IsConnected()).Returns(true);
+            mockProSimCache.Setup(c => c.readDataref(It.IsAny<string>())).Returns(0.0);
 
             // Act
             executor.Execute(cfg, updatedValues);
 
             // Assert
             // verify that are status is cleared
-            Assert.AreEqual(1, updatedValues.Count);
-            Assert.AreEqual(0, cfg.Status.Count);
+            Assert.HasCount(1, updatedValues);
+            Assert.IsEmpty(cfg.Status);
         }
 
         [TestMethod]
@@ -203,8 +210,8 @@ namespace MobiFlight.Tests
             executor.Execute(cfg, updatedValues);
 
             // Assert
-            Assert.AreEqual(1, updatedValues.Count);
-            Assert.IsTrue(cfg.Status[ConfigItemStatusType.Modifier].Contains("error occurred on parsing your value formula"));
+            Assert.HasCount(1, updatedValues);
+            Assert.Contains("error occurred on parsing your value formula", cfg.Status[ConfigItemStatusType.Modifier]);
 
             cfg.Modifiers.Items.Clear();
             cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "$+1" });
@@ -212,8 +219,8 @@ namespace MobiFlight.Tests
             executor.Execute(cfg, updatedValues);
 
             // Assert
-            Assert.AreEqual(1, updatedValues.Count);
-            Assert.AreEqual(0, cfg.Status.Count);
+            Assert.HasCount(1, updatedValues);
+            Assert.IsEmpty(cfg.Status);
         }
 
         [TestMethod]
@@ -260,7 +267,7 @@ namespace MobiFlight.Tests
             executor.Execute(cfg, updatedValues);
 
             // Assert
-            Assert.AreEqual(1, updatedValues.Count);
+            Assert.HasCount(1, updatedValues);
             Assert.AreEqual("not satisfied", cfg.Status[ConfigItemStatusType.Precondition]);
             precondition.Value = "100";
 
@@ -268,8 +275,8 @@ namespace MobiFlight.Tests
             updatedValues.Clear();
             executor.Execute(cfg, updatedValues);
             // Assert
-            Assert.AreEqual(1, updatedValues.Count);
-            Assert.AreEqual(false, cfg.Status.ContainsKey(ConfigItemStatusType.Precondition));
+            Assert.HasCount(1, updatedValues);
+            Assert.IsFalse(cfg.Status.ContainsKey(ConfigItemStatusType.Precondition));
         }
 
         [TestMethod]

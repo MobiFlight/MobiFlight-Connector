@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace MobiFlight.OutputConfig.Tests
             Assert.IsNotNull(o, "Object is null");
 
             Assert.IsNull(o.Address, "Address is not null");
-            Assert.AreEqual(0, o.Lines.Count, "Line Count not 0");
+            Assert.IsEmpty(o.Lines, "Line Count not 0");
         }
 
         [TestMethod()]
@@ -31,8 +31,8 @@ namespace MobiFlight.OutputConfig.Tests
             o.Lines.Add("TestLine1");
             Assert.IsNotNull(o, "Object is null");
             LcdDisplay c = o.Clone() as LcdDisplay;
-            Assert.AreEqual(o.Address, c.Address, "Address are not the same");
-            Assert.AreEqual(o.Lines.Count, c.Lines.Count, "Line.Count not the same");
+            Assert.AreEqual(c.Address, o.Address, "Address are not the same");
+            Assert.HasCount(o.Lines.Count, c.Lines, "Line.Count not the same");
             Assert.AreEqual(o.Lines[0], c.Lines[0], "Lines[0] not the same");
         }
 
@@ -59,7 +59,7 @@ namespace MobiFlight.OutputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual("LCDDisplay", o.Address, "Address does not match.");
-            Assert.AreEqual(1, o.Lines.Count, "Lines.Count does not match.");
+            Assert.HasCount(1, o.Lines, "Lines.Count does not match.");
             Assert.AreEqual("Read Test Line 1", o.Lines[0]);
 
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\LcdDisplay\ReadXmlTest.2.xml");
@@ -71,7 +71,7 @@ namespace MobiFlight.OutputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual("LCDDisplay", o.Address, "Address does not match.");
-            Assert.AreEqual(4, o.Lines.Count, "Lines.Count does not match.");
+            Assert.HasCount(4, o.Lines, "Lines.Count does not match.");
             Assert.AreEqual("Read Test Line 1", o.Lines[0]);
             Assert.AreEqual("", o.Lines[1]); // no space was used in the node
             Assert.AreEqual("", o.Lines[2]); // 20 spaces were used, but it cant get loaded again, that is what XML does 

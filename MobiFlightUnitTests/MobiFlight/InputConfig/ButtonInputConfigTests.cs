@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.BrowserMessages.Incoming.Converter;
 using Newtonsoft.Json;
 using System;
@@ -22,9 +22,9 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelease is not correct");
             Assert.AreEqual((o.onLongRelease as MSFS2020CustomInputAction).PresetId, (c.onLongRelease as MSFS2020CustomInputAction).PresetId, "OnLongRelase is not correct");
             Assert.AreEqual((o.onHold as XplaneInputAction).Path, (c.onHold as XplaneInputAction).Path, "onHold is not correct");
-            Assert.AreEqual(o.RepeatDelay, c.RepeatDelay, "RepeatDelay is not correct");
-            Assert.AreEqual(o.HoldDelay, c.HoldDelay, "HoldDelay is not correct");
-            Assert.AreEqual(o.LongReleaseDelay, c.LongReleaseDelay, "LongReleaseDelay is not correct");
+            Assert.AreEqual(c.RepeatDelay, o.RepeatDelay, "RepeatDelay is not correct");
+            Assert.AreEqual(c.HoldDelay, o.HoldDelay, "HoldDelay is not correct");
+            Assert.AreEqual(c.LongReleaseDelay, o.LongReleaseDelay, "LongReleaseDelay is not correct");
         }
 
         private ButtonInputConfig generateTestObject()
@@ -75,8 +75,8 @@ namespace MobiFlight.InputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
-            Assert.AreEqual(null, o.onRelease, "onRelease not null");
-            Assert.AreEqual(null, o.onLongRelease, "onLongRelease not null");
+            Assert.IsNull(o.onRelease, "onRelease not null");
+            Assert.IsNull(o.onLongRelease, "onLongRelease not null");
 
             o = new ButtonInputConfig();
             s = File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.3.xml");
@@ -89,8 +89,8 @@ namespace MobiFlight.InputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
-            Assert.AreEqual(null, o.onRelease, "onRelease not null");
-            Assert.AreEqual(null, o.onLongRelease, "onLongRelease not null");
+            Assert.IsNull(o.onRelease, "onRelease not null");
+            Assert.IsNull(o.onLongRelease, "onLongRelease not null");
 
             o = new ButtonInputConfig();
             s = File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.4.xml");
@@ -103,7 +103,7 @@ namespace MobiFlight.InputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
-            Assert.AreEqual(null, o.onRelease, "onRelease not null");
+            Assert.IsNull(o.onRelease, "onRelease not null");
             Assert.AreEqual("c1cb32b4-fd35-41ab-8ff7-c407bd407998", (o.onLongRelease as MSFS2020CustomInputAction).PresetId, "PresetId not the same");
 
             o = new ButtonInputConfig();
@@ -116,9 +116,9 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("button");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(null, o.onPress, "onPress not null");
-            Assert.AreEqual(null, o.onRelease, "onRelease not null");
-            Assert.AreEqual(null, o.onLongRelease, "onLongRelease not null");
+            Assert.IsNull(o.onPress, "onPress not null");
+            Assert.IsNull(o.onRelease, "onRelease not null");
+            Assert.IsNull(o.onLongRelease, "onLongRelease not null");
         }
 
         [TestMethod()]
@@ -168,33 +168,33 @@ namespace MobiFlight.InputConfig.Tests
             cfg.onLongRelease = new XplaneInputAction();
 
             var result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 1);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(1, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
 
             cfg.onPress = new MSFS2020CustomInputAction();
             cfg.onRelease = new VariableInputAction();
             cfg.onLongRelease = new XplaneInputAction();
 
             result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 1);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(1, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
 
             cfg.onPress = new MSFS2020CustomInputAction();
             cfg.onRelease = new MSFS2020CustomInputAction();
             cfg.onLongRelease = new XplaneInputAction();
 
             result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 0);
+            Assert.HasCount(0, result);
 
             cfg.onPress = new VariableInputAction();
             cfg.onRelease = new VariableInputAction();
             cfg.onLongRelease = new VariableInputAction();
 
             result = cfg.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.AreEqual(result.Count, 3);
-            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[1].GetType(), typeof(VariableInputAction));
-            Assert.AreEqual(result[2].GetType(), typeof(VariableInputAction));
+            Assert.HasCount(3, result);
+            Assert.AreEqual(typeof(VariableInputAction), result[0].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[1].GetType());
+            Assert.AreEqual(typeof(VariableInputAction), result[2].GetType());
         }
 
         [TestMethod()]

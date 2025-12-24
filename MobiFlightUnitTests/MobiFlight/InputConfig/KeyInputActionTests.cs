@@ -1,11 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -20,10 +15,10 @@ namespace MobiFlight.InputConfig.Tests
             KeyInputAction o = generateTestObject();
 
             KeyInputAction i = (KeyInputAction)o.Clone();
-            Assert.AreEqual(o.Shift, i.Shift, "SHIFT value differs");
-            Assert.AreEqual(o.Alt, i.Alt, "ALT value differs");
-            Assert.AreEqual(o.Control, i.Control, "CONTROL value differs");
-            Assert.AreEqual(o.Key, i.Key, "Key value differs");
+            Assert.AreEqual(i.Shift, o.Shift, "SHIFT value differs");
+            Assert.AreEqual(i.Alt, o.Alt, "ALT value differs");
+            Assert.AreEqual(i.Control, o.Control, "CONTROL value differs");
+            Assert.AreEqual(i.Key, o.Key, "Key value differs");
         }
 
         [TestMethod()]
@@ -61,10 +56,10 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Alt, true, "Alt modifier not the same");
-            Assert.AreEqual(o.Shift, true, "Shift modifier not the same");
-            Assert.AreEqual(o.Control, true, "Ctrl modifier not the same");
-            Assert.AreEqual(o.Key, Keys.A, "Key not the same");
+            Assert.IsTrue(o.Alt, "Alt modifier not the same");
+            Assert.IsTrue(o.Shift, "Shift modifier not the same");
+            Assert.IsTrue(o.Control, "Ctrl modifier not the same");
+            Assert.AreEqual(Keys.A, o.Key, "Key not the same");
         }
 
         [TestMethod()]
@@ -87,8 +82,8 @@ namespace MobiFlight.InputConfig.Tests
             MobiFlightUnitTests.mock.Base.KeyboardInputMock keybMock = new MobiFlightUnitTests.mock.Base.KeyboardInputMock();
             o.Keyboard = keybMock;
             o.execute(cacheCollection, null, null);
-            Assert.AreEqual(keybMock.Writes.Count, 1, "The message count is not as expected");
-            Assert.AreEqual(keybMock.Writes[0], "Ctrl+Shift+Alt+A", "The sent string is wrong");
+            Assert.HasCount(1, keybMock.Writes, "The message count is not as expected");
+            Assert.AreEqual("Ctrl+Shift+Alt+A", keybMock.Writes[0], "The sent string is wrong");
         }
 
         private KeyInputAction generateTestObject()

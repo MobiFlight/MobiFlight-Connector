@@ -1,11 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
@@ -47,8 +43,8 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Variable.TYPE, "string", "Variable.TYPE are not the same");
-            Assert.AreEqual(o.Variable.Name, "VariableInputActionReadXMLTests", "Param not the same");
+            Assert.AreEqual("string", o.Variable.TYPE, "Variable.TYPE are not the same");
+            Assert.AreEqual("VariableInputActionReadXMLTests", o.Variable.Name, "Param not the same");
         }
 
         [TestMethod()]
@@ -95,7 +91,7 @@ namespace MobiFlight.InputConfig.Tests
             o.Variable.Expression = "$+1";
 
             o.execute(cacheCollection, null, new List<ConfigRefValue>());
-            Assert.AreEqual(mobiflightCacheMock.GetMobiFlightVariable("VariableInputActionTests").Number, 1, "The number is not correct.");
+            Assert.AreEqual(1, mobiflightCacheMock.GetMobiFlightVariable("VariableInputActionTests").Number, "The number is not correct.");
         }
 
         [TestMethod()]

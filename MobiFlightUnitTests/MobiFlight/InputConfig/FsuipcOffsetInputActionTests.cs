@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using System;
@@ -18,12 +18,12 @@ namespace MobiFlight.InputConfig.Tests
         public void FsuipcOffsetInputActionTest()
         {
             FsuipcOffsetInputAction o = new FsuipcOffsetInputAction();
-            Assert.AreEqual(o.FSUIPC.Offset, FsuipcOffset.OffsetNull, "FSUIPCOffset is not FSUIPCOffsetNull");
-            Assert.AreEqual(o.FSUIPC.Mask, 0xFF, "FSUIPCMask is not 0xFF");
-            Assert.AreEqual(o.FSUIPC.OffsetType, FSUIPCOffsetType.Integer, "FSUIPCOffsetType not correct");
-            Assert.AreEqual(o.FSUIPC.Size, 1, "FSUIPCSize not correct");
-            Assert.AreEqual(o.FSUIPC.BcdMode, false, "Not correct");
-            Assert.AreEqual(o.Value, "", "Value not correct");
+            Assert.AreEqual(FsuipcOffset.OffsetNull, o.FSUIPC.Offset, "FSUIPCOffset is not FSUIPCOffsetNull");
+            Assert.AreEqual(0xFF, o.FSUIPC.Mask, "FSUIPCMask is not 0xFF");
+            Assert.AreEqual(FSUIPCOffsetType.Integer, o.FSUIPC.OffsetType, "FSUIPCOffsetType not correct");
+            Assert.AreEqual(1, o.FSUIPC.Size, "FSUIPCSize not correct");
+            Assert.IsFalse(o.FSUIPC.BcdMode, "Not correct");
+            Assert.AreEqual("", o.Value, "Value not correct");
             Assert.IsNotNull(o.Modifiers.Transformation, "Transform not initialized");
         }
 
@@ -39,7 +39,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(o.FSUIPC.Offset, c.FSUIPC.Offset, "FSUIPCOffset are not the same");
             Assert.AreEqual(o.FSUIPC.OffsetType, c.FSUIPC.OffsetType, "FSUIPCOffsetType are not the same");
             Assert.AreEqual(o.FSUIPC.Size, c.FSUIPC.Size, "FSUIPCSize are not the same");
-            Assert.AreEqual(o.Value, c.Value, "Value are not the same");
+            Assert.AreEqual(c.Value, o.Value, "Value are not the same");
             Assert.AreEqual(o.Modifiers.Transformation.Expression, c.Modifiers.Transformation.Expression, "Value are not the same");
         }
 
@@ -91,12 +91,12 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.FSUIPC.BcdMode, true, "FSUIPCBcdMode are not the same");
-            Assert.AreEqual(o.FSUIPC.Mask, 0xFFFFFFFF, "FSUIPCMask are not the same");
-            Assert.AreEqual(o.FSUIPC.Offset, 0x1234, "FSUIPCOffset are not the same");
-            Assert.AreEqual(o.FSUIPC.OffsetType, FSUIPCOffsetType.Float, "FSUIPCOffsetType are not the same");
-            Assert.AreEqual(o.FSUIPC.Size, 4, "FSUIPCSize are not the same");
-            Assert.AreEqual(o.Value, "$-1", "Value are not the same");
+            Assert.IsTrue(o.FSUIPC.BcdMode, "FSUIPCBcdMode are not the same");
+            Assert.AreEqual(0xFFFFFFFF, o.FSUIPC.Mask, "FSUIPCMask are not the same");
+            Assert.AreEqual(0x1234, o.FSUIPC.Offset, "FSUIPCOffset are not the same");
+            Assert.AreEqual(FSUIPCOffsetType.Float, o.FSUIPC.OffsetType, "FSUIPCOffsetType are not the same");
+            Assert.AreEqual(4, o.FSUIPC.Size, "FSUIPCSize are not the same");
+            Assert.AreEqual("$-1", o.Value, "Value are not the same");
         }
 
         [TestMethod()]
@@ -119,9 +119,9 @@ namespace MobiFlight.InputConfig.Tests
             o.FSUIPC.BcdMode = false;
             o.Value = "12";
             o.execute(cacheCollection, null, new List<ConfigRefValue>());
-            Assert.AreEqual(mock.Writes.Count, 2, "The message count is not as expected"); // there is one write in the mock for setting the offset and one write for writing to the cache.
-            Assert.AreEqual(mock.Writes[0].Offset, 0x1234, "The Offset is wrong");
-            Assert.AreEqual(mock.Writes[0].Value, "12", "The Param Value is wrong");
+            Assert.HasCount(2, mock.Writes, "The message count is not as expected"); // there is one write in the mock for setting the offset and one write for writing to the cache.
+            Assert.AreEqual(0x1234, mock.Writes[0].Offset, "The Offset is wrong");
+            Assert.AreEqual("12", mock.Writes[0].Value, "The Param Value is wrong");
 
             mock.Clear();
             // validate config references work
@@ -130,8 +130,8 @@ namespace MobiFlight.InputConfig.Tests
             configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
             o.execute(cacheCollection, null, configrefs);
 
-            Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
-            Assert.AreEqual("2", mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+            Assert.HasCount(2, mock.Writes, "The message count is not as expected");
+            Assert.AreEqual("2", mock.Writes[0].Value, "The Write Value is wrong");
 
             // test https://github.com/Mobiflight/MobiFlight-Connector/issues/438
             mock.Clear();
@@ -139,8 +139,8 @@ namespace MobiFlight.InputConfig.Tests
             configrefs = new List<ConfigRefValue>();
             o.execute(cacheCollection, new InputEventArgs() { Value = 359 }, configrefs);
 
-            Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
-            Assert.AreEqual(Math.Round((359 * 359 / 1023f), 0).ToString(), mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+            Assert.HasCount(2, mock.Writes, "The message count is not as expected");
+            Assert.AreEqual(Math.Round((359 * 359 / 1023f), 0).ToString(), mock.Writes[0].Value, "The Write Value is wrong");
 
             // test https://github.com/Mobiflight/MobiFlight-Connector/issues/438
             mock.Clear();
@@ -148,8 +148,8 @@ namespace MobiFlight.InputConfig.Tests
             configrefs = new List<ConfigRefValue>();
             o.execute(cacheCollection, new InputEventArgs() { Value = 359 }, configrefs);
 
-            Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
-            Assert.AreEqual(Math.Floor((359 * 359 / 1023f)).ToString(), mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+            Assert.HasCount(2, mock.Writes, "The message count is not as expected");
+            Assert.AreEqual(Math.Floor((359 * 359 / 1023f)).ToString(), mock.Writes[0].Value, "The Write Value is wrong");
 
             // test https://github.com/Mobiflight/MobiFlight-Connector/issues/340
             mock.Clear();
@@ -163,7 +163,7 @@ namespace MobiFlight.InputConfig.Tests
             }
             catch (FormatException)
             {
-                Assert.AreEqual(0, mock.Writes.Count, "The message count is not as expected");
+                Assert.HasCount(0, mock.Writes, "The message count is not as expected");
             }
         }
 

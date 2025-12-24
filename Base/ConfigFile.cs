@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MobiFlight.InputConfig;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,8 +45,7 @@ namespace MobiFlight.Base
                 // Content is embedded or read-only, no need to save to file
                 return;
             }
-
-            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
+            var json = ToJson();
             File.WriteAllText(FileName, json);
         }
 
@@ -55,7 +56,11 @@ namespace MobiFlight.Base
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
         }
 
         public override bool Equals(object obj)
@@ -95,6 +100,88 @@ namespace MobiFlight.Base
                     item.GUID = System.Guid.NewGuid().ToString();
                 }
             }
+        }
+
+        internal string DetermineSim()
+        {
+            if (ContainsConfigOfSourceType(new SimConnectSource()))
+            {
+                return "msfs";
+            }
+            else if (ContainsConfigOfSourceType(new XplaneSource()))
+            {
+                return (new XplaneSource().SourceType).ToLower();
+            }
+            return null;
+        }
+
+        internal List<string> DetermineAircaft()
+        {
+            return new List<string>();
+        }
+
+        internal bool DetermineUsingFsuipc()
+        {
+            return ContainsConfigOfSourceType(new FsuipcSource());
+        }
+
+        public bool ContainsConfigOfSourceType(Source type)
+        {
+            return ContainsConfigOfSourceType(ConfigItems, type);
+        }
+
+        public static bool ContainsConfigOfSourceType(List<IConfigItem> configItems, Source type)
+        {
+            var result = false;
+            if (type is SimConnectSource)
+            {
+                result = configItems
+                        .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is SimConnectSource) ||
+                        configItems
+                        .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(MSFS2020CustomInputAction)).Count > 0);
+            }
+            else if (type is FsuipcSource)
+            {
+                result = configItems
+                        .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is FsuipcSource) ||
+                         configItems
+                        .Any(x => x is InputConfigItem &&
+                                  (
+                                  (x as InputConfigItem)?.GetInputActionsByType(typeof(FsuipcOffsetInputAction)).Count > 0 ||
+                                  (x as InputConfigItem)?.GetInputActionsByType(typeof(EventIdInputAction)).Count > 0 ||
+                                  (x as InputConfigItem)?.GetInputActionsByType(typeof(PmdgEventIdInputAction)).Count > 0 ||
+                                  (x as InputConfigItem)?.GetInputActionsByType(typeof(JeehellInputAction)).Count > 0 ||
+                                  (x as InputConfigItem)?.GetInputActionsByType(typeof(LuaMacroInputAction)).Count > 0
+                                  )
+                                  );
+            }
+            else if (type is XplaneSource)
+            {
+                result = configItems
+                        .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is XplaneSource) ||
+                         configItems
+                        .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(XplaneInputAction)).Count > 0);
+            }
+            else if (type is VariableSource)
+            {
+                result = configItems
+                        .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is VariableSource) ||
+                         configItems
+                        .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(VariableInputAction)).Count > 0);
+            }
+            else if (type is ProSimSource)
+            {
+                result = configItems
+                        .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is ProSimSource) ||
+                         configItems
+                        .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(ProSimInputAction)).Count > 0);
+            }
+            return result;
+        }
+
+        public List<String> GetIUniqueControllerSerials()
+        {
+            return ConfigItems.Select((i) => i.ModuleSerial).Distinct().ToList();
         }
     }
 }

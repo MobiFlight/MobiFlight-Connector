@@ -1,11 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Tests
@@ -18,10 +14,10 @@ namespace MobiFlight.Tests
         {
             Precondition o = new Precondition();
             Assert.IsNotNull(o, "Object is null");
-            Assert.AreEqual(o.Type, "none", "Type is not none");
-            Assert.AreEqual(o.Active, true, "Active is not true");
-            Assert.AreEqual(o.Logic, "and", "Precondition logic is not and");
-            Assert.AreEqual(o.Operand, Precondition.OPERAND_DEFAULT, "Precondition operand is not the OPERAND_DEFAULT");
+            Assert.AreEqual("none", o.Type, "Type is not none");
+            Assert.IsTrue(o.Active, "Active is not true");
+            Assert.AreEqual("and", o.Logic, "Precondition logic is not and");
+            Assert.AreEqual(Precondition.OPERAND_DEFAULT, o.Operand, "Precondition operand is not the OPERAND_DEFAULT");
         }
 
         [TestMethod()]
@@ -44,28 +40,28 @@ namespace MobiFlight.Tests
             xmlReader.ReadToDescendant("precondition");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Active, true, "Active not the same");
-            Assert.AreEqual(o.Label, "TestLabel", "Label not the same");
-            Assert.AreEqual(o.Logic, "or", "Logic not the same");
-            Assert.AreEqual(o.Operand, "<", "Operand not the same");
-            Assert.AreEqual(o.Pin, null, "Pin not the same");
-            Assert.AreEqual(o.Ref, "TestRef", "Ref not the same");
-            Assert.AreEqual(o.Serial, null, "Serial not the same");
-            Assert.AreEqual(o.Type, "config", "Type not the same");
-            Assert.AreEqual(o.Value, "0", "Value not the same");
+            Assert.IsTrue(o.Active, "Active not the same");
+            Assert.AreEqual("TestLabel", o.Label, "Label not the same");
+            Assert.AreEqual("or", o.Logic, "Logic not the same");
+            Assert.AreEqual("<", o.Operand, "Operand not the same");
+            Assert.IsNull(o.Pin, "Pin not the same");
+            Assert.AreEqual("TestRef", o.Ref, "Ref not the same");
+            Assert.IsNull(o.Serial, "Serial not the same");
+            Assert.AreEqual("config", o.Type, "Type not the same");
+            Assert.AreEqual("0", o.Value, "Value not the same");
 
             o = new Precondition();
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Active, true, "Active not the same");
-            Assert.AreEqual(o.Label, "TestLabel", "Label not the same");
-            Assert.AreEqual(o.Logic, "or", "Logic not the same");
-            Assert.AreEqual(o.Operand, "<", "Operand not the same");
-            Assert.AreEqual(o.Pin, "TestPin", "Pin not the same");
-            Assert.AreEqual(o.Ref, null, "Ref not the same");
-            Assert.AreEqual(o.Serial, "TestSerial", "Serial not the same");
-            Assert.AreEqual(o.Type, "pin", "Type not the same");
-            Assert.AreEqual(o.Value, "0", "Value not the same");
+            Assert.IsTrue(o.Active, "Active not the same");
+            Assert.AreEqual("TestLabel", o.Label, "Label not the same");
+            Assert.AreEqual("or", o.Logic, "Logic not the same");
+            Assert.AreEqual("<", o.Operand, "Operand not the same");
+            Assert.AreEqual("TestPin", o.Pin, "Pin not the same");
+            Assert.IsNull(o.Ref, "Ref not the same");
+            Assert.AreEqual("TestSerial", o.Serial, "Serial not the same");
+            Assert.AreEqual("pin", o.Type, "Type not the same");
+            Assert.AreEqual("0", o.Value, "Value not the same");
         }
 
         [TestMethod()]
@@ -89,7 +85,7 @@ namespace MobiFlight.Tests
 
             String result = System.IO.File.ReadAllText(@"assets\Base\Precondition\WriteXmlTest.1.xml");
 
-            Assert.AreEqual(s, result, "The both strings are not equal");
+            Assert.AreEqual(result, s, "The both strings are not equal");
         }
 
         [TestMethod()]
@@ -98,22 +94,22 @@ namespace MobiFlight.Tests
             Precondition o = _generateTestObject();
             Precondition c = (Precondition)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
-            Assert.AreEqual(o.Active, c.Active, "Active not the same");
-            Assert.AreEqual(o.Label, c.Label, "Label not the same");
-            Assert.AreEqual(o.Logic, c.Logic, "Logic not the same");
-            Assert.AreEqual(o.Operand, c.Operand, "Operand not the same");
-            Assert.AreEqual(o.Pin, c.Pin, "Pin not the same");
-            Assert.AreEqual(o.Ref, c.Ref, "Ref not the same");
-            Assert.AreEqual(o.Serial, c.Serial, "Serial not the same");
-            Assert.AreEqual(o.Type, c.Type, "Type not the same");
-            Assert.AreEqual(o.Value, c.Value, "Value not the same");
+            Assert.AreEqual(c.Active, o.Active, "Active not the same");
+            Assert.AreEqual(c.Label, o.Label, "Label not the same");
+            Assert.AreEqual(c.Logic, o.Logic, "Logic not the same");
+            Assert.AreEqual(c.Operand, o.Operand, "Operand not the same");
+            Assert.AreEqual(c.Pin, o.Pin, "Pin not the same");
+            Assert.AreEqual(c.Ref, o.Ref, "Ref not the same");
+            Assert.AreEqual(c.Serial, o.Serial, "Serial not the same");
+            Assert.AreEqual(c.Type, o.Type, "Type not the same");
+            Assert.AreEqual(c.Value, o.Value, "Value not the same");
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
             Precondition o = _generateTestObject();
-            Assert.AreEqual(o.ToString(), "TestPreCon", "String value is not correct");
+            Assert.AreEqual("TestPreCon", o.ToString(), "String value is not correct");
         }
 
         private Precondition _generateTestObject()
@@ -146,6 +142,33 @@ namespace MobiFlight.Tests
 
             o2 = _generateTestObject();
             Assert.IsTrue(o1.Equals(o2));
+        }
+
+        [TestMethod]
+        public void Empty_Precondition_ShouldSerializeAsEmptyString()
+        {
+            // Arrange
+            var p = new Precondition(); // defaults to Type == "none" and other fields null
+
+            // Act
+            var json = JsonConvert.SerializeObject(p);
+
+            // Assert
+            Assert.AreEqual("", json, "Empty Precondition must be serialized to empty when the converter is enabled.");
+        }
+
+        [TestMethod]
+        public void NonEmpty_Precondition_ShouldNotSerializeAsEmptyString()
+        {
+            // Arrange
+            var p = _generateTestObject();
+
+            // Act
+            var json = JsonConvert.SerializeObject(p);
+
+            // Assert
+            Assert.AreNotEqual("", json, "Non-empty Precondition must not be serialized to empty when the converter is enabled.");
+            Assert.IsFalse(string.IsNullOrEmpty(json), "Serialized JSON should not be empty.");
         }
     }
 }

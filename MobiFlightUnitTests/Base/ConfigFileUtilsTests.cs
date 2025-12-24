@@ -15,10 +15,10 @@ namespace MobiFlight.Base.Tests
             ConfigFile2.ConfigItems.Add(new OutputConfigItem() {});
 
             var ConfigFile3 = new ConfigFile("file3.json");
-            Assert.AreEqual(0, ConfigFile3.ConfigItems.Count);
+            Assert.IsEmpty(ConfigFile3.ConfigItems);
 
             ConfigFileUtils.MergeConfigItems(ConfigFile3, ConfigFile1);
-            Assert.AreEqual(ConfigFile1.ConfigItems.Count, ConfigFile3.ConfigItems.Count);
+            Assert.HasCount(ConfigFile1.ConfigItems.Count, ConfigFile3.ConfigItems);
 
             // check the GUIDs of the items
             for (int i = 0; i < ConfigFile1.ConfigItems.Count; i++)
@@ -27,7 +27,7 @@ namespace MobiFlight.Base.Tests
             }
 
             ConfigFileUtils.MergeConfigItems(ConfigFile3, ConfigFile2);
-            Assert.AreEqual(ConfigFile1.ConfigItems.Count + ConfigFile2.ConfigItems.Count, ConfigFile3.ConfigItems.Count);
+            Assert.HasCount(ConfigFile1.ConfigItems.Count + ConfigFile2.ConfigItems.Count, ConfigFile3.ConfigItems);
 
             for (int i = ConfigFile1.ConfigItems.Count; i < ConfigFile3.ConfigItems.Count; i++)
             {

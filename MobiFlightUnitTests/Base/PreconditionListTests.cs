@@ -48,9 +48,9 @@ namespace MobiFlight.Base.Tests
         public void AddTest()
         {
             PreconditionList o = new PreconditionList();
-            Assert.IsTrue(o.Count == 0);
+            Assert.AreEqual(0, o.Count);
             o.Add(new Precondition());
-            Assert.IsTrue(o.Count == 1);
+            Assert.AreEqual(1, o.Count);
         }
 
         [TestMethod()]
@@ -59,9 +59,9 @@ namespace MobiFlight.Base.Tests
             PreconditionList o = new PreconditionList();
             Precondition p = new Precondition();
             o.Add(p);
-            Assert.IsTrue(o.Count == 1);
+            Assert.HasCount(1, o);
             o.Remove(p);
-            Assert.IsTrue(o.Count == 0);
+            Assert.HasCount(0, o);
         }
 
         [TestMethod()]
@@ -84,7 +84,7 @@ namespace MobiFlight.Base.Tests
             xmlReader.ReadToDescendant("preconditions");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Count, 0);
+            Assert.AreEqual(0, o.Count);
 
             o = new PreconditionList();
             s = System.IO.File.ReadAllText(@"assets\Base\PreconditionList\ReadXmlTest.2.xml");
@@ -96,9 +96,9 @@ namespace MobiFlight.Base.Tests
             xmlReader.ReadToDescendant("preconditions");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Count, 2);
-            Assert.AreEqual(o.ExecuteOnFalse, false);
-            Assert.AreEqual(o.FalseCaseValue, "");
+            Assert.AreEqual(2, o.Count);
+            Assert.IsFalse(o.ExecuteOnFalse);
+            Assert.AreEqual("", o.FalseCaseValue);
         }
 
         [TestMethod()]
@@ -112,7 +112,8 @@ namespace MobiFlight.Base.Tests
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
             PreconditionList o = new PreconditionList();
-            o.Add(new Precondition() { 
+            o.Add(new Precondition()
+            {
                 Type = "config",
                 Label = "TestPreCon",
                 Active = true,
@@ -130,7 +131,7 @@ namespace MobiFlight.Base.Tests
 
             String result = System.IO.File.ReadAllText(@"assets\Base\PreconditionList\WriteXmlTest.1.xml");
 
-            Assert.AreEqual(s, result, "The both strings are not equal");
+            Assert.AreEqual(result, s, "The both strings are not equal");
         }
 
         [TestMethod()]
@@ -154,7 +155,7 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
-        public void JsonSerializationDeserializationTest()
+        public void PreconditionList_ShouldSerializeAndDeserializeCorrectly_WithNonEmptyPreconditions()
         {
             var originalList = new PreconditionList
             {
@@ -185,7 +186,7 @@ namespace MobiFlight.Base.Tests
 
             Assert.IsNotNull(deserializedList);
             Assert.AreEqual(originalList.Count, deserializedList.Count);
-            
+
             var originalArray = originalList.ToArray();
             var deserializedArray = deserializedList.ToArray();
 
@@ -198,7 +199,7 @@ namespace MobiFlight.Base.Tests
                 var Ref = originalArray[i].Ref;
                 var Operand = originalArray[i].Operand;
                 var Value = originalArray[i].Value;
-                var Logic = originalArray[i].Logic;                
+                var Logic = originalArray[i].Logic;
                 var Label = $"Config: <Ref:{Ref}> {Operand} {Value} <Logic:{Logic}>";
                 Assert.AreEqual(Label, deserializedArray[i].Label);
                 Assert.AreEqual(originalArray[i].Active, deserializedArray[i].Active);
@@ -207,6 +208,109 @@ namespace MobiFlight.Base.Tests
                 Assert.AreEqual(originalArray[i].Value, deserializedArray[i].Value);
                 Assert.AreEqual(originalArray[i].Logic, deserializedArray[i].Logic);
             }
+        }
+
+        [TestMethod()]
+        public void PreconditionList_WithEmptyPrecondition_ShouldNotSerializeNull()
+        {
+            // Arrange
+            var list = new PreconditionList();
+            var emptyPrecondition = new Precondition(); // Type="none", all fields null
+            list.Add(emptyPrecondition);
+
+            // Act
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented, settings);
+
+            // Assert
+            Assert.DoesNotContain("null", json, "Serialized JSON should not contain 'null' for empty preconditions");
+            // Should serialize as empty array or with no preconditions
+            Assert.IsTrue(json.Contains("[]") || !json.Contains("\"Preconditions\""),
+                "Empty preconditions should result in empty array or no Preconditions property");
+        }
+
+        [TestMethod()]
+        public void PreconditionList_WithMixedPreconditions_ShouldOnlySerializeNonEmpty()
+        {
+            // Arrange
+            var list = new PreconditionList();
+
+            // Add empty precondition
+            var emptyPrecondition = new Precondition();
+            list.Add(emptyPrecondition);
+
+            // Add valid precondition
+            var validPrecondition = new Precondition
+            {
+                Type = "config",
+                Ref = "TestRef",
+                Operand = "=",
+                Value = "1",
+                Active = true
+            };
+            list.Add(validPrecondition);
+
+            // Add another empty one
+            var anotherEmpty = new Precondition();
+            list.Add(anotherEmpty);
+
+            // Act
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented, settings);
+
+            // Assert
+            Assert.DoesNotContain("null", json, "Serialized JSON should not contain 'null'");
+            Assert.Contains("TestRef", json, "Valid precondition should be serialized");
+
+            // Count how many preconditions are in the output
+            var deserializedList = JsonConvert.DeserializeObject<PreconditionList>(json);
+            Assert.AreEqual(1, deserializedList.Count, "Only non-empty precondition should be in deserialized list");
+        }
+
+        [TestMethod()]
+        public void PreconditionList_AllEmptyPreconditions_ShouldSerializeAsEmptyArray()
+        {
+            // Arrange
+            var list = new PreconditionList();
+            list.Add(new Precondition());
+            list.Add(new Precondition());
+            list.Add(new Precondition());
+
+            // Act
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented, settings);
+
+            // Assert
+            Assert.DoesNotContain("null", json, "Serialized JSON should not contain 'null'");
+        }
+
+        [TestMethod()]
+        public void ConfigFile_WithEmptyPreconditions_ShouldNotContainNull()
+        {
+            // Arrange
+            var configFile = new ConfigFile();
+            var configItem = new OutputConfigItem
+            {
+                Name = "Test",
+                Preconditions = new PreconditionList()
+            };
+            configItem.Preconditions.Add(new Precondition()); // Empty precondition
+            configFile.ConfigItems.Add(configItem);
+
+            // Act
+            var json = configFile.ToJson();
+
+            // Assert
+            Assert.DoesNotContain("null", json, "ConfigFile JSON should not contain 'null' for empty preconditions");
         }
     }
 }

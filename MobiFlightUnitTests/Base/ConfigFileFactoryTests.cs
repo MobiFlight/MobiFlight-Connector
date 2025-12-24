@@ -1,10 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Base.Tests
 {
@@ -18,12 +12,12 @@ namespace MobiFlight.Base.Tests
             var configFile = ConfigFileFactory.CreateConfigFile(testFile);
 
             configFile.OpenFile();
-            Assert.IsTrue(configFile.ConfigItems.Count > 0);
+            Assert.IsNotEmpty(configFile.ConfigItems);
 
             testFile = @"assets/Base/ConfigFile/Json/OpenConfig.mfjson";
             configFile = ConfigFileFactory.CreateConfigFile(testFile);
             configFile.OpenFile();
-            Assert.IsTrue(configFile.ConfigItems.Count == 3);
+            Assert.HasCount(3, configFile.ConfigItems);
         }
 
         [TestMethod]
@@ -63,7 +57,7 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.ConfigItems[0].ModuleSerial, configFileOut.ConfigItems[0].ModuleSerial);
             Assert.AreEqual(configFile.ConfigItems[0].Preconditions, configFileOut.ConfigItems[0].Preconditions);
 
-            Assert.IsTrue(configFileOut.ConfigItems.Count > 0);
+            Assert.IsNotEmpty(configFileOut.ConfigItems);
             for (int i = 0; i < configFile.ConfigItems.Count; i++)
             {
                 Assert.AreEqual(configFile.ConfigItems[i], configFileOut.ConfigItems[i]);

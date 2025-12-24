@@ -4,7 +4,7 @@ import { useEffect } from "react"
 
 export const publishOnMessageExchange = () => ({
   publish: (message: CommandMessage) => {
-    console.log(`Publishing FrontendMessage -> ${message.key}`)
+    console.log(`Publishing FrontendMessage -> ${message.key} : ${message.payload ? JSON.stringify(message.payload) : "no payload"}`)
     window.chrome?.webview?.postMessage(message)
   },
 })
@@ -14,14 +14,14 @@ export const publishOnMessageExchange = () => ({
 // the callback is called when a message is received
 export const useAppMessage = (
   key: AppMessageKey,
-  onReceiveMessage: (message: AppMessage) => void
+  onReceiveMessage: (message: AppMessage) => void,
 ) => {
   useEffect(() => {
     const onReveiveMessageHandler = (event: Event) => {
       try {
         const appMessage = (event as MessageEvent).data as AppMessage
         if (appMessage.key === key) {
-        onReceiveMessage(appMessage)
+          onReceiveMessage(appMessage)
         }
       } catch (error) {
         console.error("Error parsing message", error)
@@ -34,7 +34,7 @@ export const useAppMessage = (
       // remove the event listener when the component is unmounted
       window.chrome?.webview?.removeEventListener(
         "message",
-        onReveiveMessageHandler
+        onReveiveMessageHandler,
       )
     }
   }, [key, onReceiveMessage])

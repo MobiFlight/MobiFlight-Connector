@@ -1,11 +1,8 @@
-﻿using MobiFlight.Config;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Config.Tests
 {
@@ -15,18 +12,18 @@ namespace MobiFlight.Config.Tests
         [TestMethod()]
         public void invalidFormatDeserializeTest()
         {
-            Assert.AreEqual(0, new Config().FromInternal("").Items.Count);
-            Assert.AreEqual(0, new Config().FromInternal("invalid").Items.Count);
-            Assert.AreEqual(0, new Config().FromInternal(":").Items.Count);
-            Assert.AreEqual(0, new Config().FromInternal("1:").Items.Count);
-            Assert.AreEqual(0, new Config().FromInternal("invalid:").Items.Count);
+            Assert.IsEmpty(new Config().FromInternal("").Items);
+            Assert.IsEmpty(new Config().FromInternal("invalid").Items);
+            Assert.IsEmpty(new Config().FromInternal(":").Items);
+            Assert.IsEmpty(new Config().FromInternal("1:").Items);
+            Assert.IsEmpty(new Config().FromInternal("invalid:").Items);
         }
 
         [TestMethod()]
         public void invalidDeviceDeserializeTest()
         {
-            Assert.AreEqual(0, new Config().FromInternal("0.0.Device:").Items.Count);
-            Assert.AreEqual(0, new Config().FromInternal("99.0.Device:").Items.Count);
+            Assert.IsEmpty(new Config().FromInternal("0.0.Device:").Items);
+            Assert.IsEmpty(new Config().FromInternal("99.0.Device:").Items);
         }
 
         [TestMethod()]
@@ -34,7 +31,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("1.0.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("1.0.Device:").Items);
 
             Button expected = new Button();
             expected.Name = "Device";
@@ -48,7 +45,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("2.0.1.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("2.0.1.Device:").Items);
 
             Encoder expected = new Encoder();
             expected.Name = "Device";
@@ -63,7 +60,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("3.0.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("3.0.Device:").Items);
 
             Output expected = new Output();
             expected.Name = "Device";
@@ -77,7 +74,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("16.0.0.1.2.3.4.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("16.0.0.1.2.3.4.Device:").Items);
 
             LedModule expected = new LedModule();
             expected.Name = "Device";
@@ -95,7 +92,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("5.0.1.2.3.4.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("5.0.1.2.3.4.Device:").Items);
 
             StepperDeprecatedV2 deprecated = new StepperDeprecatedV2();
             Stepper expected = new Stepper(deprecated);
@@ -114,7 +111,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("6.0.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("6.0.Device:").Items);
 
             Servo expected = new Servo();
             expected.Name = "Device";
@@ -128,7 +125,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("7.0.1.2.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("7.0.1.2.Device:").Items);
 
             LcdDisplay expected = new LcdDisplay();
             expected.Name = "Device";
@@ -144,7 +141,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("8.0.1.2.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("8.0.1.2.Device:").Items);
 
             Encoder expected = new Encoder();
             expected.Name = "Device";
@@ -160,7 +157,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("9.0.1.2.3.4.Device:").Items.Count);
+            Assert.HasCount(1, o.FromInternal("9.0.1.2.3.4.Device:").Items);
 
             Stepper expected = new Stepper();
             expected.Name = "Device";
@@ -178,7 +175,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(9, o.FromInternal(
+            Assert.HasCount(9, o.FromInternal(
                 "1.0.Device1:"
                 + "2.0.1.Device2:"
                 + "3.0.Device3:"
@@ -187,7 +184,7 @@ namespace MobiFlight.Config.Tests
                 + "6.0.Device6:"
                 + "7.0.1.2.Device7:"
                 + "8.0.1.2.Device8:"
-                + "9.0.1.2.3.4.Device9:").Items.Count);
+                + "9.0.1.2.3.4.Device9:").Items);
 
             Button expected1 = new Button();
             expected1.Name = "Device1";
@@ -260,7 +257,7 @@ namespace MobiFlight.Config.Tests
             Config o = new Config();
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("", actual.ElementAt(0));
         }
 
@@ -275,7 +272,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("1.0.Device:", actual.ElementAt(0));
         }
 
@@ -291,7 +288,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("8.0.1.0.Device:", actual.ElementAt(0));
         }
 
@@ -306,7 +303,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("3.0.Device:", actual.ElementAt(0));
         }
 
@@ -325,7 +322,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("16.0.0.1.2.3.4.Device:", actual.ElementAt(0));
         }
 
@@ -344,7 +341,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("15.0.1.2.3.0.0.0.0.0.Device:", actual.ElementAt(0));
         }
 
@@ -359,7 +356,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("6.0.Device:", actual.ElementAt(0));
         }
 
@@ -376,7 +373,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("7.0.1.2.Device:", actual.ElementAt(0));
         }
 
@@ -393,7 +390,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("8.0.1.2.Device:", actual.ElementAt(0));
         }
 
@@ -412,7 +409,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device);
 
             List<String> actual = o.ToInternal(100);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual("15.0.1.2.3.4.0.0.0.0.Device:", actual.ElementAt(0));
         }
 
@@ -484,7 +481,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device9);
 
             List<String> actual = o.ToInternal(1000);
-            Assert.AreEqual(1, actual.Count);
+            Assert.HasCount(1, actual);
             Assert.AreEqual(
                 "1.0.Device1:"
                 + "8.0.1.0.Device2:"
@@ -564,7 +561,7 @@ namespace MobiFlight.Config.Tests
             o.Items.Add(device9);
 
             List<String> actual = o.ToInternal(1);
-            Assert.AreEqual(9, actual.Count);
+            Assert.HasCount(9, actual);
             Assert.AreEqual("1.0.Device1:", actual.ElementAt(0));
             Assert.AreEqual("8.0.1.0.Device2:", actual.ElementAt(1));
             Assert.AreEqual("3.0.Device3:", actual.ElementAt(2));
@@ -584,7 +581,7 @@ namespace MobiFlight.Config.Tests
 
             Assert.AreEqual("UnitTest", config.ModuleName);
             Assert.AreEqual("MobiFlight Mega", config.ModuleType);
-            Assert.AreEqual(11, config.Items.Count);
+            Assert.HasCount(11, config.Items);
         }
 
         [TestMethod()]
@@ -598,7 +595,7 @@ namespace MobiFlight.Config.Tests
             var savedConfig = Config.LoadFromFile(tmpFileName);
             Assert.AreEqual(config.ModuleName, savedConfig.ModuleName);
             Assert.AreEqual(config.ModuleType, savedConfig.ModuleType);
-            Assert.AreEqual(config.Items.Count, savedConfig.Items.Count);  
+            Assert.HasCount(config.Items.Count, savedConfig.Items);  
             for(var i = 0; i < config.Items.Count; i++)
             {
                 Assert.IsTrue(config.Items[i].Equals(savedConfig.Items[i]));

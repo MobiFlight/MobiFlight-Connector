@@ -1,3 +1,16 @@
+export type BoardDefinition = {
+  Info: {
+    MobiFlightType: string
+    MobiFlightTypeLabel?: string
+  }
+  Community: {
+    Project:string
+    Website:string
+    Docs:string
+    Support:string
+  }
+}
+
 export class JoystickDefinition {
   InstanceName!: string
   Inputs?: JoystickControllerInput[]

@@ -57,8 +57,13 @@ namespace MobiFlight.UI.Panels
             MessageExchange.Instance.SetPublisher(new PostMessagePublisher(FrontendWebView));
         }
 
-        public  void SetZoomFactor(double zoomFactor)
+        public void SetZoomFactor(double zoomFactor)
         {
+            if (zoomFactor < 0.1 || zoomFactor > 5.0)
+            {
+                zoomFactor = Math.Max(Math.Min(5.0,zoomFactor), 1.0);
+            }
+
             if (FrontendWebView.CoreWebView2 != null)
             {
                 FrontendWebView.ZoomFactor = zoomFactor;
@@ -79,6 +84,7 @@ namespace MobiFlight.UI.Panels
 
         private void CoreWebView2_DOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs e)
         {
+
             //var settings = new GlobalSettings(Properties.Settings.Default);
             //MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
         }

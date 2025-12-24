@@ -1,10 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Base.Tests
 {
@@ -64,15 +58,15 @@ namespace MobiFlight.Base.Tests
         {
             var serial = "GMA345/ SN-b44-4c5";
             var result = SerialNumber.IsMobiFlightSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(true, result);
+            Assert.IsTrue(result);
 
             serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
             result = SerialNumber.IsMobiFlightSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
 
             serial = "Arcaze v5.36/ 000393600000";
             result = SerialNumber.IsMobiFlightSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
         }
 
         [TestMethod()]
@@ -80,15 +74,15 @@ namespace MobiFlight.Base.Tests
         {
             var serial = "GMA345/ SN-b44-4c5";
             var result = SerialNumber.IsJoystickSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
 
             serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
             result = SerialNumber.IsJoystickSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(true, result);
+            Assert.IsTrue(result);
 
             serial = "Arcaze v5.36/ 000393600000";
             result = SerialNumber.IsJoystickSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
         }
 
         [TestMethod()]
@@ -96,15 +90,15 @@ namespace MobiFlight.Base.Tests
         {
             var serial = "GMA345/ SN-b44-4c5";
             var result = SerialNumber.IsArcazeSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
 
             serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
             result = SerialNumber.IsArcazeSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
 
             serial = "Arcaze v5.36/ 000393600000";
             result = SerialNumber.IsArcazeSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(true, result);
+            Assert.IsTrue(result);
         }
 
         [TestMethod()]
@@ -112,19 +106,19 @@ namespace MobiFlight.Base.Tests
         {
             var serial = "GMA345/ SN-b44-4c5";
             var result = SerialNumber.IsMidiBoardSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
 
             serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
             result = SerialNumber.IsMidiBoardSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
 
             serial = "Arcaze v5.36/ 000393600000";
             result = SerialNumber.IsMidiBoardSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(false, result);
+            Assert.IsFalse(result);
 
             serial = "My MidiDevice/ MI-123456";
             result = SerialNumber.IsMidiBoardSerial(SerialNumber.ExtractSerial(serial));
-            Assert.AreEqual(true, result);
+            Assert.IsTrue(result);
         }
     }
 }

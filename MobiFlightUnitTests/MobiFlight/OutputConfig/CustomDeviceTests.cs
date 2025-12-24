@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.OutputConfig;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.OutputConfig.Tests
@@ -18,9 +13,9 @@ namespace MobiFlight.OutputConfig.Tests
         {
             var o = new CustomDevice();
             Assert.IsNotNull(o);
-            Assert.AreEqual(null, o.CustomName);
-            Assert.AreEqual(null, o.CustomType);
-            Assert.AreEqual(null, o.Value);
+            Assert.IsNull(o.CustomName);
+            Assert.IsNull(o.CustomType);
+            Assert.IsNull(o.Value);
             Assert.AreEqual(0, o.MessageType);
         }
 

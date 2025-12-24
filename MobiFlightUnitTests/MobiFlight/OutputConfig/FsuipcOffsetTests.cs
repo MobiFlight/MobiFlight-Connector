@@ -1,10 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.OutputConfig;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MobiFlight.OutputConfig.Tests
 {
@@ -20,7 +14,7 @@ namespace MobiFlight.OutputConfig.Tests
             Assert.AreEqual(0xFF, o.Mask);
             Assert.AreEqual(FSUIPCOffsetType.Integer, o.OffsetType);
             Assert.AreEqual(1, o.Size);
-            Assert.AreEqual(false, o.BcdMode);
+            Assert.IsFalse(o.BcdMode);
         }
 
         [TestMethod()]
@@ -53,10 +47,10 @@ namespace MobiFlight.OutputConfig.Tests
             FsuipcOffset clone = o.Clone() as FsuipcOffset;
 
 
-            Assert.AreEqual(o.Offset, clone.Offset, "Mask is not the same");
-            Assert.AreEqual(o.OffsetType, clone.OffsetType, "OffsetType is not the same");
-            Assert.AreEqual(o.Size, clone.Size, "Size is not the same");
-            Assert.AreEqual(o.BcdMode, clone.BcdMode, "BcdMode is not the same");
+            Assert.AreEqual(clone.Offset, o.Offset, "Mask is not the same");
+            Assert.AreEqual(clone.OffsetType, o.OffsetType, "OffsetType is not the same");
+            Assert.AreEqual(clone.Size, o.Size, "Size is not the same");
+            Assert.AreEqual(clone.BcdMode, o.BcdMode, "BcdMode is not the same");
         }
     }
 }

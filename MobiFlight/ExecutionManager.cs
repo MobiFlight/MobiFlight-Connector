@@ -118,10 +118,12 @@ namespace MobiFlight
             {
                 if (_project == value) return;
                 _project = value;
+
                 _project.ProjectChanged += (s, e) =>
                 {
                     OnProjectChanged?.Invoke(this, Project);
                 };
+
                 OnProjectChanged?.Invoke(this, Project);
             }
         }
@@ -287,7 +289,9 @@ namespace MobiFlight
 
             MessageExchange.Instance.Subscribe<CommandAddConfigItem>((message) =>
             {
-                IConfigItem item = new OutputConfigItem();
+                IConfigItem item = new OutputConfigItem() {
+                    Source = SourceFactory.Create(Project.ToProjectInfo().Sim)
+                };
                 if (message.Type == "InputConfig")
                 {
                     item = new InputConfigItem();
@@ -635,6 +639,8 @@ namespace MobiFlight
         private void InitInputEventExecutor()
         {
             _inputEventExecutors.Clear();
+
+            if (Project == null || Project.ConfigFiles == null) return;
 
             foreach (var configFile in Project.ConfigFiles)
             {

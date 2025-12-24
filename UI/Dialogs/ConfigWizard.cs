@@ -28,6 +28,7 @@ namespace MobiFlight.UI.Dialogs
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
+        ProjectInfo ProjectInfo { get; set; }
 
         public ConfigWizard(ExecutionManager executionManager,
                              OutputConfigItem cfg,
@@ -36,10 +37,11 @@ namespace MobiFlight.UI.Dialogs
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
                              List<OutputConfigItem> outputConfigs,
-                             Dictionary<string, MobiFlightVariable> scopedVariables
+                             Dictionary<string, MobiFlightVariable> scopedVariables,
+                             ProjectInfo projectInfo
             )
         {
-            Init(executionManager, cfg);
+            Init(executionManager, cfg, projectInfo);
 #if ARCAZE
             this.moduleSettings = moduleSettings;
             initWithArcazeCache(arcazeCache);
@@ -75,9 +77,11 @@ namespace MobiFlight.UI.Dialogs
             return !originalConfig.Equals(config);
         }
 
-        protected void Init(ExecutionManager executionManager, OutputConfigItem cfg)
+        protected void Init(ExecutionManager executionManager, OutputConfigItem cfg, ProjectInfo projectInfo)
         {
             this._execManager = executionManager;
+            ProjectInfo = projectInfo;
+
             // create a clone so that we don't edit 
             // the original item
             config = cfg.Clone() as OutputConfigItem;
@@ -89,6 +93,7 @@ namespace MobiFlight.UI.Dialogs
             InitializeComponent();
 
             ActivateCorrectTab(config);
+            ShowSourceOptionsBasedOnProjectInfo(ProjectInfo);
 
             // DISPLAY PANEL
             displayPanel1.Init(_execManager);
@@ -105,23 +110,7 @@ namespace MobiFlight.UI.Dialogs
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
             };
 
-            variablePanel1.SetVariableReferences(_execManager.GetAvailableVariables());
 
-            // FSUIPC PANEL
-            fsuipcConfigPanel.setMode(true);
-            // fsuipcConfigPanel.syncFromConfig(cfg);
-
-            // SIMCONNECT SIMVARS PANEL
-            simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
-            _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
-
-            fsuipcConfigPanel.ModifyTabLink += ConfigPanel_ModifyTabLink;
-            fsuipcConfigPanel.PresetChanged += FsuipcConfigPanel_PresetChanged;
-            simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
-            xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
-            variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
-            proSimDatarefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
-            proSimDatarefPanel1.Init(_execManager);
 
             testValuePanel1.FromConfig(config);
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
@@ -130,6 +119,38 @@ namespace MobiFlight.UI.Dialogs
             TestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             TestTimer.Tick += TestTimer_Tick;
             modifierPanel1.ModifierChanged += ModifierPanel1_ModifierChanged;
+        }
+
+        private void ShowSourceOptionsBasedOnProjectInfo(ProjectInfo projectInfo)
+        {
+            var sim = projectInfo.Sim.Trim().ToLower();
+            var useFsuipc = (projectInfo?.Features?.FSUIPC ?? false) || sim == "p3d" || sim == "fsx";
+            var useProSim = (projectInfo?.Features?.ProSim ?? false);
+
+            // VARIABLE PANEL
+            variablePanel1.SetVariableReferences(_execManager.GetAvailableVariables());
+            variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+
+            // FSUIPC PANEL
+            OffsetTypeFsuipRadioButton.Visible = useFsuipc;
+            fsuipcConfigPanel.setMode(true);
+            fsuipcConfigPanel.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            fsuipcConfigPanel.PresetChanged += FsuipcConfigPanel_PresetChanged;
+
+            // SIMCONNECT SIMVARS PANEL
+            OffsetTypeSimConnectRadioButton.Visible = (sim == "msfs");
+            simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
+            _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
+            simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+
+            // X-PLANE DATAREF PANEL
+            OffsetTypeXplaneRadioButton.Visible = (sim == "xplane");
+            xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+
+            // PROSIM DATAREF PANEL
+            OffsetTypeProSimRadioButton.Visible = useProSim;
+            proSimDatarefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            proSimDatarefPanel1.Init(_execManager);
         }
 
         private void ModifierPanel1_ModifierChanged(object sender, EventArgs e)

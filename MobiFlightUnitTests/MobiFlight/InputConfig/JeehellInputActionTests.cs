@@ -1,11 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
@@ -19,8 +15,8 @@ namespace MobiFlight.InputConfig.Tests
             JeehellInputAction o = generateTestObject();
             JeehellInputAction c = (JeehellInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
-            Assert.AreEqual(o.EventId, c.EventId, "EventId not the same");
-            Assert.AreEqual(o.Param, c.Param, "Param not the same");
+            Assert.AreEqual(c.EventId, o.EventId, "EventId not the same");
+            Assert.AreEqual(c.Param, o.Param, "Param not the same");
         }
 
         [TestMethod()]
@@ -36,8 +32,8 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.EventId, 13, "EventId not the same");
-            Assert.AreEqual(o.Param, Int16.MaxValue.ToString(), "Param not the same");
+            Assert.AreEqual(13, o.EventId, "EventId not the same");
+            Assert.AreEqual(Int16.MaxValue.ToString(), o.Param, "Param not the same");
         }
 
         [TestMethod()]
@@ -78,12 +74,12 @@ namespace MobiFlight.InputConfig.Tests
                 xplaneCache = xplaneCacheMock
             };
             o.execute(cacheCollection, null, new List<ConfigRefValue>());
-            Assert.AreEqual(mock.Writes.Count, 3, "The message count is not as expected");
-            Assert.AreEqual(mock.Writes[0].Offset, 0x73CD, "The Param Offset is wrong");
-            Assert.AreEqual(mock.Writes[0].Value, Int16.MaxValue.ToString(), "The Param Value is wrong");
-            Assert.AreEqual(mock.Writes[1].Offset, 0x73CC, "The Base Offset is wrong");
-            Assert.AreEqual(mock.Writes[1].Value, "13", "The Base Value is wrong");
-            Assert.AreEqual(mock.Writes[2].Value, "Write", "The Write Value is wrong");
+            Assert.HasCount(3, mock.Writes, "The message count is not as expected");
+            Assert.AreEqual(0x73CD, mock.Writes[0].Offset,"The Param Offset is wrong");
+            Assert.AreEqual(Int16.MaxValue.ToString(), mock.Writes[0].Value, "The Param Value is wrong");
+            Assert.AreEqual(0x73CC, mock.Writes[1].Offset, "The Base Offset is wrong");
+            Assert.AreEqual("13", mock.Writes[1].Value, "The Base Value is wrong");
+            Assert.AreEqual("Write", mock.Writes[2].Value, "The Write Value is wrong");
         }
 
         JeehellInputAction generateTestObject()

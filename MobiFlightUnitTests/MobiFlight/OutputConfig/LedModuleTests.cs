@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.OutputConfig;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.OutputConfig.Tests
 {
@@ -18,8 +13,8 @@ namespace MobiFlight.OutputConfig.Tests
             Assert.IsNotNull(o);
             Assert.AreEqual(1,o.DisplayLedConnector);
             Assert.AreEqual("0",o.DisplayLedAddress);
-            Assert.AreEqual(false,o.DisplayLedPadding);
-            Assert.AreEqual(false,o.DisplayLedReverseDigits);
+            Assert.IsFalse(o.DisplayLedPadding);
+            Assert.IsFalse(o.DisplayLedReverseDigits);
             Assert.AreEqual(string.Empty, o.DisplayLedBrightnessReference);
             Assert.AreEqual("0",o.DisplayLedPaddingChar);
             Assert.AreEqual(8, o.DisplayLedModuleSize);

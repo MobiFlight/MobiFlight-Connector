@@ -52,7 +52,7 @@ namespace MobiFlight
             return (
                 DeviceName == item.DeviceName &&
                 DeviceType == item.DeviceType &&
-                Source.AreEqual(item.Source) &&
+                (Source?.AreEqual(item.Source) ?? item.Source == null) &&
                 TestValue.AreEqual(item.TestValue) &&
                 Device.AreEqual(item.Device) &&
                 ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
@@ -380,7 +380,7 @@ namespace MobiFlight
 
         public OutputConfigItem(OutputConfigItem config) : base(config)
         {
-            this.Source = config.Source.Clone() as Source;
+            this.Source = config.Source?.Clone() as Source;
             
             this.DeviceType = config.DeviceType;
             this.ModuleSerial = config.ModuleSerial;

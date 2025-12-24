@@ -1,11 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
@@ -19,9 +15,9 @@ namespace MobiFlight.InputConfig.Tests
             PmdgEventIdInputAction o = generateTestObject();
             PmdgEventIdInputAction c = (PmdgEventIdInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
-            Assert.AreEqual(o.EventId, c.EventId, "EventId not the same");
-            Assert.AreEqual(o.Param, c.Param, "Param not the same");
-            Assert.AreEqual(o.AircraftType, c.AircraftType, "Param not the same");
+            Assert.AreEqual(c.EventId, o.EventId, "EventId not the same");
+            Assert.AreEqual(c.Param, o.Param, "Param not the same");
+            Assert.AreEqual(c.AircraftType, o.AircraftType, "Param not the same");
         }
 
         private PmdgEventIdInputAction generateTestObject()
@@ -47,9 +43,9 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.EventId, Int32.MaxValue, "EventId not the same");
-            Assert.AreEqual(o.Param, (UInt32.MaxValue - 1).ToString(), "Param not the same");
-            Assert.AreEqual(o.AircraftType, PmdgEventIdInputAction.PmdgAircraftType.B777);
+            Assert.AreEqual(Int32.MaxValue, o.EventId, "EventId not the same");
+            Assert.AreEqual((UInt32.MaxValue - 1).ToString(), o.Param, "Param not the same");
+            Assert.AreEqual(PmdgEventIdInputAction.PmdgAircraftType.B777, o.AircraftType);
         }
 
         [TestMethod()]
@@ -91,7 +87,7 @@ namespace MobiFlight.InputConfig.Tests
             };
 
             o.execute(cacheCollection, null, new List<ConfigRefValue>());
-            Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
+            Assert.HasCount(1, mock.Writes, "The message count is not as expected");
             Assert.AreEqual("SetEventID>" + o.EventId + ">-2", mock.Writes[0].Value, "The Write Value is wrong");
 
             mock.Clear();
@@ -101,7 +97,7 @@ namespace MobiFlight.InputConfig.Tests
             configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
             o.execute(cacheCollection, null, configrefs);
 
-            Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
+            Assert.HasCount(1, mock.Writes, "The message count is not as expected");
             Assert.AreEqual("SetEventID>" + o.EventId + ">" + 2, mock.Writes[0].Value, "The Write Value is wrong");
         }
 

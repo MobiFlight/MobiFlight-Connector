@@ -14,7 +14,7 @@ namespace MobiFlight.OutputConfig.Tests
             Output o = new Output();
             Assert.IsNotNull(o);
             Assert.AreEqual(byte.MaxValue, o.Brightness);
-            Assert.AreEqual(false, o.PwmMode);
+            Assert.IsFalse(o.PwmMode);
         }
 
         [TestMethod()]
@@ -65,7 +65,7 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.AreEqual("Pin", o.Pin);
             Assert.AreEqual(128, o.Brightness);
-            Assert.AreEqual(true, o.PwmMode);
+            Assert.IsTrue(o.PwmMode);
         }
 
         [TestMethod()]

@@ -14,13 +14,13 @@ namespace MobiFlight.Tests
             Assert.IsFalse(BoardDefinitions.LoadingError);
 
             var coreBoard = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
-            Assert.IsTrue(coreBoard.PartnerLevel == BoardPartnerLevel.Core);
+            Assert.AreEqual(BoardPartnerLevel.Core, coreBoard.PartnerLevel);
 
             var partnerBoard = BoardDefinitions.GetBoardByMobiFlightType("Kav Mega");
-            Assert.IsTrue(partnerBoard.PartnerLevel == BoardPartnerLevel.Partner);
+            Assert.AreEqual(BoardPartnerLevel.Partner, partnerBoard.PartnerLevel);
 
             var communityBoard = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight GenericI2C Mega");
-            Assert.IsTrue(communityBoard.PartnerLevel == BoardPartnerLevel.Community);
+            Assert.AreEqual(BoardPartnerLevel.Community, communityBoard.PartnerLevel);
         }
 
         [TestMethod()]

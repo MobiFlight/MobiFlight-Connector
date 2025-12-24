@@ -1,12 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Modifier;
-using MobiFlight.OutputConfig;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Modifier.Tests
@@ -19,7 +14,7 @@ namespace MobiFlight.Modifier.Tests
         {
             Comparison o = new Comparison();
             Assert.IsNotNull(o, "Object is null");
-            Assert.AreEqual(false, o.Active, "Active not true");
+            Assert.IsFalse(o.Active, "Active not true");
             Assert.AreEqual("", o.Value, "Value not empty");
             Assert.AreEqual(Comparison.OPERAND_EQUAL, o.Operand, "Operand not empty");
             Assert.AreEqual("", o.IfValue, "IfValue not empty");

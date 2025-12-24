@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +15,7 @@ namespace MobiFlight.InputConfig.Tests
             MSFS2020EventIdInputAction o = generateTestObject();
             MSFS2020EventIdInputAction c = (MSFS2020EventIdInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
-            Assert.AreEqual(o.EventId, c.EventId, "EventId not the same");
+            Assert.AreEqual(c.EventId, o.EventId, "EventId not the same");
         }
 
         private MSFS2020EventIdInputAction generateTestObject()
@@ -39,7 +39,7 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.EventId, "ReadTestEvent", "EventId not the same");
+            Assert.AreEqual("ReadTestEvent", o.EventId, "EventId not the same");
         }
 
         [TestMethod()]
@@ -83,8 +83,8 @@ namespace MobiFlight.InputConfig.Tests
             };
 
             o.execute(cacheCollection, null, null);
-            Assert.AreEqual(simConnectMock.Writes.Count, 1, "The message count is not as expected");
-            Assert.AreEqual(simConnectMock.Writes[0], "SetEventID>MyEventId", "The Write Value is wrong");
+            Assert.HasCount(1, simConnectMock.Writes, "The message count is not as expected");
+            Assert.AreEqual("SetEventID>MyEventId", simConnectMock.Writes[0], "The Write Value is wrong");
         }
 
         [TestMethod()]

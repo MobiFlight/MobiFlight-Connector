@@ -36,6 +36,9 @@ namespace MobiFlight
         protected JoystickState State = null;
         private HidStream Stream;
 
+        /// <summary>
+        /// This map defines how a usageId maps to a JoystickState property name.
+        /// </summary>
         private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
         {
             [48] = "X",
@@ -454,7 +457,7 @@ namespace MobiFlight
             }
         }
 
-        private int GetValueForAxisFromState(int currentAxis, JoystickState state)
+        protected int GetValueForAxisFromState(int currentAxis, JoystickState state)
         {
             String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();
             if (RawAxisName.Contains("Slider"))
@@ -467,7 +470,7 @@ namespace MobiFlight
             return (int)state.GetType().GetProperty(RawAxisName).GetValue(state, null);
         }
 
-        private bool StateExists()
+        protected bool StateExists()
         {
             return State != null;
         }
@@ -532,7 +535,11 @@ namespace MobiFlight
 
         public virtual void UpdateOutputDeviceStates()
         {
-            var data = new byte[] { 0, 0, 0, 0, 0 };
+            // Honeycomb LED protocol: Feature report with bits set for each lit LED and cleared for each unlit LED.
+            // Byte 0 is unused on Bravo, but used as the report ID on Sierra. Report ID for the LED command must be 1 on Sierra.
+            // Setting this byte to 1 is supported by both throttles.
+            // Other bytes initialized to zero to ensure lights are only turned on if they are set to 1 by output events.
+            var data = new byte[] { 1, 0, 0, 0, 0 };
 
             foreach (var light in Lights)
             {

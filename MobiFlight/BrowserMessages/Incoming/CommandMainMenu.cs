@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MobiFlight.Base;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
@@ -18,6 +19,8 @@ namespace MobiFlight.BrowserMessages.Incoming
         file_exit,
         [EnumMember(Value = "file.recent")]
         file_recent,
+        [EnumMember(Value = "project.edit")]
+        project_edit,
         [EnumMember(Value = "extras.hubhop.download")]
         extras_hubhop_download,
         [EnumMember(Value = "extras.msfs.reinstall")]
@@ -43,7 +46,9 @@ namespace MobiFlight.BrowserMessages.Incoming
         [EnumMember(Value = "help.releasenotes")]
         help_releasenotes,
         [EnumMember(Value = "help.donate")]
-        help_donate
+        help_donate,
+        [EnumMember(Value = "virtual.recent.remove")]
+        virtual_recent_remove
     }
 
     public class CommandMainMenu
@@ -53,5 +58,16 @@ namespace MobiFlight.BrowserMessages.Incoming
         public CommandMainMenuAction Action { get; set; }
         [JsonProperty("index")] // Matches the lowercase "item" in JSON
         public int Index { get; set; }
+        [JsonProperty("options")] // Matches the lowercase "item" in JSON
+        public CommandMainMenuOptions Options { get; set; }
+    }
+
+    public class CommandMainMenuOptions
+    {
+        [JsonProperty("project")]
+        public Project Project { get; set; }
+
+        [JsonProperty("filePath")]
+        public string FilePath { get; set; }
     }
 }

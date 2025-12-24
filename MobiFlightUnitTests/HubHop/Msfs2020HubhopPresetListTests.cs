@@ -17,7 +17,7 @@ namespace MobiFlight.HubHop.Tests
             Msfs2020HubhopPresetList list = new Msfs2020HubhopPresetList();
             String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
             list.Load(TestFile);
-            Assert.AreEqual(7, list.Items.Count);
+            Assert.HasCount(7, list.Items);
             Assert.AreEqual("Microsoft.Generic.Avionics.AS1000_PFD_VOL_1_INC", list.Items[0].path);
             Assert.AreEqual("Microsoft", list.Items[0].vendor);
             Assert.AreEqual("Generic", list.Items[0].aircraft);
@@ -42,7 +42,7 @@ namespace MobiFlight.HubHop.Tests
             String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
             list.Load(TestFile);
 
-            Assert.AreEqual(3, list.AllVendors(HubHopType.Input).Count);
+            Assert.HasCount(3, list.AllVendors(HubHopType.Input));
 
             // check for order
             Assert.AreEqual("Asobo", list.AllVendors(HubHopType.Input)[0]);
@@ -50,13 +50,13 @@ namespace MobiFlight.HubHop.Tests
             Assert.AreEqual("Microsoft", list.AllVendors(HubHopType.Input)[2]);
 
             // check for outputs
-            Assert.AreEqual(2, list.AllVendors(HubHopType.Output).Count);
+            Assert.HasCount(2, list.AllVendors(HubHopType.Output));
 
             // check for potentiometers
-            Assert.AreEqual(1, list.AllVendors(HubHopType.InputPotentiometer).Count);
+            Assert.HasCount(1, list.AllVendors(HubHopType.InputPotentiometer));
 
             // check for all inputs
-            Assert.AreEqual(3, list.AllVendors(HubHopType.InputPotentiometer | HubHopType.Input).Count);
+            Assert.HasCount(3, list.AllVendors(HubHopType.InputPotentiometer | HubHopType.Input));
         }
 
         [TestMethod()]
@@ -66,7 +66,7 @@ namespace MobiFlight.HubHop.Tests
             String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
             list.Load(TestFile);
 
-            Assert.AreEqual(3, list.AllAircraft(HubHopType.Input).Count);
+            Assert.HasCount(3, list.AllAircraft(HubHopType.Input));
 
             // check for order
             Assert.AreEqual("Generic", list.AllAircraft(HubHopType.Input)[0]);
@@ -74,13 +74,13 @@ namespace MobiFlight.HubHop.Tests
             Assert.AreEqual("TBM 580", list.AllAircraft(HubHopType.Input)[2]);
 
             // check for outputs
-            Assert.AreEqual(2, list.AllAircraft(HubHopType.Output).Count);
+            Assert.HasCount(2, list.AllAircraft(HubHopType.Output));
 
             // check for potentiometers
-            Assert.AreEqual(1, list.AllAircraft(HubHopType.InputPotentiometer).Count);
+            Assert.HasCount(1, list.AllAircraft(HubHopType.InputPotentiometer));
 
             // check for all inputs
-            Assert.AreEqual(4, list.AllAircraft(HubHopType.InputPotentiometer | HubHopType.Input).Count);
+            Assert.HasCount(4, list.AllAircraft(HubHopType.InputPotentiometer | HubHopType.Input));
         }
 
         [TestMethod()]
@@ -90,7 +90,7 @@ namespace MobiFlight.HubHop.Tests
             String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
             list.Load(TestFile);
 
-            Assert.AreEqual(3, list.AllSystems(HubHopType.Input).Count);
+            Assert.HasCount(3, list.AllSystems(HubHopType.Input));
 
             // check for order
             Assert.AreEqual("Avionics", list.AllSystems(HubHopType.Input)[0]);
@@ -98,13 +98,13 @@ namespace MobiFlight.HubHop.Tests
             Assert.AreEqual("Gear", list.AllSystems(HubHopType.Input)[2]);
 
             // check for outputs
-            Assert.AreEqual(2, list.AllSystems(HubHopType.Output).Count);
+            Assert.HasCount(2, list.AllSystems(HubHopType.Output));
 
             // check for potentiometers
-            Assert.AreEqual(1, list.AllSystems(HubHopType.InputPotentiometer).Count);
+            Assert.HasCount(1, list.AllSystems(HubHopType.InputPotentiometer));
 
             // check for all inputs
-            Assert.AreEqual(4, list.AllAircraft(HubHopType.InputPotentiometer | HubHopType.Input).Count);
+            Assert.HasCount(4, list.AllAircraft(HubHopType.InputPotentiometer | HubHopType.Input));
         }
 
         [TestMethod()]

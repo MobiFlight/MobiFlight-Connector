@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.InputConfig.Tests
 {
@@ -58,8 +53,8 @@ namespace MobiFlight.InputConfig.Tests
 
             o.execute(cacheCollection, new InputEventArgs() { Value = 359 }, configrefs);
             
-            Assert.AreEqual(simConnectMock.Writes.Count, 1, "The message count is not as expected");
-            Assert.AreEqual(simConnectMock.Writes[0], "359 (>K:THROTTLE_SET)", "The Write Value is wrong");
+            Assert.HasCount(1, simConnectMock.Writes, "The message count is not as expected");
+            Assert.AreEqual("359 (>K:THROTTLE_SET)", simConnectMock.Writes[0], "The Write Value is wrong");
         }
     }
 }

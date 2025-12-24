@@ -18,8 +18,11 @@ const StartupProgress = (props: StartupProgressProps) => {
             className="pointer-events-none h-36 w-36 shadow-xl shadow-slate-800/40"
           />
         </div>
-        <div className="dark:h-10 rounded-full w-full max-w-xl dark:bg-linear-to-br dark:from-indigo-500 dark:from-10% dark:via-sky-500 dark:via-30% dark:to-emerald-500 dark:to-90% p-0.5">
-          <Progress className="h-10 dark:h-9 max-w-xl dark:bg-black" value={value}></Progress>
+        <div className="w-full max-w-xl rounded-full p-0.5 dark:h-10 dark:bg-linear-to-br dark:from-indigo-500 dark:from-10% dark:via-sky-500 dark:via-30% dark:to-emerald-500 dark:to-90%">
+          <Progress
+            className="h-10 max-w-xl dark:h-9 dark:bg-black"
+            value={value}
+          ></Progress>
         </div>
         <p className="text-white">{text}</p>
       </div>

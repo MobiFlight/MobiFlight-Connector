@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.ProSim;
 using Newtonsoft.Json;
-using System;
 
 namespace MobiFlight.Tests.ProSim
 {
@@ -223,4 +222,4 @@ namespace MobiFlight.Tests.ProSim
             Assert.AreEqual("", deserialized.ProSimDataRef.Path, "Default ProSimDataRef Path should be empty string");
         }
     }
-} 
+}

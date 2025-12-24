@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
@@ -38,22 +38,22 @@ namespace MobiFlight.Tests
             System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
             Assert.IsTrue(oci.Source is FsuipcSource);
-            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.OffsetType, FSUIPCOffsetType.Integer);
-            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.Offset, 0x034E);
-            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.Size, 2);
-            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.Mask, 0xFFFF);
-            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.BcdMode, true);
-            Assert.AreEqual(oci.Modifiers.Transformation.Expression, "$+123");
+            Assert.AreEqual(FSUIPCOffsetType.Integer, (oci.Source as FsuipcSource).FSUIPC.OffsetType);
+            Assert.AreEqual(0x034E, (oci.Source as FsuipcSource).FSUIPC.Offset);
+            Assert.AreEqual(2, (oci.Source as FsuipcSource).FSUIPC.Size);
+            Assert.AreEqual(0xFFFF, (oci.Source as FsuipcSource).FSUIPC.Mask);
+            Assert.IsTrue((oci.Source as FsuipcSource).FSUIPC.BcdMode);
+            Assert.AreEqual("$+123", oci.Modifiers.Transformation.Expression);
 
             // read backward compatible
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.2.xml");
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual(oci.Modifiers.Transformation.Active, true);
-            Assert.AreEqual(oci.Modifiers.Transformation.Expression, "$*123");
+            Assert.IsTrue(oci.Modifiers.Transformation.Active);
+            Assert.AreEqual("$*123", oci.Modifiers.Transformation.Expression);
             Assert.IsTrue(oci.Device is LedModule);
-            Assert.AreEqual((oci.Device as LedModule).DisplayLedBrightnessReference, "CF057791-E133-4638-A99E-FEF9B187C4DB");
+            Assert.AreEqual("CF057791-E133-4638-A99E-FEF9B187C4DB", (oci.Device as LedModule).DisplayLedBrightnessReference);
 
             // read problem with missing configrefs
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.3.xml");
@@ -68,7 +68,7 @@ namespace MobiFlight.Tests
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "Interpolation is supposed to be active");
+            Assert.IsTrue(oci.Modifiers.Interpolation.Active, "Interpolation is supposed to be active");
             Assert.AreEqual(5, oci.Modifiers.Interpolation.Count);
 
             // read problem with interpolation OUTSIDE of display node
@@ -76,7 +76,7 @@ namespace MobiFlight.Tests
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "Interpolation is supposed to be active");
+            Assert.IsTrue(oci.Modifiers.Interpolation.Active, "Interpolation is supposed to be active");
             Assert.AreEqual(5, oci.Modifiers.Interpolation.Count);
 
             // read buttoninputaction
@@ -136,7 +136,7 @@ namespace MobiFlight.Tests
             oci = new OutputConfigItem();
             oci.ReadXml(xmlReader);
             Assert.AreEqual("Display Module", oci.DeviceType, "Display Type not Display Module");
-            Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "AnalogInputConfig.onPress null");
+            Assert.IsTrue(oci.Modifiers.Interpolation.Active, "AnalogInputConfig.onPress null");
             Assert.AreEqual(5, oci.Modifiers.Interpolation.Count, "Interpolation Count is not 5");
         }
 
@@ -190,10 +190,10 @@ namespace MobiFlight.Tests
             OutputConfigItem o = _generateConfigItem();
 
             OutputConfigItem c = (OutputConfigItem)o.Clone();
-            Assert.AreEqual(o.Name, c.Name, "clone: Name not the same");
-            Assert.AreEqual(o.Active, c.Active, "clone: Active not the same");
-            Assert.AreEqual(o.GUID, c.GUID, "clone: GUID not the same");
-            Assert.AreEqual(o.Type, c.Type, "clone: Type not the same");
+            Assert.AreEqual(c.Name, o.Name, "clone: Name not the same");
+            Assert.AreEqual(c.Active, o.Active, "clone: Active not the same");
+            Assert.AreEqual(c.GUID, o.GUID, "clone: GUID not the same");
+            Assert.AreEqual(c.Type, o.Type, "clone: Type not the same");
 
             Assert.AreEqual((o.Source as FsuipcSource).FSUIPC.Offset, (c.Source as FsuipcSource).FSUIPC.Offset, "clone: FSUIPCOffset not the same");
             Assert.AreEqual((o.Source as FsuipcSource).FSUIPC.Mask, (c.Source as FsuipcSource).FSUIPC.Mask, " clone: FSUIPCMask not the same");
@@ -208,8 +208,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
             Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation count not right");
 
-            Assert.AreEqual(o.DeviceType, c.DeviceType, "clone: DisplayType not the same");
-            Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "clone: DisplaySerial not the same");
+            Assert.AreEqual(c.DeviceType, o.DeviceType, "clone: DisplayType not the same");
+            Assert.AreEqual(c.ModuleSerial, o.ModuleSerial, "clone: DisplaySerial not the same");
 
             if (o.DeviceType == MobiFlight.DeviceType.Output.ToString("F"))
             {
@@ -236,20 +236,20 @@ namespace MobiFlight.Tests
                 var oServo = o.Device as Servo;
                 var cServo = c.Device as Servo;
 
-                Assert.AreEqual(oServo.Address, cServo.Address, "clone: ServoAddress not the same");
-                Assert.AreEqual(oServo.Max, cServo.Max, "clone: ServoMax not the same");
-                Assert.AreEqual(oServo.Min, cServo.Min, "clone: ServoMin not the same");
-                Assert.AreEqual(oServo.MaxRotationPercent, cServo.MaxRotationPercent, "clone: ServoMaxRotationPercent not the same");
+                Assert.AreEqual(cServo.Address, oServo.Address, "clone: ServoAddress not the same");
+                Assert.AreEqual(cServo.Max, oServo.Max, "clone: ServoMax not the same");
+                Assert.AreEqual(cServo.Min, oServo.Min, "clone: ServoMin not the same");
+                Assert.AreEqual(cServo.MaxRotationPercent, oServo.MaxRotationPercent, "clone: ServoMaxRotationPercent not the same");
             }
 
             if (o.Device is Stepper) {
                 var oStepper = o.Device as Stepper;
                 var cStepper = c.Device as Stepper;
 
-                Assert.AreEqual(oStepper.Address, cStepper.Address, "clone: StepperAddress not the same");
-                Assert.AreEqual(oStepper.InputRev, cStepper.InputRev, "clone: StepperInputRev not the same");
-                Assert.AreEqual(oStepper.OutputRev, cStepper.OutputRev, "clone: StepperOutputRev not the same");
-                Assert.AreEqual(oStepper.TestValue, cStepper.TestValue, "clone: StepperTestValue not the same");
+                Assert.AreEqual(cStepper.Address, oStepper.Address, "clone: StepperAddress not the same");
+                Assert.AreEqual(cStepper.InputRev, oStepper.InputRev, "clone: StepperInputRev not the same");
+                Assert.AreEqual(cStepper.OutputRev, oStepper.OutputRev, "clone: StepperOutputRev not the same");
+                Assert.AreEqual(cStepper.TestValue, oStepper.TestValue, "clone: StepperTestValue not the same");
             }
 
             if (o.Device is ShiftRegister)
@@ -257,8 +257,8 @@ namespace MobiFlight.Tests
                 var oShiftRegister = o.Device as ShiftRegister;
                 var cShiftRegister = c.Device as ShiftRegister;
                 // Shift Register
-                Assert.AreEqual(oShiftRegister.Address, cShiftRegister.Address, "clone: ShiftRegister.Address not the same");
-                Assert.AreEqual(oShiftRegister.Pin, cShiftRegister.Pin, "clone: ShiftRegister.Address not the same");
+                Assert.AreEqual(cShiftRegister.Address, oShiftRegister.Address, "clone: ShiftRegister.Address not the same");
+                Assert.AreEqual(cShiftRegister.Pin, oShiftRegister.Pin, "clone: ShiftRegister.Address not the same");
             }
 
             if (o.Device is CustomDevice)
@@ -266,10 +266,10 @@ namespace MobiFlight.Tests
                 var oCustomDevice = o.Device as CustomDevice;
                 var cCustomDevice = c.Device as CustomDevice;
                 // Custom Device
-                Assert.AreEqual(oCustomDevice.CustomType, cCustomDevice.CustomType, "clone: CustomDevice.CustomType not the same");
-                Assert.AreEqual(oCustomDevice.CustomName, cCustomDevice.CustomName, "clone: CustomDevice.CustomName not the same");
-                Assert.AreEqual(oCustomDevice.MessageType, cCustomDevice.MessageType, "clone: CustomDevice.MessageType not the same");
-                Assert.AreEqual(oCustomDevice.Value, cCustomDevice.Value, "clone: CustomDevice.Value not the same");
+                Assert.AreEqual(cCustomDevice.CustomType, oCustomDevice.CustomType, "clone: CustomDevice.CustomType not the same");
+                Assert.AreEqual(cCustomDevice.CustomName, oCustomDevice.CustomName, "clone: CustomDevice.CustomName not the same");
+                Assert.AreEqual(cCustomDevice.MessageType, oCustomDevice.MessageType, "clone: CustomDevice.MessageType not the same");
+                Assert.AreEqual(cCustomDevice.Value, oCustomDevice.Value, "clone: CustomDevice.Value not the same");
             }
 
             //o. = new Interpolation();

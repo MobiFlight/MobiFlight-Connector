@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.InputConfig;
+using MobiFlight.UI.Panels.Action;
+using MobiFlight.UI.Panels.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
-using MobiFlight.InputConfig;
-using MobiFlight.UI.Panels.Config;
-using MobiFlight.UI.Panels.Action;
 
 namespace MobiFlight.UI.Panels.Input
 {
@@ -18,6 +14,18 @@ namespace MobiFlight.UI.Panels.Input
         private InputConfig.EncoderInputConfig _config;
         private IExecutionManager _executionManager;
         private Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
+
+        private ProjectInfo _projectInfo;
+        public ProjectInfo ProjectInfo
+        {
+            get { return _projectInfo; }
+            set
+            {
+                if (_projectInfo == value) return;
+                _projectInfo = value;
+                UpdateActionPanelCallbacks(_projectInfo);
+            }
+        }
         public new bool Enabled
         {
             get { return onLeftActionTypePanel.Enabled; }
@@ -34,6 +42,17 @@ namespace MobiFlight.UI.Panels.Input
             }
         }
 
+        private InputConfigItem _currentConfig;
+        public InputConfigItem CurrentConfig
+        {
+            get { return _currentConfig; }
+            set
+            {
+                _currentConfig = value;
+                UpdateActionPanelCallbacks(ProjectInfo);
+            }
+        }
+
         private void clipBoardActionChanged(InputAction action)
         {
             onLeftActionTypePanel.OnClipBoardChanged(action);
@@ -45,17 +64,14 @@ namespace MobiFlight.UI.Panels.Input
         public EncoderPanel()
         {
             InitializeComponent();
-            onLeftActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
-            onLeftFastActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
-            onRightActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
-            onRightFastActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
 
-            List<ActionTypePanel> panels = new List<ActionTypePanel>() { onLeftActionTypePanel, onLeftFastActionTypePanel, onRightActionTypePanel, onRightFastActionTypePanel };
-            panels.ForEach(action =>
-            {
-                action.CopyButtonPressed += Action_CopyButtonPressed;
-                action.PasteButtonPressed += Action_PasteButtonPressed;
-            });
+            onLeftActionTypePanel.ActionTypeChanged += onPressActionTypePanel_ActionTypeChanged;
+            onLeftFastActionTypePanel.ActionTypeChanged += onPressActionTypePanel_ActionTypeChanged;
+            onRightActionTypePanel.ActionTypeChanged += onPressActionTypePanel_ActionTypeChanged;
+            onRightFastActionTypePanel.ActionTypeChanged += onPressActionTypePanel_ActionTypeChanged;
+
+            UpdateActionPanelCallbacks();
+
 
             Clipboard.Instance.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
@@ -70,6 +86,26 @@ namespace MobiFlight.UI.Panels.Input
             {
                 clipBoardActionChanged(Clipboard.Instance.InputAction);
             }
+        }
+
+        private void UpdateActionPanelCallbacks(ProjectInfo projectInfo = null)
+        {
+            List<ActionTypePanel> panels = new List<ActionTypePanel>() {
+                onLeftActionTypePanel,
+                onLeftFastActionTypePanel,
+                onRightActionTypePanel,
+                onRightFastActionTypePanel
+            };
+
+            panels.ForEach(action =>
+            {
+                action.ProjectInfo = projectInfo;
+                action.CurrentConfig = CurrentConfig;
+                action.CopyButtonPressed -= Action_CopyButtonPressed;
+                action.CopyButtonPressed += Action_CopyButtonPressed;
+                action.PasteButtonPressed -= Action_PasteButtonPressed;
+                action.PasteButtonPressed += Action_PasteButtonPressed;
+            });
         }
 
         public void Init(IExecutionManager executionManager)

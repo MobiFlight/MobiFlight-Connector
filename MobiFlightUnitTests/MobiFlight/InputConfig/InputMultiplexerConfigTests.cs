@@ -1,11 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
@@ -23,9 +18,9 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual((o.onPress as EventIdInputAction).EventId, (c.onPress as EventIdInputAction).EventId, "OnPress is not correct");
             Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelase is not correct");
             Assert.AreEqual((o.onHold as VariableInputAction).Variable.Name, (c.onHold as VariableInputAction).Variable.Name, "onHold is not correct");
-            Assert.AreEqual(o.HoldDelay, c.HoldDelay, "HoldDelay is not correct");
-            Assert.AreEqual(o.LongReleaseDelay, c.LongReleaseDelay, "LongReleaseDelay is not correct");
-            Assert.AreEqual(o.RepeatDelay, c.RepeatDelay, "RepeatDelay is not correct");
+            Assert.AreEqual(c.HoldDelay, o.HoldDelay, "HoldDelay is not correct");
+            Assert.AreEqual(c.LongReleaseDelay, o.LongReleaseDelay, "LongReleaseDelay is not correct");
+            Assert.AreEqual(c.RepeatDelay, o.RepeatDelay, "RepeatDelay is not correct");
         }
 
         private InputMultiplexerConfig generateTestObject()

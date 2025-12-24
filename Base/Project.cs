@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -10,15 +11,91 @@ using System.Linq;
 namespace MobiFlight.Base
 {
     /// <summary>
+    /// Lightweight project metadata used for listings, previews or indexing.
+    /// Can be loaded from a full project file (it ignores unknown properties).
+    /// </summary>
+    public class ProjectInfo
+    {
+        public string Name { get; set; }
+        public string Sim { get; set; }
+        public ProjectFeatures Features { get; set; }
+        public List<string> Aircraft { get; set; }
+        public List<string> Controllers { get; set; }
+        public string FilePath { get; set; }
+        public bool Favorite { get; set; } = false;
+    }
+
+
+    /// <summary>
+    /// Represents optional features that can be enabled for a MobiFlight project.
+    /// </summary>
+    public class ProjectFeatures : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool _useFsuipc = false;
+        /// <summary>
+        /// Gets or sets whether the project uses FSUIPC integration.
+        /// </summary>
+        public bool FSUIPC
+        {
+            get => _useFsuipc;
+            set
+            {
+                if (_useFsuipc != value)
+                {
+                    _useFsuipc = value;
+                    OnPropertyChanged(nameof(FSUIPC));
+                }
+            }
+        }
+
+        private bool _useProSim = false;
+        /// <summary>
+        /// Gets or sets whether the project uses ProSim integration.
+        /// </summary>
+        public bool ProSim
+        {
+            get => _useProSim;
+            set
+            {
+                if (_useProSim != value)
+                {
+                    _useProSim = value;
+                    OnPropertyChanged(nameof(ProSim));
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Creates a deep copy of the current features.
+        /// </summary>
+        public ProjectFeatures Clone()
+        {
+            return new ProjectFeatures
+            {
+                FSUIPC = this.FSUIPC,
+                ProSim = this.ProSim
+            };
+        }
+    }
+
+    /// <summary>
     /// Represents a MobiFlight project containing configuration files and project metadata.
     /// </summary>
     public class Project
     {
+        public const string FileExtension = ".mfproj";
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler ProjectChanged;
 
         [JsonIgnore]
-        public readonly Version SchemaVersion = new Version(0,9);
+        public readonly Version SchemaVersion = new Version(0, 9);
         [JsonIgnore]
         public Version OriginalSchemaVersion { get; private set; } = null;
 
@@ -39,12 +116,11 @@ namespace MobiFlight.Base
                 }
             }
         }
-        
+
         private string _filePath;
         /// <summary>
         /// Gets or sets the file path where the project is stored. This property is not serialized to JSON.
         /// </summary>
-        [JsonIgnore]
         public string FilePath
         {
             get => _filePath;
@@ -72,17 +148,125 @@ namespace MobiFlight.Base
                 {
                     if (_configFiles != null)
                     {
-                        _configFiles.CollectionChanged -= ConfigFiles_CollectionChanged;
+                        _configFiles.CollectionChanged -= CollectionChanged;
                     }
 
                     _configFiles = value;
 
                     if (_configFiles != null)
                     {
-                        _configFiles.CollectionChanged += ConfigFiles_CollectionChanged;
+                        _configFiles.CollectionChanged += CollectionChanged;
                     }
 
                     OnPropertyChanged(nameof(ConfigFiles));
+                    OnProjectChanged();
+                }
+            }
+        }
+
+        private string _sim;
+        /// <summary>
+        /// Gets or sets the name of the project.
+        /// </summary>
+        public string Sim
+        {
+            get => _sim;
+            set
+            {
+                if (_sim != value)
+                {
+                    _sim = value;
+                    OnPropertyChanged(nameof(Sim));
+                    OnProjectChanged();
+                }
+            }
+        }
+
+        private ObservableCollection<string> _aircraft = new ObservableCollection<string>();
+        /// <summary>
+        /// Gets or sets the name of the project.
+        /// </summary>
+        public ObservableCollection<string> Aircraft
+        {
+            get => _aircraft;
+            set
+            {
+                if (_aircraft != value)
+                {
+                    if (_aircraft != null)
+                    {
+                        _aircraft.CollectionChanged -= CollectionChanged;
+                    }
+
+                    _aircraft = value;
+
+                    if (_aircraft != null)
+                    {
+                        _aircraft.CollectionChanged += CollectionChanged;
+                    }
+
+                    OnPropertyChanged(nameof(Aircraft));
+                    OnProjectChanged();
+                }
+            }
+        }
+
+        private ObservableCollection<string> _controllers = new ObservableCollection<string>();
+        /// <summary>
+        /// Gets or sets the name of the project.
+        /// </summary>
+        public ObservableCollection<string> Controllers
+        {
+            get => _controllers;
+            set
+            {
+                if (_aircraft != value)
+                {
+                    if (_controllers != null)
+                    {
+                        _controllers.CollectionChanged -= CollectionChanged;
+                    }
+
+                    _controllers = value;
+
+                    if (_controllers != null)
+                    {
+                        _controllers.CollectionChanged += CollectionChanged;
+                    }
+
+                    OnPropertyChanged(nameof(Controllers));
+                    OnProjectChanged();
+                }
+            }
+        }
+
+        private ProjectFeatures _features = new ProjectFeatures();
+
+        /// <summary>
+        /// Gets or sets optional features enabled for this project.
+        /// </summary>
+        public ProjectFeatures Features
+        {
+            get => _features;
+            set
+            {
+                if (_features != value)
+                {
+                    // Unsubscribe from old instance
+                    if (_features != null)
+                    {
+                        _features.PropertyChanged -= Features_PropertyChanged;
+                    }
+
+                    _features = value;
+
+                    // Subscribe to new instance
+                    if (_features != null)
+                    {
+                        _features.PropertyChanged += Features_PropertyChanged;
+                    }
+
+                    OnPropertyChanged(nameof(Features));
                     OnProjectChanged();
                 }
             }
@@ -93,8 +277,62 @@ namespace MobiFlight.Base
         /// </summary>
         public Project()
         {
-            ConfigFiles.CollectionChanged += ConfigFiles_CollectionChanged;
+            ConfigFiles.CollectionChanged += CollectionChanged;
             Name = "New MobiFlight Project";
+        }
+
+        public ProjectInfo ToProjectInfo()
+        {
+            if (string.IsNullOrEmpty(Sim))
+            {
+                DetermineProjectInfos();
+            }
+
+            var projectInfo = new ProjectInfo()
+            {
+                Name = Name,
+                Sim = Sim,
+                Features = Features,
+                Aircraft = Aircraft?.ToList() ?? new List<string>(),
+                Controllers = Controllers?.ToList() ?? new List<string>(),
+                FilePath = FilePath
+            };
+
+            return projectInfo;
+        }
+
+        public void DetermineProjectInfos()
+        {
+            var controllerSerials = new List<string>();
+
+            // reset features for clean determination
+            Features = new ProjectFeatures();
+
+            foreach (var item in ConfigFiles)
+            {
+                if (string.IsNullOrEmpty(Sim))
+                {
+                    var sim = item.DetermineSim();
+
+                    // set it only once for now
+                    if (Sim == null && sim != null)
+                    {
+                        Sim = sim;
+                    }
+                }
+
+                Features.FSUIPC |= item.DetermineUsingFsuipc();
+                Features.ProSim |= item.ContainsConfigOfSourceType(new ProSimSource());
+
+                item.GetIUniqueControllerSerials().ForEach(c => controllerSerials.Add(c));
+            }
+
+            Controllers.Clear();
+
+            controllerSerials.Distinct().ToList().ForEach(c =>
+            {
+                Controllers.Add(c);
+            });
         }
 
         /// <summary>
@@ -102,7 +340,14 @@ namespace MobiFlight.Base
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The collection change event arguments.</param>
-        private void ConfigFiles_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Features));
+            OnProjectChanged();
+        }
+
+        // Handle property changes within Features
+        private void Features_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnProjectChanged();
         }
@@ -129,16 +374,16 @@ namespace MobiFlight.Base
         /// Supports both JSON (.mfproj) and legacy XML (.mcc, .aic) formats.
         /// </summary>
         /// <exception cref="InvalidDataException">Thrown when the file format is not supported.</exception>
-        public void OpenFile()
+        public void OpenFile(bool suppressMigrationLogging = false)
         {
             if (IsJson(FilePath))
             {
                 var json = File.ReadAllText(FilePath);
-                
+
                 // Parse and migrate JSON document
                 var document = JObject.Parse(json);
-                var migratedDocument = ApplyMigrations(document);
-                
+                var migratedDocument = ApplyMigrations(document, suppressMigrationLogging);
+
                 // Deserialize the clean, migrated JSON
                 var project = migratedDocument.ToObject<Project>();
                 if (project == null)
@@ -146,9 +391,7 @@ namespace MobiFlight.Base
                     Log.Instance.log("Project could not be loaded", LogSeverity.Error);
                     throw new InvalidDataException("Failed to deserialize project file.");
                 }
-
-                Name = project.Name;
-                ConfigFiles = project.ConfigFiles;
+                this.CopyFrom(project);
 
                 foreach (var configFile in ConfigFiles)
                 {
@@ -187,12 +430,21 @@ namespace MobiFlight.Base
                 throw new InvalidDataException("Unsupported file format.");
             }
         }
-        
+
+        private void CopyFrom(Project project)
+        {
+            this.Name = project.Name;
+            this.Sim = project.Sim;
+            this.Features = project.Features.Clone();
+            this.Aircraft = project.Aircraft;
+            this.ConfigFiles = project.ConfigFiles;
+        }
+
         /// <summary>
         /// Apply all migrations to bring document to current version
         /// Simple, direct approach - no registry needed
         /// </summary>
-        private JObject ApplyMigrations(JObject document)
+        private JObject ApplyMigrations(JObject document, bool suppressLogging = false)
         {
             // Determine current document version with safe parsing
             var currentVersion = GetDocumentSchemaVersion(document);
@@ -200,7 +452,10 @@ namespace MobiFlight.Base
 
             if (currentVersion > SchemaVersion)
             {
-                Log.Instance.log($"Document version {currentVersion} too new. Update MobiFlight to latest version.", LogSeverity.Info);
+                if (!suppressLogging) { 
+                    Log.Instance.log($"Document version {currentVersion} too new. Update MobiFlight to latest version. ({Name} - {FilePath})", LogSeverity.Info);
+                }
+
                 return document;
             }
 
@@ -210,14 +465,19 @@ namespace MobiFlight.Base
                 return document;
             }
 
-            Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}", LogSeverity.Info);
-            
+            if (!suppressLogging) { 
+                Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}. ({Name} - {FilePath})", LogSeverity.Debug);
+            }
+
             var migratedDocument = document;
-            
+
             // Apply migrations step by step
-            if (currentVersion < new Version(0,9))
+            if (currentVersion < new Version(0, 9))
             {
-                Log.Instance.log("Applying V0.9 migrations", LogSeverity.Debug);
+                if (!suppressLogging)
+                {
+                    Log.Instance.log("Applying V0.9 migrations", LogSeverity.Debug);
+                }
                 migratedDocument = Precondition_V_0_9_Migration.Apply(migratedDocument);
                 migratedDocument = Output_V_0_9_Migration.Apply(migratedDocument);
             }
@@ -225,7 +485,10 @@ namespace MobiFlight.Base
             // Update version in migrated document
             migratedDocument["_version"] = SchemaVersion.ToString();
 
-            Log.Instance.log($"Migration complete. Document is now version {SchemaVersion}", LogSeverity.Info);
+            if (!suppressLogging)
+            {
+                Log.Instance.log($"Migration complete. Document is now version {SchemaVersion}", LogSeverity.Debug);
+            }
 
             return migratedDocument;
         }
@@ -256,12 +519,12 @@ namespace MobiFlight.Base
                 }
 
                 // If parsing fails, default to 0.1
-                Log.Instance.log($"Could not parse version '{versionString}', defaulting to 0.1", LogSeverity.Warn);
+                Log.Instance.log($"Could not parse version '{versionString}', defaulting to 0.1", LogSeverity.Debug);
                 return new Version(0, 1);
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error parsing document version: {ex.Message}, defaulting to 0.1", LogSeverity.Warn);
+                Log.Instance.log($"Error parsing document version: {ex.Message}, defaulting to 0.1", LogSeverity.Debug);
                 return new Version(0, 1);
             }
         }
@@ -281,8 +544,12 @@ namespace MobiFlight.Base
             }
 
             // Add version when serializing
-            var document = JObject.FromObject(this); 
-            document["_version"] = SchemaVersion.ToString(); 
+            var document = JObject.FromObject(this);
+            document["_version"] = SchemaVersion.ToString();
+
+            // we don't want to serialize the FilePath
+            document.Property("FilePath").Remove();
+
             File.WriteAllText(FilePath, document.ToString(Formatting.Indented));
         }
 
@@ -364,6 +631,22 @@ namespace MobiFlight.Base
             var additionalProject = new Project() { FilePath = fileName };
             additionalProject.OpenFile();
             Merge(additionalProject);
+        }
+
+        public bool ContainsConfigOfSourceType(Source type)
+        {
+            return ConfigFiles.ToList().Any(file => file.ContainsConfigOfSourceType(type));
+        }
+
+        public string MigrateFileExtension()
+        {
+            if (FilePath.EndsWith(".mcc", StringComparison.OrdinalIgnoreCase) || 
+                FilePath.EndsWith(".aic", StringComparison.OrdinalIgnoreCase))
+            {
+                FilePath = Path.ChangeExtension(FilePath, FileExtension);
+            }
+
+            return FilePath;
         }
     }
 }

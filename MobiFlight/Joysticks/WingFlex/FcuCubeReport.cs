@@ -17,7 +17,7 @@ namespace MobiFlight.Joysticks.WingFlex
         // -                Data Type                    Single Byte Type                        -       9       -       0x02
         // -                Data Length                  Following data occupies 6 Bytes         -       10      -       0x06
         private readonly static byte[] InputByteSection = new byte[] { 0x02, 0x06 };
-        
+
         // -                Head                         Constant: 0xF2                          -       0       -       0xF2
         // -                Head                         Constant: 0xE1                          -       1       -       0xE1
         // -                Head                         Constant: 0x03                          -       2       -       0x03
@@ -38,7 +38,8 @@ namespace MobiFlight.Joysticks.WingFlex
         private byte[] LastInputBufferState = new byte[64];
         private byte[] LastOutputBufferState = new byte[64];
 
-        public FcuCubeReport() {
+        public FcuCubeReport()
+        {
             InitLastInputBufferState();
             InitLastOutputBufferState();
         }
@@ -69,7 +70,7 @@ namespace MobiFlight.Joysticks.WingFlex
         {
             var result = new FcuCubeReport();
             result.CopyFromInputBuffer(inputBuffer);
-            
+
             return result;
         }
 
@@ -131,18 +132,29 @@ namespace MobiFlight.Joysticks.WingFlex
             // requires power to be on to light up the single LED and the display.
             LastOutputBufferState[8] |= 1;
 
-            state.ForEach(item => {
+            state.ForEach(item =>
+            {
                 if (item.Type == DeviceType.LcdDisplay)
                 {
                     var lcdDisplay = item as JoystickOutputDisplay;
                     if (lcdDisplay == null) return;
 
-                    if (!Int16.TryParse(lcdDisplay.Text, out var value)) {
-                        if (lcdDisplay.Text.Trim().Length != 0) return;
-                        value = 0;
-                    }
-                    
                     var byteIndex = lcdDisplay.Byte;
+                    UInt16 value = 0;
+                    bool parsed;
+
+                    if (lcdDisplay.Name != "VS.value")
+                    {
+                        parsed = UInt16.TryParse(lcdDisplay.Text, out value);
+                    }
+                    else
+                    {
+                        parsed = Int16.TryParse(lcdDisplay.Text, out var signedValue);
+                        if (parsed) value = (UInt16)signedValue;
+                    }
+
+                    // Skip invalid text
+                    if (!parsed && lcdDisplay.Text.Trim() != "") return;
 
                     // Copy High 8 bit from value
                     LastOutputBufferState[byteIndex] = (byte)(value >> 8);
@@ -153,7 +165,7 @@ namespace MobiFlight.Joysticks.WingFlex
                 }
 
                 var itemByte = item.Byte;
-                
+
                 if (itemByte >= 6 && itemByte <= 8)
                 {
                     if (item.State == 1)

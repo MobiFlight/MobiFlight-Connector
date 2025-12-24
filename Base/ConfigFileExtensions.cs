@@ -30,6 +30,7 @@ namespace MobiFlight.Base
             }).ToList().ForEach(i =>
             {
                 var source = (i as OutputConfigItem).Source as VariableSource;
+                if (source == null) return;
                 if (variables.ContainsKey(source.MobiFlightVariable.Name)) return;
                 variables[source.MobiFlightVariable.Name] = source.MobiFlightVariable;
             });

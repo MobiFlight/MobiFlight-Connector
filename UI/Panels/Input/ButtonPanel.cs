@@ -1,10 +1,10 @@
-﻿using MobiFlight.InputConfig;
+﻿using MobiFlight.Base;
+using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Action;
 using MobiFlight.UI.Panels.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Input
@@ -41,6 +41,30 @@ namespace MobiFlight.UI.Panels.Input
                 repeatTextBox.Enabled = value;
             }
         }
+
+        private ProjectInfo _projectInfo;
+        public ProjectInfo ProjectInfo
+        {
+            get { return _projectInfo; }
+            set
+            {
+                if (_projectInfo == value) return;
+                _projectInfo = value;
+                UpdateActionPanelCallbacks(_projectInfo);
+            }
+        }
+
+        private InputConfigItem _currentConfig;
+        public InputConfigItem CurrentConfig
+        {
+            get { return _currentConfig; }
+            set
+            {
+                _currentConfig = value;
+                UpdateActionPanelCallbacks(ProjectInfo);
+            }
+        }
+
         public ButtonPanel()
         {
             InitializeComponent();
@@ -59,13 +83,8 @@ namespace MobiFlight.UI.Panels.Input
             ActionTypePanelsToOwnerPanels.Add(onLongReleaseActionTypePanel, onLongRelActionConfigPanel);
             ActionTypePanelsToOwnerPanels.Add(onHoldActionTypePanel, onHoldActionConfigPanel);
 
-            foreach (ActionTypePanel panel in ActionTypePanelsToActionNames.Keys)
-            {
-                panel.ActionTypeChanged += onPressActionTypePanel_ActionTypeChanged;
-                panel.CopyButtonPressed += Action_CopyButtonPressed;
-                panel.PasteButtonPressed += Action_PasteButtonPressed;
-            }
-
+            UpdateActionPanelCallbacks();
+            
             Clipboard.Instance.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
                 if (e.PropertyName != "InputAction") return;
@@ -78,6 +97,21 @@ namespace MobiFlight.UI.Panels.Input
             if (Clipboard.Instance.InputAction != null)
             {
                 clipBoardActionChanged(Clipboard.Instance.InputAction);
+            }
+        }
+
+        private void UpdateActionPanelCallbacks(ProjectInfo projectInfo = null)
+        {
+            foreach (ActionTypePanel panel in ActionTypePanelsToActionNames.Keys)
+            {
+                panel.ProjectInfo = projectInfo;
+                panel.CurrentConfig = CurrentConfig;
+                panel.ActionTypeChanged -= onPressActionTypePanel_ActionTypeChanged;
+                panel.ActionTypeChanged += onPressActionTypePanel_ActionTypeChanged;
+                panel.CopyButtonPressed -= Action_CopyButtonPressed;
+                panel.CopyButtonPressed += Action_CopyButtonPressed;
+                panel.PasteButtonPressed -= Action_PasteButtonPressed;
+                panel.PasteButtonPressed += Action_PasteButtonPressed;
             }
         }
 

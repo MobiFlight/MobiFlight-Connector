@@ -8,6 +8,7 @@ namespace MobiFlight.Joysticks.VKB
 {
     internal class VKBDevice : Joystick
     {
+        const int ENCODER_MISSED_MESSAGE_THRESHOLD = 5; // How many missed encoder messages are allowed before we need to log them - chosen arbitrarily
         private HidStream Stream;
         private readonly HidDevice Device;
         private readonly new VKBLedContainer Lights = new VKBLedContainer();
@@ -165,12 +166,14 @@ namespace MobiFlight.Joysticks.VKB
         private void ParseEncoderReport(byte[] Report)
         {
             byte sequenceNo = Report[2];
+            var hasPredecessor = lastSeqNo != -1;
+            var seqNoIncrement = (sequenceNo - lastSeqNo) & 0xFF;
             // Sequence number should increment once per report, but if the encoder is spun fast some reports can be missed.
-            // Firmware is capable of transmitting up to 250 updates per second.
-            if (((lastSeqNo + 1) & 0xFF) != sequenceNo)
+            // A few missed messages are not an issue (positions in message are absolute) and may happen due to bus/system load, but large clusters should be taken into account.
+            var manyMessagesMissed = seqNoIncrement > ENCODER_MISSED_MESSAGE_THRESHOLD;
+            if (hasPredecessor && manyMessagesMissed) // Only log large skips, do not log first message.
             {
-                Log.Instance.log("Some VKB encoder messages may have been missed", LogSeverity.Debug);
-                // Not a problem since API reports absolute state, so the updates are just received on the next received message.
+                Log.Instance.log($"Some VKB encoder messages may have been missed ({lastSeqNo}->{sequenceNo})", LogSeverity.Debug);
             }
             lastSeqNo = sequenceNo;
             byte encoderCount = Report[3];

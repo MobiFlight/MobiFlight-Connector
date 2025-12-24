@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.OutputConfig;
 using System;
 using System.Text.RegularExpressions;
 
@@ -187,8 +186,8 @@ namespace MobiFlight.Base.Deprecated.Tests
                 o = new DeprecatedConfigFile(inFile);
                 o.OpenFile();
                 Assert.IsTrue(o.ConfigItems[0].Active);
-                Assert.IsTrue(o.ConfigItems[0].Name == "ConfigItem For Precondition");
-                Assert.IsTrue(o.ConfigItems[0].GUID == "bdd97308-b4f8-475c-a8c4-729e191101af");
+                Assert.AreEqual("ConfigItem For Precondition", o.ConfigItems[0].Name);
+                Assert.AreEqual("bdd97308-b4f8-475c-a8c4-729e191101af", o.ConfigItems[0].GUID);
             }
             catch (Exception)
             {
@@ -201,7 +200,6 @@ namespace MobiFlight.Base.Deprecated.Tests
         public void SaveFileTest()
         {
             // implicitly tested in OpenFileTest();
-            Assert.IsTrue(true);
         }
 
         [TestMethod()]

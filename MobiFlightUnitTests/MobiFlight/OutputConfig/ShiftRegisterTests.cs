@@ -1,9 +1,7 @@
-﻿using MobiFlight.OutputConfig;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 using System.Xml;
-using System;
 
 namespace MobiFlight.OutputConfig.Tests
 {
@@ -69,7 +67,7 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.AreEqual("Output 4", o.Pin);
             Assert.AreEqual(128, o.Brightness);
-            Assert.AreEqual(true, o.PWM);
+            Assert.IsTrue(o.PWM);
         }
         
         [TestMethod()]

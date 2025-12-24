@@ -3,7 +3,6 @@ using MobiFlight.Base;
 using MobiFlight.InputConfig;
 using MobiFlight.ProSim;
 using Newtonsoft.Json;
-using System;
 using System.IO;
 using System.Xml;
 
@@ -48,10 +47,10 @@ namespace MobiFlight.Tests.ProSim
             string json = JsonConvert.SerializeObject(source);
             
             // Verify both serializations work correctly
-            Assert.IsTrue(xml.Contains("path=\"test/dataref/path\""), "XML should contain path attribute");
-            Assert.IsTrue(xml.Contains("expression=\"$ * 2 + @\""), "XML should contain expression attribute");
-            Assert.IsTrue(json.Contains("\"Type\":\"ProSimSource\""), "JSON should contain Type");
-            Assert.IsTrue(json.Contains("\"Path\":\"test/dataref/path\""), "JSON should contain Path");
+            Assert.Contains("path=\"test/dataref/path\"", xml, "XML should contain path attribute");
+            Assert.Contains("expression=\"$ * 2 + @\"", xml, "XML should contain expression attribute");
+            Assert.Contains("\"Type\":\"ProSimSource\"", json, "JSON should contain Type");
+            Assert.Contains("\"Path\":\"test/dataref/path\"", json, "JSON should contain Path");
         }
 
         [TestMethod()]
@@ -101,7 +100,7 @@ namespace MobiFlight.Tests.ProSim
             
             // Deserialize ProSimSource from JSON
             var deserializedSource = JsonConvert.DeserializeObject<ProSimSource>(json);
-            
+
             // Verify round trips work correctly
             Assert.AreEqual(originalInputAction.Path, deserializedInputAction.Path, "ProSimInputAction Path should be preserved through XML round trip");
             Assert.AreEqual(originalInputAction.Expression, deserializedInputAction.Expression, "ProSimInputAction Expression should be preserved through XML round trip");
@@ -134,7 +133,7 @@ namespace MobiFlight.Tests.ProSim
             // Verify clones are not the same references
             Assert.AreNotSame(originalInputAction, clonedInputAction, "Cloned ProSimInputAction should not be the same reference");
             Assert.AreNotSame(originalSource, clonedSource, "Cloned ProSimSource should not be the same reference");
-            
+
             // Verify clone values are the same
             Assert.AreEqual(originalInputAction.Path, clonedInputAction.Path, "Cloned ProSimInputAction Path should be the same");
             Assert.AreEqual(originalInputAction.Expression, clonedInputAction.Expression, "Cloned ProSimInputAction Expression should be the same");
@@ -218,7 +217,7 @@ namespace MobiFlight.Tests.ProSim
             XmlReader xmlReader = XmlReader.Create(sr, readerSettings);
             xmlReader.ReadToDescendant("ProSimInputAction");
             deserialized.ReadXml(xmlReader);
-            
+
             // Verify special characters are handled correctly
             Assert.AreEqual(inputAction.Path, deserialized.Path, "Path with special characters should be preserved");
             Assert.AreEqual(inputAction.Expression, deserialized.Expression, "Expression with special characters should be preserved");
@@ -240,7 +239,7 @@ namespace MobiFlight.Tests.ProSim
             
             // Deserialize from JSON
             var deserialized = JsonConvert.DeserializeObject<ProSimSource>(json);
-            
+
             // Verify special characters are handled correctly
             Assert.AreEqual(source.SourceType, deserialized.SourceType, "SourceType should be preserved");
             Assert.AreEqual(source.ProSimDataRef.Path, deserialized.ProSimDataRef.Path, "Path with special characters should be preserved");
@@ -303,10 +302,10 @@ namespace MobiFlight.Tests.ProSim
             Assert.AreNotEqual(json1, json2, "Different ProSimSource objects should produce different JSON");
 
             // Verify each serialization contains the correct data
-            Assert.IsTrue(xml1.Contains("path=\"test/dataref/path1\""), "First XML should contain first path");
-            Assert.IsTrue(xml2.Contains("path=\"test/dataref/path2\""), "Second XML should contain second path");
-            Assert.IsTrue(json1.Contains("\"Path\":\"test/dataref/path1\""), "First JSON should contain first path");
-            Assert.IsTrue(json2.Contains("\"Path\":\"test/dataref/path2\""), "Second JSON should contain second path");
+            Assert.Contains("path=\"test/dataref/path1\"", xml1, "First XML should contain first path");
+            Assert.Contains("path=\"test/dataref/path2\"", xml2, "Second XML should contain second path");
+            Assert.Contains("\"Path\":\"test/dataref/path1\"", json1, "First JSON should contain first path");
+            Assert.Contains("\"Path\":\"test/dataref/path2\"", json2, "Second JSON should contain second path");
         }
     }
-} 
+}

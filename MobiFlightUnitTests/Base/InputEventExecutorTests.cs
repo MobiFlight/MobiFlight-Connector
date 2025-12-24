@@ -120,7 +120,7 @@ namespace MobiFlight.Execution.Tests
             var result = _executor.Execute(inputEventArgs, isStarted: true);
 
             // Assert
-            Assert.AreEqual(0, result.Count);
+            Assert.IsEmpty(result);
         }
 
         [TestMethod]
@@ -148,7 +148,7 @@ namespace MobiFlight.Execution.Tests
             var result = _executor.Execute(inputEventArgs, isStarted: true);
 
             // Assert
-            Assert.AreEqual(0, result.Count);
+            Assert.IsEmpty(result);
 
             _mockLogAppender.Verify(
                 appender => appender.log(It.Is<string>(msg => msg.Contains($@"Skipping inactive config ""{inactiveConfigItem.Name}""")), LogSeverity.Warn),
@@ -182,7 +182,7 @@ namespace MobiFlight.Execution.Tests
             var result = _executor.Execute(inputEventArgs, isStarted: true);
 
             // Assert
-            Assert.AreEqual(1, result.Count);
+            Assert.HasCount(1, result);
             Assert.IsTrue(result.ContainsKey(activeConfigItem.GUID));
 
             _mockLogAppender.Verify(
@@ -245,7 +245,7 @@ namespace MobiFlight.Execution.Tests
             var result = _executor.Execute(inputEventArgs, isStarted: true);
 
             // Assert
-            Assert.AreEqual(1, result.Count, "Only one item should be executed.");
+            Assert.HasCount(1, result, "Only one item should be executed.");
             Assert.IsTrue(result.ContainsKey(activeConfigItem.GUID), "The wrong config item was executed.");
 
             _mockLogAppender.Verify(
@@ -309,7 +309,7 @@ namespace MobiFlight.Execution.Tests
             var result = _executor.Execute(inputEventArgs, isStarted: true);
 
             // Assert
-            Assert.AreEqual(0, result.Count);
+            Assert.IsEmpty(result);
 
             _mockLogAppender.Verify(
                 appender => appender.log(It.Is<string>(msg => msg.Contains($@"Preconditions not satisfied for ""{configItem.Name}"".")), LogSeverity.Debug),
@@ -343,7 +343,7 @@ namespace MobiFlight.Execution.Tests
             var result = _executor.Execute(inputEventArgs, isStarted: false);
 
             // Assert
-            Assert.AreEqual(0, result.Count);
+            Assert.IsEmpty(result);
 
             _mockLogAppender.Verify(
                 appender => appender.log(It.Is<string>(msg => msg.Contains("skipping, MobiFlight not running.")), LogSeverity.Warn),

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Xml;
@@ -167,7 +167,7 @@ namespace MobiFlight.Modifier.Tests
             Interpolation i = new Interpolation();
             xmlReader.ReadToDescendant("interpolation");
             i.ReadXml(xmlReader);
-            Assert.AreEqual(true, i.Active, "Interpolation is not active");
+            Assert.IsTrue(i.Active, "Interpolation is not active");
             Assert.AreEqual(3, i.Count, "Number of items in Interpolation wrong");
             Assert.AreEqual(0, i.Value(0), "Value of interpolation is wrong");
             Assert.AreEqual(2, i.Value(0.5f), "Value of interpolation is wrong");

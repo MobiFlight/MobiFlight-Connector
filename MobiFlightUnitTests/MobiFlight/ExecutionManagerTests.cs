@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
@@ -102,8 +102,8 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(message);
 
             // Assert
-            Assert.IsFalse(_executionManager.ConfigItems.Contains(configItem1));
-            Assert.IsTrue(_executionManager.ConfigItems.Contains(configItem2));
+            Assert.DoesNotContain(configItem1, _executionManager.ConfigItems);
+            Assert.Contains(configItem2, _executionManager.ConfigItems);
         }
 
         [TestMethod]
@@ -193,7 +193,7 @@ namespace MobiFlight.Tests
             project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
             _executionManager.Project = project;
 
-            Assert.AreEqual(_executionManager.ActiveConfigIndex, 0);
+            Assert.AreEqual(0, _executionManager.ActiveConfigIndex);
 
             var message = new CommandActiveConfigFile
             {
@@ -204,7 +204,7 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(message);
 
             // Assert
-            Assert.AreEqual(_executionManager.ActiveConfigIndex, 1);
+            Assert.AreEqual(1, _executionManager.ActiveConfigIndex);
         }
 
         [TestMethod]
@@ -227,7 +227,7 @@ namespace MobiFlight.Tests
 
             _executionManager.Project = project;
 
-            Assert.AreEqual(_executionManager.ActiveConfigIndex, 0);
+            Assert.AreEqual(0, _executionManager.ActiveConfigIndex);
 
             var message = new CommandFileContextMenu
             {
@@ -240,8 +240,8 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(message);
 
             // Assert
-            Assert.AreEqual(project.ConfigFiles.Count, 1);
-            Assert.AreEqual(project.ConfigFiles[0].Label, "First Config");
+            Assert.HasCount(1, project.ConfigFiles);
+            Assert.AreEqual("First Config", project.ConfigFiles[0].Label);
         }
 
         [TestMethod]
@@ -264,7 +264,7 @@ namespace MobiFlight.Tests
 
             _executionManager.Project = project;
 
-            Assert.AreEqual(_executionManager.ActiveConfigIndex, 0);
+            Assert.AreEqual(0, _executionManager.ActiveConfigIndex);
 
             var message = new CommandFileContextMenu
             {
@@ -281,8 +281,8 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(message);
 
             // Assert
-            Assert.AreEqual(project.ConfigFiles.Count, 2);
-            Assert.AreEqual(project.ConfigFiles[1].Label, "Renamed Config");
+            Assert.HasCount(2, project.ConfigFiles);
+            Assert.AreEqual("Renamed Config", project.ConfigFiles[1].Label);
         }
 
         [TestMethod]
@@ -346,7 +346,7 @@ namespace MobiFlight.Tests
             var result = _executionManager.GetAvailableVariables();
 
             // Assert
-            Assert.AreEqual(1, result.Count);
+            Assert.HasCount(1, result);
             Assert.IsTrue(result.ContainsKey("varA"));
 
             var message = new CommandActiveConfigFile
@@ -360,7 +360,7 @@ namespace MobiFlight.Tests
             result = _executionManager.GetAvailableVariables();
 
             // Assert
-            Assert.AreEqual(1, result.Count);
+            Assert.HasCount(1, result);
             Assert.IsTrue(result.ContainsKey("varB"));
         }
 
@@ -620,7 +620,7 @@ namespace MobiFlight.Tests
                             ex.Message.Contains("Collection was modified"))
                 .ToList();
 
-            Assert.AreEqual(0, collectionModifiedExceptions.Count,
+            Assert.IsEmpty(collectionModifiedExceptions,
                 $"Should not throw 'Collection was modified' InvalidOperationException. " +
                 $"Found {collectionModifiedExceptions.Count} such exceptions. " +
                 $"This indicates the ToList() operation is not properly protected by the lock.");
@@ -725,12 +725,12 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(message);
 
             // Assert
-            Assert.AreEqual(1, sourceFile.ConfigItems.Count, "Source file should have one less item");
-            Assert.AreEqual(2, targetFile.ConfigItems.Count, "Target file should have one more item");
-            Assert.AreEqual(configItem1.GUID, targetFile.ConfigItems[0].GUID, "Item should be moved to target file at correct index");
-            Assert.AreEqual(configItem3.GUID, targetFile.ConfigItems[1].GUID, "Existing item should be shifted down");
-            Assert.IsFalse(sourceFile.ConfigItems.Contains(configItem1), "Item should be removed from source file");
-            Assert.IsTrue(sourceFile.ConfigItems.Contains(configItem2), "Other items should remain in source file");
+            Assert.HasCount(1, sourceFile.ConfigItems, "Source file should have one less item");
+            Assert.HasCount(2, targetFile.ConfigItems, "Target file should have one more item");
+            Assert.AreEqual(targetFile.ConfigItems[0].GUID, configItem1.GUID, "Item should be moved to target file at correct index");
+            Assert.AreEqual(targetFile.ConfigItems[1].GUID, configItem3.GUID, "Existing item should be shifted down");
+            Assert.DoesNotContain(configItem1, sourceFile.ConfigItems, "Item should be removed from source file");
+            Assert.Contains(configItem2, sourceFile.ConfigItems, "Other items should remain in source file");
         }
 
         [TestMethod]
@@ -760,10 +760,10 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(message);
 
             // Assert
-            Assert.AreEqual(3, configFile.ConfigItems.Count, "File should still have same number of items");
-            Assert.AreEqual(configItem2.GUID, configFile.ConfigItems[0].GUID, "Item2 should be moved to position 0");
-            Assert.AreEqual(configItem1.GUID, configFile.ConfigItems[1].GUID, "Item1 should be shifted to position 1");
-            Assert.AreEqual(configItem3.GUID, configFile.ConfigItems[2].GUID, "Item3 should remain at position 2");
+            Assert.HasCount(3, configFile.ConfigItems, "File should still have same number of items");
+            Assert.AreEqual(configFile.ConfigItems[0].GUID, configItem2.GUID, "Item2 should be moved to position 0");
+            Assert.AreEqual(configFile.ConfigItems[1].GUID, configItem1.GUID, "Item1 should be shifted to position 1");
+            Assert.AreEqual(configFile.ConfigItems[2].GUID, configItem3.GUID, "Item3 should remain at position 2");
         }
 
         [TestMethod]
@@ -800,13 +800,13 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.Publish(message);
 
             // Assert
-            Assert.AreEqual(1, sourceFile.ConfigItems.Count, "Source file should have 2 less items");
-            Assert.AreEqual(configItem2.GUID, sourceFile.ConfigItems[0].GUID, "Only item2 should remain in source file");
+            Assert.HasCount(1, sourceFile.ConfigItems, "Source file should have 2 less items");
+            Assert.AreEqual(sourceFile.ConfigItems[0].GUID, configItem2.GUID, "Only item2 should remain in source file");
             
-            Assert.AreEqual(3, targetFile.ConfigItems.Count, "Target file should have 2 more items");
-            Assert.AreEqual(configItem4.GUID, targetFile.ConfigItems[0].GUID, "Original target item should remain at position 0");
-            Assert.AreEqual(configItem1.GUID, targetFile.ConfigItems[1].GUID, "First moved item should be at position 1");
-            Assert.AreEqual(configItem3.GUID, targetFile.ConfigItems[2].GUID, "Second moved item should be at position 2");
+            Assert.HasCount(3, targetFile.ConfigItems, "Target file should have 2 more items");
+            Assert.AreEqual(targetFile.ConfigItems[0].GUID, configItem4.GUID, "Original target item should remain at position 0");
+            Assert.AreEqual(targetFile.ConfigItems[1].GUID, configItem1.GUID, "First moved item should be at position 1");
+            Assert.AreEqual(targetFile.ConfigItems[2].GUID, configItem3.GUID, "Second moved item should be at position 2");
         }
     }
 }

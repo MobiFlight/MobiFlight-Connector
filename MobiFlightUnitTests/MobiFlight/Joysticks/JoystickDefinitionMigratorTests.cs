@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Joysticks;
 using System;
 using System.IO;
 using System.Linq;
@@ -151,7 +150,7 @@ namespace MobiFlight.Joysticks.Tests
             Assert.IsTrue(Directory.Exists(conflictFolder), "_CONFLICT_ folder should exist");
             
             var conflictFiles = Directory.GetFiles(conflictFolder);
-            Assert.IsTrue(conflictFiles.Length > 0, "_CONFLICT_ folder should contain files");
+            Assert.IsNotEmpty(conflictFiles, "_CONFLICT_ folder should contain files");
             
             var conflictFile = conflictFiles.FirstOrDefault(f => Path.GetFileName(f).StartsWith("conflict_test.joystick.json_"));
             Assert.IsNotNull(conflictFile, "Should have a conflict file starting with 'conflict_test.joystick.json_'");
@@ -171,7 +170,7 @@ namespace MobiFlight.Joysticks.Tests
             // Assert
             var conflictFolder = Path.Combine(_joysticksDirectory, "_CONFLICT_");
             var conflictFiles = Directory.GetFiles(conflictFolder, "*.bak");
-            Assert.AreEqual(2, conflictFiles.Length, "Should have two conflict backup files");
+            Assert.HasCount(2, conflictFiles, "Should have two conflict backup files");
         }
 
         [TestMethod]
@@ -188,11 +187,11 @@ namespace MobiFlight.Joysticks.Tests
             // Assert
             var conflictFolder = Path.Combine(_joysticksDirectory, "_CONFLICT_");
             var conflictFiles = Directory.GetFiles(conflictFolder, "timestamp_test.joystick.json_*.bak");
-            Assert.AreEqual(1, conflictFiles.Length, "Should have one conflict file");
+            Assert.HasCount(1, conflictFiles, "Should have one conflict file");
             
             var fileName = Path.GetFileName(conflictFiles[0]);
-            Assert.IsTrue(fileName.StartsWith("timestamp_test.joystick.json_"), "File should start with full filename");
-            Assert.IsTrue(fileName.EndsWith(".bak"), "File should end with .bak");
+            Assert.StartsWith("timestamp_test.joystick.json_", fileName, "File should start with full filename");
+            Assert.EndsWith(".bak", fileName, "File should end with .bak");
             
             // Extract timestamp from filename (format: fullfilename_yyyyMMddHHmmss.bak)
             var timestampPart = fileName.Substring("timestamp_test.joystick.json_".Length, 12); // YYYYMMDDHHMM
@@ -235,7 +234,7 @@ namespace MobiFlight.Joysticks.Tests
             
             // Check conflict backup
             var conflictFiles = Directory.GetFiles(Path.Combine(_joysticksDirectory, "_CONFLICT_"), "conflict.joystick.json_*.bak");
-            Assert.AreEqual(1, conflictFiles.Length, "Conflict should be backed up");
+            Assert.HasCount(1, conflictFiles, "Conflict should be backed up");
         }
 
         #endregion
@@ -251,7 +250,6 @@ namespace MobiFlight.Joysticks.Tests
             try
             {
                 ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
-                Assert.IsTrue(true, "Should complete without throwing");
             }
             catch (Exception ex)
             {
@@ -269,7 +267,6 @@ namespace MobiFlight.Joysticks.Tests
             try
             {
                 ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
-                Assert.IsTrue(true, "Should complete without throwing");
             }
             catch (Exception ex)
             {
@@ -300,7 +297,7 @@ namespace MobiFlight.Joysticks.Tests
                 if (Directory.Exists(conflictFolder))
                 {
                     var conflictFiles = Directory.GetFiles(conflictFolder, "readonly*");
-                    Assert.AreEqual(0, conflictFiles.Length, "Read-only file should not be in conflict folder");
+                    Assert.IsEmpty(conflictFiles, "Read-only file should not be in conflict folder");
                 }
             }
             finally

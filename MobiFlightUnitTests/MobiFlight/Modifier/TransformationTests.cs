@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -80,8 +80,8 @@ namespace MobiFlight.Modifier.Tests
             xmlReader.ReadToDescendant("transformation");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Active, true, "Active value differs");
-            Assert.AreEqual(o.Expression, "$+2", "Expression value differs");
+            Assert.IsTrue(o.Active, "Active value differs");
+            Assert.AreEqual("$+2", o.Expression, "Expression value differs");
         }
 
         [TestMethod()]
@@ -112,8 +112,8 @@ namespace MobiFlight.Modifier.Tests
             Transformation o = generateTestObject();
 
             Transformation c = (Transformation)o.Clone();
-            Assert.AreEqual(o.Active, c.Active, "Active value differs");
-            Assert.AreEqual(o.Expression, c.Expression, "Expression value differs");
+            Assert.AreEqual(c.Active, o.Active, "Active value differs");
+            Assert.AreEqual(c.Expression, o.Expression, "Expression value differs");
         }
 
         private Transformation generateTestObject()

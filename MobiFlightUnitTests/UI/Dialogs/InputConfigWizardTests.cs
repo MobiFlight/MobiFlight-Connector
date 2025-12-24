@@ -33,14 +33,15 @@ namespace MobiFlight.UI.Dialogs.Tests
                 { "var1", new MobiFlightVariable { Name = "Variable 1" } },
                 { "var2", new MobiFlightVariable { Name = "Variable 2" } }
             };
-            
+
             // Act
-            var wizard = new InputConfigWizard(executionManagerMock.Object, 
-                inputConfigItem, 
-                null, 
+            var wizard = new InputConfigWizard(executionManagerMock.Object,
+                inputConfigItem,
+                null,
                 null,
                 outputConfigItems,
-                availableVariables
+                availableVariables,
+                null
                 );
 
             // Assert
@@ -65,11 +66,11 @@ namespace MobiFlight.UI.Dialogs.Tests
             {
                 { "var1", new MobiFlightVariable { Name = "Variable 1" } }
             };
-            
+
             executionManagerMock.Setup(em => em.GetAvailableVariables()).Returns(availableVariables);
-            
-            var inputConfigItem = new InputConfigItem 
-            { 
+
+            var inputConfigItem = new InputConfigItem
+            {
                 GUID = "test-guid",
                 ModuleSerial = "TestModule / TestSerial",
                 button = new ButtonInputConfig(),
@@ -79,20 +80,21 @@ namespace MobiFlight.UI.Dialogs.Tests
                 inputMultiplexer = new InputMultiplexerConfig()
             };
 
-            var wizard = new InputConfigWizard(executionManagerMock.Object, 
-                inputConfigItem, 
-                null, 
+            var wizard = new InputConfigWizard(executionManagerMock.Object,
+                inputConfigItem,
+                null,
                 null,
                 new List<OutputConfigItem>(),
-                availableVariables);
+                availableVariables,
+                null);
 
             // Get private fields using reflection
             var inputTypeComboBoxField = typeof(InputConfigWizard).GetField("inputTypeComboBox", BindingFlags.NonPublic | BindingFlags.Instance);
             var inputTypeComboBox = (ComboBox)inputTypeComboBoxField.GetValue(wizard);
-            
+
             var inputModuleNameComboBoxField = typeof(InputConfigWizard).GetField("inputModuleNameComboBox", BindingFlags.NonPublic | BindingFlags.Instance);
             var inputModuleNameComboBox = (ComboBox)inputModuleNameComboBoxField.GetValue(wizard);
-            
+
             var groupBoxInputSettingsField = typeof(InputConfigWizard).GetField("groupBoxInputSettings", BindingFlags.NonPublic | BindingFlags.Instance);
             var groupBoxInputSettings = (GroupBox)groupBoxInputSettingsField.GetValue(wizard);
 
@@ -125,11 +127,11 @@ namespace MobiFlight.UI.Dialogs.Tests
                 methodInfo.Invoke(wizard, new object[] { inputTypeComboBox, EventArgs.Empty });
 
                 // Assert: Check that a panel was created and it implements IInputPanel
-                Assert.AreEqual(1, groupBoxInputSettings.Controls.Count, $"Expected 1 control for {testCase.DeviceType}, got {groupBoxInputSettings.Controls.Count}");
-                
+                Assert.HasCount(1, groupBoxInputSettings.Controls, $"Expected 1 control for {testCase.DeviceType}, got {groupBoxInputSettings.Controls.Count}");
+
                 var panel = groupBoxInputSettings.Controls[0];
                 Assert.IsInstanceOfType(panel, typeof(IInputPanel), $"Panel for {testCase.DeviceType} should implement IInputPanel");
-                
+
                 // Verify the panel is the correct type
                 switch (testCase.DeviceType)
                 {
@@ -151,7 +153,7 @@ namespace MobiFlight.UI.Dialogs.Tests
                 VerifyPanelInitialization(panel, executionManagerMock.Object, testCase.DeviceType);
 
                 // Verify that GetAvailableVariables was called for this panel
-                executionManagerMock.Verify(em => em.GetAvailableVariables(), Times.AtLeastOnce, 
+                executionManagerMock.Verify(em => em.GetAvailableVariables(), Times.AtLeastOnce,
                     $"GetAvailableVariables should be called at least once for {testCase.DeviceType}");
             }
         }
@@ -161,11 +163,11 @@ namespace MobiFlight.UI.Dialogs.Tests
             // Use reflection to check that the _executionManager field was set
             // This confirms that Init() was called
             var executionManagerField = panel.GetType().GetField("_executionManager", BindingFlags.NonPublic | BindingFlags.Instance);
-            
+
             Assert.IsNotNull(executionManagerField, $"Panel {deviceType} should have an _executionManager field");
-            
+
             var storedExecutionManager = executionManagerField.GetValue(panel);
-            Assert.AreSame(executionManager, storedExecutionManager, 
+            Assert.AreSame(executionManager, storedExecutionManager,
                 $"Panel {deviceType} should have the execution manager set via Init() call");
         }
 
@@ -182,6 +184,5 @@ namespace MobiFlight.UI.Dialogs.Tests
                 return (obj.Label, obj.Value).GetHashCode();
             }
         }
-
     }
 }
