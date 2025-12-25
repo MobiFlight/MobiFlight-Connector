@@ -134,6 +134,9 @@ namespace MobiFlightWwFcu
                 case WinwingConstants.PRODUCT_ID_AIRBUS_STICK_R:
                     AddToCoupledDevices(new WinwingAirbusSidestickDevice(MessageSender, WinwingConstants.AIRBUS_STICK_R_NAME));
                     break;
+                case WinwingConstants.PRODUCT_ID_ECAM:
+                    AddToCoupledDevices(new WinwingEcamDevice(MessageSender));
+                    break;
                 case WinwingConstants.PRODUCT_ID_MCDU_CPT:
                     AddCduDevice("/winwing/cdu-captain", WinwingCduType.MCDU);
                     break;
@@ -260,7 +263,7 @@ namespace MobiFlightWwFcu
             }
             catch (Exception ex)
             {
-                ErrorMessageCreated?.Invoke(this, $"Error on Winwing FCU Heartbeat. Exception: {ex.Message}");
+                ErrorMessageCreated?.Invoke(this, $"Error on Winwing Heartbeat. Exception: {ex.Message}");
             }
         }
 
@@ -275,7 +278,7 @@ namespace MobiFlightWwFcu
             }
             catch
             {
-                ErrorMessageCreated?.Invoke(this, $"Error setting Winwing FCU LED name='{led}' to value='{state}'. Please check input.");
+                ErrorMessageCreated?.Invoke(this, $"Error setting Winwing LED name='{led}' to value='{state}'. Please check input.");
             }
         }
 

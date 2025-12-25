@@ -25,6 +25,8 @@ namespace MobiFlightWwFcu
         internal static readonly byte[] DEST_AIRBUS_STICK_VIBRATION_R = new byte[] { 0x08, 0xbf };
         internal static readonly byte[] DEST_AIRBUS_STICK_VIBRATION_L = new byte[] { 0x07, 0xbf };
 
+        internal static readonly byte[] DEST_ECAM = new byte[] { 0x70, 0xbb };
+
 
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
         internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
@@ -59,6 +61,8 @@ namespace MobiFlightWwFcu
 
         internal const int PRODUCT_ID_AIRBUS_STICK_L = 0xBC27;
         internal const int PRODUCT_ID_AIRBUS_STICK_R = 0xBC28;
+
+        internal const int PRODUCT_ID_ECAM = 0xBB70;
 
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
