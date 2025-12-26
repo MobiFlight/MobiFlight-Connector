@@ -137,6 +137,9 @@ namespace MobiFlightWwFcu
                 case WinwingConstants.PRODUCT_ID_ECAM:
                     AddToCoupledDevices(new WinwingEcamDevice(MessageSender));
                     break;
+                case WinwingConstants.PRODUCT_ID_AGP:
+                    AddToCoupledDevices(new WinwingAgpDevice(MessageSender));
+                    break;
                 case WinwingConstants.PRODUCT_ID_MCDU_CPT:
                     AddCduDevice("/winwing/cdu-captain", WinwingCduType.MCDU);
                     break;
