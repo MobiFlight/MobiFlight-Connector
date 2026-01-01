@@ -11,16 +11,28 @@ export const ToastNotificationHandler = () => {
 
   useAppMessage("Notification", (message) => {
     const notification = message.payload as Notification
-    const controllerType = notification.Context?.Type ?? "Board"
     
     switch (notification.Event) {
-      case "MissingControllerDetected":
+      case "ControllerAutoBindSuccessful": {
+        const controllerName =
+          notification?.Context?.Controllers ?? "Unknown Controller"
         toast({
-          id: "missing-controllers-detected",
-          title: "Missing Controllers Detected",
-          description: `Some ${controllerType} controllers used in this profile are currently not connected.`,
+          id: "autobind-controllers-successful",
+          title: t("Notifications.ControllerAutoBindSuccessful.Title"),
+          description: t("Notifications.ControllerAutoBindSuccessful.Description", { controllerName }),
+        })
+        break
+      }
+
+      case "ControllerManualBindRequired": {
+        const controllerName =
+          notification?.Context?.Controllers ?? "Unknown Controller"
+        toast({
+          id: "manual-binding-required",
+          title: t("Notifications.ControllerManualBindRequired.Title"),
+          description: t("Notifications.ControllerManualBindRequired.Description", { controllerName }),
           button: {
-            label: `Reassign ${controllerType}`,
+            label: t("Notifications.ControllerManualBindRequired.Action"),
             onClick: () => {
               publish({
                 key: "CommandMainMenu",
@@ -30,6 +42,7 @@ export const ToastNotificationHandler = () => {
           },
         })
         break
+      }
 
       case "ProjectFileExtensionMigrated":
         toast({
@@ -40,7 +53,7 @@ export const ToastNotificationHandler = () => {
         break
 
       default:
-        console.log("Unhandled notification event:", notification.Event)
+        console.error("Unhandled notification event:", notification.Event)
         break
     }
   })
@@ -51,8 +64,7 @@ export const ToastNotificationHandler = () => {
       toast({
         id: "hubhop-auto-update",
         title: t("General.HubHopUpdate.Title"),
-        description:
-          t("General.HubHopUpdate.Description", { days: 7 }),
+        description: t("General.HubHopUpdate.Description", { days: 7 }),
         button: {
           label: "Update Now",
           onClick: () => {
@@ -65,14 +77,18 @@ export const ToastNotificationHandler = () => {
       })
     }
 
-    if (status.ShouldUpdate && status.Result === "InProgress" && status.UpdateProgress === 0) {
+    if (
+      status.ShouldUpdate &&
+      status.Result === "InProgress" &&
+      status.UpdateProgress === 0
+    ) {
       toast({
         id: "hubhop-auto-update",
         title: t("General.HubHopUpdate.Title.Downloading"),
         description: <HubHopUpdateToast timeout={2000} />,
         options: {
           duration: Infinity, // Keep it open until completed
-        }
+        },
       })
     }
   })

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog"
 
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { LoaderIcon } from "lucide-react"
+import { IconLoader2 as LoaderIcon } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 type LoaderOverlayProps = {

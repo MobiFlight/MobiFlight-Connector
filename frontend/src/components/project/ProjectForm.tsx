@@ -62,7 +62,7 @@ const ProjectForm = ({
       return
     }
     setHasError(false)
-    console.log("Saving")
+
     onSave({
       Name: trimmedName,
       Sim: simulator,

@@ -103,7 +103,7 @@ export interface OverlayState {
 }
 
 export interface Notification {
-  Event: string
+  Event: "ControllerAutoBindSuccessful" | "ControllerManualBindRequired" | "ProjectFileExtensionMigrated"
   Guid?: string
   Context: Record<string, string> | null
 }

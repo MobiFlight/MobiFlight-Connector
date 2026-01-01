@@ -78,6 +78,12 @@
       "prosim": "ProSim",
       "none": "Ningún simulador"
     },
+    "BindingStatus": {
+      "Match": "Controlador conectado",
+      "AutoBind": "Controlador vinculado automáticamente",
+      "Missing": "Controlador ausente",
+      "RequiresManualBind": "Vinculación manual requerida"
+    },
     "Card": {
       "Main": {
         "Title": "Mis Proyectos",
@@ -113,6 +119,12 @@
         "UseFsuipc": "FSUIPC - interfaz heredada alterna - a veces utilizada por \"addons\", ej., PMDG",
         "UseProSim": "ProSim - interfaz para aviones ProSim",
         "Feature": "Funciones adicionales"
+      },
+      "BindingStatus": {
+        "Match": "Controlador conectado",
+        "AutoBind": "Controlador vinculado automáticamente",
+        "Missing": "Controlador ausente",
+        "RequiresManualBind": "Vinculación manual requerida"
       },
       "Aircraft": {
         "Label": "Avión",
@@ -229,6 +241,17 @@
         "Description": "Tu configuración no coincide con los filtros actuales, por lo que no es visible en la lista.",
         "Action": "Restablecer filtros"
       }
+    }
+  },
+  "Notifications": {
+    "ControllerAutoBindSuccessful": {
+      "Title": "¡Buenas noticias!",
+      "Description": "Hemos actualizado el proyecto para funcionar con ‘{{controllerName}}’ — está listo para usar."
+    },
+    "ControllerManualBindRequired": {
+      "Title": "¡Necesitamos tu ayuda!",
+      "Description": "{{controllerName}} usado en este perfil requiere una vinculación manual para que tu proyecto funcione correctamente.",
+      "Action": "Vincular controladores"
     }
   },
   "Feed": {

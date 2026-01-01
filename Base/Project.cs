@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base.Migration;
+using MobiFlight.Controllers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -20,9 +21,15 @@ namespace MobiFlight.Base
         public string Sim { get; set; }
         public ProjectFeatures Features { get; set; }
         public List<string> Aircraft { get; set; }
-        public List<string> Controllers { get; set; }
         public string FilePath { get; set; }
         public bool Favorite { get; set; } = false;
+        /// <summary>
+        /// Binding status for controllers in this project
+        /// Key: ModuleSerial, Value: ControllerBindingStatus
+        /// Only populated when analyzing binding status
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public List<ControllerBinding> ControllerBindings { get; set; }
     }
 
 
@@ -211,35 +218,6 @@ namespace MobiFlight.Base
             }
         }
 
-        private ObservableCollection<string> _controllers = new ObservableCollection<string>();
-        /// <summary>
-        /// Gets or sets the name of the project.
-        /// </summary>
-        public ObservableCollection<string> Controllers
-        {
-            get => _controllers;
-            set
-            {
-                if (_aircraft != value)
-                {
-                    if (_controllers != null)
-                    {
-                        _controllers.CollectionChanged -= CollectionChanged;
-                    }
-
-                    _controllers = value;
-
-                    if (_controllers != null)
-                    {
-                        _controllers.CollectionChanged += CollectionChanged;
-                    }
-
-                    OnPropertyChanged(nameof(Controllers));
-                    OnProjectChanged();
-                }
-            }
-        }
-
         private ProjectFeatures _features = new ProjectFeatures();
 
         /// <summary>
@@ -273,12 +251,24 @@ namespace MobiFlight.Base
         }
 
         /// <summary>
+        /// Binding status for controllers in this project
+        /// Key: ModuleSerial, Value: ControllerBindingStatus
+        /// Only populated when analyzing binding status
+        /// </summary>
+        public virtual List<ControllerBinding> ControllerBindings { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Project"/> class with default values.
         /// </summary>
         public Project()
         {
             ConfigFiles.CollectionChanged += CollectionChanged;
             Name = "New MobiFlight Project";
+        }
+
+        public Project(Project source) : this()
+        {
+            CopyFrom(source);
         }
 
         public ProjectInfo ToProjectInfo()
@@ -294,8 +284,8 @@ namespace MobiFlight.Base
                 Sim = Sim,
                 Features = Features,
                 Aircraft = Aircraft?.ToList() ?? new List<string>(),
-                Controllers = Controllers?.ToList() ?? new List<string>(),
-                FilePath = FilePath
+                FilePath = FilePath,
+                ControllerBindings = ControllerBindings
             };
 
             return projectInfo;
@@ -326,13 +316,6 @@ namespace MobiFlight.Base
 
                 item.GetIUniqueControllerSerials().ForEach(c => controllerSerials.Add(c));
             }
-
-            Controllers.Clear();
-
-            controllerSerials.Distinct().ToList().ForEach(c =>
-            {
-                Controllers.Add(c);
-            });
         }
 
         /// <summary>
@@ -391,6 +374,13 @@ namespace MobiFlight.Base
                     Log.Instance.log("Project could not be loaded", LogSeverity.Error);
                     throw new InvalidDataException("Failed to deserialize project file.");
                 }
+
+                // Set FilePath so that CopyFrom keeps it
+                project.FilePath = FilePath;
+
+                // Set OriginalSchemaVersion so that CopyFrom keeps it
+                project.OriginalSchemaVersion = OriginalSchemaVersion;
+
                 this.CopyFrom(project);
 
                 foreach (var configFile in ConfigFiles)
@@ -431,13 +421,32 @@ namespace MobiFlight.Base
             }
         }
 
-        private void CopyFrom(Project project)
+        protected void CopyFrom(Project project)
         {
+            if (project == null) throw new ArgumentNullException(nameof(project));
+
+            // Unsubscribe from old collections before replacing
+            if (ConfigFiles != null)
+                ConfigFiles.CollectionChanged -= CollectionChanged;
+            if (Aircraft != null)
+                Aircraft.CollectionChanged -= CollectionChanged;
+            
             this.Name = project.Name;
+            this.FilePath = project.FilePath;
+            this.OriginalSchemaVersion = project.OriginalSchemaVersion;
+
             this.Sim = project.Sim;
             this.Features = project.Features.Clone();
-            this.Aircraft = project.Aircraft;
-            this.ConfigFiles = project.ConfigFiles;
+            this.Aircraft = project.Aircraft != null ?
+                                new ObservableCollection<string>(project.Aircraft) :
+                                null;
+
+            this.ConfigFiles = project.ConfigFiles != null ?
+                                new ObservableCollection<ConfigFile>(project.ConfigFiles) :
+                                null;
+            this.ControllerBindings = project.ControllerBindings != null ?
+                                        new List<ControllerBinding>(project.ControllerBindings) :
+                                        null;
         }
 
         /// <summary>
@@ -452,7 +461,8 @@ namespace MobiFlight.Base
 
             if (currentVersion > SchemaVersion)
             {
-                if (!suppressLogging) { 
+                if (!suppressLogging)
+                {
                     Log.Instance.log($"Document version {currentVersion} too new. Update MobiFlight to latest version. ({Name} - {FilePath})", LogSeverity.Info);
                 }
 
@@ -465,7 +475,8 @@ namespace MobiFlight.Base
                 return document;
             }
 
-            if (!suppressLogging) { 
+            if (!suppressLogging)
+            {
                 Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}. ({Name} - {FilePath})", LogSeverity.Debug);
             }
 
@@ -544,7 +555,7 @@ namespace MobiFlight.Base
             }
 
             // Add version when serializing
-            var document = JObject.FromObject(this);
+            var document = JObject.FromObject(new PersistedProject(this));
             document["_version"] = SchemaVersion.ToString();
 
             // we don't want to serialize the FilePath
@@ -640,7 +651,7 @@ namespace MobiFlight.Base
 
         public string MigrateFileExtension()
         {
-            if (FilePath.EndsWith(".mcc", StringComparison.OrdinalIgnoreCase) || 
+            if (FilePath.EndsWith(".mcc", StringComparison.OrdinalIgnoreCase) ||
                 FilePath.EndsWith(".aic", StringComparison.OrdinalIgnoreCase))
             {
                 FilePath = Path.ChangeExtension(FilePath, FileExtension);
@@ -648,5 +659,13 @@ namespace MobiFlight.Base
 
             return FilePath;
         }
+    }
+
+    public class PersistedProject : Project
+    {
+        [JsonIgnore]
+        public override List<ControllerBinding> ControllerBindings { get; set; }
+
+        public PersistedProject(Project project) : base(project) { }
     }
 }

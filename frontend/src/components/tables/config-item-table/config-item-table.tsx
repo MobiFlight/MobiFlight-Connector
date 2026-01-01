@@ -172,10 +172,6 @@ export function ConfigItemTable<TValue>({
   })
 
   useEffect(() => {
-    console.log("added item", addedItem.current)
-  }, [addedItem])
-
-  useEffect(() => {
     if (addedItem.current && data.length === prevDataLength.current + 1) {
       addedItem.current = false
       const lastItem = data[data.length - 1] as IConfigItem

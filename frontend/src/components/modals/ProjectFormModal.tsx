@@ -20,7 +20,6 @@ export default function NewProjectModalRoute() {
         if (!open) close()
       }}
       onSave={async (values) => {
-        console.log("ProjectFormModal onSave", values)
         publish({
           key: "CommandMainMenu",
           payload: {

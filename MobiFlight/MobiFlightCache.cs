@@ -329,7 +329,7 @@ namespace MobiFlight
             return AvailableComModules;
         }
 
-        public IEnumerable<MobiFlightModule> GetModules()
+        public virtual IEnumerable<MobiFlightModule> GetModules()
         {
             if (!Available())
                 return new List<MobiFlightModule>();

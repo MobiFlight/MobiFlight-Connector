@@ -54,6 +54,25 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
+        public void ExtractPrefixTest() {
+            var serial = "GMA345/ SN-b44-4c5";
+            var result = SerialNumber.ExtractPrefix(serial);
+            Assert.AreEqual(MobiFlightModule.SerialPrefix, result);
+
+            serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
+            result = SerialNumber.ExtractPrefix(serial);
+            Assert.AreEqual(Joystick.SerialPrefix, result);
+
+            serial = "My MidiDevice/ MI-123456";
+            result = SerialNumber.ExtractPrefix(serial);
+            Assert.AreEqual(MidiBoard.SerialPrefix, result);
+
+            serial = "Arcaze v5.36/ 000393600000";
+            result = SerialNumber.ExtractPrefix(serial);
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
         public void IsMobiFlightSerialTest()
         {
             var serial = "GMA345/ SN-b44-4c5";

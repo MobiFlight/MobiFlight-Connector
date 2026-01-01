@@ -78,6 +78,12 @@
       "prosim": "ProSim",
       "none": "No simulator"
     },
+    "BindingStatus": {
+      "Match": "Controller connected",
+      "AutoBind": "Auto-bound controller",
+      "Missing": "Controller missing",
+      "RequiresManualBind": "Manual binding required"
+    },
     "Card": {
       "Main": {
         "Title": "My Projects",
@@ -229,6 +235,17 @@
         "Description": "Your config doesn't match the current filter settings so it is not visible in the list.",
         "Action": "Reset filters"
       }
+    }
+  },
+  "Notifications": {
+    "ControllerAutoBindSuccessful": {
+      "Title": "Great news!",
+      "Description": "We've updated your project to work with ‘{{controllerName}}’ — everything’s ready to go!"
+    },
+    "ControllerManualBindRequired": {
+      "Title": "Your input is needed!",
+      "Description": "{{controllerName}} used in this profile requires manual binding to make your project work correctly.",
+      "Action": "Bind controllers"
     }
   },
   "Feed": {

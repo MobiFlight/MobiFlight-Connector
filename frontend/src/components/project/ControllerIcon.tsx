@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils"
+import { ControllerBinding, ControllerBindingStatus } from "@/types/controller"
 import { HtmlHTMLAttributes } from "react"
+import { useTranslation } from "react-i18next"
 
 export type ControllerIconProps = {
-  serial: string
+  controllerBinding: ControllerBinding
 }
 
 const ControllerIconPath = {
@@ -18,7 +20,7 @@ const ControllerIconPath = {
   },
   joystick: {
     authentikit: {
-      "AuthentiKit": "/controller/authentikit/atk-orange-button-logo.png",
+      AuthentiKit: "/controller/authentikit/atk-orange-button-logo.png",
     },
     honeycomb: {
       "Alpha Flight Controls": "/controller/honeycomb/alpha-yoke.jpg",
@@ -56,7 +58,6 @@ const ControllerIconPath = {
 }
 
 const FindControllerIconPath = (controllerType: string, deviceName: string) => {
-  console.log(`FindControllerIconPath: ${controllerType} > ${deviceName}`)
   const controllerIconPathSection =
     ControllerIconPath[controllerType as keyof typeof ControllerIconPath]
 
@@ -85,11 +86,17 @@ const FindControllerIconPath = (controllerType: string, deviceName: string) => {
 }
 
 const ControllerIcon = ({
-  serial,
+  controllerBinding,
   className,
   ...props
 }: HtmlHTMLAttributes<HTMLDivElement> & ControllerIconProps) => {
-  console.log("ControllerIcon serial:", serial)
+  const serial =
+    controllerBinding.BoundController ||
+    controllerBinding.OriginalController ||
+    ""
+  const status = controllerBinding.Status
+  const { t } = useTranslation()
+
   const controllerType = serial.includes("SN-")
     ? "mobiflight"
     : serial.includes("JS-")
@@ -102,12 +109,22 @@ const ControllerIcon = ({
   const deviceName = serial.split("/")[0].trim() || ""
   const controllerIconUrl = FindControllerIconPath(controllerType, deviceName)
 
+  const variant = {
+    Match: "",
+    AutoBind: "outline-blue-500 outline-1 shadow-sm",
+    Missing: "outline-amber-500 outline-1 shadow-sm",
+    RequiresManualBind: "outline-red-500 outline-1 shadow-sm",
+  } as Record<ControllerBindingStatus, string>
+
+  const titleStatus = t(`Project.BindingStatus.${status}`)
+
   return usingController ? (
     <div
       data-testid="controller-icon"
-      title={deviceName}
+      title={`${deviceName} - ${titleStatus}`}
       className={cn(
-        `bg-background border-background flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 shadow-sm`,
+        `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 shadow-sm`,
+        variant[status],
         className,
       )}
       {...props}

@@ -33,6 +33,20 @@ namespace MobiFlight.Base
             return String.Join("", tokens).Trim();
         }
 
+        /// <summary>
+        /// Extracts the device type prefix from a serial number (e.g., "SN-", "JS-", "MI-")
+        /// If no match - returns null
+        /// </summary>
+        /// <returns>Device type prefix from a serial number (e.g., "SN-", "JS-", "MI-") or null if no match</returns>
+        public static string ExtractPrefix(string fullString)
+        {
+            var serial = ExtractSerial(fullString);
+            if (serial.StartsWith(MobiFlightModule.SerialPrefix)) return MobiFlightModule.SerialPrefix;
+            else if (serial.StartsWith(Joystick.SerialPrefix)) return Joystick.SerialPrefix;
+            else if (serial.StartsWith(MidiBoard.SerialPrefix)) return MidiBoard.SerialPrefix;
+            return null;
+        }
+
         public static bool IsArcazeSerial(string serial)
         {
             if (serial == null || serial == "") return false;

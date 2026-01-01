@@ -169,7 +169,7 @@ namespace MobiFlight
         /// Returns the list of Joysticks sorted by name
         /// </summary>
         /// <returns>List of currently connected joysticks</returns>
-        public List<Joystick> GetJoysticks()
+        public virtual List<Joystick> GetJoysticks()
         {
             return Joysticks.Values.OrderBy(j => j.Name).ToList();
         }
@@ -242,6 +242,16 @@ namespace MobiFlight
                 {
                     var joystickDef = GetDefinitionByProductId(vendorId, productId);
                     js = new Winwing3Pdc(diJoystick, joystickDef, productId, WSServer);
+                }
+                else if (vendorId == 0x4098 && WinwingConstants.PRODUCT_ID_ECAM == productId)
+                {
+                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
+                    js = new WinwingEcam(diJoystick, joystickDef, productId, WSServer);
+                }
+                else if (vendorId == 0x4098 && WinwingConstants.PRODUCT_ID_AGP == productId)
+                {
+                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
+                    js = new WinwingAgp(diJoystick, joystickDef, productId, WSServer);
                 }
                 else if (vendorId == 0x231D)
                 {

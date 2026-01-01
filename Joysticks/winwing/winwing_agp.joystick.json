@@ -1,0 +1,133 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING AGP",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB80",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "BRK FAN ON"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "BRK FAN OFF"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "AUTO BRK LO Button"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "AUTO BRK MED Button"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "AUTO BRK MAX Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "A/SKID ON"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "A/SKID OFF"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "RST DEC"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "RST Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "RST INC"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "CHR DEC"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "CHR Button"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "CHR INC"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "DATE DEC"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "DATE Button"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "DATE INC"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "UTC GPS"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "UTC INT"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "UTC SET"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "ET RUN"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "ET STP"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "ET RST"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "TERR ON ND Button"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "GEAR UP"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "GEAR DOWN"
+    }
+  ]
+}

@@ -28,12 +28,12 @@ test.describe("Project view tests", () => {
     await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
       Name: "Test Project",
       Sim: "msfs",
-      Controllers: [
-        "ProtoBoard-v2/ SN-3F1-FDD",
-        "MobiFlight Board / SN-12345",
-        "Alpha Flight Controls / JS-67890",
-        "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000",
-        "miniCOCKPIT miniFCU/ SN-E98-277",
+      ControllerBindings: [
+        { "BoundController": "ProtoBoard-v2/ SN-3F1-FDD", "OriginalController": "ProtoBoard-v2/ SN-3F1-FDD", "Status": "Match" },
+        { "BoundController": null, "OriginalController": "MobiFlight Board / SN-12345", "Status": "Missing" },
+        { "BoundController": "Alpha Flight Controls / JS-67890", "OriginalController": "Alpha Flight Controls / JS-67891", "Status": "AutoBind" },
+        { "BoundController": "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000", "OriginalController": "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000", "Status": "Match" },
+        { "BoundController": "miniCOCKPIT miniFCU/ SN-E98-277", "OriginalController": "miniCOCKPIT miniFCU/ SN-E98-277", "Status": "Match" },
       ],
     })
 
@@ -49,23 +49,23 @@ test.describe("Project view tests", () => {
     await expect(controllerIcons).toHaveCount(5)
     await expect(controllerIcons.nth(0)).toHaveAttribute(
       "title",
-      "ProtoBoard-v2",
+      "ProtoBoard-v2 - Controller connected",
     )
     await expect(controllerIcons.nth(1)).toHaveAttribute(
       "title",
-      "MobiFlight Board",
+      "MobiFlight Board - Controller missing",
     )
     await expect(controllerIcons.nth(2)).toHaveAttribute(
       "title",
-      "Alpha Flight Controls",
+      "Alpha Flight Controls - Auto-bound controller",
     )
     await expect(controllerIcons.nth(3)).toHaveAttribute(
       "title",
-      "Bravo Throttle Quadrant",
+      "Bravo Throttle Quadrant - Controller connected",
     )
     await expect(controllerIcons.nth(4)).toHaveAttribute(
       "title",
-      "miniCOCKPIT miniFCU",
+      "miniCOCKPIT miniFCU - Controller connected",
     )
   })
 

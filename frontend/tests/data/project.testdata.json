@@ -548,13 +548,30 @@
   "FilePath": "tests/data/project.testdata.json",
   "Sim": "msfs",
   "Aircraft": [],
-  "Controllers": [
-    "miniCOCKPIT miniFCU/ SN-E98-277",
-    "ProtoBoard-v2/ SN-3F1-FDD",
-    "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000"
+  "ControllerBindings": [
+    {
+      "BoundController": "miniCOCKPIT miniFCU/ SN-E98-277",
+      "Status": "Match",
+      "OriginalController": "miniCOCKPIT miniFCU/ SN-E98-277"
+    },
+    {
+      "BoundController": "ProtoBoard-v2/ SN-5FC-1CF",
+      "Status": "AutoBind",
+      "OriginalController": "ProtoBoard-v2/ SN-3F1-FDD"
+    },
+    {
+      "BoundController": "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
+      "Status": "RequiresManualBind",
+      "OriginalController": "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000"
+    },
+    {
+      "BoundController": null,
+      "Status": "Missing",
+      "OriginalController": "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000"
+    }
   ],
   "Features": {
-      "FSUIPC": false,
-      "ProSim": false
+    "FSUIPC": false,
+    "ProSim": false
   }
 }

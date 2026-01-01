@@ -169,7 +169,7 @@ namespace MobiFlight
             ExcludedMidiBoards.Clear();
         }
 
-        public List<MidiBoard> GetMidiBoards()
+        public virtual List<MidiBoard> GetMidiBoards()
         {
             return MidiBoards;
         }

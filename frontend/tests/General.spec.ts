@@ -60,27 +60,50 @@ test("Confirm HubHop update notifications show correctly", async ({
 })
 
 test.describe("Generic Notifications tests", () => {
-  test("Confirm Missing Controller Detected Notification shows correctly", async ({
+  test("Confirm Auto-Bind Controller Notification shows correctly", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
 
-    const toastMissingControllerDetected = page.getByTestId(
-      "toast-missing-controllers-detected",
+    const toastAutoBindControllerSuccessful  = page.getByTestId(
+      "toast-autobind-controllers-successful",
     )
-    await expect(toastMissingControllerDetected).not.toBeVisible()
+    await expect(toastAutoBindControllerSuccessful).not.toBeVisible()
 
     await configListPage.mobiFlightPage.publishMessage({
       key: "Notification",
       payload: {
-        Event: "MissingControllerDetected",
-        Context: { Type: "Board" },
+        Event: "ControllerAutoBindSuccessful",
+        Context: { Count: "1", Controllers: "Alpha Flight Controls"},
       },
     })
 
-    await expect(toastMissingControllerDetected).toBeVisible()
+    await expect(toastAutoBindControllerSuccessful).toBeVisible()
+  })
+
+  test("Confirm Manual Binding Required Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastManualBindingRequired  = page.getByTestId(
+      "toast-manual-binding-required",
+    )
+    await expect(toastManualBindingRequired).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "ControllerManualBindRequired",
+        Context: { Count: "2", Controllers: "Alpha Flight Controls"},
+      },
+    })
+
+    await expect(toastManualBindingRequired).toBeVisible()
   })
 
   test("Confirm Project File Extension Migrated Notification shows correctly", async ({

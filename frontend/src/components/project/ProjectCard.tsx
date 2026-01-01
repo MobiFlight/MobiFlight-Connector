@@ -88,7 +88,7 @@ export const ProjectCardImage = ({
   className,
 }: HtmlHTMLAttributes<HTMLDivElement> & { summary: ProjectInfo }) => {
   const imageUrl = summary.Thumbnail || `/sim/${summary.Sim?.toLowerCase()}.jpg`
-  console.log("ProjectCardImage imageUrl:", imageUrl, import.meta.url)
+
   return summary.Sim ? (
     <div className={cn("bg-accent rounded-lg", className)}>
       <img
@@ -193,15 +193,16 @@ const ProjectCard = ({
                   className="flex flex-row -space-x-4 hover:space-x-0"
                   data-testid="controller-icons"
                 >
-                  {summary.Controllers?.map(
-                    (controllerName, index) =>
-                      controllerName != "-" && (
+                  {summary.ControllerBindings?.map(
+                    (controllerBinding, index) => {
+                      return controllerBinding.BoundController != "-" && (
                         <ControllerIcon
                           className="transition-all ease-in-out"
-                          key={`${controllerName}-${index}`}
-                          serial={controllerName}
+                          key={`${controllerBinding.BoundController}-${index}`}
+                          controllerBinding={controllerBinding}
                         />
-                      ),
+                      )
+                    },
                   )}
                 </div>
               </div>

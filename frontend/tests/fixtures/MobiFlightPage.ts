@@ -117,7 +117,8 @@ export class MobiFlightPage {
         Features: {
             "FSUIPC": false,
             "ProSim": false
-        }
+        },
+        ControllerBindings: [],
       } as Project,
     }
     await this.publishMessage(message)
