@@ -14,7 +14,7 @@ namespace MobiFlight.UI.Tests
     [TestClass()]
     public class MainFormTests
     {
-        private class TestableMainForm : MainForm
+        public class TestableMainForm : MainForm
         {
             // Expose protected/private members for testing if needed
             public new Dictionary<string, string> AutoLoadConfigs
@@ -27,15 +27,15 @@ namespace MobiFlight.UI.Tests
             {
                 base.UpdateAutoLoadMenu();
             }
+
+            public void InitializeExecutionManager()
+            {
+                var methodInfo = typeof(MainForm).GetMethod("InitializeExecutionManager", BindingFlags.NonPublic | BindingFlags.Instance);
+                methodInfo.Invoke(this, new object[] { });
+            }
         }
 
         private TestableMainForm _mainForm;
-
-        public void InitializeExecutionManager()
-        {
-            var methodInfo = typeof(MainForm).GetMethod("InitializeExecutionManager", BindingFlags.NonPublic | BindingFlags.Instance);
-            methodInfo.Invoke(_mainForm, new object[] { });
-        }
 
         [TestInitialize]
         public void SetUp()
@@ -49,7 +49,7 @@ namespace MobiFlight.UI.Tests
         public void CreateNewProjectTest()
         {
             // Arrange
-            InitializeExecutionManager();
+            _mainForm.InitializeExecutionManager();
             Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be False when initializing MainForm.");
 
             _mainForm.CreateNewProject(new Project());
@@ -87,7 +87,7 @@ namespace MobiFlight.UI.Tests
         public void AddNewFileToProjectTest()
         {
             // Arrange
-            InitializeExecutionManager();
+            _mainForm.InitializeExecutionManager();
             Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
 
             // Act
@@ -141,7 +141,7 @@ namespace MobiFlight.UI.Tests
         public void RecentFilesRemove_ViaCommandMainMenu()
         {
             // Arrange
-            InitializeExecutionManager();
+            _mainForm.InitializeExecutionManager();
 
             var testFiles = new StringCollection
             {

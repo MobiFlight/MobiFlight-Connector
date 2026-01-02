@@ -485,3 +485,4 @@ FodyWeavers.xsd
 # Midi library
 !midi.pdb
 /wwwroot
+*.exe

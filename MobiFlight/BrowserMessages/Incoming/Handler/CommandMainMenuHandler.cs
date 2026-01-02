@@ -1,5 +1,4 @@
 ﻿using MobiFlight.UI;
-using System.IO;
 
 namespace MobiFlight.BrowserMessages.Incoming.Handler
 {

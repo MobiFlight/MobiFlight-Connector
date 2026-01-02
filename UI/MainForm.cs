@@ -2966,7 +2966,7 @@ namespace MobiFlight.UI
             execManager.Project.Sim = project.Sim;
             execManager.Project.Features = project.Features;
             execManager.Project.Aircraft = project.Aircraft;
-            MessageExchange.Instance.Publish(execManager.Project);
+            saveToolStripButton_Click(null, null);
         }
 
         internal void RecentFilesRemove(int index)

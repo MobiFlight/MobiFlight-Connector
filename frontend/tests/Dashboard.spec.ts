@@ -134,36 +134,42 @@ test.describe("Project settings modal features", () => {
       {
         name: "MSFS no FSUIPC",
         value: "msfs",
+        simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: false, use: false },
         prosim: { click: false, use: false },
       },
       {
         name: "MSFS with FSUIPC",
         value: "msfs",
+        simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: true, use: true },
         prosim: { click: false, use: false },
       },
       {
         name: "X-Plane",
         value: "xplane",
+        simLabel: "X-Plane",
         fsuipc: { click: false, use: false },
         prosim: { click: false, use: false },
       },
       {
         name: "Prepar3D",
         value: "p3d",
+        simLabel: "Prepar3D",
         fsuipc: { click: false, use: true },
         prosim: { click: false, use: false },
       },
       {
         name: "FSX / FS2004",
         value: "fsx",
+        simLabel: "FSX / FS2004",
         fsuipc: { click: false, use: true },
         prosim: { click: false, use: false },
       },
       {
         name: "MSFS with ProSim",
         value: "msfs",
+        simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: false, use: false },
         prosim: { click: true, use: true },
       },
@@ -180,6 +186,7 @@ test.describe("Project settings modal features", () => {
       const simOption = createProjectDialog.getByRole("radio", { name: option.value })
 
       await simOption.click()
+      await expect(createProjectDialog.getByText(option.simLabel)).toBeVisible()
       if (option.fsuipc.click) {
         await fsuipcCheckbox.check()
       }

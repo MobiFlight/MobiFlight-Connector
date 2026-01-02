@@ -1,10 +1,6 @@
 ﻿using HidSharp;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
-using MobiFlight.Joysticks.AuthentiKit;
-using MobiFlight.Joysticks.Octavi;
-using MobiFlight.Joysticks.VKB;
-using MobiFlight.Joysticks.Winwing;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -204,79 +200,29 @@ namespace MobiFlight
                     continue;
                 }
 
-                Joystick js;
                 var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
                 var productId = diJoystick.Properties.ProductId;
                 var vendorId = diJoystick.Properties.VendorId;
-                if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
+                
+                // Check if this device should be handled later as an HID controller
+                if (HidControllerFactory.CanCreate(d.InstanceName))
                 {
-                    // statically set this to Octavi until we might support (Octavi|IFR1) or similar
-                    js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.FCU_PRODUCTIDS.Contains(productId))
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingFcu(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.CDU_PRODUCTIDS.Contains(productId))
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingCdu(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.PAP3_PRODUCTIDS.Contains(productId))
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingPap3(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.AIRBUS_THROTTLE_PRODUCTIDS.Contains(productId))
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingAirbusThrottle(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.AIRBUS_STICK_PRODUCTIDS.Contains(productId))
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingAirbusSidestick(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.PDC3_PRODUCTIDS.Contains(productId))
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new Winwing3Pdc(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.PRODUCT_ID_ECAM == productId)
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingEcam(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x4098 && WinwingConstants.PRODUCT_ID_AGP == productId)
-                {
-                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingAgp(diJoystick, joystickDef, productId, WSServer);
-                }
-                else if (vendorId == 0x231D)
-                {
-                    // VKB devices are highly configurable. DirectInput names can have old values cached in the registry, but HID names seem to be immune to that.
-                    // Also trim the extraneous whitespaces on VKB device names.
-                    var hidDevice = VKBDevice.GetMatchingHidDevice(diJoystick);
-                    string productName = d.InstanceName;
-                    if (hidDevice != null)
-                    {
-                        productName = hidDevice.GetProductName();
-                    }
-                    js = new VKBDevice(diJoystick, GetDefinitionByInstanceName(productName.Trim()));
-                }
-                else if (d.InstanceName.Trim() == "AuthentiKit")
-                {
-                    var authentikitDefinition = GetDefinitionByInstanceName(d.InstanceName.Trim());
-                    js = new AuthentiKit(diJoystick, authentikitDefinition);
-                }
-                else if (HidControllerFactory.CanCreate(d.InstanceName)) {
-                    // skip, it will be handled later
                     continue;
                 }
-                else
+
+                // Get the product name (handles special cases like VKB)
+                string productName = ControllerFactory.GetProductName(d, diJoystick, vendorId);
+
+                // Get the appropriate definition for this device
+                JoystickDefinition definition = GetJoystickDefinition(d.InstanceName, productName, vendorId, productId);
+
+                // Use factory to create appropriate controller instance
+                var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, WSServer);
+                
+                // If factory returns null, create a standard Joystick
+                if (js == null)
                 {
-                    js = new Joystick(diJoystick, GetDefinitionByInstanceName(d.InstanceName));
+                    js = new Joystick(diJoystick, definition);
                 }
 
                 if (!HasAxisOrButtons(js))
@@ -307,6 +253,21 @@ namespace MobiFlight
             {
                 Connected?.Invoke(this, null);
             }
+        }
+
+        /// <summary>
+        /// Gets the appropriate JoystickDefinition for a device.
+        /// </summary>
+        private JoystickDefinition GetJoystickDefinition(string instanceName, string productName, int vendorId, int productId)
+        {
+            // Octavi/IFR1 devices: statically set to Octavi
+            if (instanceName == "Octavi" || instanceName == "IFR1")
+            {
+                return GetDefinitionByInstanceName("Octavi");
+            }
+
+            // Try to get definition by product name first, then by product ID
+            return GetDefinitionByInstanceName(productName) ?? GetDefinitionByProductId(vendorId, productId);
         }
 
         private void ConnectHidController()

@@ -161,6 +161,10 @@ const ProjectForm = ({
               </div>
             ))}
           </div>
+          {/* Simulator name */}
+          <div className="flex flex-col">
+            {t(`Project.Simulator.${simulator}`)}
+          </div>
           <div className="flex h-24 flex-col gap-2">
             {(simulator === "msfs" || simulator === "p3d") && (
               <div className="flex h-24 flex-col gap-2">
