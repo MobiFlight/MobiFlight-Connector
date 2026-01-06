@@ -1,4 +1,4 @@
-﻿---
+---
 description: 'ReactJS development standards and best practices'
 applyTo: '**/*.jsx, **/*.tsx, **/*.js, **/*.ts, **/*.css, **/*.scss'
 ---
@@ -70,7 +70,7 @@ Instructions for building high-quality ReactJS applications with modern patterns
 - Implement cleanup functions in effects for event listeners
 - Create custom hooks in `lib/hooks/` for reusable logic
 - Follow naming convention: `use[Feature]` (e.g., `useAppMessage`, `useTheme`)
-- - Use `useRef` for accessing DOM elements and storing mutable values
+- Use `useRef` for accessing DOM elements and storing mutable values
 
 ### Styling
 - Use Tailwind CSS v4 with CSS custom properties for theming
@@ -114,7 +114,7 @@ Instructions for building high-quality ReactJS applications with modern patterns
 - Use Page Object pattern for Playwright: fixtures in `tests/fixtures/`
 - Use `data-testid` attributes for reliable test selectors
 - Test user interactions, not implementation details
-- - Test accessibility features and keyboard navigation
+- Test accessibility features and keyboard navigation
 
 ### Error Handling
 - Use Error Boundaries for component-level error handling

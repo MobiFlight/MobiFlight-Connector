@@ -1,4 +1,4 @@
-﻿---
+---
 description: 'Python coding conventions and guidelines for MobiFlight CDU integration scripts'
 applyTo: '**/*.py'
 ---
