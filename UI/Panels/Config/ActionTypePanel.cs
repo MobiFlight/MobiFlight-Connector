@@ -44,7 +44,7 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.Items.Clear();
             ActionTypeComboBox.Items.Add(i18n._tr("none"));
 
-            var sim = projectInfo?.Sim.Trim().ToLower();
+            var sim = projectInfo?.Sim?.Trim().ToLower();
             var showAllOptions = projectInfo == null;
 
             var currentConfigUsesFsuipc = ConfigFile.ContainsConfigOfSourceType(new List<IConfigItem>() { CurrentConfig }, new FsuipcSource());
