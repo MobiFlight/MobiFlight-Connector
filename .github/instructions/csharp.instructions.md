@@ -1,114 +1,133 @@
 ---
-description: 'Guidelines for building C# applications'
+description: 'Guidelines for building C# applications in MobiFlight'
 applyTo: '**/*.cs'
 ---
 
-# C# Development
+# C# Development for MobiFlight
 
-## C# Instructions
-- Always use the latest version C#, currently C# 14 features.
-- Write clear and concise comments for each function.
+## C# Version and Language Features
+- Target .NET Framework 4.8 as specified by the project.
+- Use C# language features compatible with .NET Framework 4.8 (up to C# 7.3).
+- Write clear and concise comments for each function explaining purpose and design decisions.
 
 ## General Instructions
 - Make only high confidence suggestions when reviewing code changes.
 - Write code with good maintainability practices, including comments on why certain design decisions were made.
 - Handle edge cases and write clear exception handling.
 - For libraries or external dependencies, mention their usage and purpose in comments.
+- Log errors and important events using `Log.Instance.log()` with appropriate `LogSeverity` levels.
 
 ## Naming Conventions
-
-- Follow PascalCase for component names, method names, and public members.
-- Use camelCase for private fields and local variables.
-- Prefix interface names with "I" (e.g., IUserService).
+- Follow PascalCase for class names, method names, and public members.
+- Use camelCase for private fields and local variables (prefixed with underscore for private fields where appropriate, e.g., `_cmdMessenger`).
+- Prefix interface names with "I" (e.g., `IModuleInfo`, `IConfigItem`).
+- Use descriptive names that clearly convey intent (e.g., `execManager`, `UpdateStatusBarModuleInformation`).
 
 ## Formatting
+- Use 4 spaces per tab indentation (as observed in existing code).
+- Place opening braces on the same line for class/method definitions (K&R style).
+- Use clear whitespace and newlines for readability.
+- Group related code with comments explaining the section's purpose.
+- Keep lines reasonably short; break complex expressions across multiple lines.
 
-- Apply code-formatting style defined in `.editorconfig`.
-- Prefer file-scoped namespace declarations and single-line using directives.
-- Insert a newline before the opening curly brace of any code block (e.g., after `if`, `for`, `while`, `foreach`, `using`, `try`, etc.).
-- Ensure that the final return statement of a method is on its own line.
-- Use pattern matching and switch expressions wherever possible.
-- Use `nameof` instead of string literals when referring to member names.
-- Ensure that XML doc comments are created for any public APIs. When applicable, include `<example>` and `<code>` documentation in the comments.
+## Code Structure
+- Organize classes with clear separation of concerns.
+- Use regions sparingly and only for very large classes with distinct sections.
+- Group related methods together logically.
+- Place event handlers near related functionality.
+- Use delegates and events for decoupled communication between components.
+- Return early from methods to reduce nesting and improve readability.
+- Use private helper methods to break down complex logic.
+- Use speaking variables names for test expressions instead of complex inline expressions.
 
-## Project Setup and Structure
+## Null Handling
+- Check for null values explicitly using `== null` or `!= null` (project uses this convention).
+- Use `String.IsNullOrEmpty()` or `String.IsNullOrWhiteSpace()` for string validation.
+- Return early from methods when null checks fail to reduce nesting.
+- Document null behavior in method comments where relevant.
 
-- Guide users through creating a new .NET project with the appropriate templates.
-- Explain the purpose of each generated file and folder to build understanding of the project structure.
-- Demonstrate how to organize code using feature folders or domain-driven design principles.
-- Show proper separation of concerns with models, services, and data access layers.
-- Explain the Program.cs and configuration system in ASP.NET Core 10 including environment-specific settings.
+## Error Handling and Logging
+- Use try-catch blocks to handle expected exceptions gracefully.
+- Log errors using `Log.Instance.log()` with `LogSeverity.Error`.
+- Log important state changes with `LogSeverity.Info`.
+- Log detailed debugging information with `LogSeverity.Debug`.
+- Present user-friendly error messages via dialogs when appropriate.
+- Never silently swallow exceptions without logging.
 
-## Nullable Reference Types
+## Threading and UI Interactions
+- Check `InvokeRequired` before updating UI elements from background threads.
+- Use `Invoke()` or `BeginInvoke()` to marshal calls to the UI thread.
+- Use `Task.Run()` for long-running operations to avoid blocking the UI.
+- Use `ConfigureAwait(false)` for async operations that don't need UI context.
+- Be mindful of potential race conditions with shared state.
 
-- Declare variables non-nullable, and check for `null` at entry points.
-- Always use `is null` or `is not null` instead of `== null` or `!= null`.
-- Trust the C# null annotations and don't add null checks when the type system says a value cannot be null.
-
-## Data Access Patterns
-
-- Guide the implementation of a data access layer using Entity Framework Core.
-- Explain different options (SQL Server, SQLite, In-Memory) for development and production.
-- Demonstrate repository pattern implementation and when it's beneficial.
-- Show how to implement database migrations and data seeding.
-- Explain efficient query patterns to avoid common performance issues.
-
-## Authentication and Authorization
-
-- Guide users through implementing authentication using JWT Bearer tokens.
-- Explain OAuth 2.0 and OpenID Connect concepts as they relate to ASP.NET Core.
-- Show how to implement role-based and policy-based authorization.
-- Demonstrate integration with Microsoft Entra ID (formerly Azure AD).
-- Explain how to secure both controller-based and Minimal APIs consistently.
-
-## Validation and Error Handling
-
-- Guide the implementation of model validation using data annotations and FluentValidation.
-- Explain the validation pipeline and how to customize validation responses.
-- Demonstrate a global exception handling strategy using middleware.
-- Show how to create consistent error responses across the API.
-- Explain problem details (RFC 7807) implementation for standardized error responses.
-
-## API Versioning and Documentation
-
-- Guide users through implementing and explaining API versioning strategies.
-- Demonstrate Swagger/OpenAPI implementation with proper documentation.
-- Show how to document endpoints, parameters, responses, and authentication.
-- Explain versioning in both controller-based and Minimal APIs.
-- Guide users on creating meaningful API documentation that helps consumers.
-
-## Logging and Monitoring
-
-- Guide the implementation of structured logging using Serilog or other providers.
-- Explain the logging levels and when to use each.
-- Demonstrate integration with Application Insights for telemetry collection.
-- Show how to implement custom telemetry and correlation IDs for request tracking.
-- Explain how to monitor API performance, errors, and usage patterns.
+## Serial Communication and Device Management
+- Always dispose of communication resources properly (serial ports, connections).
+- Implement proper connection/disconnection sequences with appropriate delays.
+- Handle device connect/disconnect events gracefully.
+- Log all device state changes for debugging purposes.
+- Use timeouts for communication commands to prevent hanging.
 
 ## Testing
+- Write unit tests for business logic and utility methods and public class methods.
+- Use Moq for creating test doubles of interfaces.
+- Follow existing test naming conventions (e.g., `MethodName_ShouldBehavior_WhenCondition`).
+- Test both success and error paths.
+- Test edge cases like null inputs, empty collections, and boundary values.
+- Use `[DataRow]` attributes for parameterized tests.
+- Use "Arrange", "Act", "Assert" comments to clearly structure test methods.
 
-- Always include test cases for critical paths of the application.
-- Guide users through creating unit tests.
-- Do not emit "Act", "Arrange" or "Assert" comments.
-- Copy existing style in nearby files for test method names and capitalization.
-- Explain integration testing approaches for API endpoints.
-- Demonstrate how to mock dependencies for effective testing.
-- Show how to test authentication and authorization logic.
-- Explain test-driven development principles as applied to API development.
+## Project-Specific Patterns
+- Use `ExecutionManager` as the central coordination point for application state.
+- Use `MessageExchange.Instance` for publishing messages to the frontend.
+- Use `Properties.Settings.Default` for persistent configuration.
+- Use `AppTelemetry.Instance` for tracking user actions (when enabled).
+- Follow the existing cache pattern for flight sim connections (e.g., `SimConnectCache`, `Fsuipc2Cache`).
 
-## Performance Optimization
+## Event Handling
+- Use `EventHandler` or `EventHandler<T>` for event declarations.
+- Check if event is null before invoking: `OnEvent?.Invoke(this, args)`.
+- Unsubscribe from events in disposal methods to prevent memory leaks.
+- Use meaningful event argument types that carry necessary data.
 
-- Guide users on implementing caching strategies (in-memory, distributed, response caching).
-- Explain asynchronous programming patterns and why they matter for API performance.
-- Demonstrate pagination, filtering, and sorting for large data sets.
-- Show how to implement compression and other performance optimizations.
-- Explain how to measure and benchmark API performance.
+## Configuration and Serialization
+- Use JSON for configuration file formats.
+- Handle configuration migration gracefully with user notifications.
+- Validate configuration data after deserialization.
+- Provide meaningful error messages for configuration errors.
+- Support both embedded and external configuration files.
 
-## Deployment and DevOps
+## Performance Considerations
+- Cache frequently accessed values (e.g., `lastValue` dictionary in `MobiFlightModule`).
+- Avoid unnecessary UI updates by checking if values have changed.
+- Use dictionaries for fast lookups of devices and modules.
+- Dispose of resources promptly to free system resources.
+- Consider using `StringBuilder` for building large strings.
 
-- Guide users through containerizing their API using .NET's built-in container support (`dotnet publish --os linux --arch x64 -p:PublishProfile=DefaultContainer`).
-- Explain the differences between manual Dockerfile creation and .NET's container publishing features.
-- Explain CI/CD pipelines for NET applications.
-- Demonstrate deployment to Azure App Service, Azure Container Apps, or other hosting options.
-- Show how to implement health checks and readiness probes.
-- Explain environment-specific configurations for different deployment stages.
+## Documentation
+- Document public APIs with XML doc comments.
+- Include `<summary>`, `<param>`, `<returns>`, and `<exception>` tags.
+- Explain complex algorithms or business logic with inline comments.
+- Document workarounds and technical debt with comments explaining context.
+- Reference GitHub issues in comments where relevant (e.g., `// Issue 1423: Handle...`).
+
+## Flight Simulator Integration
+- Support multiple flight sim types (MSFS, FSX, P3D, X-Plane, ProSim).
+- Handle connection state changes gracefully with proper UI updates.
+- Check connection state before attempting sim operations.
+- Provide clear user feedback for connection issues.
+- Track which configs require which sim connections and update UI accordingly.
+
+## WinForms Specific
+- Initialize components in the correct order (language, settings, logging).
+- Save and restore window position, size, and state.
+- Use `StartPosition.CenterParent` for modal dialogs.
+- Handle minimize to tray functionality properly.
+- Update UI state consistently when application state changes.
+
+## Version Compatibility
+- Since this is a .NET Framework 4.8 project, avoid suggesting .NET Core/.NET 5+ specific features.
+- Do not suggest nullable reference types (C# 8.0 feature not fully supported in .NET Framework).
+- Do not suggest switch expressions, pattern matching enhancements, or other C# 8.0+ features.
+- Use traditional null checks, if/else statements, and switch statements.
+- Use `var` judiciously for local variables when type is obvious.
