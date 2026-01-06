@@ -53,32 +53,26 @@ test("Confirm accelerator keys are working correctly", async ({
   }
 })
 
-test("Confirm zoom menu items are present in Extras menu", async ({
+test("Confirm zoom menu items are present in View menu", async ({
   configListPage,
   page,
 }) => {
   await configListPage.gotoPage()
   await configListPage.mobiFlightPage.initWithTestData()
 
-  const ExtrasMenu = page.getByRole("menubar").getByRole("menuitem", { name: "Extras" })
-  await expect(ExtrasMenu).toBeVisible()
+  const ViewMenu = page.getByRole("menubar").getByRole("menuitem", { name: "View" })
+  await expect(ViewMenu).toBeVisible()
 
-  await ExtrasMenu.click()
+  await ViewMenu.click()
   
-  // Check for Zoom submenu
-  const ZoomSubmenu = page.getByRole("menuitem", { name: "Zoom" })
-  await expect(ZoomSubmenu).toBeVisible()
-  
-  await ZoomSubmenu.hover()
-  
-  // Check for zoom menu items with shortcuts
-  const ResetZoomItem = page.getByRole("menuitem", { name: "Reset Zoom Ctrl+0" })
+  // Check for direct zoom menu items (not a submenu)
+  const ResetZoomItem = page.getByRole("menuitem", { name: /Reset Zoom.*Ctrl\+0/ })
   await expect(ResetZoomItem).toBeVisible()
   
-  const ZoomInItem = page.getByRole("menuitem", { name: "Zoom In Ctrl++" })
+  const ZoomInItem = page.getByRole("menuitem", { name: /Zoom In.*Ctrl\+\+/ })
   await expect(ZoomInItem).toBeVisible()
   
-  const ZoomOutItem = page.getByRole("menuitem", { name: "Zoom Out Ctrl+-" })
+  const ZoomOutItem = page.getByRole("menuitem", { name: /Zoom Out.*Ctrl\+-/ })
   await expect(ZoomOutItem).toBeVisible()
 })
 
@@ -90,46 +84,41 @@ test("Confirm zoom menu items send correct commands", async ({
   await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
 
-  const ExtrasMenu = page.getByRole("menubar").getByRole("menuitem", { name: "Extras" })
-  await ExtrasMenu.click()
-  
-  const ZoomSubmenu = page.getByRole("menuitem", { name: "Zoom" })
-  await ZoomSubmenu.hover()
+  const ViewMenu = page.getByRole("menubar").getByRole("menuitem", { name: "View" })
+  await ViewMenu.click()
   
   // Test Reset Zoom
-  const ResetZoomItem = page.getByRole("menuitem", { name: "Reset Zoom Ctrl+0" })
+  const ResetZoomItem = page.getByRole("menuitem", { name: /Reset Zoom.*Ctrl\+0/ })
   await ResetZoomItem.click()
   
   let commands = await configListPage.mobiFlightPage.getTrackedCommands()
   expect(commands).toHaveLength(1)
   expect(commands![0].key).toBe("CommandMainMenu")
-  expect(commands![0].payload.action).toBe("extras.zoom.reset")
+  expect(commands![0].payload.action).toBe("view.zoom.reset")
   
   // Clear commands array for next test
   await page.evaluate(() => { window.commands = [] })
   
   // Test Zoom In
-  await ExtrasMenu.click()
-  await ZoomSubmenu.hover()
-  const ZoomInItem = page.getByRole("menuitem", { name: "Zoom In Ctrl++" })
+  await ViewMenu.click()
+  const ZoomInItem = page.getByRole("menuitem", { name: /Zoom In.*Ctrl\+\+/ })
   await ZoomInItem.click()
   
   commands = await configListPage.mobiFlightPage.getTrackedCommands()
   expect(commands).toHaveLength(1)
   expect(commands![0].key).toBe("CommandMainMenu")
-  expect(commands![0].payload.action).toBe("extras.zoom.in")
+  expect(commands![0].payload.action).toBe("view.zoom.in")
   
   // Clear commands array for next test
   await page.evaluate(() => { window.commands = [] })
   
   // Test Zoom Out
-  await ExtrasMenu.click()
-  await ZoomSubmenu.hover()
-  const ZoomOutItem = page.getByRole("menuitem", { name: "Zoom Out Ctrl+-" })
+  await ViewMenu.click()
+  const ZoomOutItem = page.getByRole("menuitem", { name: /Zoom Out.*Ctrl\+-/ })
   await ZoomOutItem.click()
   
   commands = await configListPage.mobiFlightPage.getTrackedCommands()
   expect(commands).toHaveLength(1)
   expect(commands![0].key).toBe("CommandMainMenu")
-  expect(commands![0].payload.action).toBe("extras.zoom.out")
+  expect(commands![0].payload.action).toBe("view.zoom.out")
 })

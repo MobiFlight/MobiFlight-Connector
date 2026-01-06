@@ -97,7 +97,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             // Arrange
             var message = new CommandMainMenu
             {
-                Action = CommandMainMenuAction.extras_zoom_in
+                Action = CommandMainMenuAction.view_zoom_in
             };
 
             // Act & Assert - Method should complete without throwing an exception
@@ -115,7 +115,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             // Arrange
             var message = new CommandMainMenu
             {
-                Action = CommandMainMenuAction.extras_zoom_out
+                Action = CommandMainMenuAction.view_zoom_out
             };
 
             // Act & Assert - Method should complete without throwing an exception
@@ -132,7 +132,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             // Arrange
             var message = new CommandMainMenu
             {
-                Action = CommandMainMenuAction.extras_zoom_reset
+                Action = CommandMainMenuAction.view_zoom_reset
             };
 
             // Act & Assert - Method should complete without throwing an exception

@@ -97,6 +97,32 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
+          <MenubarTrigger>{t("MainMenu.View.Label")}</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem
+              onSelect={() =>
+                handleMenuItemClick({ action: "view.zoom.reset" })
+              }
+            >
+              {t("MainMenu.View.Zoom.Reset")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.Reset")}</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() =>
+                handleMenuItemClick({ action: "view.zoom.in" })
+              }
+            >
+              {t("MainMenu.View.Zoom.In")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.In")}</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() =>
+                handleMenuItemClick({ action: "view.zoom.out" })
+              }
+            >
+              {t("MainMenu.View.Zoom.Out")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.Out")}</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
           <MenubarTrigger>Extras</MenubarTrigger>
           <MenubarContent>
             <MenubarSub>
@@ -136,33 +162,6 @@ export const MainMenu = () => {
             >
               Manage orphaned serials
             </MenubarItem>
-            <MenubarSeparator />
-            <MenubarSub>
-              <MenubarSubTrigger>{t("MainMenu.Extras.Zoom.Label")}</MenubarSubTrigger>
-              <MenubarSubContent>
-                <MenubarItem
-                  onSelect={() =>
-                    handleMenuItemClick({ action: "extras.zoom.reset" })
-                  }
-                >
-                  {t("MainMenu.Extras.Zoom.Reset")}<MenubarShortcut>{t("MainMenu.Extras.Zoom.Shortcut.Reset")}</MenubarShortcut>
-                </MenubarItem>
-                <MenubarItem
-                  onSelect={() =>
-                    handleMenuItemClick({ action: "extras.zoom.in" })
-                  }
-                >
-                  {t("MainMenu.Extras.Zoom.In")}<MenubarShortcut>{t("MainMenu.Extras.Zoom.Shortcut.In")}</MenubarShortcut>
-                </MenubarItem>
-                <MenubarItem
-                  onSelect={() =>
-                    handleMenuItemClick({ action: "extras.zoom.out" })
-                  }
-                >
-                  {t("MainMenu.Extras.Zoom.Out")}<MenubarShortcut>{t("MainMenu.Extras.Zoom.Shortcut.Out")}</MenubarShortcut>
-                </MenubarItem>
-              </MenubarSubContent>
-            </MenubarSub>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() =>

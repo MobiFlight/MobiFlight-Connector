@@ -31,12 +31,12 @@ namespace MobiFlight.BrowserMessages.Incoming
         extras_serials,
         [EnumMember(Value = "extras.settings")]
         extras_settings,
-        [EnumMember(Value = "extras.zoom.in")]
-        extras_zoom_in,
-        [EnumMember(Value = "extras.zoom.out")]
-        extras_zoom_out,
-        [EnumMember(Value = "extras.zoom.reset")]
-        extras_zoom_reset,
+        [EnumMember(Value = "view.zoom.in")]
+        view_zoom_in,
+        [EnumMember(Value = "view.zoom.out")]
+        view_zoom_out,
+        [EnumMember(Value = "view.zoom.reset")]
+        view_zoom_reset,
         [EnumMember(Value = "help.docs")]
         help_docs,
         [EnumMember(Value = "help.checkforupdate")]

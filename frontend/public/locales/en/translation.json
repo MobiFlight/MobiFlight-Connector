@@ -15,9 +15,9 @@
     }
   },
   "MainMenu": {
-    "Extras": {
+    "View": {
+      "Label": "View",
       "Zoom": {
-        "Label": "Zoom",
         "Reset": "Reset Zoom",
         "In": "Zoom In",
         "Out": "Zoom Out",

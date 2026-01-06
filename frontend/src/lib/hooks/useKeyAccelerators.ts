@@ -100,7 +100,7 @@ export const GlobalKeyAccelerators: KeyAccelerator[] = [
     ctrlKey: true,
     message: {
       key: "CommandMainMenu",
-      payload: { action: "extras.zoom.reset" },
+      payload: { action: "view.zoom.reset" },
     },
     description: "Reset zoom level",
   },
@@ -109,7 +109,7 @@ export const GlobalKeyAccelerators: KeyAccelerator[] = [
     ctrlKey: true,
     message: {
       key: "CommandMainMenu",
-      payload: { action: "extras.zoom.in" },
+      payload: { action: "view.zoom.in" },
     },
     description: "Zoom in",
   },
@@ -118,7 +118,7 @@ export const GlobalKeyAccelerators: KeyAccelerator[] = [
     ctrlKey: true,
     message: {
       key: "CommandMainMenu",
-      payload: { action: "extras.zoom.in" },
+      payload: { action: "view.zoom.in" },
     },
     description: "Zoom in (alternative)",
   },
@@ -127,7 +127,7 @@ export const GlobalKeyAccelerators: KeyAccelerator[] = [
     ctrlKey: true,
     message: {
       key: "CommandMainMenu",
-      payload: { action: "extras.zoom.out" },
+      payload: { action: "view.zoom.out" },
     },
     description: "Zoom out",
   },
