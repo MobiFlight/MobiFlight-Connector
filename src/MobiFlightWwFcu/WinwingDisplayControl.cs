@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using WebSocketSharp.Server;
 
@@ -332,6 +333,16 @@ namespace MobiFlightWwFcu
                     ErrorMessageCreated?.Invoke(this, $"Error setting WinWing display name='{name}' to value='{value}'. Probably value not in a valid number format.");
                 }
             }
+        }
+
+        public string GetControllerName()
+        {
+            var builder = new StringBuilder();
+            foreach (var device in WinwingCoupledDevices)
+            {
+                builder.Append(device.Name + " ");
+            }
+            return builder.ToString();
         }
     }
 }
