@@ -66,13 +66,13 @@ test("Confirm zoom menu items are present in View menu", async ({
   await ViewMenu.click()
   
   // Check for direct zoom menu items (not a submenu)
-  const ResetZoomItem = page.getByRole("menuitem", { name: /Reset Zoom.*Ctrl\+0/ })
+  const ResetZoomItem = page.getByRole("menuitem", { name: "Reset Zoom Ctrl+0" })
   await expect(ResetZoomItem).toBeVisible()
   
-  const ZoomInItem = page.getByRole("menuitem", { name: /Zoom In.*Ctrl\+\+/ })
+  const ZoomInItem = page.getByRole("menuitem", { name: "Zoom In Ctrl++" })
   await expect(ZoomInItem).toBeVisible()
   
-  const ZoomOutItem = page.getByRole("menuitem", { name: /Zoom Out.*Ctrl\+-/ })
+  const ZoomOutItem = page.getByRole("menuitem", { name: "Zoom Out Ctrl+-" })
   await expect(ZoomOutItem).toBeVisible()
 })
 
@@ -88,7 +88,7 @@ test("Confirm zoom menu items send correct commands", async ({
   await ViewMenu.click()
   
   // Test Reset Zoom
-  const ResetZoomItem = page.getByRole("menuitem", { name: /Reset Zoom.*Ctrl\+0/ })
+  const ResetZoomItem = page.getByRole("menuitem", { name: "Reset Zoom Ctrl+0" })
   await ResetZoomItem.click()
   
   let commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -101,7 +101,7 @@ test("Confirm zoom menu items send correct commands", async ({
   
   // Test Zoom In
   await ViewMenu.click()
-  const ZoomInItem = page.getByRole("menuitem", { name: /Zoom In.*Ctrl\+\+/ })
+  const ZoomInItem = page.getByRole("menuitem", { name: "Zoom In Ctrl++" })
   await ZoomInItem.click()
   
   commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -114,7 +114,7 @@ test("Confirm zoom menu items send correct commands", async ({
   
   // Test Zoom Out
   await ViewMenu.click()
-  const ZoomOutItem = page.getByRole("menuitem", { name: /Zoom Out.*Ctrl\+-/ })
+  const ZoomOutItem = page.getByRole("menuitem", { name: "Zoom Out Ctrl+-" })
   await ZoomOutItem.click()
   
   commands = await configListPage.mobiFlightPage.getTrackedCommands()
