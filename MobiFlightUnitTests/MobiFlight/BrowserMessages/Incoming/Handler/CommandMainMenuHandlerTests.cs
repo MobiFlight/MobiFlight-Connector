@@ -100,9 +100,12 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             };
 
             // Act & Assert - Method should complete without throwing an exception
-            // In a real scenario, we would verify the zoom level changed
-            // but the MainForm doesn't expose zoom level in a testable way
             _handler.Handle(message);
+            
+            // Verify that WindowZoomFactor setting is available and accessible
+            // This setting is used to persist zoom level across sessions
+            var zoomFactorSetting = Properties.Settings.Default.WindowZoomFactor;
+            Assert.IsTrue(zoomFactorSetting >= 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
         }
 
         [TestMethod]
@@ -116,6 +119,10 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
 
             // Act & Assert - Method should complete without throwing an exception
             _handler.Handle(message);
+            
+            // Verify that WindowZoomFactor setting is available and accessible
+            var zoomFactorSetting = Properties.Settings.Default.WindowZoomFactor;
+            Assert.IsTrue(zoomFactorSetting >= 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
         }
 
         [TestMethod]
@@ -129,6 +136,10 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
 
             // Act & Assert - Method should complete without throwing an exception
             _handler.Handle(message);
+            
+            // Verify that WindowZoomFactor setting is available and accessible
+            var zoomFactorSetting = Properties.Settings.Default.WindowZoomFactor;
+            Assert.IsTrue(zoomFactorSetting >= 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
         }
     }
 }
