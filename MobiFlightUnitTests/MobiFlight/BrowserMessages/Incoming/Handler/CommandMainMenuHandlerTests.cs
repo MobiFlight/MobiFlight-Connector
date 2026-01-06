@@ -104,7 +104,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             
             // Verify that WindowZoomFactor setting is available and accessible
             // This setting is used to persist zoom level across sessions
-            var zoomFactorSetting = Properties.Settings.Default.WindowZoomFactor;
+            var zoomFactorSetting = MobiFlight.Properties.Settings.Default.WindowZoomFactor;
             Assert.IsGreaterThanOrEqualTo(zoomFactorSetting, 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
         }
 
@@ -121,7 +121,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             _handler.Handle(message);
             
             // Verify that WindowZoomFactor setting is available and accessible
-            var zoomFactorSetting = Properties.Settings.Default.WindowZoomFactor;
+            var zoomFactorSetting = MobiFlight.Properties.Settings.Default.WindowZoomFactor;
             Assert.IsGreaterThanOrEqualTo(zoomFactorSetting, 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
         }
 
@@ -138,7 +138,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             _handler.Handle(message);
             
             // Verify that WindowZoomFactor setting is available and accessible
-            var zoomFactorSetting = Properties.Settings.Default.WindowZoomFactor;
+            var zoomFactorSetting = MobiFlight.Properties.Settings.Default.WindowZoomFactor;
             Assert.IsGreaterThanOrEqualTo(zoomFactorSetting, 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
         }
     }
