@@ -105,8 +105,8 @@ test("Confirm zoom menu items send correct commands", async ({
   expect(commands![0].key).toBe("CommandMainMenu")
   expect(commands![0].payload.action).toBe("extras.zoom.reset")
   
-  // Reset tracking for next test
-  await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+  // Clear commands array for next test
+  await page.evaluate(() => { window.commands = [] })
   
   // Test Zoom In
   await ExtrasMenu.click()
@@ -119,8 +119,8 @@ test("Confirm zoom menu items send correct commands", async ({
   expect(commands![0].key).toBe("CommandMainMenu")
   expect(commands![0].payload.action).toBe("extras.zoom.in")
   
-  // Reset tracking for next test
-  await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+  // Clear commands array for next test
+  await page.evaluate(() => { window.commands = [] })
   
   // Test Zoom Out
   await ExtrasMenu.click()

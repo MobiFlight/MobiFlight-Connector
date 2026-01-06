@@ -99,13 +99,10 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
                 Action = CommandMainMenuAction.extras_zoom_in
             };
 
-            // Act
-            _handler.Handle(message);
-
-            // Assert - Method should complete without error
+            // Act & Assert - Method should complete without throwing an exception
             // In a real scenario, we would verify the zoom level changed
             // but the MainForm doesn't expose zoom level in a testable way
-            Assert.IsTrue(true, "ZoomIn should execute without error");
+            _handler.Handle(message);
         }
 
         [TestMethod]
@@ -117,11 +114,8 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
                 Action = CommandMainMenuAction.extras_zoom_out
             };
 
-            // Act
+            // Act & Assert - Method should complete without throwing an exception
             _handler.Handle(message);
-
-            // Assert - Method should complete without error
-            Assert.IsTrue(true, "ZoomOut should execute without error");
         }
 
         [TestMethod]
@@ -133,11 +127,8 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
                 Action = CommandMainMenuAction.extras_zoom_reset
             };
 
-            // Act
+            // Act & Assert - Method should complete without throwing an exception
             _handler.Handle(message);
-
-            // Assert - Method should complete without error
-            Assert.IsTrue(true, "ZoomReset should execute without error");
         }
     }
 }
