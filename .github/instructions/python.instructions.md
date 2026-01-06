@@ -188,9 +188,9 @@ except Exception as e:
 - Manual testing with actual hardware is the primary validation method.
 - When adding tests, place them in a `tests/` subdirectory within `Scripts/`.
 
-## Required Dependencies
+## Available libraries in python runtime
 
-Scripts typically require:
+MobiFlight uses a bundled python environment which is limited to the following libraries:
 - `websockets` (>=14.0) - WebSocket client/server
 - `asyncio` - Async programming
 - `json` - JSON serialization
