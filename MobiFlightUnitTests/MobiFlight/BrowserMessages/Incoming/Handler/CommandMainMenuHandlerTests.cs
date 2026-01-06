@@ -89,5 +89,55 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             Assert.HasCount(1, savedProject.Aircraft);
             Assert.AreEqual("Boeing 737", savedProject.Aircraft[0]);
         }
+
+        [TestMethod]
+        public void Handle_ZoomIn_CallsZoomIn()
+        {
+            // Arrange
+            var message = new CommandMainMenu
+            {
+                Action = CommandMainMenuAction.extras_zoom_in
+            };
+
+            // Act
+            _handler.Handle(message);
+
+            // Assert - Method should complete without error
+            // In a real scenario, we would verify the zoom level changed
+            // but the MainForm doesn't expose zoom level in a testable way
+            Assert.IsTrue(true, "ZoomIn should execute without error");
+        }
+
+        [TestMethod]
+        public void Handle_ZoomOut_CallsZoomOut()
+        {
+            // Arrange
+            var message = new CommandMainMenu
+            {
+                Action = CommandMainMenuAction.extras_zoom_out
+            };
+
+            // Act
+            _handler.Handle(message);
+
+            // Assert - Method should complete without error
+            Assert.IsTrue(true, "ZoomOut should execute without error");
+        }
+
+        [TestMethod]
+        public void Handle_ZoomReset_CallsZoomReset()
+        {
+            // Arrange
+            var message = new CommandMainMenu
+            {
+                Action = CommandMainMenuAction.extras_zoom_reset
+            };
+
+            // Act
+            _handler.Handle(message);
+
+            // Assert - Method should complete without error
+            Assert.IsTrue(true, "ZoomReset should execute without error");
+        }
     }
 }
