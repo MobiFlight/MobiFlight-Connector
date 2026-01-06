@@ -162,7 +162,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
             else
             {
+                analogPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
                 analogPanel1.syncFromConfig(config.AnalogInputConfig);
+
+                buttonPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
                 buttonPanel1.syncFromConfig(config.ButtonInputConfig);
 
                 InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
