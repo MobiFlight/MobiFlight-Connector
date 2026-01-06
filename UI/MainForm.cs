@@ -38,6 +38,8 @@ namespace MobiFlight.UI
 
         private const string fileExtensionLoadFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
         private const string fileExtensionSaveFilter = "MobiFlight Project (*.mfproj)|*.mfproj";
+        private const double ZOOM_INCREMENT = 0.1; // 10% zoom increment/decrement
+        private const double ZOOM_MINIMUM = 0.5;   // Minimum zoom level (50%)
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
@@ -2538,7 +2540,7 @@ namespace MobiFlight.UI
             double currentZoom = frontendPanel1.GetZoomFactor();
             if (currentZoom > 0.0)
             {
-                double newZoom = currentZoom + 0.1;
+                double newZoom = currentZoom + ZOOM_INCREMENT;
                 frontendPanel1.SetZoomFactor(newZoom);
             }
         }
@@ -2551,7 +2553,7 @@ namespace MobiFlight.UI
             double currentZoom = frontendPanel1.GetZoomFactor();
             if (currentZoom > 0.0)
             {
-                double newZoom = currentZoom - 0.1;
+                double newZoom = Math.Max(currentZoom - ZOOM_INCREMENT, ZOOM_MINIMUM);
                 frontendPanel1.SetZoomFactor(newZoom);
             }
         }
