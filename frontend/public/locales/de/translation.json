@@ -14,6 +14,16 @@
       "Title.Downloading": "HubHop update wird heruntergeladen..."
     }
   },
+  "MainMenu": {
+    "Extras": {
+      "Zoom": {
+        "Label": "Zoom",
+        "Reset": "Zoom zurücksetzen",
+        "In": "Vergrößern",
+        "Out": "Verkleinern"
+      }
+    }
+  },
   "Types": {
     "Output": "Ausgang",
     "LedModule": "7-Segment Anzeige",

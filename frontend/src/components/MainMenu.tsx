@@ -17,8 +17,10 @@ import { CommandMainMenuPayload } from "@/types/commands"
 import DarkModeToggle from "./DarkModeToggle"
 import { useProjectStore } from "@/stores/projectStore"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
+import { useTranslation } from "react-i18next"
 
 export const MainMenu = () => {
+  const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { hasChanged } = useProjectStore()
   const { publish } = publishOnMessageExchange()
@@ -136,28 +138,28 @@ export const MainMenu = () => {
             </MenubarItem>
             <MenubarSeparator />
             <MenubarSub>
-              <MenubarSubTrigger>Zoom</MenubarSubTrigger>
+              <MenubarSubTrigger>{t("MainMenu.Extras.Zoom.Label")}</MenubarSubTrigger>
               <MenubarSubContent>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.zoom.reset" })
                   }
                 >
-                  Reset Zoom<MenubarShortcut>Ctrl+0</MenubarShortcut>
+                  {t("MainMenu.Extras.Zoom.Reset")}<MenubarShortcut>Ctrl+0</MenubarShortcut>
                 </MenubarItem>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.zoom.in" })
                   }
                 >
-                  Zoom In<MenubarShortcut>Ctrl++</MenubarShortcut>
+                  {t("MainMenu.Extras.Zoom.In")}<MenubarShortcut>Ctrl++</MenubarShortcut>
                 </MenubarItem>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.zoom.out" })
                   }
                 >
-                  Zoom Out<MenubarShortcut>Ctrl+-</MenubarShortcut>
+                  {t("MainMenu.Extras.Zoom.Out")}<MenubarShortcut>Ctrl+-</MenubarShortcut>
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
