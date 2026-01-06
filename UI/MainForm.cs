@@ -2575,20 +2575,6 @@ namespace MobiFlight.UI
                 if (ProjectHasUnsavedChanges)
                     saveToolStripButton_Click(null, null);
             }
-
-            // Zoom keyboard shortcuts
-            if (e.Control && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))  // Ctrl+0 Reset Zoom
-            {
-                ZoomReset();
-            }
-            if (e.Control && (e.KeyCode == Keys.Oemplus || e.KeyCode == Keys.Add))  // Ctrl++ Zoom In
-            {
-                ZoomIn();
-            }
-            if (e.Control && (e.KeyCode == Keys.OemMinus || e.KeyCode == Keys.Subtract))  // Ctrl+- Zoom Out
-            {
-                ZoomOut();
-            }
         }
 
         protected override void WndProc(ref Message m)
