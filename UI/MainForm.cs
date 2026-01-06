@@ -2530,6 +2530,40 @@ namespace MobiFlight.UI
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
         }
 
+        /// <summary>
+        /// Increases the zoom level of the WebView2 frontend by 10%
+        /// </summary>
+        public void ZoomIn()
+        {
+            double currentZoom = frontendPanel1.GetZoomFactor();
+            if (currentZoom > 0.0)
+            {
+                double newZoom = currentZoom + 0.1;
+                frontendPanel1.SetZoomFactor(newZoom);
+            }
+        }
+
+        /// <summary>
+        /// Decreases the zoom level of the WebView2 frontend by 10%
+        /// </summary>
+        public void ZoomOut()
+        {
+            double currentZoom = frontendPanel1.GetZoomFactor();
+            if (currentZoom > 0.0)
+            {
+                double newZoom = currentZoom - 0.1;
+                frontendPanel1.SetZoomFactor(newZoom);
+            }
+        }
+
+        /// <summary>
+        /// Resets the zoom level of the WebView2 frontend to 100%
+        /// </summary>
+        public void ZoomReset()
+        {
+            frontendPanel1.SetZoomFactor(1.0);
+        }
+
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.S)       // Ctrl-S Save
@@ -2540,9 +2574,18 @@ namespace MobiFlight.UI
                     saveToolStripButton_Click(null, null);
             }
 
-            if (e.Control && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))
+            // Zoom keyboard shortcuts
+            if (e.Control && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))  // Ctrl+0 Reset Zoom
             {
-                frontendPanel1.SetZoomFactor(1.0f);
+                ZoomReset();
+            }
+            if (e.Control && (e.KeyCode == Keys.Oemplus || e.KeyCode == Keys.Add))  // Ctrl++ Zoom In
+            {
+                ZoomIn();
+            }
+            if (e.Control && (e.KeyCode == Keys.OemMinus || e.KeyCode == Keys.Subtract))  // Ctrl+- Zoom Out
+            {
+                ZoomOut();
             }
         }
 

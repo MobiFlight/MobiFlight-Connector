@@ -135,6 +135,33 @@ export const MainMenu = () => {
               Manage orphaned serials
             </MenubarItem>
             <MenubarSeparator />
+            <MenubarSub>
+              <MenubarSubTrigger>Zoom</MenubarSubTrigger>
+              <MenubarSubContent>
+                <MenubarItem
+                  onSelect={() =>
+                    handleMenuItemClick({ action: "extras.zoom.reset" })
+                  }
+                >
+                  Reset Zoom<MenubarShortcut>Ctrl+0</MenubarShortcut>
+                </MenubarItem>
+                <MenubarItem
+                  onSelect={() =>
+                    handleMenuItemClick({ action: "extras.zoom.in" })
+                  }
+                >
+                  Zoom In<MenubarShortcut>Ctrl++</MenubarShortcut>
+                </MenubarItem>
+                <MenubarItem
+                  onSelect={() =>
+                    handleMenuItemClick({ action: "extras.zoom.out" })
+                  }
+                >
+                  Zoom Out<MenubarShortcut>Ctrl+-</MenubarShortcut>
+                </MenubarItem>
+              </MenubarSubContent>
+            </MenubarSub>
+            <MenubarSeparator />
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "extras.settings" })
