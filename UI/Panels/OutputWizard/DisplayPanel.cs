@@ -952,10 +952,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
         {
             buttonPanel1.Enabled = InputTypeButtonRadioButton.Checked;
             buttonPanel1.Visible = InputTypeButtonRadioButton.Checked;
+            buttonPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
             ButtonInputActionLabel.Visible = InputTypeButtonRadioButton.Checked;
 
             analogPanel1.Enabled = InputTypeAnalogRadioButton.Checked;
             analogPanel1.Visible = InputTypeAnalogRadioButton.Checked;
+            analogPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
             AnalogInputActionLabel.Visible = InputTypeAnalogRadioButton.Checked;
         }
     }
