@@ -21,6 +21,9 @@ applyTo: '**'
 
 ### File Organization
 - **Location**: Store all test files in the `tests/` directory.
+- **Fixtures**: Use a `fixtures/` subdirectory for custom fixtures and page objects.
+- **Page objects**: Create page object files in the `fixtures/` directory to encapsulate page-specific actions, locators, and to create required state (e.g. loading test data, posting messages) for tests.
+- **Data**: Use a `data/` subdirectory for test data files (e.g., JSON, CSV).
 - **Naming**: Use the convention `<feature-or-page>.spec.ts` (e.g., `login.spec.ts`, `search.spec.ts`).
 - **Scope**: Aim for one test file per major application feature or page.
 
