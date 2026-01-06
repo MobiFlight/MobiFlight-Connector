@@ -20,7 +20,12 @@
         "Label": "Zoom",
         "Reset": "Zoom zurücksetzen",
         "In": "Vergrößern",
-        "Out": "Verkleinern"
+        "Out": "Verkleinern",
+        "Shortcut": {
+          "Reset": "Strg+0",
+          "In": "Strg++",
+          "Out": "Strg+-"
+        }
       }
     }
   },

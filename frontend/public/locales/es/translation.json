@@ -20,7 +20,12 @@
         "Label": "Zoom",
         "Reset": "Restablecer zoom",
         "In": "Acercar",
-        "Out": "Alejar"
+        "Out": "Alejar",
+        "Shortcut": {
+          "Reset": "Ctrl+0",
+          "In": "Ctrl++",
+          "Out": "Ctrl+-"
+        }
       }
     }
   },

@@ -145,21 +145,21 @@ export const MainMenu = () => {
                     handleMenuItemClick({ action: "extras.zoom.reset" })
                   }
                 >
-                  {t("MainMenu.Extras.Zoom.Reset")}<MenubarShortcut>Ctrl+0</MenubarShortcut>
+                  {t("MainMenu.Extras.Zoom.Reset")}<MenubarShortcut>{t("MainMenu.Extras.Zoom.Shortcut.Reset")}</MenubarShortcut>
                 </MenubarItem>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.zoom.in" })
                   }
                 >
-                  {t("MainMenu.Extras.Zoom.In")}<MenubarShortcut>Ctrl++</MenubarShortcut>
+                  {t("MainMenu.Extras.Zoom.In")}<MenubarShortcut>{t("MainMenu.Extras.Zoom.Shortcut.In")}</MenubarShortcut>
                 </MenubarItem>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.zoom.out" })
                   }
                 >
-                  {t("MainMenu.Extras.Zoom.Out")}<MenubarShortcut>Ctrl+-</MenubarShortcut>
+                  {t("MainMenu.Extras.Zoom.Out")}<MenubarShortcut>{t("MainMenu.Extras.Zoom.Shortcut.Out")}</MenubarShortcut>
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
