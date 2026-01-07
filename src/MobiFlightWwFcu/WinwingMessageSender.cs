@@ -1,12 +1,11 @@
 ﻿using HidSharp;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingMessageSender
+    internal class WinwingMessageSender : IWinwingMessageSender
     {
         private readonly int VendorId = 0x4098;
         private int ProductId = 0xBB10;
@@ -107,7 +106,7 @@ namespace MobiFlightWwFcu
         }
 
 
-        internal void SendCduDisplayBytes(byte[] byteList)
+        public void SendCduDisplayBytes(byte[] byteList)
         {
             byte[] message = new byte[64];
             int counterCurrentMessage = 0;

@@ -9,7 +9,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get; } = "WinWing FCU";
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
 
         private byte[] DestinationAddress = WinwingConstants.DEST_FCU;
 
@@ -145,7 +145,7 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];
         private byte[] SetValuesCommand = new byte[0x31];   
 
-        public WinwingFcuDevice(WinwingMessageSender sender)
+        public WinwingFcuDevice(IWinwingMessageSender sender)
         {
             MessageSender = sender;
             DisplayNameToActionMapping.Add(SPEED, SetSpeed);

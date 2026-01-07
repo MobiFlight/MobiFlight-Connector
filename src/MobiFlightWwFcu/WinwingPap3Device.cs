@@ -9,7 +9,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get; } = "WinWing PAP3";
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
 
         private byte[] DestinationAddress = WinwingConstants.DEST_PAP3;
 
@@ -134,7 +134,7 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];       
         private byte[] SetValuesCommand = new byte[0x3C];  // 3C equals 60, max of a content message 4 + 13 + 43 data
 
-        public WinwingPap3Device(WinwingMessageSender sender)
+        public WinwingPap3Device(IWinwingMessageSender sender)
         {
             MessageSender = sender;
 

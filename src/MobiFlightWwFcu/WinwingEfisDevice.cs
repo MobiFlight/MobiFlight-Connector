@@ -9,7 +9,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get => $"WinWing EFIS {EfisType}"; }
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
         private string EfisType = WinwingConstants.EFISL_NAME;
 
         private byte[] DestinationAddress;
@@ -77,7 +77,7 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];
         private byte[] SetValuesCommand = new byte[0x1a];        
 
-        public WinwingEfisDevice(WinwingMessageSender sender, string efisType)
+        public WinwingEfisDevice(IWinwingMessageSender sender, string efisType)
         {
             MessageSender = sender;
             EfisType = efisType;
