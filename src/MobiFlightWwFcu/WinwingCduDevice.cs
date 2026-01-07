@@ -11,7 +11,7 @@ namespace MobiFlightWwFcu
    {
         public string Name { get => $"WinWing {CduType}"; }
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
 
         private WinwingCduType CduType = WinwingCduType.MCDU;
 
@@ -182,7 +182,7 @@ namespace MobiFlightWwFcu
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();
 
-        public WinwingCduDevice(WinwingMessageSender sender, WinwingCduType cduType)
+        public WinwingCduDevice(IWinwingMessageSender sender, WinwingCduType cduType)
         {
             MessageSender = sender;
             CduType = cduType;

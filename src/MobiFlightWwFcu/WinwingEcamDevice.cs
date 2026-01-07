@@ -10,7 +10,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get; } = "WinWing ECAM";
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
         private byte[] DestinationAddress = WinwingConstants.DEST_ECAM;
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
@@ -41,7 +41,7 @@ namespace MobiFlightWwFcu
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();        
 
-        public WinwingEcamDevice(WinwingMessageSender sender)
+        public WinwingEcamDevice(IWinwingMessageSender sender)
         {
             MessageSender = sender;
 

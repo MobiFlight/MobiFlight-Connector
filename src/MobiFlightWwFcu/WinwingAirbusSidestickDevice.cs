@@ -9,7 +9,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get => $"WinWing {StickType}"; }
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
         private string StickType = WinwingConstants.AIRBUS_STICK_R_NAME;
         private byte[] DestinationAddress = WinwingConstants.DEST_AIRBUS_STICK;
         private byte[] DestinationAddressVibration = WinwingConstants.DEST_AIRBUS_STICK_VIBRATION_R;
@@ -25,7 +25,7 @@ namespace MobiFlightWwFcu
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();
 
 
-        public WinwingAirbusSidestickDevice(WinwingMessageSender sender, string stickType)
+        public WinwingAirbusSidestickDevice(IWinwingMessageSender sender, string stickType)
         {
             MessageSender = sender;
             StickType = stickType;

@@ -8,7 +8,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get => $"WinWing {PdcType}"; }
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
         private string PdcType = WinwingConstants.PDC3NL_NAME;
 
         private byte[] DestinationAddress;
@@ -20,7 +20,7 @@ namespace MobiFlightWwFcu
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();
 
 
-        public Winwing3PdcDevice(WinwingMessageSender sender, string pdcType)
+        public Winwing3PdcDevice(IWinwingMessageSender sender, string pdcType)
         {
             MessageSender = sender;
             PdcType = pdcType;

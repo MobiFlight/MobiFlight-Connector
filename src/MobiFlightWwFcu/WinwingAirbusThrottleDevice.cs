@@ -10,7 +10,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get => $"WinWing {ThrottleType}"; }
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
         private string ThrottleType = WinwingConstants.AIRBUS_THROTTLE_L_NAME;
         private byte[] DestinationAddress = WinwingConstants.DEST_AIRBUS_THROTTLE;
         private byte[] DestinationAddressPac = WinwingConstants.DEST_AIRBUS_PAC;
@@ -71,7 +71,7 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];    
         private byte[] SetValuesCommand = new byte[0x35];  // 35 equals 53, max of a content message 4 + 13 + 36 data
 
-        public WinwingAirbusThrottleDevice(WinwingMessageSender sender, string throttleType)
+        public WinwingAirbusThrottleDevice(IWinwingMessageSender sender, string throttleType)
         {
             MessageSender = sender;
             ThrottleType = throttleType;

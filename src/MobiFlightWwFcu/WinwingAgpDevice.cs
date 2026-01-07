@@ -10,7 +10,7 @@ namespace MobiFlightWwFcu
     {
         public string Name { get; } = "WinWing AGP";
 
-        private WinwingMessageSender MessageSender = null;
+        private IWinwingMessageSender MessageSender = null;
         private byte[] DestinationAddress = WinwingConstants.DEST_AGP;
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
@@ -43,7 +43,7 @@ namespace MobiFlightWwFcu
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();        
 
-        public WinwingAgpDevice(WinwingMessageSender sender)
+        public WinwingAgpDevice(IWinwingMessageSender sender)
         {
             MessageSender = sender;
 
