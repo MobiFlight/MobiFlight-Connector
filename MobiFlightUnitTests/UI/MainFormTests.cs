@@ -67,7 +67,9 @@ namespace MobiFlight.UI.Tests
             {
                 if (File.Exists(tempFilePath))
                 {
-                    File.Delete(tempFilePath);
+                    // This sometimes fails in CI environments due to file locks.
+                    // Just continue because Delete is not critical for the test.
+                    try { File.Delete(tempFilePath); } catch { }
                 }
             }
 
@@ -192,7 +194,9 @@ namespace MobiFlight.UI.Tests
             }
             finally
             {
-                File.Delete(existing);
+                // This sometimes fails in CI environments due to file locks.
+                // Just continue because Delete is not critical for the test.
+                try { File.Delete(existing); } catch { }
             }
         }
 
@@ -226,7 +230,10 @@ namespace MobiFlight.UI.Tests
             }
             finally
             {
+                // This sometimes fails in CI environments due to file locks.
+                // Just continue because Delete is not critical for the test.
                 try { File.Delete(existing); } catch { }
+
                 // Cleanup settings to avoid test pollution
                 Properties.Settings.Default.RecentFiles.Clear();
                 Properties.Settings.Default.Save();

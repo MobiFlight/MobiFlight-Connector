@@ -61,6 +61,19 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     _mainForm.settingsToolStripMenuItem_Click(null, null);
                     break;
 
+                // View Menu Actions
+                case CommandMainMenuAction.view_zoom_in:
+                    _mainForm.ZoomIn();
+                    break;
+
+                case CommandMainMenuAction.view_zoom_out:
+                    _mainForm.ZoomOut();
+                    break;
+
+                case CommandMainMenuAction.view_zoom_reset:
+                    _mainForm.ZoomReset();
+                    break;
+
                 // Help Menu Actions
                 case CommandMainMenuAction.help_docs:
                     _mainForm.documentationToolStripMenuItem_Click(null, null);

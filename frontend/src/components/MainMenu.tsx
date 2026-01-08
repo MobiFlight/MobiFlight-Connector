@@ -17,8 +17,10 @@ import { CommandMainMenuPayload } from "@/types/commands"
 import DarkModeToggle from "./DarkModeToggle"
 import { useProjectStore } from "@/stores/projectStore"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
+import { useTranslation } from "react-i18next"
 
 export const MainMenu = () => {
+  const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { hasChanged } = useProjectStore()
   const { publish } = publishOnMessageExchange()
@@ -91,6 +93,32 @@ export const MainMenu = () => {
               onSelect={() => handleMenuItemClick({ action: "file.exit" })}
             >
               Exit<MenubarShortcut>Ctrl+Q</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>{t("MainMenu.View.Label")}</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem
+              onSelect={() =>
+                handleMenuItemClick({ action: "view.zoom.reset" })
+              }
+            >
+              {t("MainMenu.View.Zoom.Reset")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.Reset")}</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() =>
+                handleMenuItemClick({ action: "view.zoom.in" })
+              }
+            >
+              {t("MainMenu.View.Zoom.In")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.In")}</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() =>
+                handleMenuItemClick({ action: "view.zoom.out" })
+              }
+            >
+              {t("MainMenu.View.Zoom.Out")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.Out")}</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

@@ -45,7 +45,7 @@ namespace MobiFlight.Joysticks.Winwing
             {
                 return null;
             }
-
+            
             if (WinwingConstants.FCU_PRODUCTIDS.Contains(productId))
             {
                 return new WinwingFcu(diJoystick, definition, productId, wsServer);
@@ -58,26 +58,14 @@ namespace MobiFlight.Joysticks.Winwing
             {
                 return new WinwingPap3(diJoystick, definition, productId, wsServer);
             }
-            else if (WinwingConstants.AIRBUS_THROTTLE_PRODUCTIDS.Contains(productId))
+            else if (WinwingConstants.AIRBUS_THROTTLE_PRODUCTIDS.Contains(productId) ||
+                     WinwingConstants.AIRBUS_STICK_PRODUCTIDS.Contains(productId) ||
+                     WinwingConstants.PDC3_PRODUCTIDS.Contains(productId) ||
+                     productId == WinwingConstants.PRODUCT_ID_ECAM ||
+                     productId == WinwingConstants.PRODUCT_ID_AGP)
             {
-                return new WinwingAirbusThrottle(diJoystick, definition, productId, wsServer);
-            }
-            else if (WinwingConstants.AIRBUS_STICK_PRODUCTIDS.Contains(productId))
-            {
-                return new WinwingAirbusSidestick(diJoystick, definition, productId, wsServer);
-            }
-            else if (WinwingConstants.PDC3_PRODUCTIDS.Contains(productId))
-            {
-                return new Winwing3Pdc(diJoystick, definition, productId, wsServer);
-            }
-            else if (productId == WinwingConstants.PRODUCT_ID_ECAM)
-            {
-                return new WinwingEcam(diJoystick, definition, productId, wsServer);
-            }
-            else if (productId == WinwingConstants.PRODUCT_ID_AGP)
-            {
-                return new WinwingAgp(diJoystick, definition, productId, wsServer);
-            }
+                return new WinwingBaseController(diJoystick, definition, productId, wsServer);
+            }           
 
             return null;
         }

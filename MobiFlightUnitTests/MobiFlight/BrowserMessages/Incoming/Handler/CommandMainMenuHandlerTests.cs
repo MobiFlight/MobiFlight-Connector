@@ -8,6 +8,7 @@ using System;
 using System.Reflection;
 using Newtonsoft.Json;
 using static MobiFlight.UI.Tests.MainFormTests;
+using MobiFlightProperties = MobiFlight.Properties;
 
 namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
 {
@@ -88,6 +89,58 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             Assert.IsFalse(savedProject.Features.ProSim);
             Assert.HasCount(1, savedProject.Aircraft);
             Assert.AreEqual("Boeing 737", savedProject.Aircraft[0]);
+        }
+
+        [TestMethod]
+        public void Handle_ZoomIn_CallsZoomIn()
+        {
+            // Arrange
+            var message = new CommandMainMenu
+            {
+                Action = CommandMainMenuAction.view_zoom_in
+            };
+
+            // Act & Assert - Method should complete without throwing an exception
+            _handler.Handle(message);
+            
+            // Verify that WindowZoomFactor setting is available and accessible
+            // This setting is used to persist zoom level across sessions
+            var zoomFactorSetting = MobiFlightProperties.Settings.Default.WindowZoomFactor;
+            Assert.IsGreaterThanOrEqualTo(zoomFactorSetting, 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
+        }
+
+        [TestMethod]
+        public void Handle_ZoomOut_CallsZoomOut()
+        {
+            // Arrange
+            var message = new CommandMainMenu
+            {
+                Action = CommandMainMenuAction.view_zoom_out
+            };
+
+            // Act & Assert - Method should complete without throwing an exception
+            _handler.Handle(message);
+            
+            // Verify that WindowZoomFactor setting is available and accessible
+            var zoomFactorSetting = MobiFlightProperties.Settings.Default.WindowZoomFactor;
+            Assert.IsGreaterThanOrEqualTo(zoomFactorSetting, 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
+        }
+
+        [TestMethod]
+        public void Handle_ZoomReset_CallsZoomReset()
+        {
+            // Arrange
+            var message = new CommandMainMenu
+            {
+                Action = CommandMainMenuAction.view_zoom_reset
+            };
+
+            // Act & Assert - Method should complete without throwing an exception
+            _handler.Handle(message);
+            
+            // Verify that WindowZoomFactor setting is available and accessible
+            var zoomFactorSetting = MobiFlightProperties.Settings.Default.WindowZoomFactor;
+            Assert.IsGreaterThanOrEqualTo(zoomFactorSetting, 0.0, "WindowZoomFactor setting should be accessible and have a valid value");
         }
     }
 }

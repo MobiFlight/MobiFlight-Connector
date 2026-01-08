@@ -486,3 +486,7 @@ FodyWeavers.xsd
 !midi.pdb
 /wwwroot
 *.exe
+
+# Python directory - include only RuntimeAndPackages*.zip files
+Python/*
+!Python/RuntimeAndPackages*.zip

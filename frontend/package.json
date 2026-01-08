@@ -35,7 +35,7 @@
     "@radix-ui/react-switch": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
-    "@tabler/icons-react": "^3.36.0",
+    "@tabler/icons-react": "^3.36.1",
     "@tanstack/react-table": "^8.20.6",
     "@tanstack/react-virtual": "^3.13.14",
     "class-variance-authority": "^0.7.1",
@@ -75,8 +75,8 @@
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.51.0",
-    "vite": "^7.3.0",
+    "typescript-eslint": "^8.52.0",
+    "vite": "^7.3.1",
     "vitest": "^4.0.16"
   }
 }

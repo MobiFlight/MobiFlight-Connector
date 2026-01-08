@@ -162,7 +162,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
             else
             {
+                analogPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
                 analogPanel1.syncFromConfig(config.AnalogInputConfig);
+
+                buttonPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
                 buttonPanel1.syncFromConfig(config.ButtonInputConfig);
 
                 InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
@@ -952,10 +955,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
         {
             buttonPanel1.Enabled = InputTypeButtonRadioButton.Checked;
             buttonPanel1.Visible = InputTypeButtonRadioButton.Checked;
+            buttonPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
             ButtonInputActionLabel.Visible = InputTypeButtonRadioButton.Checked;
 
             analogPanel1.Enabled = InputTypeAnalogRadioButton.Checked;
             analogPanel1.Visible = InputTypeAnalogRadioButton.Checked;
+            analogPanel1.ProjectInfo = _execManager.Project.ToProjectInfo();
             AnalogInputActionLabel.Visible = InputTypeAnalogRadioButton.Checked;
         }
     }

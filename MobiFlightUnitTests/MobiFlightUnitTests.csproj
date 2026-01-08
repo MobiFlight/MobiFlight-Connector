@@ -282,7 +282,7 @@
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ProSimInputActionTests.cs" />
-    <Compile Include="MobiFlight\Scripts\ScriptRunnerTests.cs" />
+    <Compile Include="MobiFlight\Scripts\PythonEnvironmentTests.cs" />
     <Compile Include="ProSim\ProSimCacheTests.cs" />
     <Compile Include="ProSim\ProSimSourceTests.cs" />
     <Compile Include="ProSim\ProSimSerializationIntegrationTests.cs" />

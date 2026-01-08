@@ -14,6 +14,21 @@
       "Title.Downloading": "Downloading HubHop update..."
     }
   },
+  "MainMenu": {
+    "View": {
+      "Label": "View",
+      "Zoom": {
+        "Reset": "Reset Zoom",
+        "In": "Zoom In",
+        "Out": "Zoom Out",
+        "Shortcut": {
+          "Reset": "Ctrl+0",
+          "In": "Ctrl++",
+          "Out": "Ctrl+-"
+        }
+      }
+    }
+  },
   "Types": {
     "Output": "Output",
     "LedModule": "7-Segment Display",

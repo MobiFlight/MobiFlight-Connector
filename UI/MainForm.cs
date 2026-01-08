@@ -38,6 +38,8 @@ namespace MobiFlight.UI
 
         private const string fileExtensionLoadFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
         private const string fileExtensionSaveFilter = "MobiFlight Project (*.mfproj)|*.mfproj";
+        private const double ZOOM_INCREMENT = 0.1; // 10% zoom increment/decrement
+        private const double ZOOM_MINIMUM = 0.5;   // Minimum zoom level (50%)
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
@@ -200,6 +202,9 @@ namespace MobiFlight.UI
 
             // Initialize the board configurations
             BoardDefinitions.LoadDefinitions();
+
+            // Initialize python environment
+            Scripts.PythonEnvironment.Initialize();
 
             // Initialize the custom device configurations
             CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
@@ -2527,6 +2532,40 @@ namespace MobiFlight.UI
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
         }
 
+        /// <summary>
+        /// Increases the zoom level of the WebView2 frontend by 10%
+        /// </summary>
+        public void ZoomIn()
+        {
+            double currentZoom = frontendPanel1.GetZoomFactor();
+            if (currentZoom > 0.0)
+            {
+                double newZoom = currentZoom + ZOOM_INCREMENT;
+                frontendPanel1.SetZoomFactor(newZoom);
+            }
+        }
+
+        /// <summary>
+        /// Decreases the zoom level of the WebView2 frontend by 10%
+        /// </summary>
+        public void ZoomOut()
+        {
+            double currentZoom = frontendPanel1.GetZoomFactor();
+            if (currentZoom > 0.0)
+            {
+                double newZoom = Math.Max(currentZoom - ZOOM_INCREMENT, ZOOM_MINIMUM);
+                frontendPanel1.SetZoomFactor(newZoom);
+            }
+        }
+
+        /// <summary>
+        /// Resets the zoom level of the WebView2 frontend to 100%
+        /// </summary>
+        public void ZoomReset()
+        {
+            frontendPanel1.SetZoomFactor(1.0);
+        }
+
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.S)       // Ctrl-S Save
@@ -2535,11 +2574,6 @@ namespace MobiFlight.UI
                 e.SuppressKeyPress = true;  // Stops bing! Also sets handled which stop event bubbling
                 if (ProjectHasUnsavedChanges)
                     saveToolStripButton_Click(null, null);
-            }
-
-            if (e.Control && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))
-            {
-                frontendPanel1.SetZoomFactor(1.0f);
             }
         }
 
