@@ -253,7 +253,8 @@ const ProjectCard = ({
                   })}
                   {hasBindingIssues && (
                     <div
-                      className="relative mr-1 cursor-pointer"
+                      className="relative mr-1 "
+                      role="button"
                       onClick={() =>
                         handleMenuItemClick({ action: "extras.serials" })
                       }
