@@ -578,7 +578,12 @@
       "BoundController": "Generic Gamepad / JS-b0875190-3b89-11ed-8007-444553540002",
       "Status": "Match",
       "OriginalController": "Generic Gamepad / JS-b0875190-3b89-11ed-8007-444553540002"
-    }    
+    },
+    {
+      "BoundController": "Octavi / JS-b0875190-3b89-11ed-8007-44455354003",
+      "Status": "Match",
+      "OriginalController": "Octavi / JS-b0875190-3b89-11ed-8007-44455354003"
+    }  
   ],
   "Features": {
     "FSUIPC": false,

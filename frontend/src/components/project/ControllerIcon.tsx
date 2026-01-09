@@ -35,26 +35,10 @@ const ControllerIcons = {
       "Bravo Throttle Quadrant": "/controller/honeycomb/bravo-throttle.jpg",
     },
     octavi: {
-      Octavi: "/controller/type/ocatvi-octavi.png",
-    },
-    saitek: {
-      "Saitek Aviator Stick": "/controller/type/saitek-aviator-stick.png",
+      Octavi: "/controller/octavi/octavi-logo-small.png",
     },
     thrustmaster: {
-      "Thrustmaster T.16000M": "/controller/type/thrustmaster-t16000m.png",
-    },
-    vkbsim: {
-      "S-TECS MODERN THROTTLE MAX":
-        "/controller/type/vkbsim-stecs-throttle.png",
-      "S-TECS MODERN THROTTLE MAX STEM":
-        "/controller/type/vkbsim-stecs-throttle.png",
-      "S-TECS MODERN THROTTLE MAX STEM FSM.GA":
-        "/controller/type/vkbsim-stecs-throttle.png",
-      "S-TECS MODERN THROTTLE MINI":
-        "/controller/type/vkbsim-stecs-throttle.png",
-    },
-    wingflex: {
-      "FCU Cube": "/controller/type/wingflex-joystick.png",
+      "T.16000M": "/controller/thrustmaster/t16000m.jpg",
     },
     winwing: {
       "WINWING MCDU-32-CAPTAIN": "/controller/winwing/mcdu.jpg",
