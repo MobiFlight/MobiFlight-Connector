@@ -152,6 +152,7 @@ const ProjectCard = ({
   className,
   ...otherProps
 }: ProjectCardProps) => {
+  const maxControllersToShow = 5
   const { t } = useTranslation()
   const { showOverlay } = useProjectModal()
 
@@ -174,7 +175,9 @@ const ProjectCard = ({
       Match: 3,
     }
     return priority[a.Status] - priority[b.Status]
-  }).reverse()
+  }).slice(0, maxControllersToShow).reverse()
+
+  const showMoreControllers = summary.ControllerBindings && summary.ControllerBindings.length > maxControllersToShow
 
   const hasBindingIssues = sortedControllerBindings?.some((binding => binding.Status === "Missing" || binding.Status === "RequiresManualBind"))
 
@@ -208,9 +211,16 @@ const ProjectCard = ({
                   )
                 }
                 <div
-                  className="flex flex-row-reverse space-x-reverse -space-x-3 hover:space-x-1 transition-transform"
+                  className="flex flex-row-reverse space-x-reverse -space-x-2 hover:space-x-1 transition-transform items-center"
                   data-testid="controller-icons"
                 >
+                  {showMoreControllers && (
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-none text-foreground">
+                      <span className="text-md font-bold">
+                        +{summary.ControllerBindings!.length - maxControllersToShow}
+                      </span>
+                    </div>
+                  )}
                   {sortedControllerBindings?.map(
                     (controllerBinding, index) => {
                       return controllerBinding.BoundController != "-" && (

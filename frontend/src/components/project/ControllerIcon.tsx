@@ -111,7 +111,7 @@ const ControllerIcon = ({
         data-testid="controller-icon"
         title={`${deviceName} - ${titleStatus}`}
         className={cn(
-          `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 [&_svg]:h-full [&_svg]:w-full shadow-sm shadow-foreground/20`,
+          `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 [&_svg]:h-full [&_svg]:w-full shadow-sm shadow-foreground/20 dark:shadow-none`,
           className,
         )}
         {...props}
