@@ -49,24 +49,42 @@ test.describe("Project view tests", () => {
     await expect(controllerIcons).toHaveCount(5)
     await expect(controllerIcons.nth(0)).toHaveAttribute(
       "title",
-      "ProtoBoard-v2 - Controller connected",
+      "miniCOCKPIT miniFCU - Controller connected",
     )
     await expect(controllerIcons.nth(1)).toHaveAttribute(
       "title",
-      "MobiFlight Board - Controller missing",
+      "Bravo Throttle Quadrant - Controller connected",
     )
     await expect(controllerIcons.nth(2)).toHaveAttribute(
       "title",
-      "Alpha Flight Controls - Auto-bound controller",
+      "ProtoBoard-v2 - Controller connected",
     )
     await expect(controllerIcons.nth(3)).toHaveAttribute(
       "title",
-      "Bravo Throttle Quadrant - Controller connected",
+      "Alpha Flight Controls - Auto-bound controller",
     )
     await expect(controllerIcons.nth(4)).toHaveAttribute(
       "title",
-      "miniCOCKPIT miniFCU - Controller connected",
+      "MobiFlight Board - Controller missing",
     )
+
+    const bindindIssueIcon = currentProjectCard.getByTestId(
+      "controller-binding-issue-icon",
+    )
+
+    await expect(bindindIssueIcon).toBeVisible()
+    await expect(bindindIssueIcon).toHaveAttribute(
+      "title",
+      "Click to view controller binding issues",
+    )
+
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    await bindindIssueIcon.click()
+    const postedCommands =
+      await dashboardPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("extras.serials")
   })
 
   test("Navigate to project view", async ({ dashboardPage, page }) => {
