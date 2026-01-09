@@ -51,23 +51,26 @@ export const ProjectCardTitle = ({
       title: "text-xl font-medium truncate",
       button: "p-0 [&_svg]:size-8",
       icon: "h-8",
-      options: { role: "button", onClick: navigateToProject }
+      options: { role: "button", onClick: navigateToProject },
     },
     listitem: {
       title: "text-lg font-semibold truncate",
       button: "h-6 p-1 [&_svg]:size-6 w-auto",
       icon: "h-6",
-      options: {}
+      options: {},
     },
   }
-  
+
   const titleClassName = variants[variant || "default"].title
   const buttonClassName = variants[variant || "default"].button
   const iconClassName = variants[variant || "default"].icon
   const titleOptions = variants[variant || "default"].options
 
   return (
-    <div {...titleOptions} className="flex flex-row items-center justify-between">
+    <div
+      {...titleOptions}
+      className="flex flex-row items-center justify-between"
+    >
       <div className="flex min-w-0 flex-row items-center justify-start gap-2">
         <h2 className={titleClassName}>{summary.Name}</h2>
       </div>
@@ -152,7 +155,7 @@ const ProjectCard = ({
   className,
   ...otherProps
 }: ProjectCardProps) => {
-  const maxControllersToShow = 5
+  const maxControllersToShow = 6
   const { t } = useTranslation()
   const { showOverlay } = useProjectModal()
 
@@ -167,6 +170,15 @@ const ProjectCard = ({
       : t(`Project.Simulator.none`)
     : t(`Project.Simulator.none`)
 
+  const hasBindingIssues = summary.ControllerBindings?.some(
+    (binding) =>
+      binding.Status === "Missing" || binding.Status === "RequiresManualBind",
+  )
+
+  const adjustedMaxControllersToShow = hasBindingIssues
+    ? maxControllersToShow - 1
+    : maxControllersToShow
+
   const sortedControllerBindings = summary.ControllerBindings?.sort((a, b) => {
     const priority = {
       RequiresManualBind: 0,
@@ -175,11 +187,13 @@ const ProjectCard = ({
       Match: 3,
     }
     return priority[a.Status] - priority[b.Status]
-  }).slice(0, maxControllersToShow).reverse()
+  })
+    .slice(0, adjustedMaxControllersToShow)
+    .reverse()
 
-  const showMoreControllers = summary.ControllerBindings && summary.ControllerBindings.length > maxControllersToShow
-
-  const hasBindingIssues = sortedControllerBindings?.some((binding => binding.Status === "Missing" || binding.Status === "RequiresManualBind"))
+  const showMoreControllers =
+    summary.ControllerBindings &&
+    summary.ControllerBindings.length > adjustedMaxControllersToShow
 
   return (
     <div
@@ -204,33 +218,33 @@ const ProjectCard = ({
               <div className="text-muted-foreground flex flex-row items-center justify-items-center gap-2">
                 <Badge key={summary.Sim}>{simulatorLabel}</Badge>
               </div>
-              <div className="flex flex-row items-center gap-0 h-11">
-                {
-                  hasBindingIssues && (
-                    <IconExclamationCircle className="h-10 w-10 stroke-red-600" />
-                  )
-                }
+              <div className="flex h-11 flex-row items-center gap-0">
                 <div
-                  className="flex flex-row-reverse space-x-reverse -space-x-2 hover:space-x-1 transition-transform items-center"
+                  className="flex flex-row-reverse items-center -space-x-2 space-x-reverse transition-transform hover:space-x-1"
                   data-testid="controller-icons"
                 >
                   {showMoreControllers && (
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-none text-foreground">
+                    <div className="text-foreground flex h-10 w-10 items-center justify-center rounded-full bg-none">
                       <span className="text-md font-bold">
-                        +{summary.ControllerBindings!.length - maxControllersToShow}
+                        +
+                        {summary.ControllerBindings!.length -
+                          maxControllersToShow}
                       </span>
                     </div>
                   )}
-                  {sortedControllerBindings?.map(
-                    (controllerBinding, index) => {
-                      return controllerBinding.BoundController != "-" && (
+                  {sortedControllerBindings?.map((controllerBinding, index) => {
+                    return (
+                      controllerBinding.BoundController != "-" && (
                         <ControllerIcon
                           className="transition-all ease-in-out"
                           key={`${controllerBinding.BoundController}-${index}`}
                           controllerBinding={controllerBinding}
                         />
                       )
-                    },
+                    )
+                  })}
+                  {hasBindingIssues && (
+                    <IconExclamationCircle className="h-10 w-10 cursor-pointer stroke-red-600" />
                   )}
                 </div>
               </div>
