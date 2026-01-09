@@ -28,7 +28,7 @@ import {
 } from "@/lib/hooks/useProjectModal"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { CommandProjectToolbarPayload } from "@/types/commands"
+import { CommandMainMenuPayload, CommandProjectToolbarPayload } from "@/types/commands"
 import ControllerIcon from "@/components/project/ControllerIcon"
 
 export type ProjectCardProps = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -158,10 +158,18 @@ const ProjectCard = ({
   const maxControllersToShow = 6
   const { t } = useTranslation()
   const { showOverlay } = useProjectModal()
+  const { publish } = publishOnMessageExchange()
 
   const handleEditSettings = () => {
     const options = { mode: "edit", project: summary } as ProjectModalOptions
     showOverlay(options)
+  }
+
+  const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
+    publish({
+      key: "CommandMainMenu",
+      payload: payload,
+    })
   }
 
   const simulatorLabel = summary
@@ -220,7 +228,7 @@ const ProjectCard = ({
               </div>
               <div className="flex h-11 flex-row items-center gap-0">
                 <div
-                  className="flex flex-row-reverse items-center -space-x-2 space-x-reverse transition-transform hover:space-x-1"
+                  className="flex flex-row-reverse items-center -space-x-2 space-x-reverse transition-transform hover:space-x-0.5"
                   data-testid="controller-icons"
                 >
                   {showMoreControllers && (
@@ -244,7 +252,14 @@ const ProjectCard = ({
                     )
                   })}
                   {hasBindingIssues && (
-                    <IconExclamationCircle className="h-10 w-10 cursor-pointer stroke-red-600" />
+                    <div
+                      className="relative mr-1 cursor-pointer"
+                      onClick={() =>
+                        handleMenuItemClick({ action: "extras.serials" })
+                      }
+                    >
+                      <IconExclamationCircle className="h-11 w-11 stroke-red-600" />
+                    </div>
                   )}
                 </div>
               </div>
