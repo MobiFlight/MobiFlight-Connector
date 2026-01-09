@@ -173,7 +173,7 @@ const ProjectCard = ({
       Missing: 3,
     }
     return priority[a.Status] - priority[b.Status]
-  })
+  }).reverse()
 
   return (
     <div
@@ -200,7 +200,7 @@ const ProjectCard = ({
               </div>
               <div className="flex flex-row items-center gap-4">
                 <div
-                  className="flex flex-row -space-x-4 hover:space-x-0"
+                  className="flex flex-row-reverse space-x-reverse -space-x-2 hover:space-x-2 transition-transform"
                   data-testid="controller-icons"
                 >
                   {sortedControllerBindings?.map(

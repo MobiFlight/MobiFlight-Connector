@@ -77,7 +77,9 @@ const FindControllerIcon = (controllerType: string, deviceName: string) => {
       .find((c) => Object.keys(c).includes(deviceName)) ?? null
 
   if (specificControllerIcon) {
-    return specificControllerIcon[deviceName as keyof typeof specificControllerIcon]
+    return specificControllerIcon[
+      deviceName as keyof typeof specificControllerIcon
+    ]
   }
 
   // if we get here, then we didn't find a specific icon for the deviceName
@@ -111,34 +113,36 @@ const ControllerIcon = ({
   const controllerIcon = FindControllerIcon(controllerType, deviceName)
 
   const variant = {
-    Match: "",
-    AutoBind: "outline-blue-500 outline-1 shadow-sm",
-    Missing: "outline-amber-500 outline-1 shadow-sm",
-    RequiresManualBind: "outline-red-500 outline-1 shadow-sm",
+    Match: "bg-green-600",
+    AutoBind: "bg-primary",
+    Missing: "bg-gray-300",
+    RequiresManualBind: "bg-red-500",
   } as Record<ControllerBindingStatus, string>
 
   const titleStatus = t(`Project.BindingStatus.${status}`)
 
   return usingController ? (
-    <div
-      data-testid="controller-icon"
-      title={`${deviceName} - ${titleStatus}`}
-      className={cn(
-        `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 shadow-sm [&_svg]:h-full [&_svg]:w-full`,
-        variant[status],
-        className,
-      )}
-      {...props}
-    >
-      {typeof controllerIcon === "string" ? (
-        <img
-          className="h-full w-full object-cover"
-          src={controllerIcon}
-          alt={`${controllerType} controller icon`}
-        />
-      ) : (
-        controllerIcon
-      )}
+    <div className="relative">
+      <div
+        data-testid="controller-icon"
+        title={`${deviceName} - ${titleStatus}`}
+        className={cn(
+          `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full outline-3 outline-background [&_svg]:h-full [&_svg]:w-full shadow-md shadow-foreground/50`,
+          className,
+        )}
+        {...props}
+      >
+        {typeof controllerIcon === "string" ? (
+          <img
+            className="h-full w-full object-cover"
+            src={controllerIcon}
+            alt={`${controllerType} controller icon`}
+          />
+        ) : (
+          controllerIcon
+        )}
+      </div>
+      <div className={`rounded-full h-2.5 w-2.5 absolute bottom-0 right-0 bg-accent outline-background outline-3 ${variant[status]}`}></div>
     </div>
   ) : null
 }
