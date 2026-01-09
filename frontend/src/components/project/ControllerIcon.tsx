@@ -1,5 +1,11 @@
+import IconBrandMobiFlightLogo from "@/components/icons/IconBrandMobiFlightLogo"
 import { cn } from "@/lib/utils"
 import { ControllerBinding, ControllerBindingStatus } from "@/types/controller"
+import {
+  IconDeviceGamepad2,
+  IconPiano,
+  IconQuestionMark,
+} from "@tabler/icons-react"
 import { HtmlHTMLAttributes } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -7,8 +13,9 @@ export type ControllerIconProps = {
   controllerBinding: ControllerBinding
 }
 
-const ControllerIconPath = {
+const ControllerIcons = {
   mobiflight: {
+    generic: <IconBrandMobiFlightLogo />,
     official: {
       mega: "/controller/type/mobiflight-mega.png",
       micro: "/controller/type/mobiflight-micro.png",
@@ -19,6 +26,7 @@ const ControllerIconPath = {
     },
   },
   joystick: {
+    generic: <IconDeviceGamepad2 />,
     authentikit: {
       AuthentiKit: "/controller/authentikit/atk-orange-button-logo.png",
     },
@@ -53,36 +61,29 @@ const ControllerIconPath = {
     },
   },
   midi: {
-    generic: "/controller/type/midi-generic.png",
+    generic: <IconPiano />,
   },
 }
 
-const FindControllerIconPath = (controllerType: string, deviceName: string) => {
-  const controllerIconPathSection =
-    ControllerIconPath[controllerType as keyof typeof ControllerIconPath]
+const FindControllerIcon = (controllerType: string, deviceName: string) => {
+  const controllerTypeIcons =
+    ControllerIcons[controllerType as keyof typeof ControllerIcons]
 
-  if (!controllerIconPathSection) return "/controller/type/unknown.png"
+  if (!controllerTypeIcons) return IconQuestionMark
 
-  const controllerIcon =
-    Object.values(controllerIconPathSection)
+  const specificControllerIcon =
+    Object.values(controllerTypeIcons)
       .flat()
       .find((c) => Object.keys(c).includes(deviceName)) ?? null
-  if (controllerIcon) {
-    return controllerIcon[deviceName as keyof typeof controllerIcon]
+
+  if (specificControllerIcon) {
+    return specificControllerIcon[deviceName as keyof typeof specificControllerIcon]
   }
 
   // if we get here, then we didn't find a specific icon for the deviceName
   // let's try a generic one for the type
-  if (
-    !controllerIconPathSection[
-      deviceName as keyof typeof controllerIconPathSection
-    ]
-  )
-    return `/controller/type/${controllerType}.png`
-
-  return controllerIconPathSection[
-    deviceName as keyof typeof controllerIconPathSection
-  ]
+  console.log(controllerTypeIcons)
+  return controllerTypeIcons["generic"]
 }
 
 const ControllerIcon = ({
@@ -107,7 +108,7 @@ const ControllerIcon = ({
 
   const usingController = serial != ""
   const deviceName = serial.split("/")[0].trim() || ""
-  const controllerIconUrl = FindControllerIconPath(controllerType, deviceName)
+  const controllerIcon = FindControllerIcon(controllerType, deviceName)
 
   const variant = {
     Match: "",
@@ -123,17 +124,21 @@ const ControllerIcon = ({
       data-testid="controller-icon"
       title={`${deviceName} - ${titleStatus}`}
       className={cn(
-        `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 shadow-sm`,
+        `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 shadow-sm [&_svg]:h-full [&_svg]:w-full`,
         variant[status],
         className,
       )}
       {...props}
     >
-      <img
-        className="h-9 object-cover"
-        src={controllerIconUrl}
-        alt={`${controllerType} controller icon`}
-      />
+      {typeof controllerIcon === "string" ? (
+        <img
+          className="h-full w-full object-cover"
+          src={controllerIcon}
+          alt={`${controllerType} controller icon`}
+        />
+      ) : (
+        controllerIcon
+      )}
     </div>
   ) : null
 }
