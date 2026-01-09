@@ -68,7 +68,6 @@ const FindControllerIcon = (controllerType: string, deviceName: string) => {
 
   // if we get here, then we didn't find a specific icon for the deviceName
   // let's try a generic one for the type
-  console.log(controllerTypeIcons)
   return controllerTypeIcons["generic"]
 }
 
@@ -111,7 +110,7 @@ const ControllerIcon = ({
         data-testid="controller-icon"
         title={`${deviceName} - ${titleStatus}`}
         className={cn(
-          `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 [&_svg]:h-full [&_svg]:w-full shadow-sm shadow-foreground/20 dark:shadow-none`,
+          `border-card bg-card shadow-foreground/20 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 shadow-sm dark:shadow-none [&_svg]:h-full [&_svg]:w-full`,
           className,
         )}
         {...props}
@@ -126,7 +125,12 @@ const ControllerIcon = ({
           controllerIcon
         )}
       </div>
-      <div className={`rounded-full h-3 w-3 absolute bottom-0 right-0 bg-accent outline-background outline-3 ${variant[status]}`}></div>
+      <div
+        className={cn(
+          `bg-accent outline-background absolute right-0 bottom-0 h-3 w-3 rounded-full outline-3`,
+          variant[status],
+        )}
+      ></div>
     </div>
   ) : null
 }

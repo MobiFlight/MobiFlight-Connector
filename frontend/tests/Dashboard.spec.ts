@@ -90,18 +90,18 @@ test.describe("Project view tests", () => {
       "MobiFlight Board - Controller missing",
     )
 
-    const bindindIssueIcon = currentProjectCard.getByTestId(
+    const bindingIssueIcon = currentProjectCard.getByTestId(
       "controller-binding-issue-icon",
     )
 
-    await expect(bindindIssueIcon).toBeVisible()
-    await expect(bindindIssueIcon).toHaveAttribute(
+    await expect(bindingIssueIcon).toBeVisible()
+    await expect(bindingIssueIcon).toHaveAttribute(
       "title",
       "Click to view controller binding issues",
     )
 
     await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
-    await bindindIssueIcon.click()
+    await bindingIssueIcon.click()
     const postedCommands =
       await dashboardPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
@@ -161,7 +161,7 @@ test.describe("Project view tests", () => {
     const sixBindingsWithError = controllerBindings.slice(0, 6).map((cb) => ({...cb, Status: 'RequiresManualBind'}))
     const currentProjectCard = page.getByTestId("project-card")
     
-    const bindindIssueIcon = currentProjectCard.getByTestId(
+    const bindingIssueIcon = currentProjectCard.getByTestId(
       "controller-binding-issue-icon",
     )
     const moreControllersIndicator = currentProjectCard.getByTestId("more-controllers-indicator")
@@ -173,7 +173,7 @@ test.describe("Project view tests", () => {
       ControllerBindings: sixBindingsWithMatch,
     })
 
-    await expect(bindindIssueIcon).not.toBeVisible()
+    await expect(bindingIssueIcon).not.toBeVisible()
     await expect(moreControllersIndicator).not.toBeVisible()
 
     await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
@@ -182,7 +182,7 @@ test.describe("Project view tests", () => {
       ControllerBindings: sevenBindingsWithMatch,
     })
 
-    await expect(bindindIssueIcon).not.toBeVisible()
+    await expect(bindingIssueIcon).not.toBeVisible()
     await expect(moreControllersIndicator).toBeVisible()
     await expect(moreControllersIndicator.getByText("+1")).toBeVisible()
 
@@ -192,7 +192,7 @@ test.describe("Project view tests", () => {
       ControllerBindings: sixBindingsWithError,
     })
 
-    await expect(bindindIssueIcon).toBeVisible()
+    await expect(bindingIssueIcon).toBeVisible()
     await expect(moreControllersIndicator).toBeVisible()
     await expect(moreControllersIndicator.getByText("+1")).toBeVisible()
   })
