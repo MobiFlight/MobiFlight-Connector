@@ -255,6 +255,8 @@ const ProjectCard = ({
                     <div
                       className="relative mr-1 "
                       role="button"
+                      data-testid="controller-binding-issue-icon"
+                      title={t("Project.Card.Main.BindingIssuesTooltip")}
                       onClick={() =>
                         handleMenuItemClick({ action: "extras.serials" })
                       }

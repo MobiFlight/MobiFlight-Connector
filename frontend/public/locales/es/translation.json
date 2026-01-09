@@ -106,7 +106,8 @@
         "AllProjects": "Todos los Proyectos",
         "CurrentProject": "Proyecto actual",
         "NoActiveProject": "No hay ningún proyecto cargado actualmente.",
-        "CreateFirstProject": "¡Crea tu primer proyecto para comenzar!"
+        "CreateFirstProject": "¡Crea tu primer proyecto para comenzar!",
+        "BindingIssuesTooltip": "Haz clic para ver problemas de vinculación del controlador"
       },
       "Filter": {
         "Search": {

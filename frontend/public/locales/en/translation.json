@@ -106,7 +106,8 @@
         "AllProjects": "All Projects",
         "CurrentProject": "Current project",
         "NoActiveProject": "No project is currently loaded.",
-        "CreateFirstProject": "Create your first project to get started!"
+        "CreateFirstProject": "Create your first project to get started!",
+        "BindingIssuesTooltip": "Click to view controller binding issues"
       },
       "Filter": {
         "Search": {

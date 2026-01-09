@@ -106,7 +106,8 @@
         "AllProjects": "Alle Projekte",
         "CurrentProject": "Aktuelles Projekt",
         "NoActiveProject": "Derzeit ist kein Projekt geladen.",
-        "CreateFirstProject": "Erstelle mein erstes Projekt, um zu starten!"
+        "CreateFirstProject": "Erstelle mein erstes Projekt, um zu starten!",
+        "BindingIssuesTooltip": "Klicke, um Controller-Zuordnungsprobleme anzuzeigen"
       },
       "Filter": {
         "Search": {
