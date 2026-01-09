@@ -99,7 +99,7 @@ const ControllerIcon = ({
   const variant = {
     Match: "bg-green-600",
     AutoBind: "bg-primary",
-    Missing: "bg-background border-3",
+    Missing: "bg-background border-3 border-gray-400",
     RequiresManualBind: "bg-red-500",
   } as Record<ControllerBindingStatus, string>
 
@@ -126,7 +126,7 @@ const ControllerIcon = ({
           controllerIcon
         )}
       </div>
-      <div className={`rounded-full h-2.5 w-2.5 absolute bottom-0 right-0 bg-accent outline-background outline-3 ${variant[status]}`}></div>
+      <div className={`rounded-full h-3 w-3 absolute bottom-0 right-0 bg-accent outline-background outline-3 ${variant[status]}`}></div>
     </div>
   ) : null
 }
