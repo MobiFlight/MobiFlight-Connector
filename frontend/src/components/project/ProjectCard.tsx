@@ -232,11 +232,11 @@ const ProjectCard = ({
                   data-testid="controller-icons"
                 >
                   {showMoreControllers && (
-                    <div className="text-foreground flex h-10 w-10 items-center justify-center rounded-full bg-none">
+                    <div className="text-foreground flex h-10 w-10 items-center justify-center rounded-full bg-none" data-testid="more-controllers-indicator">
                       <span className="text-md font-bold">
                         +
                         {summary.ControllerBindings!.length -
-                          maxControllersToShow}
+                          adjustedMaxControllersToShow}
                       </span>
                     </div>
                   )}
