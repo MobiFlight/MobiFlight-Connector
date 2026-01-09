@@ -142,17 +142,17 @@ test.describe("Project view tests", () => {
         Status: "Match",
       },
       {
+        BoundController: null,
+        Status: "Missing",
+        OriginalController:
+          "Behringer X-Touch Mini / MI-b0875190-3b89-11ed-8007-444553540001",
+      },
+      {
         BoundController:
           "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
         Status: "RequiresManualBind",
         OriginalController:
           "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
-      },
-      {
-        BoundController: null,
-        Status: "Missing",
-        OriginalController:
-          "Behringer X-Touch Mini / MI-b0875190-3b89-11ed-8007-444553540001",
       }
     ]
 
