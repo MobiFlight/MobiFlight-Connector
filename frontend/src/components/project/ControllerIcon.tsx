@@ -115,7 +115,7 @@ const ControllerIcon = ({
   const variant = {
     Match: "bg-green-600",
     AutoBind: "bg-primary",
-    Missing: "bg-gray-300",
+    Missing: "bg-background border-3",
     RequiresManualBind: "bg-red-500",
   } as Record<ControllerBindingStatus, string>
 
@@ -127,7 +127,7 @@ const ControllerIcon = ({
         data-testid="controller-icon"
         title={`${deviceName} - ${titleStatus}`}
         className={cn(
-          `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full outline-3 outline-background [&_svg]:h-full [&_svg]:w-full shadow-md shadow-foreground/50`,
+          `border-card bg-card flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 [&_svg]:h-full [&_svg]:w-full shadow-sm shadow-foreground/20`,
           className,
         )}
         {...props}
