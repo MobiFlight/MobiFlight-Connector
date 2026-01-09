@@ -165,6 +165,16 @@ const ProjectCard = ({
       : t(`Project.Simulator.none`)
     : t(`Project.Simulator.none`)
 
+  const sortedControllerBindings = summary.ControllerBindings?.sort((a, b) => {
+    const priority = {
+      RequiresManualBind: 0,
+      AutoBind: 1,
+      Match: 2,
+      Missing: 3,
+    }
+    return priority[a.Status] - priority[b.Status]
+  })
+
   return (
     <div
       data-testid="project-card"
@@ -193,7 +203,7 @@ const ProjectCard = ({
                   className="flex flex-row -space-x-4 hover:space-x-0"
                   data-testid="controller-icons"
                 >
-                  {summary.ControllerBindings?.map(
+                  {sortedControllerBindings?.map(
                     (controllerBinding, index) => {
                       return controllerBinding.BoundController != "-" && (
                         <ControllerIcon
