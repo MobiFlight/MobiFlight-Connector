@@ -266,6 +266,14 @@
     "SimConnectionLost": {
       "Title": "Connection Lost",
       "Description": "The connection to {{simType}} was lost."
+    },
+    "SimStopped": {
+      "Title": "Flight Simulator Closed",
+      "Description": "The Flight Simulator has been closed. Execution of config has been stopped. Restart your flight simulator to restart config."
+    },
+    "TestModeException": {
+      "Title": "Test Mode Error",
+      "Description": "{{errorMessage}}"
     }
   },
   "Feed": {

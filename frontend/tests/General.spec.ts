@@ -151,4 +151,49 @@ test.describe("Generic Notifications tests", () => {
     await expect(toastSimConnectionLost).toContainText("Connection Lost")
     await expect(toastSimConnectionLost).toContainText("SimConnect")
   })
+
+  test("Confirm Sim Stopped Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastSimStopped = page.getByTestId("toast-sim-stopped")
+    await expect(toastSimStopped).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "SimStopped",
+        Context: {},
+      },
+    })
+
+    await expect(toastSimStopped).toBeVisible()
+    await expect(toastSimStopped).toContainText("Flight Simulator Closed")
+  })
+
+  test("Confirm Test Mode Exception Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastTestModeException = page.getByTestId("toast-test-mode-exception")
+    await expect(toastTestModeException).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "TestModeException",
+        Context: { ErrorMessage: "Test error occurred" },
+      },
+    })
+
+    await expect(toastTestModeException).toBeVisible()
+    await expect(toastTestModeException).toContainText("Test Mode Error")
+    await expect(toastTestModeException).toContainText("Test error occurred")
+  })
 })

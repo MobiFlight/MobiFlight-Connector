@@ -1236,7 +1236,8 @@ namespace MobiFlight.UI
         void execManager_OnTestModeException(object sender, EventArgs e)
         {
             StopExecution();
-            _showError((sender as Exception).Message);
+            var errorMessage = (sender as Exception)?.Message ?? "An error occurred during test mode";
+            _showNotification("TestModeException", new Dictionary<string, string>() { { "ErrorMessage", errorMessage } }, errorMessage);
         }
 
         void Default_SettingChanging(object sender, System.Configuration.SettingChangingEventArgs e)
@@ -1659,7 +1660,7 @@ namespace MobiFlight.UI
 
             if (!execManager.SimAvailable())
             {
-                _showError(i18n._tr("uiMessageFsHasBeenStopped"));
+                _showNotification("SimStopped", null, i18n._tr("uiMessageFsHasBeenStopped"));
                 UpdateAllConnectionIcons();
                 return;
             }
@@ -1868,6 +1869,26 @@ namespace MobiFlight.UI
                 }
             });
         } //_showConnectionLost()
+
+        /// <summary>
+        /// Shows a notification using toast or balloon tip depending on window state
+        /// </summary>
+        private void _showNotification(string eventName, Dictionary<string, string> context, string fallbackMessage)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                // When minimized, use the existing _showError method which handles balloon notifications
+                _showError(fallbackMessage);
+                return;
+            }
+
+            // Show toast notification when not minimized
+            MessageExchange.Instance.Publish(new Notification()
+            {
+                Event = eventName,
+                Context = context
+            });
+        } //_showNotification()
 
         /// <summary>
         /// handles the resize event

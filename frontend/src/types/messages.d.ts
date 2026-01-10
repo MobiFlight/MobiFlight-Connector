@@ -103,7 +103,7 @@ export interface OverlayState {
 }
 
 export interface Notification {
-  Event: "ControllerAutoBindSuccessful" | "ControllerManualBindRequired" | "ProjectFileExtensionMigrated" | "SimConnectionLost"
+  Event: "ControllerAutoBindSuccessful" | "ControllerManualBindRequired" | "ProjectFileExtensionMigrated" | "SimConnectionLost" | "SimStopped" | "TestModeException"
   Guid?: string
   Context: Record<string, string> | null
 }

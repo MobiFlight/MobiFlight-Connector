@@ -272,6 +272,14 @@
     "SimConnectionLost": {
       "Title": "Verbindung verloren",
       "Description": "Die Verbindung zu {{simType}} ist abgebrochen."
+    },
+    "SimStopped": {
+      "Title": "Flugsimulator geschlossen",
+      "Description": "Der Flugsimulator wurde geschlossen. Die Ausführung der Konfiguration wurde gestoppt. Starte deinen Flugsimulator neu, um die Konfiguration erneut zu starten."
+    },
+    "TestModeException": {
+      "Title": "Testmodus-Fehler",
+      "Description": "{{errorMessage}}"
     }
   },
   "Feed": {
