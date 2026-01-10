@@ -1237,7 +1237,7 @@ namespace MobiFlight.UI
         {
             StopExecution();
             var errorMessage = (sender as Exception)?.Message ?? "An error occurred during test mode";
-            _showNotification("TestModeException", new Dictionary<string, string>() { { "ErrorMessage", errorMessage } }, errorMessage);
+            showNotification("TestModeException", new Dictionary<string, string>() { { "ErrorMessage", errorMessage } }, errorMessage);
         }
 
         void Default_SettingChanging(object sender, System.Configuration.SettingChangingEventArgs e)
@@ -1660,7 +1660,7 @@ namespace MobiFlight.UI
 
             if (!execManager.SimAvailable())
             {
-                _showNotification("SimStopped", null, i18n._tr("uiMessageFsHasBeenStopped"));
+                showNotification("SimStopped", null, i18n._tr("uiMessageFsHasBeenStopped"));
                 UpdateAllConnectionIcons();
                 return;
             }
@@ -1852,28 +1852,13 @@ namespace MobiFlight.UI
         /// </summary>
         private void _showConnectionLost(string simType, string fallbackMessage)
         {
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                // When minimized, use the existing _showError method which handles balloon notifications
-                _showError(fallbackMessage);
-                return;
-            }
-
-            // Show toast notification when not minimized
-            MessageExchange.Instance.Publish(new Notification()
-            {
-                Event = "SimConnectionLost",
-                Context = new Dictionary<string, string>()
-                {
-                    { "SimType", simType }
-                }
-            });
+            showNotification("SimConnectionLost", new Dictionary<string, string>() { { "SimType", simType } }, fallbackMessage);
         } //_showConnectionLost()
 
         /// <summary>
         /// Shows a notification using toast or balloon tip depending on window state
         /// </summary>
-        private void _showNotification(string eventName, Dictionary<string, string> context, string fallbackMessage)
+        private void showNotification(string eventName, Dictionary<string, string> context, string fallbackMessage)
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
@@ -1888,7 +1873,7 @@ namespace MobiFlight.UI
                 Event = eventName,
                 Context = context
             });
-        } //_showNotification()
+        } //showNotification()
 
         /// <summary>
         /// handles the resize event
