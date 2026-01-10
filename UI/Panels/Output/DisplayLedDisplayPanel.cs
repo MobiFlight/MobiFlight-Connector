@@ -146,15 +146,10 @@ namespace MobiFlight.UI.Panels
                 return;
             }
             
-            // Parse the value with error handling
-            int value;
-            try
+            // Parse the value using TryParse pattern
+            if (!Int16.TryParse(valueStr, out short value))
             {
-                value = Int16.Parse(valueStr);
-            }
-            catch (FormatException ex)
-            {
-                Log.Instance.log($"Unable to parse LED module size value '{valueStr}': {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"Unable to parse LED module size value '{valueStr}'", LogSeverity.Error);
                 return;
             }
             
