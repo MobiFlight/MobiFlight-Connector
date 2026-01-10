@@ -2145,6 +2145,7 @@ namespace MobiFlight.UI
                             execManager.Project.ConfigFiles[i].ConfigItems = udpatedConfigs[i];
                         }
 
+                        ControllerBindingService.PerformAutoBinding(execManager.Project);
                         MessageExchange.Instance.Publish(execManager.Project);
                     }
                 }
