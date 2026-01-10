@@ -150,7 +150,7 @@ namespace MobiFlight.Execution
             return result;
         }
 
-        private bool IsConfigMatchingEvent(InputConfigItem cfg, InputEventArgs e)
+        internal static bool IsConfigMatchingEvent(InputConfigItem cfg, InputEventArgs e)
         {
             if (cfg.ModuleSerial == null)
                 return false;
@@ -170,7 +170,7 @@ namespace MobiFlight.Execution
             return deviceNameMatches || isJoystickWithLabelMatch;
         }
 
-        private bool ShouldSkipDueToInputShiftRegisterPinMismatch(InputConfigItem cfg, InputEventArgs e)
+        internal static bool ShouldSkipDueToInputShiftRegisterPinMismatch(InputConfigItem cfg, InputEventArgs e)
         {
             // Input shift registers have an additional check to see if the pin that changed matches the pin
             // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
@@ -184,7 +184,7 @@ namespace MobiFlight.Execution
             return isButtonEvent && isInputShiftRegisterConfig && hasInputShiftRegisterConfig && pinMismatch;
         }
 
-        private bool ShouldSkipDueToInputMultiplexerPinMismatch(InputConfigItem cfg, InputEventArgs e)
+        internal static bool ShouldSkipDueToInputMultiplexerPinMismatch(InputConfigItem cfg, InputEventArgs e)
         {
             // Similarly for digital input Multiplexer
             // Only perform this check if the config's DeviceType is actually InputMultiplexer

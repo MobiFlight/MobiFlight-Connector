@@ -454,5 +454,332 @@ namespace MobiFlight.Execution.Tests
                 Times.Once
             );
         }
+
+        #region IsConfigMatchingEvent Tests
+
+        [TestMethod]
+        public void IsConfigMatchingEvent_NullModuleSerial_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem { ModuleSerial = null };
+            var e = new InputEventArgs { Serial = "SN-123" };
+
+            // Act
+            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when ModuleSerial is null");
+        }
+
+        [TestMethod]
+        public void IsConfigMatchingEvent_SerialDoesNotMatch_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem { ModuleSerial = "TestModule / SN-abc" };
+            var e = new InputEventArgs { Serial = "SN-xyz" };
+
+            // Act
+            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when serial doesn't match");
+        }
+
+        [TestMethod]
+        public void IsConfigMatchingEvent_DeviceNameMatches_ReturnsTrue()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                ModuleSerial = "TestModule / SN-123",
+                DeviceName = "Button1"
+            };
+            var e = new InputEventArgs 
+            { 
+                Serial = "SN-123",
+                DeviceId = "Button1"
+            };
+
+            // Act
+            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+
+            // Assert
+            Assert.IsTrue(result, "Should return true when device name matches");
+        }
+
+        [TestMethod]
+        public void IsConfigMatchingEvent_JoystickWithLabelMatch_ReturnsTrue()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                ModuleSerial = "JS-1 / SN-123", // Joystick serial
+                DeviceName = "Button 1 Label"
+            };
+            var e = new InputEventArgs 
+            { 
+                Serial = "SN-123",
+                DeviceId = "Button1",
+                DeviceLabel = "Button 1 Label"
+            };
+
+            // Act
+            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+
+            // Assert
+            Assert.IsTrue(result, "Should return true for joystick with label match");
+        }
+
+        [TestMethod]
+        public void IsConfigMatchingEvent_DeviceNameMismatchNonJoystick_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                ModuleSerial = "TestModule / SN-123",
+                DeviceName = "Button1"
+            };
+            var e = new InputEventArgs 
+            { 
+                Serial = "SN-123",
+                DeviceId = "Button2"
+            };
+
+            // Act
+            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when device names don't match");
+        }
+
+        #endregion
+
+        #region ShouldSkipDueToInputShiftRegisterPinMismatch Tests
+
+        [TestMethod]
+        public void ShouldSkipDueToInputShiftRegisterPinMismatch_NotButtonEvent_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                inputShiftRegister = new InputShiftRegisterConfig { ExtPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Encoder, // Not a button
+                ExtPin = 3
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputShiftRegisterPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false for non-button events");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputShiftRegisterPinMismatch_NotInputShiftRegisterConfig_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_BUTTON, // Not shift register
+                inputShiftRegister = new InputShiftRegisterConfig { ExtPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 3
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputShiftRegisterPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when device type is not InputShiftRegister");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputShiftRegisterPinMismatch_NullConfig_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                inputShiftRegister = null // No config
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 3
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputShiftRegisterPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when inputShiftRegister config is null");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputShiftRegisterPinMismatch_PinMatches_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                inputShiftRegister = new InputShiftRegisterConfig { ExtPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 5 // Pins match
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputShiftRegisterPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when pins match");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputShiftRegisterPinMismatch_PinMismatch_ReturnsTrue()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                inputShiftRegister = new InputShiftRegisterConfig { ExtPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 3 // Pins don't match
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputShiftRegisterPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsTrue(result, "Should return true when all conditions met and pins don't match");
+        }
+
+        #endregion
+
+        #region ShouldSkipDueToInputMultiplexerPinMismatch Tests
+
+        [TestMethod]
+        public void ShouldSkipDueToInputMultiplexerPinMismatch_NotButtonEvent_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
+                inputMultiplexer = new InputMultiplexerConfig { DataPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Encoder, // Not a button
+                ExtPin = 3
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputMultiplexerPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false for non-button events");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputMultiplexerPinMismatch_NotInputMultiplexerConfig_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_BUTTON, // Not multiplexer
+                inputMultiplexer = new InputMultiplexerConfig { DataPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 3
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputMultiplexerPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when device type is not InputMultiplexer");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputMultiplexerPinMismatch_NullConfig_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
+                inputMultiplexer = null // No config
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 3
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputMultiplexerPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when inputMultiplexer config is null");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputMultiplexerPinMismatch_PinMatches_ReturnsFalse()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
+                inputMultiplexer = new InputMultiplexerConfig { DataPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 5 // Pins match
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputMultiplexerPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsFalse(result, "Should return false when pins match");
+        }
+
+        [TestMethod]
+        public void ShouldSkipDueToInputMultiplexerPinMismatch_PinMismatch_ReturnsTrue()
+        {
+            // Arrange
+            var cfg = new InputConfigItem 
+            { 
+                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
+                inputMultiplexer = new InputMultiplexerConfig { DataPin = 5 }
+            };
+            var e = new InputEventArgs 
+            { 
+                Type = DeviceType.Button,
+                ExtPin = 3 // Pins don't match
+            };
+
+            // Act
+            var result = InputEventExecutor.ShouldSkipDueToInputMultiplexerPinMismatch(cfg, e);
+
+            // Assert
+            Assert.IsTrue(result, "Should return true when all conditions met and pins don't match");
+        }
+
+        #endregion
     }
 }
