@@ -129,37 +129,16 @@ namespace MobiFlight.Execution
                     // item currently created and not saved yet.
                     if (cfg == null) continue;
 
-                    if (cfg.ModuleSerial != null &&
-                        cfg.ModuleSerial.Contains("/ " + e.Serial) &&
-                       (cfg.DeviceName == e.DeviceId ||
-                       // for backward compatibility we have to make this check
-                       // because we used to have the label in the config
-                       // but now we want to store the internal button identifier
-                       // so that the label can change any time without breaking the config
-                       (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel)))
-                    {
-                        // Input shift registers have an additional check to see if the pin that changed matches the pin
-                        // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
-                        // would get added to the input cache and fired even though the pins don't match.
-                        // Only perform this check if the config's DeviceType is actually InputShiftRegister
-                        if (e.Type == DeviceType.Button && 
-                            cfg.DeviceType == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER && 
-                            cfg.inputShiftRegister != null && 
-                            cfg.inputShiftRegister.ExtPin != e.ExtPin)
-                        {
-                            continue;
-                        }
-                        // similarly also for digital input Multiplexer
-                        // Only perform this check if the config's DeviceType is actually InputMultiplexer
-                        if (e.Type == DeviceType.Button && 
-                            cfg.DeviceType == InputConfigItem.TYPE_INPUT_MULTIPLEXER && 
-                            cfg.inputMultiplexer != null && 
-                            cfg.inputMultiplexer.DataPin != e.ExtPin)
-                        {
-                            continue;
-                        }
-                        result.Add(cfg);
-                    }
+                    if (!IsConfigMatchingEvent(cfg, e))
+                        continue;
+
+                    if (ShouldSkipDueToInputShiftRegisterPinMismatch(cfg, e))
+                        continue;
+
+                    if (ShouldSkipDueToInputMultiplexerPinMismatch(cfg, e))
+                        continue;
+
+                    result.Add(cfg);
                 }
                 catch (Exception ex)
                 {
@@ -169,6 +148,52 @@ namespace MobiFlight.Execution
             }
 
             return result;
+        }
+
+        private bool IsConfigMatchingEvent(InputConfigItem cfg, InputEventArgs e)
+        {
+            if (cfg.ModuleSerial == null)
+                return false;
+
+            bool serialMatches = cfg.ModuleSerial.Contains("/ " + e.Serial);
+            if (!serialMatches)
+                return false;
+
+            bool deviceNameMatches = cfg.DeviceName == e.DeviceId;
+            
+            // For backward compatibility we have to make this check
+            // because we used to have the label in the config
+            // but now we want to store the internal button identifier
+            // so that the label can change any time without breaking the config
+            bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel;
+            
+            return deviceNameMatches || isJoystickWithLabelMatch;
+        }
+
+        private bool ShouldSkipDueToInputShiftRegisterPinMismatch(InputConfigItem cfg, InputEventArgs e)
+        {
+            // Input shift registers have an additional check to see if the pin that changed matches the pin
+            // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
+            // would get added to the input cache and fired even though the pins don't match.
+            // Only perform this check if the config's DeviceType is actually InputShiftRegister
+            bool isButtonEvent = e.Type == DeviceType.Button;
+            bool isInputShiftRegisterConfig = cfg.DeviceType == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+            bool hasInputShiftRegisterConfig = cfg.inputShiftRegister != null;
+            bool pinMismatch = cfg.inputShiftRegister?.ExtPin != e.ExtPin;
+
+            return isButtonEvent && isInputShiftRegisterConfig && hasInputShiftRegisterConfig && pinMismatch;
+        }
+
+        private bool ShouldSkipDueToInputMultiplexerPinMismatch(InputConfigItem cfg, InputEventArgs e)
+        {
+            // Similarly for digital input Multiplexer
+            // Only perform this check if the config's DeviceType is actually InputMultiplexer
+            bool isButtonEvent = e.Type == DeviceType.Button;
+            bool isInputMultiplexerConfig = cfg.DeviceType == InputConfigItem.TYPE_INPUT_MULTIPLEXER;
+            bool hasInputMultiplexerConfig = cfg.inputMultiplexer != null;
+            bool pinMismatch = cfg.inputMultiplexer?.DataPin != e.ExtPin;
+
+            return isButtonEvent && isInputMultiplexerConfig && hasInputMultiplexerConfig && pinMismatch;
         }
 
         private bool CheckPreconditions(InputConfigItem cfg)
