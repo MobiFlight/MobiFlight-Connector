@@ -816,6 +816,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The connection to ProSim got lost.
+        /// </summary>
+        internal static string uiMessageProSimConnectionLost {
+            get {
+                return ResourceManager.GetString("uiMessageProSimConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your HubHop presets are older than 7 days.
         ///
         ///Would you like to update?.
