@@ -455,38 +455,38 @@ namespace MobiFlight.Execution.Tests
             );
         }
 
-        #region IsConfigMatchingEvent Tests
+        #region MatchesControllerAndDeviceName Tests
 
         [TestMethod]
-        public void IsConfigMatchingEvent_NullModuleSerial_ReturnsFalse()
+        public void MatchesControllerAndDeviceName_NullModuleSerial_ReturnsFalse()
         {
             // Arrange
             var cfg = new InputConfigItem { ModuleSerial = null };
             var e = new InputEventArgs { Serial = "SN-123" };
 
             // Act
-            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+            var result = InputEventExecutor.MatchesControllerAndDeviceName(cfg, e);
 
             // Assert
             Assert.IsFalse(result, "Should return false when ModuleSerial is null");
         }
 
         [TestMethod]
-        public void IsConfigMatchingEvent_SerialDoesNotMatch_ReturnsFalse()
+        public void MatchesControllerAndDeviceName_SerialDoesNotMatch_ReturnsFalse()
         {
             // Arrange
             var cfg = new InputConfigItem { ModuleSerial = "TestModule / SN-abc" };
             var e = new InputEventArgs { Serial = "SN-xyz" };
 
             // Act
-            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+            var result = InputEventExecutor.MatchesControllerAndDeviceName(cfg, e);
 
             // Assert
             Assert.IsFalse(result, "Should return false when serial doesn't match");
         }
 
         [TestMethod]
-        public void IsConfigMatchingEvent_DeviceNameMatches_ReturnsTrue()
+        public void MatchesControllerAndDeviceName_DeviceNameMatches_ReturnsTrue()
         {
             // Arrange
             var cfg = new InputConfigItem 
@@ -501,14 +501,14 @@ namespace MobiFlight.Execution.Tests
             };
 
             // Act
-            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+            var result = InputEventExecutor.MatchesControllerAndDeviceName(cfg, e);
 
             // Assert
             Assert.IsTrue(result, "Should return true when device name matches");
         }
 
         [TestMethod]
-        public void IsConfigMatchingEvent_JoystickWithLabelMatch_ReturnsTrue()
+        public void MatchesControllerAndDeviceName_JoystickWithLabelMatch_ReturnsTrue()
         {
             // Arrange
             var cfg = new InputConfigItem 
@@ -524,14 +524,14 @@ namespace MobiFlight.Execution.Tests
             };
 
             // Act
-            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+            var result = InputEventExecutor.MatchesControllerAndDeviceName(cfg, e);
 
             // Assert
             Assert.IsTrue(result, "Should return true for joystick with label match");
         }
 
         [TestMethod]
-        public void IsConfigMatchingEvent_DeviceNameMismatchNonJoystick_ReturnsFalse()
+        public void MatchesControllerAndDeviceName_DeviceNameMismatchNonJoystick_ReturnsFalse()
         {
             // Arrange
             var cfg = new InputConfigItem 
@@ -546,7 +546,7 @@ namespace MobiFlight.Execution.Tests
             };
 
             // Act
-            var result = InputEventExecutor.IsConfigMatchingEvent(cfg, e);
+            var result = InputEventExecutor.MatchesControllerAndDeviceName(cfg, e);
 
             // Assert
             Assert.IsFalse(result, "Should return false when device names don't match");

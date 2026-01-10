@@ -129,7 +129,7 @@ namespace MobiFlight.Execution
                     // item currently created and not saved yet.
                     if (cfg == null) continue;
 
-                    if (!IsConfigMatchingEvent(cfg, e))
+                    if (!MatchesControllerAndDeviceName(cfg, e))
                         continue;
 
                     if (ShouldSkipDueToInputShiftRegisterPinMismatch(cfg, e))
@@ -150,7 +150,7 @@ namespace MobiFlight.Execution
             return result;
         }
 
-        internal static bool IsConfigMatchingEvent(InputConfigItem cfg, InputEventArgs e)
+        internal static bool MatchesControllerAndDeviceName(InputConfigItem cfg, InputEventArgs e)
         {
             if (cfg.ModuleSerial == null)
                 return false;
