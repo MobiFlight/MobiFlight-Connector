@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
   <xs:schema id="root">
     <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xs:element name="root" ns1:IsDataSet="true">
@@ -103,7 +102,10 @@
   <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
     <value>Die Verbindung zu FSUIPC wurde unterbrochen.</value>
   </data>
-  <data name="uiMessageXplaneConnectionLost" xml:space="preserve"><value>Die Verbindung zu X-Plane wurde unterbrochen</value></data><data name="uiMessageModuleFound" xml:space="preserve">
+  <data name="uiMessageXplaneConnectionLost" xml:space="preserve">
+    <value>Die Verbindung zu X-Plane wurde unterbrochen</value>
+  </data>
+  <data name="uiMessageModuleFound" xml:space="preserve">
     <value>Gefundene Module anzeigen</value>
   </data>
   <data name="uiMessageApplicationIsRunningInBackgroundMode" xml:space="preserve">

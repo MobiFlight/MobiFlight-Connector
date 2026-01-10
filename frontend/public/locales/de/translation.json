@@ -271,7 +271,7 @@
     },
     "SimConnectionLost": {
       "Title": "Verbindung verloren",
-      "Description": "Die Verbindung zu {{simType}} wurde unterbrochen."
+      "Description": "Die Verbindung zu {{simType}} ist abgebrochen."
     }
   },
   "Feed": {

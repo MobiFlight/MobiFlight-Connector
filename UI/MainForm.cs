@@ -1851,23 +1851,22 @@ namespace MobiFlight.UI
         /// </summary>
         private void _showConnectionLost(string simType, string fallbackMessage)
         {
-            if (this.WindowState != FormWindowState.Minimized)
+            if (this.WindowState == FormWindowState.Minimized)
             {
-                // Show toast notification when not minimized
-                MessageExchange.Instance.Publish(new Notification()
+                // When minimized, use the existing _showError method which handles balloon notifications
+                _showError(fallbackMessage);
+                return;
+            }
+
+            // Show toast notification when not minimized
+            MessageExchange.Instance.Publish(new Notification()
+            {
+                Event = "SimConnectionLost",
+                Context = new Dictionary<string, string>()
                 {
-                    Event = "SimConnectionLost",
-                    Context = new Dictionary<string, string>()
-                    {
-                        { "SimType", simType }
-                    }
-                });
-            }
-            else
-            {
-                // Keep balloon notification when minimized
-                notifyIcon.ShowBalloonTip(1000, i18n._tr("Hint"), fallbackMessage, ToolTipIcon.Warning);
-            }
+                    { "SimType", simType }
+                }
+            });
         } //_showConnectionLost()
 
         /// <summary>
