@@ -1274,6 +1274,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The connection to X-Plane got lost.
+        /// </summary>
+        internal static string uiMessageXplaneConnectionLost {
+            get {
+                return ResourceManager.GetString("uiMessageXplaneConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} matches found..
         /// </summary>
         internal static string uiMessagesSimConnectPanelMatchesFound {

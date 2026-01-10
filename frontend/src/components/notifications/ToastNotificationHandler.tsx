@@ -52,6 +52,16 @@ export const ToastNotificationHandler = () => {
         })
         break
 
+      case "SimConnectionLost": {
+        const simType = notification?.Context?.SimType ?? "the simulator"
+        toast({
+          id: "sim-connection-lost",
+          title: t("Notifications.SimConnectionLost.Title"),
+          description: t("Notifications.SimConnectionLost.Description", { simType }),
+        })
+        break
+      }
+
       default:
         console.error("Unhandled notification event:", notification.Event)
         break

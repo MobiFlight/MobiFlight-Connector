@@ -262,6 +262,10 @@
       "Title": "Your input is needed!",
       "Description": "{{controllerName}} used in this profile requires manual binding to make your project work correctly.",
       "Action": "Bind controllers"
+    },
+    "SimConnectionLost": {
+      "Title": "Connection Lost",
+      "Description": "The connection to {{simType}} was lost."
     }
   },
   "Feed": {

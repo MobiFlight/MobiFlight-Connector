@@ -1666,21 +1666,22 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache))
             {
-                _showError(i18n._tr("uiMessageSimConnectConnectionLost"));
+                _showConnectionLost("SimConnect", i18n._tr("uiMessageSimConnectConnectionLost"));
                 UpdateSimConnectStatusIcon();
             }
             else if (sender.GetType() == typeof(XplaneCache))
             {
-                _showError(i18n._tr("uiMessageXplaneConnectionLost"));
+                _showConnectionLost("X-Plane", i18n._tr("uiMessageXplaneConnectionLost"));
                 UpdateXplaneDirectConnectStatusIcon();
             }
             else if (sender is ProSim.ProSimCacheInterface)
             {
+                _showConnectionLost("ProSim", "The connection to ProSim got lost");
                 UpdateProSimStatusIcon();
             }
             else
             {
-                _showError(i18n._tr("uiMessageFsuipcConnectionLost"));
+                _showConnectionLost("FSUIPC", i18n._tr("uiMessageFsuipcConnectionLost"));
                 if (execManager.GetSimConnectCache().IsConnected())
                     UpdateFsuipcStatusIcon();
             }
@@ -1844,6 +1845,30 @@ namespace MobiFlight.UI
                 notifyIcon.ShowBalloonTip(1000, i18n._tr("Hint"), msg, ToolTipIcon.Warning);
             }
         } //_showError()
+
+        /// <summary>
+        /// Shows connection lost notification using toast or balloon tip depending on window state
+        /// </summary>
+        private void _showConnectionLost(string simType, string fallbackMessage)
+        {
+            if (this.WindowState != FormWindowState.Minimized)
+            {
+                // Show toast notification when not minimized
+                MessageExchange.Instance.Publish(new Notification()
+                {
+                    Event = "SimConnectionLost",
+                    Context = new Dictionary<string, string>()
+                    {
+                        { "SimType", simType }
+                    }
+                });
+            }
+            else
+            {
+                // Keep balloon notification when minimized
+                notifyIcon.ShowBalloonTip(1000, i18n._tr("Hint"), fallbackMessage, ToolTipIcon.Warning);
+            }
+        } //_showConnectionLost()
 
         /// <summary>
         /// handles the resize event

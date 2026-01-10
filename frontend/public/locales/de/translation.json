@@ -268,6 +268,10 @@
       "Title": "Deine Hilfe ist gefragt!",
       "Description": "{{controllerName}} wird in diesem Profil verwendet und erfordert eine manuelle Zuordnung, damit Dein Projekt korrekt funktioniert.",
       "Action": "Controller zuordnen"
+    },
+    "SimConnectionLost": {
+      "Title": "Verbindung verloren",
+      "Description": "Die Verbindung zu {{simType}} wurde unterbrochen."
     }
   },
   "Feed": {
