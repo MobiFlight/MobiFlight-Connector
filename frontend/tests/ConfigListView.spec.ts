@@ -862,15 +862,18 @@ test("Confirm `Controller Settings` link is working", async ({
   await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
 
-  const controllerSettingsLabel = page
-    .getByRole("row")
-    .nth(1)
-    .getByText("ProtoBoard")
-  const controllerSettingsButton = page.getByRole("link").first()
+  const firstRow = page.getByRole("row").nth(1)
+  const controllerSettingsButton = firstRow.getByRole("link").first()
+
   await expect(controllerSettingsButton).toHaveCSS("opacity", "0")
-  await controllerSettingsLabel.hover()
+  await firstRow.hover()
+  
+  await expect(controllerSettingsButton).toHaveCSS("opacity", "0.25")
+
+  await controllerSettingsButton.hover()
   await expect(controllerSettingsButton).toHaveCSS("opacity", "1")
   await controllerSettingsButton.click()
+  
   const postedCommands =
     await configListPage.mobiFlightPage.getTrackedCommands()
   expect(postedCommands!.pop().key).toEqual("CommandConfigContextMenu")
