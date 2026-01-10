@@ -370,7 +370,6 @@ namespace MobiFlight.UI.Dialogs
                     if (config.button == null) config.button = new InputConfig.ButtonInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
-                    ClearUnusedConfigObjects(DeviceType.Button);
                     break;
 
                 case DeviceType.Encoder:
@@ -378,7 +377,6 @@ namespace MobiFlight.UI.Dialogs
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
-                    ClearUnusedConfigObjects(DeviceType.Encoder);
                     break;
 
                 case DeviceType.InputShiftRegister:
@@ -387,7 +385,6 @@ namespace MobiFlight.UI.Dialogs
                     config.inputShiftRegister.ExtPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.inputShiftRegister);
-                    ClearUnusedConfigObjects(DeviceType.InputShiftRegister);
                     break;
 
                 case DeviceType.InputMultiplexer:
@@ -396,7 +393,6 @@ namespace MobiFlight.UI.Dialogs
                     config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.inputMultiplexer);
-                    ClearUnusedConfigObjects(DeviceType.InputMultiplexer);
                     break;
 
                 case DeviceType.AnalogInput:
@@ -404,13 +400,18 @@ namespace MobiFlight.UI.Dialogs
                     if (config.analog == null) config.analog = new InputConfig.AnalogInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as AnalogPanel).ToConfig(config.analog);
-                    ClearUnusedConfigObjects(DeviceType.AnalogInput);
                     break;
 
                 case DeviceType.NotSet:
                     config.DeviceType = InputConfigItem.TYPE_NOTSET;
                     config.DeviceName = InputConfigItem.TYPE_NOTSET;
                     break;
+            }
+
+            // Clear unused config objects after switching device type to prevent incorrect input event matching
+            if (currentInputType != DeviceType.NotSet)
+            {
+                ClearUnusedConfigObjects(currentInputType);
             }
 
             return true;
