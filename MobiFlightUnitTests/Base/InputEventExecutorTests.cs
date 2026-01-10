@@ -359,7 +359,7 @@ namespace MobiFlight.Execution.Tests
             // but the old inputMultiplexer config is not cleared, causing the event to be skipped
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "123",
+                Serial = "SN-a1b2c3",
                 Type = DeviceType.Button,
                 DeviceId = "Device1",
                 Value = 0, // PRESS event
@@ -369,7 +369,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "/ 123",
+                ModuleSerial = "TestModule / SN-a1b2c3",
                 DeviceName = "Device1",
                 DeviceType = InputConfigItem.TYPE_BUTTON,
                 Name = "TestConfig",
@@ -411,7 +411,7 @@ namespace MobiFlight.Execution.Tests
             // but the old inputShiftRegister config is not cleared, causing the event to be skipped
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "123",
+                Serial = "SN-d4e5f6",
                 Type = DeviceType.Button,
                 DeviceId = "Device1",
                 Value = 0, // PRESS event
@@ -421,7 +421,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "/ 123",
+                ModuleSerial = "TestModule / SN-d4e5f6",
                 DeviceName = "Device1",
                 DeviceType = InputConfigItem.TYPE_BUTTON,
                 Name = "TestConfig",
