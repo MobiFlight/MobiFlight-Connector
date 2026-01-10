@@ -128,4 +128,27 @@ test.describe("Generic Notifications tests", () => {
 
     await expect(toastFileExtensionMigration).toBeVisible()
   })
+
+  test("Confirm Sim Connection Lost Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastSimConnectionLost = page.getByTestId("toast-sim-connection-lost")
+    await expect(toastSimConnectionLost).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "SimConnectionLost",
+        Context: { SimType: "SimConnect" },
+      },
+    })
+
+    await expect(toastSimConnectionLost).toBeVisible()
+    await expect(toastSimConnectionLost).toContainText("Connection Lost")
+    await expect(toastSimConnectionLost).toContainText("SimConnect")
+  })
 })
