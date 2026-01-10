@@ -781,5 +781,436 @@ namespace MobiFlight.Execution.Tests
         }
 
         #endregion
+
+        #region Default Device Type Tests - Happy Path Scenarios
+
+        [TestMethod]
+        public void Execute_RegularButton_ExecutesSuccessfully()
+        {
+            // Arrange - Test default case: regular button with proper config
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-btn001",
+                Type = DeviceType.Button,
+                DeviceId = "Button1",
+                Value = 0, // PRESS event
+                ExtPin = null
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-btn001",
+                DeviceName = "Button1",
+                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Name = "RegularButton",
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Regular button should execute");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+        }
+
+        [TestMethod]
+        public void Execute_Encoder_ExecutesSuccessfully()
+        {
+            // Arrange - Test default case: encoder with proper config
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-enc001",
+                Type = DeviceType.Encoder,
+                DeviceId = "Encoder1",
+                Value = 1, // Rotation value
+                ExtPin = null
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-enc001",
+                DeviceName = "Encoder1",
+                DeviceType = InputConfigItem.TYPE_ENCODER,
+                Name = "TestEncoder",
+                encoder = new EncoderInputConfig()
+                {
+                    onLeft = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestLeft)",
+                        PresetId = "TestPresetId"
+                    }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Encoder should execute");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+        }
+
+        [TestMethod]
+        public void Execute_InputShiftRegisterWithMatchingPin_ExecutesSuccessfully()
+        {
+            // Arrange - Test default case: input shift register with matching pin
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-isr001",
+                Type = DeviceType.Button,
+                DeviceId = "InputShifter",
+                Value = 0,
+                ExtPin = 5 // Matching pin
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-isr001",
+                DeviceName = "InputShifter",
+                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                Name = "TestInputShiftRegister",
+                inputShiftRegister = new InputShiftRegisterConfig()
+                {
+                    ExtPin = 5, // Same pin as event
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Input shift register with matching pin should execute");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+        }
+
+        [TestMethod]
+        public void Execute_InputMultiplexerWithMatchingPin_ExecutesSuccessfully()
+        {
+            // Arrange - Test default case: input multiplexer with matching pin
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-mux001",
+                Type = DeviceType.Button,
+                DeviceId = "InputMux",
+                Value = 0,
+                ExtPin = 3 // Matching pin
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-mux001",
+                DeviceName = "InputMux",
+                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
+                Name = "TestInputMultiplexer",
+                inputMultiplexer = new InputMultiplexerConfig()
+                {
+                    DataPin = 3, // Same pin as event
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Input multiplexer with matching pin should execute");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+        }
+
+        [TestMethod]
+        public void Execute_AnalogInput_ExecutesSuccessfully()
+        {
+            // Arrange - Test default case: analog input with proper config
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-analog001",
+                Type = DeviceType.AnalogInput,
+                DeviceId = "Analog1",
+                Value = 512, // Analog value
+                ExtPin = null
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-analog001",
+                DeviceName = "Analog1",
+                DeviceType = InputConfigItem.TYPE_ANALOG,
+                Name = "TestAnalogInput",
+                analog = new AnalogInputConfig()
+                {
+                    onChange = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Analog input should execute");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+        }
+
+        #endregion
+
+        #region Edge Cases - Stale Configs With Correct DeviceType
+
+        [TestMethod]
+        public void Execute_ButtonWithStaleEncoderConfig_ExecutesSuccessfully()
+        {
+            // Arrange - Edge case: button config with stale encoder config (shouldn't affect execution)
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-edge001",
+                Type = DeviceType.Button,
+                DeviceId = "Button1",
+                Value = 0,
+                ExtPin = null
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-edge001",
+                DeviceName = "Button1",
+                DeviceType = InputConfigItem.TYPE_BUTTON, // Correct DeviceType
+                Name = "ButtonWithStaleEncoder",
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                },
+                // Stale config that should be ignored
+                encoder = new EncoderInputConfig()
+                {
+                    onLeft = new MSFS2020CustomInputAction() { Command = "(>K:StaleCommand)" }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Button with stale encoder config should still execute");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+        }
+
+        [TestMethod]
+        public void Execute_EncoderWithStaleButtonConfig_ExecutesSuccessfully()
+        {
+            // Arrange - Edge case: encoder config with stale button config
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-edge002",
+                Type = DeviceType.Encoder,
+                DeviceId = "Encoder1",
+                Value = 1,
+                ExtPin = null
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-edge002",
+                DeviceName = "Encoder1",
+                DeviceType = InputConfigItem.TYPE_ENCODER, // Correct DeviceType
+                Name = "EncoderWithStaleButton",
+                encoder = new EncoderInputConfig()
+                {
+                    onLeft = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                },
+                // Stale config that should be ignored
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction() { Command = "(>K:StaleCommand)" }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Encoder with stale button config should still execute");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+        }
+
+        [TestMethod]
+        public void Execute_InputShiftRegisterWithWrongPinButCorrectDeviceType_Skips()
+        {
+            // Arrange - Edge case: correct DeviceType but wrong pin should skip
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-edge003",
+                Type = DeviceType.Button,
+                DeviceId = "InputShifter",
+                Value = 0,
+                ExtPin = 3 // Different pin
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-edge003",
+                DeviceName = "InputShifter",
+                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                Name = "ShiftRegisterWrongPin",
+                inputShiftRegister = new InputShiftRegisterConfig()
+                {
+                    ExtPin = 7, // Different pin - should skip
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(0, result, "Input shift register with wrong pin should be skipped");
+        }
+
+        [TestMethod]
+        public void Execute_InputMultiplexerWithWrongPinButCorrectDeviceType_Skips()
+        {
+            // Arrange - Edge case: correct DeviceType but wrong pin should skip
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-edge004",
+                Type = DeviceType.Button,
+                DeviceId = "InputMux",
+                Value = 0,
+                ExtPin = 2 // Different pin
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-edge004",
+                DeviceName = "InputMux",
+                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
+                Name = "MultiplexerWrongPin",
+                inputMultiplexer = new InputMultiplexerConfig()
+                {
+                    DataPin = 8, // Different pin - should skip
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(0, result, "Input multiplexer with wrong pin should be skipped");
+        }
+
+        [TestMethod]
+        public void Execute_MultipleConfigsSameSerialDifferentDevices_ExecutesOnlyMatching()
+        {
+            // Arrange - Edge case: multiple configs with same serial but different devices
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-multi001",
+                Type = DeviceType.Button,
+                DeviceId = "Button2",
+                Value = 0,
+                ExtPin = null
+            };
+
+            var configItem1 = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-multi001",
+                DeviceName = "Button1", // Different device
+                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Name = "Button1Config",
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction() { Command = "(>K:Button1)" }
+                }
+            };
+
+            var configItem2 = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "TestModule / SN-multi001",
+                DeviceName = "Button2", // Matching device
+                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Name = "Button2Config",
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction() { Command = "(>K:Button2)" }
+                }
+            };
+
+            _configItems.Add(configItem1);
+            _configItems.Add(configItem2);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Only the matching device config should execute");
+            Assert.IsTrue(result.ContainsKey(configItem2.GUID), "Should execute Button2Config");
+            Assert.IsFalse(result.ContainsKey(configItem1.GUID), "Should not execute Button1Config");
+        }
+
+        #endregion
     }
 }
