@@ -350,5 +350,109 @@ namespace MobiFlight.Execution.Tests
                 Times.Once
             );
         }
+
+        [TestMethod]
+        public void Execute_ConvertedFromMultiplexerToButton_ExecutesSuccessfully()
+        {
+            // Arrange
+            // This test reproduces the issue where a user changes from multiplexer to regular button
+            // but the old inputMultiplexer config is not cleared, causing the event to be skipped
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "123",
+                Type = DeviceType.Button,
+                DeviceId = "Device1",
+                Value = 0, // PRESS event
+                ExtPin = null // Regular buttons don't have ExtPin
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "/ 123",
+                DeviceName = "Device1",
+                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Name = "TestConfig",
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                },
+                // Simulate the bug: inputMultiplexer is not cleared when type changed
+                inputMultiplexer = new InputMultiplexerConfig()
+                {
+                    DataPin = 5 // This should be null/cleared when type is Button
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Button event should be executed even if old multiplexer config exists");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (PRESS)")), LogSeverity.Info),
+                Times.Once
+            );
+        }
+
+        [TestMethod]
+        public void Execute_ConvertedFromInputShiftRegisterToButton_ExecutesSuccessfully()
+        {
+            // Arrange
+            // This test reproduces the issue where a user changes from input shift register to regular button
+            // but the old inputShiftRegister config is not cleared, causing the event to be skipped
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "123",
+                Type = DeviceType.Button,
+                DeviceId = "Device1",
+                Value = 0, // PRESS event
+                ExtPin = null // Regular buttons don't have ExtPin
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                ModuleSerial = "/ 123",
+                DeviceName = "Device1",
+                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Name = "TestConfig",
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = "(>K:TestCommand)",
+                        PresetId = "TestPresetId"
+                    }
+                },
+                // Simulate the bug: inputShiftRegister is not cleared when type changed
+                inputShiftRegister = new InputShiftRegisterConfig()
+                {
+                    ExtPin = 3 // This should be null/cleared when type is Button
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.HasCount(1, result, "Button event should be executed even if old shift register config exists");
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (PRESS)")), LogSeverity.Info),
+                Times.Once
+            );
+        }
     }
 }
