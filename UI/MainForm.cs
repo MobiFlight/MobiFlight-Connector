@@ -1667,22 +1667,22 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache))
             {
-                _showConnectionLost("SimConnect", i18n._tr("uiMessageSimConnectConnectionLost"));
+                showConnectionLost("SimConnect", i18n._tr("uiMessageSimConnectConnectionLost"));
                 UpdateSimConnectStatusIcon();
             }
             else if (sender.GetType() == typeof(XplaneCache))
             {
-                _showConnectionLost("X-Plane", i18n._tr("uiMessageXplaneConnectionLost"));
+                showConnectionLost("X-Plane", i18n._tr("uiMessageXplaneConnectionLost"));
                 UpdateXplaneDirectConnectStatusIcon();
             }
             else if (sender is ProSim.ProSimCacheInterface)
             {
-                _showConnectionLost("ProSim", "The connection to ProSim got lost");
+                showConnectionLost("ProSim", "The connection to ProSim got lost");
                 UpdateProSimStatusIcon();
             }
             else
             {
-                _showConnectionLost("FSUIPC", i18n._tr("uiMessageFsuipcConnectionLost"));
+                showConnectionLost("FSUIPC", i18n._tr("uiMessageFsuipcConnectionLost"));
                 if (execManager.GetSimConnectCache().IsConnected())
                     UpdateFsuipcStatusIcon();
             }
@@ -1850,10 +1850,10 @@ namespace MobiFlight.UI
         /// <summary>
         /// Shows connection lost notification using toast or balloon tip depending on window state
         /// </summary>
-        private void _showConnectionLost(string simType, string fallbackMessage)
+        private void showConnectionLost(string simType, string fallbackMessage)
         {
             showNotification("SimConnectionLost", new Dictionary<string, string>() { { "SimType", simType } }, fallbackMessage);
-        } //_showConnectionLost()
+        } //showConnectionLost()
 
         /// <summary>
         /// Shows a notification using toast or balloon tip depending on window state
