@@ -315,6 +315,7 @@
     <Compile Include="UI\Dialogs\InputConfigWizardTests.cs" />
     <Compile Include="UI\MainFormTests.cs" />
     <Compile Include="UI\Panels\Config\FsuipcConfigPanelTests.cs" />
+    <Compile Include="UI\Panels\Output\DisplayLedDisplayPanelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Base\BooleanConverterConfig\GetPins.xml" />
