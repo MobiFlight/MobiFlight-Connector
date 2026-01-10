@@ -324,6 +324,24 @@ namespace MobiFlight.UI.Dialogs
         }
 
         /// <summary>
+        /// Clears all config objects except the specified device type to prevent incorrect input event matching
+        /// </summary>
+        /// <param name="keepDeviceType">The device type to keep, all others will be cleared</param>
+        private void ClearUnusedConfigObjects(DeviceType keepDeviceType)
+        {
+            if (keepDeviceType != DeviceType.Button)
+                config.button = null;
+            if (keepDeviceType != DeviceType.Encoder)
+                config.encoder = null;
+            if (keepDeviceType != DeviceType.InputShiftRegister)
+                config.inputShiftRegister = null;
+            if (keepDeviceType != DeviceType.InputMultiplexer)
+                config.inputMultiplexer = null;
+            if (keepDeviceType != DeviceType.AnalogInput)
+                config.analog = null;
+        }
+
+        /// <summary>
         /// sync current status of form values to config
         /// </summary>
         /// <returns></returns>
@@ -352,11 +370,7 @@ namespace MobiFlight.UI.Dialogs
                     if (config.button == null) config.button = new InputConfig.ButtonInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
-                    // Clear configs from other device types to prevent incorrect input event matching
-                    config.encoder = null;
-                    config.inputShiftRegister = null;
-                    config.inputMultiplexer = null;
-                    config.analog = null;
+                    ClearUnusedConfigObjects(DeviceType.Button);
                     break;
 
                 case DeviceType.Encoder:
@@ -364,11 +378,7 @@ namespace MobiFlight.UI.Dialogs
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
-                    // Clear configs from other device types to prevent incorrect input event matching
-                    config.button = null;
-                    config.inputShiftRegister = null;
-                    config.inputMultiplexer = null;
-                    config.analog = null;
+                    ClearUnusedConfigObjects(DeviceType.Encoder);
                     break;
 
                 case DeviceType.InputShiftRegister:
@@ -377,11 +387,7 @@ namespace MobiFlight.UI.Dialogs
                     config.inputShiftRegister.ExtPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.inputShiftRegister);
-                    // Clear configs from other device types to prevent incorrect input event matching
-                    config.button = null;
-                    config.encoder = null;
-                    config.inputMultiplexer = null;
-                    config.analog = null;
+                    ClearUnusedConfigObjects(DeviceType.InputShiftRegister);
                     break;
 
                 case DeviceType.InputMultiplexer:
@@ -390,11 +396,7 @@ namespace MobiFlight.UI.Dialogs
                     config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.inputMultiplexer);
-                    // Clear configs from other device types to prevent incorrect input event matching
-                    config.button = null;
-                    config.encoder = null;
-                    config.inputShiftRegister = null;
-                    config.analog = null;
+                    ClearUnusedConfigObjects(DeviceType.InputMultiplexer);
                     break;
 
                 case DeviceType.AnalogInput:
@@ -402,11 +404,7 @@ namespace MobiFlight.UI.Dialogs
                     if (config.analog == null) config.analog = new InputConfig.AnalogInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as AnalogPanel).ToConfig(config.analog);
-                    // Clear configs from other device types to prevent incorrect input event matching
-                    config.button = null;
-                    config.encoder = null;
-                    config.inputShiftRegister = null;
-                    config.inputMultiplexer = null;
+                    ClearUnusedConfigObjects(DeviceType.AnalogInput);
                     break;
 
                 case DeviceType.NotSet:
