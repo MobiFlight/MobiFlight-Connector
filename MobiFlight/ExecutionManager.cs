@@ -394,6 +394,7 @@ namespace MobiFlight
                             if (module == null)
                             {
                                 // the device is currently not connected.
+                                SettingsDialogRequested?.Invoke("mobiFlightTabPage", null);
                                 return;
                             }
                             SettingsDialogRequested?.Invoke(module, null);
@@ -403,7 +404,7 @@ namespace MobiFlight
                         if (SerialNumber.IsMidiBoardSerial(serial) || SerialNumber.IsJoystickSerial(serial))
                         {
                             // at this point we don't need to pass in anything specific
-                            SettingsDialogRequested?.Invoke(null, null);
+                            SettingsDialogRequested?.Invoke("peripheralsTabPage", null);
                         }
                         break;
 

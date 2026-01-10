@@ -697,7 +697,14 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                ShowSettingsDialog("peripheralsTabPage", null, null, null);
+                if (sender is string)
+                {
+                    ShowSettingsDialog(sender as string, null, null, null);
+                    return;
+                }
+
+                // open the settings dialog without pre-selecting anything.
+                ShowSettingsDialog(null, null, null, null);
             }, null);
         }
 
