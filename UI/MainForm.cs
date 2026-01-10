@@ -2138,6 +2138,9 @@ namespace MobiFlight.UI
                     if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         ProjectHasUnsavedChanges = opd.HasChanged();
+
+                        if (!ProjectHasUnsavedChanges) return;
+
                         var udpatedConfigs = opd.GetUpdatedConfigs();
 
                         for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
@@ -2146,7 +2149,7 @@ namespace MobiFlight.UI
                         }
 
                         ControllerBindingService.PerformAutoBinding(execManager.Project);
-                        MessageExchange.Instance.Publish(execManager.Project);
+                        saveToolStripButton_Click(this, new EventArgs());
                     }
                 }
                 else
