@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Xml;
@@ -103,6 +104,42 @@ namespace MobiFlight.Tests
             Assert.AreEqual(c.Serial, o.Serial, "Serial not the same");
             Assert.AreEqual(c.Type, o.Type, "Type not the same");
             Assert.AreEqual(c.Value, o.Value, "Value not the same");
+        }
+
+        [TestMethod()]
+        public void IsEmpty_ShouldReturnTrueForDefaultPrecondition()
+        {
+            Precondition o = new Precondition();
+            Assert.IsTrue(o.IsEmpty(), "Default Precondition is not empty");
+        }
+
+        [TestMethod()]
+        public void IsEmpty_ShouldReturnFalseForNonDefaultPrecondition()
+        {
+            Precondition o = _generateTestObject();
+            Assert.IsFalse(o.IsEmpty(), "Non-default Precondition is empty");
+        }
+
+        [TestMethod()]
+        public void IsEmpty_ShouldReturnFalseWhenTypeIsNoneAndOtherFieldsHaveValues()
+        {
+            Precondition o = _generateTestObject();
+            o.Type = "none";
+            o.Ref = "SomeRef";
+
+            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
+
+            o.Ref = null;
+            o.Serial = "SomeSerial";
+            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
+
+            o.Serial = null;
+            o.Pin = "SomePin";
+            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
+
+            o.Pin = null;
+            o.Value = "SomeValue";
+            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
         }
 
         [TestMethod()]
