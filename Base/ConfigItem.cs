@@ -133,7 +133,8 @@ namespace MobiFlight.Base
         /// otherwise, <see langword="false"/>.</returns>
         public bool ShouldSerializePreconditions()
         {
-            return Preconditions != null && Preconditions.Count > 0;
+            return Preconditions != null &&
+                   Preconditions.Any(p => !p.IsEmpty());
         }
 
         /// <summary>
