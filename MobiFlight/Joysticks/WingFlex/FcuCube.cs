@@ -156,8 +156,19 @@ namespace MobiFlight.Joysticks.WingFlex
         /// <param name="data"></param>
         protected async override void SendData(byte[] data)
         {
-            await Device.WriteReportAsync(data, 0).ConfigureAwait(false);
-            RequiresOutputUpdate = false;
+            if (Device == null || !Device.IsInitialized) return;
+
+            try
+            {
+                await Device.WriteReportAsync(data, 0).ConfigureAwait(false);
+                RequiresOutputUpdate = false;
+            }
+            catch (System.IO.IOException ex)
+            {
+                // This happens when the device is removed or disconnected during write operation
+                Log.Instance.log($"IOException during write to FcuCube: {ex.Message}", LogSeverity.Error);
+                OnDeviceRemoved();
+            }
         }
 
         /// <summary>
@@ -331,9 +342,12 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override void Stop()
         {
-            // Reset all outputs to initial state
-            var data = FcuCubeReport?.FromOutputDeviceState(Lights);
-            SendData(data);
+            // Reset all outputs to initial state only if device is connected
+            if (Device != null && Device.IsInitialized)
+            {
+                var data = FcuCubeReport?.FromOutputDeviceState(Lights);
+                SendData(data);
+            }
 
             // then clear all output states
             OutputState.Clear();
