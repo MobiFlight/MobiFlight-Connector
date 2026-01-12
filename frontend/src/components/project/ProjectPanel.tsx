@@ -1,7 +1,11 @@
 import { ProfileTab } from "./ProfileTab"
 import { AddProfileTabMenu } from "./ProfileTab/AddProfileTabMenu"
 import { Button } from "../ui/button"
-import { IconChevronLeft, IconMinusVertical } from "@tabler/icons-react"
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconMinusVertical,
+} from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
 import { useCallback, useEffect, useRef, useState } from "react"
@@ -256,25 +260,19 @@ const ProjectPanel = () => {
         />
       </div>
 
-      <div className="border-muted-foreground/50 flex flex-row items-center rounded-md rounded-br-none rounded-bl-none border border-b-0 border-solid px-2">
+      <div className="border-muted-foreground/50 flex flex-row items-center border-0 border-b px-0 pr-2">
         <ProjectNameLabel />
         <IconMinusVertical className="stroke-muted-foreground/50" />
         <ExecutionToolbar />
       </div>
 
-
-
       <div className="border-muted-foreground/50 flex w-10 flex-row items-center justify-end gap-1 border-b px-2">
-      { overflow.left && (
-        <Button
-          variant="ghost"
-          className="h-7 w-7 p-0"
-          onClick={() => {}}
-        >
-          <span className="sr-only">{t("General.Action.ScrollLeft")}</span> 
-          <IconChevronLeft className="stroke-muted-foreground/50" />
-        </Button>
-      ) }
+        {overflow.left && (
+          <Button variant="ghost" className="h-7 w-7 p-0" onClick={() => {}}>
+            <span className="sr-only">{t("General.Action.ScrollLeft")}</span>
+            <IconChevronLeft className="stroke-muted-foreground/50" />
+          </Button>
+        )}
       </div>
 
       <div className="relative h-full min-h-10 grow" role="tablist">
@@ -340,6 +338,14 @@ const ProjectPanel = () => {
           onMouseEnter={resetScrollActiveProfileTabIntoView}
           onMouseLeave={scrollActiveProfileTabIntoViewWithDelay}
         />
+      )}
+      {overflow.right && (
+        <div className="border-muted-foreground/50 flex w-10 flex-row items-center justify-start gap-1 border-b px-0">
+          <Button variant="ghost" className="h-7 w-7 p-0" onClick={() => {}}>
+            <span className="sr-only">{t("General.Action.ScrollRight")}</span>
+            <IconChevronRight className="stroke-muted-foreground/50" />
+          </Button>
+        </div>
       )}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
