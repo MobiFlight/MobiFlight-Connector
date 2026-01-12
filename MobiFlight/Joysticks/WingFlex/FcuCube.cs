@@ -156,7 +156,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// <param name="data"></param>
         protected async override void SendData(byte[] data)
         {
-            if (Device == null || !Device.IsInitialized) return;
+            if (Device == null || !Device.IsInitialized || data == null) return;
 
             try
             {
