@@ -305,12 +305,12 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
-        public void PreconditionList_AllEmptyPreconditions_ShouldSerializeIfNotEmpty()
+        public void PreconditionList_PreconditionsShouldSerializeIfNotEmpty()
         {
             // Arrange - Create a list with non empty preconditions
             var list = new PreconditionList
             {
-                new Precondition() { Type = "config", Ref = "SomeRef" }, // Type="config"
+                new Precondition() { Type = "config", Ref = "SomeRef" }, // Non-empty precondition with a configured ref to ensure serialization
             };
 
             // Create a config item with this list

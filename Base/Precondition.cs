@@ -166,7 +166,7 @@ namespace MobiFlight
 
         /// <summary>
         /// Determines whether this precondition is empty (unconfigured).
-        /// An empty precondition has Type="none" and all key fields are null.
+        /// An empty precondition has Type="none" or all key fields (Ref, Serial, Pin, Value) are null.
         /// </summary>
         /// <returns><see langword="true"/> if this precondition is empty; otherwise, <see langword="false"/>.</returns>
         public bool IsEmpty()
