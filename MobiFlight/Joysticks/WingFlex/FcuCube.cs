@@ -163,10 +163,12 @@ namespace MobiFlight.Joysticks.WingFlex
                 await Device.WriteReportAsync(data, 0).ConfigureAwait(false);
                 RequiresOutputUpdate = false;
             }
-            catch (System.IO.IOException ex)
+            catch (Exception ex)
             {
-                // This happens when the device is removed or disconnected during write operation
-                Log.Instance.log($"IOException during write to FcuCube: {ex.Message}", LogSeverity.Error);
+                // Catch-all to prevent unhandled exceptions from WriteReportAsync from crashing the application.
+                // This aligns with the pattern used in ReadHidReportsLoop where all exceptions are caught
+                // to handle device removal and unexpected disconnect scenarios gracefully.
+                Log.Instance.log($"Exception during write to FcuCube ({ex.GetType().Name}): {ex.Message}", LogSeverity.Error);
                 OnDeviceRemoved();
             }
         }
