@@ -334,12 +334,9 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override void Stop()
         {
-            // Reset all outputs to initial state only if device is connected
-            if (Device != null && Device.IsInitialized)
-            {
-                var data = FcuCubeReport?.FromOutputDeviceState(Lights);
-                SendData(data);
-            }
+            // Reset all outputs to initial state
+            var data = FcuCubeReport?.FromOutputDeviceState(Lights);
+            SendData(data);
 
             // then clear all output states
             OutputState.Clear();
