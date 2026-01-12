@@ -230,8 +230,8 @@ namespace MobiFlight.Joysticks.WingFlex
         /// It has to be called regularly from an external caller.
         /// 
         /// If the output data is unavailable, the method exits without performing any action.  
-        /// If the device is removed during the operation, an <see cref="System.IO.IOException"/> is caught, 
-        /// and the `OnDeviceRemoved` method is invoked.</remarks>
+        /// If the device is removed during the operation, an <see cref="System.IO.IOException"/> is caught 
+        /// inside SendData, and the `OnDeviceRemoved` method is invoked.</remarks>
         public override void UpdateOutputDeviceStates()
         {
             // if (!RequiresOutputUpdate) return;
@@ -239,15 +239,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
             if (data == null) return;
 
-            try
-            {
-                SendData(data);
-            }
-            catch (System.IO.IOException)
-            {
-                // this happens when the device is removed.
-                OnDeviceRemoved();
-            }
+            SendData(data);
         }
 
         /// <summary>
