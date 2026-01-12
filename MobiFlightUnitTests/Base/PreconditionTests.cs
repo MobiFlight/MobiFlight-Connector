@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Xml;
@@ -121,25 +120,34 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void IsEmpty_ShouldReturnFalseWhenTypeIsNoneAndOtherFieldsHaveValues()
+        public void IsEmpty_ShouldReturnTrueWhenTypeIsNoneAndOtherFieldsHaveValues()
         {
-            Precondition o = _generateTestObject();
+            var o = new Precondition();
             o.Type = "none";
             o.Ref = "SomeRef";
 
-            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
 
             o.Ref = null;
             o.Serial = "SomeSerial";
-            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
 
             o.Serial = null;
             o.Pin = "SomePin";
-            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
 
             o.Pin = null;
             o.Value = "SomeValue";
-            Assert.IsFalse(o.IsEmpty(), "Precondition with Type 'none' is not empty");
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
+        }
+
+        [TestMethod()]
+        public void IsEmpty_ShouldReturnTrueWhenTypeIsSomeTypeAndAllOtherFieldsAreNull()
+        {
+            var o = new Precondition();
+            o.Type = "config";
+            
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
         }
 
         [TestMethod()]

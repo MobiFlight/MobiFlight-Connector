@@ -277,10 +277,12 @@ namespace MobiFlight.Base.Tests
         public void PreconditionList_AllEmptyPreconditions_ShouldNotSerialize()
         {
             // Arrange - Create a list with only empty preconditions
-            var list = new PreconditionList();
-            list.Add(new Precondition()); // Type="none", all fields null
-            list.Add(new Precondition());
-            list.Add(new Precondition());
+            var list = new PreconditionList
+            {
+                new Precondition(), // Type="none", all fields null
+                new Precondition(),
+                new Precondition()
+            };
 
             // Create a config item with this list
             var configItem = new OutputConfigItem
@@ -303,6 +305,35 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
+        public void PreconditionList_AllEmptyPreconditions_ShouldSerializeIfNotEmpty()
+        {
+            // Arrange - Create a list with non empty preconditions
+            var list = new PreconditionList
+            {
+                new Precondition() { Type = "config", Ref = "SomeRef" }, // Type="config"
+            };
+
+            // Create a config item with this list
+            var configItem = new OutputConfigItem
+            {
+                Name = "Test",
+                Preconditions = list
+            };
+
+            // Act
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
+            var json = JsonConvert.SerializeObject(configItem, settings);
+
+            // Assert
+            Assert.Contains("Preconditions", json, "Preconditions property should not be serialized when all preconditions are empty");
+            Assert.DoesNotContain("null", json, "Serialized JSON should not contain 'null'");
+        }
+
+        [TestMethod()]
         public void ConfigFile_WithEmptyPreconditions_ShouldNotContainNull()
         {
             // Arrange
@@ -319,6 +350,7 @@ namespace MobiFlight.Base.Tests
             var json = configFile.ToJson();
 
             // Assert
+            Assert.DoesNotContain("Preconditions", json, "Preconditions property should not be serialized when all preconditions are empty");
             Assert.DoesNotContain("null", json, "ConfigFile JSON should not contain 'null' for empty preconditions");
         }
     }
