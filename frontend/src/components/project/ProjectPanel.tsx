@@ -239,6 +239,15 @@ const ProjectPanel = () => {
     }
   }, [])
 
+  const scrollTabs = (direction: "left" | "right") => () => {
+    if (overflowRef.current === null) return
+    const scrollContainer = overflowRef.current
+    if (!scrollContainer) return
+    const scrollAmount = direction === "left" ? -150 : 150
+
+    scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" })
+  }
+
   return (
     <div
       className="flex h-11 flex-row gap-0 pt-1 pr-2 pb-0 pl-0"
@@ -268,7 +277,7 @@ const ProjectPanel = () => {
 
       <div className="border-muted-foreground/50 flex w-9 flex-row items-center justify-end gap-1 border-b px-0 pr-2">
         {overflow.left && (
-          <Button variant="ghost" className="h-7 w-7 p-0" onClick={() => {}}>
+          <Button variant="ghost" className="h-7 w-7 p-0" onClick={scrollTabs("left")}>
             <span className="sr-only">{t("General.Action.ScrollLeft")}</span>
             <IconChevronLeft className="stroke-muted-foreground/50" />
           </Button>
@@ -341,7 +350,7 @@ const ProjectPanel = () => {
       )}
       {overflow.right && (
         <div className="border-muted-foreground/50 flex w-8 flex-row items-center justify-start gap-1 border-b px-0">
-          <Button variant="ghost" className="h-7 w-7 p-0" onClick={() => {}}>
+          <Button variant="ghost" className="h-7 w-7 p-0" onClick={scrollTabs("right")}>
             <span className="sr-only">{t("General.Action.ScrollRight")}</span>
             <IconChevronRight className="stroke-muted-foreground/50" />
           </Button>
