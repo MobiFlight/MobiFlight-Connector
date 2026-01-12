@@ -262,7 +262,20 @@ const ProjectPanel = () => {
         <ExecutionToolbar />
       </div>
 
-      <div className="border-muted-foreground/50 flex w-0 flex-col items-center gap-1 border-b py-0.5"></div>
+
+
+      <div className="border-muted-foreground/50 flex w-10 flex-row items-center justify-end gap-1 border-b px-2">
+      { overflow.left && (
+        <Button
+          variant="ghost"
+          className="h-7 w-7 p-0"
+          onClick={() => {}}
+        >
+          <span className="sr-only">{t("General.Action.ScrollLeft")}</span> 
+          <IconChevronLeft className="stroke-muted-foreground/50" />
+        </Button>
+      ) }
+      </div>
 
       <div className="relative h-full min-h-10 grow" role="tablist">
         <div
