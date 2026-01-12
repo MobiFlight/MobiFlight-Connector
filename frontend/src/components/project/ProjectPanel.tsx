@@ -266,7 +266,7 @@ const ProjectPanel = () => {
         <ExecutionToolbar />
       </div>
 
-      <div className="border-muted-foreground/50 flex w-10 flex-row items-center justify-end gap-1 border-b px-2">
+      <div className="border-muted-foreground/50 flex w-9 flex-row items-center justify-end gap-1 border-b px-0 pr-2">
         {overflow.left && (
           <Button variant="ghost" className="h-7 w-7 p-0" onClick={() => {}}>
             <span className="sr-only">{t("General.Action.ScrollLeft")}</span>
@@ -340,7 +340,7 @@ const ProjectPanel = () => {
         />
       )}
       {overflow.right && (
-        <div className="border-muted-foreground/50 flex w-10 flex-row items-center justify-start gap-1 border-b px-0">
+        <div className="border-muted-foreground/50 flex w-8 flex-row items-center justify-start gap-1 border-b px-0">
           <Button variant="ghost" className="h-7 w-7 p-0" onClick={() => {}}>
             <span className="sr-only">{t("General.Action.ScrollRight")}</span>
             <IconChevronRight className="stroke-muted-foreground/50" />
