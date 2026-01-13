@@ -273,6 +273,7 @@ namespace MobiFlight.UI
             MessageExchange.Instance.Subscribe<CommandControllerBindingsUpdate>((message) =>
             {
                 ControllerBindingService.UpdateControllerBindings(execManager.Project, message.Bindings);
+                MessageExchange.Instance.Publish(execManager.Project);
             });
         }
 

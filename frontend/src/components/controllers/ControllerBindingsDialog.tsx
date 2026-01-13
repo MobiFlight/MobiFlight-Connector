@@ -47,10 +47,10 @@ const ControllerBindingsDialog = ({
     controller: Controller | null
   ) => {
     const updatedBindings = finalBindings.map((b) => {
-      if (b.BoundController === binding.BoundController) {
+      if (b.OriginalController === binding.OriginalController) {
         return {
           ...b,
-          BoundController: controller ? controller.Serial : b.BoundController,
+          BoundController: controller ?  controller.Name + " / " + controller.Serial : b.BoundController,
           Status: controller ? "Match" : b.Status,
         }
       }
