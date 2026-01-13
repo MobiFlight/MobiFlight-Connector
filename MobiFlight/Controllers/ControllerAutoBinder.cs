@@ -182,5 +182,20 @@ namespace MobiFlight.Controllers
             var parts = fullSerial.Split(new[] { SerialNumber.SerialSeparator }, StringSplitOptions.None);
             return parts.Length > 0 ? parts[0].Trim() : fullSerial;
         }
+
+        internal void ApplyBindingUpdate(List<IConfigItem> configItems, List<ControllerBinding> controllerBindings)
+        {
+            // Apply the mappings to config items
+            foreach (var item in configItems)
+            {
+                if (string.IsNullOrEmpty(item.ModuleSerial) || item.ModuleSerial == "-")
+                    continue;
+
+                var mapping = controllerBindings.FirstOrDefault(m => m.OriginalController == item.ModuleSerial);
+                if (mapping == null) continue;
+
+                item.ModuleSerial = mapping.BoundController;
+            }
+        }
     }
 }

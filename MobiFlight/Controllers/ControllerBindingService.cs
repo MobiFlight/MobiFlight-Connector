@@ -93,7 +93,7 @@ namespace MobiFlight.Controllers
             {
                 foreach (var binding in bindings)
                 {
-                    binder.ApplyAutoBinding(configFile.ConfigItems, new List<ControllerBinding> { binding });
+                    binder.ApplyBindingUpdate(configFile.ConfigItems, new List<ControllerBinding> { binding });
                 }
             }
 
