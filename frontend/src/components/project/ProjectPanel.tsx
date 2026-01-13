@@ -282,13 +282,14 @@ const ProjectPanel = () => {
           variant="ghost"
           className={cn(
             "h-7 p-0 transition-opacity duration-300",
+            "group/scroll-left",
             overflow.any ? "w-7 opacity-100" : "scale-0 opacity-0",
           )}
           onClick={scrollTabs("left")}
           data-testid="tab-scroll-left"
         >
           <span className="sr-only">{t("Project.Tabs.ScrollLeft")}</span>
-          <IconChevronLeft className="stroke-muted-foreground/50" />
+          <IconChevronLeft className="stroke-muted-foreground/50 group-hover/scroll-left:stroke-foreground" />
         </Button>
       </div>
 
@@ -367,13 +368,14 @@ const ProjectPanel = () => {
           variant="ghost"
           className={cn(
             "h-7 w-7 p-0 transition-opacity duration-300",
+            "group/scroll-right",
             overflow.any ? "w-7 opacity-100" : "scale-0 opacity-0",
           )}
           onClick={scrollTabs("right")}
           data-testid="tab-scroll-right"
         >
           <span className="sr-only">{t("Project.Tabs.ScrollRight")}</span>
-          <IconChevronRight className="stroke-muted-foreground/50" />
+          <IconChevronRight className="stroke-muted-foreground/50 group-hover/scroll-right:stroke-foreground" />
         </Button>
       </div>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
