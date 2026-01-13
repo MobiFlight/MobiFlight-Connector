@@ -5,10 +5,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
 import { Controller, ControllerBinding } from "@/types/controller"
 import {
-  IconCheck,
   IconCircleCheck,
   IconCircleDashed,
   IconSelector,
@@ -28,7 +26,7 @@ const ControllerIconWithLabel = ({
   status,
 }: {
   serial: string
-  status: ControllerBinding["Status"]
+  status?: ControllerBinding["Status"] | undefined
 }) => {
   const [controllerLabel, controllerSerial] = serial
     ?.split("/")
@@ -133,15 +131,13 @@ const ControllerBindingItem = ({
                         setOpen(false)
                       }}
                     >
-                      <IconCheck
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          value === controller.Serial
-                            ? "opacity-100"
-                            : "opacity-0",
-                        )}
+                      <ControllerIconWithLabel
+                        serial={
+                          controller
+                            ? controller.Name + "/" + controller.Serial
+                            : ""
+                        }
                       />
-                      {controller.Name}
                     </CommandItem>
                   ))}
                 </CommandGroup>
