@@ -16,7 +16,7 @@ namespace MobiFlight.SimConnectMSFS.Tests
         public void Setup()
         {
             // Create a temporary directory for test files
-            testDirectory = Path.Combine(Path.GetTempPath(), "WasmModuleUpdaterTests_" + Guid.NewGuid().ToString());
+            testDirectory = Path.Combine(Path.GetTempPath(), "WasmModuleUpdaterTests_" + Guid.NewGuid());
             Directory.CreateDirectory(testDirectory);
             
             // Create a test file with some content
@@ -72,8 +72,10 @@ namespace MobiFlight.SimConnectMSFS.Tests
         public void CalculateMD5_ShouldReturnNull_WhenFileIsLocked()
         {
             // Arrange, Act, Assert
-            // Lock the file by opening it exclusively
-            using (var _ = new FileStream(testFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            // Lock the file by opening it exclusively. We do not need a variable here;
+            // the using statement ensures the FileStream remains open (and thus locked)
+            // for the duration of this block and is disposed afterwards.
+            using (new FileStream(testFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 var result = InvokeCalculateMD5(testFile);
                 Assert.IsNull(result);
