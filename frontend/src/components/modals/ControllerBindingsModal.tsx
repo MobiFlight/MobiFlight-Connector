@@ -1,26 +1,17 @@
 import ControllerBindings from "@/components/controllers/ControllerBindings"
+import { useControllerStore } from "@/stores/controllerStore"
 import { useProjectStore } from "@/stores/projectStore"
-import { Controller } from "@/types/controller"
 
 const ControllerBindingsModal = () => {
   const { project } = useProjectStore()
+  const { controller } = useControllerStore()
   const bindings = project?.ControllerBindings || []
-  
-  const connectedControllers : Controller[] = [
-    { Name: "Prototyping Board", Serial: "SN-5FC-1CF", Vendor: "MobiFlight", ProductId: "", VendorId: "", Type: "MobiFlight", Connected: true, ImageUrl: null, certified: false },
-    { Name: "Alpha Controls Yoke", Serial: "JS-12345678", Vendor: "Honeycomb", ProductId: "", VendorId: "", Type: "Joystick", Connected: true, ImageUrl: null, certified: false },
-    { Name: "Bravo Controls Throttle", Serial: "JS-87654321", Vendor: "Honeycomb", ProductId: "", VendorId: "", Type: "Joystick", Connected: true, ImageUrl: null, certified: false },
-    { Name: "Throttle B", Serial: "67890", Vendor: "Korg", ProductId: "", VendorId: "", Type: "Midi", Connected: true, ImageUrl: null, certified: false },
-    { Name: "miniCOCKPIT miniFCU", Serial: "SN-E98-277", Vendor: "miniCockpit", ProductId: "", VendorId: "", Type: "Joystick", Connected: true, ImageUrl: null, certified: false },
-    { Name: "Generic Gamepad", Serial: "JS-b0875190-3b89-11ed-8007-444553540002", Vendor: "Microsoft", ProductId: "", VendorId: "", Type: "Joystick", Connected: true, ImageUrl: null, certified: false },
-    { Name: "Octavi", Serial: "JS-b0875190-3b89-11ed-8007-44455354003", Vendor: "Octavi", ProductId: "", VendorId: "", Type: "Joystick", Connected: true, ImageUrl: null, certified: false },
-  ]
 
   return (
     <div>
       <ControllerBindings
         bindings={bindings}
-        controllers={connectedControllers}
+        controllers={controller}
         isOpen={true}
         onOpenChange={() => {}}
       />

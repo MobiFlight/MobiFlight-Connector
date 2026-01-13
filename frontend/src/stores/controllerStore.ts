@@ -2,11 +2,11 @@ import { Controller } from "@/types/controller"
 import { create } from "zustand"
 
 interface ControllerState {
-  controller: Controller[] | null
+  controller: Controller[] | []
   setController: (controller: Controller[]) => void
 }
 
 export const useControllerStore = create<ControllerState>((set) => ({
-  controller: null,
+  controller: [],
   setController: (controller) => set({ controller: controller }),
 }))
