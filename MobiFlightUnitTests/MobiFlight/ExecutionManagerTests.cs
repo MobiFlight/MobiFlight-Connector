@@ -871,7 +871,7 @@ namespace MobiFlight.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
 
-            // Act - Execute config (this should not throw even though config2 will have an error)
+            // Act
             executeConfigMethod.Invoke(_executionManager, null);
 
             // Assert

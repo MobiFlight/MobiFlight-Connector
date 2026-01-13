@@ -352,10 +352,10 @@ namespace MobiFlight.Tests
                 .Setup(m => m.SetValue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Throws(new Exception("Test exception during execution"));
 
-            // Act - Should not throw exception, handles internally
+            // Act
             executor.Execute(cfg, updatedValues);
             
-            // Assert - Verify status was set and config added to updatedValues
+            // Assert
             Assert.IsTrue(cfg.Status.ContainsKey(ConfigItemStatusType.Device), "Config item should have device error status");
             Assert.AreEqual("ExecutionError", cfg.Status[ConfigItemStatusType.Device], "Error status should indicate execution error");
             Assert.IsTrue(updatedValues.ContainsKey(cfg.GUID), "Config item should be added to updated values");
