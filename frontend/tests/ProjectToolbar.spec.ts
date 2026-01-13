@@ -306,16 +306,15 @@ test.describe("Test profile tabs overflow features", () => {
     // Add multiple tabs to cause overflow
 
     await configListPage.mobiFlightPage.initWithTestData()
-    
+
     const scrollLeftButton = page.getByTestId("tab-scroll-left")
     const scrollRightButton = page.getByTestId("tab-scroll-right")
 
-     // Select the second tab
     const firstTab = page.getByRole("tablist").getByRole("tab").nth(0)
     const thirdTab = page.getByRole("tablist").getByRole("tab").nth(2)
 
     await expect(firstTab).toBeInViewport()
-    await expect(thirdTab).not.toBeInViewport() 
+    await expect(thirdTab).not.toBeInViewport()
 
     // Scroll to the right end
     await scrollRightButton.click()
@@ -324,15 +323,15 @@ test.describe("Test profile tabs overflow features", () => {
     await page.waitForTimeout(300)
 
     await expect(firstTab).not.toBeInViewport()
-    await expect(thirdTab).toBeInViewport() 
+    await expect(thirdTab).toBeInViewport()
 
     // Scroll back to the left
     await scrollLeftButton.click()
     await page.waitForTimeout(300)
     await scrollLeftButton.click()
     await page.waitForTimeout(300)
-    
+
     await expect(firstTab).toBeInViewport()
-    await expect(thirdTab).not.toBeInViewport() 
+    await expect(thirdTab).not.toBeInViewport()
   })
 })
