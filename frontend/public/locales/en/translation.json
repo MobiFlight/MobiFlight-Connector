@@ -157,6 +157,10 @@
       "Discard": "Discard changes"
     }
   },
+  "ControllerBinding": {
+    "Title": "Controller Bindings",
+    "Description": "Bind the controllers used in this project to the physical controllers connected to your computer."
+  },
   "ConfigList": {
     "Toolbar": {
       "Search": {

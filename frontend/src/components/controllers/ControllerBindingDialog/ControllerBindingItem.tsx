@@ -1,0 +1,115 @@
+import ControllerIcon from "@/components/project/ControllerIcon"
+import { Button } from "@/components/ui/button"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+import { Controller, ControllerBinding } from "@/types/controller"
+import { IconCheck, IconSelector } from "@tabler/icons-react"
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command"
+import { useEffect, useState } from "react"
+
+export type ControllerBindingProps = {
+  controllerBinding: ControllerBinding
+  controllers: Controller[]
+}
+
+const ControllerBindingItem = ({
+  controllerBinding,
+  controllers,
+}: ControllerBindingProps) => {
+  const [boundName, serial] = controllerBinding?.BoundController?.split("/")?.map(
+    (s) => s.trim(),
+  ) ?? [null, null]
+
+  const [ originalName, originalSerial ] = controllerBinding?.OriginalController?.split("/")?.map(
+    (s) => s.trim(),
+  ) ?? [null, null]
+
+  const boundController = controllers.find(controller =>
+    controller.Serial.includes(serial)
+  )
+
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState(boundController?.Serial)
+  
+  console.log("boundController", boundController)
+  useEffect(() => {
+    console.log("value: ", value)
+  }, [value])
+
+  const controllerLabel = boundName ?? originalName
+  const controllerSerial = serial ?? originalSerial
+
+  return (
+    <div className="flex flex-row gap-2 items-center border-b border-solid py-2">
+      <div className="flex flex-1/2 flex-row gap-4">
+        <ControllerIcon
+          className="transition-all ease-in-out"
+          controllerBinding={controllerBinding}
+        />
+        <div className="flex flex-col">
+          <div className="font-semibold">{controllerLabel}</div>
+          <div className="text-muted-foreground text-sm">{controllerSerial}</div>
+        </div>
+      </div>
+
+      <div className="flex flex-1/2 flex-row">
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              {boundController ? boundController.Name : "Select controller"}
+              <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-full p-0">
+            <Command>
+              <CommandInput placeholder="Search controller..." />
+              <CommandList>
+                <CommandEmpty>No controller found.</CommandEmpty>
+                <CommandGroup>
+                  {controllers.map((controller) => (
+                    <CommandItem
+                      key={controller.Serial}
+                      value={controller.Serial}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? "" : currentValue)
+                        setOpen(false)
+                      }}
+                    >
+                      <IconCheck
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === controller.Serial
+                            ? "opacity-100"
+                            : "opacity-0",
+                        )}
+                      />
+                      {controller.Name}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  )
+}
+
+export default ControllerBindingItem

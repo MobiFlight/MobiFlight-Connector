@@ -1,4 +1,5 @@
 import App from "@/App"
+import ControllerBindingsModal from "@/components/modals/ControllerBindingsModal"
 import ProjectFormModal from "@/components/modals/ProjectFormModal"
 import ConfigListPage from "@/pages/ConfigList"
 import Dashboard from "@/pages/Dashboard"
@@ -29,12 +30,16 @@ export function AppRoutes() {
         <Routes>
           <Route path="/project/new" element={<ProjectFormModal />} />
           <Route path="/project/edit" element={<ProjectFormModal />} />
+          <Route path="/bindings" element={<ControllerBindingsModal />} />
         </Routes>
       )}
 
       {/* Support direct link to modal route (no background) */}
       {!state?.backgroundLocation && location.pathname === "/project/new" && (
         <ProjectFormModal />
+      )}
+      {!state?.backgroundLocation && location.pathname === "/bindings" && (
+        <ControllerBindingsModal />
       )}
     </>
   )
