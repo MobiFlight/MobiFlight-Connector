@@ -309,6 +309,7 @@
     <Compile Include="mock\MobiFlight\MobiFlightCacheMock.cs" />
     <Compile Include="mock\SimConnectMSFS\SimConnectCacheMock.cs" />
     <Compile Include="mock\xplane\XplaneCacheMock.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleUpdaterTests.cs" />
     <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetListTests.cs" />
