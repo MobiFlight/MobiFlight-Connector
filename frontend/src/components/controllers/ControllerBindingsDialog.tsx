@@ -29,7 +29,8 @@ const ControllerBindingsDialog = ({
   onOpenChange,
 }: ControllerBindingsProps) => {
   const { t } = useTranslation()
-  const [finalBindings, setFinalBindings] = useState<ControllerBinding[]>(bindings)
+  const [finalBindings, setFinalBindings] =
+    useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
 
   const sortedBindings = bindings.sort((a, b) => {
@@ -44,15 +45,17 @@ const ControllerBindingsDialog = ({
 
   const handleControllerBindingUpdate = (
     binding: ControllerBinding,
-    controller: Controller | null
+    controller: Controller | null,
   ) => {
     const updatedBindings = finalBindings.map((b) => {
       if (b.OriginalController === binding.OriginalController) {
         return {
           ...b,
-          BoundController: controller ?  controller.Name + " / " + controller.Serial : b.BoundController,
-          Status: controller ? "Match" : b.Status,
-        }
+          BoundController: controller
+            ? controller.Name + " / " + controller.Serial
+            : null,
+          Status: controller ? "Match" : "Missing",
+        } as ControllerBinding
       }
       return b
     })
@@ -63,11 +66,15 @@ const ControllerBindingsDialog = ({
     publish({
       key: "CommandControllerBindingsUpdate",
       payload: {
-        bindings: finalBindings
-      }
+        bindings: finalBindings,
+      },
     })
     onOpenChange(false)
   }
+
+  const allControllerAreBound = finalBindings.every((binding) => ["Match", "AutoBind"].includes(binding.Status))
+
+  console.log("finalBindings", finalBindings)
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -100,8 +107,12 @@ const ControllerBindingsDialog = ({
           </div>
           <div className="flex flex-col pt-2">
             <div className="flex flex-row justify-between">
-              <div className="text-muted-foreground font-semibold">Original controller</div>
-              <div className="text-muted-foreground font-semibold">Connected controller</div>
+              <div className="text-muted-foreground font-semibold">
+                Original controller
+              </div>
+              <div className="text-muted-foreground font-semibold">
+                Connected controller
+              </div>
             </div>
             {
               /* Original Controller Bindings */
@@ -118,8 +129,14 @@ const ControllerBindingsDialog = ({
         </div>
         <DialogFooter className="flex flex-row justify-between">
           <div className="grow">
-            <IconCheck className="mr-2 inline h-8 w-8 text-green-600" />
-            <span className="text-green-600">All set! Your profile is completely configured.</span>
+            {allControllerAreBound && (
+              <>
+                <IconCheck className="mr-2 inline h-8 w-8 text-green-600" />
+                <span className="text-green-600">
+                  All set! Your profile is completely configured.
+                </span>
+              </>
+            )}
           </div>
           <div className="flex flex-row gap-2">
             <DialogClose asChild>
@@ -127,8 +144,7 @@ const ControllerBindingsDialog = ({
                 Close
               </Button>
             </DialogClose>
-            <Button
-              onClick={saveChanges}>Apply & Save</Button>
+            <Button onClick={saveChanges}>Apply & Save</Button>
           </div>
         </DialogFooter>
       </DialogContent>

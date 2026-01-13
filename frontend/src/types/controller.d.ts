@@ -14,7 +14,7 @@ export type Controller = {
 }
 
 export type ControllerBinding = {
-  BoundController: string
+  BoundController: string | null
   Status: ControllerBindingStatus
   OriginalController: string | null
 }

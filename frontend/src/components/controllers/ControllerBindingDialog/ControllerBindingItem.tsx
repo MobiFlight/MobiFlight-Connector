@@ -61,9 +61,9 @@ const ControllerBindingItem = ({
     s.trim(),
   ) ?? [null, null]
 
-  const boundController = controllers.find((controller) =>
+  const boundController = serial ? controllers.find((controller) =>
     controller.Serial.includes(serial),
-  )
+  ) : null
   
   const [open, setOpen] = useState(false)
   const [selectedSerial, setSelectedSerial] = useState(boundController?.Serial)
@@ -130,8 +130,9 @@ const ControllerBindingItem = ({
                       key={controller.Serial}
                       value={controller.Serial}
                       onSelect={(currentValue) => {
-                        onUpdate(controllerBinding, controller)
-                        setSelectedSerial(currentValue === selectedSerial ? "" : currentValue)
+                        const itemSelected = currentValue !== selectedSerial
+                        onUpdate(controllerBinding, itemSelected ? controller : null)
+                        setSelectedSerial(itemSelected ? currentValue : "" )
                         setOpen(false)
                       }}
                       className={selectedSerial===controller.Serial ? "bg-accent/50" : ""}
