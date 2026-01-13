@@ -1,6 +1,6 @@
 import IconBrandMobiFlightLogo from "@/components/icons/IconBrandMobiFlightLogo"
 import { cn } from "@/lib/utils"
-import { ControllerBinding, ControllerBindingStatus } from "@/types/controller"
+import { ControllerBindingStatus } from "@/types/controller"
 import {
   IconDeviceGamepad2,
   IconPiano,
@@ -10,7 +10,8 @@ import { HtmlHTMLAttributes } from "react"
 import { useTranslation } from "react-i18next"
 
 export type ControllerIconProps = {
-  controllerBinding: ControllerBinding
+  serial: string
+  status: ControllerBindingStatus
 }
 
 const ControllerIcons = {
@@ -72,15 +73,11 @@ const FindControllerIcon = (controllerType: string, deviceName: string) => {
 }
 
 const ControllerIcon = ({
-  controllerBinding,
+  serial,
+  status,
   className,
   ...props
 }: HtmlHTMLAttributes<HTMLDivElement> & ControllerIconProps) => {
-  const serial =
-    controllerBinding.BoundController ||
-    controllerBinding.OriginalController ||
-    ""
-  const status = controllerBinding.Status
   const { t } = useTranslation()
 
   const controllerType = serial.includes("SN-")
