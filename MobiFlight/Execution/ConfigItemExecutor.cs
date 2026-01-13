@@ -100,11 +100,27 @@ namespace MobiFlight.Execution
                 cfg.Status.Remove(ConfigItemStatusType.Source);
             }
 
-            ConnectorValue value = ExecuteRead(cfg);
-            ConnectorValue processedValue = value;
-
-            cfg.RawValue = value.ToString();
-            cfg.Value = processedValue.ToString();
+            ConnectorValue value;
+            ConnectorValue processedValue;
+            
+            // Read value from source - wrap in try-catch to handle source read errors
+            try
+            {
+                value = ExecuteRead(cfg);
+                processedValue = value;
+                cfg.RawValue = value.ToString();
+                cfg.Value = processedValue.ToString();
+            }
+            catch (Exception ex)
+            {
+                // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
+                Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
+                cfg.Status[ConfigItemStatusType.Source] = "ReadError: " + ex.Message;
+                value = new ConnectorValue();
+                processedValue = value;
+                cfg.RawValue = "";
+                cfg.Value = "";
+            }
 
             List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
             cfg.Status.Remove(ConfigItemStatusType.Modifier);

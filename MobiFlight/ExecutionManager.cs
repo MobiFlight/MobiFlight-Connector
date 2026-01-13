@@ -928,10 +928,10 @@ namespace MobiFlight
             }
             catch (Exception ex)
             {
-                // This catch block should rarely be hit because most individual config errors are handled closer
-                // to where they occur. However, certain errors (for example data read issues such as ExecuteRead
-                // exceptions) may still bubble up to this handler. At this point, the error is considered critical
-                // for the overall execution loop, so stopping the timer is appropriate to avoid repeated failures.
+                // This catch block should rarely be hit because individual config errors are now handled within
+                // ConfigItemExecutor (source read errors, modifier errors, precondition errors, device errors).
+                // If we reach here, it's a critical system-level error, so stopping is appropriate to avoid
+                // repeated failures.
                 Log.Instance.log($"Critical error on config execution: {ex.Message}", LogSeverity.Error);
                 Stop();
             }
