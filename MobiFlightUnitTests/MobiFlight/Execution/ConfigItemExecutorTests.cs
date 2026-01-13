@@ -332,7 +332,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void Execute_ShouldThrowException_WhenExecuteDisplayFails()
+        public void Execute_ShouldNotThrowException_WhenExecuteDisplayFails()
         {
             // Arrange
             var cfg = new OutputConfigItem
@@ -352,12 +352,13 @@ namespace MobiFlight.Tests
                 .Setup(m => m.SetValue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Throws(new Exception("Test exception during execution"));
 
-            // Act & Assert - Should throw ConfigErrorException
-            Assert.ThrowsException<ConfigErrorException>(() => executor.Execute(cfg, updatedValues));
+            // Act - Should not throw exception, handles internally
+            executor.Execute(cfg, updatedValues);
             
-            // Verify status was set before throwing
+            // Assert - Verify status was set and config added to updatedValues
             Assert.IsTrue(cfg.Status.ContainsKey(ConfigItemStatusType.Device), "Config item should have device error status");
-            Assert.AreEqual("NotConnected", cfg.Status[ConfigItemStatusType.Device], "Error status should be set correctly");
+            Assert.AreEqual("ExecutionError", cfg.Status[ConfigItemStatusType.Device], "Error status should indicate execution error");
+            Assert.IsTrue(updatedValues.ContainsKey(cfg.GUID), "Config item should be added to updated values");
         }
     }
 }

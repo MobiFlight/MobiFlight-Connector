@@ -874,10 +874,10 @@ namespace MobiFlight
                     }
                     catch (Exception ex)
                     {
-                        // Catch exceptions from individual config execution to prevent one bad config
-                        // from stopping all other configs from running
-                        Log.Instance.log($"ExecutionManager.ExecuteConfig(): Error on config execution: {cfg.Name}. {ex.Message}", LogSeverity.Error);
-                        // Status is already set by the executor before throwing, so just ensure it's in updatedValues
+                        // Safety net: ConfigItemExecutor should handle all exceptions internally,
+                        // but catch any unexpected exceptions here to prevent stopping execution
+                        Log.Instance.log($"ExecutionManager.ExecuteConfig(): Unexpected error on config execution: {cfg.Name}. {ex.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "UnexpectedError";
                         updatedValues[cfg.GUID] = cfg;
                     }
                 }

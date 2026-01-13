@@ -132,6 +132,7 @@ namespace MobiFlight.Execution
                 // so keep continuing
             }
 
+            // Check preconditions
             try
             {
                 var precondition = true;
@@ -156,26 +157,41 @@ namespace MobiFlight.Execution
                 if (precondition)
                 {
                     cfg.Status.Remove(ConfigItemStatusType.Precondition);
-                    ExecuteDisplay(processedValue.ToString(), cfg);
+                    
+                    // Execute display - wrap in try-catch as device errors occur here
+                    try
+                    {
+                        ExecuteDisplay(processedValue.ToString(), cfg);
+                    }
+                    catch (JoystickNotConnectedException jEx)
+                    {
+                        Log.Instance.log($"Joystick not connected ({cfg.Name}): {jEx.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
+                    }
+                    catch (MidiBoardNotConnectedException mEx)
+                    {
+                        Log.Instance.log($"MIDI board not connected ({cfg.Name}): {mEx.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
+                    }
+                    catch (ConfigErrorException cEx)
+                    {
+                        // ConfigErrorException indicates a device configuration issue (e.g., serial null, address null)
+                        Log.Instance.log($"Configuration error ({cfg.Name}): {cEx.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "ConfigError";
+                    }
+                    catch (Exception exc)
+                    {
+                        // Unexpected error during device execution
+                        Log.Instance.log($"Error during execution ({cfg.Name}): {exc.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "ExecutionError";
+                    }
                 }
-            }
-            catch (JoystickNotConnectedException jEx)
-            {
-                // TODO: REDESIGN: Review
-                // row.ErrorText = jEx.Message;
-                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
-            }
-            catch (MidiBoardNotConnectedException mEx)
-            {
-                // TODO: REDESIGN: Review
-                // row.ErrorText = mEx.Message;
-                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
             }
             catch (Exception exc)
             {
-                Log.Instance.log($"Error during execution: {cfg.Name}. {exc.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
-                throw new ConfigErrorException(cfg.Name + ". " + exc.Message, exc);
+                // Error during precondition check
+                Log.Instance.log($"Precondition check error ({cfg.Name}): {exc.Message}", LogSeverity.Error);
+                cfg.Status[ConfigItemStatusType.Precondition] = "error: " + exc.Message;
             }
 
             if (!originalCfg.Equals(cfg))
