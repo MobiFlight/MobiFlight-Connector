@@ -307,15 +307,6 @@ test.describe("Test profile tabs overflow features", () => {
 
     await configListPage.mobiFlightPage.initWithTestData()
     
-    const addTabMenu = page.getByTestId("add-profile-tab-menu-regular")
-    const addTabMenuOverflow = page.getByTestId("add-profile-tab-menu-overflow")
-
-    const tabOverflowIndicatorLeft = page.getByTestId(
-      "tab-overflow-indicator-left",
-    )
-    const tabOverflowIndicatorRight = page.getByTestId(
-      "tab-overflow-indicator-right",
-    )
     const scrollLeftButton = page.getByTestId("tab-scroll-left")
     const scrollRightButton = page.getByTestId("tab-scroll-right")
 
