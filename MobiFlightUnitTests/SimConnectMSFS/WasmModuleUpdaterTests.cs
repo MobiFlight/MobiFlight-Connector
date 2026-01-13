@@ -10,6 +10,7 @@ namespace MobiFlight.SimConnectMSFS.Tests
     {
         private string testDirectory;
         private string testFile;
+        private MethodInfo calculateMD5Method;
 
         [TestInitialize]
         public void Setup()
@@ -21,6 +22,10 @@ namespace MobiFlight.SimConnectMSFS.Tests
             // Create a test file with some content
             testFile = Path.Combine(testDirectory, "test.wasm");
             File.WriteAllText(testFile, "Test content for MD5 calculation");
+
+            // Get reference to the private CalculateMD5 method once during setup
+            calculateMD5Method = typeof(WasmModuleUpdater).GetMethod("CalculateMD5", 
+                BindingFlags.NonPublic | BindingFlags.Static);
         }
 
         [TestCleanup]
@@ -33,16 +38,16 @@ namespace MobiFlight.SimConnectMSFS.Tests
             }
         }
 
+        private string InvokeCalculateMD5(string filename)
+        {
+            return calculateMD5Method.Invoke(null, new object[] { filename }) as string;
+        }
+
         [TestMethod()]
         public void CalculateMD5_ShouldReturnValidHash_WhenFileExists()
         {
-            // Arrange
-            // Use reflection to access the private CalculateMD5 method
-            var method = typeof(WasmModuleUpdater).GetMethod("CalculateMD5", 
-                BindingFlags.NonPublic | BindingFlags.Static);
-
-            // Act
-            var result = method.Invoke(null, new object[] { testFile }) as string;
+            // Arrange, Act
+            var result = InvokeCalculateMD5(testFile);
 
             // Assert
             Assert.IsNotNull(result);
@@ -55,11 +60,9 @@ namespace MobiFlight.SimConnectMSFS.Tests
         {
             // Arrange
             string nonExistentFile = Path.Combine(testDirectory, "nonexistent.wasm");
-            var method = typeof(WasmModuleUpdater).GetMethod("CalculateMD5",
-                BindingFlags.NonPublic | BindingFlags.Static);
 
             // Act
-            var result = method.Invoke(null, new object[] { nonExistentFile }) as string;
+            var result = InvokeCalculateMD5(nonExistentFile);
 
             // Assert
             Assert.IsNull(result);
@@ -68,17 +71,11 @@ namespace MobiFlight.SimConnectMSFS.Tests
         [TestMethod()]
         public void CalculateMD5_ShouldReturnNull_WhenFileIsLocked()
         {
-            // Arrange
-            var method = typeof(WasmModuleUpdater).GetMethod("CalculateMD5",
-                BindingFlags.NonPublic | BindingFlags.Static);
-
+            // Arrange, Act, Assert
             // Lock the file by opening it exclusively
             using (var fileStream = new FileStream(testFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
-                // Act
-                var result = method.Invoke(null, new object[] { testFile }) as string;
-
-                // Assert
+                var result = InvokeCalculateMD5(testFile);
                 Assert.IsNull(result);
             }
         }

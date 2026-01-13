@@ -207,7 +207,7 @@ namespace MobiFlight.SimConnectMSFS
         {
             try
             {
-                var md5 = MD5.Create();
+                using (var md5 = MD5.Create())
                 using (var stream = File.OpenRead(filename))
                 {
                     var hash = md5.ComputeHash(stream);
