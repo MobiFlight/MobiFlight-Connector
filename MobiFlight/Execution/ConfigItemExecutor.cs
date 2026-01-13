@@ -194,9 +194,18 @@ namespace MobiFlight.Execution
                 cfg.Status[ConfigItemStatusType.Precondition] = "error: " + exc.Message;
             }
 
-            if (!originalCfg.Equals(cfg))
+            // Update the values dictionary - wrap in try-catch to handle any unexpected issues
+            try
             {
-                updatedValues[cfg.GUID] = cfg;
+                if (!originalCfg.Equals(cfg))
+                {
+                    updatedValues[cfg.GUID] = cfg;
+                }
+            }
+            catch (Exception exc)
+            {
+                // Extremely unlikely, but handle any issues updating the dictionary
+                Log.Instance.log($"Error updating config values ({cfg.Name}): {exc.Message}", LogSeverity.Error);
             }
         }
 

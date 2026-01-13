@@ -868,18 +868,7 @@ namespace MobiFlight
                     var cfg = item as OutputConfigItem;
                     if (cfg == null || !cfg.Active) continue;
 
-                    try
-                    {
-                        executor.Execute(cfg, updatedValues);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Safety net: ConfigItemExecutor should handle all exceptions internally,
-                        // but catch any unexpected exceptions here to prevent stopping execution
-                        Log.Instance.log($"ExecutionManager.ExecuteConfig(): Unexpected error on config execution: {cfg.Name}. {ex.Message}", LogSeverity.Error);
-                        cfg.Status[ConfigItemStatusType.Device] = "UnexpectedError";
-                        updatedValues[cfg.GUID] = cfg;
-                    }
+                    executor.Execute(cfg, updatedValues);
                 }
             }
 
