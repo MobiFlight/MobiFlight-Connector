@@ -42,6 +42,7 @@ import {
 import DebugInfo from "@/components/DebugInfo"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { ProjectInfo } from "@/types/project"
+import { useControllerStore } from "@/stores/controllerStore"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -49,6 +50,7 @@ function App() {
   const { project, setProject, setHasChanged } = useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
+  const { setController } = useControllerStore()
   const {
     setBoardDefinitions,
     setJoystickDefinitions,
@@ -156,7 +158,7 @@ function App() {
 
   useAppMessage("ConnectedControllers", (message) => {
     const controllers = (message.payload as ConnectedControllers).Controllers
-    console.log("ConnectedControllers message received", controllers)
+    setController(controllers)
   })
 
   useEffect(() => {
