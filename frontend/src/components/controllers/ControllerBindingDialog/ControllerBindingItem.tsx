@@ -55,7 +55,8 @@ const ControllerBindingItem = ({
       <div className="flex flex-1/2 flex-row gap-4">
         <ControllerIcon
           className="transition-all ease-in-out"
-          controllerBinding={controllerBinding}
+          serial={controllerBinding.BoundController || controllerBinding.OriginalController || ""}
+          status={controllerBinding.Status}
         />
         <div className="flex flex-col">
           <div className="font-semibold">{controllerLabel}</div>
