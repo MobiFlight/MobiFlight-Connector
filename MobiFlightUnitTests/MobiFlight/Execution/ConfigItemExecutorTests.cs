@@ -330,5 +330,35 @@ namespace MobiFlight.Tests
             // Assert
             Assert.AreEqual(expectedValue, actualValue);
         }
+
+        [TestMethod]
+        public void Execute_ShouldNotThrowException_WhenExecuteDisplayFails()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Test Config with Error",
+                ModuleSerial = "Test / SN-123",
+                DeviceType = MobiFlightOutput.TYPE,
+                Device = new OutputConfig.Output { Pin = "1" }
+            };
+
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Mock an error during SetValue execution
+            mockMobiFlightCache
+                .Setup(m => m.SetValue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Throws(new Exception("Test exception during execution"));
+
+            // Act - Should not throw exception
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.IsTrue(cfg.Status.ContainsKey(ConfigItemStatusType.Device), "Config item should have device error status");
+            Assert.AreEqual("NotConnected", cfg.Status[ConfigItemStatusType.Device], "Error status should be set correctly");
+            Assert.IsTrue(updatedValues.ContainsKey(cfg.GUID), "Config item should be added to updated values");
+        }
     }
 }

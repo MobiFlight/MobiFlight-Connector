@@ -175,7 +175,8 @@ namespace MobiFlight.Execution
             {
                 Log.Instance.log($"Error during execution: {cfg.Name}. {exc.Message}", LogSeverity.Error);
                 cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
-                throw new ConfigErrorException(cfg.Name + ". " + exc.Message, exc);
+                // Don't throw - just log and mark the config item with an error status
+                // This allows other config items to continue executing
             }
 
             if (!originalCfg.Equals(cfg))

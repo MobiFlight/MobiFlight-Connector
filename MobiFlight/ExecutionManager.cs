@@ -868,7 +868,18 @@ namespace MobiFlight
                     var cfg = item as OutputConfigItem;
                     if (cfg == null || !cfg.Active) continue;
 
-                    executor.Execute(cfg, updatedValues);
+                    try
+                    {
+                        executor.Execute(cfg, updatedValues);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Safety net: catch any unexpected exceptions from individual config execution
+                        // This ensures one bad config doesn't stop all other configs from running
+                        Log.Instance.log($"ExecutionManager.ExecuteConfig(): Error on config execution: {cfg.Name}. {ex.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "ERROR";
+                        updatedValues[cfg.GUID] = cfg;
+                    }
                 }
             }
 
@@ -928,7 +939,9 @@ namespace MobiFlight
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error on config execution: {ex.Message}", LogSeverity.Error);
+                // This catch block should rarely be hit as individual config errors are now handled gracefully.
+                // If we reach here, it's a critical system-level error (not a config error), so stopping is appropriate.
+                Log.Instance.log($"Critical error on config execution: {ex.Message}", LogSeverity.Error);
                 Stop();
             }
         } //timer_Tick()
