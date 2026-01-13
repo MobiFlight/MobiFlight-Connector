@@ -62,14 +62,18 @@ const ControllerBindingItem = ({
   const boundController = controllers.find((controller) =>
     controller.Serial.includes(serial),
   )
-
+  
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState(boundController?.Serial)
+  const [selectedSerial, setSelectedSerial] = useState(boundController?.Serial)
 
+  const selectedBoundController = controllers.find((controller) =>
+    controller.Serial === selectedSerial,
+  )
+  
   console.log("boundController", boundController)
   useEffect(() => {
-    console.log("value: ", value)
-  }, [value])
+    console.log("value: ", selectedSerial)
+  }, [selectedSerial])
 
   return (
     <div className="flex flex-row items-center gap-2 border-b border-solid py-2">
@@ -98,15 +102,12 @@ const ControllerBindingItem = ({
               aria-expanded={open}
               className="flex h-14 w-full flex-row justify-between"
             >
-              {boundController ? (
+              {selectedBoundController ? (
                 <ControllerIconWithLabel
                   serial={
-                    boundController
-                      ? boundController.Name + "/" + boundController.Serial
+                    selectedBoundController
+                      ? selectedBoundController.Name + "/" + selectedBoundController.Serial
                       : ""
-                  }
-                  status={
-                    boundController ? controllerBinding.Status : "Missing"
                   }
                 />
               ) : (
@@ -127,7 +128,7 @@ const ControllerBindingItem = ({
                       key={controller.Serial}
                       value={controller.Serial}
                       onSelect={(currentValue) => {
-                        setValue(currentValue === value ? "" : currentValue)
+                        setSelectedSerial(currentValue === selectedSerial ? "" : currentValue)
                         setOpen(false)
                       }}
                     >

@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next"
 
 export type ControllerIconProps = {
   serial: string
-  status: ControllerBindingStatus | undefined
+  status?: ControllerBindingStatus
 }
 
 const ControllerIcons = {
@@ -124,12 +124,14 @@ const ControllerIcon = ({
           <IconComponent />
         ) : null}
       </div>
-      <div
-        className={cn(
-          `bg-accent outline-background absolute right-0 bottom-0 h-3 w-3 rounded-full outline-3`,
-          status && variant[status],
-        )}
-      ></div>
+      {status && (
+        <div
+          className={cn(
+            `bg-accent outline-background absolute right-0 bottom-0 h-3 w-3 rounded-full outline-3`,
+            status && variant[status],
+          )}
+        ></div>
+      )}
     </div>
   ) : null
 }
