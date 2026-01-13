@@ -115,11 +115,14 @@ namespace MobiFlight.Execution
             {
                 // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
                 Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Source] = "ReadError: " + ex.Message;
-                value = new ConnectorValue();
-                processedValue = value;
-                cfg.RawValue = "";
-                cfg.Value = "";
+                cfg.Status[ConfigItemStatusType.Source] = "SourceReadError";
+                
+                // Add to updatedValues and stop further evaluation
+                if (!originalCfg.Equals(cfg))
+                {
+                    updatedValues[cfg.GUID] = cfg;
+                }
+                return;
             }
 
             List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
@@ -207,7 +210,7 @@ namespace MobiFlight.Execution
             {
                 // Error during precondition check
                 Log.Instance.log($"Precondition check error ({cfg.Name}): {exc.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Precondition] = "error: " + exc.Message;
+                cfg.Status[ConfigItemStatusType.Precondition] = "PreconditionError";
             }
 
             // Update the values dictionary - wrap in try-catch to handle any unexpected issues
