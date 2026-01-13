@@ -85,7 +85,7 @@ const ControllerBindingItem = ({
       </div>
       <div className="flex flex-row items-center gap-0">
         <div className="h-1 w-6 border-b border-muted-foreground/50" />
-        {boundController ? (
+        {selectedBoundController ? (
           <IconCircleCheck className="h-8 w-8 text-green-500" />
         ) : (
           <IconCircleDashed className="h-8 w-8 stroke-muted-foreground/50" />
@@ -117,7 +117,7 @@ const ControllerBindingItem = ({
               <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-full p-0">
+          <PopoverContent className="w-107 p-0">
             <Command>
               <CommandInput placeholder="Search controller..." />
               <CommandList>
@@ -131,6 +131,7 @@ const ControllerBindingItem = ({
                         setSelectedSerial(currentValue === selectedSerial ? "" : currentValue)
                         setOpen(false)
                       }}
+                      className={selectedSerial===controller.Serial ? "bg-accent/50" : ""}
                     >
                       <ControllerIconWithLabel
                         serial={
