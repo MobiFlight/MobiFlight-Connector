@@ -84,6 +84,22 @@ namespace MobiFlight.Controllers
             return allResults;
         }
 
+        internal void UpdateControllerBindings(Project project, List<ControllerBinding> bindings)
+        {
+            var connectedControllers = GetAllConnectedControllers();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            foreach (var configFile in project.ConfigFiles)
+            {
+                foreach (var binding in bindings)
+                {
+                    binder.ApplyAutoBinding(configFile.ConfigItems, new List<ControllerBinding> { binding });
+                }
+            }
+
+            project.ControllerBindings = bindings;
+        }
+
         private List<string> GetAllConnectedControllers()
         {
             var serials = new List<string>();
