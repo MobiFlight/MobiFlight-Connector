@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils"
 
 const ProjectPanel = () => {
   const SCROLL_TAB_INTO_VIEW_DELAY_MS = 1500
+  const SCROLL_OFFSET = 150
 
   const overflowRef = useRef<HTMLDivElement | null>(null)
 
@@ -241,11 +242,10 @@ const ProjectPanel = () => {
   }, [])
 
   const scrollTabs = (direction: "left" | "right") => () => {
-    if (overflowRef.current === null) return
     const scrollContainer = overflowRef.current
-    if (!scrollContainer) return
-    const scrollAmount = direction === "left" ? -150 : 150
+    if (scrollContainer === null) return
 
+    const scrollAmount = direction === "left" ? -SCROLL_OFFSET : SCROLL_OFFSET
     scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" })
   }
 

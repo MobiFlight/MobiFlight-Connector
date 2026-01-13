@@ -211,6 +211,8 @@ test.describe("Test profile tabs basic features", () => {
 })
 
 test.describe("Test profile tabs overflow features", () => {
+  test.use({ viewport: { width: 800, height: 600 } })
+
   test("Confirm tab overflow indicators hide correctly", async ({
     configListPage,
     page,
@@ -244,7 +246,6 @@ test.describe("Test profile tabs overflow features", () => {
     await expect(addTabMenu).toBeVisible()
   })
 
-  test.use({ viewport: { width: 800, height: 600 } })
   test("Confirm tab overflow indicators show correctly", async ({
     configListPage,
     page,
@@ -295,5 +296,52 @@ test.describe("Test profile tabs overflow features", () => {
     // because we scrolled to the end of the tab list
     await expect(addTabMenu).toBeVisible()
     await expect(addTabMenuOverflow).toBeHidden()
+  })
+
+  test("Confirm scroll buttons work correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    // Add multiple tabs to cause overflow
+
+    await configListPage.mobiFlightPage.initWithTestData()
+    
+    const addTabMenu = page.getByTestId("add-profile-tab-menu-regular")
+    const addTabMenuOverflow = page.getByTestId("add-profile-tab-menu-overflow")
+
+    const tabOverflowIndicatorLeft = page.getByTestId(
+      "tab-overflow-indicator-left",
+    )
+    const tabOverflowIndicatorRight = page.getByTestId(
+      "tab-overflow-indicator-right",
+    )
+    const scrollLeftButton = page.getByTestId("tab-scroll-left")
+    const scrollRightButton = page.getByTestId("tab-scroll-right")
+
+     // Select the second tab
+    const firstTab = page.getByRole("tablist").getByRole("tab").nth(0)
+    const thirdTab = page.getByRole("tablist").getByRole("tab").nth(2)
+
+    await expect(firstTab).toBeInViewport()
+    await expect(thirdTab).not.toBeInViewport() 
+
+    // Scroll to the right end
+    await scrollRightButton.click()
+    await page.waitForTimeout(300)
+    await scrollRightButton.click()
+    await page.waitForTimeout(300)
+
+    await expect(firstTab).not.toBeInViewport()
+    await expect(thirdTab).toBeInViewport() 
+
+    // Scroll back to the left
+    await scrollLeftButton.click()
+    await page.waitForTimeout(300)
+    await scrollLeftButton.click()
+    await page.waitForTimeout(300)
+    
+    await expect(firstTab).toBeInViewport()
+    await expect(thirdTab).not.toBeInViewport() 
   })
 })
