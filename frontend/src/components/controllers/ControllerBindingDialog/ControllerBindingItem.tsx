@@ -18,6 +18,31 @@ import {
 } from "@/components/ui/command"
 import { useEffect, useState } from "react"
 
+const ControllerIconWithLabel = ({
+  serial,
+  status,
+}: {
+  serial: string
+  status: ControllerBinding["Status"]
+}) => {
+  const [controllerLabel, controllerSerial] = serial
+    ?.split("/")
+    ?.map((s) => s.trim()) ?? [null, null]
+  return (
+    <>
+      <ControllerIcon
+        className="transition-all ease-in-out"
+        serial={serial}
+        status={status}
+      />
+      <div className="flex flex-col">
+        <div className="font-semibold">{controllerLabel}</div>
+        <div className="text-muted-foreground text-sm">{controllerSerial}</div>
+      </div>
+    </>
+  )
+}
+
 export type ControllerBindingProps = {
   controllerBinding: ControllerBinding
   controllers: Controller[]
@@ -27,41 +52,33 @@ const ControllerBindingItem = ({
   controllerBinding,
   controllers,
 }: ControllerBindingProps) => {
-  const [boundName, serial] = controllerBinding?.BoundController?.split("/")?.map(
-    (s) => s.trim(),
-  ) ?? [null, null]
+  const [, serial] = controllerBinding?.BoundController?.split(
+    "/",
+  )?.map((s) => s.trim()) ?? [null, null]
 
-  const [ originalName, originalSerial ] = controllerBinding?.OriginalController?.split("/")?.map(
-    (s) => s.trim(),
-  ) ?? [null, null]
-
-  const boundController = controllers.find(controller =>
-    controller.Serial.includes(serial)
+  const boundController = controllers.find((controller) =>
+    controller.Serial.includes(serial),
   )
 
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState(boundController?.Serial)
-  
+
   console.log("boundController", boundController)
   useEffect(() => {
     console.log("value: ", value)
   }, [value])
 
-  const controllerLabel = boundName ?? originalName
-  const controllerSerial = serial ?? originalSerial
-
   return (
-    <div className="flex flex-row gap-2 items-center border-b border-solid py-2">
+    <div className="flex flex-row items-center gap-2 border-b border-solid py-2">
       <div className="flex flex-1/2 flex-row gap-4">
-        <ControllerIcon
-          className="transition-all ease-in-out"
-          serial={controllerBinding.BoundController || controllerBinding.OriginalController || ""}
+        <ControllerIconWithLabel
+          serial={
+            controllerBinding.BoundController ||
+            controllerBinding.OriginalController ||
+            ""
+          }
           status={controllerBinding.Status}
         />
-        <div className="flex flex-col">
-          <div className="font-semibold">{controllerLabel}</div>
-          <div className="text-muted-foreground text-sm">{controllerSerial}</div>
-        </div>
       </div>
 
       <div className="flex flex-1/2 flex-row">
