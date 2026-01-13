@@ -874,10 +874,10 @@ namespace MobiFlight
                     }
                     catch (Exception ex)
                     {
-                        // Safety net: catch any unexpected exceptions from individual config execution
-                        // This ensures one bad config doesn't stop all other configs from running
+                        // Catch exceptions from individual config execution to prevent one bad config
+                        // from stopping all other configs from running
                         Log.Instance.log($"ExecutionManager.ExecuteConfig(): Error on config execution: {cfg.Name}. {ex.Message}", LogSeverity.Error);
-                        cfg.Status[ConfigItemStatusType.Device] = "ERROR";
+                        // Status is already set by the executor before throwing, so just ensure it's in updatedValues
                         updatedValues[cfg.GUID] = cfg;
                     }
                 }
