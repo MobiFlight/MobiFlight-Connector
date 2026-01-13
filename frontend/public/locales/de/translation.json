@@ -229,14 +229,16 @@
     "Status": {
       "Precondition": {
         "normal": "Normal",
-        "not satisfied": "Vorbedingung nicht erfüllt."
+        "not satisfied": "Vorbedingung nicht erfüllt.",
+        "Error": "Fehler beim Auswerten der Vorbedingung. Weitere Details in den Logs."
       },
       "Source": {
         "available": "Quelle ist verfügbar.",
         "SIMCONNECT_NOT_AVAILABLE": "Diese Config verwendet SimConnect, Verbindung fehlt.",
         "FSUIPC_NOT_AVAILABLE": "Diese Config verwendet  FSUIPC, Verbindung fehlt.",
         "XPLANE_NOT_AVAILABLE": "Diese Config verwendet  X-Plane, Verbindung fehlt.",
-        "PROSIM_NOT_AVAILABLE": "Diese Config verwendet  ProSim, Verbindung fehlt."
+        "PROSIM_NOT_AVAILABLE": "Diese Config verwendet  ProSim, Verbindung fehlt.",
+        "ReadError": "Fehler beim Lesen aufgetreten. Weitere Details in den Logs."
       },
       "Modifier": {
         "Error": "Ein Modifikator verursacht einen Fehler.",

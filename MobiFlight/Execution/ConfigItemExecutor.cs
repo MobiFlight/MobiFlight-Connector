@@ -115,7 +115,7 @@ namespace MobiFlight.Execution
             {
                 // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
                 Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Source] = "SourceReadError";
+                cfg.Status[ConfigItemStatusType.Source] = "ReadError";
                 
                 // Add to updatedValues and stop further evaluation
                 if (!originalCfg.Equals(cfg))
@@ -210,7 +210,7 @@ namespace MobiFlight.Execution
             {
                 // Error during precondition check
                 Log.Instance.log($"Precondition check error ({cfg.Name}): {exc.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Precondition] = "PreconditionError";
+                cfg.Status[ConfigItemStatusType.Precondition] = "Error";
             }
 
             // Update the values dictionary - wrap in try-catch to handle any unexpected issues

@@ -229,14 +229,16 @@
     "Status": {
       "Precondition": {
         "normal": "Normal",
-        "not satisfied": "La condición previa no se cumple."
+        "not satisfied": "La condición previa no se cumple.",
+        "Error": "Error al evaluar la condición previa. Consulte los registros para más detalles."
       },
       "Source": {
         "available": "La fuente está disponible.",
         "SIMCONNECT_NOT_AVAILABLE": "Esta configuración usa SimConnect, falta la conexión.",
         "FSUIPC_NOT_AVAILABLE": "Esta configuración usa FSUIPC, falta la conexión.",
         "XPLANE_NOT_AVAILABLE": "Esta configuración usa X-Plane, falta la conexión.",
-        "PROSIM_NOT_AVAILABLE": "Esta configuración usa ProSim, falta la conexión."
+        "PROSIM_NOT_AVAILABLE": "Esta configuración usa ProSim, falta la conexión.",
+        "ReadError": "Se produjo un error durante la lectura. Consulte los registros para más detalles."
       },
       "Modifier": {
         "Error": "Se aplica un modificador que tiene un error.",
