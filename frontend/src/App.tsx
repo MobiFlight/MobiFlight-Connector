@@ -34,6 +34,7 @@ import testProject from "@/../tests/data/project.testdata.json" with { type: "js
 import testJsDefinition from "@/../tests/data/joystick.definition.json" with { type: "json" }
 import testMidiDefinition from "@/../tests/data/midicontroller.definition.json" with { type: "json" }
 import testRecentProjects from "@/../tests/data/recentProjects.testdata.json" with { type: "json" }
+import testControllers from "@/../tests/data/connectedControllers.testdata.json" with { type: "json" }
 
 import {
   MidiControllerDefinition,
@@ -183,6 +184,8 @@ function App() {
       setMidiControllerDefinitions([
         testMidiDefinition as MidiControllerDefinition,
       ])
+
+      setController(testControllers as ConnectedControllers["Controllers"])
     }
   }, [
     project,
@@ -191,6 +194,7 @@ function App() {
     setMidiControllerDefinitions,
     setProject,
     setRecentProjects,
+    setController,
   ])
 
   useAppMessage("ExecutionState", (message) => {
