@@ -12,6 +12,7 @@ import { useRecentProjects, useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
 import {
   BoardDefinitions,
+  ConnectedControllers,
   ExecutionState,
   HubHopState,
   JoystickDefinitions,
@@ -151,6 +152,11 @@ function App() {
   useAppMessage("HubHopState", (message) => {
     const state = message.payload as HubHopState
     setHubHopState(state)
+  })
+
+  useAppMessage("ConnectedControllers", (message) => {
+    const controllers = (message.payload as ConnectedControllers).Controllers
+    console.log("ConnectedControllers message received", controllers)
   })
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
@@ -221,6 +222,10 @@ namespace MobiFlight
                 OnJoystickConnectedFinished?.Invoke(sender, e);
             };
 
+
+            OnMidiBoardConnectedFinished += (s,e)=> { PublishConnectedDevices(); };
+            OnJoystickConnectedFinished += (s, e) => { PublishConnectedDevices(); };
+
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (sender, e) =>
             {
@@ -240,6 +245,43 @@ namespace MobiFlight
 
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
+        }
+
+        private void PublishConnectedDevices()
+        {
+            var connectedControllers = new List<Controller>();
+            mobiFlightCache.GetModules().ToList().ForEach(module =>
+            {
+                connectedControllers.Add(new Controller()
+                {
+                    Name = module.Name,
+                    Vendor = module.Board.Info.Community.Project,
+                    Connected = true,
+                    Serial = module.Serial
+                });
+            });
+
+            joystickManager.GetJoysticks().ToList().ForEach(controller =>
+            {
+                connectedControllers.Add(new Controller()
+                {
+                    Name = controller.Name,
+                    Connected = true,
+                    Serial = controller.Serial
+                });
+            });
+
+            midiBoardManager.GetMidiBoards().ToList().ForEach(controller =>
+            {
+                connectedControllers.Add(new Controller()
+                {
+                    Name = controller.Name,
+                    Connected = true,
+                    Serial = controller.Serial
+                });
+            });
+
+            MessageExchange.Instance.Publish(new ConnectedControllers() { Controllers = connectedControllers });
         }
 
         private void FrontendUpdateTimer_Execute(object sender, EventArgs e)
@@ -505,6 +547,7 @@ namespace MobiFlight
             TestModeStop();
             Stop();
             this.OnModuleConnected?.Invoke(sender, e);
+            PublishConnectedDevices();
         }
 
         private void sim_AircraftChanged(object sender, string e)
@@ -581,6 +624,7 @@ namespace MobiFlight
         void mobiFlightCache_LookupFinished(object sender, EventArgs e)
         {
             OnInitialModuleLookupFinished?.Invoke(sender, e);
+            PublishConnectedDevices();
         }
 
         public void SetPollInterval(int value)
@@ -938,6 +982,7 @@ namespace MobiFlight
             //_disconnectArcaze();
             this.OnModuleRemoved(sender, e);
             Stop();
+            PublishConnectedDevices();
         }
 
         /// <summary>
