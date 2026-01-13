@@ -73,7 +73,7 @@ namespace MobiFlight.SimConnectMSFS.Tests
         {
             // Arrange, Act, Assert
             // Lock the file by opening it exclusively
-            using (var fileStream = new FileStream(testFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            using (var _ = new FileStream(testFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 var result = InvokeCalculateMD5(testFile);
                 Assert.IsNull(result);
