@@ -27,6 +27,7 @@ export type CommandMessage =
   | CommandProjectToolbar
   | CommandDiscardChanges
   | CommandOpenLinkInBrowser
+  | CommandControllerBindingsUpdate
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -178,5 +179,12 @@ export interface CommandOpenLinkInBrowser extends CommandMessageBase {
   key: "CommandOpenLinkInBrowser"
   payload: {
     url: string
+  }
+}
+
+export interface CommandControllerBindingsUpdate extends CommandMessageBase {
+  key: "CommandControllerBindingsUpdate"
+  payload: {
+    bindings: ControllerBinding[]
   }
 }

@@ -49,11 +49,13 @@ const ControllerIconWithLabel = ({
 export type ControllerBindingProps = {
   controllerBinding: ControllerBinding
   controllers: Controller[]
+  onUpdate: (binding: ControllerBinding, controller: Controller | null) => void
 }
 
 const ControllerBindingItem = ({
   controllerBinding,
   controllers,
+  onUpdate
 }: ControllerBindingProps) => {
   const [, serial] = controllerBinding?.BoundController?.split("/")?.map((s) =>
     s.trim(),
@@ -128,6 +130,7 @@ const ControllerBindingItem = ({
                       key={controller.Serial}
                       value={controller.Serial}
                       onSelect={(currentValue) => {
+                        onUpdate(controllerBinding, controller)
                         setSelectedSerial(currentValue === selectedSerial ? "" : currentValue)
                         setOpen(false)
                       }}

@@ -9,8 +9,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { Controller, ControllerBinding } from "@/types/controller"
 import { IconCheck } from "@tabler/icons-react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export type ControllerBindingsProps = {
@@ -20,13 +22,15 @@ export type ControllerBindingsProps = {
   onOpenChange: (open: boolean) => void
 }
 
-const ControllerBindings = ({
+const ControllerBindingsDialog = ({
   bindings,
   controllers,
   isOpen,
   onOpenChange,
 }: ControllerBindingsProps) => {
   const { t } = useTranslation()
+  const [finalBindings, setFinalBindings] = useState<ControllerBinding[]>(bindings)
+  const { publish } = publishOnMessageExchange()
 
   const sortedBindings = bindings.sort((a, b) => {
     const priority = {
@@ -37,6 +41,33 @@ const ControllerBindings = ({
     }
     return priority[a.Status] - priority[b.Status]
   })
+
+  const handleControllerBindingUpdate = (
+    binding: ControllerBinding,
+    controller: Controller | null
+  ) => {
+    const updatedBindings = finalBindings.map((b) => {
+      if (b.BoundController === binding.BoundController) {
+        return {
+          ...b,
+          BoundController: controller ? controller.Serial : b.BoundController,
+          Status: controller ? "Match" : b.Status,
+        }
+      }
+      return b
+    })
+    setFinalBindings(updatedBindings)
+  }
+
+  const saveChanges = () => {
+    publish({
+      key: "CommandControllerBindingsUpdate",
+      payload: {
+        bindings: finalBindings
+      }
+    })
+    onOpenChange(false)
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -73,12 +104,13 @@ const ControllerBindings = ({
               <div className="text-muted-foreground font-semibold">Connected controller</div>
             </div>
             {
-              /* Original Controller Biundings */
+              /* Original Controller Bindings */
               sortedBindings.map((binding, index) => (
                 <ControllerBindingItem
                   key={index}
                   controllerBinding={binding}
                   controllers={controllers}
+                  onUpdate={handleControllerBindingUpdate}
                 />
               ))
             }
@@ -95,7 +127,8 @@ const ControllerBindings = ({
                 Close
               </Button>
             </DialogClose>
-            <Button>Apply & Save</Button>
+            <Button
+              onClick={saveChanges}>Apply & Save</Button>
           </div>
         </DialogFooter>
       </DialogContent>
@@ -103,4 +136,4 @@ const ControllerBindings = ({
   )
 }
 
-export default ControllerBindings
+export default ControllerBindingsDialog
