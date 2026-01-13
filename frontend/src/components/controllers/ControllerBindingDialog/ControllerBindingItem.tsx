@@ -84,7 +84,7 @@ const ControllerBindingItem = ({
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="flex w-full flex-row justify-between"
+              className="flex w-full flex-row justify-between h-14"
             >
               {boundController ? (
                 <ControllerIconWithLabel
