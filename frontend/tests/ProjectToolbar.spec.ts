@@ -208,13 +208,17 @@ test.describe("Test profile tabs basic features", () => {
     expect(lastCommand.payload.index).toEqual(1)
     expect(lastCommand.payload.file as ConfigFile).not.toBeNull()
   })
+})
 
+test.describe("Test profile tabs overflow features", () => {
   test("Confirm tab overflow indicators hide correctly", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProfileCount(
+      1,
+    )
     const addTabMenu = page.getByTestId("add-profile-tab-menu-regular")
     const addTabMenuOverflow = page.getByTestId("add-profile-tab-menu-overflow")
 
@@ -224,15 +228,22 @@ test.describe("Test profile tabs basic features", () => {
     const tabOverflowIndicatorRight = page.getByTestId(
       "tab-overflow-indicator-right",
     )
+    const scrollLeftButton = page.getByTestId("tab-scroll-left")
+    const scrollRightButton = page.getByTestId("tab-scroll-right")
+
     // Initially, no overflow indicators should be visible
     await expect(tabOverflowIndicatorLeft).toBeHidden()
     await expect(tabOverflowIndicatorRight).toBeHidden()
+
+    // No scroll buttons should be visible
+    await expect(scrollLeftButton).toBeHidden()
+    await expect(scrollRightButton).toBeHidden()
+
+    // Tab menu should show regular menu
     await expect(addTabMenuOverflow).toBeHidden()
     await expect(addTabMenu).toBeVisible()
   })
-})
 
-test.describe("Test profile tabs overflow features", () => {
   test.use({ viewport: { width: 800, height: 600 } })
   test("Confirm tab overflow indicators show correctly", async ({
     configListPage,
@@ -249,10 +260,18 @@ test.describe("Test profile tabs overflow features", () => {
     const tabOverflowIndicatorRight = page.getByTestId(
       "tab-overflow-indicator-right",
     )
+    const scrollLeftButton = page.getByTestId("tab-scroll-left")
+    const scrollRightButton = page.getByTestId("tab-scroll-right")
 
     // Add multiple tabs to cause overflow
     await expect(tabOverflowIndicatorLeft).toBeHidden()
     await expect(tabOverflowIndicatorRight).toBeVisible()
+
+    // Scroll buttons should be visible
+    await expect(scrollLeftButton).toBeVisible()
+    await expect(scrollRightButton).toBeVisible()
+
+    // Tab menu should show overflow menu
     await expect(addTabMenuOverflow).toBeVisible()
     await expect(addTabMenu).toBeHidden()
 

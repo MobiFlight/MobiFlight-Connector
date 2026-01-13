@@ -133,6 +133,21 @@ export class MobiFlightPage {
     await this.initWithRecentProjects()
   }
 
+  async initWithTestDataAndSpecificProfileCount(profileCount: number) {
+    const profiles = testProject.ConfigFiles.slice(0, profileCount)
+    const testProjectWithProfiles = {
+      ...testProject,
+      ConfigFiles: profiles,
+    }
+
+    const message: AppMessage = {
+      key: "Project",
+      payload: testProjectWithProfiles,
+    }
+    await this.publishMessage(message)
+    await this.initWithRecentProjects()
+  }
+
   async initWithRecentProjects() {
     const recentProjectsMessage: AppMessage = {
       key: "RecentProjects",
