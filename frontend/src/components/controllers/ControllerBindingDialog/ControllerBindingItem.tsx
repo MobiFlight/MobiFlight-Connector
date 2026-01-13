@@ -96,7 +96,7 @@ const ControllerBindingItem = ({
       </div>
 
       <div className="flex flex-1/2 flex-row">
-        <Popover open={open} onOpenChange={setOpen}>
+        <Popover open={open} onOpenChange={setOpen} modal={true}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
@@ -119,7 +119,7 @@ const ControllerBindingItem = ({
               <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-107 p-0">
+          <PopoverContent className="w-107 p-0" >
             <Command>
               <CommandInput placeholder="Search controller..." />
               <CommandList>
