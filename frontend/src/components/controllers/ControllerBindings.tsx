@@ -49,8 +49,8 @@ const ControllerBindings = ({
             {t("ControllerBinding.Description")}
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-2 pt-4">
-          <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row items-center gap-2 pb-2">
             <Button className="h-8" variant={"default"}>
               All
             </Button>
@@ -67,7 +67,11 @@ const ControllerBindings = ({
               Match
             </Button>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col pt-2">
+            <div className="flex flex-row justify-between">
+              <div className="text-muted-foreground font-semibold">Original controller</div>
+              <div className="text-muted-foreground font-semibold">Connected controller</div>
+            </div>
             {
               /* Original Controller Biundings */
               sortedBindings.map((binding, index) => (

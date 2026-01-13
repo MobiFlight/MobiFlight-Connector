@@ -7,7 +7,12 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import { Controller, ControllerBinding } from "@/types/controller"
-import { IconCheck, IconSelector } from "@tabler/icons-react"
+import {
+  IconCheck,
+  IconCircleCheck,
+  IconCircleDashed,
+  IconSelector,
+} from "@tabler/icons-react"
 import {
   Command,
   CommandInput,
@@ -76,6 +81,15 @@ const ControllerBindingItem = ({
           status={controllerBinding.Status}
         />
       </div>
+      <div className="flex flex-row items-center gap-0">
+        <div className="h-1 w-6 border-b border-muted-foreground/50" />
+        {boundController ? (
+          <IconCircleCheck className="h-8 w-8 text-green-500" />
+        ) : (
+          <IconCircleDashed className="h-8 w-8 stroke-muted-foreground/50" />
+        )}
+        <div className="h-1 w-6 border-b border-muted-foreground/50" />
+      </div>
 
       <div className="flex flex-1/2 flex-row">
         <Popover open={open} onOpenChange={setOpen}>
@@ -84,7 +98,7 @@ const ControllerBindingItem = ({
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="flex w-full flex-row justify-between h-14"
+              className="flex h-14 w-full flex-row justify-between"
             >
               {boundController ? (
                 <ControllerIconWithLabel
