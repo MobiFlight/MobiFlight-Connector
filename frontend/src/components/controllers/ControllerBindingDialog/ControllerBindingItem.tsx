@@ -29,7 +29,7 @@ const ControllerIconWithLabel = ({
     ?.split("/")
     ?.map((s) => s.trim()) ?? [null, null]
   return (
-    <>
+    <div className="flex flex-row items-center gap-2 text-left">
       <ControllerIcon
         className="transition-all ease-in-out"
         serial={serial}
@@ -39,7 +39,7 @@ const ControllerIconWithLabel = ({
         <div className="font-semibold">{controllerLabel}</div>
         <div className="text-muted-foreground text-sm">{controllerSerial}</div>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -52,9 +52,9 @@ const ControllerBindingItem = ({
   controllerBinding,
   controllers,
 }: ControllerBindingProps) => {
-  const [, serial] = controllerBinding?.BoundController?.split(
-    "/",
-  )?.map((s) => s.trim()) ?? [null, null]
+  const [, serial] = controllerBinding?.BoundController?.split("/")?.map((s) =>
+    s.trim(),
+  ) ?? [null, null]
 
   const boundController = controllers.find((controller) =>
     controller.Serial.includes(serial),
@@ -72,11 +72,7 @@ const ControllerBindingItem = ({
     <div className="flex flex-row items-center gap-2 border-b border-solid py-2">
       <div className="flex flex-1/2 flex-row gap-4">
         <ControllerIconWithLabel
-          serial={
-            controllerBinding.BoundController ||
-            controllerBinding.OriginalController ||
-            ""
-          }
+          serial={controllerBinding.OriginalController || ""}
           status={controllerBinding.Status}
         />
       </div>
@@ -88,9 +84,23 @@ const ControllerBindingItem = ({
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-full justify-between"
+              className="flex w-full flex-row justify-between"
             >
-              {boundController ? boundController.Name : "Select controller"}
+              {boundController ? (
+                <ControllerIconWithLabel
+                  serial={
+                    boundController
+                      ? boundController.Name + "/" + boundController.Serial
+                      : ""
+                  }
+                  status={
+                    boundController ? controllerBinding.Status : "Missing"
+                  }
+                />
+              ) : (
+                "Select a controller"
+              )}
+
               <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
