@@ -18,6 +18,7 @@ import DarkModeToggle from "./DarkModeToggle"
 import { useProjectStore } from "@/stores/projectStore"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { useTranslation } from "react-i18next"
+import { useModal } from "@/lib/hooks/useModal"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
@@ -31,7 +32,8 @@ export const MainMenu = () => {
     })
   }
 
-  const { showOverlay } = useProjectModal()
+  const { showOverlay : showProjectOverlay } = useProjectModal()
+  const { showOverlay : showModalOverlay } = useModal()
 
   return (
     <Menubar className="bg-muted/20 justify-between">
@@ -41,7 +43,7 @@ export const MainMenu = () => {
           <MenubarContent>
             <MenubarItem
               onSelect={() => {
-                showOverlay({ mode: "create" })
+                showProjectOverlay({ mode: "create" })
               }}
             >
               New<MenubarShortcut>Ctrl+N</MenubarShortcut>
@@ -158,7 +160,7 @@ export const MainMenu = () => {
               Copy logs to clipboard
             </MenubarItem>
             <MenubarItem
-              onSelect={() => handleMenuItemClick({ action: "extras.serials" })}
+              onSelect={() => showModalOverlay({ route: "/bindings" })}
             >
               Manage orphaned serials
             </MenubarItem>
