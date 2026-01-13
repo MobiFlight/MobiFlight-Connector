@@ -85,6 +85,10 @@
         "BlockedByRun": "Ausführungsmodus ist aktiv. Stoppe ihn zuerst."
       }
     },
+    "Tabs": {
+      "ScrollLeft": "Links scrollen",
+      "ScrollRight": "Rechts scrollen"
+    },
     "Simulator": {
       "msfs": "Microsoft Flight Simulator",
       "xplane": "X-Plane",

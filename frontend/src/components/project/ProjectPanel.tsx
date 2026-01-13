@@ -277,14 +277,18 @@ const ProjectPanel = () => {
       </div>
 
       <div className="border-muted-foreground/50 flex w-9 flex-row items-center justify-end gap-1 border-b px-0 pr-2">
-      <Button
-            variant="ghost"
-            className={cn("h-7 p-0 transition-opacity duration-300", overflow.any ? "w-7 opacity-100" : "scale-0 opacity-0")}
-            onClick={scrollTabs("left")}
-          >
-            <span className="sr-only">{t("General.Action.ScrollLeft")}</span>
-            <IconChevronLeft className="stroke-muted-foreground/50" />
-          </Button>
+        <Button
+          title={t("Project.Tabs.ScrollLeft")}
+          variant="ghost"
+          className={cn(
+            "h-7 p-0 transition-opacity duration-300",
+            overflow.any ? "w-7 opacity-100" : "scale-0 opacity-0",
+          )}
+          onClick={scrollTabs("left")}
+        >
+          <span className="sr-only">{t("Project.Tabs.ScrollLeft")}</span>
+          <IconChevronLeft className="stroke-muted-foreground/50" />
+        </Button>
       </div>
 
       <div className="relative h-full min-h-10 grow" role="tablist">
@@ -358,6 +362,7 @@ const ProjectPanel = () => {
         )}
       >
         <Button
+          title={t("Project.Tabs.ScrollRight")}
           variant="ghost"
           className={cn(
             "h-7 w-7 p-0 transition-opacity duration-300",
@@ -365,7 +370,7 @@ const ProjectPanel = () => {
           )}
           onClick={scrollTabs("right")}
         >
-          <span className="sr-only">{t("General.Action.ScrollRight")}</span>
+          <span className="sr-only">{t("Project.Tabs.ScrollRight")}</span>
           <IconChevronRight className="stroke-muted-foreground/50" />
         </Button>
       </div>
