@@ -162,7 +162,7 @@ export const MainMenu = () => {
             <MenubarItem
               onSelect={() => showModalOverlay({ route: "/bindings" })}
             >
-              Manage orphaned serials
+              Manage Controller Bindings
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
