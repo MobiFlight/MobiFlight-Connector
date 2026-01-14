@@ -79,7 +79,7 @@ const ControllerBindingItem = ({
 
   return (
     <div className="flex flex-row items-center gap-2 border-b border-solid py-2">
-      <div className="flex flex-1/2 flex-row gap-4">
+      <div className="flex flex-1/2 flex-row gap-4" data-testid="original-controller">
         <ControllerIconWithLabel
           serial={controllerBinding.OriginalController || ""}
           status={controllerBinding.Status}
@@ -103,6 +103,7 @@ const ControllerBindingItem = ({
               role="combobox"
               aria-expanded={open}
               className="flex h-14 w-full flex-row justify-between"
+              data-testid="bound-controller"
             >
               {selectedBoundController ? (
                 <ControllerIconWithLabel

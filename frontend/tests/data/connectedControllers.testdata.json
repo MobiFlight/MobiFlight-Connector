@@ -1,6 +1,6 @@
 [
   {
-    "Name": "Prototyping Board",
+    "Name": "ProtoBoard-v2",
     "Serial": "SN-5FC-1CF",
     "Vendor": "MobiFlight",
     "ProductId": "",
@@ -11,8 +11,8 @@
     "certified": false
   },
   {
-    "Name": "Alpha Controls Yoke",
-    "Serial": "JS-12345678",
+    "Name": "Alpha Flight Controls Lite",
+    "Serial": "JS-c0875190-3b89-11ed-8007-444553540000",
     "Vendor": "Honeycomb",
     "ProductId": "",
     "VendorId": "",

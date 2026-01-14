@@ -560,14 +560,14 @@
       "OriginalController": "ProtoBoard-v2/ SN-3F1-FDD"
     },
     {
-      "BoundController": "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
+      "BoundController": null,
       "Status": "RequiresManualBind",
       "OriginalController": "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000"
     },
     {
       "BoundController": null,
       "Status": "Missing",
-      "OriginalController": "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000"
+      "OriginalController": "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540001"
     },
     {
       "BoundController": null,
