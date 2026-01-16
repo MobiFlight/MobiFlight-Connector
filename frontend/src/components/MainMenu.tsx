@@ -162,7 +162,7 @@ export const MainMenu = () => {
             <MenubarItem
               onSelect={() => showModalOverlay({ route: "/bindings" })}
             >
-              Manage Controller Bindings
+              {t("MainMenu.Extras.ManageControllers")}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem

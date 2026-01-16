@@ -1,6 +1,7 @@
 import { ProjectInfo } from "@/types/project"
 import {
   IconChevronRight,
+  IconDeviceGamepad2,
   IconDotsVertical,
   IconExclamationCircle,
   IconPlayerPlayFilled,
@@ -287,6 +288,10 @@ const ProjectCard = ({
                     <DropdownMenuItem onClick={handleEditSettings}>
                       <IconSettings />
                       {t("Project.Toolbar.Settings")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => showModalOverlay({ route: "/bindings" })}>
+                      <IconDeviceGamepad2 />
+                      {t("MainMenu.Extras.ManageControllers")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

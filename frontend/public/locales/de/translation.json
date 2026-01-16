@@ -27,6 +27,9 @@
           "Out": "Strg+-"
         }
       }
+    },
+    "Extras": {
+      "ManageControllers": "Controller-Zuordnungen verwalten"
     }
   },
   "Types": {
