@@ -302,8 +302,8 @@
   "Dialog": {
     "General": {
       "Cancel": "Abbrechen",
-      "Close": "Close",
-      "SaveChanges": "Save changes"
+      "Close": "Schließen",
+      "SaveChanges": "Änderungen speichern"
     },
     "ControllerBinding": {
       "Title": "Controller Zuordnungen",
