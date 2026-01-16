@@ -138,12 +138,12 @@ const ControllerBindingsDialog = ({
           </ScrollArea>
         </div>
         <DialogFooter className="flex flex-row justify-between">
-          <div className="grow">
+          <div className="grow flex flex-row items-center gap-1">
             {allControllerAreBound && (
               <>
                 <IconCheck className="mr-2 inline h-8 w-8 text-green-600" />
                 <span className="text-green-600">
-                  All set! Your profile is completely configured.
+                  {t("Dialog.ControllerBinding.AllSet")}
                 </span>
               </>
             )}

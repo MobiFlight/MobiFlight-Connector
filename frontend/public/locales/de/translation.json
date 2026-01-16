@@ -313,7 +313,8 @@
         "match": "Angeschlossen"
       },
       "ControllersInProject": "{{count}} Controller im Projekt verwendet",
-      "ConnectedControllers": "{{count}} Controller mit PC verbunden"
+      "ConnectedControllers": "{{count}} Controller mit PC verbunden",
+      "AllSet": "Alles bereit! Dein Projekt ist vollständig konfiguriert."
     }
   }
 }

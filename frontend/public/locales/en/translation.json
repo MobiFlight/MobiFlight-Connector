@@ -307,7 +307,8 @@
         "match": "Match"
       },
       "ControllersInProject": "{{count}} Controllers used in project",
-      "ConnectedControllers": "{{count}} Controllers connected to PC"
+      "ConnectedControllers": "{{count}} Controllers connected to PC",
+      "AllSet": "All set! Your project is completely configured." 
     }
   }
 }

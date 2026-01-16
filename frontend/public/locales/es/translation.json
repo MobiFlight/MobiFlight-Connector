@@ -313,7 +313,8 @@
         "match": "conectado"
       },
       "ControllersInProject": "{{count}} controladores usados en el proyecto",
-      "ConnectedControllers": "{{count}} controladores conectados a la PC"
+      "ConnectedControllers": "{{count}} controladores conectados a la PC",
+      "AllSet": "¡Todo listo! Tu proyecto está completamente configurado."
     }
   }
 }
