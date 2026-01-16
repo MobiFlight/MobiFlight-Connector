@@ -192,7 +192,7 @@ export class MobiFlightPage {
 
   async openControllerBindingsDialog() {
     const menuItemExtras = this.page.getByRole("menubar").getByRole("menuitem", { name: "Extras" })
-    const menuItemManageControllerBindings = this.page.getByRole("menuitem", { name: "Manage Controller Bindings" })
+    const menuItemManageControllerBindings = this.page.getByRole("menuitem", { name: "Controller Bindings" })
     const dialog = this.page.getByRole("dialog", { name: "Controller Bindings" })
 
     await menuItemExtras.click()

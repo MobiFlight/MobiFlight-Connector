@@ -100,13 +100,10 @@ test.describe("Project view tests", () => {
       "Click to view controller binding issues",
     )
 
-    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    const dialog = page.getByRole("dialog", { name: "Controller Bindings" })
+    await expect(dialog).not.toBeVisible()
     await bindingIssueIcon.click()
-    const postedCommands =
-      await dashboardPage.mobiFlightPage.getTrackedCommands()
-    const lastCommand = postedCommands!.pop()
-    expect(lastCommand.key).toEqual("CommandMainMenu")
-    expect(lastCommand.payload.action).toEqual("extras.serials")
+    await expect(dialog).toBeVisible()
   })
 
   test("Confirm project shows more indicator correctly", async ({

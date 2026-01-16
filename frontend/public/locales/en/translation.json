@@ -304,7 +304,7 @@
       "Description": "Bind the controllers used in this project to the physical controllers connected to your computer.",
       "Filter": {
         "all": "All",
-        "manual": "Manual bind required",
+        "manual": "Manual bind",
         "autobind": "Auto-bind",
         "missing": "Missing",
         "match": "Match"
