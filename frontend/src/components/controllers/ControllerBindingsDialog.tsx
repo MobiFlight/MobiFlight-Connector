@@ -94,12 +94,12 @@ const ControllerBindingsDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="flex max-h-[90vh] min-h-[50vh] flex-col overflow-y-auto sm:max-w-150 lg:max-w-200 xl:max-w-250 select-none">
+      <DialogContent className="flex min-h-[90%] vsm:min-h-[75%] vxl:min-h-[60%] flex-col overflow-y-auto sm:max-w-150 lg:max-w-200 xl:max-w-250 select-none">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             {t("Dialog.ControllerBinding.Title")}
           </DialogTitle>
-          <DialogDescription className="text-md">
+          <DialogDescription className="text-md hidden vsm:block">
             {t("Dialog.ControllerBinding.Description")}
           </DialogDescription>
         </DialogHeader>
