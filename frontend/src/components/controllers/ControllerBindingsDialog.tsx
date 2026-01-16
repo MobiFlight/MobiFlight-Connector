@@ -108,10 +108,10 @@ const ControllerBindingsDialog = ({
           <div className="flex flex-col pt-2">
             <div className="flex flex-row justify-between">
               <div className="text-muted-foreground font-semibold">
-                Original controller
+                Controllers used in project
               </div>
               <div className="text-muted-foreground font-semibold">
-                Connected controller
+                Controllers connected to PC
               </div>
             </div>
             {
