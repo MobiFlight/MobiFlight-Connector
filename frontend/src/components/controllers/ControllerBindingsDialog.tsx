@@ -38,18 +38,9 @@ const ControllerBindingsDialog = ({
   const [finalBindings, setFinalBindings] =
     useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
-  const [filter, setFilter] = useState<ControllerBindingStatus | "all">(
-    "RequiresManualBind" as ControllerBindingStatus,
-  )
-
-  const filteredBindings = finalBindings.filter((binding) => {
-    if (filter === "all") return true
-    return binding.Status === filter
-  })
-
+  
   const availableStates = [...new Set(finalBindings.map((b) => b.Status))]
-
-  const sortedBindings = filteredBindings.sort((a, b) => {
+  const sortedBindings = bindings.sort((a, b) => {
     const priority = {
       RequiresManualBind: 0,
       Missing: 1,
@@ -57,6 +48,14 @@ const ControllerBindingsDialog = ({
       Match: 3,
     }
     return priority[a.Status] - priority[b.Status]
+  })
+
+  const initialFilter = availableStates.length > 0 ? availableStates[0] : "all"
+  const [filter, setFilter] = useState<ControllerBindingStatus | "all">(initialFilter)
+
+  const filteredBindings = sortedBindings.filter((binding) => {
+    if (filter === "all") return true
+    return binding.Status === filter
   })
 
   const handleControllerBindingUpdate = (
@@ -125,7 +124,7 @@ const ControllerBindingsDialog = ({
             <div className="pr-3">
               {
                 /* Original Controller Bindings */
-                sortedBindings.map((binding) => (
+                filteredBindings.map((binding) => (
                   <ControllerBindingItem
                     key={binding.OriginalController}
                     controllerBinding={binding}
