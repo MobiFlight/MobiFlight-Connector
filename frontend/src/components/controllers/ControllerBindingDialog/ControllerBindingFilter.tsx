@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button"
 import { ControllerBindingStatus } from "@/types/controller"
 
 export type ControllerBindingFilterProps = {
+  availableStates: ControllerBindingStatus[]
   activeFilter: ControllerBindingStatus | "all"
   updateFilter: (filter: ControllerBindingStatus | "all") => void
 }
 
 export const ControllerBindingFilter = ({
+  availableStates,
   activeFilter,
   updateFilter,
 }: ControllerBindingFilterProps) => {
@@ -16,11 +18,11 @@ export const ControllerBindingFilter = ({
   }
 
   const options = [
-    { label: "All", value: "all" },
-    { label: "Manual", value: "ManualRebindRequired" as ControllerBindingStatus },
-    { label: "Missing", value: "Missing" as ControllerBindingStatus },
-    { label: "Auto bind", value: "AutoBind" as ControllerBindingStatus },
-    { label: "Match", value: "Match" as ControllerBindingStatus },
+    { label: "All", value: "all", enabled : true },
+    { label: "Manual", value: "RequiresManualBind" as ControllerBindingStatus, enabled: availableStates.includes("RequiresManualBind") },
+    { label: "Missing", value: "Missing" as ControllerBindingStatus, enabled: availableStates.includes("Missing") },
+    { label: "Auto bind", value: "AutoBind" as ControllerBindingStatus, enabled: availableStates.includes("AutoBind") },
+    { label: "Match", value: "Match" as ControllerBindingStatus, enabled: availableStates.includes("Match") },
   ]
 
   return (
@@ -31,6 +33,7 @@ export const ControllerBindingFilter = ({
           className="h-8"
           variant={activeFilter === option.value ? "default" : "outline"}
           onClick={() => handleFilterChange(option.value as ControllerBindingStatus | "all")}
+          disabled={!option.enabled}
         >
           {option.label}
         </Button>

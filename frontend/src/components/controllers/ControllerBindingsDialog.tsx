@@ -11,7 +11,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { Controller, ControllerBinding, ControllerBindingStatus } from "@/types/controller"
+import {
+  Controller,
+  ControllerBinding,
+  ControllerBindingStatus,
+} from "@/types/controller"
 import { IconCheck } from "@tabler/icons-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -33,12 +37,16 @@ const ControllerBindingsDialog = ({
   const [finalBindings, setFinalBindings] =
     useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
-  const [filter, setFilter] = useState<ControllerBindingStatus | "all">("ManualRebindRequired" as ControllerBindingStatus)
+  const [filter, setFilter] = useState<ControllerBindingStatus | "all">(
+    "RequiresManualBind" as ControllerBindingStatus,
+  )
 
   const filteredBindings = finalBindings.filter((binding) => {
     if (filter === "all") return true
     return binding.Status === filter
   })
+
+  const availableStates = [...new Set(finalBindings.map((b) => b.Status))]
 
   const sortedBindings = filteredBindings.sort((a, b) => {
     const priority = {
@@ -95,7 +103,11 @@ const ControllerBindingsDialog = ({
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-2">
-          <ControllerBindingFilter activeFilter={filter} updateFilter={setFilter} />
+          <ControllerBindingFilter
+            availableStates={availableStates}
+            activeFilter={filter}
+            updateFilter={setFilter}
+          />
           <div className="flex flex-col pt-2">
             <div className="flex flex-row justify-between">
               <div className="text-muted-foreground font-semibold">
@@ -107,15 +119,14 @@ const ControllerBindingsDialog = ({
             </div>
             {
               /* Original Controller Bindings */
-              sortedBindings
-                .map((binding) => (
-                  <ControllerBindingItem
-                    key={binding.OriginalController}
-                    controllerBinding={binding}
-                    controllers={controllers}
-                    onUpdate={handleControllerBindingUpdate}
-                  />
-                ))
+              sortedBindings.map((binding) => (
+                <ControllerBindingItem
+                  key={binding.OriginalController}
+                  controllerBinding={binding}
+                  controllers={controllers}
+                  onUpdate={handleControllerBindingUpdate}
+                />
+              ))
             }
           </div>
         </div>
