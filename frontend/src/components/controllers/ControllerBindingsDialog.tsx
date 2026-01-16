@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import {
   Controller,
@@ -93,7 +94,7 @@ const ControllerBindingsDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-150 lg:max-w-200 xl:max-w-250">
+      <DialogContent className="flex max-h-[90vh] min-h-[50vh] flex-col overflow-y-auto sm:max-w-150 lg:max-w-200 xl:max-w-250">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             {t("ControllerBinding.Title")}
@@ -102,33 +103,35 @@ const ControllerBindingsDialog = ({
             {t("ControllerBinding.Description")}
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-2">
-          <ControllerBindingFilter
-            availableStates={availableStates}
-            activeFilter={filter}
-            updateFilter={setFilter}
-          />
-          <div className="flex flex-col pt-2">
-            <div className="flex flex-row justify-between">
-              <div className="text-muted-foreground font-semibold">
-                Controllers used in project
-              </div>
-              <div className="text-muted-foreground font-semibold">
-                Controllers connected to PC
-              </div>
-            </div>
-            {
-              /* Original Controller Bindings */
-              sortedBindings.map((binding) => (
-                <ControllerBindingItem
-                  key={binding.OriginalController}
-                  controllerBinding={binding}
-                  controllers={controllers}
-                  onUpdate={handleControllerBindingUpdate}
-                />
-              ))
-            }
+        <ControllerBindingFilter
+          availableStates={availableStates}
+          activeFilter={filter}
+          updateFilter={setFilter}
+        />
+        <div className="flex flex-row justify-between">
+          <div className="text-muted-foreground font-semibold">
+            Controllers used in project
           </div>
+          <div className="text-muted-foreground font-semibold">
+            Controllers connected to PC
+          </div>
+        </div>
+        <div className="relative flex grow flex-col gap-2">
+          <ScrollArea className="grow">
+            <div className="pr-3">
+              {
+                /* Original Controller Bindings */
+                sortedBindings.map((binding) => (
+                  <ControllerBindingItem
+                    key={binding.OriginalController}
+                    controllerBinding={binding}
+                    controllers={controllers}
+                    onUpdate={handleControllerBindingUpdate}
+                  />
+                ))
+              }
+            </div>
+          </ScrollArea>
         </div>
         <DialogFooter className="flex flex-row justify-between">
           <div className="grow">
