@@ -29,7 +29,7 @@
       }
     },
     "Extras": {
-      "ManageControllers": "Controller-Zuordnungen verwalten"
+      "ControllerBindings": "Controller-Zuordnungen"
     }
   },
   "Types": {
@@ -38,7 +38,7 @@
     "Stepper": "Schrittmotor",
     "Servo": "Servo",
     "LcdDisplay": "LCD Display",
-    "ShiftRegister": "Ouptut Shift Register",
+    "ShiftRegister": "Output Shift Register",
     "CustomDevice": "Custom Device",
     "InputShiftRegister": "Input Shift Register",
     "Button": "Schalter",

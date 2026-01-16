@@ -291,7 +291,7 @@ const ProjectCard = ({
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => showModalOverlay({ route: "/bindings" })}>
                       <IconDeviceGamepad2 />
-                      {t("MainMenu.Extras.ManageControllers")}
+                      {t("MainMenu.Extras.ControllerBindings")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

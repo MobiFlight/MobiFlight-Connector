@@ -29,7 +29,7 @@
       }
     },
     "Extras": {
-      "ManageControllers": "Vincular controladores"
+      "ControllerBindings": "Vincular controladores"
     }
   },
   "Types": {

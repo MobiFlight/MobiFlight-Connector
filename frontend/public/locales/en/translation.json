@@ -29,7 +29,7 @@
       }
     },
     "Extras": {
-      "ManageControllers": "Manage Controller Bindings"
+      "ControllerBindings": "Controller Bindings"
     }
   },
   "Types": {
