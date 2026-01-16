@@ -17,27 +17,37 @@ import {
 } from "@/components/ui/command"
 import { useState } from "react"
 import ControllerBindingStatusIndicator from "@/components/controllers/ControllerBindingDialog/ControllerBindingStatusIndicator"
+import { cn } from "@/lib/utils"
+
+export type ControllerIconWithLabelProps = {
+  serial: string
+  status?: ControllerBinding["Status"] | undefined
+}
 
 const ControllerIconWithLabel = ({
   serial,
   status,
-}: {
-  serial: string
-  status?: ControllerBinding["Status"] | undefined
-}) => {
+  className,
+}: ControllerIconWithLabelProps & React.HTMLAttributes<HTMLDivElement>) => {
   const [controllerLabel, controllerSerial] = serial
     ?.split("/")
     ?.map((s) => s.trim()) ?? [null, null]
   return (
-    <div className="flex flex-row items-center gap-2 text-left">
+    <div
+      className={cn(`flex flex-row items-center gap-2 text-left overflow-hidden`, className)}
+    >
       <ControllerIcon
-        className="transition-all ease-in-out"
+        className="shrink-0"
         serial={serial}
         status={status}
       />
-      <div className="flex flex-col">
-        <div className="font-semibold">{controllerLabel}</div>
-        <div className="text-muted-foreground text-sm">{controllerSerial}</div>
+      <div className="overflow-hidden">
+        <div className="truncate font-semibold">
+          {controllerLabel}
+        </div>
+        <div className="truncate text-sm text-muted-foreground">
+          {controllerSerial}
+        </div>
       </div>
     </div>
   )
@@ -71,11 +81,11 @@ const ControllerBindingItem = ({
 
   return (
     <div
-      className="flex flex-row items-center gap-2 border-b border-solid py-2"
+      className="grid grid-cols-[1fr_auto_1fr] items-center border-b border-solid py-2"
       data-testid="controller-binding-item"
     >
       <div
-        className="flex flex-1/2 flex-row gap-4"
+        className="overflow-hidden"
         data-testid="original-controller"
       >
         <ControllerIconWithLabel
@@ -87,14 +97,14 @@ const ControllerBindingItem = ({
         isBound={!!selectedBoundController}
         status={controllerBinding.Status}
       />
-      <div className="flex flex-1/2 flex-row">
+      <div className="overflow-hidden">
         <Popover open={open} onOpenChange={setOpen} modal={true}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="flex h-14 w-full flex-row justify-between"
+              className="flex h-14 w-full flex-row justify-between overflow-hidden"
               data-testid="bound-controller"
             >
               {selectedBoundController ? (
@@ -108,10 +118,10 @@ const ControllerBindingItem = ({
                   }
                 />
               ) : (
-                "Select a controller"
+                <span className="text-left">Select a controller</span>
               )}
 
-              <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              <IconSelector className="ml-2 h-4 w-4 flex-none shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-107 p-0">
