@@ -6,11 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Controller, ControllerBinding } from "@/types/controller"
-import {
-  IconCircleCheck,
-  IconCircleDashed,
-  IconSelector,
-} from "@tabler/icons-react"
+import { IconSelector } from "@tabler/icons-react"
 import {
   Command,
   CommandInput,
@@ -19,7 +15,8 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import ControllerBindingStatusIndicator from "@/components/controllers/ControllerBindingDialog/ControllerBindingStatusIndicator"
 
 const ControllerIconWithLabel = ({
   serial,
@@ -55,46 +52,38 @@ export type ControllerBindingProps = {
 const ControllerBindingItem = ({
   controllerBinding,
   controllers,
-  onUpdate
+  onUpdate,
 }: ControllerBindingProps) => {
   const [, serial] = controllerBinding?.BoundController?.split("/")?.map((s) =>
     s.trim(),
   ) ?? [null, null]
 
-  const boundController = serial ? controllers.find((controller) =>
-    controller.Serial.includes(serial),
-  ) : null
-  
+  const boundController = serial
+    ? controllers.find((controller) => controller.Serial.includes(serial))
+    : null
+
   const [open, setOpen] = useState(false)
   const [selectedSerial, setSelectedSerial] = useState(boundController?.Serial)
 
-  const selectedBoundController = controllers.find((controller) =>
-    controller.Serial === selectedSerial,
+  const selectedBoundController = controllers.find(
+    (controller) => controller.Serial === selectedSerial,
   )
-  
-  console.log("boundController", boundController)
-  useEffect(() => {
-    console.log("value: ", selectedSerial)
-  }, [selectedSerial])
 
   return (
     <div className="flex flex-row items-center gap-2 border-b border-solid py-2">
-      <div className="flex flex-1/2 flex-row gap-4" data-testid="original-controller">
+      <div
+        className="flex flex-1/2 flex-row gap-4"
+        data-testid="original-controller"
+      >
         <ControllerIconWithLabel
           serial={controllerBinding.OriginalController || ""}
           status={controllerBinding.Status}
         />
       </div>
-      <div className="flex flex-row items-center gap-0">
-        <div className="h-1 w-6 border-b border-muted-foreground/50" />
-        {selectedBoundController ? (
-          <IconCircleCheck className="h-8 w-8 text-green-500" />
-        ) : (
-          <IconCircleDashed className="h-8 w-8 stroke-muted-foreground/50" />
-        )}
-        <div className="h-1 w-6 border-b border-muted-foreground/50" />
-      </div>
-
+      <ControllerBindingStatusIndicator
+        isBound={!!selectedBoundController}
+        status={controllerBinding.Status}
+      />
       <div className="flex flex-1/2 flex-row">
         <Popover open={open} onOpenChange={setOpen} modal={true}>
           <PopoverTrigger asChild>
@@ -109,7 +98,9 @@ const ControllerBindingItem = ({
                 <ControllerIconWithLabel
                   serial={
                     selectedBoundController
-                      ? selectedBoundController.Name + "/" + selectedBoundController.Serial
+                      ? selectedBoundController.Name +
+                        "/" +
+                        selectedBoundController.Serial
                       : ""
                   }
                 />
@@ -120,7 +111,7 @@ const ControllerBindingItem = ({
               <IconSelector className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-107 p-0" >
+          <PopoverContent className="w-107 p-0">
             <Command>
               <CommandInput placeholder="Search controller..." />
               <CommandList>
@@ -132,11 +123,18 @@ const ControllerBindingItem = ({
                       value={controller.Serial}
                       onSelect={(currentValue) => {
                         const itemSelected = currentValue !== selectedSerial
-                        onUpdate(controllerBinding, itemSelected ? controller : null)
-                        setSelectedSerial(itemSelected ? currentValue : "" )
+                        onUpdate(
+                          controllerBinding,
+                          itemSelected ? controller : null,
+                        )
+                        setSelectedSerial(itemSelected ? currentValue : "")
                         setOpen(false)
                       }}
-                      className={selectedSerial===controller.Serial ? "bg-accent/50" : ""}
+                      className={
+                        selectedSerial === controller.Serial
+                          ? "bg-accent/50"
+                          : ""
+                      }
                     >
                       <ControllerIconWithLabel
                         serial={
