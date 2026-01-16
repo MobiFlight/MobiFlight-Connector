@@ -1,3 +1,4 @@
+import { ControllerBindingFilter } from "@/components/controllers/ControllerBindingDialog/ControllerBindingFilter"
 import ControllerBindingItem from "@/components/controllers/ControllerBindingDialog/ControllerBindingItem"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,7 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { Controller, ControllerBinding } from "@/types/controller"
+import { Controller, ControllerBinding, ControllerBindingStatus } from "@/types/controller"
 import { IconCheck } from "@tabler/icons-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -32,8 +33,14 @@ const ControllerBindingsDialog = ({
   const [finalBindings, setFinalBindings] =
     useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
+  const [filter, setFilter] = useState<ControllerBindingStatus | "all">("ManualRebindRequired" as ControllerBindingStatus)
 
-  const sortedBindings = bindings.sort((a, b) => {
+  const filteredBindings = finalBindings.filter((binding) => {
+    if (filter === "all") return true
+    return binding.Status === filter
+  })
+
+  const sortedBindings = filteredBindings.sort((a, b) => {
     const priority = {
       RequiresManualBind: 0,
       Missing: 1,
@@ -72,9 +79,9 @@ const ControllerBindingsDialog = ({
     onOpenChange(false)
   }
 
-  const allControllerAreBound = finalBindings.every((binding) => ["Match", "AutoBind"].includes(binding.Status))
-
-  console.log("finalBindings", finalBindings)
+  const allControllerAreBound = finalBindings.every((binding) =>
+    ["Match", "AutoBind"].includes(binding.Status),
+  )
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -88,23 +95,7 @@ const ControllerBindingsDialog = ({
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-2">
-          <div className="flex flex-row items-center gap-2 pb-2">
-            <Button className="h-8" variant={"default"}>
-              All
-            </Button>
-            <Button className="h-8" variant={"outline"}>
-              Manual rebind
-            </Button>
-            <Button className="h-8" variant={"outline"}>
-              Missing
-            </Button>
-            <Button className="h-8" variant={"outline"}>
-              Auto bind
-            </Button>
-            <Button className="h-8" variant={"outline"}>
-              Match
-            </Button>
-          </div>
+          <ControllerBindingFilter activeFilter={filter} updateFilter={setFilter} />
           <div className="flex flex-col pt-2">
             <div className="flex flex-row justify-between">
               <div className="text-muted-foreground font-semibold">
@@ -116,14 +107,15 @@ const ControllerBindingsDialog = ({
             </div>
             {
               /* Original Controller Bindings */
-              sortedBindings.map((binding, index) => (
-                <ControllerBindingItem
-                  key={index}
-                  controllerBinding={binding}
-                  controllers={controllers}
-                  onUpdate={handleControllerBindingUpdate}
-                />
-              ))
+              sortedBindings
+                .map((binding) => (
+                  <ControllerBindingItem
+                    key={binding.OriginalController}
+                    controllerBinding={binding}
+                    controllers={controllers}
+                    onUpdate={handleControllerBindingUpdate}
+                  />
+                ))
             }
           </div>
         </div>
