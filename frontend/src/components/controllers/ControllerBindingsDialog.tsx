@@ -97,10 +97,10 @@ const ControllerBindingsDialog = ({
       <DialogContent className="flex max-h-[90vh] min-h-[50vh] flex-col overflow-y-auto sm:max-w-150 lg:max-w-200 xl:max-w-250">
         <DialogHeader>
           <DialogTitle className="text-2xl">
-            {t("ControllerBinding.Title")}
+            {t("Dialog.ControllerBinding.Title")}
           </DialogTitle>
           <DialogDescription className="text-md">
-            {t("ControllerBinding.Description")}
+            {t("Dialog.ControllerBinding.Description")}
           </DialogDescription>
         </DialogHeader>
         <ControllerBindingFilter
@@ -110,10 +110,14 @@ const ControllerBindingsDialog = ({
         />
         <div className="flex flex-row justify-between">
           <div className="text-muted-foreground font-semibold">
-            Controllers used in project
+            {t("Dialog.ControllerBinding.ControllersInProject", {
+              count: bindings.length,
+            })}
           </div>
           <div className="text-muted-foreground font-semibold">
-            Controllers connected to PC
+            {t("Dialog.ControllerBinding.ConnectedControllers", {
+              count: controllers.length,
+            })}
           </div>
         </div>
         <div className="relative flex grow flex-col gap-2">
@@ -147,10 +151,12 @@ const ControllerBindingsDialog = ({
           <div className="flex flex-row gap-2">
             <DialogClose asChild>
               <Button variant="outline" type="button">
-                Close
+                {t("Dialog.General.Close")}
               </Button>
             </DialogClose>
-            <Button onClick={saveChanges}>Apply & Save</Button>
+            <Button onClick={saveChanges}>
+              {t("Dialog.General.SaveChanges")}
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>

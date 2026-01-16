@@ -146,8 +146,7 @@
       },
       "Buttons": {
         "Create": "Create project",
-        "Update": "Update project",
-        "Cancel": "Cancel"
+        "Update": "Update project"
       }
     },
     "UnsavedChanges": {
@@ -156,10 +155,6 @@
       "Save": "Save changes",
       "Discard": "Discard changes"
     }
-  },
-  "ControllerBinding": {
-    "Title": "Controller Bindings",
-    "Description": "Bind the controllers used in this project to the physical controllers connected to your computer."
   },
   "ConfigList": {
     "Toolbar": {
@@ -293,6 +288,26 @@
       "shop": "Offers",
       "events": "Events",
       "community": "Community"
+    }
+  },
+  "Dialog": {
+    "General": {
+      "Cancel": "Cancel",
+      "Close": "Close",
+      "SaveChanges": "Save changes"
+    },
+    "ControllerBinding": {
+      "Title": "Controller Bindings",
+      "Description": "Bind the controllers used in this project to the physical controllers connected to your computer.",
+      "Filter": {
+        "all": "All",
+        "manual": "Manual bind required",
+        "autobind": "Auto-bind",
+        "missing": "Missing",
+        "match": "Match"
+      },
+      "ControllersInProject": "{{count}} Controllers used in project",
+      "ConnectedControllers": "{{count}} Controllers connected to PC"
     }
   }
 }

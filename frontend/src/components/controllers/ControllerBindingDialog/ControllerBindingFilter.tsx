@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ControllerBindingStatus } from "@/types/controller"
+import { useTranslation } from "react-i18next"
 
 export type ControllerBindingFilterProps = {
   availableStates: ControllerBindingStatus[]
@@ -13,16 +14,17 @@ export const ControllerBindingFilter = ({
   updateFilter,
 }: ControllerBindingFilterProps) => {
 
+  const { t } = useTranslation()
   const handleFilterChange = (filter: ControllerBindingStatus | "all") => {
     updateFilter(filter)
   }
 
   const options = [
-    { label: "All", value: "all", enabled : true },
-    { label: "Manual", value: "RequiresManualBind" as ControllerBindingStatus, enabled: availableStates.includes("RequiresManualBind") },
-    { label: "Missing", value: "Missing" as ControllerBindingStatus, enabled: availableStates.includes("Missing") },
-    { label: "Auto bind", value: "AutoBind" as ControllerBindingStatus, enabled: availableStates.includes("AutoBind") },
-    { label: "Match", value: "Match" as ControllerBindingStatus, enabled: availableStates.includes("Match") },
+    { label: t("Dialog.ControllerBinding.Filter.all"), value: "all", enabled : true },
+    { label: t("Dialog.ControllerBinding.Filter.manual"), value: "RequiresManualBind" as ControllerBindingStatus, enabled: availableStates.includes("RequiresManualBind") },
+    { label: t("Dialog.ControllerBinding.Filter.missing"), value: "Missing" as ControllerBindingStatus, enabled: availableStates.includes("Missing") },
+    { label: t("Dialog.ControllerBinding.Filter.autobind"), value: "AutoBind" as ControllerBindingStatus, enabled: availableStates.includes("AutoBind") },
+    { label: t("Dialog.ControllerBinding.Filter.match"), value: "Match" as ControllerBindingStatus, enabled: availableStates.includes("Match") },
   ]
 
   return (

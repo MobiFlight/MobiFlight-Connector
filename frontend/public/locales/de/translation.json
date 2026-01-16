@@ -152,8 +152,7 @@
       },
       "Buttons": {
         "Create": "Projekt erstellen",
-        "Update": "Projekt aktualisieren",
-        "Cancel": "Abbrechen"
+        "Update": "Projekt aktualisieren"
       }
     },
     "UnsavedChanges": {
@@ -295,6 +294,26 @@
       "shop": "Angebote",
       "events": "Termine",
       "community": "Community"
+    }
+  },
+  "Dialog": {
+    "General": {
+      "Cancel": "Abbrechen",
+      "Close": "Close",
+      "SaveChanges": "Save changes"
+    },
+    "ControllerBinding": {
+      "Title": "Controller Zuordnungen",
+      "Description": "Ordne die in diesem Projekt verwendeten Controller den physisch an deinen Computer angeschlossenen Controllern zu.",
+      "Filter": {
+        "all": "Alle",
+        "manual": "Manuelle",
+        "autobind": "Automatisch",
+        "missing": "Fehlt",
+        "match": "Angeschlossen"
+      },
+      "ControllersInProject": "{{count}} Controller im Projekt verwendet",
+      "ConnectedControllers": "{{count}} Controller mit PC verbunden"
     }
   }
 }
