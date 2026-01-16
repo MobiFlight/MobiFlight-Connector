@@ -70,7 +70,10 @@ const ControllerBindingItem = ({
   )
 
   return (
-    <div className="flex flex-row items-center gap-2 border-b border-solid py-2">
+    <div
+      className="flex flex-row items-center gap-2 border-b border-solid py-2"
+      data-testid="controller-binding-item"
+    >
       <div
         className="flex flex-1/2 flex-row gap-4"
         data-testid="original-controller"

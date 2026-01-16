@@ -52,3 +52,29 @@ test("Confirm Controller Binding Dialog shows correct information", async ({
     await expect(boundControllers.getByText(boundSerial)).toBeVisible()
   }
 })
+
+test("Confirm Controller Binding Dialog filters correctly", async ({
+  configListPage,
+  page,
+}) => {
+  const mobiFlightPage = configListPage.mobiFlightPage
+
+  await configListPage.gotoPage()
+  await mobiFlightPage.initWithTestData()
+  await mobiFlightPage.openControllerBindingsDialog()
+  const dialog = page.getByRole("dialog", { name: "Controller Bindings" })
+
+  const filterTest = [
+    { filter: "Auto bind", expectedCount: 1 },
+    { filter: "Manual", expectedCount: 1 },
+    { filter: "Match", expectedCount: 3 },
+    { filter: "Missing", expectedCount: 2 },
+    { filter: "All", expectedCount: 7 },
+  ]
+
+  for (const { filter, expectedCount } of filterTest) {
+    const filterButton = dialog.getByRole("button", { name: filter })
+    await filterButton.click()
+    await expect(dialog.getByTestId("controller-binding-item").filter({ visible: true })).toHaveCount(expectedCount)
+  }
+})
