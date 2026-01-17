@@ -335,6 +335,7 @@ namespace MobiFlight.Tests
         public void Execute_ShouldNotThrowException_WhenExecuteDisplayFails()
         {
             // Arrange
+            var variable = new MobiFlightVariable() { Name = "TestVar", Number = 100 };
             var cfg = new OutputConfigItem
             {
                 GUID = Guid.NewGuid().ToString(),
@@ -342,11 +343,15 @@ namespace MobiFlight.Tests
                 Name = "Test Config with Error",
                 ModuleSerial = "Test / SN-123",
                 DeviceType = MobiFlightOutput.TYPE,
-                Device = new OutputConfig.Output { Pin = "1" }
+                Device = new OutputConfig.Output { Pin = "1" },
+                Source = new VariableSource() { MobiFlightVariable = variable }
             };
 
             var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
 
+            // Mock the variable source to return a value
+            mockMobiFlightCache.Setup(m => m.GetMobiFlightVariable(It.IsAny<string>())).Returns(variable);
+            
             // Mock an error during SetValue execution
             mockMobiFlightCache
                 .Setup(m => m.SetValue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
