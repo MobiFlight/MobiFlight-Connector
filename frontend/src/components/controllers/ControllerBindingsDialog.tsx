@@ -39,15 +39,26 @@ const ControllerBindingsDialog = ({
     useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
 
-  const availableStates = [...new Set(finalBindings.map((b) => b.Status))]
-  const sortedBindings = [...bindings].sort((a, b) => {
+  // Use the original bindings to determine available states
+  // this will ensure that the filter options are consistent
+  // even if the user has changed some bindings using the dialog
+  const availableStates = [...new Set(bindings.map((b) => b.Status))]
+
+  // Sort bindings by status priority using their original status
+  const sortedBindings = [...finalBindings].sort((a, b) => {
+    const originalStatusA = bindings.find(
+      (bind) => bind.OriginalController === a.OriginalController,
+    )?.Status ?? a.Status
+    const originalStatusB = bindings.find(
+      (bind) => bind.OriginalController === b.OriginalController,
+    )?.Status ?? b.Status
     const priority = {
       RequiresManualBind: 0,
       Missing: 1,
       AutoBind: 2,
       Match: 3,
     }
-    return priority[a.Status] - priority[b.Status]
+    return priority[originalStatusA] - priority[originalStatusB]
   })
 
   const initialFilter =
@@ -56,9 +67,17 @@ const ControllerBindingsDialog = ({
     initialFilter,
   )
 
+  // Filter bindings based on selected filter
+  // Use the original status for filter evaluation
   const filteredBindings = sortedBindings.filter((binding) => {
     if (filter === "all") return true
-    return binding.Status === filter
+    
+    // Filter based on original status
+    const originalStatus = bindings.find(
+      (bind) => bind.OriginalController === binding.OriginalController,
+    )?.Status ?? binding.Status
+    
+    return originalStatus === filter
   })
 
   const handleControllerBindingUpdate = (
