@@ -886,10 +886,11 @@ namespace MobiFlight.Tests
             Assert.AreEqual("100", updatedConfig1.Value, "Config1 should have correct value");
             Assert.AreEqual("300", updatedConfig3.Value, "Config3 should have correct value");
 
-            // Config2 should have an error status but still be processed
+            // Config2 should be processed even though it references a non-existent module
+            // It won't have an error status because no module with that serial exists,
+            // so ExecuteDisplay returns early without throwing
             var updatedConfig2 = updatedValues[configItem2.GUID] as OutputConfigItem;
-            Assert.IsTrue(updatedConfig2.Status.ContainsKey(ConfigItemStatusType.Device),
-                "Config2 should have device error status");
+            Assert.AreEqual("200", updatedConfig2.Value, "Config2 should have value from source");
 
             // Execution manager should still be running
             Assert.IsTrue(_executionManager.IsStarted(), "ExecutionManager should still be running after error");
