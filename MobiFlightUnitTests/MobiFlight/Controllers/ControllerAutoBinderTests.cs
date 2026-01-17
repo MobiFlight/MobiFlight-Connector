@@ -813,7 +813,7 @@ namespace MobiFlight.Tests.Controllers
         }
 
         [TestMethod]
-        public void ApplyBindingUpdate_WithNullBoundController_UpdatesToNull()
+        public void ApplyBindingUpdate_WithNullBoundController_SkipsUpdate()
         {
             // Arrange
             var connectedControllers = new List<string>();
@@ -838,7 +838,7 @@ namespace MobiFlight.Tests.Controllers
             binder.ApplyBindingUpdate(configItems, controllerBindings);
 
             // Assert
-            Assert.IsNull(configItems[0].ModuleSerial, "Should update to null when BoundController is null");
+            Assert.AreEqual("Board # / SN-OLD", configItems[0].ModuleSerial, "Should skip update when Bound Controller is null");
         }
 
         [TestMethod]
@@ -869,7 +869,7 @@ namespace MobiFlight.Tests.Controllers
             // Assert
             Assert.AreEqual("Board1 # / SN-NEW1", configItems[0].ModuleSerial, "Should be auto-bound");
             Assert.AreEqual("Board2 # / SN-NEW2", configItems[1].ModuleSerial, "Should be auto-bound");
-            Assert.IsNull(configItems[2].ModuleSerial, "Missing controller should remain unchanged");
+            Assert.AreEqual("Board3 # / SN-MISSING", configItems[2].ModuleSerial, "Missing controller should remain unchanged");
         }
 
         #endregion

@@ -70,10 +70,11 @@ namespace MobiFlight.Controllers
                         ? ControllerBindingStatus.Match
                         : ControllerBindingStatus.AutoBind;
 
-                    results.Add(new ControllerBinding() { 
-                        Status = previousStatus, 
-                        BoundController = previouslyBoundController.BoundController, 
-                        OriginalController = serial 
+                    results.Add(new ControllerBinding()
+                    {
+                        Status = previousStatus,
+                        BoundController = previouslyBoundController.BoundController,
+                        OriginalController = serial
                     });
 
                     availableControllers.Remove(previouslyBoundController.BoundController);
@@ -192,7 +193,9 @@ namespace MobiFlight.Controllers
                     continue;
 
                 var mapping = controllerBindings.FirstOrDefault(m => m.OriginalController == item.ModuleSerial);
+                
                 if (mapping == null) continue;
+                if (mapping.BoundController == null) continue;
 
                 item.ModuleSerial = mapping.BoundController;
             }
