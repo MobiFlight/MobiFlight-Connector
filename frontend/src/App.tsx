@@ -51,7 +51,7 @@ function App() {
   const { project, setProject, setHasChanged } = useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
-  const { setController } = useControllerStore()
+  const { setControllers } = useControllerStore()
   const {
     setBoardDefinitions,
     setJoystickDefinitions,
@@ -159,7 +159,7 @@ function App() {
 
   useAppMessage("ConnectedControllers", (message) => {
     const controllers = (message.payload as ConnectedControllers).Controllers
-    setController(controllers)
+    setControllers(controllers)
   })
 
   useEffect(() => {
@@ -185,7 +185,7 @@ function App() {
         testMidiDefinition as MidiControllerDefinition,
       ])
 
-      setController(testControllers as ConnectedControllers["Controllers"])
+      setControllers(testControllers as ConnectedControllers["Controllers"])
     }
   }, [
     project,
@@ -194,7 +194,7 @@ function App() {
     setMidiControllerDefinitions,
     setProject,
     setRecentProjects,
-    setController,
+    setControllers,
   ])
 
   useAppMessage("ExecutionState", (message) => {
