@@ -22,8 +22,12 @@ import { ConfigValueRawAndFinalUpdate, ExecutionState } from "@/types/messages"
 export class ConfigListPage {
   constructor(public readonly mobiFlightPage: MobiFlightPage) {}
 
+  getPageUrl() {
+    return "http://localhost:5173/config"
+  }
+
   async gotoPage() {
-    await this.mobiFlightPage.page.goto("http://localhost:5173/config", {
+    await this.mobiFlightPage.page.goto(this.getPageUrl(), {
       waitUntil: "networkidle",
     })
   }

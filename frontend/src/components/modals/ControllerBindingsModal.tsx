@@ -1,22 +1,24 @@
 import ControllerBindingsDialog from "@/components/controllers/ControllerBindingsDialog"
 import { useControllerStore } from "@/stores/controllerStore"
 import { useProjectStore } from "@/stores/projectStore"
+import { useState } from "react"
 import { useNavigate } from "react-router"
 
 const ControllerBindingsModal = () => {
   const { project } = useProjectStore()
   const { controllers } = useControllerStore()
   const navigate = useNavigate()
-  const close = () => navigate(-1)
   const bindings = project?.ControllerBindings || []
+  const [ open, setOpen ] = useState(true);
 
   return (
     <ControllerBindingsDialog
       bindings={bindings}
       controllers={controllers}
-      isOpen
+      isOpen={open}
       onOpenChange={(open: boolean) => {
-        if (!open) close()
+        setOpen(open)
+        navigate(-1)
       }}
     />
   )
