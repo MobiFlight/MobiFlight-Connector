@@ -38,7 +38,7 @@ const ControllerBindingsDialog = ({
   const [finalBindings, setFinalBindings] =
     useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
-  
+
   const availableStates = [...new Set(finalBindings.map((b) => b.Status))]
   const sortedBindings = bindings.sort((a, b) => {
     const priority = {
@@ -50,8 +50,11 @@ const ControllerBindingsDialog = ({
     return priority[a.Status] - priority[b.Status]
   })
 
-  const initialFilter = availableStates.length > 0 ? availableStates[0] : "all"
-  const [filter, setFilter] = useState<ControllerBindingStatus | "all">(initialFilter)
+  const initialFilter =
+    sortedBindings.length > 0 ? sortedBindings[0].Status : "all"
+  const [filter, setFilter] = useState<ControllerBindingStatus | "all">(
+    initialFilter,
+  )
 
   const filteredBindings = sortedBindings.filter((binding) => {
     if (filter === "all") return true
@@ -93,12 +96,12 @@ const ControllerBindingsDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="flex min-h-[90%] vsm:min-h-[75%] vxl:min-h-[60%] flex-col overflow-y-auto sm:max-w-150 lg:max-w-200 xl:max-w-250 select-none">
+      <DialogContent className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             {t("Dialog.ControllerBinding.Title")}
           </DialogTitle>
-          <DialogDescription className="text-md hidden vsm:block">
+          <DialogDescription className="text-md vsm:block hidden">
             {t("Dialog.ControllerBinding.Description")}
           </DialogDescription>
         </DialogHeader>
@@ -137,7 +140,7 @@ const ControllerBindingsDialog = ({
           </ScrollArea>
         </div>
         <DialogFooter className="flex flex-row justify-between">
-          <div className="grow flex flex-row items-center gap-1">
+          <div className="flex grow flex-row items-center gap-1">
             {allControllerAreBound && (
               <>
                 <IconCheck className="mr-2 inline h-8 w-8 text-green-600" />
