@@ -297,7 +297,8 @@
     "General": {
       "Cancel": "Cancel",
       "Close": "Close",
-      "SaveChanges": "Save changes"
+      "SaveChanges": "Save changes",
+      "ApplyChanges": "Apply changes"
     },
     "ControllerBinding": {
       "Title": "Controller Bindings",

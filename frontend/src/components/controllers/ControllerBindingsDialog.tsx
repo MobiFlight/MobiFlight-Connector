@@ -176,7 +176,7 @@ const ControllerBindingsDialog = ({
               </Button>
             </DialogClose>
             <Button onClick={saveChanges}>
-              {t("Dialog.General.SaveChanges")}
+              {t("Dialog.General.ApplyChanges")}
             </Button>
           </div>
         </DialogFooter>

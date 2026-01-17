@@ -303,7 +303,8 @@
     "General": {
       "Cancel": "Abbrechen",
       "Close": "Schließen",
-      "SaveChanges": "Änderungen speichern"
+      "SaveChanges": "Änderungen speichern",
+      "ApplyChanges": "Änderungen übernehmen"
     },
     "ControllerBinding": {
       "Title": "Controller Zuordnungen",

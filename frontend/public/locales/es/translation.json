@@ -303,7 +303,8 @@
     "General": {
       "Cancel": "Cancelar",
       "Close": "Cerrar",
-      "SaveChanges": "Guardar cambios"
+      "SaveChanges": "Guardar cambios",
+      "ApplyChanges": "Aplicar cambios"
     },
     "ControllerBinding": {
       "Title": "Vincular controladores",

@@ -274,6 +274,7 @@ namespace MobiFlight.UI
             {
                 ControllerBindingService.UpdateControllerBindings(execManager.Project, message.Bindings);
                 MessageExchange.Instance.Publish(execManager.Project);
+                ProjectOrConfigFileHasChanged();
             });
         }
 
