@@ -195,7 +195,7 @@ namespace MobiFlight
             mobiFlightCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
             mobiFlightCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
-            
+
             scriptRunner = new ScriptRunner(joystickManager, this.simConnectCache);
             OnSimAircraftChanged += scriptRunner.OnSimAircraftChanged;
             OnSimAircraftPathChanged += scriptRunner.OnSimAircraftPathChanged;
@@ -223,7 +223,7 @@ namespace MobiFlight
             };
 
 
-            OnMidiBoardConnectedFinished += (s,e)=> { PublishConnectedDevices(); };
+            OnMidiBoardConnectedFinished += (s, e) => { PublishConnectedDevices(); };
             OnJoystickConnectedFinished += (s, e) => { PublishConnectedDevices(); };
 
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
@@ -296,7 +296,7 @@ namespace MobiFlight
 
             updatedValues.Keys.ToList().ForEach(key =>
             {
-                if(!updatedValues.TryRemove(key, out var value))
+                if (!updatedValues.TryRemove(key, out var value))
                     return;
 
                 list.Add(new ConfigValueOnlyItem(value));
@@ -330,7 +330,8 @@ namespace MobiFlight
 
             MessageExchange.Instance.Subscribe<CommandAddConfigItem>((message) =>
             {
-                IConfigItem item = new OutputConfigItem() {
+                IConfigItem item = new OutputConfigItem()
+                {
                     Source = SourceFactory.Create(Project.ToProjectInfo().Sim)
                 };
                 if (message.Type == "InputConfig")
@@ -1230,7 +1231,7 @@ namespace MobiFlight
             // without MobiFlight in Run-mode nor in test mode
             // in all other cases it will already be running
             mobiFlightCache.StartKeepAwake();
-            
+
             var executor = new ConfigItemExecutor(ConfigItems,
                                                   arcazeCache,
                                                   fsuipcCache,

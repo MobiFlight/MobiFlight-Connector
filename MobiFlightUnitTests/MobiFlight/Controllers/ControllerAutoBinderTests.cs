@@ -578,5 +578,300 @@ namespace MobiFlight.Tests.Controllers
         }
 
         #endregion
+
+        #region ApplyBindingUpdate Tests
+
+        [TestMethod]
+        public void ApplyBindingUpdate_WithValidBindings_UpdatesAllMatchingConfigItems()
+        {
+            // Arrange
+            var connectedControllers = new List<string> { "Board # / SN-123" };
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("Board # / SN-OLD"),
+                CreateConfigItem("Board # / SN-OLD"),
+                CreateConfigItem("OtherBoard # / SN-999")
+            };
+
+            var controllerBindings = new List<ControllerBinding>
+            {
+                new ControllerBinding
+                {
+                    OriginalController = "Board # / SN-OLD",
+                    BoundController = "Board # / SN-NEW",
+                    Status = ControllerBindingStatus.AutoBind
+                }
+            };
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.AreEqual("Board # / SN-NEW", configItems[0].ModuleSerial, "First item should be updated");
+            Assert.AreEqual("Board # / SN-NEW", configItems[1].ModuleSerial, "Second item should be updated");
+            Assert.AreEqual("OtherBoard # / SN-999", configItems[2].ModuleSerial, "Unmatched item should remain unchanged");
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_WithMultipleBindings_UpdatesEachCorrectly()
+        {
+            // Arrange
+            var connectedControllers = new List<string>();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("Board1 # / SN-OLD1"),
+                CreateConfigItem("Board2 # / SN-OLD2"),
+                CreateConfigItem("Board3 # / SN-OLD3")
+            };
+
+            var controllerBindings = new List<ControllerBinding>
+            {
+                new ControllerBinding
+                {
+                    OriginalController = "Board1 # / SN-OLD1",
+                    BoundController = "Board1 # / SN-NEW1",
+                    Status = ControllerBindingStatus.AutoBind
+                },
+                new ControllerBinding
+                {
+                    OriginalController = "Board2 # / SN-OLD2",
+                    BoundController = "Board2 # / SN-NEW2",
+                    Status = ControllerBindingStatus.AutoBind
+                },
+                new ControllerBinding
+                {
+                    OriginalController = "Board3 # / SN-OLD3",
+                    BoundController = "Board3 # / SN-NEW3",
+                    Status = ControllerBindingStatus.Match
+                }
+            };
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.AreEqual("Board1 # / SN-NEW1", configItems[0].ModuleSerial);
+            Assert.AreEqual("Board2 # / SN-NEW2", configItems[1].ModuleSerial);
+            Assert.AreEqual("Board3 # / SN-NEW3", configItems[2].ModuleSerial);
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_WithEmptyBindings_MakesNoChanges()
+        {
+            // Arrange
+            var connectedControllers = new List<string>();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("Board # / SN-123"),
+                CreateConfigItem("OtherBoard # / SN-456")
+            };
+
+            var controllerBindings = new List<ControllerBinding>();
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.AreEqual("Board # / SN-123", configItems[0].ModuleSerial);
+            Assert.AreEqual("OtherBoard # / SN-456", configItems[1].ModuleSerial);
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_IgnoresEmptyModuleSerials()
+        {
+            // Arrange
+            var connectedControllers = new List<string>();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem(""),
+                CreateConfigItem(null),
+                CreateConfigItem("Board # / SN-OLD")
+            };
+
+            var controllerBindings = new List<ControllerBinding>
+            {
+                new ControllerBinding
+                {
+                    OriginalController = "Board # / SN-OLD",
+                    BoundController = "Board # / SN-NEW",
+                    Status = ControllerBindingStatus.AutoBind
+                }
+            };
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.AreEqual("", configItems[0].ModuleSerial, "Empty serial should remain empty");
+            Assert.IsNull(configItems[1].ModuleSerial, "Null serial should remain null");
+            Assert.AreEqual("Board # / SN-NEW", configItems[2].ModuleSerial, "Valid serial should be updated");
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_IgnoresDashModuleSerials()
+        {
+            // Arrange
+            var connectedControllers = new List<string>();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("-"),
+                CreateConfigItem("Board # / SN-OLD")
+            };
+
+            var controllerBindings = new List<ControllerBinding>
+            {
+                new ControllerBinding
+                {
+                    OriginalController = "-",
+                    BoundController = "Board # / SN-NEW",
+                    Status = ControllerBindingStatus.AutoBind
+                },
+                new ControllerBinding
+                {
+                    OriginalController = "Board # / SN-OLD",
+                    BoundController = "Board # / SN-NEW2",
+                    Status = ControllerBindingStatus.AutoBind
+                }
+            };
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.AreEqual("-", configItems[0].ModuleSerial, "Dash serial should remain unchanged");
+            Assert.AreEqual("Board # / SN-NEW2", configItems[1].ModuleSerial, "Valid serial should be updated");
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_WithNoMatchingBinding_LeavesConfigUnchanged()
+        {
+            // Arrange
+            var connectedControllers = new List<string>();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("Board # / SN-123"),
+                CreateConfigItem("OtherBoard # / SN-456")
+            };
+
+            var controllerBindings = new List<ControllerBinding>
+            {
+                new ControllerBinding
+                {
+                    OriginalController = "DifferentBoard # / SN-999",
+                    BoundController = "DifferentBoard # / SN-000",
+                    Status = ControllerBindingStatus.AutoBind
+                }
+            };
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.AreEqual("Board # / SN-123", configItems[0].ModuleSerial, "Unmatched items should remain unchanged");
+            Assert.AreEqual("OtherBoard # / SN-456", configItems[1].ModuleSerial, "Unmatched items should remain unchanged");
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_WithMissingStatusBinding_StillUpdates()
+        {
+            // Arrange
+            var connectedControllers = new List<string>();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("Board # / SN-OLD")
+            };
+
+            var controllerBindings = new List<ControllerBinding>
+            {
+                new ControllerBinding
+                {
+                    OriginalController = "Board # / SN-OLD",
+                    BoundController = "Board # / SN-NEW",
+                    Status = ControllerBindingStatus.Missing
+                }
+            };
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.AreEqual("Board # / SN-NEW", configItems[0].ModuleSerial, "Should update regardless of status");
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_WithNullBoundController_UpdatesToNull()
+        {
+            // Arrange
+            var connectedControllers = new List<string>();
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("Board # / SN-OLD")
+            };
+
+            var controllerBindings = new List<ControllerBinding>
+            {
+                new ControllerBinding
+                {
+                    OriginalController = "Board # / SN-OLD",
+                    BoundController = null,
+                    Status = ControllerBindingStatus.Missing
+                }
+            };
+
+            // Act
+            binder.ApplyBindingUpdate(configItems, controllerBindings);
+
+            // Assert
+            Assert.IsNull(configItems[0].ModuleSerial, "Should update to null when BoundController is null");
+        }
+
+        [TestMethod]
+        public void ApplyBindingUpdate_IntegrationWithAnalyzeBindings_WorksTogether()
+        {
+            // This test validates that ApplyBindingUpdate works correctly with output from AnalyzeBindings
+            // Arrange
+            var connectedControllers = new List<string>
+            {
+                "Board1 # / SN-NEW1",
+                "Board2 # / SN-NEW2"
+            };
+            var binder = new ControllerAutoBinder(connectedControllers);
+
+            var configItems = new List<IConfigItem>
+            {
+                CreateConfigItem("Board1 # / SN-OLD1"),
+                CreateConfigItem("Board2 # / SN-OLD2"),
+                CreateConfigItem("Board3 # / SN-MISSING")
+            };
+
+            var existingBindings = new List<ControllerBinding>();
+
+            // Act
+            var analyzedBindings = binder.AnalyzeBindings(configItems, existingBindings);
+            binder.ApplyBindingUpdate(configItems, analyzedBindings);
+
+            // Assert
+            Assert.AreEqual("Board1 # / SN-NEW1", configItems[0].ModuleSerial, "Should be auto-bound");
+            Assert.AreEqual("Board2 # / SN-NEW2", configItems[1].ModuleSerial, "Should be auto-bound");
+            Assert.AreEqual("Board3 # / SN-MISSING", configItems[2].ModuleSerial, "Missing controller should remain unchanged");
+        }
+
+        #endregion
     }
 }
