@@ -103,13 +103,7 @@ const ControllerBindingItem = ({
             >
               {selectedBoundController ? (
                 <ControllerIconWithLabel
-                  serial={
-                    selectedBoundController
-                      ? selectedBoundController.Name +
-                        "/" +
-                        selectedBoundController.Serial
-                      : ""
-                  }
+                  serial={`${selectedBoundController.Name} / ${selectedBoundController.Serial}`}
                 />
               ) : (
                 <span className="text-left">Select a controller</span>
@@ -144,11 +138,7 @@ const ControllerBindingItem = ({
                       }
                     >
                       <ControllerIconWithLabel
-                        serial={
-                          controller
-                            ? controller.Name + "/" + controller.Serial
-                            : ""
-                        }
+                        serial={`${controller.Name} / ${controller.Serial}`}
                       />
                     </CommandItem>
                   ))}

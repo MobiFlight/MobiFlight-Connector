@@ -8,10 +8,9 @@ import { Project } from "@/types"
 import { ProjectInfo } from "@/types/project"
 import { ControllerBinding } from "@/types/controller"
 
-
 declare global {
   interface Window {
-    commands?: CommandMessage[];
+    commands?: CommandMessage[]
   }
 }
 
@@ -86,26 +85,23 @@ export class MobiFlightPage {
   }
 
   async trackCommand(key: CommandMessageKey) {
-    await this.subscribeToCommand(
-      key,
-      async (message) => {
-        if (window.commands === undefined) {
-          window.commands = []
-        }
-        window.commands.push(message)
-      },
-    )
+    await this.subscribeToCommand(key, async (message) => {
+      if (window.commands === undefined) {
+        window.commands = []
+      }
+      window.commands.push(message)
+    })
   }
 
   async getTrackedCommands() {
     // Small delay to ensure commands are captured
     // this was needed when upgrading playwright version to 1.56.1
-    await this.page.waitForTimeout(10) 
-    return await this.page.evaluate(() => window.commands);
+    await this.page.waitForTimeout(10)
+    return await this.page.evaluate(() => window.commands)
   }
 
   getTooltipByText(text: string): Locator {
-    return this.page.getByRole("tooltip").filter({hasText:text})
+    return this.page.getByRole("tooltip").filter({ hasText: text })
   }
 
   async initWithEmptyData() {
@@ -117,8 +113,8 @@ export class MobiFlightPage {
         ConfigFiles: [],
         Sim: "msfs",
         Features: {
-            "FSUIPC": false,
-            "ProSim": false
+          FSUIPC: false,
+          ProSim: false,
         },
         ControllerBindings: [],
       } as Project,
@@ -191,13 +187,19 @@ export class MobiFlightPage {
   }
 
   async openControllerBindingsDialog() {
-    const menuItemExtras = this.page.getByRole("menubar").getByRole("menuitem", { name: "Extras" })
-    const menuItemManageControllerBindings = this.page.getByRole("menuitem", { name: "Controller Bindings" })
-    const dialog = this.page.getByRole("dialog", { name: "Controller Bindings" })
+    const menuItemExtras = this.page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "Extras" })
+    const menuItemManageControllerBindings = this.page.getByRole("menuitem", {
+      name: "Controller Bindings",
+    })
+    const dialog = this.page.getByRole("dialog", {
+      name: "Controller Bindings",
+    })
 
     await menuItemExtras.click()
     await menuItemManageControllerBindings.click()
-    await dialog.waitFor({ state: "visible" }) 
+    await dialog.waitFor({ state: "visible" })
   }
 
   getControllerBindings() {

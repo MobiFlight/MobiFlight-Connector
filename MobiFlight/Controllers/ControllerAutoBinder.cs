@@ -189,11 +189,11 @@ namespace MobiFlight.Controllers
             // Apply the mappings to config items
             foreach (var item in configItems)
             {
-                if (string.IsNullOrEmpty(item.ModuleSerial) || item.ModuleSerial == "-")
-                    continue;
+                var skipItemBecauseEmpty = string.IsNullOrEmpty(item.ModuleSerial) || item.ModuleSerial == "-";
+                if (skipItemBecauseEmpty) continue;
 
                 var mapping = controllerBindings.FirstOrDefault(m => m.OriginalController == item.ModuleSerial);
-                
+
                 if (mapping == null) continue;
                 if (mapping.BoundController == null) continue;
 

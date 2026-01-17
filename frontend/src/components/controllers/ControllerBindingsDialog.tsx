@@ -109,7 +109,7 @@ const ControllerBindingsDialog = ({
     onOpenChange(false)
   }
 
-  const allControllerAreBound = finalBindings.every((binding) =>
+  const allControllersAreBound = finalBindings.every((binding) =>
     ["Match", "AutoBind"].includes(binding.Status),
   )
 
@@ -160,7 +160,7 @@ const ControllerBindingsDialog = ({
         </div>
         <DialogFooter className="flex flex-row justify-between">
           <div className="flex grow flex-row items-center gap-1">
-            {allControllerAreBound && (
+            {allControllersAreBound && (
               <>
                 <IconCheck className="mr-2 inline h-8 w-8 text-green-600" />
                 <span className="text-green-600">

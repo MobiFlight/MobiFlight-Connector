@@ -96,15 +96,15 @@ test("Confirm Controller Binding assignment works correctly", async ({
   page,
 }) => {
   const mobiFlightPage = configListPage.mobiFlightPage
-  
+
   await configListPage.gotoPage()
   await mobiFlightPage.initWithTestData()
   await mobiFlightPage.openControllerBindingsDialog()
-  
+
   // Start tracking commands after opening the dialog
   // this is necessary to use the correct page context
   mobiFlightPage.trackCommand("CommandControllerBindingsUpdate")
-  
+
   const dialog = page.getByRole("dialog", { name: "Controller Bindings" })
 
   const manualFilterButton = dialog.getByRole("button", { name: "Manual" })
@@ -155,7 +155,7 @@ test("Confirm Controller Binding Dialog filters correctly", async ({
 
   const filterTest = [
     { filter: "Auto-bind", expectedCount: 1 },
-    { filter: "Manual", expectedCount: 1 },
+    { filter: "Manual bind", expectedCount: 1 },
     { filter: "Match", expectedCount: 3 },
     { filter: "Missing", expectedCount: 2 },
     { filter: "All", expectedCount: 7 },

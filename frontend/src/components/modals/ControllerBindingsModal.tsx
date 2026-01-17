@@ -9,7 +9,7 @@ const ControllerBindingsModal = () => {
   const { controllers } = useControllerStore()
   const navigate = useNavigate()
   const bindings = project?.ControllerBindings || []
-  const [ open, setOpen ] = useState(true);
+  const [open, setOpen] = useState(true)
 
   return (
     <ControllerBindingsDialog
