@@ -22,7 +22,7 @@ function ConfigItemTableDeviceCell({
     const Status = item.Status
     const Device = Status && !isEmpty(Status["Device"])
 
-    const controllerName = item.ModuleSerial.split(" / ")[0] ?? "not set"
+    const controllerName = item.ModuleSerial?.split(" / ")[0] ?? "not set"
 
     const joystickDefinition = JoystickDefinitions.find(
       (i) => i.InstanceName == controllerName,
