@@ -46,12 +46,12 @@ const ControllerBindingsDialog = ({
 
   // Sort bindings by status priority using their original status
   const sortedBindings = [...finalBindings].sort((a, b) => {
-    const originalStatusA = bindings.find(
-      (bind) => bind.OriginalController === a.OriginalController,
-    )?.Status ?? a.Status
-    const originalStatusB = bindings.find(
-      (bind) => bind.OriginalController === b.OriginalController,
-    )?.Status ?? b.Status
+    const originalStatusA =
+      bindings.find((bind) => bind.OriginalController === a.OriginalController)
+        ?.Status ?? a.Status
+    const originalStatusB =
+      bindings.find((bind) => bind.OriginalController === b.OriginalController)
+        ?.Status ?? b.Status
     const priority = {
       RequiresManualBind: 0,
       Missing: 1,
@@ -71,12 +71,13 @@ const ControllerBindingsDialog = ({
   // Use the original status for filter evaluation
   const filteredBindings = sortedBindings.filter((binding) => {
     if (filter === "all") return true
-    
+
     // Filter based on original status
-    const originalStatus = bindings.find(
-      (bind) => bind.OriginalController === binding.OriginalController,
-    )?.Status ?? binding.Status
-    
+    const originalStatus =
+      bindings.find(
+        (bind) => bind.OriginalController === binding.OriginalController,
+      )?.Status ?? binding.Status
+
     return originalStatus === filter
   })
 
@@ -85,16 +86,15 @@ const ControllerBindingsDialog = ({
     controller: Controller | null,
   ) => {
     const updatedBindings = finalBindings.map((b) => {
-      if (b.OriginalController === binding.OriginalController) {
-        return {
-          ...b,
-          BoundController: controller
-            ? controller.Name + " / " + controller.Serial
-            : null,
-          Status: controller ? "Match" : "Missing",
-        } as ControllerBinding
-      }
-      return b
+      if (b.OriginalController !== binding.OriginalController) return b
+
+      return {
+        ...b,
+        BoundController: controller
+          ? controller.Name + " / " + controller.Serial
+          : null,
+        Status: controller ? "Match" : "Missing",
+      } as ControllerBinding
     })
     setFinalBindings(updatedBindings)
   }
