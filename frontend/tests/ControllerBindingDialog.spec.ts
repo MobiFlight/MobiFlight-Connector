@@ -119,7 +119,7 @@ test("Confirm Controller Binding assignment works correctly", async ({
 
   // click second option
   await options.nth(1).click()
-  const saveButton = dialog.getByRole("button", { name: "Save Changes" })
+  const saveButton = dialog.getByRole("button", { name: "Apply Changes" })
   await saveButton.click()
   await expect(dialog).not.toBeVisible()
 
