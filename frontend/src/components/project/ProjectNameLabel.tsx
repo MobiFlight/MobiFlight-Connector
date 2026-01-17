@@ -1,5 +1,5 @@
 import { useProjectStore } from "@/stores/projectStore"
-import { IconDotsVertical, IconPencil, IconSettings } from "@tabler/icons-react"
+import { IconDeviceGamepad2, IconDotsVertical, IconPencil, IconSettings } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
@@ -16,6 +16,7 @@ import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
 import { Project } from "@/types"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { ProjectInfo } from "@/types/project"
+import { useModal } from "@/lib/hooks/useModal"
 
 export type ProjectNameLabelProps = {
   project: Project | null
@@ -26,13 +27,14 @@ const ProjectNameLabel = () => {
   const { project, hasChanged } = useProjectStore()
   const { publish } = publishOnMessageExchange()
   const label = project?.Name ?? "Untitled Project"
-  const [ optimisticLabel, setOptimisticLabel ] = useState(label)
-  
+  const [optimisticLabel, setOptimisticLabel] = useState(label)
+  const { showOverlay : showModalOverlay } = useModal()
+
   // Sync optimisticLabel when label changes from backend
   useEffect(() => {
     setOptimisticLabel(label)
   }, [label])
-  
+
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
@@ -96,11 +98,15 @@ const ProjectNameLabel = () => {
               <IconPencil />
               {t("Project.File.Action.Rename")}
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={handleSettingsClick}
-            >
+            <DropdownMenuItem onClick={handleSettingsClick}>
               <IconSettings />
               {t("Project.Toolbar.Settings")}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => showModalOverlay({ route: "/bindings" })}
+            >
+              <IconDeviceGamepad2 />
+              {t("MainMenu.Extras.ControllerBindings")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
