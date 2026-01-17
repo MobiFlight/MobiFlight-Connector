@@ -40,7 +40,7 @@ const ControllerBindingsDialog = ({
   const { publish } = publishOnMessageExchange()
 
   const availableStates = [...new Set(finalBindings.map((b) => b.Status))]
-  const sortedBindings = bindings.sort((a, b) => {
+  const sortedBindings = [...bindings].sort((a, b) => {
     const priority = {
       RequiresManualBind: 0,
       Missing: 1,
