@@ -32,8 +32,8 @@ export const MainMenu = () => {
     })
   }
 
-  const { showOverlay : showProjectOverlay } = useProjectModal()
-  const { showOverlay : showModalOverlay } = useModal()
+  const { showOverlay: showProjectOverlay } = useProjectModal()
+  const { showOverlay: showModalOverlay } = useModal()
 
   return (
     <Menubar className="bg-muted/20 justify-between">
@@ -106,21 +106,26 @@ export const MainMenu = () => {
                 handleMenuItemClick({ action: "view.zoom.reset" })
               }
             >
-              {t("MainMenu.View.Zoom.Reset")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.Reset")}</MenubarShortcut>
+              {t("MainMenu.View.Zoom.Reset")}
+              <MenubarShortcut>
+                {t("MainMenu.View.Zoom.Shortcut.Reset")}
+              </MenubarShortcut>
             </MenubarItem>
             <MenubarItem
-              onSelect={() =>
-                handleMenuItemClick({ action: "view.zoom.in" })
-              }
+              onSelect={() => handleMenuItemClick({ action: "view.zoom.in" })}
             >
-              {t("MainMenu.View.Zoom.In")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.In")}</MenubarShortcut>
+              {t("MainMenu.View.Zoom.In")}
+              <MenubarShortcut>
+                {t("MainMenu.View.Zoom.Shortcut.In")}
+              </MenubarShortcut>
             </MenubarItem>
             <MenubarItem
-              onSelect={() =>
-                handleMenuItemClick({ action: "view.zoom.out" })
-              }
+              onSelect={() => handleMenuItemClick({ action: "view.zoom.out" })}
             >
-              {t("MainMenu.View.Zoom.Out")}<MenubarShortcut>{t("MainMenu.View.Zoom.Shortcut.Out")}</MenubarShortcut>
+              {t("MainMenu.View.Zoom.Out")}
+              <MenubarShortcut>
+                {t("MainMenu.View.Zoom.Shortcut.Out")}
+              </MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

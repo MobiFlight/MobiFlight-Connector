@@ -34,18 +34,15 @@ const ControllerIconWithLabel = ({
     ?.map((s) => s.trim()) ?? [null, null]
   return (
     <div
-      className={cn(`flex flex-row items-center gap-2 text-left overflow-hidden`, className)}
+      className={cn(
+        `flex flex-row items-center gap-2 overflow-hidden text-left`,
+        className,
+      )}
     >
-      <ControllerIcon
-        className="shrink-0"
-        serial={serial}
-        status={status}
-      />
+      <ControllerIcon className="shrink-0" serial={serial} status={status} />
       <div className="overflow-hidden">
-        <div className="truncate font-semibold">
-          {controllerLabel}
-        </div>
-        <div className="truncate text-sm text-muted-foreground">
+        <div className="truncate font-semibold">{controllerLabel}</div>
+        <div className="text-muted-foreground truncate text-sm">
           {controllerSerial}
         </div>
       </div>
@@ -84,10 +81,7 @@ const ControllerBindingItem = ({
       className="grid grid-cols-[1fr_auto_1fr] items-center border-b border-solid py-2"
       data-testid="controller-binding-item"
     >
-      <div
-        className="overflow-hidden"
-        data-testid="original-controller"
-      >
+      <div className="overflow-hidden" data-testid="original-controller">
         <ControllerIconWithLabel
           serial={controllerBinding.OriginalController || ""}
           status={controllerBinding.Status}

@@ -21,7 +21,9 @@ const ControllerBindingStatusIndicator = ({
   return (
     <div
       className="flex flex-row items-center gap-0"
-      title={isBound ? `Controller is bound (${status})` : "Controller is not bound"}
+      title={
+        isBound ? `Controller is bound (${status})` : "Controller is not bound"
+      }
     >
       <div className="border-muted-foreground/50 h-1 w-6 border-b" />
       {isBound ? (

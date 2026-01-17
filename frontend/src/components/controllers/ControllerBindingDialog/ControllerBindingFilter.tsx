@@ -13,18 +13,37 @@ export const ControllerBindingFilter = ({
   activeFilter,
   updateFilter,
 }: ControllerBindingFilterProps) => {
-
   const { t } = useTranslation()
   const handleFilterChange = (filter: ControllerBindingStatus | "all") => {
     updateFilter(filter)
   }
 
   const options = [
-    { label: t("Dialog.ControllerBinding.Filter.all"), value: "all", enabled : true },
-    { label: t("Dialog.ControllerBinding.Filter.manual"), value: "RequiresManualBind" as ControllerBindingStatus, enabled: availableStates.includes("RequiresManualBind") },
-    { label: t("Dialog.ControllerBinding.Filter.missing"), value: "Missing" as ControllerBindingStatus, enabled: availableStates.includes("Missing") },
-    { label: t("Dialog.ControllerBinding.Filter.autobind"), value: "AutoBind" as ControllerBindingStatus, enabled: availableStates.includes("AutoBind") },
-    { label: t("Dialog.ControllerBinding.Filter.match"), value: "Match" as ControllerBindingStatus, enabled: availableStates.includes("Match") },
+    {
+      label: t("Dialog.ControllerBinding.Filter.all"),
+      value: "all",
+      enabled: true,
+    },
+    {
+      label: t("Dialog.ControllerBinding.Filter.manual"),
+      value: "RequiresManualBind" as ControllerBindingStatus,
+      enabled: availableStates.includes("RequiresManualBind"),
+    },
+    {
+      label: t("Dialog.ControllerBinding.Filter.missing"),
+      value: "Missing" as ControllerBindingStatus,
+      enabled: availableStates.includes("Missing"),
+    },
+    {
+      label: t("Dialog.ControllerBinding.Filter.autobind"),
+      value: "AutoBind" as ControllerBindingStatus,
+      enabled: availableStates.includes("AutoBind"),
+    },
+    {
+      label: t("Dialog.ControllerBinding.Filter.match"),
+      value: "Match" as ControllerBindingStatus,
+      enabled: availableStates.includes("Match"),
+    },
   ]
 
   return (
@@ -34,7 +53,9 @@ export const ControllerBindingFilter = ({
           key={option.value}
           className="h-8"
           variant={activeFilter === option.value ? "default" : "outline"}
-          onClick={() => handleFilterChange(option.value as ControllerBindingStatus | "all")}
+          onClick={() =>
+            handleFilterChange(option.value as ControllerBindingStatus | "all")
+          }
           disabled={!option.enabled}
         >
           {option.label}

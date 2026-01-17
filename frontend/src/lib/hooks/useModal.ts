@@ -9,13 +9,13 @@ export function useModal() {
   const location = useLocation()
 
   const showOverlay = (options: ModalOptions) => {
-    const route = options.route
-    navigate(route, { state: { backgroundLocation: location, ...options } })
+    navigate(options.route, {
+      state: { backgroundLocation: location, ...options },
+    })
   }
 
   const showStandalone = (options: ModalOptions) => {
-    const route = options.route
-    navigate(route, { state: { ...options } })
+    navigate(options.route, { state: { ...options } })
   }
 
   return { showOverlay, showStandalone }
