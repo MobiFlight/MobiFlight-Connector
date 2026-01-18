@@ -98,6 +98,7 @@ export interface MidiControllerDefinitions {
 
 export interface ProjectStatus {
   HasChanged: boolean
+  SaveStatus: "idle" | "saving" | "success" | "error"
 }
 
 export interface OverlayState {

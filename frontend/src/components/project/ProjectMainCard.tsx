@@ -1,3 +1,4 @@
+import ConfirmationDialog from "@/components/ConfirmationDialog"
 import ProjectCard from "@/components/project/ProjectCard"
 import { ProjectCreateButton } from "@/components/project/ProjectCreateButton"
 import ProjectList from "@/components/project/ProjectList"
@@ -9,29 +10,87 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
-import { useProjectStore } from "@/stores/projectStore"
+import { SaveStatus, useProjectStore } from "@/stores/projectStore"
 import { useRecentProjects } from "@/stores/settingsStore"
 import { CommandMainMenu } from "@/types/commands"
 import { ProjectInfo } from "@/types/project"
+import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 const ProjectMainCard = () => {
   const { t } = useTranslation()
   const { publish } = useMessageExchange()
   const { recentProjects } = useRecentProjects()
-  const { project } = useProjectStore()
+  const { project, hasChanged, setSaveStatus } = useProjectStore()
   const activeProject = project
 
-  const loadProject = (project: ProjectInfo) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [pendingProject, setPendingProject] = useState<ProjectInfo | null>(null)
+
+  const waitForSaveStatus = (timeout = 30000): Promise<SaveStatus> => {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error("Save timeout")), timeout)
+
+      const unsubscribe = useProjectStore.subscribe((state) => {
+        const status = state.saveStatus
+        // Only resolve on terminal states
+        if (status === "success" || status === "error") {
+          unsubscribe()
+          clearTimeout(timer)
+          resolve(status)
+        }
+      })
+    })
+  }
+
+  const loadProject = useCallback(
+    (project: ProjectInfo) => {
+      publish({
+        key: "CommandMainMenu",
+        payload: {
+          action: "file.recent",
+          options: {
+            project: project,
+          },
+        },
+      } as CommandMainMenu)
+    },
+    [publish],
+  )
+
+  const handleSaveChanges = async () => {
+    setSaveStatus("saving")
     publish({
       key: "CommandMainMenu",
       payload: {
-        action: "file.recent",
-        options: {
-          project: project,
-        },
+        action: "file.save",
       },
     } as CommandMainMenu)
+
+    const result = await waitForSaveStatus()
+    if (result === "success" && pendingProject) {
+      loadProject(pendingProject)
+      setPendingProject(null)
+    }
+    setIsDialogOpen(false)
+  }
+
+  const handleDiscardChanges = () => {
+    if (pendingProject) {
+      loadProject(pendingProject)
+      setPendingProject(null)
+    }
+    setIsDialogOpen(false)
+  }
+
+  const confirmLoadProject = (project: ProjectInfo) => {
+    if (hasChanged) {
+      // display confirmation dialog
+      setPendingProject(project)
+      setIsDialogOpen(true)
+      return
+    }
+    loadProject(project)
   }
 
   const showRecentProjects = recentProjects.length > 0
@@ -95,7 +154,7 @@ const ProjectMainCard = () => {
                 className="grow"
                 summarys={recentProjects}
                 activeProject={activeProject as ProjectInfo}
-                onSelect={(project) => loadProject(project)}
+                onSelect={(project) => confirmLoadProject(project)}
               />
             </div>
           </div>
@@ -109,6 +168,12 @@ const ProjectMainCard = () => {
             </CardContent>
           </Card>
         )}
+        <ConfirmationDialog
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+          saveChanges={handleSaveChanges}
+          discardChanges={handleDiscardChanges}
+        />
       </CardContent>
     </Card>
   )

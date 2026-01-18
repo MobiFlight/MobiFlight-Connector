@@ -18,6 +18,7 @@ import {
   JoystickDefinitions,
   MidiControllerDefinitions,
   OverlayState,
+  ProjectStatus,
   RecentProjects,
 } from "./types/messages"
 import {
@@ -48,7 +49,7 @@ import { useControllerStore } from "@/stores/controllerStore"
 function App() {
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
-  const { project, setProject, setHasChanged } = useProjectStore()
+  const { project, setProject, setHasChanged, setSaveStatus } = useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
   const { setControllers } = useControllerStore()
@@ -141,9 +142,10 @@ function App() {
   })
 
   useAppMessage("ProjectStatus", (message) => {
-    const projectStatus = message.payload as { HasChanged: boolean }
+    const projectStatus = message.payload as ProjectStatus
     console.log("ProjectStatus message received", projectStatus)
     setHasChanged(projectStatus.HasChanged)
+    setSaveStatus(projectStatus.SaveStatus)
   })
 
   useAppMessage("OverlayState", (message) => {

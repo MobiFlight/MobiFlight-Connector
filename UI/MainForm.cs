@@ -2261,12 +2261,22 @@ namespace MobiFlight.UI
             catch (Exception ex)
             {
                 MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageExchange.Instance.Publish(new ProjectStatus()
+                {
+                    HasChanged = ProjectHasUnsavedChanges,
+                    SaveStatus = "error"
+                });
                 return;
             }
 
             MessageExchange.Instance.Publish(execManager.Project);
             _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
+            MessageExchange.Instance.Publish(new ProjectStatus()
+            {
+                HasChanged = ProjectHasUnsavedChanges,
+                SaveStatus = "success"
+            });
         }
 
         private void UpdateSimConnectStatusIcon()
