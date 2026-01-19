@@ -598,7 +598,10 @@ test.describe("Asynchronous save tests", () => {
     const overlay = page.getByTestId("loader-overlay")
 
     // Simulate unsaved changes
-    await mobiFlightPage.updateProjectState({ HasChanged: true })
+    await mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
 
     // Click on second project to trigger loading it
     await secondProject.click()
