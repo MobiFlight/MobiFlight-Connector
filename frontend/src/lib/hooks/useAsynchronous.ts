@@ -1,7 +1,7 @@
 import { SaveStatus, useProjectStore } from "@/stores/projectStore"
 
 export function useAsynchronous() {
-  const waitForSaveStatus = (timeout = 30000): Promise<SaveStatus> => {
+  const waitForSaveStatus = (): Promise<SaveStatus> => {
     const finalStates = ["success", "error", "cancelled"]
     const currentStatus = useProjectStore.getState().saveStatus
 
@@ -11,21 +11,15 @@ export function useAsynchronous() {
       return Promise.resolve(currentStatus)
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const unsubscribe = useProjectStore.subscribe((state) => {
         const status = state.saveStatus
         // Only resolve on final states
         if (finalStates.includes(status)) {
           unsubscribe()
-          clearTimeout(timer)
           resolve(status)
         }
       })
-
-      const timer = setTimeout(() => {
-        unsubscribe()
-        reject(new Error("Save timeout"))
-      }, timeout)
     })
   }
 
