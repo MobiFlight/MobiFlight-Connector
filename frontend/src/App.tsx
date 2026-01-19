@@ -50,7 +50,7 @@ import { useTranslation } from "react-i18next"
 function App() {
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
-  const { project, setProject, setHasChanged, setSaveStatus } = useProjectStore()
+  const { project, setProject, setProjectStatus } = useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
   const { setControllers } = useControllerStore()
@@ -145,8 +145,7 @@ function App() {
   useAppMessage("ProjectStatus", (message) => {
     const projectStatus = message.payload as ProjectStatus
     console.log("ProjectStatus message received", projectStatus)
-    setHasChanged(projectStatus.HasChanged)
-    setSaveStatus(projectStatus.SaveStatus)
+    setProjectStatus(projectStatus)
   })
 
   useAppMessage("OverlayState", (message) => {

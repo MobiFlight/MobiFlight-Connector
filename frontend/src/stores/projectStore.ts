@@ -1,4 +1,5 @@
 import { IConfigItem, Project } from "@/types"
+import { ProjectStatus } from "@/types/messages"
 import { create } from "zustand"
 
 export type SaveStatus = "idle" | "saving" | "success" | "error" | "cancelled"
@@ -10,6 +11,7 @@ interface ProjectState {
   activeConfigFileIndex: number
   setHasChanged: (hasChanged: boolean) => void
   setSaveStatus: (status: SaveStatus) => void
+  setProjectStatus: ({ HasChanged, SaveStatus }: ProjectStatus) => void
   setProject: (project: Project | null) => void
   setConfigItems: (index: number, items: IConfigItem[]) => void
   setActiveConfigFileIndex: (index: number) => void // Add this
@@ -45,6 +47,8 @@ export const useProjectStore = create<ProjectState>((set) => ({
   setHasChanged: (hasChanged) => set({ hasChanged: hasChanged }),
 
   setSaveStatus: (status) => set({ saveStatus: status }),
+  setProjectStatus: ({ HasChanged, SaveStatus }: ProjectStatus) =>
+    set({ hasChanged: HasChanged, saveStatus: SaveStatus }),
 
   setActiveConfigFileIndex: (index) => set({ activeConfigFileIndex: index }),
 
