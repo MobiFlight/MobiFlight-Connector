@@ -10,8 +10,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useAsynchonous } from "@/lib/asynchronous"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
-import { SaveStatus, useProjectStore } from "@/stores/projectStore"
+import { useProjectStore } from "@/stores/projectStore"
 import { useRecentProjects } from "@/stores/settingsStore"
 import { CommandMainMenu } from "@/types/commands"
 import { ProjectInfo } from "@/types/project"
@@ -28,21 +29,7 @@ const ProjectMainCard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [pendingProject, setPendingProject] = useState<ProjectInfo | null>(null)
 
-  const waitForSaveStatus = (timeout = 30000): Promise<SaveStatus> => {
-    return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error("Save timeout")), timeout)
-
-      const unsubscribe = useProjectStore.subscribe((state) => {
-        const status = state.saveStatus
-        // Only resolve on terminal states
-        if (status === "success" || status === "error") {
-          unsubscribe()
-          clearTimeout(timer)
-          resolve(status)
-        }
-      })
-    })
-  }
+  const { waitForSaveStatus } = useAsynchonous()
 
   const loadProject = useCallback(
     (project: ProjectInfo) => {
