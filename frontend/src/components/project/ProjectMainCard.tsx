@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { useAsynchonous } from "@/lib/asynchronous"
+import { useAsynchronous } from "@/lib/hooks/useAsynchronous"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
 import { useProjectStore } from "@/stores/projectStore"
 import { useRecentProjects } from "@/stores/settingsStore"
@@ -29,7 +29,7 @@ const ProjectMainCard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [pendingProject, setPendingProject] = useState<ProjectInfo | null>(null)
 
-  const { waitForSaveStatus } = useAsynchonous()
+  const { waitForSaveStatus } = useAsynchronous()
 
   const loadProject = useCallback(
     (project: ProjectInfo) => {
@@ -79,7 +79,7 @@ const ProjectMainCard = () => {
 
   const handleDiscardChanges = () => {
     setIsDialogOpen(false)
-    
+
     if (pendingProject) {
       loadProject(pendingProject)
       setPendingProject(null)

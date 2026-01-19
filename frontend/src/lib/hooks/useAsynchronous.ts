@@ -1,6 +1,6 @@
 import { SaveStatus, useProjectStore } from "@/stores/projectStore"
 
-export function useAsynchonous() {
+export function useAsynchronous() {
   const waitForSaveStatus = (timeout = 30000): Promise<SaveStatus> => {
     return new Promise((resolve, reject) => {
       const unsubscribe = useProjectStore.subscribe((state) => {
@@ -12,7 +12,7 @@ export function useAsynchonous() {
           resolve(status)
         }
       })
-      
+
       const timer = setTimeout(() => {
         unsubscribe()
         reject(new Error("Save timeout"))
