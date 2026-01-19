@@ -45,6 +45,7 @@ import DebugInfo from "@/components/DebugInfo"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { ProjectInfo } from "@/types/project"
 import { useControllerStore } from "@/stores/controllerStore"
+import { useTranslation } from "react-i18next"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -205,11 +206,12 @@ function App() {
     setIsRunning(IsRunning)
     setIsTesting(IsTesting)
   })
-
+  const { t } = useTranslation()
+  
   return (
     <>
       {overlayVisible && (
-        <LoaderOverlay open={overlayVisible} onOpenChange={setOverlayVisible} />
+        <LoaderOverlay open={overlayVisible} onOpenChange={setOverlayVisible} message={t("General.Overlay.OpeningWizard")}/>
       )}
       {outlet ? (
         <div className="flex h-svh flex-row overflow-hidden p-0 select-none">
