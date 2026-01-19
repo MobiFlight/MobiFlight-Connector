@@ -47,8 +47,16 @@ const ProjectMainCard = () => {
   )
 
   const handleSaveChanges = async () => {
+    // set frontend to saving state
+    // this will block the UI from further interactions
+    // until the save is complete in the backend,
+    // which is indicated by the saveStatus changing
     setSaveStatus("saving")
+
+    // close the dialog
     setIsDialogOpen(false)
+
+    // trigger save command in backend
     publish({
       key: "CommandMainMenu",
       payload: {
@@ -56,11 +64,17 @@ const ProjectMainCard = () => {
       },
     } as CommandMainMenu)
 
+    // wait for save to complete
     const result = await waitForSaveStatus()
+
+    // if save was successful,
+    // only then go on and load the pending project
     if (result === "success" && pendingProject) {
       loadProject(pendingProject)
-      setPendingProject(null)
     }
+
+    // always clear pending project
+    setPendingProject(null)
   }
 
   const handleDiscardChanges = () => {
