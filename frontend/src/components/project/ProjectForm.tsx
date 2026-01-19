@@ -208,7 +208,7 @@ const ProjectForm = ({
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline" type="button">
-              {t("Project.Dialog.General.Cancel")}
+              {t("Dialog.General.Cancel")}
             </Button>
           </DialogClose>
           <Button onClick={handleSubmit}>
