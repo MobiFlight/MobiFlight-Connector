@@ -103,7 +103,7 @@ export class MobiFlightPage {
   async clearTrackedCommands() {
     await this.page.evaluate(() => {
       window.commands = []
-    })  
+    })
   }
 
   getTooltipByText(text: string): Locator {

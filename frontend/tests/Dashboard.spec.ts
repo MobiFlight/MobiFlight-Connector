@@ -150,18 +150,26 @@ test.describe("Project view tests", () => {
         Status: "RequiresManualBind",
         OriginalController:
           "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
-      }
+      },
     ]
 
-    const sixBindingsWithMatch = controllerBindings.slice(0, 6).map((cb) => ({...cb, Status: 'Match'}))
-    const sevenBindingsWithMatch = controllerBindings.slice(0, 7).map((cb) => ({...cb, Status: 'Match'}))
-    const sixBindingsWithError = controllerBindings.slice(0, 6).map((cb) => ({...cb, Status: 'RequiresManualBind'}))
+    const sixBindingsWithMatch = controllerBindings
+      .slice(0, 6)
+      .map((cb) => ({ ...cb, Status: "Match" }))
+    const sevenBindingsWithMatch = controllerBindings
+      .slice(0, 7)
+      .map((cb) => ({ ...cb, Status: "Match" }))
+    const sixBindingsWithError = controllerBindings
+      .slice(0, 6)
+      .map((cb) => ({ ...cb, Status: "RequiresManualBind" }))
     const currentProjectCard = page.getByTestId("project-card")
-    
+
     const bindingIssueIcon = currentProjectCard.getByTestId(
       "controller-binding-issue-icon",
     )
-    const moreControllersIndicator = currentProjectCard.getByTestId("more-controllers-indicator")
+    const moreControllersIndicator = currentProjectCard.getByTestId(
+      "more-controllers-indicator",
+    )
 
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
@@ -568,7 +576,6 @@ test.describe("Project list view tests", () => {
   })
 })
 
-
 test.describe("Asynchronous save tests", () => {
   test("Confirm correct handling when saving is successful", async ({
     dashboardPage,
@@ -577,7 +584,7 @@ test.describe("Asynchronous save tests", () => {
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestData()
     await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
-    
+
     const mobiFlightPage = dashboardPage.mobiFlightPage
     const recentProjectsList = page.getByTestId("recent-projects-list")
     const projectItems = recentProjectsList.getByTestId("project-list-item")
@@ -585,21 +592,22 @@ test.describe("Asynchronous save tests", () => {
     const confirmDialog = page.getByRole("dialog", {
       name: "Unsaved Changes",
     })
-    const saveButton = confirmDialog.getByRole("button", { name: "Save changes" })
+    const saveButton = confirmDialog.getByRole("button", {
+      name: "Save changes",
+    })
     const overlay = page.getByTestId("loader-overlay")
-     
+
     // Simulate unsaved changes
     await mobiFlightPage.updateProjectState({ HasChanged: true })
 
     // Click on second project to trigger loading it
     await secondProject.click()
     await expect(confirmDialog).toBeVisible()
-    
+
     await saveButton.click()
     await expect(confirmDialog).not.toBeVisible()
 
-    let postedCommands =
-      await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
     let lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandMainMenu")
     expect(lastCommand.payload.action).toEqual("file.save")
@@ -609,7 +617,10 @@ test.describe("Asynchronous save tests", () => {
     await expect(overlay).toBeVisible()
 
     // Simulate save completed
-    await mobiFlightPage.updateProjectState({ SaveStatus: "success", HasChanged: false })
+    await mobiFlightPage.updateProjectState({
+      SaveStatus: "success",
+      HasChanged: false,
+    })
     await expect(overlay).not.toBeVisible()
 
     postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
@@ -629,7 +640,7 @@ test.describe("Asynchronous save tests", () => {
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestData()
     await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
-    
+
     const mobiFlightPage = dashboardPage.mobiFlightPage
     const recentProjectsList = page.getByTestId("recent-projects-list")
     const projectItems = recentProjectsList.getByTestId("project-list-item")
@@ -637,21 +648,22 @@ test.describe("Asynchronous save tests", () => {
     const confirmDialog = page.getByRole("dialog", {
       name: "Unsaved Changes",
     })
-    const saveButton = confirmDialog.getByRole("button", { name: "Save changes" })
+    const saveButton = confirmDialog.getByRole("button", {
+      name: "Save changes",
+    })
     const overlay = page.getByTestId("loader-overlay")
-     
+
     // Simulate unsaved changes
     await mobiFlightPage.updateProjectState({ HasChanged: true })
 
     // Click on second project to trigger loading it
     await secondProject.click()
     await expect(confirmDialog).toBeVisible()
-    
+
     await saveButton.click()
     await expect(confirmDialog).not.toBeVisible()
 
-    let postedCommands =
-      await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
     let lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandMainMenu")
     expect(lastCommand.payload.action).toEqual("file.save")
@@ -662,7 +674,10 @@ test.describe("Asynchronous save tests", () => {
     await expect(overlay).toBeVisible()
 
     // Simulate save completed
-    await mobiFlightPage.updateProjectState({ SaveStatus: "cancelled", HasChanged: true })
+    await mobiFlightPage.updateProjectState({
+      SaveStatus: "cancelled",
+      HasChanged: true,
+    })
     await expect(overlay).not.toBeVisible()
 
     postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
