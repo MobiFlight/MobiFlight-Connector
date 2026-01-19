@@ -933,10 +933,10 @@ namespace MobiFlight.Tests
             // Capture the published message
             _mockMessagePublisher
                 .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
-                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+                .Callback<BrowserMessages.Outgoing.ConnectedControllers>(message => publishedMessage = message);
 
             // Act - Trigger the event that calls PublishConnectedDevices
-            _executionManager.OnJoystickConnectedFinished?.Invoke(this, EventArgs.Empty);
+            _executionManager.OnJoystickConnectedFinished?.Invoke(_executionManager, EventArgs.Empty);
 
             // Assert
             Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
@@ -981,11 +981,11 @@ namespace MobiFlight.Tests
             // Capture the published message
             _mockMessagePublisher
                 .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
-                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+                .Callback<BrowserMessages.Outgoing.ConnectedControllers>(message => publishedMessage = message);
 
             // Act - Trigger the event that calls PublishConnectedDevices
             // This should NOT throw a NullReferenceException even though Community is null
-            _executionManager.OnMidiBoardConnectedFinished?.Invoke(this, EventArgs.Empty);
+            _executionManager.OnMidiBoardConnectedFinished?.Invoke(_executionManager, EventArgs.Empty);
 
             // Assert
             Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
@@ -1067,10 +1067,10 @@ namespace MobiFlight.Tests
             // Capture the published message
             _mockMessagePublisher
                 .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
-                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+                .Callback<BrowserMessages.Outgoing.ConnectedControllers>(message => publishedMessage = message);
 
             // Act - Trigger the event that calls PublishConnectedDevices
-            _executionManager.OnJoystickConnectedFinished?.Invoke(this, EventArgs.Empty);
+            _executionManager.OnJoystickConnectedFinished?.Invoke(_executionManager, EventArgs.Empty);
 
             // Assert
             Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
@@ -1108,10 +1108,10 @@ namespace MobiFlight.Tests
             // Capture the published message
             _mockMessagePublisher
                 .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
-                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+                .Callback<BrowserMessages.Outgoing.ConnectedControllers>(message => publishedMessage = message);
 
             // Act - Trigger the event that calls PublishConnectedDevices
-            _executionManager.OnJoystickConnectedFinished?.Invoke(this, EventArgs.Empty);
+            _executionManager.OnJoystickConnectedFinished?.Invoke(_executionManager, EventArgs.Empty);
 
             // Assert
             Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
