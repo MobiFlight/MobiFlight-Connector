@@ -2,6 +2,7 @@ import ConfirmationDialog from "@/components/ConfirmationDialog"
 import ProjectCard from "@/components/project/ProjectCard"
 import { ProjectCreateButton } from "@/components/project/ProjectCreateButton"
 import ProjectList from "@/components/project/ProjectList"
+import LoaderOverlay from "@/components/tables/config-item-table/LoaderOverlay"
 import {
   Card,
   CardContent,
@@ -21,7 +22,7 @@ const ProjectMainCard = () => {
   const { t } = useTranslation()
   const { publish } = useMessageExchange()
   const { recentProjects } = useRecentProjects()
-  const { project, hasChanged, setSaveStatus } = useProjectStore()
+  const { project, hasChanged, saveStatus, setSaveStatus } = useProjectStore()
   const activeProject = project
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -60,6 +61,7 @@ const ProjectMainCard = () => {
 
   const handleSaveChanges = async () => {
     setSaveStatus("saving")
+    setIsDialogOpen(false)
     publish({
       key: "CommandMainMenu",
       payload: {
@@ -72,7 +74,6 @@ const ProjectMainCard = () => {
       loadProject(pendingProject)
       setPendingProject(null)
     }
-    setIsDialogOpen(false)
   }
 
   const handleDiscardChanges = () => {
@@ -173,6 +174,10 @@ const ProjectMainCard = () => {
           onOpenChange={setIsDialogOpen}
           saveChanges={handleSaveChanges}
           discardChanges={handleDiscardChanges}
+        />
+        <LoaderOverlay
+          message={t("General.Overlay.SavingChanges")}
+          open={saveStatus === "saving"}
         />
       </CardContent>
     </Card>

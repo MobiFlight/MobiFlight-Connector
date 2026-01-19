@@ -4,7 +4,8 @@
       "OpenMenu": "Open menu"
     },
     "Overlay": {
-      "OpeningWizard": "Opening wizard..."
+      "OpeningWizard": "Opening wizard...",
+      "SavingChanges": "Saving project..."
     },
     "HubHopUpdate": {
       "Error": "HubHop update failed. Please try again later.",

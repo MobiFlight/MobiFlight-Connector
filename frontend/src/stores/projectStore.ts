@@ -1,7 +1,7 @@
 import { IConfigItem, Project } from "@/types"
 import { create } from "zustand"
 
-export type SaveStatus = "idle" | "saving" | "success" | "error"
+export type SaveStatus = "idle" | "saving" | "success" | "error" | "cancelled"
 
 interface ProjectState {
   hasChanged: boolean

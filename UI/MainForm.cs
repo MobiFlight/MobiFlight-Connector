@@ -2500,7 +2500,14 @@ namespace MobiFlight.UI
             if (DialogResult.OK == fd.ShowDialog())
             {
                 SaveConfig(fd.FileName);
+                return;
             }
+
+            MessageExchange.Instance.Publish(new ProjectStatus()
+            {
+                HasChanged = ProjectHasUnsavedChanges,
+                SaveStatus = "cancelled"
+            });
         } //saveToolStripMenuItem_Click()
 
         private void TaskBar_StartProjectExecution(object sender, EventArgs e)

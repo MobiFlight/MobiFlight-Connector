@@ -4,7 +4,8 @@
       "OpenMenu": "Menü öffnen"
     },
     "Overlay": {
-      "OpeningWizard": "Öffne Wizard..."
+      "OpeningWizard": "Öffne Wizard...",
+      "SavingChanges": "Projekt wird gespeichert..."
     },
     "HubHopUpdate": {
       "Error": "HubHop update fehlgeschlagen. Bitte versuch es später nochmal.",
