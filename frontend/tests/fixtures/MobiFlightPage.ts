@@ -1,5 +1,5 @@
 import { CommandMessageKey, CommandMessage } from "@/types/commands"
-import { AppMessage } from "@/types/messages"
+import { AppMessage, ProjectStatus } from "@/types/messages"
 import type { Locator, Page } from "@playwright/test"
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
@@ -204,5 +204,13 @@ export class MobiFlightPage {
 
   getControllerBindings() {
     return (testProject as Project).ControllerBindings as ControllerBinding[]
+  }
+
+  async updateProjectState(projectStatus: ProjectStatus) {
+    const message: AppMessage = {
+      key: "ProjectStatus",
+      payload: projectStatus,
+    }
+    await this.publishMessage(message)
   }
 }

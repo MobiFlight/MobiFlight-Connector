@@ -8,7 +8,6 @@ import {
   ConfigValueFullUpdate,
   ConfigValuePartialUpdate,
   OverlayState,
-  ProjectStatus,
 } from "@/types/messages"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import {
@@ -68,7 +67,10 @@ export class ConfigListPage {
     )
   }
 
-  async configValueFullUpdate(ConfigItems: IConfigItem[], configIndex: number = 0) {
+  async configValueFullUpdate(
+    ConfigItems: IConfigItem[],
+    configIndex: number = 0,
+  ) {
     const message: AppMessage = {
       key: "ConfigValueFullUpdate",
       payload: {
@@ -186,14 +188,6 @@ export class ConfigListPage {
     await this.mobiFlightPage.publishMessage(message)
   }
 
-  async updateProjectState(projectStatus: ProjectStatus) {
-    const message: AppMessage = {
-      key: "ProjectStatus",
-      payload: projectStatus,
-    }
-    await this.mobiFlightPage.publishMessage(message)
-  }
-
   async setOverlayState(state: OverlayState) {
     const message: AppMessage = {
       key: "OverlayState",
@@ -203,7 +197,8 @@ export class ConfigListPage {
   }
 
   async filterByText(text: string) {
-    const filterInput = this.mobiFlightPage.page.getByPlaceholder("Filter items...")
+    const filterInput =
+      this.mobiFlightPage.page.getByPlaceholder("Filter items...")
     await filterInput.fill(text)
   }
 }

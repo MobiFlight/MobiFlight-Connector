@@ -16,7 +16,7 @@ test("Confirm save menu item behaves as expected", async ({
   const FileMenuSaveItem = page.getByRole("menuitem", { name: "Save Ctrl+S" })
   await expect(FileMenuSaveItem).toBeVisible()
   await expect(FileMenuSaveItem).toBeDisabled()
-  await configListPage.updateProjectState({
+  await configListPage.mobiFlightPage.updateProjectState({
     HasChanged: true,
   })
   await expect(FileMenuSaveItem).toBeEnabled()
