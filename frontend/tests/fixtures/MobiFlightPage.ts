@@ -100,6 +100,12 @@ export class MobiFlightPage {
     return await this.page.evaluate(() => window.commands)
   }
 
+  async clearTrackedCommands() {
+    await this.page.evaluate(() => {
+      window.commands = []
+    })  
+  }
+
   getTooltipByText(text: string): Locator {
     return this.page.getByRole("tooltip").filter({ hasText: text })
   }

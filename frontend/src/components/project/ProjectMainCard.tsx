@@ -78,11 +78,12 @@ const ProjectMainCard = () => {
   }
 
   const handleDiscardChanges = () => {
+    setIsDialogOpen(false)
+    
     if (pendingProject) {
       loadProject(pendingProject)
       setPendingProject(null)
     }
-    setIsDialogOpen(false)
   }
 
   const confirmLoadProject = (project: ProjectInfo) => {

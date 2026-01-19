@@ -570,7 +570,7 @@ test.describe("Project list view tests", () => {
 
 
 test.describe("Asynchronous save tests", () => {
-  test("Confirm project confirmation dialog appears when there are unsaved changes", async ({
+  test("Confirm correct handling when saving is successful", async ({
     dashboardPage,
     page,
   }) => {
@@ -620,6 +620,56 @@ test.describe("Asynchronous save tests", () => {
     expect(lastCommand.payload.options.project).toEqual(
       dashboardPage.mobiFlightPage.getRecentProjects()[1],
     )
+  })
+
+  test("Confirm correct handling when saving is cancelled", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+    const secondProject = projectItems.nth(1)
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Unsaved Changes",
+    })
+    const saveButton = confirmDialog.getByRole("button", { name: "Save changes" })
+    const overlay = page.getByTestId("loader-overlay")
+     
+    // Simulate unsaved changes
+    await mobiFlightPage.updateProjectState({ HasChanged: true })
+
+    // Click on second project to trigger loading it
+    await secondProject.click()
+    await expect(confirmDialog).toBeVisible()
+    
+    await saveButton.click()
+    await expect(confirmDialog).not.toBeVisible()
+
+    let postedCommands =
+      await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.save")
+    await mobiFlightPage.clearTrackedCommands()
+
+    // Simulate save started
+    await mobiFlightPage.updateProjectState({ SaveStatus: "saving" })
+    await expect(overlay).toBeVisible()
+
+    // Simulate save completed
+    await mobiFlightPage.updateProjectState({ SaveStatus: "cancelled", HasChanged: true })
+    await expect(overlay).not.toBeVisible()
+
+    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    lastCommand = postedCommands!.pop()
+
+    // we are not loading a new project since the save was cancelled
+    expect(lastCommand).toBeUndefined()
   })
 })
 
