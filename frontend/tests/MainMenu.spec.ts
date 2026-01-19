@@ -111,9 +111,7 @@ test("Confirm zoom menu items send correct commands", async ({
   expect(commands![0].payload.action).toBe("view.zoom.reset")
 
   // Clear commands array for next test
-  await page.evaluate(() => {
-    window.commands = []
-  })
+  await configListPage.mobiFlightPage.clearTrackedCommands()
 
   // Test Zoom In
   await ViewMenu.click()
@@ -126,9 +124,7 @@ test("Confirm zoom menu items send correct commands", async ({
   expect(commands![0].payload.action).toBe("view.zoom.in")
 
   // Clear commands array for next test
-  await page.evaluate(() => {
-    window.commands = []
-  })
+  await configListPage.mobiFlightPage.clearTrackedCommands()
 
   // Test Zoom Out
   await ViewMenu.click()

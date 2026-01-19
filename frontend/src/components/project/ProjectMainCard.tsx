@@ -65,17 +65,16 @@ const ProjectMainCard = () => {
     } as CommandMainMenu)
 
     // wait for save to complete
-    waitForSaveStatus()
-      .then((result) => {
-        // if save was successful,
-        // only then go on and load the pending project
-        if (result === "success" && pendingProject) {
-          loadProject(pendingProject)
-        }
-      })
+    waitForSaveStatus().then((result) => {
+      // if save was successful,
+      // only then go on and load the pending project
+      if (result === "success" && pendingProject) {
+        loadProject(pendingProject)
+      }
 
-    // always clear pending project
-    setPendingProject(null)
+      // always clear pending project
+      setPendingProject(null)
+    })
   }
 
   const handleDiscardChanges = () => {
