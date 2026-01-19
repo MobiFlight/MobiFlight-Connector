@@ -898,5 +898,224 @@ namespace MobiFlight.Tests
             // Clean up
             _executionManager.Stop();
         }
+
+        [TestMethod]
+        public void PublishConnectedDevices_WithModulesWithCommunityInfo_PublishesCorrectly()
+        {
+            // Arrange
+            var board = new Board()
+            {
+                Info = new Info()
+                {
+                    FriendlyName = "Community Board",
+                    Community = new Community()
+                    {
+                        Project = "TestProject",
+                        Website = "https://example.com"
+                    }
+                }
+            };
+
+            var module = new Mock<MobiFlightModule>("COM1", board);
+            module.Setup(m => m.Name).Returns("TestModule");
+            module.Setup(m => m.Serial).Returns("SN-123");
+            module.Setup(m => m.Board).Returns(board);
+
+            var mobiFlightCache = _executionManager.getMobiFlightModuleCache();
+            
+            // Use reflection to add module to the cache's internal Modules dictionary
+            var modulesField = typeof(MobiFlightCache).GetField("Modules", BindingFlags.NonPublic | BindingFlags.Instance);
+            var modules = (System.Collections.Concurrent.ConcurrentDictionary<string, MobiFlightModule>)modulesField.GetValue(mobiFlightCache);
+            modules.TryAdd("SN-123", module.Object);
+
+            BrowserMessages.Outgoing.ConnectedControllers publishedMessage = null;
+
+            // Capture the published message
+            _mockMessagePublisher
+                .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
+                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+
+            // Act - Trigger the event that calls PublishConnectedDevices
+            _executionManager.OnJoystickConnectedFinished?.Invoke(this, EventArgs.Empty);
+
+            // Assert
+            Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
+            Assert.AreEqual(1, publishedMessage.Controllers.Count, "Should have 1 controller");
+            
+            var controller = publishedMessage.Controllers[0];
+            Assert.AreEqual("TestModule", controller.Name, "Controller name should match module name");
+            Assert.AreEqual("SN-123", controller.Serial, "Controller serial should match module serial");
+            Assert.IsTrue(controller.Connected, "Controller should be connected");
+
+            // Clean up
+            modules.TryRemove("SN-123", out _);
+        }
+
+        [TestMethod]
+        public void PublishConnectedDevices_WithModulesWithoutCommunityInfo_DoesNotThrow()
+        {
+            // Arrange
+            var board = new Board()
+            {
+                Info = new Info()
+                {
+                    FriendlyName = "Standard Board",
+                    Community = null // Community info is optional and can be null
+                }
+            };
+
+            var module = new Mock<MobiFlightModule>("COM2", board);
+            module.Setup(m => m.Name).Returns("StandardModule");
+            module.Setup(m => m.Serial).Returns("SN-456");
+            module.Setup(m => m.Board).Returns(board);
+
+            var mobiFlightCache = _executionManager.getMobiFlightModuleCache();
+            
+            // Use reflection to add module to the cache's internal Modules dictionary
+            var modulesField = typeof(MobiFlightCache).GetField("Modules", BindingFlags.NonPublic | BindingFlags.Instance);
+            var modules = (System.Collections.Concurrent.ConcurrentDictionary<string, MobiFlightModule>)modulesField.GetValue(mobiFlightCache);
+            modules.TryAdd("SN-456", module.Object);
+
+            BrowserMessages.Outgoing.ConnectedControllers publishedMessage = null;
+
+            // Capture the published message
+            _mockMessagePublisher
+                .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
+                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+
+            // Act - Trigger the event that calls PublishConnectedDevices
+            // This should NOT throw a NullReferenceException even though Community is null
+            _executionManager.OnMidiBoardConnectedFinished?.Invoke(this, EventArgs.Empty);
+
+            // Assert
+            Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
+            Assert.AreEqual(1, publishedMessage.Controllers.Count, "Should have 1 controller");
+            
+            var controller = publishedMessage.Controllers[0];
+            Assert.AreEqual("StandardModule", controller.Name, "Controller name should match module name");
+            Assert.AreEqual("SN-456", controller.Serial, "Controller serial should match module serial");
+            Assert.IsTrue(controller.Connected, "Controller should be connected");
+
+            // Clean up
+            modules.TryRemove("SN-456", out _);
+        }
+
+        [TestMethod]
+        public void PublishConnectedDevices_WithMixedDevices_PublishesAllCorrectly()
+        {
+            // Arrange
+            // Create a module with Community info
+            var boardWithCommunity = new Board()
+            {
+                Info = new Info()
+                {
+                    FriendlyName = "Community Board",
+                    Community = new Community() { Project = "CommunityProject" }
+                }
+            };
+
+            var moduleWithCommunity = new Mock<MobiFlightModule>("COM1", boardWithCommunity);
+            moduleWithCommunity.Setup(m => m.Name).Returns("CommunityModule");
+            moduleWithCommunity.Setup(m => m.Serial).Returns("SN-111");
+            moduleWithCommunity.Setup(m => m.Board).Returns(boardWithCommunity);
+
+            // Create a module without Community info
+            var boardWithoutCommunity = new Board()
+            {
+                Info = new Info()
+                {
+                    FriendlyName = "Standard Board",
+                    Community = null
+                }
+            };
+
+            var moduleWithoutCommunity = new Mock<MobiFlightModule>("COM2", boardWithoutCommunity);
+            moduleWithoutCommunity.Setup(m => m.Name).Returns("StandardModule");
+            moduleWithoutCommunity.Setup(m => m.Serial).Returns("SN-222");
+            moduleWithoutCommunity.Setup(m => m.Board).Returns(boardWithoutCommunity);
+
+            var mobiFlightCache = _executionManager.getMobiFlightModuleCache();
+            
+            // Use reflection to add modules to the cache's internal Modules dictionary
+            var modulesField = typeof(MobiFlightCache).GetField("Modules", BindingFlags.NonPublic | BindingFlags.Instance);
+            var modules = (System.Collections.Concurrent.ConcurrentDictionary<string, MobiFlightModule>)modulesField.GetValue(mobiFlightCache);
+            modules.TryAdd("SN-111", moduleWithCommunity.Object);
+            modules.TryAdd("SN-222", moduleWithoutCommunity.Object);
+
+            // Create a mock joystick
+            var joystick = new Mock<Joystick>(null, new JoystickDefinition() { InstanceName = "Test Joystick" });
+            joystick.Setup(j => j.Name).Returns("Test Joystick");
+            joystick.Setup(j => j.Serial).Returns("JS-333");
+
+            var joystickManager = _executionManager.GetJoystickManager();
+            var joysticksField = typeof(JoystickManager).GetField("Joysticks", BindingFlags.NonPublic | BindingFlags.Instance);
+            var joysticks = (System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>)joysticksField.GetValue(joystickManager);
+            joysticks.TryAdd("JS-333", joystick.Object);
+
+            // Create a mock MIDI board
+            var midiBoard = new Mock<MidiBoard>(null, null, "Test MIDI", new MidiBoardDefinition() { InstanceName = "Test MIDI" });
+            midiBoard.Setup(m => m.Name).Returns("Test MIDI");
+            midiBoard.Setup(m => m.Serial).Returns("MI-444");
+
+            var midiBoardManager = _executionManager.GetMidiBoardManager();
+            var midiBoardsField = typeof(MidiBoardManager).GetField("MidiBoards", BindingFlags.NonPublic | BindingFlags.Instance);
+            var midiBoards = (List<MidiBoard>)midiBoardsField.GetValue(midiBoardManager);
+            midiBoards.Add(midiBoard.Object);
+
+            BrowserMessages.Outgoing.ConnectedControllers publishedMessage = null;
+
+            // Capture the published message
+            _mockMessagePublisher
+                .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
+                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+
+            // Act - Trigger the event that calls PublishConnectedDevices
+            _executionManager.OnJoystickConnectedFinished?.Invoke(this, EventArgs.Empty);
+
+            // Assert
+            Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
+            Assert.AreEqual(4, publishedMessage.Controllers.Count, "Should have 4 controllers total");
+
+            var communityModule = publishedMessage.Controllers.Find(c => c.Serial == "SN-111");
+            Assert.IsNotNull(communityModule, "Community module should be in the list");
+            Assert.AreEqual("CommunityModule", communityModule.Name);
+
+            var standardModule = publishedMessage.Controllers.Find(c => c.Serial == "SN-222");
+            Assert.IsNotNull(standardModule, "Standard module should be in the list");
+            Assert.AreEqual("StandardModule", standardModule.Name);
+
+            var joystickController = publishedMessage.Controllers.Find(c => c.Serial == "JS-333");
+            Assert.IsNotNull(joystickController, "Joystick should be in the list");
+            Assert.AreEqual("Test Joystick", joystickController.Name);
+
+            var midiController = publishedMessage.Controllers.Find(c => c.Serial == "MI-444");
+            Assert.IsNotNull(midiController, "MIDI board should be in the list");
+            Assert.AreEqual("Test MIDI", midiController.Name);
+
+            // Clean up
+            modules.TryRemove("SN-111", out _);
+            modules.TryRemove("SN-222", out _);
+            joysticks.TryRemove("JS-333", out _);
+            midiBoards.Remove(midiBoard.Object);
+        }
+
+        [TestMethod]
+        public void PublishConnectedDevices_WithNoDevices_PublishesEmptyList()
+        {
+            // Arrange
+            BrowserMessages.Outgoing.ConnectedControllers publishedMessage = null;
+
+            // Capture the published message
+            _mockMessagePublisher
+                .Setup(p => p.Publish(It.IsAny<BrowserMessages.Outgoing.ConnectedControllers>()))
+                .Callback<object>(message => publishedMessage = message as BrowserMessages.Outgoing.ConnectedControllers);
+
+            // Act - Trigger the event that calls PublishConnectedDevices
+            _executionManager.OnJoystickConnectedFinished?.Invoke(this, EventArgs.Empty);
+
+            // Assert
+            Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published");
+            Assert.AreEqual(0, publishedMessage.Controllers.Count, "Should have no controllers");
+        }
     }
 }
