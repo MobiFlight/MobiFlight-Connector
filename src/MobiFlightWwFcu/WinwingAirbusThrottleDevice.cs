@@ -31,10 +31,10 @@ namespace MobiFlightWwFcu
 
         private bool IsTrimDashed = false;
 
-        private Dictionary<string, Element> DisplayTestCommands = new Dictionary<string, Element>()
+        private Dictionary<string, DisplaySegment> DisplayTestCommands = new Dictionary<string, DisplaySegment>()
         {
-            { "AllOn",       new Element(new Bit[] {new Bit(0,0, true), new Bit(0,1), new Bit(0,2), new Bit(0,3) }, false)},
-            { "AllOff",      new Element(new Bit[] {new Bit(0,0), new Bit(0,1, true), new Bit(0,2), new Bit(0,3) }, false)},
+            { "AllOn",       new DisplaySegment(new Bit[] {new Bit(0,0, true), new Bit(0,1), new Bit(0,2), new Bit(0,3) }, false)},
+            { "AllOff",      new DisplaySegment(new Bit[] {new Bit(0,0), new Bit(0,1, true), new Bit(0,2), new Bit(0,3) }, false)},
         };
 
         // Examples of Trim "L 0.0", "L 0.2", "R 0.0", "L 5.1" "L11.3"
@@ -46,13 +46,13 @@ namespace MobiFlightWwFcu
         // supplying valid rudder trim data—typically due to a failure or when both FACs are lost.
 
         // Element top byte is byte number in data section. So 0 is start of data section. Header with 17 bytes is not included.
-        private Dictionary<string, Element> DisplaySetValueElements = new Dictionary<string, Element>()
+        private Dictionary<string, DisplaySegment> DisplaySetValueElements = new Dictionary<string, DisplaySegment>()
         {
-            { "TrimDecimal",  new Element(32, 3, 'b')},
-            { "TrimOnes",     new Element(32, 2, 'o')},  // 3 ist ones, 2 ist tenth, 1 ist hundreds, 0 ist L/R
-            { "TrimTens",     new Element(32, 1, '}')},
-            { "TrimLR",       new Element(32, 0, '{')},
-            { "TrimDot",      new Element(new Bit[] { new Bit(4,2, false) }, false)},
+            { "TrimDecimal",  new DisplaySegment(32, 3, 'b')},
+            { "TrimOnes",     new DisplaySegment(32, 2, 'o')},  // 3 ist ones, 2 ist tenth, 1 ist hundreds, 0 ist L/R
+            { "TrimTens",     new DisplaySegment(32, 1, '}')},
+            { "TrimLR",       new DisplaySegment(32, 0, '{')},
+            { "TrimDot",      new DisplaySegment(new Bit[] { new Bit(4,2, false) }, false)},
         };
 
  
@@ -121,7 +121,7 @@ namespace MobiFlightWwFcu
 
             foreach (var element in DisplaySetValueElements.Values)
             {
-                SetElementDisplayCommand(element, SetValuesCommand);
+                SetSegmentDisplayCommand(element, SetValuesCommand);
             }
         }
 
@@ -249,9 +249,9 @@ namespace MobiFlightWwFcu
             MessageSender.SetBrightness(DestinationAddressPac, 0x02, brightness);
         }
 
-        private void PrepareAndSendDisplayTestCommand(Element element)
+        private void PrepareAndSendDisplayTestCommand(DisplaySegment segment)
         {
-            SetElementDisplayCommand(element, DisplayTestCommand);
+            SetSegmentDisplayCommand(segment, DisplayTestCommand);
             SendDisplayCommand(DisplayTestCommand);
         }
 
@@ -268,7 +268,7 @@ namespace MobiFlightWwFcu
             {
                 var element = DisplaySetValueElements[elementNames[i]];
                 element.SetCharacter(chars[i]);
-                SetElementDisplayCommand(element, SetValuesCommand);
+                SetSegmentDisplayCommand(element, SetValuesCommand);
             }
 
             SendDisplayCommand(SetValuesCommand);
@@ -279,7 +279,7 @@ namespace MobiFlightWwFcu
         {
             var trimDot = DisplaySetValueElements["TrimDot"];
             trimDot.SetValue(isDotSet);
-            SetElementDisplayCommand(trimDot, SetValuesCommand);
+            SetSegmentDisplayCommand(trimDot, SetValuesCommand);
         }
 
         private void SetTrim(string trim)
@@ -337,7 +337,7 @@ namespace MobiFlightWwFcu
             MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
         }
 
-        private void SetElementDisplayCommand(Element e, byte[] mes)
+        private void SetSegmentDisplayCommand(DisplaySegment e, byte[] mes)
         {
             foreach (Bit b in e.Bits)
             {

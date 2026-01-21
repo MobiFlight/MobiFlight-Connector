@@ -14,11 +14,7 @@ namespace MobiFlightWwFcu
 
         private object StreamLock = new object();
         
-        private byte Counter = 0;
-        private byte[] LightControlMessage      = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 0x03, 0x49, 0x03, 0, 0, 0, 0, 0, 0 };
-        private byte[] HeartBeatMessage         = new byte[14] { 0x02, 0x01, 0x00, 0, 0, 0x01, 0x00, 0x00, 0, 0, 0, 0, 0, 0 };
-        private byte[] RequestFirmwareMessage   = new byte[14] { 0x02, 0x01, 0x00, 0, 0, 0x01, 0x02, 0x00, 0, 0, 0, 0, 0, 0 };
-        private byte[] PulseLightControlMessage = new byte[14] { 0x02, 0x20, 0xbb, 0, 0, 0x08, 0x06, 0xf8, 0, 0, 0, 0xff, 0xff, 0xff };
+        private int Counter = 0;                 
 
         public WinwingMessageSender(int productId)
         {
@@ -58,7 +54,10 @@ namespace MobiFlightWwFcu
         {
             byte[] message = new byte[64];
             message[0] = 0xf0;
-            message[2] = ++Counter;
+
+            // Explicitly wrap at 256 (keeps values 0-255)
+            int nextCounter = System.Threading.Interlocked.Increment(ref Counter);
+            message[2] = (byte)(nextCounter & 0xFF);  // Or: nextCounter % 256
             return message;
         }
 
@@ -105,6 +104,47 @@ namespace MobiFlightWwFcu
             }
         }
 
+        public void SendDisplayCommandsCopilot(IList<byte[]> commands)
+        {
+            const int HEADER_SIZE = 3;
+            const int MAX_PAYLOAD = 56; // 64 - header - length byte
+
+            byte[] timeId = GetTimeAsBytes();
+            byte[] message = GetNewMessage();
+            int payloadIndex = 0; // Index within the current 64-byte message payload
+
+            foreach (var command in commands)
+            {
+                for (int cmdByteIndex = 0; cmdByteIndex < command.Length; cmdByteIndex++)
+                {
+                    int messageIndex = HEADER_SIZE + 1 + payloadIndex; // +1 for length byte
+
+                    // Insert time bytes at specific command positions
+                    if (cmdByteIndex == 8)
+                        message[messageIndex] = timeId[0];
+                    else if (cmdByteIndex == 9)
+                        message[messageIndex] = timeId[1];
+                    else if (cmdByteIndex == 10)
+                        message[messageIndex] = timeId[2];
+                    else
+                        message[messageIndex] = command[cmdByteIndex];
+
+                    payloadIndex++;
+
+                    bool isLastByte = (command == commands[commands.Count - 1]) &&
+                                    (cmdByteIndex == command.Length - 1);
+
+                    if (payloadIndex >= MAX_PAYLOAD || isLastByte)
+                    {
+                        message[HEADER_SIZE] = (byte)payloadIndex;
+                        WriteStream(message, 0, 64);
+                        message = GetNewMessage();
+                        payloadIndex = 0;
+                    }
+                }
+            }
+        }
+
 
         public void SendCduDisplayBytes(byte[] byteList)
         {
@@ -144,14 +184,16 @@ namespace MobiFlightWwFcu
         /// <param name="value">Value as byte</param>
         public void SendLightControlMessage(byte[] destination, byte type, byte value)
         {
+            byte[] lightControlMessage = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 0x03, 0x49, 0x03, 0, 0, 0, 0, 0, 0 };
+
             // Update message
-            LightControlMessage[1] = destination[0];
-            LightControlMessage[2] = destination[1];
-            LightControlMessage[7] = type;
-            LightControlMessage[8] = value;
+            lightControlMessage[1] = destination[0];
+            lightControlMessage[2] = destination[1];
+            lightControlMessage[7] = type;
+            lightControlMessage[8] = value;
 
             // Send message
-            WriteStream(LightControlMessage, 0, 14);
+            WriteStream(lightControlMessage, 0, 14);
         }
 
         public void SetBrightness(byte[] destinationAddress, byte type, string brightness)
@@ -183,23 +225,27 @@ namespace MobiFlightWwFcu
 
         public void SetPulseLight(byte[] destinationAddress, bool isOn)
         {
+            byte[] pulseLightControlMessage = new byte[14] { 0x02, 0x20, 0xbb, 0, 0, 0x08, 0x06, 0xf8, 0, 0, 0, 0xff, 0xff, 0xff };
+
             // Update message
-            PulseLightControlMessage[1] = destinationAddress[0];
-            PulseLightControlMessage[2] = destinationAddress[1];
-            PulseLightControlMessage[10] = Convert.ToByte(!isOn);
+            pulseLightControlMessage[1] = destinationAddress[0];
+            pulseLightControlMessage[2] = destinationAddress[1];
+            pulseLightControlMessage[10] = Convert.ToByte(!isOn);
 
             // Send message
-            WriteStream(PulseLightControlMessage, 0, 14);
+            WriteStream(pulseLightControlMessage, 0, 14);
         }
 
         public void SendHeartBeatMessage()
         {
-            WriteStream(HeartBeatMessage, 0, 14);
+            byte[] heartBeatMessage = new byte[14] { 0x02, 0x01, 0x00, 0, 0, 0x01, 0x00, 0x00, 0, 0, 0, 0, 0, 0 };
+            WriteStream(heartBeatMessage, 0, 14);
         }
 
         public void SendRequestFirmwareMessage()
         {
-            WriteStream(RequestFirmwareMessage, 0, 14);
+            byte[] requestFirmwareMessage = new byte[14] { 0x02, 0x01, 0x00, 0, 0, 0x01, 0x02, 0x00, 0, 0, 0, 0, 0, 0 };
+            WriteStream(requestFirmwareMessage, 0, 14);
         }
 
         private void WriteStream(byte[] buffer, int offset, int count)

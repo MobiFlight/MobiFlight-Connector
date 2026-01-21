@@ -55,54 +55,54 @@ namespace MobiFlightWwFcu
         private bool IsSpeedB = false;
 
 
-        private Dictionary<string, Element> DisplayTestCommands = new Dictionary<string, Element>()
+        private Dictionary<string, DisplaySegment> DisplayTestCommands = new Dictionary<string, DisplaySegment>()
         {
-            { "AllOn",       new Element(new Bit[] {new Bit(0,0, true), new Bit(0,1), new Bit(0,2), new Bit(0,3) }, false)},
-            { "AllOff",      new Element(new Bit[] {new Bit(0,0), new Bit(0,1, true), new Bit(0,2), new Bit(0,3) }, false)},
+            { "AllOn",       new DisplaySegment(new Bit[] {new Bit(0,0, true), new Bit(0,1), new Bit(0,2), new Bit(0,3) }, false)},
+            { "AllOff",      new DisplaySegment(new Bit[] {new Bit(0,0), new Bit(0,1, true), new Bit(0,2), new Bit(0,3) }, false)},
         };
 
 
         // Element top byte is byte number in data section. So 0 is start of data section. Header with 17 bytes is not included.
-        private Dictionary<string, Element> DisplaySetValueElements = new Dictionary<string, Element>()
+        private Dictionary<string, DisplaySegment> DisplaySetValueElements = new Dictionary<string, DisplaySegment>()
         {                                   
-            { "CoLHundreds",  new Element(32, 7)}, // PAP3 topByte, BitNumber
-            { "CoLTens",      new Element(32, 6)},
-            { "CoLOnes",      new Element(new Bit[] { new Bit(32,5), new Bit(28,5), new Bit(24,5), new Bit(20,5), new Bit(16,5), new Bit(12,5), new Bit(8,5) }, true)},                   
-            { "SpdThousands", new Element(32, 3)},
-            { "SpdHundreds",  new Element(32, 2)},
-            { "SpdTens",      new Element(32, 1)},
-            { "SpdOnes",      new Element(32, 0)},
-            { "HdgHundreds",  new Element(33, 6, '-')},
-            { "HdgTens",      new Element(33, 5, '-')},
-            { "HdgOnes",      new Element(33, 4, '-')},
-            { "AltTenthsds",  new Element(33, 2, '{')},
-            { "AltThousands", new Element(33, 1, '}')},
-            { "AltHundreds",  new Element(33, 0, 'o')},
-            { "AltTens",      new Element(34, 7, 'b')},
-            { "AltOnes",      new Element(34, 6, 'l')},
-            { "VsThousands",  new Element(34, 3, '-')},
-            { "VsHundreds",   new Element(34, 2, '-')},
-            { "VsTens",       new Element(34, 1)},
-            { "VsOnes",       new Element(34, 0)},
-            { "CoRHundreds",  new Element(35, 6)},
-            { "CoRTens",      new Element(35, 5)},
-            { "CoROnes",      new Element(35, 4)},
-            { "CoLDot",       new Element(new Bit(4,5))},
-            { "IasLabel",     new Element(new Bit(33,7))},
-            { "MachLabel",    new Element(new Bit(29,7))},
-            { "SpdPlusVert",  new Element(new Bit[] {new Bit(13,7), new Bit(9,7) }, false)},
-            { "SpdPlusHoriz", new Element(new Bit(8,3))},
-            { "MachDot",      new Element(new Bit(4,2))},
-            { "HdgLabel",     new Element(new Bit(33,3))},
-            { "TrkLabel",     new Element(new Bit(25,3))},
-            { "HdgDot",       new Element(new Bit(17,3))},
-            { "AltDot",       new Element(new Bit(5,0))},
-            { "VsLabel",      new Element(new Bit(35,7))},
-            { "FpaLabel",     new Element(new Bit(31,7))},
-            { "VsPlusVert",   new Element(new Bit[] {new Bit(23,7), new Bit(19,7) }, false)},
-            { "VsPlusHoriz",  new Element(new Bit(10,4, true))},
-            { "VsDot",        new Element(new Bit(6,2))},
-            { "CoRDot",       new Element(new Bit(7,4))},
+            { "CoLHundreds",  new DisplaySegment(32, 7)}, // PAP3 topByte, BitNumber
+            { "CoLTens",      new DisplaySegment(32, 6)},
+            { "CoLOnes",      new DisplaySegment(new Bit[] { new Bit(32,5), new Bit(28,5), new Bit(24,5), new Bit(20,5), new Bit(16,5), new Bit(12,5), new Bit(8,5) }, true)},                   
+            { "SpdThousands", new DisplaySegment(32, 3)},
+            { "SpdHundreds",  new DisplaySegment(32, 2)},
+            { "SpdTens",      new DisplaySegment(32, 1)},
+            { "SpdOnes",      new DisplaySegment(32, 0)},
+            { "HdgHundreds",  new DisplaySegment(33, 6, '-')},
+            { "HdgTens",      new DisplaySegment(33, 5, '-')},
+            { "HdgOnes",      new DisplaySegment(33, 4, '-')},
+            { "AltTenthsds",  new DisplaySegment(33, 2, '{')},
+            { "AltThousands", new DisplaySegment(33, 1, '}')},
+            { "AltHundreds",  new DisplaySegment(33, 0, 'o')},
+            { "AltTens",      new DisplaySegment(34, 7, 'b')},
+            { "AltOnes",      new DisplaySegment(34, 6, 'l')},
+            { "VsThousands",  new DisplaySegment(34, 3, '-')},
+            { "VsHundreds",   new DisplaySegment(34, 2, '-')},
+            { "VsTens",       new DisplaySegment(34, 1)},
+            { "VsOnes",       new DisplaySegment(34, 0)},
+            { "CoRHundreds",  new DisplaySegment(35, 6)},
+            { "CoRTens",      new DisplaySegment(35, 5)},
+            { "CoROnes",      new DisplaySegment(35, 4)},
+            { "CoLDot",       new DisplaySegment(new Bit(4,5))},
+            { "IasLabel",     new DisplaySegment(new Bit(33,7))},
+            { "MachLabel",    new DisplaySegment(new Bit(29,7))},
+            { "SpdPlusVert",  new DisplaySegment(new Bit[] {new Bit(13,7), new Bit(9,7) }, false)},
+            { "SpdPlusHoriz", new DisplaySegment(new Bit(8,3))},
+            { "MachDot",      new DisplaySegment(new Bit(4,2))},
+            { "HdgLabel",     new DisplaySegment(new Bit(33,3))},
+            { "TrkLabel",     new DisplaySegment(new Bit(25,3))},
+            { "HdgDot",       new DisplaySegment(new Bit(17,3))},
+            { "AltDot",       new DisplaySegment(new Bit(5,0))},
+            { "VsLabel",      new DisplaySegment(new Bit(35,7))},
+            { "FpaLabel",     new DisplaySegment(new Bit(31,7))},
+            { "VsPlusVert",   new DisplaySegment(new Bit[] {new Bit(23,7), new Bit(19,7) }, false)},
+            { "VsPlusHoriz",  new DisplaySegment(new Bit(10,4, true))},
+            { "VsDot",        new DisplaySegment(new Bit(6,2))},
+            { "CoRDot",       new DisplaySegment(new Bit(7,4))},
         };   
 
         private Dictionary<string, byte> LedIdentifiers = new Dictionary<string, byte>()
@@ -203,7 +203,7 @@ namespace MobiFlightWwFcu
 
             foreach (var element in DisplaySetValueElements.Values)
             {
-                SetElementDisplayCommand(element, SetValuesCommand);
+                SetSegmentDisplayCommand(element, SetValuesCommand);
             }
         }
 
@@ -311,9 +311,9 @@ namespace MobiFlightWwFcu
             MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
         }
 
-        private void PrepareAndSendDisplayTestCommand(Element element)
+        private void PrepareAndSendDisplayTestCommand(DisplaySegment element)
         {
-            SetElementDisplayCommand(element, DisplayTestCommand);
+            SetSegmentDisplayCommand(element, DisplayTestCommand);
             SendDisplayCommand(DisplayTestCommand);
         }
 
@@ -332,7 +332,7 @@ namespace MobiFlightWwFcu
             int isSet = (int)Convert.ToDouble(isSetString, CultureInfo.InvariantCulture);
             var element = DisplaySetValueElements[elementName];
             element.SetValue(Convert.ToBoolean(isSet));
-            SetElementDisplayCommand(element, SetValuesCommand);
+            SetSegmentDisplayCommand(element, SetValuesCommand);
             SendDisplayCommand(SetValuesCommand);
         }
 
@@ -343,7 +343,7 @@ namespace MobiFlightWwFcu
             {
                 var element = DisplaySetValueElements[elementNames[i]];
                 element.SetCharacter(chars[i]);
-                SetElementDisplayCommand(element, SetValuesCommand);
+                SetSegmentDisplayCommand(element, SetValuesCommand);
             }
 
             SendDisplayCommand(SetValuesCommand);
@@ -402,17 +402,17 @@ namespace MobiFlightWwFcu
         {
             var machDot = DisplaySetValueElements["MachDot"];
             machDot.SetValue(isDotSet);
-            SetElementDisplayCommand(machDot, SetValuesCommand);
+            SetSegmentDisplayCommand(machDot, SetValuesCommand);
         }
 
         private void RefreshOnMachModeChange()
         {
             var spdThousands = DisplaySetValueElements["SpdThousands"];
             spdThousands.SetCharacter('*');
-            SetElementDisplayCommand(spdThousands, SetValuesCommand);
+            SetSegmentDisplayCommand(spdThousands, SetValuesCommand);
             var spdHundreds = DisplaySetValueElements["SpdHundreds"];
             spdHundreds.SetCharacter('*');
-            SetElementDisplayCommand(spdHundreds, SetValuesCommand);
+            SetSegmentDisplayCommand(spdHundreds, SetValuesCommand);
             LcdCurrentValuesCache[SPEED_A] = string.Empty;
             LcdCurrentValuesCache[SPEED_B] = string.Empty;
         }
@@ -615,7 +615,7 @@ namespace MobiFlightWwFcu
         {
             var vsDot = DisplaySetValueElements["VsDot"];
             vsDot.SetValue(isDotSet);
-            SetElementDisplayCommand(vsDot, SetValuesCommand);
+            SetSegmentDisplayCommand(vsDot, SetValuesCommand);
         }
 
         private void SetVsSign(bool isPlus, bool isMinus)
@@ -639,8 +639,8 @@ namespace MobiFlightWwFcu
                 vsPlusVert.SetValue(false);
             }
 
-            SetElementDisplayCommand(vsPlusHoriz, SetValuesCommand);
-            SetElementDisplayCommand(vsPlusVert, SetValuesCommand);
+            SetSegmentDisplayCommand(vsPlusHoriz, SetValuesCommand);
+            SetSegmentDisplayCommand(vsPlusVert, SetValuesCommand);
         }
 
         private void SetVs(string vs)
@@ -756,7 +756,7 @@ namespace MobiFlightWwFcu
             MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
         }
 
-        private void SetElementDisplayCommand(Element e, byte[] mes)
+        private void SetSegmentDisplayCommand(DisplaySegment e, byte[] mes)
         {
             foreach (Bit b in e.Bits)
             {
