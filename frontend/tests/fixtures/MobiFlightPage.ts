@@ -212,7 +212,7 @@ export class MobiFlightPage {
     return (testProject as Project).ControllerBindings as ControllerBinding[]
   }
 
-  async updateProjectState(projectStatus: ProjectStatus) {
+  async updateProjectState(projectStatus: Partial<ProjectStatus>) {
     const message: AppMessage = {
       key: "ProjectStatus",
       payload: projectStatus,

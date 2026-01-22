@@ -206,11 +206,15 @@ function App() {
     setIsTesting(IsTesting)
   })
   const { t } = useTranslation()
-  
+
   return (
     <>
       {overlayVisible && (
-        <LoaderOverlay open={overlayVisible} onOpenChange={setOverlayVisible} message={t("General.Overlay.OpeningWizard")}/>
+        <LoaderOverlay
+          open={overlayVisible}
+          onOpenChange={setOverlayVisible}
+          message={t("General.Overlay.OpeningWizard")}
+        />
       )}
       {outlet ? (
         <div className="flex h-svh flex-row overflow-hidden p-0 select-none">
