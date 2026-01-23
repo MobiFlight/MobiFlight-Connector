@@ -179,6 +179,42 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
   }
 })
 
+test.describe("Verify Error Boundary", () => {
+  test("Verify Error Boundary project panel", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    const projectPanel = page.getByTestId("project-panel")
+    await expect(projectPanel).toBeVisible()
+
+    await configListPage.gotoPageAndTriggerError("project-panel")
+
+    await expect(projectPanel).not.toBeVisible()
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
+
+  test("Verify Error Boundary config item table", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    const configItemTable = page.getByTestId("config-item-table")
+    await expect(configItemTable).toBeVisible()
+
+    await configListPage.gotoPageAndTriggerError("config-item-table")
+
+    await expect(configItemTable).not.toBeVisible()
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
+})
+
 test("Confirm status icons are initialized correctly when status is not present", async ({
   configListPage,
 }) => {
@@ -867,13 +903,13 @@ test("Confirm `Controller Settings` link is working", async ({
 
   await expect(controllerSettingsButton).toHaveCSS("opacity", "0")
   await firstRow.hover()
-  
+
   await expect(controllerSettingsButton).toHaveCSS("opacity", "0.25")
 
   await controllerSettingsButton.hover()
   await expect(controllerSettingsButton).toHaveCSS("opacity", "1")
   await controllerSettingsButton.click()
-  
+
   const postedCommands =
     await configListPage.mobiFlightPage.getTrackedCommands()
   expect(postedCommands!.pop().key).toEqual("CommandConfigContextMenu")

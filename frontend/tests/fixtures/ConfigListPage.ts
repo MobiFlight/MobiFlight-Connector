@@ -31,6 +31,15 @@ export class ConfigListPage {
     })
   }
 
+  async gotoPageAndTriggerError(testid: string) {
+    await this.mobiFlightPage.page.goto(
+      `${this.getPageUrl()}?triggerError=true&testid=${testid}`,
+      {
+        waitUntil: "networkidle",
+      },
+    )
+  }
+
   async initControllerDefinitions() {
     const message: AppMessage = {
       key: "JoystickDefinitions",
