@@ -13,6 +13,10 @@
       "Title": "HubHop update available",
       "Description": "Your HubHop database is older than {{days}} days. Would you like to update it now?",
       "Title.Downloading": "Downloading HubHop update..."
+    },
+    "Error": {
+      "FallbackTitle": "Ooops... something went wrong!",
+      "Unknown": "An unknown error occurred."
     }
   },
   "MainMenu": {
