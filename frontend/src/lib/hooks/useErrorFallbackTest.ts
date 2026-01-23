@@ -5,6 +5,7 @@ export function useErrorFallbackTest() {
   
   const trigger = (testid: string) => {
     if (
+      process.env.NODE_ENV === "development" &&
       searchParams.get("triggerError") === "true" &&
       searchParams.get("testid") === testid
     ) {
