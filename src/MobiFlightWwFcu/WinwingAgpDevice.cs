@@ -95,11 +95,11 @@ namespace MobiFlightWwFcu
             { "ChrSecTens",   new DisplaySegment(28, 2, isReverse: false)},
             { "ChrSecOnes",   new DisplaySegment(28, 3, isReverse: false)},
             { "ChrColon",  new DisplaySegment(new Bit[] { new Bit(32,2), new Bit(32,3) }, isSevenSegment: false)},
-            { "UtcHrTens",    new DisplaySegment(28, 4, '{', isReverse: false)},
-            { "UtcHrOnes",    new DisplaySegment(28, 5, '}', isReverse: false)},
-            { "UtcMinTens",   new DisplaySegment(28, 6, 'o', isReverse: false)},
-            { "UtcMinOnes",   new DisplaySegment(28, 7, 'b', isReverse: false)},
-            { "UtcSecTens",   new DisplaySegment(29, 0, 'l', isReverse: false)},
+            { "UtcHrTens",    new DisplaySegment(28, 4, isReverse: false)},
+            { "UtcHrOnes",    new DisplaySegment(28, 5, isReverse: false)},
+            { "UtcMinTens",   new DisplaySegment(28, 6, isReverse: false)},
+            { "UtcMinOnes",   new DisplaySegment(28, 7, isReverse: false)},
+            { "UtcSecTens",   new DisplaySegment(29, 0, isReverse: false)},
             { "UtcSecOnes",   new DisplaySegment(29, 1, isReverse: false)},
             { "UtcLeftColon",   new DisplaySegment(new Bit[] { new Bit(32,5), new Bit(32,6) }, isSevenSegment: false)},
             { "UtcRightColon",  new DisplaySegment(new Bit[] { new Bit(32,7), new Bit(33,0) }, isSevenSegment: false)},
@@ -181,6 +181,9 @@ namespace MobiFlightWwFcu
         public void Connect()
         {
             SendDisplayCommand(SetValuesCommand);
+            SetDisplay(UTC_HR, "0");
+            SetDisplay(UTC_MIN, "0");
+            SetDisplay(UTC_SEC, "0");
             SetBacklightBrightness(50);
             SetLcdBrightness(100);
 
@@ -346,9 +349,9 @@ namespace MobiFlightWwFcu
         private void SetDoubleDigitInternal(string value, bool isShown, string[] segmentNames)
         {
             char[] chars;
-                       
+
             if (isShown)
-            {               
+            {
                 int valueInt = (int)Convert.ToDouble(value, CultureInfo.InvariantCulture);
                 chars = valueInt.ToString("D2", CultureInfo.InvariantCulture).ToCharArray();
             }
@@ -361,13 +364,19 @@ namespace MobiFlightWwFcu
 
 
         private void SetChrMin(string value)
-        { 
-            SetDoubleDigitInternal(value, IsChrShown, new string[] { "ChrMinTens", "ChrMinOnes" });
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                SetDoubleDigitInternal(value, IsChrShown, new string[] { "ChrMinTens", "ChrMinOnes" });
+            }
         }
 
         private void SetChrSec(string value)
-        {            
-            SetDoubleDigitInternal(value, IsChrShown, new string[] { "ChrSecTens", "ChrSecOnes" });
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                SetDoubleDigitInternal(value, IsChrShown, new string[] { "ChrSecTens", "ChrSecOnes" });
+            }
         }
 
         private void SetChrShown(string isShown)
@@ -383,27 +392,39 @@ namespace MobiFlightWwFcu
 
         private void SetChrColonShown(string isShown)
         {
-            int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsChrColonShown = Convert.ToBoolean(intValue);
-            SetBoolInternal(IsChrColonShown, IsChrShown, "ChrColon");
+            if (!string.IsNullOrWhiteSpace(isShown))
+            {
+                int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+                IsChrColonShown = Convert.ToBoolean(intValue);
+                SetBoolInternal(IsChrColonShown, IsChrShown, "ChrColon");
+            }
         }
 
         private void SetUtcHr(string value)
         {
-            bool isShown = IsUtcShown && IsUtcHrShown;
-            SetDoubleDigitInternal(value, isShown, new string[] { "UtcHrTens", "UtcHrOnes" });
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                bool isShown = IsUtcShown && IsUtcHrShown;
+                SetDoubleDigitInternal(value, isShown, new string[] { "UtcHrTens", "UtcHrOnes" });
+            }
         }
 
         private void SetUtcMin(string value)
         {
-            bool isShown = IsUtcShown && IsUtcMinShown;
-            SetDoubleDigitInternal(value, isShown, new string[] { "UtcMinTens", "UtcMinOnes" });
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                bool isShown = IsUtcShown && IsUtcMinShown;
+                SetDoubleDigitInternal(value, isShown, new string[] { "UtcMinTens", "UtcMinOnes" });
+            }
         }
 
         private void SetUtcSec(string value)
         {
-            bool isShown = IsUtcShown && IsUtcSecShown;
-            SetDoubleDigitInternal(value, isShown, new string[] { "UtcSecTens", "UtcSecOnes" });
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                bool isShown = IsUtcShown && IsUtcSecShown;
+                SetDoubleDigitInternal(value, isShown, new string[] { "UtcSecTens", "UtcSecOnes" });
+            }
         }
 
         private void SetUtcShown(string isShown)
@@ -421,16 +442,22 @@ namespace MobiFlightWwFcu
 
         private void SetUtcColonLShown(string isShown)
         {
-            int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsUtcColonLShown = Convert.ToBoolean(intValue);
-            SetBoolInternal(IsUtcColonLShown, IsChrShown, "UtcLeftColon");
+            if (!string.IsNullOrWhiteSpace(isShown))
+            {
+                int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+                IsUtcColonLShown = Convert.ToBoolean(intValue);
+                SetBoolInternal(IsUtcColonLShown, IsUtcShown, "UtcLeftColon");
+            }
         }
 
         private void SetUtcColonRShown(string isShown)
         {
-            int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsUtcColonRShown = Convert.ToBoolean(intValue);
-            SetBoolInternal(IsUtcColonRShown, IsChrShown, "UtcRightColon");
+            if (!string.IsNullOrWhiteSpace(isShown))
+            {
+                int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+                IsUtcColonRShown = Convert.ToBoolean(intValue);
+                SetBoolInternal(IsUtcColonRShown, IsUtcShown, "UtcRightColon");
+            }
         }
 
         private void SetUtcHrShown(string isShown)
@@ -457,12 +484,18 @@ namespace MobiFlightWwFcu
 
         private void SetEtHr(string value)
         {
-            SetDoubleDigitInternal(value, IsEtShown, new string[] { "EtHrTens", "EtHrOnes" });
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                SetDoubleDigitInternal(value, IsEtShown, new string[] { "EtHrTens", "EtHrOnes" });
+            }
         }
 
         private void SetEtMin(string value)
-        {            
-            SetDoubleDigitInternal(value, IsEtShown, new string[] { "EtMinTens", "EtMinOnes" });
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                SetDoubleDigitInternal(value, IsEtShown, new string[] { "EtMinTens", "EtMinOnes" });
+            }
         }
 
 
@@ -479,9 +512,12 @@ namespace MobiFlightWwFcu
 
         private void SetEtColonShown(string isShown)
         {
-            int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsEtColonShown = Convert.ToBoolean(intValue);
-            SetBoolInternal(IsEtColonShown, IsChrShown, "EtColon");
+            if (!string.IsNullOrWhiteSpace(isShown))
+            {
+                int intValue = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+                IsEtColonShown = Convert.ToBoolean(intValue);
+                SetBoolInternal(IsEtColonShown, IsEtShown, "EtColon");
+            }
         }
 
         // "AllOn", "AllOff"      
