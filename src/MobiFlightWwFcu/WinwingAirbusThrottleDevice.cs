@@ -46,7 +46,7 @@ namespace MobiFlightWwFcu
         // supplying valid rudder trim data—typically due to a failure or when both FACs are lost.
 
         // Element top byte is byte number in data section. So 0 is start of data section. Header with 17 bytes is not included.
-        private Dictionary<string, DisplaySegment> DisplaySetValueElements = new Dictionary<string, DisplaySegment>()
+        private Dictionary<string, DisplaySegment> DisplaySetValueSegments = new Dictionary<string, DisplaySegment>()
         {
             { "TrimDecimal",  new DisplaySegment(32, 3, 'b')},
             { "TrimOnes",     new DisplaySegment(32, 2, 'o')},  // 3 ist ones, 2 ist tenth, 1 ist hundreds, 0 ist L/R
@@ -119,9 +119,9 @@ namespace MobiFlightWwFcu
             initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
             initRefresh.CopyTo(RefreshCommand, 0);
 
-            foreach (var element in DisplaySetValueElements.Values)
+            foreach (var segment in DisplaySetValueSegments.Values)
             {
-                SetSegmentDisplayCommand(element, SetValuesCommand);
+                SetSegmentDisplayCommand(segment, SetValuesCommand);
             }
         }
 
@@ -262,13 +262,13 @@ namespace MobiFlightWwFcu
         }
 
 
-        private void SetDigitsInternal(char[] chars, string[] elementNames)
+        private void SetDigitsInternal(char[] chars, string[] segmentNames)
         {
             for (int i = 0; i < chars.Length; i++)
             {
-                var element = DisplaySetValueElements[elementNames[i]];
-                element.SetCharacter(chars[i]);
-                SetSegmentDisplayCommand(element, SetValuesCommand);
+                var segment = DisplaySetValueSegments[segmentNames[i]];
+                segment.SetCharacter(chars[i]);
+                SetSegmentDisplayCommand(segment, SetValuesCommand);
             }
 
             SendDisplayCommand(SetValuesCommand);
@@ -277,7 +277,7 @@ namespace MobiFlightWwFcu
 
         private void SetTrimDot(bool isDotSet)
         {
-            var trimDot = DisplaySetValueElements["TrimDot"];
+            var trimDot = DisplaySetValueSegments["TrimDot"];
             trimDot.SetValue(isDotSet);
             SetSegmentDisplayCommand(trimDot, SetValuesCommand);
         }

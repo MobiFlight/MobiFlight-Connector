@@ -63,7 +63,7 @@ namespace MobiFlightWwFcu
 
 
         // Element top byte is byte number in data section. So 0 is start of data section. Header with 17 bytes is not included.
-        private Dictionary<string, DisplaySegment> DisplaySetValueElements = new Dictionary<string, DisplaySegment>()
+        private Dictionary<string, DisplaySegment> DisplaySetValueSegments = new Dictionary<string, DisplaySegment>()
         {                                   
             { "CoLHundreds",  new DisplaySegment(32, 7)}, // PAP3 topByte, BitNumber
             { "CoLTens",      new DisplaySegment(32, 6)},
@@ -201,9 +201,9 @@ namespace MobiFlightWwFcu
             initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
             initRefresh.CopyTo(RefreshCommand, 0);
 
-            foreach (var element in DisplaySetValueElements.Values)
+            foreach (var segment in DisplaySetValueSegments.Values)
             {
-                SetSegmentDisplayCommand(element, SetValuesCommand);
+                SetSegmentDisplayCommand(segment, SetValuesCommand);
             }
         }
 
@@ -311,9 +311,9 @@ namespace MobiFlightWwFcu
             MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
         }
 
-        private void PrepareAndSendDisplayTestCommand(DisplaySegment element)
+        private void PrepareAndSendDisplayTestCommand(DisplaySegment segment)
         {
-            SetSegmentDisplayCommand(element, DisplayTestCommand);
+            SetSegmentDisplayCommand(segment, DisplayTestCommand);
             SendDisplayCommand(DisplayTestCommand);
         }
 
@@ -327,23 +327,23 @@ namespace MobiFlightWwFcu
             //SendDisplayCommand(SetValuesCommand);
         }
 
-        private void SetBoolInternal(string isSetString, string elementName)
+        private void SetBoolInternal(string isSetString, string segmentName)
         {
             int isSet = (int)Convert.ToDouble(isSetString, CultureInfo.InvariantCulture);
-            var element = DisplaySetValueElements[elementName];
-            element.SetValue(Convert.ToBoolean(isSet));
-            SetSegmentDisplayCommand(element, SetValuesCommand);
+            var segment = DisplaySetValueSegments[segmentName];
+            segment.SetValue(Convert.ToBoolean(isSet));
+            SetSegmentDisplayCommand(segment, SetValuesCommand);
             SendDisplayCommand(SetValuesCommand);
         }
 
 
-        private void SetDigitsInternal(char[] chars, string[] elementNames)
+        private void SetDigitsInternal(char[] chars, string[] segmentNames)
         {
             for (int i = 0; i < chars.Length; i++)
             {
-                var element = DisplaySetValueElements[elementNames[i]];
-                element.SetCharacter(chars[i]);
-                SetSegmentDisplayCommand(element, SetValuesCommand);
+                var segment = DisplaySetValueSegments[segmentNames[i]];
+                segment.SetCharacter(chars[i]);
+                SetSegmentDisplayCommand(segment, SetValuesCommand);
             }
 
             SendDisplayCommand(SetValuesCommand);
@@ -400,17 +400,17 @@ namespace MobiFlightWwFcu
 
         private void SetMachDot(bool isDotSet)
         {
-            var machDot = DisplaySetValueElements["MachDot"];
+            var machDot = DisplaySetValueSegments["MachDot"];
             machDot.SetValue(isDotSet);
             SetSegmentDisplayCommand(machDot, SetValuesCommand);
         }
 
         private void RefreshOnMachModeChange()
         {
-            var spdThousands = DisplaySetValueElements["SpdThousands"];
+            var spdThousands = DisplaySetValueSegments["SpdThousands"];
             spdThousands.SetCharacter('*');
             SetSegmentDisplayCommand(spdThousands, SetValuesCommand);
-            var spdHundreds = DisplaySetValueElements["SpdHundreds"];
+            var spdHundreds = DisplaySetValueSegments["SpdHundreds"];
             spdHundreds.SetCharacter('*');
             SetSegmentDisplayCommand(spdHundreds, SetValuesCommand);
             LcdCurrentValuesCache[SPEED_A] = string.Empty;
@@ -419,7 +419,7 @@ namespace MobiFlightWwFcu
 
         private void SetSpeed(string speed)
         {            
-            var machDot = DisplaySetValueElements["MachDot"];
+            var machDot = DisplaySetValueSegments["MachDot"];
             bool isMachModeChange = machDot.Bits[0].Value == true;
             SetMachDot(false); // update beforehand!
             if (isMachModeChange)
@@ -452,7 +452,7 @@ namespace MobiFlightWwFcu
         
         private void SetMachSpeed(string speed)
         {                        
-            var machDot = DisplaySetValueElements["MachDot"];
+            var machDot = DisplaySetValueSegments["MachDot"];
             bool isMachModeChange = machDot.Bits[0].Value == false;
             SetMachDot(true); // update beforehand!
             if (isMachModeChange )
@@ -522,16 +522,16 @@ namespace MobiFlightWwFcu
 
             if (IsSpeedShown)
             {
-                var machDot = DisplaySetValueElements["MachDot"];
-                string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
+                var machDot = DisplaySetValueSegments["MachDot"];
+                string segmentName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
 
                 if (isA)
                 {
-                    SetDigitsInternal(new char[] { 'A' }, new string[] { elementName });
+                    SetDigitsInternal(new char[] { 'A' }, new string[] { segmentName });
                 }
                 else
                 {
-                    SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
+                    SetDigitsInternal(new char[] { '*' }, new string[] { segmentName });
                 }
             }
             else
@@ -548,16 +548,16 @@ namespace MobiFlightWwFcu
 
             if (IsSpeedShown)
             {
-                var machDot = DisplaySetValueElements["MachDot"];
-                string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
+                var machDot = DisplaySetValueSegments["MachDot"];
+                string segmentName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
 
                 if (isB)
                 {
-                    SetDigitsInternal(new char[] { 'B' }, new string[] { elementName });
+                    SetDigitsInternal(new char[] { 'B' }, new string[] { segmentName });
                 }
                 else
                 {
-                    SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
+                    SetDigitsInternal(new char[] { '*' }, new string[] { segmentName });
                 }
             }
             else
@@ -613,15 +613,15 @@ namespace MobiFlightWwFcu
 
         private void SetVsDot(bool isDotSet)
         {
-            var vsDot = DisplaySetValueElements["VsDot"];
+            var vsDot = DisplaySetValueSegments["VsDot"];
             vsDot.SetValue(isDotSet);
             SetSegmentDisplayCommand(vsDot, SetValuesCommand);
         }
 
         private void SetVsSign(bool isPlus, bool isMinus)
         {
-            var vsPlusHoriz = DisplaySetValueElements["VsPlusHoriz"];
-            var vsPlusVert = DisplaySetValueElements["VsPlusVert"];
+            var vsPlusHoriz = DisplaySetValueSegments["VsPlusHoriz"];
+            var vsPlusVert = DisplaySetValueSegments["VsPlusVert"];
             
             if (isPlus)
             {

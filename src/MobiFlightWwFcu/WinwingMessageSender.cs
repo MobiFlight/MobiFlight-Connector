@@ -132,7 +132,7 @@ namespace MobiFlightWwFcu
                     payloadIndex++;
 
                     bool isLastByte = (command == commands[commands.Count - 1]) &&
-                                    (cmdByteIndex == command.Length - 1);
+                                      (cmdByteIndex == command.Length - 1);
 
                     if (payloadIndex >= MAX_PAYLOAD || isLastByte)
                     {
