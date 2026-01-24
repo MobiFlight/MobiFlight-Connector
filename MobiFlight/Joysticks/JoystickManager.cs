@@ -66,21 +66,7 @@ namespace MobiFlight
                 return;
             }
 
-            var di = new DirectInput();
-            var connectedControllers = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly)
-                                     .ToList()
-                                     .Where(d => d.InstanceName == e.Name);
-
-            var registeredControllers = Joysticks.Values.Where(js => js.Name == e.Name).ToList();
-
-            foreach (var controller in registeredControllers)
-            {
-                var stillConnected = connectedControllers.Any(d => d.InstanceName == controller.Name);
-                if (stillConnected) continue;
-
-                Log.Instance.log($"Removing disconnected controller: {controller.Name}.", LogSeverity.Info);
-                Joysticks.TryRemove(controller.Serial, out _);
-            }
+            RemoveDirectInputController(e as HidConnectionDetails);
         }
 
         private void HidControllerAvailable(object sender, IConnectionDetails e)
@@ -405,6 +391,25 @@ namespace MobiFlight
         private void RemoveHidController(HidConnectionDetails deatils)
         {
 
+        }
+
+        private void RemoveDirectInputController(HidConnectionDetails details)
+        {
+            var di = new DirectInput();
+            var connectedControllers = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly)
+                                     .ToList()
+                                     .Where(d => d.InstanceName == details.Name);
+
+            var registeredControllers = Joysticks.Values.Where(js => js.Name == details.Name).ToList();
+
+            foreach (var controller in registeredControllers)
+            {
+                var stillConnected = connectedControllers.Any(d => d.InstanceName == controller.Name);
+                if (stillConnected) continue;
+
+                Log.Instance.log($"Removing disconnected controller: {controller.Name}.", LogSeverity.Info);
+                Joysticks.TryRemove(controller.Serial, out _);
+            }
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)
