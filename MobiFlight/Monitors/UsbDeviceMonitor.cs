@@ -43,7 +43,7 @@ namespace MobiFlight.Monitors
             if (isScanning) return;
             isScanning = true;
 
-            var result = new List<PortDetails>();
+            var result = new List<IConnectionDetails>();
 
             foreach (var drive in DriveInfo.GetDrives())
             {
@@ -88,7 +88,7 @@ namespace MobiFlight.Monitors
                 }
             }
             isScanning = false;
-            UpdatePorts(result);
+            UpdateConnectionDetails(result);
         }
     }
 }

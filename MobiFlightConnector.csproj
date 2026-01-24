@@ -454,6 +454,7 @@
     <Compile Include="MobiFlight\Modifier\Padding.cs" />
     <Compile Include="MobiFlight\Modifier\Substring.cs" />
     <Compile Include="MobiFlight\Monitors\SerialPortMonitor.cs" />
+    <Compile Include="MobiFlight\Monitors\HidDeviceMonitor.cs" />
     <Compile Include="MobiFlight\Monitors\UsbDeviceMonitor.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />

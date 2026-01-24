@@ -75,7 +75,7 @@ namespace MobiFlight.Monitors
         override protected void Scan()
         {
             var portNameRegEx = "\\(.*\\)";
-            var result = new List<PortDetails>();
+            var result = new List<IConnectionDetails>();
             var regex = new Regex(@"(?<id>VID_\S*)"); // Pattern to match the VID/PID of the connected devices
 
             // Code from https://stackoverflow.com/questions/45165299/wmi-get-list-of-all-serial-com-ports-including-virtual-ports
@@ -162,7 +162,7 @@ namespace MobiFlight.Monitors
                     //Log.Instance.log($"Found potentially compatible module ({board.Info.FriendlyName}): {hardwareId}@{portName}.", LogSeverity.Debug);
                 }
 
-                UpdatePorts(result);
+                UpdateConnectionDetails(result);
             }
             catch (ManagementException ex)
             {

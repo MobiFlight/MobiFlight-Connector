@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MobiFlight
+﻿namespace MobiFlight
 {
+    public interface IConnectionDetails
+    {
+        string Name { get; }
+    }
+
     /// <summary>
     /// Provides raw information about detected ports and the device attached to the port
     /// </summary>
-    public class PortDetails
+    public class PortDetails : IConnectionDetails
     {
         public Board Board { get; set; }
         public string HardwareId { get; set; }
@@ -18,6 +17,14 @@ namespace MobiFlight
 
     public class UsbPortDetails : PortDetails 
     { 
+        public string Path { get; set; }
+    }
+
+    public class HidConnectionDetails : IConnectionDetails
+    {
+        public string Name { get; set; }
+        public int VendorId { get; set; }
+        public int ProductId { get; set; }
         public string Path { get; set; }
     }
 }

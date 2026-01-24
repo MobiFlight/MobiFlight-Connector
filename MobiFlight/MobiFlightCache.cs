@@ -107,8 +107,9 @@ namespace MobiFlight
             }
         }
 
-        private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
+        private void SerialPortMonitor_PortUnavailable(object sender, IConnectionDetails portDetail)
         {
+            var e = portDetail as PortDetails;
             Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Info);
             var disconnectedModule = AvailableComModules.Find(m => m.Port == e.Name);
 
@@ -127,8 +128,9 @@ namespace MobiFlight
             ModuleRemoved?.Invoke(disconnectedModule, EventArgs.Empty);
         }
 
-        private async void SerialPortMonitor_PortAvailable(object sender, PortDetails portDetails)
+        private async void SerialPortMonitor_PortAvailable(object sender, IConnectionDetails portDetail)
         {
+            var portDetails = portDetail as PortDetails;
             Log.Instance.log($"Port detected: {portDetails.Name} {portDetails.Board.Info.FriendlyName}", LogSeverity.Debug);
 
             List<string> ignoredComPorts = GetIgnoredPorts();
@@ -214,14 +216,16 @@ namespace MobiFlight
             AvailableComModules.Add(result);
         }
 
-        private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)
+        private void UsbDeviceMonitor_PortUnavailable(object sender, IConnectionDetails portDetails)
         {
+            var e = portDetails as PortDetails;
             Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Info);
             SerialPortMonitor_PortUnavailable(sender, e);
         }
 
-        private async void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
+        private async void UsbDeviceMonitor_PortAvailable(object sender, IConnectionDetails portDetails)
         {
+            var e = portDetails as PortDetails;
             Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Info);
             var info = new MobiFlightModuleInfo()
             {
@@ -279,8 +283,11 @@ namespace MobiFlight
                 // This might take a few moments to complete.
                 .Delay(TimeSpan.FromMilliseconds(WaitInMilliseconds))
                 .ContinueWith(_ => usbDeviceMonitor.DetectedPorts
-                    .ForEach(p =>
+                    .ForEach((connectionDetail) =>
                     {
+                        var p = connectionDetail as PortDetails;
+                        if (p == null) return;
+
                         result.Add(new MobiFlightModuleInfo()
                         {
                             Type = p.Board.Info.FriendlyName,

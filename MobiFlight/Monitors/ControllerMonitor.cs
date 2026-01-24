@@ -8,9 +8,9 @@ namespace MobiFlight.Monitors
     public class ControllerMonitor
     {
         protected bool isScanning = false;
-        public event EventHandler<PortDetails> PortAvailable;
-        public event EventHandler<PortDetails> PortUnavailable;
-        public List<PortDetails> DetectedPorts { get; set; } = new List<PortDetails>();
+        public event EventHandler<IConnectionDetails> PortAvailable;
+        public event EventHandler<IConnectionDetails> PortUnavailable;
+        public List<IConnectionDetails> DetectedPorts { get; set; } = new List<IConnectionDetails>();
 
         private ManagementEventWatcher EventWatcher = new ManagementEventWatcher();
 
@@ -49,7 +49,7 @@ namespace MobiFlight.Monitors
             throw new NotImplementedException();
         }
 
-        protected void UpdatePorts(List<PortDetails> ports)
+        protected void UpdateConnectionDetails(List<IConnectionDetails> ports)
         {
             // prevent concurrent modification of our DetectedPorts.
             // this could be theoretically possible because:
@@ -67,7 +67,7 @@ namespace MobiFlight.Monitors
                     }
                 });
 
-                var stalePorts = new List<PortDetails>();
+                var stalePorts = new List<IConnectionDetails>();
 
                 DetectedPorts.ForEach(p =>
                 {
