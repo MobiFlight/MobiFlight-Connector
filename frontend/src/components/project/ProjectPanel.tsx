@@ -24,7 +24,7 @@ const ProjectPanel = () => {
   const SCROLL_TAB_INTO_VIEW_DELAY_MS = 1500
   const SCROLL_OFFSET = 150
 
-  // this component is wrapped in an error boundary in Dashboard.tsx
+  // this component is wrapped in an error boundary
   // so we can trigger errors for testing purposes here
   const { trigger } = useErrorFallbackTest()
   trigger("project-panel")

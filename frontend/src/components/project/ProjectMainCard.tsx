@@ -21,7 +21,7 @@ import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 const ProjectMainCard = () => {
-  // this component is wrapped in an error boundary in Dashboard.tsx
+  // this component is wrapped in an error boundary
   // so we can trigger errors for testing purposes here
   const { trigger } = useErrorFallbackTest()
   trigger("project-main-card")

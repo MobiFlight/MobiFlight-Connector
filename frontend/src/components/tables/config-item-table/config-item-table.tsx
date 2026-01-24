@@ -46,7 +46,7 @@ export function ConfigItemTable<TValue>({
 }: DataTableProps<IConfigItem, TValue>) {
   "use no memo"
 
-  // this component is wrapped in an error boundary in Dashboard.tsx
+  // this component is wrapped in an error boundary
   // so we can trigger errors for testing purposes here
   const { trigger } = useErrorFallbackTest()
   trigger("config-item-table")
