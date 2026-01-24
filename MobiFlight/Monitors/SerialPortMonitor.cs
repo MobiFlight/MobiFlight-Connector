@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace MobiFlight.Monitors
 {
-    public class SerialPortMonitor : DeviceMonitor
+    public class SerialPortMonitor : ControllerMonitor
     {
         /// <summary>
         /// Uses WMI to retrieve property data from a ManagementObject.

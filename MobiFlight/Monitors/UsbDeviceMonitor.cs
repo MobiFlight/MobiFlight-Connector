@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MobiFlight.Monitors
 {
-    public class UsbDeviceMonitor : DeviceMonitor
+    public class UsbDeviceMonitor : ControllerMonitor
     {
         /// <summary>
         /// Returns the IsReady value of the DriveInfo but also

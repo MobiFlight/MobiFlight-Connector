@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight.Monitors
 {
-    public class DeviceMonitor
+    public class ControllerMonitor
     {
         protected bool isScanning = false;
         public event EventHandler<PortDetails> PortAvailable;
@@ -14,7 +14,7 @@ namespace MobiFlight.Monitors
 
         private ManagementEventWatcher EventWatcher = new ManagementEventWatcher();
 
-        public DeviceMonitor()
+        public ControllerMonitor()
         {
             // EventType 2 is for connected, 3 for disconnected.
             // Most of the time several DeviceChangeEvent are fired in the process of connecting or disconnecting.

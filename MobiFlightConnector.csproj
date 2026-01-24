@@ -448,7 +448,7 @@
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
     <Compile Include="MobiFlight\FirmwareFeature.cs" />
     <Compile Include="MobiFlight\InputEventArgs.cs" />
-    <Compile Include="MobiFlight\Monitors\DeviceMonitor.cs" />
+    <Compile Include="MobiFlight\Monitors\ControllerMonitor.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
     <Compile Include="MobiFlight\Modifier\Padding.cs" />
