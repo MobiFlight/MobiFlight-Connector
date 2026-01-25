@@ -150,18 +150,26 @@ test.describe("Project view tests", () => {
         Status: "RequiresManualBind",
         OriginalController:
           "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
-      }
+      },
     ]
 
-    const sixBindingsWithMatch = controllerBindings.slice(0, 6).map((cb) => ({...cb, Status: 'Match'}))
-    const sevenBindingsWithMatch = controllerBindings.slice(0, 7).map((cb) => ({...cb, Status: 'Match'}))
-    const sixBindingsWithError = controllerBindings.slice(0, 6).map((cb) => ({...cb, Status: 'RequiresManualBind'}))
+    const sixBindingsWithMatch = controllerBindings
+      .slice(0, 6)
+      .map((cb) => ({ ...cb, Status: "Match" }))
+    const sevenBindingsWithMatch = controllerBindings
+      .slice(0, 7)
+      .map((cb) => ({ ...cb, Status: "Match" }))
+    const sixBindingsWithError = controllerBindings
+      .slice(0, 6)
+      .map((cb) => ({ ...cb, Status: "RequiresManualBind" }))
     const currentProjectCard = page.getByTestId("project-card")
-    
+
     const bindingIssueIcon = currentProjectCard.getByTestId(
       "controller-binding-issue-icon",
     )
-    const moreControllersIndicator = currentProjectCard.getByTestId("more-controllers-indicator")
+    const moreControllersIndicator = currentProjectCard.getByTestId(
+      "more-controllers-indicator",
+    )
 
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
@@ -566,6 +574,141 @@ test.describe("Project list view tests", () => {
     expect(lastCommand.payload.action).toEqual("virtual.recent.remove")
     expect(lastCommand.payload.index).toEqual(1)
   })
+
+  test("Verify Error Boundary", async ({ dashboardPage, page }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+
+    await expect(recentProjectsList).toBeVisible()
+    await expect(projectItems).toHaveCount(27)
+
+    await dashboardPage.gotoPageAndTriggerError("project-main-card")
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    await expect(projectItems).toHaveCount(0)
+
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
+})
+
+test.describe("Asynchronous save tests", () => {
+  test("Confirm correct handling when saving is successful", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+    const secondProject = projectItems.nth(1)
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Unsaved Changes",
+    })
+    const saveButton = confirmDialog.getByRole("button", {
+      name: "Save changes",
+    })
+    const overlay = page.getByTestId("loader-overlay")
+
+    // Simulate unsaved changes
+    await mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    // Click on second project to trigger loading it
+    await secondProject.click()
+    await expect(confirmDialog).toBeVisible()
+
+    await saveButton.click()
+    await expect(confirmDialog).not.toBeVisible()
+
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.save")
+
+    // Simulate save started
+    await mobiFlightPage.updateProjectState({ SaveStatus: "saving" })
+    await expect(overlay).toBeVisible()
+
+    // Simulate save completed
+    await mobiFlightPage.updateProjectState({
+      SaveStatus: "success",
+      HasChanged: false,
+    })
+    await expect(overlay).not.toBeVisible()
+
+    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    lastCommand = postedCommands!.pop()
+
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.recent")
+    expect(lastCommand.payload.options.project).toEqual(
+      dashboardPage.mobiFlightPage.getRecentProjects()[1],
+    )
+  })
+
+  test("Confirm correct handling when saving is cancelled", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+    const secondProject = projectItems.nth(1)
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Unsaved Changes",
+    })
+    const saveButton = confirmDialog.getByRole("button", {
+      name: "Save changes",
+    })
+    const overlay = page.getByTestId("loader-overlay")
+
+    // Simulate unsaved changes
+    await mobiFlightPage.updateProjectState({ HasChanged: true })
+
+    // Click on second project to trigger loading it
+    await secondProject.click()
+    await expect(confirmDialog).toBeVisible()
+
+    await saveButton.click()
+    await expect(confirmDialog).not.toBeVisible()
+
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.save")
+    await mobiFlightPage.clearTrackedCommands()
+
+    // Simulate save started
+    await mobiFlightPage.updateProjectState({ SaveStatus: "saving" })
+    await expect(overlay).toBeVisible()
+
+    // Simulate save completed
+    await mobiFlightPage.updateProjectState({
+      SaveStatus: "cancelled",
+      HasChanged: true,
+    })
+    await expect(overlay).not.toBeVisible()
+
+    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    lastCommand = postedCommands!.pop()
+
+    // we are not loading a new project since the save was cancelled
+    expect(lastCommand).toBeUndefined()
+  })
 })
 
 test.describe("Community Feed tests", () => {
@@ -653,5 +796,24 @@ test.describe("Community Feed tests", () => {
 
     await communityNavButton.click()
     await expect(feedTitle).toBeVisible()
+  })
+
+  test("Verify Error Boundary", async ({ dashboardPage, page }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    await expect(page.getByText("Community Feed")).toBeVisible()
+
+    const feedFilter = page.getByTestId("community-feed-filter-bar")
+    await expect(feedFilter).toBeVisible()
+
+    await dashboardPage.gotoPageAndTriggerError("community-main-card")
+    
+    await expect(page.getByText("Community Feed")).not.toBeVisible()
+    await expect(feedFilter).not.toBeVisible()
+
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
   })
 })

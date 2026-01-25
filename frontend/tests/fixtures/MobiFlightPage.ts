@@ -1,5 +1,5 @@
 import { CommandMessageKey, CommandMessage } from "@/types/commands"
-import { AppMessage } from "@/types/messages"
+import { AppMessage, ProjectStatus } from "@/types/messages"
 import type { Locator, Page } from "@playwright/test"
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
@@ -98,6 +98,12 @@ export class MobiFlightPage {
     // this was needed when upgrading playwright version to 1.56.1
     await this.page.waitForTimeout(10)
     return await this.page.evaluate(() => window.commands)
+  }
+
+  async clearTrackedCommands() {
+    await this.page.evaluate(() => {
+      window.commands = []
+    })
   }
 
   getTooltipByText(text: string): Locator {
@@ -204,5 +210,13 @@ export class MobiFlightPage {
 
   getControllerBindings() {
     return (testProject as Project).ControllerBindings as ControllerBinding[]
+  }
+
+  async updateProjectState(projectStatus: Partial<ProjectStatus>) {
+    const message: AppMessage = {
+      key: "ProjectStatus",
+      payload: projectStatus,
+    }
+    await this.publishMessage(message)
   }
 }

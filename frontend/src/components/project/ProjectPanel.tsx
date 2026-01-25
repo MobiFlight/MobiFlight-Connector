@@ -14,15 +14,20 @@ import ExecutionToolbar from "../ExecutionToolbar"
 import ProjectNameLabel from "./ProjectNameLabel"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import { useNavigate } from "react-router"
-import { Dialog, DialogTitle } from "@radix-ui/react-dialog"
-import { DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { useWindowSize } from "@/lib/hooks/useWindowSize"
 import { useOverflowDetector } from "@/lib/hooks/useOverflowDetector"
 import { cn } from "@/lib/utils"
+import ConfirmationDialog from "@/components/ConfirmationDialog"
+import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 
 const ProjectPanel = () => {
   const SCROLL_TAB_INTO_VIEW_DELAY_MS = 1500
   const SCROLL_OFFSET = 150
+
+  // this component is wrapped in an error boundary
+  // so we can trigger errors for testing purposes here
+  const { trigger } = useErrorFallbackTest()
+  trigger("project-panel")
 
   const overflowRef = useRef<HTMLDivElement | null>(null)
 
@@ -378,22 +383,12 @@ const ProjectPanel = () => {
           <IconChevronRight className="stroke-muted-foreground/50 group-hover/scroll-right:stroke-foreground" />
         </Button>
       </div>
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
-          <DialogHeader className="sr-only">
-            <DialogTitle>{t("Project.UnsavedChanges.Title")}</DialogTitle>
-          </DialogHeader>
-          <div>{t("Project.UnsavedChanges.Description")}</div>
-          <div className="flex flex-row justify-end gap-4">
-            <Button variant="ghost" onClick={discardChanges}>
-              {t("Project.UnsavedChanges.Discard")}
-            </Button>
-            <Button onClick={saveChanges}>
-              {t("Project.UnsavedChanges.Save")}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ConfirmationDialog
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        saveChanges={saveChanges}
+        discardChanges={discardChanges}
+      />
     </div>
   )
 }

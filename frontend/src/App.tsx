@@ -18,6 +18,7 @@ import {
   JoystickDefinitions,
   MidiControllerDefinitions,
   OverlayState,
+  ProjectStatus,
   RecentProjects,
 } from "./types/messages"
 import {
@@ -44,11 +45,12 @@ import DebugInfo from "@/components/DebugInfo"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { ProjectInfo } from "@/types/project"
 import { useControllerStore } from "@/stores/controllerStore"
+import { useTranslation } from "react-i18next"
 
 function App() {
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
-  const { project, setProject, setHasChanged } = useProjectStore()
+  const { project, setProject, setProjectStatus } = useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
   const { setControllers } = useControllerStore()
@@ -141,9 +143,9 @@ function App() {
   })
 
   useAppMessage("ProjectStatus", (message) => {
-    const projectStatus = message.payload as { HasChanged: boolean }
+    const projectStatus = message.payload as ProjectStatus
     console.log("ProjectStatus message received", projectStatus)
-    setHasChanged(projectStatus.HasChanged)
+    setProjectStatus(projectStatus)
   })
 
   useAppMessage("OverlayState", (message) => {
@@ -203,11 +205,16 @@ function App() {
     setIsRunning(IsRunning)
     setIsTesting(IsTesting)
   })
+  const { t } = useTranslation()
 
   return (
     <>
       {overlayVisible && (
-        <LoaderOverlay open={overlayVisible} onOpenChange={setOverlayVisible} />
+        <LoaderOverlay
+          open={overlayVisible}
+          onOpenChange={setOverlayVisible}
+          message={t("General.Overlay.OpeningWizard")}
+        />
       )}
       {outlet ? (
         <div className="flex h-svh flex-row overflow-hidden p-0 select-none">

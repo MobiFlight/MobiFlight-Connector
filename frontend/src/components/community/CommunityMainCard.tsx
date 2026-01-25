@@ -10,11 +10,17 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { CommunityPost } from "@/types/feed"
 import { useTranslation } from "react-i18next"
 import { useSearchParams } from "react-router"
 
 const CommunityMainCard = () => {
+  // this component is wrapped in an error boundary
+  // so we can trigger errors for testing purposes here
+  const { trigger } = useErrorFallbackTest()
+  trigger("community-main-card")
+
   const [searchParams] = useSearchParams()
   const activeFilter = searchParams.get("feed_filter") || "all"
   const { t } = useTranslation()
@@ -28,7 +34,10 @@ const CommunityMainCard = () => {
   )
 
   return (
-    <Card className="border-shadow-none bg-muted flex h-full flex-col rounded-none">
+    <Card
+      className="border-shadow-none bg-muted flex h-full flex-col rounded-none"
+      data-testid="community-main-card"
+    >
       <CardHeader>
         <CardTitle className="flex flex-row gap-2">
           <IconBrandMobiFlightLogo /> {t("Feed.Title")}

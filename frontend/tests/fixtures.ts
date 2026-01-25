@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { test as base } from '@playwright/test';
-import { MobiFlightPage } from './fixtures/MobiFlightPage';
-import { StartupPage } from './fixtures/StartupPage';
-import { ConfigListPage } from './fixtures/ConfigListPage';
-import { DashboardPage } from './fixtures/DashboardPage';
+import { test as base } from "@playwright/test"
+import { MobiFlightPage } from "./fixtures/MobiFlightPage"
+import { StartupPage } from "./fixtures/StartupPage"
+import { ConfigListPage } from "./fixtures/ConfigListPage"
+import { DashboardPage } from "./fixtures/DashboardPage"
 
 // Declare the types of your fixtures.
 type MFFixtures = {
-  mobiFlightPage: MobiFlightPage,
-  startupPage: StartupPage,
-  dashboardPage: DashboardPage,
+  mobiFlightPage: MobiFlightPage
+  startupPage: StartupPage
+  dashboardPage: DashboardPage
   configListPage: ConfigListPage
-};
+}
 
 export const test = base.extend<MFFixtures>({
   startupPage: async ({ page }, use) => {
@@ -26,6 +26,6 @@ export const test = base.extend<MFFixtures>({
     const dashboardPage = new DashboardPage(new MobiFlightPage(page))
     await use(dashboardPage)
   },
-});
+})
 
-export { expect } from '@playwright/test'
+export { expect } from "@playwright/test"

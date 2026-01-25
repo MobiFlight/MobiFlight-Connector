@@ -4,7 +4,8 @@
       "OpenMenu": "Abrir menú"
     },
     "Overlay": {
-      "OpeningWizard": "Abriendo diálogo..."
+      "OpeningWizard": "Abriendo diálogo...",
+      "SavingChanges": "Guardando proyecto..."
     },
     "HubHopUpdate": {
       "Error": "Actualización de HubHop falló. Por favor, inténtalo de nuevo más tarde.",
@@ -12,6 +13,10 @@
       "Title": "Actualización de HubHop disponible",
       "Description": "Tu base de datos de HubHop se descargó hace más de {{days}} días. ¿Te gustaría actualizarla ahora?",
       "Title.Downloading": "Descargando actualización de HubHop..."
+    },
+    "Error": {
+      "FallbackTitle": "Ooops... algo pasó que no debería haber pasado!",
+      "Unknown": "Ocurrió un error desconocido."
     }
   },
   "MainMenu": {

@@ -255,7 +255,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = module.Name,
-                    Vendor = module.Board.Info.Community.Project,
                     Connected = true,
                     Serial = module.Serial
                 });
