@@ -28,6 +28,8 @@ namespace MobiFlightWwFcu
         internal static readonly byte[] DEST_ECAM = new byte[] { 0x70, 0xbb };
         internal static readonly byte[] DEST_AGP  = new byte[] { 0x80, 0xbb };
 
+        internal static readonly byte[] DEST_PTO2 = new byte[] { 0x05, 0xbf };
+
 
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
         internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
@@ -65,6 +67,8 @@ namespace MobiFlightWwFcu
 
         internal const int PRODUCT_ID_ECAM = 0xBB70;
         internal const int PRODUCT_ID_AGP  = 0xBB80;
+
+        internal const int PRODUCT_ID_PTO2 = 0xBF05;
 
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
