@@ -30,6 +30,11 @@ namespace MobiFlight
         protected readonly SharpDX.DirectInput.Joystick DIJoystick;
         protected readonly JoystickDefinition Definition;
 
+        public string InstanceId
+        {
+            get { return DIJoystick?.Information.InstanceGuid.ToString() ?? Device?.GetSerialNumber(); }
+        }
+
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;
         private object StateLock = new object();

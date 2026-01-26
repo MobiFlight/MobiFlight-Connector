@@ -390,7 +390,7 @@ namespace MobiFlight
 
         private void RemoveHidController(HidConnectionDetails deatils)
         {
-
+            //
         }
 
         private void RemoveDirectInputController(HidConnectionDetails details)
@@ -404,7 +404,7 @@ namespace MobiFlight
 
             foreach (var controller in registeredControllers)
             {
-                var stillConnected = connectedControllers.Any(d => d.InstanceName == controller.Name);
+                var stillConnected = connectedControllers.Any(d => d.InstanceGuid.ToString()  == controller.InstanceId);
                 if (stillConnected) continue;
 
                 Log.Instance.log($"Removing disconnected controller: {controller.Name}.", LogSeverity.Info);
