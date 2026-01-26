@@ -63,14 +63,16 @@ namespace MobiFlight
 
         private void HidControllerUnavailable(object sender, IConnectionDetails e)
         {
-            Log.Instance.log($"HID controller disconnected: {e.Name}", LogSeverity.Info);
-            RemoveHidController(e as HidConnectionDetails);
+            var details = e as HidConnectionDetails;
+            var updatedDetails = UpdateConnectionDetails(details);
+            RemoveHidController(updatedDetails);
         }
 
         private void HidControllerAvailable(object sender, IConnectionDetails e)
         {
             var details = e as HidConnectionDetails;
-            Connect(details);
+            var updatedDetails = UpdateConnectionDetails(details);
+            Connect(updatedDetails);
         }
 
         /// <summary>
@@ -236,8 +238,18 @@ namespace MobiFlight
             {
                 ConnectDirectInputController(deviceInstance, details);
             }
+        }
 
-            Log.Instance.log($"Connecting {details.Name}", LogSeverity.Debug);
+        private HidConnectionDetails UpdateConnectionDetails(HidConnectionDetails details)
+        {
+            var result = details.Clone() as HidConnectionDetails;
+            switch (result.Name)
+            {
+                case "IFR1":
+                    result.Name = "Octavi";
+                    break;
+            }
+            return result;
         }
 
         protected async void ConnectDirectInputController(DeviceInstance d, HidConnectionDetails details = null)
