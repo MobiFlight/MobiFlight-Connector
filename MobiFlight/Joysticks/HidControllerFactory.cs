@@ -13,6 +13,7 @@ namespace MobiFlight.Joysticks
 
             switch (InstanceName.Trim())
             {
+                case "WINGFLEX FCU CUBE":
                 case "FCU Cube":
                     return true;
             }
@@ -24,6 +25,7 @@ namespace MobiFlight.Joysticks
             Joystick result = null;
             switch (definition.InstanceName)
             {
+                case "WINGFLEX FCU CUBE":
                 case "FCU Cube":
                     result = new WingFlex.FcuCube(definition);
                     break;

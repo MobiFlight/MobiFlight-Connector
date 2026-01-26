@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "FCU Cube",
+  "InstanceName": "WINGFLEX FCU CUBE",
   "VendorId": "0xA316",
   "ProductId": "0xC787",
   "Inputs": [

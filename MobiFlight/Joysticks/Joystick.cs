@@ -4,6 +4,7 @@ using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MobiFlight
 {
@@ -30,16 +31,13 @@ namespace MobiFlight
         protected readonly SharpDX.DirectInput.Joystick DIJoystick;
         protected readonly JoystickDefinition Definition;
 
-        public string InstanceId
-        {
-            get { return DIJoystick?.Information.InstanceGuid.ToString() ?? Device?.GetSerialNumber(); }
-        }
-
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;
         private object StateLock = new object();
         protected JoystickState State = null;
         private HidStream Stream;
+
+        public HidConnectionDetails ConnectionDetails { get; set; }
 
         /// <summary>
         /// This map defines how a usageId maps to a JoystickState property name.
@@ -223,7 +221,7 @@ namespace MobiFlight
             return result;
         }
 
-        public virtual void Connect(IntPtr handle)
+        public virtual async Task Connect(IntPtr handle)
         {
             EnumerateDevices();
             EnumerateOutputDevices();

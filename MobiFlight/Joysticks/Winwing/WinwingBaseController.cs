@@ -2,8 +2,7 @@
 using MobiFlightWwFcu;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.Winwing
@@ -47,9 +46,9 @@ namespace MobiFlight.Joysticks.Winwing
         }
 
 
-        public override void Connect(IntPtr handle)
+        public override async Task Connect(IntPtr handle)
         {
-            base.Connect(handle);
+            await base.Connect(handle);
             DisplayControl.Connect();
         }
 

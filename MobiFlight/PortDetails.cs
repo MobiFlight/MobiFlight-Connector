@@ -1,4 +1,7 @@
-﻿namespace MobiFlight
+﻿using HidSharp;
+using MobiFlight.Base;
+
+namespace MobiFlight
 {
     public interface IConnectionDetails
     {
@@ -25,6 +28,28 @@
         public string Name { get; set; }
         public int VendorId { get; set; }
         public int ProductId { get; set; }
-        public string Path { get; set; }
+        public string DevicePath { get; set; }
+
+        static public HidConnectionDetails FromHidController(HidDevice device)
+        {
+            return new HidConnectionDetails
+            {
+                Name = device.GetProductName(),
+                VendorId = device.VendorID,
+                ProductId = device.ProductID,
+                DevicePath = device.DevicePath
+            };
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is HidConnectionDetails)) return false;
+            var other = obj as HidConnectionDetails;
+
+            return Name == other.Name &&
+                   VendorId == other.VendorId &&
+                   ProductId == other.ProductId &&
+                   DevicePath == other.DevicePath;
+        }
     }
 }

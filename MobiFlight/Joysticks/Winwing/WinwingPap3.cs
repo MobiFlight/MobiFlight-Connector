@@ -44,9 +44,9 @@ namespace MobiFlight.Joysticks.Winwing
         }
 
 
-        public async override void Connect(IntPtr handle)
+        public async override Task Connect(IntPtr handle)
         {
-            base.Connect(handle);
+            await base.Connect(handle);
 
             var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory();
             var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();

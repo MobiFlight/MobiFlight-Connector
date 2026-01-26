@@ -7,10 +7,9 @@ namespace MobiFlight.Monitors
     public class HidDeviceMonitor : ControllerMonitor
     {
         /// <summary>
-        /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
-        /// as opposed to being connected as COM port.
+        /// Returns a list of connected HID controllers
         /// </summary>
-        /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
+        /// <returns>The list of currently connected HID controllers.</returns>
         override protected async void Scan()
         {
             // since this method can take a while
@@ -22,22 +21,13 @@ namespace MobiFlight.Monitors
             var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
             foreach ( var device in allHidDevices )
             {
-                var candidate = new JoystickDefinition()
+                result.Add(new HidConnectionDetails()
                 {
-                    InstanceName = device.GetProductName()
-                };
-
-                if (candidate != null)
-                {
-                    result.Add(new HidConnectionDetails()
-                    {
-                        Path = device.DevicePath,
-                        VendorId = device.VendorID,
-                        ProductId = device.ProductID,
-                        Name = device.GetProductName()
-                    });
-                }
-
+                    DevicePath = device.DevicePath,
+                    VendorId = device.VendorID,
+                    ProductId = device.ProductID,
+                    Name = device.GetProductName()
+                });
             }
 
             isScanning = false;

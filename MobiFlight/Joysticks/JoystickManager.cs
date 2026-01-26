@@ -1,4 +1,5 @@
 ﻿using HidSharp;
+using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
 using MobiFlight.Monitors;
@@ -60,19 +61,12 @@ namespace MobiFlight
         private void HidControllerUnavailable(object sender, IConnectionDetails e)
         {
             Log.Instance.log($"HID controller disconnected: {e.Name}", LogSeverity.Info);
-            if (HidControllerFactory.CanCreate(e.Name))
-            {
-                RemoveHidController(e as HidConnectionDetails);
-                return;
-            }
-
-            RemoveDirectInputController(e as HidConnectionDetails);
+            RemoveHidController(e as HidConnectionDetails);
         }
 
         private void HidControllerAvailable(object sender, IConnectionDetails e)
         {
             var details = e as HidConnectionDetails;
-
             Connect(details);
         }
 
@@ -214,8 +208,8 @@ namespace MobiFlight
             Log.Instance.log($"Connecting {details.Name}", LogSeverity.Debug);
             if (HidControllerFactory.CanCreate(details.Name))
             {
-                var hidDevice = DeviceList.Local.GetHidDevices().FirstOrDefault(d => d.DevicePath == details.Path);
-                ConnectHidController(hidDevice);
+                var hidDevice = DeviceList.Local.GetHidDevices().FirstOrDefault(d => d.DevicePath == details.DevicePath);
+                ConnectHidController(hidDevice, details);
                 return;
             }
 
@@ -232,11 +226,11 @@ namespace MobiFlight
 
             foreach (var deviceInstance in deviceInstances)
             {
-                AddDirectInputController(deviceInstance);
+                ConnectDirectInputController(deviceInstance);
             }
         }
 
-        protected async void AddDirectInputController(DeviceInstance d)
+        protected async void ConnectDirectInputController(DeviceInstance d)
         {
             var di = new DirectInput();
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
@@ -295,7 +289,15 @@ namespace MobiFlight
             else
             {
                 Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
-                js.Connect(Handle);
+                await js.Connect(Handle);
+                js.ConnectionDetails = new HidConnectionDetails()
+                {
+                    Name = js.Name,
+                    ProductId = productId,
+                    VendorId = vendorId,
+                    DevicePath = diJoystick.Properties.InterfacePath
+                };
+
                 Joysticks.TryAdd(js.Serial, js);
                 js.OnButtonPressed += Js_OnButtonPressed;
                 js.OnDisconnected += Js_OnDisconnected;
@@ -304,25 +306,27 @@ namespace MobiFlight
 
         public async void Connect()
         {
-            var di = new DirectInput();
+            //var di = new DirectInput();
             Joysticks?.Clear();
             ExcludedJoysticks?.Clear();
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
-            // make this next call async so that it doesn't block the UI
-            var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
+            //// make this next call async so that it doesn't block the UI
+            //var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
 
-            foreach (var d in devices)
-            {
-                AddDirectInputController(d);
-            }
+            //foreach (var d in devices)
+            //{
+            //    ConnectDirectInputController(d);
+            //}
 
-            ConnectHidController();
+            //ConnectHidController();
 
-            if (JoysticksConnected())
-            {
-                Connected?.Invoke(this, null);
-            }
+            //if (JoysticksConnected())
+            //{
+            //    Connected?.Invoke(this, null);
+            //}
+
+            Connected?.Invoke(this, null);
         }
 
         /// <summary>
@@ -341,10 +345,15 @@ namespace MobiFlight
         }
 
 
-        private void ConnectHidController(HidDevice hidDevice)
+        private async void ConnectHidController(HidDevice hidDevice, HidConnectionDetails connectionDetails = null)
         {
             try
             {
+                if (connectionDetails == null)
+                {
+                    connectionDetails = HidConnectionDetails.FromHidController(hidDevice);
+                }
+
                 var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
                 if (definition == null) return;
 
@@ -358,11 +367,12 @@ namespace MobiFlight
 
                 if (joystick == null) return;
 
-                joystick.Connect(new IntPtr());
+                joystick.ConnectionDetails = connectionDetails;
+                await joystick.Connect(new IntPtr());
                 joystick.OnButtonPressed += Js_OnButtonPressed;
                 joystick.OnDisconnected += Js_OnDisconnected;
                 Joysticks.TryAdd(joystick.Serial, joystick);
-                Log.Instance.log($"Connected HID device: {definition.InstanceName}", LogSeverity.Info);
+                Log.Instance.log($"Connected HID device: {definition.InstanceName} ({joystick.Serial})", LogSeverity.Info);
             }
             catch (Exception ex)
             {
@@ -388,28 +398,18 @@ namespace MobiFlight
             }
         }
 
-        private void RemoveHidController(HidConnectionDetails deatils)
+        private void RemoveHidController(HidConnectionDetails details)
         {
-            //
-        }
+            var registeredController = Joysticks.Values.First(js => js.ConnectionDetails.AreEqual(details));
+            if (registeredController == null) return;
 
-        private void RemoveDirectInputController(HidConnectionDetails details)
-        {
-            var di = new DirectInput();
-            var connectedControllers = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly)
-                                     .ToList()
-                                     .Where(d => d.InstanceName == details.Name);
-
-            var registeredControllers = Joysticks.Values.Where(js => js.Name == details.Name).ToList();
-
-            foreach (var controller in registeredControllers)
+            if (!Joysticks.TryRemove(registeredController.Serial, out _))
             {
-                var stillConnected = connectedControllers.Any(d => d.InstanceGuid.ToString()  == controller.InstanceId);
-                if (stillConnected) continue;
-
-                Log.Instance.log($"Removing disconnected controller: {controller.Name}.", LogSeverity.Info);
-                Joysticks.TryRemove(controller.Serial, out _);
+                Log.Instance.log($"Failed to remove disconnected HID controller: {registeredController.Name}.", LogSeverity.Debug);
+                return;
             }
+
+            Log.Instance.log($"Disconnected {registeredController.Name}", LogSeverity.Info);
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)

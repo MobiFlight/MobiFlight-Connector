@@ -3,6 +3,7 @@ using HidSharp.Reports;
 using HidSharp.Reports.Input;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Joysticks.VKB
 {
@@ -26,9 +27,9 @@ namespace MobiFlight.Joysticks.VKB
             }
         }
 
-        public override void Connect(IntPtr handle)
+        public override async Task Connect(IntPtr handle)
         {
-            base.Connect(handle);
+            await base.Connect(handle);
             if (Device == null)
             {
                 return;

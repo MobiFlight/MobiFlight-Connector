@@ -54,7 +54,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override string Serial
         {
-            get { return $"{Joystick.SerialPrefix}{Device?.ConnectedDeviceDefinition?.SerialNumber}" ?? "FCU-CUBE-1234-ABCD-12345678"; }
+            get { return $"{Joystick.SerialPrefix}{Device?.ConnectedDeviceDefinition?.SerialNumber ?? "FCU-CUBE-1234-ABCD-12345678"}"; }
         }
 
         /// <summary>
@@ -64,6 +64,13 @@ namespace MobiFlight.Joysticks.WingFlex
         public FcuCube(JoystickDefinition definition) : base(null, definition)
         {
         }
+
+        public override async Task Connect(IntPtr handle)
+        {
+            await Connect();
+            await base.Connect(handle);
+        }
+
 
         /// <summary>
         /// This creates a connection to the HID device using the Device.Net library.
