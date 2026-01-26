@@ -221,6 +221,8 @@ namespace MobiFlight
                 joystickManager.Startup();
                 OnJoystickConnectedFinished?.Invoke(sender, e);
             };
+            joystickManager.ControllerConnected += (s, e) => PublishConnectedDevices();
+            joystickManager.ControllerDisconnected += (s, e) => PublishConnectedDevices();
 
 
             OnMidiBoardConnectedFinished += (s, e) => { PublishConnectedDevices(); };
