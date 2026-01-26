@@ -414,7 +414,7 @@ namespace MobiFlight
 
         private void RemoveHidController(HidConnectionDetails details)
         {
-            var registeredController = Joysticks.Values.First(js => js.ConnectionDetails.AreEqual(details));
+            var registeredController = Joysticks.Values.ToList().First(js => js.ConnectionDetails.AreEqual(details));
             if (registeredController == null) return;
 
             if (!Joysticks.TryRemove(registeredController.Serial, out _))

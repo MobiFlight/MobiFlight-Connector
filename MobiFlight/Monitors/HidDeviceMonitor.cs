@@ -10,7 +10,7 @@ namespace MobiFlight.Monitors
         /// Returns a list of connected HID controllers
         /// </summary>
         /// <returns>The list of currently connected HID controllers.</returns>
-        override protected async void Scan()
+        override protected void Scan()
         {
             // since this method can take a while
             // don't execute it in parallel
