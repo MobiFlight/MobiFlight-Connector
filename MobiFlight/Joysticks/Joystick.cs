@@ -223,14 +223,17 @@ namespace MobiFlight
 
         public virtual async Task Connect(IntPtr handle)
         {
-            EnumerateDevices();
-            EnumerateOutputDevices();
+            await Task.Run(() =>
+            {
+                EnumerateDevices();
+                EnumerateOutputDevices();
 
-            if (DIJoystick == null) return;
+                if (DIJoystick == null) return;
 
-            DIJoystick.SetCooperativeLevel(handle, CooperativeLevel.Background | CooperativeLevel.NonExclusive);
-            DIJoystick.Properties.BufferSize = 16;
-            DIJoystick.Acquire();
+                DIJoystick.SetCooperativeLevel(handle, CooperativeLevel.Background | CooperativeLevel.NonExclusive);
+                DIJoystick.Properties.BufferSize = 16;
+                DIJoystick.Acquire();
+            });
         }
 
         protected virtual void EnumerateOutputDevices()
