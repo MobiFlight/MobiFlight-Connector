@@ -665,8 +665,8 @@ namespace MobiFlight.UI
             // working hypothesis: we don't need this at all.
             // execManager.OnModuleCacheAvailable += new EventHandler(ModuleCache_Available);
 
-            execManager.OnModuleConnected += new EventHandler(Module_Connected);
-            execManager.OnModuleRemoved += new EventHandler(Module_Removed);
+            execManager.OnControllerConnected += new EventHandler(Module_Connected);
+            execManager.OnControllerRemoved += new EventHandler(Module_Removed);
             execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
             execManager.OnJoystickConnectedFinished += ExecManager_OnJoystickConnectedFinished;
@@ -729,6 +729,11 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnJoystickConnectedFinished(object sender, EventArgs e)
         {
+            UpdateStatusBarHidControllerInformation();
+        }
+
+        private void UpdateStatusBarHidControllerInformation()
+        {
             joysticksToolStripMenuItem.DropDownItems.Clear();
 
             var joysticks = execManager.GetJoystickManager().GetJoysticks();
@@ -757,6 +762,11 @@ namespace MobiFlight.UI
         }
 
         private void ExecManager_OnMidiBoardConnectedFinished(object sender, EventArgs e)
+        {
+            UpdateStatusBarMidiControllerInformation();
+        }
+
+        private void UpdateStatusBarMidiControllerInformation()
         {
             MIDIDevicesToolStripMenuItem.DropDownItems.Clear();
 
@@ -1179,8 +1189,8 @@ namespace MobiFlight.UI
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
-            execManager.OnModuleConnected += dlg.UpdateConnectedModule;
-            execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
+            execManager.OnControllerConnected += dlg.UpdateConnectedModule;
+            execManager.OnControllerRemoved += dlg.UpdateRemovedModule;
 
             switch (SelectedTab)
             {
@@ -1205,8 +1215,8 @@ namespace MobiFlight.UI
 
             SettingsDialogActive = true;
             var dialogResult = dlg.ShowDialog();
-            execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
-            execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
+            execManager.OnControllerConnected -= dlg.UpdateConnectedModule;
+            execManager.OnControllerRemoved -= dlg.UpdateRemovedModule;
             SettingsDialogActive = false;
             return dialogResult;
         }
@@ -1357,6 +1367,8 @@ namespace MobiFlight.UI
                 return;
             }
             UpdateStatusBarModuleInformation();
+            UpdateStatusBarHidControllerInformation();
+            UpdateStatusBarMidiControllerInformation();
 
             // During initial lookup we are showing the panel
             // and we would like to display some progress information
@@ -1406,6 +1418,8 @@ namespace MobiFlight.UI
             }
             // _disconnectArcaze();
             UpdateStatusBarModuleInformation();
+            UpdateStatusBarHidControllerInformation();
+            UpdateStatusBarMidiControllerInformation();
 
             // Todo: Show this error outside of the context of firmware update
             // _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
