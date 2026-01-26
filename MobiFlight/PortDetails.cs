@@ -51,5 +51,16 @@ namespace MobiFlight
                    ProductId == other.ProductId &&
                    DevicePath == other.DevicePath;
         }
+
+        public object Clone()
+        {
+            return new HidConnectionDetails
+            {
+                Name = this.Name,
+                VendorId = this.VendorId,
+                ProductId = this.ProductId,
+                DevicePath = this.DevicePath
+            };
+        }
     }
 }
