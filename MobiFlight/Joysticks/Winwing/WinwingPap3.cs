@@ -55,7 +55,8 @@ namespace MobiFlight.Joysticks.Winwing
             DoReadHidReports = true;
             DisplayControl.SendRequestFirmware();
 
-            await Task.Run(async () =>
+            // Fire and forget the read task
+            _ = Task.Run(async () =>
             {
                 while (DoReadHidReports)
                 {
