@@ -62,12 +62,12 @@
 	{
       "Id": 12,
       "Type": "Button",
-      "Label": "Hook Byass FIELD"
+      "Label": "Hook Bypass FIELD"
     },
 	{
       "Id": 13,
       "Type": "Button",
-      "Label": "Hook Byass CARRIER"
+      "Label": "Hook Bypass CARRIER"
     },
 	{
       "Id": 14,
