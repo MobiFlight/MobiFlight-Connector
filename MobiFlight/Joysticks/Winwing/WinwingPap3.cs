@@ -33,6 +33,7 @@ namespace MobiFlight.Joysticks.Winwing
             = new List<int> { SPD_DEC, SPD_INC, HDG_DEC, HDG_INC, ALT_DEC, ALT_INC, VS_DEC, VS_INC, CRSL_DEC, CRSL_INC, CRSR_DEC, CRSR_INC }; 
   
         private volatile bool DoInitialize = true;
+        private volatile bool DoRetrigger = false;
         private volatile bool DoReadHidReports = false;
         private WinwingPap3Report CurrentReport = new WinwingPap3Report();
         private WinwingPap3Report PreviousReport = new WinwingPap3Report();
@@ -155,10 +156,15 @@ namespace MobiFlight.Joysticks.Winwing
                 if (DoInitialize)
                 {
                     CurrentReport.CopyTo(PreviousReport);
-                    PreviousReport.ButtonState = ~PreviousReport.ButtonState; // to retrigger
-                    PreviousReport.ButtonState2 = ~PreviousReport.ButtonState2; // to retrigger
-                    PreviousReport.ButtonState3 = ~PreviousReport.ButtonState3; // to retrigger
                     DoInitialize = false;
+                }
+
+                if (DoRetrigger)
+                {
+                    PreviousReport.ButtonState = ~CurrentReport.ButtonState; // to retrigger
+                    PreviousReport.ButtonState2 = ~CurrentReport.ButtonState2; // to retrigger
+                    PreviousReport.ButtonState3 = ~CurrentReport.ButtonState3; // to retrigger
+                    DoRetrigger = false;
                 }
 
                 // Detect and Trigger Button Events
@@ -207,7 +213,7 @@ namespace MobiFlight.Joysticks.Winwing
 
         public override void Retrigger()
         {
-            DoInitialize = true;
+            DoRetrigger = true;
         }
 
         public override void Update()
