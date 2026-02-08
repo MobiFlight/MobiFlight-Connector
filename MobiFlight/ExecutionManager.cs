@@ -47,6 +47,7 @@ namespace MobiFlight
 
         public event EventHandler OnModuleConnected;
         public event EventHandler OnModuleRemoved;
+        public event EventHandler OnControllerHasChanged;
         public event EventHandler OnModuleCacheAvailable;
         public event EventHandler OnShutdown;
         public event EventHandler OnInitialModuleLookupFinished;
@@ -194,6 +195,7 @@ namespace MobiFlight
             mobiFlightCache.Closed += new EventHandler(ModuleCache_Closed);
             mobiFlightCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
             mobiFlightCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
+            mobiFlightCache.ControllerChanged += new EventHandler(MobiFlightCache_ControllerChanged);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
 
             scriptRunner = new ScriptRunner(joystickManager, this.simConnectCache);
@@ -245,6 +247,13 @@ namespace MobiFlight
 
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
+        }
+
+        private void MobiFlightCache_ControllerChanged(object sender, EventArgs e)
+        {
+            PublishConnectedDevices();
+            Log.Instance.log($"Module updated: {(sender as MobiFlightModule)?.Name}", LogSeverity.Debug);
+            OnControllerHasChanged?.Invoke(sender, e);
         }
 
         private void PublishConnectedDevices()

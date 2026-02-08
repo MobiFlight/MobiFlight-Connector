@@ -666,6 +666,7 @@ namespace MobiFlight.UI
             // execManager.OnModuleCacheAvailable += new EventHandler(ModuleCache_Available);
 
             execManager.OnModuleConnected += new EventHandler(Module_Connected);
+            execManager.OnControllerHasChanged += new EventHandler(Controller_HasChanged);
             execManager.OnModuleRemoved += new EventHandler(Module_Removed);
             execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
@@ -677,6 +678,11 @@ namespace MobiFlight.UI
             execManager.StartMidiBoardManager();
 
             execManager.SettingsDialogRequested += ExecManager_SettingsDialogRequested;
+        }
+
+        private void Controller_HasChanged(object sender, EventArgs e)
+        {
+            UpdateStatusBarModuleInformation();
         }
 
         private void ExecManager_OnProjectChanged(object sender, Project e)

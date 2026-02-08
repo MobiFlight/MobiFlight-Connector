@@ -31,6 +31,10 @@ namespace MobiFlight
         /// </summary>
         public event EventHandler ModuleConnected;
         /// <summary>
+        /// Gets raised whenever a mobiflight module has changed
+        /// </summary>
+        public event EventHandler ControllerChanged;
+        /// <summary>
         /// Gets raised whenever connection is lost
         /// </summary>
         public event EventHandler ModuleRemoved;
@@ -205,8 +209,21 @@ namespace MobiFlight
 
         private void OnMobiFlightBoardDetected(MobiFlightModule module)
         {
+            module.PropertyChanged += MobiFlightModule_PropertyChanged;
             module.LoadConfig();
             RegisterModule(module, module.ToMobiFlightModuleInfo());
+        }
+
+        private void MobiFlightModule_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            // Only react to specific properties that affect the UI
+            if (e.PropertyName == nameof(MobiFlightModule.Name) ||
+                e.PropertyName == nameof(MobiFlightModule.Serial) ||
+                e.PropertyName == nameof(MobiFlightModule.Connected))
+            {
+                Log.Instance.log($"Module property '{e.PropertyName}' changed for {(sender as MobiFlightModule)?.Name}", LogSeverity.Debug);
+                ControllerChanged?.Invoke(sender, EventArgs.Empty);
+            }
         }
 
         private void OnCompatibleBoardDetected(MobiFlightModuleInfo result)
