@@ -586,7 +586,6 @@ namespace MobiFlight
                     result = connectedPorts2.Except(connectedPorts).Last();
                 }
             }
-            ;
 
             return result;
         }

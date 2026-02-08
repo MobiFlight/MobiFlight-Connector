@@ -218,8 +218,8 @@ namespace MobiFlight
         {
             // Only react to specific properties that affect the UI
             if (e.PropertyName == nameof(MobiFlightModule.Name) ||
-                e.PropertyName == nameof(MobiFlightModule.Serial) ||
-                e.PropertyName == nameof(MobiFlightModule.Connected))
+                e.PropertyName == nameof(MobiFlightModule.Serial) || 
+                e.PropertyName == nameof(MobiFlightModule.Config))
             {
                 Log.Instance.log($"Module property '{e.PropertyName}' changed for {(sender as MobiFlightModule)?.Name}", LogSeverity.Debug);
                 ControllerChanged?.Invoke(sender, EventArgs.Empty);

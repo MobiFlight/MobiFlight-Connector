@@ -956,22 +956,26 @@ namespace MobiFlight.Tests
 
             AddModuleToCacheAsIfItWasDetected(mfCache, module);
 
-            // Subscribe to published messages
-            MessageExchange.Instance.Subscribe<BrowserMessages.Outgoing.ConnectedControllers>(msg =>
+            // Use a ManualResetEventSlim so the test deterministically waits for the
+            // ConnectedControllers message instead of relying on Thread.Sleep.
+            using (var messageReceivedEvent = new ManualResetEventSlim(false))
             {
-                publishedMessage = msg;
-            });
-
-            // Act
-            module.Name = "Updated Controller Name";
-
-            // Wait briefly for event propagation
-            Thread.Sleep(50);
-
-            // Assert
-            Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published.");
-            Assert.IsTrue(publishedMessage.Controllers.Any(c => c.Serial == module.Serial && c.Name == "Updated Controller Name"),
-                "Published ConnectedControllers message should include the updated module information.");
+                // Subscribe to published messages
+                MessageExchange.Instance.Subscribe<BrowserMessages.Outgoing.ConnectedControllers>(msg =>
+                {
+                    publishedMessage = msg;
+                    messageReceivedEvent.Set();
+                });
+                // Act
+                module.Name = "Updated Controller Name";
+                // Wait for the event to be raised, with a reasonable timeout to avoid hangs.
+                var signaled = messageReceivedEvent.Wait(TimeSpan.FromSeconds(1));
+                // Assert
+                Assert.IsTrue(signaled, "Timed out waiting for ConnectedControllers message to be published.");
+                Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published.");
+                Assert.IsTrue(publishedMessage.Controllers.Any(c => c.Serial == module.Serial && c.Name == "Updated Controller Name"),
+                    "Published ConnectedControllers message should include the updated module information.");
+            }
         }
 
         [TestMethod]

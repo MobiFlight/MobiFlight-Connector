@@ -96,7 +96,7 @@ namespace MobiFlight.Tests
             cache.ControllerChanged += (sender, e) => eventCount++;
 
             var module =MobiFlightBoardTestHelper.CreateTestModule();
-            cache.AddTestModule(module.Serial, module);
+            cache.AddTestModuleAsIfItWasDetected(module);
 
             // Act - Change a property that shouldn't trigger ModuleUpdated
             module.HardwareId = "USB\\VID_XXXX";
