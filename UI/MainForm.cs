@@ -680,11 +680,6 @@ namespace MobiFlight.UI
             execManager.SettingsDialogRequested += ExecManager_SettingsDialogRequested;
         }
 
-        private void Controller_HasChanged(object sender, EventArgs e)
-        {
-            UpdateStatusBarModuleInformation();
-        }
-
         private void ExecManager_OnProjectChanged(object sender, Project e)
         {
             ProjectOrConfigFileHasChanged();
@@ -1415,6 +1410,17 @@ namespace MobiFlight.UI
 
             // Todo: Show this error outside of the context of firmware update
             // _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
+        }
+
+        private void Controller_HasChanged(object sender, EventArgs e)
+        {
+            // Ensure status bar/UI updates are always executed on the UI thread.
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(Controller_HasChanged), new object[] { sender, e });
+                return;
+            }
+            UpdateStatusBarModuleInformation();
         }
 
         /// <summary>
