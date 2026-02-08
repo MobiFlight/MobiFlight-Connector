@@ -360,5 +360,196 @@ namespace MobiFlight.Tests
             o.Version = "0.0.1";
             Assert.IsFalse(o.FirmwareRequiresUpdate(), "Firmware version does NOT require update. Dev Build 0.0.1");
         }
+
+        [TestMethod()]
+        public void Name_PropertyChanged_RaisesEvent()
+        {
+            // Arrange
+            var module = CreateTestModule();
+            bool eventRaised = false;
+            string changedPropertyName = null;
+
+            module.PropertyChanged += (sender, e) =>
+            {
+                eventRaised = true;
+                changedPropertyName = e.PropertyName;
+            };
+
+            // Act
+            module.Name = "New Name";
+
+            // Assert
+            Assert.IsTrue(eventRaised, "PropertyChanged event should be raised when Name changes.");
+            Assert.AreEqual(nameof(MobiFlightModule.Name), changedPropertyName, "PropertyName should be 'Name'.");
+        }
+
+        [TestMethod()]
+        public void Name_SameValue_DoesNotRaiseEvent()
+        {
+            // Arrange
+            var module = CreateTestModule();
+            module.Name = "TestName";
+            int eventCount = 0;
+
+            module.PropertyChanged += (sender, e) => eventCount++;
+
+            // Act
+            module.Name = "TestName"; // Same value
+
+            // Assert
+            Assert.AreEqual(0, eventCount, "PropertyChanged should not be raised when value hasn't changed.");
+        }
+
+        [TestMethod()]
+        public void Serial_PropertyChanged_RaisesEvent()
+        {
+            // Arrange
+            var module = CreateTestModule();
+            bool eventRaised = false;
+            string changedPropertyName = null;
+
+            module.PropertyChanged += (sender, e) =>
+            {
+                eventRaised = true;
+                changedPropertyName = e.PropertyName;
+            };
+
+            // Act
+            module.Serial = "SN-456-789";
+
+            // Assert
+            Assert.IsTrue(eventRaised, "PropertyChanged event should be raised when Serial changes.");
+            Assert.AreEqual(nameof(MobiFlightModule.Serial), changedPropertyName, "PropertyName should be 'Serial'.");
+        }
+
+        [TestMethod()]
+        public void Version_PropertyChanged_RaisesEvent()
+        {
+            // Arrange
+            var module = CreateTestModule();
+            bool eventRaised = false;
+            string changedPropertyName = null;
+
+            module.PropertyChanged += (sender, e) =>
+            {
+                eventRaised = true;
+                changedPropertyName = e.PropertyName;
+            };
+
+            // Act
+            module.Version = "2.0.0";
+
+            // Assert
+            Assert.IsTrue(eventRaised, "PropertyChanged event should be raised when Version changes.");
+            Assert.AreEqual(nameof(MobiFlightModule.Version), changedPropertyName, "PropertyName should be 'Version'.");
+        }
+
+        [TestMethod()]
+        public void CoreVersion_PropertyChanged_RaisesEvent()
+        {
+            // Arrange
+            var module = CreateTestModule();
+            bool eventRaised = false;
+            string changedPropertyName = null;
+
+            module.PropertyChanged += (sender, e) =>
+            {
+                eventRaised = true;
+                changedPropertyName = e.PropertyName;
+            };
+
+            // Act
+            module.CoreVersion = "3.0.0";
+
+            // Assert
+            Assert.IsTrue(eventRaised, "PropertyChanged event should be raised when CoreVersion changes.");
+            Assert.AreEqual(nameof(MobiFlightModule.CoreVersion), changedPropertyName, "PropertyName should be 'CoreVersion'.");
+        }
+
+        [TestMethod()]
+        public void HardwareId_PropertyChanged_RaisesEvent()
+        {
+            // Arrange
+            var module = CreateTestModule();
+            bool eventRaised = false;
+            string changedPropertyName = null;
+
+            module.PropertyChanged += (sender, e) =>
+            {
+                eventRaised = true;
+                changedPropertyName = e.PropertyName;
+            };
+
+            // Act
+            module.HardwareId = "USB\\VID_2341&PID_0042";
+
+            // Assert
+            Assert.IsTrue(eventRaised, "PropertyChanged event should be raised when HardwareId changes.");
+            Assert.AreEqual(nameof(MobiFlightModule.HardwareId), changedPropertyName, "PropertyName should be 'HardwareId'.");
+        }
+
+        [TestMethod()]
+        public void MultiplePropertyChanges_RaisesMultipleEvents()
+        {
+            // Arrange
+            var module = CreateTestModule();
+            var changedProperties = new List<string>();
+
+            module.PropertyChanged += (sender, e) => changedProperties.Add(e.PropertyName);
+
+            // Act
+            module.Name = "NewName";
+            module.Serial = "SN-NEW";
+            module.Version = "2.0.0";
+
+            // Assert
+            Assert.HasCount(3, changedProperties, "Should raise 3 PropertyChanged events.");
+            CollectionAssert.Contains(changedProperties, nameof(MobiFlightModule.Name));
+            CollectionAssert.Contains(changedProperties, nameof(MobiFlightModule.Serial));
+            CollectionAssert.Contains(changedProperties, nameof(MobiFlightModule.Version));
+        }
+
+        // Helper method to create a test module
+        private static MobiFlightModule CreateTestModule()
+        {
+            var board = CreateMinimalBoard();
+            return new MobiFlightModule("COM3", board)
+            {
+                Serial = "SN-123-456",
+                Version = "1.0.0",
+                CoreVersion = "1.0.0"
+            };
+        }
+
+        private static Board CreateMinimalBoard()
+        {
+            return new Board
+            {
+                Info = new Info
+                {
+                    MobiFlightType = "TestType",
+                    FriendlyName = "TestBoard",
+                    FirmwareBaseName = "test",
+                    FirmwareExtension = "hex"
+                },
+                Connection = new Connection
+                {
+                    ConnectionDelay = 0,
+                    TimeoutForFirmwareUpdate = 15000,
+                    DtrEnable = false,
+                    ExtraConnectionRetry = false,
+                    ForceResetOnFirmwareUpdate = false,
+                    MessageSize = 512
+                },
+                AvrDudeSettings = new AvrDudeSettings
+                {
+                    Timeout = 15000
+                },
+                HardwareIds = new List<string>(),
+                ModuleLimits = new ModuleLimits(),
+                Pins = new List<MobiFlightPin>(),
+                UsbDriveSettings = new UsbDriveSettings()
+            };
+        }
     }
 }
