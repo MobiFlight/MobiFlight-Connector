@@ -207,7 +207,7 @@ namespace MobiFlight
             AvailableComModules.Add(ignoredPort);
         }
 
-        private void OnMobiFlightBoardDetected(MobiFlightModule module)
+        protected void OnMobiFlightBoardDetected(MobiFlightModule module)
         {
             module.PropertyChanged += MobiFlightModule_PropertyChanged;
             module.LoadConfig();
