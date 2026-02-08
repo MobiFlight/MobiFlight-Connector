@@ -1208,6 +1208,11 @@ namespace MobiFlight.UI
             execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
             execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
             SettingsDialogActive = false;
+
+            // Update status bar and new frontend
+            UpdateStatusBarModuleInformation();
+            execManager.PublishConnectedDevices();
+
             return dialogResult;
         }
 

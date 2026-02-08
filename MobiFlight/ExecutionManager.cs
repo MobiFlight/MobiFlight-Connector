@@ -247,7 +247,7 @@ namespace MobiFlight
             InitializeFrontendSubscriptions();
         }
 
-        private void PublishConnectedDevices()
+        public void PublishConnectedDevices()
         {
             var connectedControllers = new List<Controller>();
             mobiFlightCache.GetModules().ToList().ForEach(module =>

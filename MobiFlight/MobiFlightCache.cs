@@ -309,6 +309,12 @@ namespace MobiFlight
                 if (info.Serial != m.Serial) continue;
 
                 info.Name = m.Name;
+
+                // we also have to update the module instance correctly
+                var module = GetModule(info);
+                if (module == null) break;
+
+                module.Name = info.Name;
                 break;
             }
 
