@@ -553,9 +553,9 @@ namespace MobiFlight
 
             Connected = false;
 
-            _cmdMessenger.Disconnect();
-            _cmdMessenger.Dispose();
-            _transportLayer.Dispose();
+            _cmdMessenger?.Disconnect();
+            _cmdMessenger?.Dispose();
+            _transportLayer?.Dispose();
 
             _config = null;
 

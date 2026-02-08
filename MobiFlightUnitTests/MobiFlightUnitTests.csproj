@@ -234,6 +234,8 @@
     <Compile Include="Base\SourceFactoryTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
+    <Compile Include="Helpers\MobiFlightBoardTestHelper.cs" />
+    <Compile Include="Helpers\TestableMobiFlightCache.cs" />
     <Compile Include="MobiFlight\BoardTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ConfigItemConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverterTests.cs" />

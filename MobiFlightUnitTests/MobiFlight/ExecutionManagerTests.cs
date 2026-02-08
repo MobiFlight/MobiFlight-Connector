@@ -6,6 +6,7 @@ using MobiFlight.FSUIPC;
 using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
+using MobiFlightUnitTests.Helpers;
 using Moq;
 using Newtonsoft.Json;
 using System;
@@ -898,5 +899,138 @@ namespace MobiFlight.Tests
             // Clean up
             _executionManager.Stop();
         }
+
+        #region PropertyChanged events for MobiFlight controller updates
+        [TestMethod]
+        public void ModulePropertyChanged_Name_TriggersOnControllerHasChanged()
+        {
+            // Arrange
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
+            var mfCache = _executionManager.getMobiFlightModuleCache();
+            bool eventRaised = false;
+
+            // Use reflection to add module to cache
+            AddModuleToCacheAsIfItWasDetected(mfCache, module);
+
+            _executionManager.OnControllerHasChanged += (sender, e) =>
+            {
+                eventRaised = true;
+            };
+
+            // Act
+            module.Name = "Updated Module Name";
+
+            // Assert
+            Assert.IsTrue(eventRaised, "OnControllerHasChanged should be raised when module name changes.");
+        }
+
+        [TestMethod]
+        public void ModulePropertyChanged_Serial_TriggersOnControllerHasChanged()
+        {
+            // Arrange
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
+            var mfCache = _executionManager.getMobiFlightModuleCache();
+            bool eventRaised = false;
+
+            AddModuleToCacheAsIfItWasDetected(mfCache, module);
+
+            _executionManager.OnControllerHasChanged += (sender, e) =>
+            {
+                eventRaised = true;
+            };
+
+            // Act
+            module.Serial = "SN-NEW-SERIAL-123";
+
+            // Assert
+            Assert.IsTrue(eventRaised, "OnControllerHasChanged should be raised when module serial changes.");
+        }
+
+        [TestMethod]
+        public void ModulePropertyChanged_PublishesConnectedControllersMessage()
+        {
+            // Arrange
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
+            var mfCache = _executionManager.getMobiFlightModuleCache();
+            BrowserMessages.Outgoing.ConnectedControllers publishedMessage = null;
+
+            AddModuleToCacheAsIfItWasDetected(mfCache, module);
+
+            // Subscribe to published messages
+            MessageExchange.Instance.Subscribe<BrowserMessages.Outgoing.ConnectedControllers>(msg =>
+            {
+                publishedMessage = msg;
+            });
+
+            // Act
+            module.Name = "Updated Controller Name";
+
+            // Wait briefly for event propagation
+            Thread.Sleep(50);
+
+            // Assert
+            Assert.IsNotNull(publishedMessage, "ConnectedControllers message should be published.");
+            Assert.IsTrue(publishedMessage.Controllers.Any(c => c.Serial == module.Serial && c.Name == "Updated Controller Name"),
+                "Published ConnectedControllers message should include the updated module information.");
+        }
+
+        [TestMethod]
+        public void ModulePropertyChanged_SameValue_DoesNotTriggerOnControllerHasChanged()
+        {
+            // Arrange
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
+            var mfCache = _executionManager.getMobiFlightModuleCache();
+            int eventCount = 0;
+
+            AddModuleToCacheAsIfItWasDetected(mfCache, module);
+            module.Name = "InitialName";
+
+            _executionManager.OnControllerHasChanged += (sender, e) =>
+            {
+                eventCount++;
+            };
+
+            // Act
+            module.Name = "InitialName"; // Same value
+
+            // Assert
+            Assert.AreEqual(0, eventCount, "OnControllerHasChanged should not be raised when value hasn't changed.");
+        }
+
+        [TestMethod]
+        public void ModulePropertyChanged_MultipleProperties_TriggersMultipleEvents()
+        {
+            // Arrange
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
+            var mfCache = _executionManager.getMobiFlightModuleCache();
+            int eventCount = 0;
+
+            AddModuleToCacheAsIfItWasDetected(mfCache, module);
+
+            _executionManager.OnControllerHasChanged += (sender, e) =>
+            {
+                eventCount++;
+            };
+
+            // Act
+            module.Name = "New Name";
+            module.Serial = "SN-NEW";
+
+            // Assert
+            Assert.AreEqual(2, eventCount, "OnControllerHasChanged should be raised for each property change.");
+        }
+
+        /// <summary>
+        /// Helper method to add a module to cache and wire up PropertyChanged event handling.
+        /// Only used in ExecutionManagerTests for integration testing.
+        /// </summary>
+        private void AddModuleToCacheAsIfItWasDetected(MobiFlightCache cache, MobiFlightModule module)
+        {
+            // Use reflection to access the private OnMobiFlightBoardDetected method
+            var methodInfo = typeof(MobiFlightCache).GetMethod("OnMobiFlightBoardDetected",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            methodInfo.Invoke(cache, new object[] { module });
+        }
+        #endregion
     }
 }

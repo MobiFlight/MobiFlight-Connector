@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlightUnitTests.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -365,7 +366,7 @@ namespace MobiFlight.Tests
         public void Name_PropertyChanged_RaisesEvent()
         {
             // Arrange
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             bool eventRaised = false;
             string changedPropertyName = null;
 
@@ -387,7 +388,7 @@ namespace MobiFlight.Tests
         public void Name_SameValue_DoesNotRaiseEvent()
         {
             // Arrange
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             module.Name = "TestName";
             int eventCount = 0;
 
@@ -404,7 +405,7 @@ namespace MobiFlight.Tests
         public void Serial_PropertyChanged_RaisesEvent()
         {
             // Arrange
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             bool eventRaised = false;
             string changedPropertyName = null;
 
@@ -426,7 +427,7 @@ namespace MobiFlight.Tests
         public void Version_PropertyChanged_RaisesEvent()
         {
             // Arrange
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             bool eventRaised = false;
             string changedPropertyName = null;
 
@@ -448,7 +449,7 @@ namespace MobiFlight.Tests
         public void CoreVersion_PropertyChanged_RaisesEvent()
         {
             // Arrange
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             bool eventRaised = false;
             string changedPropertyName = null;
 
@@ -470,7 +471,7 @@ namespace MobiFlight.Tests
         public void HardwareId_PropertyChanged_RaisesEvent()
         {
             // Arrange
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             bool eventRaised = false;
             string changedPropertyName = null;
 
@@ -492,7 +493,7 @@ namespace MobiFlight.Tests
         public void MultiplePropertyChanges_RaisesMultipleEvents()
         {
             // Arrange
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             var changedProperties = new List<string>();
 
             module.PropertyChanged += (sender, e) => changedProperties.Add(e.PropertyName);
@@ -507,49 +508,6 @@ namespace MobiFlight.Tests
             CollectionAssert.Contains(changedProperties, nameof(MobiFlightModule.Name));
             CollectionAssert.Contains(changedProperties, nameof(MobiFlightModule.Serial));
             CollectionAssert.Contains(changedProperties, nameof(MobiFlightModule.Version));
-        }
-
-        // Helper method to create a test module
-        private static MobiFlightModule CreateTestModule()
-        {
-            var board = CreateMinimalBoard();
-            return new MobiFlightModule("COM3", board)
-            {
-                Serial = "SN-123-456",
-                Version = "1.0.0",
-                CoreVersion = "1.0.0"
-            };
-        }
-
-        private static Board CreateMinimalBoard()
-        {
-            return new Board
-            {
-                Info = new Info
-                {
-                    MobiFlightType = "TestType",
-                    FriendlyName = "TestBoard",
-                    FirmwareBaseName = "test",
-                    FirmwareExtension = "hex"
-                },
-                Connection = new Connection
-                {
-                    ConnectionDelay = 0,
-                    TimeoutForFirmwareUpdate = 15000,
-                    DtrEnable = false,
-                    ExtraConnectionRetry = false,
-                    ForceResetOnFirmwareUpdate = false,
-                    MessageSize = 512
-                },
-                AvrDudeSettings = new AvrDudeSettings
-                {
-                    Timeout = 15000
-                },
-                HardwareIds = new List<string>(),
-                ModuleLimits = new ModuleLimits(),
-                Pins = new List<MobiFlightPin>(),
-                UsbDriveSettings = new UsbDriveSettings()
-            };
         }
     }
 }

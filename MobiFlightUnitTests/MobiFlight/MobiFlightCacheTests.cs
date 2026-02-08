@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlightUnitTests.Helpers;
 using Moq;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cache = new TestableMobiFlightCache();
-            var mockModule = new Mock<MobiFlightModule>("COM1", CreateMinimalBoard());
+            var mockModule = new Mock<MobiFlightModule>("COM1", MobiFlightBoardTestHelper.CreateMinimalBoard());
 
             // Add a mock module to the cache
             cache.AddTestModule("SERIAL1", mockModule.Object);
@@ -30,7 +31,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cache = new TestableMobiFlightCache();
-            var mockModule = new Mock<MobiFlightModule>("COM1", CreateMinimalBoard());
+            var mockModule = new Mock<MobiFlightModule>("COM1", MobiFlightBoardTestHelper.CreateMinimalBoard());
 
             // Add a mock module to the cache
             cache.AddTestModule("SERIAL1", mockModule.Object);
@@ -48,7 +49,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cache = new TestableMobiFlightCache();
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             bool moduleUpdatedEventRaised = false;
             object moduleUpdatedSender = null;
 
@@ -76,7 +77,7 @@ namespace MobiFlight.Tests
             bool eventRaised = false;
             cache.ControllerChanged += (sender, e) => eventRaised = true;
 
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             cache.AddTestModuleAsIfItWasDetected(module);
 
             // Act
@@ -94,7 +95,7 @@ namespace MobiFlight.Tests
             int eventCount = 0;
             cache.ControllerChanged += (sender, e) => eventCount++;
 
-            var module = CreateTestModule();
+            var module =MobiFlightBoardTestHelper.CreateTestModule();
             cache.AddTestModule(module.Serial, module);
 
             // Act - Change a property that shouldn't trigger ModuleUpdated
@@ -112,7 +113,7 @@ namespace MobiFlight.Tests
             int eventCount = 0;
             cache.ControllerChanged += (sender, e) => eventCount++;
             
-            var module = CreateTestModule();
+            var module = MobiFlightBoardTestHelper.CreateTestModule();
             module.Name = "ExistingName";
 
             cache.AddTestModuleAsIfItWasDetected(module);
@@ -124,62 +125,5 @@ namespace MobiFlight.Tests
             Assert.AreEqual(0, eventCount, "ModuleUpdated should not be raised when value hasn't changed.");
         }
 
-        // Testable subclass to expose internal members for testing
-        private class TestableMobiFlightCache : MobiFlightCache
-        {
-            public void AddTestModule(string serial, MobiFlightModule module)
-            {
-                // Use reflection to access the private Modules dictionary
-                var modulesField = typeof(MobiFlightCache).GetField("Modules",
-                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                var modules = modulesField.GetValue(this) as System.Collections.Concurrent.ConcurrentDictionary<string, MobiFlightModule>;
-                modules.TryAdd(serial, module);
-            }
-
-            public void AddTestModuleAsIfItWasDetected(MobiFlightModule module)
-            {
-                base.OnMobiFlightBoardDetected(module);
-            }
-        }
-
-        private static MobiFlightModule CreateTestModule()
-        {
-            var board = CreateMinimalBoard();
-            return new MobiFlightModule("COM3", board)
-            {
-                Serial = "SN-123-456",
-                Version = "1.0.0",
-                CoreVersion = "1.0.0",
-                // Create a dummy config to prevent serial communication
-                Config = new Config.Config()
-            };
-        }
-
-        private static Board CreateMinimalBoard()
-        {
-            return new Board
-            {
-                Info = new Info
-                {
-                    MobiFlightType = "TestType",
-                    FriendlyName = "TestBoard",
-                    FirmwareBaseName = "test",
-                    FirmwareExtension = "hex"
-                },
-                Connection = new Connection
-                {
-                    ConnectionDelay = 0,
-                    TimeoutForFirmwareUpdate = 15000
-                },
-                AvrDudeSettings = new AvrDudeSettings
-                {
-                    Timeout = 15000
-                },
-                HardwareIds = new List<string>(),
-                ModuleLimits = new ModuleLimits(),
-                Pins = new List<MobiFlightPin>(),
-                UsbDriveSettings = new UsbDriveSettings()
-            };
-        }
     }
 }
