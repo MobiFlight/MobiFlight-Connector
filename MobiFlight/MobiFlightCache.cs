@@ -113,6 +113,18 @@ namespace MobiFlight
             }
         }
 
+        private void SubscribeModuleEvents(MobiFlightModule module)
+        {
+            module.PropertyChanged += MobiFlightModule_PropertyChanged;
+            module.OnInputDeviceAction += Module_OnButtonPressed;
+        }
+
+        private void UnsubscribeModuleEvents(MobiFlightModule module)
+        {
+            module.PropertyChanged -= MobiFlightModule_PropertyChanged;
+            module.OnInputDeviceAction -= Module_OnButtonPressed;
+        }
+
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {
             Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Info);
@@ -128,8 +140,7 @@ namespace MobiFlight
                     module.Disconnect();
                     if (Modules.TryRemove(module.Serial, out MobiFlightModule removedModule))
                     {
-                        removedModule.PropertyChanged -= MobiFlightModule_PropertyChanged;
-                        removedModule.OnInputDeviceAction -= Module_OnButtonPressed;
+                        UnsubscribeModuleEvents(removedModule);
                     }
                 }
             }
@@ -216,7 +227,6 @@ namespace MobiFlight
 
         protected void OnMobiFlightBoardDetected(MobiFlightModule module)
         {
-            module.PropertyChanged += MobiFlightModule_PropertyChanged;
             module.LoadConfig();
             RegisterModule(module, module.ToMobiFlightModuleInfo());
         }
@@ -390,8 +400,7 @@ namespace MobiFlight
             {
                 if (Modules.TryRemove(devInfo.Serial, out MobiFlightModule removedModule))
                 {
-                    removedModule.PropertyChanged -= MobiFlightModule_PropertyChanged;
-                    removedModule.OnInputDeviceAction -= Module_OnButtonPressed;
+                    UnsubscribeModuleEvents(removedModule);
                 }
                 return;
             }
@@ -416,8 +425,7 @@ namespace MobiFlight
                 if (replace)
                 {
                     // remove the existing handler
-                    Modules[devInfo.Serial].OnInputDeviceAction -= Module_OnButtonPressed;
-                    Modules[devInfo.Serial].PropertyChanged -= MobiFlightModule_PropertyChanged;
+                    UnsubscribeModuleEvents(Modules[devInfo.Serial]);
                     Modules[devInfo.Serial] = m;
                 }
                 else
@@ -432,8 +440,7 @@ namespace MobiFlight
             }
 
             // add the handler
-            m.OnInputDeviceAction += Module_OnButtonPressed;
-            m.PropertyChanged += MobiFlightModule_PropertyChanged;
+            SubscribeModuleEvents(m);
         }
 
         public void Module_OnButtonPressed(object sender, InputEventArgs e)
