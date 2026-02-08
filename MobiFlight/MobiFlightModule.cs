@@ -1,5 +1,6 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
+using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -11,7 +12,7 @@ using System.Threading;
 
 namespace MobiFlight
 {
-    public class MobiFlightModule : IModule, IOutputModule
+    public class MobiFlightModule : ObservableObject, IModule, IOutputModule
     {
         // This is the list of recognized commands. These can be commands that can either be sent or received. 
         // In order to receive, attach a callback function to these events
@@ -65,7 +66,7 @@ namespace MobiFlight
 
         delegate void AddLogCallback(string text);
         SerialPort _serialPort;
-        protected Config.Config _config = null;
+
 
         /// <summary>
         /// max length of device name
@@ -87,24 +88,33 @@ namespace MobiFlight
             @"|"
         };
 
-        String _comPort = "COM3";
-        public String Port { get { return _comPort; } }
+        private string port = "COM3";
+        public string Port
+        {
+            get => port;
+            set => SetProperty(ref port, value);
+        }
 
-        private string _name;
+        private string name;
         public virtual String Name
         {
             get
             {
-                if (HasMfFirmware()) return _name;
+                if (HasMfFirmware()) return name;
                 return Board.Info.FriendlyName;
             }
             set
             {
-                _name = value;
+                SetProperty(ref name, value);
             }
         }
 
-        public string HardwareId { get; set; }
+        private string hardwareId;
+        public string HardwareId
+        {
+            get => hardwareId;
+            set => SetProperty(ref hardwareId, value);
+        }
 
         public String Type
         {
@@ -126,9 +136,27 @@ namespace MobiFlight
                 }
             }
         }
-        public virtual String Serial { get; set; }
-        public String Version { get; set; }
-        public string CoreVersion { get; set; }
+
+        private string serial;
+        public virtual String Serial
+        {
+            get => serial;
+            set => SetProperty(ref serial, value);
+        }
+
+        private string version;
+        public string Version
+        {
+            get => version;
+            set => SetProperty(ref version, value);
+        }
+
+        private string coreVersion;
+        public string CoreVersion
+        {
+            get => coreVersion;
+            set => SetProperty(ref coreVersion, value);
+        }
 
         public bool HasMfFirmware()
         {
@@ -141,6 +169,7 @@ namespace MobiFlight
             get { return CoreVersion?.StartsWith("0.0.") ?? false; }
         }
 
+        protected Config.Config _config = null;
         public Config.Config Config
         {
             get
@@ -185,10 +214,7 @@ namespace MobiFlight
                 return _config;
             }
 
-            set
-            {
-                _config = value;
-            }
+            set => SetProperty(ref _config, value);
         }
 
         public const int CommandTimeout = 2500;
@@ -220,7 +246,8 @@ namespace MobiFlight
         private bool connected;
         public bool Connected
         {
-            get { return connected; }
+            get => connected;
+            private set => SetProperty(ref connected, value);
         }
 
         /// <summary>
@@ -228,14 +255,19 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
 
-        public Board Board { get; set; }
+        protected Board board;
+        public Board Board
+        {
+            get => board;
+            set => SetProperty(ref board, value);
+        }
 
         public MobiFlightModule(String port, Board board)
         {
             Name = board.Info.FriendlyName;
             Version = null; // this is simply unknown, in case of an unflashed Arduino
             Serial = null; // this is simply unknown, in case of an unflashed Arduino
-            _comPort = port;
+            Port = port;
             Board = board;
         }
 
@@ -244,7 +276,7 @@ namespace MobiFlight
             Name = moduleInfo.Name ?? moduleInfo.Board.Info.FriendlyName;
             Version = moduleInfo.Version;
             Serial = moduleInfo.Serial;
-            _comPort = moduleInfo.Port;
+            Port = moduleInfo.Port;
             Board = moduleInfo.Board;
             HardwareId = moduleInfo.HardwareId;
         }
@@ -260,7 +292,7 @@ namespace MobiFlight
         {
             if (this.Connected)
             {
-                Log.Instance.log($"Already connected to {Name} at {_comPort} of type {Board}.", LogSeverity.Debug);
+                Log.Instance.log($"Already connected to {Name} at {Port} of type {Board}.", LogSeverity.Debug);
                 return;
             }
 
@@ -273,10 +305,10 @@ namespace MobiFlight
                 //_transportLayer = new SerialPortManager
                 {
                     //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
-                    CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
+                    CurrentSerialSettings = { PortName = Port, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
                 };
 
-                Log.Instance.log($"Connecting to {_comPort} - Baud rate: {baudRate}, DtrEnable: {Board.Connection.DtrEnable}", LogSeverity.Debug);
+                Log.Instance.log($"Connecting to {Port} - Baud rate: {baudRate}, DtrEnable: {Board.Connection.DtrEnable}", LogSeverity.Debug);
 
                 _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16, ',', ';', '\\', Board.Connection.MessageSize);
 
@@ -285,9 +317,9 @@ namespace MobiFlight
 
                 // Start listening    
                 var status = _cmdMessenger.Connect();
-                Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
+                Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {Port} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
                 //this.Connected = status;
-                this.connected = true;
+                Connected = true;
 
                 // this sleep helps during initialization
                 // without this line modules did not connect properly
@@ -515,11 +547,11 @@ namespace MobiFlight
         {
             if (!this.Connected)
             {
-                Log.Instance.log($"Already disconnected {this.Name}:{_comPort}.", LogSeverity.Debug);
+                Log.Instance.log($"Already disconnected {this.Name}:{Port}.", LogSeverity.Debug);
                 return;
             }
 
-            this.connected = false;
+            Connected = false;
 
             _cmdMessenger.Disconnect();
             _cmdMessenger.Dispose();
@@ -527,12 +559,12 @@ namespace MobiFlight
 
             _config = null;
 
-            Log.Instance.log($"Disconnected {this.Name}:{_comPort}.", LogSeverity.Debug);
+            Log.Instance.log($"Disconnected {this.Name}:{Port}.", LogSeverity.Debug);
         }
 
         public String InitUploadAndReturnUploadPort()
         {
-            String result = _comPort;
+            String result = Port;
             List<String> connectedPorts = SerialPort.GetPortNames().ToList();
             Disconnect();
 
@@ -540,7 +572,7 @@ namespace MobiFlight
             {
                 SerialTransport tmpSerial = new SerialTransport()
                 {
-                    CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
+                    CurrentSerialSettings = { PortName = Port, BaudRate = 1200, DtrEnable = true } // object initializer
                 };
 
                 tmpSerial.Connect();
@@ -548,12 +580,13 @@ namespace MobiFlight
                 tmpSerial.Dispose();
                 Thread.Sleep(1000);
                 List<String> connectedPorts2 = SerialPort.GetPortNames().ToList();
-                connectedPorts2.Add(_comPort);
+                connectedPorts2.Add(Port);
                 if (connectedPorts2.Except(connectedPorts).Count() > 0)
                 {
                     result = connectedPorts2.Except(connectedPorts).Last();
                 }
-            };
+            }
+            ;
 
             return result;
         }
@@ -910,7 +943,7 @@ namespace MobiFlight
             {
                 Name = Name,
                 Type = Type,
-                Port = _comPort,
+                Port = Port,
             };
 
             var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
@@ -1342,7 +1375,7 @@ namespace MobiFlight
 
             // we have to make sure to not send messages
             // when we are not connected
-            if (!this.connected) return;
+            if (!Connected) return;
 
             GetConnectedDevices().ForEach(device =>
             {
