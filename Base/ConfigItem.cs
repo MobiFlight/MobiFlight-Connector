@@ -63,7 +63,7 @@ namespace MobiFlight.Base
             // this is applied during deserialization
             // to ensure old config items with deprecated serials
             // are normalized to the new format
-            set => _moduleSerial = SerialNumber.Normalize(value);
+            set => _moduleSerial = SerialNumber.NormalizeFullSerial(value);
         }
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();

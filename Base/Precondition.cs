@@ -50,7 +50,7 @@ namespace MobiFlight
             // this is applied during deserialization
             // to ensure old config items with deprecated serials
             // are normalized to the new format
-            set => _serial = SerialNumber.Normalize(value);
+            set => _serial = SerialNumber.NormalizeFullSerial(value);
         }
         public string Pin { get; set; }
         public string Operand { get; set; }
@@ -96,7 +96,7 @@ namespace MobiFlight
             }
             else if (Type == "pin")
             {
-                Serial = SerialNumber.Normalize(reader["serial"]);
+                Serial = SerialNumber.NormalizeFullSerial(reader["serial"]);
                 Pin = reader["pin"];
                 Operand = reader["operand"];
                 Value = reader["value"];

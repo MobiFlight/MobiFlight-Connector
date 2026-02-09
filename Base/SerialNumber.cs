@@ -13,7 +13,7 @@ namespace MobiFlight.Base
             return $"{deviceName}{SerialSeparator}{serial}";
         }
 
-        public static string Normalize(string s)
+        public static string NormalizeFullSerial(string s)
         {
             if (!IsRawSerial(s)) return s;
 

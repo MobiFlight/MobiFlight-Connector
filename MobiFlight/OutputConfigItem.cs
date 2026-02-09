@@ -157,7 +157,7 @@ namespace MobiFlight
                 if (DeviceType == "Pin") DeviceType = MobiFlightOutput.TYPE;
                 if (DeviceType == ArcazeLedDigit.OLDTYPE) DeviceType = ArcazeLedDigit.TYPE;
 
-                ModuleSerial = SerialNumber.Normalize(reader["serial"]);
+                ModuleSerial = SerialNumber.NormalizeFullSerial(reader["serial"]);
 
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
