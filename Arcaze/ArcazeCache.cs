@@ -179,8 +179,8 @@ namespace MobiFlight
             
             foreach (DeviceInfo dev in presentArcaze)
             {
-                var settings = arcazeSettings.ContainsKey(dev.Serial) ? arcazeSettings[dev.Serial] : new ArcazeModuleSettings();
-                var serial = SerialNumber.Normalize(dev.Serial);
+                var serial = dev.Serial;
+                var settings = arcazeSettings.ContainsKey(serial) ? arcazeSettings[dev.Serial] : new ArcazeModuleSettings();
                 var module = new ArcazeModule(new DeviceInfoAndCache(dev), settings);
 
                 Modules.Add(serial, module);
