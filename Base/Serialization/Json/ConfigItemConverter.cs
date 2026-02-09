@@ -22,6 +22,19 @@ namespace MobiFlight.Base.Serialization.Json
                 throw new NotSupportedException($"Unknown type: {typeName}");
             }
 
+            // Migration: If ModuleSerial exists but Controller doesn't, convert ModuleSerial to Controller
+            if (jsonObject["ModuleSerial"] != null && jsonObject["Controller"] == null)
+            {
+                var moduleSerial = (string)jsonObject["ModuleSerial"];
+                var controller = Controller.FromModuleSerial(moduleSerial);
+                
+                // Add Controller property to JSON
+                jsonObject["Controller"] = JObject.FromObject(controller);
+                
+                // Remove ModuleSerial from JSON (it will be ignored during deserialization anyway)
+                jsonObject.Remove("ModuleSerial");
+            }
+
             var configItem = Activator.CreateInstance(type) as IConfigItem;
             serializer.Populate(jsonObject.CreateReader(), configItem);
             return configItem;

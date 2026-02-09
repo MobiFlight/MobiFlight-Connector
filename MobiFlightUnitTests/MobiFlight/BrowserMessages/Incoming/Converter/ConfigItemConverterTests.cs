@@ -64,5 +64,121 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
             StringAssert.Contains(json, "\"Type\":\"OutputConfigItem\"");
             StringAssert.Contains(json, "\"Name\":\"SomeValue\"");
         }
+
+        [TestMethod()]
+        public void ReadJson_WithModuleSerial_MigratesToController()
+        {
+            // Arrange
+            var json = @"{
+                ""Type"": ""OutputConfigItem"",
+                ""ModuleSerial"": ""ProtoBoard-v2/ SN-5FC-1CF"",
+                ""Name"": ""Test1"",
+                ""Active"": true
+            }";
+
+            // Act
+            var configItem = JsonConvert.DeserializeObject<IConfigItem>(json);
+
+            // Assert
+            Assert.IsNotNull(configItem);
+            Assert.IsInstanceOfType(configItem, typeof(OutputConfigItem));
+            Assert.IsNotNull(configItem.Controller);
+            Assert.AreEqual("ProtoBoard-v2", configItem.Controller.Name);
+            Assert.AreEqual("SN-5FC-1CF", configItem.Controller.Serial);
+        }
+
+        [TestMethod()]
+        public void ReadJson_WithController_UsesControllerProperty()
+        {
+            // Arrange
+            var json = @"{
+                ""Type"": ""OutputConfigItem"",
+                ""Controller"": {
+                    ""Name"": ""TestBoard"",
+                    ""Serial"": ""SN-123-456""
+                },
+                ""Name"": ""Test1"",
+                ""Active"": true
+            }";
+
+            // Act
+            var configItem = JsonConvert.DeserializeObject<IConfigItem>(json);
+
+            // Assert
+            Assert.IsNotNull(configItem);
+            Assert.IsInstanceOfType(configItem, typeof(OutputConfigItem));
+            Assert.IsNotNull(configItem.Controller);
+            Assert.AreEqual("TestBoard", configItem.Controller.Name);
+            Assert.AreEqual("SN-123-456", configItem.Controller.Serial);
+        }
+
+        [TestMethod()]
+        public void ReadJson_WithBothModuleSerialAndController_PrefersController()
+        {
+            // Arrange - this shouldn't normally happen, but test priority
+            var json = @"{
+                ""Type"": ""OutputConfigItem"",
+                ""ModuleSerial"": ""OldBoard/ SN-OLD"",
+                ""Controller"": {
+                    ""Name"": ""NewBoard"",
+                    ""Serial"": ""SN-NEW""
+                },
+                ""Name"": ""Test1"",
+                ""Active"": true
+            }";
+
+            // Act
+            var configItem = JsonConvert.DeserializeObject<IConfigItem>(json);
+
+            // Assert
+            Assert.IsNotNull(configItem);
+            Assert.IsNotNull(configItem.Controller);
+            // Should use Controller since it takes precedence
+            Assert.AreEqual("NewBoard", configItem.Controller.Name);
+            Assert.AreEqual("SN-NEW", configItem.Controller.Serial);
+        }
+
+        [TestMethod()]
+        public void WriteJson_WithController_SerializesControllerNotModuleSerial()
+        {
+            // Arrange
+            var configItem = new OutputConfigItem
+            {
+                Name = "Test1",
+                Active = true,
+                Controller = new Controller("TestBoard", "SN-123-456")
+            };
+
+            // Act
+            var json = JsonConvert.SerializeObject(configItem, Formatting.Indented);
+
+            // Assert
+            Assert.IsTrue(json.Contains("\"Controller\""));
+            Assert.IsTrue(json.Contains("\"Name\": \"TestBoard\""));
+            Assert.IsTrue(json.Contains("\"Serial\": \"SN-123-456\""));
+            Assert.IsFalse(json.Contains("ModuleSerial"));
+        }
+
+        [TestMethod()]
+        public void ReadJson_EmptyModuleSerial_CreatesEmptyController()
+        {
+            // Arrange
+            var json = @"{
+                ""Type"": ""OutputConfigItem"",
+                ""ModuleSerial"": """",
+                ""Name"": ""Test1"",
+                ""Active"": true
+            }";
+
+            // Act
+            var configItem = JsonConvert.DeserializeObject<IConfigItem>(json);
+
+            // Assert
+            Assert.IsNotNull(configItem);
+            // Empty ModuleSerial should result in empty controller
+            Assert.IsNotNull(configItem.Controller);
+            Assert.AreEqual("", configItem.Controller.Name);
+            Assert.AreEqual("", configItem.Controller.Serial);
+        }
     }
 }
