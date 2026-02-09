@@ -17,10 +17,10 @@ namespace MobiFlight.Base
         {
             if (!IsRawSerial(s)) return s;
 
-            var Name = ExtractDeviceName(s);
-            var Serial = ExtractSerial(s);
+            var name = ExtractDeviceName(s);
+            var serial = ExtractSerial(s);
 
-            return CreateFullSerial(Name, Serial);
+            return CreateFullSerial(name, serial);
         }
 
         public static string ExtractSerial(String s)
