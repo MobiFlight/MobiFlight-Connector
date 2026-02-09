@@ -55,7 +55,16 @@ namespace MobiFlight.Base
         public bool Active { get; set; }
         public string Name { get; set; }
         public string Type { get { return GetConfigItemType(); } }
-        public string ModuleSerial { get; set; }
+        private string _moduleSerial;
+        public string ModuleSerial
+        {
+            get => _moduleSerial;
+
+            // this is applied during deserialization
+            // to ensure old config items with deprecated serials
+            // are normalized to the new format
+            set => _moduleSerial = SerialNumber.Normalize(value);
+        }
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
         public ConfigRefList ConfigRefs { get; set; } = new ConfigRefList();

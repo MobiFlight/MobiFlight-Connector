@@ -42,7 +42,16 @@ namespace MobiFlight
         }
         public string Type { get; set; }
         public string Ref { get; set; }
-        public string Serial { get; set; }
+        private string _serial;
+        public string Serial
+        {
+            get => _serial;
+
+            // this is applied during deserialization
+            // to ensure old config items with deprecated serials
+            // are normalized to the new format
+            set => _serial = SerialNumber.Normalize(value);
+        }
         public string Pin { get; set; }
         public string Operand { get; set; }
         public string Value { get; set; }

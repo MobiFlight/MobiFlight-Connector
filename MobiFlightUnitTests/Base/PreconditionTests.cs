@@ -215,5 +215,21 @@ namespace MobiFlight.Tests
             Assert.AreNotEqual("", json, "Non-empty Precondition must not be serialized to empty when the converter is enabled.");
             Assert.IsFalse(string.IsNullOrEmpty(json), "Serialized JSON should not be empty.");
         }
+
+        [TestMethod]
+        public void Precondition_Deserialization_ShouldNormalizeSerial()
+        {
+            // Arrange
+            var p = _generateTestObject();
+            var json = JsonConvert.SerializeObject(p);
+            json = json.Replace("\"TestSerial\"", "\"TestDevice/ SN-123456  \""); // add spaces around Serial to test trimming
+
+            // Act
+            var deserializedPrecondition = JsonConvert.DeserializeObject<Precondition>(json);
+
+            // Assert
+            Assert.IsNotNull(deserializedPrecondition, "Deserialized Precondition should not be null.");
+            Assert.AreEqual("TestDevice/SN-123456", deserializedPrecondition.Serial, "Serial was not normalized correctly during deserialization.");
+        }
     }
 }
