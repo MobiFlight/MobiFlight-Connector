@@ -86,17 +86,23 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
         [TestMethod]
         public void ReadJson_InputConfigItem_NormalizesModuleSerial()
         {
-            var json = "{\"Type\":\"InputConfigItem\",\"Name\":\"Test\",\"ModuleSerial\":\"Device/ Serial123\"}";
+            var json = "{\"Type\":\"InputConfigItem\",\"Name\":\"Test\",\"ModuleSerial\":\"Device/ SN-Serial123\"}";
             var result = JsonConvert.DeserializeObject<ConfigItem>(json);
 
             Assert.IsInstanceOfType(result, typeof(InputConfigItem));
-            Assert.AreEqual("Device/Serial123", ((InputConfigItem)result).ModuleSerial, "Serial should be normalized without space");
+            Assert.AreEqual("Device/SN-Serial123", ((InputConfigItem)result).ModuleSerial, "Serial should be normalized without space");
 
-            json = "{\"Type\":\"InputConfigItem\",\"Name\":\"Test\",\"ModuleSerial\":\"Device / Serial123\"}";
+            json = "{\"Type\":\"InputConfigItem\",\"Name\":\"Test\",\"ModuleSerial\":\"Device / SN-Serial123\"}";
             result = JsonConvert.DeserializeObject<ConfigItem>(json);
 
             Assert.IsInstanceOfType(result, typeof(InputConfigItem));
-            Assert.AreEqual("Device/Serial123", ((InputConfigItem)result).ModuleSerial, "Serial should be normalized without space");
+            Assert.AreEqual("Device/SN-Serial123", ((InputConfigItem)result).ModuleSerial, "Serial should be normalized without space");
+
+            json = "{\"Type\":\"InputConfigItem\",\"Name\":\"Test\",\"ModuleSerial\":\"Device/SN-Serial123\"}";
+            result = JsonConvert.DeserializeObject<ConfigItem>(json);
+
+            Assert.IsInstanceOfType(result, typeof(InputConfigItem));
+            Assert.AreEqual("Device/SN-Serial123", ((InputConfigItem)result).ModuleSerial, "Serial should be normalized without space");
         }
     }
 }
