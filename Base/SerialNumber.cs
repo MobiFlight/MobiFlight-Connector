@@ -15,6 +15,8 @@ namespace MobiFlight.Base
 
         public static string Normalize(string s)
         {
+            if (!IsRawSerial(s)) return s;
+
             var Name = ExtractDeviceName(s);
             var Serial = ExtractSerial(s);
 

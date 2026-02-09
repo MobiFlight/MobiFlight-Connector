@@ -33,6 +33,35 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual("Korg Midi Controller/MI-b0875190-3b89-11ed-8007-444553540000", result);
         }
 
+        [TestMethod()]
+        public void NormalizeTest()
+        {
+            var serial = "GMA345/ SN-b44-4c5";
+            var result = SerialNumber.Normalize(serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("GMA345/SN-b44-4c5", result);
+
+            serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
+            result = SerialNumber.Normalize(serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Bravo Throttle Quadrant/JS-b0875190-3b89-11ed-8007-444553540000", result);
+
+            serial = "Arcaze v5.36/ 000393600000";
+            result = SerialNumber.Normalize(serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Arcaze v5.36/000393600000", result);
+
+            serial = "MFG Crosswind V2/3 / JS-b0875190-3b89-11ed-8007-444553540000";
+            result = SerialNumber.Normalize(serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("MFG Crosswind V2/3/JS-b0875190-3b89-11ed-8007-444553540000", result);
+
+            serial = "Not a serial number";
+            result = SerialNumber.Normalize(serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Not a serial number", result);
+        }
+
 
         [TestMethod()]
         public void ExtractSerialTest()
