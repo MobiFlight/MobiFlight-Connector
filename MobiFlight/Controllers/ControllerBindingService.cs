@@ -106,17 +106,17 @@ namespace MobiFlight.Controllers
 
             foreach (var module in _executionManager.getMobiFlightModuleCache().GetModules())
             {
-                serials.Add($"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}");
+                serials.Add(SerialNumber.CreateFullSerial(module.Name, module.Serial));
             }
 
             foreach (var joystick in _executionManager.GetJoystickManager().GetJoysticks())
             {
-                serials.Add($"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}");
+                serials.Add(SerialNumber.CreateFullSerial(joystick.Name, joystick.Serial));
             }
 
             foreach (var midiBoard in _executionManager.GetMidiBoardManager().GetMidiBoards())
             {
-                serials.Add($"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}");
+                serials.Add(SerialNumber.CreateFullSerial(midiBoard.Name, midiBoard.Serial));
             }
 
             return serials;

@@ -6,6 +6,35 @@ namespace MobiFlight.Base.Tests
     public class SerialNumberTests
     {
         [TestMethod()]
+        public void CreateFullSerialTest()
+        {
+            var deviceName = "GMA345";
+            var serial = "SN-b44-4c5";
+            var result = SerialNumber.CreateFullSerial(deviceName, serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("GMA345 / SN-b44-4c5", result);
+
+            deviceName = "Bravo Throttle Quadrant";
+            serial = "JS-b0875190-3b89-11ed-8007-444553540000";
+            result = SerialNumber.CreateFullSerial(deviceName, serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000", result);
+
+            deviceName = "Arcaze v5.36";
+            serial = "000393600000";
+            result = SerialNumber.CreateFullSerial(deviceName, serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Arcaze v5.36 / 000393600000", result);
+
+            deviceName = "Korg Midi Controller";
+            serial = "MI-b0875190-3b89-11ed-8007-444553540000";
+            result = SerialNumber.CreateFullSerial(deviceName, serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Korg Midi Controller / MI-b0875190-3b89-11ed-8007-444553540000", result);
+        }
+
+
+        [TestMethod()]
         public void ExtractSerialTest()
         {
             var serial = "GMA345/ SN-b44-4c5";

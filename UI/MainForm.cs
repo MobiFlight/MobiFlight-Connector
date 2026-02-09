@@ -2161,13 +2161,12 @@ namespace MobiFlight.UI
 
             foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
             {
-                serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
+                serials.Add(SerialNumber.CreateFullSerial(moduleInfo.Name, moduleInfo.Serial));
             }
 
             foreach (var joystick in execManager.GetJoystickManager().GetJoysticks())
             {
-                // Extra space between Name and Separator is necessary!
-                serials.Add($"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}");
+                serials.Add(SerialNumber.CreateFullSerial(joystick.Name, joystick.Serial));
             }
 
             if (serials.Count == 0) return;

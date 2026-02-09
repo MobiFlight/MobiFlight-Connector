@@ -325,7 +325,7 @@ namespace MobiFlight.UI.Dialogs
 
                 DisplayModuleList.Add(new ListItem()
                 {
-                    Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
+                    Value = SerialNumber.CreateFullSerial(joystick.Name,joystick.Serial),
                     Label = $"{joystick.Name}"
                 });
 
@@ -342,7 +342,7 @@ namespace MobiFlight.UI.Dialogs
 
                 DisplayModuleList.Add(new ListItem()
                 {
-                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Value = SerialNumber.CreateFullSerial(midiBoard.Name, midiBoard.Serial),
                     Label = $"{midiBoard.Name}"
                 });
 

@@ -6,7 +6,13 @@ namespace MobiFlight.Base
     public static class SerialNumber
     {
         public const string NOT_SET = "-";
-        public const string SerialSeparator = "/ ";
+        public const string SerialSeparator = " / ";
+        public const string DeprecatedSerialSeparator = "/ ";
+
+        public static string CreateFullSerial(string deviceName, string serial)
+        {
+            return $"{deviceName}{SerialSeparator}{serial}";
+        }
 
         public static string ExtractSerial(String s)
         {

@@ -193,7 +193,7 @@ namespace MobiFlight.UI.Dialogs
 
                 PreconditionModuleList.Add(new ListItem()
                 {
-                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
+                    Value = SerialNumber.CreateFullSerial(module.Name, module.Serial),
                     Label = $"{module.Name} ({module.Serial})"
                 });
             }
@@ -202,7 +202,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
+                    Value = SerialNumber.CreateFullSerial(module.Name, module.Serial),
                     Label = $"{module.Name} ({module.Port})"
                 });
             }
@@ -212,7 +212,7 @@ namespace MobiFlight.UI.Dialogs
                 if (joystick.GetAvailableDevicesAsListItems().Count > 0)
                     inputModuleNameComboBox.Items.Add(new ListItem()
                     {
-                        Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
+                        Value = SerialNumber.CreateFullSerial(joystick.Name, joystick.Serial),
                         Label = $"{joystick.Name}"
                     });
             }
@@ -221,7 +221,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Value = SerialNumber.CreateFullSerial(midiBoard.Name, midiBoard.Serial),
                     Label = $"{midiBoard.Name}"
                 });
             }

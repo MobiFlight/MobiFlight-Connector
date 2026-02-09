@@ -161,6 +161,7 @@ function App() {
 
   useAppMessage("ConnectedControllers", (message) => {
     const controllers = (message.payload as ConnectedControllers).Controllers
+    console.log("ConnectedControllers message received", controllers)
     setControllers(controllers)
   })
 
