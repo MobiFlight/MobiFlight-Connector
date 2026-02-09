@@ -10,7 +10,7 @@
         <modifiers>
           <transformation active="True" expression="$*10" />
         </modifiers>
-        <display type="LcdDisplay" serial="ProtoBoard-v2/ SN-3F1-FDD" address="LCD 1">
+        <display type="LcdDisplay" serial="ProtoBoard-v2/SN-3F1-FDD" address="LCD 1">
           <line>COM1 ACT:$$$.$$$</line>
           <line>    STBY:###.###</line>
           <line>******Test******</line>

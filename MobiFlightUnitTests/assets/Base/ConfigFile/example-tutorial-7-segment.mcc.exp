@@ -10,7 +10,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="MobiFlight Mega/SN-849-180" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -24,7 +24,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="1,2,3,4,5" ledDecimalPoints="3" />
+        <display type="Display Module" serial="MobiFlight Mega/SN-849-180" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="1,2,3,4,5" ledDecimalPoints="3" />
         <preconditions />
         <configrefs />
       </settings>
@@ -34,7 +34,7 @@
     <config guid="e847778b-52c9-43be-8e31-acb7d67fcd02">
       <active>true</active>
       <description>COM 1 StandBy</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;800,$-5,1795)" />
