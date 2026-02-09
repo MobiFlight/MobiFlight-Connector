@@ -1,9 +1,11 @@
-﻿namespace MobiFlight.Controllers
+﻿using MobiFlight.Base;
+
+namespace MobiFlight.Controllers
 {
     public class ControllerBinding
     {
-        public string BoundController { get; set; }
+        public Controller BoundController { get; set; }
         public ControllerBindingStatus Status { get; set; }
-        public string OriginalController { get; set; }
+        public Controller OriginalController { get; set; }
     }
 }

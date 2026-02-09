@@ -255,7 +255,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = module.Name,
-                    Connected = true,
                     Serial = module.Serial
                 });
             });
@@ -265,7 +264,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Connected = true,
                     Serial = controller.Serial
                 });
             });
@@ -275,7 +273,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Connected = true,
                     Serial = controller.Serial
                 });
             });
