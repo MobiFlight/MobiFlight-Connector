@@ -87,7 +87,7 @@ namespace MobiFlight
             }
             else if (Type == "pin")
             {
-                Serial = reader["serial"];
+                Serial = SerialNumber.Normalize(reader["serial"]);
                 Pin = reader["pin"];
                 Operand = reader["operand"];
                 Value = reader["value"];
