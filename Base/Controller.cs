@@ -66,7 +66,15 @@ namespace MobiFlight.Base
 
         public override int GetHashCode()
         {
-            return (Name?.GetHashCode() ?? 0) ^ (Serial?.GetHashCode() ?? 0);
+            // Simple hash combining for .NET Framework 4.8
+            // Using pattern recommended for older .NET versions
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + (Name?.GetHashCode() ?? 0);
+                hash = hash * 23 + (Serial?.GetHashCode() ?? 0);
+                return hash;
+            }
         }
 
         public Controller Clone()

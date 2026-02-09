@@ -113,8 +113,10 @@ namespace MobiFlight.Base
             set 
             {
                 _moduleSerial = value ?? "";
-                // Clear controller to force lazy migration on next access
-                _controller = null;
+                // Migrate immediately to avoid repeated lazy migrations
+                _controller = string.IsNullOrEmpty(_moduleSerial) 
+                    ? null 
+                    : Base.Controller.FromModuleSerial(_moduleSerial);
             }
         }
 
