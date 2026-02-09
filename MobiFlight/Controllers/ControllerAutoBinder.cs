@@ -178,12 +178,6 @@ namespace MobiFlight.Controllers
             return new ControllerBinding() { Status = ControllerBindingStatus.Missing, BoundController = null, OriginalController = configSerial };
         }
 
-        public static string GetTypeAndName(string fullSerial)
-        {
-            var parts = fullSerial.Split(new[] { SerialNumber.SerialSeparator }, StringSplitOptions.None);
-            return parts.Length > 0 ? parts[0].Trim() : fullSerial;
-        }
-
         internal void ApplyBindingUpdate(List<IConfigItem> configItems, List<ControllerBinding> controllerBindings)
         {
             // Apply the mappings to config items
