@@ -121,7 +121,7 @@ namespace MobiFlight.Tests
             xmlReader.ReadToDescendant("settings");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual("737PEDESTAL1/ SN-769-a6a", o.ModuleSerial, "ModuleSerial not the same");
+            Assert.AreEqual("737PEDESTAL1/SN-769-a6a", o.ModuleSerial, "ModuleSerial not the same");
             Assert.AreEqual("Analog 67 A13", o.DeviceName, "Name not the same");
             Assert.HasCount(1, o.Preconditions, "Preconditions Count not the same");
             Assert.HasCount(1, o.ConfigRefs, "Config ref count is not correct");
