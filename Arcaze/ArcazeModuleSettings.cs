@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SimpleSolutions.Usb;
 using System.Xml;
 using System.Xml.Serialization;
-using SimpleSolutions.Usb;
 
 namespace MobiFlight
 {

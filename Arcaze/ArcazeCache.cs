@@ -1,4 +1,5 @@
-﻿using SimpleSolutions.Usb;
+﻿using MobiFlight.Base;
+using SimpleSolutions.Usb;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -178,10 +179,11 @@ namespace MobiFlight
             
             foreach (DeviceInfo dev in presentArcaze)
             {
-                if (arcazeSettings.ContainsKey(dev.Serial))
-                    Modules.Add(dev.Serial, new ArcazeModule(new DeviceInfoAndCache(dev), arcazeSettings[dev.Serial]));
-                else
-                    Modules.Add(dev.Serial, new ArcazeModule(new DeviceInfoAndCache(dev), new ArcazeModuleSettings()));
+                var settings = arcazeSettings.ContainsKey(dev.Serial) ? arcazeSettings[dev.Serial] : new ArcazeModuleSettings();
+                var serial = SerialNumber.Normalize(dev.Serial);
+                var module = new ArcazeModule(new DeviceInfoAndCache(dev), settings);
+
+                Modules.Add(serial, module);
             }
 
             return Modules.Count > 0;

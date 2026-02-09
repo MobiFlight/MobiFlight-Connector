@@ -245,17 +245,16 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
-                    Label = $"{module.Name}{SerialNumber.SerialSeparator}({module.Port})"
+                    Value = SerialNumber.CreateFullSerial(module.Name,module.Serial),
+                    Label = $"{module.Name} ({module.Port})"
                 });
-                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
+                    Value = SerialNumber.CreateFullSerial(joystick.Name, joystick.Serial),
                     Label = $"{joystick.Name}"
                 });
             }
@@ -264,7 +263,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Value = SerialNumber.CreateFullSerial(midiBoard.Name, midiBoard.Serial),
                     Label = $"{midiBoard.Name}"
                 });
             }

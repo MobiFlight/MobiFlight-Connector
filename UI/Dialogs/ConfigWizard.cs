@@ -265,13 +265,13 @@ namespace MobiFlight.UI.Dialogs
                 arcazeFirmware[module.Serial] = module.Version;
                 DisplayModuleList.Add(new ListItem()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = SerialNumber.CreateFullSerial(module.Name,module.Serial),
                     Label = $"{module.Name} ({module.Serial})"
                 });
 
                 PreconditionModuleList.Add(new ListItem()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = SerialNumber.CreateFullSerial(module.Name, module.Serial),
                     Label = $"{module.Name} ({module.Serial})"
                 });
             }
@@ -307,7 +307,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 DisplayModuleList.Add(new ListItem()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = SerialNumber.CreateFullSerial(module.Name, module.Serial),
                     Label = $"{module.Name} ({module.Port})"
                 });
 

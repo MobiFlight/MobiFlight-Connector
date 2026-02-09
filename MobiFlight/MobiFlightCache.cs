@@ -12,7 +12,7 @@ namespace MobiFlight
     public delegate void ButtonEventHandler(object sender, InputEventArgs e);
 
     public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
-    {    
+    {
         /// <summary>
         /// Gets raised whenever a button is pressed
         /// </summary>
@@ -47,7 +47,7 @@ namespace MobiFlight
 
         private readonly Timer keepAwakeTimer = new Timer();
         const int KeepAwakeIntervalInMinutes = 5; // 5 Minutes
-        
+
         /// <summary>
         /// list of known modules.
         /// 
@@ -80,15 +80,17 @@ namespace MobiFlight
             // even if we have no modules connected 
             // the event is needed so that the startup can finish
             Task.Delay(TimeSpan.FromMilliseconds(5000))
-                .ContinueWith(_ => { 
-                    if (0 == AvailableComModules.Count) {
+                .ContinueWith(_ =>
+                {
+                    if (0 == AvailableComModules.Count)
+                    {
                         isFirstTimeLookup = false;
                         LookupFinished?.Invoke(this, new EventArgs());
                         Log.Instance.log($"Finish looking up connected modules. No modules found.", LogSeverity.Info);
-                    } 
+                    }
                 });
         }
-        
+
         // Calls SetPowerSaveMode(false) on all connected modules.
         protected void DeactivateConnectedModulePowerSave()
         {
@@ -97,7 +99,7 @@ namespace MobiFlight
                 module.Value.SetPowerSaveMode(false);
             }
         }
-        
+
         // Calls SetPowerSaveMode(true) on all connected modules.
         public void ActivateConnectedModulePowerSave()
         {
@@ -147,7 +149,7 @@ namespace MobiFlight
             {
                 MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board);
                 module.Connect();
-                
+
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
                 // Store the hardware ID for later use
                 devInfo.HardwareId = portDetails.HardwareId;
@@ -163,7 +165,8 @@ namespace MobiFlight
 
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
 
-            if (result.HasMfFirmware()) { 
+            if (result.HasMfFirmware())
+            {
                 OnMobiFlightBoardDetected(result);
             }
 
@@ -179,7 +182,7 @@ namespace MobiFlight
                       .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; });
 
             if (!allModulesDetected || !isFirstTimeLookup) return false;
-            
+
             isFirstTimeLookup = false;
 
             Log.Instance.log($"End looking up connected modules. {AvailableComModules.Count} found.", LogSeverity.Debug);
@@ -318,10 +321,11 @@ namespace MobiFlight
         public List<MobiFlightModuleInfo> GetDetectedCompatibleModules()
         {
             if (AvailableComModules.Count() == 0)
-                    return new List<MobiFlightModuleInfo>();
+                return new List<MobiFlightModuleInfo>();
 
             AvailableComModules.Sort(
-                (item1, item2) => {
+                (item1, item2) =>
+                {
                     if (item1.Type == "Ignored" && item2.Type != "Ignored") return 1;
                     if (item1.Type != "Ignored" && item2.Type == "Ignored") return -1;
                     return item1.Name.CompareTo(item2.Name);
@@ -360,27 +364,27 @@ namespace MobiFlight
         public void UnregisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo)
         {
             Log.Instance.log($"Unregistering module {m.Name}:{m.Port}.", LogSeverity.Debug);
-            
+
             if (Modules.ContainsKey(devInfo.Serial))
             {
                 Modules.TryRemove(devInfo.Serial, out _);
                 return;
             }
-            
+
             Log.Instance.log($"Unregistering module {m.Name}:{m.Port} failed.", LogSeverity.Debug);
         }
 
         private void RegisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo, bool replace = false)
         {
             Log.Instance.log($"Registering module {m.Name}:{m.Port}.", LogSeverity.Debug);
-            
+
             // Additional protection added for edge cases where this gets called after a failed firmware update, which resulted
             // in the exception reported in issue 611.
             if (String.IsNullOrEmpty(devInfo.Serial))
             {
                 Log.Instance.log("A module with a null or empty serial number was specified and will not be registered.", LogSeverity.Error);
                 return;
-            }    
+            }
 
             if (Modules.ContainsKey(devInfo.Serial))
             {
@@ -388,17 +392,18 @@ namespace MobiFlight
                 {
                     // remove the existing handler
                     Modules[devInfo.Serial].OnInputDeviceAction -= new MobiFlightModule.InputDeviceEventHandler(Module_OnButtonPressed);
-                    Modules[devInfo.Serial] = m;                
+                    Modules[devInfo.Serial] = m;
                 }
                 else
                 {
                     Log.Instance.log($"Duplicate serial number found {devInfo.Serial}. Module won't be added.", LogSeverity.Error);
                     return;
                 }
-            } else
-            {      
-                    Modules.TryAdd(devInfo.Serial, m);
-                }
+            }
+            else
+            {
+                Modules.TryAdd(devInfo.Serial, m);
+            }
 
             // add the handler
             m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(Module_OnButtonPressed);
@@ -441,7 +446,7 @@ namespace MobiFlight
             if (serial == null)
             {
                 throw new ConfigErrorException("ConfigErrorException_SerialNull");
-            };
+            }
 
             try
             {
@@ -452,22 +457,25 @@ namespace MobiFlight
                 MobiFlightModule module = GetModuleBySerial(serial);
                 if (module == null) return;
 
-                if (name != null && name.Contains("|")) {
+                if (name != null && name.Contains("|"))
+                {
                     var pins = name.Split('|');
-                    foreach(string pin in pins) {
+                    foreach (string pin in pins)
+                    {
                         if (!string.IsNullOrEmpty(pin.Trim()))
                         {
                             var iValue = (Int32)Math.Round(Double.Parse(value));
                             module.SetPin("base", pin, iValue);
                         }
-                    };
-                } else
+                    }
+                }
+                else
                 {
                     var iValue = (Int32)Math.Round(Double.Parse(value));
                     module.SetPin("base", name, iValue);
                 }
 
-                
+
             }
             catch (ConfigErrorException e)
             {
@@ -499,13 +507,13 @@ namespace MobiFlight
             if (serial == null)
             {
                 throw new ConfigErrorException("ConfigErrorException_SerialNull");
-            };
+            }
 
             if (address == null)
             {
                 throw new ConfigErrorException("ConfigErrorException_AddressNull");
             }
-            
+
             try
             {
                 if (!Modules.ContainsKey(serial)) return;
@@ -535,7 +543,7 @@ namespace MobiFlight
             if (serial == null)
             {
                 throw new ConfigErrorException("ConfigErrorException_SerialNull");
-            };
+            }
 
             if (address == null)
             {
@@ -553,7 +561,7 @@ namespace MobiFlight
                 {
                     var intValue = (Int32)Math.Round(Double.Parse(value));
                     module.SetDisplayBrightness(address, connector - 1, intValue.ToString());
-                }                
+                }
             }
             catch (Exception e)
             {
@@ -604,7 +612,7 @@ namespace MobiFlight
                     module.GetStepper(address).CompassMode = CompassMode;
                 }
 
-                if (speed>0) { module.GetStepper(address).Speed = speed; }
+                if (speed > 0) { module.GetStepper(address).Speed = speed; }
                 if (acceleration > 0) { module.GetStepper(address).Acceleration = acceleration; }
 
                 module.SetStepper(address, iValue, inputRevolutionSteps);
@@ -640,7 +648,7 @@ namespace MobiFlight
             if (serial == null)
             {
                 throw new ConfigErrorException("ConfigErrorException_SerialNull");
-            };
+            }
 
             if (LcdConfig.Address == null)
             {
@@ -677,7 +685,7 @@ namespace MobiFlight
             if (serial == null)
             {
                 throw new ConfigErrorException("ConfigErrorException_SerialNull");
-            };
+            }
 
             if (outputPin == null)
             {
@@ -691,7 +699,7 @@ namespace MobiFlight
                 MobiFlightModule module = Modules[serial];
                 if (!double.TryParse(value, out double dValue)) return;
 
-                int iValue = (int)Math.Round(dValue,0);
+                int iValue = (int)Math.Round(dValue, 0);
                 module.setShiftRegisterOutput(shiftRegName, outputPin, iValue.ToString());
             }
             catch (Exception e)
@@ -700,7 +708,7 @@ namespace MobiFlight
             }
         }
 
-        
+
         public void Flush()
         {
             // not implemented, don't throw exception either
@@ -712,11 +720,11 @@ namespace MobiFlight
             {
                 module.Stop();
             }
-            
+
             variables.Clear();
             StopKeepAwake();
         }
-        
+
         public IEnumerable<IModuleInfo> GetModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
@@ -749,7 +757,7 @@ namespace MobiFlight
 
             if (oldDevInfo != null) AvailableComModules.Remove(oldDevInfo);
             AvailableComModules.Add(module.ToMobiFlightModuleInfo());
-            
+
             if (module.HasMfFirmware())
                 RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
             else
@@ -769,10 +777,10 @@ namespace MobiFlight
         {
             foreach (MobiFlightModule module in Modules.Values)
             {
-                if (module.Port == moduleInfo.Port) return module;                
+                if (module.Port == moduleInfo.Port) return module;
             }
 
-            if (Modules.ContainsKey(moduleInfo.Serial)) return Modules[moduleInfo.Serial];           
+            if (Modules.ContainsKey(moduleInfo.Serial)) return Modules[moduleInfo.Serial];
 
             throw new IndexOutOfRangeException();
         }
@@ -827,7 +835,7 @@ namespace MobiFlight
             {
                 var stepperList = module.GetConnectedOutputDevices().Where(p => p.Type == DeviceType.Stepper).ToList();
                 if (stepperList.Count == 0) continue;
-                
+
                 result.Add(module.Name, stepperList);
             }
             return result;
@@ -838,7 +846,7 @@ namespace MobiFlight
             if (serial == null)
             {
                 throw new ConfigErrorException("ConfigErrorException_SerialNull");
-            };
+            }
 
             try
             {
