@@ -85,7 +85,8 @@ namespace MobiFlight
 
         public virtual void ReadXml(XmlReader reader)
         {
-            ModuleSerial = reader["serial"];
+            ModuleSerial = SerialNumber.Normalize(reader["serial"]);
+
             // This name is only present with input devices
             // and it is in the wrong place.
             DeviceName = reader["name"];
