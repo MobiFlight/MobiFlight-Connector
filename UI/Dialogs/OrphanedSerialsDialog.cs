@@ -61,7 +61,7 @@ namespace MobiFlight.UI.Dialogs
                 configItems.ForEach(cfg =>
                 {
                     if (cfg == null) return;
-                    CheckAndAddConfigSerial(cfg.ModuleSerial, configSerials);
+                    CheckAndAddConfigSerial(SerialNumber.FromController(cfg.Controller), configSerials);
                 });
             });
 
@@ -94,9 +94,9 @@ namespace MobiFlight.UI.Dialogs
             {
                 cfgItems.ForEach(item =>
                 {
-                    if (item?.ModuleSerial == oldSerial)
+                    if (SerialNumber.FromController(item?.Controller) == oldSerial)
                     {
-                        item.ModuleSerial = newSerial;
+                        item.Controller = SerialNumber.ToController(newSerial);
                     }
                 });
             });

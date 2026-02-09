@@ -116,11 +116,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             if (OutputTypeIsDisplay())
             {
-                if (config.ModuleSerial != null && config.ModuleSerial != "")
+                if (config.Controller != null && !string.IsNullOrEmpty(config.Controller.Serial))
                 {
-                    if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, config.ModuleSerial))
+                    var moduleSerial = SerialNumber.FromController(config.Controller);
+                    if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, moduleSerial))
                     {
-                        Log.Instance.log($"Trying to show config but {config.ModuleSerial} currently not connected.", LogSeverity.Error);
+                        Log.Instance.log($"Trying to show config but {moduleSerial} currently not connected.", LogSeverity.Error);
                     }
                 }
 
@@ -198,7 +199,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 config.DeviceType = (displayTypeComboBox.SelectedItem as ListItem).Value;
 
                 var serial = displayModuleNameComboBox.SelectedItem.ToString();
-                config.ModuleSerial = serial;
+                config.Controller = SerialNumber.ToController(serial);
 
                 if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
                 
@@ -393,7 +394,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // because module information is set
                 // before config is loaded
                 if (config == null) return;
-                config.ModuleSerial = rawSerial;
+                config.Controller = SerialNumber.ToController(rawSerial);
 
                 // third tab
                 if (config.DeviceType != null &&
@@ -773,10 +774,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
         private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
         {
             // we have a fresh config, nothing to do.
-            if (config?.ModuleSerial == null) return;
+            if (config?.Controller == null) return;
 
             String stepperAddress = e.StepperAddress;
-            String serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            String serial = config.Controller.Serial;
 
             try
             {
@@ -800,14 +801,15 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 // the module with that serial is currently not connected
                 // so we cannot lookup anything sensible
-                Log.Instance.log($"Trying to show stepper config but module {config.ModuleSerial} is not connected. Using default profile.", LogSeverity.Error);
+                var moduleSerial = SerialNumber.FromController(config.Controller);
+                Log.Instance.log($"Trying to show stepper config but module {moduleSerial} is not connected. Using default profile.", LogSeverity.Error);
                 stepperPanel.setStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
             }
         }
 
         void stepperPanel_OnSetZeroTriggered(object sender, StepperConfigChangedEventArgs e)
         {
-            String serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            String serial = config.Controller?.Serial ?? "";
             _execManager.getMobiFlightModuleCache().ResetStepper(serial, (sender as String));
         }
 
@@ -817,7 +819,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             // to prevent overriding accidentaly something
             syncToConfig();
 
-            string serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            string serial = config.Controller?.Serial ?? "";
 
             MobiFlightModule module = _execManager.getMobiFlightModuleCache()
                                                     .GetModuleBySerial(serial);

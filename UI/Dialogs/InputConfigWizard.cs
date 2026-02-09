@@ -138,7 +138,7 @@ namespace MobiFlight.UI.Dialogs
             // by default always the first tab is activated
             // if one opens the dialog for an existing config
             // we use the lastTabActive
-            if (cfg?.ModuleSerial != null && cfg?.ModuleSerial != SerialNumber.NOT_SET)
+            if (cfg?.Controller != null && cfg?.Controller.Serial != SerialNumber.NOT_SET)
             {
                 tabControlFsuipc.SelectedIndex = lastTabActive;
             }
@@ -282,10 +282,11 @@ namespace MobiFlight.UI.Dialogs
             string serial = null;
             if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
             // first tab                        
-            serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            serial = config.Controller?.Serial ?? "";
             if (serial != "")
             {
-                if (!ComboBoxHelper.SetSelectedItemByValue(inputModuleNameComboBox, config.ModuleSerial))
+                var moduleSerial = SerialNumber.FromController(config.Controller);
+                if (!ComboBoxHelper.SetSelectedItemByValue(inputModuleNameComboBox, moduleSerial))
                 {
                     // TODO: provide error message
                 }
@@ -347,19 +348,21 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.ModuleSerial = inputModuleNameComboBox.SelectedItem.ToString();
+            config.Controller = SerialNumber.ToController(inputModuleNameComboBox.SelectedItem.ToString());
 
             configRefPanel.syncToConfig(config);
 
             preconditionPanel.syncToConfig(config);
 
-            if (config.ModuleSerial == "-") return true;
+            if (SerialNumber.FromController(config.Controller) == "-") return true;
 
             IBaseDevice device = ((ListItem<IBaseDevice>)inputTypeComboBox.SelectedItem).Value;
             if (device.Label != InputConfigItem.TYPE_NOTSET)
                 config.DeviceName = device.Name;
 
-            DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
+            serial = config.Controller?.Serial ?? "";
+
+            DeviceType currentInputType = determineCurrentDeviceType(serial);
 
             //if (groupBoxInputSettings.Controls.Count == 0) return false;
 
