@@ -152,10 +152,11 @@ namespace MobiFlight.Execution
 
         internal static bool MatchesControllerAndDeviceName(InputConfigItem cfg, InputEventArgs e)
         {
-            if (cfg.ModuleSerial == null)
+            if (cfg.Controller == null)
                 return false;
 
-            bool serialMatches = cfg.ModuleSerial.Contains("/ " + e.Serial);
+            var moduleSerial = SerialNumber.FromController(cfg.Controller);
+            bool serialMatches = moduleSerial.Contains("/ " + e.Serial);
             if (!serialMatches)
                 return false;
 
@@ -165,7 +166,7 @@ namespace MobiFlight.Execution
             // because we used to have the label in the config
             // but now we want to store the internal button identifier
             // so that the label can change any time without breaking the config
-            bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel;
+            bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.Controller.Serial) && cfg.DeviceName == e.DeviceLabel;
             
             return deviceNameMatches || isJoystickWithLabelMatch;
         }

@@ -49,8 +49,8 @@ namespace MobiFlight.Controllers
             var availableControllers = new List<string>(_connectedControllers);
 
             var uniqueSerials = configItems
-                .Where(c => !string.IsNullOrEmpty(c.ModuleSerial) && c.ModuleSerial != "-")
-                .Select(c => c.ModuleSerial)
+                .Where(c => c.Controller != null && !string.IsNullOrEmpty(c.Controller.Serial) && c.Controller.Serial != "-")
+                .Select(c => SerialNumber.FromController(c.Controller))
                 .Distinct()
                 .OrderByDescending(serial => availableControllers.Contains(serial) || (existingBindings?.FirstOrDefault(b => b.OriginalController == serial) != null))
                 .ToList();
@@ -114,13 +114,14 @@ namespace MobiFlight.Controllers
             // Apply the mappings to config items
             foreach (var item in configItems)
             {
-                if (string.IsNullOrEmpty(item.ModuleSerial) || item.ModuleSerial == "-")
+                if (item.Controller == null || string.IsNullOrEmpty(item.Controller.Serial) || item.Controller.Serial == "-")
                     continue;
 
-                var mapping = serialMappings.FirstOrDefault(m => m.OriginalController == item.ModuleSerial);
+                var moduleSerial = SerialNumber.FromController(item.Controller);
+                var mapping = serialMappings.FirstOrDefault(m => m.OriginalController == moduleSerial);
                 if (mapping == null) continue;
 
-                item.ModuleSerial = mapping.BoundController;
+                item.Controller = SerialNumber.ToController(mapping.BoundController);
             }
 
             return serialMappings.ToList();
@@ -189,15 +190,16 @@ namespace MobiFlight.Controllers
             // Apply the mappings to config items
             foreach (var item in configItems)
             {
-                var skipItemBecauseEmpty = string.IsNullOrEmpty(item.ModuleSerial) || item.ModuleSerial == "-";
+                var skipItemBecauseEmpty = item.Controller == null || string.IsNullOrEmpty(item.Controller.Serial) || item.Controller.Serial == "-";
                 if (skipItemBecauseEmpty) continue;
 
-                var mapping = controllerBindings.FirstOrDefault(m => m.OriginalController == item.ModuleSerial);
+                var moduleSerial = SerialNumber.FromController(item.Controller);
+                var mapping = controllerBindings.FirstOrDefault(m => m.OriginalController == moduleSerial);
 
                 if (mapping == null) continue;
                 if (mapping.BoundController == null) continue;
 
-                item.ModuleSerial = mapping.BoundController;
+                item.Controller = SerialNumber.ToController(mapping.BoundController);
             }
         }
     }

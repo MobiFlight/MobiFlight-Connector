@@ -181,7 +181,7 @@ namespace MobiFlight.Base
 
         public List<String> GetIUniqueControllerSerials()
         {
-            return ConfigItems.Select((i) => i.ModuleSerial).Distinct().ToList();
+            return ConfigItems.Select((i) => SerialNumber.FromController(i.Controller)).Distinct().ToList();
         }
     }
 }
