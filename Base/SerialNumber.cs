@@ -6,12 +6,19 @@ namespace MobiFlight.Base
     public static class SerialNumber
     {
         public const string NOT_SET = "-";
-        public const string SerialSeparator = " / ";
-        public const string DeprecatedSerialSeparator = "/ ";
+        public const string SerialSeparator = "/";
 
         public static string CreateFullSerial(string deviceName, string serial)
         {
             return $"{deviceName}{SerialSeparator}{serial}";
+        }
+
+        public static string Normalize(string s)
+        {
+            var Name = ExtractDeviceName(s);
+            var Serial = ExtractSerial(s);
+
+            return CreateFullSerial(Name, Serial);
         }
 
         public static string ExtractSerial(String s)
@@ -36,7 +43,7 @@ namespace MobiFlight.Base
             var tokens = s.Split(serialSeparator, StringSplitOptions.None);
             tokens = tokens.Take(tokens.Length - 1).ToArray();
 
-            return String.Join("", tokens).Trim();
+            return String.Join(SerialSeparator, tokens).Trim();
         }
 
         /// <summary>
