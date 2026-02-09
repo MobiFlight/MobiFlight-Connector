@@ -20,7 +20,7 @@ namespace MobiFlight
         public System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
 
         public Source Source { get; set; }
-        public ConnectorValue       TestValue                   { get; set; }
+        public ConnectorValue TestValue { get; set; }
 
         public override IDeviceConfig Device { get; set; }
 
@@ -31,7 +31,7 @@ namespace MobiFlight
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
         public string DeviceType { get; set; }
-        public string DeviceName {  get { return Device?.Name;  } }
+        public string DeviceName { get { return Device?.Name; } }
         public OutputConfigItem()
         {
             Source = new SimConnectSource();
@@ -70,18 +70,22 @@ namespace MobiFlight
             if (reader.ReadToDescendant("source"))
             {
                 // try to read it as FSUIPC Offset
-                if (reader["type"] == "SimConnect") {
+                if (reader["type"] == "SimConnect")
+                {
                     Source = new SimConnectSource();
                     (Source as SimConnectSource).SimConnectValue.ReadXml(reader);
-                } else if (reader["type"] == "Variable")
+                }
+                else if (reader["type"] == "Variable")
                 {
                     Source = new VariableSource();
                     (Source as VariableSource).MobiFlightVariable.ReadXml(reader);
-                } else if (reader["type"] == "XplaneDataRef")
+                }
+                else if (reader["type"] == "XplaneDataRef")
                 {
                     Source = new XplaneSource();
                     (Source as XplaneSource).XplaneDataRef.ReadXml(reader);
-                } else if (reader["type"] == "ProSimDataRef")
+                }
+                else if (reader["type"] == "ProSimDataRef")
                 {
                     Source = new ProSimSource();
                     (Source as ProSimSource).ProSimDataRef.ReadXml(reader);
@@ -90,8 +94,8 @@ namespace MobiFlight
                 {
                     Source = new FsuipcSource();
                     (Source as FsuipcSource).FSUIPC.ReadXml(reader);
-                    
-                    if((Source as FsuipcSource).FSUIPC.OffsetType == FSUIPCOffsetType.String)
+
+                    if ((Source as FsuipcSource).FSUIPC.OffsetType == FSUIPCOffsetType.String)
                     {
                         // this is a special case for backward compatibility
                         // https://github.com/MobiFlight/MobiFlight-Connector/issues/1348
@@ -127,7 +131,7 @@ namespace MobiFlight
                         if (!Double.TryParse(reader["value"], out TestValue.Float64))
                         {
                             Log.Instance.log("Error reading config.", LogSeverity.Error);
-                        };
+                        }
                     }
                 }
                 reader.Read();
@@ -136,7 +140,8 @@ namespace MobiFlight
             if (reader.LocalName == "modifiers")
             {
                 Modifiers.ReadXml(reader);
-            } else if (reader.LocalName == "comparison")
+            }
+            else if (reader.LocalName == "comparison")
             {
                 // backward compatibility when we have comparison
                 // as a single node instead of modifiers
@@ -153,7 +158,7 @@ namespace MobiFlight
                 if (DeviceType == ArcazeLedDigit.OLDTYPE) DeviceType = ArcazeLedDigit.TYPE;
 
                 ModuleSerial = SerialNumber.Normalize(reader["serial"]);
-                
+
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
                     Device = new OutputConfig.Output();
@@ -299,28 +304,28 @@ namespace MobiFlight
             }
 
             writer.WriteStartElement("source");
-                if (Source is FsuipcSource)
-                    (this.Source as FsuipcSource).FSUIPC.WriteXml(writer);
-                else if (Source is VariableSource)
-                    (this.Source as VariableSource).MobiFlightVariable.WriteXml(writer);
-                else if (Source is XplaneSource)
-                    (this.Source as XplaneSource).XplaneDataRef.WriteXml(writer);
-                else if (Source is SimConnectSource)
-                    (this.Source as SimConnectSource).SimConnectValue.WriteXml(writer);
-                else
-                    (this.Source as ProSimSource).ProSimDataRef.WriteXml(writer);
+            if (Source is FsuipcSource)
+                (this.Source as FsuipcSource).FSUIPC.WriteXml(writer);
+            else if (Source is VariableSource)
+                (this.Source as VariableSource).MobiFlightVariable.WriteXml(writer);
+            else if (Source is XplaneSource)
+                (this.Source as XplaneSource).XplaneDataRef.WriteXml(writer);
+            else if (Source is SimConnectSource)
+                (this.Source as SimConnectSource).SimConnectValue.WriteXml(writer);
+            else
+                (this.Source as ProSimSource).ProSimDataRef.WriteXml(writer);
             writer.WriteEndElement();
 
             writer.WriteStartElement("test");
-                writer.WriteAttributeString("type", TestValue.type.ToString());
-                writer.WriteAttributeString("value", TestValue.ToString());
+            writer.WriteAttributeString("type", TestValue.type.ToString());
+            writer.WriteAttributeString("value", TestValue.ToString());
             writer.WriteEndElement();
 
             Modifiers.WriteXml(writer);
 
             writer.WriteStartElement("display");
-                writer.WriteAttributeString("type", DeviceType);
-                writer.WriteAttributeString("serial", ModuleSerial);
+            writer.WriteAttributeString("type", DeviceType);
+            writer.WriteAttributeString("serial", ModuleSerial);
 
             if (Device is LedModule)
             {
@@ -365,7 +370,7 @@ namespace MobiFlight
             {
                 (Device as Output).WriteXml(writer);
             }
-                                
+
             writer.WriteEndElement(); // end of display
 
             Preconditions.WriteXml(writer);
@@ -381,7 +386,7 @@ namespace MobiFlight
         public OutputConfigItem(OutputConfigItem config) : base(config)
         {
             this.Source = config.Source?.Clone() as Source;
-            
+
             this.DeviceType = config.DeviceType;
             this.ModuleSerial = config.ModuleSerial;
 
