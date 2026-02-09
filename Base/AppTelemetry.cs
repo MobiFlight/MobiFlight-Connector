@@ -97,11 +97,11 @@ namespace MobiFlight.Base
                 if (item.ModuleSerial  == null) continue;
 
                 String key = "input." + item.DeviceType;
-                if (item.ModuleSerial.Contains(Joystick.SerialPrefix))
+                if (SerialNumber.IsJoystickSerial(item.ModuleSerial))
                 {
                     key += ".joystick";
                 }
-                if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix))
+                if (SerialNumber.IsMidiBoardSerial(item.ModuleSerial))
                 {
                     key += ".midiboard";
                 }

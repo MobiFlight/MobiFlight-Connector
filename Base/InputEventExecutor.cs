@@ -155,7 +155,7 @@ namespace MobiFlight.Execution
             if (cfg.ModuleSerial == null)
                 return false;
 
-            bool serialMatches = cfg.ModuleSerial.Contains("/ " + e.Serial);
+            bool serialMatches = SerialNumber.ExtractSerial(cfg.ModuleSerial) == e.Serial;
             if (!serialMatches)
                 return false;
 

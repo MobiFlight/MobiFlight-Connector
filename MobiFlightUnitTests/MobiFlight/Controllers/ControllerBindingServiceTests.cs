@@ -199,7 +199,7 @@ namespace MobiFlight.Tests.Controllers
         public void AnalyzeProjectBindings_Scenario5_MultipleDevices_RequiresManualBind()
         {
             // Arrange
-            var project = CreateProjectWithController("Joystick X / JS-999999");
+            var project = CreateProjectWithController("Joystick X/JS-999999");
             SetupConnectedJoysticks(new[]
             {
                 ("Joystick X", "JS-111111"),
@@ -211,7 +211,7 @@ namespace MobiFlight.Tests.Controllers
 
             // Assert
             Assert.HasCount(1, result);
-            var binding = result.Find(b => b.OriginalController == "Joystick X / JS-999999");
+            var binding = result.Find(b => b.OriginalController == "Joystick X/JS-999999");
             Assert.AreEqual(ControllerBindingStatus.RequiresManualBind, binding.Status);
         }
 
@@ -219,7 +219,7 @@ namespace MobiFlight.Tests.Controllers
         public void PerformAutoBinding_Scenario5_MultipleDevices_NoAutoBind()
         {
             // Arrange
-            var project = CreateProjectWithController("Joystick X / JS-999999");
+            var project = CreateProjectWithController("Joystick X/JS-999999");
             var originalSerial = project.ConfigFiles[0].ConfigItems[0].ModuleSerial;
             SetupConnectedJoysticks(new[]
             {
@@ -231,7 +231,7 @@ namespace MobiFlight.Tests.Controllers
             var result = service.PerformAutoBinding(project);
 
             // Assert
-            var binding = result.Find(b => b.OriginalController == "Joystick X / JS-999999");
+            var binding = result.Find(b => b.OriginalController == "Joystick X/JS-999999");
             Assert.AreEqual(ControllerBindingStatus.RequiresManualBind, binding.Status);
             Assert.AreEqual(originalSerial, project.ConfigFiles[0].ConfigItems[0].ModuleSerial,
                 "Serial should not auto-bind when multiple matches exist");
