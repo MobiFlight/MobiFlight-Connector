@@ -156,7 +156,6 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
             Assert.IsTrue(json.Contains("\"Controller\""));
             Assert.IsTrue(json.Contains("\"Name\": \"TestBoard\""));
             Assert.IsTrue(json.Contains("\"Serial\": \"SN-123-456\""));
-            Assert.IsFalse(json.Contains("ModuleSerial"));
         }
 
         [TestMethod()]

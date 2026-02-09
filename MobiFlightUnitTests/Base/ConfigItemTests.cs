@@ -110,7 +110,7 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
-        public void Controller_SetViaProperty_UpdatesModuleSerial()
+        public void Controller_SetViaProperty_StoresCorrectly()
         {
             // Arrange
             var outputConfigItem = new OutputConfigItem();
@@ -120,26 +120,9 @@ namespace MobiFlight.Base.Tests
             outputConfigItem.Controller = controller;
 
             // Assert
-#pragma warning disable CS0618 // Type or member is obsolete
-            Assert.AreEqual("TestBoard/ SN-123-456", outputConfigItem.ModuleSerial);
-#pragma warning restore CS0618
-        }
-
-        [TestMethod()]
-        public void ModuleSerial_SetViaProperty_CreatesController()
-        {
-            // Arrange
-            var outputConfigItem = new OutputConfigItem();
-
-            // Act
-#pragma warning disable CS0618 // Type or member is obsolete
-            outputConfigItem.ModuleSerial = "ProtoBoard-v2/ SN-5FC-1CF";
-#pragma warning restore CS0618
-
-            // Assert
             Assert.IsNotNull(outputConfigItem.Controller);
-            Assert.AreEqual("ProtoBoard-v2", outputConfigItem.Controller.Name);
-            Assert.AreEqual("SN-5FC-1CF", outputConfigItem.Controller.Serial);
+            Assert.AreEqual("TestBoard", outputConfigItem.Controller.Name);
+            Assert.AreEqual("SN-123-456", outputConfigItem.Controller.Serial);
         }
 
         [TestMethod()]
@@ -156,13 +139,12 @@ namespace MobiFlight.Base.Tests
             Assert.IsTrue(json.Contains("\"Controller\""));
             Assert.IsTrue(json.Contains("\"Name\": \"TestBoard\""));
             Assert.IsTrue(json.Contains("\"Serial\": \"SN-123-456\""));
-            Assert.IsFalse(json.Contains("ModuleSerial")); // ModuleSerial should NOT be in JSON
         }
 
         [TestMethod()]
-        public void Controller_JsonDeserialization_PopulatesControllerFromModuleSerial()
+        public void Controller_JsonDeserialization_PopulatesFromModuleSerial()
         {
-            // Arrange
+            // Arrange - simulate old config file with ModuleSerial
             var json = @"{
                 ""Type"": ""OutputConfigItem"",
                 ""ModuleSerial"": ""ProtoBoard-v2/ SN-5FC-1CF"",

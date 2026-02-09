@@ -139,5 +139,103 @@ namespace MobiFlight.Base.Tests
             result = SerialNumber.IsMidiBoardSerial(SerialNumber.ExtractSerial(serial));
             Assert.IsTrue(result);
         }
+
+        [TestMethod()]
+        public void ToController_ValidModuleSerial_ParsesCorrectly()
+        {
+            // Arrange
+            var moduleSerial = "ProtoBoard-v2/ SN-5FC-1CF";
+
+            // Act
+            var controller = SerialNumber.ToController(moduleSerial);
+
+            // Assert
+            Assert.IsNotNull(controller);
+            Assert.AreEqual("ProtoBoard-v2", controller.Name);
+            Assert.AreEqual("SN-5FC-1CF", controller.Serial);
+        }
+
+        [TestMethod()]
+        public void ToController_EmptyString_ReturnsEmptyController()
+        {
+            // Arrange
+            var moduleSerial = "";
+
+            // Act
+            var controller = SerialNumber.ToController(moduleSerial);
+
+            // Assert
+            Assert.IsNotNull(controller);
+            Assert.AreEqual("", controller.Name);
+            Assert.AreEqual("", controller.Serial);
+        }
+
+        [TestMethod()]
+        public void ToController_NullString_ReturnsEmptyController()
+        {
+            // Arrange
+            string moduleSerial = null;
+
+            // Act
+            var controller = SerialNumber.ToController(moduleSerial);
+
+            // Assert
+            Assert.IsNotNull(controller);
+            Assert.AreEqual("", controller.Name);
+            Assert.AreEqual("", controller.Serial);
+        }
+
+        [TestMethod()]
+        public void FromController_ValidController_FormatsCorrectly()
+        {
+            // Arrange
+            var controller = new Controller("ProtoBoard-v2", "SN-5FC-1CF");
+
+            // Act
+            var moduleSerial = SerialNumber.FromController(controller);
+
+            // Assert
+            Assert.AreEqual("ProtoBoard-v2/ SN-5FC-1CF", moduleSerial);
+        }
+
+        [TestMethod()]
+        public void FromController_EmptyController_ReturnsEmptyString()
+        {
+            // Arrange
+            var controller = new Controller("", "");
+
+            // Act
+            var moduleSerial = SerialNumber.FromController(controller);
+
+            // Assert
+            Assert.AreEqual("", moduleSerial);
+        }
+
+        [TestMethod()]
+        public void FromController_NullController_ReturnsEmptyString()
+        {
+            // Arrange
+            Controller controller = null;
+
+            // Act
+            var moduleSerial = SerialNumber.FromController(controller);
+
+            // Assert
+            Assert.AreEqual("", moduleSerial);
+        }
+
+        [TestMethod()]
+        public void RoundTrip_ControllerConversion_PreservesValue()
+        {
+            // Arrange
+            var originalModuleSerial = "ProtoBoard-v2/ SN-5FC-1CF";
+
+            // Act
+            var controller = SerialNumber.ToController(originalModuleSerial);
+            var resultModuleSerial = SerialNumber.FromController(controller);
+
+            // Assert
+            Assert.AreEqual(originalModuleSerial, resultModuleSerial);
+        }
     }
 }

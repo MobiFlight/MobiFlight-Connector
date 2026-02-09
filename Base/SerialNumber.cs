@@ -34,6 +34,33 @@ namespace MobiFlight.Base
         }
 
         /// <summary>
+        /// Creates a Controller from a ModuleSerial string in the format "Name/ Serial"
+        /// </summary>
+        public static Controller ToController(string moduleSerial)
+        {
+            if (string.IsNullOrEmpty(moduleSerial))
+                return new Controller();
+
+            var name = ExtractDeviceName(moduleSerial);
+            var serial = ExtractSerial(moduleSerial);
+            return new Controller(name, serial);
+        }
+
+        /// <summary>
+        /// Converts a Controller to a ModuleSerial string in the format "Name/ Serial"
+        /// </summary>
+        public static string FromController(Controller controller)
+        {
+            if (controller == null || (string.IsNullOrEmpty(controller.Name) && string.IsNullOrEmpty(controller.Serial)))
+                return "";
+            
+            if (string.IsNullOrEmpty(controller.Serial))
+                return controller.Name;
+
+            return $"{controller.Name}{SerialSeparator}{controller.Serial}";
+        }
+
+        /// <summary>
         /// Extracts the device type prefix from a serial number (e.g., "SN-", "JS-", "MI-")
         /// If no match - returns null
         /// </summary>

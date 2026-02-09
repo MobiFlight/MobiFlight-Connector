@@ -41,8 +41,6 @@ namespace MobiFlight.Base
         bool Active { get; set; }
         string Type { get; }
         string Name { get; set; }
-        [Obsolete("Use Controller property instead. ModuleSerial is kept for XML backward compatibility.")]
-        string ModuleSerial { get; set; }
         Controller Controller { get; set; }
         PreconditionList Preconditions { get; set; }
         ModifierList Modifiers { get; set; }
@@ -59,66 +57,11 @@ namespace MobiFlight.Base
         public string Name { get; set; }
         public string Type { get { return GetConfigItemType(); } }
         
-        private Controller _controller;
-        private string _moduleSerial;
-
         /// <summary>
         /// Controller property for JSON serialization. This is the preferred way to access controller information.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Controller Controller 
-        { 
-            get 
-            {
-                // Lazy migrate from ModuleSerial if Controller is not set
-                if (_controller == null && !string.IsNullOrEmpty(_moduleSerial))
-                {
-                    _controller = Base.Controller.FromModuleSerial(_moduleSerial);
-                }
-                return _controller;
-            }
-            set 
-            {
-                _controller = value;
-                // Keep ModuleSerial in sync for backward compatibility
-                if (_controller != null)
-                {
-                    _moduleSerial = _controller.ToModuleSerial();
-                }
-                else
-                {
-                    _moduleSerial = "";
-                }
-            }
-        }
-
-        /// <summary>
-        /// ModuleSerial property kept for XML backward compatibility.
-        /// For JSON, use Controller property instead.
-        /// </summary>
-        [Obsolete("Use Controller property instead. ModuleSerial is kept for XML backward compatibility.")]
-        [XmlIgnore]
-        [JsonIgnore]
-        public string ModuleSerial 
-        { 
-            get 
-            {
-                // Return from Controller if available, otherwise from backing field
-                if (_controller != null)
-                {
-                    return _controller.ToModuleSerial();
-                }
-                return _moduleSerial ?? "";
-            }
-            set 
-            {
-                _moduleSerial = value ?? "";
-                // Migrate immediately to avoid repeated lazy migrations
-                _controller = string.IsNullOrEmpty(_moduleSerial) 
-                    ? null 
-                    : Base.Controller.FromModuleSerial(_moduleSerial);
-            }
-        }
+        public Controller Controller { get; set; }
 
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
@@ -147,8 +90,7 @@ namespace MobiFlight.Base
             GUID = System.Guid.NewGuid().ToString();
             Active = true;
             Name = "";
-            _controller = null;
-            _moduleSerial = "";
+            Controller = null;
             Preconditions = new PreconditionList();
             Modifiers = new ModifierList();
             ConfigRefs = new ConfigRefList();
@@ -160,8 +102,7 @@ namespace MobiFlight.Base
             GUID = item.GUID.Clone() as string;
             Active = item.Active;
             Name = item.Name.Clone() as string;
-            _controller = item._controller?.Clone();
-            _moduleSerial = item._moduleSerial?.Clone() as string;
+            Controller = item.Controller?.Clone();
             Preconditions = item.Preconditions.Clone() as PreconditionList;
             Modifiers = item.Modifiers.Clone() as ModifierList;
             ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;
