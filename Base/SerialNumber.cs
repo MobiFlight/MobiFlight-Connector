@@ -65,7 +65,9 @@ namespace MobiFlight.Base
         public static bool IsArcazeSerial(string serial)
         {
             if (serial == null || serial == "") return false;
-            return !IsMidiBoardSerial(serial) && !IsMobiFlightSerial(serial) && !IsJoystickSerial(serial);
+            var isValidArcazeSerialFormat = serial.Length == 12 && serial.All(char.IsDigit);
+
+            return isValidArcazeSerialFormat;
         }
 
         public static bool IsMobiFlightSerial(string serial)
@@ -88,7 +90,22 @@ namespace MobiFlight.Base
 
         public static bool IsRawSerial(string serial)
         {
-            return (serial != null && serial.Contains(SerialSeparator));
+            if (string.IsNullOrEmpty(serial) || !serial.Contains(SerialSeparator))
+                return false;
+
+            // Extract what would be the serial part after the last separator
+            var potentialSerial = ExtractSerial(serial);
+
+            // A valid raw serial must have a non-empty serial part
+            // and it should look like an actual serial number
+            if (string.IsNullOrEmpty(potentialSerial))
+                return false;
+
+            // Check if it matches known serial patterns
+            return IsMobiFlightSerial(potentialSerial) ||
+                   IsJoystickSerial(potentialSerial) ||
+                   IsMidiBoardSerial(potentialSerial) ||
+                   IsArcazeSerial(potentialSerial);
         }
     }
 }
