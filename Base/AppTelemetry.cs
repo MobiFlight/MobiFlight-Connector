@@ -95,13 +95,15 @@ namespace MobiFlight.Base
             foreach (InputConfigItem item in inputConfigs)
             {
                 if (item.ModuleSerial  == null) continue;
+                var serial = SerialNumber.ExtractSerial(item.ModuleSerial);
+
 
                 String key = "input." + item.DeviceType;
-                if (SerialNumber.IsJoystickSerial(item.ModuleSerial))
+                if (SerialNumber.IsJoystickSerial(serial))
                 {
                     key += ".joystick";
                 }
-                if (SerialNumber.IsMidiBoardSerial(item.ModuleSerial))
+                if (SerialNumber.IsMidiBoardSerial(serial))
                 {
                     key += ".midiboard";
                 }

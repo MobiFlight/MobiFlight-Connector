@@ -457,7 +457,7 @@ namespace MobiFlight
                 MobiFlightModule module = GetModuleBySerial(serial);
                 if (module == null) return;
 
-                if (name != null && name.Contains("|"))
+                if (name.Contains("|"))
                 {
                     var pins = name.Split('|');
                     foreach (string pin in pins)
