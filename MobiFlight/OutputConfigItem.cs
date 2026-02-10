@@ -152,7 +152,7 @@ namespace MobiFlight
                 if (DeviceType == "Pin") DeviceType = MobiFlightOutput.TYPE;
                 if (DeviceType == ArcazeLedDigit.OLDTYPE) DeviceType = ArcazeLedDigit.TYPE;
 
-                Controller = SerialNumber.ToController(reader["serial"]);
+                Controller = SerialNumber.FromFullSerial(reader["serial"]);
                 
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
@@ -320,7 +320,7 @@ namespace MobiFlight
 
             writer.WriteStartElement("display");
                 writer.WriteAttributeString("type", DeviceType);
-                writer.WriteAttributeString("serial", SerialNumber.FromController(Controller));
+                writer.WriteAttributeString("serial", SerialNumber.ToFullSerial(Controller));
 
             if (Device is LedModule)
             {

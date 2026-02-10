@@ -26,7 +26,7 @@ namespace MobiFlight.Base.Serialization.Json
             if (jsonObject["ModuleSerial"] != null && jsonObject["Controller"] == null)
             {
                 var moduleSerial = (string)jsonObject["ModuleSerial"];
-                var controller = SerialNumber.ToController(moduleSerial);
+                var controller = SerialNumber.FromFullSerial(moduleSerial);
                 
                 // Add Controller property to JSON
                 jsonObject["Controller"] = JObject.FromObject(controller);

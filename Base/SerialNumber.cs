@@ -34,22 +34,24 @@ namespace MobiFlight.Base
         }
 
         /// <summary>
-        /// Creates a Controller from a ModuleSerial string in the format "Name/ Serial"
+        /// Creates a Controller from a full serial string in the format "Name/ Serial"
+        /// Used for XML deserialization
         /// </summary>
-        public static Controller ToController(string moduleSerial)
+        public static Controller FromFullSerial(string fullSerial)
         {
-            if (string.IsNullOrEmpty(moduleSerial))
+            if (string.IsNullOrEmpty(fullSerial))
                 return new Controller();
 
-            var name = ExtractDeviceName(moduleSerial);
-            var serial = ExtractSerial(moduleSerial);
+            var name = ExtractDeviceName(fullSerial);
+            var serial = ExtractSerial(fullSerial);
             return new Controller(name, serial);
         }
 
         /// <summary>
-        /// Converts a Controller to a ModuleSerial string in the format "Name/ Serial"
+        /// Converts a Controller to a full serial string in the format "Name/ Serial"
+        /// Used for XML serialization
         /// </summary>
-        public static string FromController(Controller controller)
+        public static string ToFullSerial(Controller controller)
         {
             if (controller == null || (string.IsNullOrEmpty(controller.Name) && string.IsNullOrEmpty(controller.Serial)))
                 return "";

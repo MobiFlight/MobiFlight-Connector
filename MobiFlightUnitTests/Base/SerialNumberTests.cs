@@ -147,7 +147,7 @@ namespace MobiFlight.Base.Tests
             var moduleSerial = "ProtoBoard-v2/ SN-5FC-1CF";
 
             // Act
-            var controller = SerialNumber.ToController(moduleSerial);
+            var controller = SerialNumber.FromFullSerial(moduleSerial);
 
             // Assert
             Assert.IsNotNull(controller);
@@ -162,7 +162,7 @@ namespace MobiFlight.Base.Tests
             var moduleSerial = "";
 
             // Act
-            var controller = SerialNumber.ToController(moduleSerial);
+            var controller = SerialNumber.FromFullSerial(moduleSerial);
 
             // Assert
             Assert.IsNotNull(controller);
@@ -177,7 +177,7 @@ namespace MobiFlight.Base.Tests
             string moduleSerial = null;
 
             // Act
-            var controller = SerialNumber.ToController(moduleSerial);
+            var controller = SerialNumber.FromFullSerial(moduleSerial);
 
             // Assert
             Assert.IsNotNull(controller);
@@ -186,39 +186,39 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
-        public void FromController_ValidController_FormatsCorrectly()
+        public void ToFullSerial_ValidController_FormatsCorrectly()
         {
             // Arrange
             var controller = new Controller("ProtoBoard-v2", "SN-5FC-1CF");
 
             // Act
-            var moduleSerial = SerialNumber.FromController(controller);
+            var moduleSerial = SerialNumber.ToFullSerial(controller);
 
             // Assert
             Assert.AreEqual("ProtoBoard-v2/ SN-5FC-1CF", moduleSerial);
         }
 
         [TestMethod()]
-        public void FromController_EmptyController_ReturnsEmptyString()
+        public void ToFullSerial_EmptyController_ReturnsEmptyString()
         {
             // Arrange
             var controller = new Controller("", "");
 
             // Act
-            var moduleSerial = SerialNumber.FromController(controller);
+            var moduleSerial = SerialNumber.ToFullSerial(controller);
 
             // Assert
             Assert.AreEqual("", moduleSerial);
         }
 
         [TestMethod()]
-        public void FromController_NullController_ReturnsEmptyString()
+        public void ToFullSerial_NullController_ReturnsEmptyString()
         {
             // Arrange
             Controller controller = null;
 
             // Act
-            var moduleSerial = SerialNumber.FromController(controller);
+            var moduleSerial = SerialNumber.ToFullSerial(controller);
 
             // Assert
             Assert.AreEqual("", moduleSerial);
@@ -231,8 +231,8 @@ namespace MobiFlight.Base.Tests
             var originalModuleSerial = "ProtoBoard-v2/ SN-5FC-1CF";
 
             // Act
-            var controller = SerialNumber.ToController(originalModuleSerial);
-            var resultModuleSerial = SerialNumber.FromController(controller);
+            var controller = SerialNumber.FromFullSerial(originalModuleSerial);
+            var resultModuleSerial = SerialNumber.ToFullSerial(controller);
 
             // Assert
             Assert.AreEqual(originalModuleSerial, resultModuleSerial);

@@ -118,7 +118,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 if (config.Controller != null && !string.IsNullOrEmpty(config.Controller.Serial))
                 {
-                    var moduleSerial = SerialNumber.FromController(config.Controller);
+                    var moduleSerial = SerialNumber.ToFullSerial(config.Controller);
                     if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, moduleSerial))
                     {
                         Log.Instance.log($"Trying to show config but {moduleSerial} currently not connected.", LogSeverity.Error);
@@ -801,7 +801,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 // the module with that serial is currently not connected
                 // so we cannot lookup anything sensible
-                var moduleSerial = SerialNumber.FromController(config.Controller);
+                var moduleSerial = SerialNumber.ToFullSerial(config.Controller);
                 Log.Instance.log($"Trying to show stepper config but module {moduleSerial} is not connected. Using default profile.", LogSeverity.Error);
                 stepperPanel.setStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
             }

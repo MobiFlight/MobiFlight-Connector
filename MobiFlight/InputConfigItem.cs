@@ -85,7 +85,7 @@ namespace MobiFlight
 
         public virtual void ReadXml(XmlReader reader)
         {
-            Controller = SerialNumber.ToController(reader["serial"]);
+            Controller = SerialNumber.FromFullSerial(reader["serial"]);
             // This name is only present with input devices
             // and it is in the wrong place.
             DeviceName = reader["name"];
@@ -195,7 +195,7 @@ namespace MobiFlight
                 writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
             }
 
-            writer.WriteAttributeString("serial", SerialNumber.FromController(this.Controller));
+            writer.WriteAttributeString("serial", SerialNumber.ToFullSerial(this.Controller));
             writer.WriteAttributeString("name", this.DeviceName);
             writer.WriteAttributeString("type", this.DeviceType);
 

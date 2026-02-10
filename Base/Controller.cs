@@ -29,6 +29,20 @@ namespace MobiFlight.Base
             Serial = serial ?? "";
         }
 
+        public Controller(Controller other)
+        {
+            if (other == null)
+            {
+                Name = "";
+                Serial = "";
+            }
+            else
+            {
+                Name = other.Name;
+                Serial = other.Serial;
+            }
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Controller other))
@@ -52,7 +66,7 @@ namespace MobiFlight.Base
 
         public Controller Clone()
         {
-            return new Controller(Name, Serial);
+            return new Controller(this);
         }
     }
 }

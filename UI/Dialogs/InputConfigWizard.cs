@@ -285,7 +285,7 @@ namespace MobiFlight.UI.Dialogs
             serial = config.Controller?.Serial ?? "";
             if (serial != "")
             {
-                var moduleSerial = SerialNumber.FromController(config.Controller);
+                var moduleSerial = SerialNumber.ToFullSerial(config.Controller);
                 if (!ComboBoxHelper.SetSelectedItemByValue(inputModuleNameComboBox, moduleSerial))
                 {
                     // TODO: provide error message
@@ -348,13 +348,13 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.Controller = SerialNumber.ToController(inputModuleNameComboBox.SelectedItem.ToString());
+            config.Controller = SerialNumber.FromFullSerial(inputModuleNameComboBox.SelectedItem.ToString());
 
             configRefPanel.syncToConfig(config);
 
             preconditionPanel.syncToConfig(config);
 
-            if (SerialNumber.FromController(config.Controller) == "-") return true;
+            if (SerialNumber.ToFullSerial(config.Controller) == "-") return true;
 
             IBaseDevice device = ((ListItem<IBaseDevice>)inputTypeComboBox.SelectedItem).Value;
             if (device.Label != InputConfigItem.TYPE_NOTSET)
