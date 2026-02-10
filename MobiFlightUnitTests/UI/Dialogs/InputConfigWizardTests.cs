@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Input;
@@ -72,7 +73,7 @@ namespace MobiFlight.UI.Dialogs.Tests
             var inputConfigItem = new InputConfigItem
             {
                 GUID = "test-guid",
-                ModuleSerial = "TestModule / TestSerial",
+                Controller = SerialNumber.CreateController("TestModule / TestSerial"),
                 button = new ButtonInputConfig(),
                 encoder = new EncoderInputConfig(),
                 analog = new AnalogInputConfig(),
@@ -99,8 +100,10 @@ namespace MobiFlight.UI.Dialogs.Tests
             var groupBoxInputSettings = (GroupBox)groupBoxInputSettingsField.GetValue(wizard);
 
             // Set up the module combo box to have a serial
-            inputModuleNameComboBox.Items.Add("TestModule / TestSerial");
+            inputModuleNameComboBox.Items.Add(new ListItem<Controller>() { Value = SerialNumber.CreateController("TestModule / TestSerial"), Label = "TestModule" });
             inputModuleNameComboBox.SelectedIndex = 0;
+            inputModuleNameComboBox.DisplayMember = "Label";
+            inputModuleNameComboBox.ValueMember = "Value";
 
             // Test cases for each device type
             var testCases = new List<(DeviceType DeviceType, IBaseDevice Device)>

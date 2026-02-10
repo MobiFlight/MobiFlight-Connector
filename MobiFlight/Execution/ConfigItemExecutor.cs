@@ -371,9 +371,9 @@ namespace MobiFlight.Execution
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
         {
-            string serial = cfg.Controller.Serial;
+            string serial = cfg.Controller?.Serial;
 
-            if (serial == "" && cfg.DeviceType != "InputAction")
+            if (serial == null && cfg.DeviceType != "InputAction")
                 return value.ToString();
 
             if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")

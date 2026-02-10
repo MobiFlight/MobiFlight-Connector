@@ -227,7 +227,11 @@ namespace MobiFlight.Tests
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsStepper()
         {
             // Arrange
-            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightStepper.TYPE, Device = new OutputConfig.Stepper { TestValue = 100 } };
+            var cfg = new OutputConfigItem { 
+                Controller = SerialNumber.CreateController("Test / SN-123"), 
+                DeviceType = MobiFlightStepper.TYPE, 
+                Device = new OutputConfig.Stepper { TestValue = 100 } 
+            };
 
             // Act
             executor.ExecuteTestOn(cfg);
@@ -240,7 +244,7 @@ namespace MobiFlight.Tests
         public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
         {
             // Arrange
-            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
 
             // Act
             executor.ExecuteTestOff(cfg);
@@ -341,7 +345,7 @@ namespace MobiFlight.Tests
                 GUID = Guid.NewGuid().ToString(),
                 Active = true,
                 Name = "Test Config with Error",
-                ModuleSerial = "Test / SN-123",
+                Controller = SerialNumber.CreateController("Test / SN-123"),
                 DeviceType = MobiFlightOutput.TYPE,
                 Device = new OutputConfig.Output { Pin = "1" },
                 Source = new VariableSource() { MobiFlightVariable = variable }

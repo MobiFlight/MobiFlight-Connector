@@ -34,8 +34,8 @@ namespace MobiFlight.Controllers
         /// </summary>
         private static string GetDeviceIdentifier(Controller controller)
         {
-            var deviceName = controller.Name;
-            var deviceSerialPrefix = SerialNumber.ExtractPrefix(controller.Serial);
+            var deviceName = controller?.Name;
+            var deviceSerialPrefix = SerialNumber.ExtractPrefix(controller?.Serial);
             return $"{deviceSerialPrefix}:{deviceName}";
         }
 
@@ -49,7 +49,7 @@ namespace MobiFlight.Controllers
             var availableControllers = new List<Controller>(_connectedControllers);
 
             var uniqueControllers = configItems
-                .Where(c => c.Controller != null)
+                .Where(c => !SkipInvalidController(c))
                 .Select(c => c.Controller)
                 .Distinct()
                 .OrderByDescending(uniqueController => availableControllers.Any(ac => ac.AreEqual(uniqueController)) || (existingBindings?.FirstOrDefault(b => b.OriginalController.AreEqual(uniqueController)) != null))
@@ -58,7 +58,7 @@ namespace MobiFlight.Controllers
             foreach (var controller in uniqueControllers)
             {
                 // Check if this serial was already bound in a previous config file
-                var previouslyBoundController = existingBindings?.FirstOrDefault(b => b.OriginalController == controller);
+                var previouslyBoundController = existingBindings?.FirstOrDefault(b => b.OriginalController.AreEqual(controller));
                 var alreadyBoundInPreviousConfigFile = previouslyBoundController != null;
                 if (alreadyBoundInPreviousConfigFile)
                 {
@@ -66,7 +66,7 @@ namespace MobiFlight.Controllers
                     if (!availableControllers.Contains(previouslyBoundController.BoundController)) continue;
 
                     // Reuse the same binding
-                    var previousStatus = previouslyBoundController.BoundController == controller
+                    var previousStatus = previouslyBoundController.BoundController.AreEqual(controller)
                         ? ControllerBindingStatus.Match
                         : ControllerBindingStatus.AutoBind;
 
@@ -99,6 +99,11 @@ namespace MobiFlight.Controllers
             return results;
         }
 
+        private static bool SkipInvalidController(IConfigItem configItem)
+        {
+            return configItem.Controller == null || configItem.Controller.Serial == SerialNumber.NOT_SET;
+        }
+
         /// <summary>
         /// Applies auto-binding updates to config items based on analysis results
         /// </summary>
@@ -117,7 +122,7 @@ namespace MobiFlight.Controllers
                 if (item.Controller == null)
                     continue;
 
-                var mapping = serialMappings.FirstOrDefault(m => m.OriginalController == item.Controller);
+                var mapping = serialMappings.FirstOrDefault(m => m.OriginalController.AreEqual(item.Controller));
                 if (mapping == null) continue;
 
                 item.Controller = mapping.BoundController;
@@ -139,7 +144,7 @@ namespace MobiFlight.Controllers
                 .Where(c => GetDeviceIdentifier(c) == controllerTypeName)
                 .ToList();
 
-            var controllerSerial = controller.Serial;
+            var controllerSerial = controller?.Serial;
             var potentialControllerMatches = availableControllers
                 .Where(c => c.Serial == controllerSerial)
                 .ToList();
@@ -189,10 +194,10 @@ namespace MobiFlight.Controllers
             // Apply the mappings to config items
             foreach (var item in configItems)
             {
-                var skipItemBecauseEmpty = item.Controller == null;
+                var skipItemBecauseEmpty = SkipInvalidController(item);
                 if (skipItemBecauseEmpty) continue;
 
-                var mapping = controllerBindings.FirstOrDefault(m => m.OriginalController == item.Controller);
+                var mapping = controllerBindings.FirstOrDefault(m => m.OriginalController.AreEqual(item.Controller));
 
                 if (mapping == null) continue;
                 if (mapping.BoundController == null) continue;

@@ -383,7 +383,7 @@ namespace MobiFlight
             this.Source = config.Source?.Clone() as Source;
             
             this.DeviceType = config.DeviceType;
-            this.Controller = config.Controller.Clone() as Controller;
+            this.Controller = config.Controller?.Clone() as Controller;
 
             this.Device = config.Device?.Clone() as IDeviceConfig;
 

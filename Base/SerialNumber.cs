@@ -13,7 +13,7 @@ namespace MobiFlight.Base
             string[] serialSeparator = { SerialSeparator };
             if (s == null) return "";
 
-            if (!s.Contains(SerialSeparator)) return "";
+            if (!s.Contains(SerialSeparator)) return s;
 
             var tokens = s.Split(serialSeparator, StringSplitOptions.RemoveEmptyEntries);
 
@@ -78,8 +78,15 @@ namespace MobiFlight.Base
 
         internal static string BuildFullSerial(Controller controller)
         {
+            if (controller == null) return null;
+
+            // this is from legacy times. Some configs may have empty name and serial set to NOT_SET.
+            // In this case we want to return NOT_SET instead of " / -"
+            if (string.IsNullOrEmpty(controller.Name) && !string.IsNullOrEmpty(controller.Serial)) return controller.Serial;
+            
             var isArcazeOrMobiFlightSerial = controller != null && (SerialNumber.IsArcazeSerial(controller.Serial) || SerialNumber.IsMobiFlightSerial(controller.Serial));
             var serialSeparator = isArcazeOrMobiFlightSerial ? SerialNumber.SerialSeparator : " " + SerialNumber.SerialSeparator;
+            
             return $"{controller.Name}{serialSeparator}{controller.Serial}";
         }
 

@@ -94,7 +94,7 @@ namespace MobiFlight.Base
             GUID = item.GUID.Clone() as string;
             Active = item.Active;
             Name = item.Name.Clone() as string;
-            Controller= item.Controller.Clone() as Controller;
+            Controller= item.Controller?.Clone() as Controller;
             Preconditions = item.Preconditions.Clone() as PreconditionList;
             Modifiers = item.Modifiers.Clone() as ModifierList;
             ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;
@@ -115,7 +115,7 @@ namespace MobiFlight.Base
             return GUID == item.GUID &&
                    Active == item.Active &&
                    Name == item.Name &&
-                   Controller.Equals(item.Controller) &&
+                   Controller.AreEqual(item.Controller) &&
                    Preconditions.Equals(item.Preconditions) &&
                    Modifiers.Equals(item.Modifiers) &&
                    ConfigRefs.Equals(item.ConfigRefs) &&

@@ -20,6 +20,8 @@
 
         public Controller(Controller other)
         {
+            if (other == null) return;
+
             Name = other.Name;
             Serial = other.Serial;
         }
@@ -37,6 +39,18 @@
             var other = obj as Controller;
 
             return Name.AreEqual(other.Name) && Serial.AreEqual(other.Serial);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 17;
+                // Use null-safe hash code calculation
+                hash = hash * 23 + (Name?.GetHashCode() ?? 0);
+                hash = hash * 23 + (Serial?.GetHashCode() ?? 0);
+                return hash;
+            }
         }
 
         public override string ToString()

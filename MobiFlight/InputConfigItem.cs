@@ -195,7 +195,7 @@ namespace MobiFlight
                 writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
             }
 
-            var fullSerial = SerialNumber.BuildFullSerial(Controller);
+            var fullSerial = SerialNumber.BuildFullSerial(Controller) ?? "";
 
             writer.WriteAttributeString("serial", fullSerial);
             writer.WriteAttributeString("name", this.DeviceName);

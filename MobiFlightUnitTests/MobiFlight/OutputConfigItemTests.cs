@@ -209,7 +209,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation count not right");
 
             Assert.AreEqual(c.DeviceType, o.DeviceType, "clone: DisplayType not the same");
-            Assert.AreEqual(c.ModuleSerial, o.ModuleSerial, "clone: DisplaySerial not the same");
+            Assert.AreEqual(c.Controller.Serial, o.Controller.Serial, "clone: DisplaySerial not the same");
 
             if (o.DeviceType == MobiFlight.DeviceType.Output.ToString("F"))
             {
@@ -312,7 +312,7 @@ namespace MobiFlight.Tests
             o.Modifiers.Comparison.ElseValue = "3";
 
             o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
-            o.ModuleSerial = "Ser123";
+            o.Controller = SerialNumber.CreateController("Ser123");
 
             switch (deviceType)
             {
