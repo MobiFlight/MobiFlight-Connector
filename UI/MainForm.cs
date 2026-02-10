@@ -2160,61 +2160,6 @@ namespace MobiFlight.UI
             SetProjectNameInTitle();
         }
 
-        private void showMissingControllersDialog()
-        {
-            List<string> serials = new List<string>();
-
-            foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
-            {
-                serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
-            }
-
-            foreach (var joystick in execManager.GetJoystickManager().GetJoysticks())
-            {
-                // Extra space between Name and Separator is necessary!
-                serials.Add($"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}");
-            }
-
-            if (serials.Count == 0) return;
-
-            try
-            {
-                var allConfigItems = execManager.Project.ConfigFiles.Select(file => file.ConfigItems).ToList();
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, allConfigItems);
-                opd.StartPosition = FormStartPosition.CenterParent;
-                if (opd.HasOrphanedSerials())
-                {
-                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        ProjectHasUnsavedChanges = opd.HasChanged();
-
-                        if (!ProjectHasUnsavedChanges) return;
-
-                        var udpatedConfigs = opd.GetUpdatedConfigs();
-
-                        for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
-                        {
-                            execManager.Project.ConfigFiles[i].ConfigItems = udpatedConfigs[i];
-                        }
-
-                        ControllerBindingService.PerformAutoBinding(execManager.Project);
-                        saveToolStripButton_Click(this, new EventArgs());
-                    }
-                }
-                else
-                {
-                    TimeoutMessageDialog.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                // do nothing
-                Log.Instance.log($"Orphaned serials exception: {ex.Message}", LogSeverity.Error);
-            }
-        }
-
-
-
         private void SetTitle(string title)
         {
             string NewTitle = $"MobiFlight Connector - {DisplayVersion()}";
@@ -2590,11 +2535,6 @@ namespace MobiFlight.UI
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(i18n._tr("WebsiteUrlHelp"));
-        }
-
-        public void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showMissingControllersDialog();
         }
 
         public void donateToolStripButton_Click(object sender, EventArgs e)
