@@ -100,26 +100,33 @@ namespace MobiFlight.Controllers
             project.ControllerBindings = bindings;
         }
 
-        private List<string> GetAllConnectedControllers()
+        private List<Controller> GetAllConnectedControllers()
         {
-            var serials = new List<string>();
+            var controllers = new List<Controller>();
 
-            foreach (var module in _executionManager.getMobiFlightModuleCache().GetModules())
+#if ARCAZE
+            foreach (var controller in _executionManager.getModuleCache().getModuleInfo())
             {
-                serials.Add($"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}");
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
+            }
+#endif
+
+            foreach (var controller in _executionManager.getMobiFlightModuleCache().GetModules())
+            {
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
             }
 
-            foreach (var joystick in _executionManager.GetJoystickManager().GetJoysticks())
+            foreach (var controller in _executionManager.GetJoystickManager().GetJoysticks())
             {
-                serials.Add($"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}");
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
             }
 
-            foreach (var midiBoard in _executionManager.GetMidiBoardManager().GetMidiBoards())
+            foreach (var controller in _executionManager.GetMidiBoardManager().GetMidiBoards())
             {
-                serials.Add($"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}");
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
             }
 
-            return serials;
+            return controllers;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace MobiFlight
     public interface IExecutionManager
     {
         Dictionary<String, MobiFlightVariable> GetAvailableVariables();
+        ArcazeCache getModuleCache();
         JoystickManager GetJoystickManager();
         MobiFlightCache getMobiFlightModuleCache();
         ProSim.ProSimCacheInterface GetProSimCache();
