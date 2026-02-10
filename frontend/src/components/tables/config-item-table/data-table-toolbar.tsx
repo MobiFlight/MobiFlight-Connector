@@ -67,15 +67,24 @@ export function DataTableToolbar<TData>({
     },
   )
 
-  const controller = [...new Set(items.map((item) => item.ModuleSerial))]
-    .map((serial) => {
-      const label = serial?.split("/")[0]
+  const uniqueControllers : Record<string, { Name: string; Serial: string }> = {}
+  items.forEach((item) => {
+    const controller = item.Controller
+    if (controller) {
+      const key = `${controller.Name}:${controller.Serial}`
+      uniqueControllers[key] = controller
+    }
+  })
+
+  const controller = Object.values(uniqueControllers)
+    .map((controller) => {
+      const label = controller?.Name
       return {
         label:
           !isEmpty(label) && label != "-"
             ? label
             : t(`ConfigList.Toolbar.NotSet`),
-        value: serial,
+        value: `${controller?.Name}:${controller?.Serial}`,
         icon: isEmpty(label) || label == "-" ? IconBan : undefined,
       }
     })
@@ -159,10 +168,10 @@ export function DataTableToolbar<TData>({
             options={configTypes}
           />
         )}
-        {table.getColumn("ModuleSerial") && (
+        {table.getColumn("Controller") && (
           <DataTableFacetedFilter
             disabled={disabled}
-            column={table.getColumn("ModuleSerial")}
+            column={table.getColumn("Controller")}
             title={t("ConfigList.Toolbar.Filter.Device")}
             options={controller}
           />
