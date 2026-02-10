@@ -15,6 +15,20 @@
         /// </summary>
         public string Serial { get; set; }
 
+
+        public Controller() {}
+
+        public Controller(Controller other)
+        {
+            Name = other.Name;
+            Serial = other.Serial;
+        }
+
+        public object Clone()
+        {
+            return new Controller(this); 
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -23,6 +37,11 @@
             var other = obj as Controller;
 
             return Name.AreEqual(other.Name) && Serial.AreEqual(other.Serial);
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}:{Serial}";
         }
     }
 }

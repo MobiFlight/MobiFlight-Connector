@@ -75,5 +75,20 @@ namespace MobiFlight.Base
         {
             return (serial != null && serial.Contains(SerialSeparator));
         }
+
+        internal static string BuildFullSerial(Controller controller)
+        {
+            var isArcazeOrMobiFlightSerial = controller != null && (SerialNumber.IsArcazeSerial(controller.Serial) || SerialNumber.IsMobiFlightSerial(controller.Serial));
+            var serialSeparator = isArcazeOrMobiFlightSerial ? SerialNumber.SerialSeparator : " " + SerialNumber.SerialSeparator;
+            return $"{controller.Name}{serialSeparator}{controller.Serial}";
+        }
+
+        public static Controller CreateController(string serial)
+        {
+            if (string.IsNullOrEmpty(serial)) return null;
+            var deviceName = ExtractDeviceName(serial);
+            var deviceSerial = ExtractSerial(serial);
+            return new Controller() { Name = deviceName, Serial = deviceSerial };
+        }
     }
 }
