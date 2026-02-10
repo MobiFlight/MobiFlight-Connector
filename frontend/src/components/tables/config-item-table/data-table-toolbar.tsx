@@ -73,6 +73,8 @@ export function DataTableToolbar<TData>({
     if (controller) {
       const key = `${controller.Name}:${controller.Serial}`
       uniqueControllers[key] = controller
+    } else {
+      uniqueControllers[":empty:"] = { Name: "", Serial: "" }
     }
   })
 
@@ -84,7 +86,7 @@ export function DataTableToolbar<TData>({
           !isEmpty(label) && label != "-"
             ? label
             : t(`ConfigList.Toolbar.NotSet`),
-        value: `${controller?.Name}:${controller?.Serial}`,
+        value: `${controller.Name}:${controller.Serial}`,
         icon: isEmpty(label) || label == "-" ? IconBan : undefined,
       }
     })

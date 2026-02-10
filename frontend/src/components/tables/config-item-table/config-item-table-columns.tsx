@@ -69,7 +69,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
     cell: ConfigItemTableControllerCell,
     filterFn: (row, id, value) => {
-      const controller = row.getValue(id) as Controller
+      const controller = row.getValue(id) as Controller ?? { Name: "", Serial: "" }
+      // the filter value must match the format
+      // that is used by the facet options, see: data-table-toolbar.tsx -> controller
       const filterValue = `${controller?.Name}:${controller?.Serial}`
       return value.includes(filterValue)
     },
