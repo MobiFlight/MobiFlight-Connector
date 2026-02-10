@@ -199,7 +199,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 config.DeviceType = (displayTypeComboBox.SelectedItem as ListItem).Value;
 
                 var serial = displayModuleNameComboBox.SelectedItem.ToString();
-                config.Controller = SerialNumber.ToController(serial);
+                config.Controller = SerialNumber.CreateControllerFromFullSerial(serial);
 
                 if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
                 
@@ -394,7 +394,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // because module information is set
                 // before config is loaded
                 if (config == null) return;
-                config.Controller = SerialNumber.ToController(rawSerial);
+                config.Controller = SerialNumber.CreateControllerFromFullSerial(rawSerial);
 
                 // third tab
                 if (config.DeviceType != null &&

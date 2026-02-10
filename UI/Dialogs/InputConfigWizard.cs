@@ -360,7 +360,7 @@ namespace MobiFlight.UI.Dialogs
             if (device.Label != InputConfigItem.TYPE_NOTSET)
                 config.DeviceName = device.Name;
 
-            serial = config.Controller?.Serial ?? "";
+            string serial = config.Controller?.Serial ?? "";
 
             DeviceType currentInputType = determineCurrentDeviceType(serial);
 
