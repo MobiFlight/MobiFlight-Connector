@@ -47,13 +47,8 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        internal void SetSelectedPinsFromString(string pins, string serial)
+        internal void SetSelectedPinsFromString(string pins)
         {
-            if (SerialNumber.IsRawSerial(serial))
-            {
-                serial = SerialNumber.ExtractSerial(serial);
-            }
-
             var splitPins = pins.Split(POSITION_SEPERATOR);
             foreach (string pin in splitPins)
             {

@@ -2,6 +2,7 @@
 using MobiFlight.Config;
 using MobiFlight.UI.Panels.Config;
 using MobiFlight.UI.Panels.Input;
+using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -138,7 +139,7 @@ namespace MobiFlight.UI.Dialogs
             // by default always the first tab is activated
             // if one opens the dialog for an existing config
             // we use the lastTabActive
-            if (cfg?.ModuleSerial != null && cfg?.ModuleSerial != SerialNumber.NOT_SET)
+            if (cfg?.Controller != null)
             {
                 tabControlFsuipc.SelectedIndex = lastTabActive;
             }
@@ -179,10 +180,10 @@ namespace MobiFlight.UI.Dialogs
         {
             if (arcazeCache == null) return;
 
-            List<ListItem> PreconditionModuleList = new List<ListItem>();
+            var PreconditionModuleList = new List<ListItem<Controller>>();
 
             inputModuleNameComboBox.Items.Clear();
-            inputModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "-" });
+            inputModuleNameComboBox.Items.Add(new ListItem<Controller>() { Value = null, Label = "-" });
             inputModuleNameComboBox.SelectedIndex = 0;
             inputModuleNameComboBox.DisplayMember = "Label";
             inputModuleNameComboBox.ValueMember = "Value";
@@ -191,18 +192,18 @@ namespace MobiFlight.UI.Dialogs
             {
                 arcazeFirmware[module.Serial] = module.Version;
 
-                PreconditionModuleList.Add(new ListItem()
+                PreconditionModuleList.Add(new ListItem<Controller>()
                 {
-                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
+                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
                     Label = $"{module.Name} ({module.Serial})"
                 });
             }
 
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
-                inputModuleNameComboBox.Items.Add(new ListItem()
+                inputModuleNameComboBox.Items.Add(new ListItem<Controller>()
                 {
-                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
+                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
                     Label = $"{module.Name} ({module.Port})"
                 });
             }
@@ -210,18 +211,18 @@ namespace MobiFlight.UI.Dialogs
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 if (joystick.GetAvailableDevicesAsListItems().Count > 0)
-                    inputModuleNameComboBox.Items.Add(new ListItem()
+                    inputModuleNameComboBox.Items.Add(new ListItem<Controller>()
                     {
-                        Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
+                        Value = new Controller() { Name = joystick.Name, Serial = joystick.Serial },
                         Label = $"{joystick.Name}"
                     });
             }
 
             foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
             {
-                inputModuleNameComboBox.Items.Add(new ListItem()
+                inputModuleNameComboBox.Items.Add(new ListItem<Controller>()
                 {
-                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Value = new Controller() { Name = midiBoard.Name, Serial = midiBoard.Serial },
                     Label = $"{midiBoard.Name}"
                 });
             }
@@ -232,20 +233,20 @@ namespace MobiFlight.UI.Dialogs
 
         public void initWithoutArcazeCache()
         {
-            List<ListItem> PreconditionModuleList = new List<ListItem>();
+            var PreconditionModuleList = new List<ListItem<Controller>>();
             // update the display box with
             // modules
             inputModuleNameComboBox.Items.Clear();
-            inputModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "-" });
+            inputModuleNameComboBox.Items.Add(new ListItem<Controller>() { Value = null, Label = "-" });
             inputModuleNameComboBox.SelectedIndex = 0;
             inputModuleNameComboBox.DisplayMember = "Label";
             inputModuleNameComboBox.ValueMember = "Value";
 
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
-                inputModuleNameComboBox.Items.Add(new ListItem()
+                inputModuleNameComboBox.Items.Add(new ListItem<Controller>()
                 {
-                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
+                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
                     Label = $"{module.Name}{SerialNumber.SerialSeparator}({module.Port})"
                 });
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
@@ -253,18 +254,18 @@ namespace MobiFlight.UI.Dialogs
 
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                inputModuleNameComboBox.Items.Add(new ListItem()
+                inputModuleNameComboBox.Items.Add(new ListItem<Controller>()
                 {
-                    Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
+                    Value = new Controller() { Name = joystick.Name, Serial = joystick.Serial },
                     Label = $"{joystick.Name}"
                 });
             }
 
             foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
             {
-                inputModuleNameComboBox.Items.Add(new ListItem()
+                inputModuleNameComboBox.Items.Add(new ListItem<Controller>()
                 {
-                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Value = new Controller() { Name = midiBoard.Name, Serial = midiBoard.Serial },
                     Label = $"{midiBoard.Name}"
                 });
             }
@@ -279,13 +280,13 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncConfigToForm(InputConfigItem config)
         {
-            string serial = null;
             if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
+            
             // first tab                        
-            serial = SerialNumber.ExtractSerial(config.ModuleSerial);
-            if (serial != "")
+            if (config.Controller!=null)
             {
-                if (!ComboBoxHelper.SetSelectedItemByValue(inputModuleNameComboBox, config.ModuleSerial))
+                // TODO: This won't work correctly.
+                if (!ComboBoxHelper.SetSelectedItemByValue(inputModuleNameComboBox, config.Controller.ToString()))
                 {
                     // TODO: provide error message
                 }
@@ -347,19 +348,19 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.ModuleSerial = inputModuleNameComboBox.SelectedItem.ToString();
+            config.Controller = inputModuleNameComboBox.SelectedValue as Controller;
 
             configRefPanel.syncToConfig(config);
 
             preconditionPanel.syncToConfig(config);
 
-            if (config.ModuleSerial == "-") return true;
+            if (config.Controller == null) return true;
 
             IBaseDevice device = ((ListItem<IBaseDevice>)inputTypeComboBox.SelectedItem).Value;
             if (device.Label != InputConfigItem.TYPE_NOTSET)
                 config.DeviceName = device.Name;
 
-            DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
+            DeviceType currentInputType = determineCurrentDeviceType(config.Controller.Serial);
 
             //if (groupBoxInputSettings.Controls.Count == 0) return false;
 

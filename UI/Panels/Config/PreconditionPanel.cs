@@ -168,10 +168,10 @@ namespace MobiFlight.UI.Panels.Config
             preconditionSettingsPanel.Enabled = false;
         }
 
-        public void SetModules(List<ListItem> ModuleList)
+        public void SetModules(List<ListItem<Controller>> ModuleList)
         {
             preconditionPinSerialComboBox.Items.Clear();
-            preconditionPinSerialComboBox.Items.Add(new ListItem() { Value = "-", Label = "" });
+            preconditionPinSerialComboBox.Items.Add(new ListItem() { Value = null, Label = "-" });
             preconditionPinSerialComboBox.Items.AddRange(ModuleList.ToArray());
             preconditionPinSerialComboBox.SelectedIndex = 0;
         }
@@ -344,7 +344,7 @@ namespace MobiFlight.UI.Panels.Config
                 }
                 else if (p.Type == "pin")
                 {
-                    label = label.Replace("<Serial:" + p.Serial + ">", SerialNumber.ExtractDeviceName(p.Serial));
+                    label = label.Replace("<Serial:" + p.Serial + ">", SerialNumber.ExtractControllerName(p.Serial));
                 }
                 else
                 {
