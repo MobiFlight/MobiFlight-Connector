@@ -425,7 +425,7 @@ namespace MobiFlight
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
 
-                        var serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+                        var serial = cfg.Controller.Serial;
 
                         if (SerialNumber.IsMobiFlightSerial(serial))
                         {

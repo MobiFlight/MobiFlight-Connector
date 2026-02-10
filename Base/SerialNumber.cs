@@ -20,7 +20,7 @@ namespace MobiFlight.Base
             return tokens.Last().Trim();
         }
 
-        public static string ExtractDeviceName(String s)
+        public static string ExtractControllerName(String s)
         {
             string[] serialSeparator = { SerialSeparator };
             if (s == null) return "";
@@ -86,7 +86,7 @@ namespace MobiFlight.Base
         public static Controller CreateController(string serial)
         {
             if (string.IsNullOrEmpty(serial)) return null;
-            var deviceName = ExtractDeviceName(serial);
+            var deviceName = ExtractControllerName(serial);
             var deviceSerial = ExtractSerial(serial);
             return new Controller() { Name = deviceName, Serial = deviceSerial };
         }

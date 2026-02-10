@@ -33,22 +33,22 @@ namespace MobiFlight.Base.Tests
         public void ExtractDeviceNameTest()
         {
             var serial = "GMA345/ SN-b44-4c5";
-            var result = SerialNumber.ExtractDeviceName(serial);
+            var result = SerialNumber.ExtractControllerName(serial);
             Assert.IsNotNull(result);
             Assert.AreEqual("GMA345", result);
 
             serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
-            result = SerialNumber.ExtractDeviceName(serial);
+            result = SerialNumber.ExtractControllerName(serial);
             Assert.IsNotNull(result);
             Assert.AreEqual("Bravo Throttle Quadrant", result);
 
             serial = "Arcaze v5.36/ 000393600000";
-            result = SerialNumber.ExtractDeviceName(serial);
+            result = SerialNumber.ExtractControllerName(serial);
             Assert.IsNotNull(result);
             Assert.AreEqual("Arcaze v5.36", result);
 
             serial = "MFG Crosswind V2/3 / JS-b0875190-3b89-11ed-8007-444553540000";
-            result = SerialNumber.ExtractDeviceName(serial);
+            result = SerialNumber.ExtractControllerName(serial);
             Assert.IsNotNull(result);
             Assert.AreEqual("MFG Crosswind V2/3", result);
         }
