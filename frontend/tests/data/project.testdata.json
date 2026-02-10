@@ -586,39 +586,72 @@
   "Aircraft": [],
   "ControllerBindings": [
     {
-      "BoundController": "miniCOCKPIT miniFCU/ SN-E98-277",
+      "BoundController": {
+        "Name": "miniCOCKPIT miniFCU",
+        "Serial": "SN-E98-277"
+      },
       "Status": "Match",
-      "OriginalController": "miniCOCKPIT miniFCU/ SN-E98-277"
+      "OriginalController": {
+        "Name": "miniCOCKPIT miniFCU",
+        "Serial": "SN-E98-277"
+      }
     },
     {
-      "BoundController": "ProtoBoard-v2/ SN-5FC-1CF",
+      "BoundController": {
+        "Name": "ProtoBoard-v2",
+        "Serial": "SN-5FC-1CF"
+      },
       "Status": "AutoBind",
-      "OriginalController": "ProtoBoard-v2/ SN-3F1-FDD"
+      "OriginalController": {
+        "Name": "ProtoBoard-v2",
+        "Serial": "SN-3F1-FDD"
+      }
     },
     {
       "BoundController": null,
       "Status": "RequiresManualBind",
-      "OriginalController": "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000"
+      "OriginalController": {
+        "Name": "Alpha Flight Controls",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540000"
+      }
     },
     {
       "BoundController": null,
       "Status": "Missing",
-      "OriginalController": "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540001"
+      "OriginalController": {
+        "Name": "Bravo Throttle Quadrant",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540001"
+      }
     },
     {
       "BoundController": null,
       "Status": "Missing",
-      "OriginalController": "Behringer X-Touch Mini / MI-b0875190-3b89-11ed-8007-444553540002"
+      "OriginalController": {
+        "Name": "Behringer X-Touch Mini",
+        "Serial": "MI-b0875190-3b89-11ed-8007-444553540002"
+      }
     },
     {
-      "BoundController": "MFG Crosswind V2/3 / JS-b0875190-3b89-11ed-8007-444553540003",
+      "BoundController": {
+        "Name": "MFG Crosswind V2/3",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540003"
+      },
       "Status": "Match",
-      "OriginalController": "MFG Crosswind V2/3 / JS-b0875190-3b89-11ed-8007-444553540003"
+      "OriginalController": {
+        "Name": "MFG Crosswind V2/3",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540003"
+      }
     },
     {
-      "BoundController": "Octavi / JS-b0875190-3b89-11ed-8007-44455354004",
+      "BoundController": {
+        "Name": "Octavi",
+        "Serial": "JS-b0875190-3b89-11ed-8007-44455354004"
+      },
       "Status": "Match",
-      "OriginalController": "Octavi / JS-b0875190-3b89-11ed-8007-44455354004"
+      "OriginalController": {
+        "Name": "Octavi",
+        "Serial": "JS-b0875190-3b89-11ed-8007-44455354004"
+      }
     }
   ],
   "Features": {

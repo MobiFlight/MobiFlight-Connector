@@ -90,9 +90,7 @@ const ControllerBindingsDialog = ({
 
       return {
         ...b,
-        BoundController: controller
-          ? controller.Name + " / " + controller.Serial
-          : null,
+        BoundController: controller,
         Status: controller ? "Match" : "Missing",
       } as ControllerBinding
     })
@@ -148,7 +146,7 @@ const ControllerBindingsDialog = ({
                 /* Original Controller Bindings */
                 filteredBindings.map((binding) => (
                   <ControllerBindingItem
-                    key={binding.OriginalController}
+                    key={`${binding.OriginalController.Name}:${binding.OriginalController.Serial}`}
                     controllerBinding={binding}
                     controllers={controllers}
                     onUpdate={handleControllerBindingUpdate}
