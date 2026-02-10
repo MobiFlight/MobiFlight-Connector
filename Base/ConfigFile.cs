@@ -178,11 +178,5 @@ namespace MobiFlight.Base
             }
             return result;
         }
-
-        // @copilot - this has to be reviewed
-        public List<String> GetIUniqueControllerSerials()
-        {
-            return ConfigItems.Select((i) => i.Controller.ToString()).Distinct().ToList();
-        }
     }
 }

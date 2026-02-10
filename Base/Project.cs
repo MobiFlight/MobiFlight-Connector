@@ -293,9 +293,6 @@ namespace MobiFlight.Base
 
         public void DetermineProjectInfos()
         {
-            var controllerSerials = new List<string>();
-
-            // reset features for clean determination
             Features = new ProjectFeatures();
 
             foreach (var item in ConfigFiles)
@@ -313,8 +310,6 @@ namespace MobiFlight.Base
 
                 Features.FSUIPC |= item.DetermineUsingFsuipc();
                 Features.ProSim |= item.ContainsConfigOfSourceType(new ProSimSource());
-
-                item.GetIUniqueControllerSerials().ForEach(c => controllerSerials.Add(c));
             }
         }
 
