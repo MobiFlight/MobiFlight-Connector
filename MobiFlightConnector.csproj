@@ -103,6 +103,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
+    <Reference Include="Azure.Core, Version=1.51.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8">
+      <HintPath>packages\Azure.Core.1.51.1\lib\net472\Azure.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Azure.Monitor.OpenTelemetry.Exporter, Version=1.6.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8">
+      <HintPath>packages\Azure.Monitor.OpenTelemetry.Exporter.1.6.0\lib\netstandard2.0\Azure.Monitor.OpenTelemetry.Exporter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Device.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Device.Net.4.2.1\lib\net45\Device.Net.dll</HintPath>
     </Reference>
@@ -136,8 +144,68 @@
       <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>packages\Microsoft.ApplicationInsights.3.0.0\lib\net462\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.10.0.3\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Configuration.10.0.3\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Abstractions.10.0.3\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Binder.10.0.3\lib\net462\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.10.0.3\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.10.0.3\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics.Abstractions, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Diagnostics.Abstractions.10.0.3\lib\net462\Microsoft.Extensions.Diagnostics.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.FileProviders.Abstractions.10.0.3\lib\net462\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Hosting.Abstractions.10.0.3\lib\net462\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Logging.10.0.3\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.10.0.3\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Configuration, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Logging.Configuration.10.0.3\lib\net462\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Options.10.0.3\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Options.ConfigurationExtensions.10.0.3\lib\net462\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=10.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>packages\Microsoft.Extensions.Primitives.10.0.3\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
@@ -172,6 +240,30 @@
       <HintPath>packages\Newtonsoft.Json.Schema.4.0.1\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OpenTelemetry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7bd6737fe5b67e3c">
+      <HintPath>packages\OpenTelemetry.1.15.0\lib\net462\OpenTelemetry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenTelemetry.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7bd6737fe5b67e3c">
+      <HintPath>packages\OpenTelemetry.Api.1.15.0\lib\net462\OpenTelemetry.Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenTelemetry.Api.ProviderBuilderExtensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7bd6737fe5b67e3c">
+      <HintPath>packages\OpenTelemetry.Api.ProviderBuilderExtensions.1.15.0\lib\net462\OpenTelemetry.Api.ProviderBuilderExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenTelemetry.Extensions.Hosting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7bd6737fe5b67e3c">
+      <HintPath>packages\OpenTelemetry.Extensions.Hosting.1.15.0\lib\net462\OpenTelemetry.Extensions.Hosting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenTelemetry.PersistentStorage.Abstractions, Version=1.0.2.792, Culture=neutral, PublicKeyToken=7bd6737fe5b67e3c">
+      <HintPath>packages\OpenTelemetry.PersistentStorage.Abstractions.1.0.2\lib\net462\OpenTelemetry.PersistentStorage.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenTelemetry.PersistentStorage.FileSystem, Version=1.0.2.792, Culture=neutral, PublicKeyToken=7bd6737fe5b67e3c">
+      <HintPath>packages\OpenTelemetry.PersistentStorage.FileSystem.1.0.2\lib\net462\OpenTelemetry.PersistentStorage.FileSystem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
       <HintPath>packages\protobuf-net.3.2.56\lib\net462\protobuf-net.dll</HintPath>
       <Private>True</Private>
@@ -193,24 +285,36 @@
       <HintPath>packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.CodeDom, Version=10.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>packages\System.CodeDom.10.0.2\lib\net462\System.CodeDom.dll</HintPath>
+    <Reference Include="System.ClientModel, Version=1.9.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8">
+      <HintPath>packages\System.ClientModel.1.9.0\lib\netstandard2.0\System.ClientModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Collections.Immutable, Version=10.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>packages\System.Collections.Immutable.10.0.1\lib\net462\System.Collections.Immutable.dll</HintPath>
+    <Reference Include="System.CodeDom, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.CodeDom.10.0.3\lib\net462\System.CodeDom.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=10.0.0.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>packages\System.Collections.Immutable.10.0.3\lib\net462\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>packages\System.Diagnostics.DiagnosticSource.10.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.10.0.3\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.IO.Pipelines.10.0.3\lib\net462\System.IO.Pipelines.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
       <HintPath>packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Memory.Data.10.0.3\lib\net462\System.Memory.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -231,6 +335,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Text.Encodings.Web, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Text.Encodings.Web.10.0.3\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Text.Json.10.0.3\lib\net462\System.Text.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -2277,9 +2389,11 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.3719.77\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.3719.77\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <Import Project="packages\Microsoft.Web.WebView2.1.0.3719.77\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.3719.77\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
