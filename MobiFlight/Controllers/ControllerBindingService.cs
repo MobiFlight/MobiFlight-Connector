@@ -66,7 +66,7 @@ namespace MobiFlight.Controllers
                     var bindingExists = allResults.FirstOrDefault(b => b.OriginalController == binding.OriginalController);
                     // Only add if not already present (first occurrence wins)
                     if (bindingExists != null) continue;
-                    
+
                     allResults.Add(binding);
                 }
 
@@ -104,12 +104,12 @@ namespace MobiFlight.Controllers
         {
             var controllers = new List<Controller>();
 
-//#if ARCAZE
-//            foreach (var controller in _executionManager.getModuleCache().getModuleInfo())
-//            {
-//                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
-//            }
-//#endif
+#if ARCAZE
+            foreach (var controller in _executionManager.getModuleCache().getModuleInfo())
+            {
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
+            }
+#endif
 
             foreach (var controller in _executionManager.getMobiFlightModuleCache().GetModules())
             {

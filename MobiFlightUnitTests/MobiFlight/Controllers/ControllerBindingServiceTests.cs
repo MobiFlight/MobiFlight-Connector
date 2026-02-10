@@ -10,6 +10,7 @@ namespace MobiFlight.Tests.Controllers
     public class ControllerBindingServiceTests
     {
         private Mock<IExecutionManager> mockExecutionManager;
+        private Mock<ArcazeCache> mockArcazeCache;
         private Mock<MobiFlightCache> mockMobiFlightCache;
         private Mock<JoystickManager> mockJoystickManager;
         private Mock<MidiBoardManager> mockMidiBoardManager;
@@ -19,11 +20,13 @@ namespace MobiFlight.Tests.Controllers
         public void Setup()
         {
             mockExecutionManager = new Mock<IExecutionManager>();
+            mockArcazeCache = new Mock<ArcazeCache>();
             mockMobiFlightCache = new Mock<MobiFlightCache>();
             mockJoystickManager = new Mock<JoystickManager>();
             mockMidiBoardManager = new Mock<MidiBoardManager>();
 
             // Setup execution manager to return mocked caches
+            mockExecutionManager.Setup(m => m.getModuleCache()).Returns(mockArcazeCache.Object);
             mockExecutionManager.Setup(m => m.getMobiFlightModuleCache()).Returns(mockMobiFlightCache.Object);
             mockExecutionManager.Setup(m => m.GetJoystickManager()).Returns(mockJoystickManager.Object);
             mockExecutionManager.Setup(m => m.GetMidiBoardManager()).Returns(mockMidiBoardManager.Object);
