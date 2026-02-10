@@ -445,7 +445,7 @@ namespace MobiFlight.UI
                     Context = new Dictionary<string, string>()
                     {
                         { "Count", autoBoundControllers.Count.ToString() },
-                        { "Controllers", string.Join(", ", autoBoundControllers.Select(c => SerialNumber.ExtractDeviceName(c.BoundController))) }
+                        { "Controllers", string.Join(", ", autoBoundControllers.Select(c => c.BoundController.Name)) }
                     }
                 });
             }
@@ -458,7 +458,7 @@ namespace MobiFlight.UI
                     Context = new Dictionary<string, string>()
                     {
                         { "Count", manualRebindRequiredControllers.Count.ToString() },
-                        { "Controllers", string.Join(", ", manualRebindRequiredControllers.Select(c => SerialNumber.ExtractDeviceName(c.OriginalController)).Distinct()) }
+                        { "Controllers", string.Join(", ", manualRebindRequiredControllers.Select(c => c.OriginalController.Name).Distinct()) }
                     }
                 });
             }
