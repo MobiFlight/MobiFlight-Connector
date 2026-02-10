@@ -114,7 +114,7 @@ namespace MobiFlight.Base.Tests
         {
             // Arrange
             var outputConfigItem = new OutputConfigItem();
-            var controller = new Controller("TestBoard", "SN-123-456");
+            var controller = new Controller() { Name = "TestBoard", Serial = "SN-123-456" };
 
             // Act
             outputConfigItem.Controller = controller;
@@ -130,7 +130,7 @@ namespace MobiFlight.Base.Tests
         {
             // Arrange
             var outputConfigItem = CreateOutputConfigItem() as OutputConfigItem;
-            outputConfigItem.Controller = new Controller("TestBoard", "SN-123-456");
+            outputConfigItem.Controller = new Controller() { Name = "TestBoard", Serial = "SN-123-456" };
 
             // Act
             var json = JsonConvert.SerializeObject(outputConfigItem, Formatting.Indented);
@@ -189,7 +189,7 @@ namespace MobiFlight.Base.Tests
         {
             // Arrange
             var item1 = CreateOutputConfigItem() as OutputConfigItem;
-            item1.Controller = new Controller("TestBoard", "SN-123");
+            item1.Controller = new Controller() { Name = "TestBoard", Serial = "SN-123" };
 
             var item2 = item1.Clone() as OutputConfigItem;
 
@@ -202,10 +202,10 @@ namespace MobiFlight.Base.Tests
         {
             // Arrange
             var item1 = CreateOutputConfigItem() as OutputConfigItem;
-            item1.Controller = new Controller("TestBoard1", "SN-123");
+            item1.Controller = new Controller() { Name = "TestBoard1", Serial = "SN-123" };
 
             var item2 = item1.Clone() as OutputConfigItem;
-            item2.Controller = new Controller("TestBoard2", "SN-456");
+            item2.Controller = new Controller() { Name = "TestBoard2", Serial = "SN-456" };
 
             // Assert
             Assert.IsFalse(item1.Equals(item2));
@@ -216,7 +216,7 @@ namespace MobiFlight.Base.Tests
         {
             // Arrange
             var original = CreateOutputConfigItem() as OutputConfigItem;
-            original.Controller = new Controller("TestBoard", "SN-123");
+            original.Controller = new Controller() { Name = "TestBoard", Serial = "SN-123" };
 
             // Act
             var clone = original.Clone() as OutputConfigItem;

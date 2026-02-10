@@ -348,7 +348,7 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.Controller = SerialNumber.FromFullSerial(inputModuleNameComboBox.SelectedItem.ToString());
+            config.Controller = SerialNumber.CreateControllerFromFullSerial(inputModuleNameComboBox.SelectedItem.ToString());
 
             configRefPanel.syncToConfig(config);
 

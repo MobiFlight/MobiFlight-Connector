@@ -122,7 +122,7 @@ namespace MobiFlight.Controllers
                 var mapping = serialMappings.FirstOrDefault(m => m.OriginalController == fullSerial);
                 if (mapping == null) continue;
 
-                item.Controller = SerialNumber.FromFullSerial(mapping.BoundController);
+                item.Controller = SerialNumber.CreateControllerFromFullSerial(mapping.BoundController);
             }
 
             return serialMappings.ToList();
@@ -200,7 +200,7 @@ namespace MobiFlight.Controllers
                 if (mapping == null) continue;
                 if (mapping.BoundController == null) continue;
 
-                item.Controller = SerialNumber.FromFullSerial(mapping.BoundController);
+                item.Controller = SerialNumber.CreateControllerFromFullSerial(mapping.BoundController);
             }
         }
     }

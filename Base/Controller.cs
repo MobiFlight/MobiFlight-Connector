@@ -23,12 +23,6 @@ namespace MobiFlight.Base
             Serial = "";
         }
 
-        public Controller(string name, string serial)
-        {
-            Name = name ?? "";
-            Serial = serial ?? "";
-        }
-
         public Controller(Controller other)
         {
             if (other == null)

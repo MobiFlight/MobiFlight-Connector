@@ -34,22 +34,28 @@ namespace MobiFlight.Base
         }
 
         /// <summary>
-        /// Creates a Controller from a full serial string in the format "Name/ Serial"
+        /// Creates a Controller from a full serial string in the format "Name/ Serial" or "Name / Serial"
         /// Used for XML deserialization
         /// </summary>
-        public static Controller FromFullSerial(string fullSerial)
+        public static Controller CreateControllerFromFullSerial(string fullSerial)
         {
             if (string.IsNullOrEmpty(fullSerial))
                 return new Controller();
 
             var name = ExtractDeviceName(fullSerial);
             var serial = ExtractSerial(fullSerial);
-            return new Controller(name, serial);
+            
+            var controller = new Controller();
+            controller.Name = name;
+            controller.Serial = serial;
+            return controller;
         }
 
         /// <summary>
-        /// Converts a Controller to a full serial string in the format "Name/ Serial"
+        /// Converts a Controller to a full serial string in the format "Name/ Serial" or "Name / Serial"
         /// Used for XML serialization
+        /// Joystick (JS-) and MidiBoard (MI-) use " / " separator (space-slash-space)
+        /// MobiFlight (SN-) and Arcaze use "/ " separator (slash-space)
         /// </summary>
         public static string ToFullSerial(Controller controller)
         {
@@ -59,7 +65,17 @@ namespace MobiFlight.Base
             if (string.IsNullOrEmpty(controller.Serial))
                 return controller.Name;
 
-            return $"{controller.Name}{SerialSeparator}{controller.Serial}";
+            // Determine separator based on serial prefix
+            // Joystick (JS-) and MidiBoard (MI-) use space-slash-space " / "
+            // MobiFlight (SN-) and Arcaze use slash-space "/ "
+            string separator = SerialSeparator; // Default: "/ "
+            
+            if (IsJoystickSerial(controller.Serial) || IsMidiBoardSerial(controller.Serial))
+            {
+                separator = " / "; // Space-slash-space for JS- and MI-
+            }
+
+            return $"{controller.Name}{separator}{controller.Serial}";
         }
 
         /// <summary>

@@ -147,7 +147,7 @@ namespace MobiFlight.Base.Tests
             var moduleSerial = "ProtoBoard-v2/ SN-5FC-1CF";
 
             // Act
-            var controller = SerialNumber.FromFullSerial(moduleSerial);
+            var controller = SerialNumber.CreateControllerFromFullSerial(moduleSerial);
 
             // Assert
             Assert.IsNotNull(controller);
@@ -162,7 +162,7 @@ namespace MobiFlight.Base.Tests
             var moduleSerial = "";
 
             // Act
-            var controller = SerialNumber.FromFullSerial(moduleSerial);
+            var controller = SerialNumber.CreateControllerFromFullSerial(moduleSerial);
 
             // Assert
             Assert.IsNotNull(controller);
@@ -177,7 +177,7 @@ namespace MobiFlight.Base.Tests
             string moduleSerial = null;
 
             // Act
-            var controller = SerialNumber.FromFullSerial(moduleSerial);
+            var controller = SerialNumber.CreateControllerFromFullSerial(moduleSerial);
 
             // Assert
             Assert.IsNotNull(controller);
@@ -189,7 +189,9 @@ namespace MobiFlight.Base.Tests
         public void ToFullSerial_ValidController_FormatsCorrectly()
         {
             // Arrange
-            var controller = new Controller("ProtoBoard-v2", "SN-5FC-1CF");
+            var controller = new Controller();
+            controller.Name = "ProtoBoard-v2";
+            controller.Serial = "SN-5FC-1CF";
 
             // Act
             var moduleSerial = SerialNumber.ToFullSerial(controller);
@@ -199,10 +201,47 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
+        public void ToFullSerial_JoystickController_UsesSpaceSlashSpace()
+        {
+            // Arrange
+            var controller = new Controller();
+            controller.Name = "Joystick X";
+            controller.Serial = "JS-123456";
+
+            // Act
+            var moduleSerial = SerialNumber.ToFullSerial(controller);
+
+            // Assert
+            Assert.AreEqual("Joystick X / JS-123456", moduleSerial);
+        }
+
+        [TestMethod()]
+        public void ToFullSerial_MidiController_UsesSpaceSlashSpace()
+        {
+            // Arrange
+            var controller = new Controller();
+            controller.Name = "MIDI Device";
+            controller.Serial = "MI-789012";
+
+            // Act
+            var moduleSerial = SerialNumber.ToFullSerial(controller);
+
+            // Assert
+            Assert.AreEqual("MIDI Device / MI-789012", moduleSerial);
+        }
+
+        [TestMethod()]
         public void ToFullSerial_EmptyController_ReturnsEmptyString()
         {
             // Arrange
-            var controller = new Controller("", "");
+            var controller = new Controller();
+
+            // Act
+            var moduleSerial = SerialNumber.ToFullSerial(controller);
+
+            // Assert
+            Assert.AreEqual("", moduleSerial);
+        }
 
             // Act
             var moduleSerial = SerialNumber.ToFullSerial(controller);
@@ -231,7 +270,35 @@ namespace MobiFlight.Base.Tests
             var originalModuleSerial = "ProtoBoard-v2/ SN-5FC-1CF";
 
             // Act
-            var controller = SerialNumber.FromFullSerial(originalModuleSerial);
+            var controller = SerialNumber.CreateControllerFromFullSerial(originalModuleSerial);
+            var resultModuleSerial = SerialNumber.ToFullSerial(controller);
+
+            // Assert
+            Assert.AreEqual(originalModuleSerial, resultModuleSerial);
+        }
+
+        [TestMethod()]
+        public void RoundTrip_JoystickControllerConversion_PreservesValue()
+        {
+            // Arrange
+            var originalModuleSerial = "Joystick X / JS-123456";
+
+            // Act
+            var controller = SerialNumber.CreateControllerFromFullSerial(originalModuleSerial);
+            var resultModuleSerial = SerialNumber.ToFullSerial(controller);
+
+            // Assert
+            Assert.AreEqual(originalModuleSerial, resultModuleSerial);
+        }
+
+        [TestMethod()]
+        public void RoundTrip_MidiControllerConversion_PreservesValue()
+        {
+            // Arrange
+            var originalModuleSerial = "MIDI Device / MI-789012";
+
+            // Act
+            var controller = SerialNumber.CreateControllerFromFullSerial(originalModuleSerial);
             var resultModuleSerial = SerialNumber.ToFullSerial(controller);
 
             // Assert

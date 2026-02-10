@@ -96,7 +96,7 @@ namespace MobiFlight.UI.Dialogs
                 {
                     if (SerialNumber.ToFullSerial(item?.Controller) == oldSerial)
                     {
-                        item.Controller = SerialNumber.FromFullSerial(newSerial);
+                        item.Controller = SerialNumber.CreateControllerFromFullSerial(newSerial);
                     }
                 });
             });
