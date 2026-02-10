@@ -53,10 +53,6 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     _mainForm.copyLogsToClipboardToolStripMenuItem_Click(null, null);
                     break;
 
-                case CommandMainMenuAction.extras_serials:
-                    _mainForm.orphanedSerialsFinderToolStripMenuItem_Click(null, null);
-                    break;
-
                 case CommandMainMenuAction.extras_settings:
                     _mainForm.settingsToolStripMenuItem_Click(null, null);
                     break;
