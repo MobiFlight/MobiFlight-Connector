@@ -1,230 +1,275 @@
 import { test, expect } from "./fixtures"
 import { IConfigItem } from "../src/types"
 
-test("Confirm empty list view", async ({ configListPage, page }) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithEmptyData()
-  const noConfigsMessage = page.getByText(
-    "This is a new configuration. Please add some items.",
-  )
-  await expect(noConfigsMessage).toBeVisible()
+test.describe("Confirm content and basic functions are working", () => {
+  test("Confirm empty list view", async ({ configListPage, page }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithEmptyData()
+    const noConfigsMessage = page.getByText(
+      "This is a new configuration. Please add some items.",
+    )
+    await expect(noConfigsMessage).toBeVisible()
 
-  const addOutputConfigButton = page.getByRole("button", {
-    name: "Add Output Config",
+    const addOutputConfigButton = page.getByRole("button", {
+      name: "Add Output Config",
+    })
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+
+    await expect(addOutputConfigButton).toBeVisible()
+    await expect(addInputConfigButton).toBeVisible()
+
+    // the filter toolbar is disabled because we don't have any items.
+    await expect(
+      page.getByRole("textbox", { name: "Filter items..." }),
+    ).toBeDisabled()
   })
-  const addInputConfigButton = page.getByRole("button", {
-    name: "Add Input Config",
+
+  test("Confirm populated list view", async ({ configListPage, page }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await expect(
+      page.getByRole("cell", { name: "No results." }),
+    ).not.toBeVisible()
   })
 
-  await expect(addOutputConfigButton).toBeVisible()
-  await expect(addInputConfigButton).toBeVisible()
+  test("Confirm active toggle is working", async ({ configListPage, page }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.setupConfigItemEditConfirmationResponse()
+    const firstRow = page.locator("tbody tr").nth(1)
+    const toggleSwitch = firstRow.getByRole("switch")
+    await toggleSwitch.click()
+    await expect(toggleSwitch).not.toBeChecked()
+    await toggleSwitch.click()
+    await expect(toggleSwitch).toBeChecked()
+  })
 
-  // the filter toolbar is disabled because we don't have any items.
-  await expect(
-    page.getByRole("textbox", { name: "Filter items..." }),
-  ).toBeDisabled()
-})
+  test("Confirm edit function for name is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.setupConfigItemEditConfirmationResponse()
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-test("Confirm populated list view", async ({ configListPage, page }) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData()
-  await expect(
-    page.getByRole("cell", { name: "No results." }),
-  ).not.toBeVisible()
-})
+    const nameCell = page.getByRole("row", { name: "LED 1" }).first()
 
-test("Confirm active toggle is working", async ({ configListPage, page }) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData()
-  await configListPage.setupConfigItemEditConfirmationResponse()
-  const firstRow = page.locator("tbody tr").nth(1)
-  const toggleSwitch = firstRow.getByRole("switch")
-  await toggleSwitch.click()
-  await expect(toggleSwitch).not.toBeChecked()
-  await toggleSwitch.click()
-  await expect(toggleSwitch).toBeChecked()
-})
+    // Click on the text span to enter edit mode
+    await nameCell.getByText("LED 1").dblclick()
 
-test("Confirm edit function for name is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData()
-  await configListPage.setupConfigItemEditConfirmationResponse()
-  await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    // Now find the textbox that appears after clicking
+    const inlineEdit = nameCell.getByRole("textbox")
+    await inlineEdit.fill("LED 1245")
 
-  const nameCell = page.getByRole("row", { name: "LED 1" }).first()
+    // We confirm the change by pressing Enter
+    await page.keyboard.press("Enter")
 
-  // Click on the text span to enter edit mode
-  await nameCell.getByText("LED 1").dblclick()
+    // The value should now be updated
+    await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
 
-  // Now find the textbox that appears after clicking
-  const inlineEdit = nameCell.getByRole("textbox")
-  await inlineEdit.fill("LED 1245")
+    // verify that the correct command was sent to the backend
+    let postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandUpdateConfigItem")
+    expect((lastCommand.payload.item as IConfigItem).Name).toEqual("LED 1245")
 
-  // We confirm the change by pressing Enter
-  await page.keyboard.press("Enter")
+    // Click on the text span to enter edit mode
+    await nameCell.getByText("LED 1245").dblclick()
+    await inlineEdit.fill("LED 9999")
 
-  // The value should now be updated
-  await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
+    // We cancel the change by pressing Escape
+    await page.keyboard.press("Escape")
+    await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
 
-  // verify that the correct command was sent to the backend
-  let postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
-  const lastCommand = postedCommands!.pop()
-  expect(lastCommand.key).toEqual("CommandUpdateConfigItem")
-  expect((lastCommand.payload.item as IConfigItem).Name).toEqual("LED 1245")
+    postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(postedCommands?.length).toEqual(1)
+  })
 
-  // Click on the text span to enter edit mode
-  await nameCell.getByText("LED 1245").dblclick()
-  await inlineEdit.fill("LED 9999")
+  test("Confirm status icons working", async ({ configListPage, page }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
 
-  // We cancel the change by pressing Escape
-  await page.keyboard.press("Escape")
-  await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
+    const PreconditionIcon = configListPage.getStatusIconInRow(
+      "Precondition",
+      1,
+    )
+    const TestIcon = configListPage.getStatusIconInRow("Test", 1)
+    const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
 
-  postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
-  expect(postedCommands?.length).toEqual(1)
-})
+    const SourceIcon = configListPage.getStatusIconInRow("Source", 1)
+    const DeviceIcon = configListPage.getStatusIconInRow("Device", 1)
+    const ModifierIcon = configListPage.getStatusIconInRow("Modifier", 1)
 
-test("Confirm status icons working", async ({ configListPage, page }) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData()
+    const statusTests = [
+      {
+        status: { Precondition: "not satisfied" },
+        icon: PreconditionIcon,
+        toolTipText: "Precondition is not satisfied.",
+        alwaysVisible: true,
+      },
+      {
+        status: { Source: "SIMCONNECT_NOT_AVAILABLE" },
+        icon: SourceIcon,
+        toolTipText: "This config uses SimConnect,",
+        alwaysVisible: false,
+      },
+      {
+        status: { Source: "FSUIPC_NOT_AVAILABLE" },
+        icon: SourceIcon,
+        toolTipText: "This config uses FSUIPC,",
+        alwaysVisible: false,
+      },
+      {
+        status: { Source: "XPLANE_NOT_AVAILABLE" },
+        icon: SourceIcon,
+        toolTipText: "This config uses X-Plane,",
+        alwaysVisible: false,
+      },
+      {
+        status: { Source: "PROSIM_NOT_AVAILABLE" },
+        icon: SourceIcon,
+        toolTipText: "This config uses ProSim,",
+        alwaysVisible: false,
+      },
+      {
+        status: { Device: "NotConnected" },
+        icon: DeviceIcon,
+        toolTipText: "The device used in this config is not connected.",
+        alwaysVisible: false,
+      },
+      {
+        status: { Modifier: "Error" },
+        icon: ModifierIcon,
+        toolTipText: "A modifier is applied which has an error.",
+        alwaysVisible: false,
+      },
+      {
+        status: { Test: "Executing" },
+        icon: TestIcon,
+        toolTipText: "This config is currently being tested.",
+        alwaysVisible: true,
+      },
+      {
+        status: { ConfigRef: "Missing" },
+        icon: ConfigRefIcon,
+        toolTipText: "One or more referenced configs are missing.",
+        alwaysVisible: true,
+      },
+    ]
 
-  const PreconditionIcon = configListPage.getStatusIconInRow("Precondition", 1)
-  const TestIcon = configListPage.getStatusIconInRow("Test", 1)
-  const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
+    for (const test of statusTests) {
+      if (test.alwaysVisible) {
+        await expect(test.icon).toBeVisible()
+        await expect(test.icon).toHaveAttribute("aria-disabled", "true")
+      } else {
+        await expect(test.icon).not.toBeVisible()
+      }
 
-  const SourceIcon = configListPage.getStatusIconInRow("Source", 1)
-  const DeviceIcon = configListPage.getStatusIconInRow("Device", 1)
-  const ModifierIcon = configListPage.getStatusIconInRow("Modifier", 1)
-
-  const statusTests = [
-    {
-      status: { Precondition: "not satisfied" },
-      icon: PreconditionIcon,
-      toolTipText: "Precondition is not satisfied.",
-      alwaysVisible: true,
-    },
-    {
-      status: { Source: "SIMCONNECT_NOT_AVAILABLE" },
-      icon: SourceIcon,
-      toolTipText: "This config uses SimConnect,",
-      alwaysVisible: false,
-    },
-    {
-      status: { Source: "FSUIPC_NOT_AVAILABLE" },
-      icon: SourceIcon,
-      toolTipText: "This config uses FSUIPC,",
-      alwaysVisible: false,
-    },
-    {
-      status: { Source: "XPLANE_NOT_AVAILABLE" },
-      icon: SourceIcon,
-      toolTipText: "This config uses X-Plane,",
-      alwaysVisible: false,
-    },
-    {
-      status: { Source: "PROSIM_NOT_AVAILABLE" },
-      icon: SourceIcon,
-      toolTipText: "This config uses ProSim,",
-      alwaysVisible: false,
-    },
-    {
-      status: { Device: "NotConnected" },
-      icon: DeviceIcon,
-      toolTipText: "The device used in this config is not connected.",
-      alwaysVisible: false,
-    },
-    {
-      status: { Modifier: "Error" },
-      icon: ModifierIcon,
-      toolTipText: "A modifier is applied which has an error.",
-      alwaysVisible: false,
-    },
-    {
-      status: { Test: "Executing" },
-      icon: TestIcon,
-      toolTipText: "This config is currently being tested.",
-      alwaysVisible: true,
-    },
-    {
-      status: { ConfigRef: "Missing" },
-      icon: ConfigRefIcon,
-      toolTipText: "One or more referenced configs are missing.",
-      alwaysVisible: true,
-    },
-  ]
-
-  for (const test of statusTests) {
-    if (test.alwaysVisible) {
+      await configListPage.updateConfigItemStatus(0, test.status)
       await expect(test.icon).toBeVisible()
-      await expect(test.icon).toHaveAttribute("aria-disabled", "true")
-    } else {
-      await expect(test.icon).not.toBeVisible()
+      await expect(test.icon).toHaveAttribute("aria-disabled", "false")
+      await test.icon.hover()
+      await expect(
+        configListPage.mobiFlightPage.getTooltipByText(test.toolTipText),
+      ).toBeVisible()
+      await page.click("body")
+      await page.waitForTimeout(500)
+
+      const statusKey = Object.keys(test.status)[0]
+      await configListPage.removeConfigItemStatus(0, statusKey)
+    }
+  })
+
+  test("Confirm status icons are initialized correctly when status is not present", async ({
+    configListPage,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const PreconditionIcon = configListPage.getStatusIconInRow(
+      "Precondition",
+      1,
+    )
+    const TestIcon = configListPage.getStatusIconInRow("Test", 1)
+    const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
+
+    const statusTests = [
+      {
+        status: { Precondition: "not satisfied" },
+        icon: PreconditionIcon,
+        toolTipText: "Precondition is not satisfied.",
+        alwaysVisible: true,
+      },
+      {
+        status: { Test: "Executing" },
+        icon: TestIcon,
+        toolTipText: "This config is currently being tested.",
+        alwaysVisible: true,
+      },
+      {
+        status: { ConfigRef: "Missing" },
+        icon: ConfigRefIcon,
+        toolTipText: "One or more referenced configs are missing.",
+        alwaysVisible: true,
+      },
+    ]
+
+    // enable icons one by one and verify
+    for (const test of statusTests) {
+      await configListPage.updateConfigItemStatus(0, test.status)
+      await expect(test.icon).toBeVisible()
+      await expect(test.icon).toHaveAttribute("aria-disabled", "false")
     }
 
-    await configListPage.updateConfigItemStatus(0, test.status)
-    await expect(test.icon).toBeVisible()
-    await expect(test.icon).toHaveAttribute("aria-disabled", "false")
-    await test.icon.hover()
-    await expect(
-      configListPage.mobiFlightPage.getTooltipByText(test.toolTipText),
-    ).toBeVisible()
-    await page.click("body")
-    await page.waitForTimeout(500)
+    const configItem = configListPage.getConfigItemByIndex(0)
+    delete configItem.Status
+    await configListPage.configValueFullUpdate([configItem], 0)
 
-    const statusKey = Object.keys(test.status)[0]
-    await configListPage.removeConfigItemStatus(0, statusKey)
-  }
+    // all icons should be disabled now
+    await expect(PreconditionIcon).toHaveAttribute("aria-disabled", "true")
+    await expect(TestIcon).toHaveAttribute("aria-disabled", "true")
+    await expect(ConfigRefIcon).toHaveAttribute("aria-disabled", "true")
+  })
 })
 
-test("Confirm status icons are initialized correctly when status is not present", async ({
-  configListPage,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData()
+test.describe("Verify Error Boundary", () => {
+  test("Verify Error Boundary project panel", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    const projectPanel = page.getByTestId("project-panel")
+    await expect(projectPanel).toBeVisible()
 
-  const PreconditionIcon = configListPage.getStatusIconInRow("Precondition", 1)
-  const TestIcon = configListPage.getStatusIconInRow("Test", 1)
-  const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
+    await configListPage.gotoPageAndTriggerError("project-panel")
 
-  const statusTests = [
-    {
-      status: { Precondition: "not satisfied" },
-      icon: PreconditionIcon,
-      toolTipText: "Precondition is not satisfied.",
-      alwaysVisible: true,
-    },
-    {
-      status: { Test: "Executing" },
-      icon: TestIcon,
-      toolTipText: "This config is currently being tested.",
-      alwaysVisible: true,
-    },
-    {
-      status: { ConfigRef: "Missing" },
-      icon: ConfigRefIcon,
-      toolTipText: "One or more referenced configs are missing.",
-      alwaysVisible: true,
-    },
-  ]
+    await expect(projectPanel).not.toBeVisible()
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
 
-  // enable icons one by one and verify
-  for (const test of statusTests) {
-    await configListPage.updateConfigItemStatus(0, test.status)
-    await expect(test.icon).toBeVisible()
-    await expect(test.icon).toHaveAttribute("aria-disabled", "false")
-  }
+  test("Verify Error Boundary config item table", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    const configItemTable = page.getByTestId("config-item-table")
+    await expect(configItemTable).toBeVisible()
 
-  const configItem = configListPage.getConfigItemByIndex(0)
-  delete configItem.Status
-  await configListPage.configValueFullUpdate([configItem], 0)
+    await configListPage.gotoPageAndTriggerError("config-item-table")
 
-  // all icons should be disabled now
-  await expect(PreconditionIcon).toHaveAttribute("aria-disabled", "true")
-  await expect(TestIcon).toHaveAttribute("aria-disabled", "true")
-  await expect(ConfigRefIcon).toHaveAttribute("aria-disabled", "true")
+    await expect(configItemTable).not.toBeVisible()
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
 })
 
 test.describe("Drag and drop tests", () => {
@@ -867,13 +912,13 @@ test("Confirm `Controller Settings` link is working", async ({
 
   await expect(controllerSettingsButton).toHaveCSS("opacity", "0")
   await firstRow.hover()
-  
+
   await expect(controllerSettingsButton).toHaveCSS("opacity", "0.25")
 
   await controllerSettingsButton.hover()
   await expect(controllerSettingsButton).toHaveCSS("opacity", "1")
   await controllerSettingsButton.click()
-  
+
   const postedCommands =
     await configListPage.mobiFlightPage.getTrackedCommands()
   expect(postedCommands!.pop().key).toEqual("CommandConfigContextMenu")

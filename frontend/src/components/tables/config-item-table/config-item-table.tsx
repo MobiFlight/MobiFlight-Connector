@@ -31,6 +31,7 @@ import { toast } from "@/components/ui/ToastWrapper"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
 import { useDroppable } from "@dnd-kit/core"
+import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -44,6 +45,11 @@ export function ConfigItemTable<TValue>({
   dragItemId,
 }: DataTableProps<IConfigItem, TValue>) {
   "use no memo"
+
+  // this component is wrapped in an error boundary
+  // so we can trigger errors for testing purposes here
+  const { trigger } = useErrorFallbackTest()
+  trigger("config-item-table")
 
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -276,7 +282,10 @@ export function ConfigItemTable<TValue>({
   ])
 
   return (
-    <div className="flex grow flex-col gap-2 overflow-y-auto px-2">
+    <div
+      className="flex grow flex-col gap-2 overflow-y-auto px-2"
+      data-testid="config-item-table"
+    >
       <div className="flex grow flex-col gap-2 overflow-y-auto">
         <div className="p-1">
           <DataTableToolbar

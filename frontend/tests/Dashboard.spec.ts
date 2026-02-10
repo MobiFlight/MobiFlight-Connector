@@ -574,6 +574,26 @@ test.describe("Project list view tests", () => {
     expect(lastCommand.payload.action).toEqual("virtual.recent.remove")
     expect(lastCommand.payload.index).toEqual(1)
   })
+
+  test("Verify Error Boundary", async ({ dashboardPage, page }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+
+    await expect(recentProjectsList).toBeVisible()
+    await expect(projectItems).toHaveCount(27)
+
+    await dashboardPage.gotoPageAndTriggerError("project-main-card")
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    await expect(projectItems).toHaveCount(0)
+
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
 })
 
 test.describe("Asynchronous save tests", () => {
@@ -776,5 +796,24 @@ test.describe("Community Feed tests", () => {
 
     await communityNavButton.click()
     await expect(feedTitle).toBeVisible()
+  })
+
+  test("Verify Error Boundary", async ({ dashboardPage, page }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    await expect(page.getByText("Community Feed")).toBeVisible()
+
+    const feedFilter = page.getByTestId("community-feed-filter-bar")
+    await expect(feedFilter).toBeVisible()
+
+    await dashboardPage.gotoPageAndTriggerError("community-main-card")
+    
+    await expect(page.getByText("Community Feed")).not.toBeVisible()
+    await expect(feedFilter).not.toBeVisible()
+
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
   })
 })

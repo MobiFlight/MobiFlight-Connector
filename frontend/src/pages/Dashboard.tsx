@@ -3,6 +3,8 @@ import CommunityMainCard from "@/components/community/CommunityMainCard"
 import DashboardNav from "@/components/DashboardNav"
 import ProjectMainCard from "@/components/project/ProjectMainCard"
 import { useParams } from "react-router"
+import { ErrorBoundary } from "react-error-boundary"
+import ErrorFallback from "@/components/ErrorFallback"
 
 const Dashboard = () => {
   const params = useParams()
@@ -17,12 +19,16 @@ const Dashboard = () => {
         <div
           className={`flex w-full flex-col opacity-100 transition-all duration-300 xl:w-2/3 2xl:w-3/4 ${isProjectActive ? "" : "opacity-0 max-xl:hidden"}`}
         >
-          <ProjectMainCard />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <ProjectMainCard />
+          </ErrorBoundary>
         </div>
         <div
           className={`w-full opacity-100 transition-all duration-300 xl:block xl:w-1/3 2xl:w-1/4 ${isCommunityActive ? "" : "opacity-0 max-xl:hidden"}`}
         >
-          <CommunityMainCard />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <CommunityMainCard />
+          </ErrorBoundary>
         </div>
         {/* <div className="xl:col-span-2 2xl:col-span-2">      
         <ControllerMainCard />

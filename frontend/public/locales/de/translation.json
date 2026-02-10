@@ -13,6 +13,10 @@
       "Title": "HubHop update verfügbar",
       "Description": "Deine HubHop-Datenbank ist älter als {{days}} Tage. Möchtest du sie jetzt aktualisieren?",
       "Title.Downloading": "HubHop update wird heruntergeladen..."
+    },
+    "Error": {
+      "FallbackTitle": "Ooops... irgendwas ist schief gelaufen!",
+      "Unknown": "Ein unbekannter Fehler ist aufgetreten."
     }
   },
   "MainMenu": {

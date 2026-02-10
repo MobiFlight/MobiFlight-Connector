@@ -18,10 +18,16 @@ import { useWindowSize } from "@/lib/hooks/useWindowSize"
 import { useOverflowDetector } from "@/lib/hooks/useOverflowDetector"
 import { cn } from "@/lib/utils"
 import ConfirmationDialog from "@/components/ConfirmationDialog"
+import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 
 const ProjectPanel = () => {
   const SCROLL_TAB_INTO_VIEW_DELAY_MS = 1500
   const SCROLL_OFFSET = 150
+
+  // this component is wrapped in an error boundary
+  // so we can trigger errors for testing purposes here
+  const { trigger } = useErrorFallbackTest()
+  trigger("project-panel")
 
   const overflowRef = useRef<HTMLDivElement | null>(null)
 
