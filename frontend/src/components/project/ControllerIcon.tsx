@@ -80,11 +80,11 @@ const ControllerIcon = ({
 }: HtmlHTMLAttributes<HTMLDivElement> & ControllerIconProps) => {
   const { t } = useTranslation()
 
-  const controllerType = controller?.Serial?.includes("SN-")
+  const controllerType = controller.Serial?.includes("SN-")
     ? "mobiflight"
-    : controller?.Serial?.includes("JS-")
+    : controller.Serial?.includes("JS-")
       ? "joystick"
-      : controller?.Serial?.includes("MI-")
+      : controller.Serial?.includes("MI-")
         ? "midi"
         : "unknown"
 
