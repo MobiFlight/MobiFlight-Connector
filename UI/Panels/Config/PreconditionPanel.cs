@@ -421,7 +421,7 @@ namespace MobiFlight.UI.Panels.Config
 
             if (controllerListItem == null) return;
 
-            string serial = controllerListItem?.Value?.Serial;
+            string serial = controllerListItem.Value?.Serial;
             
             if (SerialNumber.IsArcazeSerial(serial))
             {

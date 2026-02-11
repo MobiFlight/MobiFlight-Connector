@@ -88,9 +88,9 @@ const ControllerIcon = ({
         ? "midi"
         : "unknown"
 
-  const usingController = controller.Serial != null && controller.Serial !== "";
+  const usingController = controller.Serial != null && controller.Serial !== ""
   const deviceName = controller.Name
-  const iconResult = FindControllerIcon(controllerType, deviceName ?? ":error:" )
+  const iconResult = FindControllerIcon(controllerType, deviceName ?? ":error:")
   // Handle component rendering
   const IconComponent = typeof iconResult !== "string" ? iconResult : null
 

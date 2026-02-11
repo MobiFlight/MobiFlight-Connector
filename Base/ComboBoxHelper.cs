@@ -181,7 +181,7 @@ namespace System
                 p.Used = true;
                 newPin = p.Pin.ToString();
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException)
             {
                 MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
                                 i18n._tr("uiMessageNotEnoughPinsHint"),

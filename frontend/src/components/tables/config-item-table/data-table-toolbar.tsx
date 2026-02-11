@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input"
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { IConfigItem } from "@/types"
-import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 import ToolTip from "@/components/ToolTip"
 import {
@@ -30,6 +29,7 @@ import {
 } from "@/components/ui/command"
 import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+import { Controller } from "@/types/controller"
 
 interface DataTableToolbarProps<TData> {
   disabled?: boolean
@@ -67,7 +67,7 @@ export function DataTableToolbar<TData>({
     },
   )
 
-  const uniqueControllers : Record<string, { Name: string; Serial: string }> = {}
+  const uniqueControllers: Record<string, Partial<Controller>> = {}
   items.forEach((item) => {
     const controller = item.Controller
     if (controller) {
@@ -80,14 +80,12 @@ export function DataTableToolbar<TData>({
 
   const controller = Object.values(uniqueControllers)
     .map((controller) => {
-      const label = controller?.Name
+      const label = controller.Name
+      const labelIsSet = label != null && label != "" && label != "-"
       return {
-        label:
-          !isEmpty(label) && label != "-"
-            ? label
-            : t(`ConfigList.Toolbar.NotSet`),
+        label: labelIsSet ? label : t(`ConfigList.Toolbar.NotSet`),
         value: `${controller.Name}:${controller.Serial}`,
-        icon: isEmpty(label) || label == "-" ? IconBan : undefined,
+        icon: labelIsSet ? undefined : IconBan,
       }
     })
     .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
@@ -109,10 +107,11 @@ export function DataTableToolbar<TData>({
     .map((type) => {
       const label =
         type != "-" ? t(`Types.${type}`) : t(`ConfigList.Toolbar.NotSet`)
+      const labelIsSet = label != "-"
       return {
         label: label,
         value: type,
-        icon: type == "-" ? IconBan : undefined,
+        icon: labelIsSet ? undefined : IconBan,
       }
     })
     .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
@@ -152,7 +151,12 @@ export function DataTableToolbar<TData>({
       }}
     >
       <div className="-ml-3 flex flex-1 items-center space-x-2 md:ml-0">
-        <IconFilter className={cn("hidden md:flex", !disabled ? "stroke-primary" : "stroke-secondary")} />
+        <IconFilter
+          className={cn(
+            "hidden md:flex",
+            !disabled ? "stroke-primary" : "stroke-secondary",
+          )}
+        />
         <Input
           disabled={disabled}
           placeholder={t("ConfigList.Toolbar.Search.Placeholder")}
