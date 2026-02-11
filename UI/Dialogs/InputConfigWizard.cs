@@ -292,7 +292,6 @@ namespace MobiFlight.UI.Dialogs
             // first tab                        
             if (config.Controller != null)
             {
-                // TODO: This won't work correctly.
                 if (!ComboBoxHelper.SetSelectedListItemByValue<Controller>(inputModuleNameComboBox, config.Controller))
                 {
                     // TODO: provide error message
