@@ -228,8 +228,6 @@ namespace MobiFlight.UI.Dialogs
             // by default always the first tab is activated.
             // if one opens the dialog for an existing config,
             // then we use the lastTabActive
-
-            // @copilot - review this, why this check?
             if (cfg?.Controller != null)
             {
                 tabControlFsuipc.SelectedIndex = lastTabActive;
