@@ -159,7 +159,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
         }
 
         [TestMethod()]
-        public void ReadJson_EmptyModuleSerial_CreatesEmptyController()
+        public void ReadJson_EmptyModuleSerial_ControllerIsNull()
         {
             // Arrange
             var json = @"{
@@ -174,10 +174,8 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
 
             // Assert
             Assert.IsNotNull(configItem);
-            // Empty ModuleSerial should result in empty controller
-            Assert.IsNotNull(configItem.Controller);
-            Assert.AreEqual("", configItem.Controller.Name);
-            Assert.AreEqual("", configItem.Controller.Serial);
+            // Empty ModuleSerial should result in null controller
+            Assert.IsNull(configItem.Controller);
         }
     }
 }
