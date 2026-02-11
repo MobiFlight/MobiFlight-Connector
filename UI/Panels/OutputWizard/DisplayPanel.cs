@@ -118,7 +118,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 if (config.Controller!=null)
                 {
-                    if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, cfg.Controller.ToString()))
+                    if (!ComboBoxHelper.SetSelectedListItemByValue(displayModuleNameComboBox, cfg.Controller))
                     {
                         Log.Instance.log($"Trying to show config but {config.Controller} currently not connected.", LogSeverity.Error);
                     }
@@ -270,7 +270,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             try
             {
-
                 // serial is empty if no module is selected (e.g. on init of form)
                 // but we add all available devices to be able to display the 
                 // config even if the module is not currently connected

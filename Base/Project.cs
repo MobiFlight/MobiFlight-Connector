@@ -25,7 +25,6 @@ namespace MobiFlight.Base
         public bool Favorite { get; set; } = false;
         /// <summary>
         /// Binding status for controllers in this project
-        /// Key: ModuleSerial, Value: ControllerBindingStatus
         /// Only populated when analyzing binding status
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -252,7 +251,6 @@ namespace MobiFlight.Base
 
         /// <summary>
         /// Binding status for controllers in this project
-        /// Key: ModuleSerial, Value: ControllerBindingStatus
         /// Only populated when analyzing binding status
         /// </summary>
         public virtual List<ControllerBinding> ControllerBindings { get; set; }
