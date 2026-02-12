@@ -52,10 +52,6 @@ namespace MobiFlight.UI.Tests
         [TestInitialize]
         public void SetUp()
         {
-            // disable schema validation to not exceed 1,000 limit per hour
-            // https://www.newtonsoft.com/jsonschema
-            JsonBackedObject.SkipSchemaValidation = true;
-
             // Initialize the MainForm
             _mainForm = new TestableMainForm();
 
@@ -73,10 +69,6 @@ namespace MobiFlight.UI.Tests
         [TestCleanup]
         public void Cleanup()
         {
-            // re-enable schema validation again after tests to avoid affecting other tests that may rely on it
-            // https://www.newtonsoft.com/jsonschema
-            JsonBackedObject.SkipSchemaValidation = false;
-
             // Restore original RecentFiles
             Properties.Settings.Default.RecentFiles = originalRecentFiles;
             Properties.Settings.Default.Save();

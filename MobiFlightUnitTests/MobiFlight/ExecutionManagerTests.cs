@@ -32,10 +32,6 @@ namespace MobiFlight.Tests
         [TestInitialize]
         public void Setup()
         {
-            // disable schema validation to not exceed 1,000 limit per hour
-            // https://www.newtonsoft.com/jsonschema
-            JsonBackedObject.SkipSchemaValidation = true;
-
             _mockXplaneCache = new Mock<XplaneCacheInterface>();
             _mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             _mockFsuipcCache = new Mock<FSUIPCCacheInterface>();
