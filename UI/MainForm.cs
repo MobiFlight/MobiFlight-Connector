@@ -926,7 +926,6 @@ namespace MobiFlight.UI
             UpdateAllConnectionIcons();
 
             UpdateStatusBarModuleInformation();
-            // PublishProjectList();
 
             // Track config loaded event
             AppTelemetry.Instance.TrackStart();
@@ -2011,7 +2010,6 @@ namespace MobiFlight.UI
                 // the original file name has to be stored
                 // in the list of recent files.
                 ProjectListManager.OpenProject(execManager.Project.ToProjectInfo());
-                // PublishProjectList();
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -2099,7 +2097,6 @@ namespace MobiFlight.UI
             }
 
             ProjectListManager.OpenProject(execManager.Project.ToProjectInfo());
-            // PublishProjectList();
 
             MessageExchange.Instance.Publish(execManager.Project);
             ResetProjectAndConfigChanges();
@@ -2898,7 +2895,6 @@ namespace MobiFlight.UI
         internal void RecentFilesRemove(int index)
         {
             ProjectListManager.RemoveProjectByIndex(index);
-            // PublishProjectList();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
