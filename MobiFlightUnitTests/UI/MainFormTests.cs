@@ -248,6 +248,7 @@ namespace MobiFlight.UI.Tests
             var tempFilePath = Path.Combine(_tempDirectory, $"{testProjectName}.mfproj");
 
             var project = new Project() { Name = testProjectName };
+
             _mainForm.CreateNewProject(project);
 
             // Act - Save the project to establish a file path
@@ -268,10 +269,15 @@ namespace MobiFlight.UI.Tests
             var testProjectName = "MyTestProject";
             var tempFilePath = Path.Combine(_tempDirectory, $"{testProjectName}.mfproj");
 
+            // Act - Create a new project (unsaved state)
             var project = new Project() { Name = testProjectName };
             _mainForm.CreateNewProject(project);
 
-            // Save first to establish file path
+            // Assert - Title should show file path WITH asterisk (unsaved state)
+            var expectedTitle = $"* - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display at least unsaved indicator (*)");
+
+            // Arrange - Save first to establish file path
             var saveMethod = typeof(MainForm).GetMethod("SaveConfig", BindingFlags.NonPublic | BindingFlags.Instance);
             saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
 
@@ -279,7 +285,7 @@ namespace MobiFlight.UI.Tests
             _mainForm.AddNewFileToProject();
 
             // Assert - Title should show file path WITH asterisk (unsaved state)
-            var expectedTitle = $"{tempFilePath}* - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            expectedTitle = $"{tempFilePath}* - MobiFlight Connector - {MainForm.DisplayVersion()}";
             Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display project file path with unsaved indicator");
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "Project should have unsaved changes");
         }
