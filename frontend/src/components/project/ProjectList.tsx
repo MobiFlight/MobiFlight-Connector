@@ -46,6 +46,7 @@ const ProjectList = ({
 
   const scrollActiveProjectIntoView = () => {
     if (refActiveElement.current) {
+      cancelScrollIntoView()
       scrollTimeoutRef.current = window.setTimeout(() => {
         refActiveElement.current?.scrollIntoView({
           behavior: "smooth",
