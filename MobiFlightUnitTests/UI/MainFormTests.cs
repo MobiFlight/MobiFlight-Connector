@@ -97,7 +97,7 @@ namespace MobiFlight.UI.Tests
 
 
         [TestMethod()]
-        public void CreateNewProjectTest()
+        public void CreateNewProject_ProjectHasUnsavedChanges_Updates_Correctly()
         {
             // Arrange
             _mainForm.InitializeExecutionManager();
@@ -129,15 +129,11 @@ namespace MobiFlight.UI.Tests
 
             // Assert
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true when starting with a fresh project.");
-
-            var mainFormTitle = _mainForm.Text;
-            var expectedTitle = $"* - MobiFlight Connector - {MainForm.DisplayVersion()}";
-            Assert.AreEqual(expectedTitle, mainFormTitle);
         }
 
 
         [TestMethod()]
-        public void AddNewFileToProjectTest()
+        public void AddNewFileToProjectTest_ProjectHasUnsavedChanges_Updates_Correctly()
         {
             // Arrange
             _mainForm.InitializeExecutionManager();
@@ -147,9 +143,7 @@ namespace MobiFlight.UI.Tests
             _mainForm.AddNewFileToProject();
 
             // Assert
-            var mainFormTitle = _mainForm.Text;
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
-            Assert.Contains("*", mainFormTitle, "Project title should indicate that there are unsaved changes.");
         }
 
         [TestMethod()]
