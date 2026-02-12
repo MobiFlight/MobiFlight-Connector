@@ -389,7 +389,7 @@ namespace MobiFlight
                         var index = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
                         if (index == -1) break;
                         var dup = ConfigItems[index].Duplicate();
-                        ConfigItems.Insert(index, dup);
+                        ConfigItems.Insert(index + 1, dup);
                         break;
 
                     case "test":
