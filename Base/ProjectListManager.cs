@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace MobiFlight.Base
         /// <summary>
         /// Cache of ProjectInfo objects to avoid redundant disk I/O
         /// </summary>
-        private Dictionary<string, ProjectInfo> projectInfoCache = new Dictionary<string, ProjectInfo>();
+        private readonly Dictionary<string, ProjectInfo> projectInfoCache = new Dictionary<string, ProjectInfo>();
 
         /// <summary>
         /// Event raised when the project list changes
@@ -53,7 +54,7 @@ namespace MobiFlight.Base
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Exception during fetching project info for project list", LogSeverity.Error);
+                Log.Instance.log($"Exception during fetching project info for project list. {ex.Message}", LogSeverity.Error);
             }
 
             // Notify that initialization is complete
