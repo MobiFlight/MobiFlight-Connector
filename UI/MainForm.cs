@@ -154,15 +154,6 @@ namespace MobiFlight.UI
         {
             UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
-            Properties.Settings.Default.PropertyChanged += (s, e) =>
-            {
-                PublishSettings();
-                if (e.PropertyName == "RecentFiles")
-                {
-                    PublishRecentProjectList();
-                }
-            };
-
             Properties.Settings.Default.SettingsSaving += (s, e) =>
             {
                 PublishSettings();
@@ -539,10 +530,10 @@ namespace MobiFlight.UI
                 Log.Instance.log($"Exception cleaning project files: {ex.Message}", LogSeverity.Error);
             }
 
-            PublishRecentProjectList();
+            PublishProjectList();
         }
 
-        private void PublishRecentProjectList()
+        private void PublishProjectList()
         {
             var recentFiles = ProjectListManager?.GetProjectFiles();
             var recentProjects = new List<ProjectInfo>();
@@ -962,7 +953,7 @@ namespace MobiFlight.UI
             UpdateAllConnectionIcons();
 
             UpdateStatusBarModuleInformation();
-            PublishRecentProjectList();
+            PublishProjectList();
 
             // Track config loaded event
             AppTelemetry.Instance.TrackStart();
@@ -2047,7 +2038,7 @@ namespace MobiFlight.UI
                 // the original file name has to be stored
                 // in the list of recent files.
                 ProjectListManager.OpenProject(execManager.Project.FilePath);
-                PublishRecentProjectList();
+                PublishProjectList();
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -2135,9 +2126,11 @@ namespace MobiFlight.UI
             }
 
             ProjectListManager.OpenProject(execManager.Project.FilePath);
-            PublishRecentProjectList();
+            PublishProjectList();
+
             MessageExchange.Instance.Publish(execManager.Project);
             ResetProjectAndConfigChanges();
+            
             MessageExchange.Instance.Publish(new ProjectStatus()
             {
                 HasChanged = ProjectHasUnsavedChanges,
@@ -2932,7 +2925,7 @@ namespace MobiFlight.UI
         internal void RecentFilesRemove(int index)
         {
             ProjectListManager.RemoveProjectByIndex(index);
-            PublishRecentProjectList();
+            PublishProjectList();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
