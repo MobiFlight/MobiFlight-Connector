@@ -2047,6 +2047,7 @@ namespace MobiFlight.UI
                 // the original file name has to be stored
                 // in the list of recent files.
                 ProjectListManager.OpenProject(execManager.Project.FilePath);
+                PublishRecentProjectList();
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -2134,6 +2135,7 @@ namespace MobiFlight.UI
             }
 
             ProjectListManager.OpenProject(execManager.Project.FilePath);
+            PublishRecentProjectList();
             MessageExchange.Instance.Publish(execManager.Project);
             ResetProjectAndConfigChanges();
             MessageExchange.Instance.Publish(new ProjectStatus()
@@ -2930,6 +2932,7 @@ namespace MobiFlight.UI
         internal void RecentFilesRemove(int index)
         {
             ProjectListManager.RemoveProjectByIndex(index);
+            PublishRecentProjectList();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
