@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MobiFlight.UI.Tests
 {
@@ -14,6 +15,7 @@ namespace MobiFlight.UI.Tests
     public class MainFormTests
     {
         private StringCollection originalRecentFiles;
+        private string _tempDirectory;
 
         public class TestableMainForm : MainForm
         {
@@ -35,7 +37,7 @@ namespace MobiFlight.UI.Tests
                 methodInfo.Invoke(this, new object[] { });
             }
 
-            public async void InitializeProjectListManager()
+            public async Task InitializeProjectListManagerAsync()
             {
                 var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
                 var projectListManager = new ProjectListManager();
@@ -58,6 +60,10 @@ namespace MobiFlight.UI.Tests
 
             // Initialize with clean state
             Properties.Settings.Default.RecentFiles = new StringCollection();
+
+            // Create a temporary test directory
+            _tempDirectory = Path.Combine(Path.GetTempPath(), "MainFormTests", Guid.NewGuid().ToString());
+            Directory.CreateDirectory(_tempDirectory);
         }
 
         [TestCleanup]
@@ -66,6 +72,27 @@ namespace MobiFlight.UI.Tests
             // Restore original RecentFiles
             Properties.Settings.Default.RecentFiles = originalRecentFiles;
             Properties.Settings.Default.Save();
+
+            try
+            {
+                // Clean up test directory
+                if (Directory.Exists(_tempDirectory))
+                {
+                    Directory.Delete(_tempDirectory, true);
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Helper method to create a temporary test file
+        /// </summary>
+        private string CreateTestFile(string fileName)
+        {
+            var filePath = Path.Combine(_tempDirectory, fileName);
+            var testProject = new Project() { FilePath = filePath };
+            testProject.SaveFile();
+            return filePath;
         }
 
 
@@ -164,24 +191,27 @@ namespace MobiFlight.UI.Tests
         }
 
         [TestMethod()]
-        public void RecentFilesRemove_ViaCommandMainMenu_ShouldRemoveFromBothLists()
+        public async Task RecentFilesRemove_ViaCommandMainMenu_ShouldRemoveFromBothLists()
         {
             // Arrange
             _mainForm.InitializeExecutionManager();
-            _mainForm.InitializeProjectListManager();
+            await _mainForm.InitializeProjectListManagerAsync();
 
-            var testFiles = new StringCollection
+            var recentFilesCollection = new StringCollection
             {
-                "C:\\project1.mfproj",
-                "C:\\project2.mfproj",
-                "C:\\project3.mfproj"
+                CreateTestFile("project1.mfproj"),
+                CreateTestFile("project2.mfproj"),
+                CreateTestFile("project3.mfproj")
             };
 
-            Properties.Settings.Default.RecentFiles = testFiles;
+            var testFiles = new String[recentFilesCollection.Count];
+            recentFilesCollection.CopyTo(testFiles, 0);
+
+            Properties.Settings.Default.RecentFiles = recentFilesCollection;
             Properties.Settings.Default.Save();
 
             // Re-initialize after adding files
-            _mainForm.InitializeProjectListManager();
+            await _mainForm.InitializeProjectListManagerAsync();
 
             // Create the command message
             var command = new CommandMainMenu
@@ -199,9 +229,9 @@ namespace MobiFlight.UI.Tests
             // Assert - RecentFiles updated
             var recentFiles = Properties.Settings.Default.RecentFiles;
             Assert.HasCount(2, recentFiles, "Should have 2 files remaining in RecentFiles");
-            Assert.AreEqual("C:\\project1.mfproj", recentFiles[0]);
-            Assert.AreEqual("C:\\project3.mfproj", recentFiles[1]);
-            Assert.DoesNotContain("C:\\project2.mfproj", recentFiles, "Removed file should not be in RecentFiles");
+            Assert.AreEqual(testFiles[0], recentFiles[0]);
+            Assert.AreEqual(testFiles[2], recentFiles[1]);
+            Assert.DoesNotContain(testFiles[1], recentFiles, "Removed file should not be in RecentFiles");
 
             // Assert - ProjectList also updated
             var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -209,9 +239,9 @@ namespace MobiFlight.UI.Tests
             var projectFiles = projectListManager.GetProjects();
 
             Assert.HasCount(2, projectFiles, "Should have 2 files remaining in ProjectList");
-            Assert.AreEqual("C:\\project1.mfproj", projectFiles[0].FilePath);
-            Assert.AreEqual("C:\\project3.mfproj", projectFiles[1].FilePath);
-            Assert.DoesNotContain("C:\\project2.mfproj", projectFiles, "Removed file should not be in ProjectList");
+            Assert.AreEqual(testFiles[0], projectFiles[0].FilePath);
+            Assert.AreEqual(testFiles[2], projectFiles[1].FilePath);
+            Assert.DoesNotContain(testFiles[1], projectFiles, "Removed file should not be in ProjectList");
         }
     }
 }
