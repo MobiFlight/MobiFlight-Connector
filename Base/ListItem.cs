@@ -16,6 +16,6 @@ namespace System
     {
         public T Value { get; set; }
         public String Label { get; set; }
-        public override String ToString() { return Value.ToString(); }
+        public override String ToString() { return Value?.ToString() ?? String.Empty; }
     }
 }

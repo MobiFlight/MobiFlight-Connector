@@ -20,18 +20,17 @@ import ControllerBindingStatusIndicator from "@/components/controllers/Controlle
 import { cn } from "@/lib/utils"
 
 export type ControllerIconWithLabelProps = {
-  serial: string
+  controller: Partial<Controller>
   status?: ControllerBinding["Status"] | undefined
 }
 
 const ControllerIconWithLabel = ({
-  serial,
+  controller,
   status,
   className,
 }: ControllerIconWithLabelProps & React.HTMLAttributes<HTMLDivElement>) => {
-  const [controllerLabel, controllerSerial] = serial
-    ?.split("/")
-    ?.map((s) => s.trim()) ?? [null, null]
+  const controllerLabel = controller.Name
+  const controllerSerial = controller.Serial ?? ""
   return (
     <div
       className={cn(
@@ -39,7 +38,11 @@ const ControllerIconWithLabel = ({
         className,
       )}
     >
-      <ControllerIcon className="shrink-0" serial={serial} status={status} />
+      <ControllerIcon
+        className="shrink-0"
+        controller={controller}
+        status={status}
+      />
       <div className="overflow-hidden">
         <div className="truncate font-semibold">{controllerLabel}</div>
         <div className="text-muted-foreground truncate text-sm">
@@ -61,10 +64,7 @@ const ControllerBindingItem = ({
   controllers,
   onUpdate,
 }: ControllerBindingProps) => {
-  const [, serial] = controllerBinding?.BoundController?.split("/")?.map((s) =>
-    s.trim(),
-  ) ?? [null, null]
-
+  const serial = controllerBinding?.BoundController?.Serial
   const boundController = serial
     ? controllers.find((controller) => controller.Serial.includes(serial))
     : null
@@ -82,10 +82,12 @@ const ControllerBindingItem = ({
       data-testid="controller-binding-item"
     >
       <div className="overflow-hidden" data-testid="original-controller">
-        <ControllerIconWithLabel
-          serial={controllerBinding.OriginalController || ""}
-          status={controllerBinding.Status}
-        />
+        {controllerBinding.OriginalController && (
+          <ControllerIconWithLabel
+            controller={controllerBinding.OriginalController}
+            status={controllerBinding.Status}
+          />
+        )}
       </div>
       <ControllerBindingStatusIndicator
         isBound={!!selectedBoundController}
@@ -102,9 +104,7 @@ const ControllerBindingItem = ({
               data-testid="bound-controller"
             >
               {selectedBoundController ? (
-                <ControllerIconWithLabel
-                  serial={`${selectedBoundController.Name} / ${selectedBoundController.Serial}`}
-                />
+                <ControllerIconWithLabel controller={selectedBoundController} />
               ) : (
                 <span className="text-left">Select a controller</span>
               )}
@@ -137,9 +137,7 @@ const ControllerBindingItem = ({
                           : ""
                       }
                     >
-                      <ControllerIconWithLabel
-                        serial={`${controller.Name} / ${controller.Serial}`}
-                      />
+                      <ControllerIconWithLabel controller={controller} />
                     </CommandItem>
                   ))}
                 </CommandGroup>

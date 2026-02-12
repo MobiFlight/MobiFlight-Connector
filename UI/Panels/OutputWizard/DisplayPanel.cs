@@ -60,11 +60,16 @@ namespace MobiFlight.UI.Panels.OutputWizard
             _initDisplayPanels();
         }
 
-        public void SetModules(List<ListItem> ModuleList)
+        public void SetModules(List<ListItem<Controller>> ModuleList)
         {
-            displayModuleNameComboBox.Items.Clear();
-            displayModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "" });
-            displayModuleNameComboBox.Items.AddRange(ModuleList.ToArray());
+            var items = new List<ListItem<Controller>>(){
+                new ListItem<Controller>() { Value = null, Label = "" }
+            };
+            items.AddRange(ModuleList.ToArray());
+
+            displayModuleNameComboBox.ValueMember = "Value";
+            displayModuleNameComboBox.DisplayMember = "Label";
+            displayModuleNameComboBox.DataSource = items;
 
             // Pre select the first module if there is only one in the list.
             if (displayModuleNameComboBox.Items.Count == 2)
@@ -116,11 +121,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             if (OutputTypeIsDisplay())
             {
-                if (config.ModuleSerial != null && config.ModuleSerial != "")
+                if (config.Controller!=null)
                 {
-                    if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, config.ModuleSerial))
+                    if (!ComboBoxHelper.SetSelectedListItemByValue(displayModuleNameComboBox, cfg.Controller))
                     {
-                        Log.Instance.log($"Trying to show config but {config.ModuleSerial} currently not connected.", LogSeverity.Error);
+                        Log.Instance.log($"Trying to show config but {config.Controller} currently not connected.", LogSeverity.Error);
                     }
                 }
 
@@ -196,10 +201,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 config.Device = null;
                 config.DeviceType = (displayTypeComboBox.SelectedItem as ListItem).Value;
-
-                var serial = displayModuleNameComboBox.SelectedItem.ToString();
-                config.ModuleSerial = serial;
-
+                config.Controller = (displayModuleNameComboBox.SelectedItem as ListItem<Controller>).Value;
                 if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
                 
                 switch (config.DeviceType)
@@ -267,17 +269,16 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             // disable test button
             // in case that no display is selected
-            String rawSerial = cb.SelectedItem.ToString();
-            String serial = SerialNumber.ExtractSerial(rawSerial);
+            var controller = (cb.SelectedItem as ListItem<Controller>)?.Value;
+            String serial = controller?.Serial;
 
             try
             {
-
                 // serial is empty if no module is selected (e.g. on init of form)
                 // but we add all available devices to be able to display the 
                 // config even if the module is not currently connected
                 // e.g., when a user shares a config with somebody else.
-                if (serial == "")
+                if (controller == null)
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                     deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
@@ -286,7 +287,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                 }
-                else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
+                else if (SerialNumber.IsJoystickSerial(controller.Serial))
                 {
                     Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
                     if (joystick != null)
@@ -305,13 +306,13 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         }
                     }
                 }
-                else if (serial.IndexOf(MidiBoard.SerialPrefix) == 0)
+                else if (SerialNumber.IsMidiBoardSerial(controller.Serial))
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                 }
                 // update the available types depending on the 
                 // type of module
-                else if (serial.IndexOf("SN") != 0)
+                else if (SerialNumber.IsArcazeSerial(controller.Serial))
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                     deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
@@ -385,15 +386,15 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 deviceTypeOptions.Insert(0, new ListItem() { Value = "-", Label = "-" });
 
-                displayTypeComboBox.DataSource = deviceTypeOptions;
                 displayTypeComboBox.ValueMember = "Value";
                 displayTypeComboBox.DisplayMember = "Label";
+                displayTypeComboBox.DataSource = deviceTypeOptions;
 
                 // config can be null
                 // because module information is set
                 // before config is loaded
                 if (config == null) return;
-                config.ModuleSerial = rawSerial;
+                config.Controller = controller;
 
                 // third tab
                 if (config.DeviceType != null &&
@@ -420,10 +421,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (((sender as ComboBox).SelectedItem as ListItem).Value == "-") { return;  }*/
 
                 bool panelEnabled = true;
-                ComboBox cb = displayModuleNameComboBox;
-                String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
+                var cb = displayModuleNameComboBox;
+                var controller = (cb.SelectedItem as ListItem<Controller>)?.Value;
+                var serial = controller?.Serial;
 #if ARCAZE
-                if (arcazeFirmware.ContainsKey(serial))
+                if (serial != null && arcazeFirmware.ContainsKey(serial))
                 {
                     panelEnabled = InitializeArcazeDisplays(cb, serial);
                 }
@@ -733,8 +735,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         void displayLedAddressComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox cb = displayModuleNameComboBox;
-            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
+            var cb = displayModuleNameComboBox;
+            var controller = (cb.SelectedItem as ListItem<Controller>)?.Value;
+            var serial = controller?.Serial;
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
 
@@ -773,10 +776,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
         private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
         {
             // we have a fresh config, nothing to do.
-            if (config?.ModuleSerial == null) return;
+            if (config?.Controller == null) return;
 
             String stepperAddress = e.StepperAddress;
-            String serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            String serial = config.Controller.Serial;
 
             try
             {
@@ -800,14 +803,14 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 // the module with that serial is currently not connected
                 // so we cannot lookup anything sensible
-                Log.Instance.log($"Trying to show stepper config but module {config.ModuleSerial} is not connected. Using default profile.", LogSeverity.Error);
+                Log.Instance.log($"Trying to show stepper config but module {config.Controller} is not connected. Using default profile.", LogSeverity.Error);
                 stepperPanel.setStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
             }
         }
 
         void stepperPanel_OnSetZeroTriggered(object sender, StepperConfigChangedEventArgs e)
         {
-            String serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            String serial = config.Controller.Serial;
             _execManager.getMobiFlightModuleCache().ResetStepper(serial, (sender as String));
         }
 
@@ -817,7 +820,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             // to prevent overriding accidentaly something
             syncToConfig();
 
-            string serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            string serial = config.Controller.Serial;
 
             MobiFlightModule module = _execManager.getMobiFlightModuleCache()
                                                     .GetModuleBySerial(serial);
@@ -844,8 +847,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void shiftRegistersComboBox_selectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox cb = displayModuleNameComboBox;
-            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
+            var cb = displayModuleNameComboBox;
+            var controller = (cb.SelectedItem as ListItem<Controller>)?.Value;
+            var serial = controller?.Serial;
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
             bool pwmSupport = false;
 

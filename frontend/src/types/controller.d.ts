@@ -14,9 +14,9 @@ export type Controller = {
 }
 
 export type ControllerBinding = {
-  BoundController: string | null
+  BoundController: Partial<Controller> | null
   Status: ControllerBindingStatus
-  OriginalController: string | null
+  OriginalController: Partial<Controller>
 }
 
 export type ControllerBindingStatus = "Match" | "AutoBind" | "Missing" | "RequiresManualBind"

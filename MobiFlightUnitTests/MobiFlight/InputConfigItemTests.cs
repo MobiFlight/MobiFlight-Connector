@@ -43,7 +43,7 @@ namespace MobiFlight.Tests
             xmlReader.ReadToDescendant("settings");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual("TestSerial", o.ModuleSerial, "ModuleSerial not the same");
+            Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
             Assert.AreEqual(0, o.Preconditions.Count, "Preconditions Count not the same");
             Assert.AreEqual("Button", o.DeviceType, "Type not the same");
@@ -62,7 +62,7 @@ namespace MobiFlight.Tests
             xmlReader.ReadToDescendant("settings");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual("TestSerial", o.ModuleSerial, "ModuleSerial not the same");
+            Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
             Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
             Assert.AreEqual("Button", o.DeviceType, "Type not the same");
@@ -85,7 +85,7 @@ namespace MobiFlight.Tests
             xmlReader.ReadToDescendant("settings");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual("TestSerial", o.ModuleSerial, "ModuleSerial not the same");
+            Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
             Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
             Assert.AreEqual("Button", o.DeviceType, "Type not the same");
@@ -103,7 +103,7 @@ namespace MobiFlight.Tests
             xmlReader.ReadToDescendant("settings");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual("TestSerial", o.ModuleSerial, "ModuleSerial not the same");
+            Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
             Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
             Assert.AreEqual("Button", o.DeviceType, "Type not the same");
@@ -121,7 +121,8 @@ namespace MobiFlight.Tests
             xmlReader.ReadToDescendant("settings");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual("737PEDESTAL1/ SN-769-a6a", o.ModuleSerial, "ModuleSerial not the same");
+            Assert.AreEqual("737PEDESTAL1", o.Controller.Name, "Controller Name not the same");
+            Assert.AreEqual("SN-769-a6a", o.Controller.Serial, "Controller Serial not the same");
             Assert.AreEqual("Analog 67 A13", o.DeviceName, "Name not the same");
             Assert.HasCount(1, o.Preconditions, "Preconditions Count not the same");
             Assert.HasCount(1, o.ConfigRefs, "Config ref count is not correct");
@@ -183,7 +184,7 @@ namespace MobiFlight.Tests
 
             Assert.IsNotNull(c.button, "Button is null");
             Assert.IsNull(c.encoder, "Encoder is not null");
-            Assert.AreEqual(c.ModuleSerial, o.ModuleSerial, "Module Serial not the same");
+            Assert.AreEqual(c.Controller.Serial, o.Controller.Serial, "Module Serial not the same");
             Assert.AreEqual(c.Name, o.Name, "Name not the same");
             Assert.HasCount(1, c.Preconditions, "Precondition Count is not 1");
         }
@@ -209,7 +210,7 @@ namespace MobiFlight.Tests
             };
 
             result.encoder = null;
-            result.ModuleSerial = "TestSerial";
+            result.Controller = new Controller() { Serial = "TestSerial" };
             result.DeviceName = "TestName";
             result.DeviceType = InputConfigItem.TYPE_BUTTON;
             result.Preconditions.Add(new Precondition() { Serial = "PreConTestSerial" });

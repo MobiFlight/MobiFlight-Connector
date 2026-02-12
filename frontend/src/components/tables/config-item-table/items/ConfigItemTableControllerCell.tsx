@@ -17,7 +17,8 @@ function ConfigItemTableControllerCell({
   const { publish } = publishOnMessageExchange()
   const item = row.original as IConfigItem
 
-  const [ label, serial ] = item.ModuleSerial?.split("/") ?? [ "", "" ]
+  const label = item.Controller?.Name ?? ""
+  const serial = item.Controller?.Serial ?? ""
     
   const openControllerSettings = () => {
     publish({

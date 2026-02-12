@@ -307,8 +307,18 @@ namespace MobiFlight
             foreach (MobiFlightModuleInfo info in AvailableComModules)
             {
                 if (info.Serial != m.Serial) continue;
-
                 info.Name = m.Name;
+
+                try
+                {
+                    // we also have to update the module instance correctly
+                    var module = GetModule(info);
+                    module.Name = info.Name;
+                } catch (IndexOutOfRangeException)
+                {
+                    break;
+                }
+                
                 break;
             }
 

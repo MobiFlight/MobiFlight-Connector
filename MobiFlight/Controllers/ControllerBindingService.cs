@@ -45,10 +45,13 @@ namespace MobiFlight.Controllers
         }
 
         /// <summary>
-        /// Performs auto-binding and modifies config items
-        /// Returns: Dictionary mapping ModuleSerial -> ControllerBindingStatus
+        /// Performs auto-binding for all config files in the given project and
+        /// modifies the corresponding config items. This method is virtual to
+        /// simplify mocking in unit tests.
+        /// Returns: List of ControllerBinding results for the entire project and
+        /// updates project.ControllerBindings with the same list.
         /// </summary>
-        public List<ControllerBinding> PerformAutoBinding(Project project)
+        public virtual List<ControllerBinding> PerformAutoBinding(Project project)
         {
             var connectedControllers = GetAllConnectedControllers();
             var binder = new ControllerAutoBinder(connectedControllers);
@@ -66,7 +69,7 @@ namespace MobiFlight.Controllers
                     var bindingExists = allResults.FirstOrDefault(b => b.OriginalController == binding.OriginalController);
                     // Only add if not already present (first occurrence wins)
                     if (bindingExists != null) continue;
-                    
+
                     allResults.Add(binding);
                 }
 
@@ -100,26 +103,33 @@ namespace MobiFlight.Controllers
             project.ControllerBindings = bindings;
         }
 
-        private List<string> GetAllConnectedControllers()
+        private List<Controller> GetAllConnectedControllers()
         {
-            var serials = new List<string>();
+            var controllers = new List<Controller>();
 
-            foreach (var module in _executionManager.getMobiFlightModuleCache().GetModules())
+#if ARCAZE
+            foreach (var controller in _executionManager.getModuleCache().getModuleInfo())
             {
-                serials.Add($"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}");
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
+            }
+#endif
+
+            foreach (var controller in _executionManager.getMobiFlightModuleCache().GetModules())
+            {
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
             }
 
-            foreach (var joystick in _executionManager.GetJoystickManager().GetJoysticks())
+            foreach (var controller in _executionManager.GetJoystickManager().GetJoysticks())
             {
-                serials.Add($"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}");
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
             }
 
-            foreach (var midiBoard in _executionManager.GetMidiBoardManager().GetMidiBoards())
+            foreach (var controller in _executionManager.GetMidiBoardManager().GetMidiBoards())
             {
-                serials.Add($"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}");
+                controllers.Add(new Controller() { Name = controller.Name, Serial = controller.Serial });
             }
 
-            return serials;
+            return controllers;
         }
     }
 }

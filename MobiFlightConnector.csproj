@@ -304,6 +304,7 @@
     <Compile Include="Base\Migration\Precondition_V_0_9_Migration.cs" />
     <Compile Include="Base\ObservableObject.cs" />
     <Compile Include="Base\Project.cs" />
+    <Compile Include="Base\ProjectListManager.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
     <Compile Include="Base\Serialization\Json\ConfigValueOnlyItemConverter.cs" />
     <Compile Include="Base\Serialization\Json\PreconditionConverter.cs" />
@@ -973,12 +974,6 @@
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\ModuleCacheInterface.cs" />
-    <Compile Include="UI\Dialogs\OrphanedSerialsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Dialogs\OrphanedSerialsDialog.Designer.cs">
-      <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Base\Precondition.cs" />
     <Compile Include="UI\Panels\Config\ActionTypePanel.cs">
       <SubType>UserControl</SubType>
@@ -2077,12 +2072,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFLedSegmentPanel.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialogs\OrphanedSerialsDialog.de.resx">
-      <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialogs\OrphanedSerialsDialog.resx">
-      <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\ActionTypePanel.resx">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>

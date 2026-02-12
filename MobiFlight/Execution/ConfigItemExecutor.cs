@@ -371,9 +371,9 @@ namespace MobiFlight.Execution
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
         {
-            string serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+            string serial = cfg.Controller?.Serial;
 
-            if (serial == "" && cfg.DeviceType != "InputAction")
+            if (serial == null && cfg.DeviceType != "InputAction")
                 return value.ToString();
 
             if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")
@@ -405,7 +405,7 @@ namespace MobiFlight.Execution
                 }
                 else
                 {
-                    var joystickName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    var joystickName = cfg.Controller.Name;
                     // throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
                     return i18n._tr($"{joystickName} not connected");
                 }
@@ -421,7 +421,7 @@ namespace MobiFlight.Execution
                 }
                 else
                 {
-                    var midiBoardName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    var midiBoardName = cfg.Controller.Name;
                     return i18n._tr($"{midiBoardName} not connected");
                     // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }

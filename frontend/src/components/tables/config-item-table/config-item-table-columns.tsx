@@ -14,6 +14,7 @@ import {
   ConfigItemTableRawValueCell,
 } from "./items"
 import ConfigItemTableFinalValueCell from "./items/ConfigItemTableFinalValueCell"
+import { Controller } from "@/types/controller"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -60,7 +61,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       className: "hidden w-44 2xl:w-1/6 lg:table-cell",
       cellClassName: "bg-slate-500/5 dark:bg-gray-400/5 pl-2",
     },
-    accessorKey: "ModuleSerial",
+    accessorKey: "Controller",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
@@ -68,7 +69,11 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
     cell: ConfigItemTableControllerCell,
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      const controller = row.getValue(id) as Controller ?? { Name: "", Serial: "" }
+      // the filter value must match the format
+      // that is used by the facet options, see: data-table-toolbar.tsx -> controller
+      const filterValue = `${controller?.Name}:${controller?.Serial}`
+      return value.includes(filterValue)
     },
   },
   {

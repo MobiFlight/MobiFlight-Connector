@@ -43,14 +43,14 @@ namespace MobiFlight.Execution.Tests
                 new OutputConfigItem
                 {
                     Active = true,
-                    ModuleSerial = "OutputDevice / 1123",
+                    Controller = new Controller() { Name = "OutputDevice", Serial = "1123" },
                     Name = "OutputConfigItem",
                 },
 
                 new InputConfigItem
                 {
                     Active = true,
-                    ModuleSerial = "InputDevice / 2123",
+                    Controller = new Controller() { Name = "InputDevice", Serial = "2123" },
                     Name = "InputConfigItem"
                 }
             };
@@ -81,7 +81,7 @@ namespace MobiFlight.Execution.Tests
             return new InputConfigItem
             {
                 Active = active,
-                ModuleSerial = moduleSerial,
+                Controller = SerialNumber.CreateController(moduleSerial),
                 DeviceName = deviceName,
                 DeviceType = DeviceType.Button.ToString(),
                 Name = name,
@@ -137,7 +137,7 @@ namespace MobiFlight.Execution.Tests
             var inactiveConfigItem = new InputConfigItem
             {
                 Active = false,
-                ModuleSerial = "/ 123",
+                Controller = SerialNumber.CreateController("/ 123"),
                 DeviceName = "Device1",
                 Name = "TestConfig"
             };
@@ -171,7 +171,7 @@ namespace MobiFlight.Execution.Tests
             var activeConfigItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "/ 123",
+                Controller = SerialNumber.CreateController("/ 123"),
                 DeviceName = "Device1",
                 Name = "TestConfig"
             };
@@ -288,7 +288,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "/ 123",
+                Controller = SerialNumber.CreateController("/ 123"),
                 DeviceName = "Device1",
                 Name = "TestConfig",
                 Preconditions = new PreconditionList()
@@ -332,7 +332,7 @@ namespace MobiFlight.Execution.Tests
             var activeConfigItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "/ 123",
+                Controller = SerialNumber.CreateController("/ 123"),
                 DeviceName = "Device1",
                 Name = "TestConfig"
             };
@@ -369,7 +369,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-a1b2c3",
+                Controller = SerialNumber.CreateController("TestModule / SN-a1b2c3"),
                 DeviceName = "Device1",
                 DeviceType = InputConfigItem.TYPE_BUTTON,
                 Name = "TestConfig",
@@ -421,7 +421,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-d4e5f6",
+                Controller = SerialNumber.CreateController("TestModule / SN-d4e5f6"),
                 DeviceName = "Device1",
                 DeviceType = InputConfigItem.TYPE_BUTTON,
                 Name = "TestConfig",
@@ -473,7 +473,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-btn001",
+                Controller = SerialNumber.CreateController("TestModule / SN-btn001"),
                 DeviceName = "Button1",
                 DeviceType = InputConfigItem.TYPE_BUTTON,
                 Name = "RegularButton",
@@ -513,7 +513,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-enc001",
+                Controller = SerialNumber.CreateController("TestModule / SN-enc001"),
                 DeviceName = "Encoder1",
                 DeviceType = InputConfigItem.TYPE_ENCODER,
                 Name = "TestEncoder",
@@ -553,7 +553,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-isr001",
+                Controller = SerialNumber.CreateController("TestModule / SN-isr001"),
                 DeviceName = "InputShifter",
                 DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
                 Name = "TestInputShiftRegister",
@@ -594,7 +594,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-mux001",
+                Controller = SerialNumber.CreateController("TestModule / SN-mux001"),
                 DeviceName = "InputMux",
                 DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
                 Name = "TestInputMultiplexer",
@@ -635,7 +635,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-analog001",
+                Controller = SerialNumber.CreateController("TestModule / SN-analog001"),
                 DeviceName = "Analog1",
                 DeviceType = InputConfigItem.TYPE_ANALOG,
                 Name = "TestAnalogInput",
@@ -679,7 +679,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-edge001",
+                Controller = SerialNumber.CreateController("TestModule / SN-edge001"),
                 DeviceName = "Button1",
                 DeviceType = InputConfigItem.TYPE_BUTTON, // Correct DeviceType
                 Name = "ButtonWithStaleEncoder",
@@ -724,7 +724,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-edge002",
+                Controller = SerialNumber.CreateController("TestModule / SN-edge002"),
                 DeviceName = "Encoder1",
                 DeviceType = InputConfigItem.TYPE_ENCODER, // Correct DeviceType
                 Name = "EncoderWithStaleButton",
@@ -769,7 +769,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-edge003",
+                Controller = SerialNumber.CreateController("TestModule / SN-edge003"),
                 DeviceName = "InputShifter",
                 DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
                 Name = "ShiftRegisterWrongPin",
@@ -809,7 +809,7 @@ namespace MobiFlight.Execution.Tests
             var configItem = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-edge004",
+                Controller = SerialNumber.CreateController("TestModule / SN-edge004"),
                 DeviceName = "InputMux",
                 DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
                 Name = "MultiplexerWrongPin",
@@ -849,7 +849,7 @@ namespace MobiFlight.Execution.Tests
             var configItem1 = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-multi001",
+                Controller = SerialNumber.CreateController("TestModule / SN-multi001"),
                 DeviceName = "Button1", // Different device
                 DeviceType = InputConfigItem.TYPE_BUTTON,
                 Name = "Button1Config",
@@ -862,7 +862,7 @@ namespace MobiFlight.Execution.Tests
             var configItem2 = new InputConfigItem
             {
                 Active = true,
-                ModuleSerial = "TestModule / SN-multi001",
+                Controller = SerialNumber.CreateController("TestModule / SN-multi001"),
                 DeviceName = "Button2", // Matching device
                 DeviceType = InputConfigItem.TYPE_BUTTON,
                 Name = "Button2Config",

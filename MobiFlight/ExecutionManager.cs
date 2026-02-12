@@ -21,6 +21,7 @@ namespace MobiFlight
     public interface IExecutionManager
     {
         Dictionary<String, MobiFlightVariable> GetAvailableVariables();
+        ArcazeCache getModuleCache();
         JoystickManager GetJoystickManager();
         MobiFlightCache getMobiFlightModuleCache();
         ProSim.ProSimCacheInterface GetProSimCache();
@@ -247,7 +248,7 @@ namespace MobiFlight
             InitializeFrontendSubscriptions();
         }
 
-        private void PublishConnectedDevices()
+        public void PublishConnectedDevices()
         {
             var connectedControllers = new List<Controller>();
             mobiFlightCache.GetModules().ToList().ForEach(module =>
@@ -255,7 +256,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = module.Name,
-                    Connected = true,
                     Serial = module.Serial
                 });
             });
@@ -265,7 +265,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Connected = true,
                     Serial = controller.Serial
                 });
             });
@@ -275,7 +274,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Connected = true,
                     Serial = controller.Serial
                 });
             });
@@ -391,7 +389,7 @@ namespace MobiFlight
                         var index = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
                         if (index == -1) break;
                         var dup = ConfigItems[index].Duplicate();
-                        ConfigItems.Insert(index, dup);
+                        ConfigItems.Insert(index + 1, dup);
                         break;
 
                     case "test":
@@ -428,7 +426,7 @@ namespace MobiFlight
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
 
-                        var serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+                        var serial = cfg.Controller.Serial;
 
                         if (SerialNumber.IsMobiFlightSerial(serial))
                         {

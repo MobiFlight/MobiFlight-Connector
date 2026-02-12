@@ -228,7 +228,7 @@ namespace MobiFlight.UI.Dialogs
             // by default always the first tab is activated.
             // if one opens the dialog for an existing config,
             // then we use the lastTabActive
-            if (cfg?.ModuleSerial != null && cfg?.ModuleSerial != SerialNumber.NOT_SET)
+            if (cfg?.Controller != null)
             {
                 tabControlFsuipc.SelectedIndex = lastTabActive;
             }
@@ -256,22 +256,22 @@ namespace MobiFlight.UI.Dialogs
         /// <param name="arcazeCache"></param>
         public void initWithArcazeCache(ArcazeCache arcazeCache)
         {
-            List<ListItem> PreconditionModuleList = new List<ListItem>();
-            List<ListItem> DisplayModuleList = new List<ListItem>();
+            var PreconditionModuleList = new List<ListItem<Controller>>();
+            var DisplayModuleList = new List<ListItem<Controller>>();
 
 
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 arcazeFirmware[module.Serial] = module.Version;
-                DisplayModuleList.Add(new ListItem()
+                DisplayModuleList.Add(new ListItem<Controller>()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
                     Label = $"{module.Name} ({module.Serial})"
                 });
 
-                PreconditionModuleList.Add(new ListItem()
+                PreconditionModuleList.Add(new ListItem<Controller>()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
                     Label = $"{module.Name} ({module.Serial})"
                 });
             }
@@ -291,7 +291,7 @@ namespace MobiFlight.UI.Dialogs
         /// </summary>
         public void initWithoutArcazeCache()
         {
-            var DisplayModuleList = new List<ListItem>();
+            var DisplayModuleList = new List<ListItem<Controller>>();
 
             _AddMobiFlightModules(DisplayModuleList);
             _AddJoysticks(DisplayModuleList);
@@ -301,13 +301,13 @@ namespace MobiFlight.UI.Dialogs
         }
 #endif
 
-        protected void _AddMobiFlightModules(List<ListItem> DisplayModuleList)
+        protected void _AddMobiFlightModules(List<ListItem<Controller>> DisplayModuleList)
         {
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
-                DisplayModuleList.Add(new ListItem()
+                DisplayModuleList.Add(new ListItem<Controller>()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
                     Label = $"{module.Name} ({module.Port})"
                 });
 
@@ -316,16 +316,16 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        protected void _AddJoysticks(List<ListItem> DisplayModuleList)
+        protected void _AddJoysticks(List<ListItem<Controller>> DisplayModuleList)
         {
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 if (joystick.GetAvailableOutputDevicesAsListItems().Count == 0 &&
                     joystick.GetAvailableLcdDevices().Count == 0) continue;
 
-                DisplayModuleList.Add(new ListItem()
+                DisplayModuleList.Add(new ListItem<Controller>()
                 {
-                    Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
+                    Value = new Controller() { Name = joystick.Name, Serial = joystick.Serial },
                     Label = $"{joystick.Name}"
                 });
 
@@ -334,15 +334,15 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        protected void _AddMidiBoards(List<ListItem> DisplayModuleList)
+        protected void _AddMidiBoards(List<ListItem<Controller>> DisplayModuleList)
         {
             foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
             {
                 if (midiBoard.GetAvailableOutputDevices().Count == 0) continue;
 
-                DisplayModuleList.Add(new ListItem()
+                DisplayModuleList.Add(new ListItem<Controller>()
                 {
-                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Value = new Controller() { Name = midiBoard.Name, Serial = midiBoard.Serial },
                     Label = $"{midiBoard.Name}"
                 });
 

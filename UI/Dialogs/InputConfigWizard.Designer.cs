@@ -167,7 +167,6 @@
             resources.ApplyResources(this.inputModuleNameComboBox, "inputModuleNameComboBox");
             this.inputModuleNameComboBox.Name = "inputModuleNameComboBox";
             this.inputModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.ModuleSerialComboBox_SelectedIndexChanged);
-            this.inputModuleNameComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
             // 
             // inputTypeComboBoxLabel
             // 
