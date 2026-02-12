@@ -515,10 +515,10 @@ namespace MobiFlight.UI
             Refresh();
 
             PublishSettings();
-            InitializeRecentProjectsList();
+            await InitializeRecentProjectsListAsync();
         }
 
-        private async void InitializeRecentProjectsList()
+        private async Task InitializeRecentProjectsListAsync()
         {
             // Subscribe to changes
             ProjectListManager.ProjectListChanged += (s, e) => PublishProjectList();

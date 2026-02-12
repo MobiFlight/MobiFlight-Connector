@@ -67,29 +67,27 @@ namespace MobiFlight.Base
         {
             if (projectListFiles.Count == 0) return;
 
-            var loadTasks = projectListFiles.Select(async projectPath =>
+            foreach (var projectPath in projectListFiles)
             {
-                try
+                await Task.Run(() =>
                 {
-                    var p = new Project();
-                    p.FilePath = projectPath;
-                    p.OpenFile(suppressMigrationLogging: true);
-                    p.DetermineProjectInfos();
-                    controllerBindingService?.PerformAutoBinding(p);
+                    try
+                    {
+                        var p = new Project();
+                        p.FilePath = projectPath;
+                        p.OpenFile(suppressMigrationLogging: true);
+                        p.DetermineProjectInfos();
+                        controllerBindingService?.PerformAutoBinding(p);
 
-                    var projectInfo = p.ToProjectInfo();
-                    projectInfoCache[projectPath] = projectInfo;
-
-                    return projectInfo;
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Could not load recent project file {projectPath}: {ex.Message}", LogSeverity.Warn);
-                    return null;
-                }
-            }).ToList();
-
-            await Task.WhenAll(loadTasks);
+                        var projectInfo = p.ToProjectInfo();
+                        projectInfoCache[projectPath] = projectInfo;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Could not load recent project file {projectPath}: {ex.Message}", LogSeverity.Warn);
+                    }
+                }).ConfigureAwait(false);
+            }
         }
 
         /// <summary>
