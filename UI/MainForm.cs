@@ -1203,10 +1203,12 @@ namespace MobiFlight.UI
 
         private void _autoloadLastConfig()
         {
-            var projectFiles = ProjectListManager.GetProjects().Where(p => File.Exists(p.FilePath)).ToList();
-            if (projectFiles.Count == 0) return;
-
-            LoadConfig(projectFiles.First().FilePath);
+            // use the recent files from application settings
+            // no async loading involved => no timing issues that can happen
+            var recentFile = Properties.Settings.Default.RecentFiles?.Cast<string>().ToList().First(f => File.Exists(f)) ?? null;
+            if (recentFile == null) return;
+            
+            LoadConfig(recentFile);
         }
 
 #if ARCAZE
