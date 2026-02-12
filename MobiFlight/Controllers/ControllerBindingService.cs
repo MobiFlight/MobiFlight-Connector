@@ -45,9 +45,11 @@ namespace MobiFlight.Controllers
         }
 
         /// <summary>
-        /// Performs auto-binding and modifies config items
-        /// it is virtual for mocking in unit tests
-        /// Returns: Dictionary mapping ModuleSerial -> ControllerBindingStatus
+        /// Performs auto-binding for all config files in the given project and
+        /// modifies the corresponding config items. This method is virtual to
+        /// simplify mocking in unit tests.
+        /// Returns: List of ControllerBinding results for the entire project and
+        /// updates project.ControllerBindings with the same list.
         /// </summary>
         public virtual List<ControllerBinding> PerformAutoBinding(Project project)
         {
