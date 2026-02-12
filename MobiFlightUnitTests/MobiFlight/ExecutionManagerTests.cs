@@ -209,11 +209,11 @@ namespace MobiFlight.Tests
 
 
         [TestMethod]
-        public void CommandFileContextMenu_Duplicate_DuplicatesConfigCorrectly()
+        public void CommandConfigContextMenu_Duplicate_DuplicatesConfigItemCorrectly()
         {
             // Arrange
             var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
-            var firstConfigItemGuid = configItem1.GUID.Clone() as string;
+            var firstConfigItemGuid = configItem1.GUID;
 
             var project = new Project();
             project.ConfigFiles.Add(new ConfigFile()
