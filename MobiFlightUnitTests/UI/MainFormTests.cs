@@ -5,15 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace MobiFlight.UI.Tests
 {
     [TestClass()]
     public class MainFormTests
     {
+        private StringCollection originalRecentFiles;
+
         public class TestableMainForm : MainForm
         {
             // Expose protected/private members for testing if needed
@@ -33,6 +33,14 @@ namespace MobiFlight.UI.Tests
                 var methodInfo = typeof(MainForm).GetMethod("InitializeExecutionManager", BindingFlags.NonPublic | BindingFlags.Instance);
                 methodInfo.Invoke(this, new object[] { });
             }
+
+            public void InitializeProjectListManager()
+            {
+                var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
+                var projectListManager = new ProjectListManager();
+                projectListManager.InitializeFromSettings();
+                propertyInfo.SetValue(this, projectListManager);
+            }
         }
 
         private TestableMainForm _mainForm;
@@ -42,6 +50,20 @@ namespace MobiFlight.UI.Tests
         {
             // Initialize the MainForm
             _mainForm = new TestableMainForm();
+
+            // Save original RecentFiles
+            originalRecentFiles = Properties.Settings.Default.RecentFiles;
+
+            // Initialize with clean state
+            Properties.Settings.Default.RecentFiles = new StringCollection();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // Restore original RecentFiles
+            Properties.Settings.Default.RecentFiles = originalRecentFiles;
+            Properties.Settings.Default.Save();
         }
 
 
@@ -140,10 +162,11 @@ namespace MobiFlight.UI.Tests
         }
 
         [TestMethod()]
-        public void RecentFilesRemove_ViaCommandMainMenu()
+        public void RecentFilesRemove_ViaCommandMainMenu_ShouldRemoveFromBothLists()
         {
             // Arrange
             _mainForm.InitializeExecutionManager();
+            _mainForm.InitializeProjectListManager();
 
             var testFiles = new StringCollection
             {
@@ -155,11 +178,14 @@ namespace MobiFlight.UI.Tests
             Properties.Settings.Default.RecentFiles = testFiles;
             Properties.Settings.Default.Save();
 
+            // Re-initialize after adding files
+            _mainForm.InitializeProjectListManager();
+
             // Create the command message
             var command = new CommandMainMenu
             {
                 Action = CommandMainMenuAction.virtual_recent_remove,
-                Index = 1  // Remove the middle entry
+                Index = 1  // Remove the middle entry (project2)
             };
 
             // Get the handler
@@ -168,76 +194,22 @@ namespace MobiFlight.UI.Tests
             // Act
             handler.Handle(command);
 
-            // Assert
+            // Assert - RecentFiles updated
             var recentFiles = Properties.Settings.Default.RecentFiles;
-            Assert.HasCount(2, recentFiles, "Should have 2 files remaining");
+            Assert.HasCount(2, recentFiles, "Should have 2 files remaining in RecentFiles");
             Assert.AreEqual("C:\\project1.mfproj", recentFiles[0]);
             Assert.AreEqual("C:\\project3.mfproj", recentFiles[1]);
-            Assert.DoesNotContain("C:\\project2.mfproj", recentFiles, "Removed file should not be in the list");
-        }
+            Assert.DoesNotContain("C:\\project2.mfproj", recentFiles, "Removed file should not be in RecentFiles");
 
-        [TestMethod]
-        public void FindMissingFiles_ReturnsMissingAndIgnoresExisting()
-        {
-            var existing = Path.GetTempFileName();
-            var missing = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mfproj");
-            try
-            {
-                var inputs = new List<string> { existing, missing, "   " };
-                var result = MainForm.CheckForMissingFiles(inputs);
+            // Assert - ProjectList also updated
+            var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
+            var projectListManager = propertyInfo.GetValue(_mainForm) as ProjectListManager;
+            var projectFiles = projectListManager.GetProjectFiles();
 
-                // missing path and whitespace entry are reported missing
-                Assert.Contains(missing, result, "Expected missing file to be reported.");
-                Assert.IsTrue(result.Any(x => string.IsNullOrWhiteSpace(x)), "Expected whitespace entry to be reported as missing.");
-                // existing file should not be reported missing
-                Assert.DoesNotContain(existing, result, "Existing file should not be reported missing.");
-            }
-            finally
-            {
-                // This sometimes fails in CI environments due to file locks.
-                // Just continue because Delete is not critical for the test.
-                try { File.Delete(existing); } catch { }
-            }
-        }
-
-        [TestMethod]
-        public void RemoveMissingFilesFromSettings_RemovesEntriesFromSettings()
-        {
-            var existing = Path.GetTempFileName();
-            var missing = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mfproj");
-
-            try
-            {
-                // Prepare settings recent list
-                Properties.Settings.Default.RecentFiles.Clear();
-                Properties.Settings.Default.RecentFiles.Add(existing);
-                Properties.Settings.Default.RecentFiles.Add(missing);
-                Properties.Settings.Default.Save();
-
-                // Call instance method without running ctor to avoid UI initialization
-                var mainFormInstance = FormatterServices.GetUninitializedObject(typeof(MainForm));
-                var mi = typeof(MainForm).GetMethod("RemoveMissingFilesFromSettings", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-
-                Assert.IsNotNull(mi, "RemoveMissingFilesFromSettings method not found via reflection.");
-
-                // Invoke with the missing list
-                mi.Invoke(mainFormInstance, new object[] { new List<string> { missing } });
-
-                var current = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
-
-                Assert.Contains(existing, current, "Existing file should remain in settings.");
-                Assert.DoesNotContain(missing, current, "Missing file should have been removed from settings.");
-            }
-            finally
-            {
-                // This sometimes fails in CI environments due to file locks.
-                // Just continue because Delete is not critical for the test.
-                try { File.Delete(existing); } catch { }
-
-                // Cleanup settings to avoid test pollution
-                Properties.Settings.Default.RecentFiles.Clear();
-                Properties.Settings.Default.Save();
-            }
+            Assert.HasCount(2, projectFiles, "Should have 2 files remaining in ProjectList");
+            Assert.AreEqual("C:\\project1.mfproj", projectFiles[0]);
+            Assert.AreEqual("C:\\project3.mfproj", projectFiles[1]);
+            Assert.DoesNotContain("C:\\project2.mfproj", projectFiles, "Removed file should not be in ProjectList");
         }
     }
 }

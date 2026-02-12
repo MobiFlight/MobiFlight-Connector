@@ -114,6 +114,8 @@ namespace MobiFlight.UI
 
         public ControllerBindingService ControllerBindingService { get; private set; }
 
+        private ProjectListManager ProjectListManager { get; set; } = new ProjectListManager();
+
         private void InitializeLogging()
         {
             LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
@@ -522,92 +524,27 @@ namespace MobiFlight.UI
             Refresh();
 
             PublishSettings();
+            InitializeRecentProjectsList();
+        }
+
+        private async void InitializeRecentProjectsList()
+        {
+            ProjectListManager.InitializeFromSettings();
             try
             {
-                await CleanRecentFilesAsync().ConfigureAwait(false);
+                await ProjectListManager.CleanMissingFilesAsync().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Exception in CleanRecentFilesAsync: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"Exception cleaning project files: {ex.Message}", LogSeverity.Error);
             }
 
             PublishRecentProjectList();
         }
 
-        // Remove non-existing recent files asynchronously but return only after UI changes persisted.
-        // Caller can await to guarantee the settings are updated before using RecentFiles.
-        private async Task CleanRecentFilesAsync()
-        {
-            var recentSnapshot = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
-
-            var missingFiles = await Task.Run(() => CheckForMissingFiles(recentSnapshot)).ConfigureAwait(false);
-
-            if (missingFiles.Count == 0) return;
-
-            // Handle require to invoke settings update on UI thread
-            if (!IsHandleCreated) return;
-
-            var tcs = new TaskCompletionSource<bool>();
-            BeginInvoke((Action)(() =>
-            {
-                try
-                {
-                    RemoveMissingFilesFromSettings(missingFiles);
-                    tcs.SetResult(true);
-                }
-                catch (Exception ex)
-                {
-                    tcs.SetException(ex);
-                }
-            }));
-            await tcs.Task.ConfigureAwait(false);
-        }
-
-        internal static List<string> CheckForMissingFiles(IEnumerable<string> recentFiles)
-        {
-            var missingFiles = new List<string>();
-            if (recentFiles == null) return missingFiles;
-
-            foreach (var f in recentFiles)
-            {
-                try
-                {
-                    if (string.IsNullOrWhiteSpace(f) || !File.Exists(f))
-                        missingFiles.Add(f);
-                }
-                catch
-                {
-                    // Treat IO errors as missing; keep scanning
-                    missingFiles.Add(f);
-                }
-            }
-
-            return missingFiles;
-        }
-
-        internal void RemoveMissingFilesFromSettings(IEnumerable<string> missingFiles)
-        {
-            if (missingFiles == null) return;
-
-            var changed = false;
-            foreach (var f in missingFiles)
-            {
-                if (!Properties.Settings.Default.RecentFiles.Contains(f)) continue;
-
-                Properties.Settings.Default.RecentFiles.Remove(f);
-                Log.Instance.log($"Recent Project List - File doesn't exist: '{f}' removed.", LogSeverity.Info);
-                changed = true;
-            }
-
-            if (changed)
-            {
-                Properties.Settings.Default.Save();
-            }
-        }
-
         private void PublishRecentProjectList()
         {
-            var recentFiles = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+            var recentFiles = ProjectListManager?.GetProjectFiles();
             var recentProjects = new List<ProjectInfo>();
             Task.Run(() =>
             {
@@ -619,7 +556,7 @@ namespace MobiFlight.UI
                         p.FilePath = project;
                         p.OpenFile(suppressMigrationLogging: true);
                         p.DetermineProjectInfos();
-                        ControllerBindingService.PerformAutoBinding(p);
+                        ControllerBindingService?.PerformAutoBinding(p);
 
                         recentProjects.Add(p.ToProjectInfo());
                     }
@@ -1303,18 +1240,10 @@ namespace MobiFlight.UI
 
         private void _autoloadLastConfig()
         {
-            // the new autoload feature
-            // step1 load config always... good feature ;)
-            // step2 run automatically -> see fsuipc connected event
-            if (Properties.Settings.Default.RecentFiles.Count > 0)
-            {
-                foreach (string file in Properties.Settings.Default.RecentFiles)
-                {
-                    if (!System.IO.File.Exists(file)) continue;
-                    LoadConfig(file);
-                    return;
-                }
-            } //if
+            var projectFiles = ProjectListManager.GetProjectFiles().Where(p => File.Exists(p)).ToList();
+            if (projectFiles.Count == 0) return;
+
+            LoadConfig(projectFiles.First());
         }
 
 #if ARCAZE
@@ -2001,21 +1930,6 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// stores the provided filename in the list of recently used files
-        /// </summary>
-        /// <param name="fileName">the filename to be used</param>
-        private void _storeAsRecentFile(string fileName)
-        {
-            if (Properties.Settings.Default.RecentFiles.Contains(fileName))
-            {
-                Properties.Settings.Default.RecentFiles.Remove(fileName);
-            }
-            Properties.Settings.Default.RecentFiles.Insert(0, fileName);
-            Properties.Settings.Default.Save();
-            PublishRecentProjectList();
-        }
-
-        /// <summary>
         /// gets triggered when user clicks on recent used file entry
         /// loads the according config
         /// </summary>
@@ -2132,7 +2046,7 @@ namespace MobiFlight.UI
             {
                 // the original file name has to be stored
                 // in the list of recent files.
-                _storeAsRecentFile(execManager.Project.FilePath);
+                ProjectListManager.OpenProject(execManager.Project.FilePath);
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -2219,8 +2133,8 @@ namespace MobiFlight.UI
                 return;
             }
 
+            ProjectListManager.OpenProject(execManager.Project.FilePath);
             MessageExchange.Instance.Publish(execManager.Project);
-            _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
             MessageExchange.Instance.Publish(new ProjectStatus()
             {
@@ -3015,14 +2929,7 @@ namespace MobiFlight.UI
 
         internal void RecentFilesRemove(int index)
         {
-            var recentFiles = Properties.Settings.Default.RecentFiles;
-
-            if (index < 0 || index >= recentFiles.Count)
-                return;
-
-            recentFiles.RemoveAt(index);
-            Properties.Settings.Default.RecentFiles = recentFiles;
-            Properties.Settings.Default.Save();
+            ProjectListManager.RemoveProjectByIndex(index);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
