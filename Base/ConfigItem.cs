@@ -40,7 +40,7 @@ namespace MobiFlight.Base
         bool Active { get; set; }
         string Type { get; }
         string Name { get; set; }
-        string ModuleSerial { get; set; }
+        Controller Controller{ get; set; }
         PreconditionList Preconditions { get; set; }
         ModifierList Modifiers { get; set; }
         ConfigRefList ConfigRefs { get; set; }
@@ -55,7 +55,7 @@ namespace MobiFlight.Base
         public bool Active { get; set; }
         public string Name { get; set; }
         public string Type { get { return GetConfigItemType(); } }
-        public string ModuleSerial { get; set; }
+        public Controller Controller { get; set; }
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
         public ConfigRefList ConfigRefs { get; set; } = new ConfigRefList();
@@ -83,7 +83,6 @@ namespace MobiFlight.Base
             GUID = System.Guid.NewGuid().ToString();
             Active = true;
             Name = "";
-            ModuleSerial = "";
             Preconditions = new PreconditionList();
             Modifiers = new ModifierList();
             ConfigRefs = new ConfigRefList();
@@ -95,7 +94,7 @@ namespace MobiFlight.Base
             GUID = item.GUID.Clone() as string;
             Active = item.Active;
             Name = item.Name.Clone() as string;
-            ModuleSerial = item.ModuleSerial.Clone() as string;
+            Controller= item.Controller?.Clone() as Controller;
             Preconditions = item.Preconditions.Clone() as PreconditionList;
             Modifiers = item.Modifiers.Clone() as ModifierList;
             ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;
@@ -116,7 +115,7 @@ namespace MobiFlight.Base
             return GUID == item.GUID &&
                    Active == item.Active &&
                    Name == item.Name &&
-                   ModuleSerial == item.ModuleSerial &&
+                   Controller.AreEqual(item.Controller) &&
                    Preconditions.Equals(item.Preconditions) &&
                    Modifiers.Equals(item.Modifiers) &&
                    ConfigRefs.Equals(item.ConfigRefs) &&

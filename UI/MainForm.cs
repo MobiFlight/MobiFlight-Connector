@@ -114,6 +114,8 @@ namespace MobiFlight.UI
 
         public ControllerBindingService ControllerBindingService { get; private set; }
 
+        private ProjectListManager ProjectListManager { get; set; } = new ProjectListManager();
+
         private void InitializeLogging()
         {
             LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
@@ -152,15 +154,6 @@ namespace MobiFlight.UI
         {
             UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
-            Properties.Settings.Default.PropertyChanged += (s, e) =>
-            {
-                PublishSettings();
-                if (e.PropertyName == "RecentFiles")
-                {
-                    PublishRecentProjectList();
-                }
-            };
-
             Properties.Settings.Default.SettingsSaving += (s, e) =>
             {
                 PublishSettings();
@@ -445,7 +438,7 @@ namespace MobiFlight.UI
                     Context = new Dictionary<string, string>()
                     {
                         { "Count", autoBoundControllers.Count.ToString() },
-                        { "Controllers", string.Join(", ", autoBoundControllers.Select(c => SerialNumber.ExtractDeviceName(c.BoundController))) }
+                        { "Controllers", string.Join(", ", autoBoundControllers.Select(c => c.BoundController.Name)) }
                     }
                 });
             }
@@ -458,7 +451,7 @@ namespace MobiFlight.UI
                     Context = new Dictionary<string, string>()
                     {
                         { "Count", manualRebindRequiredControllers.Count.ToString() },
-                        { "Controllers", string.Join(", ", manualRebindRequiredControllers.Select(c => SerialNumber.ExtractDeviceName(c.OriginalController)).Distinct()) }
+                        { "Controllers", string.Join(", ", manualRebindRequiredControllers.Select(c => c.OriginalController.Name).Distinct()) }
                     }
                 });
             }
@@ -522,114 +515,22 @@ namespace MobiFlight.UI
             Refresh();
 
             PublishSettings();
-            try
-            {
-                await CleanRecentFilesAsync().ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Exception in CleanRecentFilesAsync: {ex.Message}", LogSeverity.Error);
-            }
-
-            PublishRecentProjectList();
+            await InitializeRecentProjectsListAsync();
         }
 
-        // Remove non-existing recent files asynchronously but return only after UI changes persisted.
-        // Caller can await to guarantee the settings are updated before using RecentFiles.
-        private async Task CleanRecentFilesAsync()
+        private async Task InitializeRecentProjectsListAsync()
         {
-            var recentSnapshot = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+            // Subscribe to changes
+            ProjectListManager.ProjectListChanged += (s, e) => PublishProjectList();
 
-            var missingFiles = await Task.Run(() => CheckForMissingFiles(recentSnapshot)).ConfigureAwait(false);
-
-            if (missingFiles.Count == 0) return;
-
-            // Handle require to invoke settings update on UI thread
-            if (!IsHandleCreated) return;
-
-            var tcs = new TaskCompletionSource<bool>();
-            BeginInvoke((Action)(() =>
-            {
-                try
-                {
-                    RemoveMissingFilesFromSettings(missingFiles);
-                    tcs.SetResult(true);
-                }
-                catch (Exception ex)
-                {
-                    tcs.SetException(ex);
-                }
-            }));
-            await tcs.Task.ConfigureAwait(false);
+            // Initialize with ControllerBindingService
+            await ProjectListManager.InitializeFromSettingsAsync(ControllerBindingService).ConfigureAwait(false);
         }
 
-        internal static List<string> CheckForMissingFiles(IEnumerable<string> recentFiles)
+        private void PublishProjectList()
         {
-            var missingFiles = new List<string>();
-            if (recentFiles == null) return missingFiles;
-
-            foreach (var f in recentFiles)
-            {
-                try
-                {
-                    if (string.IsNullOrWhiteSpace(f) || !File.Exists(f))
-                        missingFiles.Add(f);
-                }
-                catch
-                {
-                    // Treat IO errors as missing; keep scanning
-                    missingFiles.Add(f);
-                }
-            }
-
-            return missingFiles;
-        }
-
-        internal void RemoveMissingFilesFromSettings(IEnumerable<string> missingFiles)
-        {
-            if (missingFiles == null) return;
-
-            var changed = false;
-            foreach (var f in missingFiles)
-            {
-                if (!Properties.Settings.Default.RecentFiles.Contains(f)) continue;
-
-                Properties.Settings.Default.RecentFiles.Remove(f);
-                Log.Instance.log($"Recent Project List - File doesn't exist: '{f}' removed.", LogSeverity.Info);
-                changed = true;
-            }
-
-            if (changed)
-            {
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void PublishRecentProjectList()
-        {
-            var recentFiles = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
-            var recentProjects = new List<ProjectInfo>();
-            Task.Run(() =>
-            {
-                foreach (var project in recentFiles)
-                {
-                    try
-                    {
-                        var p = new Project();
-                        p.FilePath = project;
-                        p.OpenFile(suppressMigrationLogging: true);
-                        p.DetermineProjectInfos();
-                        ControllerBindingService.PerformAutoBinding(p);
-
-                        recentProjects.Add(p.ToProjectInfo());
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Instance.log($"Could not load recent project file {project}: {ex.Message}", LogSeverity.Warn);
-                    }
-                }
-                MessageExchange.Instance.Publish(new RecentProjects() { Projects = recentProjects });
-            }).ConfigureAwait(false);
+            var projects = ProjectListManager?.GetProjects();
+            MessageExchange.Instance.Publish(new RecentProjects() { Projects = projects });
         }
 
         private void PublishSettings()
@@ -1025,7 +926,6 @@ namespace MobiFlight.UI
             UpdateAllConnectionIcons();
 
             UpdateStatusBarModuleInformation();
-            PublishRecentProjectList();
 
             // Track config loaded event
             AppTelemetry.Instance.TrackStart();
@@ -1303,18 +1203,12 @@ namespace MobiFlight.UI
 
         private void _autoloadLastConfig()
         {
-            // the new autoload feature
-            // step1 load config always... good feature ;)
-            // step2 run automatically -> see fsuipc connected event
-            if (Properties.Settings.Default.RecentFiles.Count > 0)
-            {
-                foreach (string file in Properties.Settings.Default.RecentFiles)
-                {
-                    if (!System.IO.File.Exists(file)) continue;
-                    LoadConfig(file);
-                    return;
-                }
-            } //if
+            // use the recent files from application settings
+            // no async loading involved => no timing issues that can happen
+            var recentFile = Properties.Settings.Default.RecentFiles?.Cast<string>().ToList().First(f => File.Exists(f)) ?? null;
+            if (recentFile == null) return;
+            
+            LoadConfig(recentFile);
         }
 
 #if ARCAZE
@@ -2001,21 +1895,6 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// stores the provided filename in the list of recently used files
-        /// </summary>
-        /// <param name="fileName">the filename to be used</param>
-        private void _storeAsRecentFile(string fileName)
-        {
-            if (Properties.Settings.Default.RecentFiles.Contains(fileName))
-            {
-                Properties.Settings.Default.RecentFiles.Remove(fileName);
-            }
-            Properties.Settings.Default.RecentFiles.Insert(0, fileName);
-            Properties.Settings.Default.Save();
-            PublishRecentProjectList();
-        }
-
-        /// <summary>
         /// gets triggered when user clicks on recent used file entry
         /// loads the according config
         /// </summary>
@@ -2132,7 +2011,7 @@ namespace MobiFlight.UI
             {
                 // the original file name has to be stored
                 // in the list of recent files.
-                _storeAsRecentFile(execManager.Project.FilePath);
+                ProjectListManager.OpenProject(execManager.Project.ToProjectInfo());
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -2159,61 +2038,6 @@ namespace MobiFlight.UI
             ProjectHasUnsavedChanges = false;
             SetProjectNameInTitle();
         }
-
-        private void showMissingControllersDialog()
-        {
-            List<string> serials = new List<string>();
-
-            foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
-            {
-                serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
-            }
-
-            foreach (var joystick in execManager.GetJoystickManager().GetJoysticks())
-            {
-                // Extra space between Name and Separator is necessary!
-                serials.Add($"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}");
-            }
-
-            if (serials.Count == 0) return;
-
-            try
-            {
-                var allConfigItems = execManager.Project.ConfigFiles.Select(file => file.ConfigItems).ToList();
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, allConfigItems);
-                opd.StartPosition = FormStartPosition.CenterParent;
-                if (opd.HasOrphanedSerials())
-                {
-                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        ProjectHasUnsavedChanges = opd.HasChanged();
-
-                        if (!ProjectHasUnsavedChanges) return;
-
-                        var udpatedConfigs = opd.GetUpdatedConfigs();
-
-                        for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
-                        {
-                            execManager.Project.ConfigFiles[i].ConfigItems = udpatedConfigs[i];
-                        }
-
-                        ControllerBindingService.PerformAutoBinding(execManager.Project);
-                        saveToolStripButton_Click(this, new EventArgs());
-                    }
-                }
-                else
-                {
-                    TimeoutMessageDialog.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                // do nothing
-                Log.Instance.log($"Orphaned serials exception: {ex.Message}", LogSeverity.Error);
-            }
-        }
-
-
 
         private void SetTitle(string title)
         {
@@ -2274,9 +2098,11 @@ namespace MobiFlight.UI
                 return;
             }
 
+            ProjectListManager.OpenProject(execManager.Project.ToProjectInfo());
+
             MessageExchange.Instance.Publish(execManager.Project);
-            _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
+            
             MessageExchange.Instance.Publish(new ProjectStatus()
             {
                 HasChanged = ProjectHasUnsavedChanges,
@@ -2590,11 +2416,6 @@ namespace MobiFlight.UI
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(i18n._tr("WebsiteUrlHelp"));
-        }
-
-        public void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showMissingControllersDialog();
         }
 
         public void donateToolStripButton_Click(object sender, EventArgs e)
@@ -3075,14 +2896,7 @@ namespace MobiFlight.UI
 
         internal void RecentFilesRemove(int index)
         {
-            var recentFiles = Properties.Settings.Default.RecentFiles;
-
-            if (index < 0 || index >= recentFiles.Count)
-                return;
-
-            recentFiles.RemoveAt(index);
-            Properties.Settings.Default.RecentFiles = recentFiles;
-            Properties.Settings.Default.Save();
+            ProjectListManager.RemoveProjectByIndex(index);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

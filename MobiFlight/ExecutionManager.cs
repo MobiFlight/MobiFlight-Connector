@@ -21,6 +21,7 @@ namespace MobiFlight
     public interface IExecutionManager
     {
         Dictionary<String, MobiFlightVariable> GetAvailableVariables();
+        ArcazeCache getModuleCache();
         JoystickManager GetJoystickManager();
         MobiFlightCache getMobiFlightModuleCache();
         ProSim.ProSimCacheInterface GetProSimCache();
@@ -255,7 +256,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = module.Name,
-                    Connected = true,
                     Serial = module.Serial
                 });
             });
@@ -265,7 +265,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Connected = true,
                     Serial = controller.Serial
                 });
             });
@@ -275,7 +274,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Connected = true,
                     Serial = controller.Serial
                 });
             });
@@ -428,7 +426,7 @@ namespace MobiFlight
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
 
-                        var serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+                        var serial = cfg.Controller.Serial;
 
                         if (SerialNumber.IsMobiFlightSerial(serial))
                         {

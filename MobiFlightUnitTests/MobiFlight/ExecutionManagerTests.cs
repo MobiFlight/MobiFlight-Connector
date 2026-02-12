@@ -832,7 +832,7 @@ namespace MobiFlight.Tests
                 Active = true,
                 Name = "Config2_WithError",
                 Source = new VariableSource() { MobiFlightVariable = variable2 },
-                ModuleSerial = "Test / SN-123",
+                Controller = SerialNumber.CreateController("Test / SN-123"),
                 DeviceType = MobiFlightOutput.TYPE,
                 Device = new OutputConfig.Output { Pin = "1" }
             };

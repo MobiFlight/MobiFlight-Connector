@@ -23,7 +23,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "7-Segment",
           "Preconditions": [],
           "Source": {
@@ -62,7 +65,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "Stepper 2",
           "Preconditions": [],
           "Source": {
@@ -98,7 +104,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "Servo",
           "Preconditions": [],
           "Source": {
@@ -137,7 +146,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "LCD",
           "Preconditions": [],
           "Source": {
@@ -185,7 +197,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "LED 1",
           "Preconditions": [
             {
@@ -231,7 +246,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "ShiftRegister - And a long name to test truncation",
           "Preconditions": [],
           "Source": {
@@ -259,7 +277,6 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "",
           "Name": "New Output Config",
           "Preconditions": [],
           "Source": {
@@ -286,7 +303,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "WINWING Orion Joystick Base 2 + JGRIP-F16 / JS-3145ad90-c6f2-11ef-8001-444553540000",
+          "Controller": {
+            "Name": "WINWING Orion Joystick Base 2 + JGRIP-F16",
+            "Serial": "JS-3145ad90-c6f2-11ef-8001-444553540000"
+          },
           "Name": "Button",
           "Preconditions": [],
           "Status": {},
@@ -312,7 +332,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "Encoder",
           "Preconditions": [],
           "Status": {},
@@ -337,7 +360,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Controller": {
+            "Name": "ProtoBoard-v2",
+            "Serial": "SN-5FC-1CF"
+          },
           "Name": "AnalogInput",
           "Preconditions": [],
           "Status": {},
@@ -368,7 +394,10 @@
           "Active": true,
           "Name": "MCDU - L1",
           "Type": "InputConfigItem",
-          "ModuleSerial": "WINWING MCDU-32-CAPTAIN / JS-d2e9a050-00f1-11f0-8006-444553540000",
+          "Controller": {
+            "Name": "WINWING MCDU-32-CAPTAIN",
+            "Serial": "JS-d2e9a050-00f1-11f0-8006-444553540000"
+          },
           "Preconditions": [
             {
               "PreconditionType": "none",
@@ -414,7 +443,10 @@
           "Active": true,
           "Name": "COM2 MIC",
           "Type": "InputConfigItem",
-          "ModuleSerial": "Intech Studio: AC   / MI-2222",
+          "Controller": {
+            "Name": "Intech Studio: AC  ",
+            "Serial": "MI-2222"
+          },
           "Preconditions": [],
           "Modifiers": {
             "Items": []
@@ -433,7 +465,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "Intech Studio: AC   / MI-2222",
+          "Controller": {
+            "Name": "Intech Studio: AC  ",
+            "Serial": "MI-2222"
+          },
           "Name": "Midi Encoder Input",
           "Preconditions": [],
           "Status": {},
@@ -458,7 +493,10 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "Intech Studio: AC   / MI-2222",
+          "Controller": {
+            "Name": "Intech Studio: AC  ",
+            "Serial": "MI-2222"
+          },
           "Name": "Midi Slider Input",
           "Preconditions": [],
           "Status": {},
@@ -486,7 +524,6 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "",
           "Name": "Config 2",
           "Preconditions": [],
           "Source": {
@@ -520,7 +557,6 @@
           "Modifiers": {
             "Items": []
           },
-          "ModuleSerial": "",
           "Name": "Config 3",
           "Preconditions": [],
           "Source": {
@@ -550,40 +586,73 @@
   "Aircraft": [],
   "ControllerBindings": [
     {
-      "BoundController": "miniCOCKPIT miniFCU/ SN-E98-277",
+      "BoundController": {
+        "Name": "miniCOCKPIT miniFCU",
+        "Serial": "SN-E98-277"
+      },
       "Status": "Match",
-      "OriginalController": "miniCOCKPIT miniFCU/ SN-E98-277"
+      "OriginalController": {
+        "Name": "miniCOCKPIT miniFCU",
+        "Serial": "SN-E98-277"
+      }
     },
     {
-      "BoundController": "ProtoBoard-v2/ SN-5FC-1CF",
+      "BoundController": {
+        "Name": "ProtoBoard-v2",
+        "Serial": "SN-5FC-1CF"
+      },
       "Status": "AutoBind",
-      "OriginalController": "ProtoBoard-v2/ SN-3F1-FDD"
+      "OriginalController": {
+        "Name": "ProtoBoard-v2",
+        "Serial": "SN-3F1-FDD"
+      }
     },
     {
       "BoundController": null,
       "Status": "RequiresManualBind",
-      "OriginalController": "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000"
+      "OriginalController": {
+        "Name": "Alpha Flight Controls",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540000"
+      }
     },
     {
       "BoundController": null,
       "Status": "Missing",
-      "OriginalController": "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540001"
+      "OriginalController": {
+        "Name": "Bravo Throttle Quadrant",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540001"
+      }
     },
     {
       "BoundController": null,
       "Status": "Missing",
-      "OriginalController": "Behringer X-Touch Mini / MI-b0875190-3b89-11ed-8007-444553540001"
+      "OriginalController": {
+        "Name": "Behringer X-Touch Mini",
+        "Serial": "MI-b0875190-3b89-11ed-8007-444553540002"
+      }
     },
     {
-      "BoundController": "Generic Gamepad / JS-b0875190-3b89-11ed-8007-444553540002",
+      "BoundController": {
+        "Name": "MFG Crosswind V2/3",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540003"
+      },
       "Status": "Match",
-      "OriginalController": "Generic Gamepad / JS-b0875190-3b89-11ed-8007-444553540002"
+      "OriginalController": {
+        "Name": "MFG Crosswind V2/3",
+        "Serial": "JS-b0875190-3b89-11ed-8007-444553540003"
+      }
     },
     {
-      "BoundController": "Octavi / JS-b0875190-3b89-11ed-8007-44455354003",
+      "BoundController": {
+        "Name": "Octavi",
+        "Serial": "JS-b0875190-3b89-11ed-8007-44455354004"
+      },
       "Status": "Match",
-      "OriginalController": "Octavi / JS-b0875190-3b89-11ed-8007-44455354003"
-    }  
+      "OriginalController": {
+        "Name": "Octavi",
+        "Serial": "JS-b0875190-3b89-11ed-8007-44455354004"
+      }
+    }
   ],
   "Features": {
     "FSUIPC": false,

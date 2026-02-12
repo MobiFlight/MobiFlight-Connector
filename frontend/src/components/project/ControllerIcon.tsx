@@ -1,6 +1,6 @@
 import IconBrandMobiFlightLogo from "@/components/icons/IconBrandMobiFlightLogo"
 import { cn } from "@/lib/utils"
-import { ControllerBindingStatus } from "@/types/controller"
+import { Controller, ControllerBindingStatus } from "@/types/controller"
 import {
   IconDeviceGamepad2,
   IconPiano,
@@ -10,7 +10,7 @@ import { HtmlHTMLAttributes } from "react"
 import { useTranslation } from "react-i18next"
 
 export type ControllerIconProps = {
-  serial: string
+  controller: Partial<Controller>
   status?: ControllerBindingStatus
 }
 
@@ -73,24 +73,24 @@ const FindControllerIcon = (controllerType: string, deviceName: string) => {
 }
 
 const ControllerIcon = ({
-  serial,
+  controller,
   status,
   className,
   ...props
 }: HtmlHTMLAttributes<HTMLDivElement> & ControllerIconProps) => {
   const { t } = useTranslation()
 
-  const controllerType = serial.includes("SN-")
+  const controllerType = controller.Serial?.includes("SN-")
     ? "mobiflight"
-    : serial.includes("JS-")
+    : controller.Serial?.includes("JS-")
       ? "joystick"
-      : serial.includes("MI-")
+      : controller.Serial?.includes("MI-")
         ? "midi"
         : "unknown"
 
-  const usingController = serial != ""
-  const deviceName = serial.split("/")[0].trim() || ""
-  const iconResult = FindControllerIcon(controllerType, deviceName)
+  const usingController = controller.Serial != null && controller.Serial !== ""
+  const deviceName = controller.Name
+  const iconResult = FindControllerIcon(controllerType, deviceName ?? ":error:")
   // Handle component rendering
   const IconComponent = typeof iconResult !== "string" ? iconResult : null
 

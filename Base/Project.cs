@@ -25,7 +25,6 @@ namespace MobiFlight.Base
         public bool Favorite { get; set; } = false;
         /// <summary>
         /// Binding status for controllers in this project
-        /// Key: ModuleSerial, Value: ControllerBindingStatus
         /// Only populated when analyzing binding status
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -252,7 +251,6 @@ namespace MobiFlight.Base
 
         /// <summary>
         /// Binding status for controllers in this project
-        /// Key: ModuleSerial, Value: ControllerBindingStatus
         /// Only populated when analyzing binding status
         /// </summary>
         public virtual List<ControllerBinding> ControllerBindings { get; set; }
@@ -293,9 +291,6 @@ namespace MobiFlight.Base
 
         public void DetermineProjectInfos()
         {
-            var controllerSerials = new List<string>();
-
-            // reset features for clean determination
             Features = new ProjectFeatures();
 
             foreach (var item in ConfigFiles)
@@ -313,8 +308,6 @@ namespace MobiFlight.Base
 
                 Features.FSUIPC |= item.DetermineUsingFsuipc();
                 Features.ProSim |= item.ContainsConfigOfSourceType(new ProSimSource());
-
-                item.GetIUniqueControllerSerials().ForEach(c => controllerSerials.Add(c));
             }
         }
 

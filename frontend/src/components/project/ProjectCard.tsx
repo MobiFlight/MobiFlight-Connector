@@ -242,16 +242,14 @@ const ProjectCard = ({
                     </div>
                   )}
                   {sortedControllerBindings?.map((controllerBinding, index) => {
-                    const serial =
-                      controllerBinding.BoundController ||
-                      controllerBinding.OriginalController ||
-                      ""
+
+                    const iconController = controllerBinding.BoundController || controllerBinding.OriginalController
                     return (
-                      controllerBinding.BoundController != "-" && (
+                      controllerBinding.OriginalController && (
                         <ControllerIcon
                           className="transition-all ease-in-out"
-                          key={`${controllerBinding.BoundController}-${index}`}
-                          serial={serial}
+                          key={`${controllerBinding.OriginalController.Name}:${controllerBinding.OriginalController.Serial}-${index}`}
+                          controller={iconController}
                           status={controllerBinding.Status}
                         />
                       )

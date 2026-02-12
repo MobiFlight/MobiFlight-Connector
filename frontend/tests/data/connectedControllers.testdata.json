@@ -55,8 +55,8 @@
     "certified": false
   },
   {
-    "Name": "Generic Gamepad",
-    "Serial": "JS-b0875190-3b89-11ed-8007-444553540002",
+    "Name": "MFG Crosswind V2/3",
+    "Serial": "JS-b0875190-3b89-11ed-8007-444553540003",
     "Vendor": "Microsoft",
     "ProductId": "",
     "VendorId": "",
@@ -67,7 +67,7 @@
   },
   {
     "Name": "Octavi",
-    "Serial": "JS-b0875190-3b89-11ed-8007-44455354003",
+    "Serial": "JS-b0875190-3b89-11ed-8007-44455354004",
     "Vendor": "Octavi",
     "ProductId": "",
     "VendorId": "",

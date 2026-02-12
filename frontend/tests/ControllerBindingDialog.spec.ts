@@ -75,17 +75,16 @@ test("Confirm Controller Binding Dialog shows correct information", async ({
   await filterAll.click()
 
   for (const controllerBinding of controllerBindings) {
-    const [name, serial] = controllerBinding.OriginalController.split("/").map(
-      (s: string) => s.trim(),
-    )
+    const name = controllerBinding.OriginalController?.Name
+    const serial = controllerBinding.OriginalController?.Serial
+    
     await expect(originalControllers.getByText(name)).toBeVisible()
     await expect(originalControllers.getByText(serial)).toBeVisible()
 
     if (controllerBinding.BoundController === null) continue
 
-    const [boundName, boundSerial] = controllerBinding.BoundController.split(
-      "/",
-    ).map((s: string) => s.trim())
+    const boundName = controllerBinding.BoundController.Name
+    const boundSerial = controllerBinding.BoundController.Serial
     await expect(boundControllers.getByText(boundName)).toBeVisible()
     await expect(boundControllers.getByText(boundSerial)).toBeVisible()
   }
@@ -131,13 +130,15 @@ test("Confirm Controller Binding assignment works correctly", async ({
 
   const updatedBinding = updatedBindings.find(
     (b) =>
-      b.OriginalController?.search(
-        "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
-      ) !== -1,
+      b.OriginalController?.Name == "Alpha Flight Controls" &&
+      b.OriginalController?.Serial == "JS-b0875190-3b89-11ed-8007-444553540000"
   )
   expect(updatedBinding).toBeDefined()
-  expect(updatedBinding!.BoundController).toBe(
-    "Alpha Flight Controls Lite / JS-c0875190-3b89-11ed-8007-444553540000",
+  expect(updatedBinding!.BoundController?.Name).toBe(
+    "Alpha Flight Controls Lite",
+  )
+  expect(updatedBinding!.BoundController?.Serial).toBe(
+    "JS-c0875190-3b89-11ed-8007-444553540000"
   )
   expect(updatedBinding!.Status).toBe("Match")
 })

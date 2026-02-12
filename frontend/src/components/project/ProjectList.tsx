@@ -23,7 +23,9 @@ const ProjectList = ({
   activeProject,
   onSelect,
 }: ProjectListProps) => {
+  const SCROLL_INTO_VIEW_TIMEOUT = 2000 
   const refActiveElement = useRef<HTMLDivElement | null>(null)
+  const scrollTimeoutRef = useRef<number | null>(null)
 
   const { publish } = publishOnMessageExchange()
 
@@ -35,14 +37,23 @@ const ProjectList = ({
     setSearchParams({})
   }
 
+  const cancelScrollIntoView = () => {
+    if (scrollTimeoutRef.current !== null) {
+      window.clearTimeout(scrollTimeoutRef.current)
+      scrollTimeoutRef.current = null
+    }
+  }
+
   const scrollActiveProjectIntoView = () => {
     if (refActiveElement.current) {
-      window.setTimeout(() => {
+      cancelScrollIntoView()
+      scrollTimeoutRef.current = window.setTimeout(() => {
         refActiveElement.current?.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
         })
-      }, 500)
+        scrollTimeoutRef.current = null
+      }, SCROLL_INTO_VIEW_TIMEOUT)
     }
   }
 
@@ -75,6 +86,7 @@ const ProjectList = ({
         <div className="relative flex flex-0 grow flex-col">
           <ScrollArea
             className="grow pr-2 transition-all duration-300"
+            onMouseEnter={cancelScrollIntoView}
             onMouseLeave={scrollActiveProjectIntoView}
           >
             <div

@@ -18,7 +18,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   // This is the name of the config item
   Name: string
   // name / serial of the device
-  ModuleSerial: string
+  Controller?: Partial<Controller>
   Device?: IDeviceConfig | null 
   // this is the type of the Device
   // Type: DeviceElementType;
