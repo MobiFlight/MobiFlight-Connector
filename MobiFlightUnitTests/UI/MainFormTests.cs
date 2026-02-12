@@ -131,7 +131,7 @@ namespace MobiFlight.UI.Tests
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true when starting with a fresh project.");
 
             var mainFormTitle = _mainForm.Text;
-            var expectedTitle = $"New MobiFlight Project* - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            var expectedTitle = $"* - MobiFlight Connector - {MainForm.DisplayVersion()}";
             Assert.AreEqual(expectedTitle, mainFormTitle);
         }
 
@@ -243,5 +243,67 @@ namespace MobiFlight.UI.Tests
             Assert.AreEqual(testFiles[2], projectFiles[1].FilePath);
             Assert.DoesNotContain(testFiles[1], projectFiles, "Removed file should not be in ProjectList");
         }
+
+        #region Update window title tests
+        [TestMethod()]
+        public void SetProjectFilePathInTitle_WithSavedProject_ShowsCorrectFilePath()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            var testProjectName = "MyTestProject";
+            var tempFilePath = Path.Combine(_tempDirectory, $"{testProjectName}.mfproj");
+
+            var project = new Project() { Name = testProjectName };
+            _mainForm.CreateNewProject(project);
+
+            // Act - Save the project to establish a file path
+            var saveMethod = typeof(MainForm).GetMethod("SaveConfig", BindingFlags.NonPublic | BindingFlags.Instance);
+            saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
+
+            // Assert - Title should show file path without asterisk (saved state)
+            var expectedTitle = $"{tempFilePath} - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display project file path without unsaved indicator");
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "Project should not have unsaved changes");
+        }
+
+        [TestMethod()]
+        public void SetProjectFilePathInTitle_WithUnsavedChanges_ShowsAsterisk()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            var testProjectName = "MyTestProject";
+            var tempFilePath = Path.Combine(_tempDirectory, $"{testProjectName}.mfproj");
+
+            var project = new Project() { Name = testProjectName };
+            _mainForm.CreateNewProject(project);
+
+            // Save first to establish file path
+            var saveMethod = typeof(MainForm).GetMethod("SaveConfig", BindingFlags.NonPublic | BindingFlags.Instance);
+            saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
+
+            // Act - Make a change to trigger unsaved state
+            _mainForm.AddNewFileToProject();
+
+            // Assert - Title should show file path WITH asterisk (unsaved state)
+            var expectedTitle = $"{tempFilePath}* - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display project file path with unsaved indicator");
+            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "Project should have unsaved changes");
+        }
+
+        [TestMethod()]
+        public void SetProjectFilePathInTitle_WithNoProject_ShowsOnlyVersionInfo()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+
+            // Act - Call SetTitle with empty string (simulates no project loaded)
+            var setTitleMethod = typeof(MainForm).GetMethod("SetTitle", BindingFlags.NonPublic | BindingFlags.Instance);
+            setTitleMethod.Invoke(_mainForm, new object[] { "" });
+
+            // Assert - Title should show only version info
+            var expectedTitle = $"MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display only version info when no project is loaded");
+        }
+        #endregion
     }
 }
