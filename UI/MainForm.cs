@@ -520,44 +520,17 @@ namespace MobiFlight.UI
 
         private async void InitializeRecentProjectsList()
         {
-            ProjectListManager.InitializeFromSettings();
-            try
-            {
-                await ProjectListManager.CleanMissingFilesAsync().ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Exception cleaning project files: {ex.Message}", LogSeverity.Error);
-            }
+            // Subscribe to changes
+            ProjectListManager.ProjectListChanged += (s, e) => PublishProjectList();
 
-            PublishProjectList();
+            // Initialize with ControllerBindingService
+            await ProjectListManager.InitializeFromSettingsAsync(ControllerBindingService).ConfigureAwait(false);
         }
 
         private void PublishProjectList()
         {
-            var recentFiles = ProjectListManager?.GetProjectFiles();
-            var recentProjects = new List<ProjectInfo>();
-            Task.Run(() =>
-            {
-                foreach (var project in recentFiles)
-                {
-                    try
-                    {
-                        var p = new Project();
-                        p.FilePath = project;
-                        p.OpenFile(suppressMigrationLogging: true);
-                        p.DetermineProjectInfos();
-                        ControllerBindingService?.PerformAutoBinding(p);
-
-                        recentProjects.Add(p.ToProjectInfo());
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Instance.log($"Could not load recent project file {project}: {ex.Message}", LogSeverity.Warn);
-                    }
-                }
-                MessageExchange.Instance.Publish(new RecentProjects() { Projects = recentProjects });
-            }).ConfigureAwait(false);
+            var projects = ProjectListManager?.GetProjects();
+            MessageExchange.Instance.Publish(new RecentProjects() { Projects = projects });
         }
 
         private void PublishSettings()
@@ -953,7 +926,7 @@ namespace MobiFlight.UI
             UpdateAllConnectionIcons();
 
             UpdateStatusBarModuleInformation();
-            PublishProjectList();
+            // PublishProjectList();
 
             // Track config loaded event
             AppTelemetry.Instance.TrackStart();
@@ -1231,10 +1204,10 @@ namespace MobiFlight.UI
 
         private void _autoloadLastConfig()
         {
-            var projectFiles = ProjectListManager.GetProjectFiles().Where(p => File.Exists(p)).ToList();
+            var projectFiles = ProjectListManager.GetProjects().Where(p => File.Exists(p.FilePath)).ToList();
             if (projectFiles.Count == 0) return;
 
-            LoadConfig(projectFiles.First());
+            LoadConfig(projectFiles.First().FilePath);
         }
 
 #if ARCAZE
@@ -2037,8 +2010,8 @@ namespace MobiFlight.UI
             {
                 // the original file name has to be stored
                 // in the list of recent files.
-                ProjectListManager.OpenProject(execManager.Project.FilePath);
-                PublishProjectList();
+                ProjectListManager.OpenProject(execManager.Project.ToProjectInfo());
+                // PublishProjectList();
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -2125,8 +2098,8 @@ namespace MobiFlight.UI
                 return;
             }
 
-            ProjectListManager.OpenProject(execManager.Project.FilePath);
-            PublishProjectList();
+            ProjectListManager.OpenProject(execManager.Project.ToProjectInfo());
+            // PublishProjectList();
 
             MessageExchange.Instance.Publish(execManager.Project);
             ResetProjectAndConfigChanges();
@@ -2925,7 +2898,7 @@ namespace MobiFlight.UI
         internal void RecentFilesRemove(int index)
         {
             ProjectListManager.RemoveProjectByIndex(index);
-            PublishProjectList();
+            // PublishProjectList();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

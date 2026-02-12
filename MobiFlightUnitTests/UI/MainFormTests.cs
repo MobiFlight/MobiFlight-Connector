@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -34,11 +35,12 @@ namespace MobiFlight.UI.Tests
                 methodInfo.Invoke(this, new object[] { });
             }
 
-            public void InitializeProjectListManager()
+            public async void InitializeProjectListManager()
             {
                 var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
                 var projectListManager = new ProjectListManager();
-                projectListManager.InitializeFromSettings();
+
+                await projectListManager.InitializeFromSettingsAsync(new ControllerBindingService(ExecutionManager));
                 propertyInfo.SetValue(this, projectListManager);
             }
         }
@@ -204,11 +206,11 @@ namespace MobiFlight.UI.Tests
             // Assert - ProjectList also updated
             var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
             var projectListManager = propertyInfo.GetValue(_mainForm) as ProjectListManager;
-            var projectFiles = projectListManager.GetProjectFiles();
+            var projectFiles = projectListManager.GetProjects();
 
             Assert.HasCount(2, projectFiles, "Should have 2 files remaining in ProjectList");
-            Assert.AreEqual("C:\\project1.mfproj", projectFiles[0]);
-            Assert.AreEqual("C:\\project3.mfproj", projectFiles[1]);
+            Assert.AreEqual("C:\\project1.mfproj", projectFiles[0].FilePath);
+            Assert.AreEqual("C:\\project3.mfproj", projectFiles[1].FilePath);
             Assert.DoesNotContain("C:\\project2.mfproj", projectFiles, "Removed file should not be in ProjectList");
         }
     }
