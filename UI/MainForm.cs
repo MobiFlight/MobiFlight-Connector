@@ -588,7 +588,7 @@ namespace MobiFlight.UI
         private void ProjectOrConfigFileHasChanged()
         {
             ProjectHasUnsavedChanges = true;
-            SetProjectNameInTitle();
+            SetProjectFilePathInTitle();
             UpdateAutoLoadMenu();
             UpdateAllConnectionIcons();
         }
@@ -2036,15 +2036,15 @@ namespace MobiFlight.UI
         private void ResetProjectAndConfigChanges()
         {
             ProjectHasUnsavedChanges = false;
-            SetProjectNameInTitle();
+            SetProjectFilePathInTitle();
         }
 
         private void SetTitle(string title)
         {
             string NewTitle = $"MobiFlight Connector - {DisplayVersion()}";
             var saveStatus = ProjectHasUnsavedChanges ? "*" : string.Empty;
-
-            if (title != null && title != "")
+            
+            if (ProjectHasUnsavedChanges || !string.IsNullOrEmpty(title))
             {
                 NewTitle = $"{title}{saveStatus} - {NewTitle}";
             }
@@ -2070,9 +2070,9 @@ namespace MobiFlight.UI
             return Version;
         }
 
-        private void SetProjectNameInTitle()
+        private void SetProjectFilePathInTitle()
         {
-            SetTitle(execManager.Project?.Name ?? string.Empty);
+            SetTitle(execManager.Project?.FilePath ?? string.Empty);
         }
 
         /// <summary>
@@ -2244,7 +2244,7 @@ namespace MobiFlight.UI
             // Indicate that the new project has unsaved changes
             // because it was never saved before.
             ProjectHasUnsavedChanges = true;
-            SetProjectNameInTitle();
+            SetProjectFilePathInTitle();
         }
 
         public void AddNewFileToProject()
