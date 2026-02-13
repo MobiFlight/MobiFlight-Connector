@@ -32,10 +32,6 @@ namespace MobiFlight.Tests
         [TestInitialize]
         public void Setup()
         {
-            // disable schema validation to not exceed 1,000 limit per hour
-            // https://www.newtonsoft.com/jsonschema
-            JsonBackedObject.SkipSchemaValidation = true;
-
             _mockXplaneCache = new Mock<XplaneCacheInterface>();
             _mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             _mockFsuipcCache = new Mock<FSUIPCCacheInterface>();
@@ -205,6 +201,40 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual(1, _executionManager.ActiveConfigIndex);
+        }
+
+
+        [TestMethod]
+        public void CommandConfigContextMenu_Duplicate_DuplicatesConfigItemCorrectly()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var firstConfigItemGuid = configItem1.GUID;
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "First Config",
+                ConfigItems = { configItem1 }
+            });
+
+            _executionManager.Project = project;
+            Assert.AreEqual(0, _executionManager.ActiveConfigIndex);
+            Assert.HasCount(1, project.ConfigFiles[0].ConfigItems);
+
+            var message = new CommandConfigContextMenu
+            {
+                Action = "duplicate",
+                Item = project.ConfigFiles[0].ConfigItems.First() as ConfigItem
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(2, project.ConfigFiles[0].ConfigItems);
+            Assert.AreEqual(firstConfigItemGuid, project.ConfigFiles[0].ConfigItems[0].GUID);
+            Assert.AreNotEqual(firstConfigItemGuid, project.ConfigFiles[0].ConfigItems[1].GUID, "Duplicated config items must have unique IDs");
         }
 
         [TestMethod]
