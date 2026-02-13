@@ -26,7 +26,7 @@ namespace MobiFlight.FSUIPC
 
         public class Fsuipc2Cache : FSUIPCCacheInterface
     {
-        private static object fsuipc_lock = new object();
+        private static readonly object _fsuipcLock = new object();
 
         public event EventHandler Closed;
 
@@ -154,7 +154,7 @@ namespace MobiFlight.FSUIPC
             if (IsConnected() && _offsetsRegistered && (!__isProcessed || force_refresh)) {
                 try
                 {
-                    lock (fsuipc_lock)
+                    lock (_fsuipcLock)
                     {
                         FSUIPCConnection.Process();
                         lastProcessedMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
@@ -356,7 +356,7 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, byte value)
         {
-            lock (fsuipc_lock)
+            lock (_fsuipcLock)
             {
                 __cacheByte.GetOrAdd(offset, k =>
                 {
@@ -371,7 +371,7 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, short value)
         {
-            lock (fsuipc_lock)
+            lock (_fsuipcLock)
             {
                 __cacheShort.GetOrAdd(offset, k =>
                 {
@@ -386,7 +386,7 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, int value, bool writeOnly = false)
         {
-            lock (fsuipc_lock)
+            lock (_fsuipcLock)
             {
                 __cacheInt.GetOrAdd(offset, k =>
                 {
@@ -401,7 +401,7 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, float value)
         {
-            lock (fsuipc_lock)
+            lock (_fsuipcLock)
             {
                 __cacheFloat.GetOrAdd(offset, k =>
                 {
@@ -416,7 +416,7 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, double value)
         {
-            lock (fsuipc_lock)
+            lock (_fsuipcLock)
             {
                 __cacheDouble.GetOrAdd(offset, k =>
                 {
@@ -431,7 +431,7 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, string value)
         {
-            lock (fsuipc_lock)
+            lock (_fsuipcLock)
             {
                 // +1 needed because fsuipc string must end with 0x00 and last char is auto set by library
                 int stringLength = value.Length + 1;
@@ -459,7 +459,7 @@ namespace MobiFlight.FSUIPC
         public void executeMacro(string macroName, int paramValue)
         {
             try {
-                lock (fsuipc_lock)
+                lock (_fsuipcLock)
                 {
                     __macroParam.Value = paramValue;
                     __macroName.Value = macroName;
@@ -476,7 +476,7 @@ namespace MobiFlight.FSUIPC
         public void setEventID(int eventID, int param)
         {
             try {
-                lock (fsuipc_lock)
+                lock (_fsuipcLock)
                 {
                     FSUIPCConnection.SendControlToFS(eventID, param);
                 }
