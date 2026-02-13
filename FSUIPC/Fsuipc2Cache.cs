@@ -35,16 +35,16 @@ namespace MobiFlight.FSUIPC
         public event EventHandler ConnectionLost;
         public event EventHandler<string> AircraftChanged;
 
-        ConcurrentDictionary<Int32, Offset<Byte>> __cacheByte = new ConcurrentDictionary<Int32, Offset<Byte>>();
-        ConcurrentDictionary<Int32, Offset<Int16>> __cacheShort = new ConcurrentDictionary<Int32, Offset<Int16>>();
-        //ConcurrentDictionary<Int32, Offset<UInt16>> __cacheUShort = new ConcurrentDictionary<Int32, Offset<UInt16>>();
-        ConcurrentDictionary<Int32, Offset<Int32>> __cacheInt = new ConcurrentDictionary<Int32, Offset<Int32>>();
-        //ConcurrentDictionary<Int32, Offset<UInt32>> __cacheUInt = new ConcurrentDictionary<Int32, Offset<UInt32>>();
-        ConcurrentDictionary<Int32, Offset<Single>> __cacheFloat = new ConcurrentDictionary<Int32, Offset<Single>>();
-        ConcurrentDictionary<Int32, Offset<Int64>> __cacheLong = new ConcurrentDictionary<Int32, Offset<Int64>>();
-        //ConcurrentDictionary<Int32, Offset<UInt64>> __cacheULong = new ConcurrentDictionary<Int32, Offset<UInt64>>();
-        ConcurrentDictionary<Int32, Offset<Double>> __cacheDouble = new ConcurrentDictionary<Int32, Offset<Double>>();
-        ConcurrentDictionary<Int32, Offset<String>> __cacheString = new ConcurrentDictionary<Int32, Offset<String>>();
+        readonly ConcurrentDictionary<Int32, Offset<Byte>> __cacheByte = new ConcurrentDictionary<Int32, Offset<Byte>>();
+        readonly ConcurrentDictionary<Int32, Offset<Int16>> __cacheShort = new ConcurrentDictionary<Int32, Offset<Int16>>();
+        //readonly ConcurrentDictionary<Int32, Offset<UInt16>> __cacheUShort = new ConcurrentDictionary<Int32, Offset<UInt16>>();
+        readonly ConcurrentDictionary<Int32, Offset<Int32>> __cacheInt = new ConcurrentDictionary<Int32, Offset<Int32>>();
+        //readonly ConcurrentDictionary<Int32, Offset<UInt32>> __cacheUInt = new ConcurrentDictionary<Int32, Offset<UInt32>>();
+        readonly ConcurrentDictionary<Int32, Offset<Single>> __cacheFloat = new ConcurrentDictionary<Int32, Offset<Single>>();
+        readonly ConcurrentDictionary<Int32, Offset<Int64>> __cacheLong = new ConcurrentDictionary<Int32, Offset<Int64>>();
+        //readonly ConcurrentDictionary<Int32, Offset<UInt64>> __cacheULong = new ConcurrentDictionary<Int32, Offset<UInt64>>();
+        readonly ConcurrentDictionary<Int32, Offset<Double>> __cacheDouble = new ConcurrentDictionary<Int32, Offset<Double>>();
+        readonly ConcurrentDictionary<Int32, Offset<String>> __cacheString = new ConcurrentDictionary<Int32, Offset<String>>();
 
         private readonly Offset<Int32> __macroParam = new Offset<Int32>("macro", 0x0d6c, true);
         private readonly Offset<string> __macroName = new Offset<string>("macro", 0xd70, 40, true);
@@ -54,13 +54,13 @@ namespace MobiFlight.FSUIPC
         HashSet<int> __cacheIntWriteOnly = new HashSet<int>();
         HashSet<int> __cacheStringWriteOnly = new HashSet<int>();
 
-        long lastProcessedMs = 0;
+        private long lastProcessedMs = 0;
 
         public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod { get; set; } = MobiFlight.FlightSimConnectionMethod.NONE;
         public MobiFlight.FlightSimType FlightSim = FlightSimType.NONE;
 
-        bool _offsetsRegistered = false;
-        bool __isProcessed = false;
+        private bool _offsetsRegistered = false;
+        private bool __isProcessed = false;
 
         private string _detectedAircraft = string.Empty;
         private System.Timers.Timer _aircraftNameTimer;
