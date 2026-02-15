@@ -1,7 +1,6 @@
 import App from "@/App"
 import AuthLogin from "@/components/auth/AuthLogin"
 import AuthLogout from "@/components/auth/AuthLogout"
-import AuthModal from "@/components/modals/AuthModal"
 import ControllerBindingsModal from "@/components/modals/ControllerBindingsModal"
 import ProjectFormModal from "@/components/modals/ProjectFormModal"
 import AuthCallback from "@/components/user/AuthCallback"
@@ -27,7 +26,8 @@ export function AppRoutes() {
           <Route index element={<ConfigListPage />} />
         </Route>
         <Route index path="/index.html" element={<App />} />
-        <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/auth/callback/login" element={<AuthCallback variant="login" />} />
+        <Route path="/auth/callback/logout" element={<AuthCallback variant="logout" />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/logout" element={<AuthLogout />} />
       </Routes>

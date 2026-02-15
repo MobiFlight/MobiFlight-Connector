@@ -193,7 +193,8 @@ export interface CommandControllerBindingsUpdate extends CommandMessageBase {
 export interface CommandUserAuthentication extends CommandMessageBase {
   key: "CommandUserAuthentication"
   payload: {
-    action: "login" | "logout" | "successful" | "aborted" | "error",
+    flow: "login" | "logout"
+    state: "started" | "success" | "cancelled" | "error",
     url?: string
   }
 }

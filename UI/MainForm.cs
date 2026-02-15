@@ -272,16 +272,28 @@ namespace MobiFlight.UI
 
             MessageExchange.Instance.Subscribe<CommandUserAuthentication>((message) =>
             {
-                switch (message.Action)
+
+                if (message.State == CommandUserAuthenticationState.started)
                 {
-                    case CommandUserAuthenticationAction.login:
-                        frontendPanel1.BeginAuthProcess(message.Url);
-                        break;
-                    case CommandUserAuthenticationAction.logout:
-                    case CommandUserAuthenticationAction.successful:
-                    case CommandUserAuthenticationAction.aborted:
-                        frontendPanel1.EndAuthProcess();
-                        break;
+                    frontendPanel1.BeginAuthProcess(message.Url);
+                }
+
+                if (message.State == CommandUserAuthenticationState.success)
+                {
+                    frontendPanel1.EndAuthProcess();
+                    MessageExchange.Instance.Publish(new AuthenticationStatus()
+                    {
+                        Authenticated = message.Flow == CommandUserAuthenticationFlow.login
+                    });
+                }
+
+                if (message.State == CommandUserAuthenticationState.cancelled || message.State == CommandUserAuthenticationState.error)
+                {
+                    frontendPanel1.EndAuthProcess();
+                    MessageExchange.Instance.Publish(new AuthenticationStatus()
+                    {
+                        Authenticated = false
+                    });
                 }
             });
         }

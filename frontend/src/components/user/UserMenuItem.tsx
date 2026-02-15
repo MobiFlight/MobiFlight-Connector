@@ -11,7 +11,8 @@ const UserMenuItem = () => {
     publish({
       key: "CommandUserAuthentication",
       payload: {
-        action: "login",
+        flow: "login",
+        state: "started",
         url: `${window.location.origin}/auth/login`,
       },
     })
@@ -21,7 +22,8 @@ const UserMenuItem = () => {
     publish({
       key: "CommandUserAuthentication",
       payload: {
-        action: "logout",
+        flow: "logout",
+        state: "started",
         url: `${window.location.origin}/auth/logout`,
       },
     })

@@ -3,24 +3,58 @@ import { useEffect } from "react"
 import { useAuth } from "react-oidc-context"
 import { useNavigate } from "react-router-dom"
 
-export default function AuthCallback() {
+export type AuthCallbackProps = {
+  variant: "login" | "logout"
+}
+
+export default function AuthCallback({ variant }: AuthCallbackProps) {
   const auth = useAuth()
   const navigate = useNavigate()
   const { publish } = useMessageExchange()
 
   useEffect(() => {
-    if (!auth.isLoading && auth.isAuthenticated) {
-      // In separate auth window: notify C# and wait to be closed
-      publish({
-        key: "CommandUserAuthentication",
-        payload: { action: "successful" , url: `${window.location.origin}/auth/silent-renew`},
-      })
-    } else if (!auth.isLoading && auth.error) {
+    // Wait for auth state to stabilize (e.g., after signinSilent triggered by AuthModal)
+    // only then we can evaluate the result and notify the backend
+    if (auth.isLoading) return
+
+    // Any error during the auth flow should be treated as auth failure
+    if (auth.error) {
       console.error("Auth error:", auth.error)
       publish({
         key: "CommandUserAuthentication",
-        payload: { action: "error", url: `${window.location.origin}/auth/silent-renew` },
+        payload: {
+          flow: variant,
+          state: "error"
+        },
       })
+
+      return
+    }
+
+    const isLoginAndAuthenticated = variant === "login" && auth.isAuthenticated
+    if (isLoginAndAuthenticated) {
+      publish({
+        key: "CommandUserAuthentication",
+        payload: {
+          flow: variant,
+          state: "success"
+        },
+      })
+
+      return
+    }
+
+    const isLogoutAndNotAuthenticated = variant === "logout" && !auth.isAuthenticated
+    if (isLogoutAndNotAuthenticated) {
+      publish({
+        key: "CommandUserAuthentication",
+        payload: {
+          flow: variant,
+          state: "success"
+        },
+      })
+
+      return
     }
   }, [
     auth.isLoading,
@@ -28,6 +62,7 @@ export default function AuthCallback() {
     auth.error,
     navigate,
     publish,
+    variant,
   ])
 
   return (

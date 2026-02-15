@@ -11,6 +11,7 @@ import { MainMenu } from "./components/MainMenu"
 import { useRecentProjects, useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
 import {
+  AuthenticationStatus,
   BoardDefinitions,
   ConnectedControllers,
   ExecutionState,
@@ -167,10 +168,16 @@ function App() {
   })
 
   // Listen for auth state changes from C#
-  useAppMessage("AuthChanged", async () => {
+  useAppMessage("AuthenticationStatus", async (message) => {
+    const authStatus = message.payload as AuthenticationStatus
+    console.log("AuthenticationStatus message received", authStatus)
     try {
       // Trigger silent signin to sync auth state from localStorage
-      await auth.signinSilent()
+      if (authStatus.Authenticated) {
+        await auth.signinSilent()
+      } else {
+        auth.removeUser() // Clear user to ensure state is updated based on signinSilent result
+      }
     } catch (err) {
       console.log("Auth sync after window close:", err)
     }

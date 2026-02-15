@@ -2,17 +2,27 @@
 
 namespace MobiFlight.BrowserMessages.Incoming
 {
-    public enum CommandUserAuthenticationAction
+    public enum CommandUserAuthenticationFlow
     {
         login,
-        logout,
-        successful,
-        aborted
+        logout
     }
+
+    public enum CommandUserAuthenticationState
+    {
+        started,
+        success,
+        cancelled,
+        error
+    }
+
     public class CommandUserAuthentication
     {
-        [JsonProperty("action")]
-        public CommandUserAuthenticationAction Action { get; set; }
+        [JsonProperty("flow")]
+        public CommandUserAuthenticationFlow Flow { get; set; }
+
+        public CommandUserAuthenticationState State { get; set; }
+
         [JsonProperty("url")]
         public string Url { get; set; }
     }
