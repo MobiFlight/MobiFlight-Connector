@@ -309,14 +309,13 @@ namespace MobiFlight.UI.Tests
         #region GetFirstExistingRecentFileOrNull tests
 
         [TestMethod()]
-        public void GetFirstExistingRecentFileOrNullOrNull_EmptyRecentFiles_ReturnsNull()
+        public void GetFirstExistingRecentFileOrNull_EmptyRecentFiles_ReturnsNull()
         {
             // Arrange
             Properties.Settings.Default.RecentFiles = new StringCollection();
-            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
 
             // Act
-            var result = method.Invoke(_mainForm, null) as string;
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
 
             // Assert
             Assert.IsNull(result, "Should return null when RecentFiles is empty");
@@ -332,10 +331,9 @@ namespace MobiFlight.UI.Tests
                     Path.Combine(_tempDirectory, "nonexistent1.mfproj"),
                     Path.Combine(_tempDirectory, "nonexistent2.mfproj")
                 };
-            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
 
             // Act
-            var result = method.Invoke(_mainForm, null) as string;
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
 
             // Assert
             Assert.IsNull(result, "Should return null when no files exist");
@@ -354,10 +352,9 @@ namespace MobiFlight.UI.Tests
                     nonExistentFile,
                     existingFile
                 };
-            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
 
             // Act
-            var result = method.Invoke(_mainForm, null) as string;
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
 
             // Assert
             Assert.AreEqual(existingFile, result, "Should return the first existing file");
@@ -368,10 +365,9 @@ namespace MobiFlight.UI.Tests
         {
             // Arrange
             Properties.Settings.Default.RecentFiles = null;
-            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
 
             // Act
-            var result = method.Invoke(_mainForm, null) as string;
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
 
             // Assert
             Assert.IsNull(result, "Should return null when RecentFiles is null");
