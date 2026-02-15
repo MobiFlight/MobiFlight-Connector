@@ -305,5 +305,78 @@ namespace MobiFlight.UI.Tests
             Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display only version info when no project is loaded");
         }
         #endregion
+
+        #region GetFirstExistingRecentFileOrNull tests
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNullOrNull_EmptyRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = new StringCollection();
+            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Act
+            var result = method.Invoke(_mainForm, null) as string;
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is empty");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NoExistingFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = 
+                new StringCollection
+                {
+                    Path.Combine(_tempDirectory, "nonexistent1.mfproj"),
+                    Path.Combine(_tempDirectory, "nonexistent2.mfproj")
+                };
+            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Act
+            var result = method.Invoke(_mainForm, null) as string;
+
+            // Assert
+            Assert.IsNull(result, "Should return null when no files exist");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_WithExistingFile_ReturnsFirstExisting()
+        {
+            // Arrange
+            var nonExistentFile = Path.Combine(_tempDirectory, "nonexistent.mfproj");
+            var existingFile = CreateTestFile("existing.mfproj");
+
+            Properties.Settings.Default.RecentFiles =
+                new StringCollection
+                {
+                    nonExistentFile,
+                    existingFile
+                };
+            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Act
+            var result = method.Invoke(_mainForm, null) as string;
+
+            // Assert
+            Assert.AreEqual(existingFile, result, "Should return the first existing file");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NullRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = null;
+            var method = typeof(MainForm).GetMethod("GetFirstExistingRecentFileOrNull", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Act
+            var result = method.Invoke(_mainForm, null) as string;
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is null");
+        }
+
+        #endregion
     }
 }
