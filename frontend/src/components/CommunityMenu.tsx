@@ -1,12 +1,13 @@
 import {
   IconBrandDiscordFilled,
   IconBrandYoutubeFilled,
-  IconHeartDollar,
+  IconHeartDollar
 } from "@tabler/icons-react"
 import { Button } from "./ui/button"
 import IconBrandHubHopLogo from "./icons/IconBrandHubHopLogo"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandMainMenuPayload } from "@/types/commands"
+import UserMenuItem from "@/components/user/UserMenuItem"
 
 export const CommunityMenu = () => {
   const { publish } = publishOnMessageExchange()
@@ -18,12 +19,13 @@ export const CommunityMenu = () => {
   }
   return (
     <div className="flex flex-row items-center gap-1 py-2 text-sm">
+      <UserMenuItem />
       <Button
-        className="group h-8 gap-1 rounded-full bg-pink-600 py-1 pl-3 pr-4 text-white hover:bg-pink-400 dark:border dark:border-pink-600 dark:bg-transparent dark:text-pink-600 dark:hover:bg-pink-600 dark:hover:text-white [&_svg]:size-5"
+        className="group h-8 gap-1 rounded-full bg-pink-600 py-1 pr-4 pl-3 text-white hover:bg-pink-400 dark:border dark:border-pink-600 dark:bg-transparent dark:text-pink-600 dark:hover:bg-pink-600 dark:hover:text-white [&_svg]:size-5"
         variant={"default"}
         onClick={() => handleMenuItemClick({ action: "help.donate" })}
       >
-        <IconHeartDollar className="fill-none stroke-white text-white group-hover:stroke-white dark:stroke-pink-600 dark:group-hover:stroke-white transition-colors" />
+        <IconHeartDollar className="fill-none stroke-white text-white transition-colors group-hover:stroke-white dark:stroke-pink-600 dark:group-hover:stroke-white" />
         Support us
       </Button>
       <Button

@@ -1,6 +1,7 @@
 import App from "@/App"
 import ControllerBindingsModal from "@/components/modals/ControllerBindingsModal"
 import ProjectFormModal from "@/components/modals/ProjectFormModal"
+import AuthCallback from "@/components/user/AuthCallback"
 import ConfigListPage from "@/pages/ConfigList"
 import Dashboard from "@/pages/Dashboard"
 import { Route, Routes, useLocation } from "react-router"
@@ -23,6 +24,7 @@ export function AppRoutes() {
           <Route index element={<ConfigListPage />} />
         </Route>
         <Route index path="/index.html" element={<App />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>
 
       {/* Modal overlay - only when opened with background state */}
