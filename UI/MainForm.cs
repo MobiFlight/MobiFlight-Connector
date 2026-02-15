@@ -269,6 +269,21 @@ namespace MobiFlight.UI
                 MessageExchange.Instance.Publish(execManager.Project);
                 ProjectOrConfigFileHasChanged();
             });
+
+            MessageExchange.Instance.Subscribe<CommandUserAuthentication>((message) =>
+            {
+                switch (message.Action)
+                {
+                    case CommandUserAuthenticationAction.login:
+                        frontendPanel1.BeginAuthProcess(message.Url);
+                        break;
+                    case CommandUserAuthenticationAction.logout:
+                    case CommandUserAuthenticationAction.successful:
+                    case CommandUserAuthenticationAction.aborted:
+                        frontendPanel1.EndAuthProcess();
+                        break;
+                }
+            });
         }
 
         private void OpenOutputConfigWizardForId(string guid)

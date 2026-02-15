@@ -46,6 +46,7 @@ import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { ProjectInfo } from "@/types/project"
 import { useControllerStore } from "@/stores/controllerStore"
 import { useTranslation } from "react-i18next"
+import { useAuth } from "react-oidc-context"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -67,6 +68,7 @@ function App() {
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
   const { theme } = useTheme()
+  const auth = useAuth()
 
   // State for startup progress from app messages
   const [appStartupProgress, setAppStartupProgress] = useState<StatusBarUpdate>(
@@ -162,6 +164,16 @@ function App() {
   useAppMessage("ConnectedControllers", (message) => {
     const controllers = (message.payload as ConnectedControllers).Controllers
     setControllers(controllers)
+  })
+
+  // Listen for auth state changes from C#
+  useAppMessage("AuthChanged", async () => {
+    try {
+      // Trigger silent signin to sync auth state from localStorage
+      await auth.signinSilent()
+    } catch (err) {
+      console.log("Auth sync after window close:", err)
+    }
   })
 
   useEffect(() => {

@@ -340,6 +340,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
     <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUserAuthentication.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandProjectToolbarHandler.cs" />
@@ -359,6 +360,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ExecutionState.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Publisher\CompositePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />

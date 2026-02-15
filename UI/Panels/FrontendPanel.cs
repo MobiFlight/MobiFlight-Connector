@@ -2,12 +2,14 @@
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Publisher;
 using System;
+using System.Management.Instrumentation;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
 {
     public partial class FrontendPanel : UserControl
     {
+        CompositePublisher compositePublisher = new CompositePublisher();
         public new bool DesignMode
         {
             get
@@ -34,40 +36,53 @@ namespace MobiFlight.UI.Panels
             else
             {
                 await FrontendWebView.EnsureCoreWebView2Async(null);
+                await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
             }
+
+            InitializeWebView(FrontendWebView);
+            InitializeWebView(UserAuthenticationWebView);
+
+            // We only have to publish messages to the frontend
+            // not the authentication webview
+            compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
+            compositePublisher.AddPublisher("auth", new PostMessagePublisher(UserAuthenticationWebView));
+            //compositePublisher.PausePublisher("auth");
+            MessageExchange.Instance.SetPublisher(compositePublisher);
+        }
+
+        private void InitializeWebView(ThreadSafeWebView2 webView)
+        {
 #if DEBUG
-            FrontendWebView.Source = new Uri("http://localhost:5173/index.html");
+            webView.Source = new Uri("http://localhost:5173/index.html");
 #else
-            FrontendWebView.CoreWebView2.SetVirtualHostNameToFolderMapping("mobiflight",
+            webView.CoreWebView2.SetVirtualHostNameToFolderMapping("localhost",
             "frontend/dist", CoreWebView2HostResourceAccessKind.DenyCors);
-            FrontendWebView.CoreWebView2.Navigate("http://mobiflight/index.html");
-            FrontendWebView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            FrontendWebView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+            webView.CoreWebView2.Navigate("http://localhost/index.html");
+            webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+            webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
-            FrontendWebView.CoreWebView2.Settings.IsWebMessageEnabled = true;
-            FrontendWebView.CoreWebView2.Settings.IsStatusBarEnabled = false;
-            FrontendWebView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
-            FrontendWebView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
+            webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
+            webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+            webView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
 
             if (_desiredZoomFactor != 0.0)
             {
-                FrontendWebView.ZoomFactor = _desiredZoomFactor;
+                webView.ZoomFactor = _desiredZoomFactor;
             }
-
-            MessageExchange.Instance.SetPublisher(new PostMessagePublisher(FrontendWebView));
         }
 
         public void SetZoomFactor(double zoomFactor)
         {
             if (zoomFactor < 0.1 || zoomFactor > 5.0)
             {
-                zoomFactor = Math.Max(Math.Min(5.0,zoomFactor), 1.0);
+                zoomFactor = Math.Max(Math.Min(5.0, zoomFactor), 1.0);
             }
 
             if (FrontendWebView.CoreWebView2 != null)
             {
                 FrontendWebView.ZoomFactor = zoomFactor;
-            } else
+            }
+            else
             {
                 _desiredZoomFactor = zoomFactor;
             }
@@ -89,8 +104,32 @@ namespace MobiFlight.UI.Panels
             //MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
         }
 
-        private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        public void BeginAuthProcess(string url)
         {
+            // Get ready to receive messages from the authentication webview
+            // and forward them to the "frontend" webview (by the correct subscriber)
+           // compositePublisher.ResumePublisher("auth");
+            UserAuthenticationWebView.CoreWebView2.Navigate(url);
+            UserAuthenticationWebView.Visible = true;
+        }
+
+        public void EndAuthProcess()
+        {
+            // Unregister the authentication webview as a publisher
+            // to stop forwarding messages to the frontend
+            UserAuthenticationWebView.Visible = false;
+#if DEBUG
+            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost:5173/index.html");
+#else
+            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost/index.html");
+#endif
+            // compositePublisher.PausePublisher("auth");
+        }
+
+        public bool FrontendWebViewVisible
+        {
+            get => FrontendWebView.Visible;
+            set => FrontendWebView.Visible = value;
         }
     }
 }

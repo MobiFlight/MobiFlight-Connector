@@ -28,6 +28,7 @@ export type CommandMessage =
   | CommandDiscardChanges
   | CommandOpenLinkInBrowser
   | CommandControllerBindingsUpdate
+  | CommandUserAuthentication
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -186,5 +187,13 @@ export interface CommandControllerBindingsUpdate extends CommandMessageBase {
   key: "CommandControllerBindingsUpdate"
   payload: {
     bindings: ControllerBinding[]
+  }
+}
+
+export interface CommandUserAuthentication extends CommandMessageBase {
+  key: "CommandUserAuthentication"
+  payload: {
+    action: "login" | "logout" | "successful" | "aborted" | "error",
+    url?: string
   }
 }

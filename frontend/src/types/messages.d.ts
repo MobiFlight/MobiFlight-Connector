@@ -21,6 +21,7 @@ export type AppMessageKey =
   | "Notification"
   | "HubHopState"
   | "ConnectedControllers"
+  | "AuthChanged"
 
 export type AppMessagePayload =
   | StatusBarUpdate

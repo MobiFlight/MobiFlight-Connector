@@ -1,20 +1,30 @@
 import { Button } from "@/components/ui/button"
+import useMessageExchange from "@/lib/hooks/useMessageExchange"
 import { IconLoader2, IconUserCircle } from "@tabler/icons-react"
 import { useAuth } from "react-oidc-context"
-import { useLocation } from "react-router-dom"
 
 const UserMenuItem = () => {
   const auth = useAuth()
-  const location = useLocation()
+  const { publish } = useMessageExchange()
 
   const handleSignIn = () => {
-    // Store current location before redirect
-    sessionStorage.setItem("returnUrl", location.pathname + location.search)
-    auth.signinRedirect()
+    publish({
+      key: "CommandUserAuthentication",
+      payload: {
+        action: "login",
+        url: `${window.location.origin}/auth/login`,
+      },
+    })
   }
 
   const handleSignOut = () => {
-    auth.signoutRedirect()
+    publish({
+      key: "CommandUserAuthentication",
+      payload: {
+        action: "logout",
+        url: `${window.location.origin}/auth/logout`,
+      },
+    })
   }
 
   if (auth.error) {
