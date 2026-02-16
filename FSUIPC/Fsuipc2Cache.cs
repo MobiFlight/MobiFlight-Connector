@@ -149,9 +149,9 @@ namespace MobiFlight.FSUIPC
             return !IsConnected();
         }
 
-        protected void _processThreadSafe(bool force_refresh=false) {
+        protected void _processThreadSafe(bool forceRefresh =false) {
             // test the cache and gather data from fsuipc if necessary
-            if (IsConnected() && _offsetsRegistered && (!__isProcessed || force_refresh)) {
+            if (IsConnected() && _offsetsRegistered && (!__isProcessed || forceRefresh )) {
                 try
                 {
                     lock (_fsuipcLock)
@@ -164,14 +164,14 @@ namespace MobiFlight.FSUIPC
                 catch (Exception e)
                 {
                     ConnectionLost?.Invoke(this, EventArgs.Empty);
-                    throw;
+                    throw e;
                 }
             }
         }
 
         public long getValue(int offset, byte size)
         {
-            bool cache_changed = false;
+            bool cacheChanged = false;
             long result = 0;
             if (!IsConnected()) return result;
 
@@ -180,37 +180,37 @@ namespace MobiFlight.FSUIPC
                 case 1:
                     __cacheByte.GetOrAdd(offset, k =>
                     {
-                        _offsetsRegistered = cache_changed = true;
-                        return new Offset<Byte>("",k);
+                        _offsetsRegistered = cacheChanged = true;
+                        return new Offset<Byte>(k);
                     });
-                    _processThreadSafe(cache_changed);
+                    _processThreadSafe(cacheChanged);
                     result = Convert.ToInt64(__cacheByte[offset].Value);
                     break;
                 case 2:
                     __cacheShort.GetOrAdd(offset, k =>
                     {
-                        _offsetsRegistered = cache_changed = true;
+                        _offsetsRegistered = cacheChanged = true;
                         return new Offset<Int16>(k);
                     });
-                    _processThreadSafe(cache_changed);
+                    _processThreadSafe(cacheChanged);
                     result = Convert.ToInt64(__cacheShort[offset].Value);
                     break;
                 case 4:
                     __cacheInt.GetOrAdd(offset, k =>
                     {
-                        _offsetsRegistered = cache_changed = true;
+                        _offsetsRegistered = cacheChanged = true;
                         return new Offset<Int32>(k);
                     });
-                    _processThreadSafe(cache_changed);
+                    _processThreadSafe(cacheChanged);
                     result =  Convert.ToInt64(__cacheInt[offset].Value);
                     break;
                 case 8:
                     __cacheLong.GetOrAdd(offset, k =>
                     {
-                        _offsetsRegistered = cache_changed = true;
+                        _offsetsRegistered = cacheChanged = true;
                         return new Offset<Int64>(k);
                     });
-                    _processThreadSafe(cache_changed);
+                    _processThreadSafe(cacheChanged);
                     result = __cacheLong[offset].Value;
                     break;
             } //switch
@@ -287,17 +287,17 @@ namespace MobiFlight.FSUIPC
 
         public long getLongValue(int offset, byte size)
         {
-            bool cache_changed = false;
+            bool cacheChanged = false;
             long result = 0;
             if (!IsConnected()) return result;
 
             __cacheLong.GetOrAdd(offset, k =>
             {
-                _offsetsRegistered = cache_changed = true;
+                _offsetsRegistered = cacheChanged = true;
                 return new Offset<Int64>(k);
             });
 
-            _processThreadSafe(cache_changed);
+            _processThreadSafe(cacheChanged);
             result = __cacheLong[offset].Value;
 
             return result;
@@ -305,16 +305,16 @@ namespace MobiFlight.FSUIPC
 
         public double getFloatValue(int offset, byte size)
         {
-            bool cache_changed = false;
+            bool cacheChanged = false;
             double result = 0.0;
             if (!IsConnected()) return result;
 
             __cacheFloat.GetOrAdd(offset, k =>
             {
-                _offsetsRegistered = cache_changed = true;
+                _offsetsRegistered = cacheChanged = true;
                 return new Offset<float>(k);
             });
-            _processThreadSafe(cache_changed);
+            _processThreadSafe(cacheChanged);
             result = __cacheFloat[offset].Value;
 
             return result;
@@ -322,16 +322,16 @@ namespace MobiFlight.FSUIPC
 
         public double getDoubleValue(int offset, byte size)
         {
-            bool cache_changed = false;
+            bool cacheChanged = false;
             double result = 0.0;
             if (!IsConnected()) return result;
 
             __cacheDouble.GetOrAdd(offset, k =>
             {
-                _offsetsRegistered = cache_changed = true;
+                _offsetsRegistered = cacheChanged = true;
                 return new Offset<Double>(k);
             });
-            _processThreadSafe(cache_changed);
+            _processThreadSafe(cacheChanged);
             result = __cacheDouble[offset].Value;
 
             return result;
@@ -339,16 +339,16 @@ namespace MobiFlight.FSUIPC
 
         public string getStringValue(int offset, byte size)
         {
-            bool cache_changed = false;
+            bool cacheChanged = false;
             String result = "";
             if (!IsConnected()) return result;
 
             __cacheString.GetOrAdd(offset, k =>
             {
-                _offsetsRegistered = cache_changed = true;
+                _offsetsRegistered = cacheChanged = true;
                 return new Offset<String>(k, 255);
             });
-            _processThreadSafe(cache_changed);
+            _processThreadSafe(cacheChanged);
             result = __cacheString[offset].Value;
 
             return result;
@@ -469,7 +469,7 @@ namespace MobiFlight.FSUIPC
             catch (Exception e)
             {
                 ConnectionLost?.Invoke(this, EventArgs.Empty);
-                throw;
+                throw e;
             }
         }
 
@@ -484,7 +484,7 @@ namespace MobiFlight.FSUIPC
             catch (Exception e)
             {
                 ConnectionLost?.Invoke(this, EventArgs.Empty);
-                throw;
+                throw e;
             }
         }
 
@@ -504,7 +504,7 @@ namespace MobiFlight.FSUIPC
             catch (Exception e)
             {
                 ConnectionLost?.Invoke(this, EventArgs.Empty);
-                throw;
+                throw e;
             }
         }
 
