@@ -119,9 +119,9 @@ namespace MobiFlight.UI.Panels
             // to stop forwarding messages to the frontend
             UserAuthenticationWebView.Visible = false;
 #if DEBUG
-            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost:5173/index.html");
+            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost:5173/auth");
 #else
-            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost/index.html");
+            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost/auth");
 #endif
             // compositePublisher.PausePublisher("auth");
         }

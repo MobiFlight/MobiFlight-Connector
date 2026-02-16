@@ -331,7 +331,8 @@
   "Auth": {
     "Redirect" : {
       "SignIn": "Redirigiendo a iniciar sesión...",
-      "SignOut": "Redirigiendo a cerrar sesión..."
+      "SignOut": "Redirigiendo a cerrar sesión...",
+      "CompletingFlow": "Completando proceso..."
     }
   }
 }

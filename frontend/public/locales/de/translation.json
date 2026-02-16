@@ -331,7 +331,8 @@
   "Auth": {
     "Redirect" : {
       "SignIn": "Weiterleitung zur Anmeldung...",
-      "SignOut": "Weiterleitung zur Abmeldung..."
+      "SignOut": "Weiterleitung zur Abmeldung...",
+      "CompletingFlow": "Vorgang wird abgeschlossen..."
     }
   }
 }

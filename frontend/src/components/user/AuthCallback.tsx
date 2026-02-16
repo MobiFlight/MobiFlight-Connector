@@ -1,5 +1,7 @@
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
+import { IconLoader2 } from "@tabler/icons-react"
 import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { useAuth } from "react-oidc-context"
 import { useNavigate } from "react-router-dom"
 
@@ -11,6 +13,7 @@ export default function AuthCallback({ variant }: AuthCallbackProps) {
   const auth = useAuth()
   const navigate = useNavigate()
   const { publish } = useMessageExchange()
+  const { t } = useTranslation()
 
   useEffect(() => {
     // Wait for auth state to stabilize (e.g., after signinSilent triggered by AuthModal)
@@ -24,7 +27,7 @@ export default function AuthCallback({ variant }: AuthCallbackProps) {
         key: "CommandUserAuthentication",
         payload: {
           flow: variant,
-          state: "error"
+          state: "error",
         },
       })
 
@@ -37,20 +40,21 @@ export default function AuthCallback({ variant }: AuthCallbackProps) {
         key: "CommandUserAuthentication",
         payload: {
           flow: variant,
-          state: "success"
+          state: "success",
         },
       })
 
       return
     }
 
-    const isLogoutAndNotAuthenticated = variant === "logout" && !auth.isAuthenticated
+    const isLogoutAndNotAuthenticated =
+      variant === "logout" && !auth.isAuthenticated
     if (isLogoutAndNotAuthenticated) {
       publish({
         key: "CommandUserAuthentication",
         payload: {
           flow: variant,
-          state: "success"
+          state: "success",
         },
       })
 
@@ -67,10 +71,12 @@ export default function AuthCallback({ variant }: AuthCallbackProps) {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="text-center">
-        <p className="text-lg">Completing sign in...</p>
-        {auth.error && (
+      <div className="bg-background flex h-128 w-lg flex-col items-center justify-center gap-4 shadow-xl">
+        <IconLoader2 className="text-primary mx-auto h-12 w-12 animate-spin" />
+        {auth.error ? (
           <p className="text-destructive mt-2">Error: {auth.error.message}</p>
+        ) : (
+          <p className="text-lg">{t("Auth.Redirect.CompletingFlow")}</p>
         )}
       </div>
     </div>
