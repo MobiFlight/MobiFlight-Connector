@@ -329,6 +329,12 @@
     }
   },
   "Auth": {
+    "User": {
+      "SignIn": "Einloggen",
+      "SignOut": "Abmelden",
+      "Profile": "Profil",
+      "ProfileFeatureComingSoon": "kommt bald"
+    },
     "Redirect" : {
       "SignIn": "Weiterleitung zur Anmeldung...",
       "SignOut": "Weiterleitung zur Abmeldung...",

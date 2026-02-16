@@ -1,11 +1,28 @@
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { MenubarSeparator } from "@/components/ui/menubar"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
-import { IconLoader2, IconUserCircle } from "@tabler/icons-react"
+import {
+  IconLoader2,
+  IconLogout,
+  IconUser,
+  IconUserCircle,
+} from "@tabler/icons-react"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useAuth } from "react-oidc-context"
 
 const UserMenuItem = () => {
   const auth = useAuth()
   const { publish } = useMessageExchange()
+  const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
 
   const handleSignIn = () => {
     publish({
@@ -55,25 +72,47 @@ const UserMenuItem = () => {
   })
 
   return auth.isAuthenticated ? (
-    <Button
-      variant={"ghost"}
-      className="mx-2 h-8 rounded-full pr-1 [&_svg]:size-8"
-      onClick={handleSignOut}
-    >
-      <span className="text-md">Hi, {auth.user?.profile?.name}</span>
-      <IconUserCircle />
-    </Button>
+    <DropdownMenu onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant={"ghost"}
+          className="mx-2 h-8 rounded-full pr-1 [&_svg]:size-8"
+        >
+          {!open && (
+            <span className="text-md">Hi, {auth.user?.profile?.name}</span>
+          )}
+          <IconUserCircle />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-40 [&_svg]:size-5">
+        <div className="text-md px-2 py-1 font-medium">
+          {auth.user?.profile?.name}
+        </div>
+        <div className="text-muted-foreground px-2 py-0 text-sm">
+          {auth.user?.profile?.email}
+        </div>
+        <MenubarSeparator />
+        <DropdownMenuItem className="">
+          <IconUser />
+          <span>{t("Auth.User.Profile")}</span>
+          <Badge variant="outline" className="ml-auto">
+            {t("Auth.User.ProfileFeatureComingSoon")}
+          </Badge>
+        </DropdownMenuItem>
+        <MenubarSeparator />
+        <DropdownMenuItem onClick={handleSignOut} className="text-md">
+          <IconLogout />
+          <span>{t("Auth.User.SignOut")}</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   ) : (
     <Button
       variant={"ghost"}
       className="mx-2 h-8 rounded-full pr-1 [&_svg]:size-8"
       onClick={handleSignIn}
     >
-      {auth.isAuthenticated ? (
-        <span className="text-md">Hi, {auth.user?.profile?.name}</span>
-      ) : (
-        <span className="text-md">Sign In</span>
-      )}
+      <span className="text-md">{t("Auth.User.SignIn")}</span>
       <IconUserCircle />
     </Button>
   )

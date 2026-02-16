@@ -329,6 +329,12 @@
     }
   },
   "Auth": {
+    "User": {
+      "SignIn": "Iniciar sesión",
+      "SignOut": "Cerrar sesión",
+      "Profile": "Perfil",
+      "ProfileFeatureComingSoon": "próximamente"
+    },
     "Redirect" : {
       "SignIn": "Redirigiendo a iniciar sesión...",
       "SignOut": "Redirigiendo a cerrar sesión...",

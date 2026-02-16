@@ -323,6 +323,12 @@
     }
   },
   "Auth": {
+    "User": {
+      "SignIn": "Sign in",
+      "SignOut": "Sign out",
+      "Profile": "Profile",
+      "ProfileFeatureComingSoon": "coming soon"
+    },
     "Redirect" : {
       "SignIn": "Redirecting to Sign in...",
       "SignOut": "Redirecting to Sign out...",
