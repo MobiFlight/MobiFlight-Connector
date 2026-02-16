@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { MenubarSeparator } from "@/components/ui/menubar"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
+import { cn } from "@/lib/utils"
 import {
   IconLoader2,
   IconLogout,
@@ -78,9 +79,7 @@ const UserMenuItem = () => {
           variant={"ghost"}
           className="mx-2 h-8 rounded-full pr-1 [&_svg]:size-8"
         >
-          {!open && (
-            <span className="text-md">Hi, {auth.user?.profile?.name}</span>
-          )}
+          <span className={cn(open && "opacity-0", "text-md")}>Hi, {auth.user?.profile?.name}</span>
           <IconUserCircle />
         </Button>
       </DropdownMenuTrigger>
