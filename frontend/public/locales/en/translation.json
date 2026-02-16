@@ -321,5 +321,11 @@
       "ConnectedControllers": "{{count}} Controllers connected to PC",
       "AllSet": "All set! Your project is completely configured." 
     }
+  },
+  "Auth": {
+    "Redirect" : {
+      "SignIn": "Redirecting to Sign in...",
+      "SignOut": "Redirecting to Sign out..."
+    }
   }
 }

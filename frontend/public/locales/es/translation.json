@@ -327,5 +327,11 @@
       "ConnectedControllers": "{{count}} controladores conectados a la PC",
       "AllSet": "¡Todo listo! Tu proyecto está completamente configurado."
     }
+  },
+  "Auth": {
+    "Redirect" : {
+      "SignIn": "Redirigiendo a iniciar sesión...",
+      "SignOut": "Redirigiendo a cerrar sesión..."
+    }
   }
 }
