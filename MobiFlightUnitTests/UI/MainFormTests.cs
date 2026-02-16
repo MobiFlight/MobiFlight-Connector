@@ -305,5 +305,74 @@ namespace MobiFlight.UI.Tests
             Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display only version info when no project is loaded");
         }
         #endregion
+
+        #region GetFirstExistingRecentFileOrNull tests
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_EmptyRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = new StringCollection();
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is empty");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NoExistingFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = 
+                new StringCollection
+                {
+                    Path.Combine(_tempDirectory, "nonexistent1.mfproj"),
+                    Path.Combine(_tempDirectory, "nonexistent2.mfproj")
+                };
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when no files exist");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_WithExistingFile_ReturnsFirstExisting()
+        {
+            // Arrange
+            var nonExistentFile = Path.Combine(_tempDirectory, "nonexistent.mfproj");
+            var existingFile = CreateTestFile("existing.mfproj");
+
+            Properties.Settings.Default.RecentFiles =
+                new StringCollection
+                {
+                    nonExistentFile,
+                    existingFile
+                };
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.AreEqual(existingFile, result, "Should return the first existing file");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NullRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = null;
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is null");
+        }
+
+        #endregion
     }
 }

@@ -66,6 +66,13 @@ namespace MobiFlight.Joysticks.Tests
         }
 
         [TestMethod()]
+        public void CanCreate_WithWinwingPTO2_ReturnsTrue()
+        {
+            var result = WinwingControllerFactory.CanCreate(WINWING_VENDOR_ID, WinwingConstants.PRODUCT_ID_PTO2);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
         public void CanCreate_WithWrongVendorId_ReturnsFalse()
         {
             var result = WinwingControllerFactory.CanCreate(OTHER_VENDOR_ID, WinwingConstants.PRODUCT_ID_FCU_ONLY);

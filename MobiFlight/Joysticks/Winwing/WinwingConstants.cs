@@ -39,6 +39,8 @@
         internal const int PRODUCT_ID_ECAM = 0xBB70;
         internal const int PRODUCT_ID_AGP = 0xBB80;
 
+        internal const int PRODUCT_ID_PTO2 = 0xBF05;
+
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] PAP3_PRODUCTIDS = { PRODUCT_ID_PAP3_ONLY };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
