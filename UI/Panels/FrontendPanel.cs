@@ -12,8 +12,9 @@ namespace MobiFlight.UI.Panels
         CompositePublisher compositePublisher = new CompositePublisher();
         private string _frontendBaseUrl = "http://localhost:5173";
         private string _frontendDistPath;
+#if DEBUG
         private bool IsRunningInProduction = false;
-#if RELEASE
+#else 
         private bool IsRunningInProduction = true;
 #endif
 
