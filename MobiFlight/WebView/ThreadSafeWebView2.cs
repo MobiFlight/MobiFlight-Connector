@@ -1,7 +1,7 @@
 using Microsoft.Web.WebView2.WinForms;
 using System;
 
-namespace MobiFlight
+namespace MobiFlight.WebView
 {
     public class ThreadSafeWebView2 : WebView2
     {

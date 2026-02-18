@@ -1,4 +1,6 @@
-﻿namespace MobiFlight.UI.Panels
+﻿using MobiFlight.WebView;
+
+namespace MobiFlight.UI.Panels
 {
     partial class FrontendPanel
     {
@@ -28,8 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.FrontendWebView = new MobiFlight.ThreadSafeWebView2();
-            this.UserAuthenticationWebView = new MobiFlight.ThreadSafeWebView2();
+            this.FrontendWebView = new MobiFlight.WebView.ThreadSafeWebView2();
+            this.UserAuthenticationWebView = new MobiFlight.WebView.ThreadSafeWebView2();
             ((System.ComponentModel.ISupportInitialize)(this.FrontendWebView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UserAuthenticationWebView)).BeginInit();
             this.SuspendLayout();
@@ -79,6 +81,6 @@
         #endregion
 
         private ThreadSafeWebView2 FrontendWebView;
-        private MobiFlight.ThreadSafeWebView2 UserAuthenticationWebView;
+        private ThreadSafeWebView2 UserAuthenticationWebView;
     }
 }
