@@ -2,7 +2,9 @@
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Publisher;
 using System;
-using System.Management.Instrumentation;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -10,6 +12,9 @@ namespace MobiFlight.UI.Panels
     public partial class FrontendPanel : UserControl
     {
         CompositePublisher compositePublisher = new CompositePublisher();
+        private string _frontendDistPath;
+        private Dictionary<string, string> _mimeTypes;
+
         public new bool DesignMode
         {
             get
@@ -22,6 +27,29 @@ namespace MobiFlight.UI.Panels
 
         public FrontendPanel()
         {
+            _frontendDistPath = Path.Combine(Application.StartupPath, "frontend", "dist");
+
+            // Initialize MIME types for common web files
+            _mimeTypes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { ".html", "text/html" },
+                { ".css", "text/css" },
+                { ".js", "application/javascript" },
+                { ".json", "application/json" },
+                { ".png", "image/png" },
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                { ".gif", "image/gif" },
+                { ".svg", "image/svg+xml" },
+                { ".ico", "image/x-icon" },
+                { ".woff", "font/woff" },
+                { ".woff2", "font/woff2" },
+                { ".ttf", "font/ttf" },
+                { ".eot", "application/vnd.ms-fontobject" },
+                { ".map", "application/json" },
+                { ".txt", "text/plain" }
+            };
+
             InitializeComponent();
             if (!DesignMode)
                 InitializeAsync();
@@ -46,18 +74,29 @@ namespace MobiFlight.UI.Panels
             // not the authentication webview
             compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
             compositePublisher.AddPublisher("auth", new PostMessagePublisher(UserAuthenticationWebView));
-            //compositePublisher.PausePublisher("auth");
             MessageExchange.Instance.SetPublisher(compositePublisher);
         }
 
         private void InitializeWebView(ThreadSafeWebView2 webView)
         {
 #if DEBUG
+            // Development: use Vite dev server
             webView.Source = new Uri("http://localhost:5173/index.html");
 #else
-            webView.CoreWebView2.SetVirtualHostNameToFolderMapping("localhost",
-            "frontend/dist", CoreWebView2HostResourceAccessKind.DenyCors);
+            // Production: serve all files through WebResourceRequested
+            Log.Instance.log($"Initializing WebView to serve from: {_frontendDistPath}", LogSeverity.Info);
+            
+            // Add filter to intercept ALL requests to localhost
+            webView.CoreWebView2.AddWebResourceRequestedFilter(
+                "http://localhost/*", 
+                CoreWebView2WebResourceContext.All);
+            
+            // Add event handler
+            webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+            
+            // Navigate to start the app
             webView.CoreWebView2.Navigate("http://localhost/index.html");
+            
             webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
             webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
@@ -68,6 +107,86 @@ namespace MobiFlight.UI.Panels
             if (_desiredZoomFactor != 0.0)
             {
                 webView.ZoomFactor = _desiredZoomFactor;
+            }
+        }
+
+        private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
+        {
+            try
+            {
+                var uri = new Uri(e.Request.Uri);
+                var relativePath = uri.AbsolutePath.TrimStart('/');
+
+                // Default to index.html if path is empty
+                if (string.IsNullOrEmpty(relativePath))
+                {
+                    relativePath = "index.html";
+                }
+
+                var filePath = Path.Combine(_frontendDistPath, relativePath);
+
+                // Security: ensure the file is within the dist folder
+                var fullPath = Path.GetFullPath(filePath);
+                if (!fullPath.StartsWith(_frontendDistPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    Log.Instance.log($"Security: Blocked path traversal attempt - {fullPath}", LogSeverity.Warn);
+                    return;
+                }
+
+                // Check if file exists
+                if (File.Exists(fullPath))
+                {
+                    // Serve the actual file
+                    ServeFile(e, sender as CoreWebView2, fullPath);
+                }
+                else
+                {
+                    // File doesn't exist - serve index.html for SPA routing
+                    var indexPath = Path.Combine(_frontendDistPath, "index.html");
+                    if (File.Exists(indexPath))
+                    {
+                        Log.Instance.log($"SPA Route: {relativePath} -> serving index.html", LogSeverity.Debug);
+                        ServeFile(e, sender as CoreWebView2, indexPath, "text/html");
+                    }
+                    else
+                    {
+                        Log.Instance.log($"Error: index.html not found at {indexPath}", LogSeverity.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error handling web resource request: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        private void ServeFile(CoreWebView2WebResourceRequestedEventArgs e, CoreWebView2 webView, string filePath, string forceContentType = null)
+        {
+            try
+            {
+                var content = File.ReadAllBytes(filePath);
+                var stream = new MemoryStream(content);
+
+                // Determine content type
+                var contentType = forceContentType;
+                if (contentType == null)
+                {
+                    var extension = Path.GetExtension(filePath);
+                    if (!_mimeTypes.TryGetValue(extension, out contentType))
+                    {
+                        contentType = "application/octet-stream";
+                    }
+                }
+
+                e.Response = webView.Environment.CreateWebResourceResponse(
+                    stream,
+                    200,
+                    "OK",
+                    $"Content-Type: {contentType}");
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error serving file {filePath}: {ex.Message}", LogSeverity.Error);
             }
         }
 
@@ -99,31 +218,25 @@ namespace MobiFlight.UI.Panels
 
         private void CoreWebView2_DOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs e)
         {
-
             //var settings = new GlobalSettings(Properties.Settings.Default);
             //MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
         }
 
         public void BeginAuthProcess(string url)
         {
-            // Get ready to receive messages from the authentication webview
-            // and forward them to the "frontend" webview (by the correct subscriber)
-           // compositePublisher.ResumePublisher("auth");
+            Log.Instance.log($"Starting authentication process, navigating to: {url}", LogSeverity.Debug);
             UserAuthenticationWebView.CoreWebView2.Navigate(url);
             UserAuthenticationWebView.Visible = true;
         }
 
         public void EndAuthProcess()
         {
-            // Unregister the authentication webview as a publisher
-            // to stop forwarding messages to the frontend
             UserAuthenticationWebView.Visible = false;
 #if DEBUG
             UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost:5173/auth");
 #else
             UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost/auth");
 #endif
-            // compositePublisher.PausePublisher("auth");
         }
 
         public bool FrontendWebViewVisible
