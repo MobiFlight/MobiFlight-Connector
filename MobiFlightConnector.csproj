@@ -470,6 +470,7 @@
     <Compile Include="MobiFlight\Joysticks\Winwing\CduChar.cs" />
     <Compile Include="MobiFlight\Scripts\PythonEnvironment.cs" />
     <Compile Include="MobiFlight\Scripts\UserMessageCodes.cs" />
+    <Compile Include="MobiFlight\WebView\AddCloseButtonHandlerOnNavigationCompleted.cs" />
     <Compile Include="MobiFlight\WebView\StaticPageWebResourceRequestHandler.cs" />
     <Compile Include="MobiFlight\WebView\ThreadSafeWebView2.cs">
       <SubType>Component</SubType>

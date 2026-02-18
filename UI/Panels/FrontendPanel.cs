@@ -68,10 +68,14 @@ namespace MobiFlight.UI.Panels
                     _frontendDistPath
                 );
                 staticPageHandler.RegisterWithWebView(webView);
-                
+
                 webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
                 webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
+
+            var addButtonHandler = new AddCloseButtonHandlerOnNavigationCompleted();
+            addButtonHandler.AddExclusionFilter(_frontendBaseUrl);
+            addButtonHandler.RegisterWithWebView(webView);
             
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
