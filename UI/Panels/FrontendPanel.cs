@@ -4,7 +4,7 @@ using MobiFlight.BrowserMessages.Publisher;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -12,8 +12,13 @@ namespace MobiFlight.UI.Panels
     public partial class FrontendPanel : UserControl
     {
         CompositePublisher compositePublisher = new CompositePublisher();
+        private string _frontendBaseUrl = "http://localhost:5173";
         private string _frontendDistPath;
         private Dictionary<string, string> _mimeTypes;
+        private bool IsRunningInProduction = true;
+#if RELEASE
+        private bool IsRunningInProduction = true;
+#endif
 
         public new bool DesignMode
         {
@@ -27,7 +32,11 @@ namespace MobiFlight.UI.Panels
 
         public FrontendPanel()
         {
-            _frontendDistPath = Path.Combine(Application.StartupPath, "frontend", "dist");
+            if (IsRunningInProduction)
+            {
+                _frontendBaseUrl = "https://mobiflight.app";
+                _frontendDistPath = Path.Combine(Application.StartupPath, "frontend", "dist");
+            }
 
             // Initialize MIME types for common web files
             _mimeTypes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -74,35 +83,36 @@ namespace MobiFlight.UI.Panels
             // not the authentication webview
             compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
             compositePublisher.AddPublisher("auth", new PostMessagePublisher(UserAuthenticationWebView));
+
             MessageExchange.Instance.SetPublisher(compositePublisher);
         }
 
         private void InitializeWebView(ThreadSafeWebView2 webView)
         {
-#if DEBUG
-            // Development: use Vite dev server
-            webView.Source = new Uri("http://localhost:5173/index.html");
-#else
-            // Production: serve all files through WebResourceRequested
-            Log.Instance.log($"Initializing WebView to serve from: {_frontendDistPath}", LogSeverity.Info);
+            if (IsRunningInProduction)
+            {
+                // Production: serve all files through WebResourceRequested
+                Log.Instance.log($"Initializing WebView to serve from: {_frontendDistPath}", LogSeverity.Debug);
+
+                // Add filter to intercept ALL requests to localhost
+                webView.CoreWebView2.AddWebResourceRequestedFilter(
+                    $"{_frontendBaseUrl}/*",
+                    CoreWebView2WebResourceContext.All);
+
+                // Add event handler
+                webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+
+                // Navigate to start the app
+                webView.CoreWebView2.Navigate($"{_frontendBaseUrl}/index.html");
+
+                webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+                webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+            }
             
-            // Add filter to intercept ALL requests to localhost
-            webView.CoreWebView2.AddWebResourceRequestedFilter(
-                "http://localhost/*", 
-                CoreWebView2WebResourceContext.All);
-            
-            // Add event handler
-            webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
-            
-            // Navigate to start the app
-            webView.CoreWebView2.Navigate("http://localhost/index.html");
-            
-            webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
-#endif
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
-            webView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
+            // Navigate to start the app
+            webView.CoreWebView2.Navigate($"{_frontendBaseUrl}/index.html");
 
             if (_desiredZoomFactor != 0.0)
             {
@@ -216,12 +226,6 @@ namespace MobiFlight.UI.Panels
             return 0.0;
         }
 
-        private void CoreWebView2_DOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs e)
-        {
-            //var settings = new GlobalSettings(Properties.Settings.Default);
-            //MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
-        }
-
         public void BeginAuthProcess(string url)
         {
             Log.Instance.log($"Starting authentication process, navigating to: {url}", LogSeverity.Debug);
@@ -232,11 +236,7 @@ namespace MobiFlight.UI.Panels
         public void EndAuthProcess()
         {
             UserAuthenticationWebView.Visible = false;
-#if DEBUG
-            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost:5173/auth");
-#else
-            UserAuthenticationWebView.CoreWebView2.Navigate("http://localhost/auth");
-#endif
+            UserAuthenticationWebView.CoreWebView2.Navigate($"{_frontendBaseUrl}/auth");
         }
 
         public bool FrontendWebViewVisible
