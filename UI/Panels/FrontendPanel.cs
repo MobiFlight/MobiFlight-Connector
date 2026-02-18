@@ -12,7 +12,7 @@ namespace MobiFlight.UI.Panels
         CompositePublisher compositePublisher = new CompositePublisher();
         private string _frontendBaseUrl = "http://localhost:5173";
         private string _frontendDistPath;
-        private bool IsRunningInProduction = true;
+        private bool IsRunningInProduction = false;
 #if RELEASE
         private bool IsRunningInProduction = true;
 #endif
@@ -35,8 +35,6 @@ namespace MobiFlight.UI.Panels
                 _frontendDistPath = Path.Combine(Application.StartupPath, "frontend", "dist");
             }
 
-            
-
             InitializeComponent();
             if (!DesignMode)
                 InitializeAsync();
@@ -44,15 +42,8 @@ namespace MobiFlight.UI.Panels
 
         async void InitializeAsync()
         {
-            if (Application.ExecutablePath.IndexOf("devenv.exe", StringComparison.OrdinalIgnoreCase) > -1)
-            {
-                //Design time, no init due to DllNotFound Exception of VisualStudio
-            }
-            else
-            {
-                await FrontendWebView.EnsureCoreWebView2Async(null);
-                await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
-            }
+            await FrontendWebView.EnsureCoreWebView2Async(null);
+            await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
 
             InitializeWebView(FrontendWebView);
             InitializeWebView(UserAuthenticationWebView);
