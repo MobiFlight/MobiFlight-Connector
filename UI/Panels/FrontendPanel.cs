@@ -49,8 +49,6 @@ namespace MobiFlight.UI.Panels
             InitializeWebView(FrontendWebView);
             InitializeWebView(UserAuthenticationWebView);
 
-            // We only have to publish messages to the frontend
-            // not the authentication webview
             compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
             compositePublisher.AddPublisher("auth", new PostMessagePublisher(UserAuthenticationWebView));
 
@@ -64,8 +62,6 @@ namespace MobiFlight.UI.Panels
                 // Production: serve all files through WebResourceRequested
                 Log.Instance.log($"Initializing WebView to serve from: {_frontendDistPath}", LogSeverity.Debug);
 
-                
-
                 // Add event handler
                 var staticPageHandler = new StaticPageWebResourceRequestHandler(
                     _frontendBaseUrl, 
@@ -73,7 +69,6 @@ namespace MobiFlight.UI.Panels
                 );
                 staticPageHandler.RegisterWithWebView(webView);
                 
-
                 webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
                 webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
@@ -127,7 +122,6 @@ namespace MobiFlight.UI.Panels
             UserAuthenticationWebView.Visible = false;
             UserAuthenticationWebView.CoreWebView2.Navigate($"{_frontendBaseUrl}/auth");
         }
-
         public bool FrontendWebViewVisible
         {
             get => FrontendWebView.Visible;
