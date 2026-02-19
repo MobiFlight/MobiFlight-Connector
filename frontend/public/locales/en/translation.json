@@ -332,7 +332,8 @@
     "Redirect" : {
       "SignIn": "Redirecting to Sign in...",
       "SignOut": "Redirecting to Sign out...",
-      "CompletingFlow": "Completing process..."
+      "CompletingFlow": "Completing process...",
+      "FlowSuccessful": "Success!"
     }
   }
 }

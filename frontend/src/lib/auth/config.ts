@@ -8,11 +8,5 @@ export const oidcConfig: AuthProviderProps = {
   response_type: "code",
   scope: "openid profile email",
   automaticSilentRenew: true,
-  prompt: "select_account",
-  // Store the current location before redirecting to login
-  onSigninCallback: () => {
-    const returnUrl = sessionStorage.getItem("returnUrl") || "/"
-    sessionStorage.removeItem("returnUrl")
-    window.history.replaceState({}, "", returnUrl)
-  },
+  /* removed prompt to allow for auto sign in of last user */
 }

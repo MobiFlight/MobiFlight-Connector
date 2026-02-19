@@ -13,6 +13,8 @@ export type CommandMessageKey =
   | "CommandProjectToolbar"
   | "CommandDiscardChanges"
   | "CommandOpenLinkInBrowser"
+  | "CommandControllerBindingsUpdate"
+  | "CommandUserAuthentication"
 
 export type CommandMessage =
   | CommandConfigContextMenu
