@@ -334,6 +334,13 @@
       "SignOut": "Redirecting to Sign out...",
       "CompletingFlow": "Completing process...",
       "FlowSuccessful": "Success!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Error on authentication",
+        "Description": "An error occurred during authentication.",
+        "ActionCopyToClipboard": "Copy message"
+      }
     }
   }
 }

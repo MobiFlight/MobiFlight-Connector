@@ -7,23 +7,60 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { MenubarSeparator } from "@/components/ui/menubar"
+import toast from "@/components/ui/ToastWrapper"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
 import { cn } from "@/lib/utils"
 import {
+  IconClipboard,
+  IconClipboardCheck,
   IconLoader2,
   IconLogout,
   IconUser,
   IconUserCircle,
 } from "@tabler/icons-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useAuth } from "react-oidc-context"
+
+const CopyToClipboardIcon = ({
+  label,
+  clipboardContent,
+}: {
+  label: string
+  clipboardContent: string
+}) => {
+  const [copied, setCopied] = useState(false)
+  return (
+    <div
+      className="flex cursor-pointer flex-row items-center gap-1"
+      onClick={() => {
+        navigator.clipboard.writeText(clipboardContent)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000) // Optional: reset after 2s
+      }}
+    >
+      <div>{label}</div>
+      {copied ? <IconClipboardCheck /> : <IconClipboard />}
+    </div>
+  )
+}
 
 const UserMenuItem = () => {
   const auth = useAuth()
   const { publish } = useMessageExchange()
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+
+  /* Leaving this here for testing purposes */
+  // const myauth = {
+  //   error: {
+  //     name: "Test Error",
+  //     message: "This is a test error message for demonstration purposes.",
+  //     stack: "Error stack trace would go here.",
+  //   } as unknown as ErrorContext,
+  // }
+
+  const error = auth.error /* || myauth.error */
 
   const handleSignIn = () => {
     publish({
@@ -47,13 +84,33 @@ const UserMenuItem = () => {
     })
   }
 
-  if (auth.error) {
-    return (
-      <Button variant="ghost" disabled className="text-destructive mx-2">
-        Error: {auth.error.message}
-      </Button>
-    )
-  }
+  useEffect(() => {
+    if (error) {
+      const clipboardContent = `Name: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}`
+      toast({
+        title: t("Auth.Notification.Error.Title"),
+        description: (
+          <div className="flex flex-col gap-1">
+            <div title={error.message}>
+              {t("Auth.Notification.Error.Description")}
+            </div>
+          </div>
+        ),
+        button: {
+          label: (
+            <CopyToClipboardIcon
+              label={t("Auth.Notification.Error.ActionCopyToClipboard")}
+              clipboardContent={clipboardContent}
+            />
+          ),
+          onClick: (e) => {
+            e.stopPropagation() // Prevent toast from closing when button is clicked
+          },
+        },
+        id: "auth-error",
+      })
+    }
+  }, [error, t])
 
   if (auth.isLoading) {
     return (
@@ -79,7 +136,9 @@ const UserMenuItem = () => {
           variant={"ghost"}
           className="mx-2 h-8 rounded-full pr-1 [&_svg]:size-8"
         >
-          <span className={cn(open && "opacity-0", "text-md")}>Hi, {auth.user?.profile?.name}</span>
+          <span className={cn(open && "opacity-0", "text-md")}>
+            Hi, {auth.user?.profile?.name}
+          </span>
           <IconUserCircle />
         </Button>
       </DropdownMenuTrigger>

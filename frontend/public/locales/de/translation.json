@@ -340,6 +340,13 @@
       "SignOut": "Weiterleitung zur Abmeldung...",
       "CompletingFlow": "Vorgang wird abgeschlossen...",
       "FlowSuccessful": "Erfolgreich!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Fehler bei der Authentifizierung",
+        "Description": "Bei der Authentifizierung ist ein Fehler aufgetreten.",
+        "ActionCopyToClipboard": "Nachricht kopieren"
+      }
     }
   }
 }

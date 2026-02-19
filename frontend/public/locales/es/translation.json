@@ -340,6 +340,13 @@
       "SignOut": "Redirigiendo a cerrar sesión...",
       "CompletingFlow": "Completando proceso...",
       "FlowSuccessful": "¡Éxitoso!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Error en la autenticación",
+        "Description": "Ocurrió un error durante la autenticación.",
+        "ActionCopyToClipboard": "Copiar mensaje"
+      }
     }
   }
 }
