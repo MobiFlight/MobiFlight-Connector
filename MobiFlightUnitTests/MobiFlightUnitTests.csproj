@@ -330,6 +330,7 @@
     <Compile Include="UI\Panels\Config\FsuipcConfigPanelTests.cs" />
     <Compile Include="UI\Panels\Output\DisplayLedDisplayPanelTests.cs" />
     <Compile Include="WebView\AddCloseButtonHandlerOnNavigationCompletedTests.cs" />
+    <Compile Include="WebView\StaticPageWebResourceRequestHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Base\BooleanConverterConfig\GetPins.xml" />

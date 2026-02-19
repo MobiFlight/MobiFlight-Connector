@@ -8,10 +8,10 @@ namespace MobiFlight.WebView
 {
     internal class StaticPageWebResourceRequestHandler
     {
-
         private Dictionary<string, string> MimeTypes;
         private string BaseUrl;
         private string RootPath;
+
         public StaticPageWebResourceRequestHandler(string baseUrl, string rootPath)
         {
             BaseUrl = baseUrl;
@@ -38,48 +38,25 @@ namespace MobiFlight.WebView
                 { ".txt", "text/plain" }
             };
         }
+
+        internal void RegisterWithWebView(WebView2 webView)
+        {
+            webView.CoreWebView2.AddWebResourceRequestedFilter($"{BaseUrl}/*", CoreWebView2WebResourceContext.All);
+            webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+        }
+
         public void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
             try
             {
-                var uri = new Uri(e.Request.Uri);
-                var relativePath = uri.AbsolutePath.TrimStart('/');
+                var requestUri = e.Request.Uri;
+                var result = GetFileResponse(requestUri);
 
-                // Default to index.html if path is empty
-                if (string.IsNullOrEmpty(relativePath))
+                if (result.ShouldServe)
                 {
-                    relativePath = "index.html";
-                }
-
-                var filePath = Path.Combine(RootPath, relativePath);
-
-                // Security: ensure the file is within the dist folder
-                var fullPath = Path.GetFullPath(filePath);
-                if (!fullPath.StartsWith(RootPath, StringComparison.OrdinalIgnoreCase))
-                {
-                    Log.Instance.log($"Security: Blocked path traversal attempt - {fullPath}", LogSeverity.Warn);
-                    return;
-                }
-
-                // Check if file exists
-                if (File.Exists(fullPath))
-                {
-                    // Serve the actual file
-                    ServeFile(e, sender as CoreWebView2, fullPath);
-                }
-                else
-                {
-                    // File doesn't exist - serve index.html for SPA routing
-                    var indexPath = Path.Combine(RootPath, "index.html");
-                    if (File.Exists(indexPath))
-                    {
-                        Log.Instance.log($"SPA Route: {relativePath} -> serving index.html", LogSeverity.Debug);
-                        ServeFile(e, sender as CoreWebView2, indexPath, "text/html");
-                    }
-                    else
-                    {
-                        Log.Instance.log($"Error: index.html not found at {indexPath}", LogSeverity.Error);
-                    }
+                    var webView = sender as CoreWebView2;
+                    var stream = new MemoryStream(result.Content);
+                    e.Response = webView.Environment.CreateWebResourceResponse(stream, 200, "OK", $"Content-Type: {result.ContentType}");
                 }
             }
             catch (Exception ex)
@@ -88,43 +65,88 @@ namespace MobiFlight.WebView
             }
         }
 
-        internal void RegisterWithWebView(WebView2 webView)
+        // Pure business logic - easily testable without WebView2
+        internal FileResponse GetFileResponse(string requestUri)
         {
-            // Add filter to intercept ALL requests to localhost
-            webView.CoreWebView2.AddWebResourceRequestedFilter(
-                $"{BaseUrl}/*",
-                CoreWebView2WebResourceContext.All);
-            webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
-        }
+            var uri = new Uri(requestUri);
+            var relativePath = uri.AbsolutePath.TrimStart('/');
 
-        private void ServeFile(CoreWebView2WebResourceRequestedEventArgs e, CoreWebView2 webView, string filePath, string forceContentType = null)
-        {
-            try
+            // Default to index.html if path is empty
+            if (string.IsNullOrEmpty(relativePath))
             {
-                var content = File.ReadAllBytes(filePath);
-                var stream = new MemoryStream(content);
+                relativePath = "index.html";
+            }
 
-                // Determine content type
-                var contentType = forceContentType;
-                if (contentType == null)
+            var filePath = Path.Combine(RootPath, relativePath);
+
+            // Security: ensure the file is within the dist folder
+            var fullPath = Path.GetFullPath(filePath);
+            if (!fullPath.StartsWith(RootPath, StringComparison.OrdinalIgnoreCase))
+            {
+                Log.Instance.log($"Security: Blocked path traversal attempt - {fullPath}", LogSeverity.Warn);
+                return FileResponse.Blocked();
+            }
+
+            // Check if file exists
+            if (File.Exists(fullPath))
+            {
+                return CreateFileResponse(fullPath);
+            }
+            else
+            {
+                // File doesn't exist - serve index.html for SPA routing
+                var indexPath = Path.Combine(RootPath, "index.html");
+                if (File.Exists(indexPath))
                 {
-                    var extension = Path.GetExtension(filePath);
-                    if (!MimeTypes.TryGetValue(extension, out contentType))
-                    {
-                        contentType = "application/octet-stream";
-                    }
+                    Log.Instance.log($"SPA Route: {relativePath} -> serving index.html", LogSeverity.Debug);
+                    return CreateFileResponse(indexPath, "text/html");
                 }
-
-                e.Response = webView.Environment.CreateWebResourceResponse(
-                    stream,
-                    200,
-                    "OK",
-                    $"Content-Type: {contentType}");
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Error serving file {filePath}: {ex.Message}", LogSeverity.Error);
+                else
+                {
+                    Log.Instance.log($"Error: index.html not found at {indexPath}", LogSeverity.Error);
+                    return FileResponse.NotFound();
+                }
             }
         }
+
+        private FileResponse CreateFileResponse(string filePath, string forceContentType = null)
+        {
+            var content = File.ReadAllBytes(filePath);
+            var contentType = forceContentType ?? GetContentType(filePath);
+            return new FileResponse(content, contentType);
+        }
+
+        internal string GetContentType(string filePath)
+        {
+            var extension = Path.GetExtension(filePath);
+            if (MimeTypes.TryGetValue(extension, out string contentType))
+            {
+                return contentType;
+            }
+            return "application/octet-stream";
+        }
+    }
+
+    // Simple response object
+    internal class FileResponse
+    {
+        public byte[] Content { get; }
+        public string ContentType { get; }
+        public bool ShouldServe { get; }
+
+        public FileResponse(byte[] content, string contentType)
+        {
+            Content = content;
+            ContentType = contentType;
+            ShouldServe = true;
+        }
+
+        private FileResponse(bool shouldServe)
+        {
+            ShouldServe = shouldServe;
+        }
+
+        public static FileResponse Blocked() => new FileResponse(false);
+        public static FileResponse NotFound() => new FileResponse(false);
     }
 }
