@@ -1,5 +1,6 @@
 import { test as setup, expect } from "./fixtures"
 import dotenv from "dotenv"
+import fs from "fs"
 dotenv.config()
 
 const authFile = "./tests/.auth/user.json"
@@ -8,8 +9,25 @@ const email = process.env.TESTS_USER_EMAIL
 const password = process.env.TESTS_USER_PASSWORD
 const name = process.env.TESTS_USER_NAME
 
+const skipSetup = !email || !password || !name
+const createEmptyAuthFile = () => {
+  const emptyState = {
+    "cookies": [],
+    "origins": []
+  }
+
+  fs.mkdirSync("./tests/.auth", { recursive: true })
+  fs.writeFileSync(authFile, JSON.stringify(emptyState))
+}
+
+if (skipSetup) {  
+  if (!fs.existsSync(authFile)) {
+    createEmptyAuthFile()
+  }
+}
+
 setup.skip(
-  !email || !password || !name,
+  skipSetup,
   "Skipping user menu item tests: required secrets are missing",
 )
 
