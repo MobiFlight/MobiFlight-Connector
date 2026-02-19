@@ -4,11 +4,20 @@ dotenv.config()
 
 const authFile = "./tests/.auth/user.json"
 
+const email = process.env.TESTS_USER_EMAIL
+const password = process.env.TESTS_USER_PASSWORD
+const name = process.env.TESTS_USER_NAME
+
+setup.skip(
+  !email || !password || !name,
+  "Skipping user menu item tests: required secrets are missing",
+)
+
 setup("authenticate", async ({ mobiFlightPage }) => {
   const user = {
-    email: process.env.TESTS_USER_EMAIL!,
-    password: process.env.TESTS_USER_PASSWORD!,
-    name: process.env.TESTS_USER_NAME!,
+    email: email!,
+    password: password!,
+    name: name!,
   }
 
   expect(user.email).toBeDefined()

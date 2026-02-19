@@ -5,14 +5,16 @@ dotenv.config();
 // Reset storage state for this file to avoid being authenticated
 test.use({ storageState: { cookies: [], origins: [] } });
 
+const email = process.env.TESTS_USER_EMAIL
+const password = process.env.TESTS_USER_PASSWORD
+const name = process.env.TESTS_USER_NAME
+
+test.skip(!email || !password || !name, 'Skipping user menu item tests: required secrets are missing')
+
 test("Confirm SignIn and SignOut Commands to Backend are correct", async ({
   dashboardPage,
   page,
 }) => {
-  const email = process.env.TESTS_USER_EMAIL
-  const password = process.env.TESTS_USER_PASSWORD
-  const name = process.env.TESTS_USER_NAME
-
   expect(email).toBeDefined()
   expect(password).toBeDefined()
   expect(name).toBeDefined()
