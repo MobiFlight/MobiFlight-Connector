@@ -24,9 +24,7 @@ namespace MobiFlight.WebView
 
         private async void NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
-            var webView = sender as IWebView2Adapter;
-
-            if (webView == null) return;
+            if (!(sender is CoreWebView2 webView)) return;
 
             if (exclusionFilters.Any(filter => webView.Source.Contains(filter)))
             {
