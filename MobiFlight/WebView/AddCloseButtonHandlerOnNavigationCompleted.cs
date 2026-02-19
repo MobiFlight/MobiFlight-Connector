@@ -7,6 +7,7 @@ namespace MobiFlight.WebView
     internal class AddCloseButtonHandlerOnNavigationCompleted
     {
         List<string> exclusionFilters = new List<string>();
+        private IWebView2Adapter webViewAdapter;
 
         // Left arrow from tabler icons (IconChevronLeft)
         // https://tabler.io/icons/icon/chevron-left
@@ -19,14 +20,15 @@ namespace MobiFlight.WebView
 
         internal void RegisterWithWebView(IWebView2Adapter webView)
         {   
+            webViewAdapter = webView;
             webView.NavigationCompleted += NavigationCompleted;
         }
 
         private async void NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
-            if (!(sender is CoreWebView2 webView)) return;
+            if (webViewAdapter == null) return;
 
-            if (exclusionFilters.Any(filter => webView.Source.Contains(filter)))
+            if (exclusionFilters.Any(filter => webViewAdapter.Source.Contains(filter)))
             {
                 return;
             }
@@ -72,7 +74,7 @@ namespace MobiFlight.WebView
             ";
 
             script = script.Replace("[[IconBack]]", IconBack);
-            await webView?.ExecuteScriptAsync(script);
+            await webViewAdapter?.ExecuteScriptAsync(script);
         }
     }
 }
