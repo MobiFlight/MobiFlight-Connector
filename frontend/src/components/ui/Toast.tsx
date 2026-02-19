@@ -8,7 +8,7 @@ export interface ToastProps {
   title?: React.ReactNode
   button?: {
     label: React.ReactNode | string
-    onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
+    onClick: React.MouseEventHandler<HTMLButtonElement>
   }
   onCancel?: () => void
   id: string | number
