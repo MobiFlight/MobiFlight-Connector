@@ -47,7 +47,6 @@ namespace MobiFlight.WebView
                         height: 48px;
                         color: rgb(255, 255, 255);
                         background-color: rgba(0, 0, 0, 0.5);
-                        color: white;
                         border: none;
                         border-radius: 50%;
                         font-size: 40px;
@@ -74,7 +73,7 @@ namespace MobiFlight.WebView
             ";
 
             script = script.Replace("[[IconBack]]", IconBack);
-            await webViewAdapter?.ExecuteScriptAsync(script);
+            await webViewAdapter.ExecuteScriptAsync(script);
         }
     }
 }

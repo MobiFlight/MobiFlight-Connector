@@ -75,7 +75,7 @@ export default function AuthCallback({ variant }: AuthCallbackProps) {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="bg-background flex h-128 w-lg flex-col items-center justify-center gap-4 shadow-xl">
-        {auth.isLoading || (!auth.isAuthenticated && !auth.error) && (
+        {(auth.isLoading || (!auth.isAuthenticated && !auth.error)) && (
           <>
             <IconLoader2 className="text-primary mx-auto h-12 w-12 animate-spin" />
             <p className="text-lg">{t("Auth.Redirect.CompletingFlow")}</p>

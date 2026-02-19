@@ -17,7 +17,6 @@ namespace MobiFlight.UI.Panels
 #else 
         private bool IsRunningInProduction = true;
 #endif
-
         public new bool DesignMode
         {
             get
@@ -114,6 +113,13 @@ namespace MobiFlight.UI.Panels
             return 0.0;
         }
 
+        /// <summary>
+        /// Called at the start of the authentication process, with the URL to navigate to for authentication
+        /// The authentication process happens in a separate Webview
+        /// The state in the actual frontend WebView is preserved
+        /// Once authentication flow is completed, EndAuthProcess should be called to hide the authentication WebView
+        /// </summary>
+        /// <param name="url"></param>
         public void BeginAuthProcess(string url)
         {
             Log.Instance.log($"Starting authentication process, navigating to: {url}", LogSeverity.Debug);
@@ -121,6 +127,10 @@ namespace MobiFlight.UI.Panels
             UserAuthenticationWebView.Visible = true;
         }
 
+        /// <summary>
+        /// Called at the end of the authentication process
+        /// The WebView is hidden and we navigate back to a default idle page
+        /// </summary>
         public void EndAuthProcess()
         {
             UserAuthenticationWebView.Visible = false;

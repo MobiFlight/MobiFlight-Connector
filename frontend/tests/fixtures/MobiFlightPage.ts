@@ -299,6 +299,4 @@ export class MobiFlightPage {
       },
     })
   }
-
-  async signOutUser() {}
 }
