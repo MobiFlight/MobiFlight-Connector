@@ -1,5 +1,4 @@
 ﻿using Microsoft.Web.WebView2.Core;
-using Microsoft.Web.WebView2.WinForms;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,24 +12,23 @@ namespace MobiFlight.WebView
         // https://tabler.io/icons/icon/chevron-left
         const string IconBack = @"<svg xmlns=""http://www.w3.org/2000/svg"" width=""32"" height=""32"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""2"" stroke-linecap=""round"" stroke-linejoin=""round"" class=""icon icon-tabler icons-tabler-outline icon-tabler-chevron-left""><path stroke=""none"" d=""M0 0h24v24H0z"" fill=""none""/><path d=""M15 6l-6 6l6 6"" /></svg>";
 
-
         internal void AddExclusionFilter(string urlSubstring)
         {
             exclusionFilters.Add(urlSubstring);
         }
 
-        internal void RegisterWithWebView(WebView2 webView)
+        internal void RegisterWithWebView(IWebView2Adapter webView)
         {   
-            webView.CoreWebView2.NavigationCompleted += NavigationCompleted;
+            webView.NavigationCompleted += NavigationCompleted;
         }
 
         private async void NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
-            var webView = sender as CoreWebView2;
+            var webView = sender as IWebView2Adapter;
 
             if (webView == null) return;
 
-            if (exclusionFilters.Any(filter => webView.Source.ToString().Contains(filter)))
+            if (exclusionFilters.Any(filter => webView.Source.Contains(filter)))
             {
                 return;
             }
