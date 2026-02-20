@@ -14,12 +14,8 @@ import { ToastNotificationHandler } from "./components/notifications/ToastNotifi
 
 import DebugInfo from "@/components/DebugInfo"
 import { useTranslation } from "react-i18next"
-import { useBackendStateAppMessages } from "@/lib/hooks/useBackendStateAppMessages"
 
 function App() {
-  // Initialize global app message handlers
-  useBackendStateAppMessages() 
-
   useKeyAccelerators(GlobalKeyAccelerators, true)
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)

@@ -8,6 +8,7 @@ import { AppRoutes } from "@/Routes.tsx"
 import { BrowserRouter } from "react-router"
 import { AuthProvider } from "react-oidc-context"
 import { oidcConfig } from "@/lib/auth/config"
+import { BackendStateMessageHandler } from "@/components/BackendStateMessageHandler.tsx"
 
 if (process.env.NODE_ENV !== "development") {
   console.log = () => {}
@@ -23,7 +24,9 @@ createRoot(document.getElementById("root")!).render(
       <AuthProvider {...oidcConfig}>
         <TooltipProvider skipDelayDuration={0}>
           <BrowserRouter>
-            <AppRoutes />
+            <BackendStateMessageHandler>
+              <AppRoutes />
+            </BackendStateMessageHandler>
           </BrowserRouter>
         </TooltipProvider>
       </AuthProvider>
