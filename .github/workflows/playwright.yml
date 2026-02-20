@@ -22,6 +22,10 @@ jobs:
     - name: Run linter
       run: npm run lint
     - name: Run Playwright tests
+      env:
+        TESTS_USER_EMAIL: ${{ secrets.TESTS_USER_EMAIL }}
+        TESTS_USER_PASSWORD: ${{ secrets.TESTS_USER_PASSWORD }}
+        TESTS_USER_NAME: ${{ secrets.TESTS_USER_NAME }}
       run: npx playwright test
     - uses: actions/upload-artifact@v6
       if: ${{ !cancelled() }}

@@ -7,8 +7,8 @@ export interface ToastProps {
   description?: React.ReactNode
   title?: React.ReactNode
   button?: {
-    label: string
-    onClick: () => void
+    label: React.ReactNode | string
+    onClick: React.MouseEventHandler<HTMLButtonElement>
   }
   onCancel?: () => void
   id: string | number
@@ -30,7 +30,7 @@ export const Toast = ({ description, title, button, id, onCancel }: ToastProps) 
         {button && (
           <Button
             onClick={button.onClick}
-            className="mt-2 h-8 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+            className="mt-2 h-8 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600 [&_svg]:size-6 flex flex-row items-center"
           >
             {button.label}
           </Button>

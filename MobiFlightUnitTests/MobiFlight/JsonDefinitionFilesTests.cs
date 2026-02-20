@@ -6,6 +6,21 @@ namespace MobiFlight.Tests
     [TestClass()]
     public class JsonDefinitionFileTests
     {
+        [TestInitialize]
+        public void Setup() {
+            // enable schema validation to not exceed 1,000 limit per hour
+            // https://www.newtonsoft.com/jsonschema
+            JsonBackedObject.SkipSchemaValidation = false;
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // enable schema validation
+            // https://www.newtonsoft.com/jsonschema
+            JsonBackedObject.SkipSchemaValidation = true;
+        }
+
         [TestMethod()]
         public void BoardDefinitionFileTest()
         {

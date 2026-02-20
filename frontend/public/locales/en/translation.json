@@ -4,7 +4,8 @@
       "OpenMenu": "Open menu"
     },
     "Overlay": {
-      "OpeningWizard": "Opening wizard..."
+      "OpeningWizard": "Opening wizard...",
+      "SavingChanges": "Saving project..."
     },
     "HubHopUpdate": {
       "Error": "HubHop update failed. Please try again later.",
@@ -12,6 +13,28 @@
       "Title": "HubHop update available",
       "Description": "Your HubHop database is older than {{days}} days. Would you like to update it now?",
       "Title.Downloading": "Downloading HubHop update..."
+    },
+    "Error": {
+      "FallbackTitle": "Ooops... something went wrong!",
+      "Unknown": "An unknown error occurred."
+    }
+  },
+  "MainMenu": {
+    "View": {
+      "Label": "View",
+      "Zoom": {
+        "Reset": "Reset Zoom",
+        "In": "Zoom In",
+        "Out": "Zoom Out",
+        "Shortcut": {
+          "Reset": "Ctrl+0",
+          "In": "Ctrl++",
+          "Out": "Ctrl+-"
+        }
+      }
+    },
+    "Extras": {
+      "ControllerBindings": "Controller Bindings"
     }
   },
   "Types": {
@@ -70,6 +93,10 @@
         "BlockedByRun": "Run mode active. Stop it first."
       }
     },
+    "Tabs": {
+      "ScrollLeft": "Scroll left",
+      "ScrollRight": "Scroll right"
+    },
     "Simulator": {
       "msfs": "Microsoft Flight Simulator",
       "xplane": "X-Plane",
@@ -78,6 +105,12 @@
       "prosim": "ProSim",
       "none": "No simulator"
     },
+    "BindingStatus": {
+      "Match": "Controller connected",
+      "AutoBind": "Auto-bound controller",
+      "Missing": "Controller missing",
+      "RequiresManualBind": "Manual binding required"
+    },
     "Card": {
       "Main": {
         "Title": "My Projects",
@@ -85,7 +118,8 @@
         "AllProjects": "All Projects",
         "CurrentProject": "Current project",
         "NoActiveProject": "No project is currently loaded.",
-        "CreateFirstProject": "Create your first project to get started!"
+        "CreateFirstProject": "Create your first project to get started!",
+        "BindingIssuesTooltip": "Click to view controller binding issues"
       },
       "Filter": {
         "Search": {
@@ -120,8 +154,7 @@
       },
       "Buttons": {
         "Create": "Create project",
-        "Update": "Update project",
-        "Cancel": "Cancel"
+        "Update": "Update project"
       }
     },
     "UnsavedChanges": {
@@ -197,14 +230,16 @@
     "Status": {
       "Precondition": {
         "normal": "Normal",
-        "not satisfied": "Precondition is not satisfied."
+        "not satisfied": "Precondition is not satisfied.",
+        "Error": "Error evaluating precondition. Check logs for more details."
       },
       "Source": {
         "available": "Source is available.",
         "SIMCONNECT_NOT_AVAILABLE": "This config uses SimConnect, connection is missing.",
         "FSUIPC_NOT_AVAILABLE": "This config uses FSUIPC, connection is missing.",
         "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing.",
-        "PROSIM_NOT_AVAILABLE": "This config uses ProSim, connection is missing."
+        "PROSIM_NOT_AVAILABLE": "This config uses ProSim, connection is missing.",
+        "ReadError": "Error occurred during read. Check logs for more details."
       },
       "Modifier": {
         "Error": "A modifier is applied which has an error.",
@@ -231,6 +266,39 @@
       }
     }
   },
+  "Notifications": {
+    "ControllerAutoBindSuccessful": {
+      "Title": "Great news!",
+      "Description": "We've updated your project to work with ‘{{controllerName}}’ — everything’s ready to go!"
+    },
+    "ControllerManualBindRequired": {
+      "Title": "Your input is needed!",
+      "Description": "{{controllerName}} used in this profile requires manual binding to make your project work correctly.",
+      "Action": "Bind controllers"
+    },
+    "SimConnectionLost": {
+      "Title": "Connection Lost",
+      "Description": "The connection to {{simType}} was lost."
+    },
+    "SimStopped": {
+      "Title": "Flight Simulator Closed",
+      "Description": "The Flight Simulator has been closed. Execution of config has been stopped. Restart your flight simulator to restart config."
+    },
+    "TestModeException": {
+      "Title": "Test Mode Error",
+      "Description": "{{errorMessage}}"
+    }
+  },
+  "Startup": {
+    "Starting": "Starting MobiFlight...",
+    "CheckingFirmwareUpdates": "Checking for Firmware Updates...",
+    "ScanningControllers": "Scanning for connected controllers...",
+    "LoadingLastConfig": "Loading last config...",
+    "Finished": "Finished.",
+    "Test": {
+      "Loading": "Loading..."
+    }
+  },
   "Feed": {
     "Title": "Community Feed",
     "Description": "News and updates from the MobiFlight community.",
@@ -240,6 +308,49 @@
       "shop": "Offers",
       "events": "Events",
       "community": "Community"
+    }
+  },
+  "Dialog": {
+    "General": {
+      "Cancel": "Cancel",
+      "Close": "Close",
+      "SaveChanges": "Save changes",
+      "ApplyChanges": "Apply changes"
+    },
+    "ControllerBinding": {
+      "Title": "Controller Bindings",
+      "Description": "Bind the controllers used in this project to the physical controllers connected to your computer.",
+      "Filter": {
+        "all": "All",
+        "manual": "Manual bind",
+        "autobind": "Auto-bind",
+        "missing": "Missing",
+        "match": "Match"
+      },
+      "ControllersInProject": "{{count}} Controllers used in project",
+      "ConnectedControllers": "{{count}} Controllers connected to PC",
+      "AllSet": "All set! Your project is completely configured." 
+    }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Sign in",
+      "SignOut": "Sign out",
+      "Profile": "Profile",
+      "ProfileFeatureComingSoon": "coming soon"
+    },
+    "Redirect" : {
+      "SignIn": "Redirecting to Sign in...",
+      "SignOut": "Redirecting to Sign out...",
+      "CompletingFlow": "Completing process...",
+      "FlowSuccessful": "Success!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Error on authentication",
+        "Description": "An error occurred during authentication.",
+        "ActionCopyToClipboard": "Copy message"
+      }
     }
   }
 }

@@ -91,7 +91,7 @@ namespace MobiFlight
         public String Port { get { return _comPort; } }
 
         private string _name;
-        public String Name
+        public virtual String Name
         {
             get
             {
@@ -126,7 +126,7 @@ namespace MobiFlight
                 }
             }
         }
-        public String Serial { get; set; }
+        public virtual String Serial { get; set; }
         public String Version { get; set; }
         public string CoreVersion { get; set; }
 

@@ -7,25 +7,28 @@ import {
 } from "@/components/ui/dialog"
 
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { LoaderIcon } from "lucide-react"
-import { useTranslation } from "react-i18next"
+import { IconLoader2 as LoaderIcon } from "@tabler/icons-react"
 
 type LoaderOverlayProps = {
+  message: string
   open: boolean
   onOpenChange?: (open: boolean) => void
 }
 
-const LoaderOverlay = (props: LoaderOverlayProps) => {
-  const onOpenChange = props.onOpenChange ? props.onOpenChange : () => {}
-  const { t } = useTranslation()
+const LoaderOverlay = ({
+  message,
+  open,
+  onOpenChange,
+}: LoaderOverlayProps) => {
+  const handleOpenChange = onOpenChange ? onOpenChange : () => {}
   return (
     <>
-      <Dialog open={props.open} onOpenChange={onOpenChange}>
+      <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogPortal>
           <DialogOverlay
             data-testid="loader-overlay"
             onClick={() => {
-              onOpenChange(false)
+              handleOpenChange(false)
             }}
           />
           <DialogTitle>Loader Overlay</DialogTitle>
@@ -34,7 +37,7 @@ const LoaderOverlay = (props: LoaderOverlayProps) => {
             <div className="flex h-full w-full flex-col items-center justify-center gap-2">
               <LoaderIcon className="text-background dark:text-foreground animate-spin" />
               <p className="text-background dark:text-foreground">
-                {t("General.Overlay.OpeningWizard")}
+                {message}
               </p>
             </div>
           </DialogPrimitive.Content>

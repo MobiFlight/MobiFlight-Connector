@@ -17,8 +17,12 @@ import { CommandMainMenuPayload } from "@/types/commands"
 import DarkModeToggle from "./DarkModeToggle"
 import { useProjectStore } from "@/stores/projectStore"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
+import { useTranslation } from "react-i18next"
+import { useModal } from "@/lib/hooks/useModal"
+import UserMenuItem from "@/components/user/UserMenuItem"
 
 export const MainMenu = () => {
+  const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { hasChanged } = useProjectStore()
   const { publish } = publishOnMessageExchange()
@@ -29,7 +33,8 @@ export const MainMenu = () => {
     })
   }
 
-  const { showOverlay } = useProjectModal()
+  const { showOverlay: showProjectOverlay } = useProjectModal()
+  const { showOverlay: showModalOverlay } = useModal()
 
   return (
     <Menubar className="bg-muted/20 justify-between">
@@ -39,7 +44,7 @@ export const MainMenu = () => {
           <MenubarContent>
             <MenubarItem
               onSelect={() => {
-                showOverlay({ mode: "create" })
+                showProjectOverlay({ mode: "create" })
               }}
             >
               New<MenubarShortcut>Ctrl+N</MenubarShortcut>
@@ -95,6 +100,37 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
+          <MenubarTrigger>{t("MainMenu.View.Label")}</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem
+              onSelect={() =>
+                handleMenuItemClick({ action: "view.zoom.reset" })
+              }
+            >
+              {t("MainMenu.View.Zoom.Reset")}
+              <MenubarShortcut>
+                {t("MainMenu.View.Zoom.Shortcut.Reset")}
+              </MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() => handleMenuItemClick({ action: "view.zoom.in" })}
+            >
+              {t("MainMenu.View.Zoom.In")}
+              <MenubarShortcut>
+                {t("MainMenu.View.Zoom.Shortcut.In")}
+              </MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() => handleMenuItemClick({ action: "view.zoom.out" })}
+            >
+              {t("MainMenu.View.Zoom.Out")}
+              <MenubarShortcut>
+                {t("MainMenu.View.Zoom.Shortcut.Out")}
+              </MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
           <MenubarTrigger>Extras</MenubarTrigger>
           <MenubarContent>
             <MenubarSub>
@@ -130,9 +166,9 @@ export const MainMenu = () => {
               Copy logs to clipboard
             </MenubarItem>
             <MenubarItem
-              onSelect={() => handleMenuItemClick({ action: "extras.serials" })}
+              onSelect={() => showModalOverlay({ route: "/bindings" })}
             >
-              Manage orphaned serials
+              {t("MainMenu.Extras.ControllerBindings")}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
@@ -191,9 +227,12 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
       </div>
-      <div className="flex items-center gap-8 px-2">
+      <div className="flex items-center gap-4 px-2">
         <CommunityMenu />
-        <DarkModeToggle />
+        <div className="flex flex-row gap-1">
+          <DarkModeToggle />
+          <UserMenuItem />
+        </div>
       </div>
     </Menubar>
   )

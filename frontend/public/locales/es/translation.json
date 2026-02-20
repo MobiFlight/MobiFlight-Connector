@@ -4,7 +4,8 @@
       "OpenMenu": "Abrir menú"
     },
     "Overlay": {
-      "OpeningWizard": "Abriendo diálogo..."
+      "OpeningWizard": "Abriendo diálogo...",
+      "SavingChanges": "Guardando proyecto..."
     },
     "HubHopUpdate": {
       "Error": "Actualización de HubHop falló. Por favor, inténtalo de nuevo más tarde.",
@@ -12,6 +13,28 @@
       "Title": "Actualización de HubHop disponible",
       "Description": "Tu base de datos de HubHop se descargó hace más de {{days}} días. ¿Te gustaría actualizarla ahora?",
       "Title.Downloading": "Descargando actualización de HubHop..."
+    },
+    "Error": {
+      "FallbackTitle": "Ooops... algo pasó que no debería haber pasado!",
+      "Unknown": "Ocurrió un error desconocido."
+    }
+  },
+  "MainMenu": {
+    "View": {
+      "Label": "Ver",
+      "Zoom": {
+        "Reset": "Restablecer zoom",
+        "In": "Acercar",
+        "Out": "Alejar",
+        "Shortcut": {
+          "Reset": "Ctrl+0",
+          "In": "Ctrl++",
+          "Out": "Ctrl+-"
+        }
+      }
+    },
+    "Extras": {
+      "ControllerBindings": "Vincular controladores"
     }
   },
   "Types": {
@@ -70,6 +93,10 @@
         "BlockedByRun": "Modo de ejecución activo. Páralo primero."
       }
     },
+    "Tabs": {
+      "ScrollLeft": "Desplazar a la izquierda",
+      "ScrollRight": "Desplazar a la derecha"
+    },
     "Simulator": {
       "msfs": "Microsoft Flight Simulator",
       "xplane": "X-Plane",
@@ -78,6 +105,12 @@
       "prosim": "ProSim",
       "none": "Ningún simulador"
     },
+    "BindingStatus": {
+      "Match": "Controlador conectado",
+      "AutoBind": "Controlador auto-vinculado",
+      "Missing": "Controlador ausente",
+      "RequiresManualBind": "Vinculación manual requerida"
+    },
     "Card": {
       "Main": {
         "Title": "Mis Proyectos",
@@ -85,7 +118,8 @@
         "AllProjects": "Todos los Proyectos",
         "CurrentProject": "Proyecto actual",
         "NoActiveProject": "No hay ningún proyecto cargado actualmente.",
-        "CreateFirstProject": "¡Crea tu primer proyecto para comenzar!"
+        "CreateFirstProject": "¡Crea tu primer proyecto para comenzar!",
+        "BindingIssuesTooltip": "Haz clic para ver problemas de vinculación del controlador"
       },
       "Filter": {
         "Search": {
@@ -114,14 +148,19 @@
         "UseProSim": "ProSim - interfaz para aviones ProSim",
         "Feature": "Funciones adicionales"
       },
+      "BindingStatus": {
+        "Match": "Controlador conectado",
+        "AutoBind": "Controlador vinculado automáticamente",
+        "Missing": "Controlador ausente",
+        "RequiresManualBind": "Vinculación manual requerida"
+      },
       "Aircraft": {
         "Label": "Avión",
         "HelpText": "Selecciona el avión para este proyecto."
       },
       "Buttons": {
         "Create": "Crear proyecto",
-        "Update": "Actualizar proyecto",
-        "Cancel": "Cancelar"
+        "Update": "Actualizar proyecto"
       }
     },
     "UnsavedChanges": {
@@ -197,14 +236,16 @@
     "Status": {
       "Precondition": {
         "normal": "Normal",
-        "not satisfied": "La condición previa no se cumple."
+        "not satisfied": "La condición previa no se cumple.",
+        "Error": "Error al evaluar la condición previa. Consulte los registros para más detalles."
       },
       "Source": {
         "available": "La fuente está disponible.",
         "SIMCONNECT_NOT_AVAILABLE": "Esta configuración usa SimConnect, falta la conexión.",
         "FSUIPC_NOT_AVAILABLE": "Esta configuración usa FSUIPC, falta la conexión.",
         "XPLANE_NOT_AVAILABLE": "Esta configuración usa X-Plane, falta la conexión.",
-        "PROSIM_NOT_AVAILABLE": "Esta configuración usa ProSim, falta la conexión."
+        "PROSIM_NOT_AVAILABLE": "Esta configuración usa ProSim, falta la conexión.",
+        "ReadError": "Se produjo un error durante la lectura. Consulte los registros para más detalles."
       },
       "Modifier": {
         "Error": "Se aplica un modificador que tiene un error.",
@@ -231,6 +272,39 @@
       }
     }
   },
+  "Notifications": {
+    "ControllerAutoBindSuccessful": {
+      "Title": "¡Buenas noticias!",
+      "Description": "Hemos actualizado el proyecto para funcionar con ‘{{controllerName}}’ — está listo para usar."
+    },
+    "ControllerManualBindRequired": {
+      "Title": "¡Necesitamos tu ayuda!",
+      "Description": "{{controllerName}} usado en este perfil requiere una vinculación manual para que tu proyecto funcione correctamente.",
+      "Action": "Vincular controladores"
+    },
+    "SimConnectionLost": {
+      "Title": "Conexión perdida",
+      "Description": "Se perdió la conexión con {{simType}}."
+    },
+    "SimStopped": {
+      "Title": "Simulador de vuelo cerrado",
+      "Description": "El Simulador de vuelo se ha cerrado. La ejecución de la configuración se ha detenido. Reinicia tu simulador de vuelo para reiniciar la configuración."
+    },
+    "TestModeException": {
+      "Title": "Error en modo de prueba",
+      "Description": "{{errorMessage}}"
+    }
+  },
+  "Startup": {
+    "Starting": "Iniciando MobiFlight...",
+    "CheckingFirmwareUpdates": "Buscando actualizaciones de firmware...",
+    "ScanningControllers": "Buscando controladores conectados...",
+    "LoadingLastConfig": "Cargando última configuración...",
+    "Finished": "Finalizado.",
+    "Test": {
+      "Loading": "Cargando..."
+    }
+  },
   "Feed": {
     "Title": "Community Feed",
     "Description": "Noticias y novedades de la comunidad de MobiFlight.",
@@ -240,6 +314,49 @@
       "shop": "Ofertas",
       "events": "Eventos",
       "community": "Comunidad"
+    }
+  },
+  "Dialog": {
+    "General": {
+      "Cancel": "Cancelar",
+      "Close": "Cerrar",
+      "SaveChanges": "Guardar cambios",
+      "ApplyChanges": "Aplicar cambios"
+    },
+    "ControllerBinding": {
+      "Title": "Vincular controladores",
+      "Description": "Vincula los controladores usados en este proyecto con los controladores físicos conectados a tu computadora.",
+      "Filter": {
+        "all": "Todos",
+        "manual": "manual",
+        "autobind": "auto-vinculado",
+        "missing": "ausente",
+        "match": "conectado"
+      },
+      "ControllersInProject": "{{count}} controladores usados en el proyecto",
+      "ConnectedControllers": "{{count}} controladores conectados a la PC",
+      "AllSet": "¡Todo listo! Tu proyecto está completamente configurado."
+    }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Iniciar sesión",
+      "SignOut": "Cerrar sesión",
+      "Profile": "Perfil",
+      "ProfileFeatureComingSoon": "próximamente"
+    },
+    "Redirect" : {
+      "SignIn": "Redirigiendo a iniciar sesión...",
+      "SignOut": "Redirigiendo a cerrar sesión...",
+      "CompletingFlow": "Completando proceso...",
+      "FlowSuccessful": "¡Éxitoso!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Error en la autenticación",
+        "Description": "Ocurrió un error durante la autenticación.",
+        "ActionCopyToClipboard": "Copiar mensaje"
+      }
     }
   }
 }

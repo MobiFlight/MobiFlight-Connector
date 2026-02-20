@@ -1,20 +1,23 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace MobiFlight.UI.Tests
 {
     [TestClass()]
     public class MainFormTests
     {
-        private class TestableMainForm : MainForm
+        private StringCollection originalRecentFiles;
+        private string _tempDirectory;
+
+        public class TestableMainForm : MainForm
         {
             // Expose protected/private members for testing if needed
             public new Dictionary<string, string> AutoLoadConfigs
@@ -27,29 +30,77 @@ namespace MobiFlight.UI.Tests
             {
                 base.UpdateAutoLoadMenu();
             }
+
+            public void InitializeExecutionManager()
+            {
+                var methodInfo = typeof(MainForm).GetMethod("InitializeExecutionManager", BindingFlags.NonPublic | BindingFlags.Instance);
+                methodInfo.Invoke(this, new object[] { });
+            }
+
+            public async Task InitializeProjectListManagerAsync()
+            {
+                var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
+                var projectListManager = new ProjectListManager();
+
+                await projectListManager.InitializeFromSettingsAsync(new ControllerBindingService(ExecutionManager));
+                propertyInfo.SetValue(this, projectListManager);
+            }
         }
 
         private TestableMainForm _mainForm;
-
-        public void InitializeExecutionManager()
-        {
-            var methodInfo = typeof(MainForm).GetMethod("InitializeExecutionManager", BindingFlags.NonPublic | BindingFlags.Instance);
-            methodInfo.Invoke(_mainForm, new object[] { });
-        }
 
         [TestInitialize]
         public void SetUp()
         {
             // Initialize the MainForm
             _mainForm = new TestableMainForm();
+
+            // Save original RecentFiles
+            originalRecentFiles = Properties.Settings.Default.RecentFiles;
+
+            // Initialize with clean state
+            Properties.Settings.Default.RecentFiles = new StringCollection();
+
+            // Create a temporary test directory
+            _tempDirectory = Path.Combine(Path.GetTempPath(), "MainFormTests", Guid.NewGuid().ToString());
+            Directory.CreateDirectory(_tempDirectory);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // Restore original RecentFiles
+            Properties.Settings.Default.RecentFiles = originalRecentFiles;
+            Properties.Settings.Default.Save();
+
+            try
+            {
+                // Clean up test directory
+                if (Directory.Exists(_tempDirectory))
+                {
+                    Directory.Delete(_tempDirectory, true);
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Helper method to create a temporary test file
+        /// </summary>
+        private string CreateTestFile(string fileName)
+        {
+            var filePath = Path.Combine(_tempDirectory, fileName);
+            var testProject = new Project() { FilePath = filePath };
+            testProject.SaveFile();
+            return filePath;
         }
 
 
         [TestMethod()]
-        public void CreateNewProjectTest()
+        public void CreateNewProject_ProjectHasUnsavedChanges_Updates_Correctly()
         {
             // Arrange
-            InitializeExecutionManager();
+            _mainForm.InitializeExecutionManager();
             Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be False when initializing MainForm.");
 
             _mainForm.CreateNewProject(new Project());
@@ -67,7 +118,9 @@ namespace MobiFlight.UI.Tests
             {
                 if (File.Exists(tempFilePath))
                 {
-                    File.Delete(tempFilePath);
+                    // This sometimes fails in CI environments due to file locks.
+                    // Just continue because Delete is not critical for the test.
+                    try { File.Delete(tempFilePath); } catch { }
                 }
             }
 
@@ -76,27 +129,21 @@ namespace MobiFlight.UI.Tests
 
             // Assert
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true when starting with a fresh project.");
-
-            var mainFormTitle = _mainForm.Text;
-            var expectedTitle = $"New MobiFlight Project* - MobiFlight Connector - {MainForm.DisplayVersion()}";
-            Assert.AreEqual(expectedTitle, mainFormTitle);
         }
 
 
         [TestMethod()]
-        public void AddNewFileToProjectTest()
+        public void AddNewFileToProjectTest_ProjectHasUnsavedChanges_Updates_Correctly()
         {
             // Arrange
-            InitializeExecutionManager();
+            _mainForm.InitializeExecutionManager();
             Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
 
             // Act
             _mainForm.AddNewFileToProject();
 
             // Assert
-            var mainFormTitle = _mainForm.Text;
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
-            Assert.Contains("*", mainFormTitle, "Project title should indicate that there are unsaved changes.");
         }
 
         [TestMethod()]
@@ -138,26 +185,33 @@ namespace MobiFlight.UI.Tests
         }
 
         [TestMethod()]
-        public void RecentFilesRemove_ViaCommandMainMenu()
+        public async Task RecentFilesRemove_ViaCommandMainMenu_ShouldRemoveFromBothLists()
         {
             // Arrange
-            InitializeExecutionManager();
+            _mainForm.InitializeExecutionManager();
+            await _mainForm.InitializeProjectListManagerAsync();
 
-            var testFiles = new StringCollection
+            var recentFilesCollection = new StringCollection
             {
-                "C:\\project1.mfproj",
-                "C:\\project2.mfproj",
-                "C:\\project3.mfproj"
+                CreateTestFile("project1.mfproj"),
+                CreateTestFile("project2.mfproj"),
+                CreateTestFile("project3.mfproj")
             };
 
-            Properties.Settings.Default.RecentFiles = testFiles;
+            var testFiles = new String[recentFilesCollection.Count];
+            recentFilesCollection.CopyTo(testFiles, 0);
+
+            Properties.Settings.Default.RecentFiles = recentFilesCollection;
             Properties.Settings.Default.Save();
+
+            // Re-initialize after adding files
+            await _mainForm.InitializeProjectListManagerAsync();
 
             // Create the command message
             var command = new CommandMainMenu
             {
                 Action = CommandMainMenuAction.virtual_recent_remove,
-                Index = 1  // Remove the middle entry
+                Index = 1  // Remove the middle entry (project2)
             };
 
             // Get the handler
@@ -166,71 +220,159 @@ namespace MobiFlight.UI.Tests
             // Act
             handler.Handle(command);
 
-            // Assert
+            // Assert - RecentFiles updated
             var recentFiles = Properties.Settings.Default.RecentFiles;
-            Assert.HasCount(2, recentFiles, "Should have 2 files remaining");
-            Assert.AreEqual("C:\\project1.mfproj", recentFiles[0]);
-            Assert.AreEqual("C:\\project3.mfproj", recentFiles[1]);
-            Assert.DoesNotContain("C:\\project2.mfproj", recentFiles, "Removed file should not be in the list");
+            Assert.HasCount(2, recentFiles, "Should have 2 files remaining in RecentFiles");
+            Assert.AreEqual(testFiles[0], recentFiles[0]);
+            Assert.AreEqual(testFiles[2], recentFiles[1]);
+            Assert.DoesNotContain(testFiles[1], recentFiles, "Removed file should not be in RecentFiles");
+
+            // Assert - ProjectList also updated
+            var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
+            var projectListManager = propertyInfo.GetValue(_mainForm) as ProjectListManager;
+            var projectFiles = projectListManager.GetProjects();
+
+            Assert.HasCount(2, projectFiles, "Should have 2 files remaining in ProjectList");
+            Assert.AreEqual(testFiles[0], projectFiles[0].FilePath);
+            Assert.AreEqual(testFiles[2], projectFiles[1].FilePath);
+            Assert.DoesNotContain(testFiles[1], projectFiles, "Removed file should not be in ProjectList");
         }
 
-        [TestMethod]
-        public void FindMissingFiles_ReturnsMissingAndIgnoresExisting()
+        #region Update window title tests
+        [TestMethod()]
+        public void SetProjectFilePathInTitle_WithSavedProject_ShowsCorrectFilePath()
         {
-            var existing = Path.GetTempFileName();
-            var missing = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mfproj");
-            try
-            {
-                var inputs = new List<string> { existing, missing, "   " };
-                var result = MainForm.CheckForMissingFiles(inputs);
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            var testProjectName = "MyTestProject";
+            var tempFilePath = Path.Combine(_tempDirectory, $"{testProjectName}.mfproj");
 
-                // missing path and whitespace entry are reported missing
-                Assert.Contains(missing, result, "Expected missing file to be reported.");
-                Assert.IsTrue(result.Any(x => string.IsNullOrWhiteSpace(x)), "Expected whitespace entry to be reported as missing.");
-                // existing file should not be reported missing
-                Assert.DoesNotContain(existing, result, "Existing file should not be reported missing.");
-            }
-            finally
-            {
-                File.Delete(existing);
-            }
+            var project = new Project() { Name = testProjectName };
+
+            _mainForm.CreateNewProject(project);
+
+            // Act - Save the project to establish a file path
+            var saveMethod = typeof(MainForm).GetMethod("SaveConfig", BindingFlags.NonPublic | BindingFlags.Instance);
+            saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
+
+            // Assert - Title should show file path without asterisk (saved state)
+            var expectedTitle = $"{tempFilePath} - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display project file path without unsaved indicator");
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "Project should not have unsaved changes");
         }
 
-        [TestMethod]
-        public void RemoveMissingFilesFromSettings_RemovesEntriesFromSettings()
+        [TestMethod()]
+        public void SetProjectFilePathInTitle_WithUnsavedChanges_ShowsAsterisk()
         {
-            var existing = Path.GetTempFileName();
-            var missing = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mfproj");
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            var testProjectName = "MyTestProject";
+            var tempFilePath = Path.Combine(_tempDirectory, $"{testProjectName}.mfproj");
 
-            try
-            {
-                // Prepare settings recent list
-                Properties.Settings.Default.RecentFiles.Clear();
-                Properties.Settings.Default.RecentFiles.Add(existing);
-                Properties.Settings.Default.RecentFiles.Add(missing);
-                Properties.Settings.Default.Save();
+            // Act - Create a new project (unsaved state)
+            var project = new Project() { Name = testProjectName };
+            _mainForm.CreateNewProject(project);
 
-                // Call instance method without running ctor to avoid UI initialization
-                var mainFormInstance = FormatterServices.GetUninitializedObject(typeof(MainForm));
-                var mi = typeof(MainForm).GetMethod("RemoveMissingFilesFromSettings", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            // Assert - Title should show file path WITH asterisk (unsaved state)
+            var expectedTitle = $"* - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display at least unsaved indicator (*)");
 
-                Assert.IsNotNull(mi, "RemoveMissingFilesFromSettings method not found via reflection.");
+            // Arrange - Save first to establish file path
+            var saveMethod = typeof(MainForm).GetMethod("SaveConfig", BindingFlags.NonPublic | BindingFlags.Instance);
+            saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
 
-                // Invoke with the missing list
-                mi.Invoke(mainFormInstance, new object[] { new List<string> { missing } });
+            // Act - Make a change to trigger unsaved state
+            _mainForm.AddNewFileToProject();
 
-                var current = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
-
-                Assert.Contains(existing, current, "Existing file should remain in settings.");
-                Assert.DoesNotContain(missing, current, "Missing file should have been removed from settings.");
-            }
-            finally
-            {
-                try { File.Delete(existing); } catch { }
-                // Cleanup settings to avoid test pollution
-                Properties.Settings.Default.RecentFiles.Clear();
-                Properties.Settings.Default.Save();
-            }
+            // Assert - Title should show file path WITH asterisk (unsaved state)
+            expectedTitle = $"{tempFilePath}* - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display project file path with unsaved indicator");
+            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "Project should have unsaved changes");
         }
+
+        [TestMethod()]
+        public void SetProjectFilePathInTitle_WithNoProject_ShowsOnlyVersionInfo()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+
+            // Act - Call SetTitle with empty string (simulates no project loaded)
+            var setTitleMethod = typeof(MainForm).GetMethod("SetTitle", BindingFlags.NonPublic | BindingFlags.Instance);
+            setTitleMethod.Invoke(_mainForm, new object[] { "" });
+
+            // Assert - Title should show only version info
+            var expectedTitle = $"MobiFlight Connector - {MainForm.DisplayVersion()}";
+            Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display only version info when no project is loaded");
+        }
+        #endregion
+
+        #region GetFirstExistingRecentFileOrNull tests
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_EmptyRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = new StringCollection();
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is empty");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NoExistingFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = 
+                new StringCollection
+                {
+                    Path.Combine(_tempDirectory, "nonexistent1.mfproj"),
+                    Path.Combine(_tempDirectory, "nonexistent2.mfproj")
+                };
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when no files exist");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_WithExistingFile_ReturnsFirstExisting()
+        {
+            // Arrange
+            var nonExistentFile = Path.Combine(_tempDirectory, "nonexistent.mfproj");
+            var existingFile = CreateTestFile("existing.mfproj");
+
+            Properties.Settings.Default.RecentFiles =
+                new StringCollection
+                {
+                    nonExistentFile,
+                    existingFile
+                };
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.AreEqual(existingFile, result, "Should return the first existing file");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NullRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = null;
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is null");
+        }
+
+        #endregion
     }
 }

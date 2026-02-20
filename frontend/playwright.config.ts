@@ -33,14 +33,20 @@ export default defineConfig({
     trace: "on-first-retry",
 
     // Emulates `'prefers-colors-scheme'` media feature.
-    colorScheme: "light"
+    colorScheme: "light",
   },
 
   /* Configure projects for major browsers */
   projects: [
+    // Setup project
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "./tests/.auth/user.json",
+      },
+      dependencies: ["setup"],
     },
   ],
 

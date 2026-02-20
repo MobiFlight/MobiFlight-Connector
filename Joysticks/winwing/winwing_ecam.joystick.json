@@ -1,0 +1,118 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING ECAM",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB70",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "BLANK 1 Button"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "T.O CONFIG Button"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "BLANK 2 Button"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "EMER CANC Button"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "ENG Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "BLEED Button"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "PRESS Button"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "ELEC Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "HYD Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "FUEL Button"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "APU Button"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "COND Button"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "DOOR Button"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "WHEEL Button"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "F/CTL Button"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "ALL Button"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "CLR Left Button"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "BLANK 3 Button"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "STS Button"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "RCL Button"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "BLANK 4 Button"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "CLR Right Button"
+    }   
+  ]
+}

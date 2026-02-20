@@ -55,12 +55,7 @@ namespace MobiFlight.Base.Serialization.Json
 
         public static bool IsNullOrEmpty(Precondition p)
         {
-            return p == null || (
-                p.Type == "none" &&
-                p.Ref == null &&
-                p.Serial == null &&
-                p.Pin == null &&
-                p.Value == null);
+            return p == null || p.IsEmpty();
         }
 
         private class IgnoreAttributeContractResolver : DefaultContractResolver

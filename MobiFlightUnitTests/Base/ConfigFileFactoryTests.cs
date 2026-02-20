@@ -54,7 +54,7 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.ConfigItems[0].Active, configFileOut.ConfigItems[0].Active);
             Assert.AreEqual(configFile.ConfigItems[0].ConfigRefs, configFileOut.ConfigItems[0].ConfigRefs);
             Assert.AreEqual(configFile.ConfigItems[0].Modifiers, configFileOut.ConfigItems[0].Modifiers);
-            Assert.AreEqual(configFile.ConfigItems[0].ModuleSerial, configFileOut.ConfigItems[0].ModuleSerial);
+            Assert.AreEqual(configFile.ConfigItems[0].Controller, configFileOut.ConfigItems[0].Controller);
             Assert.AreEqual(configFile.ConfigItems[0].Preconditions, configFileOut.ConfigItems[0].Preconditions);
 
             Assert.IsNotEmpty(configFileOut.ConfigItems);

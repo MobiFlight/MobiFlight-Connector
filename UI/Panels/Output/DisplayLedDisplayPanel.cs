@@ -130,7 +130,29 @@ namespace MobiFlight.UI.Panels
 
         private void DisplayLedModuleSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int value = Int16.Parse((sender as ComboBox).Text);
+            ComboBox cb = sender as ComboBox;
+            
+            // Get the value to parse - prefer SelectedValue for DataSource-bound ComboBoxes
+            string valueStr = cb.SelectedValue as string;
+            if (string.IsNullOrEmpty(valueStr))
+            {
+                // Fallback to Text property if SelectedValue is not available
+                valueStr = cb.Text;
+            }
+            
+            // Skip processing if we don't have a valid value
+            if (string.IsNullOrEmpty(valueStr))
+            {
+                return;
+            }
+            
+            // Parse the value using TryParse pattern
+            if (!Int16.TryParse(valueStr, out short value))
+            {
+                Log.Instance.log($"Unable to parse LED module size value '{valueStr}'", LogSeverity.Error);
+                return;
+            }
+            
             for (int i = 0; i < 8; i++) 
             {
                 displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"].Visible = i < value;

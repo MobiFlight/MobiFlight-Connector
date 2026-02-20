@@ -106,6 +106,51 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
+        public void IsEmpty_ShouldReturnTrueForDefaultPrecondition()
+        {
+            Precondition o = new Precondition();
+            Assert.IsTrue(o.IsEmpty(), "Default Precondition is not empty");
+        }
+
+        [TestMethod()]
+        public void IsEmpty_ShouldReturnFalseForNonDefaultPrecondition()
+        {
+            Precondition o = _generateTestObject();
+            Assert.IsFalse(o.IsEmpty(), "Non-default Precondition is empty");
+        }
+
+        [TestMethod()]
+        public void IsEmpty_ShouldReturnTrueWhenTypeIsNoneAndOtherFieldsHaveValues()
+        {
+            var o = new Precondition();
+            o.Type = "none";
+            o.Ref = "SomeRef";
+
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
+
+            o.Ref = null;
+            o.Serial = "SomeSerial";
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
+
+            o.Serial = null;
+            o.Pin = "SomePin";
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
+
+            o.Pin = null;
+            o.Value = "SomeValue";
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
+        }
+
+        [TestMethod()]
+        public void IsEmpty_ShouldReturnTrueWhenTypeIsSomeTypeAndAllOtherFieldsAreNull()
+        {
+            var o = new Precondition();
+            o.Type = "config";
+            
+            Assert.IsTrue(o.IsEmpty(), "Precondition with Type 'none' is always empty");
+        }
+
+        [TestMethod()]
         public void ToStringTest()
         {
             Precondition o = _generateTestObject();

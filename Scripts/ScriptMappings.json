@@ -125,6 +125,12 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "rotate md-80",
       "ScriptName": "rotate_md80.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "microsoft-aircraft-ec135",
+      "ScriptName": "microsoft_aircraft_ec135.py"
     }
   ]
 }

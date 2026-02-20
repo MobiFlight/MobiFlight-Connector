@@ -1,7 +1,9 @@
 import { ProjectInfo } from "@/types/project"
 import {
   IconChevronRight,
+  IconDeviceGamepad2,
   IconDotsVertical,
+  IconExclamationCircle,
   IconPlayerPlayFilled,
   IconPlayerStopFilled,
   IconQuestionMark,
@@ -27,8 +29,11 @@ import {
 } from "@/lib/hooks/useProjectModal"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { CommandProjectToolbarPayload } from "@/types/commands"
+import {
+  CommandProjectToolbarPayload,
+} from "@/types/commands"
 import ControllerIcon from "@/components/project/ControllerIcon"
+import { useModal } from "@/lib/hooks/useModal"
 
 export type ProjectCardProps = HtmlHTMLAttributes<HTMLDivElement> & {
   summary: ProjectInfo
@@ -50,23 +55,26 @@ export const ProjectCardTitle = ({
       title: "text-xl font-medium truncate",
       button: "p-0 [&_svg]:size-8",
       icon: "h-8",
-      options: { role: "button", onClick: navigateToProject }
+      options: { role: "button", onClick: navigateToProject },
     },
     listitem: {
       title: "text-lg font-semibold truncate",
       button: "h-6 p-1 [&_svg]:size-6 w-auto",
       icon: "h-6",
-      options: {}
+      options: {},
     },
   }
-  
+
   const titleClassName = variants[variant || "default"].title
   const buttonClassName = variants[variant || "default"].button
   const iconClassName = variants[variant || "default"].icon
   const titleOptions = variants[variant || "default"].options
 
   return (
-    <div {...titleOptions} className="flex flex-row items-center justify-between">
+    <div
+      {...titleOptions}
+      className="flex flex-row items-center justify-between"
+    >
       <div className="flex min-w-0 flex-row items-center justify-start gap-2">
         <h2 className={titleClassName}>{summary.Name}</h2>
       </div>
@@ -88,7 +96,7 @@ export const ProjectCardImage = ({
   className,
 }: HtmlHTMLAttributes<HTMLDivElement> & { summary: ProjectInfo }) => {
   const imageUrl = summary.Thumbnail || `/sim/${summary.Sim?.toLowerCase()}.jpg`
-  console.log("ProjectCardImage imageUrl:", imageUrl, import.meta.url)
+
   return summary.Sim ? (
     <div className={cn("bg-accent rounded-lg", className)}>
       <img
@@ -151,19 +159,47 @@ const ProjectCard = ({
   className,
   ...otherProps
 }: ProjectCardProps) => {
+  const maxControllersToShow = 6
   const { t } = useTranslation()
   const { showOverlay } = useProjectModal()
+  const { showOverlay: showModalOverlay } = useModal()
 
   const handleEditSettings = () => {
     const options = { mode: "edit", project: summary } as ProjectModalOptions
     showOverlay(options)
   }
 
+  
   const simulatorLabel = summary
     ? summary.Sim
       ? t(`Project.Simulator.${summary.Sim.toLowerCase()}`)
       : t(`Project.Simulator.none`)
     : t(`Project.Simulator.none`)
+
+  const hasBindingIssues = summary.ControllerBindings?.some(
+    (binding) =>
+      binding.Status === "Missing" || binding.Status === "RequiresManualBind",
+  )
+
+  const adjustedMaxControllersToShow = hasBindingIssues
+    ? maxControllersToShow - 1
+    : maxControllersToShow
+
+  const sortedControllerBindings = summary.ControllerBindings?.sort((a, b) => {
+    const priority = {
+      RequiresManualBind: 0,
+      Missing: 1,
+      AutoBind: 2,
+      Match: 3,
+    }
+    return priority[a.Status] - priority[b.Status]
+  })
+    .slice(0, adjustedMaxControllersToShow)
+    .reverse()
+
+  const showMoreControllers =
+    summary.ControllerBindings &&
+    summary.ControllerBindings.length > adjustedMaxControllersToShow
 
   return (
     <div
@@ -188,20 +224,49 @@ const ProjectCard = ({
               <div className="text-muted-foreground flex flex-row items-center justify-items-center gap-2">
                 <Badge key={summary.Sim}>{simulatorLabel}</Badge>
               </div>
-              <div className="flex flex-row items-center gap-4">
+              <div className="flex h-11 flex-row items-center gap-0">
                 <div
-                  className="flex flex-row -space-x-4 hover:space-x-0"
+                  className="flex flex-row-reverse items-center -space-x-2 space-x-reverse transition-transform hover:space-x-0.5"
                   data-testid="controller-icons"
                 >
-                  {summary.Controllers?.map(
-                    (controllerName, index) =>
-                      controllerName != "-" && (
+                  {showMoreControllers && (
+                    <div
+                      className="text-foreground flex h-10 w-10 items-center justify-center rounded-full bg-none"
+                      data-testid="more-controllers-indicator"
+                    >
+                      <span className="text-md font-bold">
+                        +
+                        {summary.ControllerBindings!.length -
+                          adjustedMaxControllersToShow}
+                      </span>
+                    </div>
+                  )}
+                  {sortedControllerBindings?.map((controllerBinding, index) => {
+
+                    const iconController = controllerBinding.BoundController || controllerBinding.OriginalController
+                    return (
+                      controllerBinding.OriginalController && (
                         <ControllerIcon
                           className="transition-all ease-in-out"
-                          key={`${controllerName}-${index}`}
-                          serial={controllerName}
+                          key={`${controllerBinding.OriginalController.Name}:${controllerBinding.OriginalController.Serial}-${index}`}
+                          controller={iconController}
+                          status={controllerBinding.Status}
                         />
-                      ),
+                      )
+                    )
+                  })}
+                  {hasBindingIssues && (
+                    <div
+                      className="relative mr-1"
+                      role="button"
+                      data-testid="controller-binding-issue-icon"
+                      title={t("Project.Card.Main.BindingIssuesTooltip")}
+                      onClick={() =>
+                        showModalOverlay({ route: "/bindings" })
+                      }
+                    >
+                      <IconExclamationCircle className="h-11 w-11 stroke-red-600" />
+                    </div>
                   )}
                 </div>
               </div>
@@ -221,6 +286,10 @@ const ProjectCard = ({
                     <DropdownMenuItem onClick={handleEditSettings}>
                       <IconSettings />
                       {t("Project.Toolbar.Settings")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => showModalOverlay({ route: "/bindings" })}>
+                      <IconDeviceGamepad2 />
+                      {t("MainMenu.Extras.ControllerBindings")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

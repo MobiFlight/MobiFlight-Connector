@@ -3,7 +3,7 @@ import type { ProjectInfo } from "@/types/project"
 import ProjectForm from "@/components/project/ProjectForm"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 
-export default function NewProjectModalRoute() {
+export default function ProjectFormModal() {
   const navigate = useNavigate()
   const close = () => navigate(-1)
   const location = useLocation()
@@ -20,7 +20,6 @@ export default function NewProjectModalRoute() {
         if (!open) close()
       }}
       onSave={async (values) => {
-        console.log("ProjectFormModal onSave", values)
         publish({
           key: "CommandMainMenu",
           payload: {

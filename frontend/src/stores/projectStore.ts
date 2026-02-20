@@ -1,11 +1,17 @@
 import { IConfigItem, Project } from "@/types"
+import { ProjectStatus } from "@/types/messages"
 import { create } from "zustand"
+
+export type SaveStatus = "idle" | "saving" | "success" | "error" | "cancelled"
 
 interface ProjectState {
   hasChanged: boolean
+  saveStatus: SaveStatus
   project: Project | null
   activeConfigFileIndex: number
   setHasChanged: (hasChanged: boolean) => void
+  setSaveStatus: (status: SaveStatus) => void
+  setProjectStatus: ({ HasChanged, SaveStatus }: ProjectStatus) => void
   setProject: (project: Project | null) => void
   setConfigItems: (index: number, items: IConfigItem[]) => void
   setActiveConfigFileIndex: (index: number) => void // Add this
@@ -33,11 +39,16 @@ interface ProjectState {
 export const useProjectStore = create<ProjectState>((set) => ({
   project: null,
   hasChanged: false,
+  saveStatus: "idle",
   activeConfigFileIndex: 0,
 
   setProject: (project) => set({ project: project }),
 
   setHasChanged: (hasChanged) => set({ hasChanged: hasChanged }),
+
+  setSaveStatus: (status) => set({ saveStatus: status }),
+  setProjectStatus: ({ HasChanged, SaveStatus }: ProjectStatus) =>
+    set({ hasChanged: HasChanged, saveStatus: SaveStatus }),
 
   setActiveConfigFileIndex: (index) => set({ activeConfigFileIndex: index }),
 
@@ -144,7 +155,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
         // Step 2: Remove items from target config
         // this is necessary because we can have dragMove and dragDrop
         // which both move items, so we need to ensure no duplicates
-        const targetItems = isMoveBetweenConfigs        
+        const targetItems = isMoveBetweenConfigs
           ? ((configFiles[targetConfigIndex]?.ConfigItems ||
               []) as IConfigItem[])
           : sourceItemsWithoutDragged

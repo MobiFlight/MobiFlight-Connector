@@ -12,6 +12,8 @@ import { useProjectStore } from "@/stores/projectStore"
 import { ConfigItemDragProvider } from "@/components/providers/DragDropProvider"
 import ProjectPanel from "@/components/project/ProjectPanel"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
+import ErrorFallback from "@/components/ErrorFallback"
+import { ErrorBoundary } from "react-error-boundary"
 
 const ConfigListPage = () => {
   const {
@@ -83,9 +85,13 @@ const ConfigListPage = () => {
         getConfigItems={getConfigItems}
         selectActiveFile={setActiveConfigFileIndex}
       >
-        <ProjectPanel />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <ProjectPanel />
+        </ErrorBoundary>
         <div className="flex flex-col gap-4 overflow-y-auto">
-          <ConfigItemTable columns={columns} data={configItems} />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <ConfigItemTable columns={columns} data={configItems} />
+          </ErrorBoundary>
         </div>
       </ConfigItemDragProvider>
     </div>

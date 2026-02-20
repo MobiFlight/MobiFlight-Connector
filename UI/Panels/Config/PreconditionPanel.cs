@@ -91,7 +91,8 @@ namespace MobiFlight.UI.Panels.Config
 
                 case "pin":
                     ArcazeIoBasic io = new ArcazeIoBasic(config.Pin);
-                    ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.Serial);
+                    var controller = new MobiFlight.Base.Controller() { Name = SerialNumber.ExtractControllerName(config.Serial), Serial = SerialNumber.ExtractSerial(config.Serial) };
+                    ComboBoxHelper.SetSelectedListItemByValue(preconditionPinSerialComboBox, controller);
                     preconditionPinValueComboBox.SelectedValue = config.Value;
                     preconditionPortComboBox.SelectedIndex = io.Port;
                     preconditionPinComboBox.SelectedIndex = io.Pin;
@@ -168,11 +169,16 @@ namespace MobiFlight.UI.Panels.Config
             preconditionSettingsPanel.Enabled = false;
         }
 
-        public void SetModules(List<ListItem> ModuleList)
+        public void SetModules(List<ListItem<Controller>> ModuleList)
         {
             preconditionPinSerialComboBox.Items.Clear();
-            preconditionPinSerialComboBox.Items.Add(new ListItem() { Value = "-", Label = "" });
+            preconditionPinSerialComboBox.Items.Add(new ListItem<Controller>() { Value = null, Label = "-" });
+
+            // this is a work-around to stay backward compatible
+            // it will be refactored soon
             preconditionPinSerialComboBox.Items.AddRange(ModuleList.ToArray());
+            preconditionPinSerialComboBox.DisplayMember = "Label";
+            preconditionPinSerialComboBox.ValueMember = "Value"; 
             preconditionPinSerialComboBox.SelectedIndex = 0;
         }
 
@@ -265,7 +271,7 @@ namespace MobiFlight.UI.Panels.Config
                     break;
 
                 case "pin":
-                    c.Serial = preconditionPinSerialComboBox.Text;
+                    c.Serial = SerialNumber.BuildFullSerial((preconditionPinSerialComboBox.SelectedItem as ListItem<Controller>).Value);
                     c.Value = preconditionPinValueComboBox.SelectedValue.ToString();
                     c.Pin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
                     c.Active = selectedNode.Checked;
@@ -344,7 +350,7 @@ namespace MobiFlight.UI.Panels.Config
                 }
                 else if (p.Type == "pin")
                 {
-                    label = label.Replace("<Serial:" + p.Serial + ">", SerialNumber.ExtractDeviceName(p.Serial));
+                    label = label.Replace("<Serial:" + p.Serial + ">", SerialNumber.ExtractControllerName(p.Serial));
                 }
                 else
                 {
@@ -411,9 +417,13 @@ namespace MobiFlight.UI.Panels.Config
         {
             // get the deviceinfo for the current arcaze
             ComboBox cb = preconditionPinSerialComboBox;
-            string serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
+            var controllerListItem = cb.SelectedItem as ListItem<Controller>;
+
+            if (controllerListItem == null) return;
+
+            string serial = controllerListItem.Value?.Serial;
             
-            if (serial.IndexOf("SN") != 0)
+            if (SerialNumber.IsArcazeSerial(serial))
             {
                 preconditionPortComboBox.Items.Clear();
                 preconditionPinComboBox.Items.Clear();

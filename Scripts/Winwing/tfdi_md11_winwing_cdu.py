@@ -157,6 +157,12 @@ def create_mobi_json(data: bytes) -> str:
                 
                 if symbol == ' ' or symbol == '\0':
                     message["Data"][dst_idx] = []
+                elif symbol == '\u25B3': 
+                    message["Data"][dst_idx] = [
+                        '\u0394', #replace WHITE UP-POINTING TRIANGLE with GREEK CAPITAL LETTER DELTA
+                        "g",  # green color
+                        1 
+                    ]   
                 else:
                     message["Data"][dst_idx] = [
                         symbol,

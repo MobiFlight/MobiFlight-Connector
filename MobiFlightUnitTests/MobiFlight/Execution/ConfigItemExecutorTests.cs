@@ -227,7 +227,11 @@ namespace MobiFlight.Tests
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsStepper()
         {
             // Arrange
-            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightStepper.TYPE, Device = new OutputConfig.Stepper { TestValue = 100 } };
+            var cfg = new OutputConfigItem { 
+                Controller = SerialNumber.CreateController("Test / SN-123"), 
+                DeviceType = MobiFlightStepper.TYPE, 
+                Device = new OutputConfig.Stepper { TestValue = 100 } 
+            };
 
             // Act
             executor.ExecuteTestOn(cfg);
@@ -240,7 +244,7 @@ namespace MobiFlight.Tests
         public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
         {
             // Arrange
-            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
 
             // Act
             executor.ExecuteTestOff(cfg);
@@ -329,6 +333,41 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Execute_ShouldNotThrowException_WhenExecuteDisplayFails()
+        {
+            // Arrange
+            var variable = new MobiFlightVariable() { Name = "TestVar", Number = 100 };
+            var cfg = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Test Config with Error",
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightOutput.TYPE,
+                Device = new OutputConfig.Output { Pin = "1" },
+                Source = new VariableSource() { MobiFlightVariable = variable }
+            };
+
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Mock the variable source to return a value
+            mockMobiFlightCache.Setup(m => m.GetMobiFlightVariable(It.IsAny<string>())).Returns(variable);
+            
+            // Mock an error during SetValue execution
+            mockMobiFlightCache
+                .Setup(m => m.SetValue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Throws(new Exception("Test exception during execution"));
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+            
+            // Assert
+            Assert.IsTrue(cfg.Status.ContainsKey(ConfigItemStatusType.Device), "Config item should have device error status");
+            Assert.AreEqual("ExecutionError", cfg.Status[ConfigItemStatusType.Device], "Error status should indicate execution error");
+            Assert.IsTrue(updatedValues.ContainsKey(cfg.GUID), "Config item should be added to updated values");
         }
     }
 }

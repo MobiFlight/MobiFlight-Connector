@@ -1,7 +1,11 @@
 import { ProfileTab } from "./ProfileTab"
 import { AddProfileTabMenu } from "./ProfileTab/AddProfileTabMenu"
 import { Button } from "../ui/button"
-import { IconChevronLeft, IconMinusVertical } from "@tabler/icons-react"
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconMinusVertical,
+} from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
 import { useCallback, useEffect, useRef, useState } from "react"
@@ -10,13 +14,20 @@ import ExecutionToolbar from "../ExecutionToolbar"
 import ProjectNameLabel from "./ProjectNameLabel"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import { useNavigate } from "react-router"
-import { Dialog, DialogTitle } from "@radix-ui/react-dialog"
-import { DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { useWindowSize } from "@/lib/hooks/useWindowSize"
 import { useOverflowDetector } from "@/lib/hooks/useOverflowDetector"
+import { cn } from "@/lib/utils"
+import ConfirmationDialog from "@/components/ConfirmationDialog"
+import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 
 const ProjectPanel = () => {
   const SCROLL_TAB_INTO_VIEW_DELAY_MS = 1500
+  const SCROLL_OFFSET = 150
+
+  // this component is wrapped in an error boundary
+  // so we can trigger errors for testing purposes here
+  const { trigger } = useErrorFallbackTest()
+  trigger("project-panel")
 
   const overflowRef = useRef<HTMLDivElement | null>(null)
 
@@ -235,6 +246,14 @@ const ProjectPanel = () => {
     }
   }, [])
 
+  const scrollTabs = (direction: "left" | "right") => () => {
+    const scrollContainer = overflowRef.current
+    if (scrollContainer === null) return
+
+    const scrollAmount = direction === "left" ? -SCROLL_OFFSET : SCROLL_OFFSET
+    scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" })
+  }
+
   return (
     <div
       className="flex h-11 flex-row gap-0 pt-1 pr-2 pb-0 pl-0"
@@ -256,13 +275,28 @@ const ProjectPanel = () => {
         />
       </div>
 
-      <div className="border-muted-foreground/50 flex flex-row items-center rounded-md rounded-br-none rounded-bl-none border border-b-0 border-solid px-2">
+      <div className="border-muted-foreground/50 flex flex-row items-center border-0 border-b px-0 pr-2">
         <ProjectNameLabel />
         <IconMinusVertical className="stroke-muted-foreground/50" />
         <ExecutionToolbar />
       </div>
 
-      <div className="border-muted-foreground/50 flex w-0 flex-col items-center gap-1 border-b py-0.5"></div>
+      <div className="border-muted-foreground/50 flex w-9 flex-row items-center justify-end gap-1 border-b px-0 pr-2">
+        <Button
+          title={t("Project.Tabs.ScrollLeft")}
+          variant="ghost"
+          className={cn(
+            "h-7 p-0 transition-opacity duration-300",
+            "group/scroll-left",
+            overflow.any ? "w-7 opacity-100" : "scale-0 opacity-0",
+          )}
+          onClick={scrollTabs("left")}
+          data-testid="tab-scroll-left"
+        >
+          <span className="sr-only">{t("Project.Tabs.ScrollLeft")}</span>
+          <IconChevronLeft className="stroke-muted-foreground/50 group-hover/scroll-left:stroke-foreground" />
+        </Button>
+      </div>
 
       <div className="relative h-full min-h-10 grow" role="tablist">
         <div
@@ -328,22 +362,33 @@ const ProjectPanel = () => {
           onMouseLeave={scrollActiveProfileTabIntoViewWithDelay}
         />
       )}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
-          <DialogHeader className="sr-only">
-            <DialogTitle>{t("Project.UnsavedChanges.Title")}</DialogTitle>
-          </DialogHeader>
-          <div>{t("Project.UnsavedChanges.Description")}</div>
-          <div className="flex flex-row justify-end gap-4">
-            <Button variant="ghost" onClick={discardChanges}>
-              {t("Project.UnsavedChanges.Discard")}
-            </Button>
-            <Button onClick={saveChanges}>
-              {t("Project.UnsavedChanges.Save")}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <div
+        className={cn(
+          "border-muted-foreground/50 flex flex-row items-center justify-start gap-1 border-b px-0 transition-transform duration-300",
+          overflow.any ? "w-8" : "w-0",
+        )}
+      >
+        <Button
+          title={t("Project.Tabs.ScrollRight")}
+          variant="ghost"
+          className={cn(
+            "h-7 w-7 p-0 transition-opacity duration-300",
+            "group/scroll-right",
+            overflow.any ? "w-7 opacity-100" : "scale-0 opacity-0",
+          )}
+          onClick={scrollTabs("right")}
+          data-testid="tab-scroll-right"
+        >
+          <span className="sr-only">{t("Project.Tabs.ScrollRight")}</span>
+          <IconChevronRight className="stroke-muted-foreground/50 group-hover/scroll-right:stroke-foreground" />
+        </Button>
+      </div>
+      <ConfirmationDialog
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        saveChanges={saveChanges}
+        discardChanges={discardChanges}
+      />
     </div>
   )
 }

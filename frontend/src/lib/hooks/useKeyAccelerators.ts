@@ -95,6 +95,42 @@ export const GlobalKeyAccelerators: KeyAccelerator[] = [
     },
     description: "Exit application",
   },
+  {
+    key: "0",
+    ctrlKey: true,
+    message: {
+      key: "CommandMainMenu",
+      payload: { action: "view.zoom.reset" },
+    },
+    description: "Reset zoom level",
+  },
+  {
+    key: "+",
+    ctrlKey: true,
+    message: {
+      key: "CommandMainMenu",
+      payload: { action: "view.zoom.in" },
+    },
+    description: "Zoom in",
+  },
+  {
+    key: "=",
+    ctrlKey: true,
+    message: {
+      key: "CommandMainMenu",
+      payload: { action: "view.zoom.in" },
+    },
+    description: "Zoom in (alternative)",
+  },
+  {
+    key: "-",
+    ctrlKey: true,
+    message: {
+      key: "CommandMainMenu",
+      payload: { action: "view.zoom.out" },
+    },
+    description: "Zoom out",
+  },
 ]
 
 export function ConvertKeyAcceleratorToString(

@@ -1,3 +1,4 @@
+import { ControllerBinding } from "@/types/controller"
 import { ConfigFile } from "./config"
 
 export interface Project {
@@ -7,8 +8,7 @@ export interface Project {
   Thumbnail?: string
   Sim: "msfs" | "xplane" | "p3d" | "fsx" | "none"
   Features: ProjectFeatures
-  Controllers?: string[]
-
+  ControllerBindings: ControllerBinding[]
   Aircraft?: {
     Name: string
     Filter: string
@@ -24,8 +24,7 @@ export interface ProjectInfo {
   Sim: string
   Favorite?: boolean
   Features: ProjectFeatures
-  Controllers?: string[]
-
+  ControllerBindings: ControllerBinding[]
   Aircraft?: {
     Name: string
     Filter: string

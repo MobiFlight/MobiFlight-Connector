@@ -198,14 +198,37 @@ namespace MobiFlight.SimConnectMSFS
             }
         }
 
+        /// <summary>
+        /// Calculates the MD5 hash of a file.
+        /// </summary>
+        /// <param name="filename">Path to the file to hash</param>
+        /// <returns>MD5 hash as a lowercase hex string, or null if the file cannot be accessed</returns>
         static string CalculateMD5(string filename)
         {
-            var md5 = MD5.Create();
-            using (var stream = File.OpenRead(filename))
+            try
             {
-                var hash = md5.ComputeHash(stream);
-                return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-            }   
+                using (var md5 = MD5.Create())
+                using (var stream = File.OpenRead(filename))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
+            }
+            catch (IOException ex)
+            {
+                Log.Instance.log($"Unable to access file '{filename}' for MD5 calculation: {ex.Message}", LogSeverity.Error);
+                return null;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Instance.log($"Access denied when trying to read file '{filename}' for MD5 calculation: {ex.Message}", LogSeverity.Error);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Unexpected error while calculating MD5 for file '{filename}': {ex.Message}", LogSeverity.Error);
+                return null;
+            }
         }
 
         public bool WasmModulesAreDifferent(string communityFolder)
@@ -225,6 +248,13 @@ namespace MobiFlight.SimConnectMSFS
 
             installedWASM = CalculateMD5(Path.Combine(communityFolder, @"mobiflight-event-module\modules\", WasmModuleName));
             mobiflightWASM = CalculateMD5(Path.Combine(@".\MSFS2020-module\mobiflight-event-module\modules\", WasmModuleName));
+
+            // If either MD5 calculation failed, assume modules are different to trigger reinstall
+            if (installedWASM == null || mobiflightWASM == null)
+            {
+                Log.Instance.log("Unable to compare WASM modules due to file access errors. Assuming modules are different.", LogSeverity.Error);
+                return true;
+            }
 
             return installedWASM != mobiflightWASM;
         }

@@ -17,7 +17,8 @@ function ConfigItemTableControllerCell({
   const { publish } = publishOnMessageExchange()
   const item = row.original as IConfigItem
 
-  const [ label, serial ] = item.ModuleSerial.split("/")
+  const label = item.Controller?.Name ?? ""
+  const serial = item.Controller?.Serial ?? ""
     
   const openControllerSettings = () => {
     publish({
@@ -49,7 +50,7 @@ function ConfigItemTableControllerCell({
           role="link"
           aria-label="Edit"
           onClick={openControllerSettings}
-          className="ml-2 min-w-7 cursor-pointer opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
+          className="ml-2 min-w-7 cursor-pointer opacity-0 transition-opacity duration-200 hover:opacity-100 group-hover/row:opacity-25"
         />
       </ToolTip>
     </div>

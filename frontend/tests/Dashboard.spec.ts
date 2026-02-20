@@ -28,12 +28,50 @@ test.describe("Project view tests", () => {
     await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
       Name: "Test Project",
       Sim: "msfs",
-      Controllers: [
-        "ProtoBoard-v2/ SN-3F1-FDD",
-        "MobiFlight Board / SN-12345",
-        "Alpha Flight Controls / JS-67890",
-        "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000",
-        "miniCOCKPIT miniFCU/ SN-E98-277",
+      ControllerBindings: [
+        {
+          BoundController: { Name: "ProtoBoard-v2", Serial: "SN-3F1-FDD" },
+          OriginalController: { Name: "ProtoBoard-v2", Serial: "SN-3F1-FDD" },
+          Status: "Match",
+        },
+        {
+          BoundController: null,
+          OriginalController: { Name: "MobiFlight Board", Serial: "SN-12345" },
+          Status: "Missing",
+        },
+        {
+          BoundController: {
+            Name: "Alpha Flight Controls",
+            Serial: "JS-67890",
+          },
+          OriginalController: {
+            Name: "Alpha Flight Controls",
+            Serial: "JS-67891",
+          },
+          Status: "AutoBind",
+        },
+        {
+          BoundController: {
+            Name: "Bravo Throttle Quadrant",
+            Serial: "JS-b0875190-3b89-11ed-8007-444553540000",
+          },
+          OriginalController: {
+            Name: "Bravo Throttle Quadrant",
+            Serial: "JS-b0875190-3b89-11ed-8007-444553540000",
+          },
+          Status: "Match",
+        },
+        {
+          BoundController: {
+            Name: "miniCOCKPIT miniFCU",
+            Serial: "SN-E98-277",
+          },
+          OriginalController: {
+            Name: "miniCOCKPIT miniFCU",
+            Serial: "SN-E98-277",
+          },
+          Status: "Match",
+        },
       ],
     })
 
@@ -49,24 +87,135 @@ test.describe("Project view tests", () => {
     await expect(controllerIcons).toHaveCount(5)
     await expect(controllerIcons.nth(0)).toHaveAttribute(
       "title",
-      "ProtoBoard-v2",
+      "miniCOCKPIT miniFCU - Controller connected",
     )
     await expect(controllerIcons.nth(1)).toHaveAttribute(
       "title",
-      "MobiFlight Board",
+      "Bravo Throttle Quadrant - Controller connected",
     )
     await expect(controllerIcons.nth(2)).toHaveAttribute(
       "title",
-      "Alpha Flight Controls",
+      "ProtoBoard-v2 - Controller connected",
     )
     await expect(controllerIcons.nth(3)).toHaveAttribute(
       "title",
-      "Bravo Throttle Quadrant",
+      "Alpha Flight Controls - Auto-bound controller",
     )
     await expect(controllerIcons.nth(4)).toHaveAttribute(
       "title",
-      "miniCOCKPIT miniFCU",
+      "MobiFlight Board - Controller missing",
     )
+
+    const bindingIssueIcon = currentProjectCard.getByTestId(
+      "controller-binding-issue-icon",
+    )
+
+    await expect(bindingIssueIcon).toBeVisible()
+    await expect(bindingIssueIcon).toHaveAttribute(
+      "title",
+      "Click to view controller binding issues",
+    )
+
+    const dialog = page.getByRole("dialog", { name: "Controller Bindings" })
+    await expect(dialog).not.toBeVisible()
+    await bindingIssueIcon.click()
+    await expect(dialog).toBeVisible()
+  })
+
+  test("Confirm project shows more indicator correctly", async ({
+    dashboardPage,
+    page,
+  }) => {
+    const controllerBindings = [
+      {
+        BoundController: "ProtoBoard-v2/ SN-3F1-FDD",
+        OriginalController: "ProtoBoard-v2/ SN-3F1-FDD",
+        Status: "Match",
+      },
+      {
+        BoundController: null,
+        OriginalController: "MobiFlight Board / SN-12345",
+        Status: "Missing",
+      },
+      {
+        BoundController: "Alpha Flight Controls / JS-67890",
+        OriginalController: "Alpha Flight Controls / JS-67891",
+        Status: "AutoBind",
+      },
+      {
+        BoundController:
+          "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000",
+        OriginalController:
+          "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000",
+        Status: "Match",
+      },
+      {
+        BoundController: "miniCOCKPIT miniFCU/ SN-E98-277",
+        OriginalController: "miniCOCKPIT miniFCU/ SN-E98-277",
+        Status: "Match",
+      },
+      {
+        BoundController: null,
+        Status: "Missing",
+        OriginalController:
+          "Behringer X-Touch Mini / MI-b0875190-3b89-11ed-8007-444553540001",
+      },
+      {
+        BoundController:
+          "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
+        Status: "RequiresManualBind",
+        OriginalController:
+          "Alpha Flight Controls / JS-b0875190-3b89-11ed-8007-444553540000",
+      },
+    ]
+
+    const sixBindingsWithMatch = controllerBindings
+      .slice(0, 6)
+      .map((cb) => ({ ...cb, Status: "Match" }))
+    const sevenBindingsWithMatch = controllerBindings
+      .slice(0, 7)
+      .map((cb) => ({ ...cb, Status: "Match" }))
+    const sixBindingsWithError = controllerBindings
+      .slice(0, 6)
+      .map((cb) => ({ ...cb, Status: "RequiresManualBind" }))
+    const currentProjectCard = page.getByTestId("project-card")
+
+    const bindingIssueIcon = currentProjectCard.getByTestId(
+      "controller-binding-issue-icon",
+    )
+    const moreControllersIndicator = currentProjectCard.getByTestId(
+      "more-controllers-indicator",
+    )
+
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
+      Name: "Test Project",
+      Sim: "msfs",
+      ControllerBindings: sixBindingsWithMatch,
+    })
+
+    await expect(bindingIssueIcon).not.toBeVisible()
+    await expect(moreControllersIndicator).not.toBeVisible()
+
+    await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
+      Name: "Test Project",
+      Sim: "msfs",
+      ControllerBindings: sevenBindingsWithMatch,
+    })
+
+    await expect(bindingIssueIcon).not.toBeVisible()
+    await expect(moreControllersIndicator).toBeVisible()
+    await expect(moreControllersIndicator.getByText("+1")).toBeVisible()
+
+    await dashboardPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps({
+      Name: "Test Project",
+      Sim: "msfs",
+      ControllerBindings: sixBindingsWithError,
+    })
+
+    await expect(bindingIssueIcon).toBeVisible()
+    await expect(moreControllersIndicator).toBeVisible()
+    await expect(moreControllersIndicator.getByText("+1")).toBeVisible()
   })
 
   test("Navigate to project view", async ({ dashboardPage, page }) => {
@@ -134,36 +283,42 @@ test.describe("Project settings modal features", () => {
       {
         name: "MSFS no FSUIPC",
         value: "msfs",
+        simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: false, use: false },
         prosim: { click: false, use: false },
       },
       {
         name: "MSFS with FSUIPC",
         value: "msfs",
+        simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: true, use: true },
         prosim: { click: false, use: false },
       },
       {
         name: "X-Plane",
         value: "xplane",
+        simLabel: "X-Plane",
         fsuipc: { click: false, use: false },
         prosim: { click: false, use: false },
       },
       {
         name: "Prepar3D",
         value: "p3d",
+        simLabel: "Prepar3D",
         fsuipc: { click: false, use: true },
         prosim: { click: false, use: false },
       },
       {
         name: "FSX / FS2004",
         value: "fsx",
+        simLabel: "FSX / FS2004",
         fsuipc: { click: false, use: true },
         prosim: { click: false, use: false },
       },
       {
         name: "MSFS with ProSim",
         value: "msfs",
+        simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: false, use: false },
         prosim: { click: true, use: true },
       },
@@ -177,9 +332,12 @@ test.describe("Project settings modal features", () => {
 
       await projectNameInput.fill(option.name)
 
-      const simOption = createProjectDialog.getByRole("radio", { name: option.value })
+      const simOption = createProjectDialog.getByRole("radio", {
+        name: option.value,
+      })
 
       await simOption.click()
+      await expect(createProjectDialog.getByText(option.simLabel)).toBeVisible()
       if (option.fsuipc.click) {
         await fsuipcCheckbox.check()
       }
@@ -432,6 +590,141 @@ test.describe("Project list view tests", () => {
     expect(lastCommand.payload.action).toEqual("virtual.recent.remove")
     expect(lastCommand.payload.index).toEqual(1)
   })
+
+  test("Verify Error Boundary", async ({ dashboardPage, page }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+
+    await expect(recentProjectsList).toBeVisible()
+    await expect(projectItems).toHaveCount(27)
+
+    await dashboardPage.gotoPageAndTriggerError("project-main-card")
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    await expect(projectItems).toHaveCount(0)
+
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
+})
+
+test.describe("Asynchronous save tests", () => {
+  test("Confirm correct handling when saving is successful", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+    const secondProject = projectItems.nth(1)
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Unsaved Changes",
+    })
+    const saveButton = confirmDialog.getByRole("button", {
+      name: "Save changes",
+    })
+    const overlay = page.getByTestId("loader-overlay")
+
+    // Simulate unsaved changes
+    await mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    // Click on second project to trigger loading it
+    await secondProject.click()
+    await expect(confirmDialog).toBeVisible()
+
+    await saveButton.click()
+    await expect(confirmDialog).not.toBeVisible()
+
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.save")
+
+    // Simulate save started
+    await mobiFlightPage.updateProjectState({ SaveStatus: "saving" })
+    await expect(overlay).toBeVisible()
+
+    // Simulate save completed
+    await mobiFlightPage.updateProjectState({
+      SaveStatus: "success",
+      HasChanged: false,
+    })
+    await expect(overlay).not.toBeVisible()
+
+    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    lastCommand = postedCommands!.pop()
+
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.recent")
+    expect(lastCommand.payload.options.project).toEqual(
+      dashboardPage.mobiFlightPage.getRecentProjects()[1],
+    )
+  })
+
+  test("Confirm correct handling when saving is cancelled", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+    const secondProject = projectItems.nth(1)
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Unsaved Changes",
+    })
+    const saveButton = confirmDialog.getByRole("button", {
+      name: "Save changes",
+    })
+    const overlay = page.getByTestId("loader-overlay")
+
+    // Simulate unsaved changes
+    await mobiFlightPage.updateProjectState({ HasChanged: true })
+
+    // Click on second project to trigger loading it
+    await secondProject.click()
+    await expect(confirmDialog).toBeVisible()
+
+    await saveButton.click()
+    await expect(confirmDialog).not.toBeVisible()
+
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.save")
+    await mobiFlightPage.clearTrackedCommands()
+
+    // Simulate save started
+    await mobiFlightPage.updateProjectState({ SaveStatus: "saving" })
+    await expect(overlay).toBeVisible()
+
+    // Simulate save completed
+    await mobiFlightPage.updateProjectState({
+      SaveStatus: "cancelled",
+      HasChanged: true,
+    })
+    await expect(overlay).not.toBeVisible()
+
+    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    lastCommand = postedCommands!.pop()
+
+    // we are not loading a new project since the save was cancelled
+    expect(lastCommand).toBeUndefined()
+  })
 })
 
 test.describe("Community Feed tests", () => {
@@ -519,5 +812,24 @@ test.describe("Community Feed tests", () => {
 
     await communityNavButton.click()
     await expect(feedTitle).toBeVisible()
+  })
+
+  test("Verify Error Boundary", async ({ dashboardPage, page }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    await expect(page.getByText("Community Feed")).toBeVisible()
+
+    const feedFilter = page.getByTestId("community-feed-filter-bar")
+    await expect(feedFilter).toBeVisible()
+
+    await dashboardPage.gotoPageAndTriggerError("community-main-card")
+
+    await expect(page.getByText("Community Feed")).not.toBeVisible()
+    await expect(feedFilter).not.toBeVisible()
+
+    const errorFallback = page.getByTestId("error-fallback")
+    await expect(errorFallback).toBeVisible()
+    await expect(errorFallback).toContainText("Ooops... something went wrong!")
   })
 })

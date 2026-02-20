@@ -75,10 +75,26 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        [Ignore]
         public void IsValidDeviceNameTest()
         {
-            Assert.Fail();
+            // Arrange & Act & Assert - Valid names
+            Assert.IsTrue(MobiFlightModule.IsValidDeviceName("TestDevice"), "Valid device name should return true.");
+            Assert.IsTrue(MobiFlightModule.IsValidDeviceName("Device123"), "Valid device name with numbers should return true.");
+            Assert.IsTrue(MobiFlightModule.IsValidDeviceName("a"), "Single character device name should return true.");
+            Assert.IsTrue(MobiFlightModule.IsValidDeviceName("1234567890123456"), "16-character device name should return true.");
+
+            // Arrange & Act & Assert - Invalid characters
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("a/"), "Device name with '/' should return false.");
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("Test:Device"), "Device name with ':' should return false.");
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("Test.Device"), "Device name with '.' should return false.");
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("Test;Device"), "Device name with ';' should return false.");
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("Test,Device"), "Device name with ',' should return false.");
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("Test#Device"), "Device name with '#' should return false.");
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("Test|Device"), "Device name with '|' should return false.");
+
+            // Arrange & Act & Assert - Too long
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("12345678901234567"), "Device name longer than 16 characters should return false.");
+            Assert.IsFalse(MobiFlightModule.IsValidDeviceName("VeryLongDeviceName"), "Device name longer than 16 characters should return false.");
         }
 
         [TestMethod()]

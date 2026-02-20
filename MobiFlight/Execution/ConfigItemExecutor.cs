@@ -100,11 +100,30 @@ namespace MobiFlight.Execution
                 cfg.Status.Remove(ConfigItemStatusType.Source);
             }
 
-            ConnectorValue value = ExecuteRead(cfg);
-            ConnectorValue processedValue = value;
-
-            cfg.RawValue = value.ToString();
-            cfg.Value = processedValue.ToString();
+            ConnectorValue value;
+            ConnectorValue processedValue;
+            
+            // Read value from source - wrap in try-catch to handle source read errors
+            try
+            {
+                value = ExecuteRead(cfg);
+                processedValue = value;
+                cfg.RawValue = value.ToString();
+                cfg.Value = processedValue.ToString();
+            }
+            catch (Exception ex)
+            {
+                // Error reading from source (FSUIPC, SimConnect, XPlane, ProSim, Variables)
+                Log.Instance.log($"Source read error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
+                cfg.Status[ConfigItemStatusType.Source] = "ReadError";
+                
+                // Add to updatedValues and stop further evaluation
+                if (!originalCfg.Equals(cfg))
+                {
+                    updatedValues[cfg.GUID] = cfg;
+                }
+                return;
+            }
 
             List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
             cfg.Status.Remove(ConfigItemStatusType.Modifier);
@@ -132,6 +151,7 @@ namespace MobiFlight.Execution
                 // so keep continuing
             }
 
+            // Check preconditions
             try
             {
                 var precondition = true;
@@ -156,31 +176,55 @@ namespace MobiFlight.Execution
                 if (precondition)
                 {
                     cfg.Status.Remove(ConfigItemStatusType.Precondition);
-                    ExecuteDisplay(processedValue.ToString(), cfg);
+                    
+                    // Execute display - wrap in try-catch as device errors occur here
+                    try
+                    {
+                        ExecuteDisplay(processedValue.ToString(), cfg);
+                    }
+                    catch (JoystickNotConnectedException jEx)
+                    {
+                        Log.Instance.log($"Joystick not connected ({cfg.Name}): {jEx.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
+                    }
+                    catch (MidiBoardNotConnectedException mEx)
+                    {
+                        Log.Instance.log($"MIDI board not connected ({cfg.Name}): {mEx.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
+                    }
+                    catch (ConfigErrorException cEx)
+                    {
+                        // ConfigErrorException indicates a device configuration issue (e.g., serial null, address null)
+                        Log.Instance.log($"Configuration error ({cfg.Name}): {cEx.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "ConfigError";
+                    }
+                    catch (Exception exc)
+                    {
+                        // Unexpected error during device execution
+                        Log.Instance.log($"Error during execution ({cfg.Name}): {exc.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Device] = "ExecutionError";
+                    }
                 }
-            }
-            catch (JoystickNotConnectedException jEx)
-            {
-                // TODO: REDESIGN: Review
-                // row.ErrorText = jEx.Message;
-                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
-            }
-            catch (MidiBoardNotConnectedException mEx)
-            {
-                // TODO: REDESIGN: Review
-                // row.ErrorText = mEx.Message;
-                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
             }
             catch (Exception exc)
             {
-                Log.Instance.log($"Error during execution: {cfg.Name}. {exc.Message}", LogSeverity.Error);
-                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
-                throw new ConfigErrorException(cfg.Name + ". " + exc.Message, exc);
+                // Error during precondition check
+                Log.Instance.log($"Precondition check error ({cfg.Name}): {exc.Message}", LogSeverity.Error);
+                cfg.Status[ConfigItemStatusType.Precondition] = "Error";
             }
 
-            if (!originalCfg.Equals(cfg))
+            // Update the values dictionary - wrap in try-catch to handle any unexpected issues
+            try
             {
-                updatedValues[cfg.GUID] = cfg;
+                if (!originalCfg.Equals(cfg))
+                {
+                    updatedValues[cfg.GUID] = cfg;
+                }
+            }
+            catch (Exception exc)
+            {
+                // Extremely unlikely, but handle any issues updating the dictionary
+                Log.Instance.log($"Error updating config values ({cfg.Name}): {exc.Message}", LogSeverity.Error);
             }
         }
 
@@ -327,9 +371,9 @@ namespace MobiFlight.Execution
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
         {
-            string serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+            string serial = cfg.Controller?.Serial;
 
-            if (serial == "" && cfg.DeviceType != "InputAction")
+            if (serial == null && cfg.DeviceType != "InputAction")
                 return value.ToString();
 
             if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")
@@ -361,7 +405,7 @@ namespace MobiFlight.Execution
                 }
                 else
                 {
-                    var joystickName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    var joystickName = cfg.Controller.Name;
                     // throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
                     return i18n._tr($"{joystickName} not connected");
                 }
@@ -377,7 +421,7 @@ namespace MobiFlight.Execution
                 }
                 else
                 {
-                    var midiBoardName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    var midiBoardName = cfg.Controller.Name;
                     return i18n._tr($"{midiBoardName} not connected");
                     // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }

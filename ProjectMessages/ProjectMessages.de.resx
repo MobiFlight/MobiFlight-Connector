@@ -161,6 +161,12 @@
   <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
     <value>Die Verbindung zu FSUIPC wurde unterbrochen.</value>
   </data>
+  <data name="uiMessageProSimConnectionLost" xml:space="preserve">
+    <value>Die Verbindung zu ProSim wurde unterbrochen.</value>
+  </data>
+  <data name="uiMessageXplaneConnectionLost" xml:space="preserve">
+    <value>Die Verbindung zu X-Plane wurde unterbrochen.</value>
+  </data>
   <data name="uiMessageModuleFound" xml:space="preserve">
     <value>Gefundene Module anzeigen</value>
   </data>

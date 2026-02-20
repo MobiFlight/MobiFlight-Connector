@@ -10,8 +10,8 @@ export const toast = (props: ToastProps) => {
       const enhancedButton = button
         ? {
             ...button,
-            onClick: () => {
-              button.onClick()
+            onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+              button.onClick(e)
               sonnerToast.dismiss(id)
             },
           }

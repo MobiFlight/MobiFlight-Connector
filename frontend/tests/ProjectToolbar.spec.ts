@@ -208,13 +208,19 @@ test.describe("Test profile tabs basic features", () => {
     expect(lastCommand.payload.index).toEqual(1)
     expect(lastCommand.payload.file as ConfigFile).not.toBeNull()
   })
+})
+
+test.describe("Test profile tabs overflow features", () => {
+  test.use({ viewport: { width: 800, height: 600 } })
 
   test("Confirm tab overflow indicators hide correctly", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProfileCount(
+      1,
+    )
     const addTabMenu = page.getByTestId("add-profile-tab-menu-regular")
     const addTabMenuOverflow = page.getByTestId("add-profile-tab-menu-overflow")
 
@@ -224,16 +230,22 @@ test.describe("Test profile tabs basic features", () => {
     const tabOverflowIndicatorRight = page.getByTestId(
       "tab-overflow-indicator-right",
     )
+    const scrollLeftButton = page.getByTestId("tab-scroll-left")
+    const scrollRightButton = page.getByTestId("tab-scroll-right")
+
     // Initially, no overflow indicators should be visible
     await expect(tabOverflowIndicatorLeft).toBeHidden()
     await expect(tabOverflowIndicatorRight).toBeHidden()
+
+    // No scroll buttons should be visible
+    await expect(scrollLeftButton).toBeHidden()
+    await expect(scrollRightButton).toBeHidden()
+
+    // Tab menu should show regular menu
     await expect(addTabMenuOverflow).toBeHidden()
     await expect(addTabMenu).toBeVisible()
   })
-})
 
-test.describe("Test profile tabs overflow features", () => {
-  test.use({ viewport: { width: 800, height: 600 } })
   test("Confirm tab overflow indicators show correctly", async ({
     configListPage,
     page,
@@ -249,10 +261,18 @@ test.describe("Test profile tabs overflow features", () => {
     const tabOverflowIndicatorRight = page.getByTestId(
       "tab-overflow-indicator-right",
     )
+    const scrollLeftButton = page.getByTestId("tab-scroll-left")
+    const scrollRightButton = page.getByTestId("tab-scroll-right")
 
     // Add multiple tabs to cause overflow
     await expect(tabOverflowIndicatorLeft).toBeHidden()
     await expect(tabOverflowIndicatorRight).toBeVisible()
+
+    // Scroll buttons should be visible
+    await expect(scrollLeftButton).toBeVisible()
+    await expect(scrollRightButton).toBeVisible()
+
+    // Tab menu should show overflow menu
     await expect(addTabMenuOverflow).toBeVisible()
     await expect(addTabMenu).toBeHidden()
 
@@ -276,5 +296,42 @@ test.describe("Test profile tabs overflow features", () => {
     // because we scrolled to the end of the tab list
     await expect(addTabMenu).toBeVisible()
     await expect(addTabMenuOverflow).toBeHidden()
+  })
+
+  test("Confirm scroll buttons work correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    // Add multiple tabs to cause overflow
+
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const scrollLeftButton = page.getByTestId("tab-scroll-left")
+    const scrollRightButton = page.getByTestId("tab-scroll-right")
+
+    const firstTab = page.getByRole("tablist").getByRole("tab").nth(0)
+    const thirdTab = page.getByRole("tablist").getByRole("tab").nth(2)
+
+    await expect(firstTab).toBeInViewport()
+    await expect(thirdTab).not.toBeInViewport()
+
+    // Scroll to the right end
+    await scrollRightButton.click()
+    await page.waitForTimeout(300)
+    await scrollRightButton.click()
+    await page.waitForTimeout(300)
+
+    await expect(firstTab).not.toBeInViewport()
+    await expect(thirdTab).toBeInViewport()
+
+    // Scroll back to the left
+    await scrollLeftButton.click()
+    await page.waitForTimeout(300)
+    await scrollLeftButton.click()
+    await page.waitForTimeout(300)
+
+    await expect(firstTab).toBeInViewport()
+    await expect(thirdTab).not.toBeInViewport()
   })
 })

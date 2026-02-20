@@ -11,7 +11,7 @@ FO_MCDU_URL = "ws://localhost:8320/winwing/cdu-co-pilot"
 MCDU_FLAG_SMALL_FONT = 0x01
 
 MCDU_COLOR_MAP = {0:"w",1:"c",2:"a",3:"g",4:"e",5:"r",6:"y",7:"m"}
-special_chars = {'a':'←','b':'→','e':'↑','f':'↓','o':'☐','d':'°','c':'Δ'}
+special_chars = {'a':'←','b':'→','e':'↑','f':'↓','o':'☐','d':'°','c':'Δ','p':'■'}
 
 MCDU_COLUMNS, MCDU_ROWS = 24, 14
 MCDU_CHARS = MCDU_COLUMNS * MCDU_ROWS

@@ -156,8 +156,21 @@ namespace MobiFlight.Joysticks.WingFlex
         /// <param name="data"></param>
         protected async override void SendData(byte[] data)
         {
-            await Device.WriteReportAsync(data, 0).ConfigureAwait(false);
-            RequiresOutputUpdate = false;
+            if (Device == null || !Device.IsInitialized || data == null) return;
+
+            try
+            {
+                await Device.WriteReportAsync(data, 0).ConfigureAwait(false);
+                RequiresOutputUpdate = false;
+            }
+            catch (Exception ex)
+            {
+                // Catch-all to prevent unhandled exceptions from WriteReportAsync from crashing the application.
+                // This aligns with the pattern used in ReadHidReportsLoop where all exceptions are caught
+                // to handle device removal and unexpected disconnect scenarios gracefully.
+                Log.Instance.log($"Exception during write to FcuCube ({ex.GetType().Name}): {ex.Message}", LogSeverity.Error);
+                OnDeviceRemoved();
+            }
         }
 
         /// <summary>
@@ -219,8 +232,8 @@ namespace MobiFlight.Joysticks.WingFlex
         /// It has to be called regularly from an external caller.
         /// 
         /// If the output data is unavailable, the method exits without performing any action.  
-        /// If the device is removed during the operation, an <see cref="System.IO.IOException"/> is caught, 
-        /// and the `OnDeviceRemoved` method is invoked.</remarks>
+        /// If the device is removed during the operation, an <see cref="System.IO.IOException"/> is caught 
+        /// inside SendData, and the `OnDeviceRemoved` method is invoked.</remarks>
         public override void UpdateOutputDeviceStates()
         {
             // if (!RequiresOutputUpdate) return;
@@ -228,15 +241,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
             if (data == null) return;
 
-            try
-            {
-                SendData(data);
-            }
-            catch (System.IO.IOException)
-            {
-                // this happens when the device is removed.
-                OnDeviceRemoved();
-            }
+            SendData(data);
         }
 
         /// <summary>

@@ -32,10 +32,6 @@ namespace MobiFlight.Tests
         [TestInitialize]
         public void Setup()
         {
-            // disable schema validation to not exceed 1,000 limit per hour
-            // https://www.newtonsoft.com/jsonschema
-            JsonBackedObject.SkipSchemaValidation = true;
-
             _mockXplaneCache = new Mock<XplaneCacheInterface>();
             _mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             _mockFsuipcCache = new Mock<FSUIPCCacheInterface>();
@@ -205,6 +201,40 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual(1, _executionManager.ActiveConfigIndex);
+        }
+
+
+        [TestMethod]
+        public void CommandConfigContextMenu_Duplicate_DuplicatesConfigItemCorrectly()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var firstConfigItemGuid = configItem1.GUID;
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "First Config",
+                ConfigItems = { configItem1 }
+            });
+
+            _executionManager.Project = project;
+            Assert.AreEqual(0, _executionManager.ActiveConfigIndex);
+            Assert.HasCount(1, project.ConfigFiles[0].ConfigItems);
+
+            var message = new CommandConfigContextMenu
+            {
+                Action = "duplicate",
+                Item = project.ConfigFiles[0].ConfigItems.First() as ConfigItem
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.HasCount(2, project.ConfigFiles[0].ConfigItems);
+            Assert.AreEqual(firstConfigItemGuid, project.ConfigFiles[0].ConfigItems[0].GUID);
+            Assert.AreNotEqual(firstConfigItemGuid, project.ConfigFiles[0].ConfigItems[1].GUID, "Duplicated config items must have unique IDs");
         }
 
         [TestMethod]
@@ -807,6 +837,96 @@ namespace MobiFlight.Tests
             Assert.AreEqual(targetFile.ConfigItems[0].GUID, configItem4.GUID, "Original target item should remain at position 0");
             Assert.AreEqual(targetFile.ConfigItems[1].GUID, configItem1.GUID, "First moved item should be at position 1");
             Assert.AreEqual(targetFile.ConfigItems[2].GUID, configItem3.GUID, "Second moved item should be at position 2");
+        }
+
+        [TestMethod]
+        public void ExecuteConfig_WithErrorInSingleConfig_ShouldContinueExecutingOtherConfigs()
+        {
+            // Arrange
+            var variable1 = new MobiFlightVariable() { Name = "Var1", Number = 100 };
+            var variable2 = new MobiFlightVariable() { Name = "Var2", Number = 200 };
+            var variable3 = new MobiFlightVariable() { Name = "Var3", Number = 300 };
+
+            var configItem1 = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Config1",
+                Source = new VariableSource() { MobiFlightVariable = variable1 },
+                DeviceType = "InputAction"
+            };
+
+            var configItem2 = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Config2_WithError",
+                Source = new VariableSource() { MobiFlightVariable = variable2 },
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightOutput.TYPE,
+                Device = new OutputConfig.Output { Pin = "1" }
+            };
+
+            var configItem3 = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Config3",
+                Source = new VariableSource() { MobiFlightVariable = variable3 },
+                DeviceType = "InputAction"
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                ConfigItems = { configItem1, configItem2, configItem3 }
+            });
+            _executionManager.Project = project;
+
+            // Set up the variables in cache
+            _executionManager.getMobiFlightModuleCache().SetMobiFlightVariable(variable1);
+            _executionManager.getMobiFlightModuleCache().SetMobiFlightVariable(variable2);
+            _executionManager.getMobiFlightModuleCache().SetMobiFlightVariable(variable3);
+
+            // Start execution manager
+            _executionManager.Start();
+
+            // Use reflection to call ExecuteConfig directly
+            var executeConfigMethod = typeof(ExecutionManager).GetMethod("ExecuteConfig",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            Assert.IsNotNull(executeConfigMethod, "ExecuteConfig method should exist");
+
+            // Get access to the updatedValues dictionary
+            var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
+
+            // Act
+            executeConfigMethod.Invoke(_executionManager, null);
+
+            // Assert
+            // All three configs should be in updatedValues, showing they were all processed
+            Assert.IsTrue(updatedValues.ContainsKey(configItem1.GUID), "Config1 should be processed");
+            Assert.IsTrue(updatedValues.ContainsKey(configItem2.GUID), "Config2 (with error) should be processed");
+            Assert.IsTrue(updatedValues.ContainsKey(configItem3.GUID), "Config3 should be processed");
+
+            // Config1 and Config3 should have their values set correctly
+            var updatedConfig1 = updatedValues[configItem1.GUID] as OutputConfigItem;
+            var updatedConfig3 = updatedValues[configItem3.GUID] as OutputConfigItem;
+            Assert.AreEqual("100", updatedConfig1.Value, "Config1 should have correct value");
+            Assert.AreEqual("300", updatedConfig3.Value, "Config3 should have correct value");
+
+            // Config2 should be processed even though it references a non-existent module
+            // It won't have an error status because no module with that serial exists,
+            // so ExecuteDisplay returns early without throwing
+            var updatedConfig2 = updatedValues[configItem2.GUID] as OutputConfigItem;
+            Assert.AreEqual("200", updatedConfig2.Value, "Config2 should have value from source");
+
+            // Execution manager should still be running
+            Assert.IsTrue(_executionManager.IsStarted(), "ExecutionManager should still be running after error");
+
+            // Clean up
+            _executionManager.Stop();
         }
     }
 }

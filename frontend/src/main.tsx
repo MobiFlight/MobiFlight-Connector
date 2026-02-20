@@ -6,6 +6,9 @@ import { ThemeProvider } from "./components/theme-provider.tsx"
 import { TooltipProvider } from "./components/ui/tooltip.tsx"
 import { AppRoutes } from "@/Routes.tsx"
 import { BrowserRouter } from "react-router"
+import { AuthProvider } from "react-oidc-context"
+import { oidcConfig } from "@/lib/auth/config"
+import { BackendStateMessageHandler } from "@/components/BackendStateMessageHandler.tsx"
 
 if (process.env.NODE_ENV !== "development") {
   console.log = () => {}
@@ -18,11 +21,15 @@ if (process.env.NODE_ENV !== "development") {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="ui-mode">
-      <TooltipProvider skipDelayDuration={0}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
+      <AuthProvider {...oidcConfig}>
+        <TooltipProvider skipDelayDuration={0}>
+          <BrowserRouter>
+            <BackendStateMessageHandler>
+              <AppRoutes />
+            </BackendStateMessageHandler>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </ThemeProvider>
   </StrictMode>,
 )

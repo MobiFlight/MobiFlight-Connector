@@ -23,9 +23,9 @@ namespace MobiFlight.Scripts
         }
 
         public ChildProcessMonitor()
-        {
+        {        
             // Create Job object
-            string jobName = "ChildProcessMonitor " + Process.GetCurrentProcess().Id;
+            string jobName = "ChildProcessMonitor " + Guid.NewGuid();
             JobObjectHandle = CreateJobObject(IntPtr.Zero, jobName);
 
             JOBOBJECT_BASIC_LIMIT_INFORMATION info = new JOBOBJECT_BASIC_LIMIT_INFORMATION();

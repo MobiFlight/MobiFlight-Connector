@@ -488,106 +488,9 @@ namespace MobiFlight.Base.Tests
             project.DetermineProjectInfos();
 
             // Assert
-            Assert.IsNotNull(project.Controllers);
-            Assert.IsEmpty(project.Controllers);
             Assert.IsNull(project.Sim);
             Assert.IsFalse(project.Features.FSUIPC);
             Assert.IsFalse(project.Features.ProSim);
-        }
-
-        [TestMethod()]
-        public void DetermineProjectInfos_WithMultipleConfigFiles_ShouldCollectUniqueControllers()
-        {
-            // Arrange
-            var project = new Project();
-            var config1 = new ConfigFile();
-            config1.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-123-456" });
-            config1.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-123-456" }); // Duplicate
-            var config2 = new ConfigFile();
-            config2.ConfigItems.Add(new InputConfigItem { ModuleSerial = "SN-789-012" });
-            config2.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-345-678" });
-
-            project.ConfigFiles.Add(config1);
-            project.ConfigFiles.Add(config2);
-
-            // Act
-            project.DetermineProjectInfos();
-
-            // Assert
-            Assert.HasCount(3, project.Controllers);
-            Assert.Contains("SN-123-456", project.Controllers);
-            Assert.Contains("SN-789-012", project.Controllers);
-            Assert.Contains("SN-345-678", project.Controllers);
-        }
-
-        [TestMethod()]
-        public void DetermineProjectInfos_WithDuplicateSerials_ShouldOnlyIncludeUnique()
-        {
-            // Arrange
-            var project = new Project();
-            var config1 = new ConfigFile();
-            config1.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-AAA-111" });
-            config1.ConfigItems.Add(new InputConfigItem { ModuleSerial = "SN-AAA-111" });
-
-            var config2 = new ConfigFile();
-            config2.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-AAA-111" });
-            config2.ConfigItems.Add(new InputConfigItem { ModuleSerial = "SN-BBB-222" });
-
-            project.ConfigFiles.Add(config1);
-            project.ConfigFiles.Add(config2);
-
-            // Act
-            project.DetermineProjectInfos();
-
-            // Assert
-            Assert.HasCount(2, project.Controllers);
-            Assert.Contains("SN-AAA-111", project.Controllers);
-            Assert.Contains("SN-BBB-222", project.Controllers);
-        }
-
-        [TestMethod()]
-        public void DetermineProjectInfos_CalledMultipleTimes_ShouldClearPreviousControllers()
-        {
-            // Arrange
-            var project = new Project();
-            var config = new ConfigFile();
-            config.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-FIRST-001" });
-            project.ConfigFiles.Add(config);
-
-            // Act - First call
-            project.DetermineProjectInfos();
-
-            // Modify project
-            project.ConfigFiles.Clear();
-            var newConfig = new ConfigFile();
-            newConfig.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-SECOND-002" });
-            project.ConfigFiles.Add(newConfig);
-
-            // Act - Second call
-            project.DetermineProjectInfos();
-
-            // Assert
-            Assert.HasCount(1, project.Controllers);
-            Assert.DoesNotContain("SN-FIRST-001", project.Controllers);
-            Assert.Contains("SN-SECOND-002", project.Controllers);
-        }
-
-        [TestMethod()]
-        public void DetermineProjectInfos_WithNoModuleSerials_ShouldHaveEmptyControllersList()
-        {
-            // Arrange
-            var project = new Project();
-            var config = new ConfigFile();
-            config.ConfigItems.Add(new OutputConfigItem { ModuleSerial = null });
-            config.ConfigItems.Add(new InputConfigItem { ModuleSerial = "" });
-            project.ConfigFiles.Add(config);
-
-            // Act
-            project.DetermineProjectInfos();
-
-            // Assert
-            // The method doesn't filter out null/empty serials, it just collects distinct values
-            Assert.IsNotNull(project.Controllers);
         }
 
         [TestMethod()]
@@ -599,7 +502,7 @@ namespace MobiFlight.Base.Tests
 
             var outputConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-123-456",
+                Controller = SerialNumber.CreateController("/ SN-123-456"),
                 Source = new SimConnectSource()
             };
             config.ConfigItems.Add(outputConfig);
@@ -623,7 +526,7 @@ namespace MobiFlight.Base.Tests
 
             var outputConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-123-456",
+                Controller = SerialNumber.CreateController("/ SN-123-456"),
                 Source = new XplaneSource()
             };
 
@@ -648,13 +551,13 @@ namespace MobiFlight.Base.Tests
 
             var outputConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-123-456",
+                Controller = SerialNumber.CreateController("/ SN-123-456"),
                 Source = new ProSimSource()
             };
 
             var msfsConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-123-456",
+                Controller = SerialNumber.CreateController("/ SN-123-456"),
                 Source = new SimConnectSource()
             };
 
@@ -681,7 +584,7 @@ namespace MobiFlight.Base.Tests
 
             var outputConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-123-456",
+                Controller = SerialNumber.CreateController("/ SN-123-456"),
                 Source = new FsuipcSource()
             };
             config.ConfigItems.Add(outputConfig);
@@ -705,7 +608,7 @@ namespace MobiFlight.Base.Tests
             var config1 = new ConfigFile();
             var msfsConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-123-456",
+                Controller = SerialNumber.CreateController("/ SN-123-456"),
                 Source = new SimConnectSource()
             };
             config1.ConfigItems.Add(msfsConfig);
@@ -715,7 +618,7 @@ namespace MobiFlight.Base.Tests
             var config2 = new ConfigFile();
             var xplaneConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-789-012",
+                Controller = SerialNumber.CreateController("/ SN-789-012"),
                 Source = new XplaneSource()
             };
             config2.ConfigItems.Add(xplaneConfig);
@@ -727,7 +630,6 @@ namespace MobiFlight.Base.Tests
             // Assert
             // Should only set the first sim found (MSFS in this case)
             Assert.AreEqual("msfs", project.Sim);
-            Assert.HasCount(2, project.Controllers);
         }
 
         [TestMethod()]
@@ -739,12 +641,12 @@ namespace MobiFlight.Base.Tests
 
             var msfsConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-123-456",
+                Controller = SerialNumber.CreateController("/ SN-123-456"),
                 Source = new SimConnectSource()
             };
             var fsuipcConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-789-012",
+                Controller = SerialNumber.CreateController("/ SN-789-012"),
                 Source = new FsuipcSource()
             };
 
@@ -758,7 +660,6 @@ namespace MobiFlight.Base.Tests
             // Assert
             Assert.AreEqual("msfs", project.Sim);
             Assert.IsTrue(project.Features.FSUIPC);
-            Assert.HasCount(2, project.Controllers);
         }
 
         [TestMethod()]
@@ -771,7 +672,7 @@ namespace MobiFlight.Base.Tests
             var config1 = new ConfigFile();
             config1.ConfigItems.Add(new OutputConfigItem
             {
-                ModuleSerial = "SN-AAA",
+                Controller = SerialNumber.CreateController("/ SN-AAA"),
                 Source = new SimConnectSource()
             });
             project.ConfigFiles.Add(config1);
@@ -780,7 +681,7 @@ namespace MobiFlight.Base.Tests
             var config2 = new ConfigFile();
             config2.ConfigItems.Add(new OutputConfigItem
             {
-                ModuleSerial = "SN-BBB",
+                Controller = SerialNumber.CreateController("/ SN-BBB"),
                 Source = new FsuipcSource()
             });
             project.ConfigFiles.Add(config2);
@@ -789,7 +690,7 @@ namespace MobiFlight.Base.Tests
             var config3 = new ConfigFile();
             config3.ConfigItems.Add(new OutputConfigItem
             {
-                ModuleSerial = "SN-CCC",
+                Controller = SerialNumber.CreateController("/ SN-CCC"),
                 Source = new FsuipcSource()
             });
             project.ConfigFiles.Add(config3);
@@ -800,7 +701,6 @@ namespace MobiFlight.Base.Tests
             // Assert
             Assert.AreEqual("msfs", project.Sim);
             Assert.IsTrue(project.Features.FSUIPC);
-            Assert.HasCount(3, project.Controllers);
         }
 
         [TestMethod()]
@@ -812,11 +712,11 @@ namespace MobiFlight.Base.Tests
 
             var inputConfig = new InputConfigItem
             {
-                ModuleSerial = "SN-123-456"
+                Controller = SerialNumber.CreateController("/ SN-123-456")
             };
             var outputConfig = new OutputConfigItem
             {
-                ModuleSerial = "SN-789-012",
+                Controller = SerialNumber.CreateController("/ SN-789-012"),
                 Source = new XplaneSource()
             };
 
@@ -829,7 +729,6 @@ namespace MobiFlight.Base.Tests
 
             // Assert
             Assert.AreEqual("xplane", project.Sim);
-            Assert.HasCount(2, project.Controllers);
         }
         #endregion
 

@@ -1,8 +1,6 @@
 ﻿using Device.Net;
 using Hid.Net;
 using Hid.Net.Windows;
-using MobiFlight.Config;
-using MobiFlightWwFcu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +9,8 @@ using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.Winwing
 {
-    internal class WinwingPap3 : Joystick
+    internal class WinwingPap3 : WinwingBaseController
     {
-        private readonly int VendorId = 0x4098;
-        private int ProductId = 0xBF0F;
         IHidDevice Device { get; set; }
 
         private const int SPD_DEC = 20;
@@ -37,48 +33,21 @@ namespace MobiFlight.Joysticks.Winwing
             = new List<int> { SPD_DEC, SPD_INC, HDG_DEC, HDG_INC, ALT_DEC, ALT_INC, VS_DEC, VS_INC, CRSL_DEC, CRSL_INC, CRSR_DEC, CRSR_INC }; 
   
         private volatile bool DoInitialize = true;
+        private volatile bool DoRetrigger = false;
         private volatile bool DoReadHidReports = false;
         private WinwingPap3Report CurrentReport = new WinwingPap3Report();
         private WinwingPap3Report PreviousReport = new WinwingPap3Report();
         private HidBuffer HidDataBuffer = new HidBuffer();
-        private WinwingDisplayControl DisplayControl;
 
-        private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();        
-        private List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
-
-        public WinwingPap3(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
+        public WinwingPap3(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def, productId, server)
         {
-            ProductId = productId;
-            DisplayControl = new WinwingDisplayControl(productId, server);
-            var displayNames = DisplayControl.GetDisplayNames();
-            var ledNames = DisplayControl.GetLedNames();
-
-            DisplayControl.ErrorMessageCreated += DisplayControl_ErrorMessageCreated;
-
-            // Initialize LCD and LED device lists and current value cache
-            foreach (string displayName in displayNames) 
-            {
-                LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Col and Lines values don't matter   
-            }
-            foreach (string ledName in ledNames)
-            {
-                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter           
-            }
-        }
-
-        private void DisplayControl_ErrorMessageCreated(object sender, string e)
-        {
-            if (!string.IsNullOrEmpty(e))
-            {
-                Log.Instance.log(e, LogSeverity.Error);
-            }
+            // ctor logic is in base class
         }
 
 
         public async override void Connect(IntPtr handle)
         {
             base.Connect(handle);
-            DisplayControl.Connect();
 
             var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory();
             var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
@@ -187,10 +156,15 @@ namespace MobiFlight.Joysticks.Winwing
                 if (DoInitialize)
                 {
                     CurrentReport.CopyTo(PreviousReport);
-                    PreviousReport.ButtonState = ~PreviousReport.ButtonState; // to retrigger
-                    PreviousReport.ButtonState2 = ~PreviousReport.ButtonState2; // to retrigger
-                    PreviousReport.ButtonState3 = ~PreviousReport.ButtonState3; // to retrigger
                     DoInitialize = false;
+                }
+
+                if (DoRetrigger)
+                {
+                    PreviousReport.ButtonState = ~CurrentReport.ButtonState; // to retrigger
+                    PreviousReport.ButtonState2 = ~CurrentReport.ButtonState2; // to retrigger
+                    PreviousReport.ButtonState3 = ~CurrentReport.ButtonState3; // to retrigger
+                    DoRetrigger = false;
                 }
 
                 // Detect and Trigger Button Events
@@ -239,34 +213,7 @@ namespace MobiFlight.Joysticks.Winwing
 
         public override void Retrigger()
         {
-            DoInitialize = true;
-        }
-
-        public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
-        {     
-            return new List<DeviceType>() { DeviceType.Output, DeviceType.LcdDisplay };
-        }
-
-        public override void SetLcdDisplay(string address, string value)
-        {
-            // Check for value change is done inside the library
-            DisplayControl.SetDisplay(address, value);
-        }
-
-        public override void SetOutputDeviceState(string name, byte state)
-        {
-            // Check for value change is done inside the library
-            DisplayControl.SetLed(name, state);      
-        }
-
-        public override List<IBaseDevice> GetAvailableLcdDevices()
-        {
-            return LcdDevices;
-        }
-
-        public override List<ListItem<IBaseDevice>> GetAvailableOutputDevicesAsListItems()
-        {
-            return LedDevices;
+            DoRetrigger = true;
         }
 
         public override void Update()
@@ -274,25 +221,10 @@ namespace MobiFlight.Joysticks.Winwing
             // do nothing, update is event based not polled
         }
 
-        public override void UpdateOutputDeviceStates()
-        {
-            // do nothing, update is event based not polled
-        }
-
-        protected override void SendData(byte[] data)
-        {
-            // do nothing, data is directly send in SetOutputDeviceState
-        }
-
-        public override void Stop()
-        {
-            DisplayControl.Stop();
-        }
-
         public override void Shutdown()
         {
             DoReadHidReports = false;
-            DisplayControl.Shutdown();              
+            base.Shutdown();
             if (Device != null) 
             {
                 Device.Close();

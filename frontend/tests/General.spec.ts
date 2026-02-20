@@ -60,27 +60,50 @@ test("Confirm HubHop update notifications show correctly", async ({
 })
 
 test.describe("Generic Notifications tests", () => {
-  test("Confirm Missing Controller Detected Notification shows correctly", async ({
+  test("Confirm Auto-Bind Controller Notification shows correctly", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
 
-    const toastMissingControllerDetected = page.getByTestId(
-      "toast-missing-controllers-detected",
+    const toastAutoBindControllerSuccessful  = page.getByTestId(
+      "toast-autobind-controllers-successful",
     )
-    await expect(toastMissingControllerDetected).not.toBeVisible()
+    await expect(toastAutoBindControllerSuccessful).not.toBeVisible()
 
     await configListPage.mobiFlightPage.publishMessage({
       key: "Notification",
       payload: {
-        Event: "MissingControllerDetected",
-        Context: { Type: "Board" },
+        Event: "ControllerAutoBindSuccessful",
+        Context: { Count: "1", Controllers: "Alpha Flight Controls"},
       },
     })
 
-    await expect(toastMissingControllerDetected).toBeVisible()
+    await expect(toastAutoBindControllerSuccessful).toBeVisible()
+  })
+
+  test("Confirm Manual Binding Required Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastManualBindingRequired  = page.getByTestId(
+      "toast-manual-binding-required",
+    )
+    await expect(toastManualBindingRequired).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "ControllerManualBindRequired",
+        Context: { Count: "2", Controllers: "Alpha Flight Controls"},
+      },
+    })
+
+    await expect(toastManualBindingRequired).toBeVisible()
   })
 
   test("Confirm Project File Extension Migrated Notification shows correctly", async ({
@@ -104,5 +127,73 @@ test.describe("Generic Notifications tests", () => {
     })
 
     await expect(toastFileExtensionMigration).toBeVisible()
+  })
+
+  test("Confirm Sim Connection Lost Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastSimConnectionLost = page.getByTestId("toast-sim-connection-lost")
+    await expect(toastSimConnectionLost).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "SimConnectionLost",
+        Context: { SimType: "SimConnect" },
+      },
+    })
+
+    await expect(toastSimConnectionLost).toBeVisible()
+    await expect(toastSimConnectionLost).toContainText("Connection Lost")
+    await expect(toastSimConnectionLost).toContainText("SimConnect")
+  })
+
+  test("Confirm Sim Stopped Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastSimStopped = page.getByTestId("toast-sim-stopped")
+    await expect(toastSimStopped).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "SimStopped",
+        Context: {},
+      },
+    })
+
+    await expect(toastSimStopped).toBeVisible()
+    await expect(toastSimStopped).toContainText("Flight Simulator Closed")
+  })
+
+  test("Confirm Test Mode Exception Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastTestModeException = page.getByTestId("toast-test-mode-exception")
+    await expect(toastTestModeException).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "TestModeException",
+        Context: { ErrorMessage: "Test error occurred" },
+      },
+    })
+
+    await expect(toastTestModeException).toBeVisible()
+    await expect(toastTestModeException).toContainText("Test Mode Error")
+    await expect(toastTestModeException).toContainText("Test error occurred")
   })
 })

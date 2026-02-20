@@ -1,7 +1,7 @@
 import { RefObject, useCallback, useEffect, useState } from "react"
 
 export const useOverflowDetector = (ref: RefObject<HTMLElement | null>) => {
-  const [overflow, setOverflow] = useState({ left: false, right: false })
+  const [overflow, setOverflow] = useState({ left: false, right: false, any: false })
 
   const checkOverflow = useCallback(() => {
     const element = ref.current
@@ -13,6 +13,7 @@ export const useOverflowDetector = (ref: RefObject<HTMLElement | null>) => {
     setOverflow({
       left: isOverflowingLeft,
       right: isOverflowingRight,
+      any: isOverflowingLeft || isOverflowingRight,
     })
   }, [ref])
 

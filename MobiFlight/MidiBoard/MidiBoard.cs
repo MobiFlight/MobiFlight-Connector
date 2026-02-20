@@ -46,11 +46,11 @@ namespace MobiFlight
             return (serial != null && serial.Contains(SerialPrefix));
         }
 
-        public string Name { 
+        public virtual string Name { 
             get { return this.name; }  
         }
 
-        public string Serial
+        public virtual string Serial
         {
             get { return SerialPrefix + this.serial; }
         }

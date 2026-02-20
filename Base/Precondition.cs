@@ -14,16 +14,18 @@ namespace MobiFlight
         public const string OPERAND_DEFAULT = Comparison.OPERAND_EQUAL;
         public const string LOGIC_AND = "and";
         public const string LOGIC_OR = "or";
-        
+
         private string _label = null;
 
         private static readonly LRUCache<string, bool> evaluationCache = new LRUCache<string, bool>(1000); // Set cache size limit to 1000
 
         [JsonIgnore]
-        public string Label { 
-            get {
+        public string Label
+        {
+            get
+            {
                 if (_label != null) return _label;
-                if (Type=="config")
+                if (Type == "config")
                     return $"Config: <Ref:{Ref}> {Operand} {Value} <Logic:{Logic}>";
                 else if (Type == "variable")
                     return $"Variable: <Variable:{Ref}> {Operand} {Value} <Logic:{Logic}>";
@@ -103,8 +105,8 @@ namespace MobiFlight
 
             writer.WriteStartElement("precondition");
             writer.WriteAttributeString("type", Type);
-            
-            if (_label!=null)
+
+            if (_label != null)
                 writer.WriteAttributeString("label", _label);
 
             writer.WriteAttributeString("active", Active ? "true" : "false");
@@ -148,9 +150,9 @@ namespace MobiFlight
 
         public override bool Equals(object obj)
         {
-            return 
+            return
                 obj != null && obj is Precondition &&
-                Type ==  (obj as Precondition).Type &&
+                Type == (obj as Precondition).Type &&
                 Active == (obj as Precondition).Active &&
                 Ref == (obj as Precondition).Ref &&
                 Serial == (obj as Precondition).Serial &&
@@ -160,6 +162,21 @@ namespace MobiFlight
                 Logic == (obj as Precondition).Logic &&
                 Label == (obj as Precondition).Label
             ;
+        }
+
+        /// <summary>
+        /// Determines whether this precondition is empty (unconfigured).
+        /// An empty precondition has Type="none" or all key fields (Ref, Serial, Pin, Value) are null.
+        /// </summary>
+        /// <returns><see langword="true"/> if this precondition is empty; otherwise, <see langword="false"/>.</returns>
+        public bool IsEmpty()
+        {
+            return Type == "none" || (
+                        Ref == null &&
+                        Serial == null &&
+                        Pin == null &&
+                        Value == null
+                        );
         }
 
         override public string ToString()

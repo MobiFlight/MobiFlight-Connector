@@ -1,0 +1,213 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING PTO2",
+  "VendorId": "0x4098",
+  "ProductId": "0xBF05",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Push to JETT"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Master Caution"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Launch Bar RETRACT"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Launch Bar EXTEND"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Flap AUTO"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Flap HALF"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Flap FULL"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "LDG/TAXI Light ON"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "LDG/TAXI Light OFF"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Anti Skid ON"
+    },	
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Anti Skid OFF"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Hook Bypass FIELD"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "Hook Bypass CARRIER"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "Probe EXTEND"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "Probe OFF"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Probe EMERGENCY"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "Sel Jett L Fus MSL"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "Sel Jett SAFE"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "Sel Jett R Fus MSL"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "Sel Jett Rack LCHR"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Sel Jett Stores"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "JETT"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "JETT Station Sel CTR"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "JETT Station Sel LI"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "JETT Station Sel RI"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "JETT Station Sel LO"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "JETT Station Sel RO"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "Wing Fold FOLD"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "Wing Fold HOLD"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "Wing Fold SPREAD"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "Wing Fold Push REL/LOCK"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "Hook RETRACT"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "Hook Retract OFF"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "Hook Retract EXTEND"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "Gear UP"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "Gear STOP"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "Gear DOWN"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "Park Brake PUSH"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "Emergency Brake PULL"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "Park Brake Turn LEFT"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "Park Brake Turn RIGHT"
+    }
+  ]
+}

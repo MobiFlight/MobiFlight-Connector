@@ -994,7 +994,8 @@ namespace MobiFlight.UI.Panels.Settings
                         String.Format(i18n._tr("uiMessageDeviceNameContainsInvalidCharsOrTooLong"),
                                       invalidCharacterList,
                                       MobiFlightModule.MaxDeviceNameLength.ToString()));
-                UniqueName = UniqueName.Substring(0, MobiFlightModule.MaxDeviceNameLength);
+                // Truncate to max length only if the name is longer than the maximum
+                UniqueName = UniqueName.Substring(0, Math.Min(UniqueName.Length, MobiFlightModule.MaxDeviceNameLength));
 
                 if (BaseDeviceHasChanged)
                     (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;

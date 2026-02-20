@@ -160,6 +160,12 @@
   <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
     <value>The connection to FSUIPC got lost</value>
   </data>
+  <data name="uiMessageProSimConnectionLost" xml:space="preserve">
+    <value>The connection to ProSim got lost</value>
+  </data>
+  <data name="uiMessageXplaneConnectionLost" xml:space="preserve">
+    <value>The connection to X-Plane got lost</value>
+  </data>
   <data name="uiMessageModuleFound" xml:space="preserve">
     <value>Show detected modules</value>
   </data>

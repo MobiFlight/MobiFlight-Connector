@@ -9,12 +9,20 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MobiFlight.Scripts
 {
     internal class ScriptRunner
     {
+        private string PythonExecutable;
+        private const string WINWING_CDUS_KEYWORD = "WinwingCDUs";
+        private const string CONFIG_FILE_PATH = @"Scripts\ScriptMappings.json";
+        private const string SCRIPTS_DIRECTORY = "Scripts";
+        private const string SCRIPT_EXTENSION = "*.py";
+        private const int STARTUP_DELAY_MS = 2000;
+        private const int PROCESS_POLLING_DELAY_MS = 300;
+        private const int PROCESS_KILL_TIMEOUT_MS = 1000;
+
         private JoystickManager JsManager;
         private SimConnectCacheInterface MsfsCache;
         private string AircraftName = string.Empty;
@@ -22,7 +30,7 @@ namespace MobiFlight.Scripts
 
         private Dictionary<string, List<ScriptMapping>> MappingDictionary = new Dictionary<string, List<ScriptMapping>>();
         private Dictionary<string, string> ScriptDictionary = new Dictionary<string, string>();
-      
+
         private ConcurrentBag<Process> ActiveProcesses = new ConcurrentBag<Process>();
         private ConcurrentDictionary<int, string> ProcessTable = new ConcurrentDictionary<int, string>();
         private ConcurrentQueue<string> NewAircraftRequestQueue = new ConcurrentQueue<string>();
@@ -31,36 +39,26 @@ namespace MobiFlight.Scripts
         private IChildProcessMonitor ChildProcMon;
 
         private volatile bool IsInPlayMode = false;
-        private volatile bool PythonCheckCompleted = false; 
 
         private ConcurrentBag<Joystick> GameControllersWithScripts = new ConcurrentBag<Joystick>();
 
-        private static Dictionary<string, Version> RequiredPackages = new Dictionary<string, Version>()
+        public ScriptRunner(JoystickManager joystickManager, SimConnectCacheInterface msfsCache)
         {
-            { "websockets", new Version(14,0) },
-            { "gql", new Version(3,5) },
-            { "SimConnect", new Version(0,4) },
-        };
-
-
-        public ScriptRunner(JoystickManager joystickManager, SimConnectCacheInterface msfsCache, IChildProcessMonitor childProcMon)
-        {
+            PythonExecutable = PythonEnvironment.PathPythonExecutable;
             JsManager = joystickManager;
-            MsfsCache = msfsCache;  
-            ChildProcMon = childProcMon;
+            MsfsCache = msfsCache;
             ReadConfiguration();
-            GetAvailableScripts();          
+            GetAvailableScripts();
         }
-
 
         private string[] SubstituteKeywords(string[] productIds)
         {
-            if (productIds[0] != "WinwingCDUs")
+            if (productIds[0] != WINWING_CDUS_KEYWORD)
             {
                 return productIds;
             }
             else
-            {               
+            {
                 return WinwingConstants.CDU_PRODUCTIDS.Select(p => p.ToString("X")).ToArray();
             }
         }
@@ -68,14 +66,27 @@ namespace MobiFlight.Scripts
 
         private string GetHardwareId(string vendorId, string productId)
         {
-            int vId = Convert.ToInt32(vendorId, 16);
-            int pId = Convert.ToInt32(productId, 16);   
-            return vId.ToString() + pId.ToString();
+            try
+            {
+                int vId = Convert.ToInt32(vendorId, 16);
+                int pId = Convert.ToInt32(productId, 16);
+                return $"{vId}{pId}";
+            }
+            catch (FormatException ex)
+            {
+                Log.Instance.log($"ScriptRunner - Invalid hardware ID format: VendorId={vendorId}, ProductId={productId}. {ex.Message}", LogSeverity.Error);
+                return string.Empty;
+            }
+            catch (OverflowException ex)
+            {
+                Log.Instance.log($"ScriptRunner - Hardware ID value overflow: {ex.Message}", LogSeverity.Error);
+                return string.Empty;
+            }
         }
 
         private void ReadConfiguration()
         {
-            string json = File.ReadAllText(@"Scripts\ScriptMappings.json");
+            string json = File.ReadAllText(CONFIG_FILE_PATH);
             ScriptMappings definitions = JsonConvert.DeserializeObject<ScriptMappings>(json);
 
             foreach (var mapping in definitions.Mappings)
@@ -86,7 +97,7 @@ namespace MobiFlight.Scripts
                 Log.Instance.log($"ScriptRunner - Add mapping {mapping.ScriptName}.", LogSeverity.Debug);
 
                 foreach (var productId in mapping.ProductIds)
-                {                    
+                {
                     string hardwareId = GetHardwareId(mapping.VendorId, productId);
                     if (!MappingDictionary.ContainsKey(hardwareId))
                     {
@@ -102,7 +113,7 @@ namespace MobiFlight.Scripts
 
         private void GetAvailableScripts()
         {
-            var filesFullPath = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts"), "*.py", SearchOption.AllDirectories);           
+            var filesFullPath = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SCRIPTS_DIRECTORY), SCRIPT_EXTENSION, SearchOption.AllDirectories);
 
             foreach (var fullPath in filesFullPath)
             {
@@ -111,7 +122,7 @@ namespace MobiFlight.Scripts
                 ScriptDictionary.Add(Path.GetFileName(fileName), fullPath);
             }
         }
-        
+
         public void OnSimAircraftChanged(object sender, string aircraftName)
         {
             AircraftName = aircraftName.ToLower();
@@ -128,204 +139,9 @@ namespace MobiFlight.Scripts
             if (MsfsCache.IsConnected() && IsInPlayMode)
             {
                 NewAircraftRequestQueue.Enqueue(AircraftPath);
-            }            
-        }
-
-        private bool IsMinimumPythonVersion()
-        {
-            ProcessStartInfo start = new ProcessStartInfo
-            {
-                FileName = "python",
-                Arguments = "--version",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            };
-
-            using (Process process = Process.Start(start))
-            {
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    //python --version returns "Python x.xx.x"
-                    string output = reader.ReadToEnd();
-                    var outputParts = output.Split(' ');
-                    if (outputParts.Length > 1)
-                    {
-                        Log.Instance.log($"Python version: {outputParts[1]}.", LogSeverity.Info);
-                        if (Version.TryParse(outputParts[1], out Version version))
-                        {
-                            if (version.CompareTo(new Version(3, 11, 0)) >= 0)
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                Log.Instance.log($"Python version not supported: {outputParts[1]}.", LogSeverity.Warn);
-                                return false;
-                            }
-                        }
-                    }
-                    Log.Instance.log($"Failed to parse Python version: '{output}'.", LogSeverity.Warn);
-                }
-            }
-            return false;
-        }
-
-        private bool IsPythonPathSet()
-        {
-            string pathVariable = Environment.GetEnvironmentVariable("PATH").ToLower();
-            if (pathVariable.Contains("python"))
-            {
-                Log.Instance.log($"ScriptRunner - Python Path is set.", LogSeverity.Debug);
-                return true;
-            }
-            else
-            {
-                Log.Instance.log($"ScriptRunner - Python Path not set.", LogSeverity.Error);
-                return false;
             }
         }
 
-        private bool IsPythonMicrosoftStoreInstalled()
-        {
-            string powerShellCommand = "Get-AppxPackage -Name '*python*' | Select-Object Name";
-
-            ProcessStartInfo start = new ProcessStartInfo
-            {
-                FileName = "powershell.exe",
-                Arguments = $"-Command \"{powerShellCommand}\"",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            };
-
-            using (Process process = Process.Start(start))
-            {
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    string output = reader.ReadToEnd();
-
-                    if (!string.IsNullOrEmpty(output) && output.Contains("Python"))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        private bool AreNecessaryPythonPackagesInstalled()
-        {
-            var installedPackages = new Dictionary<string, Version>();
-
-            ProcessStartInfo start = new ProcessStartInfo
-            {
-                FileName = "pip",
-                Arguments = "freeze",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            };
-
-            using (Process process = Process.Start(start))
-            {
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    string result = reader.ReadToEnd();
-                    Log.Instance.log($"ScriptRunner - Python installed packages: {Environment.NewLine}{result}", LogSeverity.Debug);
-                    string[] lines = result.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string line in lines)
-                    {
-                        var parts = line.Split(new string[] { "==" }, StringSplitOptions.RemoveEmptyEntries);
-                        if (parts.Length > 1)
-                        {
-                            var v = parts[1].Split('.');
-                            if (v.Length > 1)
-                            {
-                                var majorSuccess = int.TryParse(v[0], out int major);
-                                var minorSuccess = int.TryParse(v[1], out int minor);
-                                if (majorSuccess && minorSuccess)
-                                {
-                                    installedPackages.Add(parts[0], new Version(major, minor));
-                                }
-                                else
-                                {
-                                    Log.Instance.log($"ScriptRunner - Package version cannot be parsed: '{parts[1]}'", LogSeverity.Info);
-                                }
-                            }
-                            else
-                            {
-                                Log.Instance.log($"ScriptRunner - Package version has not two elements: '{parts[1]}'", LogSeverity.Error);
-                            }
-                        }
-                        else
-                        {
-                            Log.Instance.log($"ScriptRunner - Package info has not two elements: '{line}'", LogSeverity.Error);
-                        }
-                    }                    
-                }
-            }
-
-            return ValidateNecessaryPackagesInstalled(installedPackages);
-        }
-
-        private void ShowMessageBoxInternal()
-        {
-            if (MessageBox.Show(i18n._tr("uiMessagePythonInstructions"),
-                                i18n._tr("uiMessagePythonHint"),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning) == DialogResult.OK)
-            {
-                Process.Start("https://docs.mobiflight.com/guides/installing-python/");
-            }
-        }
-
-        private void ShowPythonInstructionsMessageBox()
-        {
-            Log.Instance.log($"ShowPythonInstructionsMessageBox", LogSeverity.Debug);
-            
-            Form mainForm = Application.OpenForms.Count > 0 ? Application.OpenForms[0] : null;
-            if (mainForm != null && mainForm.InvokeRequired)
-            {
-                mainForm.Invoke(new Action(() =>
-                {
-                    ShowMessageBoxInternal();
-                }));
-            }
-            else
-            {
-                ShowMessageBoxInternal();
-            }
-        }
-
-        private bool IsPythonReady()
-        {
-            if (!(IsPythonMicrosoftStoreInstalled() || IsPythonPathSet()))
-            {
-                ShowPythonInstructionsMessageBox();
-                return false;
-            }
-
-            if (!IsMinimumPythonVersion())
-            {
-                ShowPythonInstructionsMessageBox();
-                return false;
-            }
-
-            if (!AreNecessaryPythonPackagesInstalled())
-            {
-                ShowPythonInstructionsMessageBox();
-                return false;
-            }
-
-            return true;
-        }
 
         private void SendUserMessage(int messageCode, params string[] parameters)
         {
@@ -337,27 +153,24 @@ namespace MobiFlight.Scripts
 
         private void ExecuteScripts(List<string> executionList)
         {
-            SendUserMessage(UserMessageCodes.STARTING_SCRIPT, string.Join(" ", executionList));
 
-            if (!PythonCheckCompleted)
-            {
-                if (!IsPythonReady())
-                {
-                    Log.Instance.log($"ScriptRunner - Python not ready!", LogSeverity.Error);
-                    SendUserMessage(UserMessageCodes.PYTHON_NOT_READY);
-                    return;
-                }
-                else
-                {
-                    PythonCheckCompleted = true;
-                }
-            }
+            // ChildProcessMonitor necessary, that in case of MobiFlight crash, all child processes are terminated
+            ChildProcMon = new ChildProcessMonitor();
+
+            SendUserMessage(UserMessageCodes.STARTING_SCRIPT, string.Join(" ", executionList));
 
             foreach (var script in executionList)
             {
+                if (!ScriptDictionary.ContainsKey(script))
+                {
+                    Log.Instance.log($"ScriptRunner - Script not found in dictionary: {script}", LogSeverity.Error);
+                    SendUserMessage(UserMessageCodes.SCRIPT_START_FAILED, script);
+                    continue;
+                }
+
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
-                    FileName = @"python",
+                    FileName = PythonExecutable,
                     Arguments = ($"\"{ScriptDictionary[script]}\""),
                     CreateNoWindow = true,
                     UseShellExecute = false,
@@ -377,42 +190,89 @@ namespace MobiFlight.Scripts
 
                 Log.Instance.log($"ScriptRunner - Start Process: {script}", LogSeverity.Info);
                 Log.Instance.log($"ScriptRunner - Start Process FullPath: {psi.Arguments}", LogSeverity.Debug);
-                process.Start();
-
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-
-                ProcessTable[process.Id] = script;
-                ActiveProcesses.Add(process);
 
                 try
                 {
-                    ChildProcMon.AddChildProcess(process);
+                    process.Start();
+
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+
+                    ProcessTable[process.Id] = script;
+                    ActiveProcesses.Add(process);
+
+                    try
+                    {
+                        if (!process.HasExited)
+                        {
+                            ChildProcMon.AddChildProcess(process);
+                        }
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        Log.Instance.log($"ScriptRunner - Cannot add child process, process may have already exited: {ex.Message}", LogSeverity.Error);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
+                    }
+                }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    Log.Instance.log($"ScriptRunner - Failed to start script '{script}': Python executable not found. {ex.Message}", LogSeverity.Error);
+                    SendUserMessage(UserMessageCodes.SCRIPT_START_FAILED, script);
+                    process.Dispose();
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
+                    Log.Instance.log($"ScriptRunner - Failed to start script '{script}': {ex.Message}", LogSeverity.Error);
+                    SendUserMessage(UserMessageCodes.SCRIPT_START_FAILED, script);
+                    process.Dispose();
                 }
             }
         }
 
         private void Process_Exited(object sender, EventArgs e)
         {
-            Process process = (Process)sender;   
-            string processName = string.Empty;
-            ProcessTable.TryGetValue(process.Id, out processName);            
-            Log.Instance.log($"ScriptRunner - ExitCode: {process.ExitCode}, Name: {processName}", LogSeverity.Error);
-            SendUserMessage(UserMessageCodes.PROCESS_TERMINATED, processName);
+            try
+            {
+                Process process = (Process)sender;
+                string processName = string.Empty;
+                ProcessTable.TryGetValue(process.Id, out processName);
+
+                int exitCode = -1;
+                try
+                {
+                    exitCode = process.ExitCode;
+                }
+                catch (InvalidOperationException)
+                {
+                    Log.Instance.log($"ScriptRunner - Cannot access exit code for process: {processName}", LogSeverity.Debug);
+                }
+
+                Log.Instance.log($"ScriptRunner - ExitCode: {exitCode}, Name: {processName}", LogSeverity.Error);
+                SendUserMessage(UserMessageCodes.PROCESS_TERMINATED, processName);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"ScriptRunner - Error in Process_Exited handler: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {           
-            Log.Instance.log($"ScriptRunner - Output: {e.Data}", LogSeverity.Info);          
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                Log.Instance.log($"ScriptRunner - Output: {e.Data}", LogSeverity.Info);
+            }
         }
 
         private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Log.Instance.log($"ScriptRunner - StandardOutput: {e.Data}", LogSeverity.Info);       
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                Log.Instance.log($"ScriptRunner - StandardOutput: {e.Data}", LogSeverity.Info);
+            }
         }
 
         private void CheckAndExecuteScripts(string aircraftDescription)
@@ -421,8 +281,8 @@ namespace MobiFlight.Scripts
 
             Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
 
-            // Emtpy bag
-            while (GameControllersWithScripts.TryTake(out _)) { }       
+            // Empty bag
+            while (GameControllersWithScripts.TryTake(out _)) { }
 
             // Get all game controllers. GetJoysticks is ThreadSafe
             var gameControllers = JsManager.GetJoysticks();
@@ -466,47 +326,69 @@ namespace MobiFlight.Scripts
         {
             Log.Instance.log($"ScriptRunner - StartUp().", LogSeverity.Debug);
             // Delay because establishing MsfsCache connection state does need some time.           
-            Task.Run(async () => 
+            Task.Run(async () =>
             {
-                await Task.Delay(2000);
+                await Task.Delay(STARTUP_DELAY_MS);
                 Start();
             });
         }
-        
+
         public void Start()
-        {            
+        {
             Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
-            IsInPlayMode = true;           
+            IsInPlayMode = true;
             string currentAircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
-            NewAircraftRequestQueue.Enqueue(currentAircraftDescription);            
-            Task myTask = Task.Run(async () => { await ProcessAircraftRequests(CancellationTokenSource.Token); });            
+            NewAircraftRequestQueue.Enqueue(currentAircraftDescription);
+            Task myTask = Task.Run(async () => { await ProcessAircraftRequests(CancellationTokenSource.Token); });
         }
 
         private void StopActiveProcesses()
         {
             foreach (var process in ActiveProcesses)
             {
-                if (!process.HasExited)
+                try
                 {
-                    process.OutputDataReceived -= Process_OutputDataReceived;
-                    process.ErrorDataReceived -= Process_ErrorDataReceived;  
-                    process.Exited -= Process_Exited;
-                    process.Kill();
+                    if (!process.HasExited)
+                    {
+                        process.OutputDataReceived -= Process_OutputDataReceived;
+                        process.ErrorDataReceived -= Process_ErrorDataReceived;
+                        process.Exited -= Process_Exited;
+                        process.Kill();
+                        process.WaitForExit(PROCESS_KILL_TIMEOUT_MS);
+                    }
+                    process.Dispose();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Log.Instance.log($"ScriptRunner - Process already exited: {ex.Message}", LogSeverity.Debug);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"ScriptRunner - Error stopping process: {ex.Message}", LogSeverity.Error);
                 }
             }
 
-            // Emtpy bag
-            while (ActiveProcesses.TryTake(out _)) { }            
-            ProcessTable.Clear();            
+            // Empty bag
+            while (ActiveProcesses.TryTake(out _)) { }
+            ProcessTable.Clear();
         }
 
         public void Stop()
         {
-            Log.Instance.log($"ScriptRunner - Stop().", LogSeverity.Debug);            
+            Log.Instance.log("ScriptRunner - Stop().", LogSeverity.Debug);
             IsInPlayMode = false;
-            CancellationTokenSource.Cancel(); // Stop the current processing queue
+
+            try
+            {
+                CancellationTokenSource.Cancel();
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Log.Instance.log($"ScriptRunner - CancellationTokenSource already disposed: {ex.Message}", LogSeverity.Error);
+            }
+
             CancellationTokenSource = new CancellationTokenSource();
-            StopActiveProcesses();                    
+            StopActiveProcesses();
         }
 
         public void Shutdown()
@@ -533,33 +415,9 @@ namespace MobiFlight.Scripts
                     CheckAndExecuteScripts(aircraftString);
                 }
 
-                await Task.Delay(300);
+                await Task.Delay(PROCESS_POLLING_DELAY_MS);
             }
             Log.Instance.log($"ScriptRunner - Stop processing thread.", LogSeverity.Debug);
-        }
-
-        internal static bool ValidateNecessaryPackagesInstalled(Dictionary<string, Version> installedPackages)
-        {
-            bool necessaryPackagesAvailable = true;
-
-            foreach (var package in RequiredPackages)
-            {
-                if (installedPackages.TryGetValue(package.Key, out var installedPackageVersion))
-                {
-                    if (installedPackageVersion < package.Value)
-                    {
-                        necessaryPackagesAvailable = false;
-                        Log.Instance.log($"ScriptRunner - Python package version too low: '{package}'", LogSeverity.Error);
-                    }
-                }
-                else
-                {
-                    necessaryPackagesAvailable = false;
-                    Log.Instance.log($"ScriptRunner - Necessary Python package not installed: '{package}'", LogSeverity.Error);
-                }
-            }
-
-            return necessaryPackagesAvailable;
         }
     }
 }
