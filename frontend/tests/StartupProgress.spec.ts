@@ -6,12 +6,12 @@ test("Go beyond progress bar", async ({ startupPage, page }) => {
   // expect to have exactly one progressBar
   await expect(page.getByRole("progressbar")).toHaveCount(1)
   // expect the progressBar to be visible
-  await expect(page.getByRole("progressbar").isVisible()).toBeTruthy()
+  await expect(page.getByRole("progressbar")).toBeVisible()
 
   await startupPage.setStatusBarUpdate(100, "Finished!")
 
   // Once finished loading, we are redirected to the home page
-  expect(page).toHaveURL("http://localhost:5173/home")
+  await expect(page).toHaveURL("http://localhost:5173/home")
 })
 
 test("Test that backend progress state is localized", async ({
