@@ -533,7 +533,7 @@ namespace MobiFlight.UI
             SetTitle("");
 
             StartupProgressValue = 0;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Start Connecting" });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Starting" });
 
 #if ARCAZE
             _initializeArcazeModuleSettings();
@@ -937,15 +937,15 @@ namespace MobiFlight.UI
             }
 
             StartupProgressValue = 70;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Checking for Firmware Updates..." });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.CheckingFirmwareUpdates" });
             CheckForFirmwareUpdates();
 
             StartupProgressValue = 90;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Loading last config..." });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.LoadingLastConfig" });
             _autoloadConfig();
 
             StartupProgressValue = 100;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Finished." });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Finished" });
 
             CheckForWasmModuleUpdate();
             CheckForHubhopUpdate();
@@ -1319,7 +1319,7 @@ namespace MobiFlight.UI
                 StartupProgressValue = 50;
                 var progressIncrement = (75 - StartupProgressValue) / 2;
                 StartupProgressValue += progressIncrement;
-                MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Scanning for boards." });
+                MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.ScanningControllers" });
                 return;
             }
 

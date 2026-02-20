@@ -4,13 +4,15 @@ import { StatusBarUpdate } from "@/types/messages"
 import { useEffect, useState } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { useNavigate, useSearchParams } from "react-router"
+import { useTranslation } from "react-i18next"
 
 const StartupProgress = () => {
+  const { t } = useTranslation()
   // State for startup progress from app messages
   const [appStartupProgress, setAppStartupProgress] = useState<StatusBarUpdate>(
     {
       Value: 0,
-      Text: "Starting...",
+      Text: "Startup.Starting",
     },
   )
   const [queryParameters] = useSearchParams()
@@ -26,7 +28,9 @@ const StartupProgress = () => {
       ? {
           Value: queryProgressValue,
           Text:
-            queryProgressValue === 100 ? "Loading complete..." : "Loading...",
+            queryProgressValue === 100
+              ? "Startup.Finished"
+              : "Startup.Test.Loading",
         }
       : appStartupProgress
 
@@ -40,7 +44,7 @@ const StartupProgress = () => {
   }, [startupProgress.Value, navigate])
 
   return (
-    <div className="relative min-w-lg lg:min-w-xl flex min-h-screen flex-col items-center justify-center gap-8 p-10">
+    <div className="relative flex min-h-screen min-w-lg flex-col items-center justify-center gap-8 p-10 lg:min-w-xl">
       <SplashLogo />
       <div className="w-full max-w-xl rounded-full p-0.5 dark:h-10 dark:bg-linear-to-br dark:from-indigo-500 dark:from-10% dark:via-sky-500 dark:via-30% dark:to-emerald-500 dark:to-90%">
         <Progress
@@ -48,7 +52,7 @@ const StartupProgress = () => {
           value={startupProgress.Value}
         ></Progress>
       </div>
-      <p className="text-white">{startupProgress.Text}</p>
+      <p className="text-white">{t(startupProgress.Text)}</p>
     </div>
   )
 }

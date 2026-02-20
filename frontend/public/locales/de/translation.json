@@ -295,6 +295,16 @@
       "Description": "{{errorMessage}}"
     }
   },
+  "Startup": {
+    "Starting": "Starte MobiFlight...",
+    "CheckingFirmwareUpdates": "Suche nach Firmware-Updates...",
+    "ScanningControllers": "Suche nach verbundenen Controllern...",
+    "LoadingLastConfig": "Lade letzte Konfiguration...",
+    "Finished": "Fertig.",
+    "Test": {
+      "Loading": "Lade..."
+    }
+  },
   "Feed": {
     "Title": "Community Feed",
     "Description": "Neuigkeiten und Updates aus der MobiFlight-Community.",
