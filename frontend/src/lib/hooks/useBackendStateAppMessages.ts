@@ -26,24 +26,13 @@ import {
   MidiControllerDefinition,
 } from "@/types/definitions"
 import { ProjectInfo } from "@/types/project"
-
-let testProject : Project, testJsDefinition : JoystickDefinition, testMidiDefinition : MidiControllerDefinition, testRecentProjects : ProjectInfo[], testControllers : Controller[];
-
-if (process.env.NODE_ENV === "development") {
-  testProject = await import("@/../tests/data/project.testdata.json", { assert: { type: "json" } }) as Project;
-  testJsDefinition = await import("@/../tests/data/joystick.definition.json", { assert: { type: "json" } }) as JoystickDefinition;
-  testMidiDefinition = await import("@/../tests/data/midicontroller.definition.json", { assert: { type: "json" } }) as MidiControllerDefinition;
-  testRecentProjects = await import("@/../tests/data/recentProjects.testdata.json", { assert: { type: "json" } }) as ProjectInfo[];
-  testControllers = await import("@/../tests/data/connectedControllers.testdata.json", { assert: { type: "json" } }) as Controller[];
-}
-
 import { useSearchParams } from "react-router"
 import _ from "lodash"
 import { Controller } from "@/types/controller"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
-  
+
   const { project, setProject, setProjectStatus } = useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
@@ -154,15 +143,39 @@ export const useBackendStateAppMessages = () => {
       queryParameters.get("testdata") === "true" &&
       !project // Only if no project loaded yet
     ) {
-      setProject(testProject as Project)
-      setRecentProjects(testRecentProjects as ProjectInfo[])
-      setJoystickDefinitions([testJsDefinition as JoystickDefinition])
+      ;(async () => {
+        const testProject = (
+          await import("@/../tests/data/project.testdata.json", {
+            assert: { type: "json" },
+          })
+        ).default as Project
+        const testJsDefinition = (
+          await import("@/../tests/data/joystick.definition.json", {
+            assert: { type: "json" },
+          })
+        ).default as JoystickDefinition
+        const testMidiDefinition = (
+          await import("@/../tests/data/midicontroller.definition.json", {
+            assert: { type: "json" },
+          })
+        ).default as MidiControllerDefinition
+        const testRecentProjects = (
+          await import("@/../tests/data/recentProjects.testdata.json", {
+            assert: { type: "json" },
+          })
+        ).default as ProjectInfo[]
+        const testControllers = (
+          await import("@/../tests/data/connectedControllers.testdata.json", {
+            assert: { type: "json" },
+          })
+        ).default as Controller[]
 
-      setMidiControllerDefinitions([
-        testMidiDefinition as MidiControllerDefinition,
-      ])
-
-      setControllers(testControllers as Controller[])
+        setProject(testProject)
+        setRecentProjects(testRecentProjects)
+        setJoystickDefinitions([testJsDefinition])
+        setMidiControllerDefinitions([testMidiDefinition])
+        setControllers(testControllers)
+      })()
     }
   }, [
     project,
