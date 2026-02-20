@@ -13,6 +13,8 @@ export type CommandMessageKey =
   | "CommandProjectToolbar"
   | "CommandDiscardChanges"
   | "CommandOpenLinkInBrowser"
+  | "CommandControllerBindingsUpdate"
+  | "CommandUserAuthentication"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -28,6 +30,7 @@ export type CommandMessage =
   | CommandDiscardChanges
   | CommandOpenLinkInBrowser
   | CommandControllerBindingsUpdate
+  | CommandUserAuthentication
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -186,5 +189,14 @@ export interface CommandControllerBindingsUpdate extends CommandMessageBase {
   key: "CommandControllerBindingsUpdate"
   payload: {
     bindings: ControllerBinding[]
+  }
+}
+
+export interface CommandUserAuthentication extends CommandMessageBase {
+  key: "CommandUserAuthentication"
+  payload: {
+    flow: "login" | "logout"
+    state: "started" | "success" | "cancelled" | "error",
+    url?: string
   }
 }

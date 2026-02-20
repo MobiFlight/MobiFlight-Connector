@@ -327,5 +327,26 @@
       "ConnectedControllers": "{{count}} controladores conectados a la PC",
       "AllSet": "¡Todo listo! Tu proyecto está completamente configurado."
     }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Iniciar sesión",
+      "SignOut": "Cerrar sesión",
+      "Profile": "Perfil",
+      "ProfileFeatureComingSoon": "próximamente"
+    },
+    "Redirect" : {
+      "SignIn": "Redirigiendo a iniciar sesión...",
+      "SignOut": "Redirigiendo a cerrar sesión...",
+      "CompletingFlow": "Completando proceso...",
+      "FlowSuccessful": "¡Éxitoso!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Error en la autenticación",
+        "Description": "Ocurrió un error durante la autenticación.",
+        "ActionCopyToClipboard": "Copiar mensaje"
+      }
+    }
   }
 }

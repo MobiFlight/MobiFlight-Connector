@@ -11,6 +11,7 @@ import { MainMenu } from "./components/MainMenu"
 import { useRecentProjects, useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
 import {
+  AuthenticationStatus,
   BoardDefinitions,
   ConnectedControllers,
   ExecutionState,
@@ -46,6 +47,7 @@ import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { ProjectInfo } from "@/types/project"
 import { useControllerStore } from "@/stores/controllerStore"
 import { useTranslation } from "react-i18next"
+import { useAuth } from "react-oidc-context"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -67,6 +69,7 @@ function App() {
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
   const { theme } = useTheme()
+  const auth = useAuth()
 
   // State for startup progress from app messages
   const [appStartupProgress, setAppStartupProgress] = useState<StatusBarUpdate>(
@@ -162,6 +165,22 @@ function App() {
   useAppMessage("ConnectedControllers", (message) => {
     const controllers = (message.payload as ConnectedControllers).Controllers
     setControllers(controllers)
+  })
+
+  // Listen for auth state changes from C#
+  useAppMessage("AuthenticationStatus", async (message) => {
+    const authStatus = message.payload as AuthenticationStatus
+    console.log("AuthenticationStatus message received", authStatus)
+    try {
+      // Trigger silent signin to sync auth state from localStorage
+      if (authStatus.Authenticated) {
+        await auth.signinSilent()
+      } else {
+        auth.removeUser() // Clear user to ensure state is updated based on signinSilent result
+      }
+    } catch (err) {
+      console.log("Auth sync after window close:", err)
+    }
   })
 
   useEffect(() => {

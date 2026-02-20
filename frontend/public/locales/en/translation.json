@@ -321,5 +321,26 @@
       "ConnectedControllers": "{{count}} Controllers connected to PC",
       "AllSet": "All set! Your project is completely configured." 
     }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Sign in",
+      "SignOut": "Sign out",
+      "Profile": "Profile",
+      "ProfileFeatureComingSoon": "coming soon"
+    },
+    "Redirect" : {
+      "SignIn": "Redirecting to Sign in...",
+      "SignOut": "Redirecting to Sign out...",
+      "CompletingFlow": "Completing process...",
+      "FlowSuccessful": "Success!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Error on authentication",
+        "Description": "An error occurred during authentication.",
+        "ActionCopyToClipboard": "Copy message"
+      }
+    }
   }
 }

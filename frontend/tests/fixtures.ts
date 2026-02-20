@@ -26,6 +26,10 @@ export const test = base.extend<MFFixtures>({
     const dashboardPage = new DashboardPage(new MobiFlightPage(page))
     await use(dashboardPage)
   },
+  mobiFlightPage: async ({ page }, use) => {
+    const mobiFlightPage = new MobiFlightPage(page)
+    await use(mobiFlightPage)
+  }
 })
 
 export { expect } from "@playwright/test"

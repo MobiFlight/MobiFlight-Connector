@@ -327,5 +327,26 @@
       "ConnectedControllers": "{{count}} Controller mit PC verbunden",
       "AllSet": "Alles bereit! Dein Projekt ist vollständig konfiguriert."
     }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Einloggen",
+      "SignOut": "Abmelden",
+      "Profile": "Profil",
+      "ProfileFeatureComingSoon": "kommt bald"
+    },
+    "Redirect" : {
+      "SignIn": "Weiterleitung zur Anmeldung...",
+      "SignOut": "Weiterleitung zur Abmeldung...",
+      "CompletingFlow": "Vorgang wird abgeschlossen...",
+      "FlowSuccessful": "Erfolgreich!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Fehler bei der Authentifizierung",
+        "Description": "Bei der Authentifizierung ist ein Fehler aufgetreten.",
+        "ActionCopyToClipboard": "Nachricht kopieren"
+      }
+    }
   }
 }

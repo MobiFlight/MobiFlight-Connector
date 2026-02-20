@@ -21,6 +21,7 @@ export type AppMessageKey =
   | "Notification"
   | "HubHopState"
   | "ConnectedControllers"
+  | "AuthenticationStatus"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -130,6 +131,10 @@ export interface RecentProjects {
 
 export interface ConnectedControllers {
   Controllers: Controller[]
+}
+
+export interface AuthenticationStatus {
+  Authenticated: boolean
 }
 
 // Not sure what this is for
