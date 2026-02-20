@@ -35,11 +35,16 @@ const StartupProgress = () => {
       : appStartupProgress
 
   useEffect(() => {
-    if (startupProgress.Value == 100) {
-      console.log("Finished loading, navigating to home")
-      setTimeout(() => {
-        navigate("/home")
-      }, 1000) // Add a small delay to allow users to see the completed progress bar
+    if (startupProgress.Value !== 100) return
+
+    console.log("Finished loading, navigating to home")
+    
+    const timeoutId = setTimeout(() => {
+      navigate("/home")
+    }, 1000) // Add a small delay to allow users to see the completed progress bar
+
+    return () => {
+      clearTimeout(timeoutId)
     }
   }, [startupProgress.Value, navigate])
 
