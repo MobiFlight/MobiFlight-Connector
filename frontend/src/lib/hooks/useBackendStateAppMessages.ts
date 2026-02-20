@@ -27,13 +27,19 @@ import {
 } from "@/types/definitions"
 import { ProjectInfo } from "@/types/project"
 
-import testProject from "@/../tests/data/project.testdata.json" with { type: "json" }
-import testJsDefinition from "@/../tests/data/joystick.definition.json" with { type: "json" }
-import testMidiDefinition from "@/../tests/data/midicontroller.definition.json" with { type: "json" }
-import testRecentProjects from "@/../tests/data/recentProjects.testdata.json" with { type: "json" }
-import testControllers from "@/../tests/data/connectedControllers.testdata.json" with { type: "json" }
+let testProject : Project, testJsDefinition : JoystickDefinition, testMidiDefinition : MidiControllerDefinition, testRecentProjects : ProjectInfo[], testControllers : Controller[];
+
+if (process.env.NODE_ENV === "development") {
+  testProject = await import("@/../tests/data/project.testdata.json", { assert: { type: "json" } }) as Project;
+  testJsDefinition = await import("@/../tests/data/joystick.definition.json", { assert: { type: "json" } }) as JoystickDefinition;
+  testMidiDefinition = await import("@/../tests/data/midicontroller.definition.json", { assert: { type: "json" } }) as MidiControllerDefinition;
+  testRecentProjects = await import("@/../tests/data/recentProjects.testdata.json", { assert: { type: "json" } }) as ProjectInfo[];
+  testControllers = await import("@/../tests/data/connectedControllers.testdata.json", { assert: { type: "json" } }) as Controller[];
+}
+
 import { useSearchParams } from "react-router"
 import _ from "lodash"
+import { Controller } from "@/types/controller"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
@@ -156,7 +162,7 @@ export const useBackendStateAppMessages = () => {
         testMidiDefinition as MidiControllerDefinition,
       ])
 
-      setControllers(testControllers as ConnectedControllers["Controllers"])
+      setControllers(testControllers as Controller[])
     }
   }, [
     project,

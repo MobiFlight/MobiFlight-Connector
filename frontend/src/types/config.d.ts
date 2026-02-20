@@ -23,7 +23,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   // this is the type of the Device
   // Type: DeviceElementType;
   DeviceName?: string | null
-  DeviceType: DeviceElementType | string
+  DeviceType?: DeviceElementType | string | null
   // Tags: string[];
   Status: IDictionary<string, ConfigItemStatusType>
 }
