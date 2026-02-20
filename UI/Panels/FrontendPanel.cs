@@ -45,7 +45,7 @@ namespace MobiFlight.UI.Panels
             await FrontendWebView.EnsureCoreWebView2Async(null);
             await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
 
-            InitializeWebView(FrontendWebView);
+            InitializeWebView(FrontendWebView, "/start");
             InitializeWebView(UserAuthenticationWebView);
 
             compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
@@ -54,7 +54,7 @@ namespace MobiFlight.UI.Panels
             MessageExchange.Instance.SetPublisher(compositePublisher);
         }
 
-        private void InitializeWebView(ThreadSafeWebView2 webView)
+        private void InitializeWebView(ThreadSafeWebView2 webView, string route = "/")
         {
             if (IsRunningInProduction)
             {
@@ -79,7 +79,7 @@ namespace MobiFlight.UI.Panels
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             // Navigate to start the app
-            webView.CoreWebView2.Navigate($"{_frontendBaseUrl}/index.html");
+            webView.CoreWebView2.Navigate($"{_frontendBaseUrl}{route}");
 
             if (_desiredZoomFactor != 0.0)
             {

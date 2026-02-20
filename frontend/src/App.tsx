@@ -1,8 +1,6 @@
-import { Outlet, useNavigate, useOutlet, useSearchParams } from "react-router"
-import StartupProgress from "./components/StartupProgress"
-import { useEffect, useState } from "react"
+import { Outlet, useOutlet } from "react-router"
+import { useState } from "react"
 import { useAppMessage } from "./lib/hooks/appMessage"
-import { StatusBarUpdate } from "./types"
 import { MainMenu } from "./components/MainMenu"
 import { OverlayState } from "./types/messages"
 import {
@@ -21,51 +19,17 @@ import { useBackendStateAppMessages } from "@/lib/hooks/useBackendStateAppMessag
 function App() {
   // Initialize global app message handlers
   useBackendStateAppMessages() 
-  const [queryParameters] = useSearchParams()
-  const navigate = useNavigate()
 
   useKeyAccelerators(GlobalKeyAccelerators, true)
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
   const { theme } = useTheme()
-
-  // State for startup progress from app messages
-  const [appStartupProgress, setAppStartupProgress] = useState<StatusBarUpdate>(
-    {
-      Value: 0,
-      Text: "Starting...",
-    },
-  )
-
-  useAppMessage("StatusBarUpdate", (message) => {
-    setAppStartupProgress(message.payload as StatusBarUpdate)
-  })
-
+  
   useAppMessage("OverlayState", (message) => {
     const overlayState = message.payload as OverlayState
     console.log("OverlayState message received", overlayState)
     setOverlayVisible(overlayState.Visible)
   })
-
-  const queryProgressValue = Number.parseInt(
-    queryParameters.get("progress")?.toString() ?? "0",
-  )
-
-  const startupProgress =
-    queryProgressValue > 0
-      ? {
-          Value: queryProgressValue,
-          Text:
-            queryProgressValue === 100 ? "Loading complete..." : "Loading...",
-        }
-      : appStartupProgress
-
-  useEffect(() => {
-    if (startupProgress.Value == 100 && location.pathname == "/index.html") {
-      console.log("Finished loading, navigating to home")
-      navigate("/home")
-    }
-  }, [startupProgress.Value, navigate])
 
   const { t } = useTranslation()
 
@@ -78,7 +42,7 @@ function App() {
           message={t("General.Overlay.OpeningWizard")}
         />
       )}
-      {outlet ? (
+      {outlet && (
         <div className="flex h-svh flex-row overflow-hidden p-0 select-none">
           {/* <Sidebar /> */}
           <div className="flex grow flex-col">
@@ -92,12 +56,7 @@ function App() {
             <DebugInfo />
           </div>
         </div>
-      ) : (
-        <StartupProgress
-          value={startupProgress.Value}
-          text={startupProgress.Text}
-        />
-      )}
+      ) }
       <ToastNotificationHandler />
       <Toaster
         expand
