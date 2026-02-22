@@ -140,7 +140,7 @@ namespace MobiFlight.UI.Tests
             Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
 
             // Act
-            _mainForm.AddNewFileToProject();
+            _mainForm.AddNewFileToProject("New profile");
 
             // Assert
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
@@ -282,7 +282,7 @@ namespace MobiFlight.UI.Tests
             saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
 
             // Act - Make a change to trigger unsaved state
-            _mainForm.AddNewFileToProject();
+            _mainForm.AddNewFileToProject("New profile");
 
             // Assert - Title should show file path WITH asterisk (unsaved state)
             expectedTitle = $"{tempFilePath}* - MobiFlight Connector - {MainForm.DisplayVersion()}";

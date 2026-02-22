@@ -2307,9 +2307,12 @@ namespace MobiFlight.UI
             execManager.Stop();
 
             ConfigFile newConfigFile = CreateDefaultConfigFile();
-            newConfigFile.Label = label;
-            execManager.Project.ConfigFiles.Add(newConfigFile);
+            if (!string.IsNullOrEmpty(label))
+            {
+                newConfigFile.Label = label;
+            }
 
+            execManager.Project.ConfigFiles.Add(newConfigFile);
             ProjectOrConfigFileHasChanged();
 
 
