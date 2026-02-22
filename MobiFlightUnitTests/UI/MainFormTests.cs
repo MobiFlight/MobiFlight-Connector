@@ -45,6 +45,19 @@ namespace MobiFlight.UI.Tests
                 await projectListManager.InitializeFromSettingsAsync(new ControllerBindingService(ExecutionManager));
                 propertyInfo.SetValue(this, projectListManager);
             }
+
+            internal void InitializeControllerBindingService()
+            {
+                ControllerBindingService = new ControllerBindingService(ExecutionManager);
+            }
+
+            // Expose method to simulate the ExecutionManager event
+            public void SimulateConfigChanged(IConfigItem configItem)
+            {
+                var method = typeof(MainForm).GetMethod("OnConfigItemHasChanged",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                method.Invoke(this, new object[] { configItem, EventArgs.Empty });
+            }
         }
 
         private TestableMainForm _mainForm;
@@ -325,7 +338,7 @@ namespace MobiFlight.UI.Tests
         public void GetFirstExistingRecentFileOrNull_NoExistingFiles_ReturnsNull()
         {
             // Arrange
-            Properties.Settings.Default.RecentFiles = 
+            Properties.Settings.Default.RecentFiles =
                 new StringCollection
                 {
                     Path.Combine(_tempDirectory, "nonexistent1.mfproj"),
@@ -373,6 +386,49 @@ namespace MobiFlight.UI.Tests
             Assert.IsNull(result, "Should return null when RecentFiles is null");
         }
 
+        #endregion
+
+        #region Controller Binding Updates when config changes
+        [TestMethod]
+        public void ControllerBindings_UpdateWhenConfigChanges()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            _mainForm.InitializeControllerBindingService();
+
+            var executionManager = _mainForm.ExecutionManager;
+            var initialConfigItem = new OutputConfigItem
+            {
+                Name = "Initial Item",
+                Controller = new Controller() { Name = "Initial Controller", Serial = "SN-1111" }
+            };
+
+            executionManager.Project.ConfigFiles.Add(new ConfigFile() { Label = "ControllerBindings_UpdateWhenConfigChanges" });
+            executionManager.Project.ConfigFiles[0].ConfigItems.Add(initialConfigItem);
+
+            _mainForm.SimulateConfigChanged(initialConfigItem);
+
+            var controllerBindings = executionManager.Project.ControllerBindings;
+
+            System.Threading.Thread.Sleep(100); // Allow time for any async updates to propagate
+
+            Assert.AreEqual("Initial Controller", controllerBindings[0].OriginalController.Name, "Initial controller name should match");
+            Assert.AreEqual("SN-1111", controllerBindings[0].OriginalController.Serial, "Initial controller serial should match");
+
+            var updatedConfigItem = new OutputConfigItem
+            {
+                Name = "Updated Item",
+                Controller = new Controller() { Name = "Updated Controller", Serial = "SN-2222" }
+            };
+
+            executionManager.Project.ConfigFiles[0].ConfigItems[0] = updatedConfigItem;
+            _mainForm.SimulateConfigChanged(initialConfigItem);
+
+            var updateControllerBindings = executionManager.Project.ControllerBindings;
+
+            Assert.AreEqual("Updated Controller", updateControllerBindings[0].OriginalController.Name, "Updated controller name should match");
+            Assert.AreEqual("SN-2222", updateControllerBindings[0].OriginalController.Serial, "Updated controller serial should match");
+        }
         #endregion
     }
 }
