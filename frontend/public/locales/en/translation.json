@@ -57,8 +57,9 @@
   "Project": {
     "Label": "Project",
     "File.Action": {
-      "Add": "Add file",
-      "New": "Add new file",
+      "Add": "Add profile",
+      "New": "Add new profile",
+      "Label": "New profile",
       "Merge": "From existing project",
       "Rename": "Rename",
       "Remove": "Remove",
@@ -287,6 +288,16 @@
     "TestModeException": {
       "Title": "Test Mode Error",
       "Description": "{{errorMessage}}"
+    }
+  },
+  "Startup": {
+    "Starting": "Starting MobiFlight...",
+    "CheckingFirmwareUpdates": "Checking for Firmware Updates...",
+    "ScanningControllers": "Scanning for connected controllers...",
+    "LoadingLastConfig": "Loading last config...",
+    "Finished": "Finished.",
+    "Test": {
+      "Loading": "Loading..."
     }
   },
   "Feed": {

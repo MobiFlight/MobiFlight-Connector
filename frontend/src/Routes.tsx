@@ -9,6 +9,7 @@ import ConfigListPage from "@/pages/ConfigList"
 import Dashboard from "@/pages/Dashboard"
 import Plain from "@/pages/Plain"
 import { Route, Routes, useLocation } from "react-router"
+import StartupProgress from "@/components/StartupProgress"
 
 export function AppRoutes() {
   const location = useLocation()
@@ -19,6 +20,9 @@ export function AppRoutes() {
       <Routes location={state?.backgroundLocation || location}>
         <Route path="/" element={<Plain />}>
           <Route index element={<SplashLogo />} />
+        </Route>
+        <Route path="/start" element={<Plain />}>
+          <Route index element={<StartupProgress />} />
         </Route>
         <Route path="/home" element={<App />}>
           <Route index element={<Dashboard />} />

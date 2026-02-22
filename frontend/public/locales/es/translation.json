@@ -57,9 +57,10 @@
   "Project": {
     "Label": "Proyecto",
     "File.Action": {
-      "Add": "Añadir nuevo archivo",
-      "New": "Nuevo archivo",
-      "Merge": "Utilisar archivo existente",
+      "Add": "Añadir nuevo perfil",
+      "New": "Nuevo perfil",
+      "Label": "Nuevo perfil",
+      "Merge": "De otro proyecto",
       "Rename": "Renombrar",
       "Remove": "Remover",
       "Export": "Exportar"
@@ -293,6 +294,16 @@
     "TestModeException": {
       "Title": "Error en modo de prueba",
       "Description": "{{errorMessage}}"
+    }
+  },
+  "Startup": {
+    "Starting": "Iniciando MobiFlight...",
+    "CheckingFirmwareUpdates": "Buscando actualizaciones de firmware...",
+    "ScanningControllers": "Buscando controladores conectados...",
+    "LoadingLastConfig": "Cargando última configuración...",
+    "Finished": "Finalizado.",
+    "Test": {
+      "Loading": "Cargando..."
     }
   },
   "Feed": {

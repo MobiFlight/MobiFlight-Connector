@@ -2,6 +2,7 @@ import { Settings } from "http2"
 import { IConfigValueOnlyItem } from "./config"
 import { JoystickDefinition, MidiControllerDefinition } from "./definitions"
 import { ProjectInfo } from "@/types/project"
+import { Controller } from "@/types/controller"
 
 export type AppMessageKey =
   | "StatusBarUpdate"
