@@ -41,7 +41,7 @@ WS_CAPTAIN = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-captain"
 WS_CO_PILOT = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-co-pilot"
 
 CHARACTER_MAPPING = {"`": "°", "*": "☐", "=": "*"}
-COLOR_MAPPING = {"G": "g", "C": "c", "I": "e", "M": "m"}
+COLOR_MAPPING = {"G": "g", "C": "c", "M": "m"}
 
 
 FONT_REQUEST = json.dumps({"Target": "Font", "Data": "Boeing"})
@@ -89,6 +89,11 @@ def get_size(dataref: str) -> int:
     return 1 if dataref.endswith("_X") or dataref.endswith("_S") else 0
 
 
+def get_style(dataref: str) -> int:
+    dataref_ending = dataref[dataref.rindex("_") + 1]
+
+    return 1 if dataref_ending == "I" else 0
+
 def process_cdu_line(line_datarefs: dict[str, str], row: int) -> list[list]:
     line_chars = [[] for _ in range(CDU_COLUMNS)]
 
@@ -114,6 +119,7 @@ def process_cdu_line(line_datarefs: dict[str, str], row: int) -> list[list]:
                 CHARACTER_MAPPING.get(char, char),
                 get_color(dataref),
                 get_size(dataref),
+                get_style(dataref),
             )
 
     return line_chars

@@ -96,6 +96,13 @@ def get_size(size: int) -> int:
     # 2 = small
     return 1 if size == 2 else 0
 
+def get_style(effect: int) -> int:
+    # FlightFactor's 777v2 style uses the following values
+    # 0 = normal
+    # 1 = highlighted (haven't yet seen this in use)
+    # 2 = reverse
+    return 1 if effect == 2 else 0
+
 
 def fetch_dataref_mapping(device: CduDevice):
     with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
@@ -137,6 +144,7 @@ def generate_display_json(device: CduDevice, values: dict[str, str]):
                 get_char(char),
                 get_color(color, effect),
                 get_size(size),
+                get_style(effect)
             ]
 
     return json.dumps({"Target": "Display", "Data": display_data})
