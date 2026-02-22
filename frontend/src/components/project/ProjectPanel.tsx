@@ -149,6 +149,7 @@ const ProjectPanel = () => {
       key: "CommandAddConfigFile",
       payload: {
         type: "create",
+        label: t("Project.File.Action.Label"),
       },
     })
 

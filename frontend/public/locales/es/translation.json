@@ -57,8 +57,9 @@
   "Project": {
     "Label": "Proyecto",
     "File.Action": {
-      "Add": "Añadir nuevo archivo",
-      "New": "Nuevo archivo",
+      "Add": "Añadir nuevo perfil",
+      "New": "Nuevo perfil",
+      "Label": "Nuevo perfil",
       "Merge": "Utilisar archivo existente",
       "Rename": "Renombrar",
       "Remove": "Remover",

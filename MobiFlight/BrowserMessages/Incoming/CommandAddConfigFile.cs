@@ -13,5 +13,6 @@ namespace MobiFlight.BrowserMessages.Incoming
         [JsonProperty("type")] // Matches the lowercase "item" in JSON
         [JsonConverter(typeof(StringEnumConverter))]
         public CommandAddConfigFileType Type { get; set; }
+        public string Label { get; set; }
     }
 }

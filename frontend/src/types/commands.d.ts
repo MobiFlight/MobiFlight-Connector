@@ -102,6 +102,7 @@ export interface CommandAddConfigFile extends CommandMessageBase {
   key: "CommandAddConfigFile"
   payload: {
     type: "create" | "merge"
+    label?: string
   }
 }
 
