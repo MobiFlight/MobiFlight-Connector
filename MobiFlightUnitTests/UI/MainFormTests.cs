@@ -410,8 +410,7 @@ namespace MobiFlight.UI.Tests
 
             var controllerBindings = executionManager.Project.ControllerBindings;
 
-            System.Threading.Thread.Sleep(100); // Allow time for any async updates to propagate
-
+            Assert.HasCount(1, controllerBindings);
             Assert.AreEqual("Initial Controller", controllerBindings[0].OriginalController.Name, "Initial controller name should match");
             Assert.AreEqual("SN-1111", controllerBindings[0].OriginalController.Serial, "Initial controller serial should match");
 
