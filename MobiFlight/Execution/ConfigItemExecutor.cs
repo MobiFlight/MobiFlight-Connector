@@ -426,7 +426,7 @@ namespace MobiFlight.Execution
                     // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
             }
-            else if (serial.IndexOf("SN") != 0 && cfg.DeviceType != "InputAction")
+            else if (SerialNumber.IsArcazeSerial(serial) && cfg.DeviceType != "InputAction")
             {
 #if ARCAZE
                 switch (cfg.DeviceType)
