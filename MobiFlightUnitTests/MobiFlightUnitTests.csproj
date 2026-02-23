@@ -258,6 +258,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Publisher\CompositePublisherTests.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerAutoBinderTests.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerBindingServiceTests.cs" />
+    <Compile Include="MobiFlight\Controllers\ControllerBindingTests.cs" />
     <Compile Include="MobiFlight\ExecutionManagerTests.cs" />
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
     <Compile Include="MobiFlight\InputEventArgsTests.cs" />
