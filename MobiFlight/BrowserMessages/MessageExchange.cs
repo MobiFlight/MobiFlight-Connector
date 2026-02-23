@@ -48,7 +48,12 @@ namespace MobiFlight.BrowserMessages
         public void SetPublisher(IMessagePublisher messagePublisher)
         {
             _messagePublisher = messagePublisher;
-            _messagePublisher.OnMessageReceived(PublishReceivedMessage);
+            _messagePublisher?.OnMessageReceived(PublishReceivedMessage);
+        }
+
+        public IMessagePublisher GetPublisher()
+        {
+            return _messagePublisher;
         }
 
         /// <summary>

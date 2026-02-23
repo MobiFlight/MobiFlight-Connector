@@ -619,11 +619,13 @@ namespace MobiFlight.UI
                 var currentControllerBindings = execManager.Project.ControllerBindings;
                 var controllerBindings = ControllerBindingService.AnalyzeProjectBindings(execManager.Project);
 
-                if (!currentControllerBindings.AreEqual(controllerBindings))
+                if ((currentControllerBindings == null && controllerBindings!= null) ||
+                    !controllerBindings.SequenceEqual(currentControllerBindings))
+
                 {
                     execManager.Project.ControllerBindings = controllerBindings;
                     MessageExchange.Instance.Publish(
-                        new ControllerBindingUpdate() { Bindings = controllerBindings }
+                        new ControllerBindingsUpdate() { Bindings = controllerBindings }
                     );
                 }
             }
