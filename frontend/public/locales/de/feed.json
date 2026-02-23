@@ -1,6 +1,47 @@
 {
   "community": [
     {
+      "date": "2026-02-23",
+      "title": "Flight Sim Awards 2026 Nominierung",
+      "content": [
+        "Wir freuen uns, dass MobiFlight für die 🏆 **Flight Sim Awards 2026!** 🏆 nominiert wurde.",
+        "**Bitte stimme ab** und hilf uns, in der Kategorie 'Bestes DIY-Hardware' zu gewinnen. Deine Unterstützung bedeutet uns die Welt!"
+      ],
+      "featured": false,
+      "tags": ["community"],
+      "media": {
+        "type": "image",
+        "src": "/feed/flight-sim-awards-2026.png",
+        "alt": "Flight Sim Awards 2026 Nominierung",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "Stimme für MobiFlight ab!",
+        "url": "https://tally.so/r/44rzv5"
+      }
+    },
+    {
+      "date": "2026-02-15",
+      "title": "FSWeekend 2026 Workshops",
+      "content": [
+        "**Besuche uns auf FSWeekend 2026** für praxisnahe Workshops mit dem MobiFlight-Team!",
+        "**Du baust es, du behältst es!** - Baue und konfiguriere dein eigenes Multifunktionsgerät. Keine Vorkenntnisse erforderlich. **Wir sehen uns dort!**",
+        "Jede Voranmeldung erhält einen **10 EUR Rabatt!**"
+      ],
+      "featured": false,
+      "tags": ["community"],
+      "media": {
+        "type": "image",
+        "src": "/feed/mobiflight-workshops.jpg",
+        "alt": "FSWeekend 2026 Workshops",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "Jetzt gleich anmelden!",
+        "url": "https://shop.mobiflight.com/product/mobiflight-workshop-fsweekend26"
+      }
+    },
+    {
       "date": "2025-11-30",
       "title": "Freigabe für neue Flight Levels!",
       "content": [
