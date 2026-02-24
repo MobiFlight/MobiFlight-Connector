@@ -203,7 +203,7 @@ namespace MobiFlight.Joysticks.AuthentiKit
         /// <returns>True if the change exceeds the threshold; otherwise, false.</returns>
         private static bool ExceedsThreshold(int oldValue, int newValue)
         {
-            return Math.Abs(oldValue - newValue) >= 2 << 4;
+            return Math.Abs(oldValue - newValue) >= 2 << 3;
         }
     }
 }
