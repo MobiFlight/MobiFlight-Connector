@@ -17,7 +17,7 @@ namespace MobiFlight.BrowserMessages
         /// <summary>
         /// Setting a contextProvider is only required for integration tests
         /// Provide a () => null provider so that the synchronization context is not used during unit tests,
-        /// Outside of unit tests, a working synchronization context will automaticall be available
+        /// Outside of unit tests, a working synchronization context will automatically be available
         /// </summary>
         private Func<System.Threading.SynchronizationContext> _syncContextProvider;
 

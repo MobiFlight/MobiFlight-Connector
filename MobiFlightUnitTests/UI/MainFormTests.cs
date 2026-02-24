@@ -18,6 +18,7 @@ namespace MobiFlight.UI.Tests
     [TestClass()]
     public class MainFormTests
     {
+        private bool originalAutoRun;
         private StringCollection originalRecentFiles;
         private string _tempDirectory;
 
@@ -90,6 +91,9 @@ namespace MobiFlight.UI.Tests
             // Save original RecentFiles
             originalRecentFiles = Properties.Settings.Default.RecentFiles;
 
+            // Save original AutoRun setting
+            originalAutoRun = Properties.Settings.Default.AutoRun;
+
             // Initialize with clean state
             Properties.Settings.Default.RecentFiles = new StringCollection();
 
@@ -105,6 +109,7 @@ namespace MobiFlight.UI.Tests
         {
             // Restore original RecentFiles
             Properties.Settings.Default.RecentFiles = originalRecentFiles;
+            Properties.Settings.Default.AutoRun = originalAutoRun;
             Properties.Settings.Default.Save();
 
             _mainForm.RestorePublisher();
