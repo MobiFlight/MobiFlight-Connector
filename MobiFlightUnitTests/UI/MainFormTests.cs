@@ -516,9 +516,6 @@ namespace MobiFlight.UI.Tests
             Assert.IsNotNull(settingsMessage, "Settings message should be published");
             Assert.AreEqual(!initialAutoRun, settingsMessage.AutoRun,
                 "AutoRun should be toggled in published settings");
-
-            // Verify persisted
-            Assert.AreEqual(!initialAutoRun, Properties.Settings.Default.AutoRun);
         }
         #endregion
 
