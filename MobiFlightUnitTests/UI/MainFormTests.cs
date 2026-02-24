@@ -4,6 +4,7 @@ using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.Controllers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -495,20 +496,57 @@ namespace MobiFlight.UI.Tests
         }
         #endregion
 
+        #region Browser Message Handling Tests
+        [TestMethod]
+        public void ToggleAutoRun_PublishesSettingsUpdate()
+        {
+            // Arrange
+            var initialAutoRun = Properties.Settings.Default.AutoRun;
+
+            // Act (Simulate Frontend action after clicking on autorun toggle button)
+            var jsonMessage = JsonConvert.SerializeObject(new BrowserMessages.Message<CommandProjectToolbar>(new CommandProjectToolbar()
+            {
+                Action = CommandProjectToolbarAction.toggleAutoRun
+            }));
+
+            _mainForm.Publisher.SimulateIncomingMessage(jsonMessage);
+
+            // Assert
+            var settingsMessage = _mainForm.Publisher.PublishedMessages.FirstOrDefault(m => m.GetType() == typeof(Settings)) as Settings;
+            Assert.IsNotNull(settingsMessage, "Settings message should be published");
+            Assert.AreEqual(!initialAutoRun, settingsMessage.AutoRun,
+                "AutoRun should be toggled in published settings");
+
+            // Verify persisted
+            Assert.AreEqual(!initialAutoRun, Properties.Settings.Default.AutoRun);
+        }
+        #endregion
+
         public class TestMessagePublisher : IMessagePublisher
         {
             public List<object> PublishedMessages { get; } = new List<object>();
+            private Action<object> _onMessageReceived;
 
             public void Publish<TEvent>(TEvent eventToPublish)
             {
                 PublishedMessages.Add(eventToPublish);
             }
 
-            public void OnMessageReceived(Action<string> callback) { }
+            public void OnMessageReceived(Action<string> callback)
+            {
+                _onMessageReceived = (message) => callback((string)message);
+            }
 
             public void Reset()
             {
                 PublishedMessages.Clear();
+            }
+
+            public void SimulateIncomingMessage(string jsonMessage)
+            {
+                MessageExchange.Instance.SetSynchronizationContextProvider(() => null);
+                _onMessageReceived?.Invoke(jsonMessage);
+                MessageExchange.Instance.SetSynchronizationContextProvider(null);
             }
         }
     }

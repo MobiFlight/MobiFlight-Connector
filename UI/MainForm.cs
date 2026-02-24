@@ -521,12 +521,6 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
-            // we only load the autorun value stored in settings
-            // and do not use possibly passed in autoRun from cmdline
-            // because latter shall only have an temporary influence
-            // on the program
-            setAutoRunValue(Properties.Settings.Default.AutoRun);
-
             updateNotifyContextMenu(false);
 
             // Reset the Title of the Main Window so that it displays the Version too.
@@ -2461,6 +2455,9 @@ namespace MobiFlight.UI
         private void setAutoRunValue(bool value)
         {
             Properties.Settings.Default.AutoRun = value;
+
+            // Triggers update to frontend
+            Properties.Settings.Default.Save();
         }
 
         public void settingsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -14,6 +14,13 @@ namespace MobiFlight.BrowserMessages
         private static MessageExchange _instance;
         private IMessagePublisher _messagePublisher;
 
+        /// <summary>
+        /// Setting a contextProvider is only required for integration tests
+        /// Provide a () => null provider so that the synchronization context is not used during unit tests,
+        /// Outside of unit tests, a working synchronization context will automaticall be available
+        /// </summary>
+        private Func<System.Threading.SynchronizationContext> _syncContextProvider;
+
         public static MessageExchange Instance
         {
             get
@@ -91,8 +98,10 @@ namespace MobiFlight.BrowserMessages
             try
             {
                 var deserializedPayload = JsonConvert.DeserializeObject(eventToPublish.payload.ToString(), eventType);
-                var synchronizationContext = System.Threading.SynchronizationContext.Current;
-                
+                var synchronizationContext = _syncContextProvider != null
+                    ? _syncContextProvider.Invoke()
+                    : System.Threading.SynchronizationContext.Current;
+
                 foreach (var subscriber in subscribers)
                 {
                     Action invokeSubscriber = () =>
@@ -153,6 +162,10 @@ namespace MobiFlight.BrowserMessages
                     }
                 }
             }
+        }
+        public void SetSynchronizationContextProvider(Func<System.Threading.SynchronizationContext> provider)
+        {
+            _syncContextProvider = provider;
         }
     }
 }
