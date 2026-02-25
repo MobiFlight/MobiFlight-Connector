@@ -897,6 +897,23 @@ test.describe("Controller device labels are displayed correctly", () => {
       midiSliderRow.getByRole("cell", { name: "Slider 1" }),
     ).toBeVisible()
   })
+
+  test("Confirm Input Action device labels are displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await expect(
+      page
+        // it has to be a not set row
+        .getByRole("row", { name: "not set" })
+
+        // and it has to be 
+        .getByRole("cell", { name: "Input Action", exact: true }),
+    ).toBeVisible()
+  })
 })
 
 test("Confirm `Controller Settings` link is working", async ({
