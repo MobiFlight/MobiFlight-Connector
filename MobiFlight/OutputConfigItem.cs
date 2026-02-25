@@ -320,7 +320,7 @@ namespace MobiFlight
 
             writer.WriteStartElement("display");
                 writer.WriteAttributeString("type", DeviceType);
-                writer.WriteAttributeString("serial", SerialNumber.BuildFullSerial(Controller) ?? "");
+                writer.WriteAttributeString("serial", SerialNumber.BuildFullSerial(Controller) ?? SerialNumber.NOT_SET);
 
             if (Device is LedModule)
             {
