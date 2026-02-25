@@ -907,10 +907,10 @@ test.describe("Controller device labels are displayed correctly", () => {
     await configListPage.mobiFlightPage.initWithTestData()
     await expect(
       page
-        // it has to be a not set row
+        // it has to be a row whose controller is "not set"
         .getByRole("row", { name: "not set" })
 
-        // and it has to be 
+        // and it has to be the "Input Action" cell within that "not set" row
         .getByRole("cell", { name: "Input Action", exact: true }),
     ).toBeVisible()
   })

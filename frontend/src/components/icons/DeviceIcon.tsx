@@ -54,7 +54,7 @@ const DeviceIcon = (props: DeviceIconProps) => {
   } else if (shortType === "CustomDevice") {
     icon = <IconBox className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   } else if (shortType === "InputAction") {
-    icon = <IconBolt className={cn("stroke-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
+    icon = <IconBolt className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) } />;
   }
 
   return <div className="inline-block">{icon}</div>
