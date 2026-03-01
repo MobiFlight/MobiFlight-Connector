@@ -40,7 +40,7 @@ namespace MobiFlight.Joysticks
             }
 
             // Check for AuthentiKit
-            if (instanceName.Trim() == "AuthentiKit" || instanceName.Trim() == "AuthentiKitX" || instanceName.Trim() == "BU0836A Interface")
+            if (instanceName.Trim().Contains("AuthentiKit") || instanceName.Trim().Contains("BU0836"))
             {
                 return true;
             }
@@ -103,7 +103,7 @@ namespace MobiFlight.Joysticks
             }
 
             // Handle AuthentiKit by instance name
-            if (instanceName.Trim() == "AuthentiKit" || instanceName.Trim() == "AuthentiKitX" || instanceName.Trim() == "BU0836A Interface")
+            if (instanceName.Trim().Contains("AuthentiKit") || instanceName.Trim().Contains("BU0836"))
             {
                 return new AuthentiKit.AuthentiKit(diJoystick, definition);
             }
