@@ -277,6 +277,7 @@
     <Compile Include="MobiFlight\InputConfig\PmdgEventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\EventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\FsuipcOffsetInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\InputActionExecutionCacheTests.cs" />
     <Compile Include="MobiFlight\InputConfig\JeehellInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\KeyInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />

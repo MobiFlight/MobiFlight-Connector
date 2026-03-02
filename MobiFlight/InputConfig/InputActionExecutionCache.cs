@@ -3,12 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Caching;
 
 namespace MobiFlight.InputConfig
 {
     public class InputActionExecutionCache
     {
         Dictionary<int, InputEventArgs> LastInputActionEventArgs = new Dictionary<int, InputEventArgs>();
+
+        private static bool ShouldSkipExecution(InputEventArgs previousArgs, InputEventArgs currentArgs)
+        {
+            if (previousArgs == null || currentArgs == null)
+            {
+                return false;
+            }
+
+            // We are not always guaranteed to have StrValue, so we must check if it is / was a string value (non-null)
+            // if so, we should use that for comparison
+            var hasStringValue = !string.IsNullOrEmpty(previousArgs.StrValue) || !string.IsNullOrEmpty(currentArgs.StrValue);
+            if (hasStringValue)
+            {
+                return previousArgs.StrValue == currentArgs.StrValue;
+            }
+
+            // Otherwise check the underlying raw value to see if a change has occurred
+            return previousArgs.Value == currentArgs.Value;
+        }
 
         public void Clear() {
             LastInputActionEventArgs.Clear();
@@ -27,13 +47,14 @@ namespace MobiFlight.InputConfig
 
             if (LastInputActionEventArgs.Keys.Contains(HashKey))
             {
-                if (LastInputActionEventArgs[HashKey].StrValue == args.StrValue)
+                if (ShouldSkipExecution(LastInputActionEventArgs[HashKey], args))
                 {
                     return false;
                 }
             }
 
-            LastInputActionEventArgs[HashKey] = args;
+            // We need to clone before mutation; otherwise the cached "last input" is mutated too, which can break dedupe comparisons
+            LastInputActionEventArgs[HashKey] = (InputEventArgs)args.Clone();
 
             if (args.Value == 1)
             {
@@ -59,13 +80,13 @@ namespace MobiFlight.InputConfig
             int HashKey = config.onChange.GetHashCode();
             if (LastInputActionEventArgs.Keys.Contains(HashKey))
             {
-                if (LastInputActionEventArgs[HashKey].StrValue == args.StrValue)
+                if (ShouldSkipExecution(LastInputActionEventArgs[HashKey], args))
                 {
                     return false;
                 }
             }
 
-            LastInputActionEventArgs[HashKey] = args;
+            LastInputActionEventArgs[HashKey] = (InputEventArgs)args.Clone();
 
             config.onChange.execute(cacheCollection, args, configRefsInputEventArgs);
 

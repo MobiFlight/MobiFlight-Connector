@@ -514,7 +514,7 @@ namespace MobiFlight.Execution
 
                     case "InputAction":
                         int iValue = 0;
-                        int.TryParse(value, out iValue);
+                        var isNumericValue = int.TryParse(value, out iValue);
 
                         List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
                         CacheCollection cacheCollection = new CacheCollection()
@@ -531,7 +531,7 @@ namespace MobiFlight.Execution
                             inputActionExecutionCache.Execute(
                                 cfg.ButtonInputConfig,
                                 cacheCollection,
-                                new InputEventArgs() { Value = iValue, StrValue = value },
+                                new InputEventArgs() { Value = iValue, StrValue = isNumericValue ? null : value },
                                 cfgRefs
                             );
                         else
@@ -539,7 +539,7 @@ namespace MobiFlight.Execution
                             inputActionExecutionCache.Execute(
                                 cfg.AnalogInputConfig,
                                 cacheCollection,
-                                new InputEventArgs() { Value = iValue, StrValue = value },
+                                new InputEventArgs() { Value = iValue, StrValue = isNumericValue ? null : value },
                                 cfgRefs
                             );
                         }

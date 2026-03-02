@@ -81,7 +81,8 @@ namespace MobiFlight.InputConfig
 
             if (value.Contains("@"))
             {
-                var inputValue = !string.IsNullOrEmpty(args.StrValue) ? args.StrValue : args.Value.ToString();
+                var hasStringValue = !string.IsNullOrEmpty(args.StrValue);
+                var inputValue = hasStringValue ? args.StrValue : args.Value.ToString();
                 Tuple<string, string> replacement = new Tuple<string, string>("@", inputValue);
                 replacements.Add(replacement);
             }
