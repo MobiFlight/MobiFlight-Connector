@@ -113,6 +113,32 @@ namespace MobiFlight.InputConfig.Tests
         }
 
         [TestMethod]
+        public void Execute_AnalogInputConfig_ExecutesWhenStrValueTransitionsFromNullToText()
+        {
+            var cache = new InputActionExecutionCache();
+            var action = new TrackingInputAction();
+            var config = new AnalogInputConfig
+            {
+                onChange = action
+            };
+
+            var firstResult = cache.Execute(
+                config,
+                new CacheCollection(),
+                new InputEventArgs { Value = 7, StrValue = null },
+                new List<ConfigRefValue>());
+            var secondResult = cache.Execute(
+                config,
+                new CacheCollection(),
+                new InputEventArgs { Value = 7, StrValue = "phase7" },
+                new List<ConfigRefValue>());
+
+            Assert.IsTrue(firstResult);
+            Assert.IsTrue(secondResult);
+            Assert.AreEqual(2, action.ExecuteCount);
+        }
+
+        [TestMethod]
         public void Execute_ButtonInputConfig_DoesNotSkipReleaseAfterPress_WhenStringMissing()
         {
             var cache = new InputActionExecutionCache();
