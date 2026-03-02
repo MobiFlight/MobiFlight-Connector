@@ -1,3 +1,4 @@
+import IconArcaze from "@/components/icons/IconArcaze"
 import IconBrandMobiFlightLogo from "@/components/icons/IconBrandMobiFlightLogo"
 import { cn } from "@/lib/utils"
 import { Controller, ControllerBindingStatus } from "@/types/controller"
@@ -48,6 +49,9 @@ const ControllerIcons = {
   midi: {
     generic: IconPiano,
   },
+  arcaze: {
+    generic: IconArcaze,
+  },
 }
 
 const FindControllerIcon = (controllerType: string, deviceName: string) => {
@@ -86,6 +90,8 @@ const ControllerIcon = ({
       ? "joystick"
       : controller.Serial?.includes("MI-")
         ? "midi"
+        : controller.Serial?.match(/\d{12}/) 
+          ? "arcaze"
         : "unknown"
 
   const usingController = controller.Serial != null && controller.Serial !== ""
