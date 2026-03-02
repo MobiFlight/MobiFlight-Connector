@@ -914,6 +914,22 @@ test.describe("Controller device labels are displayed correctly", () => {
         .getByRole("cell", { name: "Input Action", exact: true }),
     ).toBeVisible()
   })
+
+  test("Confirm Output Shift Register labels are displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.mobiFlightPage.initWithTestData()
+    
+    const shiftRegisterRow = page.getByRole("row", { name: "ShiftRegister -" })
+    await expect(
+      shiftRegisterRow
+        // and it has to be the "Output Shift Register" cell within that "not set" row
+        .getByRole("cell", { name: "ShiftRegister 1: 0", exact: true }),
+    ).toBeVisible()
+  })
 })
 
 test("Confirm `Controller Settings` link is working", async ({
