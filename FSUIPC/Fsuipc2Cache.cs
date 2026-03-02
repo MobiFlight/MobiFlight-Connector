@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using FSUIPC;
 using System.Collections.Concurrent;
 
@@ -24,7 +23,7 @@ namespace MobiFlight.FSUIPC
     //    FSUIPC_ERR_RUNNING    Maybe running on WideClient, but FS not running on Server, or wrong FSUIPC
     //    FSUIPC_ERR_SIZE       Read or Write request cannot be added, memory for Process is full
 
-        public class Fsuipc2Cache : FSUIPCCacheInterface
+    public class Fsuipc2Cache : FSUIPCCacheInterface
     {
         private static readonly object _fsuipcLock = new object();
 
@@ -37,22 +36,14 @@ namespace MobiFlight.FSUIPC
 
         readonly ConcurrentDictionary<Int32, Offset<Byte>> __cacheByte = new ConcurrentDictionary<Int32, Offset<Byte>>();
         readonly ConcurrentDictionary<Int32, Offset<Int16>> __cacheShort = new ConcurrentDictionary<Int32, Offset<Int16>>();
-        //readonly ConcurrentDictionary<Int32, Offset<UInt16>> __cacheUShort = new ConcurrentDictionary<Int32, Offset<UInt16>>();
         readonly ConcurrentDictionary<Int32, Offset<Int32>> __cacheInt = new ConcurrentDictionary<Int32, Offset<Int32>>();
-        //readonly ConcurrentDictionary<Int32, Offset<UInt32>> __cacheUInt = new ConcurrentDictionary<Int32, Offset<UInt32>>();
         readonly ConcurrentDictionary<Int32, Offset<Single>> __cacheFloat = new ConcurrentDictionary<Int32, Offset<Single>>();
         readonly ConcurrentDictionary<Int32, Offset<Int64>> __cacheLong = new ConcurrentDictionary<Int32, Offset<Int64>>();
-        //readonly ConcurrentDictionary<Int32, Offset<UInt64>> __cacheULong = new ConcurrentDictionary<Int32, Offset<UInt64>>();
         readonly ConcurrentDictionary<Int32, Offset<Double>> __cacheDouble = new ConcurrentDictionary<Int32, Offset<Double>>();
         readonly ConcurrentDictionary<Int32, Offset<String>> __cacheString = new ConcurrentDictionary<Int32, Offset<String>>();
 
         private readonly Offset<Int32> __macroParam = new Offset<Int32>("macro", 0x0d6c, true);
         private readonly Offset<string> __macroName = new Offset<string>("macro", 0xd70, 40, true);
-
-        HashSet<int> __cacheByteWriteOnly = new HashSet<int>();
-        HashSet<int> __cacheShortWriteOnly = new HashSet<int>();
-        HashSet<int> __cacheIntWriteOnly = new HashSet<int>();
-        HashSet<int> __cacheStringWriteOnly = new HashSet<int>();
 
         private long lastProcessedMs = 0;
 
@@ -93,7 +84,8 @@ namespace MobiFlight.FSUIPC
 
         public bool Connect()
         {
-            try {
+            try
+            {
                 // Attempt to open a connection to FSUIPC
                 // (running on any version of Flight Sim)
                 if (!IsConnected())
@@ -104,7 +96,9 @@ namespace MobiFlight.FSUIPC
                     _aircraftNameTimer.Enabled = true;
                 }
 
-            } catch (FSUIPCException ex) {
+            }
+            catch (FSUIPCException ex)
+            {
                 // Badness occurred -
                 // show the error message
                 if (ex.FSUIPCErrorCode == FSUIPCError.FSUIPC_ERR_OPEN)
@@ -121,7 +115,8 @@ namespace MobiFlight.FSUIPC
                 {
                     Log.Instance.log($"FSUIPC Exception: {ex.Message}", LogSeverity.Error);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Instance.log($"Exception: {ex.Message}", LogSeverity.Error);
             }
@@ -149,9 +144,11 @@ namespace MobiFlight.FSUIPC
             return !IsConnected();
         }
 
-        protected void _processThreadSafe(bool forceRefresh =false) {
+        protected void _processThreadSafe(bool forceRefresh = false)
+        {
             // test the cache and gather data from fsuipc if necessary
-            if (IsConnected() && _offsetsRegistered && (!__isProcessed || forceRefresh )) {
+            if (IsConnected() && _offsetsRegistered && (!__isProcessed || forceRefresh))
+            {
                 try
                 {
                     lock (_fsuipcLock)
@@ -202,7 +199,7 @@ namespace MobiFlight.FSUIPC
                         return new Offset<Int32>(k);
                     });
                     _processThreadSafe(cacheChanged);
-                    result =  Convert.ToInt64(__cacheInt[offset].Value);
+                    result = Convert.ToInt64(__cacheInt[offset].Value);
                     break;
                 case 8:
                     __cacheLong.GetOrAdd(offset, k =>
@@ -213,77 +210,10 @@ namespace MobiFlight.FSUIPC
                     _processThreadSafe(cacheChanged);
                     result = __cacheLong[offset].Value;
                     break;
-            } //switch
+            }
 
             return result;
         }
-
-        /*
-         * NOT IMPLEMENTED
-         *
-        public ulong getUValue(int offset, byte size)
-        {
-            ulong result = 0;
-            _processThreadSafe();
-
-            switch (size)
-            {
-                case 2:
-                    if (!__cacheUShort.ContainsKey(offset))
-                    {
-                        __cacheUShort[offset] = new Offset<UInt16>(offset);
-                        _offsetsRegistered = true;
-                        try
-                        {
-                            FSUIPCConnection.Process();
-                        }
-                        catch (Exception e)
-                        {
-                            this.ConnectionLost(this, new EventArgs());
-                            throw e;
-                        }
-                    }
-                    result = Convert.ToUInt64(__cacheUShort[offset].Value);
-                    break;
-                case 4:
-                    if (!__cacheUInt.ContainsKey(offset))
-                    {
-                        __cacheUInt[offset] = new Offset<UInt32>(offset);
-                        _offsetsRegistered = true;
-                        try
-                        {
-                            FSUIPCConnection.Process();
-                        }
-                        catch (Exception e)
-                        {
-                            this.ConnectionLost(this, new EventArgs());
-                            throw e;
-                        }
-                    }
-                    result = Convert.ToUInt64(__cacheUInt[offset].Value);
-                    break;
-                case 8:
-                    if (!__cacheULong.ContainsKey(offset))
-                    {
-                        __cacheULong[offset] = new Offset<UInt64>(offset);
-                        _offsetsRegistered = true;
-                        try
-                        {
-                            FSUIPCConnection.Process();
-                        }
-                        catch (Exception e)
-                        {
-                            this.ConnectionLost(this, new EventArgs());
-                            throw e;
-                        }
-                    }
-                    result = __cacheULong[offset].Value;
-                    break;
-            } //switch
-
-            return result;
-        }
-         * */
 
         public long getLongValue(int offset, byte size)
         {
@@ -458,7 +388,8 @@ namespace MobiFlight.FSUIPC
 
         public void executeMacro(string macroName, int paramValue)
         {
-            try {
+            try
+            {
                 lock (_fsuipcLock)
                 {
                     __macroParam.Value = paramValue;
@@ -475,7 +406,8 @@ namespace MobiFlight.FSUIPC
 
         public void setEventID(int eventID, int param)
         {
-            try {
+            try
+            {
                 lock (_fsuipcLock)
                 {
                     FSUIPCConnection.SendControlToFS(eventID, param);
