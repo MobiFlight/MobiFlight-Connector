@@ -1,6 +1,6 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import ToolTip from "@/components/ToolTip"
-import { IConfigItem, IDeviceConfig } from "@/types/config"
+import { ExtendedDeviceConfig, IConfigItem, IDeviceConfig } from "@/types/config"
 import { DeviceElementType } from "@/types/deviceElements"
 import { IconBan, IconX } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
@@ -13,6 +13,28 @@ import { mapJoystickDeviceNameToLabel } from "@/types/definitions"
 interface ConfigItemTableDeviceCellProps {
   row: Row<IConfigItem>
 }
+
+function DetermineDeviceName(item: IConfigItem): string {
+  const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
+  const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
+  const isExtended = [ "ShiftRegister" ].includes(deviceType)
+
+  if (isExtended) {
+    const extendedDevice = item.Device as ExtendedDeviceConfig
+    const pins = extendedDevice.Pin.split("|").map(pin => pin.match(/\d+/)?.[0] ?? "").join(" | ")
+    return deviceName ? `${deviceName}: ${pins}` : "-"
+  }
+
+  if (isEmpty(deviceName)) {
+    if (deviceType === "InputAction") {
+      return "Input Action"
+    }
+    return "-"
+  }
+  
+  return deviceName
+}
+
 function ConfigItemTableDeviceCell({
   row,
 }: ConfigItemTableDeviceCellProps) {
@@ -32,10 +54,7 @@ function ConfigItemTableDeviceCell({
       (i) => i.InstanceName == controllerName,
     )
 
-    const deviceName =
-      (item.Device as IDeviceConfig)?.Name ??
-      (!isEmpty(item.DeviceName) ? item.DeviceName : 
-      item.DeviceType === "InputAction" ? "Input Action" : "-")
+    const deviceName = DetermineDeviceName(item)
 
     const deviceType =
       (item.Device as IDeviceConfig)?.Type ??
