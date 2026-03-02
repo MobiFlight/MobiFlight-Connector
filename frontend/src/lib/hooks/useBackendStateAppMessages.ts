@@ -7,6 +7,7 @@ import {
   AuthenticationStatus,
   BoardDefinitions,
   ConnectedControllers,
+  ControllerBindingsUpdate,
   ExecutionState,
   HubHopState,
   JoystickDefinitions,
@@ -33,7 +34,7 @@ import { Controller } from "@/types/controller"
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
 
-  const { project, setProject, setProjectStatus } = useProjectStore()
+  const { project, setProject, setProjectStatus, setControllerBindings } = useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
   const { setControllers } = useControllerStore()
@@ -133,6 +134,12 @@ export const useBackendStateAppMessages = () => {
     const { IsRunning, IsTesting } = message.payload as ExecutionState
     setIsRunning(IsRunning)
     setIsTesting(IsTesting)
+  })
+
+  useAppMessage("ControllerBindingsUpdate", (message) => {
+    const controllerBindings = message.payload as ControllerBindingsUpdate
+    console.log("ControllerBindingsUpdate message received", controllerBindings.Bindings)
+    setControllerBindings(controllerBindings.Bindings)
   })
 
   // this is only for easier UI testing

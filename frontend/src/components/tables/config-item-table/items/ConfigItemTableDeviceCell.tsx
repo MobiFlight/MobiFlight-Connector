@@ -34,7 +34,8 @@ function ConfigItemTableDeviceCell({
 
     const deviceName =
       (item.Device as IDeviceConfig)?.Name ??
-      (!isEmpty(item.DeviceName) ? item.DeviceName : "-")
+      (!isEmpty(item.DeviceName) ? item.DeviceName : 
+      item.DeviceType === "InputAction" ? "Input Action" : "-")
 
     const deviceType =
       (item.Device as IDeviceConfig)?.Type ??

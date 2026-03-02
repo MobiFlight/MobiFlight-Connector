@@ -755,16 +755,16 @@ test.describe("Community Feed tests", () => {
     await expect(eventsFilterButton).toHaveCount(1)
 
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(4)
+    await expect(feedItems).toHaveCount(6)
 
     await communityFilterButton.click()
-    await expect(feedItems).toHaveCount(2)
+    await expect(feedItems).toHaveCount(3)
 
     await offersFilterButton.click()
     await expect(feedItems).toHaveCount(1)
 
     await eventsFilterButton.click()
-    await expect(feedItems).toHaveCount(1)
+    await expect(feedItems).toHaveCount(2)
   })
 
   test("Confirm button links are working correctly", async ({
@@ -773,10 +773,10 @@ test.describe("Community Feed tests", () => {
   }) => {
     await dashboardPage.gotoPage()
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(4)
+    await expect(feedItems).toHaveCount(6)
     const offerItem = feedItems.nth(0)
     const offerButton = offerItem.getByRole("button", {
-      name: "Support Us!",
+      name: "Vote for MobiFlight!",
       exact: true,
     })
     await expect(offerButton).toBeVisible()
@@ -788,7 +788,7 @@ test.describe("Community Feed tests", () => {
       await dashboardPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandOpenLinkInBrowser")
-    expect(lastCommand.payload.url).toEqual("https://mobiflight.com/donate")
+    expect(lastCommand.payload.url).toEqual("https://tally.so/r/44rzv5")
   })
 
   test("Confirm responsiveness small window size", async ({

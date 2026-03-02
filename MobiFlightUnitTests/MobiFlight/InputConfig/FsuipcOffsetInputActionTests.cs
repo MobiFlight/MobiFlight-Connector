@@ -182,5 +182,45 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        [TestMethod()]
+        public void Execute_UsesStrValueForAtPlaceholder_WhenWritingStringOffset()
+        {
+            FsuipcOffsetInputAction o = new FsuipcOffsetInputAction();
+            o.FSUIPC.Offset = 0x1234;
+            o.FSUIPC.Size = 255;
+            o.Value = "@";
+
+            var mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = mock
+            };
+
+            o.execute(cacheCollection, new InputEventArgs() { Value = 10, StrValue = "flightPhase" }, new List<ConfigRefValue>());
+
+            Assert.HasCount(2, mock.Writes, "The message count is not as expected");
+            Assert.AreEqual("flightPhase", mock.Writes[0].Value, "The placeholder replacement should use StrValue");
+        }
+
+        [TestMethod()]
+        public void Execute_UsesNumericValueForAtPlaceholder_WhenStrValueIsMissing()
+        {
+            FsuipcOffsetInputAction o = new FsuipcOffsetInputAction();
+            o.FSUIPC.Offset = 0x1234;
+            o.FSUIPC.Size = 255;
+            o.Value = "@";
+
+            var mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = mock
+            };
+
+            o.execute(cacheCollection, new InputEventArgs() { Value = 42 }, new List<ConfigRefValue>());
+
+            Assert.HasCount(2, mock.Writes, "The message count is not as expected");
+            Assert.AreEqual("42", mock.Writes[0].Value, "The placeholder replacement should fall back to Value");
+        }
     }
 }

@@ -506,6 +506,39 @@
               "Type": "MSFS2020CustomInputAction"
             }
           }
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "MyVar",
+              "Number": 0.0,
+              "Text": "",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "ButtonInputConfig": {
+            "onPress": null,
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "DeviceType": "InputAction",
+          "DeviceName": null,
+          "GUID": "5f9b8498-c18a-439c-b861-a005d8e82482",
+          "Active": true,
+          "Name": "Output Config With Input Action",
+          "Type": "OutputConfigItem",
+          "Controller": null
         }
       ],
       "EmbedContent": true,

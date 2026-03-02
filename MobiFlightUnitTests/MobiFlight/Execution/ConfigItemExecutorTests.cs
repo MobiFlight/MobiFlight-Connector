@@ -369,5 +369,35 @@ namespace MobiFlight.Tests
             Assert.AreEqual("ExecutionError", cfg.Status[ConfigItemStatusType.Device], "Error status should indicate execution error");
             Assert.IsTrue(updatedValues.ContainsKey(cfg.GUID), "Config item should be added to updated values");
         }
+
+        [TestMethod]
+        public void Execute_ShouldNotThrowException_WhenControllerIsNullAndInputAction()
+        {
+            // Arrange
+            var variable = new MobiFlightVariable() { Name = "TestVar", Number = 100, Expression = "@ * 2" };
+            // Mock the variable source to return a value
+            mockMobiFlightCache.Setup(m => m.GetMobiFlightVariable(It.IsAny<string>())).Returns(variable);
+
+            var cfg = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Test Config without Controller",
+                Controller = null,
+                DeviceType = "InputAction",
+                Source = new VariableSource() { MobiFlightVariable = variable },
+                AnalogInputConfig = new AnalogInputConfig { 
+                    onChange = new VariableInputAction { Variable = variable }
+                }
+            };
+
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.HasCount(0, cfg.Status.Keys, "Config should not have any errors");
+        }
     }
 }

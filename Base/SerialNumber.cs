@@ -92,7 +92,7 @@ namespace MobiFlight.Base
 
         public static Controller CreateController(string serial)
         {
-            if (string.IsNullOrEmpty(serial)) return null;
+            if (string.IsNullOrEmpty(serial) || serial == NOT_SET) return null;
             var deviceName = ExtractControllerName(serial);
             var deviceSerial = ExtractSerial(serial);
             return new Controller() { Name = deviceName, Serial = deviceSerial };

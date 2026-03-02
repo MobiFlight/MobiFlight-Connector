@@ -347,6 +347,7 @@
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\AuthenticationStatus.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConnectedControllers.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ControllerBindingsUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\RecentProjects.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueFullUpdate.cs" />

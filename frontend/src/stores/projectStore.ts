@@ -1,4 +1,5 @@
 import { IConfigItem, Project } from "@/types"
+import { ControllerBinding } from "@/types/controller"
 import { ProjectStatus } from "@/types/messages"
 import { create } from "zustand"
 
@@ -18,6 +19,7 @@ interface ProjectState {
   updateConfigItems: (index: number, items: IConfigItem[]) => void // Add this
   updateConfigItem: (index: number, item: IConfigItem, upsert: boolean) => void // Add this
   clearProject: () => void
+  setControllerBindings: (bindings: ControllerBinding[]) => void
   actions: {
     // Add the drag-and-drop functions
     moveItemsBetweenConfigs: (
@@ -130,6 +132,13 @@ export const useProjectStore = create<ProjectState>((set) => ({
       return { project: newProject }
     }),
   clearProject: () => set({ project: null }),
+  setControllerBindings: (bindings: ControllerBinding[]) => {
+    set((state) => {
+      if (!state.project) return state
+      return { project: { ...state.project, ControllerBindings: bindings } }
+    })
+  },
+
   actions: {
     moveItemsBetweenConfigs: (
       draggedItems: IConfigItem[],

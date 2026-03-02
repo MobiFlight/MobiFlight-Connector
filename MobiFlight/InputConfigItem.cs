@@ -195,6 +195,8 @@ namespace MobiFlight
                 writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
             }
 
+            // the empty string is inconsistent with OutputConfigItem (NOT_SET),
+            // but it is they way it was done in old config files
             var fullSerial = SerialNumber.BuildFullSerial(Controller) ?? "";
 
             writer.WriteAttributeString("serial", fullSerial);
