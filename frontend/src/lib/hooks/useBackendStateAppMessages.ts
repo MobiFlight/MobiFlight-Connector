@@ -109,6 +109,7 @@ export const useBackendStateAppMessages = () => {
   })
 
   useAppMessage("ConnectedControllers", (message) => {
+    console.log("ConnectedControllers message received", message.payload)
     const controllers = (message.payload as ConnectedControllers).Controllers
     setControllers(controllers)
   })
