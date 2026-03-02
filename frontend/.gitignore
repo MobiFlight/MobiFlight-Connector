@@ -1,3 +1,6 @@
+# environment variables
+.env
+
 # Logs
 logs
 *.log
@@ -7,6 +10,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# node deps and build output
 node_modules
 dist
 dist-ssr
@@ -29,3 +33,6 @@ dist-ssr
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Playwright local storage and auth state
+tests/.auth/*

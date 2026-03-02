@@ -12,6 +12,7 @@ export type DeviceElementType =
   | "InputShiftRegister"
   | "InputMultiplexer"
   | "CustomDevice"
+  | "InputAction"
 
 export const DeviceElementTypes: DeviceElementType[] = [
   "Button",
@@ -26,4 +27,5 @@ export const DeviceElementTypes: DeviceElementType[] = [
   "LcdDisplay",
   "ShiftRegister",
   "CustomDevice",
+  "InputAction"
 ]

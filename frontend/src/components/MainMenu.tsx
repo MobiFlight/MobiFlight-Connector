@@ -19,6 +19,7 @@ import { useProjectStore } from "@/stores/projectStore"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { useTranslation } from "react-i18next"
 import { useModal } from "@/lib/hooks/useModal"
+import UserMenuItem from "@/components/user/UserMenuItem"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
@@ -226,9 +227,12 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
       </div>
-      <div className="flex items-center gap-8 px-2">
+      <div className="flex items-center gap-4 px-2">
         <CommunityMenu />
-        <DarkModeToggle />
+        <div className="flex flex-row gap-1">
+          <DarkModeToggle />
+          <UserMenuItem />
+        </div>
       </div>
     </Menubar>
   )

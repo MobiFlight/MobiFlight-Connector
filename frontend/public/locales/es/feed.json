@@ -1,8 +1,49 @@
 {
   "community": [
     {
+      "date": "2026-02-23",
+      "title": "Flight Sim Awards 2026 Nomination",
+      "content": [
+        "¡Estamos muy emocionados de que **MobiFlight ha sido nominado** para los 🏆 **Flight Sim Awards 2026!** 🏆",
+        "**Vota por nosotros** y ayúdanos a llevarnos el premio en la categoría 'Mejor Hardware DIY'. ¡Cada voto cuenta y tu apoyo lo es todo para nosotros!"
+      ],
+      "featured": false,
+      "tags": ["community"],
+      "media": {
+        "type": "image",
+        "src": "/feed/flight-sim-awards-2026.png",
+        "alt": "Flight Sim Awards 2026 Nomination",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "¡Vota por MobiFlight!",
+        "url": "https://tally.so/r/44rzv5"
+      }
+    },
+    {
+      "date": "2026-02-15",
+      "title": "Talleres FSWeekend 2026",
+      "content": [
+        "**¡Ven a FSWeekend 2026** y participa en nuestros talleres prácticos junto al equipo de MobiFlight!",
+        "**¡Te lo llevas a casa!** - Monta y configura tu propio dispositivo multifunción desde cero. No hace falta experiencia previa. **¡Te esperamos!**",
+        "¡Regístrate temprano y obtén un **descuento de 10 EUR!**"
+      ],
+      "featured": false,
+      "tags": ["events"],
+      "media": {
+        "type": "image",
+        "src": "/feed/mobiflight-workshops.jpg",
+        "alt": "¡Talleres FSWeekend 2026!",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "¡Regístrate!",
+        "url": "https://shop.mobiflight.com/product/mobiflight-workshop-fsweekend26"
+      }
+    },
+    {
       "date": "2025-11-30",
-      "title": "Autorizado para nuevos niveles de vuelo!",
+      "title": "¡Autorizado para nuevos niveles de vuelo!",
       "content": [
         "Este año di un gran paso: trabajo a tiempo completo en MobiFlight para que el proyecto siga avanzando.",
         "Tu apoyo económico es clave para cubrir mis gastos y mantener el desarrollo en marcha."
@@ -12,7 +53,7 @@
       "media": {
         "type": "image",
         "src": "/feed/full-time.jpg",
-        "alt": "Autorizado para nuevos niveles de vuelo!",
+        "alt": "¡Autorizado para nuevos niveles de vuelo!",
         "className": "bg-foreground dark:bg-background"
       },
       "action": {
@@ -31,7 +72,7 @@
       "media": {
         "type": "image",
         "src": "/feed/shop-new-boards.jpg",
-        "alt": "Nuevos productos en la tienda de MobiFlight",
+        "alt": "¡Nuevos productos en la tienda de MobiFlight!",
         "className": "bg-foreground dark:bg-background"
       },
       "action": {
@@ -52,13 +93,13 @@
       "media": {
         "type": "image",
         "src": "/feed/newsletter-subscribe.jpg",
-        "alt": "Subscribe to Our Newsletter",
+        "alt": "¡Suscríbete a nuestro boletín!",
         "className": "bg-gray-100 dark:bg-gray-100"
       },
       "tags": ["community"]
     },
     {
-      "title": "Encuentra team MobiFlight en FSWeekend 2026!",
+      "title": "¡Encuentra al equipo de MobiFlight en FSWeekend 2026!",
       "date": "2025-12-04",
       "content": [
         "Nos complace anunciar que MobiFlight estará presente en FSWeekend 2026! Ven a conocer al equipo, ver demostraciones en vivo y obtener información exclusiva sobre las próximas funciones."

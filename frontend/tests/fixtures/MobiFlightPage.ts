@@ -1,16 +1,18 @@
 import { CommandMessageKey, CommandMessage } from "@/types/commands"
 import { AppMessage, ProjectStatus } from "@/types/messages"
-import type { Locator, Page } from "@playwright/test"
+import { expect, type Locator, type Page } from "@playwright/test"
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
 import connectedControllers from "../data/connectedControllers.testdata.json" with { type: "json" }
 import { Project } from "@/types"
 import { ProjectInfo } from "@/types/project"
 import { ControllerBinding } from "@/types/controller"
+import { AuthContextProps } from "react-oidc-context"
 
 declare global {
   interface Window {
     commands?: CommandMessage[]
+    auth?: Partial<AuthContextProps>
   }
 }
 
@@ -44,6 +46,12 @@ export class MobiFlightPage {
           },
         }
       }
+    })
+  }
+
+  async gotoPage() {
+    await this.page.goto("http://localhost:5173/", {
+      waitUntil: "networkidle",
     })
   }
 
@@ -218,5 +226,77 @@ export class MobiFlightPage {
       payload: projectStatus,
     }
     await this.publishMessage(message)
+  }
+
+  async setupSignInUser(user: {
+    email: string
+    password: string
+    name: string
+  }) {
+    await this.page.goto("http://localhost:5173/home")
+    await this.trackCommand("CommandUserAuthentication")
+
+    const signInButton = this.page.getByRole("button", { name: "Sign in" })
+    await expect(signInButton).toBeVisible()
+    await expect(signInButton).toBeEnabled()
+
+    await signInButton.click()
+
+    // Validate correct command is sent to the backend
+    const signInCommands = await this.getTrackedCommands()
+    expect(signInCommands).toBeDefined()
+    expect(signInCommands!.length).toBe(1)
+
+    const signInCommand = signInCommands!.pop()
+    expect(signInCommand).toBeDefined()
+    expect(signInCommand?.key).toBe("CommandUserAuthentication")
+    expect(signInCommand?.payload).toEqual({
+      flow: "login",
+      state: "started",
+      url: `http://localhost:5173/auth/login`,
+    })
+
+    await this.clearTrackedCommands()
+
+    // Initiate the sign in flow
+    // This is done by the second WebView once it receives
+    // CommandUserAuthentication with flow: login and state: started
+    await this.page.goto(`http://localhost:5173/auth/login`)
+
+    const emailInput = this.page.getByPlaceholder("Email address")
+    const nextButton = this.page.getByRole("button", { name: "Next" })
+    await expect(emailInput).toBeVisible()
+    await emailInput.fill(user.email)
+    await nextButton.click()
+
+    const passwordInput = this.page.getByPlaceholder("Password")
+    await expect(passwordInput).toBeVisible()
+    await passwordInput.fill(user.password)
+    await signInButton.click()
+
+    await expect(this.page.getByText("Stay signed in")).toBeVisible()
+    const noButton = this.page.getByRole("button", { name: "No" })
+    await expect(noButton).toBeVisible()
+    await noButton.click()
+
+    await this.page.waitForURL(
+      /http:\/\/localhost:5173\/auth\/callback\/login\?code=.+&state=.+/,
+    )
+
+    await expect(this.page.getByText("Success!")).toBeVisible()
+  }
+
+  async signInUser() {
+    // Go back to the dashboard (required for the hook that listens to authentication changes)
+    // simulate the response by the second WebView
+    // after successful sign in
+    // this triggers the reload of auth object
+    await this.page.goto("http://localhost:5173/home")
+    await this.publishMessage({
+      key: "AuthenticationStatus",
+      payload: {
+        Authenticated: true,
+      },
+    })
   }
 }

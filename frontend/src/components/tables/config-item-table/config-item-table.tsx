@@ -343,15 +343,13 @@ export function ConfigItemTable<TValue>({
         )}
         <div className="flex justify-start gap-2">
           <Button
-            variant={"outline"}
-            className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
+            className="bg-pink-600 dark:bg-pink-900 text-white hover:bg-pink-500 dark:hover:bg-pink-700"
             onClick={handleAddOutputConfig}
           >
             {t("ConfigList.Actions.OutputConfigItem.Add")}
           </Button>
           <Button
-            variant={"outline"}
-            className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
+            className="bg-teal-600 dark:bg-teal-900 text-white hover:bg-teal-500 dark:hover:bg-teal-700"
             onClick={handleAddInputConfig}
           >
             {t("ConfigList.Actions.InputConfigItem.Add")}

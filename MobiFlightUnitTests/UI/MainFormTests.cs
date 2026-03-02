@@ -1,11 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
+using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.Controllers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -14,11 +18,15 @@ namespace MobiFlight.UI.Tests
     [TestClass()]
     public class MainFormTests
     {
+        private bool originalAutoRun;
         private StringCollection originalRecentFiles;
         private string _tempDirectory;
 
         public class TestableMainForm : MainForm
         {
+            public TestMessagePublisher Publisher { get; set; }
+            public IMessagePublisher OriginalPublisher { get; private set; }
+
             // Expose protected/private members for testing if needed
             public new Dictionary<string, string> AutoLoadConfigs
             {
@@ -45,6 +53,31 @@ namespace MobiFlight.UI.Tests
                 await projectListManager.InitializeFromSettingsAsync(new ControllerBindingService(ExecutionManager));
                 propertyInfo.SetValue(this, projectListManager);
             }
+
+            internal void InitializeControllerBindingService()
+            {
+                ControllerBindingService = new ControllerBindingService(ExecutionManager);
+            }
+
+            // Expose method to simulate the ExecutionManager event
+            public void SimulateConfigChanged(IConfigItem configItem)
+            {
+                var method = typeof(MainForm).GetMethod("OnConfigItemHasChanged",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                method.Invoke(this, new object[] { configItem, EventArgs.Empty });
+            }
+
+            public void SetTestPublisher()
+            {
+                OriginalPublisher = MessageExchange.Instance.GetPublisher();
+                Publisher = new TestMessagePublisher();
+                MessageExchange.Instance.SetPublisher(Publisher);
+            }
+
+            public void RestorePublisher()
+            {
+                MessageExchange.Instance.SetPublisher(OriginalPublisher);
+            }
         }
 
         private TestableMainForm _mainForm;
@@ -58,12 +91,17 @@ namespace MobiFlight.UI.Tests
             // Save original RecentFiles
             originalRecentFiles = Properties.Settings.Default.RecentFiles;
 
+            // Save original AutoRun setting
+            originalAutoRun = Properties.Settings.Default.AutoRun;
+
             // Initialize with clean state
             Properties.Settings.Default.RecentFiles = new StringCollection();
 
             // Create a temporary test directory
             _tempDirectory = Path.Combine(Path.GetTempPath(), "MainFormTests", Guid.NewGuid().ToString());
             Directory.CreateDirectory(_tempDirectory);
+
+            _mainForm.SetTestPublisher();
         }
 
         [TestCleanup]
@@ -71,7 +109,10 @@ namespace MobiFlight.UI.Tests
         {
             // Restore original RecentFiles
             Properties.Settings.Default.RecentFiles = originalRecentFiles;
+            Properties.Settings.Default.AutoRun = originalAutoRun;
             Properties.Settings.Default.Save();
+
+            _mainForm.RestorePublisher();
 
             try
             {
@@ -140,7 +181,7 @@ namespace MobiFlight.UI.Tests
             Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
 
             // Act
-            _mainForm.AddNewFileToProject();
+            _mainForm.AddNewFileToProject("New profile");
 
             // Assert
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
@@ -282,7 +323,7 @@ namespace MobiFlight.UI.Tests
             saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
 
             // Act - Make a change to trigger unsaved state
-            _mainForm.AddNewFileToProject();
+            _mainForm.AddNewFileToProject("New profile");
 
             // Assert - Title should show file path WITH asterisk (unsaved state)
             expectedTitle = $"{tempFilePath}* - MobiFlight Connector - {MainForm.DisplayVersion()}";
@@ -305,5 +346,210 @@ namespace MobiFlight.UI.Tests
             Assert.AreEqual(expectedTitle, _mainForm.Text, "Title should display only version info when no project is loaded");
         }
         #endregion
+
+        #region GetFirstExistingRecentFileOrNull tests
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_EmptyRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = new StringCollection();
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is empty");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NoExistingFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles =
+                new StringCollection
+                {
+                    Path.Combine(_tempDirectory, "nonexistent1.mfproj"),
+                    Path.Combine(_tempDirectory, "nonexistent2.mfproj")
+                };
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when no files exist");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_WithExistingFile_ReturnsFirstExisting()
+        {
+            // Arrange
+            var nonExistentFile = Path.Combine(_tempDirectory, "nonexistent.mfproj");
+            var existingFile = CreateTestFile("existing.mfproj");
+
+            Properties.Settings.Default.RecentFiles =
+                new StringCollection
+                {
+                    nonExistentFile,
+                    existingFile
+                };
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.AreEqual(existingFile, result, "Should return the first existing file");
+        }
+
+        [TestMethod()]
+        public void GetFirstExistingRecentFileOrNull_NullRecentFiles_ReturnsNull()
+        {
+            // Arrange
+            Properties.Settings.Default.RecentFiles = null;
+
+            // Act
+            var result = _mainForm.GetFirstExistingRecentFileOrNull();
+
+            // Assert
+            Assert.IsNull(result, "Should return null when RecentFiles is null");
+        }
+
+        #endregion
+
+        #region Controller Binding Updates when config changes
+        [TestMethod]
+        public void ControllerBindings_UpdateWhenConfigChanges()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            _mainForm.InitializeControllerBindingService();
+
+            var executionManager = _mainForm.ExecutionManager;
+            var initialConfigItem = new OutputConfigItem
+            {
+                Name = "Initial Item",
+                Controller = new Controller() { Name = "Initial Controller", Serial = "SN-1111" }
+            };
+
+            executionManager.Project.ConfigFiles.Add(new ConfigFile() { Label = "ControllerBindings_UpdateWhenConfigChanges" });
+            executionManager.Project.ConfigFiles[0].ConfigItems.Add(initialConfigItem);
+
+            _mainForm.SimulateConfigChanged(initialConfigItem);
+            // we triggered a publish, so let's reset it
+            // to track only the next one for this test
+            _mainForm.Publisher.Reset();
+
+            var controllerBindings = executionManager.Project.ControllerBindings;
+
+            Assert.HasCount(1, controllerBindings);
+            Assert.AreEqual("Initial Controller", controllerBindings[0].OriginalController.Name, "Initial controller name should match");
+            Assert.AreEqual("SN-1111", controllerBindings[0].OriginalController.Serial, "Initial controller serial should match");
+
+            var updatedConfigItem = new OutputConfigItem
+            {
+                Name = "Updated Item",
+                Controller = new Controller() { Name = "Updated Controller", Serial = "SN-2222" }
+            };
+
+            executionManager.Project.ConfigFiles[0].ConfigItems[0] = updatedConfigItem;
+            _mainForm.SimulateConfigChanged(initialConfigItem);
+
+            var updateControllerBindings = executionManager.Project.ControllerBindings;
+
+            // Assert - Message WAS published
+            var publishedBindingUpdates = _mainForm.Publisher.PublishedMessages.FirstOrDefault() as ControllerBindingsUpdate;
+
+            // Assert - No binding update message published
+            Assert.IsNotNull(publishedBindingUpdates, "There should be a published message");
+            Assert.HasCount(publishedBindingUpdates.Bindings.Count, updateControllerBindings, "Number of bindings in message should match current bindings");
+
+            Assert.AreEqual("Updated Controller", updateControllerBindings[0].OriginalController.Name, "Updated controller name should match");
+            Assert.AreEqual("SN-2222", updateControllerBindings[0].OriginalController.Serial, "Updated controller serial should match");
+        }
+
+        [TestMethod]
+        public void ConfigItemModified_BindingsUnchanged_DoesNotPublishUpdate()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            _mainForm.InitializeControllerBindingService();
+            var executionManager = _mainForm.ExecutionManager;
+
+            var initialConfigItem = new OutputConfigItem
+            {
+                Name = "Initial Item",
+                Controller = new Controller() { Name = "Initial Controller", Serial = "SN-1111" }
+            };
+
+            executionManager.Project.ConfigFiles.Add(new ConfigFile() { Label = "ControllerBindings_UpdateWhenConfigChanges" });
+            executionManager.Project.ConfigFiles[0].ConfigItems.Add(initialConfigItem);
+
+            _mainForm.SimulateConfigChanged(initialConfigItem);
+            // we triggered a publish, so let's reset it
+            // to track only the next one for this test
+            _mainForm.Publisher.Reset();
+
+            // Act - Modify a non-controller property (doesn't affect bindings)
+            initialConfigItem.Active = false;
+            _mainForm.SimulateConfigChanged(initialConfigItem);
+
+            // Assert - Message WAS published
+            var publishedBindingUpdates = _mainForm.Publisher.PublishedMessages.FirstOrDefault() as ControllerBindingsUpdate;
+
+            // Assert - No binding update message published
+            Assert.IsNull(publishedBindingUpdates, "Should NOT publish ControllerBindingsUpdate when bindings haven't changed");
+        }
+        #endregion
+
+        #region Browser Message Handling Tests
+        [TestMethod]
+        public void ToggleAutoRun_PublishesSettingsUpdate()
+        {
+            // Arrange
+            var initialAutoRun = Properties.Settings.Default.AutoRun;
+
+            // Act (Simulate Frontend action after clicking on autorun toggle button)
+            var jsonMessage = JsonConvert.SerializeObject(new BrowserMessages.Message<CommandProjectToolbar>(new CommandProjectToolbar()
+            {
+                Action = CommandProjectToolbarAction.toggleAutoRun
+            }));
+
+            _mainForm.Publisher.SimulateIncomingMessage(jsonMessage);
+
+            // Assert
+            var settingsMessage = _mainForm.Publisher.PublishedMessages.FirstOrDefault(m => m.GetType() == typeof(Settings)) as Settings;
+            Assert.IsNotNull(settingsMessage, "Settings message should be published");
+            Assert.AreEqual(!initialAutoRun, settingsMessage.AutoRun,
+                "AutoRun should be toggled in published settings");
+        }
+        #endregion
+
+        public class TestMessagePublisher : IMessagePublisher
+        {
+            public List<object> PublishedMessages { get; } = new List<object>();
+            private Action<object> _onMessageReceived;
+
+            public void Publish<TEvent>(TEvent eventToPublish)
+            {
+                PublishedMessages.Add(eventToPublish);
+            }
+
+            public void OnMessageReceived(Action<string> callback)
+            {
+                _onMessageReceived = (message) => callback((string)message);
+            }
+
+            public void Reset()
+            {
+                PublishedMessages.Clear();
+            }
+
+            public void SimulateIncomingMessage(string jsonMessage)
+            {
+                MessageExchange.Instance.SetSynchronizationContextProvider(() => null);
+                _onMessageReceived?.Invoke(jsonMessage);
+                MessageExchange.Instance.SetSynchronizationContextProvider(null);
+            }
+        }
     }
 }

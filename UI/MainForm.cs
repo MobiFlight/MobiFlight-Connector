@@ -112,7 +112,7 @@ namespace MobiFlight.UI
             }
         }
 
-        public ControllerBindingService ControllerBindingService { get; private set; }
+        public ControllerBindingService ControllerBindingService { get; protected set; }
 
         private ProjectListManager ProjectListManager { get; set; } = new ProjectListManager();
 
@@ -226,7 +226,7 @@ namespace MobiFlight.UI
             {
                 if (message.Type == CommandAddConfigFileType.create)
                 {
-                    AddNewFileToProject();
+                    AddNewFileToProject(message.Label);
                 }
                 else if (message.Type == CommandAddConfigFileType.merge)
                 {
@@ -268,6 +268,33 @@ namespace MobiFlight.UI
                 ControllerBindingService.UpdateControllerBindings(execManager.Project, message.Bindings);
                 MessageExchange.Instance.Publish(execManager.Project);
                 ProjectOrConfigFileHasChanged();
+            });
+
+            MessageExchange.Instance.Subscribe<CommandUserAuthentication>((message) =>
+            {
+
+                if (message.State == CommandUserAuthenticationState.started)
+                {
+                    frontendPanel1.BeginAuthProcess(message.Url);
+                }
+
+                if (message.State == CommandUserAuthenticationState.success)
+                {
+                    frontendPanel1.EndAuthProcess();
+                    MessageExchange.Instance.Publish(new AuthenticationStatus()
+                    {
+                        Authenticated = message.Flow == CommandUserAuthenticationFlow.login
+                    });
+                }
+
+                if (message.State == CommandUserAuthenticationState.cancelled || message.State == CommandUserAuthenticationState.error)
+                {
+                    frontendPanel1.EndAuthProcess();
+                    MessageExchange.Instance.Publish(new AuthenticationStatus()
+                    {
+                        Authenticated = false
+                    });
+                }
             });
         }
 
@@ -320,7 +347,7 @@ namespace MobiFlight.UI
                     var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.ConfigItems[index] = wizard.Config;
                     MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    ExecManager_OnConfigHasChanged(wizard.Config, null);
+                    OnConfigItemHasChanged(wizard.Config, null);
                 }
             }
 
@@ -376,7 +403,7 @@ namespace MobiFlight.UI
                     var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.ConfigItems[index] = wizard.Config;
                     MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    ExecManager_OnConfigHasChanged(wizard.Config, null);
+                    OnConfigItemHasChanged(wizard.Config, null);
                     execManager.OnInputConfigSettingsChanged(wizard.Config, null);
                 }
             }
@@ -494,19 +521,13 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
-            // we only load the autorun value stored in settings
-            // and do not use possibly passed in autoRun from cmdline
-            // because latter shall only have an temporary influence
-            // on the program
-            setAutoRunValue(Properties.Settings.Default.AutoRun);
-
             updateNotifyContextMenu(false);
 
             // Reset the Title of the Main Window so that it displays the Version too.
             SetTitle("");
 
             StartupProgressValue = 0;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Start Connecting" });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Starting" });
 
 #if ARCAZE
             _initializeArcazeModuleSettings();
@@ -547,7 +568,7 @@ namespace MobiFlight.UI
         private void InitializeExecutionManager()
         {
             execManager = new ExecutionManager(this.Handle);
-            execManager.OnConfigHasChanged += ExecManager_OnConfigHasChanged;
+            execManager.OnConfigHasChanged += OnConfigItemHasChanged;
             execManager.OnProjectChanged += ExecManager_OnProjectChanged;
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
@@ -585,8 +606,24 @@ namespace MobiFlight.UI
             ProjectOrConfigFileHasChanged();
         }
 
-        private void ProjectOrConfigFileHasChanged()
+        private void ProjectOrConfigFileHasChanged(bool updateControllerBindings = false)
         {
+            if (updateControllerBindings)
+            {
+                var currentControllerBindings = execManager.Project.ControllerBindings;
+                var controllerBindings = ControllerBindingService.AnalyzeProjectBindings(execManager.Project);
+
+                if ((currentControllerBindings == null && controllerBindings!= null) ||
+                    !controllerBindings.SequenceEqual(currentControllerBindings))
+
+                {
+                    execManager.Project.ControllerBindings = controllerBindings;
+                    MessageExchange.Instance.Publish(
+                        new ControllerBindingsUpdate() { Bindings = controllerBindings }
+                    );
+                }
+            }
+
             ProjectHasUnsavedChanges = true;
             SetProjectFilePathInTitle();
             UpdateAutoLoadMenu();
@@ -835,9 +872,9 @@ namespace MobiFlight.UI
             ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
-        private void ExecManager_OnConfigHasChanged(object sender, EventArgs e)
+        private void OnConfigItemHasChanged(object sender, EventArgs e)
         {
-            ProjectOrConfigFileHasChanged();
+            ProjectOrConfigFileHasChanged(true);
         }
 
         /// <summary>
@@ -910,15 +947,15 @@ namespace MobiFlight.UI
             }
 
             StartupProgressValue = 70;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Checking for Firmware Updates..." });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.CheckingFirmwareUpdates" });
             CheckForFirmwareUpdates();
 
             StartupProgressValue = 90;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Loading last config..." });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.LoadingLastConfig" });
             _autoloadConfig();
 
             StartupProgressValue = 100;
-            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Finished." });
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Finished" });
 
             CheckForWasmModuleUpdate();
             CheckForHubhopUpdate();
@@ -1201,13 +1238,41 @@ namespace MobiFlight.UI
             _autoloadLastConfig();
         }
 
+        /// <summary>
+        /// Returns the first file path from the list of recent files that currently exists on disk.
+        /// </summary>
+        /// <remarks>This method checks the list of recent files stored in application settings and
+        /// returns the first one that is present on the file system. If the recent files list is empty or all files
+        /// have been deleted or moved, the method returns null.
+        /// 
+        /// The method got extracted for simpler unit testing.
+        /// </remarks>
+        /// <returns>A string containing the path of the first existing recent file, or null if no recent files exist or none of
+        /// the files are found.</returns>
+        internal string GetFirstExistingRecentFileOrNull()
+        {
+            return Properties.Settings.Default.RecentFiles?.Cast<string>().ToList()?.FirstOrDefault(f => File.Exists(f));
+        }
+
         private void _autoloadLastConfig()
         {
-            // use the recent files from application settings
-            // no async loading involved => no timing issues that can happen
-            var recentFile = Properties.Settings.Default.RecentFiles?.Cast<string>().ToList().First(f => File.Exists(f)) ?? null;
-            if (recentFile == null) return;
-            
+            var recentFile = null as string;
+            try
+            {
+                // use the recent files from application settings
+                // creating the list with ToList() will be fast
+                // and prevent timing issues compared to using the ProjectListManager
+                recentFile = GetFirstExistingRecentFileOrNull();
+                if (recentFile == null) return;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Looking for most recent config file failed: {ex.Message}", LogSeverity.Error);
+            }
+
+            // LoadConfig handles exceptions on its own
+            // and shows appropriate messages to the user
             LoadConfig(recentFile);
         }
 
@@ -1264,7 +1329,7 @@ namespace MobiFlight.UI
                 StartupProgressValue = 50;
                 var progressIncrement = (75 - StartupProgressValue) / 2;
                 StartupProgressValue += progressIncrement;
-                MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Scanning for boards." });
+                MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.ScanningControllers" });
                 return;
             }
 
@@ -2043,7 +2108,7 @@ namespace MobiFlight.UI
         {
             string NewTitle = $"MobiFlight Connector - {DisplayVersion()}";
             var saveStatus = ProjectHasUnsavedChanges ? "*" : string.Empty;
-            
+
             if (ProjectHasUnsavedChanges || !string.IsNullOrEmpty(title))
             {
                 NewTitle = $"{title}{saveStatus} - {NewTitle}";
@@ -2102,7 +2167,7 @@ namespace MobiFlight.UI
 
             MessageExchange.Instance.Publish(execManager.Project);
             ResetProjectAndConfigChanges();
-            
+
             MessageExchange.Instance.Publish(new ProjectStatus()
             {
                 HasChanged = ProjectHasUnsavedChanges,
@@ -2247,13 +2312,17 @@ namespace MobiFlight.UI
             SetProjectFilePathInTitle();
         }
 
-        public void AddNewFileToProject()
+        public void AddNewFileToProject(string label)
         {
             execManager.Stop();
 
             ConfigFile newConfigFile = CreateDefaultConfigFile();
-            execManager.Project.ConfigFiles.Add(newConfigFile);
+            if (!string.IsNullOrEmpty(label))
+            {
+                newConfigFile.Label = label;
+            }
 
+            execManager.Project.ConfigFiles.Add(newConfigFile);
             ProjectOrConfigFileHasChanged();
 
 
@@ -2386,6 +2455,9 @@ namespace MobiFlight.UI
         private void setAutoRunValue(bool value)
         {
             Properties.Settings.Default.AutoRun = value;
+
+            // Triggers update to frontend
+            Properties.Settings.Default.Save();
         }
 
         public void settingsToolStripMenuItem_Click(object sender, EventArgs e)

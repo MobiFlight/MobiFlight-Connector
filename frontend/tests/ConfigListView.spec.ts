@@ -595,10 +595,10 @@ test.describe("Filter toolbar tests", () => {
 
     const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
     const rows = page.locator("tbody tr")
-    await expect(rows).toHaveCount(14)
+    await expect(rows).toHaveCount(15)
 
     await searchTextBox.fill("A")
-    await expect(rows).toHaveCount(2)
+    await expect(rows).toHaveCount(3)
 
     await searchTextBox.fill("Ana")
     await expect(rows).toHaveCount(1)
@@ -610,7 +610,7 @@ test.describe("Filter toolbar tests", () => {
     await expect(clearButton).not.toHaveCount(0)
 
     await clearButton.first().click()
-    await expect(rows).toHaveCount(14)
+    await expect(rows).toHaveCount(15)
 
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
     await rows.first().click()
@@ -643,14 +643,14 @@ test.describe("Filter toolbar tests", () => {
 
     await configTypeFilterButton.click()
     await outputOption.click()
-    await expect(visibleRows).toHaveCount(7)
+    await expect(visibleRows).toHaveCount(8)
 
     await inputOption.click()
     await outputOption.click()
     await expect(visibleRows).toHaveCount(7)
 
     await clearFiltersOption.click()
-    await expect(visibleRows).toHaveCount(14)
+    await expect(visibleRows).toHaveCount(15)
 
     const inputField = page.getByPlaceholder("Config Type")
     await inputField.click()
@@ -665,7 +665,7 @@ test.describe("Filter toolbar tests", () => {
     await inputField.click()
     await inputField.fill("Out")
     await inputField.press("Enter")
-    await expect(visibleRows).toHaveCount(7)
+    await expect(visibleRows).toHaveCount(8)
   })
 
   test("Confirm `Controller` filter toolbar is working", async ({
@@ -686,7 +686,7 @@ test.describe("Filter toolbar tests", () => {
       .click()
     await expect(rows).toHaveCount(1)
     await clearFilterOption.click()
-    await expect(rows).toHaveCount(14)
+    await expect(rows).toHaveCount(15)
 
     await page
       .getByRole("option", { name: "ProtoBoard" })
@@ -700,7 +700,7 @@ test.describe("Filter toolbar tests", () => {
       .locator("div")
       .first()
       .click()
-    await expect(rows).toHaveCount(1)
+    await expect(rows).toHaveCount(2)
     await clearFilterOption.click()
 
     await page.getByPlaceholder("Controller").click()
@@ -730,7 +730,7 @@ test.describe("Filter toolbar tests", () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(14)
+      await expect(rows).toHaveCount(15)
     }
 
     const deviceTypes = [
@@ -772,23 +772,23 @@ test.describe("Filter toolbar tests", () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(14)
+      await expect(rows).toHaveCount(15)
     }
 
     const deviceNames = [
-      "POT 1",
-      "Button 4",
-      "ShiftRegister 1",
-      "LED 2",
-      "LCD 1",
-      "Servo 1",
-      "Stepper 1",
-      "7-Segment",
-      "not set",
-    ]
+      ["POT 1", 1],
+      ["Button 4", 1],
+      ["ShiftRegister 1", 1],
+      ["LED 2", 1],
+      ["LCD 1", 1],
+      ["Servo 1", 1],
+      ["Stepper 1", 1],
+      ["7-Segment", 1],
+      ["not set", 2],
+    ] as Array<[string, number]>
 
-    for (const deviceName of deviceNames) {
-      await testDeviceNameFilter(deviceName, 1)
+    for (const [deviceName, expectedCount] of deviceNames) {
+      await testDeviceNameFilter(deviceName, expectedCount)
     }
   })
 
@@ -895,6 +895,23 @@ test.describe("Controller device labels are displayed correctly", () => {
       .nth(2)
     await expect(
       midiSliderRow.getByRole("cell", { name: "Slider 1" }),
+    ).toBeVisible()
+  })
+
+  test("Confirm Input Action device labels are displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await expect(
+      page
+        // it has to be a row whose controller is "not set"
+        .getByRole("row", { name: "not set" })
+
+        // and it has to be the "Input Action" cell within that "not set" row
+        .getByRole("cell", { name: "Input Action", exact: true }),
     ).toBeVisible()
   })
 })

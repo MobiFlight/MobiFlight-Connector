@@ -57,8 +57,9 @@
   "Project": {
     "Label": "Project",
     "File.Action": {
-      "Add": "Add file",
-      "New": "Add new file",
+      "Add": "Add profile",
+      "New": "Add new profile",
+      "Label": "New profile",
       "Merge": "From existing project",
       "Rename": "Rename",
       "Remove": "Remove",
@@ -289,6 +290,16 @@
       "Description": "{{errorMessage}}"
     }
   },
+  "Startup": {
+    "Starting": "Starting MobiFlight...",
+    "CheckingFirmwareUpdates": "Checking for Firmware Updates...",
+    "ScanningControllers": "Scanning for connected controllers...",
+    "LoadingLastConfig": "Loading last config...",
+    "Finished": "Finished.",
+    "Test": {
+      "Loading": "Loading..."
+    }
+  },
   "Feed": {
     "Title": "Community Feed",
     "Description": "News and updates from the MobiFlight community.",
@@ -320,6 +331,27 @@
       "ControllersInProject": "{{count}} Controllers used in project",
       "ConnectedControllers": "{{count}} Controllers connected to PC",
       "AllSet": "All set! Your project is completely configured." 
+    }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Sign in",
+      "SignOut": "Sign out",
+      "Profile": "Profile",
+      "ProfileFeatureComingSoon": "coming soon"
+    },
+    "Redirect" : {
+      "SignIn": "Redirecting to Sign in...",
+      "SignOut": "Redirecting to Sign out...",
+      "CompletingFlow": "Completing process...",
+      "FlowSuccessful": "Success!"
+    },
+    "Notification":{
+      "Error": {
+        "Title":"Error on authentication",
+        "Description": "An error occurred during authentication.",
+        "ActionCopyToClipboard": "Copy message"
+      }
     }
   }
 }

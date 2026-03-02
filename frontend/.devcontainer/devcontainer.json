@@ -7,7 +7,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install && sudo npx playwright install-deps && npx playwright install",
+  "postCreateCommand": "git config --global --replace-all safe.directory \"$(dirname \"$PWD\")\" && npm install -g npm@11 && npm install && sudo npx playwright install-deps && npx playwright install",
   "postStartCommand": "npm install && npm run dev",
   "customizations": {
     "vscode": {

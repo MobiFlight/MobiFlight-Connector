@@ -706,7 +706,7 @@ namespace MobiFlight.Tests.Controllers
             binder.ApplyBindingUpdate(configItems, controllerBindings);
 
             // Assert
-            Assert.AreEqual("-", configItems[0].Controller.Serial, "Dash serial should remain unchanged");
+            Assert.IsNull(configItems[0].Controller, "This controller should be null");
             Assert.AreEqual("Board #", configItems[1].Controller.Name, "Valid Name should be unchanged");
             Assert.AreEqual("SN-NEW2", configItems[1].Controller.Serial, "Valid Serial should be updated");
         }
