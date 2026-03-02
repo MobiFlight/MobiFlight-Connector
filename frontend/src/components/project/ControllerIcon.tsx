@@ -90,9 +90,7 @@ const ControllerIcon = ({
       ? "joystick"
       : controller.Serial?.includes("MI-")
         ? "midi"
-        : controller.Serial?.match(/\d{12}/) 
-          ? "arcaze"
-        : "unknown"
+        : "arcaze"
 
   const usingController = controller.Serial != null && controller.Serial !== ""
   const deviceName = controller.Name

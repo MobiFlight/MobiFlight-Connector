@@ -251,6 +251,8 @@ namespace MobiFlight
         public void PublishConnectedDevices()
         {
             var connectedControllers = new List<Controller>();
+
+#if ARCAZE
             arcazeCache.getModuleInfo().ToList().ForEach(controller =>
             {
                 connectedControllers.Add(new Controller()
@@ -259,6 +261,7 @@ namespace MobiFlight
                     Serial = controller.Serial
                 });
             });
+#endif
 
             mobiFlightCache.GetModules().ToList().ForEach(controller =>
             {
