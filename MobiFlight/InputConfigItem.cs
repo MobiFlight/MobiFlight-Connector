@@ -7,6 +7,11 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Reflection;
 using Newtonsoft.Json;
+using Button = MobiFlight.InputConfig.Button;
+using Encoder = MobiFlight.InputConfig.Encoder;
+using AnalogInput = MobiFlight.InputConfig.AnalogInput;
+using InputShiftRegister = MobiFlight.InputConfig.InputShiftRegister;
+using InputMultiplexer = MobiFlight.InputConfig.InputMultiplexer;
 
 namespace MobiFlight
 {
@@ -38,8 +43,10 @@ namespace MobiFlight
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public AnalogInputConfig analog { get; set; }
 
+        public override IDeviceConfig Device { get; set; }
         public string DeviceType { get; set; }
         public string DeviceName { get; set; }
+
 
         public InputConfigItem()
         {
@@ -72,7 +79,8 @@ namespace MobiFlight
                 result.AddRange(inputShiftRegister.GetInputActionsByType(type));
             }
 
-            if (inputMultiplexer != null) {
+            if (inputMultiplexer != null)
+            {
                 result.AddRange(inputMultiplexer.GetInputActionsByType(type));
             }
             return result;
@@ -136,6 +144,9 @@ namespace MobiFlight
                     DeviceType = TYPE_ENCODER;
             }
 
+            // initialize the correct device config
+            Device = CreateInputDevice(this);
+
             /*
             if (reader.LocalName != "preconditions")            
                 reader.Read(); // this should be the preconditions tag
@@ -180,6 +191,35 @@ namespace MobiFlight
 
                 reader.Read(); // advance to the next
             }
+        }
+        public static IDeviceConfig CreateInputDevice(InputConfigItem config)
+        {
+            IDeviceConfig result = null;
+
+            switch (config.DeviceType)
+            {
+                case TYPE_BUTTON:
+                    result = new Button() { Name = config.DeviceName };
+                    break;
+
+                case TYPE_ENCODER:
+                    result = new Encoder() { Name = config.DeviceName };
+                    break;
+
+                case TYPE_ANALOG:
+                    result = new AnalogInput() { Name = config.DeviceName };
+                    break;
+
+                case TYPE_INPUT_SHIFT_REGISTER:
+                    result = new InputShiftRegister() { Name = config.DeviceName, ExtPin = config.inputShiftRegister?.ExtPin ?? 0};
+                    break;
+
+                case TYPE_INPUT_MULTIPLEXER:
+                    result = new InputMultiplexer() { Name = config.DeviceName, DataPin = config.inputMultiplexer?.DataPin ?? 0 };
+                    break;
+            }
+
+            return result;
         }
 
         public virtual void WriteXml(XmlWriter writer)
@@ -260,6 +300,7 @@ namespace MobiFlight
             this.inputShiftRegister = (InputShiftRegisterConfig)config.inputShiftRegister?.Clone();
             this.inputMultiplexer = (InputMultiplexerConfig)config.inputMultiplexer?.Clone();
             this.analog = (AnalogInputConfig)config.analog?.Clone();
+            this.Device = config.Device?.Clone() as IDeviceConfig;
             this.DeviceType = config.DeviceType?.Clone() as string;
             this.DeviceName = config.DeviceName?.Clone() as string;
         }
@@ -306,7 +347,6 @@ namespace MobiFlight
                     break;
             }
         }
-
         public Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
@@ -318,7 +358,8 @@ namespace MobiFlight
                 if (button != null)
                     result = button?.GetStatistics();
 
-            } else if (DeviceType == TYPE_ENCODER)
+            }
+            else if (DeviceType == TYPE_ENCODER)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
@@ -341,7 +382,7 @@ namespace MobiFlight
             if (obj == null || !(obj is InputConfigItem item)) return false;
             if (!base.Equals(obj)) return false;
 
-            return  DeviceName == item.DeviceName &&
+            return DeviceName == item.DeviceName &&
                     DeviceType == item.DeviceType &&
                     button.AreEqual(item.button) &&
                     encoder.AreEqual(item.encoder) &&
@@ -353,8 +394,15 @@ namespace MobiFlight
         }
 
         protected override IDeviceConfig GetDeviceConfig()
-        { 
-            return null;
+        {
+            return Device;
+        }
+
+        [System.Runtime.Serialization.OnDeserialized]
+        private void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
+        {
+            if (Device == null && DeviceType != TYPE_NOTSET)
+                Device = CreateInputDevice(this);
         }
     }
 }
