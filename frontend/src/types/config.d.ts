@@ -44,7 +44,8 @@ export interface IDeviceConfig {
 }
 
 export interface ExtendedDeviceConfig extends IDeviceConfig {
-  Pin: string
+  Pin?: string | null
+  SubIndex?: number| null
 }
 
 export interface ConfigFile {

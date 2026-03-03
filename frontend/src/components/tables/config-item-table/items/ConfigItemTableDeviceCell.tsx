@@ -17,12 +17,13 @@ interface ConfigItemTableDeviceCellProps {
 function DetermineDeviceName(item: IConfigItem): string {
   const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
   const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
-  const isExtended = [ "ShiftRegister" ].includes(deviceType)
+  const isExtended = item.Device as ExtendedDeviceConfig != null
 
   if (isExtended) {
     const extendedDevice = item.Device as ExtendedDeviceConfig
-    const pins = extendedDevice.Pin.split("|").map(pin => pin.match(/\d+/)?.[0] ?? "").join(" | ")
-    return deviceName ? `${deviceName}: ${pins}` : "-"
+    const subIndex = extendedDevice.SubIndex != null ? `${extendedDevice.SubIndex}` : null
+    const pins = extendedDevice.Pin?.split("|").map(pin => pin.match(/\d+/)?.[0] ?? "").join(" | ") ?? null
+    return deviceName ? `${deviceName}: ${subIndex ?? ""}${pins ?? ""}` : "-"
   }
 
   if (isEmpty(deviceName)) {
