@@ -211,11 +211,11 @@ namespace MobiFlight
                     break;
 
                 case TYPE_INPUT_SHIFT_REGISTER:
-                    result = new InputShiftRegister() { Name = config.DeviceName, ExtPin = config.inputShiftRegister?.ExtPin ?? 0};
+                    result = new InputShiftRegister() { Name = config.DeviceName, SubIndex = config.inputShiftRegister?.ExtPin ?? 0};
                     break;
 
                 case TYPE_INPUT_MULTIPLEXER:
-                    result = new InputMultiplexer() { Name = config.DeviceName, DataPin = config.inputMultiplexer?.DataPin ?? 0 };
+                    result = new InputMultiplexer() { Name = config.DeviceName, SubIndex = config.inputMultiplexer?.DataPin ?? 0 };
                     break;
             }
 

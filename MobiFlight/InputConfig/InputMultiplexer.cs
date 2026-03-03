@@ -4,11 +4,11 @@ namespace MobiFlight.InputConfig
 {
     public class InputMultiplexer : DeviceConfig
     {
-        public int DataPin { get; set; }
+        public int SubIndex { get; set; }
 
         public override object Clone()
         {
-            return new InputMultiplexer { Name = Name, DataPin = DataPin };
+            return new InputMultiplexer { Name = Name, SubIndex = SubIndex };
         }
 
         public override bool Equals(object obj)
@@ -16,7 +16,7 @@ namespace MobiFlight.InputConfig
             return obj != null
                 && obj is InputMultiplexer other
                 && Name == other.Name
-                && DataPin == other.DataPin;
+                && SubIndex == other.SubIndex;
         }
     }
 }

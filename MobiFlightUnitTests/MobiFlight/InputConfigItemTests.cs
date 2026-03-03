@@ -107,7 +107,7 @@ namespace MobiFlight.Tests
             var device = o.Device as MobiFlight.InputConfig.InputShiftRegister;
             Assert.IsNotNull(device, "Device should be of type InputShiftRegister");
             Assert.AreEqual("TestName", device.Name);
-            Assert.AreEqual(o.inputShiftRegister.ExtPin, device.ExtPin, "ExtPin should match inputShiftRegister.ExtPin");
+            Assert.AreEqual(o.inputShiftRegister.ExtPin, device.SubIndex, "ExtPin should match inputShiftRegister.ExtPin");
         }
 
         public void ReadXmlTest_WithInputMultiplexer_DeserializeCorrectly()
@@ -134,7 +134,7 @@ namespace MobiFlight.Tests
             var device = o.Device as MobiFlight.InputConfig.InputMultiplexer;
             Assert.IsNotNull(device, "Device should be of type InputMultiplexer");
             Assert.AreEqual("TestName", device.Name);
-            Assert.AreEqual(o.inputMultiplexer.DataPin, device.DataPin, "DataPin should match inputMultiplexer.DataPin");
+            Assert.AreEqual(o.inputMultiplexer.DataPin, device.SubIndex, "DataPin should match inputMultiplexer.DataPin");
         }
 
         public void ReadXmlTest_RegressionIssue860_DeserializeCorrectly()
@@ -427,7 +427,7 @@ namespace MobiFlight.Tests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Shifter 1", result.Name);
-            Assert.AreEqual(5, result.ExtPin);
+            Assert.AreEqual(5, result.SubIndex);
         }
 
         [TestMethod()]
@@ -443,7 +443,7 @@ namespace MobiFlight.Tests
             var result = InputConfigItem.CreateInputDevice(config) as MobiFlight.InputConfig.InputShiftRegister;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.ExtPin);
+            Assert.AreEqual(0, result.SubIndex);
         }
 
         [TestMethod()]
@@ -460,7 +460,7 @@ namespace MobiFlight.Tests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Mux 1", result.Name);
-            Assert.AreEqual(3, result.DataPin);
+            Assert.AreEqual(3, result.SubIndex);
         }
 
         [TestMethod()]

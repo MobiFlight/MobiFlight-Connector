@@ -4,11 +4,11 @@ namespace MobiFlight.InputConfig
 {
     public class InputShiftRegister : DeviceConfig
     {
-        public int ExtPin { get; set; }
+        public int SubIndex { get; set; }
 
         public override object Clone()
         {
-            return new InputShiftRegister { Name = Name, ExtPin = ExtPin };
+            return new InputShiftRegister { Name = Name, SubIndex = SubIndex };
         }
 
         public override bool Equals(object obj)
@@ -16,7 +16,7 @@ namespace MobiFlight.InputConfig
             return obj != null
                 && obj is InputShiftRegister other
                 && Name == other.Name
-                && ExtPin == other.ExtPin;
+                && SubIndex == other.SubIndex;
         }
     }
 }
