@@ -8,7 +8,6 @@ import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { IconDots, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
-import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
 import ConfigItemRowContextMenu from "@/components/ConfigItemRowContextMenu"
 
 interface ConfigItemTableActionsCellProps {
@@ -20,8 +19,7 @@ function ConfigItemTableActionsCell({
 }: ConfigItemTableActionsCellProps) {
   const item = row.original
   const { publish } = publishOnMessageExchange()
-  const { startNameEdit } = useRowInteraction()
-
+  
   return (
     <div className="flex justify-center">
       <Button
@@ -37,7 +35,7 @@ function ConfigItemTableActionsCell({
         <IconEdit
         />
       </Button>
-      <div className="relative">
+      <div className="relative" onContextMenu={(e) => { e.preventDefault() }}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="h-8 w-8 rounded-l-none p-0">
@@ -45,7 +43,7 @@ function ConfigItemTableActionsCell({
               <IconDots className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <ConfigItemRowContextMenu item={item} startNameEdit={startNameEdit} />
+          <ConfigItemRowContextMenu item={item} />
         </DropdownMenu>
       </div>
     </div>
