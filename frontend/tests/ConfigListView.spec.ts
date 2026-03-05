@@ -535,6 +535,46 @@ test.describe("Drag and drop tests", () => {
     // verify the items moved to the second tab
     await expect(page.getByRole("row").nth(1)).toContainText("7-Segment")
   })
+
+  test("Confirm drag n drop is prevented if clicking inside an editable element", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+    const nameCellLabel = "7-Segment"
+    const row = page.getByRole("row", { name: nameCellLabel }).first()
+    const nameCell = row.getByText(nameCellLabel).first() 
+    
+    // Click on the text span to enter edit mode
+    await nameCell.dblclick()
+
+    // Now find the textbox that appears after clicking
+    const inlineEdit = row.getByRole("textbox")
+    await expect(inlineEdit).toBeVisible()
+
+    const otherRow = page
+      .getByRole("row", { name: "ShiftRegister" })
+      .getByRole("button")
+      .first()
+
+    // Start the drag inside the inline edit textbox
+    // this should not trigger drag n drop 
+    // and the item should not move
+    await inlineEdit.hover()
+    await page.mouse.down()
+    await page.mouse.move(10, 10)
+    await otherRow.hover()
+    await page.mouse.up()
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+
+    // No commands should have been posted
+    expect(postedCommands).toBeUndefined() 
+  })
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
