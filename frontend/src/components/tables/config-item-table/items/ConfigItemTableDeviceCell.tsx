@@ -1,6 +1,10 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import ToolTip from "@/components/ToolTip"
-import { ExtendedDeviceConfig, IConfigItem, IDeviceConfig } from "@/types/config"
+import {
+  ExtendedDeviceConfig,
+  IConfigItem,
+  IDeviceConfig,
+} from "@/types/config"
 import { DeviceElementType } from "@/types/deviceElements"
 import { IconBan, IconX } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
@@ -14,103 +18,121 @@ interface ConfigItemTableDeviceCellProps {
   row: Row<IConfigItem>
 }
 
-function DetermineDeviceName(item: IConfigItem): string {
+function DetermineDeviceName(item: IConfigItem): string[] {
   const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
   const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
-  const isExtended = item.Device as ExtendedDeviceConfig != null
-
-  if (isExtended) {
-    const extendedDevice = item.Device as ExtendedDeviceConfig
-    const subIndex = extendedDevice.SubIndex != null ? `${extendedDevice.SubIndex}` : null
-    const pins = extendedDevice.Pin?.split("|").map(pin => pin.match(/\d+/)?.[0] ?? "").join(" | ") ?? null
-    return deviceName ? `${deviceName}: ${subIndex ?? ""}${pins ?? ""}` : "-"
-  }
+  const deviceNames = deviceName?.split("|").map((name) => name.trim())
 
   if (isEmpty(deviceName)) {
     if (deviceType === "InputAction") {
-      return "Input Action"
+      return ["Input Action"]
     }
-    return "-"
+    return ["-"]
   }
-  
-  return deviceName
+
+  return deviceNames
 }
 
-function ConfigItemTableDeviceCell({
-  row,
-}: ConfigItemTableDeviceCellProps) {
-    const { t } = useTranslation()
-    const { JoystickDefinitions, MidiControllerDefinitions } = useControllerDefinitionsStore()
-    const item = row.original as IConfigItem
-    const Status = item.Status
-    const Device = Status && !isEmpty(Status["Device"])
+function DetermineSubIndices(item: IConfigItem): string[] {
+  const extendedDevice = item.Device as ExtendedDeviceConfig
+  const subIndex =
+    extendedDevice?.SubIndex != null ? `${extendedDevice.SubIndex}` : null
+  const firstName =
+    ((item.Device as IDeviceConfig)?.Name ?? item.DeviceName)?.split("|")[0] ??
+    ""
 
-    const controllerName = item.Controller?.Name ?? ""
+  const pins = extendedDevice?.Pin?.split("|")
+  const pinLabels =
+    item.Device?.Type == "ShiftRegister"
+      ? pins?.map((pin) => pin.match(/\d+/)?.[0] ?? "")
+      : (pins?.length ?? 0) > 0
+        ? pins?.filter((pin) => pin != firstName)
+        : []
+  return [...(pinLabels ?? []), ...(subIndex ?? [])].filter(
+    (index) => index != null,
+  )
+}
 
-    const joystickDefinition = JoystickDefinitions.find(
-      (i) => i.InstanceName == controllerName,
-    )
+function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
+  const { t } = useTranslation()
+  const { JoystickDefinitions, MidiControllerDefinitions } =
+    useControllerDefinitionsStore()
+  const item = row.original as IConfigItem
+  const Status = item.Status
+  const Device = Status && !isEmpty(Status["Device"])
 
-    const midiControllerDefinition = MidiControllerDefinitions.find(
-      (i) => i.InstanceName == controllerName,
-    )
+  const controllerName = item.Controller?.Name ?? ""
 
-    const deviceName = DetermineDeviceName(item)
+  const joystickDefinition = JoystickDefinitions.find(
+    (i) => i.InstanceName == controllerName,
+  )
 
-    const deviceType =
-      (item.Device as IDeviceConfig)?.Type ??
-      (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
+  const midiControllerDefinition = MidiControllerDefinitions.find(
+    (i) => i.InstanceName == controllerName,
+  )
 
-    const icon = (
-      <DeviceIcon
-        disabled={!item.Active}
-        variant={(deviceType ?? "default") as DeviceElementType}
-      />
-    )
-    const mappedLabel = 
-      joystickDefinition != null
-        ? (mapJoystickDeviceNameToLabel(joystickDefinition, deviceName) ?? deviceName)
-        : 
-      midiControllerDefinition != null 
-      ? (midiControllerDefinition.ProcessedLabels?.[deviceName] ?? deviceName)
-      : deviceName
+  const deviceNames = DetermineDeviceName(item)
+  const deviceName = deviceNames[0]
+  const subIndices = DetermineSubIndices(item)
 
+  const deviceType =
+    (item.Device as IDeviceConfig)?.Type ??
+    (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
 
-    const statusIcon = Device ? (
-      <StackedIcons
-        bottomIcon={icon}
-        topIcon={
-          <IconX aria-label="Device" role="status" aria-disabled="false" />
-        }
-      />
-    ) : (
-      icon
-    )
-    const typeLabel = t(
-      `Types.${deviceType?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
-    )
+  const icon = (
+    <DeviceIcon
+      disabled={!item.Active}
+      variant={(deviceType ?? "default") as DeviceElementType}
+    />
+  )
+  const mappedLabel =
+    joystickDefinition != null
+      ? (mapJoystickDeviceNameToLabel(joystickDefinition, deviceName) ??
+        deviceName)
+      : midiControllerDefinition != null
+        ? (midiControllerDefinition.ProcessedLabels?.[deviceName] ?? deviceName)
+        : deviceName
 
-    const tooltipLabel = Device
-      ? t(`ConfigList.Status.Device.${Status["Device"]}`)
-      : typeLabel
+  const statusIcon = Device ? (
+    <StackedIcons
+      bottomIcon={icon}
+      topIcon={
+        <IconX aria-label="Device" role="status" aria-disabled="false" />
+      }
+    />
+  ) : (
+    icon
+  )
+  const typeLabel = t(
+    `Types.${deviceType?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
+  )
 
-    return deviceType != "-" ? (
-      <ToolTip content={tooltipLabel}>
-        <div className="flex flex-row items-center gap-2">
-          {statusIcon}
-          <span className="text-md hidden truncate lg:inline">
-            {mappedLabel}
-          </span>
+  const tooltipLabel = Device
+    ? t(`ConfigList.Status.Device.${Status["Device"]}`)
+    : typeLabel
+
+  return deviceType != "-" ? (
+    <ToolTip content={tooltipLabel}>
+      <div className="flex flex-row items-center gap-2">
+        {statusIcon}
+        <div className="hidden flex-col lg:flex">
+          <div className="flex flex-row items-center gap-2">{mappedLabel}</div>
+          {subIndices.length > 0 && (
+            <div className="flex flex-row items-center gap-2 truncate text-xs text-slate-400">
+              {subIndices.filter((index) => index != null).join(", ")}
+            </div>
+          )}
         </div>
-      </ToolTip>
-    ) : (
-      <ToolTip content={t("ConfigList.Cell.Device.not set")}>
-        <div className="flex flex-row items-center gap-2 text-slate-400">
-          <IconBan />
-          <span className="hidden lg:inline">not set</span>
-        </div>
-      </ToolTip>
-    )
+      </div>
+    </ToolTip>
+  ) : (
+    <ToolTip content={t("ConfigList.Cell.Device.not set")}>
+      <div className="flex flex-row items-center gap-2 text-slate-400">
+        <IconBan />
+        <span className="hidden lg:inline">not set</span>
+      </div>
+    </ToolTip>
+  )
 }
 
 export default ConfigItemTableDeviceCell
