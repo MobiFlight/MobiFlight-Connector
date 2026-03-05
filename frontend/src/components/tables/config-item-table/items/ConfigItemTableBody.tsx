@@ -77,12 +77,10 @@ const ConfigItemTableBody = forwardRef<
               : ""
           return (
             <RowInteractionProvider key={row.id}>
-              <ContextMenu>
-                <ContextMenuTrigger asChild>
               <DndTableRow
                 className={dragClassName}
                 data-state={row.getIsSelected() && "selected"}
-                dnd-itemid={row.id} 
+                dnd-itemid={row.id}
                 onContextMenu={(e) => {
                   e.stopPropagation()
                   table.setRowSelection({ [row.id]: true })
@@ -139,21 +137,26 @@ const ConfigItemTableBody = forwardRef<
                     )?.cellClassName ?? ""
 
                   return (
-                    <TableCell
-                      key={cell.id}
-                      className={cn("p-0", className, cellClassName)}
-                    >
-                      {flexRender(cell.column.columnDef.cell, {
-                        ...cell.getContext(),
-                        selectedRows: selectedRows,
-                      })}
-                    </TableCell>
+                    <ContextMenu>
+                      <ContextMenuTrigger asChild>
+                        <TableCell
+                          key={cell.id}
+                          className={cn("p-0", className, cellClassName)}
+                        >
+                          {flexRender(cell.column.columnDef.cell, {
+                            ...cell.getContext(),
+                            selectedRows: selectedRows,
+                          })}
+                        </TableCell>
+                      </ContextMenuTrigger>
+                      <ConfigItemRowContextMenu
+                        item={row.original}
+                        variant="context"
+                      />
+                    </ContextMenu>
                   )
                 })}
               </DndTableRow>
-                </ContextMenuTrigger>
-                <ConfigItemRowContextMenu item={row.original} variant="context" />
-              </ContextMenu>
             </RowInteractionProvider>
           )
         })}
