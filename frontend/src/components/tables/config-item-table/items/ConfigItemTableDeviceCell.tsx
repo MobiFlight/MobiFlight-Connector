@@ -115,10 +115,10 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
     <ToolTip content={tooltipLabel}>
       <div className="flex flex-row items-center gap-2">
         {statusIcon}
-        <div className="hidden flex-col lg:flex">
-          <div className="flex flex-row items-center gap-2">{mappedLabel}</div>
+        <div className="hidden flex-col lg:flex truncate">
+          <div className="max-w-full inline-block truncate" data-testid="device-name">{mappedLabel}</div>
           {subIndices.length > 0 && (
-            <div className="flex flex-row items-center gap-2 truncate text-xs text-slate-400">
+            <div className="flex flex-row items-center gap-2 truncate text-xs text-slate-400" data-testid="device-sub-index">
               {subIndices.filter((index) => index != null).join(", ")}
             </div>
           )}

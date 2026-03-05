@@ -40,7 +40,7 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
   return (
     <InlineEditLabel
           ref={inlineEditRef}
-          labelClassName="truncate group-[.is-first-drag-item]/row:hidden py-1"
+          labelClassName="max-w-full inline-block truncate group-[.is-first-drag-item]/row:hidden py-1"
           inputClassName="py-0"
           value={label}
           onSave={saveChanges}
