@@ -25,7 +25,7 @@ namespace MobiFlight.Base.Serialization.Json.Tests
                 typeof(SimConnectSource),
                 typeof(VariableSource),
                 typeof(XplaneSource),
-                typeof(FsuipcSource),
+                typeof(FsuipcSource)
             };
         }
 
@@ -81,6 +81,20 @@ namespace MobiFlight.Base.Serialization.Json.Tests
                 var deserialized = JsonConvert.DeserializeObject<Source>(json, _serializerSettings);
                 Assert.AreEqual(original, deserialized);
             }
+        }
+
+        [TestMethod()]
+        public void ReadJsonTest_NullSource_ReturnsNull()
+        {
+            // Arrange
+            Source original = null;
+            var json = JsonConvert.SerializeObject(original, _serializerSettings);
+
+            // Act
+            var deserialized = JsonConvert.DeserializeObject<Source>(json, _serializerSettings);
+
+            // Assert
+            Assert.IsNull(deserialized, "Deserializing null JSON should return null");
         }
     }
 }
