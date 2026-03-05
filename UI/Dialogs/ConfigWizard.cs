@@ -375,9 +375,12 @@ namespace MobiFlight.UI.Dialogs
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
+            // config.source can be null if project has not defined any sim.
+            // at this point we would at least show the source "variable"
+            // since this source type doesn't rely on a sim
+            OffsetTypeVariableRadioButton.Checked = (config.Source is VariableSource) || config.Source == null;
             OffsetTypeFsuipRadioButton.Checked = (config.Source is FsuipcSource);
             OffsetTypeSimConnectRadioButton.Checked = (config.Source is SimConnectSource);
-            OffsetTypeVariableRadioButton.Checked = (config.Source is VariableSource);
             OffsetTypeXplaneRadioButton.Checked = (config.Source is XplaneSource);
             OffsetTypeProSimRadioButton.Checked = (config.Source is ProSimSource);
 
