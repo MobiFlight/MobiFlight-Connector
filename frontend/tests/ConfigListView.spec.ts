@@ -1,6 +1,5 @@
 import { test, expect } from "./fixtures"
 import { ConfigFile, IConfigItem, Project } from "../src/types"
-import { ExtendedDeviceConfig } from "../src/types/config"
 
 test.describe("Confirm content and basic functions are working", () => {
   test("Confirm empty list view", async ({ configListPage, page }) => {
