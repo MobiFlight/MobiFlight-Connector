@@ -461,6 +461,24 @@ test.describe("Project settings modal features", () => {
     await expect(editProjectDialog).toBeVisible()
   })
 
+  test("Ensure browser suggestions are disabled for project name", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+
+    const createProjectButton = page.getByRole("button", { name: "Project" })
+    const createProjectDialog = page.getByRole("dialog", {
+      name: "Create New Project",
+    })
+    const projectNameInput = createProjectDialog.getByLabel("Project Name")
+
+    // open settings modal
+    await createProjectButton.click()
+    
+    await expect(projectNameInput).toHaveAttribute("autocomplete", "off")
+  })
+
   test("Using [space] and [del] work when on top of config list view", async ({
     configListPage,
     page,
