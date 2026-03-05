@@ -21,15 +21,15 @@ interface ConfigItemTableDeviceCellProps {
 function DetermineDeviceName(item: IConfigItem): string[] {
   const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
   const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
-  const deviceNames = deviceName?.split("|").map((name) => name.trim())
-
-  if (isEmpty(deviceName)) {
+  
+  if (!deviceName || isEmpty(deviceName)) {
     if (deviceType === "InputAction") {
       return ["Input Action"]
     }
     return ["-"]
   }
-
+  
+  const deviceNames = deviceName.split("|").map((name) => name.trim())
   return deviceNames
 }
 
@@ -48,7 +48,7 @@ function DetermineSubIndices(item: IConfigItem): string[] {
       : (pins?.length ?? 0) > 0
         ? pins?.filter((pin) => pin != firstName)
         : []
-  return [...(pinLabels ?? []), ...(subIndex ?? [])].filter(
+  return [...(pinLabels ?? []), ...(subIndex ? [subIndex] : [])].filter(
     (index) => index != null,
   )
 }

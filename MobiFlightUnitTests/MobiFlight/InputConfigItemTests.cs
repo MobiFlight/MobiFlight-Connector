@@ -56,6 +56,9 @@ namespace MobiFlight.Tests
             Assert.IsInstanceOfType(o.Device, typeof(MobiFlight.InputConfig.Button));
             Assert.AreEqual("TestName", o.Device.Name);
         }
+
+
+        [TestMethod()]
         public void ReadXmlTest_WithEncoder_DeserializeCorrectly()
         {
 
@@ -83,6 +86,7 @@ namespace MobiFlight.Tests
             Assert.HasCount(0, o.ConfigRefs, "ConfigRefs.Count is not 2");
         }
 
+        [TestMethod()]
         public void ReadXmlTest_WithInputShiftRegister_DeserializeCorrectly()
         {
             var o = new InputConfigItem();
@@ -98,18 +102,19 @@ namespace MobiFlight.Tests
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
             Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
-            Assert.AreEqual("Button", o.DeviceType, "Type not the same");
-            Assert.IsNull(o.inputShiftRegister.onPress, "button onpress not null");
-            Assert.IsNotNull(o.inputShiftRegister.onRelease, "button onRelease is null");
+            Assert.AreEqual("InputShiftRegister", o.DeviceType, "Type not the same");
+            Assert.IsNull(o.inputShiftRegister.onPress, "Input Shift Register onpress not null");
+            Assert.IsNotNull(o.inputShiftRegister.onRelease, "Input Shift Register onRelease is null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
 
             Assert.IsNotNull(o.Device, "Device should not be null after ReadXml");
             var device = o.Device as MobiFlight.InputConfig.InputShiftRegister;
             Assert.IsNotNull(device, "Device should be of type InputShiftRegister");
             Assert.AreEqual("TestName", device.Name);
-            Assert.AreEqual(o.inputShiftRegister.ExtPin, device.SubIndex, "ExtPin should match inputShiftRegister.ExtPin");
+            Assert.AreEqual(device.SubIndex, o.inputShiftRegister.ExtPin, "SubIndex should match inputShiftRegister.ExtPin");
         }
 
+        [TestMethod()]
         public void ReadXmlTest_WithInputMultiplexer_DeserializeCorrectly()
         {
             var o = new InputConfigItem();
@@ -125,7 +130,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
             Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
-            Assert.AreEqual("Button", o.DeviceType, "Type not the same");
+            Assert.AreEqual("InputMultiplexer", o.DeviceType, "Type not the same");
             Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -134,9 +139,10 @@ namespace MobiFlight.Tests
             var device = o.Device as MobiFlight.InputConfig.InputMultiplexer;
             Assert.IsNotNull(device, "Device should be of type InputMultiplexer");
             Assert.AreEqual("TestName", device.Name);
-            Assert.AreEqual(o.inputMultiplexer.DataPin, device.SubIndex, "DataPin should match inputMultiplexer.DataPin");
+            Assert.AreEqual(device.SubIndex, o.inputMultiplexer.DataPin, "SubIndex should match inputMultiplexer.DataPin");
         }
 
+        [TestMethod()]
         public void ReadXmlTest_RegressionIssue860_DeserializeCorrectly()
         {
             var o = new InputConfigItem();
