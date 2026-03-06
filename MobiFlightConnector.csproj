@@ -403,6 +403,10 @@
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joysticks\AuthentiKit\AuthentiKit.cs" />
     <Compile Include="MobiFlight\Joysticks\AuthentiKit\AuthentiKitReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836A.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836X.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836AReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836XReport.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
@@ -1292,6 +1296,8 @@
     <None Include="Joysticks\bodnar\authentikit.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\bodnar\BU0836A.joystick.json" />
+    <None Include="Joysticks\bodnar\BU0836X.joystick.json" />
     <None Include="Joysticks\vkbsim\s_tecs_modern_throttle_max.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

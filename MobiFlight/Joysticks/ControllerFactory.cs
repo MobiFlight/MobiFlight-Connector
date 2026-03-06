@@ -1,10 +1,6 @@
-using MobiFlight.Joysticks.AuthentiKit;
-using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.VKB;
 using MobiFlight.Joysticks.Winwing;
 using SharpDX.DirectInput;
-using System;
-using System.Linq;
 using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks
@@ -40,7 +36,12 @@ namespace MobiFlight.Joysticks
             }
 
             // Check for AuthentiKit
-            if (instanceName.Trim().Contains("AuthentiKit") || instanceName.Trim().Contains("BU0836"))
+            if (instanceName.Trim().Contains("AuthentiKit"))
+            {
+                return true;
+            }
+
+            if (instanceName.Trim().Contains("BU0836"))
             {
                 return true;
             }
@@ -103,9 +104,19 @@ namespace MobiFlight.Joysticks
             }
 
             // Handle AuthentiKit by instance name
-            if (instanceName.Trim().Contains("AuthentiKit") || instanceName.Trim().Contains("BU0836"))
+            if (instanceName.Trim().Contains("AuthentiKit"))
             {
                 return new AuthentiKit.AuthentiKit(diJoystick, definition);
+            }
+
+            if (instanceName.Trim().Contains("BU0836X"))
+            {
+                return new Bodnar.BU0836X(diJoystick, definition);
+            }
+
+            if (instanceName.Trim().Contains("BU0836A"))
+            {
+                return new Bodnar.BU0836A(diJoystick, definition);
             }
 
             // Return null to indicate this should be handled as a standard Joystick

@@ -1,0 +1,6 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "BU0836A Interface",
+  "VendorId": "0x16C0",
+  "ProductId": "0x05BA"
+}
