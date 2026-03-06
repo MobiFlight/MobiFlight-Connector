@@ -1427,15 +1427,43 @@ test.describe("Confirm context menu actions are working", () => {
 
     const firstRow = page.getByRole("row").nth(1)
 
-    await firstRow.click({ button: "right" })
-    const contextMenu = page.getByTestId("config-item-context-menu")
-    await expect(contextMenu).toBeVisible()
+    const menuOptions = [
+      { label: "Edit", command: true },
+      { label: "Rename", command: false },
+      { label: "Delete", command: true },
+      { label: "Duplicate", command: true },
+      { label: "Test", command: true },
+    ]
 
-    const menuOptions = ["Edit", "Rename", "Delete", "Duplicate", "Test"]
-    for (const option of menuOptions) {
-      await expect(
-        contextMenu.getByRole("menuitem", { name: option }),
-      ).toBeVisible()
+    configListPage.mobiFlightPage.trackCommand(`CommandConfigContextMenu`)
+
+    for (const { label, command } of menuOptions) {
+      await firstRow.click({ button: "right" })
+      const contextMenu = page.getByTestId("config-item-context-menu")
+      await expect(contextMenu).toBeVisible()
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).not.toBeVisible()
+      }
+
+      const menuItem = contextMenu.getByRole("menuitem", { name: label })
+      await expect(menuItem).toBeVisible()
+
+      await menuItem.click()
+
+      if (command) {
+        const postedCommands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        const lastCommand = postedCommands!.pop()
+        expect(lastCommand.key).toEqual("CommandConfigContextMenu")
+        expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+      }
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).toBeVisible()
+      }
     }
   })
 

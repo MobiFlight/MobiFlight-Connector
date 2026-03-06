@@ -134,19 +134,29 @@ const ConfigItemTableBody = forwardRef<
                         cellClassName: string
                       }
                     )?.cellClassName ?? ""
+                    
+                  
+                  const isActionsCell = cell.column.id === "actions"
+                  
+                  const cellContent = (
+                    <TableCell className={cn("p-0", className, cellClassName)} key={isActionsCell ? cell.id : undefined}>
+                      {flexRender(cell.column.columnDef.cell, {
+                        ...cell.getContext(),
+                        selectedRows: selectedRows,
+                      })}
+                    </TableCell>
+                  )
+
+                  if (isActionsCell) {
+                    // Dont wrap the actions cell in a context menu
+                    // to avoid nesting issues with the edit button
+                    return cellContent
+                  }
 
                   return (
-                    <ContextMenu>
+                    <ContextMenu key={cell.id}>
                       <ContextMenuTrigger asChild>
-                        <TableCell
-                          key={cell.id}
-                          className={cn("p-0", className, cellClassName)}
-                        >
-                          {flexRender(cell.column.columnDef.cell, {
-                            ...cell.getContext(),
-                            selectedRows: selectedRows,
-                          })}
-                        </TableCell>
+                        {cellContent}
                       </ContextMenuTrigger>
                       <ConfigItemRowContextMenu
                         item={row.original}

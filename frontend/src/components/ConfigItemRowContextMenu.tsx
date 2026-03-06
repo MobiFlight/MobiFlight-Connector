@@ -54,7 +54,11 @@ function MenuItems({
         </div>
       </Item>
       <Separator />
-      <Item onClick={() => startNameEdit?.()}>
+      {/* 
+          using setTimeout makes sure the context menu closes before starting the edit, 
+          otherwise the input won't receive focus sometimes 
+       */}
+      <Item onClick={() => setTimeout(() => startNameEdit?.(), 0)}>
         <div className="flex items-center gap-2 [&_svg]:size-4">
           <IconPencil />
           <span>Rename</span>
@@ -130,6 +134,8 @@ const ConfigItemRowContextMenu = ({
     <DropdownMenuContent
       align="end"
       data-testid="config-item-context-menu"
+      // Prevent setting focus 
+      onCloseAutoFocus={(e) => e.preventDefault()}
     >
       <MenuItems
         item={item}
