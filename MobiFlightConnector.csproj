@@ -1296,8 +1296,12 @@
     <None Include="Joysticks\bodnar\authentikit.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Joysticks\bodnar\BU0836A.joystick.json" />
-    <None Include="Joysticks\bodnar\BU0836X.joystick.json" />
+    <None Include="Joysticks\bodnar\BU0836A.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\bodnar\BU0836X.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\vkbsim\s_tecs_modern_throttle_max.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
