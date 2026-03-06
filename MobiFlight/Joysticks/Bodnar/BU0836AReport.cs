@@ -6,7 +6,7 @@ namespace MobiFlight.Joysticks.Bodnar
 {
     public class BU0836AReport
     {
-        private byte[] LastInputBufferState = new byte[7];
+        private byte[] LastInputBufferState = new byte[5];
 
         public void CopyFromInputBuffer(byte[] inputBuffer)
         {
