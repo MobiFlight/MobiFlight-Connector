@@ -40,22 +40,65 @@ function MenuItems({
   return (
     <>
       <Label>Actions</Label>
-      <Item onClick={() => publish({ key: "CommandConfigContextMenu", payload: { action: "edit", item } } as CommandConfigContextMenu)}>
-        <div className="flex items-center gap-2 [&_svg]:size-4"><IconEdit /><span>Edit</span></div>
+      <Item
+        onClick={() =>
+          publish({
+            key: "CommandConfigContextMenu",
+            payload: { action: "edit", item },
+          } as CommandConfigContextMenu)
+        }
+      >
+        <div className="flex items-center gap-2 [&_svg]:size-4">
+          <IconEdit />
+          <span>Edit</span>
+        </div>
       </Item>
       <Separator />
       <Item onClick={() => startNameEdit?.()}>
-        <div className="flex items-center gap-2 [&_svg]:size-4"><IconPencil /><span>Rename</span></div>
+        <div className="flex items-center gap-2 [&_svg]:size-4">
+          <IconPencil />
+          <span>Rename</span>
+        </div>
       </Item>
-      <Item onClick={() => publish({ key: "CommandConfigContextMenu", payload: { action: "delete", item } } as CommandConfigContextMenu)}>
-        <div className="flex items-center gap-2 [&_svg]:size-4"><IconTrash /><span>Delete</span></div>
+      <Item
+        onClick={() =>
+          publish({
+            key: "CommandConfigContextMenu",
+            payload: { action: "delete", item },
+          } as CommandConfigContextMenu)
+        }
+      >
+        <div className="flex items-center gap-2 [&_svg]:size-4">
+          <IconTrash />
+          <span>Delete</span>
+        </div>
       </Item>
-      <Item onClick={() => publish({ key: "CommandConfigContextMenu", payload: { action: "duplicate", item } } as CommandConfigContextMenu)}>
-        <div className="flex items-center gap-2 [&_svg]:size-4"><IconCopy /><span>Duplicate</span></div>
+      <Item
+        onClick={() =>
+          publish({
+            key: "CommandConfigContextMenu",
+            payload: { action: "duplicate", item },
+          } as CommandConfigContextMenu)
+        }
+      >
+        <div className="flex items-center gap-2 [&_svg]:size-4">
+          <IconCopy />
+          <span>Duplicate</span>
+        </div>
       </Item>
       <Separator />
-      <Item onClick={() => publish({ key: "CommandConfigContextMenu", payload: { action: "test", item } } as CommandConfigContextMenu)}>
-        <div className="flex items-center gap-2 [&_svg]:size-4"><IconFlask /><span>Test</span></div>
+      <Item
+        onClick={() =>
+          publish({
+            key: "CommandConfigContextMenu",
+            payload: { action: "test", item },
+          } as CommandConfigContextMenu)
+        }
+      >
+        <div className="flex items-center gap-2 [&_svg]:size-4">
+          <IconFlask />
+          <span>Test</span>
+        </div>
       </Item>
     </>
   )
@@ -72,7 +115,7 @@ const ConfigItemRowContextMenu = ({
 }: ConfigItemRowContextMenuProps) => {
   if (variant === "context") {
     return (
-      <ContextMenuContent>
+      <ContextMenuContent data-testid="config-item-context-menu">
         <MenuItems
           item={item}
           Item={ContextMenuItem}
@@ -84,7 +127,10 @@ const ConfigItemRowContextMenu = ({
   }
 
   return (
-    <DropdownMenuContent align="end">
+    <DropdownMenuContent
+      align="end"
+      data-testid="config-item-context-menu"
+    >
       <MenuItems
         item={item}
         Item={DropdownMenuItem}

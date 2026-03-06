@@ -546,8 +546,8 @@ test.describe("Drag and drop tests", () => {
 
     const nameCellLabel = "7-Segment"
     const row = page.getByRole("row", { name: nameCellLabel }).first()
-    const nameCell = row.getByText(nameCellLabel).first() 
-    
+    const nameCell = row.getByText(nameCellLabel).first()
+
     // Click on the text span to enter edit mode
     await nameCell.dblclick()
 
@@ -561,7 +561,7 @@ test.describe("Drag and drop tests", () => {
       .first()
 
     // Start the drag inside the inline edit textbox
-    // this should not trigger drag n drop 
+    // this should not trigger drag n drop
     // and the item should not move
     await inlineEdit.hover()
     await page.mouse.down()
@@ -573,7 +573,7 @@ test.describe("Drag and drop tests", () => {
       await configListPage.mobiFlightPage.getTrackedCommands()
 
     // No commands should have been posted
-    expect(postedCommands).toBeUndefined() 
+    expect(postedCommands).toBeUndefined()
   })
 })
 
@@ -1412,5 +1412,83 @@ test.describe("Selection: Select / Deselect actions", () => {
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandConfigBulkAction")
     expect(lastCommand.payload.action).toEqual("toggle")
+  })
+})
+
+test.describe("Confirm context menu actions are working", () => {
+  test.use({ viewport: { width: 1024, height: 800 } })
+  test("Confirm context menu shows on right click", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+
+    await firstRow.click({ button: "right" })
+    const contextMenu = page.getByTestId("config-item-context-menu")
+    await expect(contextMenu).toBeVisible()
+
+    const menuOptions = ["Edit", "Rename", "Delete", "Duplicate", "Test"]
+    for (const option of menuOptions) {
+      await expect(
+        contextMenu.getByRole("menuitem", { name: option }),
+      ).toBeVisible()
+    }
+  })
+
+  test("Confirm context menu shows on button click", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const contextMenuButton = firstRow
+      .getByRole("button", { name: "Open menu" })
+      .first()
+
+    const menuOptions = [
+      { label: "Edit", command: true },
+      { label: "Rename", command: false },
+      { label: "Delete", command: true },
+      { label: "Duplicate", command: true },
+      { label: "Test", command: true },
+    ]
+
+    configListPage.mobiFlightPage.trackCommand(`CommandConfigContextMenu`)
+
+    for (const { label, command } of menuOptions) {
+      await contextMenuButton.click()
+      const contextMenu = page.getByTestId("config-item-context-menu")
+      await expect(contextMenu).toBeVisible()
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).not.toBeVisible()
+      }
+
+      const menuItem = contextMenu.getByRole("menuitem", { name: label })
+      await expect(menuItem).toBeVisible()
+
+      await menuItem.click()
+
+      if (command) {
+        const postedCommands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        const lastCommand = postedCommands!.pop()
+        expect(lastCommand.key).toEqual("CommandConfigContextMenu")
+        expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+      }
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).toBeVisible()
+      }
+    }
   })
 })

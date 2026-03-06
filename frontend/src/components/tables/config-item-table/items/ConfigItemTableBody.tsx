@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils"
 import { useState, useEffect, forwardRef } from "react"
 import { RowInteractionProvider } from "../RowInteractionContext"
 import { IConfigItem } from "@/types"
-import { ContextMenu } from "@/components/ui/context-menu"
-import { ContextMenuTrigger } from "@radix-ui/react-context-menu"
+import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import ConfigItemRowContextMenu from "@/components/ConfigItemRowContextMenu"
 
 interface ConfigItemTableBodyProps<TData> {
