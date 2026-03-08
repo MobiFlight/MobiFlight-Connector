@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Joysticks.Bodnar;
 using System;
 using System.Collections.Generic;
 
@@ -7,12 +8,12 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
     [TestClass]
     public class AuthentiKitReportTests
     {
-        private AuthentiKitReport _report;
+        private BodnarReport _report;
 
         [TestInitialize]
         public void SetUp()
         {
-            _report = new AuthentiKitReport();
+            _report = new BodnarReport(12, BodnarReport.REPORT_LENGTH_BU0836A);
         }
 
         #region Parse Tests
@@ -29,7 +30,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreNotSame(_report, result);
-            Assert.IsInstanceOfType(result, typeof(AuthentiKitReport));
+            Assert.IsInstanceOfType(result, typeof(BodnarReport));
         }
 
         [TestMethod]
@@ -292,7 +293,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 12);
+            var state = report.ToJoystickState(axes);
 
             // Assert
             Assert.IsTrue(state.Buttons[0], "Button 0 should be pressed");
@@ -313,7 +314,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 12);
+            var state = report.ToJoystickState(axes);
 
             // Assert
             Assert.IsTrue(state.Buttons[0], "Button 0 should be pressed");
@@ -336,7 +337,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 12);
+            var state = report.ToJoystickState(axes);
 
             // Assert
             for (int i = 0; i < 12; i++)
@@ -360,7 +361,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 12);
+            var state = report.ToJoystickState(axes);
 
             // Assert
             Assert.IsFalse(state.Buttons[6], "Button 6 should not be pressed");
@@ -381,7 +382,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 12);
+            var state = report.ToJoystickState(axes);
 
             // Assert
             for (int i = 0; i < 12; i++)
@@ -408,7 +409,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 12);
+            var state = report.ToJoystickState(axes);
 
             // Assert
             Assert.AreEqual(0xFFF0, state.X, "Axis X value incorrect");
@@ -433,7 +434,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 12);
+            var state = report.ToJoystickState(axes);
 
             // Assert
             Assert.AreEqual(0x7800, state.X);
@@ -512,7 +513,7 @@ namespace MobiFlight.Joysticks.AuthentiKit.Tests
 
             // Act
             var report = _report.Parse(inputBuffer);
-            var state = report.ToJoystickState(axes, ButtonCount: 8);
+            var state = report.ToJoystickState(axes);
 
             // Assert - First byte contains buttons
             for (int i = 0; i < 8; i++)

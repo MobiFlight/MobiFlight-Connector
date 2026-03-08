@@ -31,7 +31,7 @@ namespace MobiFlight.Joysticks.Bodnar
         /// <summary>
         /// The report implementation.
         /// </summary>
-        private readonly BU0836AReport report = new BU0836AReport();
+        private readonly BodnarReport report = new BodnarReport(buttonCount: 12, expectedBufferLength: BodnarReport.REPORT_LENGTH_BU0836A);
 
         /// <summary>
         /// Provide same instance name as defined in the definition file.

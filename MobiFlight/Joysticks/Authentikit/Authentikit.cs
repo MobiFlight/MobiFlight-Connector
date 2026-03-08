@@ -1,12 +1,4 @@
-﻿using Device.Net;
-using Hid.Net;
-using Hid.Net.Windows;
-using MobiFlight.Joysticks.Bodnar;
-using SharpDX.DirectInput;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using MobiFlight.Joysticks.Bodnar;
 
 namespace MobiFlight.Joysticks.AuthentiKit
 {
