@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Joysticks.Bodnar;
 using System;
 using System.Collections.Generic;
 
-namespace MobiFlight.Joysticks.AuthentiKit.Tests
+namespace MobiFlight.Joysticks.Bodnar.Tests
 {
     [TestClass]
-    public class AuthentiKitReportTests
+    public class BodnarReportTests
     {
         private BodnarReport _report;
 

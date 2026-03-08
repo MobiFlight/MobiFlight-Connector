@@ -262,7 +262,7 @@
     <Compile Include="MobiFlight\ExecutionManagerTests.cs" />
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
     <Compile Include="MobiFlight\InputEventArgsTests.cs" />
-    <Compile Include="MobiFlight\Joysticks\Authentikit\AuthentiKitReportTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactoryTests.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactoryTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionMigratorTests.cs" />
