@@ -49,5 +49,28 @@ namespace MobiFlight.Tests
             // Assert
             Assert.AreEqual("Button 18", label);
         }
+
+        [TestMethod()]
+        public void MapDeviceNameToLabel_WhenInputsIsNotInitialized_ReturnsDeviceName()
+        {
+            var joystickDefinition = new JoystickDefinition();
+
+            var label = joystickDefinition.MapDeviceNameToLabel("Button 1");
+
+            Assert.AreEqual("Button 1", label);
+        }
+
+        [TestMethod()]
+        public void FindInputByName_WhenInputsIsNotInitialized_ReturnsNull()
+        {
+            var joystickDefinition = new JoystickDefinition
+            {
+                Inputs = null
+            };
+
+            var result = joystickDefinition.FindInputByName("Button 1");
+
+            Assert.IsNull(result);
+        }
     }
 }
