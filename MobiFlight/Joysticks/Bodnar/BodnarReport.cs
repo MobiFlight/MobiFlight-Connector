@@ -22,7 +22,7 @@ namespace MobiFlight.Joysticks.Bodnar
 
         public void CopyFromInputBuffer(byte[] inputBuffer)
         {
-            if (inputBuffer == null || inputBuffer.Length != _expectedBufferLength)
+            if (inputBuffer == null || inputBuffer.Length < _expectedBufferLength)
             {
                 throw new ArgumentException(
                     $"Unexpected buffer length. Expected {_expectedBufferLength}, got {inputBuffer?.Length ?? 0}");
