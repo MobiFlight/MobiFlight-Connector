@@ -116,9 +116,10 @@ namespace MobiFlight.Joysticks.Bodnar
                     var data = HidReport.TransferResult.Data;
                     ProcessInputReportBuffer(HidReport.ReportId, data);
                 }
-                catch
+                catch(Exception ex)
                 {
                     // Exception when disconnecting while mobiflight is running.
+                    Log.Instance.log($"{Name} disconnected because of exception: {ex}", LogSeverity.Error);
                     Shutdown();
                     break;
                 }
