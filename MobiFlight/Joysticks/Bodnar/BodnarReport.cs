@@ -6,33 +6,26 @@ namespace MobiFlight.Joysticks.Bodnar
 {
     public class BodnarReport
     {
-        public const int REPORT_LENGTH_BU0836A = 5;
-        public const int REPORT_LENGTH_BU0836X = 7;
-
         private readonly int _buttonCount;
-        private readonly int _expectedBufferLength;
         private byte[] _lastInputBuffer;
 
-        public BodnarReport(int buttonCount, int expectedBufferLength)
+        public BodnarReport(int buttonCount)
         {
             _buttonCount = buttonCount;
-            _expectedBufferLength = expectedBufferLength;
-            _lastInputBuffer = new byte[expectedBufferLength];
+            _lastInputBuffer = Array.Empty<byte>();
         }
 
         public void CopyFromInputBuffer(byte[] inputBuffer)
         {
-            if (inputBuffer == null || inputBuffer.Length < _expectedBufferLength)
-            {
-                throw new ArgumentException(
-                    $"Unexpected buffer length. Expected {_expectedBufferLength}, got {inputBuffer?.Length ?? 0}");
-            }
+            if (inputBuffer == null)
+                throw new ArgumentNullException(nameof(inputBuffer));
+
             _lastInputBuffer = (byte[])inputBuffer.Clone();
         }
 
         public BodnarReport Parse(byte[] inputBuffer)
         {
-            var result = new BodnarReport(_buttonCount, _expectedBufferLength);
+            var result = new BodnarReport(_buttonCount);
             result.CopyFromInputBuffer(inputBuffer);
             return result;
         }

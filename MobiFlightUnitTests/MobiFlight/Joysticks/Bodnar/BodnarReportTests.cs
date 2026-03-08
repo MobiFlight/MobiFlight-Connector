@@ -12,7 +12,7 @@ namespace MobiFlight.Joysticks.Bodnar.Tests
         [TestInitialize]
         public void SetUp()
         {
-            _report = new BodnarReport(12, BodnarReport.REPORT_LENGTH_BU0836A);
+            _report = new BodnarReport(12);
         }
 
         #region Parse Tests
@@ -33,33 +33,13 @@ namespace MobiFlight.Joysticks.Bodnar.Tests
         }
 
         [TestMethod]
-        public void Parse_NullInputBuffer_ThrowsArgumentException()
+        public void Parse_NullInputBuffer_ThrowsArgumentNullException()
         {
             // Arrange
             byte[] inputBuffer = null;
 
             // Act & Assert
-            Assert.ThrowsExactly<ArgumentException>(() => _report.Parse(inputBuffer));
-        }
-
-        [TestMethod]
-        public void Parse_EmptyInputBuffer_ThrowsArgumentException()
-        {
-            // Arrange
-            var inputBuffer = new byte[0];
-
-            // Act & Assert
-            Assert.ThrowsExactly<ArgumentException>(() => _report.Parse(inputBuffer));
-        }
-
-        [TestMethod]
-        public void Parse_InsufficientLengthInputBuffer_ThrowsArgumentException()
-        {
-            // Arrange
-            var inputBuffer = new byte[4]; // Expected 5 bytes minimum
-
-            // Act & Assert
-            Assert.ThrowsExactly<ArgumentException>(() => _report.Parse(inputBuffer));
+            Assert.ThrowsExactly<ArgumentNullException>(() => _report.Parse(inputBuffer));
         }
 
         #endregion
