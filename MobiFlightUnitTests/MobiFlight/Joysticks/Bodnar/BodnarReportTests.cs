@@ -42,6 +42,27 @@ namespace MobiFlight.Joysticks.Bodnar.Tests
             Assert.ThrowsExactly<ArgumentNullException>(() => _report.Parse(inputBuffer));
         }
 
+        [TestMethod]
+        public void Parse_EmptyInputBuffer_ReturnsDefaultState()
+        {
+            // Arrange - empty buffer is accepted after removing the minimum-length guard;
+            // parsing degrades gracefully and returns a zeroed JoystickState.
+            var inputBuffer = new byte[0];
+            var axes = new List<JoystickDevice>
+            {
+                new JoystickDevice { Name = "Axis X", Type = DeviceType.AnalogInput }
+            };
+
+            // Act
+            var result = _report.Parse(inputBuffer);
+            var state = result.ToJoystickState(axes);
+
+            // Assert
+            Assert.AreEqual(0, state.X);
+            for (int i = 0; i < 12; i++)
+                Assert.IsFalse(state.Buttons[i], $"Button {i} should not be pressed");
+        }
+
         #endregion
 
         #region ToJoystickState - Single Axis Tests
@@ -199,6 +220,24 @@ namespace MobiFlight.Joysticks.Bodnar.Tests
             var axes = new List<JoystickDevice>
             {
                 new JoystickDevice { Name = "Axis Slider2", Type = DeviceType.AnalogInput }
+            };
+
+            // Act
+            var report = _report.Parse(inputBuffer);
+            var state = report.ToJoystickState(axes);
+
+            // Assert
+            Assert.AreEqual(0x6660, state.Sliders[1]);
+        }
+
+        [TestMethod]
+        public void ToJoystickState_Slider2AlternateName_ParsesCorrectly()
+        {
+            // Arrange
+            var inputBuffer = new byte[5] { 0x66, 0x06, 0x00, 0x00, 0x00 }; // 0x0666 << 4 = 0x6660
+            var axes = new List<JoystickDevice>
+            {
+                new JoystickDevice { Name = "Slider2", Type = DeviceType.AnalogInput }
             };
 
             // Act
@@ -499,6 +538,26 @@ namespace MobiFlight.Joysticks.Bodnar.Tests
             {
                 Assert.IsTrue(state.Buttons[i], $"Button {i} should be pressed");
             }
+        }
+
+        [TestMethod]
+        public void ToJoystickState_ZeroButtonCount_AxisStillParsedAndNoButtonsSet()
+        {
+            // Arrange - BodnarReport(0) means the button loop is skipped entirely;
+            // axis data should still be parsed correctly.
+            var report = new BodnarReport(0);
+            var inputBuffer = new byte[5] { 0xFF, 0x0F, 0x00, 0x00, 0x00 };
+            var axes = new List<JoystickDevice>
+            {
+                new JoystickDevice { Name = "Axis X", Type = DeviceType.AnalogInput }
+            };
+
+            // Act
+            var result = report.Parse(inputBuffer);
+            var state = result.ToJoystickState(axes);
+
+            // Assert
+            Assert.AreEqual(0xFFF0, state.X, "Axis X should still be parsed with zero button count");
         }
 
         #endregion
