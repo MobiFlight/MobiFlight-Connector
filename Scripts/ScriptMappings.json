@@ -131,6 +131,18 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "microsoft-aircraft-ec135",
       "ScriptName": "microsoft_aircraft_ec135.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "md-82",
+      "ScriptName": "xplane_default_fmc.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "q100",
+      "ScriptName": "xplane_default_fmc.py"
     }
   ]
 }
