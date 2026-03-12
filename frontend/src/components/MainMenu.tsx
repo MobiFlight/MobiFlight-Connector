@@ -155,7 +155,6 @@ export const MainMenu = () => {
                 >
                   Re-install WASM Module
                 </MenubarItem>
-                {/* <MenubarItem>Open Community Folder</MenubarItem> */}
               </MenubarSubContent>
             </MenubarSub>
             <MenubarItem
