@@ -773,10 +773,10 @@ test.describe("Community Feed tests", () => {
     await expect(eventsFilterButton).toHaveCount(1)
 
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(6)
+    await expect(feedItems).toHaveCount(5)
 
     await communityFilterButton.click()
-    await expect(feedItems).toHaveCount(3)
+    await expect(feedItems).toHaveCount(2)
 
     await offersFilterButton.click()
     await expect(feedItems).toHaveCount(1)
@@ -791,10 +791,10 @@ test.describe("Community Feed tests", () => {
   }) => {
     await dashboardPage.gotoPage()
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(6)
-    const offerItem = feedItems.nth(0)
+    await expect(feedItems).toHaveCount(5)
+    const offerItem = feedItems.nth(4)
     const offerButton = offerItem.getByRole("button", {
-      name: "Vote for MobiFlight!",
+      name: "Subscribe",
       exact: true,
     })
     await expect(offerButton).toBeVisible()
@@ -806,7 +806,7 @@ test.describe("Community Feed tests", () => {
       await dashboardPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandOpenLinkInBrowser")
-    expect(lastCommand.payload.url).toEqual("https://tally.so/r/44rzv5")
+    expect(lastCommand.payload.url).toEqual("https://mobiflight.com/newsletter")
   })
 
   test("Confirm responsiveness small window size", async ({
