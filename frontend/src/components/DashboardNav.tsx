@@ -12,7 +12,7 @@ const DashboardNav = ({
 }: DashboardNavProps) => {
   return (
     <div
-      className="flex flex-row gap-0 px-4 xl:hidden pb-2"
+      className="flex flex-row gap-0 px-4 xl:hidden"
       data-testid="dashboard-nav"
     >
       <Link to="/home/project">

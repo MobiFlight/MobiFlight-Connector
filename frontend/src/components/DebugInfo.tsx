@@ -3,8 +3,9 @@ import { useWindowSize } from "@/lib/hooks/useWindowSize"
 const DebugInfo = () => {
   const windowSize = useWindowSize()
 
+  return <div className="flex p-2" />
   if (process.env.NODE_ENV !== "development") {
-    return null
+    return <div className="flex p-2" />
   }
 
   return (
