@@ -40,35 +40,35 @@ export const MainMenu = () => {
     <Menubar className="bg-muted/20 justify-between">
       <div className="flex items-center">
         <MenubarMenu>
-          <MenubarTrigger>File</MenubarTrigger>
+          <MenubarTrigger>{t("MainMenu.File.Label")}</MenubarTrigger>
           <MenubarContent>
             <MenubarItem
               onSelect={() => {
                 showProjectOverlay({ mode: "create" })
               }}
             >
-              New<MenubarShortcut>Ctrl+N</MenubarShortcut>
+              {t("MainMenu.File.New")}<MenubarShortcut>Ctrl+N</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.open" })}
             >
-              Open...<MenubarShortcut>Ctrl+O</MenubarShortcut>
+              {t("MainMenu.File.Open")}<MenubarShortcut>Ctrl+O</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.save" })}
               disabled={!hasChanged}
             >
-              Save<MenubarShortcut>Ctrl+S</MenubarShortcut>
+              {t("MainMenu.File.Save")}<MenubarShortcut>Ctrl+S</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.saveas" })}
             >
-              Save as...<MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>
+              {t("MainMenu.File.SaveAs")}<MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarSub>
-              <MenubarSubTrigger>Recent projects</MenubarSubTrigger>
+              <MenubarSubTrigger>{t("MainMenu.File.RecentProjects")}</MenubarSubTrigger>
               <MenubarSubContent>
                 {settings && settings.RecentFiles.length > 0 ? (
                   settings.RecentFiles.map((file, index) => (
@@ -87,7 +87,7 @@ export const MainMenu = () => {
                     </MenubarItem>
                   ))
                 ) : (
-                  <MenubarItem disabled>No recent projects</MenubarItem>
+                  <MenubarItem disabled>{t("MainMenu.File.RecentProjects.None")}</MenubarItem>
                 )}
               </MenubarSubContent>
             </MenubarSub>
@@ -95,7 +95,7 @@ export const MainMenu = () => {
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.exit" })}
             >
-              Exit<MenubarShortcut>Ctrl+Q</MenubarShortcut>
+              {t("MainMenu.File.Exit")}<MenubarShortcut>Ctrl+Q</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

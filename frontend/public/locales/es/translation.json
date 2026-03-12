@@ -20,6 +20,16 @@
     }
   },
   "MainMenu": {
+    "File": {
+      "Label": "Archivo",
+      "New": "Nuevo",
+      "Open": "Abrir...",
+      "Save": "Guardar",
+      "SaveAs": "Guardar como...",
+      "RecentProjects": "Proyectos recientes",
+      "RecentProjects.None": "No hay proyectos",
+      "Exit": "Salir"
+    },
     "View": {
       "Label": "Ver",
       "Zoom": {
