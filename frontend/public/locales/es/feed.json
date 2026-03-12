@@ -1,24 +1,21 @@
 {
   "community": [
     {
-      "date": "2026-02-23",
-      "title": "Flight Sim Awards 2026 Nomination",
+      "title": "¡Encuentra al equipo de MobiFlight en FSWeekend 2026!",
+      "date": "2025-12-04",
       "content": [
-        "¡Estamos muy emocionados de que **MobiFlight ha sido nominado** para los 🏆 **Flight Sim Awards 2026!** 🏆",
-        "**Vota por nosotros** y ayúdanos a llevarnos el premio en la categoría 'Mejor Hardware DIY'. ¡Cada voto cuenta y tu apoyo lo es todo para nosotros!"
+        "Team MobiFlight estará presente en FSWeekend 2026! Encuéntrate con nosotros, puedes ver demostraciones en vivo y obtener información exclusiva sobre las próximas funciones."
       ],
-      "featured": false,
-      "tags": ["community"],
+      "action": {
+        "title": "Más información",
+        "url": "https://flightsimweekend.com/"
+      },
       "media": {
         "type": "image",
-        "src": "/feed/flight-sim-awards-2026.png",
-        "alt": "Flight Sim Awards 2026 Nomination",
-        "className": "bg-foreground dark:bg-background"
+        "src": "/feed/fsweekend-2025.jpg",
+        "alt": "¡Encuentra al equipo de MobiFlight en FSWeekend 2026!"
       },
-      "action": {
-        "title": "¡Vota por MobiFlight!",
-        "url": "https://tally.so/r/44rzv5"
-      }
+      "tags": ["events"]
     },
     {
       "date": "2026-02-15",
@@ -97,23 +94,6 @@
         "className": "bg-gray-100 dark:bg-gray-100"
       },
       "tags": ["community"]
-    },
-    {
-      "title": "¡Encuentra al equipo de MobiFlight en FSWeekend 2026!",
-      "date": "2025-12-04",
-      "content": [
-        "Nos complace anunciar que MobiFlight estará presente en FSWeekend 2026! Ven a conocer al equipo, ver demostraciones en vivo y obtener información exclusiva sobre las próximas funciones."
-      ],
-      "action": {
-        "title": "Más información",
-        "url": "https://flightsimweekend.com/"
-      },
-      "media": {
-        "type": "image",
-        "src": "/feed/fsweekend-2025.jpg",
-        "alt": "Meet the team at FSWeekend 2026"
-      },
-      "tags": ["events"]
     }
   ]
 }

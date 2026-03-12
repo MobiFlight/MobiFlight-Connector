@@ -1,24 +1,21 @@
 {
   "community": [
     {
-      "date": "2026-02-23",
-      "title": "Flight Sim Awards 2026 Nomination",
+      "date": "2025-12-04",
+      "title": "Meet MobiFlight at FSWeekend 2026!",
       "content": [
-        "We're honored to announce that MobiFlight has been nominated for the 🏆 **Flight Sim Awards 2026!** 🏆",
-        "**Please cast your vote** and help us win in the 'Best DIY Hardware' category. Your support means the world to us!"
+        "The MobiFlight team will be at FSWeekend 2026! Come meet us at our booth, see live demos, and get exclusive insights into upcoming features."
       ],
-      "featured": false,
-      "tags": ["community"],
+      "action": {
+        "title": "Learn More",
+        "url": "https://flightsimweekend.com/"
+      },
       "media": {
         "type": "image",
-        "src": "/feed/flight-sim-awards-2026.png",
-        "alt": "Flight Sim Awards 2026 Nomination",
-        "className": "bg-foreground dark:bg-background"
+        "src": "/feed/fsweekend-2025.jpg",
+        "alt": "Meet the MobiFlight team at FSWeekend 2026"
       },
-      "action": {
-        "title": "Vote for MobiFlight!",
-        "url": "https://tally.so/r/44rzv5"
-      }
+      "tags": ["events"]
     },
     {
       "date": "2026-02-15",
@@ -97,23 +94,6 @@
         "className": "bg-gray-100 dark:bg-gray-100"
       },
       "tags": ["community"]
-    },
-    {
-      "date": "2025-12-04",
-      "title": "Meet MobiFlight at FSWeekend 2026!",
-      "content": [
-        "We're excited to announce that MobiFlight will be present at FSWeekend 2026! Come meet the team, see live demos, and get exclusive insights into upcoming features."
-      ],
-      "action": {
-        "title": "Learn More",
-        "url": "https://flightsimweekend.com/"
-      },
-      "media": {
-        "type": "image",
-        "src": "/feed/fsweekend-2025.jpg",
-        "alt": "Meet the team at FSWeekend 2026"
-      },
-      "tags": ["events"]
     }
   ]
 }
