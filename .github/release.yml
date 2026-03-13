@@ -29,7 +29,8 @@ changelog:
         - documentation
     - title: Development 💻
       labels:
-        - development    
+        - development
+        - code-cleanup
     - title: Other Changes ⚡
       labels:
         - "*"
