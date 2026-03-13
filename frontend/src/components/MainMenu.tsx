@@ -131,7 +131,7 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>Extras</MenubarTrigger>
+          <MenubarTrigger>{ t("MainMenu.Extras.Label") }</MenubarTrigger>
           <MenubarContent>
             <MenubarSub>
               <MenubarSubTrigger>HubHop</MenubarSubTrigger>
@@ -141,7 +141,7 @@ export const MainMenu = () => {
                     handleMenuItemClick({ action: "extras.hubhop.download" })
                   }
                 >
-                  Download latest presets
+                  { t("MainMenu.Extras.HubHop.DownloadLatestPresets")}
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
@@ -153,7 +153,7 @@ export const MainMenu = () => {
                     handleMenuItemClick({ action: "extras.msfs.reinstall" })
                   }
                 >
-                  Re-install WASM Module
+                  { t("MainMenu.Extras.MSFS.ReinstallWASMModule") }
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
@@ -162,7 +162,7 @@ export const MainMenu = () => {
                 handleMenuItemClick({ action: "extras.copylogs" })
               }
             >
-              Copy logs to clipboard
+              { t("MainMenu.Extras.CopyLogs") }
             </MenubarItem>
             <MenubarItem
               onSelect={() => showModalOverlay({ route: "/bindings" })}
@@ -175,53 +175,53 @@ export const MainMenu = () => {
                 handleMenuItemClick({ action: "extras.settings" })
               }
             >
-              Settings
+              { t("MainMenu.Extras.Settings") }
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>Help</MenubarTrigger>
+          <MenubarTrigger>{ t("MainMenu.Help.Label") }</MenubarTrigger>
           <MenubarContent>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.docs" })}
             >
-              Documentation<MenubarShortcut>F1</MenubarShortcut>
+              { t("MainMenu.Help.Documentation") }<MenubarShortcut>F1</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "help.checkforupdate" })
               }
             >
-              Check for update
+              { t("MainMenu.Help.CheckForUpdates") }
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.discord" })}
             >
-              Visit Discord server
+              { t("MainMenu.Help.VisitDiscord") }
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.hubhop" })}
             >
-              Visit HubHop website
+              { t("MainMenu.Help.VisitHubHop") }
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.youtube" })}
             >
-              Visit YouTube channel
+              { t("MainMenu.Help.VisitYouTube") }
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.about" })}
             >
-              About
+              { t("MainMenu.Help.About") }
             </MenubarItem>
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "help.releasenotes" })
               }
             >
-              Release notes
+              { t("MainMenu.Help.ReleaseNotes") }
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
