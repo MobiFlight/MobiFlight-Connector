@@ -14,7 +14,7 @@ test("Confirm `File` menu items are displayed and trigger correct command", asyn
     // so we just check for the presence of the menu item here
     { name: "New Ctrl+N", action: null },
     { name: "Open... Ctrl+O", action: "file.open" },
-    // New is covered in its own test,
+    // Save is covered in its own test,
     // so we just check for the presence of the menu item here
     { name: "Save Ctrl+S", action: null },
     { name: "Save As... Ctrl+Shift+S", action: "file.saveas" },
@@ -150,7 +150,7 @@ test("Confirm `Help` menu items are displayed and trigger correct command", asyn
   configListPage,
   page,
 }) => {
-  const FileMenuItems = [
+  const helpMenuItems = [
     { name: "Documentation F1", action: "help.docs" },
     { name: "Check for update", action: "help.checkforupdate" },
     { name: "Visit Discord server", action: "help.discord" },
@@ -160,7 +160,7 @@ test("Confirm `Help` menu items are displayed and trigger correct command", asyn
     { name: "Release notes", action: "help.releasenotes" },
   ]
 
-  for (const menuItem of FileMenuItems) {
+  for (const menuItem of helpMenuItems) {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
     await configListPage.mobiFlightPage.clearTrackedCommands()
