@@ -469,7 +469,7 @@ namespace MobiFlight.Tests.Controllers
         }
 
         [TestMethod]
-        public void AnalyzeProjectBindings_MultipleConfigFileWithSameController_AnalyzesAll()
+        public void AnalyzeProjectBindings_MultipleConfigFiles_WithSameController_AnalyzesAll()
         {
             // Arrange
             var project = new Project();
