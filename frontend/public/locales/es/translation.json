@@ -20,6 +20,16 @@
     }
   },
   "MainMenu": {
+    "File": {
+      "Label": "Archivo",
+      "New": "Nuevo",
+      "Open": "Abrir...",
+      "Save": "Guardar",
+      "SaveAs": "Guardar como...",
+      "RecentProjects": "Proyectos recientes",
+      "RecentProjects.None": "No hay proyectos",
+      "Exit": "Salir"
+    },
     "View": {
       "Label": "Ver",
       "Zoom": {
@@ -34,7 +44,22 @@
       }
     },
     "Extras": {
-      "ControllerBindings": "Vincular controladores"
+      "Label" : "Extras",
+      "HubHop.DownloadLatestPresets": "Descargar los últimos presets",
+      "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
+      "CopyLogs": "Copiar registros al portapapeles",
+      "ControllerBindings": "Vincular controladores",
+      "Settings": "Configuración"
+    },
+    "Help": {
+      "Label": "Ayuda",
+      "Documentation": "Documentación",
+      "CheckForUpdates": "Buscar actualización",
+      "VisitDiscord": "Visitar Discord",
+      "VisitHubHop": "Visitar HubHop",
+      "VisitYouTube": "Visitar YouTube",
+      "About": "Acerca",
+      "ReleaseNotes": "Notas de la versión"
     }
   },
   "Types": {

@@ -20,6 +20,16 @@
     }
   },
   "MainMenu": {
+    "File": {
+      "Label": "Datei",
+      "New": "Neu",
+      "Open": "Öffnen...",
+      "Save": "Speichern",
+      "SaveAs": "Speichern unter...",
+      "RecentProjects": "Letzte Projekte",
+      "RecentProjects.None": "Keine Projekte vorhanden",
+      "Exit": "Beenden"
+    },
     "View": {
       "Label": "Ansicht",
       "Zoom": {
@@ -34,7 +44,22 @@
       }
     },
     "Extras": {
-      "ControllerBindings": "Controller-Zuordnungen"
+      "Label" : "Extras",
+      "HubHop.DownloadLatestPresets": "Lade die neuesten Presets herunter",
+      "MSFS.ReinstallWASMModule": "WASM-Modul neu installieren",
+      "CopyLogs": "Logs in die Zwischenablage kopieren",
+      "ControllerBindings": "Controller-Zuordnungen",
+      "Settings": "Einstellungen"
+    },
+    "Help": {
+      "Label": "Hilfe",
+      "Documentation": "Dokumentation",
+      "CheckForUpdates": "Nach Update suchen",
+      "VisitDiscord": "Besuche den Discord-Server",
+      "VisitHubHop": "Besuche die HubHop-Website",
+      "VisitYouTube": "Besuche den YouTube-Kanal",
+      "About": "Über",
+      "ReleaseNotes": "Release-Hinweise"
     }
   },
   "Types": {

@@ -178,6 +178,11 @@ namespace MobiFlight.Base.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual("", result.Name);
             Assert.AreEqual("Test Serial", result.Serial);
+
+            // test legacy format where Serial is set to NOT_SET
+            serial = SerialNumber.NOT_SET;
+            result = SerialNumber.CreateController(serial);
+            Assert.IsNull(result, "NOT_SET should result in null");
         }
 
         [TestMethod]

@@ -1,5 +1,5 @@
 import { test, expect } from "./fixtures"
-import { IConfigItem } from "../src/types"
+import { ConfigFile, IConfigItem, Project } from "../src/types"
 
 test.describe("Confirm content and basic functions are working", () => {
   test("Confirm empty list view", async ({ configListPage, page }) => {
@@ -535,6 +535,46 @@ test.describe("Drag and drop tests", () => {
     // verify the items moved to the second tab
     await expect(page.getByRole("row").nth(1)).toContainText("7-Segment")
   })
+
+  test("Confirm drag n drop is prevented if clicking inside an editable element", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+    const nameCellLabel = "7-Segment"
+    const row = page.getByRole("row", { name: nameCellLabel }).first()
+    const nameCell = row.getByText(nameCellLabel).first()
+
+    // Click on the text span to enter edit mode
+    await nameCell.dblclick()
+
+    // Now find the textbox that appears after clicking
+    const inlineEdit = row.getByRole("textbox")
+    await expect(inlineEdit).toBeVisible()
+
+    const otherRow = page
+      .getByRole("row", { name: "ShiftRegister" })
+      .getByRole("button")
+      .first()
+
+    // Start the drag inside the inline edit textbox
+    // this should not trigger drag n drop
+    // and the item should not move
+    await inlineEdit.hover()
+    await page.mouse.down()
+    await page.mouse.move(10, 10)
+    await otherRow.hover()
+    await page.mouse.up()
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+
+    // No commands should have been posted
+    expect(postedCommands).toBeUndefined()
+  })
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
@@ -595,10 +635,10 @@ test.describe("Filter toolbar tests", () => {
 
     const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
     const rows = page.locator("tbody tr")
-    await expect(rows).toHaveCount(14)
+    await expect(rows).toHaveCount(15)
 
     await searchTextBox.fill("A")
-    await expect(rows).toHaveCount(2)
+    await expect(rows).toHaveCount(3)
 
     await searchTextBox.fill("Ana")
     await expect(rows).toHaveCount(1)
@@ -610,7 +650,7 @@ test.describe("Filter toolbar tests", () => {
     await expect(clearButton).not.toHaveCount(0)
 
     await clearButton.first().click()
-    await expect(rows).toHaveCount(14)
+    await expect(rows).toHaveCount(15)
 
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
     await rows.first().click()
@@ -643,14 +683,14 @@ test.describe("Filter toolbar tests", () => {
 
     await configTypeFilterButton.click()
     await outputOption.click()
-    await expect(visibleRows).toHaveCount(7)
+    await expect(visibleRows).toHaveCount(8)
 
     await inputOption.click()
     await outputOption.click()
     await expect(visibleRows).toHaveCount(7)
 
     await clearFiltersOption.click()
-    await expect(visibleRows).toHaveCount(14)
+    await expect(visibleRows).toHaveCount(15)
 
     const inputField = page.getByPlaceholder("Config Type")
     await inputField.click()
@@ -665,7 +705,7 @@ test.describe("Filter toolbar tests", () => {
     await inputField.click()
     await inputField.fill("Out")
     await inputField.press("Enter")
-    await expect(visibleRows).toHaveCount(7)
+    await expect(visibleRows).toHaveCount(8)
   })
 
   test("Confirm `Controller` filter toolbar is working", async ({
@@ -686,7 +726,7 @@ test.describe("Filter toolbar tests", () => {
       .click()
     await expect(rows).toHaveCount(1)
     await clearFilterOption.click()
-    await expect(rows).toHaveCount(14)
+    await expect(rows).toHaveCount(15)
 
     await page
       .getByRole("option", { name: "ProtoBoard" })
@@ -700,7 +740,7 @@ test.describe("Filter toolbar tests", () => {
       .locator("div")
       .first()
       .click()
-    await expect(rows).toHaveCount(1)
+    await expect(rows).toHaveCount(2)
     await clearFilterOption.click()
 
     await page.getByPlaceholder("Controller").click()
@@ -730,7 +770,7 @@ test.describe("Filter toolbar tests", () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(14)
+      await expect(rows).toHaveCount(15)
     }
 
     const deviceTypes = [
@@ -772,23 +812,23 @@ test.describe("Filter toolbar tests", () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(14)
+      await expect(rows).toHaveCount(15)
     }
 
     const deviceNames = [
-      "POT 1",
-      "Button 4",
-      "ShiftRegister 1",
-      "LED 2",
-      "LCD 1",
-      "Servo 1",
-      "Stepper 1",
-      "7-Segment",
-      "not set",
-    ]
+      ["POT 1", 1],
+      ["Button 4", 1],
+      ["ShiftRegister 1", 1],
+      ["LED 2", 1],
+      ["LCD 1", 1],
+      ["Servo 1", 1],
+      ["Stepper 1", 1],
+      ["7-Segment", 1],
+      ["not set", 2],
+    ] as Array<[string, number]>
 
-    for (const deviceName of deviceNames) {
-      await testDeviceNameFilter(deviceName, 1)
+    for (const [deviceName, expectedCount] of deviceNames) {
+      await testDeviceNameFilter(deviceName, expectedCount)
     }
   })
 
@@ -896,6 +936,206 @@ test.describe("Controller device labels are displayed correctly", () => {
     await expect(
       midiSliderRow.getByRole("cell", { name: "Slider 1" }),
     ).toBeVisible()
+  })
+
+  test("Confirm Input Action device labels are displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await expect(
+      page
+        // it has to be a row whose controller is "not set"
+        .getByRole("row", { name: "not set" })
+
+        // and it has to be the "Input Action" cell within that "not set" row
+        .getByRole("cell", { name: "Input Action", exact: true }),
+    ).toBeVisible()
+  })
+
+  test("Confirm Input Action device labels are displayed correctly - 2nd test", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+
+    const configName = "Output config with Input Action has correct labels"
+    const specificProjectProps = {
+      ConfigFiles: [
+        {
+          ConfigItems: [
+            {
+              Active: true,
+              Controller: {
+                Name: "MobiFlight Mega",
+                Serial: "SN-3F1-FDD",
+              },
+              DeviceType: "InputAction",
+              DeviceName: null,
+              GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
+              Name: configName,
+              Type: "OutputConfigItem",
+            } as Partial<IConfigItem>,
+          ],
+        } as Partial<ConfigFile>,
+      ],
+    } as Partial<Project>
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+      specificProjectProps,
+    )
+
+    const row = page.getByRole("row", { name: configName })
+    await expect(row).toBeVisible()
+
+    const inputActionLabel = row.getByTestId("device-name")
+    await expect(inputActionLabel).toBeVisible()
+    await expect(inputActionLabel).toHaveText("Input Action")
+  })
+
+  test("Confirm Input configs without any device are displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+
+    const configName = "Input config without any device correct labels"
+    const specificProjectProps = {
+      ConfigFiles: [
+        {
+          ConfigItems: [
+            {
+              Active: true,
+              Controller: {
+                Name: "MobiFlight Mega",
+                Serial: "SN-3F1-FDD",
+              },
+              DeviceType: "-",
+              DeviceName: "",
+              GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
+              Name: configName,
+              Type: "InputConfigItem",
+            } as Partial<IConfigItem>,
+          ],
+        } as Partial<ConfigFile>,
+      ],
+    } as Partial<Project>
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+      specificProjectProps,
+    )
+
+    const row = page.getByRole("row", { name: configName })
+    await expect(row).toBeVisible()
+
+    const inputActionLabel = row.getByTestId("device-name")
+    await expect(inputActionLabel).not.toBeVisible()
+    await expect(row).toHaveText(/not set/)
+  })
+
+  test("Confirm Output Shift Register with multiple pins are displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+
+    const configName = "Output Shift Register with multiple pins"
+    const specificProjectProps = {
+      ConfigFiles: [
+        {
+          ConfigItems: [
+            {
+              Active: true,
+              Controller: {
+                Name: "MobiFlight Mega",
+                Serial: "SN-3F1-FDD",
+              },
+              Device: {
+                Address: "TestShifter",
+                Brightness: 255,
+                Name: "TestShifter",
+                PWM: false,
+                Pin: "Output 0|Output 1|Output 2|Output 3|Output 4|Output 5|Output 6",
+                Type: "ShiftRegister",
+              },
+              DeviceName: "TestShifter",
+              DeviceType: "ShiftRegister",
+              GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
+              Name: configName,
+              Type: "OutputConfigItem",
+            } as Partial<IConfigItem>,
+          ],
+        } as Partial<ConfigFile>,
+      ],
+    } as Partial<Project>
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+      specificProjectProps,
+    )
+
+    const row = page.getByRole("row", { name: configName })
+    await expect(row).toBeVisible()
+
+    const deviceNameLabel = row.getByTestId("device-name")
+    const deviceSubIndices = row.getByTestId("device-sub-index")
+    await expect(deviceNameLabel).toBeVisible()
+    await expect(deviceNameLabel).toHaveText("TestShifter")
+
+    await expect(deviceSubIndices).toBeVisible()
+    await expect(deviceSubIndices).toHaveText("0, 1, 2, 3, 4, 5, 6")
+  })
+
+  test("Confirm Output with multiple devices are displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+
+    const configName = "Output Config with multiple Output Devices"
+    const specificProjectProps = {
+      ConfigFiles: [
+        {
+          ConfigItems: [
+            {
+              Active: true,
+              Controller: {
+                Name: "MobiFlight Mega",
+                Serial: "SN-3F1-FDD",
+              },
+              Device: {
+                Brightness: 255,
+                Name: "LED 1|Backlight |Output 2",
+                Pin: "LED 1|Backlight |Output 2",
+                PwmMode: false,
+                Type: "Output",
+              },
+              DeviceName: "LED 1|Backlight |Output 2",
+              DeviceType: "Output",
+              GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
+              Name: configName,
+              Type: "OutputConfigItem",
+            } as Partial<IConfigItem>,
+          ],
+        } as Partial<ConfigFile>,
+      ],
+    } as Partial<Project>
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+      specificProjectProps,
+    )
+
+    const row = page.getByRole("row", { name: configName })
+    await expect(row).toBeVisible()
+
+    const deviceNameLabel = row.getByTestId("device-name")
+    const deviceSubIndices = row.getByTestId("device-sub-index")
+    await expect(deviceNameLabel).toBeVisible()
+    await expect(deviceNameLabel).toHaveText("LED 1")
+
+    await expect(deviceSubIndices).toBeVisible()
+    await expect(deviceSubIndices).toHaveText("Backlight , Output 2")
   })
 })
 
@@ -1172,5 +1412,111 @@ test.describe("Selection: Select / Deselect actions", () => {
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandConfigBulkAction")
     expect(lastCommand.payload.action).toEqual("toggle")
+  })
+})
+
+test.describe("Confirm context menu actions are working", () => {
+  test.use({ viewport: { width: 1024, height: 800 } })
+  test("Confirm context menu shows on right click", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+
+    const menuOptions = [
+      { label: "Edit", command: true },
+      { label: "Rename", command: false },
+      { label: "Delete", command: true },
+      { label: "Duplicate", command: true },
+      { label: "Test", command: true },
+    ]
+
+    configListPage.mobiFlightPage.trackCommand(`CommandConfigContextMenu`)
+
+    for (const { label, command } of menuOptions) {
+      await firstRow.click({ button: "right" })
+      const contextMenu = page.getByTestId("config-item-context-menu")
+      await expect(contextMenu).toBeVisible()
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).not.toBeVisible()
+      }
+
+      const menuItem = contextMenu.getByRole("menuitem", { name: label })
+      await expect(menuItem).toBeVisible()
+
+      await menuItem.click()
+
+      if (command) {
+        const postedCommands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        const lastCommand = postedCommands!.pop()
+        expect(lastCommand.key).toEqual("CommandConfigContextMenu")
+        expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+      }
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).toBeVisible()
+      }
+    }
+  })
+
+  test("Confirm context menu shows on button click", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const contextMenuButton = firstRow
+      .getByRole("button", { name: "Open menu" })
+      .first()
+
+    const menuOptions = [
+      { label: "Edit", command: true },
+      { label: "Rename", command: false },
+      { label: "Delete", command: true },
+      { label: "Duplicate", command: true },
+      { label: "Test", command: true },
+    ]
+
+    configListPage.mobiFlightPage.trackCommand(`CommandConfigContextMenu`)
+
+    for (const { label, command } of menuOptions) {
+      await contextMenuButton.click()
+      const contextMenu = page.getByTestId("config-item-context-menu")
+      await expect(contextMenu).toBeVisible()
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).not.toBeVisible()
+      }
+
+      const menuItem = contextMenu.getByRole("menuitem", { name: label })
+      await expect(menuItem).toBeVisible()
+
+      await menuItem.click()
+
+      if (command) {
+        const postedCommands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        const lastCommand = postedCommands!.pop()
+        expect(lastCommand.key).toEqual("CommandConfigContextMenu")
+        expect(lastCommand.payload.action).toEqual(label.toLowerCase())
+      }
+
+      if (label === "Rename") {
+        const inlineEdit = firstRow.getByRole("textbox")
+        await expect(inlineEdit).toBeVisible()
+      }
+    }
   })
 })

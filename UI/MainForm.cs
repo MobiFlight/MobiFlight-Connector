@@ -112,7 +112,7 @@ namespace MobiFlight.UI
             }
         }
 
-        public ControllerBindingService ControllerBindingService { get; private set; }
+        public ControllerBindingService ControllerBindingService { get; protected set; }
 
         private ProjectListManager ProjectListManager { get; set; } = new ProjectListManager();
 
@@ -347,7 +347,7 @@ namespace MobiFlight.UI
                     var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.ConfigItems[index] = wizard.Config;
                     MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    ExecManager_OnConfigHasChanged(wizard.Config, null);
+                    OnConfigItemHasChanged(wizard.Config, null);
                 }
             }
 
@@ -403,7 +403,7 @@ namespace MobiFlight.UI
                     var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.ConfigItems[index] = wizard.Config;
                     MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    ExecManager_OnConfigHasChanged(wizard.Config, null);
+                    OnConfigItemHasChanged(wizard.Config, null);
                     execManager.OnInputConfigSettingsChanged(wizard.Config, null);
                 }
             }
@@ -521,12 +521,6 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
-            // we only load the autorun value stored in settings
-            // and do not use possibly passed in autoRun from cmdline
-            // because latter shall only have an temporary influence
-            // on the program
-            setAutoRunValue(Properties.Settings.Default.AutoRun);
-
             updateNotifyContextMenu(false);
 
             // Reset the Title of the Main Window so that it displays the Version too.
@@ -574,7 +568,7 @@ namespace MobiFlight.UI
         private void InitializeExecutionManager()
         {
             execManager = new ExecutionManager(this.Handle);
-            execManager.OnConfigHasChanged += ExecManager_OnConfigHasChanged;
+            execManager.OnConfigHasChanged += OnConfigItemHasChanged;
             execManager.OnProjectChanged += ExecManager_OnProjectChanged;
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
@@ -612,8 +606,24 @@ namespace MobiFlight.UI
             ProjectOrConfigFileHasChanged();
         }
 
-        private void ProjectOrConfigFileHasChanged()
+        private void ProjectOrConfigFileHasChanged(bool updateControllerBindings = false)
         {
+            if (updateControllerBindings)
+            {
+                var currentControllerBindings = execManager.Project.ControllerBindings;
+                var controllerBindings = ControllerBindingService.AnalyzeProjectBindings(execManager.Project);
+
+                if ((currentControllerBindings == null && controllerBindings!= null) ||
+                    !controllerBindings.SequenceEqual(currentControllerBindings))
+
+                {
+                    execManager.Project.ControllerBindings = controllerBindings;
+                    MessageExchange.Instance.Publish(
+                        new ControllerBindingsUpdate() { Bindings = controllerBindings }
+                    );
+                }
+            }
+
             ProjectHasUnsavedChanges = true;
             SetProjectFilePathInTitle();
             UpdateAutoLoadMenu();
@@ -862,9 +872,9 @@ namespace MobiFlight.UI
             ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
-        private void ExecManager_OnConfigHasChanged(object sender, EventArgs e)
+        private void OnConfigItemHasChanged(object sender, EventArgs e)
         {
-            ProjectOrConfigFileHasChanged();
+            ProjectOrConfigFileHasChanged(true);
         }
 
         /// <summary>
@@ -2445,6 +2455,9 @@ namespace MobiFlight.UI
         private void setAutoRunValue(bool value)
         {
             Properties.Settings.Default.AutoRun = value;
+
+            // Triggers update to frontend
+            Properties.Settings.Default.Save();
         }
 
         public void settingsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -63,46 +63,6 @@
       "Id": 12,
       "Type": "Button",
       "Label": "Button 12"
-    },
-    {
-      "Id": 48,
-      "Type": "Axis",
-      "Label": "Axis 1"
-    },
-    {
-      "Id": 49,
-      "Type": "Axis",
-      "Label": "Axis 2"
-    },
-    {
-      "Id": 50,
-      "Type": "Axis",
-      "Label": "Axis 3"
-    },
-    {
-      "Id": 51,
-      "Type": "Axis",
-      "Label": "Axis 4"
-    },
-    {
-      "Id": 52,
-      "Type": "Axis",
-      "Label": "Axis 5"
-    },
-    {
-      "Id": 53,
-      "Type": "Axis",
-      "Label": "Axis 6"
-    },
-    {
-      "Id": 54,
-      "Type": "Axis",
-      "Label": "Axis 7"
-    },
-    {
-      "Id": 55,
-      "Type": "Axis",
-      "Label": "Axis 8"
     }
   ]
 }

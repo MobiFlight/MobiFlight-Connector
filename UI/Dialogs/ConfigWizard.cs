@@ -1,10 +1,8 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -375,9 +373,12 @@ namespace MobiFlight.UI.Dialogs
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
+            // config.Source can be null if the project has not defined any sim.
+            // In that case we default to showing the "Variable" source type,
+            // since the VariableSource type does not rely on a simulator connection.
+            OffsetTypeVariableRadioButton.Checked = (config.Source is VariableSource) || config.Source == null;
             OffsetTypeFsuipRadioButton.Checked = (config.Source is FsuipcSource);
             OffsetTypeSimConnectRadioButton.Checked = (config.Source is SimConnectSource);
-            OffsetTypeVariableRadioButton.Checked = (config.Source is VariableSource);
             OffsetTypeXplaneRadioButton.Checked = (config.Source is XplaneSource);
             OffsetTypeProSimRadioButton.Checked = (config.Source is ProSimSource);
 

@@ -461,6 +461,24 @@ test.describe("Project settings modal features", () => {
     await expect(editProjectDialog).toBeVisible()
   })
 
+  test("Ensure browser suggestions are disabled for project name", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+
+    const createProjectButton = page.getByRole("button", { name: "Project" })
+    const createProjectDialog = page.getByRole("dialog", {
+      name: "Create New Project",
+    })
+    const projectNameInput = createProjectDialog.getByLabel("Project Name")
+
+    // open settings modal
+    await createProjectButton.click()
+    
+    await expect(projectNameInput).toHaveAttribute("autocomplete", "off")
+  })
+
   test("Using [space] and [del] work when on top of config list view", async ({
     configListPage,
     page,
@@ -755,7 +773,7 @@ test.describe("Community Feed tests", () => {
     await expect(eventsFilterButton).toHaveCount(1)
 
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(4)
+    await expect(feedItems).toHaveCount(5)
 
     await communityFilterButton.click()
     await expect(feedItems).toHaveCount(2)
@@ -764,7 +782,7 @@ test.describe("Community Feed tests", () => {
     await expect(feedItems).toHaveCount(1)
 
     await eventsFilterButton.click()
-    await expect(feedItems).toHaveCount(1)
+    await expect(feedItems).toHaveCount(2)
   })
 
   test("Confirm button links are working correctly", async ({
@@ -773,10 +791,10 @@ test.describe("Community Feed tests", () => {
   }) => {
     await dashboardPage.gotoPage()
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(4)
-    const offerItem = feedItems.nth(0)
+    await expect(feedItems).toHaveCount(5)
+    const offerItem = feedItems.nth(4)
     const offerButton = offerItem.getByRole("button", {
-      name: "Support Us!",
+      name: "Subscribe",
       exact: true,
     })
     await expect(offerButton).toBeVisible()
@@ -788,7 +806,7 @@ test.describe("Community Feed tests", () => {
       await dashboardPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandOpenLinkInBrowser")
-    expect(lastCommand.payload.url).toEqual("https://mobiflight.com/donate")
+    expect(lastCommand.payload.url).toEqual("https://mobiflight.com/newsletter")
   })
 
   test("Confirm responsiveness small window size", async ({

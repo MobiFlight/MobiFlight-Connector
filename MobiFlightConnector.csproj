@@ -347,6 +347,7 @@
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\AuthenticationStatus.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConnectedControllers.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ControllerBindingsUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\RecentProjects.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueFullUpdate.cs" />
@@ -386,17 +387,25 @@
     <Compile Include="MobiFlight\Execution\PreconditionChecker.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
+    <Compile Include="MobiFlight\InputConfig\AnalogInput.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\Button.cs" />
+    <Compile Include="MobiFlight\InputConfig\Encoder.cs" />
+    <Compile Include="MobiFlight\InputConfig\InputMultiplexer.cs" />
     <Compile Include="MobiFlight\InputConfig\InputMultiplexerConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionExecutionCache.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionFactory.cs" />
+    <Compile Include="MobiFlight\InputConfig\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\InputConfig\InputShiftRegisterConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\ProSimInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joysticks\AuthentiKit\AuthentiKit.cs" />
-    <Compile Include="MobiFlight\Joysticks\AuthentiKit\AuthentiKitReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836X.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836A.cs" />
+    <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoard.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
@@ -1284,6 +1293,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\bodnar\authentikit.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\bodnar\BU0836A.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\bodnar\BU0836X.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\vkbsim\s_tecs_modern_throttle_max.joystick.json">

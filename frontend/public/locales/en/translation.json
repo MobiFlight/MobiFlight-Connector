@@ -20,6 +20,16 @@
     }
   },
   "MainMenu": {
+    "File": {
+      "Label": "File",
+      "New": "New",
+      "Open": "Open...",
+      "Save": "Save",
+      "SaveAs": "Save As...",
+      "RecentProjects": "Recent Projects",
+      "RecentProjects.None": "No projects",
+      "Exit": "Exit"
+    },
     "View": {
       "Label": "View",
       "Zoom": {
@@ -34,7 +44,22 @@
       }
     },
     "Extras": {
-      "ControllerBindings": "Controller Bindings"
+      "Label" : "Extras",
+      "HubHop.DownloadLatestPresets": "Download latest presets",
+      "MSFS.ReinstallWASMModule": "Re-install WASM Module",
+      "CopyLogs": "Copy logs to clipboard",
+      "ControllerBindings": "Controller Bindings",
+      "Settings": "Settings"
+    },
+    "Help": {
+      "Label": "Help",
+      "Documentation": "Documentation",
+      "CheckForUpdates": "Check for update",
+      "VisitDiscord": "Visit Discord server",
+      "VisitHubHop": "Visit HubHop website",
+      "VisitYouTube": "Visit YouTube channel",
+      "About": "About",
+      "ReleaseNotes": "Release notes"
     }
   },
   "Types": {
@@ -330,7 +355,7 @@
       },
       "ControllersInProject": "{{count}} Controllers used in project",
       "ConnectedControllers": "{{count}} Controllers connected to PC",
-      "AllSet": "All set! Your project is completely configured." 
+      "AllSet": "All set! Your project is completely configured."
     }
   },
   "Auth": {
@@ -340,15 +365,15 @@
       "Profile": "Profile",
       "ProfileFeatureComingSoon": "coming soon"
     },
-    "Redirect" : {
+    "Redirect": {
       "SignIn": "Redirecting to Sign in...",
       "SignOut": "Redirecting to Sign out...",
       "CompletingFlow": "Completing process...",
       "FlowSuccessful": "Success!"
     },
-    "Notification":{
+    "Notification": {
       "Error": {
-        "Title":"Error on authentication",
+        "Title": "Error on authentication",
         "Description": "An error occurred during authentication.",
         "ActionCopyToClipboard": "Copy message"
       }

@@ -3,6 +3,7 @@ import { DeviceElementType } from "@/types/deviceElements.d";
 import {
   Icon123,
   IconAbc,
+  IconBolt,
   IconBox,
   IconBulb,
   IconDashboard,
@@ -52,6 +53,8 @@ const DeviceIcon = (props: DeviceIconProps) => {
     icon = <IconDeviceInputMultiplexer className={cn("stroke-teal-600 fill-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
   } else if (shortType === "CustomDevice") {
     icon = <IconBox className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
+  } else if (shortType === "InputAction") {
+    icon = <IconBolt className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) } />;
   }
 
   return <div className="inline-block">{icon}</div>

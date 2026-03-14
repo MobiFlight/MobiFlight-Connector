@@ -133,6 +133,8 @@ namespace MobiFlight.Base
                 case "p3d":
                 case "fsx":
                     return new FsuipcSource();
+                case null:
+                    return null;
             }
 
             Log.Instance.log($"SourceFactory: Unknown sim '{sim}', returning null", LogSeverity.Error);

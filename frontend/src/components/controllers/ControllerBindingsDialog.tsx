@@ -35,9 +35,17 @@ const ControllerBindingsDialog = ({
   onOpenChange,
 }: ControllerBindingsProps) => {
   const { t } = useTranslation()
+  const [lastPropBindings, setLastPropBindings] = useState<ControllerBinding[]>(bindings)
   const [finalBindings, setFinalBindings] =
     useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
+
+  // This test ensures that our binding items
+  // will be update if the prop passed into the component updates
+  if (bindings !== lastPropBindings) {
+    setLastPropBindings(bindings)
+    setFinalBindings(bindings)
+  }
 
   // Use the original bindings to determine available states
   // this will ensure that the filter options are consistent

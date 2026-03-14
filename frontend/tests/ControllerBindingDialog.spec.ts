@@ -1,5 +1,6 @@
 import { test, expect } from "./fixtures"
 import { ControllerBinding } from "../src/types/controller"
+import { AppMessage, ControllerBindingsUpdate } from "../src/types/messages"
 
 test("Confirm Controller Binding Dialog opens via main menu and closes correctly", async ({
   configListPage,
@@ -77,7 +78,7 @@ test("Confirm Controller Binding Dialog shows correct information", async ({
   for (const controllerBinding of controllerBindings) {
     const name = controllerBinding.OriginalController?.Name
     const serial = controllerBinding.OriginalController?.Serial
-    
+
     await expect(originalControllers.getByText(name)).toBeVisible()
     await expect(originalControllers.getByText(serial)).toBeVisible()
 
@@ -131,14 +132,14 @@ test("Confirm Controller Binding assignment works correctly", async ({
   const updatedBinding = updatedBindings.find(
     (b) =>
       b.OriginalController?.Name == "Alpha Flight Controls" &&
-      b.OriginalController?.Serial == "JS-b0875190-3b89-11ed-8007-444553540000"
+      b.OriginalController?.Serial == "JS-b0875190-3b89-11ed-8007-444553540000",
   )
   expect(updatedBinding).toBeDefined()
   expect(updatedBinding!.BoundController?.Name).toBe(
     "Alpha Flight Controls Lite",
   )
   expect(updatedBinding!.BoundController?.Serial).toBe(
-    "JS-c0875190-3b89-11ed-8007-444553540000"
+    "JS-c0875190-3b89-11ed-8007-444553540000",
   )
   expect(updatedBinding!.Status).toBe("Match")
 })
@@ -218,4 +219,80 @@ test("Confirm Controller Binding Dialog filters correctly after updating status"
   await expect(
     dialog.getByTestId("controller-binding-item").filter({ visible: true }),
   ).toHaveCount(1)
+})
+
+test.describe("Controller Bindings Update Message Tests", () => {
+  test("Confirm controller bindings update in ControllerBindingDialog", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+      {
+        ControllerBindings: [],
+      },
+    )
+
+    // Open the ControllerBindingDialog
+    await configListPage.mobiFlightPage.openControllerBindingsDialog()
+
+    // Get initial number of bindings displayed
+    const controllerBindingItems = page.getByTestId("controller-binding-item")
+    await expect(controllerBindingItems).toHaveCount(0)
+
+    // Create updated bindings with different statuses
+    const updatedBindings: ControllerBinding[] = [
+      {
+        BoundController: {
+          Name: "Test Controller 1",
+          Serial: "SN-TEST-001",
+        },
+        OriginalController: {
+          Name: "Original Controller 1",
+          Serial: "SN-ORIG-001",
+        },
+        Status: "Match",
+      },
+      {
+        BoundController: null,
+        OriginalController: {
+          Name: "Missing Controller",
+          Serial: "JS-MISSING-002",
+        },
+        Status: "Missing",
+      },
+      {
+        BoundController: {
+          Name: "Different Controller",
+          Serial: "MI-DIFF-003",
+        },
+        OriginalController: {
+          Name: "Original Controller 2",
+          Serial: "MI-ORIG-003",
+        },
+        Status: "AutoBind",
+      },
+    ]
+
+    const message: AppMessage = {
+      key: "ControllerBindingsUpdate",
+      payload: {
+        Bindings: updatedBindings,
+      } as ControllerBindingsUpdate,
+    }
+
+    // Send ControllerBindingsUpdate message
+    await configListPage.mobiFlightPage.publishMessage(message)
+    // Verify the number of rows matches
+    await expect(controllerBindingItems).toHaveCount(3)
+
+    const firstItem = controllerBindingItems.first()
+    await expect(firstItem).toContainText("Missing Controller")
+
+    const secondItem = controllerBindingItems.nth(1)
+    await expect(secondItem).toContainText("Original Controller 2")
+
+    const thirdItem = controllerBindingItems.nth(2)
+    await expect(thirdItem).toContainText("Original Controller 1")
+  })
 })

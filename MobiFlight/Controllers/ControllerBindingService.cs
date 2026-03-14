@@ -34,7 +34,7 @@ namespace MobiFlight.Controllers
                 results.ForEach(b =>
                 {
                     // Only add if not already present (first occurrence wins)
-                    if (!allResults.Any(existing => existing.OriginalController == b.OriginalController))
+                    if (!allResults.Any(existing => existing.OriginalController.AreEqual(b.OriginalController)))
                     {
                         allResults.Add(b);
                     }
@@ -66,7 +66,7 @@ namespace MobiFlight.Controllers
 
                 foreach (var binding in results)
                 {
-                    var bindingExists = allResults.FirstOrDefault(b => b.OriginalController == binding.OriginalController);
+                    var bindingExists = allResults.FirstOrDefault(b => b.OriginalController.AreEqual(binding.OriginalController));
                     // Only add if not already present (first occurrence wins)
                     if (bindingExists != null) continue;
 
@@ -76,7 +76,7 @@ namespace MobiFlight.Controllers
                 // Update binding mappings for next config file
                 foreach (var mapping in serialMappings)
                 {
-                    if (appliedBindingMappings.FirstOrDefault(b => b.BoundController == mapping.BoundController) != null) continue;
+                    if (appliedBindingMappings.FirstOrDefault(b => b.BoundController.AreEqual(mapping.BoundController)) != null) continue;
 
                     appliedBindingMappings.Add(mapping);
                 }

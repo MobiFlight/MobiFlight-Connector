@@ -63,7 +63,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         public void SetModules(List<ListItem<Controller>> ModuleList)
         {
             var items = new List<ListItem<Controller>>(){
-                new ListItem<Controller>() { Value = null, Label = "" }
+                new ListItem<Controller>() { Value = null, Label = "-" }
             };
             items.AddRange(ModuleList.ToArray());
 

@@ -4,7 +4,10 @@ const DebugInfo = () => {
   const windowSize = useWindowSize()
 
   if (process.env.NODE_ENV !== "development") {
-    return null
+    /* In production, we don't want to show the debug info, 
+       but we still want to render some padding. 
+    */
+    return <div className="flex p-2" />
   }
 
   return (
