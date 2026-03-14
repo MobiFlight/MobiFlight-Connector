@@ -177,5 +177,25 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
             // Empty ModuleSerial should result in null controller
             Assert.IsNull(configItem.Controller);
         }
+
+        [TestMethod()]
+        public void ReadJson_ModuleSerialNotSet_ControllerIsNull()
+        {
+            // Arrange
+            var json = $@"{{
+                ""Type"": ""OutputConfigItem"",
+                ""ModuleSerial"": ""{SerialNumber.NOT_SET}"",
+                ""Name"": ""Test1"",
+                ""Active"": true 
+            }}";
+
+            // Act
+            var configItem = JsonConvert.DeserializeObject<IConfigItem>(json);
+
+            // Assert
+            Assert.IsNotNull(configItem);
+            // Empty ModuleSerial should result in null controller
+            Assert.IsNull(configItem.Controller);
+        }
     }
 }

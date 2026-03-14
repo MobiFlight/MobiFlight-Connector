@@ -426,7 +426,7 @@ namespace MobiFlight.Execution
                     // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
             }
-            else if (serial.IndexOf("SN") != 0 && cfg.DeviceType != "InputAction")
+            else if (SerialNumber.IsArcazeSerial(serial) && cfg.DeviceType != "InputAction")
             {
 #if ARCAZE
                 switch (cfg.DeviceType)
@@ -558,7 +558,7 @@ namespace MobiFlight.Execution
 
                     case "InputAction":
                         int iValue = 0;
-                        int.TryParse(value, out iValue);
+                        var isNumericValue = int.TryParse(value, out iValue);
 
                         List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
                         CacheCollection cacheCollection = new CacheCollection()
@@ -575,7 +575,7 @@ namespace MobiFlight.Execution
                             inputActionExecutionCache.Execute(
                                 cfg.ButtonInputConfig,
                                 cacheCollection,
-                                new InputEventArgs() { Value = iValue, StrValue = value },
+                                new InputEventArgs() { Value = iValue, StrValue = isNumericValue ? null : value },
                                 cfgRefs
                             );
                         else
@@ -583,7 +583,7 @@ namespace MobiFlight.Execution
                             inputActionExecutionCache.Execute(
                                 cfg.AnalogInputConfig,
                                 cacheCollection,
-                                new InputEventArgs() { Value = iValue, StrValue = value },
+                                new InputEventArgs() { Value = iValue, StrValue = isNumericValue ? null : value },
                                 cfgRefs
                             );
                         }

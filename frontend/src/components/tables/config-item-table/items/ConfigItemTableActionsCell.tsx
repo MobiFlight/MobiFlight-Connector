@@ -1,18 +1,14 @@
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { IconCopy, IconDots, IconEdit, IconFlask, IconPencil, IconTrash } from "@tabler/icons-react"
+import { IconDots, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
-import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
+import ConfigItemRowContextMenu from "@/components/ConfigItemRowContextMenu"
 
 interface ConfigItemTableActionsCellProps {
   row: Row<IConfigItem>
@@ -23,8 +19,7 @@ function ConfigItemTableActionsCell({
 }: ConfigItemTableActionsCellProps) {
   const item = row.original
   const { publish } = publishOnMessageExchange()
-  const { startNameEdit } = useRowInteraction()
-
+  
   return (
     <div className="flex justify-center">
       <Button
@@ -40,7 +35,7 @@ function ConfigItemTableActionsCell({
         <IconEdit
         />
       </Button>
-      <div className="relative">
+      <div className="relative" onContextMenu={(e) => { e.preventDefault() }}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="h-8 w-8 rounded-l-none p-0">
@@ -48,75 +43,7 @@ function ConfigItemTableActionsCell({
               <IconDots className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                publish({
-                  key: "CommandConfigContextMenu",
-                  payload: { action: "edit", item: item },
-                } as CommandConfigContextMenu)
-              }}
-            >
-              <div className="flex items-center gap-2">
-              <IconEdit></IconEdit>
-              <span>Edit</span>
-            </div>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                startNameEdit?.()
-              }}
-            >
-              <div className="flex items-center gap-2">
-              <IconPencil />
-              <span>Rename</span>
-            </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                publish({
-                  key: "CommandConfigContextMenu",
-                  payload: { action: "delete", item: item },
-                } as CommandConfigContextMenu)
-              }}
-            ><div className="flex items-center gap-2">
-              <IconTrash></IconTrash>
-              <span>Delete</span>
-            </div>
-              
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                publish({
-                  key: "CommandConfigContextMenu",
-                  payload: { action: "duplicate", item: item },
-                } as CommandConfigContextMenu)
-              }}
-            >
-              <div className="flex items-center gap-2">
-              <IconCopy></IconCopy>
-              <span>Duplicate</span>
-            </div>
-            </DropdownMenuItem>
-            {/* <DropdownMenuItem>Copy</DropdownMenuItem>
-            <DropdownMenuItem>Paste</DropdownMenuItem> */}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                publish({
-                  key: "CommandConfigContextMenu",
-                  payload: { action: "test", item: item },
-                } as CommandConfigContextMenu)
-              }}
-            >
-              <div className="flex items-center gap-2">
-              <IconFlask></IconFlask>
-              <span>Test</span>
-            </div>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
+          <ConfigItemRowContextMenu item={item} />
         </DropdownMenu>
       </div>
     </div>

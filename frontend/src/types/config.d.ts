@@ -43,6 +43,11 @@ export interface IDeviceConfig {
   Name: string
 }
 
+export interface ExtendedDeviceConfig extends IDeviceConfig {
+  Pin?: string | null
+  SubIndex?: number| null
+}
+
 export interface ConfigFile {
   Label: string
   FileName: string | null

@@ -416,6 +416,8 @@ namespace MobiFlight.UI.Dialogs
                     break;
             }
 
+            config.Device = InputConfigItem.CreateInputDevice(config);
+
             // Clear unused config objects after switching device type to prevent incorrect input event matching
             ClearUnusedConfigObjects(currentInputType);
 
@@ -620,7 +622,11 @@ namespace MobiFlight.UI.Dialogs
                             CurrentConfig = Config
                         };
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.inputShiftRegister);
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.ExtPin);
+                        
+                        var srSubCount = Convert.ToInt32(selectedInputShifter.NumModules);
+                        var srSelectedSubIndex = (config.Device as MobiFlight.InputConfig.InputShiftRegister)?.SubIndex;
+                        PopulateInputPinDropdown(srSubCount, srSelectedSubIndex);
+                        
                         inputPinDropDown.Visible = true;
                         break;
 
@@ -633,7 +639,11 @@ namespace MobiFlight.UI.Dialogs
                             CurrentConfig = Config
                         };
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.inputMultiplexer);
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.DataPin);
+
+                        var subCount = Convert.ToInt32(selectedInputMultiplexer.NumBytes);
+                        var selectedSubIndex = (config.Device as MobiFlight.InputConfig.InputMultiplexer)?.SubIndex;
+                        PopulateInputPinDropdown(subCount, selectedSubIndex);
+                        
                         inputPinDropDown.Visible = true;
                         break;
 

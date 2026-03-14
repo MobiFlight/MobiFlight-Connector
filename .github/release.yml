@@ -7,7 +7,11 @@ changelog:
     - title: New Feature 🎉
       labels:
         - feature
-    - title: Firmware & profile updates 🚀
+    - title: New Hardware Support 🕹️
+      labels:
+        - controller
+        - hardware
+    - title: Firmware & Profile Updates 🚀
       labels:
         - firmware
         - profile
@@ -25,7 +29,8 @@ changelog:
         - documentation
     - title: Development 💻
       labels:
-        - development    
+        - development
+        - code-cleanup
     - title: Other Changes ⚡
       labels:
         - "*"

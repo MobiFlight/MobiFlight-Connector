@@ -1,9 +1,200 @@
 import { test, expect } from "./fixtures"
-import { CommandMessage } from "../src/types/commands"
+import { CommandMainMenuPayload, CommandMessage } from "../src/types/commands"
 import {
   ConvertKeyAcceleratorToString,
   GlobalKeyAccelerators,
 } from "../src/lib/hooks/useKeyAccelerators"
+
+test("Confirm `File` menu items are displayed and trigger correct command", async ({
+  configListPage,
+  page,
+}) => {
+  const FileMenuItems = [
+    // New is covered in its own test since it opens a modal,
+    // so we just check for the presence of the menu item here
+    { name: "New Ctrl+N", action: null },
+    { name: "Open... Ctrl+O", action: "file.open" },
+    // Save is covered in its own test,
+    // so we just check for the presence of the menu item here
+    { name: "Save Ctrl+S", action: null },
+    { name: "Save As... Ctrl+Shift+S", action: "file.saveas" },
+    { name: "Recent Projects", action: null },
+    { name: "Exit Ctrl+Q", action: "file.exit" },
+  ]
+
+  for (const menuItem of FileMenuItems) {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    await configListPage.mobiFlightPage.clearTrackedCommands()
+
+    const FileMenu = page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "File" })
+    await expect(FileMenu).toBeVisible()
+
+    await FileMenu.click()
+
+    const item = page.getByRole("menuitem", {
+      name: menuItem.name,
+      exact: true,
+    })
+    await expect(item).toBeVisible()
+
+    if (menuItem.action == null) continue
+    await item.click()
+
+    const trackedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+
+    if (trackedCommands == undefined) {
+      throw new Error(`No commands tracked after clicking ${menuItem.name}`)
+    }
+    expect(trackedCommands.length).toBeGreaterThan(0)
+
+    const lastCommand = trackedCommands.pop() as CommandMessage
+    expect((lastCommand.payload as CommandMainMenuPayload).action).toEqual(
+      menuItem.action,
+    )
+  }
+})
+
+test("Confirm `Extras` menu items are displayed and trigger correct command", async ({
+  configListPage,
+  page,
+}) => {
+  const mainMenuItems = [
+    {
+      name: "HubHop",
+      children: [
+        { name: "Download latest presets", action: "extras.hubhop.download" },
+      ],
+    },
+    {
+      name: "Microsoft Flight Simulator",
+      children: [
+        { name: "Re-install WASM Module", action: "extras.msfs.reinstall" },
+      ],
+    },
+    { name: "Copy logs to clipboard", action: "extras.copylogs" },
+    // covered by special test, so we just check for their presence and skip the command check
+    { name: "Controller Bindings", action: null },
+    { name: "Settings", action: "extras.settings" },
+  ]
+
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+  for (const menuItem of mainMenuItems) {
+    const hasChildren = !!menuItem.children?.length
+    const subItems = hasChildren
+      ? menuItem.children!
+      : [{ name: menuItem.name, action: menuItem.action! }]
+
+    for (const subItem of subItems) {
+      await configListPage.mobiFlightPage.clearTrackedCommands()
+
+      // Open Extras menu
+      const ExtrasMenu = page
+        .getByRole("menubar")
+        .getByRole("menuitem", { name: "Extras" })
+      await expect(ExtrasMenu).toBeVisible()
+      await ExtrasMenu.click()
+
+      // Verify main menu item (e.g. "HubHop") is visible
+      const item = page.getByRole("menuitem", {
+        name: menuItem.name,
+        exact: true,
+      })
+      await expect(item).toBeVisible()
+
+      // If subItems are actually children
+      if (hasChildren) {
+        await item.click()
+        const sub = page.getByRole("menuitem", {
+          name: subItem.name,
+          exact: true,
+        })
+        await expect(sub).toBeVisible()
+
+        if (subItem.action == null) {
+          // close the menu for the next loop
+          await ExtrasMenu.click()
+          continue
+        }
+
+        await sub.click()
+      } else {
+        if (menuItem.action == null) {
+          // close the menu for the next loop
+          await ExtrasMenu.click()
+          continue
+        }
+        await item.click()
+      }
+
+      const trackedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      if (trackedCommands == undefined) {
+        throw new Error(`No commands tracked after clicking ${subItem.name}`)
+      }
+      expect(trackedCommands.length).toBeGreaterThan(0)
+      const lastCommand = trackedCommands.pop() as CommandMessage
+      expect((lastCommand.payload as CommandMainMenuPayload).action).toEqual(
+        subItem.action,
+      )
+    }
+  }
+})
+
+test("Confirm `Help` menu items are displayed and trigger correct command", async ({
+  configListPage,
+  page,
+}) => {
+  const helpMenuItems = [
+    { name: "Documentation F1", action: "help.docs" },
+    { name: "Check for update", action: "help.checkforupdate" },
+    { name: "Visit Discord server", action: "help.discord" },
+    { name: "Visit HubHop website", action: "help.hubhop" },
+    { name: "Visit YouTube channel", action: "help.youtube" },
+    { name: "About", action: "help.about" },
+    { name: "Release notes", action: "help.releasenotes" },
+  ]
+
+  for (const menuItem of helpMenuItems) {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    await configListPage.mobiFlightPage.clearTrackedCommands()
+
+    const menu = page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "Help" })
+    await expect(menu).toBeVisible()
+
+    await menu.click()
+
+    const item = page.getByRole("menuitem", {
+      name: menuItem.name,
+      exact: true,
+    })
+    await expect(item).toBeVisible()
+
+    if (menuItem.action == null) continue
+    await item.click()
+
+    const trackedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+
+    if (trackedCommands == undefined) {
+      throw new Error(`No commands tracked after clicking ${menuItem.name}`)
+    }
+    expect(trackedCommands.length).toBeGreaterThan(0)
+
+    const lastCommand = trackedCommands.pop() as CommandMessage
+    expect((lastCommand.payload as CommandMainMenuPayload).action).toEqual(
+      menuItem.action,
+    )
+  }
+})
 
 test("Confirm save menu item behaves as expected", async ({
   configListPage,

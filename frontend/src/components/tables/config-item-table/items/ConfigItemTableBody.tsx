@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils"
 import { useState, useEffect, forwardRef } from "react"
 import { RowInteractionProvider } from "../RowInteractionContext"
 import { IConfigItem } from "@/types"
+import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
+import ConfigItemRowContextMenu from "@/components/ConfigItemRowContextMenu"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData>
@@ -14,20 +16,24 @@ interface ConfigItemTableBodyProps<TData> {
   onDeleteSelected?: () => void
   onToggleSelected?: () => void
 }
-const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableBodyProps<IConfigItem>>(
-  ({ table, dragItemId, onDeleteSelected, onToggleSelected }, ref) => {
+const ConfigItemTableBody = forwardRef<
+  HTMLTableSectionElement,
+  ConfigItemTableBodyProps<IConfigItem>
+>(({ table, dragItemId, onDeleteSelected, onToggleSelected }, ref) => {
   const { publish } = publishOnMessageExchange()
   const rows = table.getRowModel().rows
-  const [lastSelected, setLastSelected] = useState<Row<IConfigItem> | null>(null)
+  const [lastSelected, setLastSelected] = useState<Row<IConfigItem> | null>(
+    null,
+  )
 
   const selectedRows = table.getSelectedRowModel().rows
-  
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const supportedKeyPress = ["Delete", " ", "Enter", "Escape", "Backspace"]
-      
+
       if (!supportedKeyPress.includes(e.key)) return
-      
+
       e.preventDefault() // Prevent default spacebar behavior (scrolling)
       e.stopPropagation()
 
@@ -50,7 +56,7 @@ const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableB
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [ table, onDeleteSelected, onToggleSelected ])
+  }, [table, onDeleteSelected, onToggleSelected])
 
   return (
     <TableBody ref={ref}>
@@ -63,17 +69,22 @@ const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableB
           const isDragging = dragItemId !== undefined
           const isDragItem = dragItemId === row.id
           const dragClassName =
-            isDragging && isSelected ?
-              !isDragItem
+            isDragging && isSelected
+              ? !isDragItem
                 ? "is-dragging"
                 : "is-first-drag-item"
-              : "" 
+              : ""
           return (
             <RowInteractionProvider key={row.id}>
               <DndTableRow
                 className={dragClassName}
                 data-state={row.getIsSelected() && "selected"}
                 dnd-itemid={row.id}
+                onContextMenu={(e) => {
+                  e.stopPropagation()
+                  table.setRowSelection({ [row.id]: true })
+                  setLastSelected(row)
+                }}
                 onClick={(e): void => {
                   e.stopPropagation()
                   if (e.shiftKey) {
@@ -81,7 +92,9 @@ const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableB
                       const lastIndex = rows.findIndex(
                         (r) => r.id === lastSelected.id,
                       )
-                      const currentIndex = rows.findIndex((r) => r.id === row.id)
+                      const currentIndex = rows.findIndex(
+                        (r) => r.id === row.id,
+                      )
                       const range = [lastIndex, currentIndex].sort(
                         (a, b) => a - b,
                       )
@@ -121,18 +134,35 @@ const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableB
                         cellClassName: string
                       }
                     )?.cellClassName ?? ""
+                    
+                  
+                  const isActionsCell = cell.column.id === "actions"
+                  
+                  const cellContent = (
+                    <TableCell className={cn("p-0", className, cellClassName)} key={isActionsCell ? cell.id : undefined}>
+                      {flexRender(cell.column.columnDef.cell, {
+                        ...cell.getContext(),
+                        selectedRows: selectedRows,
+                      })}
+                    </TableCell>
+                  )
+
+                  if (isActionsCell) {
+                    // Dont wrap the actions cell in a context menu
+                    // to avoid nesting issues with the edit button
+                    return cellContent
+                  }
 
                   return (
-                    <TableCell
-                      key={cell.id}
-                      className={cn(
-                        "p-0",
-                        className,
-                        cellClassName
-                      )}
-                    >
-                      {flexRender(cell.column.columnDef.cell, {...cell.getContext(), selectedRows: selectedRows})}
-                    </TableCell>
+                    <ContextMenu key={cell.id}>
+                      <ContextMenuTrigger asChild>
+                        {cellContent}
+                      </ContextMenuTrigger>
+                      <ConfigItemRowContextMenu
+                        item={row.original}
+                        variant="context"
+                      />
+                    </ContextMenu>
                   )
                 })}
               </DndTableRow>

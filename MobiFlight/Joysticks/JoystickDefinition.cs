@@ -88,12 +88,12 @@ namespace MobiFlight
         /// <returns>The first JoystickInput that matches the specified name or null if none found.</returns>
         public JoystickInput FindInputByName(string name)
         {
-            return Inputs.Find(input => input.Name == name);
+            return Inputs?.Find(input => input.Name == name);
         }
 
         public string MapDeviceNameToLabel(string deviceName)
         {
-            var input = Inputs.Find(Inputs => Inputs.Name == deviceName);
+            var input = Inputs?.Find(Inputs => Inputs.Name == deviceName);
             return input?.Label ?? deviceName;
         }
 

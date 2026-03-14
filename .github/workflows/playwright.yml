@@ -27,7 +27,7 @@ jobs:
         TESTS_USER_PASSWORD: ${{ secrets.TESTS_USER_PASSWORD }}
         TESTS_USER_NAME: ${{ secrets.TESTS_USER_NAME }}
       run: npx playwright test
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}
       with:
         name: playwright-report

@@ -469,6 +469,29 @@ namespace MobiFlight.Tests.Controllers
         }
 
         [TestMethod]
+        public void AnalyzeProjectBindings_MultipleConfigFiles_WithSameController_AnalyzesAll()
+        {
+            // Arrange
+            var project = new Project();
+            project.ConfigFiles.Add(CreateConfigFileWithController("Board1/ SN-111"));
+            project.ConfigFiles.Add(CreateConfigFileWithController("Board1/ SN-111"));
+
+            SetupConnectedControllers(new[]
+            {
+                ("Board1", "SN-111"),
+                ("Board2", "SN-333")
+            });
+
+            // Act
+            var result = service.AnalyzeProjectBindings(project);
+
+            // Assert
+            Assert.HasCount(1, result);
+            var binding1 = result.Find(b => b.OriginalController.Equals(SerialNumber.CreateController("Board1/ SN-111")));
+            Assert.AreEqual(ControllerBindingStatus.Match, binding1.Status);
+        }
+
+        [TestMethod]
         public void PerformAutoBinding_MultipleConfigFiles_UpdatesAll()
         {
             // Arrange
@@ -597,6 +620,48 @@ namespace MobiFlight.Tests.Controllers
 
         #endregion
 
+        #region Test with multiple configFiles in project
+        [TestMethod]
+        public void AnalyzeProjectBindings_MultipleConfigFiles_SameController_AutoBind()
+        {
+            // Arrange
+            var project = CreateProjectWithControllersAndMultipleConfigFiles(new[]
+            {
+                "X1-Pro/ SN-1111111111"
+            });
+            
+            SetupConnectedController("X1-Pro", "SN-9876543210");
+            
+            // Act
+            var result = service.AnalyzeProjectBindings(project);
+            
+            // Assert
+            Assert.HasCount(1, result, "There should only be one controller binding");
+            var binding1 = result.Find(b => b.OriginalController.Equals(SerialNumber.CreateController("X1-Pro/ SN-1111111111")));
+            Assert.AreEqual(ControllerBindingStatus.AutoBind, binding1.Status);
+        }
+
+        [TestMethod]
+        public void AnalyzeProjectBindings_MultipleConfigFiles_SameController_Missing()
+        {
+            // Arrange
+            var project = CreateProjectWithControllersAndMultipleConfigFiles(new[]
+            {
+                "X1-Pro/ SN-1111111111"
+            });
+
+            SetupConnectedController("Other Controller", "JS-9876543210");
+
+            // Act
+            var result = service.AnalyzeProjectBindings(project);
+
+            // Assert
+            Assert.HasCount(1, result, "There should only be one controller binding");
+            var binding1 = result.Find(b => b.OriginalController.Equals(SerialNumber.CreateController("X1-Pro/ SN-1111111111")));
+            Assert.AreEqual(ControllerBindingStatus.Missing, binding1.Status);
+        }
+        #endregion
+
         #region Helper Methods
 
         private Project CreateProjectWithController(string moduleSerial)
@@ -609,6 +674,19 @@ namespace MobiFlight.Tests.Controllers
             var project = new Project();
             var configFile = CreateConfigFileWithControllers(moduleSerials);
             project.ConfigFiles.Add(configFile);
+            project.Sim = "msfs";
+            return project;
+        }
+
+        private Project CreateProjectWithControllersAndMultipleConfigFiles(string[] moduleSerials)
+        {
+            var project = new Project();
+            var configFile = CreateConfigFileWithControllers(moduleSerials);
+            project.ConfigFiles.Add(configFile);
+
+            configFile = CreateConfigFileWithControllers(moduleSerials);
+            project.ConfigFiles.Add(configFile);
+
             project.Sim = "msfs";
             return project;
         }
