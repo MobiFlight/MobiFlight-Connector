@@ -99,7 +99,12 @@ def fetch_dataref_mapping(device: CduDevice):
 
 
 def color_from_style(style):
-    return COLOR_MAP[style &  7]
+    # According to the documentation
+    # (https://developer.x-plane.com/article/datarefs-for-the-cdu-screen/)
+    # the four lowest bits encode color, but only color indexes 0 through 7
+    # are defined at this point. We therefore look at only the lowest three
+    # bits to avoid an out-of-bounds access on the `COLOR_MAP` list.
+    return COLOR_MAP[style & 7]
 
 
 def size_from_style(style):
@@ -145,7 +150,7 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
             values = await queue.get()
 
             try:
-                elapsed = asyncio.get_event_loop().time() - last_run_time
+                elapsed = asyncio.get_running_loop().time() - last_run_time
 
                 # Weaker CPUs may experience performance issues when a websocket connection is saturated with requests, such as when pages are frequently changed.
                 # This rate limits the number of active websocket requests to MobiFlight.
@@ -155,7 +160,7 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
 
                 display_json = generate_display_json(device, values)
                 await websocket.send(display_json)
-                last_run_time = asyncio.get_event_loop().time()
+                last_run_time = asyncio.get_running_loop().time()
 
             except websockets.exceptions.ConnectionClosed:
                 logging.error(
