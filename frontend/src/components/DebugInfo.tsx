@@ -3,8 +3,10 @@ import { useWindowSize } from "@/lib/hooks/useWindowSize"
 const DebugInfo = () => {
   const windowSize = useWindowSize()
 
-  return <div className="flex p-2" />
   if (process.env.NODE_ENV !== "development") {
+    /* In production, we don't want to show the debug info, 
+       but we still want to render some padding. 
+    */
     return <div className="flex p-2" />
   }
 
