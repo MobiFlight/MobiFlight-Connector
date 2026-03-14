@@ -5,17 +5,17 @@ Many X-Plane aircraft have similar formats for datarefs and the means of retriev
 
 In order to support multiple CDU devices seamlessly, a dynamic approach is taken whereby an enum class is defined that contains the supported devices.
 A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
-Each enum member is assigned a value that represents the X-Plane dataref identifier. Example: fmc1 of laminar/B738/fmc1/Line04_I.
+Each enum member is assigned a value that is used to construct the X-Plane dataref identifier. Example: "fms_cdu1" in "sim/cockpit2/radios/indicators/fms_cdu1_text_line0".
 
 Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
 
-Two tasks are started independently for each avialable CDU device.
+Two tasks are started independently for each available CDU device.
 1. handle_dataref_updates -> Listens to X-Plane's WebSocket server for dataref updates for that specific CDU and pushes an event to a queue
 2. handle_device_update   -> Listens to the queue and dispatches updates to MobiFlight to update that CDU
 
 Tasks are started independently for each CDU device to ensure each device can update quickly, particularly when players might be performing shared cockpit flights.
 
-Upon a failed connection while dispatching updates to MobiFlight, the handle_device_update function use `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
+Upon a failed connection while dispatching updates to MobiFlight, the handle_device_update function uses `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
 The failed message is picked back up and dispatched to MobiFlight. This ensures a user's device eventually receives the updated display contents and doesn't hang which would require the user to cycle the page again.
 """
 
@@ -24,8 +24,9 @@ import base64
 import json
 import logging
 import urllib.request
-import websockets
 from enum import StrEnum
+
+import websockets
 
 CDU_COLUMNS = 24
 CDU_ROWS = 14
@@ -40,9 +41,6 @@ BASE_WEBSOCKET_URI = f"ws://{WEBSOCKET_HOST}:8086/api/v2"
 WS_CAPTAIN = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-captain"
 WS_CO_PILOT = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-co-pilot"
 WS_OBSERVER = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-observer"
-
-BALLOT_BOX = "☐"
-DEGREES = "°"
 
 COLOR_MAP = {
   0: "e",  # Grey instead of black, which doesn't exist
@@ -108,7 +106,7 @@ def size_from_style(style):
     return 0 if style & (1 << 7) else 1
 
 
-def generate_display_json(device: CduDevice, values: dict[str, str]):
+def generate_display_json(device: CduDevice, values: dict[str, str | bytes]):
     display_data = [[] for _ in range(CDU_CELLS)]
 
     for row in range(CDU_ROWS):
@@ -124,8 +122,8 @@ def generate_display_json(device: CduDevice, values: dict[str, str]):
             if char == " ":
                 continue
 
-            color = color_from_style(style[col]) 
-            size = size_from_style(style[col]) 
+            color = color_from_style(style[col])
+            size = size_from_style(style[col])
 
             display_data[index] = [char, color, size]
 
