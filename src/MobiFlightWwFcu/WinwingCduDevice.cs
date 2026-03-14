@@ -26,47 +26,37 @@ namespace MobiFlightWwFcu
 
         private const string KEY_STRING = @"MY6JFI/baxXX0dyOV1c8Bw==";
         private const string NONCE_STRING = @"CcwLDBJBtVe2JUHDnMhWtw==";
-
-        private Dictionary<char, byte> FormatTable = new Dictionary<char, byte>()
+        
+        private const int ColorStep = 0x21;
+        private const int ColorInvertOffset = 0x1B;
+        private const int ColorSmallOffset = 0x16B;
+        private enum Color : int
         {
-            { 'a', 0x03 },  // amber - 1           
-            { 'w', 0x06 },  // white          
-            { 'c', 0x09 },  // cyan        
-            { 'g', 0x0c },  // green            
-            { 'm', 0x0f },  // magenta          
-            { 'r', 0x12 },  // red            
-            { 'y', 0x15 },  // yellow            
-            { 'o', 0x18 },  // brown -> blue
-            { 'e', 0x1B },  // grey  - 9          
-        };
-
-        private Dictionary<char, byte[]> FormatTableLarge = new Dictionary<char, byte[]>()
+            Black = 0x00,
+            Amber = Black + ColorStep,
+            White = Amber + ColorStep,
+            Cyan = White + ColorStep,
+            Green = Cyan + ColorStep,
+            Magenta = Green + ColorStep,
+            Red = Magenta + ColorStep,
+            Yellow = Red + ColorStep,
+            Blue = Yellow + ColorStep,
+            Grey = Blue + ColorStep,
+            Khaki = Grey + ColorStep,
+        }
+        
+        private static Dictionary<char, Color> FormatTable = new Dictionary<char, Color>()
         {
-            { 'a', new byte[] {0x21, 0x00} },  // amber - 1           
-            { 'w', new byte[] {0x42, 0x00} },  // white          
-            { 'c', new byte[] {0x63, 0x00} },  // cyan        
-            { 'g', new byte[] {0x84, 0x00} },  // green            
-            { 'm', new byte[] {0xa5, 0x00} },  // magenta          
-            { 'r', new byte[] {0xc6, 0x00} },  // red            
-            { 'y', new byte[] {0xe7, 0x00} },  // yellow            
-            { 'o', new byte[] {0x08, 0x01} },  // brown -> blue
-            { 'e', new byte[] {0x29, 0x01} },  // grey
-            { 'k', new byte[] {0x4a, 0x01} },  // khaki  - 10 , 0x6b, 0x8c
-        };
-
-
-        private Dictionary<char, byte[]> FormatTableSmall = new Dictionary<char, byte[]>()
-        {
-            { 'a', new byte[] {0x8c, 0x01} },  // amber - 1           
-            { 'w', new byte[] {0xad, 0x01} },  // white          
-            { 'c', new byte[] {0xce, 0x01} },  // cyan        
-            { 'g', new byte[] {0xef, 0x01} },  // green            
-            { 'm', new byte[] {0x10, 0x02} },  // magenta          
-            { 'r', new byte[] {0x31, 0x02} },  // red            
-            { 'y', new byte[] {0x52, 0x02} },  // yellow            
-            { 'o', new byte[] {0x73, 0x02} },  // brown -> blue
-            { 'e', new byte[] {0x94, 0x02} },  // grey
-            { 'k', new byte[] {0xb5, 0x02} },  // khaki  - 10
+            { 'a', Color.Amber },
+            { 'w', Color.White },
+            { 'c', Color.Cyan },
+            { 'g', Color.Green },
+            { 'm', Color.Magenta },
+            { 'r', Color.Red },
+            { 'y', Color.Yellow},
+            { 'o', Color.Blue },
+            { 'e', Color.Grey },
+            { 'k', Color.Khaki },
         };
 
         private string InitialDisplayJson =
@@ -406,107 +396,57 @@ namespace MobiFlightWwFcu
             MessageSender.SendDisplayCommands(ClearCommands);
         }
 
-        private void ConvertAndSendCduDataOld(string json)
-        {
-            List<byte> byteList = new List<byte>();
-            JObject jsonObject = JsonConvert.DeserializeObject<JObject>(json);
-            JArray data = (JArray)jsonObject["Data"];
-
-            byte formatByte = FormatTable['w'];
-            char currentChar = ' ';
-            char formatChar = 'w';
-            bool isSmall = false;
-            for (int i = 0; i < data.Count; i++)
-            {
-                var item = data[i];
-                currentChar = ' ';
-                formatChar = 'w';
-                isSmall = false;
-
-                if (item.HasValues)
-                {
-                    currentChar = item[0].Value<char>();
-                    formatChar = item[1].Value<char>();
-                    isSmall = item[2].Value<bool>();
-                    formatByte = FormatTable[formatChar];
-                    if (isSmall)
-                    {
-                        formatByte = (byte)(formatByte + 30);
-                    }
-                }
-                // First char
-                if (i == 0)
-                {
-                    byteList.Add((byte)(formatByte + 0x01));                   
-                }
-                // Last char
-                else if ((i == data.Count - 1))
-                {
-                    byteList.Add((byte)(formatByte + 0x02));                    
-                }
-                else
-                {
-                    byteList.Add(formatByte);
-                }
-                byteList.AddRange(Encoding.UTF8.GetBytes(new char[] { currentChar }));
-            }
-        }
-
         private void ConvertAndSendCduData(string json)
         {
             List<byte> byteList = new List<byte>();
             JObject jsonObject = JsonConvert.DeserializeObject<JObject>(json);
             JArray data = (JArray)jsonObject["Data"];
 
-            byte[] formatBytes = FormatTableLarge['w'];
-            char currentChar = ' ';
-            char formatChar = 'w';
-            bool isSmall = false;
-
             for (int i = 0; i < data.Count; i++)
             {
                 var item = data[i];
-                currentChar = ' ';
-                //formatChar = 'w';
-                //isSmall = false;
+                var (lowByte, highByte) = GetFormatBytes(item, out var currentChar); 
+                
+                if (i == 0) // First char
+                    lowByte += 0x01;
+                else if (i == data.Count - 1) // Last char
+                    lowByte += 0x02;
 
-                if (item.HasValues)
-                {
-                    currentChar = item[0].Value<char>();
-                    formatChar = item[1].Value<char>();
-                    isSmall = item[2].Value<bool>();
-                    var table = isSmall ? FormatTableSmall : FormatTableLarge;
-                    if (table.ContainsKey(formatChar))
-                    {
-                        formatBytes = table[formatChar];
-                    } 
-                    else
-                    {
-                        // error format - do grey
-                        formatBytes = table['e'];
-                    }                       
-                }
-
-                // First char
-                if (i == 0)
-                {
-                    byteList.Add((byte)(formatBytes[0] + 0x01));
-                    byteList.Add(formatBytes[1]);
-                }
-                // Last char
-                else if ((i == data.Count - 1))
-                {
-                    byteList.Add((byte)(formatBytes[0] + 0x02));
-                    byteList.Add(formatBytes[1]);
-                }
-                else
-                {
-                    byteList.AddRange(formatBytes);
-                }
+                byteList.Add(lowByte);
+                byteList.Add(highByte);
                 byteList.AddRange(Encoding.UTF8.GetBytes(new char[] { currentChar }));
             }
 
             MessageSender.SendCduDisplayBytes(byteList.ToArray());            
+        }
+
+        internal static (byte lowByte, byte highByte) GetFormatBytes(JToken item, out char currentChar)
+        {
+            currentChar = ' ';
+            var color = Color.White;
+
+            if (item.HasValues)
+            {
+                currentChar = item[0].Value<char>();
+                var formatChar = item[1].Value<char>();
+                var isSmall = item[2].Value<bool>();
+
+                // Backwards compatibility: default to false
+                var isInverted = item.Count() > 3
+                    ? item[3].Value<bool>()
+                    : false;
+
+                if (!FormatTable.TryGetValue(formatChar, out color))
+                    color = Color.Grey;
+
+                if (isInverted)
+                    color += ColorInvertOffset;
+
+                if (isSmall)
+                    color += ColorSmallOffset;
+            }
+
+            return ((byte)color, (byte)((int)color >> 8));
         }
 
         public void Stop()
