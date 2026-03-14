@@ -159,8 +159,6 @@ def create_mobi_json(data: bytes) -> str:
                     # Handle color based on flags
                     if flags & CDU_FLAG_UNUSED:
                         color_str: str = "e"  # Gray for unused
-                    elif flags & CDU_FLAG_REVERSE:
-                        color_str = "e"  # Gray for reverse video
                     else:
                         color_str = {
                             CDU_COLOR_WHITE: "w",
@@ -174,7 +172,8 @@ def create_mobi_json(data: bytes) -> str:
                     message["Data"][dst_idx] = [
                         symbol,
                         color_str,
-                        1 if (is_lowercase) or (flags & CDU_FLAG_SMALL_FONT) else 0
+                        1 if (is_lowercase) or (flags & CDU_FLAG_SMALL_FONT) else 0,
+                        1 if flags & CDU_FLAG_REVERSE else 0
                     ]
             except (ValueError, TypeError, IndexError) as e:
                 message["Data"][dst_idx] = []
