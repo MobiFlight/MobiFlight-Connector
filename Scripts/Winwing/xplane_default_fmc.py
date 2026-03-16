@@ -102,9 +102,9 @@ def color_from_style(style):
     # According to the documentation
     # (https://developer.x-plane.com/article/datarefs-for-the-cdu-screen/)
     # the four lowest bits encode color, but only color indexes 0 through 7
-    # are defined at this point. We therefore look at only the lowest three
-    # bits to avoid an out-of-bounds access on the `COLOR_MAP` list.
-    return COLOR_MAP[style & 7]
+    # are defined at this point. We default to white for any color indexes that
+    # currently aren't defined.
+    return COLOR_MAP.get(style & 0xf, "w")
 
 
 def size_from_style(style):
