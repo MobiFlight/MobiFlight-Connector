@@ -2,7 +2,7 @@
 SET TARGET_DIR=%1
 SET SOLUTION_DIR=%2
 SET RELEASE_DIR=%SOLUTION_DIR%Release
-SET BUILD_TOOLS_DIR=%~dp0
+SET BUILD_TOOLS_DIR=%SOLUTION_DIR%Build\
 SET CMD_RAR=utils\7z\7z.exe
 SET INSTALLER_NAME=MobiFlight-Installer
 SET VERSION=
@@ -31,7 +31,7 @@ echo -----------------------------------------------------------
 echo Building MobiFlight-Connector ZIP package
 echo -----------------------------------------------------------
 %BUILD_TOOLS_DIR%%CMD_RAR% a %RELEASE_DIR%\MobiFlightConnector-%VERSION%.zip %TARGET_DIR%*.* -r
-copy %SOLUTION_DIR%MobiFlight-Installer\%INSTALLER_NAME%\bin\Release\%INSTALLER_NAME%.exe %RELEASE_DIR%\
+copy %SOLUTION_DIR%src\%INSTALLER_NAME%\bin\Release\%INSTALLER_NAME%.exe %RELEASE_DIR%\
 echo OK
 
 echo -----------------------------------------------------------
