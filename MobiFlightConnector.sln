@@ -10,18 +10,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "Mobi
 		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4} = {3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "MobiFlightUnitTests\MobiFlightUnitTests.csproj", "{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "tests\MobiFlightUnitTests\MobiFlightUnitTests.csproj", "{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B} = {FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionInfo", "VersionInfo\VersionInfo.csproj", "{657624C9-3CA3-4DB3-8107-2CC0356A5026}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionInfo", "src\VersionInfo\VersionInfo.csproj", "{657624C9-3CA3-4DB3-8107-2CC0356A5026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightInstaller", "MobiFlight-Installer\MobiFlight-Installer\MobiFlightInstaller.csproj", "{9891291C-16A1-48B7-BAEE-9FE876663E0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightInstaller", "src\MobiFlight-Installer\MobiFlightInstaller.csproj", "{9891291C-16A1-48B7-BAEE-9FE876663E0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "CmdMessenger\CommandMessenger\CommandMessenger.csproj", "{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "src\CommandMessenger\CommandMessenger.csproj", "{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger.Transport.Serial", "CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj", "{00D85F0B-00A5-41FA-8A99-428C0199C663}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger.Transport.Serial", "src\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj", "{00D85F0B-00A5-41FA-8A99-428C0199C663}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
