@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main, hotfix/* ]
     paths:
-      - 'Scripts/**/*.py'
+      - '**/Scripts/**/*.py'
 
 jobs:
   python-script-checks:

@@ -35,16 +35,16 @@ jobs:
         run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
       - name: Replace version in AssemblyInfo.cs
-        run: (Get-Content "Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ env.VERSION }}")' | Out-File "Properties/AssemblyInfo.cs"
+        run: (Get-Content "src/MobiFlightConnector/Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ env.VERSION }}")' | Out-File "src/MobiFlightConnector/Properties/AssemblyInfo.cs"
         shell: pwsh
 
       - name: Dump AssemblyInfo.cs
-        run: "type Properties/AssemblyInfo.cs"
+        run: "type src/MobiFlightConnector/Properties/AssemblyInfo.cs"
         shell: pwsh
 
       - name: Build frontend
         working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd frontend; npm install; npm run build
+        run: cd src/MobiFlightConnector/frontend; npm install; npm run build
 
       - name: Build core
         working-directory: ${{env.GITHUB_WORKSPACE}}
