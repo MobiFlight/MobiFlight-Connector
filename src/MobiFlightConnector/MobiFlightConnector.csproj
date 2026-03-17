@@ -1249,22 +1249,22 @@
     <None Include="Devices\mfdevice.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\examples\example-default-plane-v6.1.mcc">
+    <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\examples\example-jeehell-datapipe.mcc">
+    <None Include="examples\example-jeehell-datapipe.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\examples\example-tutorial-7-segment.mcc">
+    <None Include="examples\example-tutorial-7-segment.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\examples\Homecockpit_C172.mcc">
+    <None Include="examples\Homecockpit_C172.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\examples\mobiflight-in-action-episode-1.mcc">
+    <None Include="examples\mobiflight-in-action-episode-1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\examples\tutorial-episode2.mcc">
+    <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_mega_2_5_1.hex">
@@ -1995,7 +1995,7 @@
     <EmbeddedResource Include="UI\Dialogs\WelcomeDialog.resx">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="..\..\examples\example-release-5.0.0.mcc" />
+    <None Include="examples\example-release-5.0.0.mcc" />
     <None Include="Resources\module-unknown.png" />
     <None Include="Resources\module-arduino.png" />
     <None Include="Resources\module-mobiflight.png" />
