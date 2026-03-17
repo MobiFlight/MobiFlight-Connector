@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "MobiFlightConnector.csproj", "{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "src\MobiFlightConnector\MobiFlightConnector.csproj", "{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E} = {9891291C-16A1-48B7-BAEE-9FE876663E0E}
 		{657624C9-3CA3-4DB3-8107-2CC0356A5026} = {657624C9-3CA3-4DB3-8107-2CC0356A5026}

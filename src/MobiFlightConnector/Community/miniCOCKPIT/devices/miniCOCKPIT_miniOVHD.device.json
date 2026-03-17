@@ -1,0 +1,98 @@
+{
+    "$schema": "./mfdevice.schema.json",
+    "Info": {
+      "Label": "miniOVHD LED",
+      "Type": "miniCOCKPIT_miniOVHD",
+      "Author": "miniCOCKPIT",
+      "URL": "",
+      "Version" : "1.0.5"
+    },
+    "Config": {
+      "Pins": [
+        "CS"
+      ],
+      "isI2C": false
+    },
+    "MessageTypes": [
+      {
+        "id": 0,
+        "label": "OVHD - LDG FLAP3 - UPPER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 1,
+        "label": "OVHD - LDG FLAP3 - LOWER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 2,
+        "label": "OVHD - ANTIICE WING - UPPER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 3,
+        "label": "OVHD - ANTIICE WING - LOWER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 4,
+        "label": "OVHD - ANTIICE ENG - UPPER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 5,
+        "label": "OVHD - ANTIICE ENG - LOWER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 6,
+        "label": "OVHD - PB/WIN HEAT - UPPER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 7,
+        "label": "OVHD - PB/WIN HEAT - LOWER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 8,
+        "label": "OVHD - APU_BLEED - UPPER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 9,
+        "label": "OVHD - APU_BLEED - LOWER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 10,
+        "label": "OVHD - EXT_PWR - UPPER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 11,
+        "label": "OVHD - EXT_PWR - LOWER",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+          "id": 12,
+          "label": "OVHD - MASTER SW - UPPER",
+          "description": "1 = ON | 0 = OFF"
+      },
+      {
+          "id": 13,
+          "label": "OVHD - MASTER SW - LOWER",
+          "description": "1 = ON | 0 = OFF"
+      },
+      {
+          "id": 14,
+          "label": "OVHD - START - UPPER",
+          "description": "1 = ON | 0 = OFF"
+      },
+      {
+          "id": 15,
+          "label": "OVHD - START - LOWER",
+          "description": "1 = ON | 0 = OFF"
+      }
+    ]
+  }

@@ -773,7 +773,7 @@
       <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
       <Name>CommandMessenger</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MobiFlightConnector.csproj">
+    <ProjectReference Include="..\..\src\MobiFlightConnector\MobiFlightConnector.csproj">
       <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
       <Name>MobiFlightConnector</Name>
     </ProjectReference>

@@ -1,0 +1,6 @@
+﻿namespace MobiFlight
+{
+    interface ModuleCacheInterface
+    {
+    }
+}
