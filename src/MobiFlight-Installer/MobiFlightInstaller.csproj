@@ -141,8 +141,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)\Build
-mkdir $(SolutionDir)\bin\$(ConfigurationName)
+mkdir $(SolutionDir)\src\MobiFlightConnector\bin\$(ConfigurationName)
 copy $(TargetPath) $(SolutionDir)\Build
-copy $(TargetPath) $(SolutionDir)\bin\$(ConfigurationName)</PostBuildEvent>
+copy $(TargetPath) $(SolutionDir)\src\MobiFlightConnector\bin\$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>
