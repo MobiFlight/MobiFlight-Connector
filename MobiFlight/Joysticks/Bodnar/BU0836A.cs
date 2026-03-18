@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="joystick">The DirectInput joystick instance.</param>
         /// <param name="definition">Joystick definition file.</param>
-        public BU0836A(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(12, joystick, definition)
+        public BU0836A(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(32, joystick, definition)
         {
         }
     }
