@@ -51,7 +51,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>mobiflight.ico</ApplicationIcon>
+    <ApplicationIcon>..\..\mobiflight.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -1640,7 +1640,7 @@
     <Content Include="Boards\mobiflight_uno.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="mobiflight.ico" />
+    <Content Include="..\..\mobiflight.ico" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
     <EmbeddedResource Include="UI\Dialogs\DonateDialog.de.resx">
