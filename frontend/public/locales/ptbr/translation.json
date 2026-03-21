@@ -1,41 +1,41 @@
 {
   "General": {
     "Action": {
-      "OpenMenu": "Open menu"
+      "OpenMenu": "Abrir menu"
     },
     "Overlay": {
-      "OpeningWizard": "Opening wizard...",
-      "SavingChanges": "Saving project..."
+      "OpeningWizard": "Abrindo assistente...",
+      "SavingChanges": "Salvando projeto..."
     },
     "HubHopUpdate": {
-      "Error": "HubHop update failed. Please try again later.",
-      "Success": "HubHop update completed successfully!",
-      "Title": "HubHop update available",
-      "Description": "Your HubHop database is older than {{days}} days. Would you like to update it now?",
-      "Title.Downloading": "Downloading HubHop update..."
+      "Error": "Falha na atualização do HubHop. Tente novamente mais tarde.",
+      "Success": "Atualização do HubHop concluída com sucesso!",
+      "Title": "Atualização do HubHop disponível",
+      "Description": "Seu banco de dados do HubHop está desatualizado há {{days}} dias. Deseja atualizá-lo agora?",
+      "Title.Downloading": "Baixando atualização do HubHop..."
     },
     "Error": {
-      "FallbackTitle": "Ooops... something went wrong!",
-      "Unknown": "An unknown error occurred."
+      "FallbackTitle": "Ooops... algo deu errado!",
+      "Unknown": "Ocorreu um erro desconhecido."
     }
   },
   "MainMenu": {
     "File": {
-      "Label": "File",
-      "New": "New",
-      "Open": "Open...",
-      "Save": "Save",
-      "SaveAs": "Save As...",
-      "RecentProjects": "Recent Projects",
-      "RecentProjects.None": "No projects",
-      "Exit": "Exit"
+      "Label": "Arquivo",
+      "New": "Novo",
+      "Open": "Abrir...",
+      "Save": "Salvar",
+      "SaveAs": "Salvar como...",
+      "RecentProjects": "Projetos recentes",
+      "RecentProjects.None": "Nenhum projeto",
+      "Exit": "Sair"
     },
     "View": {
-      "Label": "View",
+      "Label": "Visualizar",
       "Zoom": {
-        "Reset": "Reset Zoom",
-        "In": "Zoom In",
-        "Out": "Zoom Out",
+        "Reset": "Redefinir zoom",
+        "In": "Aumentar zoom",
+        "Out": "Diminuir zoom",
         "Shortcut": {
           "Reset": "Ctrl+0",
           "In": "Ctrl++",
@@ -45,83 +45,83 @@
     },
     "Extras": {
       "Label" : "Extras",
-      "HubHop.DownloadLatestPresets": "Download latest presets",
-      "MSFS.ReinstallWASMModule": "Re-install WASM Module",
-      "CopyLogs": "Copy logs to clipboard",
-      "ControllerBindings": "Controller Bindings",
-      "Settings": "Settings"
+      "HubHop.DownloadLatestPresets": "Baixar presets mais recentes",
+      "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
+      "CopyLogs": "Copiar logs para a área de transferência",
+      "ControllerBindings": "Vinculação de controladores",
+      "Settings": "Configurações"
     },
     "Help": {
-      "Label": "Help",
-      "Documentation": "Documentation",
-      "CheckForUpdates": "Check for update",
-      "VisitDiscord": "Visit Discord server",
-      "VisitHubHop": "Visit HubHop website",
-      "VisitYouTube": "Visit YouTube channel",
-      "About": "About",
-      "ReleaseNotes": "Release notes"
+      "Label": "Ajuda",
+      "Documentation": "Documentação",
+      "CheckForUpdates": "Verificar atualizações",
+      "VisitDiscord": "Visitar servidor do Discord",
+      "VisitHubHop": "Visitar site do HubHop",
+      "VisitYouTube": "Visitar canal no YouTube",
+      "About": "Sobre",
+      "ReleaseNotes": "Notas de versão"
     }
   },
   "Types": {
-    "Output": "Output",
-    "LedModule": "7-Segment Display",
-    "Stepper": "Stepper",
+    "Output": "Saída",
+    "LedModule": "Display de 7 segmentos",
+    "Stepper": "Motor de passo",
     "Servo": "Servo",
-    "LcdDisplay": "LCD Display",
-    "ShiftRegister": "Output Shift Register",
-    "CustomDevice": "Custom Device",
-    "InputShiftRegister": "Input Shift Register",
-    "Button": "Button",
+    "LcdDisplay": "Display LCD",
+    "ShiftRegister": "Registrador de deslocamento de saída",
+    "CustomDevice": "Dispositivo personalizado",
+    "InputShiftRegister": "Registrador de deslocamento de entrada",
+    "Button": "Botão",
     "Encoder": "Encoder",
-    "AnalogInput": "Analog Input",
-    "-": "not set",
-    "OutputConfigItem": "Output Configuration",
-    "InputConfigItem": "Input Configuration",
-    "InputAction": "Input Action"
+    "AnalogInput": "Entrada analógica",
+    "-": "não definido",
+    "OutputConfigItem": "Configuração de saída",
+    "InputConfigItem": "Configuração de entrada",
+    "InputAction": "Ação de entrada"
   },
   "Project": {
-    "Label": "Project",
+    "Label": "Projeto",
     "File.Action": {
-      "Add": "Add profile",
-      "New": "Add new profile",
-      "Label": "New profile",
-      "Merge": "From existing project",
-      "Rename": "Rename",
-      "Remove": "Remove",
-      "Export": "Export"
+      "Add": "Adicionar perfil",
+      "New": "Adicionar novo perfil",
+      "Label": "Novo perfil",
+      "Merge": "De projeto existente",
+      "Rename": "Renomear",
+      "Remove": "Remover",
+      "Export": "Exportar"
     },
     "Toolbar": {
       "Save": {
-        "HasChanges": "Save changes",
-        "NoChanges": "No changes to save",
-        "Success": "Saved successfully"
+        "HasChanges": "Salvar alterações",
+        "NoChanges": "Nenhuma alteração para salvar",
+        "Success": "Salvo com sucesso"
       },
-      "Settings": "Settings"
+      "Settings": "Configurações"
     },
     "Execution": {
       "AutoRun": {
         "Label": "Auto",
-        "Enable": "Enable Auto Run",
-        "Disable": "Disable Auto Run"
+        "Enable": "Ativar execução automática",
+        "Disable": "Desativar execução automática"
       },
       "Run": {
-        "Label": "Run",
-        "Stop": "Stop",
-        "Start": "Start run mode and process all configs",
-        "StopMode": "Stop run mode",
-        "BlockedByTest": "Test mode active. Stop it first."
+        "Label": "Executar",
+        "Stop": "Parar",
+        "Start": "Iniciar modo de execução e processar todas as configurações",
+        "StopMode": "Parar modo de execução",
+        "BlockedByTest": "Modo de teste ativo. Pare-o primeiro."
       },
       "Test": {
-        "Label": "Test",
-        "Stop": "Stop",
-        "Start": "Start test mode and test all configs",
-        "StopMode": "Stop test mode execution",
-        "BlockedByRun": "Run mode active. Stop it first."
+        "Label": "Teste",
+        "Stop": "Parar",
+        "Start": "Iniciar modo de teste e testar todas as configurações",
+        "StopMode": "Parar execução do modo de teste",
+        "BlockedByRun": "Modo de execução ativo. Pare-o primeiro."
       }
     },
     "Tabs": {
-      "ScrollLeft": "Scroll left",
-      "ScrollRight": "Scroll right"
+      "ScrollLeft": "Rolar para a esquerda",
+      "ScrollRight": "Rolar para a direita"
     },
     "Simulator": {
       "msfs": "Microsoft Flight Simulator",
@@ -129,253 +129,253 @@
       "p3d": "Prepar3D",
       "fsx": "FSX / FS2004",
       "prosim": "ProSim",
-      "none": "No simulator"
+      "none": "Nenhum simulador"
     },
     "BindingStatus": {
-      "Match": "Controller connected",
-      "AutoBind": "Auto-bound controller",
-      "Missing": "Controller missing",
-      "RequiresManualBind": "Manual binding required"
+      "Match": "Controlador conectado",
+      "AutoBind": "Controlador vinculado automaticamente",
+      "Missing": "Controlador ausente",
+      "RequiresManualBind": "Vinculação manual necessária"
     },
     "Card": {
       "Main": {
-        "Title": "My Projects",
-        "Description": "Quick access to my projects.",
-        "AllProjects": "All Projects",
-        "CurrentProject": "Current project",
-        "NoActiveProject": "No project is currently loaded.",
-        "CreateFirstProject": "Create your first project to get started!",
-        "BindingIssuesTooltip": "Click to view controller binding issues"
+        "Title": "Meus projetos",
+        "Description": "Acesso rápido aos meus projetos.",
+        "AllProjects": "Todos os projetos",
+        "CurrentProject": "Projeto atual",
+        "NoActiveProject": "Nenhum projeto está carregado no momento.",
+        "CreateFirstProject": "Crie seu primeiro projeto para começar!",
+        "BindingIssuesTooltip": "Clique para ver problemas de vinculação de controladores"
       },
       "Filter": {
         "Search": {
-          "Placeholder": "Filter projects..."
+          "Placeholder": "Filtrar projetos..."
         }
       },
-      "NoActiveProjectHint": "Open one of your recent projects from the right, or create a new project to get started."
+      "NoActiveProjectHint": "Abra um dos seus projetos recentes à direita ou crie um novo projeto para começar."
     },
     "Form": {
       "Title": {
-        "New": "Create new project",
-        "Edit": "Edit project"
+        "New": "Criar novo projeto",
+        "Edit": "Editar projeto"
       },
-      "Description": "Configure your project settings, like name, simulator and aircraft.",
+      "Description": "Configure as definições do seu projeto, como nome, simulador e aeronave.",
       "Name": {
-        "Label": "Project Name",
-        "Placeholder": "e.g., Boeing 737 Home Cockpit",
+        "Label": "Nome do projeto",
+        "Placeholder": "ex.: Boeing 737 Home Cockpit",
         "Error": {
-          "Required": "Please provide a name for your project. It is required."
+          "Required": "Por favor, informe um nome para o projeto. É obrigatório."
         }
       },
       "Simulator": {
-        "Label": "Flight simulator",
-        "HelpText": "Select the primary simulator for this project.",
-        "UseFsuipc": "FSUIPC - alternative legacy interface sometimes used by addons, e.g. PMDG",
-        "UseProSim": "ProSim - interface for ProSim aircraft",
-        "Feature": "Additional Features"
+        "Label": "Simulador de voo",
+        "HelpText": "Selecione o simulador principal para este projeto.",
+        "UseFsuipc": "FSUIPC - interface alternativa legada usada por alguns addons, ex.: PMDG",
+        "UseProSim": "ProSim - interface para aeronaves ProSim",
+        "Feature": "Recursos adicionais"
       },
       "Aircraft": {
-        "Label": "Aircraft",
-        "HelpText": "Select the aircraft for this project."
+        "Label": "Aeronave",
+        "HelpText": "Selecione a aeronave para este projeto."
       },
       "Buttons": {
-        "Create": "Create project",
-        "Update": "Update project"
+        "Create": "Criar projeto",
+        "Update": "Atualizar projeto"
       }
     },
     "UnsavedChanges": {
-      "Title": "Unsaved changes",
-      "Description": "You have unsaved changes in your project. What would you like to do?",
-      "Save": "Save changes",
-      "Discard": "Discard changes"
+      "Title": "Alterações não salvas",
+      "Description": "Você possui alterações não salvas no projeto. O que deseja fazer?",
+      "Save": "Salvar alterações",
+      "Discard": "Descartar alterações"
     }
   },
   "ConfigList": {
     "Toolbar": {
       "Search": {
-        "Placeholder": "Filter items..."
+        "Placeholder": "Filtrar itens..."
       },
       "Filter": {
-        "ConfigType": "Config Type",
-        "Device": "Controller",
-        "Type": "Devices",
-        "Name": "Names",
-        "Selected": "{{items}} selected",
-        "Clear": "Clear filters",
-        "NoResultsFound": "No results found."
+        "ConfigType": "Tipo de configuração",
+        "Device": "Controlador",
+        "Type": "Dispositivos",
+        "Name": "Nomes",
+        "Selected": "{{items}} selecionados",
+        "Clear": "Limpar filtros",
+        "NoResultsFound": "Nenhum resultado encontrado."
       },
-      "NotSet": "not set",
-      "Reset": "Reset filters",
+      "NotSet": "não definido",
+      "Reset": "Redefinir filtros",
       "SelectedRows": {
         "Commands": {
-          "Label": "{{count}} rows selected",
-          "Delete": "Delete selected",
-          "Toggle": "Toggle selected",
-          "Clear": "Clear selection"
+          "Label": "{{count}} linhas selecionadas",
+          "Delete": "Excluir selecionados",
+          "Toggle": "Alternar selecionados",
+          "Clear": "Limpar seleção"
         }
       }
     },
     "Header": {
-      "Active": "Active",
-      "Name": "Name / Description",
-      "Device": "Controller",
-      "Component": "Device",
+      "Active": "Ativo",
+      "Name": "Nome / Descrição",
+      "Device": "Controlador",
+      "Component": "Dispositivo",
       "Status": "Status",
-      "RawValue": "Raw Value",
-      "FinalValue": "Final Value",
-      "Actions": "Actions"
+      "RawValue": "Valor bruto",
+      "FinalValue": "Valor final",
+      "Actions": "Ações"
     },
     "Cell": {
-      "Waiting": "Waiting",
+      "Waiting": "Aguardando",
       "Controller": {
-        "openInSettings": "Open controller settings",
-        "not set": "No controller used in this config."
+        "openInSettings": "Abrir configurações do controlador",
+        "not set": "Nenhum controlador utilizado nesta configuração."
       },
       "Device": {
-        "not set": "No device used in this config."
+        "not set": "Nenhum dispositivo utilizado nesta configuração."
       }
     },
     "Table": {
-      "NoResultsFound": "This is a new configuration. Please add some items.",
-      "DropHereToAdd": "Drop here to add new items.",
-      "NoResultsMatchingFilter": "No results matching the filter.",
+      "NoResultsFound": "Esta é uma nova configuração. Por favor, adicione alguns itens.",
+      "DropHereToAdd": "Solte aqui para adicionar novos itens.",
+      "NoResultsMatchingFilter": "Nenhum resultado corresponde ao filtro.",
       "Drag": {
-        "MovingItems": "Moving items"
+        "MovingItems": "Movendo itens"
       }
     },
     "Actions": {
       "OutputConfigItem": {
-        "Add": "Add Output Config",
-        "DefaultName": "New Output Config"
+        "Add": "Adicionar configuração de saída",
+        "DefaultName": "Nova configuração de saída"
       },
       "InputConfigItem": {
-        "Add": "Add Input Config",
-        "DefaultName": "New Input Config"
+        "Add": "Adicionar configuração de entrada",
+        "DefaultName": "Nova configuração de entrada"
       }
     },
     "Status": {
       "Precondition": {
         "normal": "Normal",
-        "not satisfied": "Precondition is not satisfied.",
-        "Error": "Error evaluating precondition. Check logs for more details."
+        "not satisfied": "Pré-condição não satisfeita.",
+        "Error": "Erro ao avaliar a pré-condição. Verifique os logs para mais detalhes."
       },
       "Source": {
-        "available": "Source is available.",
-        "SIMCONNECT_NOT_AVAILABLE": "This config uses SimConnect, connection is missing.",
-        "FSUIPC_NOT_AVAILABLE": "This config uses FSUIPC, connection is missing.",
-        "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing.",
-        "PROSIM_NOT_AVAILABLE": "This config uses ProSim, connection is missing.",
-        "ReadError": "Error occurred during read. Check logs for more details."
+        "available": "Fonte disponível.",
+        "SIMCONNECT_NOT_AVAILABLE": "Esta configuração usa SimConnect, conexão ausente.",
+        "FSUIPC_NOT_AVAILABLE": "Esta configuração usa FSUIPC, conexão ausente.",
+        "XPLANE_NOT_AVAILABLE": "Esta configuração usa X-Plane, conexão ausente.",
+        "PROSIM_NOT_AVAILABLE": "Esta configuração usa ProSim, conexão ausente.",
+        "ReadError": "Ocorreu um erro durante a leitura. Verifique os logs para mais detalhes."
       },
       "Modifier": {
-        "Error": "A modifier is applied which has an error.",
-        "OK": "A modifier is applied."
+        "Error": "Há um modificador aplicado com erro.",
+        "OK": "Há um modificador aplicado."
       },
       "Device": {
-        "NotConnected": "The device used in this config is not connected.",
-        "Connected": "The device used in this config is connected."
+        "NotConnected": "O dispositivo utilizado nesta configuração não está conectado.",
+        "Connected": "O dispositivo utilizado nesta configuração está conectado."
       },
       "Test": {
-        "Executing": "This config is currently being tested.",
-        "NotExecuting": "This config is not being tested."
+        "Executing": "Esta configuração está sendo testada no momento.",
+        "NotExecuting": "Esta configuração não está sendo testada."
       },
       "ConfigRef": {
-        "Missing": "One or more referenced configs are missing.",
-        "OK": "All referenced configs are available."
+        "Missing": "Uma ou mais configurações referenciadas estão ausentes.",
+        "OK": "Todas as configurações referenciadas estão disponíveis."
       }
     },
     "Notification": {
       "NewConfigNotVisible": {
-        "Message": "New config created but not visible.",
-        "Description": "Your config doesn't match the current filter settings so it is not visible in the list.",
-        "Action": "Reset filters"
+        "Message": "Nova configuração criada, mas não visível.",
+        "Description": "Sua configuração não corresponde aos filtros atuais e por isso não aparece na lista.",
+        "Action": "Redefinir filtros"
       }
     }
   },
   "Notifications": {
     "ControllerAutoBindSuccessful": {
-      "Title": "Great news!",
-      "Description": "We've updated your project to work with ‘{{controllerName}}’ — everything’s ready to go!"
+      "Title": "Boas notícias!",
+      "Description": "Atualizamos seu projeto para funcionar com ‘{{controllerName}}’ — tudo pronto para uso!"
     },
     "ControllerManualBindRequired": {
-      "Title": "Your input is needed!",
-      "Description": "{{controllerName}} used in this profile requires manual binding to make your project work correctly.",
-      "Action": "Bind controllers"
+      "Title": "Sua ação é necessária!",
+      "Description": "O controlador {{controllerName}} usado neste perfil requer vinculação manual para funcionar corretamente.",
+      "Action": "Vincular controladores"
     },
     "SimConnectionLost": {
-      "Title": "Connection Lost",
-      "Description": "The connection to {{simType}} was lost."
+      "Title": "Conexão perdida",
+      "Description": "A conexão com {{simType}} foi perdida."
     },
     "SimStopped": {
-      "Title": "Flight Simulator Closed",
-      "Description": "The Flight Simulator has been closed. Execution of config has been stopped. Restart your flight simulator to restart config."
+      "Title": "Simulador de voo fechado",
+      "Description": "O simulador de voo foi fechado. A execução das configurações foi interrompida. Reinicie o simulador para retomar."
     },
     "TestModeException": {
-      "Title": "Test Mode Error",
+      "Title": "Erro no modo de teste",
       "Description": "{{errorMessage}}"
     }
   },
   "Startup": {
-    "Starting": "Starting MobiFlight...",
-    "CheckingFirmwareUpdates": "Checking for Firmware Updates...",
-    "ScanningControllers": "Scanning for connected controllers...",
-    "LoadingLastConfig": "Loading last config...",
-    "Finished": "Finished.",
+    "Starting": "Iniciando MobiFlight...",
+    "CheckingFirmwareUpdates": "Verificando atualizações de firmware...",
+    "ScanningControllers": "Procurando controladores conectados...",
+    "LoadingLastConfig": "Carregando última configuração...",
+    "Finished": "Concluído.",
     "Test": {
-      "Loading": "Loading..."
+      "Loading": "Carregando..."
     }
   },
   "Feed": {
-    "Title": "Community Feed",
-    "Description": "News and updates from the MobiFlight community.",
-    "NoPosts": "No posts available.",
+    "Title": "Feed da comunidade",
+    "Description": "Notícias e atualizações da comunidade MobiFlight.",
+    "NoPosts": "Nenhuma publicação disponível.",
     "Filter": {
-      "all": "All",
-      "shop": "Offers",
-      "events": "Events",
-      "community": "Community"
+      "all": "Todos",
+      "shop": "Ofertas",
+      "events": "Eventos",
+      "community": "Comunidade"
     }
   },
   "Dialog": {
     "General": {
-      "Cancel": "Cancel",
-      "Close": "Close",
-      "SaveChanges": "Save changes",
-      "ApplyChanges": "Apply changes"
+      "Cancel": "Cancelar",
+      "Close": "Fechar",
+      "SaveChanges": "Salvar alterações",
+      "ApplyChanges": "Aplicar alterações"
     },
     "ControllerBinding": {
-      "Title": "Controller Bindings",
-      "Description": "Bind the controllers used in this project to the physical controllers connected to your computer.",
+      "Title": "Vinculação de controladores",
+      "Description": "Vincule os controladores usados neste projeto aos dispositivos físicos conectados ao computador.",
       "Filter": {
-        "all": "All",
-        "manual": "Manual bind",
-        "autobind": "Auto-bind",
-        "missing": "Missing",
-        "match": "Match"
+        "all": "Todos",
+        "manual": "Vinculação manual",
+        "autobind": "Vinculação automática",
+        "missing": "Ausentes",
+        "match": "Correspondentes"
       },
-      "ControllersInProject": "{{count}} Controllers used in project",
-      "ConnectedControllers": "{{count}} Controllers connected to PC",
-      "AllSet": "All set! Your project is completely configured."
+      "ControllersInProject": "{{count}} controladores usados no projeto",
+      "ConnectedControllers": "{{count}} controladores conectados ao PC",
+      "AllSet": "Tudo pronto! Seu projeto está totalmente configurado."
     }
   },
   "Auth": {
     "User": {
-      "SignIn": "Sign in",
-      "SignOut": "Sign out",
-      "Profile": "Profile",
-      "ProfileFeatureComingSoon": "coming soon"
+      "SignIn": "Entrar",
+      "SignOut": "Sair",
+      "Profile": "Perfil",
+      "ProfileFeatureComingSoon": "em breve"
     },
     "Redirect": {
-      "SignIn": "Redirecting to Sign in...",
-      "SignOut": "Redirecting to Sign out...",
-      "CompletingFlow": "Completing process...",
-      "FlowSuccessful": "Success!"
+      "SignIn": "Redirecionando para login...",
+      "SignOut": "Redirecionando para saída...",
+      "CompletingFlow": "Concluindo processo...",
+      "FlowSuccessful": "Sucesso!"
     },
     "Notification": {
       "Error": {
-        "Title": "Error on authentication",
-        "Description": "An error occurred during authentication.",
-        "ActionCopyToClipboard": "Copy message"
+        "Title": "Erro na autenticação",
+        "Description": "Ocorreu um erro durante a autenticação.",
+        "ActionCopyToClipboard": "Copiar mensagem"
       }
     }
   }
