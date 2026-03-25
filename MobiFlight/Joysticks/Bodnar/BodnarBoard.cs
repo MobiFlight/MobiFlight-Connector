@@ -39,7 +39,7 @@ namespace MobiFlight.Joysticks.Bodnar
         /// </summary>
         public override string Name
         {
-            get { return Definition?.InstanceName.Trim() ?? "BU0836X"; }
+            get { return base.Name ?? "BU0836X"; }
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace MobiFlight.Joysticks.Bodnar
         /// <returns>True if connection was successful, false otherwise.</returns>
         protected async Task<bool> Connect()
         {
-            var VendorId = Definition.VendorId;
-            var ProductId = Definition.ProductId;
+            var VendorId = DIJoystick.Properties.VendorId;
+            var ProductId = DIJoystick.Properties.ProductId;
 
             var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory(writeBufferSize: 1);
             var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
@@ -217,7 +217,6 @@ namespace MobiFlight.Joysticks.Bodnar
                 bool IsAxis = (device.ObjectId.Flags & DeviceObjectTypeFlags.AbsoluteAxis) > 0;
                 bool IsButton = (device.ObjectId.Flags & DeviceObjectTypeFlags.Button) > 0;
                 bool IsPOV = (device.ObjectId.Flags & DeviceObjectTypeFlags.PointOfViewController) > 0;
-
 
                 if (IsAxis && Axes.Count < DIJoystick.Capabilities.AxeCount)
                 {

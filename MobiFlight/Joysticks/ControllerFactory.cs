@@ -41,12 +41,12 @@ namespace MobiFlight.Joysticks
                 return true;
             }
 
-            if (instanceName.Trim().Contains("BU0836X"))
+            if (instanceName.Trim() == "BU0836X Interface")
             {
                 return true;
             }
 
-            if (instanceName.Trim().Contains("BU0836A Interface"))
+            if (instanceName.Trim() == "BU0836A Interface")
             {
                 return true;
             }
@@ -114,12 +114,12 @@ namespace MobiFlight.Joysticks
                 return new AuthentiKit.AuthentiKit(diJoystick, definition);
             }
 
-            if (instanceName.Trim().Contains("BU0836X"))
+            if (instanceName.Trim() == "BU0836X Interface")
             {
                 return new Bodnar.BU0836X(diJoystick, definition);
             }
 
-            if (instanceName.Trim().Contains("BU0836A Interface"))
+            if (instanceName.Trim() == "BU0836A Interface")
             {
                 return new Bodnar.BU0836A(diJoystick, definition);
             }

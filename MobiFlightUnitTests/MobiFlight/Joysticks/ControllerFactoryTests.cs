@@ -41,9 +41,17 @@ namespace MobiFlight.Joysticks.Tests
             result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
             Assert.IsTrue(result);
 
-            deviceInstance = CreateDeviceInstance("BU0836X");
+            deviceInstance = CreateDeviceInstance("BU0836A Interface 1");
+            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
+            Assert.IsFalse(result);
+
+            deviceInstance = CreateDeviceInstance("BU0836X Interface");
             result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
             Assert.IsTrue(result);
+
+            deviceInstance = CreateDeviceInstance("BU0836X");
+            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
+            Assert.IsFalse(result);
         }
 
         [TestMethod()]
