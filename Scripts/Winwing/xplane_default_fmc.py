@@ -111,6 +111,10 @@ def size_from_style(style):
     return 0 if style & (1 << 7) else 1
 
 
+def reverse_video_from_style(style):
+    return 1 if style & (1 << 6) else 0
+
+
 def generate_display_json(device: CduDevice, values: dict[str, str | bytes]):
     display_data = [[] for _ in range(CDU_CELLS)]
 
@@ -129,8 +133,9 @@ def generate_display_json(device: CduDevice, values: dict[str, str | bytes]):
 
             color = color_from_style(style[col])
             size = size_from_style(style[col])
+            reverse_video = reverse_video_from_style(style[col])
 
-            display_data[index] = [char, color, size]
+            display_data[index] = [char, color, size, reverse_video]
 
     return json.dumps({"Target": "Display", "Data": display_data})
 
