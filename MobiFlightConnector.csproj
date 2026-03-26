@@ -403,8 +403,6 @@
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joysticks\AuthentiKit\AuthentiKit.cs" />
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReport.cs" />
-    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836X.cs" />
-    <Compile Include="MobiFlight\Joysticks\Bodnar\BU0836A.cs" />
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoard.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
