@@ -2,15 +2,15 @@
 
 namespace MobiFlight.Joysticks.AuthentiKit
 {
-    internal class AuthentiKit : BU0836A
+    internal class AuthentiKit : BodnarBoard
     {
         /// <summary>
-        /// Provide same instance name as defined in the definition file.
+        /// Provide same instance name but trim it.
         /// Also works if Definition file is not set yet.
         /// </summary>
         public override string Name
         {
-            get { return Definition?.InstanceName.Trim() ?? "AuthentiKit"; }
+            get { return base.Name.Trim() ?? "AuthentiKit"; }
         }
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace MobiFlight.Joysticks.AuthentiKit
         /// </summary>
         /// <param name="joystick">The DirectInput joystick instance.</param>
         /// <param name="definition">Joystick definition file.</param>
-        public AuthentiKit(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
+        public AuthentiKit(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(12, joystick, definition)
         {
         }
     }

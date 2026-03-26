@@ -39,7 +39,7 @@ namespace MobiFlight.Joysticks.Bodnar
         /// </summary>
         public override string Name
         {
-            get { return base.Name ?? "BU0836X"; }
+            get { return base.Name ?? "BU0836"; }
         }
 
         /// <summary>
