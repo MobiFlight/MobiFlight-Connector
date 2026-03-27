@@ -41,12 +41,7 @@ namespace MobiFlight.Joysticks
                 return true;
             }
 
-            if (instanceName.Trim().Contains("BU0836X"))
-            {
-                return true;
-            }
-
-            if (instanceName.Trim().Contains("BU0836A Interface"))
+            if (instanceName.Trim().Contains("BU0836"))
             {
                 return true;
             }
@@ -114,14 +109,9 @@ namespace MobiFlight.Joysticks
                 return new AuthentiKit.AuthentiKit(diJoystick, definition);
             }
 
-            if (instanceName.Trim().Contains("BU0836X"))
+            if (instanceName.Trim().Contains("BU0836"))
             {
-                return new Bodnar.BU0836X(diJoystick, definition);
-            }
-
-            if (instanceName.Trim().Contains("BU0836A Interface"))
-            {
-                return new Bodnar.BU0836A(diJoystick, definition);
+                return new Bodnar.BodnarBoard(32, diJoystick, definition);
             }
 
             // Return null to indicate this should be handled as a standard Joystick
