@@ -766,11 +766,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
-      <Project>{00d85f0b-00a5-41fa-8a99-428c0199c663}</Project>
+      <Project>{b074fc07-068d-280c-5af9-f367999cbbdc}</Project>
       <Name>CommandMessenger.Transport.Serial</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\CommandMessenger\CommandMessenger.csproj">
-      <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
+      <Project>{00986b3b-64cf-7993-bce4-14ba5b33f3ed}</Project>
       <Name>CommandMessenger</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\MobiFlightConnector\MobiFlightConnector.csproj">
