@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-
 namespace MobiFlight.Execution
 {
     public class ConfigItemExecutor
@@ -538,7 +537,7 @@ namespace MobiFlight.Execution
                             string outputValueShiftRegister = value;
                             var shiftRegister = cfg.Device as ShiftRegister;
 
-                            if (outputValueShiftRegister != "0" && shiftRegister.PWM)
+                            if (outputValueShiftRegister != "0" && !shiftRegister.PWM)
                             {
                                 outputValueShiftRegister = shiftRegister.Brightness.ToString();
                             }

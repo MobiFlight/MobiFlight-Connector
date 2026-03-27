@@ -143,7 +143,6 @@ namespace MobiFlight.Tests
             Assert.HasCount(1, updatedValues);
             Assert.AreEqual("XPLANE_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
 
-            
             // Arrange
             mockXplaneCache.Setup(c => c.IsConnected()).Returns(true);
             
@@ -251,6 +250,95 @@ namespace MobiFlight.Tests
 
             // Assert
             mockMobiFlightCache.Verify(m => m.SetServo(It.IsAny<string>(), It.IsAny<string>(), "0", 0, It.IsAny<int>(), It.IsAny<byte>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenOutputAndValueNot0AndNotPwm()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightOutput.TYPE,
+                Device = new OutputConfig.Output
+                {
+                    PwmMode = false,
+                    Pin = "1",
+                }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 0.15f });
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetValue("SN-123", "1", "255"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenOutputAndValueNot0AndPwm()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightOutput.TYPE,
+                Device = new OutputConfig.Output
+                {
+                    PwmMode = true,
+                    Pin = "1",
+                }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 0.15 });
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetValue("SN-123", "1", "0.15"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenShiftRegisterAndValueNot0AndNotPwm()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightShiftRegister.TYPE,
+                Device = new OutputConfig.ShiftRegister { 
+                    Address = "Shifter01",
+                    PWM = false,
+                    Pin = "1",
+                }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 0.15f });
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetShiftRegisterOutput("SN-123", "Shifter01", "1", "255"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenShiftRegisterAndValueNot0AndPwm()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightShiftRegister.TYPE,
+                Device = new OutputConfig.ShiftRegister
+                {
+                    Address = "Shifter01",
+                    PWM = true,
+                    Pin = "1",
+                }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg, new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 0.15 });
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetShiftRegisterOutput("SN-123", "Shifter01", "1" , "0.15"), Times.Once);
         }
 
         [TestMethod]
