@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "src\MobiFlightConnector\MobiFlightConnector.csproj", "{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E} = {9891291C-16A1-48B7-BAEE-9FE876663E0E}
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026} = {657624C9-3CA3-4DB3-8107-2CC0356A5026}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "tests\MobiFlightUnitTests\MobiFlightUnitTests.csproj", "{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}"
@@ -14,13 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "test
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B} = {FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionInfo", "src\VersionInfo\VersionInfo.csproj", "{657624C9-3CA3-4DB3-8107-2CC0356A5026}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightInstaller", "src\MobiFlight-Installer\MobiFlightInstaller.csproj", "{9891291C-16A1-48B7-BAEE-9FE876663E0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "src\CommandMessenger\CommandMessenger.csproj", "{00986B3B-64CF-7993-BCE4-14BA5B33F3ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger.Transport.Serial", "src\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj", "{B074FC07-068D-280C-5AF9-F367999CBBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionInfo", "src\VersionInfo\VersionInfo.csproj", "{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,14 +44,6 @@ Global
 		{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}.Release|x86.ActiveCfg = Release|Any CPU
 		{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}.Release|x86.Build.0 = Release|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Debug|x86.Build.0 = Debug|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Release|Any CPU.Build.0 = Release|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Release|x86.ActiveCfg = Release|Any CPU
-		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Release|x86.Build.0 = Release|Any CPU
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -77,6 +68,14 @@ Global
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|x86.ActiveCfg = Release|Any CPU
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|x86.Build.0 = Release|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Debug|x86.Build.0 = Debug|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Release|x86.ActiveCfg = Release|Any CPU
+		{1E19FBBA-5FEC-49BB-838A-6D33EBEDE609}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
