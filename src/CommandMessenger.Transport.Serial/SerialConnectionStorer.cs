@@ -51,7 +51,10 @@ namespace CommandMessenger.Transport.Serial
         public void StoreSettings(SerialConnectionManagerSettings serialConnectionManagerSettings)
         {
             var fileStream = File.Create(_settingsFileName);
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
+            // TODO: Serious issue: need to revisit for alternatives as BinaryFormatter is a massive security risk
             var serializer = new BinaryFormatter();
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
             serializer.Serialize(fileStream, serialConnectionManagerSettings);
             fileStream.Close();
         }
@@ -66,7 +69,10 @@ namespace CommandMessenger.Transport.Serial
             if (File.Exists(_settingsFileName))
             {
                 var fileStream = File.OpenRead(_settingsFileName);
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
+                // TODO: Serious issue: need to revisit for alternatives as BinaryFormatter is a massive security risk
                 var deserializer = new BinaryFormatter();
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
                 serialConnectionManagerSettings = (SerialConnectionManagerSettings)deserializer.Deserialize(fileStream);
                 fileStream.Close();
             }
