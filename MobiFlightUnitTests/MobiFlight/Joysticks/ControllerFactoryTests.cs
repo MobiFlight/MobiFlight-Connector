@@ -36,14 +36,6 @@ namespace MobiFlight.Joysticks.Tests
             deviceInstance = CreateDeviceInstance("AuthentiKitX");
             result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
             Assert.IsTrue(result);
-
-            deviceInstance = CreateDeviceInstance("BU0836A Interface");
-            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
-            Assert.IsTrue(result);
-
-            deviceInstance = CreateDeviceInstance("BU0836X");
-            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
-            Assert.IsTrue(result);
         }
 
         [TestMethod()]
@@ -51,6 +43,30 @@ namespace MobiFlight.Joysticks.Tests
         {
             var deviceInstance = CreateDeviceInstance("AuthentiKit ");
             var result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
+        public void CanCreate_WithBodnarBoards_ReturnsTrue()
+        {
+            var deviceInstance = CreateDeviceInstance("BU0836A Interface");
+            var result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
+            Assert.IsTrue(result);
+
+            deviceInstance = CreateDeviceInstance("BU0836 Interface");
+            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
+            Assert.IsTrue(result);
+
+            deviceInstance = CreateDeviceInstance("BU0836A 10");
+            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
+            Assert.IsTrue(result);
+
+            deviceInstance = CreateDeviceInstance("BU0836X Interface");
+            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
+            Assert.IsTrue(result);
+
+            deviceInstance = CreateDeviceInstance("BU0836X 2");
+            result = ControllerFactory.CanCreate(deviceInstance, OTHER_VENDOR_ID, 0x0000);
             Assert.IsTrue(result);
         }
 

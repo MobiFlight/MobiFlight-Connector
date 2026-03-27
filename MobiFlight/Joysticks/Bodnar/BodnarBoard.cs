@@ -34,12 +34,12 @@ namespace MobiFlight.Joysticks.Bodnar
         protected readonly BodnarReport report = new BodnarReport(buttonCount: 32);
 
         /// <summary>
-        /// Provide same instance name as defined in the definition file.
+        /// Provide same instance name but trim it.
         /// Also works if Definition file is not set yet.
         /// </summary>
         public override string Name
         {
-            get { return Definition?.InstanceName.Trim() ?? "BU0836X"; }
+            get { return base.Name ?? "BU0836"; }
         }
 
         /// <summary>
@@ -67,15 +67,15 @@ namespace MobiFlight.Joysticks.Bodnar
         /// <returns>True if connection was successful, false otherwise.</returns>
         protected async Task<bool> Connect()
         {
-            var VendorId = Definition.VendorId;
-            var ProductId = Definition.ProductId;
+            var vendorId = DIJoystick.Properties.VendorId;
+            var productId = DIJoystick.Properties.ProductId;
 
-            var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory(writeBufferSize: 1);
+            var hidFactory = new FilterDeviceDefinition(vendorId: (uint)vendorId, productId: (uint)productId).CreateWindowsHidDeviceFactory(writeBufferSize: 1);
             var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
 
             if (deviceDefinitions.Count == 0)
             {
-                Log.Instance.log($"no {Name} found with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Info);
+                Log.Instance.log($"no {Name} found with VID:{vendorId.ToString("X4")} and PID:{productId.ToString("X4")}", LogSeverity.Info);
                 return false;
             }
 
@@ -217,7 +217,6 @@ namespace MobiFlight.Joysticks.Bodnar
                 bool IsAxis = (device.ObjectId.Flags & DeviceObjectTypeFlags.AbsoluteAxis) > 0;
                 bool IsButton = (device.ObjectId.Flags & DeviceObjectTypeFlags.Button) > 0;
                 bool IsPOV = (device.ObjectId.Flags & DeviceObjectTypeFlags.PointOfViewController) > 0;
-
 
                 if (IsAxis && Axes.Count < DIJoystick.Capabilities.AxeCount)
                 {
