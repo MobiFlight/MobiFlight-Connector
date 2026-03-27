@@ -19,7 +19,6 @@
 
 using System;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace CommandMessenger
 {
@@ -196,19 +195,10 @@ namespace CommandMessenger
         private void InvokeEvent<TEventHandlerArguments>(EventHandler<TEventHandlerArguments> eventHandler,
             TEventHandlerArguments eventHandlerArguments) where TEventHandlerArguments : EventArgs
         {
-            var ctrlToInvoke = _cmdMessenger.ControlToInvokeOn;
+            if (eventHandler == null) return;
 
-            if (eventHandler == null || (ctrlToInvoke != null && ctrlToInvoke.IsDisposed)) return;
-            if (ctrlToInvoke != null )
-            {
-                try { ctrlToInvoke.BeginInvoke((MethodInvoker)(() => eventHandler(this, eventHandlerArguments))); } catch { }
-            }
-            else
-            {   
-				//Invoke here             
-                try { eventHandler.BeginInvoke(this, eventHandlerArguments, null, null); } catch { }
-                
-            }
+            //Invoke here             
+            try { eventHandler.BeginInvoke(this, eventHandlerArguments, null, null); } catch { }
         }
 
         private bool DoWork()
