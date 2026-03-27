@@ -1,7 +1,7 @@
 name: Check translations
 on:
   pull_request:
-    branches: [ main, mf2025/main ]
+    branches: [ main, hotfix/* ]
     paths:
       # Trigger only when files in the public/locales folder change
       - 'frontend/public/locales/**' 

@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main, mf2025/main]
+    branches: [main, hotfix/*]
 
 env:
   # Path to the solution file relative to the root of the project.
