@@ -55,6 +55,9 @@ jobs:
       - name: Run Tests
         run: vstest.console.exe tests/MobiFlightUnitTests/bin/${{env.BUILD_CONFIGURATION}}/MobiFlightUnitTests.dll
 
+      - name: Rename release artifact
+        run: mv Release/MobiFlightConnector-release.zip Release/MobiFlightConnector-${{ env.VERSION }}.zip
+
       - name: store latest setup file
         uses: actions/upload-artifact@v7
         with:
