@@ -10,7 +10,7 @@
   "Connection": {
     "ConnectionDelay": 1750,
     "DelayAfterFirmwareUpdate": 0,
-    "DtrEnable": true,
+    "DtrEnable": false,
     "EEPROMSize": 286,
     "ExtraConnectionRetry": true,
     "ForceResetOnFirmwareUpdate": false,

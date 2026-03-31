@@ -11,7 +11,7 @@
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": false,
     "DelayAfterFirmwareUpdate": 0,
-    "DtrEnable": true,
+    "DtrEnable": false,
     "MessageSize": 90,
     "EEPROMSize": 1496
   },
