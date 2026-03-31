@@ -14,7 +14,7 @@
     "EEPROMSize": 286,
     "ExtraConnectionRetry": true,
     "ForceResetOnFirmwareUpdate": false,
-    "MessageSize": 64,
+    "MessageSize": 90,
     "TimeoutForFirmwareUpdate": 60000
   },
   "HardwareIds": [

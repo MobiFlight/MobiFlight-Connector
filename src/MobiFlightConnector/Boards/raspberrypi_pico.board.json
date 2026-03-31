@@ -11,7 +11,7 @@
     "EEPROMSize": 1496,
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": true,
-    "MessageSize": 64
+    "MessageSize": 90
   },
   "HardwareIds": ["^VID_2E8A&PID_000A"],
   "Info": {
