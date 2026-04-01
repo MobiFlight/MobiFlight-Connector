@@ -14,8 +14,8 @@ del %TARGET_DIR%\install.log.txt /Q
 echo -----------------------------------------------------------
 echo CLEAN Release Directory
 echo -----------------------------------------------------------
-del %RELEASE_DIR%MobiFlightConnector-release.* /Q
-del %RELEASE_DIR%%INSTALLER_NAME%.exe /Q
+del %RELEASE_DIR%\MobiFlightConnector-release.* /Q
+del %RELEASE_DIR%\%INSTALLER_NAME%.exe /Q
 echo OK
 
 echo -----------------------------------------------------------
