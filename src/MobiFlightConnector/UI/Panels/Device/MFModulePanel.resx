@@ -168,114 +168,6 @@
   <data name="moduleNameTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;moduleNameTextBox.Name" xml:space="preserve">
-    <value>moduleNameTextBox</value>
-  </data>
-  <data name="&gt;&gt;moduleNameTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;moduleNameTextBox.Parent" xml:space="preserve">
-    <value>groupBoxName</value>
-  </data>
-  <data name="&gt;&gt;moduleNameTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;TypeValueLabel.Name" xml:space="preserve">
-    <value>TypeValueLabel</value>
-  </data>
-  <data name="&gt;&gt;TypeValueLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TypeValueLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;TypeValueLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.Name" xml:space="preserve">
-    <value>TypeLabel</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;SerialValueLabel.Name" xml:space="preserve">
-    <value>SerialValueLabel</value>
-  </data>
-  <data name="&gt;&gt;SerialValueLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SerialValueLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;SerialValueLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;SerialLabel.Name" xml:space="preserve">
-    <value>SerialLabel</value>
-  </data>
-  <data name="&gt;&gt;SerialLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SerialLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;SerialLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;PortValueLabel.Name" xml:space="preserve">
-    <value>PortValueLabel</value>
-  </data>
-  <data name="&gt;&gt;PortValueLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PortValueLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;PortValueLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;PortLabel.Name" xml:space="preserve">
-    <value>PortLabel</value>
-  </data>
-  <data name="&gt;&gt;PortLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PortLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;PortLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;FirmwareValueLabel.Name" xml:space="preserve">
-    <value>FirmwareValueLabel</value>
-  </data>
-  <data name="&gt;&gt;FirmwareValueLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FirmwareValueLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;FirmwareValueLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;FirmwareLabel.Name" xml:space="preserve">
-    <value>FirmwareLabel</value>
-  </data>
-  <data name="&gt;&gt;FirmwareLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FirmwareLabel.Parent" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;FirmwareLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="groupBoxInformation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -645,18 +537,6 @@
   <data name="&gt;&gt;UploadDeviceConfigPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;buttonWebsite.Name" xml:space="preserve">
-    <value>buttonWebsite</value>
-  </data>
-  <data name="&gt;&gt;buttonWebsite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonWebsite.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonWebsite.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;buttonDocs.Name" xml:space="preserve">
     <value>buttonDocs</value>
   </data>
@@ -734,18 +614,6 @@
   </data>
   <data name="&gt;&gt;pictureBoxLogo.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="&gt;&gt;labelProject.Name" xml:space="preserve">
-    <value>labelProject</value>
-  </data>
-  <data name="&gt;&gt;labelProject.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelProject.Parent" xml:space="preserve">
-    <value>communityInfoPanel</value>
-  </data>
-  <data name="&gt;&gt;labelProject.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="communityInfoPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -843,18 +711,6 @@
   <data name="buttonSupport.Text" xml:space="preserve">
     <value>Support</value>
   </data>
-  <data name="&gt;&gt;buttonSupport.Name" xml:space="preserve">
-    <value>buttonSupport</value>
-  </data>
-  <data name="&gt;&gt;buttonSupport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSupport.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonSupport.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="buttonDocs.Location" type="System.Drawing.Point, System.Drawing">
     <value>103, 5</value>
   </data>
@@ -866,18 +722,6 @@
   </data>
   <data name="buttonDocs.Text" xml:space="preserve">
     <value>Docs</value>
-  </data>
-  <data name="&gt;&gt;buttonDocs.Name" xml:space="preserve">
-    <value>buttonDocs</value>
-  </data>
-  <data name="&gt;&gt;buttonDocs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonDocs.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;buttonDocs.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="buttonWebsite.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 5</value>
