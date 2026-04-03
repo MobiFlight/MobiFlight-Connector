@@ -5,7 +5,6 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings.Device

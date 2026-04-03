@@ -782,10 +782,6 @@
       <Project>{00986b3b-64cf-7993-bce4-14ba5b33f3ed}</Project>
       <Name>CommandMessenger</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\MobiFlightConnector\MobiFlightConnector.csproj">
-      <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
-      <Name>MobiFlightConnector</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\MobiFlight\SimConnectMSFS\" />
