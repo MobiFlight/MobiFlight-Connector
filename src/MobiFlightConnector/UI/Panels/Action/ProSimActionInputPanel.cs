@@ -14,7 +14,7 @@ namespace MobiFlight.UI.Panels.Action
             InitializeComponent();
         }
 
-        public bool Validate()
+        public new bool Validate()
         {
             bool isValid = true;
 
