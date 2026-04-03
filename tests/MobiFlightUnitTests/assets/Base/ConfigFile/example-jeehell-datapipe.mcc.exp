@@ -4,7 +4,7 @@
     <config guid="a9179039-8595-4991-8816-fd995313e7e3">
       <active>true</active>
       <description>Jeehell HDG/TRK</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C3" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -18,7 +18,7 @@
     <config guid="b35655ba-9413-464d-943b-bb36a368656f">
       <active>true</active>
       <description>Jeehell V/S</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -32,7 +32,7 @@
     <config guid="d73d9868-9798-4ee8-8d97-8c5d44208042">
       <active>true</active>
       <description>Jeehell SPD</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C1" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -46,7 +46,7 @@
     <config guid="7f2bd0cc-062d-479d-9cbb-2f6ae86d64bc">
       <active>true</active>
       <description>Jeehell ALT</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C5" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -61,7 +61,7 @@
     <config guid="1259fb3a-9c64-4b90-ae17-684de1b92d51">
       <active>true</active>
       <description>Jeehell CPT QNH</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -75,7 +75,7 @@
     <config guid="3c947fed-8700-449c-925e-b5939afd4f72">
       <active>true</active>
       <description>Jeehell FO QNH</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73CA" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -91,7 +91,7 @@
     <config guid="3709695f-4453-4b62-808a-12e375a9b34f">
       <active>false</active>
       <description>Jeehell - SPD</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="JeehellInputAction" pipeId="1" value="$-1" />
           <onLeftFast type="JeehellInputAction" pipeId="1" value="$-5" />
@@ -105,7 +105,7 @@
     <config guid="1b65c524-117d-4c0b-937d-5710629ae323">
       <active>false</active>
       <description>Jeehell - ALT</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="JeehellInputAction" pipeId="3" value="$-1" />
           <onLeftFast type="JeehellInputAction" pipeId="3" value="$-10" />
@@ -119,7 +119,7 @@
     <config guid="6c549b2c-12ce-4bca-b106-2a899fee472f">
       <active>false</active>
       <description>Jeehell - HDG</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="JeehellInputAction" pipeId="2" value="$-1" />
           <onLeftFast type="JeehellInputAction" pipeId="2" value="$-10" />
@@ -133,7 +133,7 @@
     <config guid="0a993250-4bab-498b-ba08-a753b5f2ed7c">
       <active>false</active>
       <description>Jeehell - QNH CPT</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="JeehellInputAction" pipeId="5" value="$-1" />
           <onLeftFast type="JeehellInputAction" pipeId="5" value="$-10" />
@@ -147,7 +147,7 @@
     <config guid="d2736b42-f0e7-43e0-adfa-c81e43533578">
       <active>false</active>
       <description>Jeehell - QNH FO</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="JeehellInputAction" pipeId="6" value="$-1" />
           <onLeftFast type="JeehellInputAction" pipeId="6" value="$-10" />
@@ -161,7 +161,7 @@
     <config guid="af1f07d8-7f86-4092-b237-67b60b80987d">
       <active>false</active>
       <description>Jeehell - VS</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="JeehellInputAction" pipeId="4" value="if($==129,0,if($&lt;=80,$,$-256)*100-100)" />
           <onLeftFast type="JeehellInputAction" pipeId="4" value="if($==129,0,if($&lt;=80,$,$-256)*100-1000)" />

@@ -4,7 +4,7 @@
 		<config guid="08a7e927-7dfb-4d3d-8f9f-fd70ff3bd2e2">
 			<active>false</active>
 			<description>COM1 Standby</description>
-			<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+			<settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
 				<source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
 				<test type="Float" value="1" />
 				<modifiers>

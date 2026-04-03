@@ -4,7 +4,7 @@
     <config guid="912965e2-9be5-4506-9f21-d15b4e417fbd">
       <active>true</active>
       <description>XP11_LGL LEFT GEAR GREEN</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="laminar/B738/annunciator/left_gear_safe" />
         <test type="Float" value="1" />
         <modifiers>
@@ -19,7 +19,7 @@
     <config guid="a65bb0f2-7681-4123-82ec-2526f5aa545d">
       <active>true</active>
       <description>XP11_LGL LEFT GEAR RED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="laminar/B738/annunciator/left_gear_transit" />
         <test type="Float" value="1" />
         <modifiers>
@@ -34,7 +34,7 @@
     <config guid="70cd40d4-e38f-49b7-a673-baafed9cdedb">
       <active>true</active>
       <description>XP11_LGL NOSE GEAR GREEN</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="laminar/B738/annunciator/nose_gear_safe" />
         <test type="Float" value="1" />
         <modifiers>
@@ -49,7 +49,7 @@
     <config guid="c3a5a79e-e8c5-48b1-8135-7e1ec64d253e">
       <active>true</active>
       <description>XP11_LGL NOSE GEAR RED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="laminar/B738/annunciator/nose_gear_transit" />
         <test type="Float" value="1" />
         <modifiers>
@@ -64,7 +64,7 @@
     <config guid="0c4b9d26-da77-494b-af69-f63a1f084a5e">
       <active>true</active>
       <description>XP11_LGL RIGHT GEAR GREEN</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="laminar/B738/annunciator/right_gear_safe" />
         <test type="Float" value="1" />
         <modifiers>
@@ -79,7 +79,7 @@
     <config guid="fd9d233f-cd22-42a3-8582-63e0eb2094db">
       <active>true</active>
       <description>XP11_LGL RIGHT GEAR RED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="laminar/B738/annunciator/right_gear_transit" />
         <test type="Float" value="1" />
         <modifiers>
@@ -94,7 +94,7 @@
     <config guid="c59765d8-ead2-4abb-9269-d9a20c7cee64">
       <active>true</active>
       <description>XP11_LGL BACKLIGHT</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="Variable" varType="number" varName="MyVar" varExpression="$" />
         <test type="Float" value="255" />
         <modifiers>
@@ -111,7 +111,7 @@
     <config guid="be1ad87d-0e75-4856-b77c-507fb7201923">
       <active>true</active>
       <description>XP11_LG UP</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech Landing Gear/ SN-F4D-8FB" name="UP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="CoreFlightTech Landing Gear/ SN-F4D-8FB" name="UP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/switches/landing_gear" expression="0" />
         </button>
@@ -122,7 +122,7 @@
     <config guid="b8a2f555-b7e3-45be-8684-782551954e3c">
       <active>true</active>
       <description>XP11_LG OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech Landing Gear/ SN-F4D-8FB" name="OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="CoreFlightTech Landing Gear/ SN-F4D-8FB" name="OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/switches/landing_gear" expression="1" />
         </button>
@@ -133,7 +133,7 @@
     <config guid="5780e6d3-ae7b-49f6-bbd9-4e2b53281774">
       <active>true</active>
       <description>XP11_LG DOWN</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech Landing Gear/ SN-F4D-8FB" name="DOWN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="CoreFlightTech Landing Gear/ SN-F4D-8FB" name="DOWN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/switches/landing_gear" expression="2" />
         </button>

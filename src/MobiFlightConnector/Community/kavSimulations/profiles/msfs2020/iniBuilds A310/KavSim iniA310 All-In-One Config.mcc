@@ -4,7 +4,7 @@
     <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
       <active>false</active>
       <description>GLARESHIELD CONFIG</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -18,7 +18,7 @@
     <config guid="e73b1607-8bf6-48c0-9018-c123bf0bd4c7">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -32,7 +32,7 @@
     <config guid="b9502ab1-0166-4004-b51c-9b69b3593263">
       <active>true</active>
       <description>FCU - SPD/MACH</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_Airspeed_Dial)" UUID="18ca96ea-0e49-4457-9656-f8494e82df46" />
         <test type="Float" value="1" />
         <modifiers />
@@ -44,7 +44,7 @@
     <config guid="090843d0-23b9-44bf-86d0-ddb01d21c58c">
       <active>true</active>
       <description>FCU - SPD/MACH PRESET</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_PRESET_SPEED)" UUID="0" />
         <test type="Float" value="1" />
         <modifiers />
@@ -56,7 +56,7 @@
     <config guid="565f38f1-a747-434e-befb-48065e816d65">
       <active>true</active>
       <description>FCU - SPD OUTPUT</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -77,7 +77,7 @@
     <config guid="3c0d0ec9-9505-44d4-830f-711ccfc8a731">
       <active>true</active>
       <description>FCU - MACH OUTPUT</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="5" />
         <modifiers>
@@ -99,7 +99,7 @@
     <config guid="8517f494-d0ea-456c-bd98-9224078d555f">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -114,7 +114,7 @@
     <config guid="c2dcf00e-6b71-4cdc-8f53-b4595643593a">
       <active>true</active>
       <description>FCU - ALT SEL</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_Altitude_Dial)" UUID="06d8025b-0e73-49f6-a84d-2d9a65b06557" />
         <test type="Float" value="1" />
         <modifiers />
@@ -126,7 +126,7 @@
     <config guid="934874b0-51b2-4ca0-8b8f-d0c13d1f564c">
       <active>true</active>
       <description>FCU - ALT Label</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -138,7 +138,7 @@
     <config guid="547b5fc3-f9f4-4901-abbb-37ec0a96cbde">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -153,7 +153,7 @@
     <config guid="6af2a5a4-41bb-47eb-aabc-8dbe958a5de1">
       <active>true</active>
       <description>FCU - HDG Value</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_HEADING_DIAL)" UUID="d024d974-d950-4769-8bd2-0a65da60c0f5" />
         <test type="Float" value="1" />
         <modifiers />
@@ -168,7 +168,7 @@
     <config guid="d0f332c0-63bd-438b-af9d-0ed95eceab46">
       <active>true</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -183,7 +183,7 @@
     <config guid="284222fc-9b8d-4383-83a0-e13a718e0e90">
       <active>true</active>
       <description>FCU - VS Value</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_vvi_dial)" UUID="7d725af0-3891-49b8-8948-d98511727186" />
         <test type="Float" value="-1.01" />
         <modifiers>
@@ -204,7 +204,7 @@
     <config guid="83680898-7c53-4764-aa31-b0f6097aff14">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -219,7 +219,7 @@
     <config guid="c58e4830-4e60-4b86-9884-4b5d96598cf1">
       <active>false</active>
       <description>CPT BARO - Enable 'inHg' OR 'mb' - DO NOT HAVE BOTH ENABLED AT THE SAME TIME!</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -234,7 +234,7 @@
     <config guid="56db6e91-4675-4edb-8cba-162696dc97a7">
       <active>false</active>
       <description>CPT inHg</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:KOHLSMAN SETTING HG:1, inHg)" UUID="2f595653-50dd-4394-8895-af62769febe5" />
         <test type="Float" value="1" />
         <modifiers>
@@ -253,7 +253,7 @@
     <config guid="8fc19b1b-dc5c-432f-acf7-fef9f86cf040">
       <active>true</active>
       <description>CPT mb</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:KOHLSMAN SETTING MB:1, Millibars)" UUID="61f7960a-2af8-486c-8bcc-a69900751769" />
         <test type="Float" value="1" />
         <modifiers>
@@ -271,7 +271,7 @@
     <config guid="6768a80d-bc0c-4302-8e87-2ec2bffbd45d">
       <active>true</active>
       <description>CPT STD</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:XMLVAR_Baro1_Mode)" UUID="08af65f2-159e-45c3-8e94-4360e88046dc" />
         <test type="Float" value="1" />
         <modifiers>
@@ -286,7 +286,7 @@
     <config guid="9353fe39-ff5e-453e-911c-a96702a2d848">
       <active>true</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -301,7 +301,7 @@
     <config guid="53f9f9a7-1928-40d1-a338-2605679fe9ae">
       <active>false</active>
       <description>FO BARO - Enable 'inHg' OR 'mb' - DO NOT HAVE BOTH ENABLED AT THE SAME TIME!</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -316,7 +316,7 @@
     <config guid="be052d0c-c16e-4136-ae56-459deda5e90f">
       <active>true</active>
       <description>FO inHg (Copy)</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:KOHLSMAN SETTING HG:2, inHg)" UUID="2f595653-50dd-4394-8895-af62769febe5" />
         <test type="Float" value="1" />
         <modifiers>
@@ -335,7 +335,7 @@
     <config guid="7c4a0ad0-d05a-4897-8fd0-6ec88ac06d60">
       <active>false</active>
       <description>FO mb (Copy)</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:KOHLSMAN SETTING MB:2, Millibars)" UUID="61f7960a-2af8-486c-8bcc-a69900751769" />
         <test type="Float" value="1" />
         <modifiers>
@@ -353,7 +353,7 @@
     <config guid="0228c462-3f57-48f5-9b12-c7b516e85cf2">
       <active>true</active>
       <description>FO STD (Copy)</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:XMLVAR_Baro2_Mode)" UUID="75bec887-c6ed-4412-b10c-c0f2e6596b4b" />
         <test type="Float" value="1" />
         <modifiers />
@@ -365,7 +365,7 @@
     <config guid="3a6915ed-faf9-43e1-a262-6a51e64156cd">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -377,7 +377,7 @@
     <config guid="71e6c53f-cde0-4f1b-b211-3a159b0ebc7a">
       <active>true</active>
       <description>Refresh Blink</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -391,7 +391,7 @@
     <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -405,7 +405,7 @@
     <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
       <active>false</active>
       <description>OVERHEAD CONFIG</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -419,7 +419,7 @@
     <config guid="24ad43e7-bbc5-4ea2-8293-9ecf4a289cfa">
       <active>true</active>
       <description>BAT 1 Voltage</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:ELECTRICAL BATTERY VOLTAGE, Volts)" UUID="8af569a4-67f0-4782-9672-4cff80dd8e81" />
         <test type="Float" value="1" />
         <modifiers>
@@ -433,7 +433,7 @@
     <config guid="2aa0d031-ca0a-43a9-847e-b3c78a1d39a9">
       <active>true</active>
       <description>BAT 2 Voltage</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:ELECTRICAL BATTERY VOLTAGE, Volts)" UUID="8af569a4-67f0-4782-9672-4cff80dd8e81" />
         <test type="Float" value="1" />
         <modifiers>
@@ -447,7 +447,7 @@
     <config guid="924e9a59-256b-4fd0-bbd2-b4a57d0de80b">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -461,7 +461,7 @@
     <config guid="0e7f555c-b2f4-4824-b9f6-6711a3a093ab">
       <active>false</active>
       <description>There is no working radio in the ini A310 Overhead. So, this references RMP Left </description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -473,7 +473,7 @@
     <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
       <active>true</active>
       <description>Radio ACTIVE</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:1,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
         <test type="Float" value="1" />
         <modifiers />
@@ -485,7 +485,7 @@
     <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
       <active>true</active>
       <description>Radio STBY CRS</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:1,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
         <test type="Float" value="1" />
         <modifiers />
@@ -497,7 +497,7 @@
     <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -511,7 +511,7 @@
     <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
       <active>false</active>
       <description>PEDESTAL CONFIG</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -525,7 +525,7 @@
     <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
       <active>true</active>
       <description>RMP L ACTIVE</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:1,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
         <test type="Float" value="1" />
         <modifiers />
@@ -537,7 +537,7 @@
     <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
       <active>true</active>
       <description>RMP L STBY CRS</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:1,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
         <test type="Float" value="1" />
         <modifiers />
@@ -549,7 +549,7 @@
     <config guid="ae5cbf0f-12bc-41f9-9691-6959303bc6e1">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -563,7 +563,7 @@
     <config guid="e54024c0-d139-4ed4-961f-e7bdad23dde2">
       <active>true</active>
       <description>RMP R Radio ACTIVE</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:2,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
         <test type="Float" value="1" />
         <modifiers />
@@ -575,7 +575,7 @@
     <config guid="525c608f-02c4-4611-a084-e405d705754a">
       <active>true</active>
       <description>RMP R Radio STBY CRS</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:2,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
         <test type="Float" value="1" />
         <modifiers />
@@ -587,7 +587,7 @@
     <config guid="609ad651-5d25-4743-9fd0-606f0e94cd03">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -601,7 +601,7 @@
     <config guid="0829ae05-6b9c-495b-9729-90f75e1b51d7">
       <active>true</active>
       <description>TCAS Display Output</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:TRANSPONDER CODE:1, enum)" UUID="0e92a7d1-e8f1-4c31-b325-49f169b4b127" />
         <test type="Float" value="1" />
         <modifiers />
@@ -613,7 +613,7 @@
     <config guid="13bebeed-279e-4911-90ec-4298f4ef93e9">
       <active>false</active>
       <description>-</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -627,7 +627,7 @@
     <config guid="2fdb098a-88a0-4733-a420-419ca5460a7c">
       <active>true</active>
       <description>Rudder Trim L</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_TOTAL_RUDDER_TRIM)" UUID="b8953b6e-3644-4f86-99f1-504874302288" />
         <test type="Float" value="1" />
         <modifiers>
@@ -641,7 +641,7 @@
     <config guid="86f644cf-debf-4e95-b235-b884e79ec358">
       <active>true</active>
       <description>Rudder Trim R</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_TOTAL_RUDDER_TRIM)" UUID="b8953b6e-3644-4f86-99f1-504874302288" />
         <test type="Float" value="1" />
         <modifiers>
@@ -655,7 +655,7 @@
     <config guid="90520bc7-1478-4f63-a047-63ec70c137c0">
       <active>true</active>
       <description>Rudder Trim Value</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A310_TOTAL_RUDDER_TRIM)" UUID="b8953b6e-3644-4f86-99f1-504874302288" />
         <test type="Float" value="1" />
         <modifiers>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.37027.9 d17.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "tests\MobiFlightUnitTests\MobiFlightUnitTests.csproj", "{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}"
 EndProject
@@ -53,12 +53,12 @@ Global
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|x86.ActiveCfg = Release|Any CPU
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|x86.Build.0 = Release|Any CPU
-		{EFA46749-E276-AE42-9620-8B354D556EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFA46749-E276-AE42-9620-8B354D556EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA46749-E276-AE42-9620-8B354D556EAA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EFA46749-E276-AE42-9620-8B354D556EAA}.Debug|Any CPU.Build.0 = Debug|x86
 		{EFA46749-E276-AE42-9620-8B354D556EAA}.Debug|x86.ActiveCfg = Debug|x86
 		{EFA46749-E276-AE42-9620-8B354D556EAA}.Debug|x86.Build.0 = Debug|x86
-		{EFA46749-E276-AE42-9620-8B354D556EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFA46749-E276-AE42-9620-8B354D556EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA46749-E276-AE42-9620-8B354D556EAA}.Release|Any CPU.ActiveCfg = Release|x86
+		{EFA46749-E276-AE42-9620-8B354D556EAA}.Release|Any CPU.Build.0 = Release|x86
 		{EFA46749-E276-AE42-9620-8B354D556EAA}.Release|x86.ActiveCfg = Release|Any CPU
 		{EFA46749-E276-AE42-9620-8B354D556EAA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection

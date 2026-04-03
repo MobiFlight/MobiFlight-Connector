@@ -4,7 +4,7 @@
     <config guid="bb644eda-c761-47d7-82a0-b135bea5de7d">
       <active>true</active>
       <description>P3D_COMM_CPT ACTIVE DISPLAY</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
@@ -18,7 +18,7 @@
     <config guid="45325ee7-2129-420f-8805-4a1d103b4b12">
       <active>true</active>
       <description>P3D_COMM_CPT STANDBY DISPLAY</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
@@ -32,7 +32,7 @@
     <config guid="9e29436c-aa73-4f0f-8402-9338d5a4a9b2">
       <active>true</active>
       <description>P3D_COMM_CPT BACKLIGHT</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
@@ -52,7 +52,7 @@
     <config guid="6f023812-9b70-446e-932c-4c5c0325702b">
       <active>true</active>
       <description>P3D_CPT COMM INNER ENC</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="PmdgEventIdInputAction" eventId="70359" param="536870912" aircraft="B737" />
           <onLeftFast />
@@ -66,7 +66,7 @@
     <config guid="f4da7bdb-e67f-4e08-8a02-481a204370ea">
       <active>true</active>
       <description>P3D_CPT COMM OUTER ENC</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_OUT_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_OUT_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="PmdgEventIdInputAction" eventId="70358" param="536870912" aircraft="B737" />
           <onLeftFast />
@@ -80,7 +80,7 @@
     <config guid="6d51a1a7-a244-49bd-87b7-e200ae61b8a1">
       <active>true</active>
       <description>P3D_CPT COMM TFR </description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="PmdgEventIdInputAction" eventId="70353" param="536870912" aircraft="B737" />
           <onRelease />
@@ -92,7 +92,7 @@
     <config guid="1f5343f3-a76f-4921-ba8f-7c86ad499aae">
       <active>false</active>
       <description>P3D_CPT  COMM TEST - (DEACTIVE)</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_TEST" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings serial="CPT_COMM_v4/ SN-b36-2fe" name="CPT_COM_TEST" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="95107 (&gt;K:ROTOR_BRAKE)" presetId="8d130a62-616e-4e8d-8aa7-81b98945eeba" />
           <onRelease />
