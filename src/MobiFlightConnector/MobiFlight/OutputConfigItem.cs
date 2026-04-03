@@ -285,19 +285,8 @@ namespace MobiFlight
 
         }
 
-        public virtual void WriteXml(XmlWriter writer)
+        public void WriteXml(XmlWriter writer)
         {
-            WriteXml(writer, true);
-        }
-
-        public void WriteXml(XmlWriter writer, bool writeInstanceData)
-        {
-            if (writeInstanceData)
-            {
-                writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.OutputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
-                writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
-            }
-
             writer.WriteStartElement("source");
                 if (Source is FsuipcSource)
                     (this.Source as FsuipcSource).FSUIPC.WriteXml(writer);

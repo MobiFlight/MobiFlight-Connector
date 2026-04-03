@@ -231,17 +231,6 @@ namespace MobiFlight
 
         public virtual void WriteXml(XmlWriter writer)
         {
-            WriteXml(writer, true);
-        }
-
-        public virtual void WriteXml(XmlWriter writer, bool writeInstanceData)
-        {
-            if (writeInstanceData)
-            {
-                writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.InputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
-                writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
-            }
-
             // the empty string is inconsistent with OutputConfigItem (NOT_SET),
             // but it is they way it was done in old config files
             var fullSerial = SerialNumber.BuildFullSerial(Controller) ?? "";
