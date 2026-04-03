@@ -19,6 +19,7 @@
 		<AssemblyVersion>0.0.1</AssemblyVersion>
 		<FileVersion>0.0.1</FileVersion>
 		<InformationalVersion>0.0.1</InformationalVersion>
+		<ApplicationIcon>mobiflight.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug'">
@@ -38,6 +39,9 @@
 		<CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
 		<NoWarn>$(NoWarn);WFO1000</NoWarn>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Content Include="mobiflight.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Device.Net" Version="4.2.1" />
@@ -49,6 +53,8 @@
 		<PackageReference Include="HidSharp" Version="2.6.4" />
 		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
 		<PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.5" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3856.49" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
@@ -152,7 +158,7 @@
 		<Copy SourceFiles="$(SolutionDir)Lib\x86\SimConnect.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
 		<Copy SourceFiles="@(MSFSFiles)" DestinationFolder="$(TargetDir)MSFS2020-module\%(RecursiveDir)" />
 		<Copy SourceFiles="@(ArduinoFiles)" DestinationFolder="$(TargetDir)Arduino\%(RecursiveDir)" />
-		<Copy SourceFiles="@(PythonZips)"  DestinationFolder="$(TargetDir)Python\" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(PythonZips)" DestinationFolder="$(TargetDir)Python\" SkipUnchangedFiles="true" />
 
 		<Delete Files="$(TargetDir)log.txt" />
 		<Delete Files="$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt" />
