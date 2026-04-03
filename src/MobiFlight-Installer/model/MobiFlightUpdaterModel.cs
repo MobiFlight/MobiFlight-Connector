@@ -113,7 +113,7 @@ namespace MobiFlightInstaller
         {
             try
             {
-                System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(Directory.GetCurrentDirectory());
+                System.Security.AccessControl.DirectorySecurity ds = FileSystemAclExtensions.GetAccessControl(new DirectoryInfo(Directory.GetCurrentDirectory()));
                 Log.Instance.log("HaveWriteAccessToFolder : True", LogSeverity.Debug);
                 return true;
             }

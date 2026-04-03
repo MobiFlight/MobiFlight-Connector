@@ -79,7 +79,9 @@ namespace MobiFlightInstaller
             uri = uri.ToUpperInvariant();
 
             var ms = new MemoryStream();
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
             var bSer = new BinaryFormatter();
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
             bSer.Serialize(ms, uri);
             ms.Position = 0;
             var sha1 = new SHA1CryptoServiceProvider();
