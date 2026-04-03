@@ -1,134 +1,164 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <UseWPF>true</UseWPF>
-    <Platforms>AnyCPU;x86</Platforms>
-    <RootNamespace>MobiFlight</RootNamespace>
-    <ProductName>MFConnector</ProductName>
-    <AssemblyName>MFConnector</AssemblyName>
-    <OutputType>WinExe</OutputType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+		<Platforms>AnyCPU;x86</Platforms>
+		<RootNamespace>MobiFlight</RootNamespace>
+		<ProductName>MFConnector</ProductName>
+		<AssemblyName>MFConnector</AssemblyName>
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <AssemblyTitle>MobiFlight Connector</AssemblyTitle>
-    <Description>Open Source Flight Simulator Solution</Description>
-    <Product>MobiFlight Connector</Product>
-    <Copyright>Copyright Sebastian Moebius 2014 - 2026</Copyright>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
-    <FileVersion>0.0.1</FileVersion>
-    <InformationalVersion>0.0.1</InformationalVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyTitle>MobiFlight Connector</AssemblyTitle>
+		<Description>Open Source Flight Simulator Solution</Description>
+		<Product>MobiFlight Connector</Product>
+		<Copyright>Copyright Sebastian Moebius 2014 - 2026</Copyright>
+		<AssemblyVersion>0.0.1</AssemblyVersion>
+		<FileVersion>0.0.1</FileVersion>
+		<InformationalVersion>0.0.1</InformationalVersion>
+	</PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug'">
-    <DefineConstants>TRACE MOBIFLIGHT DEBUG SIMCONNECT ARCAZE</DefineConstants>
-    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <NoWarn>$(NoWarn);WFO1000</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release'">
-    <DefineConstants>TRACE MOBIFLIGHT RELEASE SIMCONNECT</DefineConstants>
-    <WarningLevel>2</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug'">
+		<DefineConstants>TRACE;MOBIFLIGHT;DEBUG;SIMCONNECT;ARCAZE</DefineConstants>
+		<DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
+		<WarningLevel>2</WarningLevel>
+		<CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+		<CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+		<NoWarn>$(NoWarn);WFO1000</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release'">
+		<DefineConstants>TRACE;CODE_ANALYSIS;MOBIFLIGHT;RELEASE;SIMCONNECT;ARCAZE</DefineConstants>
+		<WarningLevel>2</WarningLevel>
+		<UseVSHostingProcess>false</UseVSHostingProcess>
+		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+		<CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+		<NoWarn>$(NoWarn);WFO1000</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Device.Net" Version="4.2.1" />
-    <PackageReference Include="FSUIPCClientDLL" Version="3.3.16" />
-    <PackageReference Include="GraphQL.Client" Version="6.1.0" />
-    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.1.0" />
-    <PackageReference Include="GraphQL.Primitives" Version="6.1.0" />
-    <PackageReference Include="Hid.Net" Version="4.2.1" />
-    <PackageReference Include="HidSharp" Version="2.6.4" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3856.49" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
-    <PackageReference Include="SharpDX" Version="4.2.0" />
-    <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
-    <PackageReference Include="System.Management" Version="10.0.5" />
-    <PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
-    <PackageReference Include="XPlaneConnector" Version="1.3.0" />
-    <PackageReference Include="System.IO.Ports" Version="10.0.5" />
-    <PackageReference Include="System.Net.WebSockets.Client.Managed" Version="1.0.22" />
-    <PackageReference Include="System.Reactive" Version="6.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Device.Net" Version="4.2.1" />
+		<PackageReference Include="FSUIPCClientDLL" Version="3.3.16" />
+		<PackageReference Include="GraphQL.Client" Version="6.1.0" />
+		<PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.1.0" />
+		<PackageReference Include="GraphQL.Primitives" Version="6.1.0" />
+		<PackageReference Include="Hid.Net" Version="4.2.1" />
+		<PackageReference Include="HidSharp" Version="2.6.4" />
+		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+		<PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3856.49" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
+		<PackageReference Include="SharpDX" Version="4.2.0" />
+		<PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
+		<PackageReference Include="System.Management" Version="10.0.5" />
+		<PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
+		<PackageReference Include="XPlaneConnector" Version="1.3.0" />
+		<PackageReference Include="System.IO.Ports" Version="10.0.5" />
+		<PackageReference Include="System.Net.WebSockets.Client.Managed" Version="1.0.22" />
+		<PackageReference Include="System.Reactive" Version="6.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj" />
-    <ProjectReference Include="..\CommandMessenger\CommandMessenger.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj" />
+		<ProjectReference Include="..\CommandMessenger\CommandMessenger.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="ArcazeHid">
-      <HintPath>..\..\lib\ArcazeHid.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.FlightSimulator.SimConnect">
-      <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
-    </Reference>
-    <Reference Include="Midi">
-      <HintPath>..\..\lib\Midi.dll</HintPath>
-    </Reference>
-    <Reference Include="NCalc">
-      <HintPath>..\..\lib\NCalc.dll</HintPath>
-    </Reference>
-    <Reference Include="vJoyInterfaceWrap">
-      <HintPath>..\..\lib\vJoyInterfaceWrap.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="ArcazeHid">
+			<HintPath>..\..\lib\ArcazeHid.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.FlightSimulator.SimConnect">
+			<HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+		</Reference>
+		<Reference Include="Midi">
+			<HintPath>..\..\lib\Midi.dll</HintPath>
+		</Reference>
+		<Reference Include="MobiFlightWwFcu">
+			<HintPath>..\..\lib\MobiFlightWwFcu.dll</HintPath>
+		</Reference>
+		<Reference Include="NCalc">
+			<HintPath>..\..\lib\NCalc.dll</HintPath>
+		</Reference>
+		<Reference Include="vJoyInterfaceWrap">
+			<HintPath>..\..\lib\vJoyInterfaceWrap.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Boards\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Community\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Devices\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="examples\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="firmware\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Joysticks\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="MidiBoards\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Presets\**">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Scripts\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="frontend\dist\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Boards\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Community\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Devices\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="examples\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="firmware\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Joysticks\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="MidiBoards\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Presets\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Scripts\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="frontend\dist\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+	<Target Name="CustomPreBuild" BeforeTargets="Build">
+		<ItemGroup>
+			<MSFSFiles Include="$(ProjectDir)MSFS2020-module\**\*" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<ArduinoFiles Include="$(ProjectDir)Arduino\**\*" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<PythonZips Include="$(SolutionDir)Python\*.zip" />
+		</ItemGroup>
+		<Copy SourceFiles="$(SolutionDir)Lib\vJoyInterface.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(SolutionDir)Lib\x86\SimConnect.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(MSFSFiles)" DestinationFolder="$(TargetDir)MSFS2020-module\%(RecursiveDir)" />
+		<Copy SourceFiles="@(ArduinoFiles)" DestinationFolder="$(TargetDir)Arduino\%(RecursiveDir)" />
+		<Copy SourceFiles="@(PythonZips)"  DestinationFolder="$(TargetDir)Python\" SkipUnchangedFiles="true" />
+
+		<Delete Files="$(TargetDir)log.txt" />
+		<Delete Files="$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt" />
+	</Target>
+
+	<Target Name="CustomPostBuild" AfterTargets="Build">
+		<Exec Condition="'$(ConfigurationName)'=='Release'" Command="&quot;$(SolutionDir)Build\release.bat&quot; &quot;$(TargetDir)&quot; &quot;$(SolutionDir)&quot;" />
+	</Target>
 </Project>
