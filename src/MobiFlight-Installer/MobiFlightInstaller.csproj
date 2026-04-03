@@ -9,6 +9,10 @@
 		<Product>MobiFlight-Installer</Product>
 		<Copyright>Copyright 2026</Copyright>
 		<Title>MobiFlight-Installer</Title>
+		<ProductName>MobiFlight-Installer</ProductName>
+		<AssemblyName>MobiFlight-Installer</AssemblyName>
+		<OutputType>WinExe</OutputType>
+		<PublishSingleFile>true</PublishSingleFile>
 	</PropertyGroup>
 
 	<ItemGroup>

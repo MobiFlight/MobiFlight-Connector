@@ -9,6 +9,7 @@
 		<ProductName>MFConnector</ProductName>
 		<AssemblyName>MFConnector</AssemblyName>
 		<OutputType>WinExe</OutputType>
+		<PlatformTarget>x86</PlatformTarget>
 	</PropertyGroup>
 
 	<PropertyGroup>
