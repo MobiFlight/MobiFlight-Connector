@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Setup dotnet
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.x'
           architecture: '${{ env.BUILD_PLATFORM }}'
@@ -50,7 +50,10 @@ jobs:
       - name: copy installer to dist
         run: |
           copy dist/MobiFlightInstaller-${{ env.VERSION }}/MobiFlight-Installer.exe dist/MobiFlightConnector-${{ env.VERSION }}/
-          .\Build\utils\7z\7z.exe a dist/MobiFlightConnector-${{ env.VERSION }}.zip dist/MobiFlightConnector-${{ env.VERSION }}\*
+
+          cd dist/MobiFlightConnector-${{ env.VERSION }}
+
+          & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ../MobiFlightConnector-${{ env.VERSION }}.zip * -r
 
       - name: store latest setup file
         uses: actions/upload-artifact@v7
