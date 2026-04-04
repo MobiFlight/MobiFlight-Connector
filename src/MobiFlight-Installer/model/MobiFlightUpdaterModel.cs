@@ -57,7 +57,7 @@ namespace MobiFlightInstaller
 
             using (FileStream fs = File.OpenRead(FileName))
             {
-                SHA1 sha = new SHA1Managed();
+                SHA1 sha = SHA1.Create();
                 FileChecksum = BitConverter.ToString(sha.ComputeHash(fs)).Replace("-", "");
             }
 
@@ -80,9 +80,22 @@ namespace MobiFlightInstaller
                 return "0.0.0";
             }
 
-            string ReturnResult = AssemblyName.GetAssemblyName(MobiFlightHelperMethods.ProcessName + ".exe").Version.ToString();
-            Log.Instance.log("GetInstalledVersion : detected -> " + ReturnResult, LogSeverity.Debug);
-            return ReturnResult;
+            string version = null;
+
+            try
+            {
+                version = AssemblyName.GetAssemblyName(MobiFlightHelperMethods.ProcessName + ".exe").Version.ToString();
+            }
+            catch (BadImageFormatException)
+            {
+                version = AssemblyName.GetAssemblyName(MobiFlightHelperMethods.ProcessName + ".dll").Version.ToString();
+            }
+            catch
+            {
+                throw;
+            }
+            Log.Instance.log("GetInstalledVersion : detected -> " + version, LogSeverity.Debug);
+            return version;
         }
 
         public static bool VerifyCurrentFolderRight()
@@ -149,27 +162,12 @@ namespace MobiFlightInstaller
 
                     // ignore the old update file.
                     if (file.Name == OldMobiFlightUpdaterName) continue;
-
-                    if (file.Name == "MobiFlight-Installer.exe")
+                    if (file.Name == "install.log.txt")
                     {
-                        if (InstallerIsNewer(file)) // NewInstaller have greater version than current
-                        {
-                            System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                            String backupFile = FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old");
-
-                            if (File.Exists(backupFile))
-                                System.IO.File.Delete(backupFile);
-                            System.IO.File.Move(FileInstaller.FullName, backupFile);
-                        }
-                        else
-                        {
-                            Log.Instance.log("Mobiflight-Installer no need to be upgrade, extracting file skipped", LogSeverity.Info);
-                            continue;
-                        }
+                        continue;
                     }
 
-                    if (file.Name == "install.log.txt")
+                    if (file.Name.StartsWith("MobiFlight-Installer"))
                     {
                         continue;
                     }
@@ -197,27 +195,6 @@ namespace MobiFlightInstaller
                 }
                 archive.Dispose();
             }
-        }
-
-        private static bool InstallerIsNewer(ZipArchiveEntry file)
-        {
-            var InstallerCurVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.exe").Version.ToString();
-            Log.Instance.log("Current Installer version : " + InstallerCurVersion, LogSeverity.Info);
-
-            System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            String fileNew = FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new");
-
-            if (File.Exists(fileNew))
-                System.IO.File.Delete(fileNew);
-            file.ExtractToFile(FileInstaller.Name.Replace(FileInstaller.Extension, ".new"), true);
-
-            var InstallerNewVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.new").Version.ToString();
-            System.IO.File.Delete(fileNew);
-            Log.Instance.log("New Installer version : " + InstallerNewVersion, LogSeverity.Info);
-
-            var InstallerCompareVersion = InstallerCurVersion.CompareTo(InstallerNewVersion);
-
-            return (InstallerCompareVersion < 0);
         }
 
         public static string GetFileName(string url)
