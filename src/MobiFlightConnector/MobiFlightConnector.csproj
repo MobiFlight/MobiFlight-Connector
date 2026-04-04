@@ -174,9 +174,4 @@
 		<Delete Files="$(TargetDir)log.txt" />
 		<Delete Files="$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt" />
 	</Target>
-
-	<Target Name="CustomPostBuild" AfterTargets="Build">
-		<Exec Condition="'$(ConfigurationName)'=='Release'"
-			Command="&quot;$(SolutionDir)Build\release.bat&quot; &quot;$(TargetDir)&quot; &quot;$(SolutionDir)&quot;" />
-	</Target>
 </Project>

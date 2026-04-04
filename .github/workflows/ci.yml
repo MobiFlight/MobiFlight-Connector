@@ -46,16 +46,15 @@ jobs:
 
       - name: publish MobiFlightInstaller
         run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlight-Installer/MobiFlightInstaller.csproj -o dist/MobiFlightInstaller-${{ env.VERSION }} --no-build
-        
 
       - name: copy installer to dist
         run: |
-          copy dist/MobiFlightInstaller-${{ env.VERSION }}/MobiFlight-Installer.exe dist/
           copy dist/MobiFlightInstaller-${{ env.VERSION }}/MobiFlight-Installer.exe dist/MobiFlightConnector-${{ env.VERSION }}/
+          .\Build\utils\7z\7z.exe a dist/MobiFlightConnector-${{ env.VERSION }}.zip dist/MobiFlightConnector-${{ env.VERSION }}\*
 
       - name: store latest setup file
         uses: actions/upload-artifact@v7
         with:
           name: MobiFlightConnector
           path: |
-            dist/MobiFlightConnector-${{ env.VERSION }}/
+            dist/MobiFlightConnector-${{ env.VERSION }}.zip
