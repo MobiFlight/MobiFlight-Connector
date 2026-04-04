@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "tests\MobiFlightUnitTests\MobiFlightUnitTests.csproj", "{DFF01F70-51C8-E88A-D97E-4A522F92CD26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightBundler", "src\MobiFlightBundler\MobiFlightBundler.csproj", "{571BA1E2-CE56-4CB2-A922-66A88519DE70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DFF01F70-51C8-E88A-D97E-4A522F92CD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFF01F70-51C8-E88A-D97E-4A522F92CD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFF01F70-51C8-E88A-D97E-4A522F92CD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{571BA1E2-CE56-4CB2-A922-66A88519DE70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571BA1E2-CE56-4CB2-A922-66A88519DE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571BA1E2-CE56-4CB2-A922-66A88519DE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571BA1E2-CE56-4CB2-A922-66A88519DE70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

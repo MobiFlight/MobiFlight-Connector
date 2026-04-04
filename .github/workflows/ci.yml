@@ -43,16 +43,14 @@ jobs:
       - name: dotnet test
         run: dotnet test -c ${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} --no-build
 
-      - name: publish MobiFlightConnector
-        run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlightConnector/MobiFlightConnector.csproj -o dist/MobiFlightConnector-${{ env.VERSION }} --no-build
+      - name: publish MobiFlightBundler
+        run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlightBundler/MobiFlightBundler.csproj -o dist/MobiFlightConnector-${{ env.VERSION }} --no-build
 
       - name: publish MobiFlightInstaller
         run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlight-Installer/MobiFlightInstaller.csproj -o dist/MobiFlightInstaller-${{ env.VERSION }} --no-build
 
       - name: copy installer to dist
         run: |
-          copy dist/MobiFlightInstaller-${{ env.VERSION }}/MobiFlight-Installer.exe dist/MobiFlightConnector-${{ env.VERSION }}/
-
           cd dist/MobiFlightConnector-${{ env.VERSION }}
 
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ../MobiFlightConnector-${{ env.VERSION }}.zip * -r
