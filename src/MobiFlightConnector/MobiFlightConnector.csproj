@@ -51,8 +51,7 @@
 		<PackageReference Include="Hid.Net" Version="4.2.1" />
 		<PackageReference Include="HidSharp" Version="2.6.4" />
 		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
-		<PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel"
-			Version="2.21.0" />
+		<PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.5" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3856.49" />
@@ -69,9 +68,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference
-			Include="..\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj" />
+		<ProjectReference Include="..\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj" />
 		<ProjectReference Include="..\CommandMessenger\CommandMessenger.csproj" />
+		<ProjectReference Include="..\MobiFlightWwFcu\MobiFlightWwFcu.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
