@@ -61,11 +61,12 @@ class SizedText:
     def __len__(self):
         return len(self.text)
 
-    def from_bytes(values: bytes):
+    @classmethod
+    def from_bytes(cls, values: bytes):
         cur_size = 0
         text = ""
         sizes = []
-        for v in values:
+        for v in list(values):
             if v == 0:
                 break;
             if v == 0xa3:
@@ -87,7 +88,8 @@ class SizedText:
 
         return SizedText(text, sizes)
 
-    def padding(length: int) -> SizedText:
+    @classmethod
+    def padding(cls, length: int) -> SizedText:
         return SizedText(" " * length, [0] * length)
 
     def pad_to(self, length: int) -> SizedText:
