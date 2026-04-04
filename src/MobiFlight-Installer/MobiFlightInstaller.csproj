@@ -20,4 +20,8 @@
 		<Content Include="mobiflight.ico" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\MobiFlightWwFcu\MobiFlightWwFcu.csproj" />
+	</ItemGroup>
+
 </Project>
