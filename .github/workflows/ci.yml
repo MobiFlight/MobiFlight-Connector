@@ -47,7 +47,7 @@ jobs:
         run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlightBundler/MobiFlightBundler.csproj -o dist/MobiFlightConnector-${{ env.VERSION }} --no-build
 
       - name: publish MobiFlightInstaller
-        run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlight-Installer/MobiFlightInstaller.csproj -o dist/MobiFlightInstaller-${{ env.VERSION }} --no-build
+        run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlight-Installer/MobiFlightInstaller.csproj -o dist/MobiFlightInstaller --no-build
 
       - name: copy installer to dist
         run: |
