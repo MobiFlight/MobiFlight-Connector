@@ -13,6 +13,8 @@
 		<AssemblyName>MobiFlight-Installer</AssemblyName>
 		<OutputType>WinExe</OutputType>
 		<PublishSingleFile>true</PublishSingleFile>
+		<PlatformTarget>x64</PlatformTarget>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<ItemGroup>
