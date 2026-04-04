@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net10.0-windows</TargetFramework>
 		<PlatformTarget>x86</PlatformTarget>
+		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -31,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\MobiFlightConnector\MobiFlightConnector.csproj" />
+		<ProjectReference Include="..\..\src\MobiFlightConnector\MobiFlightConnector.csproj" />
 	</ItemGroup>
 
 	<Target Name="CustomPreBuild" BeforeTargets="Build">
@@ -41,9 +42,11 @@
 
 		<MakeDir Directories="$(TargetDir)assets\Base\ConfigFile" />
 
-		<Copy SourceFiles="@(MccFiles)" DestinationFolder="$(TargetDir)assets\Base\ConfigFile" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(MccFiles)" DestinationFolder="$(TargetDir)assets\Base\ConfigFile"
+			SkipUnchangedFiles="true" />
 
-		<Copy SourceFiles="$(SolutionDir)lib\x86\SimConnect.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="$(SolutionDir)lib\x86\SimConnect.dll" DestinationFolder="$(TargetDir)"
+			SkipUnchangedFiles="true" />
 	</Target>
 
 </Project>
