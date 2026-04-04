@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8D963A56
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4269003B-7204-493E-BE88-3F9EC171A5FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightWwFcuUnitTests", "tests\MobiFlightWwFcuUnitTests\MobiFlightWwFcuUnitTests.csproj", "{B7257F4C-2D41-4C4B-9DD5-46528EBD5ED6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{D79E60DF-38E8-9320-4860-595F59365130}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D79E60DF-38E8-9320-4860-595F59365130}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D79E60DF-38E8-9320-4860-595F59365130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7257F4C-2D41-4C4B-9DD5-46528EBD5ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7257F4C-2D41-4C4B-9DD5-46528EBD5ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7257F4C-2D41-4C4B-9DD5-46528EBD5ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7257F4C-2D41-4C4B-9DD5-46528EBD5ED6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{DFF01F70-51C8-E88A-D97E-4A522F92CD26} = {8D963A56-0451-4961-B596-A69A9D261CD6}
 		{571BA1E2-CE56-4CB2-A922-66A88519DE70} = {4269003B-7204-493E-BE88-3F9EC171A5FB}
 		{D79E60DF-38E8-9320-4860-595F59365130} = {4269003B-7204-493E-BE88-3F9EC171A5FB}
+		{B7257F4C-2D41-4C4B-9DD5-46528EBD5ED6} = {8D963A56-0451-4961-B596-A69A9D261CD6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {178FE40B-FB4C-4B70-9949-40A70BFA1DE8}

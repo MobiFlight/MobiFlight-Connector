@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 using MobiFlightWwFcu;
 using MobiFlightWwFcuUnitTests.Mocks;
+=======
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlightWwFcu;
+>>>>>>> 7ae35be1 (Add unit test projects)
 using Newtonsoft.Json.Linq;
 
 namespace MobiFlightWwFcuUnitTests

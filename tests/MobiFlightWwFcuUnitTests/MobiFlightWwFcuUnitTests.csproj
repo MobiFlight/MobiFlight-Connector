@@ -1,13 +1,16 @@
 ﻿<Project Sdk="MSTest.Sdk/4.0.2">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <UseVSTest>true</UseVSTest>
-  </PropertyGroup>
+		<UseVSTest>true</UseVSTest>
+		<PlatformTarget>x86</PlatformTarget>
+		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+	</PropertyGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <PackageReference Include="Microsoft.Testing.Extensions.Telemetry" Version="2.1.0" />
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" Version="2.1.0" />
@@ -21,5 +24,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\MobiFlightWwFcu\MobiFlightWwFcu.csproj" />
   </ItemGroup>
+=======
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\MobiFlightWwFcu\MobiFlightWwFcu.csproj" />
+	</ItemGroup>
+>>>>>>> 7ae35be1 (Add unit test projects)
 
 </Project>

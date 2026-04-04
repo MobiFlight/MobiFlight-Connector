@@ -1,9 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSTest.Sdk/4.0.2">
 
 	<PropertyGroup>
 		<TargetFramework>net10.0-windows</TargetFramework>
 		<PlatformTarget>x86</PlatformTarget>
 		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseVSTest>true</UseVSTest>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -16,13 +18,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
 		<PackageReference Include="Microsoft.Testing.Extensions.Telemetry" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Testing.Platform" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Testing.Platform.MSBuild" Version="2.1.0" />
 		<PackageReference Include="Moq" Version="4.20.72" />
-		<PackageReference Include="MSTest.TestAdapter" Version="4.1.0" />
-		<PackageReference Include="MSTest.TestFramework" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
