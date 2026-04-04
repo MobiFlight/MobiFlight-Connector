@@ -38,8 +38,8 @@ jobs:
       - name: dotnet build
         run: dotnet build -c ${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} --no-restore
 
-      # - name: dotnet test
-      #   run: dotnet test -c ${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} --no-build
+      - name: dotnet test
+        run: dotnet test -c ${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} --no-build
 
       - name: publish MobiFlightConnector
         run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlightConnector/MobiFlightConnector.csproj -o dist/MobiFlightConnector-${{ env.VERSION }} --no-build
