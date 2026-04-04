@@ -4,12 +4,14 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [main, hotfix/*]
+  release:
+    types: [published]
 
 env:
   SOLUTION_FILE_PATH: MobiFlightConnector.sln
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x86
-  VERSION: "0.0.${{ github.event.number }}.${{ github.run_number }}"
+  VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number) }}
 
 jobs:
   build:
@@ -21,8 +23,8 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.x'
-          architecture: '${{ env.BUILD_PLATFORM }}'
+          dotnet-version: "10.x"
+          architecture: "${{ env.BUILD_PLATFORM }}"
 
       - name: Build frontend
         working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -56,8 +58,44 @@ jobs:
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ../MobiFlightConnector-${{ env.VERSION }}.zip * -r
 
       - name: store latest setup file
+        if: github.event_name != 'release'
         uses: actions/upload-artifact@v7
         with:
           name: MobiFlightConnector
           path: |
             dist/MobiFlightConnector-${{ env.VERSION }}.zip
+
+      # Only run the following steps if this is a release event
+      - name: Downgrade NSIS
+        if: github.event_name == 'release'
+        shell: pwsh
+        run: .\Build\downgrade_nsis.ps1
+
+      - name: Create hash
+        if: github.event_name == 'release'
+        shell: pwsh
+        run: (Get-FileHash dist/MobiFlightConnector-${{ env.VERSION }}.zip -Algorithm SHA1).Hash | Out-File dist/MobiFlightConnector-${{ env.VERSION }}.sha1
+
+      - name: Create setup exe
+        if: github.event_name == 'release'
+        uses: joncloud/makensis-action@v4
+        with:
+          script-file: ./Build/setup.nsi
+          arguments: "/V3"
+
+      - name: Upload release assets
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            dist/*.zip
+            dist/*.sha1
+
+      - name: Store setup exe artifact
+        if: github.event_name == 'release'
+        uses: actions/upload-artifact@v7
+        with:
+          name: MobiFlight-Setup
+          path: Build/MobiFlight-Setup.exe
