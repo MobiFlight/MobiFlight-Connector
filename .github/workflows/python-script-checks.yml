@@ -35,4 +35,4 @@ jobs:
           pip install pylint gql websockets simconnect
 
       - name: Run linter on the Scripts folder
-        run: pylint Scripts --disable=all --enable=F,E
+        run: pylint src/MobiFlightConnector/Scripts --disable=all --enable=F,E
