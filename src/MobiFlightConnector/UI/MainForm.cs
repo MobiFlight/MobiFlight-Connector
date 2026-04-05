@@ -127,6 +127,7 @@ namespace MobiFlight.UI
         private void InitializeLogging()
         {
             Log.Instance.AddAppender(logAppenderFile);
+<<<<<<< HEAD
             Log.Instance.AddAppender(frontendAppender);
 
             ApplyLogSettings(Properties.Settings.Default);
@@ -153,6 +154,21 @@ namespace MobiFlight.UI
                 Log.Instance.Severity = LogSeverity.Info;
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
+=======
+            Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
+            Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
+
+            // Temporarily hardcoded for testing
+            Log.Instance.Enabled = true; //Properties.Settings.Default.LogEnabled;
+            Log.Instance.Severity = LogSeverity.Debug; /* Enum.TryParse<LogSeverity>(Properties.Settings.Default.LogLevel, true, out var logLevel)
+                ? logLevel
+                : LogSeverity.Info; */
+
+            logPanel1.Visible = Log.Instance.Enabled;
+            logSplitter.Visible = Log.Instance.Enabled;
+            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
+            Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
+>>>>>>> 73f72ad0 (Force debug logging for testing purposes)
         }
 
         private static void SetCurrentWorkingDirectory()
