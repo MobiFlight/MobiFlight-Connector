@@ -135,7 +135,7 @@
 		<Content Include="..\..\lib\vJoyInterface.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="..\..\lib\SimConnect.dll">
+		<Content Include="..\..\lib\x86\SimConnect.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
