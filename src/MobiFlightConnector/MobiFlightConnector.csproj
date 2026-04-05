@@ -74,10 +74,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="ArcazeHid">
+		<Reference Include="ArcazeHid, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
 			<HintPath>..\..\lib\ArcazeHid.dll</HintPath>
 		</Reference>
-		<Reference Include="Microsoft.FlightSimulator.SimConnect">
+		<Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
 			<HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
 		</Reference>
 		<Reference Include="Midi">
