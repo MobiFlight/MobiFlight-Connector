@@ -88,8 +88,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            dist/*.zip
-            dist/*.sha1
+            dist/MobiFlightConnector-${{ env.VERSION }}.zip
+            dist/MobiFlightConnector-${{ env.VERSION }}.sha1
 
       - name: Store setup exe artifact
         if: github.event_name == 'release'
