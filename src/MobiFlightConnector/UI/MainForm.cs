@@ -159,10 +159,10 @@ namespace MobiFlight.UI
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
 
             // Temporarily hardcoded for testing
-            Log.Instance.Enabled = true; //Properties.Settings.Default.LogEnabled;
-            Log.Instance.Severity = LogSeverity.Debug; /* Enum.TryParse<LogSeverity>(Properties.Settings.Default.LogLevel, true, out var logLevel)
+            Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
+            Log.Instance.Severity = Enum.TryParse<LogSeverity>(Properties.Settings.Default.LogLevel, true, out var logLevel)
                 ? logLevel
-                : LogSeverity.Info; */
+                : LogSeverity.Info;
 
             logPanel1.Visible = Log.Instance.Enabled;
             logSplitter.Visible = Log.Instance.Enabled;
