@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -85,23 +86,24 @@ namespace MobiFlight.UI.Panels.Settings.Device
             {
                 pictureBoxLogo.Image = board.Info.BoardPicture;
                 pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            } else
+            }
+            else
             {
                 pictureBoxLogo.Visible = false;
             }
 
             if (board.Info.Community?.Website != null)
-                buttonWebsite.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Website)); };
+                buttonWebsite.Click += (s, e) => { OpenCommunityLink(board.Info.Community.Website); };
             else
                 buttonWebsite.Enabled = false;
 
             if (board.Info.Community?.Docs != null)
-                buttonDocs.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Docs)); };
+                buttonDocs.Click += (s, e) => { OpenCommunityLink(board.Info.Community.Docs); };
             else
                 buttonDocs.Enabled = false;
 
             if (board.Info.Community?.Support != null)
-                buttonSupport.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Support)); };
+                buttonSupport.Click += (s, e) => { OpenCommunityLink(board.Info.Community.Support); };
             else
                 buttonSupport.Enabled = false;
 
@@ -116,11 +118,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     if (specificDeviceConfigs.Count() == 1)
                     {
                         var profile = specificDeviceConfigs.First();
-                        if(profile.DefaultUpload)
+                        if (profile.DefaultUpload)
                         {
                             UploadDefaultConfigRequested?.Invoke(this, profile.File);
                         }
-                    }   
+                    }
                     // since we have more options, we present a context menu
                     else
                     {
@@ -135,10 +137,21 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     }
                 };
                 UploadDeviceConfigPanel.Visible = true;
-            } else
+            }
+            else
             {
                 UploadDeviceConfigPanel.Visible = false;
             }
+        }
+
+        private void OpenCommunityLink(string target)
+        {
+            if (!target.IsValidUrl() && !target.IsValidEmailLink())
+            {
+                Log.Instance.log($"Community link target `{target}` is not valid", LogSeverity.Error);
+                return;
+            }
+            Process.Start(CreateRedirectTarget(target));
         }
 
         private string CreateRedirectTarget(string target)

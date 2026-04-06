@@ -41,7 +41,6 @@ namespace MobiFlight.Base
             return (byte) result;
         }
 
-
         public static byte HammingWeight(this byte value)
         {
             byte sum = 0;
@@ -89,6 +88,12 @@ namespace MobiFlight.Base
         {
             return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult)
                    && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
+
+        public static bool IsValidEmailLink(this string emailLink)
+        {
+            var pattern = @"^mailto:(.+@.+\..+)$";
+            return System.Text.RegularExpressions.Regex.IsMatch(emailLink, pattern);
         }
     }
 }

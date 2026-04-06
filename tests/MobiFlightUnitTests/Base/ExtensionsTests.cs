@@ -86,5 +86,21 @@ namespace MobiFlight.Base.Tests
             var link4 = "http://localhost";
             Assert.IsTrue(link4.IsValidUrl(), "The URL should be valid.");
         }
+
+        [TestMethod()]
+        public void IsValidEmailLinkTest()
+        {
+            var link1 = @"mailto:test@example.com";
+            Assert.IsTrue(link1.IsValidEmailLink(), "The email link should be valid.");
+
+            var link2 = @"mailto:invalid-email";
+            Assert.IsFalse(link2.IsValidEmailLink(), "The email link should be invalid.");
+
+            var link3 = @"mailto:example.com";
+            Assert.IsFalse(link3.IsValidEmailLink(), "The email link should be invalid.");
+
+            var link4 = @"mailto:user@";
+            Assert.IsFalse(link4.IsValidEmailLink(), "The email link should be invalid.");
+        }
     }
 }
