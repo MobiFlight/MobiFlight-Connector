@@ -15,7 +15,8 @@ namespace MobiFlight.xplane
         private bool _connected = false;
         private int _updateFrequencyPerSecond = 10;
         private string _detectedAircraft = string.Empty;
-        public int UpdateFrequencyPerSecond { 
+        public int UpdateFrequencyPerSecond
+        {
             get { return _updateFrequencyPerSecond; }
             set
             {
@@ -32,7 +33,7 @@ namespace MobiFlight.xplane
         public bool Connect()
         {
             if (Connector == null) Connector = new XPlaneConnector.XPlaneConnector();
-            
+
             Connector.OnLog += (m) =>
             {
                 // Log.Instance.log(m, LogSeverity.Debug);
@@ -41,8 +42,7 @@ namespace MobiFlight.xplane
             OnUpdateFrequencyPerSecondChanged += (v, e) =>
             {
                 Log.Instance.log($"update frequency changed: {v} per second.", LogSeverity.Debug);
-                Connector?.Stop();
-                Connector?.Start();
+                UnsubscribeAll();
             };
 
             SubscribedDataRefs.Clear();
@@ -96,7 +96,7 @@ namespace MobiFlight.xplane
                 _connected = false;
                 Closed?.Invoke(this, new EventArgs());
             }
-            
+
             return _connected;
         }
 
@@ -107,14 +107,22 @@ namespace MobiFlight.xplane
 
         public void Start()
         {
-            SubscribedDataRefs.Clear();
-            Connector?.Start();
+            UnsubscribeAll();
         }
 
         public void Stop()
         {
-            Connector?.Stop();
+            UnsubscribeAll();
             CheckForAircraftName();
+        }
+
+        private void UnsubscribeAll()
+        {
+            foreach (var dataRef in SubscribedDataRefs)
+            {
+                Connector.Unsubscribe(dataRef.Value.DataRef);
+            }
+            SubscribedDataRefs.Clear();
         }
 
         public void Clear()
@@ -130,9 +138,9 @@ namespace MobiFlight.xplane
             {
                 SubscribedDataRefs.Add(dataRefPath, new DataRefElement() { DataRef = dataRefPath, Frequency = UpdateFrequencyPerSecond, Value = 0 });
                 Connector.Subscribe(SubscribedDataRefs[dataRefPath], UpdateFrequencyPerSecond, (e, v) => {
-                    SubscribedDataRefs[e.DataRef].Value = v;
-                });
-            }
+                        SubscribedDataRefs[e.DataRef].Value = v;
+                    });
+                }
             return SubscribedDataRefs[dataRefPath].Value;
         }
 
