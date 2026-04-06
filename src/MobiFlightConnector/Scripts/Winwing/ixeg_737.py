@@ -49,30 +49,35 @@ CHAR_MAP = {
 FONT_REQUEST = json.dumps({"Target": "Font", "Data": "Boeing"})
 
 
-class SizedText:
-    def __init__(self, text: str, sizes: [int]):
-        assert(len(text) == len(sizes))
+class StyledText:
+    SMALL_FONT = (1 << 0)
+    REVERSE_VIDEO = (1 << 1)
+
+    def __init__(self, text: str, styles: [int]):
+        assert(len(text) == len(styles))
         self.text = text
-        self.sizes = sizes
+        self.styles = styles
 
     def __add__(self, other):
-        return SizedText(self.text + other.text, self.sizes + other.sizes)
+        return StyledText(self.text + other.text, self.styles + other.styles)
 
     def __len__(self):
         return len(self.text)
 
     @classmethod
     def from_bytes(cls, values: bytes):
-        cur_size = 0
+        cur_style = 0
         text = ""
-        sizes = []
+        styles = []
         for v in list(values):
             if v == 0:
                 break;
-            if v == 0xa3:
-                cur_size = 1
+            if v == 0x26:
+                cur_style |= cls.REVERSE_VIDEO
+            elif v == 0xa3:
+                cur_style |= cls.SMALL_FONT
             elif v == 0xa4:
-                cur_size = 0
+                cur_style = 0
             elif v >= 0x80:
                 # Anything non-ASCII is likely a style directive that we don't
                 # support, so just skip.
@@ -84,37 +89,40 @@ class SizedText:
                 char = chr(v).upper()
                 char = CHAR_MAP.get(char, char)
                 text = text + char
-                sizes.append(cur_size)
+                styles.append(cur_style)
 
-        return SizedText(text, sizes)
+        return StyledText(text, styles)
 
     @classmethod
-    def padding(cls, length: int) -> SizedText:
-        return SizedText(" " * length, [0] * length)
+    def padding(cls, length: int) -> StyledText:
+        return StyledText(" " * length, [0] * length)
 
-    def pad_to(self, length: int) -> SizedText:
-        return self + SizedText.padding(length - len(self))
+    def pad_to(self, length: int) -> StyledText:
+        return self + StyledText.padding(length - len(self))
 
     def char_at(self, i: int) -> str:
         return self.text[i]
 
     def size_at(self, i: int) -> int:
-        return self.sizes[i]
+        return 1 if self.styles[i] & self.SMALL_FONT else 0
 
-    def slice(self, start: int, stop: int) -> SizedText:
-        return SizedText(self.text[start:stop], self.sizes[start:stop])
+    def reverse_video_at(self, i: int) -> int:
+        return 1 if self.styles[i] & self.REVERSE_VIDEO else 0
 
-    def lstrip(self) -> SizedText:
+    def slice(self, start: int, stop: int) -> StyledText:
+        return StyledText(self.text[start:stop], self.styles[start:stop])
+
+    def lstrip(self) -> StyledText:
         new_text = self.text.lstrip()
-        new_sizes = self.sizes[len(self.text) - len(new_text):]
+        new_styles = self.styles[len(self.text) - len(new_text):]
 
-        return SizedText(new_text, new_sizes)
+        return StyledText(new_text, new_styles)
 
-    def rstrip(self) -> SizedText:
+    def rstrip(self) -> StyledText:
         new_text = self.text.rstrip()
-        new_sizes = self.sizes[:len(new_text)]
+        new_styles = self.styles[:len(new_text)]
 
-        return SizedText(new_text, new_sizes)
+        return StyledText(new_text, new_styles)
 
 
 class CduDevice(StrEnum):
@@ -133,20 +141,20 @@ class CduDevice(StrEnum):
     def get_dataref_prefix(self) -> str:
         return f"ixeg/733/FMC/{self}"
 
-    def get_line_text(self, line, values) -> SizedText:
+    def get_line_text(self, line, values) -> StyledText:
         if line == 0:
-            title = SizedText.from_bytes(values[f"ixeg/733/FMC/{self}_title"])
-            page = SizedText.from_bytes(values[f"ixeg/733/FMC/{self}_pg_number"])
+            title = StyledText.from_bytes(values[f"ixeg/733/FMC/{self}_title"])
+            page = StyledText.from_bytes(values[f"ixeg/733/FMC/{self}_pg_number"])
             title = title.pad_to(19).slice(0, 19)
             return (title + page).pad_to(CDU_COLUMNS)
         if line == 13:
-            return SizedText.from_bytes(values[f"ixeg/733/FMC/{self}_scrpad"]).pad_to(CDU_COLUMNS)
+            return StyledText.from_bytes(values[f"ixeg/733/FMC/{self}_scrpad"]).pad_to(CDU_COLUMNS)
         logical_line = (line + 1) // 2
         dataref_base = f"ixeg/733/FMC/{self}_line{logical_line}"
         suffix = "_d" if line % 2 == 0 else "_t"
 
-        left = SizedText.from_bytes(values[f"{dataref_base}L{suffix}"]).rstrip()
-        right = SizedText.from_bytes(values[f"{dataref_base}R{suffix}"]).lstrip()
+        left = StyledText.from_bytes(values[f"{dataref_base}L{suffix}"]).rstrip()
+        right = StyledText.from_bytes(values[f"{dataref_base}R{suffix}"]).lstrip()
 
         return left.pad_to(CDU_COLUMNS - len(right)) + right
 
@@ -170,7 +178,6 @@ def generate_display_json(device: CduDevice, values: dict[str, str | bytes]):
     display_data = [[] for _ in range(CDU_CELLS)]
 
     color = "g"
-    reverse_video = 0
 
     for row in range(CDU_ROWS):
         text = device.get_line_text(row, values)
@@ -181,6 +188,7 @@ def generate_display_json(device: CduDevice, values: dict[str, str | bytes]):
                 continue
 
             size = text.size_at(col)
+            reverse_video = text.reverse_video_at(col)
 
             index = row * CDU_COLUMNS + col
             display_data[index] = [char, color, size, reverse_video]
