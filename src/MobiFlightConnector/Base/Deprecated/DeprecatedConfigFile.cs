@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    [XmlRoot("MobiFlightConnector", Namespace = "urn:schemas-microsoft-com:xml-msdata")]
+    [XmlRoot("MobiFlightConnector")]
     public class DeprecatedConfigFile : IConfigFile
     {
         [XmlElement("outputs")]
@@ -138,7 +138,8 @@ namespace MobiFlight
         {
             XmlSerializer serializer = new XmlSerializer(typeof(ConfigFileWrapperXML));
             XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
-            namespaces.Add("msdata","urn:schemas-microsoft-com:xml-msdata");
+            namespaces.Add("", "");
+            //namespaces.Add("xsd", "https://www.w3.org/2001/XMLSchema");
 
             var XmlConfig = new ConfigFileWrapperXML();
             XmlConfig.outputConfigs = new List<OutputConfigFileXmlElement>();
