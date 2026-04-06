@@ -7,18 +7,42 @@ This repository contains the code for the Mobiflight Project
 
 ### How do I get set up? ###
 
+#### Prerequisites ####
+
+You will need the following development tools:
+
+*  Visual Studio
+*  Node.js and npm \
+   One option for installing these is [nvm-windows](https://github.com/coreybutler/nvm-windows). Once you've downloaded nvm-windows itself, run
+   ```
+   nvm install latest
+   ```
+   to install the latest version of Node.js and npm, then
+   ```
+   nvm use $VERSION
+   ```
+   where `$VERSION` is the version you just installed.
+
 #### Summary of set up ####
 Checkout the code and open the MobiFlightConnector.sln project.
 
 #### Configuration ####
-Compile with DEBUG option for development and debugging
+Compile with DEBUG option for development and debugging.
+
 Compile with RELEASE option for release - this will also execute the release build scripts after compiling that package MobiFlight nicely.
 
+Before running MobiFlightConnector from Visual Studio, you'll need to start a Node development server. To do this, open a terminal window, change to the
+src\MobiFlightConnector\frontend directory, then run
+
+```
+npm install && npm run dev
+```
+
 #### Dependencies ####
-All Dependecies are currently contained in the repository and not referenced dynamically from their repository
+All Dependencies are currently contained in the repository and not referenced dynamically from their repository
 
 * CommandMessenger - Library for communication back and forth between PC and Arduino
-* MobiflightConnector - The PC application for configuration and communication between Flightsim and Arduino
+* MobiFlightConnector - The PC application for configuration and communication between Flightsim and Arduino
 * MobiFlightUnitTests - The test suite for the MobiFlight Connector
 * VersionInfo - A helper tool to detect the current release version, used during creation of Release Package
 
