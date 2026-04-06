@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using XPlaneConnector;
 
 namespace MobiFlight.xplane
@@ -42,7 +43,7 @@ namespace MobiFlight.xplane
             {
                 Log.Instance.log($"update frequency changed: {v} per second.", LogSeverity.Debug);
                 Connector?.Stop();
-                Connector?.Start();
+                StartConnector();
             };
 
             SubscribedDataRefs.Clear();
@@ -59,7 +60,7 @@ namespace MobiFlight.xplane
         {
             if (!_connected) return;
             // just start the connector
-            Connector?.Start();
+            if (!StartConnector()) return;
             Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[0]", Frequency = 1, Value = 0 }, 1, (e, v) =>
             {
                 Log.Instance.log($"sim/aircraft/view/acf_ui_name[0] = {v}", LogSeverity.Debug);
@@ -70,6 +71,22 @@ namespace MobiFlight.xplane
                 Log.Instance.log($"sim/aircraft/view/acf_ui_name[2] = {v}", LogSeverity.Debug);
                 UpdateAircraftSubscription();
             });
+        }
+
+        private bool StartConnector()
+        {
+            try
+            {
+                Connector?.Start();
+                return true;
+            }
+            catch (SocketException ex)
+            {
+                Log.Instance.log($"X-Plane connection failed: {ex.Message}", LogSeverity.Error);
+                _connected = false;
+                ConnectionLost?.Invoke(this, new EventArgs());
+                return false;
+            }
         }
 
         private void UpdateAircraftSubscription()
@@ -108,7 +125,7 @@ namespace MobiFlight.xplane
         public void Start()
         {
             SubscribedDataRefs.Clear();
-            Connector?.Start();
+            StartConnector();
         }
 
         public void Stop()
