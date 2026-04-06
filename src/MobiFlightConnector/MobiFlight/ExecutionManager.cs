@@ -223,7 +223,6 @@ namespace MobiFlight
                 OnJoystickConnectedFinished?.Invoke(sender, e);
             };
 
-
             OnMidiBoardConnectedFinished += (s, e) => { PublishConnectedDevices(); };
             OnJoystickConnectedFinished += (s, e) => { PublishConnectedDevices(); };
 
@@ -380,7 +379,6 @@ namespace MobiFlight
                 MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
-
 
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
             {
@@ -1131,6 +1129,13 @@ namespace MobiFlight
                 if (LastDetectedSim != FlightSimType.NONE)
                 {
                     OnSimUnavailable?.Invoke(LastDetectedSim, null);
+
+                    if (LastDetectedSim == FlightSimType.XPLANE)
+                    {
+                        xplaneCache.Disconnect();
+                        OnSimCacheConnectionLost?.Invoke(xplaneCache, EventArgs.Empty);
+                    }
+
                     LastDetectedSim = FlightSimType.NONE;
                 }
             }
@@ -1152,7 +1157,6 @@ namespace MobiFlight
         {
             var OutputConfigItems = ConfigItems.Where(i => (i.GetType() == typeof(OutputConfigItem)) && i.Active && i.Device != null).ToList();
             if (OutputConfigItems.Count == 0) return;
-
 
             var lastTestedConfig = ConfigItemInTestMode;
             var lastTestedConfigIndex = OutputConfigItems.FindIndex(i => i.GUID == lastTestedConfig?.GUID);
@@ -1210,7 +1214,6 @@ namespace MobiFlight
             }
         }
 
-
         public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
             if (!IsStarted() && !TestModeIsStarted())
@@ -1259,7 +1262,6 @@ namespace MobiFlight
             executor.ExecuteTestOn(cfg, value);
             ConfigItemInTestMode = cfg;
         }
-
 
         private void ClearErrorMessages()
         {
