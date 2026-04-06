@@ -16,7 +16,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
         /// </summary>
         public event EventHandler Changed;
         public event EventHandler<string> UploadDefaultConfigRequested;
-        const string redirectUrl = "https://mobiflight.com?redirect=";
+
+        // Redirect URL currently not in place
+        // so we directly open the target URL.
+        // In the future, we might want to have a redirect in place to track clicks on the buttons.
+        // or do some other form of tracking
+        const string redirectUrl = "";
 
         private MobiFlightModule module;
         bool initialized = false;
@@ -84,7 +89,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
             {
                 pictureBoxLogo.Visible = false;
             }
-
 
             if (board.Info.Community?.Website != null)
                 buttonWebsite.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Website)); };
