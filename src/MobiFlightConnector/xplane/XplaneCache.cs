@@ -147,13 +147,18 @@ namespace MobiFlight.xplane
 
             if (!SubscribedDataRefs.ContainsKey(dataRefPath))
             {
-                SubscribedDataRefs.Add(dataRefPath, new DataRefElement() { DataRef = dataRefPath, Frequency = UpdateFrequencyPerSecond, Value = 0 });
-                Connector.Subscribe(SubscribedDataRefs[dataRefPath], UpdateFrequencyPerSecond, (e, v) =>
+                var dataRefElement = new DataRefElement() { DataRef = dataRefPath, Frequency = UpdateFrequencyPerSecond, Value = 0 };
+                SubscribedDataRefs.Add(dataRefPath, dataRefElement);
+                Connector.Subscribe(dataRefElement, UpdateFrequencyPerSecond, (e, v) =>
                 {
                     SubscribedDataRefs[e.DataRef].Value = v;
                 });
             }
-            return SubscribedDataRefs[dataRefPath].Value;
+
+            // make it extra safe when reading the value
+            if (!SubscribedDataRefs.TryGetValue(dataRefPath, out var data)) return 0;
+
+            return data.Value;
         }
 
         public void writeDataRef(string dataRefPath, float value)

@@ -1132,8 +1132,11 @@ namespace MobiFlight
 
                     if (LastDetectedSim == FlightSimType.XPLANE)
                     {
-                        xplaneCache.Disconnect();
-                        OnSimCacheConnectionLost?.Invoke(xplaneCache, EventArgs.Empty);
+                        if (xplaneCache.IsConnected())
+                        {
+                            xplaneCache.Disconnect();
+                            OnSimCacheConnectionLost?.Invoke(xplaneCache, EventArgs.Empty);
+                        }
                     }
 
                     LastDetectedSim = FlightSimType.NONE;
