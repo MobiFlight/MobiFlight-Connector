@@ -43,6 +43,7 @@ namespace MobiFlight.xplane
             {
                 Log.Instance.log($"update frequency changed: {v} per second.", LogSeverity.Debug);
                 Connector?.Stop();
+                // If StartConnector fails, _connected is set to false and ConnectionLost is fired
                 StartConnector();
             };
 
@@ -125,6 +126,7 @@ namespace MobiFlight.xplane
         public void Start()
         {
             SubscribedDataRefs.Clear();
+            // If StartConnector fails, _connected is set to false and ConnectionLost is fired
             StartConnector();
         }
 
