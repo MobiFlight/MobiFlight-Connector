@@ -2,7 +2,7 @@
 <config guid="c47307a5-8950-491c-8faf-abca3ab0a1fe">
 	<active>true</active>
 	<description>pot1 -&gt; bacjlight</description>
-	<settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.3.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
 		<source type="Variable" varType="number" varName="POT1" varExpression="$" />
 		<comparison active="False" value="" operand="" ifValue="" elseValue="" />
 		<display type="InputAction" serial="-" trigger="normal">

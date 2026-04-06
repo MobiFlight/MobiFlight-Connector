@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
   <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
   <comparison active="False" value="0" operand="=" ifValue="00000" elseValue="" />
   <display type="LcdDisplay" serial="PWS-Encoder/ SN-fab-a8c" trigger="normal" address="AP-Display">

@@ -4,7 +4,7 @@
     <config guid="2bb4c7f7-b0a9-4060-a0c2-f23155d0209f">
       <active>false</active>
       <description>OVERHEAD CONFIG</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -18,7 +18,7 @@
     <config guid="24ad43e7-bbc5-4ea2-8293-9ecf4a289cfa">
       <active>true</active>
       <description>BAT 1 Voltage</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="AirbusFBW/BatVolts[0]" />
         <test type="Float" value="1" />
         <modifiers>
@@ -32,7 +32,7 @@
     <config guid="2aa0d031-ca0a-43a9-847e-b3c78a1d39a9">
       <active>true</active>
       <description>BAT 2 Voltage</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="AirbusFBW/BatVolts[1]" />
         <test type="Float" value="1" />
         <modifiers>
@@ -46,7 +46,7 @@
     <config guid="924e9a59-256b-4fd0-bbd2-b4a57d0de80b">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -60,7 +60,7 @@
     <config guid="0e7f555c-b2f4-4824-b9f6-6711a3a093ab">
       <active>false</active>
       <description>There is no radio in the FBW A320 Overhead. So, this references RMP Left </description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -72,7 +72,7 @@
     <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
       <active>true</active>
       <description>Radio ACTIVE</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="AirbusFBW/RMP3Freq" />
         <test type="Float" value="1" />
         <modifiers>
@@ -86,7 +86,7 @@
     <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
       <active>true</active>
       <description>Radio STBY CRS</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="AirbusFBW/RMP3StbyFreq" />
         <test type="Float" value="1" />
         <modifiers>
@@ -100,7 +100,7 @@
     <config guid="ae5cbf0f-12bc-41f9-9691-6959303bc6e1">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -114,7 +114,7 @@
     <config guid="12205975-3b9b-482a-925a-0ca56dc58b5d">
       <active>false</active>
       <description>- </description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="" />
         <test type="Float" value="1" />
         <modifiers>

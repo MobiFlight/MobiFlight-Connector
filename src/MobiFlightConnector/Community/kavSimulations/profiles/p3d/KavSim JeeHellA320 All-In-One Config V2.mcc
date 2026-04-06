@@ -4,7 +4,7 @@
     <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
       <active>false</active>
       <description>FCU CONFIG</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -18,7 +18,7 @@
     <config guid="0045cac7-7b32-43e6-a8a9-a57dd4b45936">
       <active>true</active>
       <description>FCU - Speed Value</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C1" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="-1" />
         <modifiers>
@@ -37,7 +37,7 @@
     <config guid="53041b63-611c-4bbf-a40b-8797b62db163">
       <active>true</active>
       <description>FCU - Mach Value</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C1" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="-1" />
         <modifiers>
@@ -56,7 +56,7 @@
     <config guid="2db0b156-a792-416a-970c-b2f7d8b62458">
       <active>true</active>
       <description>FCU - SPD Dot</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7391" offsetType="Integer" size="1" mask="0x0001" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -70,7 +70,7 @@
     <config guid="97f70f49-f7c5-4c92-af0a-a88bcdab7ecc">
       <active>true</active>
       <description>FCU - Set Speed Label</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7390" offsetType="Integer" size="1" mask="0x0080" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -86,7 +86,7 @@
     <config guid="5c7d2d7c-d849-4a62-a2f5-7bddef3f1c57">
       <active>true</active>
       <description>FCU - Set Mach Label</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7390" offsetType="Integer" size="1" mask="0x0080" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -100,7 +100,7 @@
     <config guid="1938a7b0-ef7f-47e8-a332-4e856afcdcb1">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -112,7 +112,7 @@
     <config guid="2f565d5a-1394-4b72-ad04-7f22d0bb2b68">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -124,7 +124,7 @@
     <config guid="6af2a5a4-41bb-47eb-aabc-8dbe958a5de1">
       <active>true</active>
       <description>FCU - HDG Show Value</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C3" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="0" />
         <modifiers>
@@ -143,7 +143,7 @@
     <config guid="e9e662ce-3758-44c8-98bc-a9215ab4f238">
       <active>true</active>
       <description>FCU - HDG Set/Unset Dot</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7391" offsetType="Integer" size="1" mask="0x0002" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -157,7 +157,7 @@
     <config guid="5c5ddbfc-d1db-48f0-bc2e-d668b0882c47">
       <active>true</active>
       <description>FCU - HDG/TRK Toggle</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7390" offsetType="Integer" size="1" mask="0x0040" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -171,7 +171,7 @@
     <config guid="c4b60d5d-7c6e-4b78-a885-d772a6560224">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -183,7 +183,7 @@
     <config guid="9605bc95-99b8-4396-9e62-a53e4158adb6">
       <active>true</active>
       <description>FCU - ALT Show Value</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C5" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -201,7 +201,7 @@
     <config guid="7a58c836-44b8-4c79-8703-25a73925c4fd">
       <active>true</active>
       <description>FCU - ALT Set/Unset Dot</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7391" offsetType="Integer" size="1" mask="0x0004" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -215,7 +215,7 @@
     <config guid="0e6bcd9b-5752-4b17-95a2-274231d30cac">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -227,7 +227,7 @@
     <config guid="284222fc-9b8d-4383-83a0-e13a718e0e90">
       <active>true</active>
       <description>FCU - VS Value</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="-1.01" />
         <modifiers>
@@ -251,7 +251,7 @@
     <config guid="c7a379d3-0c74-4c5d-b236-00319c6204f2">
       <active>true</active>
       <description>FCU -VS Value helper</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -265,7 +265,7 @@
     <config guid="d439076e-a7a5-47b0-aed1-945a4d82156c">
       <active>true</active>
       <description>FCU - FPA Value</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -288,7 +288,7 @@
     <config guid="de956b07-4e88-4cbf-8bb8-a93814c94d2a">
       <active>true</active>
       <description>FCU - FPA Value helper</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -304,7 +304,7 @@
     <config guid="ac4a3707-edb9-43d0-8888-8528cc9bc9e7">
       <active>true</active>
       <description>FCU - VS Dashes</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -320,7 +320,7 @@
     <config guid="f60e20ae-efd7-428f-9e1b-a1f66c7d8ed5">
       <active>true</active>
       <description>FCU - VS Dashes Mode</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -336,7 +336,7 @@
     <config guid="7f01367f-bbf2-491b-8711-eadbfb6c3a49">
       <active>true</active>
       <description>FCU - VS/FPA Mode</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7390" offsetType="Integer" size="1" mask="0x0040" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -350,7 +350,7 @@
     <config guid="83680898-7c53-4764-aa31-b0f6097aff14">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -365,7 +365,7 @@
     <config guid="db2fbafc-0142-400a-8005-df80f3a7964b">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -380,7 +380,7 @@
     <config guid="9d91a242-ae2c-4eb2-80cc-91dd53b5a803">
       <active>false</active>
       <description>EFIS L CONFIG</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -395,7 +395,7 @@
     <config guid="a276f125-43a5-4c1c-b331-4d34fca4a9d8">
       <active>true</active>
       <description>EFIS L mb (0745-1100)</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -407,7 +407,7 @@
     <config guid="18baceb3-dc58-45b6-ac33-2709f18078d9">
       <active>true</active>
       <description>EFIS L inHg (22.01-32.48)</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0000" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -423,7 +423,7 @@
     <config guid="f2aa43b3-5b34-4593-b8fa-13d31dbb5654">
       <active>true</active>
       <description>EFIS L Std (-999)</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -439,7 +439,7 @@
     <config guid="d080aaf1-7b9e-4abb-aaae-7c10c8ab0d01">
       <active>true</active>
       <description>EFIS L OUTPUT</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0000" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -458,7 +458,7 @@
     <config guid="dc853165-1e17-4813-a517-78de0d41a09f">
       <active>true</active>
       <description>EFIS L - Set QNH Label</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7391" offsetType="Integer" size="1" mask="0x0010" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -472,7 +472,7 @@
     <config guid="82406b5f-8065-47d7-bff2-f930822a66e8">
       <active>true</active>
       <description>EFIS L - Set QFE Label</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7391" offsetType="Integer" size="1" mask="0x0010" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -484,7 +484,7 @@
     <config guid="3c7ca066-a861-40eb-a5e7-2089f21b0bc3">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -498,7 +498,7 @@
     <config guid="71072823-1f76-4eb6-8162-fe6d0cf80b1a">
       <active>false</active>
       <description>EFIS R CONFIG</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -513,7 +513,7 @@
     <config guid="909c0f08-a8d6-40e3-8208-fef7b5bec045">
       <active>true</active>
       <description>EFIS R mb (0745-1100)</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73CA" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -525,7 +525,7 @@
     <config guid="aa158379-defe-4eae-927d-a5e3284ec2c8">
       <active>true</active>
       <description>EFIS R inHg (22.01-32.48)</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0000" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -541,7 +541,7 @@
     <config guid="acbde261-efc9-48a8-884b-f8d51180590a">
       <active>true</active>
       <description>EFIS R Std (-999)</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73CA" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -557,7 +557,7 @@
     <config guid="076d0461-2140-492d-bebf-b2edd0e331b3">
       <active>true</active>
       <description>EFIS R OUTPUT</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0000" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -576,7 +576,7 @@
     <config guid="98cb0492-5090-4cf2-924b-d7e3a76a74ed">
       <active>true</active>
       <description>EFIS R - Set QNH Label</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7392" offsetType="Integer" size="1" mask="0x0010" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -590,7 +590,7 @@
     <config guid="48f94639-36f1-4539-abf6-7fd268ac6737">
       <active>true</active>
       <description>EFIS R - Set QFE Label</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x7392" offsetType="Integer" size="1" mask="0x0010" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -602,7 +602,7 @@
     <config guid="02dddcc3-509e-46cd-b051-f1e750b9d310">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -616,7 +616,7 @@
     <config guid="7fe5b6a3-0f08-49cd-a22e-0e09a6901002">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -630,7 +630,7 @@
     <config guid="2bb4c7f7-b0a9-4060-a0c2-f23155d0209f">
       <active>false</active>
       <description>OVERHEAD CONFIG</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -644,7 +644,7 @@
     <config guid="24ad43e7-bbc5-4ea2-8293-9ecf4a289cfa">
       <active>true</active>
       <description>BAT 1 Voltage</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73BC" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -656,7 +656,7 @@
     <config guid="2aa0d031-ca0a-43a9-847e-b3c78a1d39a9">
       <active>true</active>
       <description>BAT 2 Voltage</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73BE" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -668,7 +668,7 @@
     <config guid="924e9a59-256b-4fd0-bbd2-b4a57d0de80b">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -682,7 +682,7 @@
     <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
       <active>true</active>
       <description>Radio ACTIVE</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x05C4" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -696,7 +696,7 @@
     <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
       <active>true</active>
       <description>Radio STBY CRS</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x05CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
@@ -710,7 +710,7 @@
     <config guid="ae5cbf0f-12bc-41f9-9691-6959303bc6e1">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -724,7 +724,7 @@
     <config guid="e964e0c7-c669-4e84-ae53-ab1e1f5fdcc2">
       <active>false</active>
       <description>PEDESTAL CONFIG</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -738,7 +738,7 @@
     <config guid="0e7f555c-b2f4-4824-b9f6-6711a3a093ab">
       <active>false</active>
       <description>RMP L</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -750,7 +750,7 @@
     <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
       <active>true</active>
       <description>RMP L ACTIVE</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x05C4" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
@@ -764,7 +764,7 @@
     <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
       <active>true</active>
       <description>RMP L STBY CRS</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x05CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
@@ -778,7 +778,7 @@
     <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -792,7 +792,7 @@
     <config guid="5b661d13-f348-4284-8373-be2b1a8b313c">
       <active>false</active>
       <description>RMP R</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers />
@@ -804,7 +804,7 @@
     <config guid="e54024c0-d139-4ed4-961f-e7bdad23dde2">
       <active>true</active>
       <description>RMP R Radio ACTIVE</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x05C8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -818,7 +818,7 @@
     <config guid="525c608f-02c4-4611-a084-e405d705754a">
       <active>true</active>
       <description>RMP R Radio STBY CRS</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x05D0" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -832,7 +832,7 @@
     <config guid="1f4f491c-b041-42b8-ad47-44dc05b388ae">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -846,7 +846,7 @@
     <config guid="0829ae05-6b9c-495b-9729-90f75e1b51d7">
       <active>true</active>
       <description>TCAS Display Output</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers />
@@ -858,7 +858,7 @@
     <config guid="13bebeed-279e-4911-90ec-4298f4ef93e9">
       <active>false</active>
       <description>-</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="LVAR" Value="" />
         <test type="Float" value="1" />
         <modifiers>
@@ -872,7 +872,7 @@
     <config guid="2fdb098a-88a0-4733-a420-419ca5460a7c">
       <active>true</active>
       <description>Rudder Trim L</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -888,7 +888,7 @@
     <config guid="86f644cf-debf-4e95-b235-b884e79ec358">
       <active>true</active>
       <description>Rudder Trim R</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -904,7 +904,7 @@
     <config guid="90520bc7-1478-4f63-a047-63ec70c137c0">
       <active>true</active>
       <description>Rudder Trim Value</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73B1" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers />
@@ -918,7 +918,7 @@
     <config guid="339f8391-8617-4960-ab9e-108cc84b23f8">
       <active>true</active>
       <description>RT L</description>
-      <settings serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 7" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 7" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x78ED" offsetType="Integer" size="1" mask="0x004D" bcdMode="False" inputValue="" />
@@ -931,7 +931,7 @@
     <config guid="54cdb566-be01-4d09-9d74-4478c2c9a2a8">
       <active>true</active>
       <description>RT R</description>
-      <settings serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x78ED" offsetType="Integer" size="1" mask="0x004E" bcdMode="False" inputValue="" />
@@ -944,7 +944,7 @@
     <config guid="1c852af7-f775-46d5-b62a-9c58120ab445">
       <active>true</active>
       <description>RT N</description>
-      <settings serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x78ED" offsetType="Integer" size="1" mask="0x004F" bcdMode="False" inputValue="" />
@@ -957,7 +957,7 @@
     <config guid="f7a17397-9d88-4b06-8047-faef1aa10095">
       <active>true</active>
       <description>RT Reset</description>
-      <settings serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 10" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" serial="T.16000M Joystick / JS-05cf8dd0-3e56-11eb-8004-444553540000" name="Button 10" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x78ED" offsetType="Integer" size="1" mask="0x00A0" bcdMode="False" inputValue="" />

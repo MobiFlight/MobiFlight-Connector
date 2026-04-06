@@ -4,7 +4,7 @@
     <config guid="038ee5f8-d415-44b1-9416-95c81850aa8c">
       <active>true</active>
       <description>Left Green</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -18,7 +18,7 @@
     <config guid="0f909a12-d688-45a9-bb0e-4aff0264b52b">
       <active>true</active>
       <description>Right Green</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -32,7 +32,7 @@
     <config guid="3ff5083a-653c-41f5-997c-8a4b68f57b82">
       <active>true</active>
       <description>Left Red</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -46,7 +46,7 @@
     <config guid="ca7a0a46-e414-460a-b2e4-78e9b290ec4b">
       <active>true</active>
       <description>Right Red</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -60,7 +60,7 @@
     <config guid="eaaea7cb-d58d-4655-8249-868e0a67e158">
       <active>true</active>
       <description>Top Red</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -74,7 +74,7 @@
     <config guid="523d76ff-7381-40f2-b084-14b009570939">
       <active>true</active>
       <description>Top Green</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BEC" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -88,7 +88,7 @@
     <config guid="fccbd842-25ea-48e2-9536-31956de7c0f4">
       <active>true</active>
       <description>Wing Flaps Indicator</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
@@ -108,7 +108,7 @@
     <config guid="f0b3036b-ce9a-4c7f-910e-e8122f2e2e8b">
       <active>true</active>
       <description>Gear Up Switch</description>
-      <settings serial="MobiFlight Mega/ SN-0f5-0ef" name="GearUp" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-0f5-0ef" name="GearUp" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66079" param="0" />
         </button>
@@ -119,7 +119,7 @@
     <config guid="6646cdbc-0cdd-439c-b3c6-36a3a788ac71">
       <active>true</active>
       <description>Gear Down Switch</description>
-      <settings serial="MobiFlight Mega/ SN-0f5-0ef" name="GearDown" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-0f5-0ef" name="GearDown" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66080" param="0" />
         </button>

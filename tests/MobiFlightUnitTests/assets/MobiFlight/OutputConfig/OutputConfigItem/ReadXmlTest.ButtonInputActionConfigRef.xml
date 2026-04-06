@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.3.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
 	<source type="Variable" varType="number" varName="TransponderLength" varExpression="$" />
 	<comparison active="True" value="4" operand="=" ifValue="1" elseValue="0" />
 	<display type="InputAction" serial="-" trigger="normal">

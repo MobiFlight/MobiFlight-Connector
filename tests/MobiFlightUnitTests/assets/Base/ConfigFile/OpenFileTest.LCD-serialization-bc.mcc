@@ -4,7 +4,7 @@
     <config guid="36b54291-2353-490a-9462-5d6767edd67f">
       <active>true</active>
       <description>COM1 Active</description>
-      <settings xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="sim/cockpit/radios/com1_freq_hz" />
         <test type="Float" value="12345600" />
         <modifiers>
