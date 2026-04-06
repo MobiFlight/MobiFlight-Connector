@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace MobiFlight.Base
 {
     [XmlRoot("MobiflightConnector")]
-    internal class FsuipcPresetConfig
+    public class FsuipcPresetConfig
     {
         [XmlElement("config")]
         public List<OutputConfigFileXmlElement> outputConfigs;
