@@ -1,4 +1,5 @@
-﻿using MobiFlight.BrowserMessages;
+﻿using Microsoft.Web.WebView2.Core;
+using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Publisher;
 using MobiFlight.WebView;
 using System;
@@ -42,8 +43,15 @@ namespace MobiFlight.UI.Panels
 
         async void InitializeAsync()
         {
-            await FrontendWebView.EnsureCoreWebView2Async(null);
-            await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
+            var options = new CoreWebView2EnvironmentOptions
+            {
+                AdditionalBrowserArguments =
+                    "--use-angle=d3d9"
+            };
+
+            var env = await CoreWebView2Environment.CreateAsync(null, null, options);
+            await FrontendWebView.EnsureCoreWebView2Async(env);
+            await UserAuthenticationWebView.EnsureCoreWebView2Async(env);
 
             InitializeWebView(FrontendWebView, "/start");
             InitializeWebView(UserAuthenticationWebView);
@@ -63,7 +71,7 @@ namespace MobiFlight.UI.Panels
 
                 // Add event handler
                 var staticPageHandler = new StaticPageWebResourceRequestHandler(
-                    _frontendBaseUrl, 
+                    _frontendBaseUrl,
                     _frontendDistPath
                 );
                 staticPageHandler.RegisterWithWebView(webView);
@@ -75,7 +83,7 @@ namespace MobiFlight.UI.Panels
             var addButtonHandler = new AddCloseButtonHandlerOnNavigationCompleted();
             addButtonHandler.AddExclusionFilter(_frontendBaseUrl);
             addButtonHandler.RegisterWithWebView(webView);
-            
+
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             // Navigate to start the app
