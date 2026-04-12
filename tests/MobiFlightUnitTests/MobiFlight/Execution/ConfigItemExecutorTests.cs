@@ -240,6 +240,27 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsStepper()
+        {
+            // Arrange
+            var stopValue = 0;
+            var stepperAddress = "1";
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var cfg = new OutputConfigItem { 
+                Controller = SerialNumber.CreateController(rawSerial), 
+                DeviceType = MobiFlightStepper.TYPE, 
+                Device = new OutputConfig.Stepper { Address = stepperAddress, Name="Stepper", TestValue = 100 } 
+            };
+
+            // Act
+            executor.ExecuteTestOff(cfg);
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetStepper(serial, stepperAddress, stopValue.ToString(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<short>(), It.IsAny<short>()), Times.Once);
+        }
+
+        [TestMethod]
         public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
         {
             // Arrange
