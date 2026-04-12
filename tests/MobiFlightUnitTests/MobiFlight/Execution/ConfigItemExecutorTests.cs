@@ -274,6 +274,20 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsOutput()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var name = "TestOutput";
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightOutput.TYPE, Device = new OutputConfig.Output { Pin = name, PwmMode = false } };
+            // Act
+            executor.ExecuteTestOff(cfg);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetValue(serial, name, "0"), Times.Once);
+        }
+
+        [TestMethod]
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenOutputAndValueNot0AndNotPwm()
         {
             // Arrange
