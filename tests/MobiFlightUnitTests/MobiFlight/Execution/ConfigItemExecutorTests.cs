@@ -304,6 +304,20 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsOutputShiftRegister()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var pin = "0|2";
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightShiftRegister.TYPE, Device = new OutputConfig.ShiftRegister { Address = "Shifter01", PWM = false, Pin = pin } };
+            // Act
+            executor.ExecuteTestOff(cfg);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetShiftRegisterOutput(serial, "Shifter01", pin, "0"), Times.Once);
+        }
+
+        [TestMethod]
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenOutputAndValueNot0AndNotPwm()
         {
             // Arrange
