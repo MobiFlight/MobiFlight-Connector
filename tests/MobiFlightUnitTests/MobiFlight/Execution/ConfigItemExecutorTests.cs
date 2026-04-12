@@ -11,7 +11,6 @@ using Moq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MobiFlight.Tests
 {
@@ -264,7 +263,6 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsServo_WithDefaultValue()
         {
-            var testValue = new ConnectorValue() { type = FSUIPCOffsetType.Integer, Float64 = 100 };
             // Arrange
             var cfg = new OutputConfigItem
             {
