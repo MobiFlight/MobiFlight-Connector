@@ -11,6 +11,7 @@ using Moq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight.Tests
 {
@@ -315,6 +316,22 @@ namespace MobiFlight.Tests
             executor.ExecuteTestOff(cfg);
             // Assert
             mockMobiFlightCache.Verify(m => m.SetShiftRegisterOutput(serial, "Shifter01", pin, "0"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsLedModule()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var address = "1";
+            var stopValue = "        ";
+
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightLedModule.TYPE, Device = new OutputConfig.LedModule { DisplayLedAddress = address } };
+            // Act
+            executor.ExecuteTestOff(cfg);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetDisplay(serial, address, It.IsAny<byte>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), stopValue, It.IsAny<bool>()), Times.Once);
         }
 
         [TestMethod]
