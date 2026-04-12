@@ -297,14 +297,14 @@ namespace MobiFlight.Execution
                     // Do nothing for the InputAction
                     break;
 
-                case MobiFlightOutput.TYPE:
-                    ExecuteDisplay("0", offCfg);
-                    break;
-
                 case MobiFlightLedModule.TYPE:
                     var ledModule = offCfg.Device as LedModule;
                     ledModule.DisplayLedDecimalPoints = new List<string>();
                     ExecuteDisplay("        ", offCfg);
+                    break;
+
+                default:
+                    ExecuteDisplay("0", offCfg);
                     break;
             }
 
