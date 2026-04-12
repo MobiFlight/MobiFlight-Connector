@@ -262,6 +262,25 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsServo_WithDefaultValue()
+        {
+            var testValue = new ConnectorValue() { type = FSUIPCOffsetType.Integer, Float64 = 100 };
+            // Arrange
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightServo.TYPE,
+                Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" },
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg);
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetServo(It.IsAny<string>(), It.IsAny<string>(), "180", 0, It.IsAny<int>(), It.IsAny<byte>()), Times.Once);
+        }
+
+        [TestMethod]
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
         {
             var testValue = new ConnectorValue() { type = FSUIPCOffsetType.Integer, Float64 = 100 };
