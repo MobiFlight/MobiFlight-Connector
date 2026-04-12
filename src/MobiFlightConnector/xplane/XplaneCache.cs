@@ -37,7 +37,7 @@ namespace MobiFlight.xplane
                 // As soon as we get connected
                 // we want to check for the aircraft name,
                 // so we can trigger the AircraftChanged event correctly
-                UpdateAircraftSubscription();
+                CheckForAircraftName();
             };
         }
 
@@ -63,7 +63,11 @@ namespace MobiFlight.xplane
             return _connected;
         }
 
-        public void WaitForConnection()
+        /// <summary>
+        /// This method will raise a Connected event as soon as we detect that we are receiving values from the sim.
+        /// The method subscribes to a DatRef which is present for all aircraft and changes constantly.
+        /// </summary>
+        private void WaitForConnection()
         {
             var dataRefTime = new DataRefElement() { DataRef = "sim/time/total_running_time_sec", Frequency = 1, Value = 0 };
             
@@ -81,6 +85,14 @@ namespace MobiFlight.xplane
             });
         }
 
+        /// <summary>
+        /// Updates the subscription to the aircraft name data reference and notifies listeners when the aircraft
+        /// changes.
+        /// </summary>
+        /// <remarks>This method itself does not reliably detect the name change because of a flaw in the libary used.
+        /// We basically resubscribe to the datarefs which will provide us with the correct aircraft name reliably.
+        /// This method is called when CheckForAircraftName detects a change in the first or third character of the aircraft name.
+        /// </remarks>
         private void UpdateAircraftSubscription()
         {
             StringDataRefElement datarefAircraftName = new StringDataRefElement
@@ -97,6 +109,37 @@ namespace MobiFlight.xplane
                 if (_detectedAircraft == v1) return;
                 _detectedAircraft = v1;
                 AircraftChanged?.Invoke(this, _detectedAircraft);
+            });
+        }
+
+        /// <summary>
+        /// This method probes two characters of the aircraft name for change and is used in conjunction with the UpdateAircraftSubscription method.
+        /// </summary>
+        /// <remarks>It is a workkaround because the StringDataRefElement does not trigger
+        /// the change reliably. Subscribing only two characters does work reliably.
+        /// If the old aircraft and the new aircraft have the same characters at the position 0 and 2, \
+        /// then the change will not be detected. But in most cases this should work fine.
+        /// </remarks>
+        private void CheckForAircraftName()
+        {
+            if (!_connected) return;
+            // just start the connector
+            _detectedAircraft = string.Empty;
+            Connector?.Start();
+            var datarefAircraftName0 = new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[0]", Frequency = 1, Value = 0 };
+            var datarefAircraftName2 = new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[2]", Frequency = 1, Value = 0 };
+
+            Connector.Unsubscribe(datarefAircraftName0.DataRef);
+            Connector.Unsubscribe(datarefAircraftName2.DataRef);
+            Connector.Subscribe(datarefAircraftName0, 1, (e, v) =>
+            {
+                Log.Instance.log($"sim/aircraft/view/acf_ui_name[0] = {v}", LogSeverity.Debug);
+                UpdateAircraftSubscription();
+            });
+            Connector.Subscribe(datarefAircraftName2, 1, (e, v) =>
+            {
+                Log.Instance.log($"sim/aircraft/view/acf_ui_name[2] = {v}", LogSeverity.Debug);
+                UpdateAircraftSubscription();
             });
         }
 
