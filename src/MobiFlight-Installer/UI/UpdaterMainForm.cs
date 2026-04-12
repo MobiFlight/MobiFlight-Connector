@@ -14,15 +14,14 @@ namespace MobiFlightInstaller.UI
         private WebClient _webClient;
         private string CurrentFileName = "";
 
-        public UpdaterMainForm()
+        public UpdaterMainForm(bool useBeta = false)
         {
             InitializeComponent();
 
             Log.Instance.log("No args, Updater start auto install last version", LogSeverity.Debug);
 
-            bool IsMfHaveBetaEnable = MobiFlightHelperMethods.GetMfBetaOptionValue();
             var CurVersion = new Version(MobiFlightUpdaterModel.GetInstalledVersion());
-            var TargetVersion = new Version(MobiFlightUpdaterModel.GetTheLastVersionNumberAvailable(IsMfHaveBetaEnable));
+            var TargetVersion = new Version(MobiFlightUpdaterModel.GetTheLastVersionNumberAvailable(useBeta));
             var result = CurVersion.CompareTo(TargetVersion);
             if (result < 0) // direct install last release version if MF don't exist OR if a new version is available
             {
@@ -60,7 +59,7 @@ namespace MobiFlightInstaller.UI
         {
             UpdaterCurrentTask.Text = "Extracting files...";
             MobiFlightUpdaterModel.CloseMobiFlightAndWait();
-            MobiFlightUpdaterModel.GoExtractToDirectory(currentFileName, Directory.GetCurrentDirectory());
+            MobiFlightUpdaterModel.GoExtractToDirectory(currentFileName, Directory.GetParent(Directory.GetCurrentDirectory()).FullName);
             UpdaterCurrentTask.Text = "Start MobiFlight";
             MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
         }

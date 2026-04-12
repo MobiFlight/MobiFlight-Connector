@@ -62,7 +62,7 @@ FunctionEnd
 Section "install"
     SetRegView 64
     # set the installation directory as the destination for the following actions
-    SetOutPath $INSTDIR
+    SetOutPath $INSTDIR\Updater
 
     # Add the MobiFlight installer
     File "..\Release\MobiFlight-Installer.exe"
@@ -71,7 +71,7 @@ Section "install"
     # create the uninstaller
     WriteUninstaller "$INSTDIR\uninstall.exe"
 
-    ExecWait '"$INSTDIR\MobiFlight-Installer.exe" /installOnly'
+    ExecWait '"$INSTDIR\Updater\MobiFlight-Installer.exe" /installOnly'
  
     # create a shortcut named "new shortcut" in the start menu programs directory
     # point the new shortcut at the program uninstaller

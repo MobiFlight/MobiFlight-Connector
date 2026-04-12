@@ -9,7 +9,7 @@ namespace MobiFlight.UpdateChecker
 {
     static class AutoUpdateChecker
     {
-        static readonly string mobiFlightInstaller = "MobiFlight-Installer.exe";
+        static readonly string mobiFlightInstaller = Path.Combine("Updater", "MobiFlight-Installer.exe");
         static readonly int UpdateCheckTimeoutInMs = 5000;
         public static void CheckForUpdate(bool silent = false)
         {

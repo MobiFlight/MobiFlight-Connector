@@ -135,7 +135,7 @@ namespace MobiFlightInstaller
                 foreach (ZipArchiveEntry file in archive.Entries)
                 {
                     string completeFileName = Path.Combine(destinationDirectoryName, file.FullName);
-                    if (!System.IO.Directory.Exists(Path.GetDirectoryName(completeFileName)))
+                    if (!Directory.Exists(Path.GetDirectoryName(completeFileName)))
                     {
                         try
                         {
@@ -154,13 +154,13 @@ namespace MobiFlightInstaller
                     {
                         if (InstallerIsNewer(file)) // NewInstaller have greater version than current
                         {
-                            System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                            String backupFile = FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old");
+                            var fileInstaller = new FileInfo(Assembly.GetExecutingAssembly().Location);
+                            var backupFile = Path.Combine(fileInstaller.DirectoryName, fileInstaller.Name.Replace(fileInstaller.Extension, ".old"));
 
                             if (File.Exists(backupFile))
-                                System.IO.File.Delete(backupFile);
-                            System.IO.File.Move(FileInstaller.FullName, backupFile);
+                                File.Delete(backupFile);
+
+                            File.Move(fileInstaller.FullName, backupFile);
                         }
                         else
                         {
@@ -201,21 +201,20 @@ namespace MobiFlightInstaller
 
         private static bool InstallerIsNewer(ZipArchiveEntry file)
         {
-            var InstallerCurVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.exe").Version.ToString();
+            var InstallerCurVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Log.Instance.log("Current Installer version : " + InstallerCurVersion, LogSeverity.Info);
 
-            System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            String fileNew = FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new");
+            var fileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var fileNew = Path.Combine(fileInstaller.DirectoryName, fileInstaller.Name.Replace(fileInstaller.Extension, ".new"));
 
-            if (File.Exists(fileNew))
-                System.IO.File.Delete(fileNew);
-            file.ExtractToFile(FileInstaller.Name.Replace(FileInstaller.Extension, ".new"), true);
+            file.ExtractToFile(fileNew, true);
 
-            var InstallerNewVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.new").Version.ToString();
-            System.IO.File.Delete(fileNew);
-            Log.Instance.log("New Installer version : " + InstallerNewVersion, LogSeverity.Info);
+            var newInstallerVersion = AssemblyName.GetAssemblyName(fileNew).Version.ToString();
+            
+            File.Delete(fileNew);
+            Log.Instance.log("New Installer version : " + newInstallerVersion, LogSeverity.Info);
 
-            var InstallerCompareVersion = InstallerCurVersion.CompareTo(InstallerNewVersion);
+            var InstallerCompareVersion = InstallerCurVersion.CompareTo(newInstallerVersion);
 
             return (InstallerCompareVersion < 0);
         }
@@ -227,23 +226,15 @@ namespace MobiFlightInstaller
             return filename;
         }
 
-        public static void UpgradeMyselfAndRestart(string SourceFile)
-        {
-            System.IO.FileInfo file = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            System.IO.File.Move(file.FullName, file.DirectoryName + "\\" + file.Name.Replace(file.Extension, ".old"));
-            System.IO.File.Move(SourceFile, file.FullName);
-            StartProcessAndClose(file.FullName);
-        }
-
         public static void StartProcessAndClose(string ProcessName, string Args = "")
         {
-            String ProcessEXEName = Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe";
+            var mobiFlightConnector = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, $"{ProcessName}.exe");
 
-            if (!File.Exists(ProcessEXEName))
+            if (!File.Exists(mobiFlightConnector))
                 return;
 
             if (!InstallOnly)
-                Process.Start(ProcessEXEName, Args);
+                Process.Start(mobiFlightConnector, Args);
 
             Environment.Exit(0);
         }
@@ -299,143 +290,6 @@ namespace MobiFlightInstaller
             if (e.Status == WebExceptionStatus.Timeout)
                 reason = " due to timeout";
             Log.Instance.log($"Download FAILED{reason}, probably a connection error. ({e.Status.ToString()})", LogSeverity.Error);
-        }
-
-        public static void InstallerCheckForUpgrade(String InstallerUpdateUrl)
-        {
-            WebRequest webRequest = WebRequest.Create(InstallerUpdateUrl);
-            webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
-            webRequest.Timeout = RequestTimeoutInMilliseconds;
-
-            WebResponse webResponse = null;
-            Stream ContentStream = null;
-
-            try
-            {
-                webResponse = webRequest.GetResponse();
-                ContentStream = webResponse.GetResponseStream();
-            }
-            catch(WebException e)
-            {
-                _handleWebException(e);
-                return;
-            }
-
-            string LastFindVersion = "";
-            string VersionDownloadURL = "";
-
-            string fileTemp = Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.tmp";
-            string fileOld = Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.old";
-
-            SafeDelete(fileTemp);
-            SafeDelete(fileOld);
-
-            if (ContentStream != null)
-            {
-                var ReceivedContent = new XmlDocument();
-                ReceivedContent.Load(ContentStream);
-                XmlNode x = ReceivedContent.DocumentElement;
-                foreach (XmlNode a in x)
-                {
-                    if (a.HasChildNodes)
-                    {
-                        LastFindVersion = a.Attributes["version"].Value;
-                        foreach (XmlNode b in a)
-                        {
-                            if (b.Name == "url")
-                            {
-                                VersionDownloadURL = b.InnerText;
-                            }
-                        }
-                    }
-                    break;
-                }
-                if ((LastFindVersion != "") & (VersionDownloadURL != ""))
-                {
-                    var CurVersion = new Version(Assembly.GetExecutingAssembly().GetName().Version.ToString());
-                    var TargetVersion = new Version(LastFindVersion);
-                    var result = CurVersion.CompareTo(TargetVersion);
-                    if (result < 0) //Target is greater than current
-                    {
-                        WebClient I_webClient = new WebClient();
-                        var uri = new Uri(VersionDownloadURL);
-                        SafeDelete(fileTemp);
-                        SafeDelete(fileOld);
-
-                        I_webClient.DownloadFile(uri, fileTemp);
-                        I_webClient.Dispose();
-
-                        UpgradeMyselfAndRestart(fileTemp);
-                    }
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("ERROR : Impossible to connect to the server...");
-            }
-        }
-
-        static public void SafeDelete(String fileName)
-        {
-            if (File.Exists(fileName))
-                System.IO.File.Delete(fileName);
-        }
-
-        static public void ManualUpgradeFromCommandLine(string Version)
-        {
-            if (resultList[Version]["url"].Length > 5)
-            {
-                String _downloadURL = resultList[Version]["url"];
-                String _downloadChecksum = resultList[Version]["checksum"];
-                String CurrentFileName = Directory.GetCurrentDirectory() + "\\" + MobiFlightUpdaterModel.GetFileName(_downloadURL);
-
-                if (!MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download the file is needeed
-                {
-                    WebClient _webClient = new WebClient();
-                    var uri = new Uri(_downloadURL);
-                    _webClient.DownloadFile(uri, CurrentFileName); // Download the file
-                    _webClient.Dispose();
-                }
-
-                // check if the file is downloaded
-                if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
-                {
-                    CloseMobiFlightAndWait();
-                    MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
-                    MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
-                }
-                else //download has failed try a second url if exist
-                {
-                    if (resultList[Version]["url2"].Length > 5)
-                    {
-                        _downloadURL = resultList[Version]["url2"];
-                        WebClient _webClient = new WebClient();
-                        var uri = new Uri(_downloadURL);
-                        _webClient.DownloadFile(uri, CurrentFileName); // Download the file second URL
-                        _webClient.Dispose();
-                        if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
-                        {
-                            CloseMobiFlightAndWait();
-                            MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
-                            MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
-                        }
-                        else // if failed twice
-                        {
-                            MessageBox.Show("Download FAILED, Please retry later.");
-                        }
-                    }
-                    else // if failed first time and no second URL
-                    {
-                        MessageBox.Show("Download FAILED, Please retry later.");
-                    }
-                    
-                }
-            }
-            else
-            {
-                MessageBox.Show("Impossible to find this version, URL is wrong, install canceled...");
-            }
         }
 
         static public string GetTheLastVersionNumberAvailable(bool IncludeBeta = false)

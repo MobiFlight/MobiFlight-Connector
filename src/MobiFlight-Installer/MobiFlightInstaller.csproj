@@ -13,7 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
-	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -78,12 +78,6 @@
     </Compile>
     <Compile Include="model\Log.cs" />
     <Compile Include="model\MobiFlightHelperMethods.cs" />
-    <Compile Include="UI\ExpertMainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ExpertMainForm.Designer.cs">
-      <DependentUpon>ExpertMainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="model\MobiFlightUpdaterModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,9 +98,6 @@
     <EmbeddedResource Include="lang\i18n_Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>i18n_Messages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ExpertMainForm.resx">
-      <DependentUpon>ExpertMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -142,7 +133,8 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)\Build
 mkdir $(SolutionDir)\src\MobiFlightConnector\bin\$(ConfigurationName)
+mkdir $(SolutionDir)\src\MobiFlightConnector\bin\$(ConfigurationName)\Updater
 copy $(TargetPath) $(SolutionDir)\Build
-copy $(TargetPath) $(SolutionDir)\src\MobiFlightConnector\bin\$(ConfigurationName)</PostBuildEvent>
+copy $(TargetPath) $(SolutionDir)\src\MobiFlightConnector\bin\$(ConfigurationName)\Updater</PostBuildEvent>
   </PropertyGroup>
 </Project>
