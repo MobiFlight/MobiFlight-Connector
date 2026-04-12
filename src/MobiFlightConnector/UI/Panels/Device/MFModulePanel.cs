@@ -150,7 +150,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 Log.Instance.log($"Community link target `{target}` is not valid", LogSeverity.Error);
                 return;
             }
-            Process.Start(CreateRedirectTarget(target));
+
+            ProcessHelpers.OpenUrl(CreateRedirectTarget(target));
         }
 
         private string CreateRedirectTarget(string target)
