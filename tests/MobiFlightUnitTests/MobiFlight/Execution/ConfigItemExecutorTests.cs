@@ -288,6 +288,22 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType() 
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var name = "TestOutput";
+            var address = "0x27";
+            var expectedEmptyLine = new string(' ', 20 * 4);
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address= address } };
+            // Act
+            executor.ExecuteTestOff(cfg);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetLcdDisplay(serial, It.IsAny<OutputConfig.LcdDisplay>(), expectedEmptyLine, It.IsAny<List<ConfigRefValue>>()), Times.Once);
+        }
+
+        [TestMethod]
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenOutputAndValueNot0AndNotPwm()
         {
             // Arrange
