@@ -39,13 +39,12 @@ namespace MobiFlight
         /// </summary>
         public event EventHandler LookupFinished;
 
-
 #pragma warning disable IDE0044 // Add readonly modifier.
         private volatile List<MobiFlightModuleInfo> AvailableComModules = new List<MobiFlightModuleInfo>();
 #pragma warning restore IDE0044 // Add readonly modifier
         Boolean isFirstTimeLookup = true;
 
-        private readonly Timer keepAwakeTimer = new Timer();
+        private readonly Timer KeepAwakeTimer = new Timer();
         const int KeepAwakeIntervalInMinutes = 5; // 5 Minutes
         
         /// <summary>
@@ -62,8 +61,8 @@ namespace MobiFlight
         public MobiFlightCache()
         {
             // ticks every KeepAwakeIntervalInMinutes
-            keepAwakeTimer.Interval = KeepAwakeIntervalInMinutes * 60 * 1000;
-            keepAwakeTimer.Tick += (s, e) => DeactivateConnectedModulePowerSave();
+            KeepAwakeTimer.Interval = KeepAwakeIntervalInMinutes * 60 * 1000;
+            KeepAwakeTimer.Tick += (s, e) => DeactivateConnectedModulePowerSave();
         }
 
         public void Start()
@@ -268,7 +267,6 @@ namespace MobiFlight
         public static List<MobiFlightModuleInfo> FindConnectedUsbDevices(double WaitInMilliseconds = 500)
         {
             var result = new List<MobiFlightModuleInfo>();
-
 
             var usbDeviceMonitor = new UsbDeviceMonitor();
             usbDeviceMonitor.Start();
@@ -477,7 +475,6 @@ namespace MobiFlight
                     module.SetPin("base", name, iValue);
                 }
 
-                
             }
             catch (ConfigErrorException e)
             {
@@ -603,7 +600,6 @@ namespace MobiFlight
 
                 int iValue = (int)dValue;
 
-
                 if (module.GetStepper(address).OutputRevolutionSteps != outputRevolutionSteps)
                 {
                     module.GetStepper(address).OutputRevolutionSteps = outputRevolutionSteps;
@@ -710,7 +706,6 @@ namespace MobiFlight
             }
         }
 
-        
         public void Flush()
         {
             // not implemented, don't throw exception either
@@ -877,13 +872,15 @@ namespace MobiFlight
 
         public void StartKeepAwake()
         {
+            if (KeepAwakeTimer.Enabled) return;
+
             DeactivateConnectedModulePowerSave();
-            keepAwakeTimer.Start();
+            KeepAwakeTimer.Start();
         }
 
         public void StopKeepAwake()
         {
-            keepAwakeTimer.Stop();
+            KeepAwakeTimer.Stop();
             ActivateConnectedModulePowerSave();
         }
     }
