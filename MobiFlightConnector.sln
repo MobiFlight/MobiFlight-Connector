@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.2.32526.322
+VisualStudioVersion = 17.14.37027.9 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "src\MobiFlightConnector\MobiFlightConnector.csproj", "{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "src\CommandMessenger\CommandMessenger.csproj", "{00986B3B-64CF-7993-BCE4-14BA5B33F3ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger.Transport.Serial", "src\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj", "{B074FC07-068D-280C-5AF9-F367999CBBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightWwFcu", "src\MobiFlightWwFcu\MobiFlightWwFcu.csproj", "{D79E60DF-38E8-9320-4860-595F59365130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightWwFcuUnitTests", "tests\MobiFlightWwFcuUnitTests\MobiFlightWwFcuUnitTests.csproj", "{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +70,22 @@ Global
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|x86.ActiveCfg = Release|Any CPU
 		{B074FC07-068D-280C-5AF9-F367999CBBDC}.Release|x86.Build.0 = Release|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Debug|x86.Build.0 = Debug|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Release|x86.ActiveCfg = Release|Any CPU
+		{D79E60DF-38E8-9320-4860-595F59365130}.Release|x86.Build.0 = Release|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Debug|x86.Build.0 = Debug|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Release|x86.ActiveCfg = Release|Any CPU
+		{35C20C4A-CE8F-4B52-9AE3-3A6C0040D97B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

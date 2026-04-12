@@ -158,9 +158,6 @@
     <Reference Include="Midi">
       <HintPath>..\..\lib\Midi.dll</HintPath>
     </Reference>
-    <Reference Include="MobiFlightWwFcu">
-      <HintPath>..\..\lib\MobiFlightWwFcu.dll</HintPath>
-    </Reference>
     <Reference Include="NCalc">
       <HintPath>..\..\lib\NCalc.dll</HintPath>
     </Reference>
@@ -2273,6 +2270,10 @@
     <ProjectReference Include="..\CommandMessenger\CommandMessenger.csproj">
       <Project>{00986b3b-64cf-7993-bce4-14ba5b33f3ed}</Project>
       <Name>CommandMessenger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MobiFlightWwFcu\MobiFlightWwFcu.csproj">
+      <Project>{d79e60df-38e8-9320-4860-595f59365130}</Project>
+      <Name>MobiFlightWwFcu</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>WwControlUnitTests</_Parameter1>
+      <_Parameter1>MobiFlightWwFcuUnitTests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
