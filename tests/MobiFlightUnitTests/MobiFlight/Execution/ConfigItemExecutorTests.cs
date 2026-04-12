@@ -326,6 +326,38 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType_WithDefaultvalue()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var name = "TestOutput";
+            var address = "0x27";
+            var expectedTestLine = "1234567890";
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
+            // Act
+            executor.ExecuteTestOn(cfg);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetLcdDisplay(serial, It.IsAny<OutputConfig.LcdDisplay>(), expectedTestLine, It.IsAny<List<ConfigRefValue>>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var name = "TestOutput";
+            var address = "0x27";
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
+            var testValue = new ConnectorValue() { type = FSUIPCOffsetType.String, String = "Test" };
+            // Act
+            executor.ExecuteTestOn(cfg, testValue);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetLcdDisplay(serial, It.IsAny<OutputConfig.LcdDisplay>(), testValue.String, It.IsAny<List<ConfigRefValue>>()), Times.Once);
+        }
+
+        [TestMethod]
         public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType() 
         {
             // Arrange
