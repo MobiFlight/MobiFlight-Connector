@@ -158,7 +158,6 @@ namespace MobiFlight.UI
             Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
 
-            // Temporarily hardcoded for testing
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             Log.Instance.Severity = Enum.TryParse<LogSeverity>(Properties.Settings.Default.LogLevel, true, out var logLevel)
                 ? logLevel
