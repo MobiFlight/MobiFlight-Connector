@@ -224,7 +224,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsStepper()
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsStepper_WithTestValueFromConfig()
         {
             // Arrange
             var cfg = new OutputConfigItem { 
@@ -281,7 +281,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsServo_WithExplicitValue()
         {
             var testValue = new ConnectorValue() { type = FSUIPCOffsetType.Integer, Float64 = 100 };
             // Arrange
@@ -309,6 +309,52 @@ namespace MobiFlight.Tests
 
             // Assert
             mockMobiFlightCache.Verify(m => m.SetServo(It.IsAny<string>(), It.IsAny<string>(), "0", 0, It.IsAny<int>(), It.IsAny<byte>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsCustomDevice_WithDefaultValue()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var name = "TestCustomDevice";
+            var msgType = 1;
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
+            // Act
+            executor.ExecuteTestOn(cfg);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.Set(serial, It.IsAny<OutputConfig.CustomDevice>(), "1"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsCustomDevice_WithExplicitValue()
+        {
+            // Arrange
+            var testValue = new ConnectorValue() { type = FSUIPCOffsetType.Integer, Float64 = 100 };
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var name = "TestCustomDevice";
+            var msgType = 1;
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
+            // Act
+            executor.ExecuteTestOn(cfg, testValue);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.Set(serial, It.IsAny<OutputConfig.CustomDevice>(), "100"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsCustomDevice()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var name = "TestCustomDevice";
+            var msgType = 1;
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType= msgType } };
+            // Act
+            executor.ExecuteTestOff(cfg);
+            // Assert
+            mockMobiFlightCache.Verify(m => m.Set(serial, It.IsAny<OutputConfig.CustomDevice>(), "0"), Times.Once);
         }
 
         [TestMethod]
@@ -342,7 +388,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType()
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType_WithExplicitValue()
         {
             // Arrange
             var rawSerial = "Test / SN-123";
