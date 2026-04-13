@@ -14,8 +14,8 @@
     <PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge" Version="2.1.0" />
     <PackageReference Include="Microsoft.Testing.Platform.MSBuild" Version="2.1.0" />
     <PackageReference Include="System.Collections.Immutable" Version="10.0.5" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.3" />
-    <PackageReference Include="System.Reflection.Metadata" Version="10.0.3" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.5" />
+    <PackageReference Include="System.Reflection.Metadata" Version="10.0.5" />
   </ItemGroup>
 
   <ItemGroup>
