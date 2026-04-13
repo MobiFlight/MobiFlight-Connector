@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HidSharp" Version="2.1.0" />
+    <PackageReference Include="HidSharp" Version="2.6.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
   </ItemGroup>
