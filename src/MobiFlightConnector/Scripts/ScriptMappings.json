@@ -161,6 +161,12 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "ixeg b-737",
       "ScriptName": "ixeg_737.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 747-400",
+      "ScriptName": "laminar_747_400.py"
     }
   ]
 }

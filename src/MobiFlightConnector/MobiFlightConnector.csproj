@@ -286,6 +286,9 @@
     <Content Include="Scripts\Winwing\ixeg_737.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Winwing\laminar_747_400.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
