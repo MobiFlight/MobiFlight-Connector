@@ -2,12 +2,15 @@ import SplashLogo from "@/components/SplashLogo"
 import { Progress } from "./ui/progress"
 import { StatusBarUpdate } from "@/types/messages"
 import { useEffect, useState } from "react"
-import { useAppMessage } from "@/lib/hooks/appMessage"
-import { useNavigate, useSearchParams } from "react-router"
+import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { useLocation, useNavigate, useSearchParams } from "react-router"
 import { useTranslation } from "react-i18next"
 
 const StartupProgress = () => {
   const { t } = useTranslation()
+  const { publish } = publishOnMessageExchange()
+  const location = useLocation()
+
   // State for startup progress from app messages
   const [appStartupProgress, setAppStartupProgress] = useState<StatusBarUpdate>(
     {
@@ -47,6 +50,16 @@ const StartupProgress = () => {
       clearTimeout(timeoutId)
     }
   }, [startupProgress.Value, navigate])
+
+  useEffect(() => {
+    publish({
+      key: "CommandFrontendState",
+      payload: {
+        route: location.pathname,
+        state: "ready",
+      },
+    })
+  }, [publish, location.pathname])
 
   return (
     <div className="relative flex min-h-screen min-w-lg flex-col items-center justify-center gap-8 p-10 lg:min-w-xl">

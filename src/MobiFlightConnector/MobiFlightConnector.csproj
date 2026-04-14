@@ -330,6 +330,7 @@
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFrontendState.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandActiveConfigFile.cs" />
