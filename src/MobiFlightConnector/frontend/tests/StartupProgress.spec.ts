@@ -33,3 +33,14 @@ test("Test that backend progress state is localized", async ({
     await expect(page.getByText(message.text)).toHaveCount(0)
   }
 })
+
+test("Test that frontend sends ready message", async ({ startupPage }) => {
+  await startupPage.mobiFlightPage.trackCommand("CommandFrontendState")
+  await startupPage.gotoStartupPage()
+
+  const postedCommands = await startupPage.mobiFlightPage.getTrackedCommands()
+  const lastCommand = postedCommands!.pop()
+  expect(lastCommand.key).toEqual("CommandFrontendState")
+  expect(lastCommand.payload.route).toEqual("/start")
+  expect(lastCommand.payload.state).toEqual("ready")
+})

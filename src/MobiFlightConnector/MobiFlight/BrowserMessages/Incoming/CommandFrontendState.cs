@@ -16,11 +16,11 @@ namespace MobiFlight.BrowserMessages.Incoming
             Error
         }
 
-        [JsonProperty("route")] // Matches the lowercase "item" in JSON
+        [JsonProperty("route")]
         public string Route { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("state")] // Matches the lowercase "item" in JSON
+        [JsonProperty("state")]
         public RouteState State { get; set; }
 
         [JsonProperty("message")]
