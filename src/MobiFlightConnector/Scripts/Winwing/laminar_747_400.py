@@ -96,7 +96,7 @@ def generate_display_json(device: CduDevice, values: dict[str, str | bytes]):
     display_data = [[] for _ in range(CDU_CELLS)]
 
     for row in range(CDU_ROWS):
-        # Strings are sometimes empty, so pad with spaces to the full expected wwidth.
+        # Strings are sometimes empty, so pad with spaces to the full expected width.
         large_text = values[device.get_large_text_dataref(row)].ljust(CDU_COLUMNS)
         small_text = values[device.get_small_text_dataref(row)].ljust(CDU_COLUMNS)
 
@@ -200,7 +200,8 @@ async def handle_dataref_updates(queue: asyncio.Queue, device: CduDevice):
 
                     dataref_name = dataref_map[dataref_id]
 
-                    new_values[dataref_name] = base64.b64decode(value).decode()
+                    new_values[dataref_name] = base64.b64decode(value).decode(errors='replace').replace("\x00", " ")
+ 
 
                 if new_values == last_known_values:
                     continue
