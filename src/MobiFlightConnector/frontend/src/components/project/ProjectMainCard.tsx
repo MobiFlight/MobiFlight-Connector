@@ -19,6 +19,7 @@ import { CommandMainMenu } from "@/types/commands"
 import { ProjectInfo } from "@/types/project"
 import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router"
 
 const ProjectMainCard = () => {
   // this component is wrapped in an error boundary
@@ -36,6 +37,7 @@ const ProjectMainCard = () => {
   const [pendingProject, setPendingProject] = useState<ProjectInfo | null>(null)
 
   const { waitForSaveStatus } = useAsynchronous()
+  const navigate = useNavigate()
 
   const loadProject = useCallback(
     (project: ProjectInfo) => {
@@ -102,6 +104,14 @@ const ProjectMainCard = () => {
     loadProject(project)
   }
 
+  const navigateToProject = (project: ProjectInfo) => {
+    const isActive = activeProject?.FilePath === project.FilePath
+    const hasChangedAndNotCurrentProject = hasChanged && !isActive
+
+    if (hasChangedAndNotCurrentProject) return
+    navigate(`/config`)
+  }
+
   const showRecentProjects = recentProjects.length > 0
 
   return (
@@ -164,6 +174,7 @@ const ProjectMainCard = () => {
                 summarys={recentProjects}
                 activeProject={activeProject as ProjectInfo}
                 onSelect={(project) => confirmLoadProject(project)}
+                onDblClick={(project) => navigateToProject(project)}
               />
             </div>
           </div>

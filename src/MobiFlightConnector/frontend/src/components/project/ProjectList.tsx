@@ -15,6 +15,7 @@ export type ProjectListProps = {
   summarys: ProjectInfo[]
   activeProject?: ProjectInfo
   onSelect: (project: ProjectInfo) => void
+  onDblClick: (project: ProjectInfo) => void
 }
 
 const ProjectList = ({
@@ -22,12 +23,14 @@ const ProjectList = ({
   summarys,
   activeProject,
   onSelect,
+  onDblClick
 }: ProjectListProps) => {
-  const SCROLL_INTO_VIEW_TIMEOUT = 2000 
+  const SCROLL_INTO_VIEW_TIMEOUT = 2000
   const refActiveElement = useRef<HTMLDivElement | null>(null)
   const scrollTimeoutRef = useRef<number | null>(null)
 
   const { publish } = publishOnMessageExchange()
+
 
   const [searchParams, setSearchParams] = useSearchParams()
   const activeFilter = searchParams.get("projects_filter") || "all"
@@ -108,6 +111,7 @@ const ProjectList = ({
                         if (isActive) return
                         onSelect(project)
                       }}
+                      onDoubleClick={() => onDblClick(project)}
                       onClickRemove={() => onListItemRemove(index)}
                     />
                   )
