@@ -628,6 +628,19 @@ test.describe("Project list view tests", () => {
     await expect(errorFallback).toBeVisible()
     await expect(errorFallback).toContainText("Ooops... something went wrong!")
   })
+
+  test("Double click on list item takes you to config page", async ({ dashboardPage, page }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+
+    await expect(recentProjectsList).toBeVisible()
+    await projectItems.first().dblclick()
+
+    await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
+  })
 })
 
 test.describe("Asynchronous save tests", () => {

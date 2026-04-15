@@ -7,6 +7,7 @@ import ProjectFavStar from "./ProjectFavStar"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { IconTrash } from "@tabler/icons-react"
+import { useNavigate } from "react-router"
 
 export type ProjectListItemProps = HtmlHTMLAttributes<HTMLDivElement> & {
   summary: ProjectInfo
@@ -17,6 +18,10 @@ export type ProjectListItemProps = HtmlHTMLAttributes<HTMLDivElement> & {
 const ProjectListItem = forwardRef<HTMLDivElement, ProjectListItemProps>(
   ({ summary, className, active, onClickRemove, ...props }, ref) => {
     const { t } = useTranslation()
+    const navigate = useNavigate()
+    const navigateToProject = () => {
+      navigate(`/config`)
+    }
 
     const activateStateClassName = active
       ? "bg-primary/20"
@@ -39,6 +44,7 @@ const ProjectListItem = forwardRef<HTMLDivElement, ProjectListItemProps>(
         )}
         ref={ref}
         {...props}
+        onDoubleClick={navigateToProject}
       >
         <div className="flex w-full flex-row gap-4">
           <div className="relative shrink-0">
@@ -59,7 +65,7 @@ const ProjectListItem = forwardRef<HTMLDivElement, ProjectListItemProps>(
                 </div>
               </div>
             </div>
-            <div className="flex flex-row items-center justify-between gap-2 h-7">
+            <div className="flex h-7 flex-row items-center justify-between gap-2">
               <div
                 title={summary.FilePath}
                 className="text-muted-foreground truncate text-sm"
