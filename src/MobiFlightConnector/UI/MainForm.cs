@@ -194,14 +194,8 @@ namespace MobiFlight.UI
             // finally set up logging (based on settings)
             InitializeLogging();
 
-            // Initialize the board configurations
-            BoardDefinitions.LoadDefinitions();
-
             // Initialize python environment
             Scripts.PythonEnvironment.Initialize();
-
-            // Initialize the custom device configurations
-            CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
 
             // configure tracking correctly
             InitializeTracking();
@@ -504,6 +498,12 @@ namespace MobiFlight.UI
 
         private async void OnFrontendReady(object sender, EventArgs e)
         {
+            // Initialize the board configurations
+            BoardDefinitions.LoadDefinitions();
+
+            // Initialize the custom device configurations
+            CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
+
             if (Properties.Settings.Default.Started == 0)
             {
                 OnFirstStart();
