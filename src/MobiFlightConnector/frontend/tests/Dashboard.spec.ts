@@ -218,13 +218,29 @@ test.describe("Project view tests", () => {
     await expect(moreControllersIndicator.getByText("+1")).toBeVisible()
   })
 
-  test("Navigate to project view", async ({ dashboardPage, page }) => {
+  test("Navigate to project view via click on title", async ({
+    dashboardPage,
+    page,
+  }) => {
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestData()
     const currentProjectCard = page.getByTestId("project-card")
 
     // Verify we navigate to config route
     await currentProjectCard.getByRole("button").nth(0).click()
+    await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
+  })
+
+  test("Navigate to project view via double click on card", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const currentProjectCard = page.getByTestId("project-card")
+    await currentProjectCard.first().dblclick()
+
     await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
   })
 
@@ -475,7 +491,7 @@ test.describe("Project settings modal features", () => {
 
     // open settings modal
     await createProjectButton.click()
-    
+
     await expect(projectNameInput).toHaveAttribute("autocomplete", "off")
   })
 
@@ -629,7 +645,10 @@ test.describe("Project list view tests", () => {
     await expect(errorFallback).toContainText("Ooops... something went wrong!")
   })
 
-  test("Double click on list item takes you to config page", async ({ dashboardPage, page }) => {
+  test("Double click on list item takes you to config page", async ({
+    dashboardPage,
+    page,
+  }) => {
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestData()
 
