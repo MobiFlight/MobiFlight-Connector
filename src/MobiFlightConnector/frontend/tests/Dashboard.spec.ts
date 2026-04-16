@@ -554,14 +554,14 @@ test.describe("Project list view tests", () => {
     let postedCommands =
       await dashboardPage.mobiFlightPage.getTrackedCommands()
 
-    expect(postedCommands).toBeUndefined()
+    expect(postedCommands).toHaveLength(0)
 
     // Clicking on second project should post a command
     // so that backend can load the selected project
     await secondProject.click()
 
     postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
-    expect(postedCommands).toBeDefined()
+    expect(postedCommands).toHaveLength(1)
 
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandMainMenu")
