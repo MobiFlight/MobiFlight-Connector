@@ -2,8 +2,8 @@
   {
     "Aircraft": [],
     "Favorite": false,
-    "FilePath": ".\\Starship-MiniFCU-MiniEFIS-V2.mfproj",
-    "Name": "Starship-MiniFCU+miniEFIS-V1",
+    "Name": "Test Project",
+    "FilePath": "tests/data/project.testdata.json",
     "Sim": "msfs",
     "Features": {
       "FSUIPC": false,

@@ -58,7 +58,8 @@ namespace MobiFlight.UI
         private bool hasConnectedMidiBoards = false;
         private bool hasConnectedModules = false;
 
-        private bool IsMSFSRunning = false;
+        private bool IsMSFSRunning = false; 
+        private bool frontendReady = false;
 
         public ExecutionManager ExecutionManager
         {
@@ -193,14 +194,8 @@ namespace MobiFlight.UI
             // finally set up logging (based on settings)
             InitializeLogging();
 
-            // Initialize the board configurations
-            BoardDefinitions.LoadDefinitions();
-
             // Initialize python environment
             Scripts.PythonEnvironment.Initialize();
-
-            // Initialize the custom device configurations
-            CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
 
             // configure tracking correctly
             InitializeTracking();
@@ -208,6 +203,15 @@ namespace MobiFlight.UI
 
         private void InitializeFrontendSubscriptions()
         {
+            MessageExchange.Instance.Subscribe<CommandFrontendState>((message) =>
+            {
+                if (message.Route == "/start" && message.State == CommandFrontendState.RouteState.Ready && !frontendReady)
+                {
+                    frontendReady = true;
+                    OnFrontendReady(null, EventArgs.Empty);
+                }
+            });
+
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
             {
                 var msg = message;
@@ -484,12 +488,21 @@ namespace MobiFlight.UI
             }
         }
 
-        private async void MainForm_Shown(object sender, EventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
 #if (!DEBUG)
             AutoUpdateChecker.CheckForUpdate(true);
 #endif
+        }
+
+        private async void OnFrontendReady(object sender, EventArgs e)
+        {
+            // Initialize the board configurations
+            BoardDefinitions.LoadDefinitions();
+
+            // Initialize the custom device configurations
+            CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
 
             if (Properties.Settings.Default.Started == 0)
             {
@@ -502,7 +515,6 @@ namespace MobiFlight.UI
             }
 
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
-
 
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
             InitializeExecutionManager();
@@ -1033,7 +1045,6 @@ namespace MobiFlight.UI
                 }
             }
 
-
             if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0))
             {
                 if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(Properties.Settings.Default.ArduinoIdePathDefault))
@@ -1356,7 +1367,6 @@ namespace MobiFlight.UI
 
             // The board already has MF firmware
             if (!module.FirmwareRequiresUpdate()) return;
-
 
             PerformFirmwareUpdateProcess(module);
         }
@@ -1778,8 +1788,6 @@ namespace MobiFlight.UI
         {
             ShowSettingsDialog("peripheralsTabPage", null, null, null);
         }
-
-
 
         /// <summary>
         /// updates the context menu entries for start and stop depending
@@ -2258,7 +2266,6 @@ namespace MobiFlight.UI
             proSimToolStripMenuItem.Visible = true;
             proSimToolStripMenuItem.Enabled = true;
 
-
             if (execManager.GetProSimCache().IsConnected())
             {
                 proSimToolStripMenuItem.Image = Properties.Resources.check;
@@ -2324,7 +2331,6 @@ namespace MobiFlight.UI
 
             execManager.Project.ConfigFiles.Add(newConfigFile);
             ProjectOrConfigFileHasChanged();
-
 
             ProjectLoaded?.Invoke(this, execManager.Project);
         }
@@ -2829,7 +2835,6 @@ namespace MobiFlight.UI
             }
             return result;
         }
-
 
         private void RestoreAutoLoadConfig()
         {

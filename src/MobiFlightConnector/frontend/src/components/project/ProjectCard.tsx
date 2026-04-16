@@ -164,6 +164,11 @@ const ProjectCard = ({
   const { showOverlay } = useProjectModal()
   const { showOverlay: showModalOverlay } = useModal()
 
+  const navigate = useNavigate()
+  const navigateToProject = () => {
+    navigate(`/config`)
+  }
+
   const handleEditSettings = () => {
     const options = { mode: "edit", project: summary } as ProjectModalOptions
     showOverlay(options)
@@ -204,6 +209,7 @@ const ProjectCard = ({
   return (
     <div
       data-testid="project-card"
+      onDoubleClick={navigateToProject}
       {...otherProps}
       className={cn(
         "border-primary/25 bg-card space-y-2 rounded-xl border p-4 shadow-md transition-all duration-200 ease-in-out hover:shadow-lg",

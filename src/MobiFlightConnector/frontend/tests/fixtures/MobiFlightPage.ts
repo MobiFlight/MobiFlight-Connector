@@ -13,6 +13,8 @@ declare global {
   interface Window {
     commands?: CommandMessage[]
     auth?: Partial<AuthContextProps>
+    __trackedCommandKeys?: CommandMessageKey[]
+    __commandTrackerInstalled?: boolean
   }
 }
 
@@ -20,7 +22,7 @@ export class MobiFlightPage {
   readonly PostedMessages: AppMessage[] = []
   readonly PostedCommands: CommandMessage[] = []
 
-  constructor(public readonly page: Page) {
+  mockWebViewApi() {
     this.page.addInitScript(() => {
       if (!window.chrome?.webview?.postMessage) {
         console.log(
@@ -47,6 +49,34 @@ export class MobiFlightPage {
         }
       }
     })
+  }
+
+  setupCommandTracking() {
+    this.page.addInitScript(() => {
+      window.commands ??= []
+      window.__trackedCommandKeys ??= []
+
+      if (window.__commandTrackerInstalled) return
+      window.__commandTrackerInstalled = true
+
+      window.addEventListener("message", (event: Event) => {
+        const message = (event as MessageEvent).data as { key?: string }
+        if (!message?.key) return
+
+        if (
+          window.__trackedCommandKeys?.includes(
+            message.key as CommandMessageKey,
+          )
+        ) {
+          window.commands!.push(message as CommandMessage)
+        }
+      })
+    })
+  }
+
+  constructor(public readonly page: Page) {
+    this.mockWebViewApi()
+    this.setupCommandTracking()
   }
 
   async gotoPage() {
@@ -93,12 +123,20 @@ export class MobiFlightPage {
   }
 
   async trackCommand(key: CommandMessageKey) {
-    await this.subscribeToCommand(key, async (message) => {
-      if (window.commands === undefined) {
-        window.commands = []
+    await this.page.addInitScript((trackedKey) => {
+      window.__trackedCommandKeys ??= []
+      if (!window.__trackedCommandKeys.includes(trackedKey)) {
+        window.__trackedCommandKeys.push(trackedKey)
       }
-      window.commands.push(message)
-    })
+    }, key)
+
+    await this.page.evaluate((trackedKey) => {
+      window.__trackedCommandKeys ??= []
+      if (!window.__trackedCommandKeys.includes(trackedKey)) {
+        window.__trackedCommandKeys.push(trackedKey)
+      }
+      window.commands ??= []
+    }, key)
   }
 
   async getTrackedCommands() {

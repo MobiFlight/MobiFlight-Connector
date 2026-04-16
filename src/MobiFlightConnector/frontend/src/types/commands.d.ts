@@ -15,6 +15,7 @@ export type CommandMessageKey =
   | "CommandOpenLinkInBrowser"
   | "CommandControllerBindingsUpdate"
   | "CommandUserAuthentication"
+  | "CommandFrontendState"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -31,6 +32,7 @@ export type CommandMessage =
   | CommandOpenLinkInBrowser
   | CommandControllerBindingsUpdate
   | CommandUserAuthentication
+  | CommandFrontendState
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -199,5 +201,14 @@ export interface CommandUserAuthentication extends CommandMessageBase {
     flow: "login" | "logout"
     state: "started" | "success" | "cancelled" | "error",
     url?: string
+  }
+}
+
+export interface CommandFrontendState extends CommandMessageBase {
+  key: "CommandFrontendState"
+  payload: {
+    route: string
+    state: "ready" | "loading" | "error"
+    message?: string
   }
 }

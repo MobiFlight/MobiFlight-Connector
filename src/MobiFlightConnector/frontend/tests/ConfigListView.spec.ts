@@ -573,7 +573,7 @@ test.describe("Drag and drop tests", () => {
       await configListPage.mobiFlightPage.getTrackedCommands()
 
     // No commands should have been posted
-    expect(postedCommands).toBeUndefined()
+    expect(postedCommands).toHaveLength(0)
   })
 })
 
@@ -657,7 +657,7 @@ test.describe("Filter toolbar tests", () => {
     await searchTextBox.press("Backspace")
     const postedCommands =
       await configListPage.mobiFlightPage.getTrackedCommands()
-    await expect(postedCommands?.length).toBeUndefined()
+    await expect(postedCommands).toHaveLength(0)
   })
 
   test("Confirm `Config Type` filter toolbar is working", async ({

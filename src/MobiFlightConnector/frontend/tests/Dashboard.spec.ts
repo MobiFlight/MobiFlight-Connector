@@ -218,13 +218,29 @@ test.describe("Project view tests", () => {
     await expect(moreControllersIndicator.getByText("+1")).toBeVisible()
   })
 
-  test("Navigate to project view", async ({ dashboardPage, page }) => {
+  test("Navigate to project view via click on title", async ({
+    dashboardPage,
+    page,
+  }) => {
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestData()
     const currentProjectCard = page.getByTestId("project-card")
 
     // Verify we navigate to config route
     await currentProjectCard.getByRole("button").nth(0).click()
+    await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
+  })
+
+  test("Navigate to project view via double click on card", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const currentProjectCard = page.getByTestId("project-card")
+    await currentProjectCard.first().dblclick()
+
     await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
   })
 
@@ -475,7 +491,7 @@ test.describe("Project settings modal features", () => {
 
     // open settings modal
     await createProjectButton.click()
-    
+
     await expect(projectNameInput).toHaveAttribute("autocomplete", "off")
   })
 
@@ -526,23 +542,36 @@ test.describe("Project list view tests", () => {
     const projectItems = recentProjectsList.getByTestId("project-list-item")
     await expect(projectItems).toHaveCount(27)
 
-    const firstProject = projectItems.nth(0)
-    await expect(firstProject).toBeVisible()
+    // First item is also active project
+    const firstAndActiveProject = projectItems.nth(0)
+    const secondProject = projectItems.nth(1)
+    await expect(firstAndActiveProject).toBeVisible()
 
     await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
-    await firstProject.click()
-
-    const postedCommands =
+    
+    // Clicking on actuive project should not post a command
+    await firstAndActiveProject.click()
+    let postedCommands =
       await dashboardPage.mobiFlightPage.getTrackedCommands()
+
+    expect(postedCommands).toHaveLength(0)
+
+    // Clicking on second project should post a command
+    // so that backend can load the selected project
+    await secondProject.click()
+
+    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    expect(postedCommands).toHaveLength(1)
+
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandMainMenu")
     expect(lastCommand.payload.action).toEqual("file.recent")
     expect(lastCommand.payload.options.project).toEqual(
-      dashboardPage.mobiFlightPage.getRecentProjects()[0],
+      dashboardPage.mobiFlightPage.getRecentProjects()[1],
     )
 
     // Verify we navigate to config route
-    await firstProject.getByRole("button").nth(1).click()
+    await firstAndActiveProject.getByRole("button").nth(1).click()
     await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
   })
 
@@ -627,6 +656,61 @@ test.describe("Project list view tests", () => {
     const errorFallback = page.getByTestId("error-fallback")
     await expect(errorFallback).toBeVisible()
     await expect(errorFallback).toContainText("Ooops... something went wrong!")
+  })
+
+  test("Double click on list item takes you to config page", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+
+    await expect(recentProjectsList).toBeVisible()
+    await projectItems.first().dblclick()
+
+    await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
+
+    // Also test with unsaved changes
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    await expect(recentProjectsList).toBeVisible()
+    
+    // Simulate unsaved changes
+    await dashboardPage.mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await projectItems.first().dblclick()
+
+    // We should still navigate to project details
+    await expect(page).toHaveURL(/.*\/config((\/|\?).*)?/)
+  })
+
+  test("Double click on different list item is ignored with pending changes", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+
+    await expect(recentProjectsList).toBeVisible()
+
+    // Simulate unsaved changes
+    await dashboardPage.mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await projectItems.nth(1).dblclick()
+    await expect(page).toHaveURL(/.*\/home((\/|\?).*)?/)
   })
 })
 

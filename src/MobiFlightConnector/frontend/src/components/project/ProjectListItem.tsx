@@ -59,7 +59,7 @@ const ProjectListItem = forwardRef<HTMLDivElement, ProjectListItemProps>(
                 </div>
               </div>
             </div>
-            <div className="flex flex-row items-center justify-between gap-2 h-7">
+            <div className="flex h-7 flex-row items-center justify-between gap-2">
               <div
                 title={summary.FilePath}
                 className="text-muted-foreground truncate text-sm"
