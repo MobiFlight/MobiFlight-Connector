@@ -66,9 +66,10 @@ namespace MobiFlight.Joysticks.Octavi
                     TriggerButtonPress(buttonIndex, inputEvent);
                 }
 
-                this.SetOutputDeviceState("Auto Blink Context", (byte)(octaviHandler.IsInShiftMode ? 1 : 0));
+                this.Update();
             }
         }
+
 
         protected override void SendData(byte[] data)
         {
@@ -95,6 +96,12 @@ namespace MobiFlight.Joysticks.Octavi
             });
         }
 
+        private void UpdateShiftModeLed()
+        {
+            /* this will set nothing if the Ouput device label is not found - disable auto blinking by renaming the output in joystick.json */
+            this.SetOutputDeviceState("Auto Blink Context", (byte)(octaviHandler.IsInShiftMode ? 1 : 0));
+        }
+
         public override void Update()
         {
             // Octavi is not a DirectInput device
@@ -103,9 +110,13 @@ namespace MobiFlight.Joysticks.Octavi
             {
                 Connect();
             };
+
             // We don't do anything else
             // because we have a callback for
             // handling the incoming reports
+            // only check for updated shift state and update the outputs if needed.
+            this.UpdateShiftModeLed();
+            this.UpdateOutputDeviceStates();
         }
 
         protected override void EnumerateDevices()
