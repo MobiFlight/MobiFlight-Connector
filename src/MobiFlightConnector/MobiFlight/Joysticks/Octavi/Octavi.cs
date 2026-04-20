@@ -65,6 +65,8 @@ namespace MobiFlight.Joysticks.Octavi
                 {
                     TriggerButtonPress(buttonIndex, inputEvent);
                 }
+
+                this.SetOutputDeviceState("Auto Blink Context", (byte)(octaviHandler.IsInShiftMode ? 1 : 0));
             }
         }
 
