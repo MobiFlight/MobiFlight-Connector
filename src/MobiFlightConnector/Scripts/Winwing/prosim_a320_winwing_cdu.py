@@ -3,6 +3,7 @@ from typing import Callable, Optional
 import json
 import logging
 import asyncio
+import os
 import websockets
 import xml.etree.ElementTree as ET
 from gql import Client, gql
@@ -263,8 +264,8 @@ class ProSimCDUClient:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
     )
     
     async def cleanup(prosim_client):

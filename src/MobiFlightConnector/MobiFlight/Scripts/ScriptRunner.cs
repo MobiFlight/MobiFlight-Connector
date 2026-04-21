@@ -177,6 +177,8 @@ namespace MobiFlight.Scripts
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                 };
+                LogSeverity severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel, true);
+                psi.EnvironmentVariables.Add("LOGLEVEL", severity.PythonLogLevel());
 
                 Process process = new Process
                 {
@@ -259,11 +261,29 @@ namespace MobiFlight.Scripts
             }
         }
 
+        private string ScriptName(object sender)
+        {
+            string script = "(unknown script)";
+            Process process = (Process)sender;
+            ProcessTable.TryGetValue(process.Id, out script);
+            return script;
+        }
+
         private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.Data))
             {
-                Log.Instance.log($"ScriptRunner - Output: {e.Data}", LogSeverity.Info);
+                if (e.Data.IndexOf(':') is int i && i != -1)
+                {
+                    string logLevel = e.Data.Substring(0, i);
+                    string msg = e.Data.Substring(i + 1);
+                    LogSeverity severity = LogSeverityExtensions.SeverityFromPythonLogLevel(logLevel);
+                    Log.Instance.log($"{ScriptName(sender)} (stderr): {msg}", severity);
+                }
+                else
+                {
+                    Log.Instance.log($"{ScriptName(sender)} (stderr): {e.Data}", LogSeverity.Info);
+                }
             }
         }
 
@@ -271,7 +291,7 @@ namespace MobiFlight.Scripts
         {
             if (!string.IsNullOrEmpty(e.Data))
             {
-                Log.Instance.log($"ScriptRunner - StandardOutput: {e.Data}", LogSeverity.Info);
+                Log.Instance.log($"{ScriptName(sender)} (stdout): {e.Data}", LogSeverity.Info);
             }
         }
 

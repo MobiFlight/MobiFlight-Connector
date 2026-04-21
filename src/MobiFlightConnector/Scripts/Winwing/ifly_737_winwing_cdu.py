@@ -7,6 +7,7 @@ import asyncio
 from typing import Dict, List, Optional, Union
 from websockets.asyncio.client import connect
 import mmap
+import os
 
 # WebSocket URLs
 CAPTAIN_CDU_URL: str = "ws://localhost:8320/winwing/cdu-captain"
@@ -394,7 +395,7 @@ async def main() -> None:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
     )
     asyncio.run(main())

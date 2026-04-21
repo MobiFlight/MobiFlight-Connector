@@ -1,4 +1,4 @@
-import asyncio, ctypes, json, logging, struct
+import asyncio, ctypes, json, logging, os, struct
 from ctypes import wintypes, Structure, c_ubyte, sizeof
 from typing import Any
 import websockets.asyncio.client as ws_client
@@ -152,7 +152,10 @@ class A340MCDUClient:
             
 # --- Main ---
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+    logging.basicConfig(
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
+    )
     sc=SimConnectMobiFlight()
 
     mcdu_cpt=A340MCDUClient(sc, CAPTAIN_MCDU_URL, A340_MCDU_CPT_DEFINITION, A340_MCDU_CPT_NAME, A340_CPT_MCDU_CLIENT_DATA_ID)

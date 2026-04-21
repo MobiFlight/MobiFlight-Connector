@@ -4,6 +4,7 @@ import json
 import struct
 import logging
 import asyncio
+import os
 import websockets.asyncio.client as ws_client
 from typing import Optional, List, Dict, Union, Any
 from SimConnect import SimConnect, Enum
@@ -265,10 +266,10 @@ class CRJCDUClient:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
-    )     
-    
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
+    )
+
     sc_mobiflight: SimConnectMobiFlight = SimConnectMobiFlight()
     captain_client: CRJCDUClient = CRJCDUClient(sc_mobiflight, CAPTAIN_CDU_URL, CRJ_CDU_0_NAME, CRJ_CDU_0_CLIENT_DATA_ID, CRJ_CDU_0_DEFINITION)
     co_pilot_client: CRJCDUClient = CRJCDUClient(sc_mobiflight, CO_PILOT_CDU_URL, CRJ_CDU_1_NAME, CRJ_CDU_1_CLIENT_DATA_ID, CRJ_CDU_1_DEFINITION)

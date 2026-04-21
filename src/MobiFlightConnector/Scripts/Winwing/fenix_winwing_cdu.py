@@ -1,6 +1,7 @@
 import asyncio, json
 import xml.etree.ElementTree as ET
 import logging
+import os
 import websockets.asyncio.client as ws_client
 import websockets.exceptions
 from gql import Client, gql
@@ -117,10 +118,12 @@ class Mobiflight_Client:
 
     
 
-async def main():   
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')  
-    log = logging.getLogger("gql.transport.websockets")
-    log.setLevel(logging.WARNING)   
+async def main():
+    logging.basicConfig(
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
+    )
+
     logging.info("----STARTED fenix_winwing_cdu.py----")   
     client1 = Mobiflight_Client("ws://localhost:8320/winwing/cdu-captain", "CDU-CAPTAIN")
     client2 = Mobiflight_Client("ws://localhost:8320/winwing/cdu-co-pilot", "CDU-CO-PILOT")  

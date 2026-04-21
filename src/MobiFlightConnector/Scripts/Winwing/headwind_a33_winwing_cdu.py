@@ -5,6 +5,7 @@ from itertools import chain
 import json
 import logging
 from math import ceil, floor
+import os
 import re
 from typing import Literal, Never, Optional, List, Dict, Union
 import websockets.asyncio.client as ws_client
@@ -432,7 +433,8 @@ async def request_update_on_connect(connected: asyncio.Event, fbw_client: FbwMcd
 
 async def main():
     logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
     )
 
     logging.info("----STARTED FBW A32NX MCDU to WinWing CDU Integration----")

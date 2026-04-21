@@ -11,12 +11,48 @@ using System.Diagnostics;
 
 namespace MobiFlight
 {
-    public enum LogSeverity    
+    public enum LogSeverity
     {
         Debug = 0,
         Info = 1,
         Warn = 2,
         Error = 3
+    }
+
+    public static class LogSeverityExtensions
+    {   public static String PythonLogLevel(this LogSeverity severity)
+        {
+            switch (severity)
+            {
+                case LogSeverity.Debug:
+                    return "DEBUG";
+                case LogSeverity.Info:
+                    return "INFO";
+                case LogSeverity.Warn:
+                    return "WARNING";
+                case LogSeverity.Error:
+                    return "ERROR";
+                default:
+                    return "WARNING";
+            }
+        }
+
+        public static LogSeverity SeverityFromPythonLogLevel(string logLevel)
+        {
+            switch (logLevel)
+            {
+                case "DEBUG":
+                    return LogSeverity.Debug;
+                case "INFO":
+                    return LogSeverity.Info;
+                case "WARNING":
+                    return LogSeverity.Warn;
+                case "ERROR":
+                    return LogSeverity.Error;
+                default:
+                    return LogSeverity.Info;
+            }
+        }
     }
 
     public sealed class Log

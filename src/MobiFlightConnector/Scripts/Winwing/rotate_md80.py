@@ -19,6 +19,7 @@ MD80 CDU Characteristics:
 import asyncio
 import json
 import logging
+import os
 import urllib.request
 import websockets
 from enum import StrEnum
@@ -26,7 +27,10 @@ from typing import List, Dict
 import base64
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+    format='%(levelname)s:%(message)s'
+)
 
 # CDU Display Configuration
 CDU_COLUMNS = 24  # Physical display width limit

@@ -23,6 +23,7 @@ import asyncio
 import base64
 import json
 import logging
+import os
 import urllib.request
 import websockets
 from enum import StrEnum
@@ -282,6 +283,11 @@ async def get_available_devices() -> list[CduDevice]:
 
 
 async def main():
+    logging.basicConfig(
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
+    )
+
     available_devices = await get_available_devices()
 
     tasks = []

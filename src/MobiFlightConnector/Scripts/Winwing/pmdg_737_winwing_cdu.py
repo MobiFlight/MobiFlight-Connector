@@ -381,8 +381,8 @@ class PMDGConfiguration:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
     )
 
     ini_configurator = PMDGConfiguration()

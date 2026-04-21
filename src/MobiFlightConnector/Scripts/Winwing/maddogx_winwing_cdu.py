@@ -3,6 +3,7 @@ import ctypes
 import json
 import logging
 import asyncio
+import os
 import struct
 import websockets.asyncio.client as ws_client
 from typing import Optional, List, Dict, Union, Any
@@ -281,8 +282,8 @@ class MDXCDUClient:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
     )
     
     sc_mobiflight: SimConnectMobiFlight = SimConnectMobiFlight()

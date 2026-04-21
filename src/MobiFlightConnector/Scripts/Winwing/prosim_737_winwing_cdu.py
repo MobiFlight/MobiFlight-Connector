@@ -6,6 +6,7 @@ import asyncio
 import websockets
 import xml.etree.ElementTree as ET
 import re
+import os
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
 
@@ -510,8 +511,8 @@ class ProSimCDUClient:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
+        format='%(levelname)s:%(message)s'
     )
 
     async def cleanup(prosim_client):
