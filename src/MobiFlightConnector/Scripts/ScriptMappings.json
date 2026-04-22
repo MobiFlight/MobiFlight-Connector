@@ -153,7 +153,7 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "airbus a330",
+      "AircraftIdRegex": "^airbus a330",
       "ScriptName": "xplane_default_fmc.py"
     },
     {
