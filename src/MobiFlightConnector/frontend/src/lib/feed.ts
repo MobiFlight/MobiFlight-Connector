@@ -48,6 +48,30 @@ const buildRemoteFeedUrl = (baseUrl: string, language: string): string => {
   return `${normalizedBaseUrl}/${resolveLanguage(language)}/feed.json`
 }
 
+const makeUrlAbsolute = (
+  media: CommunityPost["media"],
+  baseUrl: string,
+): CommunityPost["media"] => {
+  if (!media) {
+    return media
+  }
+  const isAbsoluteUrl =
+    media.src.startsWith("http://") ||
+    media.src.startsWith("https://") ||
+    media.src.startsWith("//")
+
+  if (isAbsoluteUrl) {
+    return media
+  }
+
+  const normalizedBaseUrl = baseUrl.replace(/\/+$/, "")
+  const normalizedSrc = media.src.replace(/^\/+/, "")
+  return {
+    ...media,
+    src: `${normalizedBaseUrl}/${normalizedSrc}`,
+  }
+}
+
 export const fetchRemoteCommunityFeed = async ({
   baseUrl,
   language,
@@ -68,7 +92,13 @@ export const fetchRemoteCommunityFeed = async ({
     if (!isRemoteFeedPayload(payload)) {
       throw new Error("Feed payload is invalid")
     }
-    return payload.community
+    return payload.community.map((post) => {
+      const media = makeUrlAbsolute(post.media, baseUrl)
+      return {
+        ...post,
+        media,
+      }
+    })
   } finally {
     clearTimeout(timeoutId)
   }
