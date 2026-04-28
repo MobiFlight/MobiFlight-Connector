@@ -4,9 +4,12 @@ import { defineConfig, devices } from "@playwright/test"
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -56,5 +59,11 @@ export default defineConfig({
     url: "http://localhost:5173/",
     reuseExistingServer: !process.env.CI,
     timeout: 20 * 1000,
+    env: {
+      ...process.env,
+      // Add any additional environment variables here
+      // so that typescript doesn't complain about object being undefined
+      DUMMY_ENV_VAR: "dummy_value_for_playwright", 
+    }
   },
 })

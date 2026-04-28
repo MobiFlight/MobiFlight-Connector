@@ -548,11 +548,10 @@ test.describe("Project list view tests", () => {
     await expect(firstAndActiveProject).toBeVisible()
 
     await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
-    
+
     // Clicking on actuive project should not post a command
     await firstAndActiveProject.click()
-    let postedCommands =
-      await dashboardPage.mobiFlightPage.getTrackedCommands()
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
 
     expect(postedCommands).toHaveLength(0)
 
@@ -678,7 +677,7 @@ test.describe("Project list view tests", () => {
     await dashboardPage.mobiFlightPage.initWithTestData()
 
     await expect(recentProjectsList).toBeVisible()
-    
+
     // Simulate unsaved changes
     await dashboardPage.mobiFlightPage.updateProjectState({
       HasChanged: true,
@@ -867,6 +866,110 @@ test.describe("Community Feed tests", () => {
 
     await eventsFilterButton.click()
     await expect(feedItems).toHaveCount(2)
+  })
+
+  test("Confirm fallback feed items are rendered correctly if dynamic feed is unavailable", async ({
+    dashboardPage,
+    page,
+  }) => {
+    const remoteFeedBaseUrl = process.env.VITE_FEED_REMOTE_BASE_URL?.trim()
+
+    await page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
+      await route.fulfill({
+        status: 404,
+        contentType: "application/json",
+        body: JSON.stringify({}),
+      })
+    })
+    await dashboardPage.gotoPage()
+
+    const feedItems = page.getByTestId("community-feed-item")
+    await expect(feedItems).toHaveCount(5)
+  })
+
+  test("Confirm dynamic feed items are rendered correctly", async ({
+    dashboardPage,
+    page,
+  }) => {
+    const remoteFeedBaseUrl = process.env.VITE_FEED_REMOTE_BASE_URL?.trim()
+    const relativeFeedImageUrl = "/feed/test-image.jpg"
+    const absoluteFeedImageUrl = `${remoteFeedBaseUrl}${relativeFeedImageUrl}`
+
+    const absoluteFeedImageUrl2 = "https://example.com/test-image.jpg"
+    const absoluteFeedImageUrl3 = "http://example.com/test-image.jpg"
+    const absoluteFeedImageUrl4 = "//example.com/test-image.jpg"
+
+    await page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          community: [
+            {
+              title: "Dynamic Post 1",
+              date: "2026-04-28",
+              content: ["Hello"],
+              tags: ["community"],
+              media: { type: "image", src: relativeFeedImageUrl, alt: "x" },
+            },
+            {
+              title: "Dynamic Post 2",
+              date: "2026-04-28",
+              content: ["Hello"],
+              tags: ["community"],
+              media: { type: "image", src: absoluteFeedImageUrl2, alt: "x" },
+            },
+            {
+              title: "Dynamic Post 3",
+              date: "2026-04-28",
+              content: ["Hello"],
+              tags: ["community"],
+              media: { type: "image", src: absoluteFeedImageUrl3, alt: "x" },
+            },
+            {
+              title: "Dynamic Post 4",
+              date: "2026-04-28",
+              content: ["Hello"],
+              tags: ["community"],
+              media: { type: "image", src: absoluteFeedImageUrl4, alt: "x" },
+            },
+          ],
+        }),
+      })
+    })
+    await dashboardPage.gotoPage()
+
+    const feedItems = page.getByTestId("community-feed-item")
+    await expect(feedItems).toHaveCount(4)
+    await expect(feedItems.first()).toContainText("Dynamic Post 1")
+
+    const img = page.locator('[data-testid="community-feed-item"] img').first()
+    await expect(img).toBeVisible()
+    await expect(img).toHaveAttribute(
+      "src",
+      absoluteFeedImageUrl,
+    )
+
+    const img2 = page.locator('[data-testid="community-feed-item"] img').nth(1)
+    await expect(img2).toBeVisible()
+    await expect(img2).toHaveAttribute(
+      "src",
+      absoluteFeedImageUrl2,
+    )
+
+    const img3 = page.locator('[data-testid="community-feed-item"] img').nth(2)
+    await expect(img3).toBeVisible()
+    await expect(img3).toHaveAttribute(
+      "src",
+      absoluteFeedImageUrl3,
+    )
+
+    const img4 = page.locator('[data-testid="community-feed-item"] img').nth(3)
+    await expect(img4).toBeVisible()
+    await expect(img4).toHaveAttribute(
+      "src",
+      absoluteFeedImageUrl4,
+    )
   })
 
   test("Confirm button links are working correctly", async ({

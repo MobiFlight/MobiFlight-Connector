@@ -32,3 +32,4 @@ The community feed uses a hybrid strategy:
 Environment variables:
 
 - `VITE_FEED_REMOTE_BASE_URL`: remote base URL in the format `{base}/{language}/feed.json`
+  If not set, it will use `https://mobiflight.com/feed`
