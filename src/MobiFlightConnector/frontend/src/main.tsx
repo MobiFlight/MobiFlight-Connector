@@ -9,6 +9,16 @@ import { BrowserRouter } from "react-router"
 import { AuthProvider } from "react-oidc-context"
 import { oidcConfig } from "@/lib/auth/config"
 import { BackendStateMessageHandler } from "@/components/BackendStateMessageHandler.tsx"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      staleTime: 5 * 60 * 1000,
+    },
+  },
+})
 
 if (process.env.NODE_ENV !== "development") {
   console.log = () => {}
@@ -20,16 +30,18 @@ if (process.env.NODE_ENV !== "development") {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="light" storageKey="ui-mode">
-      <AuthProvider {...oidcConfig}>
-        <TooltipProvider skipDelayDuration={0}>
-          <BrowserRouter>
-            <BackendStateMessageHandler>
-              <AppRoutes />
-            </BackendStateMessageHandler>
-          </BrowserRouter>
-        </TooltipProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="light" storageKey="ui-mode">
+        <AuthProvider {...oidcConfig}>
+          <TooltipProvider skipDelayDuration={0}>
+            <BrowserRouter>
+              <BackendStateMessageHandler>
+                <AppRoutes />
+              </BackendStateMessageHandler>
+            </BrowserRouter>
+          </TooltipProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   </StrictMode>,
 )

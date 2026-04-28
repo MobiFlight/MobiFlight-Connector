@@ -20,3 +20,15 @@ https://www.npmjs.com/package/zustand
 ## lodash-es
 https://www.npmjs.com/package/lodash-es
 and @types/lodash-es
+
+## Community feed loading
+The community feed uses a hybrid strategy:
+
+- Immediate fallback: `feed:community` from bundled i18n files in `public/locales/*/feed.json`
+- Background refresh: optional remote JSON loaded per language
+- Replacement rule: remote feed replaces fallback only when remote `community` contains at least one valid item
+- Fallback rule: timeout, network errors, invalid payloads, or empty remote arrays keep bundled fallback visible
+
+Environment variables:
+
+- `VITE_FEED_REMOTE_BASE_URL`: remote base URL in the format `{base}/{language}/feed.json`
