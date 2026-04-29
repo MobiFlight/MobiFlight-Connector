@@ -24,12 +24,10 @@ and @types/lodash-es
 ## Community feed loading
 The community feed uses a hybrid strategy:
 
-- Immediate fallback: `feed:community` from bundled i18n files in `public/locales/*/feed.json`
+- Default items are: `feed:community` from bundled i18n files in `public/locales/*/feed.json`
 - Background refresh: optional remote JSON loaded per language
-- Replacement rule: remote feed replaces fallback only when remote `community` contains at least one valid item
-- Fallback rule: timeout, network errors, invalid payloads, or empty remote arrays keep bundled fallback visible
+- Merge rule: remote feed is prepended to fallback feed only when remote `community` contains at least one valid item
 
 Environment variables:
-
-- `VITE_FEED_REMOTE_BASE_URL`: remote base URL in the format `{base}/{language}/feed.json`
+- `VITE_FEED_REMOTE_BASE_URL`: remote base URL in the format, example for path `{base}/en/feed.json`
   If not set, it will use `https://mobiflight.com/feed`

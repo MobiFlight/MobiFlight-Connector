@@ -52,9 +52,10 @@ const makeUrlAbsolute = (
   media: CommunityPost["media"],
   baseUrl: string,
 ): CommunityPost["media"] => {
-  if (!media) {
+  if (!media || !media.src) {
     return media
   }
+
   const isAbsoluteUrl =
     media.src.startsWith("http://") ||
     media.src.startsWith("https://") ||
