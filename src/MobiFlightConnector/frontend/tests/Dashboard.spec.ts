@@ -829,14 +829,19 @@ test.describe("Asynchronous save tests", () => {
 })
 
 test.describe("Community Feed tests", () => {
-  test("Confirm feed filter is working correctly", async ({ dashboardPage, page }) => {
-    // For testing, we are able to point the feed to a custom url 
+  test("Confirm feed filter is working correctly", async ({
+    dashboardPage,
+    page,
+  }) => {
+    // For testing, we are able to point the feed to a custom url
     // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
     // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
-    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // We have to make sure to use the same base url in the test when we mock the feed response,
     // otherwise the frontend will not use our mocked response and the test will fail
     const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
-    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+    const remoteFeedBaseUrl = (
+      process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
+    ).trim()
 
     await dashboardPage.disableDynamicFeed(remoteFeedBaseUrl)
     await dashboardPage.gotoPage()
@@ -853,7 +858,7 @@ test.describe("Community Feed tests", () => {
     const offersFilterButton = page.getByRole("button", { name: "Offers" })
     const eventsFilterButton = page.getByRole("button", { name: "Events" })
     const feedItems = page.getByTestId("community-feed-item")
-    
+
     await expect(allFilterButton).toBeVisible()
     await expect(allFilterButton).toHaveCount(1)
 
@@ -885,13 +890,15 @@ test.describe("Community Feed tests", () => {
     dashboardPage,
     page,
   }) => {
-    // For testing, we are able to point the feed to a custom url 
+    // For testing, we are able to point the feed to a custom url
     // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
     // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
-    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // We have to make sure to use the same base url in the test when we mock the feed response,
     // otherwise the frontend will not use our mocked response and the test will fail
     const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
-    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+    const remoteFeedBaseUrl = (
+      process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
+    ).trim()
 
     await dashboardPage.disableDynamicFeed(remoteFeedBaseUrl)
     await dashboardPage.gotoPage()
@@ -904,14 +911,16 @@ test.describe("Community Feed tests", () => {
     dashboardPage,
     page,
   }) => {
-    // For testing, we are able to point the feed to a custom url 
+    // For testing, we are able to point the feed to a custom url
     // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
     // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
-    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // We have to make sure to use the same base url in the test when we mock the feed response,
     // otherwise the frontend will not use our mocked response and the test will fail
     const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
-    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
-    
+    const remoteFeedBaseUrl = (
+      process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
+    ).trim()
+
     const relativeFeedImageUrl = "/feed/test-image.jpg"
     const absoluteFeedImageUrl = `${remoteFeedBaseUrl}${relativeFeedImageUrl}`
 
@@ -919,49 +928,42 @@ test.describe("Community Feed tests", () => {
     const absoluteFeedImageUrl3 = "http://example.com/test-image.jpg"
     const absoluteFeedImageUrl4 = "//example.com/test-image.jpg"
 
-    await page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          community: [
-            {
-              title: "Dynamic Post 1",
-              date: "2026-04-28",
-              content: ["Hello"],
-              tags: ["community"],
-              media: { type: "image", src: relativeFeedImageUrl, alt: "x" },
-            },
-            {
-              title: "Dynamic Post 2",
-              date: "2026-04-28",
-              content: ["Hello"],
-              tags: ["community"],
-              media: { type: "image", src: absoluteFeedImageUrl2, alt: "x" },
-            },
-            {
-              title: "Dynamic Post 3",
-              date: "2026-04-28",
-              content: ["Hello"],
-              tags: ["community"],
-              media: { type: "image", src: absoluteFeedImageUrl3, alt: "x" },
-            },
-            {
-              title: "Dynamic Post 4",
-              date: "2026-04-28",
-              content: ["Hello"],
-              tags: ["community"],
-              media: { type: "image", src: absoluteFeedImageUrl4, alt: "x" },
-            },
-          ],
-        }),
-      })
-    })
+    const communityPosts = [
+      {
+        title: "Dynamic Post 1",
+        date: "2026-04-28",
+        content: ["Hello"],
+        tags: ["community"],
+        media: { type: "image", src: relativeFeedImageUrl, alt: "x" },
+      },
+      {
+        title: "Dynamic Post 2",
+        date: "2026-04-28",
+        content: ["Hello"],
+        tags: ["community"],
+        media: { type: "image", src: absoluteFeedImageUrl2, alt: "x" },
+      },
+      {
+        title: "Dynamic Post 3",
+        date: "2026-04-28",
+        content: ["Hello"],
+        tags: ["community"],
+        media: { type: "image", src: absoluteFeedImageUrl3, alt: "x" },
+      },
+      {
+        title: "Dynamic Post 4",
+        date: "2026-04-28",
+        content: ["Hello"],
+        tags: ["community"],
+        media: { type: "image", src: absoluteFeedImageUrl4, alt: "x" },
+      },
+    ]
+    await dashboardPage.mockDynamicFeed(remoteFeedBaseUrl, communityPosts)
     await dashboardPage.gotoPage()
 
     const feedItems = page.getByTestId("community-feed-item")
     // 4 from dynamic feed + 3 fallback items
-    await expect(feedItems).toHaveCount(7) 
+    await expect(feedItems).toHaveCount(7)
     await expect(feedItems.first()).toContainText("Dynamic Post 1")
 
     // dynamic feed is prepended to fallback feed
@@ -969,44 +971,34 @@ test.describe("Community Feed tests", () => {
     // and absolute image urls are untouched
     const img = page.locator('[data-testid="community-feed-item"] img').first()
     await expect(img).toBeVisible()
-    await expect(img).toHaveAttribute(
-      "src",
-      absoluteFeedImageUrl,
-    )
+    await expect(img).toHaveAttribute("src", absoluteFeedImageUrl)
 
     const img2 = page.locator('[data-testid="community-feed-item"] img').nth(1)
     await expect(img2).toBeVisible()
-    await expect(img2).toHaveAttribute(
-      "src",
-      absoluteFeedImageUrl2,
-    )
+    await expect(img2).toHaveAttribute("src", absoluteFeedImageUrl2)
 
     const img3 = page.locator('[data-testid="community-feed-item"] img').nth(2)
     await expect(img3).toBeVisible()
-    await expect(img3).toHaveAttribute(
-      "src",
-      absoluteFeedImageUrl3,
-    )
+    await expect(img3).toHaveAttribute("src", absoluteFeedImageUrl3)
 
     const img4 = page.locator('[data-testid="community-feed-item"] img').nth(3)
     await expect(img4).toBeVisible()
-    await expect(img4).toHaveAttribute(
-      "src",
-      absoluteFeedImageUrl4,
-    )
+    await expect(img4).toHaveAttribute("src", absoluteFeedImageUrl4)
   })
 
   test("Confirm button links are working correctly", async ({
     dashboardPage,
     page,
   }) => {
-    // For testing, we are able to point the feed to a custom url 
+    // For testing, we are able to point the feed to a custom url
     // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
     // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
-    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // We have to make sure to use the same base url in the test when we mock the feed response,
     // otherwise the frontend will not use our mocked response and the test will fail
     const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
-    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+    const remoteFeedBaseUrl = (
+      process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
+    ).trim()
 
     await dashboardPage.disableDynamicFeed(remoteFeedBaseUrl)
     await dashboardPage.gotoPage()
