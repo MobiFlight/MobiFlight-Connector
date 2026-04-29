@@ -829,7 +829,23 @@ test.describe("Asynchronous save tests", () => {
 })
 
 test.describe("Community Feed tests", () => {
-  test("Confirm default feed items", async ({ dashboardPage, page }) => {
+  test("Confirm feed filter is working correctly", async ({ dashboardPage, page }) => {
+    // For testing, we are able to point the feed to a custom url 
+    // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
+    // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
+    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // otherwise the frontend will not use our mocked response and the test will fail
+    const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
+    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+
+    await page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
+      await route.fulfill({
+        status: 404,
+        contentType: "application/json",
+        body: JSON.stringify({}),
+      })
+    })
+
     await dashboardPage.gotoPage()
 
     await expect(page.getByText("Community Feed")).toBeVisible()
@@ -838,25 +854,26 @@ test.describe("Community Feed tests", () => {
     await expect(feedFilter).toBeVisible()
 
     const allFilterButton = page.getByRole("button", { name: "All" })
-    await expect(allFilterButton).toBeVisible()
-    await expect(allFilterButton).toHaveCount(1)
-
     const communityFilterButton = page.getByRole("button", {
       name: "Community",
     })
+    const offersFilterButton = page.getByRole("button", { name: "Offers" })
+    const eventsFilterButton = page.getByRole("button", { name: "Events" })
+    const feedItems = page.getByTestId("community-feed-item")
+    
+    await expect(allFilterButton).toBeVisible()
+    await expect(allFilterButton).toHaveCount(1)
+
     await expect(communityFilterButton).toBeVisible()
     await expect(communityFilterButton).toHaveCount(1)
 
-    const offersFilterButton = page.getByRole("button", { name: "Offers" })
     await expect(offersFilterButton).toBeVisible()
     await expect(offersFilterButton).toHaveCount(1)
 
-    const eventsFilterButton = page.getByRole("button", { name: "Events" })
     await expect(eventsFilterButton).toBeVisible()
     await expect(eventsFilterButton).toHaveCount(1)
 
-    const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(5)
+    await expect(feedItems).toHaveCount(3)
 
     await communityFilterButton.click()
     await expect(feedItems).toHaveCount(2)
@@ -865,7 +882,10 @@ test.describe("Community Feed tests", () => {
     await expect(feedItems).toHaveCount(1)
 
     await eventsFilterButton.click()
-    await expect(feedItems).toHaveCount(2)
+    await expect(feedItems).toHaveCount(0)
+
+    await allFilterButton.click()
+    await expect(feedItems).toHaveCount(3)
   })
 
   test("Confirm fallback feed items are rendered correctly if dynamic feed is unavailable", async ({
@@ -890,7 +910,7 @@ test.describe("Community Feed tests", () => {
     await dashboardPage.gotoPage()
 
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(5)
+    await expect(feedItems).toHaveCount(3)
   })
 
   test("Confirm dynamic feed items are rendered correctly", async ({
@@ -953,9 +973,13 @@ test.describe("Community Feed tests", () => {
     await dashboardPage.gotoPage()
 
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(4)
+    // 4 from dynamic feed + 3 fallback items
+    await expect(feedItems).toHaveCount(7) 
     await expect(feedItems.first()).toContainText("Dynamic Post 1")
 
+    // dynamic feed is prepended to fallback feed
+    // and relative image urls are resolved against the feed base url
+    // and absolute image urls are untouched
     const img = page.locator('[data-testid="community-feed-item"] img').first()
     await expect(img).toBeVisible()
     await expect(img).toHaveAttribute(
@@ -991,8 +1015,8 @@ test.describe("Community Feed tests", () => {
   }) => {
     await dashboardPage.gotoPage()
     const feedItems = page.getByTestId("community-feed-item")
-    await expect(feedItems).toHaveCount(5)
-    const offerItem = feedItems.nth(4)
+    await expect(feedItems).toHaveCount(3)
+    const offerItem = feedItems.nth(2)
     const offerButton = offerItem.getByRole("button", {
       name: "Subscribe",
       exact: true,
