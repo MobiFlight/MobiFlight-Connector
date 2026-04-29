@@ -872,7 +872,13 @@ test.describe("Community Feed tests", () => {
     dashboardPage,
     page,
   }) => {
-    const remoteFeedBaseUrl = process.env.VITE_FEED_REMOTE_BASE_URL?.trim()
+    // For testing, we are able to point the feed to a custom url 
+    // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
+    // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
+    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // otherwise the frontend will not use our mocked response and the test will fail
+    const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
+    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
 
     await page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
       await route.fulfill({
@@ -891,7 +897,14 @@ test.describe("Community Feed tests", () => {
     dashboardPage,
     page,
   }) => {
-    const remoteFeedBaseUrl = process.env.VITE_FEED_REMOTE_BASE_URL?.trim()
+    // For testing, we are able to point the feed to a custom url 
+    // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
+    // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
+    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // otherwise the frontend will not use our mocked response and the test will fail
+    const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
+    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+    
     const relativeFeedImageUrl = "/feed/test-image.jpg"
     const absoluteFeedImageUrl = `${remoteFeedBaseUrl}${relativeFeedImageUrl}`
 

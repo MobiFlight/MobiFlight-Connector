@@ -1,5 +1,7 @@
 # environment variables
 .env
+.env.*
+!.env.template
 
 # Logs
 logs

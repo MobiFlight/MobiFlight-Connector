@@ -31,15 +31,20 @@ const CommunityMainCard = () => {
     returnObjects: true,
   }) as CommunityPost[]
 
-  const remoteFeedBaseUrl = import.meta.env.VITE_FEED_REMOTE_BASE_URL?.trim()
+  
+  // For local development, we are able to point the feed to a custom url 
+  // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
+  // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
+  const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
+  const remoteFeedBaseUrl = (import.meta.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+
   const language = i18n.resolvedLanguage || i18n.language || "en"
 
   const remoteFeedQuery = useQuery({
     queryKey: ["community-feed", language, remoteFeedBaseUrl],
-    enabled: Boolean(remoteFeedBaseUrl),
     queryFn: () =>
       fetchRemoteCommunityFeed({
-        baseUrl: remoteFeedBaseUrl!,
+        baseUrl: remoteFeedBaseUrl,
         language
       }),
   })
