@@ -49,10 +49,7 @@ const CommunityMainCard = () => {
       }),
   })
 
-  const displayedFeed =
-    remoteFeedQuery.data && remoteFeedQuery.data.length > 0
-      ? remoteFeedQuery.data
-      : communityFeed
+  const displayedFeed = [ ...remoteFeedQuery.data ?? [], ...communityFeed ]
 
   const filteredFeed = displayedFeed.filter(
     (post) => post.tags.includes(activeFilter) || activeFilter === "all",
