@@ -17,4 +17,14 @@ export class DashboardPage {
       },
     )
   }
+
+  async disableDynamicFeed(remoteFeedBaseUrl: string) {
+    await this.mobiFlightPage.page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
+      await route.fulfill({
+        status: 404,
+        contentType: "application/json",
+        body: JSON.stringify({}),
+      })
+    })
+  }
 }

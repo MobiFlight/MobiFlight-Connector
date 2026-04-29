@@ -838,14 +838,7 @@ test.describe("Community Feed tests", () => {
     const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
     const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
 
-    await page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
-      await route.fulfill({
-        status: 404,
-        contentType: "application/json",
-        body: JSON.stringify({}),
-      })
-    })
-
+    await dashboardPage.disableDynamicFeed(remoteFeedBaseUrl)
     await dashboardPage.gotoPage()
 
     await expect(page.getByText("Community Feed")).toBeVisible()
@@ -900,13 +893,7 @@ test.describe("Community Feed tests", () => {
     const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
     const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
 
-    await page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
-      await route.fulfill({
-        status: 404,
-        contentType: "application/json",
-        body: JSON.stringify({}),
-      })
-    })
+    await dashboardPage.disableDynamicFeed(remoteFeedBaseUrl)
     await dashboardPage.gotoPage()
 
     const feedItems = page.getByTestId("community-feed-item")
@@ -1013,7 +1000,17 @@ test.describe("Community Feed tests", () => {
     dashboardPage,
     page,
   }) => {
+    // For testing, we are able to point the feed to a custom url 
+    // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
+    // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
+    // We have to make sure to use the same base url in the test when we mock the feed response, 
+    // otherwise the frontend will not use our mocked response and the test will fail
+    const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
+    const remoteFeedBaseUrl = (process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+
+    await dashboardPage.disableDynamicFeed(remoteFeedBaseUrl)
     await dashboardPage.gotoPage()
+
     const feedItems = page.getByTestId("community-feed-item")
     await expect(feedItems).toHaveCount(3)
     const offerItem = feedItems.nth(2)
