@@ -1,44 +1,6 @@
 {
   "community": [
     {
-      "title": "¡Encuentra al equipo de MobiFlight en FSWeekend 2026!",
-      "date": "2025-12-04",
-      "content": [
-        "¡El equipo de MobiFlight estará presente en FSWeekend 2026! Encuéntrate con nosotros, puedes ver demostraciones en vivo y obtener información exclusiva sobre las próximas funciones."
-      ],
-      "action": {
-        "title": "Más información",
-        "url": "https://flightsimweekend.com/"
-      },
-      "media": {
-        "type": "image",
-        "src": "/feed/fsweekend-2025.jpg",
-        "alt": "¡Encuentra al equipo de MobiFlight en FSWeekend 2026!"
-      },
-      "tags": ["events"]
-    },
-    {
-      "date": "2026-02-15",
-      "title": "Talleres FSWeekend 2026",
-      "content": [
-        "**¡Ven a FSWeekend 2026** y participa en nuestros talleres prácticos junto al equipo de MobiFlight!",
-        "**¡Te lo llevas a casa!** - Monta y configura tu propio dispositivo multifunción desde cero. No hace falta experiencia previa. **¡Te esperamos!**",
-        "¡Regístrate temprano y obtén un **descuento de 10 EUR!**"
-      ],
-      "featured": false,
-      "tags": ["events"],
-      "media": {
-        "type": "image",
-        "src": "/feed/mobiflight-workshops.jpg",
-        "alt": "¡Talleres FSWeekend 2026!",
-        "className": "bg-foreground dark:bg-background"
-      },
-      "action": {
-        "title": "¡Regístrate!",
-        "url": "https://shop.mobiflight.com/product/mobiflight-workshop-fsweekend26"
-      }
-    },
-    {
       "date": "2025-11-30",
       "title": "¡Autorizado para nuevos niveles de vuelo!",
       "content": [
