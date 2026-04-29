@@ -177,8 +177,9 @@ namespace MobiFlight.Scripts
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                 };
-                LogSeverity severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel, true);
-                psi.EnvironmentVariables.Add("LOGLEVEL", severity.PythonLogLevel());
+                LogSeverity severity = LogSeverity.Info;
+                Enum.TryParse(Properties.Settings.Default.LogLevel, /*ignoreCase=*/ true, out severity);
+                psi.EnvironmentVariables["LOGLEVEL"] = severity.PythonLogLevel();
 
                 Process process = new Process
                 {
@@ -263,10 +264,12 @@ namespace MobiFlight.Scripts
 
         private string ScriptName(object sender)
         {
-            string script = "(unknown script)";
             Process process = (Process)sender;
-            ProcessTable.TryGetValue(process.Id, out script);
-            return script;
+            if (ProcessTable.TryGetValue(process.Id, out string script))
+            {
+                return script;
+            }
+            return "(unknown script)";
         }
 
         private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -276,14 +279,15 @@ namespace MobiFlight.Scripts
                 if (e.Data.IndexOf(':') is int i && i != -1)
                 {
                     string logLevel = e.Data.Substring(0, i);
-                    string msg = e.Data.Substring(i + 1);
-                    LogSeverity severity = LogSeverityExtensions.SeverityFromPythonLogLevel(logLevel);
-                    Log.Instance.log($"{ScriptName(sender)} (stderr): {msg}", severity);
+                    if (LogSeverityExtensions.SeverityFromPythonLogLevel(logLevel, out LogSeverity severity))
+                    {
+                        string msg = e.Data.Substring(i + 1);
+                        Log.Instance.log($"{ScriptName(sender)} (stderr): {msg}", severity);
+                        return;
+                    }
                 }
-                else
-                {
-                    Log.Instance.log($"{ScriptName(sender)} (stderr): {e.Data}", LogSeverity.Info);
-                }
+
+                Log.Instance.log($"{ScriptName(sender)} (stderr): {e.Data}", LogSeverity.Info);
             }
         }
 

@@ -20,7 +20,8 @@ namespace MobiFlight
     }
 
     public static class LogSeverityExtensions
-    {   public static String PythonLogLevel(this LogSeverity severity)
+    {
+        public static String PythonLogLevel(this LogSeverity severity)
         {
             switch (severity)
             {
@@ -37,20 +38,25 @@ namespace MobiFlight
             }
         }
 
-        public static LogSeverity SeverityFromPythonLogLevel(string logLevel)
+        public static bool SeverityFromPythonLogLevel(string logLevel, out LogSeverity severity)
         {
             switch (logLevel)
             {
                 case "DEBUG":
-                    return LogSeverity.Debug;
+                    severity = LogSeverity.Debug;
+                    return true;
                 case "INFO":
-                    return LogSeverity.Info;
+                    severity = LogSeverity.Info;
+                    return true;
                 case "WARNING":
-                    return LogSeverity.Warn;
+                    severity = LogSeverity.Warn;
+                    return true;
                 case "ERROR":
-                    return LogSeverity.Error;
+                    severity = LogSeverity.Error;
+                    return true;
                 default:
-                    return LogSeverity.Info;
+                    severity = LogSeverity.Info;
+                    return false;
             }
         }
     }
