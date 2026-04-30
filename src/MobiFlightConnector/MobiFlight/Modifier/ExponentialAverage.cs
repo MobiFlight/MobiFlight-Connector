@@ -10,7 +10,7 @@ namespace MobiFlight.Modifier
         public double Threshold { get; set; } = 3;
 
         private double PreviousValue = double.MinValue;
-        public double FilteredValue = 0;
+        public double FilteredValue { get; private set; } = 0;
 
         public ExponentialAverage() { }
 
@@ -18,6 +18,7 @@ namespace MobiFlight.Modifier
         {
             this.Active = other.Active;
             this.Alpha = other.Alpha;
+            this.Threshold = other.Threshold;
             this.PreviousValue = other.PreviousValue;
             this.FilteredValue = other.FilteredValue;
         }
@@ -66,7 +67,7 @@ namespace MobiFlight.Modifier
 
             PreviousValue = Alpha * currentValue + (1 - Alpha) * PreviousValue;
 
-            int delta = Math.Abs((int)(PreviousValue - FilteredValue));
+            int delta = (int)Math.Abs(PreviousValue - FilteredValue);
             bool filteredValueExceedsThreshold = delta > Threshold;
 
             if (filteredValueExceedsThreshold)

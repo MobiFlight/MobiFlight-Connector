@@ -259,6 +259,7 @@
     <Compile Include="MobiFlight\Controllers\ControllerBindingTests.cs" />
     <Compile Include="MobiFlight\ExecutionManagerTests.cs" />
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
+    <Compile Include="MobiFlight\ExponentialAverageTests.cs" />
     <Compile Include="MobiFlight\InputEventArgsTests.cs" />
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactoryTests.cs" />

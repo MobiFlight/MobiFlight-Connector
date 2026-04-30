@@ -187,7 +187,7 @@ namespace MobiFlight.Joysticks.Bodnar
                 newValue = (int)Math.Round(Alpha * newValue + (1.0 - Alpha) * oldValue);
 
                 if (StateExists()) 
-                    SetStateValueForAxis(CurrentAxis, State, newValue);
+                    SetStateValueForAxis(CurrentAxis, newState, newValue);
 
                 if (StateExists() && !ExceedsThreshold(oldValue, newValue)) continue;
 
