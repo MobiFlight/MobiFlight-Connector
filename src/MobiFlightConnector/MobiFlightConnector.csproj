@@ -462,6 +462,7 @@
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\MobiFlightVariable.cs" />
+    <Compile Include="MobiFlight\Modifier\ExponentialAverage.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierBase.cs" />
     <Compile Include="MobiFlight\Modifier\Comparison.cs" />
     <Compile Include="MobiFlight\Modifier\Blink.cs" />

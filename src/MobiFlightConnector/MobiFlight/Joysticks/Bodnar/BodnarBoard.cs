@@ -172,6 +172,8 @@ namespace MobiFlight.Joysticks.Bodnar
         /// <param name="newState">The new joystick state to compare against.</param>
         protected override void UpdateAxis(JoystickState newState)
         {
+            double Alpha = 0.25;
+
             for (int CurrentAxis = 0; CurrentAxis != Axes.Count; CurrentAxis++)
             {
 
@@ -182,6 +184,10 @@ namespace MobiFlight.Joysticks.Bodnar
                 }
 
                 int newValue = GetValueForAxisFromState(CurrentAxis, newState);
+                newValue = (int)Math.Round(Alpha * newValue + (1.0 - Alpha) * oldValue);
+
+                if (StateExists()) 
+                    SetStateValueForAxis(CurrentAxis, State, newValue);
 
                 if (StateExists() && !ExceedsThreshold(oldValue, newValue)) continue;
 
@@ -194,6 +200,22 @@ namespace MobiFlight.Joysticks.Bodnar
                     Type = DeviceType.AnalogInput,
                     Value = newValue
                 });
+            }
+        }
+
+        private void SetStateValueForAxis(int currentAxis, JoystickState state, double value)
+        {
+            String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();
+            if (RawAxisName.Contains("Slider"))
+            {
+                byte index = 0;
+                if (RawAxisName == "Slider2") index = 1;
+
+                state.Sliders[index] = (int)value;
+            }
+            else
+            {
+                state.GetType().GetProperty(RawAxisName).SetValue(state, (int)value, null);
             }
         }
 

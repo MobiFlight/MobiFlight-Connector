@@ -1,6 +1,7 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
 using MobiFlight.Config;
+using MobiFlight.Modifier;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
@@ -227,6 +228,7 @@ namespace MobiFlight
         /// the look up table with the last set values
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
+        Dictionary<string, ExponentialAverage> analogInputFilter = new Dictionary<string, ExponentialAverage>();
 
         public Board Board { get; set; }
 
@@ -327,7 +329,6 @@ namespace MobiFlight
             analogInputs.Clear();
             shiftRegisters.Clear();
             customDevices.Clear();
-
 
             foreach (Config.BaseDevice device in Config.Items)
             {
@@ -712,6 +713,7 @@ namespace MobiFlight
         {
             String name = arguments.ReadStringArg();
             String strValue = arguments.ReadStringArg();
+            string filterKey = name;
 
             if (!int.TryParse(strValue, out int value))
             {
@@ -719,6 +721,20 @@ namespace MobiFlight
                 return;
             }
 
+            if (!analogInputFilter.TryGetValue(filterKey, out ExponentialAverage filter))
+            {
+                filter = new ExponentialAverage() { Active = true };
+                analogInputFilter[filterKey] = filter;
+            }
+
+            var lastFilteredValue = filter.FilteredValue;
+            var filteredValue = filter.Apply(new ConnectorValue() { Float64 = value }, null);
+
+            if (Math.Round(filteredValue.Float64) == Math.Round(lastFilteredValue))
+            {
+                return;
+            }
+            
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Serial = this.Serial,
@@ -726,7 +742,7 @@ namespace MobiFlight
                 DeviceId = name,
                 DeviceLabel = name,
                 Type = DeviceType.AnalogInput,
-                Value = value
+                Value = (int)Math.Round(filteredValue.Float64)
             });
         }
 
@@ -776,8 +792,6 @@ namespace MobiFlight
             ledModules[name].SetBrightness(module, value);
             return true;
         }
-
-
 
         public bool SetServo(string servoAddress, int value, int min, int max, byte maxRotationPercent)
         {
@@ -1339,6 +1353,7 @@ namespace MobiFlight
         {
             // Always clear the cache
             lastValue.Clear();
+            analogInputFilter.Clear();
 
             // we have to make sure to not send messages
             // when we are not connected
