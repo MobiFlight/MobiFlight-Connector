@@ -2075,8 +2075,17 @@ namespace MobiFlight.UI
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Unable to load configuration file: {ex.Message}", LogSeverity.Error);
-                MessageBox.Show(i18n._tr("uiMessageProblemLoadingConfig"), i18n._tr("Hint"));
+                // show that something went wrong opening the file.
+                MessageExchange.Instance.Publish(new Notification()
+                {
+                    Event = "ProjectFileLoadError",
+                    Context = new Dictionary<string, string>()
+                    {
+                        { "FileName", fileName },
+                        { "Message", ex.Message  }
+                    }
+                });
+
                 return;
             }
 

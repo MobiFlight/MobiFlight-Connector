@@ -118,6 +118,7 @@ export interface Notification {
     | "SimConnectionLost"
     | "SimStopped"
     | "TestModeException"
+    | "ProjectFileLoadError"
   Guid?: string
   Context: Record<string, string> | null
 }

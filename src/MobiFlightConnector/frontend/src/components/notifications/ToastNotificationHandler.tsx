@@ -80,6 +80,17 @@ export const ToastNotificationHandler = () => {
         break
       }
 
+      case "ProjectFileLoadError": {
+        const errorMessage = notification?.Context?.Message ?? "An error occurred while loading the project file."
+        const fileName = notification?.Context?.FileName ?? "Unknown file"
+        toast({
+          id: "project-file-load-error",
+          title: t("Notifications.ProjectFileLoadError.Title"),
+          description: t("Notifications.ProjectFileLoadError.Description", { fileName, errorMessage }),
+        })
+        break
+      }
+
       default:
         console.error("Unhandled notification event:", notification.Event)
         break

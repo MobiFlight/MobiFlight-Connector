@@ -319,6 +319,10 @@
     "TestModeException": {
       "Title": "Testmodus-Fehler",
       "Description": "{{errorMessage}}"
+    },
+    "ProjectFileLoadError": {
+      "Title": "Projekt konnte nicht geladen werden",
+      "Description": "Beim Laden ist ein Fehler aufgetreten: {{fileName}} - {{errorMessage}}"
     }
   },
   "Startup": {
