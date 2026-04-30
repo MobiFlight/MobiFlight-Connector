@@ -67,7 +67,7 @@ test.describe("Generic Notifications tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
 
-    const toastAutoBindControllerSuccessful  = page.getByTestId(
+    const toastAutoBindControllerSuccessful = page.getByTestId(
       "toast-autobind-controllers-successful",
     )
     await expect(toastAutoBindControllerSuccessful).not.toBeVisible()
@@ -76,7 +76,7 @@ test.describe("Generic Notifications tests", () => {
       key: "Notification",
       payload: {
         Event: "ControllerAutoBindSuccessful",
-        Context: { Count: "1", Controllers: "Alpha Flight Controls"},
+        Context: { Count: "1", Controllers: "Alpha Flight Controls" },
       },
     })
 
@@ -90,7 +90,7 @@ test.describe("Generic Notifications tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
 
-    const toastManualBindingRequired  = page.getByTestId(
+    const toastManualBindingRequired = page.getByTestId(
       "toast-manual-binding-required",
     )
     await expect(toastManualBindingRequired).not.toBeVisible()
@@ -99,7 +99,7 @@ test.describe("Generic Notifications tests", () => {
       key: "Notification",
       payload: {
         Event: "ControllerManualBindRequired",
-        Context: { Count: "2", Controllers: "Alpha Flight Controls"},
+        Context: { Count: "2", Controllers: "Alpha Flight Controls" },
       },
     })
 
@@ -195,5 +195,36 @@ test.describe("Generic Notifications tests", () => {
     await expect(toastTestModeException).toBeVisible()
     await expect(toastTestModeException).toContainText("Test Mode Error")
     await expect(toastTestModeException).toContainText("Test error occurred")
+  })
+
+  test("Confirm Project File Load Error Notification shows correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const toastProjectFileLoadError = page.getByTestId(
+      "toast-project-file-load-error",
+    )
+    await expect(toastProjectFileLoadError).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "Notification",
+      payload: {
+        Event: "ProjectFileLoadError",
+        Context: {
+          FileName: "testFile.mf",
+          ErrorMessage: "Test error occurred",
+        },
+      },
+    })
+
+    await expect(toastProjectFileLoadError).toBeVisible()
+    await expect(toastProjectFileLoadError).toContainText(
+      "Project could not be loaded",
+    )
+    await expect(toastProjectFileLoadError).toContainText("testFile.mf")
+    await expect(toastProjectFileLoadError).toContainText("Test error occurred")
   })
 })

@@ -2082,7 +2082,7 @@ namespace MobiFlight.UI
                     Context = new Dictionary<string, string>()
                     {
                         { "FileName", fileName },
-                        { "Message", ex.Message  }
+                        { "ErrorMessage", ex.Message  }
                     }
                 });
 
