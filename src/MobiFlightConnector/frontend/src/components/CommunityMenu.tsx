@@ -7,8 +7,10 @@ import { Button } from "./ui/button"
 import IconBrandHubHopLogo from "./icons/IconBrandHubHopLogo"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandMainMenuPayload } from "@/types/commands"
+import { useUserProfileStore } from "@/stores/userProfileStore"
 
 export const CommunityMenu = () => {
+  const { userProfile } = useUserProfileStore()
   const { publish } = publishOnMessageExchange()
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
@@ -18,14 +20,16 @@ export const CommunityMenu = () => {
   }
   return (
     <div className="flex flex-row items-center gap-1 py-2 text-sm">
-      <Button
-        className="group h-8 gap-1 rounded-full bg-pink-600 py-1 pl-3 pr-4 text-white hover:bg-pink-400 dark:bg-pink-900 dark:hover:bg-pink-600 [&_svg]:size-5"
-        variant={"default"}
-        onClick={() => handleMenuItemClick({ action: "help.donate" })}
-      >
-        <IconHeartDollar className="fill-none stroke-white text-white group-hover:stroke-white transition-colors" />
-        Support us
-      </Button>
+      {userProfile?.membership !== "member" && (
+        <Button
+          className="group h-8 gap-1 rounded-full bg-pink-600 py-1 pr-4 pl-3 text-white hover:bg-pink-400 dark:bg-pink-900 dark:hover:bg-pink-600 [&_svg]:size-5"
+          variant={"default"}
+          onClick={() => handleMenuItemClick({ action: "help.donate" })}
+        >
+          <IconHeartDollar className="fill-none stroke-white text-white transition-colors group-hover:stroke-white" />
+          Support us
+        </Button>
+      )}
       <Button
         className="h-8 gap-1 rounded-full px-4 py-1 [&_svg]:size-6"
         variant={"ghost"}
