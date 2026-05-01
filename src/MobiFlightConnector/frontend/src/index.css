@@ -216,7 +216,8 @@
 */
 @layer base {
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role="button"]:not(:disabled),
+  [role="menuitem"]:not(:disabled) {
     cursor: pointer;
   }
 }

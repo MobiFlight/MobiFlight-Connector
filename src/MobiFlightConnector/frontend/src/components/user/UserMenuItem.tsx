@@ -5,12 +5,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuLabel
 } from "@/components/ui/dropdown-menu"
 import { MenubarSeparator } from "@/components/ui/menubar"
 import toast from "@/components/ui/ToastWrapper"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
 import { cn } from "@/lib/utils"
 import { useUserProfileStore } from "@/stores/userProfileStore"
+import { CommandOpenLinkInBrowser } from "@/types/commands"
 import {
   IconClipboard,
   IconClipboardCheck,
@@ -87,6 +89,15 @@ const UserMenuItem = () => {
     })
   }
 
+  const handleProfileClick = () => {
+    publish({
+      key: "CommandOpenLinkInBrowser",
+      payload: {
+        url: `https://club.mobiflight.com`,
+      },
+    } as CommandOpenLinkInBrowser)
+  }
+
   useEffect(() => {
     if (error) {
       const clipboardContent = `Name: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}`
@@ -141,12 +152,10 @@ const UserMenuItem = () => {
           </span>
           <div className="relative">
             <IconUserCircle />
-            {memberStatus === "member" && (              
-              <div className="absolute -right-1 -bottom-1 h-5 w-5 stroke-0 rounded-full bg-white">
+            {memberStatus === "member" && (
+              <div className="absolute -right-1 -bottom-0.5 h-5 w-5 rounded-full bg-white stroke-0">
                 <IconRosetteDiscountCheckFilled
-                  className={cn(
-                    "size-5! fill-pink-600"
-                  )}
+                  className={cn("size-5! fill-pink-600")}
                 />
               </div>
             )}
@@ -160,21 +169,33 @@ const UserMenuItem = () => {
         <div className="text-muted-foreground px-2 py-0 text-sm">
           {auth.user?.profile?.email}
         </div>
+        <MenubarSeparator />
+        <div className="">
+        <DropdownMenuLabel>MobiFlight Club</DropdownMenuLabel>
         <DropdownMenuItem className="cursor-default px-1 py-1 focus:bg-transparent">
           {memberStatus === "member" ? (
             <Badge
               variant="default"
-              className="bg-pink-600 flex flex-row items-center gap-2 rounded-full hover:bg-primary px-1 pr-2"
+              className="hover:bg-primary flex flex-row items-center gap-2 rounded-full bg-pink-600 px-1 pr-2"
             >
               <IconRosetteDiscountCheckFilled />
               <span className="text-sm">{t("Membership.Status.Member")}</span>
             </Badge>
           ) : (
-            <span className="text-sm">{t("Membership.Status.Basic")}</span>
+            <>
+              <Badge
+                variant="outline"
+                className="border-foreground flex flex-row items-center gap-2 rounded-full px-2"
+              >
+                <span className="text-sm">{t("Membership.Status.Basic")}</span>
+              </Badge>
+              <span className="text-muted-foreground text-xs">Upgrade</span>
+            </>
           )}
         </DropdownMenuItem>
+        </div>
         <MenubarSeparator />
-        <DropdownMenuItem className="">
+        <DropdownMenuItem onClick={handleProfileClick} className="">
           <IconUser />
           <span>{t("Auth.User.Profile")}</span>
         </DropdownMenuItem>
