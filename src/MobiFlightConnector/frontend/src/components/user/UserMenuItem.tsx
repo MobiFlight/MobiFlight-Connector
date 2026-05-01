@@ -9,8 +9,8 @@ import {
 import { MenubarSeparator } from "@/components/ui/menubar"
 import toast from "@/components/ui/ToastWrapper"
 import useMessageExchange from "@/lib/hooks/useMessageExchange"
-import { fetchProfile } from "@/lib/profile"
 import { cn } from "@/lib/utils"
+import { useUserProfileStore } from "@/stores/userProfileStore"
 import {
   IconClipboard,
   IconClipboardCheck,
@@ -20,7 +20,6 @@ import {
   IconUser,
   IconUserCircle,
 } from "@tabler/icons-react"
-import { useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useAuth } from "react-oidc-context"
@@ -53,6 +52,7 @@ const UserMenuItem = () => {
   const { publish } = useMessageExchange()
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  const { userProfile } = useUserProfileStore()
 
   /* Leaving this here for testing purposes */
   // const myauth = {
@@ -115,14 +115,6 @@ const UserMenuItem = () => {
     }
   }, [error, t])
 
-  const userProfileQuery = useQuery({
-    queryKey: ["user-profile", auth.user?.id_token],
-    queryFn: ({ signal }) => fetchProfile(auth, { signal }),
-    enabled:
-      !auth.isLoading && auth.isAuthenticated && Boolean(auth.user?.id_token),
-  })
-
-  const userProfile = userProfileQuery.data
   const memberStatus = userProfile?.membership
 
   if (auth.isLoading) {

@@ -10,6 +10,7 @@ import { AuthProvider } from "react-oidc-context"
 import { oidcConfig } from "@/lib/auth/config"
 import { BackendStateMessageHandler } from "@/components/BackendStateMessageHandler.tsx"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { UserProfileLoader } from "@/components/UserProfileLoader.tsx"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,9 +36,11 @@ createRoot(document.getElementById("root")!).render(
         <AuthProvider {...oidcConfig}>
           <TooltipProvider skipDelayDuration={0}>
             <BrowserRouter>
-              <BackendStateMessageHandler>
-                <AppRoutes />
-              </BackendStateMessageHandler>
+              <UserProfileLoader>
+                <BackendStateMessageHandler>
+                  <AppRoutes />
+                </BackendStateMessageHandler>
+              </UserProfileLoader>
             </BrowserRouter>
           </TooltipProvider>
         </AuthProvider>
