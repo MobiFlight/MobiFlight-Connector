@@ -44,7 +44,7 @@
       }
     },
     "Extras": {
-      "Label" : "Extras",
+      "Label": "Extras",
       "HubHop.DownloadLatestPresets": "Download latest presets",
       "MSFS.ReinstallWASMModule": "Re-install WASM Module",
       "CopyLogs": "Copy logs to clipboard",
@@ -381,6 +381,12 @@
         "Description": "An error occurred during authentication.",
         "ActionCopyToClipboard": "Copy message"
       }
+    }
+  },
+  "Membership": {
+    "Status": {
+      "Member": "Club Member",
+      "Basic": "Basic (Free)"
     }
   }
 }

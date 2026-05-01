@@ -1,3 +1,4 @@
+import { WebStorageStateStore } from "oidc-client-ts"
 import { AuthProviderProps } from "react-oidc-context"
 
 export const oidcConfig: AuthProviderProps = {
@@ -8,5 +9,7 @@ export const oidcConfig: AuthProviderProps = {
   response_type: "code",
   scope: "openid profile email",
   automaticSilentRenew: true,
+  loadUserInfo: true,
   /* removed prompt to allow for auto sign in of last user */
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
 }
