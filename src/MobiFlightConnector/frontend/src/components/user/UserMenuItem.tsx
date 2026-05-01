@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuLabel
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu"
 import { MenubarSeparator } from "@/components/ui/menubar"
 import toast from "@/components/ui/ToastWrapper"
@@ -172,35 +172,45 @@ const UserMenuItem = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-70 [&_svg]:size-5">
-        <div className="px-2 font-medium">
-          {auth.user?.profile?.name}
-        </div>
+        <div className="px-2 font-medium">{auth.user?.profile?.name}</div>
         <div className="text-muted-foreground px-2 text-sm">
           {auth.user?.profile?.email}
         </div>
         <MenubarSeparator />
-        <DropdownMenuLabel className="text-md pb-0">MobiFlight Club</DropdownMenuLabel>
-        <DropdownMenuItem className="flex flex-row cursor-default px-2 pt-0 focus:bg-transparent justify-center">
-          {memberStatus === "member" ? (
-            <Badge
-              variant="default"
-              className="hover:bg-primary flex flex-row items-center gap-2 rounded-full bg-pink-600 px-1 pr-2"
-            >
-              <IconRosetteDiscountCheckFilled />
-              <span className="text-sm">{t("Membership.Status.Member")}</span>
-            </Badge>
-          ) : (
-            <div className="flex flex-row items-center">
+        <div className="-mx-2 bg-linear-to-br from-sky-500 to-emerald-500 px-2">
+          <DropdownMenuLabel className="text-md text-background pb-0">
+            MobiFlight Club
+          </DropdownMenuLabel>
+          <DropdownMenuItem className="flex cursor-default flex-row justify-center px-2 pt-0 focus:bg-transparent">
+            {memberStatus === "member" ? (
               <Badge
-                variant="outline"
-                className="border-foreground rounded-full px-2"
+                variant="default"
+                className="flex flex-row items-center gap-2 rounded-full bg-pink-600 px-1 pr-2 my-2"
               >
-                <span className="text-sm">{t("Membership.Status.Basic")}</span>
+                <IconRosetteDiscountCheckFilled />
+                <span className="text-sm">{t("Membership.Status.Member")}</span>
               </Badge>
-              <Button variant={"link"} onClick={handleUpgradeClick}>{t("Membership.Action.Upgrade")}</Button>
-            </div>
-          )}
-        </DropdownMenuItem>
+            ) : (
+              <div className="flex flex-row items-center">
+                <Badge
+                  variant="outline"
+                  className="border-background rounded-full px-2"
+                >
+                  <span className="text-background text-sm">
+                    {t("Membership.Status.Basic")}
+                  </span>
+                </Badge>
+                <Button
+                  variant={"link"}
+                  onClick={handleUpgradeClick}
+                  className="text-background font-normal"
+                >
+                  {t("Membership.Action.Upgrade")}
+                </Button>
+              </div>
+            )}
+          </DropdownMenuItem>
+        </div>
         <MenubarSeparator />
         <DropdownMenuItem onClick={handleProfileClick} className="">
           <IconUser />
