@@ -366,7 +366,7 @@
     "User": {
       "SignIn": "Sign in",
       "SignOut": "Sign out",
-      "Profile": "Profile",
+      "Profile": "Member Profile",
       "ProfileFeatureComingSoon": "coming soon"
     },
     "Redirect": {
@@ -387,6 +387,9 @@
     "Status": {
       "Member": "Club Member",
       "Basic": "Basic Account"
+    },
+    "Action": {
+      "Upgrade": "Upgrade"
     }
   }
 }

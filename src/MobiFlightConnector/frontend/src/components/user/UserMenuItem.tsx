@@ -98,6 +98,15 @@ const UserMenuItem = () => {
     } as CommandOpenLinkInBrowser)
   }
 
+  const handleUpgradeClick = () => {
+    publish({
+      key: "CommandOpenLinkInBrowser",
+      payload: {
+        url: `https://club.mobiflight.com/subscribe`,
+      },
+    } as CommandOpenLinkInBrowser)
+  }
+
   useEffect(() => {
     if (error) {
       const clipboardContent = `Name: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}`
@@ -162,17 +171,16 @@ const UserMenuItem = () => {
           </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-50 [&_svg]:size-5">
-        <div className="text-md px-2 py-1 font-medium">
+      <DropdownMenuContent align="end" className="min-w-70 [&_svg]:size-5">
+        <div className="px-2 font-medium">
           {auth.user?.profile?.name}
         </div>
-        <div className="text-muted-foreground px-2 py-0 text-sm">
+        <div className="text-muted-foreground px-2 text-sm">
           {auth.user?.profile?.email}
         </div>
         <MenubarSeparator />
-        <div className="">
-        <DropdownMenuLabel>MobiFlight Club</DropdownMenuLabel>
-        <DropdownMenuItem className="cursor-default px-1 py-1 focus:bg-transparent">
+        <DropdownMenuLabel className="text-md pb-0">MobiFlight Club</DropdownMenuLabel>
+        <DropdownMenuItem className="flex flex-row cursor-default px-2 pt-0 focus:bg-transparent justify-center">
           {memberStatus === "member" ? (
             <Badge
               variant="default"
@@ -182,18 +190,17 @@ const UserMenuItem = () => {
               <span className="text-sm">{t("Membership.Status.Member")}</span>
             </Badge>
           ) : (
-            <>
+            <div className="flex flex-row items-center">
               <Badge
                 variant="outline"
-                className="border-foreground flex flex-row items-center gap-2 rounded-full px-2"
+                className="border-foreground rounded-full px-2"
               >
                 <span className="text-sm">{t("Membership.Status.Basic")}</span>
               </Badge>
-              <span className="text-muted-foreground text-xs">Upgrade</span>
-            </>
+              <Button variant={"link"} onClick={handleUpgradeClick}>{t("Membership.Action.Upgrade")}</Button>
+            </div>
           )}
         </DropdownMenuItem>
-        </div>
         <MenubarSeparator />
         <DropdownMenuItem onClick={handleProfileClick} className="">
           <IconUser />

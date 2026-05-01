@@ -285,6 +285,7 @@ namespace MobiFlight.UI
                 if (message.State == CommandUserAuthenticationState.success)
                 {
                     frontendPanel1.EndAuthProcess();
+
                     MessageExchange.Instance.Publish(new AuthenticationStatus()
                     {
                         Authenticated = message.Flow == CommandUserAuthenticationFlow.login
