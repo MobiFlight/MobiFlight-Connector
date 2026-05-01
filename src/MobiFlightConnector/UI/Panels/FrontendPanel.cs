@@ -141,5 +141,14 @@ namespace MobiFlight.UI.Panels
             get => FrontendWebView.Visible;
             set => FrontendWebView.Visible = value;
         }
+
+        /// <summary>
+        /// Indicates whether the authentication process is currently in progress, 
+        /// based on the visibility of the authentication WebView.
+        /// </summary>
+        public bool AuthProcessInProgress
+        {
+            get => UserAuthenticationWebView.Visible;
+        }
     }
 }
