@@ -12,18 +12,27 @@ export function UserProfileLoader({ children }: UserProfileLoaderProps) {
   const auth = useAuth()
   const { setUserProfile } = useUserProfileStore()
 
+  const queryEnabled = !auth.isLoading && auth.isAuthenticated && Boolean(auth.user?.id_token)
+
   const userProfileQuery = useQuery({
     queryKey: ["user-profile", auth.user?.id_token],
     queryFn: ({ signal }) => fetchProfile(auth, { signal }),
-    enabled:
-      !auth.isLoading && auth.isAuthenticated && Boolean(auth.user?.id_token),
+    enabled: queryEnabled,
   })
 
+  // store the user profile after successful fetch
   useEffect(() => {
     if (userProfileQuery.data) {
       setUserProfile(userProfileQuery.data)
     }
   }, [userProfileQuery.data, setUserProfile])
+
+  // clear the user profile on logout
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      setUserProfile(null)
+    }
+  }, [auth.isAuthenticated, setUserProfile])
 
   return <>{children}</>
 }
