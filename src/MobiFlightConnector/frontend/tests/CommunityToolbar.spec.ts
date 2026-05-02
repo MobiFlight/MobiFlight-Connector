@@ -1,5 +1,6 @@
 import { test, expect } from "./fixtures"
 
+test.use({ storageState: "./tests/.auth/anonymous.json" });
 test("Confirm community buttons in toolbar behave as expected", async ({
   configListPage,
   page,

@@ -80,6 +80,6 @@ test("Confirm SignIn and SignOut Commands to Backend are correct", async ({
       Authenticated: true,
     },
   })
-  const loggedInUserName = page.getByText("Hi, Test 01")
+  const loggedInUserName = page.getByText(`Hi, ${name}`)
   await expect(loggedInUserName).toBeVisible()
 })
