@@ -490,5 +490,7 @@ FodyWeavers.xsd
 # Python directory - include only RuntimeAndPackages*.zip files
 Python/*
 !Python/RuntimeAndPackages*.zip
+
+# Playwright test artifacts
 frontend/playwright-report/*
 frontend/test-results/*
