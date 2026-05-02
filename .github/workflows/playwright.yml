@@ -26,6 +26,9 @@ jobs:
         TESTS_USER_EMAIL: ${{ secrets.TESTS_USER_EMAIL }}
         TESTS_USER_PASSWORD: ${{ secrets.TESTS_USER_PASSWORD }}
         TESTS_USER_NAME: ${{ secrets.TESTS_USER_NAME }}
+        TESTS_BASIC_EMAIL: ${{ secrets.TESTS_BASIC_EMAIL }}
+        TESTS_BASIC_PASSWORD: ${{ secrets.TESTS_BASIC_PASSWORD }}
+        TESTS_BASIC_NAME: ${{ secrets.TESTS_BASIC_NAME }}
       run: npx playwright test
     - uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}

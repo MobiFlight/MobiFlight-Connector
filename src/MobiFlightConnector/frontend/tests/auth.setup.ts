@@ -26,8 +26,6 @@ const createEmptyAuthFile = (filePath: string) => {
 
   fs.mkdirSync("./tests/.auth", { recursive: true })
   fs.writeFileSync(filePath, JSON.stringify(emptyState))
-  fs.writeFileSync(authFileBasic, JSON.stringify(emptyState))
-  fs.writeFileSync(authFileAnonymous, JSON.stringify(emptyState))
 }
 
 createEmptyAuthFile(authFileAnonymous)

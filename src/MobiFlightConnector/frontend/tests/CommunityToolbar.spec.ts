@@ -1,40 +1,72 @@
 import { test, expect } from "./fixtures"
+test.describe("User without authentication", () => {
+  test("Confirm community buttons in toolbar behave as expected", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
 
-test.use({ storageState: "./tests/.auth/anonymous.json" });
-test("Confirm community buttons in toolbar behave as expected", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData()
-  await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    const CommunityButtons = [
+      ["Support us", "help.donate"],
+      ["Discord", "help.discord"],
+      ["YouTube", "help.youtube"],
+      ["HubHop", "help.hubhop"],
+    ]
 
-  const CommunityButtons = [
-    [ "Support us", "help.donate" ],
-    [ "Discord", "help.discord" ],
-    [ "YouTube", "help.youtube" ],
-    [ "HubHop", "help.hubhop" ],
-  ]
+    for (const [buttonName, command] of CommunityButtons) {
+      const button = page.getByRole("button", { name: buttonName })
+      await expect(button).toBeVisible()
+      await expect(button).toBeEnabled()
 
-  for (const [buttonName, command] of CommunityButtons) {
-    const button = page.getByRole("button", { name: buttonName })
+      // with tailwind v4, cursor pointer is not default anymore
+      // this test ensures that our custom css for pointer cursor is applied
+      await button.hover()
+      await expect(button).toHaveCSS("cursor", "pointer")
+
+      await button.click()
+      const trackedCommands =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+
+      if (trackedCommands == undefined || trackedCommands!.length === 0) {
+        throw new Error(`No commands tracked after clicking ${buttonName}`)
+      }
+
+      const lastCommand = trackedCommands.pop()
+      expect(lastCommand.key).toBe("CommandMainMenu")
+      expect(lastCommand.payload.action).toBe(command)
+    }
+  })
+})
+
+test.describe("Confirm community toolbar works for basic user", () => {
+  test.use({ storageState: "./tests/.auth/basic.json" })
+  test("Confirm community buttons in toolbar behave as expected", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+    const button = page.getByRole("button", { name: "Support us" })
     await expect(button).toBeVisible()
     await expect(button).toBeEnabled()
+  })
+})
 
-    // with tailwind v4, cursor pointer is not default anymore
-    // this test ensures that our custom css for pointer cursor is applied
-    await button.hover()
-    await expect(button).toHaveCSS("cursor", "pointer")
+test.describe("Confirm community toolbar works for member user", () => {
+  test.use({ storageState: "./tests/.auth/member.json" })
+  test("Confirm community buttons in toolbar behave as expected", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
 
-    await button.click()
-    const trackedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
-
-    if (trackedCommands == undefined || trackedCommands!.length === 0) {
-      throw new Error(`No commands tracked after clicking ${buttonName}`)
-    }
-
-    const lastCommand = trackedCommands.pop()
-    expect(lastCommand.key).toBe("CommandMainMenu")
-    expect(lastCommand.payload.action).toBe(command)
-  }
+    const button = page.getByRole("button", { name: "Support us" })
+    await expect(button).not.toBeVisible()
+  })
 })
