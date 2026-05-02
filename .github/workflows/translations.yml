@@ -1,10 +1,10 @@
 name: Check translations
 on:
   pull_request:
-    branches: [ main, hotfix/* ]
+    branches: [main, hotfix/*]
     paths:
       # Trigger only when files in the public/locales folder change
-      - 'src/MobiFlightConnector/frontend/public/locales/**' 
+      - "src/MobiFlightConnector/frontend/public/locales/**"
 jobs:
   check-translations:
     timeout-minutes: 60
@@ -21,16 +21,14 @@ jobs:
         run: npm ci
 
       - name: Check Translations
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd frontend; node src/scripts/check-translations.js
+        run: node src/scripts/check-translations.js
 
       - name: Generate Translation Statistics as Markdown
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd frontend; echo "$(node src/scripts/check-translations.js)" > translation-stats.md
-      
+        run: echo "$(node src/scripts/check-translations.js)" > translation-stats.md
+
       - name: Post Translation Statistics
         uses: marocchino/sticky-pull-request-comment@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: frontend/translation-stats.md
+          path: translation-stats.md
