@@ -5,6 +5,9 @@ on:
     paths:
       # Trigger only when files in the public/locales folder change
       - "src/MobiFlightConnector/frontend/public/locales/**"
+
+  workflow_dispatch:
+
 jobs:
   check-translations:
     timeout-minutes: 60
