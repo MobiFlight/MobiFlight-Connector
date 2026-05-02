@@ -7,9 +7,9 @@ const authFileAnonymous = "./tests/.auth/anonymous.json"
 const authFileBasic = "./tests/.auth/basic.json"
 const authFileMember = "./tests/.auth/member.json"
 
-const memberEmail = process.env.TESTS_USER_EMAIL
-const memberPassword = process.env.TESTS_USER_PASSWORD
-const memberName = process.env.TESTS_USER_NAME
+const memberEmail = process.env.TESTS_MEMBER_EMAIL
+const memberPassword = process.env.TESTS_MEMBER_PASSWORD
+const memberName = process.env.TESTS_MEMBER_NAME
 
 const basicEmail = process.env.TESTS_BASIC_EMAIL
 const basicPassword = process.env.TESTS_BASIC_PASSWORD
