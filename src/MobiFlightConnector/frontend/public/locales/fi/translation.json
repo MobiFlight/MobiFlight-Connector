@@ -1,0 +1,382 @@
+{
+  "General": {
+    "Action": {
+      "OpenMenu": "Avaa valikko"
+    },
+    "Overlay": {
+      "OpeningWizard": "Avataan opastettua toimintoa...",
+      "SavingChanges": "Tallennetaan projektia..."
+    },
+    "HubHopUpdate": {
+      "Error": "HubHop-päivitys epäonnistui. Yritä myöhemmin uudelleen.",
+      "Success": "HubHop-päivitys suoritettu onnistuneesti!",
+      "Title": "HubHop-päivitys on saatavilla",
+      "Description": "HubHop-tietokantasi on yli {{days}} päivää vanha. Haluatko päivittää sen nyt?",
+      "Title.Downloading": "Ladataan HubHop-päivitystä..."
+    },
+    "Error": {
+      "FallbackTitle": "Hupsista, jotain meni vikaan!",
+      "Unknown": "Tuntematon virhe."
+    }
+  },
+  "MainMenu": {
+    "File": {
+      "Label": "Tiedosto",
+      "New": "Uusi",
+      "Open": "Avaa...",
+      "Save": "Tallenna",
+      "SaveAs": "Tallenna nimellä...",
+      "RecentProjects": "Viimeisimmät projektit",
+      "RecentProjects.None": "Ei projekteja",
+      "Exit": "Lopeta"
+    },
+    "View": {
+      "Label": "Näytä",
+      "Zoom": {
+        "Reset": "Palauta koko",
+        "In": "Lähennä",
+        "Out": "Loitonna",
+        "Shortcut": {
+          "Reset": "Ctrl+0",
+          "In": "Ctrl++",
+          "Out": "Ctrl+-"
+        }
+      }
+    },
+    "Extras": {
+      "Label" : "Lisätoiminnot",
+      "HubHop.DownloadLatestPresets": "Lataa uusimmat ohjauskomennot",
+      "MSFS.ReinstallWASMModule": "Asenna WASM-moduuli uudelleen",
+      "CopyLogs": "Kopioi loki leikepöydälle",
+      "ControllerBindings": "Ohjainten yhdistäminen",
+      "Settings": "Asetukset"
+    },
+    "Help": {
+      "Label": "Ohje",
+      "Documentation": "Dokumentaatio",
+      "CheckForUpdates": "Tarkista päivitykset",
+      "VisitDiscord": "Discord-palvelin",
+      "VisitHubHop": "HubHop-sivusto",
+      "VisitYouTube": "YouTube-kanava",
+      "About": "Tietoja",
+      "ReleaseNotes": "Julkaisutiedot"
+    }
+  },
+  "Types": {
+    "Output": "Indikaattori (LED)",
+    "LedModule": "7-segmenttinäyttö",
+    "Stepper": "Askelmoottori",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD-näyttö",
+    "ShiftRegister": "Näytön siirtorekisteri",
+    "CustomDevice": "Mukautettu laite",
+    "InputShiftRegister": "Syötön siirtorekisteri",
+    "Button": "Painike",
+    "Encoder": "Kiertokytkin (Encoder)",
+    "AnalogInput": "Analoginen syöttö (Potentiometri)",
+    "-": "ei asetettu",
+    "OutputConfigItem": "Lähdön määritys",
+    "InputConfigItem": "Syötön määritys",
+    "InputAction": "Datan takaisinsyöttö"
+  },
+  "Project": {
+    "Label": "Projekti",
+    "File.Action": {
+      "Add": "Lisää profiili",
+      "New": "Lisää uusi profiili",
+      "Label": "Uusi profiili",
+      "Merge": "Olemassa olevasta projektista",
+      "Rename": "Nimeä uudelleen",
+      "Remove": "Poista",
+      "Export": "Vie"
+    },
+    "Toolbar": {
+      "Save": {
+        "HasChanges": "Tallenna muutokset",
+        "NoChanges": "Ei tallennettavia muutoksia",
+        "Success": "Tallennettu onnistuneesti"
+      },
+      "Settings": "Asetukset"
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "Auto",
+        "Enable": "Ota automaattinen käynnistys käyttöön",
+        "Disable": "Poista automaattinen käynnistys käytöstä"
+      },
+      "Run": {
+        "Label": "Käynnistä",
+        "Stop": "Pysäytä",
+        "Start": "Käynnistä ajotila, prosessoi määrityksiä",
+        "StopMode": "Pysäytä ajotila",
+        "BlockedByTest": "Testitila on aktiivinen. Pysäytä se ensin."
+      },
+      "Test": {
+        "Label": "Testi",
+        "Stop": "Pysäytä",
+        "Start": "Käynnistä testitila ja testaa määrityksiä",
+        "StopMode": "Pysäytä testitila",
+        "BlockedByRun": "Ajotila on aktiivinen. Pysäytä se ensin."
+      }
+    },
+    "Tabs": {
+      "ScrollLeft": "Vieritä vasemmalle",
+      "ScrollRight": "Vieritä oikealle"
+    },
+    "Simulator": {
+      "msfs": "Microsoft Flight Simulator",
+      "xplane": "X-Plane",
+      "p3d": "Prepar3D",
+      "fsx": "FSX / FS2004",
+      "prosim": "ProSim",
+      "none": "Ei simulaattoria"
+    },
+    "BindingStatus": {
+      "Match": "Ohjain yhdistetty",
+      "AutoBind": "Ohjain yhdistetty automaattisesti",
+      "Missing": "Ohjain puuttuu",
+      "RequiresManualBind": "Vaatii manuaalisen yhdistämisen"
+    },
+    "Card": {
+      "Main": {
+        "Title": "Omat projektit",
+        "Description": "Nopea pääsy projekteihini.",
+        "AllProjects": "Kaikki projektit",
+        "CurrentProject": "Nykyinen valinta",
+        "NoActiveProject": "Ei ladattua projektia.",
+        "CreateFirstProject": "Aloita luomalla ensimmäinen projektisi!",
+        "BindingIssuesTooltip": "Klikkaa nähdäksesi ongelmat yhdistetyissä ohjaimissa"
+      },
+      "Filter": {
+        "Search": {
+          "Placeholder": "Suodata projekteja..."
+        }
+      },
+      "NoActiveProjectHint": "Avaa projekti listalta oikealla, tai luo uusi projekti aloittaaksesi."
+    },
+    "Form": {
+      "Title": {
+        "New": "Luo uusi projekti",
+        "Edit": "Muokkaa projektia"
+      },
+      "Description": "Määritä projektin asetukset, kuten nimi, käytetty simulaattorohjelmisto, ja lentokone.",
+      "Name": {
+        "Label": "Projektin nimi",
+        "Placeholder": "esim. Boeing 737 Home Cockpit",
+        "Error": {
+          "Required": "Projektilla täytyy olla nimi."
+        }
+      },
+      "Simulator": {
+        "Label": "Lentosimulaattori",
+        "HelpText": "Valitse tämän projektin ensisijainen simulaattori.",
+        "UseFsuipc": "FSUIPC - vaihtoehtoinen legacy-rajapinta, jota jotkut lisäosat (esim. PMDG) käyttävät",
+        "UseProSim": "ProSim - rajapinta ProSim-lentokoneille",
+        "Feature": "Lisäominaisuudet"
+      },
+      "Aircraft": {
+        "Label": "Lentokone",
+        "HelpText": "Valitse tähän projektiin käytetty lentokone."
+      },
+      "Buttons": {
+        "Create": "Luo projekti",
+        "Update": "Päivitä projekti"
+      }
+    },
+    "UnsavedChanges": {
+      "Title": "Tallentamattomia muutoksia",
+      "Description": "Projektissasi on tallentamattomia muutoksia. Mitä haluat tehdä?",
+      "Save": "Tallenna muutokset",
+      "Discard": "Hylkää muutokset"
+    }
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Suodata kohteita..."
+      },
+      "Filter": {
+        "ConfigType": "Määritystyyppi",
+        "Device": "Ohjain",
+        "Type": "Laitteet",
+        "Name": "Nimet",
+        "Selected": "{{items}} valittu",
+        "Clear": "Tyhjennä suodattimet",
+        "NoResultsFound": "Tuloksia ei löytynyt."
+      },
+      "NotSet": "ei asetettu",
+      "Reset": "Nollaa suodattimet",
+      "SelectedRows": {
+        "Commands": {
+          "Label": "{{count}} riviä valittu",
+          "Delete": "Poista valitut",
+          "Toggle": "Vaihda valittujen tila",
+          "Clear": "Tyhjennä valinta"
+        }
+      }
+    },
+    "Header": {
+      "Active": "Aktiivinen",
+      "Name": "Nimi / Kuvaus",
+      "Device": "Ohjain",
+      "Component": "Laite",
+      "Status": "Tila",
+      "RawValue": "Tuloarvo",
+      "FinalValue": "Lähtöarvo",
+      "Actions": "Toiminnot"
+    },
+    "Cell": {
+      "Waiting": "Odottaa",
+      "Controller": {
+        "openInSettings": "Avaa ohjaimen asetukset",
+        "not set": "Tässä määrityksessä ei käytetä ohjainta."
+      },
+      "Device": {
+        "not set": "Tässä määrityksessä ei käytetä laitetta."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "Tämä on uusi konfiguraatio. Lisää kohteita.",
+      "DropHereToAdd": "Pudota tähän lisätäksesi uusia kohteita.",
+      "NoResultsMatchingFilter": "Suodatinta vastaavia tuloksia ei löytynyt.",
+      "Drag": {
+        "MovingItems": "Siirretään kohteita"
+      }
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Lisää lähdön määritys",
+        "DefaultName": "Uusi lähdön määritys"
+      },
+      "InputConfigItem": {
+        "Add": "Lisää syötön määritys",
+        "DefaultName": "Uusi syötön määritys"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normaali",
+        "not satisfied": "Ehto ei täyty.",
+        "Error": "Virhe ehdon tarkistuksessa. Katso tarkemmat tiedot lokista."
+      },
+      "Source": {
+        "available": "Lähde on saatavilla.",
+        "SIMCONNECT_NOT_AVAILABLE": "Määritys käyttää SimConnectia, yhteys puuttuu.",
+        "FSUIPC_NOT_AVAILABLE": "Määritys käyttää FSUIPC:tä, yhteys puuttuu.",
+        "XPLANE_NOT_AVAILABLE": "Määritys käyttää X-Planea, yhteys puuttuu.",
+        "PROSIM_NOT_AVAILABLE": "Määritys käyttää ProSimiä, yhteys puuttuu.",
+        "ReadError": "Virhe lukemisen aikana. Katso tarkemmat tiedot lokista."
+      },
+      "Modifier": {
+        "Error": "Käytössä olevassa muokkaimessa on virhe.",
+        "OK": "Muokkain on käytössä."
+      },
+      "Device": {
+        "NotConnected": "Määrityksessä käytettyä laitetta ei ole yhdistetty.",
+        "Connected": "Määrityksessä käytetty laite on yhdistetty."
+      },
+      "Test": {
+        "Executing": "Tätä määritystä testataan parhaillaan.",
+        "NotExecuting": "Tätä määritystä ei testata."
+      },
+      "ConfigRef": {
+        "Missing": "Yksi tai useampi viitattu määritys puuttuu.",
+        "OK": "Kaikki viitatut määritykset ovat saatavilla."
+      }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "Uusi määritys luotu, mutta se ei ole näkyvissä.",
+        "Description": "Määrityksesi ei vastaa nykyisiä suodatinasetuksia, joten se ei näy luettelossa.",
+        "Action": "Nollaa suodattimet"
+      }
+    }
+  },
+  "Notifications": {
+    "ControllerAutoBindSuccessful": {
+      "Title": "Hienoa!",
+      "Description": "Projektisi on päivitetty käyttämään ohjainta ”{{controllerName}}” — valmis käyttöön!"
+    },
+    "ControllerManualBindRequired": {
+      "Title": "Huomio!",
+      "Description": "Tässä profiilissa käytetty ”{{controllerName}}” vaatii manuaalisen yhdistämisen, jotta projekti toimii oikein.",
+      "Action": "Yhdistä ohjaimia"
+    },
+    "SimConnectionLost": {
+      "Title": "Yhteys katkesi",
+      "Description": "Yhteys simulaattoriin {{simType}} katkesi."
+    },
+    "SimStopped": {
+      "Title": "Lentosimulaattori suljettu",
+      "Description": "Lentosimulaattori on suljettu, joten toiminta on pysäytetty. Käynnistä simulaattori uudelleen jatkaaksesi."
+    },
+    "TestModeException": {
+      "Title": "Virhe testitilassa",
+      "Description": "{{errorMessage}}"
+    }
+  },
+  "Startup": {
+    "Starting": "Käynnistetään MobiFlight...",
+    "CheckingFirmwareUpdates": "Tarkistetaan laiteohjelmiston päivityksiä...",
+    "ScanningControllers": "Etsitään yhdistettyjä ohjaimia...",
+    "LoadingLastConfig": "Ladataan viimeisintä konfiguraatiota...",
+    "Finished": "Valmis.",
+    "Test": {
+      "Loading": "Ladataan..."
+    }
+  },
+  "Feed": {
+    "Title": "Yhteisön uutiset",
+    "Description": "Uutisia ja päivityksiä MobiFlight-yhteisöltä.",
+    "NoPosts": "Ei uutisia saatavilla.",
+    "Filter": {
+      "all": "Kaikki",
+      "shop": "Tarjoukset",
+      "events": "Tapahtumat",
+      "community": "Yhteisö"
+    }
+  },
+  "Dialog": {
+    "General": {
+      "Cancel": "Peruuta",
+      "Close": "Sulje",
+      "SaveChanges": "Tallenna muutokset",
+      "ApplyChanges": "Käytä muutoksia"
+    },
+    "ControllerBinding": {
+      "Title": "Ohjainten yhdistäminen",
+      "Description": "Yhdistä projektissa käytetyt ohjaimet tietokoneeseen yhdistettyihin fyysisiin ohjaimiin.",
+      "Filter": {
+        "all": "Kaikki",
+        "manual": "Käsin yhdistettävät",
+        "autobind": "Automaattisesti yhdistetyt",
+        "missing": "Puuttuvat ohjaimet",
+        "match": "Vastaavat"
+      },
+      "ControllersInProject": "{{count}} projektissa käytettyä ohjainta",
+      "ConnectedControllers": "{{count}} PC:hen yhdistettyä ohjainta",
+      "AllSet": "Valmista! Kaikki käytetyt ohjaimet on yhdistetty."
+    }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Kirjaudu sisään",
+      "SignOut": "Kirjaudu ulos",
+      "Profile": "Profiili",
+      "ProfileFeatureComingSoon": "tulossa pian"
+    },
+    "Redirect": {
+      "SignIn": "Ohjataan kirjautumiseen...",
+      "SignOut": "Ohjataan uloskirjautumiseen...",
+      "CompletingFlow": "Viimeistellään...",
+      "FlowSuccessful": "Onnistui!"
+    },
+    "Notification": {
+      "Error": {
+        "Title": "Virhe tunnistautumisessa",
+        "Description": "Tunnistautumisen aikana tapahtui virhe.",
+        "ActionCopyToClipboard": "Kopioi viesti"
+      }
+    }
+  }
+}

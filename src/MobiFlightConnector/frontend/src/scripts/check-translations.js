@@ -11,7 +11,7 @@ const localesDir = path.join(__dirname, '../../public/locales');
 const enFilePath = path.join(localesDir, 'en/translation.json');
 
 // Define core languages
-const coreLanguages = ['en', 'de', 'es'];
+const coreLanguages = ['en', 'de', 'es', 'fi'];
 
 // Helper function to recursively get all keys from an object
 function getAllKeys(obj, prefix = '') {
