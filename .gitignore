@@ -494,3 +494,6 @@ Python/*
 # Playwright test artifacts
 frontend/playwright-report/*
 frontend/test-results/*
+
+# devcontainer lock file
+devcontainer-lock.json
