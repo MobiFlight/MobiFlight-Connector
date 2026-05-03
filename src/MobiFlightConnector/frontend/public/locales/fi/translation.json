@@ -44,7 +44,7 @@
       }
     },
     "Extras": {
-      "Label" : "Lisätoiminnot",
+      "Label": "Lisätoiminnot",
       "HubHop.DownloadLatestPresets": "Lataa uusimmat ohjauskomennot",
       "MSFS.ReinstallWASMModule": "Asenna WASM-moduuli uudelleen",
       "CopyLogs": "Kopioi loki leikepöydälle",
