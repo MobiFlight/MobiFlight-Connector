@@ -313,6 +313,10 @@
     "TestModeException": {
       "Title": "Virhe testitilassa",
       "Description": "{{errorMessage}}"
+    },
+    "ProjectFileLoadError": {
+      "Title": "Projektin lataaminen epäonnistui",
+      "Description": "Virhe avattaessa tiedostoa {{fileName}} - {{errorMessage}}"
     }
   },
   "Startup": {
