@@ -1,0 +1,36 @@
+name: Comment translation statistics
+
+on:
+  workflow_run:
+    workflows: ["Check translations"]
+    types:
+      - completed
+
+jobs:
+  comment:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.pull_requests[0] != null
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Download translation stats
+        uses: actions/download-artifact@v4
+        with:
+          name: translation-stats
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: translation-stats
+
+      - name: Post translation stats
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          path: translation-stats/translation-stats.md
+          header: translation-stats
