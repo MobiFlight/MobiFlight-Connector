@@ -23,11 +23,11 @@ jobs:
       run: npm run lint
     - name: Run Playwright tests
       env:
-        TESTS_MEMBER_EMAIL: ${{ env.TESTS_MEMBER_EMAIL }}
-        TESTS_MEMBER_NAME: ${{ env.TESTS_MEMBER_NAME }}
+        TESTS_MEMBER_EMAIL: ${{ vars.TESTS_MEMBER_EMAIL }}
+        TESTS_MEMBER_NAME: ${{ vars.TESTS_MEMBER_NAME }}
         TESTS_MEMBER_PASSWORD: ${{ secrets.TESTS_MEMBER_PASSWORD }}
-        TESTS_BASIC_EMAIL: ${{ env.TESTS_BASIC_EMAIL }}
-        TESTS_BASIC_NAME: ${{ env.TESTS_BASIC_NAME }}
+        TESTS_BASIC_EMAIL: ${{ vars.TESTS_BASIC_EMAIL }}
+        TESTS_BASIC_NAME: ${{ vars.TESTS_BASIC_NAME }}
         TESTS_BASIC_PASSWORD: ${{ secrets.TESTS_BASIC_PASSWORD }}
       run: npx playwright test
     - uses: actions/upload-artifact@v7
