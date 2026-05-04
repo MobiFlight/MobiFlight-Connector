@@ -30,7 +30,7 @@ jobs:
         run: echo "$(node src/scripts/check-translations.js)" > translation-stats.md
 
       - name: Upload translation statistics
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: translation-stats
           path: src/MobiFlightConnector/frontend/translation-stats.md
