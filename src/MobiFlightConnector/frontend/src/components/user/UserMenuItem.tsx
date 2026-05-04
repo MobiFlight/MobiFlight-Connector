@@ -184,8 +184,7 @@ const UserMenuItem = () => {
           <DropdownMenuItem className="flex cursor-default flex-row justify-center px-2 pt-0 focus:bg-transparent">
             {memberStatus === "member" ? (
               <Badge
-                variant="default"
-                className="flex flex-row items-center gap-2 rounded-full bg-pink-600 px-1 pr-2 my-2"
+                className="flex flex-row items-center gap-2 rounded-full bg-pink-600 hover:bg-pink-600 px-1 pr-2 my-2"
               >
                 <IconRosetteDiscountCheckFilled />
                 <span className="text-sm">{t("Membership.Status.Member")}</span>
