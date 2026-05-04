@@ -179,7 +179,7 @@ const UserMenuItem = () => {
         <MenubarSeparator />
         <div className="-mx-2 bg-linear-to-br from-sky-500 to-emerald-500 px-2">
           <DropdownMenuLabel className="text-md text-background pb-0">
-            MobiFlight Club
+            {t("Membership.Club")}
           </DropdownMenuLabel>
           <DropdownMenuItem className="flex cursor-default flex-row justify-center px-2 pt-0 focus:bg-transparent">
             {memberStatus === "member" ? (

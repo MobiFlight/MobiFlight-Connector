@@ -390,6 +390,7 @@
     }
   },
   "Membership": {
+    "Club": "Club MobiFlight",
     "Status": {
       "Member": "Miembro del Club",
       "Basic": "Cuenta básica"

@@ -44,7 +44,7 @@
       }
     },
     "Extras": {
-      "Label" : "Extras",
+      "Label": "Extras",
       "HubHop.DownloadLatestPresets": "Lade die neuesten Presets herunter",
       "MSFS.ReinstallWASMModule": "WASM-Modul neu installieren",
       "CopyLogs": "Logs in die Zwischenablage kopieren",
@@ -375,21 +375,22 @@
       "Profile": "Profil",
       "ProfileFeatureComingSoon": "kommt bald"
     },
-    "Redirect" : {
+    "Redirect": {
       "SignIn": "Weiterleitung zur Anmeldung...",
       "SignOut": "Weiterleitung zur Abmeldung...",
       "CompletingFlow": "Vorgang wird abgeschlossen...",
       "FlowSuccessful": "Erfolgreich!"
     },
-    "Notification":{
+    "Notification": {
       "Error": {
-        "Title":"Fehler bei der Authentifizierung",
+        "Title": "Fehler bei der Authentifizierung",
         "Description": "Bei der Authentifizierung ist ein Fehler aufgetreten.",
         "ActionCopyToClipboard": "Nachricht kopieren"
       }
     }
   },
   "Membership": {
+    "Club": "MobiFlight Club",
     "Status": {
       "Member": "Club-Mitglied",
       "Basic": "Basis-Account"

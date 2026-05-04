@@ -384,6 +384,7 @@
     }
   },
   "Membership": {
+    "Club": "MobiFlight Club",
     "Status": {
       "Member": "Club Member",
       "Basic": "Basic Account"
