@@ -388,5 +388,14 @@
         "ActionCopyToClipboard": "Nachricht kopieren"
       }
     }
+  },
+  "Membership": {
+    "Status": {
+      "Member": "Club-Mitglied",
+      "Basic": "Basis-Account"
+    },
+    "Action": {
+      "Upgrade": "Upgrade"
+    }
   }
 }

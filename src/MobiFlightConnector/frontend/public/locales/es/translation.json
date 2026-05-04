@@ -388,5 +388,14 @@
         "ActionCopyToClipboard": "Copiar mensaje"
       }
     }
+  },
+  "Membership": {
+    "Status": {
+      "Member": "Miembro del Club",
+      "Basic": "Cuenta básica"
+    },
+    "Action": {
+      "Upgrade": "Mejorar plan"
+    }
   }
 }
