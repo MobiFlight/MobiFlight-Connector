@@ -34,5 +34,5 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
-        path: frontend/playwright-report/
+        path: src/MobiFlightConnector/frontend/playwright-report/
         retention-days: 30
