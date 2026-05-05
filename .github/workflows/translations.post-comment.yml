@@ -24,7 +24,6 @@ jobs:
         with:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: "translation-stats|pr-number"
           merge-multiple: false
 
       - name: Read PR number
