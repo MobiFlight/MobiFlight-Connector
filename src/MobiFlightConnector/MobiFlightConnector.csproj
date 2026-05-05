@@ -470,6 +470,8 @@
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
     <Compile Include="MobiFlight\FirmwareFeature.cs" />
     <Compile Include="MobiFlight\InputEventArgs.cs" />
+    <Compile Include="MobiFlight\Modifier\Quantize.cs" />
+    <Compile Include="MobiFlight\Modifier\SimpleMovingAverage.cs" />
     <Compile Include="MobiFlight\Monitors\DeviceMonitor.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />

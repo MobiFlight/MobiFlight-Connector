@@ -1,8 +1,10 @@
 ﻿using Device.Net;
 using Hid.Net;
 using Hid.Net.Windows;
+using MobiFlight.Modifier;
 using SharpDX.DirectInput;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +13,13 @@ namespace MobiFlight.Joysticks.Bodnar
 {
     internal class BodnarBoard : Joystick
     {
+        /// <summary>
+        /// The threshold for axis changes to trigger events. 
+        /// This helps to avoid noise and small fluctuations from triggering events.
+        /// </summary>
+        readonly int AxisChangeThreshold = 16;
+        readonly int WindowSize = 8;
+
         /// <summary>
         /// Used for reading HID reports in a background thread.
         /// </summary>
@@ -60,6 +69,9 @@ namespace MobiFlight.Joysticks.Bodnar
         {
             report = new BodnarReport(buttonCount);
         }
+
+        List<ModifierBase> axisFilter = new List<ModifierBase>();
+        List<ModifierBase> axisFilter2 = new List<ModifierBase>();
 
         /// <summary>
         /// This creates a connection to the HID device using the Device.Net library.
@@ -117,7 +129,7 @@ namespace MobiFlight.Joysticks.Bodnar
                     var data = HidReport.TransferResult.Data;
                     ProcessInputReportBuffer(HidReport.ReportId, data);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     // Exception when disconnecting while mobiflight is running.
                     Log.Instance.log($"{Name} disconnected because of exception: {ex}", LogSeverity.Error);
@@ -172,8 +184,6 @@ namespace MobiFlight.Joysticks.Bodnar
         /// <param name="newState">The new joystick state to compare against.</param>
         protected override void UpdateAxis(JoystickState newState)
         {
-            double Alpha = 0.25;
-
             for (int CurrentAxis = 0; CurrentAxis != Axes.Count; CurrentAxis++)
             {
 
@@ -184,12 +194,16 @@ namespace MobiFlight.Joysticks.Bodnar
                 }
 
                 int newValue = GetValueForAxisFromState(CurrentAxis, newState);
-                newValue = (int)Math.Round(Alpha * newValue + (1.0 - Alpha) * oldValue);
 
-                if (StateExists()) 
-                    SetStateValueForAxis(CurrentAxis, newState, newValue);
+                int filteredValue = (int)Math.Round(axisFilter[CurrentAxis].Apply(new ConnectorValue() { Float64 = newValue }, null).Float64);
+                filteredValue = (int)Math.Round(axisFilter2[CurrentAxis].Apply(new ConnectorValue() { Float64 = filteredValue }, null).Float64);
 
-                if (StateExists() && !ExceedsThreshold(oldValue, newValue)) continue;
+                SetStateValueForAxis(CurrentAxis, newState, filteredValue);
+
+                if (oldValue == filteredValue)
+                {
+                    continue;
+                }
 
                 TriggerButtonPressed(this, new InputEventArgs()
                 {
@@ -198,7 +212,7 @@ namespace MobiFlight.Joysticks.Bodnar
                     DeviceLabel = Axes[CurrentAxis].Label,
                     Serial = Serial,
                     Type = DeviceType.AnalogInput,
-                    Value = newValue
+                    Value = filteredValue
                 });
             }
         }
@@ -217,17 +231,6 @@ namespace MobiFlight.Joysticks.Bodnar
             {
                 state.GetType().GetProperty(RawAxisName).SetValue(state, (int)value, null);
             }
-        }
-
-        /// <summary>
-        /// Tests if the change in axis value exceeds the defined threshold.
-        /// </summary>
-        /// <param name="oldValue">The old joystick value</param>
-        /// <param name="newValue">The new joystick value to compare.</param>
-        /// <returns>True if the change exceeds the threshold; otherwise, false.</returns>
-        private static bool ExceedsThreshold(int oldValue, int newValue)
-        {
-            return Math.Abs(oldValue - newValue) >= 2 << 3;
         }
 
         protected override void EnumerateDevices()
@@ -257,6 +260,11 @@ namespace MobiFlight.Joysticks.Bodnar
                     continue;
                 }
             }
+
+            axisFilter.Clear();
+            axisFilter.AddRange(Axes.Select(a => new Quantize() { StepSize = AxisChangeThreshold, Active = true }));
+            axisFilter2.Clear();
+            axisFilter2.AddRange(Axes.Select(a => new SimpleMovingAverage() { WindowSize = WindowSize, Active = true }));
         }
     }
 }
