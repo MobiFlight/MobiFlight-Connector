@@ -41,6 +41,15 @@ test.describe("User without authentication", () => {
 })
 
 test.describe("Confirm community toolbar works for basic user", () => {
+  const basicEmail = process.env.TESTS_BASIC_EMAIL
+  const basicPassword = process.env.TESTS_BASIC_PASSWORD
+  const basicName = process.env.TESTS_BASIC_NAME
+
+  test.skip(
+    !basicEmail || !basicPassword || !basicName,
+    "Skipping community toolbar tests for basic user: required secrets are missing. This typically happens on a PR from a fork where secrets are not available.",
+  )
+
   test.use({ storageState: "./tests/.auth/basic.json" })
   test("Confirm community buttons in toolbar behave as expected", async ({
     configListPage,
@@ -57,6 +66,15 @@ test.describe("Confirm community toolbar works for basic user", () => {
 })
 
 test.describe("Confirm community toolbar works for member user", () => {
+  const memberEmail = process.env.TESTS_MEMBER_EMAIL
+  const memberPassword = process.env.TESTS_MEMBER_PASSWORD
+  const memberName = process.env.TESTS_MEMBER_NAME
+
+  test.skip(
+    !memberEmail || !memberPassword || !memberName,
+    "Skipping community toolbar tests for member user: required secrets are missing. This typically happens on a PR from a fork where secrets are not available.",
+  )
+
   test.use({ storageState: "./tests/.auth/member.json" })
   test("Confirm community buttons in toolbar behave as expected", async ({
     configListPage,
