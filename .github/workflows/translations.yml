@@ -35,14 +35,15 @@ jobs:
           name: translation-stats
           path: src/MobiFlightConnector/frontend/translation-stats.md
           if-no-files-found: error
+          
       - name: Save PR number
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: echo "$PR_NUMBER" > pr-number.txt
+        run: echo "$PR_NUMBER" > "${{ github.workspace }}/pr-number.txt"
 
       - name: Upload PR number
         uses: actions/upload-artifact@v4
         with:
           name: pr-number
-          path: pr-number.txt
+          path: ${{ github.workspace }}/pr-number.txt
           if-no-files-found: warn
