@@ -12,38 +12,41 @@ jobs:
   check-translations:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src/MobiFlightConnector/frontend
+    env:
+      FRONTEND_DIR: src/MobiFlightConnector/frontend
+      TMP_DIR: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: lts/*
       - name: Install dependencies
+        working-directory: ${{ env.FRONTEND_DIR }}
         run: npm ci
 
       - name: Check Translations
+        working-directory: ${{ env.FRONTEND_DIR }}
         run: node src/scripts/check-translations.js
 
       - name: Generate Translation Statistics as Markdown
-        run: echo "$(node src/scripts/check-translations.js)" > translation-stats.md
+        working-directory: ${{ env.FRONTEND_DIR }}
+        run: echo "$(node src/scripts/check-translations.js)" > "${{ env.TMP_DIR }}/translation-stats.md"
 
       - name: Upload translation statistics
         uses: actions/upload-artifact@v7
         with:
           name: translation-stats
-          path: src/MobiFlightConnector/frontend/translation-stats.md
+          path: ${{ env.TMP_DIR }}/translation-stats.md
           if-no-files-found: error
           
       - name: Save PR number
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: echo "$PR_NUMBER" > "${{ github.workspace }}/pr-number.txt"
+        run: echo "$PR_NUMBER" > "${{ env.TMP_DIR }}/pr-number.txt"
 
       - name: Upload PR number
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pr-number
-          path: ${{ github.workspace }}/pr-number.txt
+          path: ${{ env.TMP_DIR }}/pr-number.txt
           if-no-files-found: warn
