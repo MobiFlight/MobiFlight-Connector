@@ -19,7 +19,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Download artifacts
+      - name: Download translation stats and PR number
         uses: actions/download-artifact@v4
         with:
           run-id: ${{ github.event.workflow_run.id }}
