@@ -382,5 +382,15 @@
         "ActionCopyToClipboard": "Kopioi viesti"
       }
     }
+  },
+  "Membership": {
+    "Club": "MobiFlight Club",
+    "Status": {
+      "Member": "Klubin jäsen",
+      "Basic": "Perustaso"
+    },
+    "Action": {
+      "Upgrade": "Nosta tasoa"
+    }
   }
 }
