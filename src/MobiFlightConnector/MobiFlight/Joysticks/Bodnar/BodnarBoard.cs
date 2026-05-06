@@ -17,7 +17,7 @@ namespace MobiFlight.Joysticks.Bodnar
         /// The threshold for axis changes to trigger events. 
         /// This helps to avoid noise and small fluctuations from triggering events.
         /// </summary>
-        readonly int AxisChangeThreshold = 16;
+        readonly int AxisChangeThreshold = 32;
         readonly int WindowSize = 8;
 
         /// <summary>
@@ -70,8 +70,7 @@ namespace MobiFlight.Joysticks.Bodnar
             report = new BodnarReport(buttonCount);
         }
 
-        List<ModifierBase> axisFilter = new List<ModifierBase>();
-        List<ModifierBase> axisFilter2 = new List<ModifierBase>();
+        List<List<ModifierBase>> axisFilter = new List<List<ModifierBase>>();
 
         /// <summary>
         /// This creates a connection to the HID device using the Device.Net library.
@@ -195,8 +194,11 @@ namespace MobiFlight.Joysticks.Bodnar
 
                 int newValue = GetValueForAxisFromState(CurrentAxis, newState);
 
-                int filteredValue = (int)Math.Round(axisFilter[CurrentAxis].Apply(new ConnectorValue() { Float64 = newValue }, null).Float64);
-                filteredValue = (int)Math.Round(axisFilter2[CurrentAxis].Apply(new ConnectorValue() { Float64 = filteredValue }, null).Float64);
+                int filteredValue = newValue;
+                foreach (var item in axisFilter[CurrentAxis])
+                {
+                    filteredValue = (int)Math.Round(item.Apply(new ConnectorValue() { Float64 = filteredValue }, null).Float64);
+                }
 
                 SetStateValueForAxis(CurrentAxis, newState, filteredValue);
 
@@ -262,9 +264,12 @@ namespace MobiFlight.Joysticks.Bodnar
             }
 
             axisFilter.Clear();
-            axisFilter.AddRange(Axes.Select(a => new Quantize() { StepSize = AxisChangeThreshold, Active = true }));
-            axisFilter2.Clear();
-            axisFilter2.AddRange(Axes.Select(a => new SimpleMovingAverage() { WindowSize = WindowSize, Active = true }));
+            axisFilter.AddRange(
+                Axes.Select(a => new List<ModifierBase>() { 
+                    new Quantize() { StepSize = AxisChangeThreshold, Active = true }, 
+                    new SimpleMovingAverage() { WindowSize = WindowSize, Active = true } 
+                })
+            );
         }
     }
 }
