@@ -15,6 +15,9 @@ changelog:
       labels:
         - firmware
         - profile
+    - title: New UI Language 🌍  
+      labels:
+        - i18n
     - title: Improvement ✨
       labels:
         - enhancement
