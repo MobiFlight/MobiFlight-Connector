@@ -46,10 +46,10 @@ namespace MobiFlight.Modifier.Tests
             var q = Default();
 
             // Act
-            var result = q.Apply(CV(1000), NoRefs);
+            var result = q.Apply(CV(1024), NoRefs);
 
             // Assert
-            Assert.AreEqual(1000, result.Float64);
+            Assert.AreEqual(1024, result.Float64);
         }
 
         [TestMethod]
@@ -100,13 +100,13 @@ namespace MobiFlight.Modifier.Tests
         {
             // Arrange
             var q = Default();
-            q.Apply(CV(1000), NoRefs);
+            q.Apply(CV(1024), NoRefs);
 
-            // Act & Assert — values 993-1007 all quantize to 1000
-            for (int raw = 993; raw <= 1007; raw++)
+            // Act & Assert — values 1016-1031 all quantize to 1024
+            for (int raw = 1016; raw < 1032; raw++)
             {
                 var result = q.Apply(CV(raw), NoRefs);
-                Assert.AreEqual(1000, result.Float64, $"Unexpected change at raw={raw}");
+                Assert.AreEqual(1024, result.Float64, $"Unexpected change at raw={raw}");
             }
         }
 
@@ -115,13 +115,13 @@ namespace MobiFlight.Modifier.Tests
         {
             // Arrange
             var q = Default();
-            q.Apply(CV(1000), NoRefs);
+            q.Apply(CV(1024), NoRefs);
 
             // Act
-            var result = q.Apply(CV(1000), NoRefs);
+            var result = q.Apply(CV(1024), NoRefs);
 
             // Assert
-            Assert.AreEqual(1000, result.Float64);
+            Assert.AreEqual(1024, result.Float64);
         }
 
         #endregion
@@ -133,7 +133,7 @@ namespace MobiFlight.Modifier.Tests
         {
             // Arrange
             var q = Default();
-            q.Apply(CV(1000), NoRefs);
+            q.Apply(CV(1024), NoRefs);
 
             // Act
             var result = q.Apply(CV(1009), NoRefs);
@@ -147,13 +147,13 @@ namespace MobiFlight.Modifier.Tests
         {
             // Arrange
             var q = Default();
-            q.Apply(CV(1000), NoRefs);
+            q.Apply(CV(1024), NoRefs);
 
             // Act
-            var result = q.Apply(CV(5000), NoRefs);
+            var result = q.Apply(CV(4096), NoRefs);
 
             // Assert
-            Assert.AreEqual(5000, result.Float64);
+            Assert.AreEqual(4096, result.Float64);
         }
 
         #endregion
@@ -165,14 +165,14 @@ namespace MobiFlight.Modifier.Tests
         {
             // Arrange
             var q = Default();
-            q.Apply(CV(1000), NoRefs);
+            q.Apply(CV(1024), NoRefs);
 
             // Act
             var clone = (Quantize)q.Clone();
             q.Apply(CV(2000), NoRefs);
 
             // Assert
-            Assert.AreEqual(1000, clone.Apply(CV(1000), NoRefs).Float64,
+            Assert.AreEqual(1024, clone.Apply(CV(1024), NoRefs).Float64,
                 "Clone should be independent of original");
         }
 
