@@ -1,7 +1,6 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
 using MobiFlight.Config;
-using MobiFlight.Modifier;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
@@ -228,7 +227,6 @@ namespace MobiFlight
         /// the look up table with the last set values
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
-        Dictionary<string, ExponentialAverage> analogInputFilter = new Dictionary<string, ExponentialAverage>();
 
         public Board Board { get; set; }
 
@@ -713,25 +711,10 @@ namespace MobiFlight
         {
             String name = arguments.ReadStringArg();
             String strValue = arguments.ReadStringArg();
-            string filterKey = name;
 
             if (!int.TryParse(strValue, out int value))
             {
                 Log.Instance.log($"Unable to convert {strValue} to an integer.", LogSeverity.Error);
-                return;
-            }
-
-            if (!analogInputFilter.TryGetValue(filterKey, out ExponentialAverage filter))
-            {
-                filter = new ExponentialAverage() { Active = true };
-                analogInputFilter[filterKey] = filter;
-            }
-
-            var lastFilteredValue = filter.FilteredValue;
-            var filteredValue = filter.Apply(new ConnectorValue() { Float64 = value }, null);
-
-            if (Math.Round(filteredValue.Float64) == Math.Round(lastFilteredValue))
-            {
                 return;
             }
             
@@ -742,7 +725,7 @@ namespace MobiFlight
                 DeviceId = name,
                 DeviceLabel = name,
                 Type = DeviceType.AnalogInput,
-                Value = (int)Math.Round(filteredValue.Float64)
+                Value = value
             });
         }
 
@@ -1353,7 +1336,6 @@ namespace MobiFlight
         {
             // Always clear the cache
             lastValue.Clear();
-            analogInputFilter.Clear();
 
             // we have to make sure to not send messages
             // when we are not connected
