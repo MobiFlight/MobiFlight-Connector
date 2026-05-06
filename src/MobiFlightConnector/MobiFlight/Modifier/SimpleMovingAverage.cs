@@ -16,10 +16,6 @@ namespace MobiFlight.Modifier
         /// </summary>
         public double Threshold { get; set; } = 32;
 
-        public double RailSnapDistance { get; set; } = 15;
-
-        public double RailMax { get; set; } = ushort.MaxValue;
-
         /// <summary>
         /// If the raw value jumps by more than this in a single report the window
         /// is re-seeded immediately so fast movements are never suppressed.
@@ -47,8 +43,6 @@ namespace MobiFlight.Modifier
             WindowSize = other.WindowSize;
             Threshold = other.Threshold;
             JumpResetThreshold = other.JumpResetThreshold;
-            RailMax = other.RailMax;
-            RailSnapDistance = other.RailSnapDistance;
             SmoothedValue = other.SmoothedValue;
             FilteredValue = other.FilteredValue;
             _bufferIndex = other._bufferIndex;
@@ -79,25 +73,12 @@ namespace MobiFlight.Modifier
             // Not XML serializable.
         }
 
-        /// <summary>
-        /// Snaps values near the ADC rails to the exact rail value.
-        /// This compensates for asymmetric noise at the extremes of the range
-        /// where the ADC cannot go beyond the rail, pulling the average away from it.
-        /// </summary>
-        private double ApplyRailSnap(double value)
-        {
-            if (value <= RailSnapDistance) return 0;
-            if (value >= RailMax - RailSnapDistance) return RailMax;
-            return value;
-        }
-
         public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
         {
             if (!Active) return connectorValue;
 
             var result = connectorValue.Clone() as ConnectorValue;
-            // Snap to rails before any filtering
-            double currentValue = ApplyRailSnap(connectorValue.Float64);
+            double currentValue = connectorValue.Float64;
 
             // Large jump — window is stale, re-seed from new value
             if (_initialized && Math.Abs(currentValue - SmoothedValue) > JumpResetThreshold)

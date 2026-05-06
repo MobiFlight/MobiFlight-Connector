@@ -259,7 +259,7 @@
     <Compile Include="MobiFlight\Controllers\ControllerBindingTests.cs" />
     <Compile Include="MobiFlight\ExecutionManagerTests.cs" />
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
-    <Compile Include="MobiFlight\ExponentialAverageTests.cs" />
+    <Compile Include="MobiFlight\Modifier\ExponentialAverageTests.cs" />
     <Compile Include="MobiFlight\InputEventArgsTests.cs" />
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactoryTests.cs" />
@@ -298,6 +298,7 @@
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ProSimInputActionTests.cs" />
+    <Compile Include="MobiFlight\Modifier\SimpleMovingAverageTest.cs" />
     <Compile Include="MobiFlight\Scripts\PythonEnvironmentTests.cs" />
     <Compile Include="ProSim\ProSimCacheTests.cs" />
     <Compile Include="ProSim\ProSimSourceTests.cs" />
