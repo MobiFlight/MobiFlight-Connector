@@ -73,6 +73,18 @@ namespace MobiFlight.Joysticks.Bodnar
         List<List<ModifierBase>> axisFilter = new List<List<ModifierBase>>();
 
         /// <summary>
+        /// Cached delegates for reading axis values — avoids reflection on every HID report.
+        /// Built once in EnumerateDevices after all axes are registered.
+        /// </summary>
+        private Func<JoystickState, int>[] _axisGetters;
+
+        /// <summary>
+        /// Cached delegates for writing axis values — avoids reflection on every HID report.
+        /// Built once in EnumerateDevices after all axes are registered.
+        /// </summary>
+        private Action<JoystickState, int>[] _axisSetters;
+
+        /// <summary>
         /// This creates a connection to the HID device using the Device.Net library.
         /// </summary>
         /// <returns>True if connection was successful, false otherwise.</returns>
@@ -189,10 +201,10 @@ namespace MobiFlight.Joysticks.Bodnar
                 int oldValue = 0;
                 if (StateExists())
                 {
-                    oldValue = GetValueForAxisFromState(CurrentAxis, State);
+                    oldValue = _axisGetters[CurrentAxis](State);
                 }
 
-                int newValue = GetValueForAxisFromState(CurrentAxis, newState);
+                int newValue = _axisGetters[CurrentAxis](newState);
 
                 int filteredValue = newValue;
                 foreach (var item in axisFilter[CurrentAxis])
@@ -200,7 +212,7 @@ namespace MobiFlight.Joysticks.Bodnar
                     filteredValue = (int)Math.Round(item.Apply(new ConnectorValue() { Float64 = filteredValue }, null).Float64);
                 }
 
-                SetStateValueForAxis(CurrentAxis, newState, filteredValue);
+                _axisSetters[CurrentAxis](newState, filteredValue);
 
                 if (oldValue == filteredValue)
                 {
@@ -216,22 +228,6 @@ namespace MobiFlight.Joysticks.Bodnar
                     Type = DeviceType.AnalogInput,
                     Value = filteredValue
                 });
-            }
-        }
-
-        private void SetStateValueForAxis(int currentAxis, JoystickState state, double value)
-        {
-            String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();
-            if (RawAxisName.Contains("Slider"))
-            {
-                byte index = 0;
-                if (RawAxisName == "Slider2") index = 1;
-
-                state.Sliders[index] = (int)value;
-            }
-            else
-            {
-                state.GetType().GetProperty(RawAxisName).SetValue(state, (int)value, null);
             }
         }
 
@@ -263,6 +259,9 @@ namespace MobiFlight.Joysticks.Bodnar
                 }
             }
 
+            // Build axis cache after all axes are registered
+            BuildAxisAccessMethods();
+
             axisFilter.Clear();
             axisFilter.AddRange(
                 Axes.Select(a => new List<ModifierBase>() { 
@@ -270,6 +269,33 @@ namespace MobiFlight.Joysticks.Bodnar
                     new SimpleMovingAverage() { WindowSize = WindowSize, Active = true } 
                 })
             );
+        }
+
+        /// <summary>
+        /// Builds cached getter and setter delegates for each axis to avoid
+        /// costly reflection lookups on every HID report.
+        /// </summary>
+        private void BuildAxisAccessMethods()
+        {
+            _axisGetters = new Func<JoystickState, int>[Axes.Count];
+            _axisSetters = new Action<JoystickState, int>[Axes.Count];
+
+            for (int i = 0; i < Axes.Count; i++)
+            {
+                var rawName = Axes[i].Name.Replace(AxisPrefix, "").TrimStart();
+                if (rawName.Contains("Slider"))
+                {
+                    int sliderIndex = rawName == "Slider2" ? 1 : 0;
+                    _axisGetters[i] = s => s.Sliders[sliderIndex];
+                    _axisSetters[i] = (s, v) => s.Sliders[sliderIndex] = v;
+                }
+                else
+                {
+                    var prop = typeof(JoystickState).GetProperty(rawName);
+                    _axisGetters[i] = s => (int)prop.GetValue(s, null);
+                    _axisSetters[i] = (s, v) => prop.SetValue(s, v, null);
+                }
+            }
         }
     }
 }
