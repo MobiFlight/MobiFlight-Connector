@@ -105,7 +105,7 @@ namespace MobiFlight.Modifier
 
             SmoothedValue = _windowSum / WindowSize;
 
-            if (Math.Abs(SmoothedValue - FilteredValue) > Threshold)
+            if (Math.Abs(SmoothedValue - FilteredValue) >= Threshold)
                 FilteredValue = SmoothedValue;
 
             result.Float64 = FilteredValue;

@@ -233,29 +233,34 @@ namespace MobiFlight.Joysticks.Bodnar
 
         protected override void EnumerateDevices()
         {
-            foreach (DeviceObjectInstance device in this.DIJoystick.GetObjects().ToList().OrderBy((a) => a.Usage))
+            // In unit test context
+            // This can be possibly null -> so we skip this part.
+            if (DIJoystick != null)
             {
-                this.DIJoystick.GetObjectInfoById(device.ObjectId);
+                foreach (DeviceObjectInstance device in this.DIJoystick.GetObjects().ToList().OrderBy((a) => a.Usage))
+                {
+                    this.DIJoystick.GetObjectInfoById(device.ObjectId);
 
-                bool IsAxis = (device.ObjectId.Flags & DeviceObjectTypeFlags.AbsoluteAxis) > 0;
-                bool IsButton = (device.ObjectId.Flags & DeviceObjectTypeFlags.Button) > 0;
-                bool IsPOV = (device.ObjectId.Flags & DeviceObjectTypeFlags.PointOfViewController) > 0;
+                    bool IsAxis = (device.ObjectId.Flags & DeviceObjectTypeFlags.AbsoluteAxis) > 0;
+                    bool IsButton = (device.ObjectId.Flags & DeviceObjectTypeFlags.Button) > 0;
+                    bool IsPOV = (device.ObjectId.Flags & DeviceObjectTypeFlags.PointOfViewController) > 0;
 
-                if (IsAxis && Axes.Count < DIJoystick.Capabilities.AxeCount)
-                {
-                    RegisterAxis(device);
-                }
-                else if (IsButton)
-                {
-                    RegisterButton(device);
-                }
-                else if (IsPOV)
-                {
-                    RegisterPOV(device);
-                }
-                else
-                {
-                    continue;
+                    if (IsAxis && Axes.Count < DIJoystick.Capabilities.AxeCount)
+                    {
+                        RegisterAxis(device);
+                    }
+                    else if (IsButton)
+                    {
+                        RegisterButton(device);
+                    }
+                    else if (IsPOV)
+                    {
+                        RegisterPOV(device);
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
 
@@ -264,9 +269,9 @@ namespace MobiFlight.Joysticks.Bodnar
 
             axisFilter.Clear();
             axisFilter.AddRange(
-                Axes.Select(a => new List<ModifierBase>() { 
-                    new Quantize() { StepSize = AxisChangeThreshold, Active = true }, 
-                    new SimpleMovingAverage() { WindowSize = WindowSize, Active = true } 
+                Axes.Select(a => new List<ModifierBase>() {
+                    new Quantize() { StepSize = AxisChangeThreshold, Active = true },
+                    new SimpleMovingAverage() { WindowSize = WindowSize, Active = true }
                 })
             );
         }
@@ -275,7 +280,7 @@ namespace MobiFlight.Joysticks.Bodnar
         /// Builds cached getter and setter delegates for each axis to avoid
         /// costly reflection lookups on every HID report.
         /// </summary>
-        private void BuildAxisAccessMethods()
+        protected void BuildAxisAccessMethods()
         {
             _axisGetters = new Func<JoystickState, int>[Axes.Count];
             _axisSetters = new Action<JoystickState, int>[Axes.Count];

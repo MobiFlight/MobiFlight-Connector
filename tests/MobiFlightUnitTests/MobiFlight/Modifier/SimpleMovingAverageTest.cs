@@ -147,6 +147,44 @@ namespace MobiFlight.Modifier.Tests
 
         #endregion
 
+        #region Threshold behavior
+
+        [TestMethod]
+        public void Apply_NewValueWithinThreshold_DoesNotEmit()
+        {
+            // Arrange
+            var sma = Default();
+            sma.Apply(CV(1024), NoRefs);
+
+            ConnectorValue result = null;
+            // Act
+            for (var i=0; i!=sma.WindowSize; ++i)
+            {
+                result = sma.Apply(CV(1024 + sma.Threshold-1), NoRefs);
+            }
+            // Assert
+            Assert.AreEqual(1024, result.Float64, "Large jump should re-seed and emit new value immediately");
+        }
+
+        [TestMethod]
+        public void Apply_NewValueWithinThreshold_Emits()
+        {
+            // Arrange
+            var sma = Default();
+            sma.Apply(CV(1024), NoRefs);
+
+            ConnectorValue result = null;
+            // Act
+            for (var i = 0; i != sma.WindowSize; ++i)
+            {
+                result = sma.Apply(CV(1024 + sma.Threshold), NoRefs);
+            }
+            // Assert
+            Assert.AreEqual(1024 + sma.Threshold, result.Float64, "Large jump should re-seed and emit new value immediately");
+        }
+
+        #endregion
+
         #region Clone
 
         [TestMethod]
