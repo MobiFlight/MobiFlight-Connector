@@ -307,9 +307,9 @@ namespace MobiFlight.Scripts
                 return aircraftDescription.Contains(scriptMapping.AircraftIdSnippet);
             }
 
-            if (!string.IsNullOrEmpty(scriptMapping.AircraftIdRegex))
+            if (!string.IsNullOrEmpty(scriptMapping.AircraftMatchPattern))
             {
-                return Regex.IsMatch(aircraftDescription, scriptMapping.AircraftIdRegex);
+                return Regex.IsMatch(aircraftDescription, scriptMapping.AircraftMatchPattern);
             }
 
             return false;
