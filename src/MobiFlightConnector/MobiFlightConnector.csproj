@@ -418,6 +418,7 @@
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoard.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
+    <Compile Include="MobiFlight\Joysticks\IIDB\IIDBDevices.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
     <Compile Include="MobiFlight\ControllerDefinitionMigrator.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDevice.cs" />
@@ -1310,6 +1311,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\bodnar\BU0836X.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\iidb\iidb_tiller_a32x_cpt.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\iidb\iidb_tiller_a32x_fo.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\vkbsim\s_tecs_modern_throttle_max.joystick.json">

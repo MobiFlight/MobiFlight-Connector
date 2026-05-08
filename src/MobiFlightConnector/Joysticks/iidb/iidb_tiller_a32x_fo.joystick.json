@@ -1,0 +1,21 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "IIDB Steering Tiller A32x FO",
+  "VendorId": "0x99DB",
+  "ProductId": "0x0103",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "PEDAL DISC"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Backlight",
+      "Id": "Backlight",
+      "Byte": 1,
+      "Bit": 0
+    }
+  ]
+}
