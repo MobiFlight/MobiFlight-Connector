@@ -302,14 +302,14 @@ namespace MobiFlight.Scripts
 
         private static bool AircraftMatchesScriptMapping(string aircraftDescription, ScriptMapping scriptMapping)
         {
-            if (!string.IsNullOrEmpty(scriptMapping.AircraftIdSnippet))
-            {
-                return aircraftDescription.Contains(scriptMapping.AircraftIdSnippet);
-            }
-
             if (!string.IsNullOrEmpty(scriptMapping.AircraftMatchPattern))
             {
                 return Regex.IsMatch(aircraftDescription, scriptMapping.AircraftMatchPattern);
+            }
+
+            if (!string.IsNullOrEmpty(scriptMapping.AircraftIdSnippet))
+            {
+                return aircraftDescription.Contains(scriptMapping.AircraftIdSnippet);
             }
 
             return false;
