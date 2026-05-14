@@ -37,7 +37,7 @@ namespace MobiFlight.Joysticks
             }
 
             // Check for IIDB devices
-            if (vendorId == IIDBDevices.IIDB_VENDOR_ID)
+            if (vendorId == IIDBDevice.IIDB_VENDOR_ID)
             {
                 return true;
             }
@@ -111,9 +111,9 @@ namespace MobiFlight.Joysticks
             }
 
             // Handle IIDB devices by vendor ID
-            if (vendorId == IIDBDevices.IIDB_VENDOR_ID)
+            if (vendorId == IIDBDevice.IIDB_VENDOR_ID)
             {
-                return new IIDBDevices(diJoystick, definition);
+                return new IIDBDevice(diJoystick, definition);
             }
 
             // Handle AuthentiKit by instance name
