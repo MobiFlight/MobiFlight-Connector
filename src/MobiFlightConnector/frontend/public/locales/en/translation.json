@@ -359,7 +359,10 @@
       },
       "ControllersInProject": "{{count}} Controllers used in project",
       "ConnectedControllers": "{{count}} Controllers connected to PC",
-      "AllSet": "All set! Your project is completely configured."
+      "AllSet": "All set! Your project is completely configured.",
+      "SelectController": "Select a controller",
+      "SearchPlaceholder": "Search controller...",
+      "NoControllerFound": "No controller found."
     }
   },
   "Auth": {

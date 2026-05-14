@@ -345,7 +345,7 @@
       "Cancel": "Peruuta",
       "Close": "Sulje",
       "SaveChanges": "Tallenna muutokset",
-      "ApplyChanges": "Käytä muutoksia"
+      "ApplyChanges": "Hyväksy muutokset"
     },
     "ControllerBinding": {
       "Title": "Ohjainten yhdistäminen",
@@ -359,7 +359,10 @@
       },
       "ControllersInProject": "{{count}} projektissa käytettyä ohjainta",
       "ConnectedControllers": "{{count}} PC:hen yhdistettyä ohjainta",
-      "AllSet": "Valmista! Kaikki käytetyt ohjaimet on yhdistetty."
+      "AllSet": "Valmista! Kaikki käytetyt ohjaimet on yhdistetty.",
+      "SelectController": "Valitse ohjain",
+      "SearchPlaceholder": "Etsi ohjainta...",
+      "NoControllerFound": "Ohjaimia ei löytynyt."
     }
   },
   "Auth": {
