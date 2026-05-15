@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card"
 import { Combobox, ComboboxContent, ComboboxInput, ComboboxItem } from "@/components/ui/combobox"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import { useControllerStore } from "@/stores/controllerStore"
 import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import { IConfigItem } from "@/types"
@@ -33,39 +34,7 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
           <TabsTrigger value="config-references">Config References</TabsTrigger>
         </TabsList>
         <TabsContent value="input" className="flex flex-col gap-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Define trigger</CardTitle>
-              <CardDescription>
-                The trigger defines the conditions or events that will activate
-                this configuration.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-row gap-4">
-              <Combobox>
-                <ComboboxInput className="flex-1" placeholder="Select controller..." />
-                <ComboboxContent>
-                  <ComboboxItem value="button">oUTGPUT</ComboboxItem>
-                  <ComboboxItem value="axis">Axis</ComboboxItem>
-                  <ComboboxItem value="midi">MIDI</ComboboxItem>
-                  <ComboboxItem value="virtual">Virtual</ComboboxItem>
-                </ComboboxContent>
-              </Combobox>
-              <Combobox>
-                <ComboboxInput className="flex-1" placeholder="Select device..." />
-                <ComboboxContent>
-                  <ComboboxItem value="button">oUTGPUT</ComboboxItem>
-                  <ComboboxItem value="axis">Axis</ComboboxItem>
-                  <ComboboxItem value="midi">MIDI</ComboboxItem>
-                  <ComboboxItem value="virtual">Virtual</ComboboxItem>
-                </ComboboxContent>
-              </Combobox>
-              <Button variant="outline" className="flex-1">
-                Scan for input
-              </Button>
-            </CardContent>
-          </Card>
-
+          <ConfigTrigger configItem={configItem} setConfigItem={() => {}} />
           <Card>
             <CardHeader>
               <CardTitle>Modify</CardTitle>

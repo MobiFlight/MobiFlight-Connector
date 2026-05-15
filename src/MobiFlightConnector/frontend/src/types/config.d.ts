@@ -1,4 +1,5 @@
 import { DeviceElementType } from "./deviceElements"
+import { Controller } from "./controller"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {

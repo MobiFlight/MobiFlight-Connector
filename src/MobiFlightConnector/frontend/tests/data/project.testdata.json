@@ -539,6 +539,35 @@
           "Name": "Output Config With Input Action",
           "Type": "OutputConfigItem",
           "Controller": null
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "MSFS2020CustomInputAction",
+              "Command": "(>K:AP_MASTER)",
+              "PresetId": "b17146c8-2db3-4239-b797-e7bc11d557da"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 21"
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button 21",
+          "GUID": "91f6588d-5cf5-4306-a1a0-1cadca0951fd",
+          "Active": true,
+          "Name": "AP Knob - ALT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Bravo Throttle Quadrant",
+            "Serial": "JS-87654321"
+          }
         }
       ],
       "EmbedContent": true,
