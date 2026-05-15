@@ -14,7 +14,7 @@ export interface IConfigValueOnlyItem {
 
 export interface IConfigItem extends IConfigValueOnlyItem {
   Active: boolean
-  Type: string
+  Type: ConfigItemType
   // This is the name of the config item
   Name: string
   // name / serial of the device
