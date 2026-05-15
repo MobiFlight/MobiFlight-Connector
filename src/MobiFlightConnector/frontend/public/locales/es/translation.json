@@ -365,7 +365,10 @@
       },
       "ControllersInProject": "{{count}} controladores usados en el proyecto",
       "ConnectedControllers": "{{count}} controladores conectados a la PC",
-      "AllSet": "¡Todo listo! Tu proyecto está completamente configurado."
+      "AllSet": "¡Todo listo! Tu proyecto está completamente configurado.",
+      "SelectController": "Seleccionar un controlador",
+      "SearchPlaceholder": "Buscar controlador...",
+      "NoControllerFound": "No se encontró ningún controlador."
     }
   },
   "Auth": {

@@ -365,7 +365,10 @@
       },
       "ControllersInProject": "{{count}} Controller im Projekt verwendet",
       "ConnectedControllers": "{{count}} Controller mit PC verbunden",
-      "AllSet": "Alles bereit! Dein Projekt ist vollständig konfiguriert."
+      "AllSet": "Alles bereit! Dein Projekt ist vollständig konfiguriert.",
+      "SelectController": "Controller auswählen",
+      "SearchPlaceholder": "Controller suchen...",
+      "NoControllerFound": "Kein Controller gefunden."
     }
   },
   "Auth": {
