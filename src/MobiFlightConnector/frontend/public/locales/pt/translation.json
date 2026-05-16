@@ -313,6 +313,10 @@
     "TestModeException": {
       "Title": "Erro no modo de teste",
       "Description": "{{errorMessage}}"
+    },
+    "ProjectFileLoadError": {
+      "Title": "O projeto não pôde ser caregado",
+      "Description": "Um erro ocorreu ao carregar {{fileName}} - {{errorMessage}}"
     }
   },
   "Startup": {
@@ -377,6 +381,16 @@
         "Description": "Ocorreu um erro durante a autenticação.",
         "ActionCopyToClipboard": "Copiar mensagem"
       }
+    }
+  },
+  "Membership": {
+    "Club": "MobiFlight Club",
+    "Status": {
+      "Member": "Membro do Clube",
+      "Basic": "Conta Básica"
+    },
+    "Action": {
+      "Upgrade": "Atualizar"
     }
   }
 }
