@@ -104,7 +104,7 @@ Function RegisterFileAssociations
     # Configure MobiFlight.Project class
     WriteRegStr HKCU "Software\Classes\MobiFlight.Project" "" "MobiFlight Project"
     WriteRegStr HKCU "Software\Classes\MobiFlight.Project\DefaultIcon" "" "$INSTDIR\mobiflight.ico"
-    WriteRegStr HKCU "Software\Classes\MobiFlight.Project\shell\open\command" "" "$\"$INSTDIR\MFConnector.exe$\" $\"%1$\""
+    WriteRegStr HKCU "Software\Classes\MobiFlight.Project\shell\open\command" "" "$\"$INSTDIR\MFConnector.exe$\" /cfg $\"%1$\""
     
     # Notify Windows of file association changes
     System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
