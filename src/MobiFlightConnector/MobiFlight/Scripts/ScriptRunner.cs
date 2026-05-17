@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -299,6 +300,21 @@ namespace MobiFlight.Scripts
             }
         }
 
+        private static bool AircraftMatchesScriptMapping(string aircraftDescription, ScriptMapping scriptMapping)
+        {
+            if (!string.IsNullOrEmpty(scriptMapping.AircraftMatchPattern))
+            {
+                return Regex.IsMatch(aircraftDescription, scriptMapping.AircraftMatchPattern);
+            }
+
+            if (!string.IsNullOrEmpty(scriptMapping.AircraftIdSnippet))
+            {
+                return aircraftDescription.Contains(scriptMapping.AircraftIdSnippet);
+            }
+
+            return false;
+        }
+
         private void CheckAndExecuteScripts(string aircraftDescription)
         {
             var executionList = new List<string>();
@@ -321,7 +337,7 @@ namespace MobiFlight.Scripts
                         // Hardware found, now compare aircraft 
                         foreach (var config in MappingDictionary[hardwareId])
                         {
-                            if (aircraftDescription.Contains(config.AircraftIdSnippet))
+                            if (AircraftMatchesScriptMapping(aircraftDescription, config))
                             {
                                 if (!GameControllersWithScripts.Contains(gameController))
                                 {

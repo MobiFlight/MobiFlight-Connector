@@ -3,169 +3,169 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "fslabs a3",
+      "AircraftMatchPattern": "fslabs a3",
       "ScriptName": "fslabs_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "inibuilds-a340",
+      "AircraftMatchPattern": "inibuilds-a340",
       "ScriptName": "ini_a340_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "fnx_3",
+      "AircraftMatchPattern": "fnx_3",
       "ScriptName": "fenix_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "pmdg 737",
+      "AircraftMatchPattern": "pmdg 737",
       "ScriptName": "pmdg_737_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "pmdg 777",
+      "AircraftMatchPattern": "pmdg 777",
       "ScriptName": "pmdg_777_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "ifly 737",
+      "AircraftMatchPattern": "ifly 737",
       "ScriptName": "ifly_737_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "design_md-11",
+      "AircraftMatchPattern": "design_md-11",
       "ScriptName": "tfdi_md11_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "prosim-a322",
+      "AircraftMatchPattern": "prosim-a322",
       "ScriptName": "prosim_a320_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "prosim-b73",
+      "AircraftMatchPattern": "prosim-b73",
       "ScriptName": "prosim_737_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "flybywire_a32",
+      "AircraftMatchPattern": "flybywire_a32",
       "ScriptName": "fbw_a32nx_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "maddog",
+      "AircraftMatchPattern": "maddog",
       "ScriptName": "maddogx_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "headwind_a33",
+      "AircraftMatchPattern": "headwind_a33",
       "ScriptName": "headwind_a33_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "aerosoft_crj",
+      "AircraftMatchPattern": "aerosoft_crj",
       "ScriptName": "aerosoft_crj_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "boeing 757",
+      "AircraftMatchPattern": "boeing 757",
       "ScriptName": "flightfactor_75_76.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "boeing 767",
+      "AircraftMatchPattern": "boeing 767",
       "ScriptName": "flightfactor_75_76.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "boeing 777",
+      "AircraftMatchPattern": "boeing 777",
       "ScriptName": "flightfactor_777v2.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "toliss",
+      "AircraftMatchPattern": "toliss",
       "ScriptName": "toliss_a3xx.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "boeing 737-",
+      "AircraftMatchPattern": "boeing 737-",
       "ScriptName": "zibo_737_800x.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "challenger 650",
+      "AircraftMatchPattern": "challenger 650",
       "ScriptName": "hotstart_cl650.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "rotate md-11",
+      "AircraftMatchPattern": "rotate md-11",
       "ScriptName": "rotate_md11.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "rotate md-80",
+      "AircraftMatchPattern": "rotate md-80",
       "ScriptName": "rotate_md80.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "microsoft-aircraft-ec135",
+      "AircraftMatchPattern": "microsoft-aircraft-ec135",
       "ScriptName": "microsoft_aircraft_ec135.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "A300",
+      "AircraftMatchPattern": "A300",
       "ScriptName": "ini_a300_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "mcdonnell douglas md-82",
+      "AircraftMatchPattern": "mcdonnell douglas md-82",
       "ScriptName": "xplane_default_fmc.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "q100",
+      "AircraftMatchPattern": "q100",
       "ScriptName": "xplane_default_fmc.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "airbus a330",
+      "AircraftMatchPattern": "^airbus a330",
       "ScriptName": "xplane_default_fmc.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "ixeg b-737",
+      "AircraftMatchPattern": "ixeg b-737",
       "ScriptName": "ixeg_737.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "boeing 747-400",
+      "AircraftMatchPattern": "boeing 747-400",
       "ScriptName": "laminar_747_400.py"
     }
   ]
