@@ -73,7 +73,7 @@ Section "install"
 
     ExecWait '"$INSTDIR\MobiFlight-Installer.exe" /installOnly'
  
-    # Register file associations for .mfproj and .mmc files
+    # Register file associations for .mfproj and .mcc files
     Call RegisterFileAssociations
  
     # create a shortcut named "new shortcut" in the start menu programs directory
