@@ -14,15 +14,19 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export type ComboBoxProps<T> = {
   items: T[]
-  selected: T
+  selected?: T
   getValue: (item: T) => string
   getLabel: (item: T) => string
-  isSelected: (item: T, selected: T) => boolean
-  setSelected: (item: T) => void
+  isSelected: (item: T, selected?: T) => boolean
+  setSelected: (item?: T) => void
+  placeholder?: string
+  searchPlaceholder?: string
+  emptyText?: string
+  disabled?: boolean
 }
 
 const ComboBox = <T,>({
@@ -32,13 +36,13 @@ const ComboBox = <T,>({
   getLabel,
   isSelected,
   setSelected,
+  placeholder = "Select...",
+  searchPlaceholder = "Search...",
+  emptyText = "No item found.",
+  disabled = false,
 }: ComboBoxProps<T>) => {
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState(getValue(selected))
-
-  useEffect(() => {
-    setSelected(items.find((item) => getValue(item) === value)!)
-  }, [value, items, setSelected, getValue])
+  const selectedValue = selected ? getValue(selected) : ""
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,25 +52,33 @@ const ComboBox = <T,>({
           role="combobox"
           aria-expanded={open}
           className="w-50 justify-between"
+          disabled={disabled}
         >
           {selected
-            ? getLabel(items.find((item) => isSelected(item, selected))!)
-            : "Select controller..."}
+            ? getLabel(items.find((item) => isSelected(item, selected)) ?? selected)
+            : placeholder}
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-50 p-0">
         <Command>
-          <CommandInput placeholder="Search controller..." className="h-9" />
+          <CommandInput placeholder={searchPlaceholder} className="h-9" />
           <CommandList>
-            <CommandEmpty>No controller found.</CommandEmpty>
+            <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
               {items.map((item) => (
                 <CommandItem
                   key={getValue(item)}
                   value={getValue(item)}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    if (currentValue === selectedValue) {
+                      setSelected(undefined)
+                    } else {
+                      const nextSelected = items.find(
+                        (nextItem) => getValue(nextItem) === currentValue,
+                      )
+                      setSelected(nextSelected)
+                    }
                     setOpen(false)
                   }}
                 >

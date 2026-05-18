@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Combobox, ComboboxContent, ComboboxInput, ComboboxItem } from "@/components/ui/combobox"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import { useControllerStore } from "@/stores/controllerStore"
@@ -35,22 +34,6 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
         </TabsList>
         <TabsContent value="input" className="flex flex-col gap-4">
           <ConfigTrigger configItem={configItem} setConfigItem={() => {}} />
-          <Card>
-            <CardHeader>
-              <CardTitle>Modify</CardTitle>
-              <CardDescription>
-                Modify the value provided by the selected trigger.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-row gap-4">
-              <div>Modifier input:</div>
-              <div>{configItem.RawValue}</div>
-              <div>Modifier result:</div>
-              <div>{configItem.Value}</div>
-              <Button>Edit modifiers</Button>
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader>
               <CardTitle>Action</CardTitle>
@@ -115,6 +98,10 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
           </p>
         </TabsContent>
       </Tabs>
+      <div className="flex flex-row justify-end gap-2">
+        <Button variant="outline">Cancel</Button>
+        <Button>Save</Button>
+      </div>
     </div>
   )
 }

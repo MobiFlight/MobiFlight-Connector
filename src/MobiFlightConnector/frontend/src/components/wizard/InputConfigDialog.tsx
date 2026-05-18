@@ -8,16 +8,23 @@ import {
 import ConfigWizard from "@/components/wizard/ConfigWizard"
 import { useProjectStore } from "@/stores/projectStore"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router"
 
+export type InputConfigDialogProps = {
+  configId: string
+}
 
-const InputConfigDialog = ({ configId }: { configId: string }) => {
+const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const { project, activeConfigFileIndex } = useProjectStore()
   const configFile = project?.ConfigFiles[activeConfigFileIndex]
   const configItem = configFile?.ConfigItems?.find((item) => item.GUID === configId)
-
+  
   return (
-    <Dialog open={true} onOpenChange={() => {}}>
+    <Dialog open={true} onOpenChange={() => {
+      navigate(-1)
+    }}>
       <DialogContent className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250">
         <DialogHeader>
           <DialogTitle className="text-2xl">
