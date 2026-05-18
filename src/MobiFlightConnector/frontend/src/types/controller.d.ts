@@ -1,5 +1,11 @@
 import { ControllerType } from "./config"
 
+export type BaseDevice = {
+  Name: string
+  Label: string
+  Type: string
+}
+
 export type Controller = {
   Name: string
   Vendor: string
@@ -11,6 +17,7 @@ export type Controller = {
   ImageUrl: string | null
   certified: boolean
   firmwareUpdate?: boolean
+  Devices: BaseDevice[]
 }
 
 export type ControllerBinding = {

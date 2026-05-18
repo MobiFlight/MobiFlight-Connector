@@ -157,11 +157,11 @@ export const useBackendStateAppMessages = () => {
             assert: { type: "json" },
           })
         ).default as Project
-        const testJsDefinition = (
+        const testJsDefinitions = (
           await import("@/../tests/data/joystick.definition.json", {
             assert: { type: "json" },
           })
-        ).default as JoystickDefinition
+        ).default as JoystickDefinition[]
         const testMidiDefinition = (
           await import("@/../tests/data/midicontroller.definition.json", {
             assert: { type: "json" },
@@ -180,7 +180,7 @@ export const useBackendStateAppMessages = () => {
 
         setProject(testProject)
         setRecentProjects(testRecentProjects)
-        setJoystickDefinitions([testJsDefinition])
+        setJoystickDefinitions(testJsDefinitions)
         setMidiControllerDefinitions([testMidiDefinition])
         setControllers(testControllers)
       })()

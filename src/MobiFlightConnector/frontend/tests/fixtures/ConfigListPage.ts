@@ -2,7 +2,7 @@ import { AppMessage, IConfigItem } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
-import joystickDefinition from "../data/joystick.definition.json" with { type: "json" }
+import joystickDefinitions from "../data/joystick.definition.json" with { type: "json" }
 import midiControllerDefinition from "../data/midicontroller.definition.json" with { type: "json" }
 import {
   ConfigValueFullUpdate,
@@ -44,7 +44,7 @@ export class ConfigListPage {
     const message: AppMessage = {
       key: "JoystickDefinitions",
       payload: {
-        Definitions: [joystickDefinition],
+        Definitions: joystickDefinitions,
       },
     }
     await this.mobiFlightPage.publishMessage(message)

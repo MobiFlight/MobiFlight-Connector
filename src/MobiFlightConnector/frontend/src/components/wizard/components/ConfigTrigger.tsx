@@ -1,3 +1,4 @@
+import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -6,42 +7,31 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
+
 import { useControllerStore } from "@/stores/controllerStore"
-import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import { IConfigItem } from "@/types/config"
-import { Controller } from "@/types/controller"
-import { IconCheck, IconChevronDown } from "@tabler/icons-react"
+import { BaseDevice, Controller } from "@/types/controller"
 import { useState } from "react"
 
 export type ConfigTriggerProps = {
   configItem: IConfigItem
   setConfigItem: (item: IConfigItem) => void
 }
+
 const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   const { controllers } = useControllerStore()
-  const { BoardDefinitions, JoystickDefinitions, MidiControllerDefinitions } =
-    useControllerDefinitionsStore()
-
   const [selectedController, setSelectedController] = useState<
     Partial<Controller> | undefined
   >(configItem.Controller)
 
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
+  const devices = selectedController
+    ? controllers.find((c) => c.Serial === selectedController.Serial)?.Devices
+    : []
+  console.log("devices", devices)
+
+  const [selectedDevice, setSelectedDevice] = useState<
+    Partial<IConfigItem["Device"]> | undefined
+  >(configItem.Device)
 
   return (
     <Card>
@@ -52,59 +42,36 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           configuration.
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-row gap-4">
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open}
-              className="w-50 justify-between"
-            >
-              {selectedController
-                ? controllers.find((controller) => controller.Serial === selectedController?.Serial)
-                    ?.Name
-                : "Select controller..."}
-              <IconChevronDown className="opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-50 p-0">
-            <Command>
-              <CommandInput
-                placeholder="Search controller..."
-                className="h-9"
-              />
-              <CommandList>
-                <CommandEmpty>No controller found.</CommandEmpty>
-                <CommandGroup>
-                  {controllers.map((controller) => (
-                    <CommandItem
-                      key={controller.Serial}
-                      value={controller.Serial}
-                      onSelect={(currentValue) => {
-                        setValue(currentValue === value ? "" : currentValue)
-                        setOpen(false)
-                      }}
-                    >
-                      {controller.Name}
-                      <IconCheck
-                        className={cn(
-                          "ml-auto",
-                          value === controller.Serial
-                            ? "opacity-100"
-                            : "opacity-0",
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </PopoverContent>
-        </Popover>
+      <CardContent className="flex flex-row gap-4 items-center">
         <Button variant="outline" className="flex-1">
           Scan for input
         </Button>
+        <div className="font-md">Or select manually:</div>
+        <ComboBox
+          getLabel={(controller) => (controller as Controller).Name}
+          getValue={(controller) => (controller as Controller).Serial}
+          isSelected={(controller, selected) =>
+            (controller as Controller).Serial === selected?.Serial
+          }
+          items={controllers}
+          selected={selectedController}
+          setSelected={(controller) => {
+            setSelectedController(controller)
+          }}
+        />
+
+        <ComboBox
+          getLabel={(device) => (device as BaseDevice)?.Label}
+          getValue={(device) => (device as BaseDevice)?.Name}
+          isSelected={(device, selected) =>
+            (device as BaseDevice).Name === selected?.Name
+          }
+          items={devices || []}
+          selected={selectedDevice}
+          setSelected={(device) => {
+            setSelectedDevice(device)
+          }}
+        />
       </CardContent>
     </Card>
   )

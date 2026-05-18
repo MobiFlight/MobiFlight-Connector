@@ -1,464 +1,1051 @@
-{
+[
+  {
     "Inputs": [
-        {
-            "Id": "1",
-            "Label": "Line-Select-Key 1L",
-            "Name": "Button 1",
-            "Type": "Button"
-        },
-        {
-            "Id": "2",
-            "Label": "Line-Select-Key 2L",
-            "Name": "Button 2",
-            "Type": "Button"
-        },
-        {
-            "Id": "3",
-            "Label": "Line-Select-Key 3L",
-            "Name": "Button 3",
-            "Type": "Button"
-        },
-        {
-            "Id": "4",
-            "Label": "Line-Select-Key 4L",
-            "Name": "Button 4",
-            "Type": "Button"
-        },
-        {
-            "Id": "5",
-            "Label": "Line-Select-Key 5L",
-            "Name": "Button 5",
-            "Type": "Button"
-        },
-        {
-            "Id": "6",
-            "Label": "Line-Select-Key 6L",
-            "Name": "Button 6",
-            "Type": "Button"
-        },
-        {
-            "Id": "7",
-            "Label": "Line-Select-Key 1R",
-            "Name": "Button 7",
-            "Type": "Button"
-        },
-        {
-            "Id": "8",
-            "Label": "Line-Select-Key 2R",
-            "Name": "Button 8",
-            "Type": "Button"
-        },
-        {
-            "Id": "9",
-            "Label": "Line-Select-Key 3R",
-            "Name": "Button 9",
-            "Type": "Button"
-        },
-        {
-            "Id": "10",
-            "Label": "Line-Select-Key 4R",
-            "Name": "Button 10",
-            "Type": "Button"
-        },
-        {
-            "Id": "11",
-            "Label": "Line-Select-Key 5R",
-            "Name": "Button 11",
-            "Type": "Button"
-        },
-        {
-            "Id": "12",
-            "Label": "Line-Select-Key 6R",
-            "Name": "Button 12",
-            "Type": "Button"
-        },
-        {
-            "Id": "13",
-            "Label": "DIR Button",
-            "Name": "Button 13",
-            "Type": "Button"
-        },
-        {
-            "Id": "14",
-            "Label": "PROG Button",
-            "Name": "Button 14",
-            "Type": "Button"
-        },
-        {
-            "Id": "15",
-            "Label": "PERF Button",
-            "Name": "Button 15",
-            "Type": "Button"
-        },
-        {
-            "Id": "16",
-            "Label": "INIT Button",
-            "Name": "Button 16",
-            "Type": "Button"
-        },
-        {
-            "Id": "17",
-            "Label": "DATA Button",
-            "Name": "Button 17",
-            "Type": "Button"
-        },
-        {
-            "Id": "18",
-            "Label": "Blank Button R",
-            "Name": "Button 18",
-            "Type": "Button"
-        },
-        {
-            "Id": "19",
-            "Label": "BRT Button",
-            "Name": "Button 19",
-            "Type": "Button"
-        },
-        {
-            "Id": "20",
-            "Label": "F-PLN Button",
-            "Name": "Button 20",
-            "Type": "Button"
-        },
-        {
-            "Id": "21",
-            "Label": "RAD NAV Button",
-            "Name": "Button 21",
-            "Type": "Button"
-        },
-        {
-            "Id": "22",
-            "Label": "FUEL PRED Button",
-            "Name": "Button 22",
-            "Type": "Button"
-        },
-        {
-            "Id": "23",
-            "Label": "SEC F-PLN Button",
-            "Name": "Button 23",
-            "Type": "Button"
-        },
-        {
-            "Id": "24",
-            "Label": "ATC COMM Button",
-            "Name": "Button 24",
-            "Type": "Button"
-        },
-        {
-            "Id": "25",
-            "Label": "MCDU MENU Button",
-            "Name": "Button 25",
-            "Type": "Button"
-        },
-        {
-            "Id": "26",
-            "Label": "DIM Button",
-            "Name": "Button 26",
-            "Type": "Button"
-        },
-        {
-            "Id": "27",
-            "Label": "AIRPORT Button",
-            "Name": "Button 27",
-            "Type": "Button"
-        },
-        {
-            "Id": "28",
-            "Label": "Blank Button L",
-            "Name": "Button 28",
-            "Type": "Button"
-        },
-        {
-            "Id": "29",
-            "Label": "Left-Arrow Button",
-            "Name": "Button 29",
-            "Type": "Button"
-        },
-        {
-            "Id": "30",
-            "Label": "Up-Arrow Button",
-            "Name": "Button 30",
-            "Type": "Button"
-        },
-        {
-            "Id": "31",
-            "Label": "Right-Arrow Button",
-            "Name": "Button 31",
-            "Type": "Button"
-        },
-        {
-            "Id": "32",
-            "Label": "Down-Arrow Button",
-            "Name": "Button 32",
-            "Type": "Button"
-        },
-        {
-            "Id": "33",
-            "Label": "1 Button",
-            "Name": "Button 33",
-            "Type": "Button"
-        },
-        {
-            "Id": "34",
-            "Label": "2 Button",
-            "Name": "Button 34",
-            "Type": "Button"
-        },
-        {
-            "Id": "35",
-            "Label": "3 Button",
-            "Name": "Button 35",
-            "Type": "Button"
-        },
-        {
-            "Id": "36",
-            "Label": "4 Button",
-            "Name": "Button 36",
-            "Type": "Button"
-        },
-        {
-            "Id": "37",
-            "Label": "5 Button",
-            "Name": "Button 37",
-            "Type": "Button"
-        },
-        {
-            "Id": "38",
-            "Label": "6 Button",
-            "Name": "Button 38",
-            "Type": "Button"
-        },
-        {
-            "Id": "39",
-            "Label": "7 Button",
-            "Name": "Button 39",
-            "Type": "Button"
-        },
-        {
-            "Id": "40",
-            "Label": "8 Button",
-            "Name": "Button 40",
-            "Type": "Button"
-        },
-        {
-            "Id": "41",
-            "Label": "9 Button",
-            "Name": "Button 41",
-            "Type": "Button"
-        },
-        {
-            "Id": "42",
-            "Label": ". Button",
-            "Name": "Button 42",
-            "Type": "Button"
-        },
-        {
-            "Id": "43",
-            "Label": "0 Button",
-            "Name": "Button 43",
-            "Type": "Button"
-        },
-        {
-            "Id": "44",
-            "Label": "+/- Button",
-            "Name": "Button 44",
-            "Type": "Button"
-        },
-        {
-            "Id": "45",
-            "Label": "A Button",
-            "Name": "Button 45",
-            "Type": "Button"
-        },
-        {
-            "Id": "46",
-            "Label": "B Button",
-            "Name": "Button 46",
-            "Type": "Button"
-        },
-        {
-            "Id": "47",
-            "Label": "C Button",
-            "Name": "Button 47",
-            "Type": "Button"
-        },
-        {
-            "Id": "48",
-            "Label": "D Button",
-            "Name": "Button 48",
-            "Type": "Button"
-        },
-        {
-            "Id": "49",
-            "Label": "E Button",
-            "Name": "Button 49",
-            "Type": "Button"
-        },
-        {
-            "Id": "50",
-            "Label": "F Button",
-            "Name": "Button 50",
-            "Type": "Button"
-        },
-        {
-            "Id": "51",
-            "Label": "G Button",
-            "Name": "Button 51",
-            "Type": "Button"
-        },
-        {
-            "Id": "52",
-            "Label": "H Button",
-            "Name": "Button 52",
-            "Type": "Button"
-        },
-        {
-            "Id": "53",
-            "Label": "I Button",
-            "Name": "Button 53",
-            "Type": "Button"
-        },
-        {
-            "Id": "54",
-            "Label": "J Button",
-            "Name": "Button 54",
-            "Type": "Button"
-        },
-        {
-            "Id": "55",
-            "Label": "K Button",
-            "Name": "Button 55",
-            "Type": "Button"
-        },
-        {
-            "Id": "56",
-            "Label": "L Button",
-            "Name": "Button 56",
-            "Type": "Button"
-        },
-        {
-            "Id": "57",
-            "Label": "M Button",
-            "Name": "Button 57",
-            "Type": "Button"
-        },
-        {
-            "Id": "58",
-            "Label": "N Button",
-            "Name": "Button 58",
-            "Type": "Button"
-        },
-        {
-            "Id": "59",
-            "Label": "O Button",
-            "Name": "Button 59",
-            "Type": "Button"
-        },
-        {
-            "Id": "60",
-            "Label": "P Button",
-            "Name": "Button 60",
-            "Type": "Button"
-        },
-        {
-            "Id": "61",
-            "Label": "Q Button",
-            "Name": "Button 61",
-            "Type": "Button"
-        },
-        {
-            "Id": "62",
-            "Label": "R Button",
-            "Name": "Button 62",
-            "Type": "Button"
-        },
-        {
-            "Id": "63",
-            "Label": "S Button",
-            "Name": "Button 63",
-            "Type": "Button"
-        },
-        {
-            "Id": "64",
-            "Label": "T Button",
-            "Name": "Button 64",
-            "Type": "Button"
-        },
-        {
-            "Id": "65",
-            "Label": "U Button",
-            "Name": "Button 65",
-            "Type": "Button"
-        },
-        {
-            "Id": "66",
-            "Label": "V Button",
-            "Name": "Button 66",
-            "Type": "Button"
-        },
-        {
-            "Id": "67",
-            "Label": "W Button",
-            "Name": "Button 67",
-            "Type": "Button"
-        },
-        {
-            "Id": "68",
-            "Label": "X Button",
-            "Name": "Button 68",
-            "Type": "Button"
-        },
-        {
-            "Id": "69",
-            "Label": "Y Button",
-            "Name": "Button 69",
-            "Type": "Button"
-        },
-        {
-            "Id": "70",
-            "Label": "Z Button",
-            "Name": "Button 70",
-            "Type": "Button"
-        },
-        {
-            "Id": "71",
-            "Label": "/ Button",
-            "Name": "Button 71",
-            "Type": "Button"
-        },
-        {
-            "Id": "72",
-            "Label": "SP Button",
-            "Name": "Button 72",
-            "Type": "Button"
-        },
-        {
-            "Id": "73",
-            "Label": "OVFY Button",
-            "Name": "Button 73",
-            "Type": "Button"
-        },
-        {
-            "Id": "74",
-            "Label": "CLR Button",
-            "Name": "Button 74",
-            "Type": "Button"
-        },
-        {
-            "Id": "51",
-            "Label": "Light Sensor 1",
-            "Name": "Axis RotationX",
-            "Type": "Axis"
-        },
-        {
-            "Id": "52",
-            "Label": "Light Sensor 2",
-            "Name": "Axis RotationY",
-            "Type": "Axis"
-        }
+      {
+        "Id": "1",
+        "Label": "Line-Select-Key 1L",
+        "Name": "Button 1",
+        "Type": "Button"
+      },
+      {
+        "Id": "2",
+        "Label": "Line-Select-Key 2L",
+        "Name": "Button 2",
+        "Type": "Button"
+      },
+      {
+        "Id": "3",
+        "Label": "Line-Select-Key 3L",
+        "Name": "Button 3",
+        "Type": "Button"
+      },
+      {
+        "Id": "4",
+        "Label": "Line-Select-Key 4L",
+        "Name": "Button 4",
+        "Type": "Button"
+      },
+      {
+        "Id": "5",
+        "Label": "Line-Select-Key 5L",
+        "Name": "Button 5",
+        "Type": "Button"
+      },
+      {
+        "Id": "6",
+        "Label": "Line-Select-Key 6L",
+        "Name": "Button 6",
+        "Type": "Button"
+      },
+      {
+        "Id": "7",
+        "Label": "Line-Select-Key 1R",
+        "Name": "Button 7",
+        "Type": "Button"
+      },
+      {
+        "Id": "8",
+        "Label": "Line-Select-Key 2R",
+        "Name": "Button 8",
+        "Type": "Button"
+      },
+      {
+        "Id": "9",
+        "Label": "Line-Select-Key 3R",
+        "Name": "Button 9",
+        "Type": "Button"
+      },
+      {
+        "Id": "10",
+        "Label": "Line-Select-Key 4R",
+        "Name": "Button 10",
+        "Type": "Button"
+      },
+      {
+        "Id": "11",
+        "Label": "Line-Select-Key 5R",
+        "Name": "Button 11",
+        "Type": "Button"
+      },
+      {
+        "Id": "12",
+        "Label": "Line-Select-Key 6R",
+        "Name": "Button 12",
+        "Type": "Button"
+      },
+      {
+        "Id": "13",
+        "Label": "DIR Button",
+        "Name": "Button 13",
+        "Type": "Button"
+      },
+      {
+        "Id": "14",
+        "Label": "PROG Button",
+        "Name": "Button 14",
+        "Type": "Button"
+      },
+      {
+        "Id": "15",
+        "Label": "PERF Button",
+        "Name": "Button 15",
+        "Type": "Button"
+      },
+      {
+        "Id": "16",
+        "Label": "INIT Button",
+        "Name": "Button 16",
+        "Type": "Button"
+      },
+      {
+        "Id": "17",
+        "Label": "DATA Button",
+        "Name": "Button 17",
+        "Type": "Button"
+      },
+      {
+        "Id": "18",
+        "Label": "Blank Button R",
+        "Name": "Button 18",
+        "Type": "Button"
+      },
+      {
+        "Id": "19",
+        "Label": "BRT Button",
+        "Name": "Button 19",
+        "Type": "Button"
+      },
+      {
+        "Id": "20",
+        "Label": "F-PLN Button",
+        "Name": "Button 20",
+        "Type": "Button"
+      },
+      {
+        "Id": "21",
+        "Label": "RAD NAV Button",
+        "Name": "Button 21",
+        "Type": "Button"
+      },
+      {
+        "Id": "22",
+        "Label": "FUEL PRED Button",
+        "Name": "Button 22",
+        "Type": "Button"
+      },
+      {
+        "Id": "23",
+        "Label": "SEC F-PLN Button",
+        "Name": "Button 23",
+        "Type": "Button"
+      },
+      {
+        "Id": "24",
+        "Label": "ATC COMM Button",
+        "Name": "Button 24",
+        "Type": "Button"
+      },
+      {
+        "Id": "25",
+        "Label": "MCDU MENU Button",
+        "Name": "Button 25",
+        "Type": "Button"
+      },
+      {
+        "Id": "26",
+        "Label": "DIM Button",
+        "Name": "Button 26",
+        "Type": "Button"
+      },
+      {
+        "Id": "27",
+        "Label": "AIRPORT Button",
+        "Name": "Button 27",
+        "Type": "Button"
+      },
+      {
+        "Id": "28",
+        "Label": "Blank Button L",
+        "Name": "Button 28",
+        "Type": "Button"
+      },
+      {
+        "Id": "29",
+        "Label": "Left-Arrow Button",
+        "Name": "Button 29",
+        "Type": "Button"
+      },
+      {
+        "Id": "30",
+        "Label": "Up-Arrow Button",
+        "Name": "Button 30",
+        "Type": "Button"
+      },
+      {
+        "Id": "31",
+        "Label": "Right-Arrow Button",
+        "Name": "Button 31",
+        "Type": "Button"
+      },
+      {
+        "Id": "32",
+        "Label": "Down-Arrow Button",
+        "Name": "Button 32",
+        "Type": "Button"
+      },
+      {
+        "Id": "33",
+        "Label": "1 Button",
+        "Name": "Button 33",
+        "Type": "Button"
+      },
+      {
+        "Id": "34",
+        "Label": "2 Button",
+        "Name": "Button 34",
+        "Type": "Button"
+      },
+      {
+        "Id": "35",
+        "Label": "3 Button",
+        "Name": "Button 35",
+        "Type": "Button"
+      },
+      {
+        "Id": "36",
+        "Label": "4 Button",
+        "Name": "Button 36",
+        "Type": "Button"
+      },
+      {
+        "Id": "37",
+        "Label": "5 Button",
+        "Name": "Button 37",
+        "Type": "Button"
+      },
+      {
+        "Id": "38",
+        "Label": "6 Button",
+        "Name": "Button 38",
+        "Type": "Button"
+      },
+      {
+        "Id": "39",
+        "Label": "7 Button",
+        "Name": "Button 39",
+        "Type": "Button"
+      },
+      {
+        "Id": "40",
+        "Label": "8 Button",
+        "Name": "Button 40",
+        "Type": "Button"
+      },
+      {
+        "Id": "41",
+        "Label": "9 Button",
+        "Name": "Button 41",
+        "Type": "Button"
+      },
+      {
+        "Id": "42",
+        "Label": ". Button",
+        "Name": "Button 42",
+        "Type": "Button"
+      },
+      {
+        "Id": "43",
+        "Label": "0 Button",
+        "Name": "Button 43",
+        "Type": "Button"
+      },
+      {
+        "Id": "44",
+        "Label": "+/- Button",
+        "Name": "Button 44",
+        "Type": "Button"
+      },
+      {
+        "Id": "45",
+        "Label": "A Button",
+        "Name": "Button 45",
+        "Type": "Button"
+      },
+      {
+        "Id": "46",
+        "Label": "B Button",
+        "Name": "Button 46",
+        "Type": "Button"
+      },
+      {
+        "Id": "47",
+        "Label": "C Button",
+        "Name": "Button 47",
+        "Type": "Button"
+      },
+      {
+        "Id": "48",
+        "Label": "D Button",
+        "Name": "Button 48",
+        "Type": "Button"
+      },
+      {
+        "Id": "49",
+        "Label": "E Button",
+        "Name": "Button 49",
+        "Type": "Button"
+      },
+      {
+        "Id": "50",
+        "Label": "F Button",
+        "Name": "Button 50",
+        "Type": "Button"
+      },
+      {
+        "Id": "51",
+        "Label": "G Button",
+        "Name": "Button 51",
+        "Type": "Button"
+      },
+      {
+        "Id": "52",
+        "Label": "H Button",
+        "Name": "Button 52",
+        "Type": "Button"
+      },
+      {
+        "Id": "53",
+        "Label": "I Button",
+        "Name": "Button 53",
+        "Type": "Button"
+      },
+      {
+        "Id": "54",
+        "Label": "J Button",
+        "Name": "Button 54",
+        "Type": "Button"
+      },
+      {
+        "Id": "55",
+        "Label": "K Button",
+        "Name": "Button 55",
+        "Type": "Button"
+      },
+      {
+        "Id": "56",
+        "Label": "L Button",
+        "Name": "Button 56",
+        "Type": "Button"
+      },
+      {
+        "Id": "57",
+        "Label": "M Button",
+        "Name": "Button 57",
+        "Type": "Button"
+      },
+      {
+        "Id": "58",
+        "Label": "N Button",
+        "Name": "Button 58",
+        "Type": "Button"
+      },
+      {
+        "Id": "59",
+        "Label": "O Button",
+        "Name": "Button 59",
+        "Type": "Button"
+      },
+      {
+        "Id": "60",
+        "Label": "P Button",
+        "Name": "Button 60",
+        "Type": "Button"
+      },
+      {
+        "Id": "61",
+        "Label": "Q Button",
+        "Name": "Button 61",
+        "Type": "Button"
+      },
+      {
+        "Id": "62",
+        "Label": "R Button",
+        "Name": "Button 62",
+        "Type": "Button"
+      },
+      {
+        "Id": "63",
+        "Label": "S Button",
+        "Name": "Button 63",
+        "Type": "Button"
+      },
+      {
+        "Id": "64",
+        "Label": "T Button",
+        "Name": "Button 64",
+        "Type": "Button"
+      },
+      {
+        "Id": "65",
+        "Label": "U Button",
+        "Name": "Button 65",
+        "Type": "Button"
+      },
+      {
+        "Id": "66",
+        "Label": "V Button",
+        "Name": "Button 66",
+        "Type": "Button"
+      },
+      {
+        "Id": "67",
+        "Label": "W Button",
+        "Name": "Button 67",
+        "Type": "Button"
+      },
+      {
+        "Id": "68",
+        "Label": "X Button",
+        "Name": "Button 68",
+        "Type": "Button"
+      },
+      {
+        "Id": "69",
+        "Label": "Y Button",
+        "Name": "Button 69",
+        "Type": "Button"
+      },
+      {
+        "Id": "70",
+        "Label": "Z Button",
+        "Name": "Button 70",
+        "Type": "Button"
+      },
+      {
+        "Id": "71",
+        "Label": "/ Button",
+        "Name": "Button 71",
+        "Type": "Button"
+      },
+      {
+        "Id": "72",
+        "Label": "SP Button",
+        "Name": "Button 72",
+        "Type": "Button"
+      },
+      {
+        "Id": "73",
+        "Label": "OVFY Button",
+        "Name": "Button 73",
+        "Type": "Button"
+      },
+      {
+        "Id": "74",
+        "Label": "CLR Button",
+        "Name": "Button 74",
+        "Type": "Button"
+      },
+      {
+        "Id": "51",
+        "Label": "Light Sensor 1",
+        "Name": "Axis RotationX",
+        "Type": "Axis"
+      },
+      {
+        "Id": "52",
+        "Label": "Light Sensor 2",
+        "Name": "Axis RotationY",
+        "Type": "Axis"
+      }
     ],
     "InstanceName": "WINWING MCDU-32-CAPTAIN",
     "Outputs": [],
     "ProductId": "0xbb36",
     "VendorId": "0x4098"
-}
+  },
+  {
+    "Inputs": [
+      {
+        "Id": 17,
+        "Label": "Mode - IAS",
+        "Name": "Button 17",
+        "Type": "Button"
+      },
+      {
+        "Id": 18,
+        "Label": "Mode - CRS",
+        "Name": "Button 18",
+        "Type": "Button"
+      },
+      {
+        "Id": 19,
+        "Label": "Mode - HDG",
+        "Name": "Button 19",
+        "Type": "Button"
+      },
+      {
+        "Id": 20,
+        "Label": "Mode - VS",
+        "Name": "Button 20",
+        "Type": "Button"
+      },
+      {
+        "Id": 21,
+        "Label": "Mode - ALT",
+        "Name": "Button 21",
+        "Type": "Button"
+      },
+      {
+        "Id": 1,
+        "Label": "AP - HDG",
+        "Name": "Button 1",
+        "Type": "Button"
+      },
+      {
+        "Id": 2,
+        "Label": "AP - NAV",
+        "Name": "Button 2",
+        "Type": "Button"
+      },
+      {
+        "Id": 3,
+        "Label": "AP - APR",
+        "Name": "Button 3",
+        "Type": "Button"
+      },
+      {
+        "Id": 4,
+        "Label": "AP - REV",
+        "Name": "Button 4",
+        "Type": "Button"
+      },
+      {
+        "Id": 5,
+        "Label": "AP - ALT",
+        "Name": "Button 5",
+        "Type": "Button"
+      },
+      {
+        "Id": 6,
+        "Label": "AP - VS",
+        "Name": "Button 6",
+        "Type": "Button"
+      },
+      {
+        "Id": 7,
+        "Label": "AP - IAS",
+        "Name": "Button 7",
+        "Type": "Button"
+      },
+      {
+        "Id": 8,
+        "Label": "AP - Autopilot",
+        "Name": "Button 8",
+        "Type": "Button"
+      },
+      {
+        "Id": 13,
+        "Label": "Encoder - Right",
+        "Name": "Button 13",
+        "Type": "Button"
+      },
+      {
+        "Id": 14,
+        "Label": "Encoder - Left",
+        "Name": "Button 14",
+        "Type": "Button"
+      },
+      {
+        "Id": 31,
+        "Label": "Gear - Up",
+        "Name": "Button 31",
+        "Type": "Button"
+      },
+      {
+        "Id": 32,
+        "Label": "Gear - Down",
+        "Name": "Button 32",
+        "Type": "Button"
+      },
+      {
+        "Id": 16,
+        "Label": "Flaps - Up",
+        "Name": "Button 16",
+        "Type": "Button"
+      },
+      {
+        "Id": 15,
+        "Label": "Flaps - Down",
+        "Name": "Button 15",
+        "Type": "Button"
+      },
+      {
+        "Id": 22,
+        "Label": "Trim - Nose Down",
+        "Name": "Button 22",
+        "Type": "Button"
+      },
+      {
+        "Id": 23,
+        "Label": "Trim - Nose Up",
+        "Name": "Button 23",
+        "Type": "Button"
+      },
+      {
+        "Id": 24,
+        "Label": "Lever 1 - Detent",
+        "Name": "Button 24",
+        "Type": "Button"
+      },
+      {
+        "Id": 25,
+        "Label": "Lever 2 - Detent",
+        "Name": "Button 25",
+        "Type": "Button"
+      },
+      {
+        "Id": 26,
+        "Label": "Lever 3 - Detent",
+        "Name": "Button 26",
+        "Type": "Button"
+      },
+      {
+        "Id": 27,
+        "Label": "Lever 4 - Detent",
+        "Name": "Button 27",
+        "Type": "Button"
+      },
+      {
+        "Id": 28,
+        "Label": "Lever 5 - Detent",
+        "Name": "Button 28",
+        "Type": "Button"
+      },
+      {
+        "Id": 33,
+        "Label": "Lever 6 - Detent",
+        "Name": "Button 33",
+        "Type": "Button"
+      },
+      {
+        "Id": 29,
+        "Label": "Lever 1 - Button",
+        "Name": "Button 29",
+        "Type": "Button"
+      },
+      {
+        "Id": 9,
+        "Label": "Lever 2 - Button",
+        "Name": "Button 9",
+        "Type": "Button"
+      },
+      {
+        "Id": 10,
+        "Label": "Lever 3 - Button",
+        "Name": "Button 10",
+        "Type": "Button"
+      },
+      {
+        "Id": 11,
+        "Label": "Lever 4 - Button",
+        "Name": "Button 11",
+        "Type": "Button"
+      },
+      {
+        "Id": 12,
+        "Label": "Lever 5 - Button",
+        "Name": "Button 12",
+        "Type": "Button"
+      },
+      {
+        "Id": 30,
+        "Label": "Lever 3 - Reverser",
+        "Name": "Button 30",
+        "Type": "Button"
+      },
+      {
+        "Id": 48,
+        "Label": "Lever 4 - Reverser",
+        "Name": "Button 48",
+        "Type": "Button"
+      },
+      {
+        "Id": 34,
+        "Label": "Switch 1 - Up",
+        "Name": "Button 34",
+        "Type": "Button"
+      },
+      {
+        "Id": 35,
+        "Label": "Switch 1 - Down",
+        "Name": "Button 35",
+        "Type": "Button"
+      },
+      {
+        "Id": 36,
+        "Label": "Switch 2 - Up",
+        "Name": "Button 36",
+        "Type": "Button"
+      },
+      {
+        "Id": 37,
+        "Label": "Switch 2 - Down",
+        "Name": "Button 37",
+        "Type": "Button"
+      },
+      {
+        "Id": 38,
+        "Label": "Switch 3 - Up",
+        "Name": "Button 38",
+        "Type": "Button"
+      },
+      {
+        "Id": 39,
+        "Label": "Switch 3 - Down",
+        "Name": "Button 39",
+        "Type": "Button"
+      },
+      {
+        "Id": 40,
+        "Label": "Switch 4 - Up",
+        "Name": "Button 40",
+        "Type": "Button"
+      },
+      {
+        "Id": 41,
+        "Label": "Switch 4 - Down",
+        "Name": "Button 41",
+        "Type": "Button"
+      },
+      {
+        "Id": 42,
+        "Label": "Switch 5 - Up",
+        "Name": "Button 42",
+        "Type": "Button"
+      },
+      {
+        "Id": 43,
+        "Label": "Switch 5 - Down",
+        "Name": "Button 43",
+        "Type": "Button"
+      },
+      {
+        "Id": 44,
+        "Label": "Switch 6 - Up",
+        "Name": "Button 44",
+        "Type": "Button"
+      },
+      {
+        "Id": 45,
+        "Label": "Switch 6 - Down",
+        "Name": "Button 45",
+        "Type": "Button"
+      },
+      {
+        "Id": 46,
+        "Label": "Switch 7 - Up",
+        "Name": "Button 46",
+        "Type": "Button"
+      },
+      {
+        "Id": 47,
+        "Label": "Switch 7 - Down",
+        "Name": "Button 47",
+        "Type": "Button"
+      },
+      {
+        "Id": 49,
+        "Label": "Axis - Lever 1",
+        "Name": "Axis Y",
+        "Type": "Axis"
+      },
+      {
+        "Id": 48,
+        "Label": "Axis - Lever 2",
+        "Name": "Axis X",
+        "Type": "Axis"
+      },
+      {
+        "Id": 53,
+        "Label": "Axis - Lever 3",
+        "Name": "Axis RotationZ",
+        "Type": "Axis"
+      },
+      {
+        "Id": 52,
+        "Label": "Axis - Lever 4",
+        "Name": "Axis RotationY",
+        "Type": "Axis"
+      },
+      {
+        "Id": 51,
+        "Label": "Axis - Lever 5",
+        "Name": "Axis RotationX",
+        "Type": "Axis"
+      },
+      {
+        "Id": 50,
+        "Label": "Axis - Lever 6",
+        "Name": "Axis Z",
+        "Type": "Axis"
+      }
+    ],
+    "InstanceName": "Bravo Throttle Quadrant",
+    "Outputs": [
+      {
+        "Bit": 0,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.hdg",
+        "Label": "AP Mode - HDG",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 1,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.nav",
+        "Label": "AP Mode - NAV",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 2,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.apr",
+        "Label": "AP Mode - APR",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 3,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.rev",
+        "Label": "AP Mode - REV",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 4,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.alt",
+        "Label": "AP Mode - ALT",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 5,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.vs",
+        "Label": "AP Mode - VS",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 6,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.ias",
+        "Label": "AP Mode - IAS",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 7,
+        "Byte": 1,
+        "Cols": 0,
+        "Id": "AP.autopilot",
+        "Label": "AP Mode - On/Off",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 0,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Gear.LeftGreen",
+        "Label": "Gear - Left Green",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 1,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Gear.LeftRed",
+        "Label": "Gear - Left Red",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 2,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Gear.CenterGreen",
+        "Label": "Gear - Center Green",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 3,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Gear.CenterRed",
+        "Label": "Gear - Center Red",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 4,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Gear.RightGreen",
+        "Label": "Gear - Right Green",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 5,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Gear.RightRed",
+        "Label": "Gear - Right Red",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 6,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Light.MasterWarn",
+        "Label": "Lights - Master Warning",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 7,
+        "Byte": 2,
+        "Cols": 0,
+        "Id": "Light.EngineFire",
+        "Label": "Lights - Engine Fire",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 0,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.LowOil",
+        "Label": "Lights - Low Oil Pressure",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 1,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.LowFuel",
+        "Label": "Lights - Low Fuel Pressure",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 2,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.Antiice",
+        "Label": "Lights - Anti Ice",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 3,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.Starter",
+        "Label": "Lights - Starter Engaged",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 4,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.APU",
+        "Label": "Lights - APU",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 5,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.MasterCaution",
+        "Label": "Lights - Master Caution",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 6,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.Vacuum",
+        "Label": "Lights - Vacuum",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 7,
+        "Byte": 3,
+        "Cols": 0,
+        "Id": "Light.LowHydPressURE",
+        "Label": "Lights - Low Hyd Pressure",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 0,
+        "Byte": 4,
+        "Cols": 0,
+        "Id": "Lights.AuxFuelPump",
+        "Label": "Lights - Aux Fuel Pump",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 1,
+        "Byte": 4,
+        "Cols": 0,
+        "Id": "Lights.ParkingBrake",
+        "Label": "Lights - Parking Brake",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 2,
+        "Byte": 4,
+        "Cols": 0,
+        "Id": "Lights.LowVolts",
+        "Label": "Lights - Low Volts",
+        "Lines": 0,
+        "Type": null
+      },
+      {
+        "Bit": 3,
+        "Byte": 4,
+        "Cols": 0,
+        "Id": "Lights.door",
+        "Label": "Lights - Door",
+        "Lines": 0,
+        "Type": null
+      }
+    ],
+    "ProductId": "0x1901",
+    "VendorId": "0x294b"
+  }
+]
