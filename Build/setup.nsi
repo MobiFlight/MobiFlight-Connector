@@ -140,7 +140,7 @@ Section "uninstall"
     
     # Remove file associations
     DeleteRegKey HKCU "Software\Classes\.mfproj"
-    DeleteRegKey HKCU "Software\Classes\.mmc"
+    DeleteRegKey HKCU "Software\Classes\.mcc"
     DeleteRegKey HKCU "Software\Classes\MobiFlight.Project"
     
     # Notify Windows of file association changes
