@@ -97,9 +97,9 @@ Function RegisterFileAssociations
     WriteRegStr HKCU "Software\Classes\.mfproj" "" "MobiFlight.Project"
     WriteRegStr HKCU "Software\Classes\.mfproj" "Content Type" "application/x-mfproj"
     
-    # Register .mmc file type (legacy format)
-    WriteRegStr HKCU "Software\Classes\.mmc" "" "MobiFlight.Project"
-    WriteRegStr HKCU "Software\Classes\.mmc" "Content Type" "application/x-mmc"
+    # Register .mcc file type (legacy format)
+    WriteRegStr HKCU "Software\Classes\.mcc" "" "MobiFlight.Project"
+    WriteRegStr HKCU "Software\Classes\.mcc" "Content Type" "application/x-mcc"
     
     # Configure MobiFlight.Project class
     WriteRegStr HKCU "Software\Classes\MobiFlight.Project" "" "MobiFlight Project"
