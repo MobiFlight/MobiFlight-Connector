@@ -89,7 +89,7 @@ Section "install"
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "EstimatedSize" 45000
 SectionEnd
 
-# Register file associations for .mfproj and .mmc files
+# Register file associations for .mfproj and .mcc files
 Function RegisterFileAssociations
     SetRegView 64
     
