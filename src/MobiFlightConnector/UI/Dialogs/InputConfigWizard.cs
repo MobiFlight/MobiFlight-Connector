@@ -516,7 +516,7 @@ namespace MobiFlight.UI.Dialogs
 
                     if (module != null)
                     {
-                        foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                        foreach (IBaseDevice device in module.GetConnectedInputDevices())
                         {
                             switch (device.Type)
                             {

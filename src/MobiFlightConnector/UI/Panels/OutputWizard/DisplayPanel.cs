@@ -38,7 +38,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         Panels.DisplayShiftRegisterPanel displayShiftRegisterPanel = new Panels.DisplayShiftRegisterPanel();
         Panels.CustomDevicePanel customDevicePanel = new Panels.CustomDevicePanel();
 
-
         public DisplayPanel()
         {
             InitializeComponent();
@@ -472,7 +471,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 switch (deviceType)
                 {
                     case DeviceType.Output:
-                        foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
+                        foreach (var device in joystick.GetAvailableOutputDevices())
                             outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
                         break;
                     case DeviceType.LcdDisplay:
@@ -589,7 +588,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem> lcdDisplays = new List<ListItem>();
             List<ListItem> shiftRegisters = new List<ListItem>();
             List<ListItem<MobiFlightCustomDevice>> customDevices = new List<ListItem<MobiFlightCustomDevice>>();
-
 
             if (module != null)
             {
@@ -739,7 +737,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             var controller = (cb.SelectedItem as ListItem<Controller>)?.Value;
             var serial = controller?.Serial;
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-
 
             // Build list of chained modules and list of selectable sizes
             var chained = new List<ListItem>();

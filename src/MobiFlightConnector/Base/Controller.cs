@@ -1,4 +1,8 @@
-﻿namespace MobiFlight.Base
+﻿using MobiFlight.Config;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MobiFlight.Base
 {
     /// <summary>
     /// Represents a generic controller device
@@ -15,6 +19,10 @@
         /// </summary>
         public string Serial { get; set; }
 
+        /// <summary>
+        /// Gets the available devices of this controller
+        /// </summary>
+        public List<IBaseDevice> Devices { get; set; }
 
         public Controller() {}
 
@@ -24,6 +32,7 @@
 
             Name = other.Name;
             Serial = other.Serial;
+            Devices = other.Devices.ToList();
         }
 
         public object Clone()
@@ -38,7 +47,7 @@
 
             var other = obj as Controller;
 
-            return Name.AreEqual(other.Name) && Serial.AreEqual(other.Serial);
+            return Name.AreEqual(other.Name) && Serial.AreEqual(other.Serial) && Devices.SequenceEqual(other.Devices);
         }
 
         public override int GetHashCode()
@@ -49,13 +58,14 @@
                 // Use null-safe hash code calculation
                 hash = hash * 23 + (Name?.GetHashCode() ?? 0);
                 hash = hash * 23 + (Serial?.GetHashCode() ?? 0);
+                hash = hash * 23 + (Devices != null ? Devices.Aggregate(0, (acc, device) => acc ^ device.GetHashCode()) : 0);
                 return hash;
             }
         }
 
         public override string ToString()
         {
-            return $"{Name}:{Serial}";
+            return $"{Serial}:{Name}";
         }
     }
 }

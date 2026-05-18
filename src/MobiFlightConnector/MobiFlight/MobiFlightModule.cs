@@ -1251,7 +1251,7 @@ namespace MobiFlight
             return result;
         }
 
-        public IEnumerable<Config.BaseDevice> GetConnectedInputDevices()
+        public IEnumerable<IBaseDevice> GetConnectedInputDevices()
         {
             List<Config.BaseDevice> result = new List<Config.BaseDevice>();
 

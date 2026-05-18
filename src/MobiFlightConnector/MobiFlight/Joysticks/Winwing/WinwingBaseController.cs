@@ -14,7 +14,7 @@ namespace MobiFlight.Joysticks.Winwing
         protected readonly int VendorId = 0x4098;
         protected WinwingDisplayControl DisplayControl;
         protected List<IBaseDevice> LcdDevices = new List<IBaseDevice>();
-        protected List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
+        protected List<IBaseDevice> LedDevices = new List<IBaseDevice>();
 
         public WinwingBaseController(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
         {
@@ -34,7 +34,7 @@ namespace MobiFlight.Joysticks.Winwing
             }
             foreach (string ledName in ledNames)
             {
-                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter           
+                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }); // Byte and Bit values don't matter           
             }
         }
 
@@ -46,13 +46,11 @@ namespace MobiFlight.Joysticks.Winwing
             }
         }
 
-
         public override void Connect(IntPtr handle)
         {
             base.Connect(handle);
             DisplayControl.Connect();
         }
-
 
         public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
@@ -85,7 +83,7 @@ namespace MobiFlight.Joysticks.Winwing
             return LcdDevices;
         }
 
-        public override List<ListItem<IBaseDevice>> GetAvailableOutputDevicesAsListItems()
+        public override List<IBaseDevice> GetAvailableOutputDevices()
         {
             return LedDevices;
         }

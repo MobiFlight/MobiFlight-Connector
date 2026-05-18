@@ -106,7 +106,6 @@ namespace MobiFlight
                 bool IsButton = (device.ObjectId.Flags & DeviceObjectTypeFlags.Button) > 0;
                 bool IsPOV = (device.ObjectId.Flags & DeviceObjectTypeFlags.PointOfViewController) > 0;
 
-
                 if (IsAxis && Axes.Count < DIJoystick.Capabilities.AxeCount)
                 {
                     RegisterAxis(device);
@@ -299,12 +298,12 @@ namespace MobiFlight
             Stream = Device.Open();
         }
 
-        public virtual List<ListItem<IBaseDevice>> GetAvailableOutputDevicesAsListItems()
+        public virtual List<IBaseDevice> GetAvailableOutputDevices()
         {
-            List<ListItem<IBaseDevice>> result = new List<ListItem<IBaseDevice>>();
+            List<IBaseDevice> result = new List<IBaseDevice>();
             Lights.ForEach((item) =>
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             return result;
         }
@@ -357,7 +356,6 @@ namespace MobiFlight
                 State = null;
             }
         }
-
 
         public JoystickDefinition GetJoystickDefinition()
         {
@@ -506,7 +504,6 @@ namespace MobiFlight
             display.Text = value;
         }
 
-
         public virtual IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             List<DeviceType> result = new List<DeviceType>();
@@ -584,6 +581,15 @@ namespace MobiFlight
             DIJoystick?.Unacquire();
             OnDisconnected?.Invoke(this, null);
 
+        }
+
+        public List<IBaseDevice> GetConnectedInputDevices()
+        {
+            List<IBaseDevice> result = new List<IBaseDevice>();
+            result.AddRange(Buttons);
+            result.AddRange(Axes);
+            result.AddRange(POV);
+            return result;
         }
     }
 }
