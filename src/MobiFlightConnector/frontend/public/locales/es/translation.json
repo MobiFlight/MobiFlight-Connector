@@ -367,7 +367,7 @@
       "ConnectedControllers": "{{count}} controladores conectados a la PC",
       "AllSet": "¡Todo listo! Tu proyecto está completamente configurado.",
       "SelectController": "Seleccionar un controlador",
-      "SearchPlaceholder": "Buscar controlador...",
+      "SearchController": "Buscar controlador...",
       "NoControllerFound": "No se encontró ningún controlador."
     }
   },

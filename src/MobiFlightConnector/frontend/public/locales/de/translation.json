@@ -367,7 +367,7 @@
       "ConnectedControllers": "{{count}} Controller mit PC verbunden",
       "AllSet": "Alles bereit! Dein Projekt ist vollständig konfiguriert.",
       "SelectController": "Controller auswählen",
-      "SearchPlaceholder": "Controller suchen...",
+      "SearchController": "Controller suchen...",
       "NoControllerFound": "Kein Controller gefunden."
     }
   },

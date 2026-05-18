@@ -116,7 +116,7 @@ const ControllerBindingItem = ({
           </PopoverTrigger>
           <PopoverContent className="w-107 p-0">
             <Command>
-              <CommandInput placeholder={t("Dialog.ControllerBinding.SearchPlaceholder")} />
+              <CommandInput placeholder={t("Dialog.ControllerBinding.SearchController")} />
               <CommandList>
                 <CommandEmpty>{t("Dialog.ControllerBinding.NoControllerFound")}</CommandEmpty>
                 <CommandGroup>

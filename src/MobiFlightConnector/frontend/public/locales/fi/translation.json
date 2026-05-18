@@ -361,7 +361,7 @@
       "ConnectedControllers": "{{count}} PC:hen yhdistettyä ohjainta",
       "AllSet": "Valmista! Kaikki käytetyt ohjaimet on yhdistetty.",
       "SelectController": "Valitse ohjain",
-      "SearchPlaceholder": "Etsi ohjainta...",
+      "SearchController": "Etsi ohjainta...",
       "NoControllerFound": "Ohjaimia ei löytynyt."
     }
   },
