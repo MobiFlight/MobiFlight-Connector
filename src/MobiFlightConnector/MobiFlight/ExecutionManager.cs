@@ -268,7 +268,8 @@ namespace MobiFlight
                 {
                     Name = controller.Name,
                     Serial = controller.Serial,
-                    Devices = controller.GetConnectedInputDevices().ToList()
+                    Devices = controller.GetConnectedInputDevices()
+                                        .ToList()
                 });
             });
 
@@ -278,7 +279,9 @@ namespace MobiFlight
                 {
                     Name = controller.Name,
                     Serial = controller.Serial,
-                    Devices = controller.GetConnectedInputDevices().Union(controller.GetAvailableOutputDevices()).ToList()
+                    Devices = controller.GetConnectedInputDevices()
+                                        .Union(controller.GetAvailableOutputDevices())
+                                        .ToList()
                 });
             });
 

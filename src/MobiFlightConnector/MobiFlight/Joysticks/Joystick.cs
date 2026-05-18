@@ -239,21 +239,21 @@ namespace MobiFlight
             });
         }
 
-        public List<ListItem<IBaseDevice>> GetAvailableDevicesAsListItems()
+        public List<IBaseDevice> GetAvailableDevices()
         {
-            List<ListItem<IBaseDevice>> result = new List<ListItem<IBaseDevice>>();
+            List<IBaseDevice> result = new List<IBaseDevice>();
 
-            GetButtonsSorted().ForEach((item) =>
+            GetButtonsSorted().ForEach((item) =>    
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             GetAxisSorted().ForEach((item) =>
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             POV.ForEach((item) =>
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             return result;
         }

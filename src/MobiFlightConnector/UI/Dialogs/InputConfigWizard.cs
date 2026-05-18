@@ -212,7 +212,7 @@ namespace MobiFlight.UI.Dialogs
 
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                if (joystick.GetAvailableDevicesAsListItems().Count > 0)
+                if (joystick.GetAvailableDevices().Count > 0)
                     controllerComboBoxItems.Add(new ListItem<Controller>()
                     {
                         Value = new Controller() { Name = joystick.Name, Serial = joystick.Serial },
@@ -498,7 +498,16 @@ namespace MobiFlight.UI.Dialogs
                 else if (Joystick.IsJoystickSerial(serial))
                 {
                     Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
-                    inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevicesAsListItems().ToArray());
+                    var devices = joystick.GetAvailableDevices();
+                    foreach (var device in devices)
+                    {
+                        inputTypeComboBox.Items.Add(
+                            new ListItem<IBaseDevice>()
+                            {
+                                Label = device.Label,
+                                Value = device
+                            });
+                    }
                 }
                 // Add all MidiBoards
                 else if (MidiBoard.IsMidiBoardSerial(serial))
@@ -507,7 +516,11 @@ namespace MobiFlight.UI.Dialogs
                     var devices = midiBoard.GetAvailableDevices();
                     foreach (var device in devices)
                     {
-                        inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Label, Value = device });
+                        inputTypeComboBox.Items.Add(
+                            new ListItem<IBaseDevice>() { 
+                                Label = device.Label, 
+                                Value = device 
+                            });
                     }
                 }
                 else
@@ -622,11 +635,11 @@ namespace MobiFlight.UI.Dialogs
                             CurrentConfig = Config
                         };
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.inputShiftRegister);
-                        
+
                         var srSubCount = Convert.ToInt32(selectedInputShifter.NumModules);
                         var srSelectedSubIndex = (config.Device as MobiFlight.InputConfig.InputShiftRegister)?.SubIndex;
                         PopulateInputPinDropdown(srSubCount, srSelectedSubIndex);
-                        
+
                         inputPinDropDown.Visible = true;
                         break;
 
@@ -643,7 +656,7 @@ namespace MobiFlight.UI.Dialogs
                         var subCount = Convert.ToInt32(selectedInputMultiplexer.NumBytes);
                         var selectedSubIndex = (config.Device as MobiFlight.InputConfig.InputMultiplexer)?.SubIndex;
                         PopulateInputPinDropdown(subCount, selectedSubIndex);
-                        
+
                         inputPinDropDown.Visible = true;
                         break;
 
