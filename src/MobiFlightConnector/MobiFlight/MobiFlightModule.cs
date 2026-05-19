@@ -611,8 +611,7 @@ namespace MobiFlight
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
-                    Serial = this.Serial,
-                    Name = Name,
+                    Controller = new Base.Controller() { Serial = this.Serial, Name = this.Name },
                     DeviceId = enc,
                     DeviceLabel = enc,
                     Type = DeviceType.Encoder,
@@ -642,8 +641,7 @@ namespace MobiFlight
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
-                    Serial = this.Serial,
-                    Name = Name,
+                    Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
                     DeviceId = deviceId,
                     DeviceLabel = deviceId,
                     Type = DeviceType.Button,
@@ -673,8 +671,7 @@ namespace MobiFlight
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
-                    Serial = this.Serial,
-                    Name = Name,
+                    Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
                     DeviceId = deviceId,
                     DeviceLabel = deviceId,
                     Type = DeviceType.Button,
@@ -697,8 +694,7 @@ namespace MobiFlight
 
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
-                Serial = this.Serial,
-                Name = Name,
+                Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
                 DeviceId = button,
                 DeviceLabel = button,
                 Type = DeviceType.Button,
@@ -720,8 +716,7 @@ namespace MobiFlight
             
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
-                Serial = this.Serial,
-                Name = Name,
+                Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
                 DeviceId = name,
                 DeviceLabel = name,
                 Type = DeviceType.AnalogInput,

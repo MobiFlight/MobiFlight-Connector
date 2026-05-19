@@ -1,13 +1,13 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 
 namespace MobiFlight
 {
     public class InputEventArgs : EventArgs, ICloneable
     {
-        public string Serial { get; set; }
+        public Controller Controller { get; set; }
         public string DeviceId { get; set; }
         public string DeviceLabel { get; set; }
-        public string Name { get; set; }
         public DeviceType Type { get; set; }
         public int? ExtPin { get; set; }
         public int Value { get; set; }
@@ -34,16 +34,15 @@ namespace MobiFlight
         public string GetMsgEventLabel()
         {
             var eventAction = GetEventActionLabel();
-            return $"{Name} => {DeviceLabel}{(ExtPin.HasValue ? $":{ExtPin}" : "")} => {eventAction}";
+            return $"{Controller.Name} => {DeviceLabel}{(ExtPin.HasValue ? $":{ExtPin}" : "")} => {eventAction}";
         }
 
         public object Clone()
         {
             InputEventArgs clone = new InputEventArgs();
-            clone.Serial = Serial;
+            clone.Controller = Controller.Clone() as Controller;
             clone.DeviceId = DeviceId;
             clone.DeviceLabel = DeviceLabel;
-            clone.Name = Name;
             clone.Type = Type;
             clone.ExtPin = ExtPin;
             clone.Value = Value;

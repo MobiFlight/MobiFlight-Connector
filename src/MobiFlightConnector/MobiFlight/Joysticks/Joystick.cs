@@ -243,7 +243,7 @@ namespace MobiFlight
         {
             List<IBaseDevice> result = new List<IBaseDevice>();
 
-            GetButtonsSorted().ForEach((item) =>    
+            GetButtonsSorted().ForEach((item) =>
             {
                 result.Add(item);
             });
@@ -379,10 +379,9 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Name = Name,
+                        Controller = new Base.Controller() { Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(), Name = Name },
                         DeviceId = POV[index].Name,
                         DeviceLabel = POV[index].Label,
-                        Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.RELEASE
                     });
@@ -396,10 +395,9 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Name = Name,
+                        Controller = new Base.Controller() { Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(), Name = Name },
                         DeviceId = POV[index].Name,
                         DeviceLabel = POV[index].Label,
-                        Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.PRESS
                     });
@@ -423,10 +421,9 @@ namespace MobiFlight
                 if (!StateExists() || oldValue != newValue)
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Name = Name,
+                        Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial },
                         DeviceId = Axes[CurrentAxis].Name,
                         DeviceLabel = Axes[CurrentAxis].Label,
-                        Serial = Serial,
                         Type = DeviceType.AnalogInput,
                         Value = newValue
                     });
@@ -444,10 +441,9 @@ namespace MobiFlight
                     if (newState.Buttons[i] || (State != null))
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
-                            Name = Name,
+                            Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial },
                             DeviceId = Buttons[i].Name,
                             DeviceLabel = Buttons[i].Label,
-                            Serial = Serial,
                             Type = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1
                         });
