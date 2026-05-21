@@ -2,7 +2,7 @@ import { Settings } from "http2"
 import { IConfigValueOnlyItem } from "./config"
 import { JoystickDefinition, MidiControllerDefinition } from "./definitions"
 import { ProjectInfo } from "@/types/project"
-import { Controller, ControllerBinding } from "@/types/controller"
+import { Controller, ControllerBinding, DeviceReference } from "@/types/controller"
 
 export type AppMessageKey =
   | "StatusBarUpdate"
@@ -24,6 +24,7 @@ export type AppMessageKey =
   | "ConnectedControllers"
   | "AuthenticationStatus"
   | "ControllerBindingsUpdate"
+  | "ScanForInputResult"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -43,6 +44,7 @@ export type AppMessagePayload =
   | ConnectedControllers
   | AuthenticationStatus
   | ControllerBindingsUpdate
+  | ScanForInputResult
 
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -144,6 +146,11 @@ export interface AuthenticationStatus {
 
 export type ControllerBindingsUpdate = {
   Bindings: ControllerBinding[]
+}
+
+export type ScanForInputResult = {
+  Controller: Controller
+  Device: DeviceReference
 }
 
 // Not sure what this is for

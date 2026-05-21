@@ -26,4 +26,10 @@ export type ControllerBinding = {
   OriginalController: Partial<Controller>
 }
 
+export type DeviceReference = {
+  Name: string
+  SubId?: string
+  Type: string
+}
+
 export type ControllerBindingStatus = "Match" | "AutoBind" | "Missing" | "RequiresManualBind"

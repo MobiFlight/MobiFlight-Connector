@@ -16,6 +16,7 @@ export type CommandMessageKey =
   | "CommandControllerBindingsUpdate"
   | "CommandUserAuthentication"
   | "CommandFrontendState"
+  | "CommandScanForInput"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -33,6 +34,7 @@ export type CommandMessage =
   | CommandControllerBindingsUpdate
   | CommandUserAuthentication
   | CommandFrontendState
+  | CommandScanForInput
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -210,5 +212,12 @@ export interface CommandFrontendState extends CommandMessageBase {
     route: string
     state: "ready" | "loading" | "error"
     message?: string
+  }
+}
+
+export interface CommandScanForInput extends CommandMessageBase {
+  key: "CommandScanForInput"
+  payload: {
+    isScanning: boolean
   }
 }

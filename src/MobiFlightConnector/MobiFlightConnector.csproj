@@ -347,6 +347,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandDiscardChanges.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandOpenLinkInBrowser.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandScanForInput.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
     <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
@@ -371,6 +372,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ExecutionState.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ScanForInputResult.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\CompositePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />

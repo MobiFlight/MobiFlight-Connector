@@ -7,10 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 
 import { useControllerStore } from "@/stores/controllerStore"
+import { CommandScanForInput } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { BaseDevice, Controller } from "@/types/controller"
+import { ScanForInputResult } from "@/types/messages"
+import { IconLoader2 } from "@tabler/icons-react"
 import { useState } from "react"
 
 export type ConfigTriggerProps = {
@@ -101,6 +105,27 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       DeviceType: device?.Type ?? null,
     })
   }
+  
+  const [scanning, setScanning] = useState(false)
+
+  useAppMessage("ScanForInputResult", (message) => {
+    console.log("ScanForInputResult message received", message.payload)
+    const { Controller, Device } = message.payload as ScanForInputResult
+    setSelectedController(Controller)
+    setSelectedDevice({ ...Device, Label: Device.Name })
+    setScanning(false)
+  })
+
+  const scanForInput = () => {
+    const { publish } = publishOnMessageExchange()
+    publish({
+      key: "CommandScanForInput",
+      payload: {
+        isScanning: !scanning,
+      },
+    } as CommandScanForInput)
+    setScanning(!scanning)
+  }
 
   return (
     <Card>
@@ -112,7 +137,16 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-row items-center gap-4">
-        <Button className="flex-1">Scan for input</Button>
+        <Button className="flex-1" onClick={scanForInput}>
+          {scanning ? (
+            <div className="flex flex-row items-center gap-2 text-sm">
+              <IconLoader2 className="animate-spin" />
+              Use any input
+            </div>
+          ) : (
+            "Scan for input"
+          )}
+        </Button>
         <div className="font-md">Or select manually:</div>
         <ComboBox
           getLabel={(controller) => (controller as Controller).Name}
