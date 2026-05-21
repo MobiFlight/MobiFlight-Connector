@@ -44,7 +44,6 @@ namespace MobiFlight.Joysticks.Winwing
             // ctor logic is in base class
         }
 
-
         public async override void Connect(IntPtr handle)
         {
             base.Connect(handle);
@@ -73,7 +72,6 @@ namespace MobiFlight.Joysticks.Winwing
                 }
             });
         }
-
 
         // EnumerateInputDevices
         protected override void EnumerateDevices()
@@ -202,11 +200,18 @@ namespace MobiFlight.Joysticks.Winwing
         {
             TriggerButtonPressed(this, new InputEventArgs()
             {
-                Name = Name,
-                DeviceId = device.Name,
-                DeviceLabel = device.Label,
-                Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                Type = DeviceType.Button,
+                Controller = new Base.Controller()
+                {
+                    Name = Name,
+                    Serial = Serial,
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Name = device.Name,
+                    Label = device.Label,
+                    Type = DeviceType.Button
+                },
+                InputType = DeviceType.Button,
                 Value = (int)inputEvent
             });
         }

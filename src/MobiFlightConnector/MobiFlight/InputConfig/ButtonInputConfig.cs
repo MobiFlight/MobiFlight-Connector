@@ -192,7 +192,7 @@ namespace MobiFlight.InputConfig
             {
                 InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
                 args.Value = (int)MobiFlightButton.InputEvent.HOLD;
-                Log.Instance.log($"{args.Name} => {args.DeviceLabel}  => Execute HOLD", LogSeverity.Info);
+                Log.Instance.log($"{args.Controller.Name} => {args.Device.Label}  => Execute HOLD", LogSeverity.Info);
                 onHold.execute(LastOnPressCacheCollection, args, LastOnPressConfigRefs);
             }            
         }
@@ -243,7 +243,6 @@ namespace MobiFlight.InputConfig
         private void CheckAndAdaptForLongButtonRelease(InputEventArgs current, InputEventArgs previous)
         {
             var inputEvent = (MobiFlightButton.InputEvent)current.Value;
-            
 
             if (inputEvent == MobiFlightButton.InputEvent.RELEASE &&
                 onLongRelease != null &&
@@ -253,7 +252,7 @@ namespace MobiFlight.InputConfig
                 if (timeSpanToPreviousInput > TimeSpan.FromMilliseconds(LongReleaseDelay))
                 {
                     current.Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE;
-                    Log.Instance.log($"{current.Name} => {current.DeviceLabel}  => Execute as LONG_RELEASE", LogSeverity.Info);
+                    Log.Instance.log($"{current.Controller.Name} => {current.Device.Label}  => Execute as LONG_RELEASE", LogSeverity.Info);
                 }
             }
         }

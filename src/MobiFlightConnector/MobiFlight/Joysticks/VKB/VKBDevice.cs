@@ -89,7 +89,7 @@ namespace MobiFlight.Joysticks.VKB
                         EncoderIncList.Add(encoderIndex, new JoystickDevice { Name = $"Button {1000 + 10 * encoderIndex + (int)encoderAction}", Label = input.Label, Type = DeviceType.Button, JoystickDeviceType = input.Type });
                     }
                     // Rename the original buttons to keep indexing intact and ensure compatibility with devices not configured to use encoder channels.
-                    Buttons.FindAll(but => but.Label == input.Label).ForEach(but => but.Label += " (Legacy DirectInput)"); 
+                    Buttons.FindAll(but => but.Label == input.Label).ForEach(but => but.Label += " (Legacy DirectInput)");
                 }
             }
             foreach (var encdec in EncoderDecList)
@@ -130,7 +130,7 @@ namespace MobiFlight.Joysticks.VKB
             // Only send message if there are non-zero LEDs to be updated
             if (data[7] == 0)
             {
-                return; 
+                return;
             }
 
             try
@@ -205,8 +205,12 @@ namespace MobiFlight.Joysticks.VKB
             foreach (InputEventArgs e in events)
             {
                 // Process the encoder events created by the encoder object.
-                e.Name = Name;
-                e.Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString();
+                e.Controller = new Base.Controller()
+                {
+                    Name = Name,
+                    Serial = Serial
+                };
+
                 TriggerButtonPressed(this, e);
             }
         }

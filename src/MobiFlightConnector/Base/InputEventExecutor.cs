@@ -90,7 +90,7 @@ namespace MobiFlight.Execution
                         continue;
                     }
 
-                    Log.Instance.log($"{e.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
+                    Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
 
                     cfg.RawValue = e.GetEventActionLabel();
                     cfg.Value = " ";
@@ -110,11 +110,9 @@ namespace MobiFlight.Execution
 
         private string CreateInputKey(InputEventArgs e)
         {
-            var result = e.Serial + e.Type + e.DeviceId;
-            if (e.ExtPin.HasValue)
-            {
-                result += e.ExtPin.Value.ToString();
-            }
+            var result = e.Controller.Serial + e.Device.Type + e.Device.Name;
+            if (e.Device.SubId != null) { result += e.Device.SubId; }
+
             return result;
         }
 
@@ -155,17 +153,17 @@ namespace MobiFlight.Execution
             if (cfg.Controller == null)
                 return false;
 
-            bool serialMatches = cfg.Controller.Serial == e.Serial;
+            bool serialMatches = cfg.Controller.Serial == e.Controller.Serial;
             if (!serialMatches)
                 return false;
 
-            bool deviceNameMatches = cfg.DeviceName == e.DeviceId;
+            bool deviceNameMatches = cfg.DeviceName == e.Device.Name;
             
             // For backward compatibility we have to make this check
             // because we used to have the label in the config
             // but now we want to store the internal button identifier
             // so that the label can change any time without breaking the config
-            bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.Controller.Serial) && cfg.DeviceName == e.DeviceLabel;
+            bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.Controller.Serial) && cfg.DeviceName == e.Device.Label;
             
             return deviceNameMatches || isJoystickWithLabelMatch;
         }
@@ -176,24 +174,22 @@ namespace MobiFlight.Execution
             // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
             // would get added to the input cache and fired even though the pins don't match.
             // Only perform this check if the config's DeviceType is actually InputShiftRegister
-            bool isButtonEvent = e.Type == DeviceType.Button;
-            bool isInputShiftRegisterConfig = cfg.DeviceType == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+            bool isButtonEvent = e.InputType == DeviceType.Button;
             bool hasInputShiftRegisterConfig = cfg.inputShiftRegister != null;
-            bool pinMismatch = cfg.inputShiftRegister?.ExtPin != e.ExtPin;
+            bool pinMismatch = cfg.inputShiftRegister?.ExtPin.ToString() != (e.Device.SubId);
 
-            return isButtonEvent && isInputShiftRegisterConfig && hasInputShiftRegisterConfig && pinMismatch;
+            return isButtonEvent && hasInputShiftRegisterConfig && pinMismatch;
         }
 
         internal static bool ShouldSkipDueToInputMultiplexerPinMismatch(InputConfigItem cfg, InputEventArgs e)
         {
             // Similarly for digital input Multiplexer
             // Only perform this check if the config's DeviceType is actually InputMultiplexer
-            bool isButtonEvent = e.Type == DeviceType.Button;
-            bool isInputMultiplexerConfig = cfg.DeviceType == InputConfigItem.TYPE_INPUT_MULTIPLEXER;
+            bool isButtonEvent = e.InputType == DeviceType.Button;
             bool hasInputMultiplexerConfig = cfg.inputMultiplexer != null;
-            bool pinMismatch = cfg.inputMultiplexer?.DataPin != e.ExtPin;
+            bool pinMismatch = cfg.inputMultiplexer?.DataPin.ToString() != (e.Device.SubId);
 
-            return isButtonEvent && isInputMultiplexerConfig && hasInputMultiplexerConfig && pinMismatch;
+            return isButtonEvent && hasInputMultiplexerConfig && pinMismatch;
         }
 
         private bool CheckPreconditions(InputConfigItem cfg)

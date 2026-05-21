@@ -612,9 +612,8 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = this.Name },
-                    DeviceId = enc,
-                    DeviceLabel = enc,
-                    Type = DeviceType.Encoder,
+                    Device = new Base.DeviceReference(DeviceType.Encoder, enc),
+                    InputType = DeviceType.Encoder,
                     Value = value
                 });
             //addLog("Enc: " + enc + ":" + pos);
@@ -642,10 +641,8 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    DeviceId = deviceId,
-                    DeviceLabel = deviceId,
-                    Type = DeviceType.Button,
-                    ExtPin = channel,
+                    Device = new Base.DeviceReference(DeviceType.InputShiftRegister, deviceId, strChannel),
+                    InputType = DeviceType.Button,
                     Value = state
                 });
         }
@@ -653,12 +650,12 @@ namespace MobiFlight
         void OnInputMultiplexerChange(ReceivedCommand arguments)
         {
             String deviceId = arguments.ReadStringArg();
-            String strChannel = arguments.ReadStringArg();
+            String subId = arguments.ReadStringArg();
             String strState = arguments.ReadStringArg();
 
-            if (!int.TryParse(strChannel, out int channel))
+            if (!int.TryParse(subId, out int _))
             {
-                Log.Instance.log($"Unable to convert {strChannel} to an integer.", LogSeverity.Error);
+                Log.Instance.log($"Unable to convert {subId} to an integer.", LogSeverity.Error);
                 return;
             }
 
@@ -672,10 +669,8 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    DeviceId = deviceId,
-                    DeviceLabel = deviceId,
-                    Type = DeviceType.Button,
-                    ExtPin = channel,
+                    Device = new Base.DeviceReference(DeviceType.InputMultiplexer, deviceId, subId),
+                    InputType = DeviceType.Button,
                     Value = state
                 });
         }
@@ -695,9 +690,8 @@ namespace MobiFlight
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                DeviceId = button,
-                DeviceLabel = button,
-                Type = DeviceType.Button,
+                Device = new Base.DeviceReference(DeviceType.Button, button),
+                InputType = DeviceType.Button,
                 Value = state
             });
         }
@@ -717,9 +711,8 @@ namespace MobiFlight
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                DeviceId = name,
-                DeviceLabel = name,
-                Type = DeviceType.AnalogInput,
+                Device = new Base.DeviceReference(DeviceType.AnalogInput, name),
+                InputType = DeviceType.AnalogInput,
                 Value = value
             });
         }

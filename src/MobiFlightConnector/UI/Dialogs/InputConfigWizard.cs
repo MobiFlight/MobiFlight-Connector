@@ -797,7 +797,7 @@ namespace MobiFlight.UI.Dialogs
             if (!InputThresholdIsExceeded(e)) return;
 
             // Only the "positive" PRESS events matter for buttons
-            if (e.Type == DeviceType.Button)
+            if (e.Device.Type == DeviceType.Button)
             {
                 if (e.Value != (int)MobiFlightButton.InputEvent.PRESS)
                     return;
@@ -809,37 +809,38 @@ namespace MobiFlight.UI.Dialogs
                 return;
             }
 
-            ListItem<Controller> controllerListItem = inputModuleNameComboBox.Items.Cast<ListItem<Controller>>().FirstOrDefault(i => i.Value?.Serial == e.Serial);
+            var serial = e.Controller.Serial;
+
+            ListItem<Controller> controllerListItem = inputModuleNameComboBox.Items.Cast<ListItem<Controller>>().FirstOrDefault(i => i.Value?.Serial == serial);
 
             if (controllerListItem == null) return;
 
             inputModuleNameComboBox.SelectedItem = controllerListItem;
 
             // try to set the device
-            if (SerialNumber.IsJoystickSerial(e.Serial))
+            if (SerialNumber.IsJoystickSerial(serial))
             {
-                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
+                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.Device.Label);
             }
-            else if (SerialNumber.IsMidiBoardSerial(e.Serial))
+            else if (SerialNumber.IsMidiBoardSerial(serial))
             {
                 // Add item to device list if not yet there
-                if (!inputTypeComboBox.Items.OfType<ListItem<IBaseDevice>>().Any(i => i.Value.Name == e.DeviceId))
+                if (!inputTypeComboBox.Items.OfType<ListItem<IBaseDevice>>().Any(i => i.Value.Name == e.Device.Name))
                 {
                     MidiBoardDevice mbd = new MidiBoardDevice();
-                    mbd.Label = e.DeviceLabel;
-                    mbd.Name = e.DeviceId;
+                    mbd.Label = e.Device.Label;
+                    mbd.Name = e.Device.Name;
                     mbd.Type = DeviceType.Button;
                     inputTypeComboBox.Items.Add(new ListItem<IBaseDevice> { Label = mbd.Label, Value = mbd });
                 }
-                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
+                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.Device.Label);
             }
             else
             {
-                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceId);
-                // if multiplexer or inputshiftregister set the sub item too
-                if (e.ExtPin.HasValue)
+                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.Device.Name);
+                if (e.Device.SubId != null)
                 {
-                    ComboBoxHelper.SetSelectedItem(inputPinDropDown, e.ExtPin.ToString());
+                    ComboBoxHelper.SetSelectedItem(inputPinDropDown, e.Device.SubId);
                 }
             }
 
@@ -851,19 +852,21 @@ namespace MobiFlight.UI.Dialogs
             const int JoystickThreshold = 2000;
             const int AnalogInputThreshold = 20;
 
-            if ((SerialNumber.IsJoystickSerial(e.Serial) &&
-                e.DeviceId.Contains(Joystick.AxisPrefix)) || e.Type == DeviceType.AnalogInput)
+            var serial = e.Controller.Serial;
+
+            if ((SerialNumber.IsJoystickSerial(serial) &&
+                e.Device.Name.Contains(Joystick.AxisPrefix)) || e.Device.Type == DeviceType.AnalogInput)
             {
-                if (ScanForInputThreshold.ContainsKey(e.Serial + e.DeviceId))
+                if (ScanForInputThreshold.ContainsKey(serial + e.Device.Name))
                 {
-                    if (Math.Abs(e.Value - ScanForInputThreshold[e.Serial + e.DeviceId]) < (SerialNumber.IsJoystickSerial(e.Serial) ? JoystickThreshold : AnalogInputThreshold))
+                    if (Math.Abs(e.Value - ScanForInputThreshold[serial + e.Device.Name]) < (SerialNumber.IsJoystickSerial(serial) ? JoystickThreshold : AnalogInputThreshold))
                     {
                         return false;
                     }
                 }
                 else
                 {
-                    ScanForInputThreshold[e.Serial + e.DeviceId] = e.Value;
+                    ScanForInputThreshold[serial + e.Device.Name] = e.Value;
                     return false;
                 }
             }

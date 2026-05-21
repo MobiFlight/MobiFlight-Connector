@@ -87,11 +87,18 @@ namespace MobiFlight.Joysticks.Octavi
         {
             TriggerButtonPressed(this, new InputEventArgs()
             {
-                Name = Name,
-                DeviceId = Buttons[i].Name,
-                DeviceLabel = Buttons[i].Label,
-                Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                Type = DeviceType.Button,
+                Controller = new Base.Controller()
+                {
+                    Name = this.Name,
+                    Serial = this.Serial
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Name = Buttons[i].Name,
+                    Label = Buttons[i].Label,
+                    Type = Buttons[i].Type
+                },
+                InputType = DeviceType.Button,
                 Value = (int)inputEvent
             });
         }

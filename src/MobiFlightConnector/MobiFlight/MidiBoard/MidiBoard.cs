@@ -60,7 +60,6 @@ namespace MobiFlight
             get { return this.MidiOutput != null; }
         }
 
-
         public MidiBoard(MidiInputDevice midiInput, MidiOutputDevice midiOutput, string name, MidiBoardDefinition def)
         {
             this.MidiInput = midiInput;
@@ -82,7 +81,7 @@ namespace MobiFlight
         private void SendInputEvent(InputEventArgs inputEventArgs)
         {
             OnButtonPressed?.Invoke(this, inputEventArgs);
-            UpdateRelatedOutputDevices(inputEventArgs.DeviceId);
+            UpdateRelatedOutputDevices(inputEventArgs.Device.Name);
         }
 
         private void EnumerateDevices()
@@ -167,19 +166,22 @@ namespace MobiFlight
             var inputEventArgs = new InputEventArgs();
             // Use channel+1 because all miditools show channel starting with 1, technically it starts with 0
             byte adaptedChannel = (byte)(channel + 1);
-            inputEventArgs.DeviceId = MidiInputDefinition.GetName(mType, adaptedChannel, id);
-            inputEventArgs.Name = Name;
-            inputEventArgs.Serial = Serial;
-            if (Inputs.ContainsKey(inputEventArgs.DeviceId))
+
+            // TODO: semantics of Device.Type is not entirely correct but data type doesn't allow us to set it to MidiBoardDeviceType
+            // We have to refactor this before merging to main.
+            inputEventArgs.Device = new DeviceReference()
             {
-                inputEventArgs.DeviceLabel = Inputs[inputEventArgs.DeviceId].Label;
-                inputEventArgs.Type = Inputs[inputEventArgs.DeviceId].Type;
-            }
-            else
+                Name = MidiInputDefinition.GetName(mType, adaptedChannel, id),
+                Label = MidiInputDefinition.GetName(mType, adaptedChannel, id),
+                Type = DeviceType.Button
+            };
+
+            inputEventArgs.InputType = DeviceType.Button; // default, will be updated if found in config
+            if (Inputs.ContainsKey(inputEventArgs.Device.Name))
             {
-                // Input not found in configuration
-                inputEventArgs.DeviceLabel = inputEventArgs.DeviceId;
-                inputEventArgs.Type = DeviceType.Button; // default             
+                inputEventArgs.Device.Label = Inputs[inputEventArgs.Device.Name].Label;
+                inputEventArgs.Device.Type = Inputs[inputEventArgs.Device.Name].Type;
+                inputEventArgs.InputType = Inputs[inputEventArgs.Device.Name].Type;
             }
             return inputEventArgs;
         }
@@ -202,10 +204,10 @@ namespace MobiFlight
         private void ProcessNoteMidiMessage(byte channel, byte id, byte velocity, bool isNoteOff)
         { 
             var inputEventArgs = GetDefaultInputEventArgs(MidiMessageType.Note, channel, id);            
-            CheckAndExecuteLayerChange(inputEventArgs.DeviceId); 
+            CheckAndExecuteLayerChange(inputEventArgs.Device.Name); 
 
             // BUTTON
-            if (inputEventArgs.Type == DeviceType.Button)
+            if (inputEventArgs.Device.Type == DeviceType.Button)
             {
                 if (isNoteOff)
                     inputEventArgs.Value = (int)MobiFlightButton.InputEvent.RELEASE;
@@ -214,12 +216,12 @@ namespace MobiFlight
                 SendInputEvent(inputEventArgs);
             }
             // ANALOG INPUT
-            else if (inputEventArgs.Type == DeviceType.AnalogInput)
+            else if (inputEventArgs.Device.Type == DeviceType.AnalogInput)
             {
                 if (!isNoteOff)
                 {
                     inputEventArgs.Value = ScaleAnalogValue(velocity);
-                    LatestDeviceAnalogInputValue[inputEventArgs.DeviceId] = inputEventArgs;
+                    LatestDeviceAnalogInputValue[inputEventArgs.Device.Name] = inputEventArgs;
                 }
             }
         }
@@ -228,13 +230,12 @@ namespace MobiFlight
         {
             // only one available pitch per channel
             var inputEventArgs = GetDefaultInputEventArgs(MidiMessageType.Pitch, channel);
-            CheckAndExecuteLayerChange(inputEventArgs.DeviceId);
+            CheckAndExecuteLayerChange(inputEventArgs.Device.Name);
 
             // Scale from 0..16383 to range of 0..1023   
             inputEventArgs.Value = (int)Math.Ceiling(pitch / 16.015);
-            LatestDeviceAnalogInputValue[inputEventArgs.DeviceId] = inputEventArgs;          
+            LatestDeviceAnalogInputValue[inputEventArgs.Device.Name] = inputEventArgs;          
         }
-
 
         private int EncoderValueToInputEvent(byte value)
         {        
@@ -263,10 +264,10 @@ namespace MobiFlight
         private void ProcessCCMidiMessage(byte channel, byte id, byte value)
         {
             var inputEventArgs = GetDefaultInputEventArgs(MidiMessageType.CC, channel, id);
-            CheckAndExecuteLayerChange(inputEventArgs.DeviceId);
+            CheckAndExecuteLayerChange(inputEventArgs.Device.Name);
 
             // BUTTON
-            if (inputEventArgs.Type == DeviceType.Button)
+            if (inputEventArgs.InputType == DeviceType.Button)
             {
                 if (value == 0)
                     inputEventArgs.Value = (int)MobiFlightButton.InputEvent.RELEASE;
@@ -275,13 +276,13 @@ namespace MobiFlight
                 SendInputEvent(inputEventArgs);
             }
             // ANALOG INPUT
-            else if (inputEventArgs.Type == DeviceType.AnalogInput)
+            else if (inputEventArgs.InputType == DeviceType.AnalogInput)
             {
                 inputEventArgs.Value = ScaleAnalogValue(value);
-                LatestDeviceAnalogInputValue[inputEventArgs.DeviceId] = inputEventArgs;
+                LatestDeviceAnalogInputValue[inputEventArgs.Device.Name] = inputEventArgs;
             }     
             // ENCODER
-            else if (inputEventArgs.Type == DeviceType.Encoder)
+            else if (inputEventArgs.InputType == DeviceType.Encoder)
             {
                 inputEventArgs.Value = EncoderValueToInputEvent(value);
                 SendInputEvent(inputEventArgs);

@@ -101,6 +101,7 @@ namespace MobiFlight
         private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
+        readonly Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
 
         public List<IConfigItem> ConfigItems
         {
@@ -543,6 +544,76 @@ namespace MobiFlight
                 MessageExchange.Instance.Publish(Project);
                 OnConfigHasChanged?.Invoke(this, null);
             });
+
+            MessageExchange.Instance.Subscribe<CommandScanForInput>((message) =>
+            {
+                if (message.IsScanning)
+                {
+                    ScanForInputStart();
+                }
+                else
+                {
+                    ScanForInputStop();
+                }
+            });
+        }
+
+        private void ScanForInputStop()
+        {
+            getMobiFlightModuleCache().OnButtonPressed -= ScanforInput_OnButtonPressed;
+            GetJoystickManager().OnButtonPressed -= ScanforInput_OnButtonPressed;
+            GetMidiBoardManager().OnButtonPressed -= ScanforInput_OnButtonPressed;
+        }
+
+        private void ScanForInputStart()
+        {
+            getMobiFlightModuleCache().OnButtonPressed += ScanforInput_OnButtonPressed;
+            GetJoystickManager().OnButtonPressed += ScanforInput_OnButtonPressed;
+            GetMidiBoardManager().OnButtonPressed += ScanforInput_OnButtonPressed;
+        }
+
+        private void ScanforInput_OnButtonPressed(object sender, InputEventArgs e)
+        {
+            if (!InputThresholdIsExceeded(e)) return;
+
+            // Only the "positive" PRESS events matter for buttons
+            if (e.InputType == DeviceType.Button)
+            {
+                if (e.Value != (int)MobiFlightButton.InputEvent.PRESS)
+                    return;
+            }
+
+            var controller = e.Controller;
+
+            MessageExchange.Instance.Publish(new ScanForInputResult() { Controller = controller, Device = e.Device});
+            ScanForInputStop();
+        }
+
+        private bool InputThresholdIsExceeded(InputEventArgs e)
+        {
+            const int JoystickThreshold = 2000;
+            const int AnalogInputThreshold = 20;
+
+            var serial = e.Controller.Serial;
+
+            if ((SerialNumber.IsJoystickSerial(serial) &&
+                e.Device.Name.Contains(Joystick.AxisPrefix)) || e.InputType == DeviceType.AnalogInput)
+            {
+                if (ScanForInputThreshold.ContainsKey(serial + e.Device.Name))
+                {
+                    if (Math.Abs(e.Value - ScanForInputThreshold[serial + e.Device.Name]) < (SerialNumber.IsJoystickSerial(serial) ? JoystickThreshold : AnalogInputThreshold))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    ScanForInputThreshold[serial + e.Device.Name] = e.Value;
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void HandleCommandUpdateConfigItem(ConfigItem item)
@@ -1288,8 +1359,9 @@ namespace MobiFlight
         {
             var updatedInputValues = new Dictionary<string, IConfigItem>();
             var msgEventLabel = e.GetMsgEventLabel();
+            var serial = e.Controller.Serial;
 
-            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(e.Serial, e.Type))
+            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
