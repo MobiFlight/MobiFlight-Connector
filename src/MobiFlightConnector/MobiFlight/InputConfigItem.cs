@@ -44,15 +44,10 @@ namespace MobiFlight
         public AnalogInputConfig analog { get; set; }
 
         public override IDeviceConfig Device { get; set; }
-        public string DeviceType { get; set; }
-        public string DeviceName { get; set; }
-
 
         public InputConfigItem()
         {
             Preconditions = new PreconditionList();
-            DeviceType = TYPE_NOTSET;
-
             ConfigRefs = new ConfigRefList();
         }
 
@@ -96,7 +91,10 @@ namespace MobiFlight
             Controller = SerialNumber.CreateController(reader["serial"]);
             // This name is only present with input devices
             // and it is in the wrong place.
-            DeviceName = reader["name"];
+            var DeviceName = reader["name"];
+            var DeviceType = TYPE_NOTSET;
+            var ExtPin = -1;
+
             if (reader["type"] != null && reader["type"] != "")
             {
                 DeviceType = reader["type"];
@@ -121,12 +119,14 @@ namespace MobiFlight
             {
                 inputShiftRegister = new InputShiftRegisterConfig();
                 inputShiftRegister.ReadXml(reader);
+                ExtPin = inputShiftRegister.ExtPin;
             }
 
             if (reader.LocalName == "inputMultiplexer")
             {
                 inputMultiplexer = new InputMultiplexerConfig();
                 inputMultiplexer.ReadXml(reader);
+                ExtPin = inputMultiplexer.DataPin;
             }
 
             if (reader.LocalName == "analog")
@@ -145,7 +145,7 @@ namespace MobiFlight
             }
 
             // initialize the correct device config
-            Device = CreateInputDevice(this);
+            Device = CreateInputDevice(DeviceType, DeviceName, ExtPin);
 
             /*
             if (reader.LocalName != "preconditions")            
@@ -192,30 +192,31 @@ namespace MobiFlight
                 reader.Read(); // advance to the next
             }
         }
-        public static IDeviceConfig CreateInputDevice(InputConfigItem config)
+
+        public static IDeviceConfig CreateInputDevice(string DeviceType, string DeviceName, int SubIndex = 0)
         {
             IDeviceConfig result = null;
 
-            switch (config.DeviceType)
+            switch (DeviceType)
             {
                 case TYPE_BUTTON:
-                    result = new Button() { Name = config.DeviceName };
+                    result = new Button() { Name = DeviceName };
                     break;
 
                 case TYPE_ENCODER:
-                    result = new Encoder() { Name = config.DeviceName };
+                    result = new Encoder() { Name = DeviceName };
                     break;
 
                 case TYPE_ANALOG:
-                    result = new AnalogInput() { Name = config.DeviceName };
+                    result = new AnalogInput() { Name = DeviceName };
                     break;
 
                 case TYPE_INPUT_SHIFT_REGISTER:
-                    result = new InputShiftRegister() { Name = config.DeviceName, SubIndex = config.inputShiftRegister?.ExtPin ?? 0};
+                    result = new InputShiftRegister() { Name = DeviceName, SubIndex = SubIndex > 0 ? SubIndex : 0 };
                     break;
 
                 case TYPE_INPUT_MULTIPLEXER:
-                    result = new InputMultiplexer() { Name = config.DeviceName, SubIndex = config.inputMultiplexer?.DataPin ?? 0 };
+                    result = new InputMultiplexer() { Name = DeviceName, SubIndex = SubIndex > -1 ? SubIndex : 0 };
                     break;
             }
 
@@ -240,38 +241,38 @@ namespace MobiFlight
             var fullSerial = SerialNumber.BuildFullSerial(Controller) ?? "";
 
             writer.WriteAttributeString("serial", fullSerial);
-            writer.WriteAttributeString("name", this.DeviceName);
-            writer.WriteAttributeString("type", this.DeviceType);
+            writer.WriteAttributeString("name", this.Device?.Name);
+            writer.WriteAttributeString("type", this.Device?.Type ?? TYPE_NOTSET);
 
-            if (this.DeviceType == TYPE_BUTTON && button != null)
+            if (this.Device?.Type == TYPE_BUTTON && button != null)
             {
                 writer.WriteStartElement("button");
                 button.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.DeviceType == TYPE_ENCODER && encoder != null)
+            if (this.Device?.Type == TYPE_ENCODER && encoder != null)
             {
                 writer.WriteStartElement("encoder");
                 encoder.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.DeviceType == TYPE_INPUT_SHIFT_REGISTER && inputShiftRegister != null)
+            if (this.Device?.Type == TYPE_INPUT_SHIFT_REGISTER && inputShiftRegister != null)
             {
                 writer.WriteStartElement("inputShiftRegister");
                 inputShiftRegister.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.DeviceType == TYPE_INPUT_MULTIPLEXER && inputMultiplexer != null)
+            if (this.Device?.Type == TYPE_INPUT_MULTIPLEXER && inputMultiplexer != null)
             {
                 writer.WriteStartElement("inputMultiplexer");
                 inputMultiplexer.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.DeviceType == TYPE_ANALOG && analog != null)
+            if (this.Device?.Type == TYPE_ANALOG && analog != null)
             {
                 writer.WriteStartElement("analog");
                 analog.WriteXml(writer);
@@ -301,8 +302,6 @@ namespace MobiFlight
             this.inputMultiplexer = (InputMultiplexerConfig)config.inputMultiplexer?.Clone();
             this.analog = (AnalogInputConfig)config.analog?.Clone();
             this.Device = config.Device?.Clone() as IDeviceConfig;
-            this.DeviceType = config.DeviceType?.Clone() as string;
-            this.DeviceName = config.DeviceName?.Clone() as string;
         }
 
         public override object Clone()
@@ -320,7 +319,7 @@ namespace MobiFlight
             InputEventArgs e,
             List<ConfigRefValue> configRefs)
         {
-            switch (DeviceType)
+            switch (Device.Type)
             {
                 case TYPE_BUTTON:
                     if (button != null)
@@ -351,7 +350,7 @@ namespace MobiFlight
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
 
-            if (DeviceType == TYPE_BUTTON)
+            if (Device.Type == TYPE_BUTTON)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
@@ -359,14 +358,14 @@ namespace MobiFlight
                     result = button?.GetStatistics();
 
             }
-            else if (DeviceType == TYPE_ENCODER)
+            else if (Device.Type == TYPE_ENCODER)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
                 if (encoder != null)
                     result = encoder.GetStatistics();
             }
-            else if (DeviceType == TYPE_ANALOG)
+            else if (Device.Type == TYPE_ANALOG)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
@@ -382,8 +381,8 @@ namespace MobiFlight
             if (obj == null || !(obj is InputConfigItem item)) return false;
             if (!base.Equals(obj)) return false;
 
-            return DeviceName == item.DeviceName &&
-                    DeviceType == item.DeviceType &&
+            return Controller.AreEqual(item.Controller) &&
+                    Device.AreEqual(item.Device) &&
                     button.AreEqual(item.button) &&
                     encoder.AreEqual(item.encoder) &&
                     analog.AreEqual(item.analog) &&
@@ -396,13 +395,6 @@ namespace MobiFlight
         protected override IDeviceConfig GetDeviceConfig()
         {
             return Device;
-        }
-
-        [System.Runtime.Serialization.OnDeserialized]
-        private void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
-        {
-            if (Device == null && DeviceType != TYPE_NOTSET)
-                Device = CreateInputDevice(this);
         }
     }
 }

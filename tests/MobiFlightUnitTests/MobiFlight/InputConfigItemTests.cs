@@ -20,7 +20,7 @@ namespace MobiFlight.Tests
             InputConfigItem o = new InputConfigItem();
             Assert.IsInstanceOfType(o, typeof(InputConfigItem), "Not of type InputConfigItem");
             Assert.AreEqual(0, o.Preconditions.Count, "Preconditions Count other than 0");
-            Assert.AreEqual(InputConfigItem.TYPE_NOTSET, o.DeviceType, "Type other than NOTSET");
+            Assert.IsNull(o.Device, "Device should be null when not set");
         }
 
         [TestMethod()]
@@ -44,9 +44,9 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
-            Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
+            Assert.AreEqual("TestName", o.Device.Name, "Name not the same");
             Assert.AreEqual(0, o.Preconditions.Count, "Preconditions Count not the same");
-            Assert.AreEqual("Button", o.DeviceType, "Type not the same");
+            Assert.AreEqual("Button", o.Device.Type, "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
@@ -56,7 +56,6 @@ namespace MobiFlight.Tests
             Assert.IsInstanceOfType(o.Device, typeof(MobiFlight.InputConfig.Button));
             Assert.AreEqual("TestName", o.Device.Name);
         }
-
 
         [TestMethod()]
         public void ReadXmlTest_WithEncoder_DeserializeCorrectly()
@@ -74,8 +73,8 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
-            Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
-            Assert.AreEqual("Button", o.DeviceType, "Type not the same");
+            Assert.AreEqual("TestName", o.Device.Name, "Name not the same");
+            Assert.AreEqual("Button", o.Device.Type, "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNull(o.encoder.onLeft, "encoder onLeft not null");
@@ -101,8 +100,8 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
-            Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
-            Assert.AreEqual("InputShiftRegister", o.DeviceType, "Type not the same");
+            Assert.AreEqual("TestName", o.Device.Name, "Name not the same");
+            Assert.AreEqual("InputShiftRegister", o.Device.Type, "Type not the same");
             Assert.IsNull(o.inputShiftRegister.onPress, "Input Shift Register onpress not null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease, "Input Shift Register onRelease is null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -129,8 +128,8 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
-            Assert.AreEqual("TestName", o.DeviceName, "Name not the same");
-            Assert.AreEqual("InputMultiplexer", o.DeviceType, "Type not the same");
+            Assert.AreEqual("TestName", o.Device.Name, "Name not the same");
+            Assert.AreEqual("InputMultiplexer", o.Device.Type, "Type not the same");
             Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -157,7 +156,7 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual("737PEDESTAL1", o.Controller.Name, "Controller Name not the same");
             Assert.AreEqual("SN-769-a6a", o.Controller.Serial, "Controller Serial not the same");
-            Assert.AreEqual("Analog 67 A13", o.DeviceName, "Name not the same");
+            Assert.AreEqual("Analog 67 A13", o.Device.Name, "Name not the same");
             Assert.HasCount(1, o.Preconditions, "Preconditions Count not the same");
             Assert.HasCount(1, o.ConfigRefs, "Config ref count is not correct");
         }
@@ -185,7 +184,7 @@ namespace MobiFlight.Tests
 
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/797
             o = new InputConfigItem();
-            o.DeviceType = InputConfigItem.TYPE_ANALOG;
+            o.Device = new MobiFlight.InputConfig.AnalogInput() { Name = "Analog 67 A13" };
             if (o.analog == null) o.analog = new InputConfig.AnalogInputConfig();
             o.analog.onChange = new MSFS2020CustomInputAction() { Command = "test", PresetId = Guid.NewGuid().ToString() };
 
@@ -231,6 +230,50 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
+        public void OnDeserialized_OldJsonFormat_CreatesDeviceFromDeviceTypeAndName_InputMultiplexer()
+        {
+            // Simulate old JSON format: DeviceType + DeviceName set, but no Device object
+            string oldFormatJson = @"{
+                ""inputMultiplexer"": {
+                    ""DataPin"": 5
+                },
+                ""Type"": ""InputConfigItem"", 
+                ""GUID"": ""test-guid"",
+                ""DeviceType"": ""InputMultiplexer"",
+                ""DeviceName"": ""Multiplexer 1""
+            }";
+
+            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(oldFormatJson);
+
+            Assert.IsNotNull(result.Device, "Device should be populated by OnDeserialized");
+            Assert.IsInstanceOfType(result.Device, typeof(MobiFlight.InputConfig.InputMultiplexer));
+            Assert.AreEqual("Multiplexer 1", result.Device.Name);
+            Assert.AreEqual(5, (result.Device as InputMultiplexer)?.SubIndex);
+        }
+
+        [TestMethod()]
+        public void OnDeserialized_OldJsonFormat_CreatesDeviceFromDeviceTypeAndName_InputShiftRegister()
+        {
+            // Simulate old JSON format: DeviceType + DeviceName set, but no Device object
+            string oldFormatJson = @"{
+                ""inputShiftRegister"": {
+                    ""ExtPin"": 5
+                },
+                ""Type"": ""InputConfigItem"", 
+                ""GUID"": ""test-guid"",
+                ""DeviceType"": ""InputShiftRegister"",
+                ""DeviceName"": ""Shift Register 1""
+            }";
+
+            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(oldFormatJson);
+
+            Assert.IsNotNull(result.Device, "Device should be populated by OnDeserialized");
+            Assert.IsInstanceOfType(result.Device, typeof(MobiFlight.InputConfig.InputShiftRegister));
+            Assert.AreEqual("Shift Register 1", result.Device.Name);
+            Assert.AreEqual(5, (result.Device as InputShiftRegister)?.SubIndex);
+        }
+
+        [TestMethod()]
         public void OnDeserialized_TypeNotSet_DoesNotCreateDevice()
         {
             string json = @"{
@@ -245,7 +288,6 @@ namespace MobiFlight.Tests
         }
         #endregion
 
-
         [TestMethod()]
         public void CloneTest()
         {
@@ -258,8 +300,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(c.Name, o.Name, "Name not the same");
             Assert.HasCount(1, c.Preconditions, "Precondition Count is not 1");
 
-            Assert.AreEqual(o.DeviceName, c.DeviceName, "DeviceName not the same");
-            Assert.AreEqual(o.DeviceType, c.DeviceType, "DeviceType not the same");
+            Assert.AreEqual(o.Device.Name, c.Device.Name, "DeviceName not the same");
+            Assert.AreEqual(o.Device.Type, c.Device.Type, "DeviceType not the same");
             Assert.IsNotNull(c.Device, "Device should not be null after Clone");
             Assert.AreEqual(o.Device, c.Device, "Devices should be the same");
         }
@@ -270,7 +312,6 @@ namespace MobiFlight.Tests
             result.Name = "Test Input Config Item";
             result.Active = false;
             result.GUID = "123-input";
-
 
             result.button = new InputConfig.ButtonInputConfig();
             result.button.onRelease = new InputConfig.FsuipcOffsetInputAction()
@@ -288,9 +329,7 @@ namespace MobiFlight.Tests
             result.encoder = null;
             result.Controller = new Controller() { Serial = "TestSerial" };
 
-            result.DeviceName = "TestName";
-            result.DeviceType = InputConfigItem.TYPE_BUTTON;
-            result.Device = new MobiFlight.InputConfig.Button() { Name = "TTestName" };
+            result.Device = new MobiFlight.InputConfig.Button() { Name = "TestName" };
 
             result.Preconditions.Add(new Precondition() { Serial = "PreConTestSerial" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = true, Placeholder = "@", Ref = "0b1c877f-baf3-4c69-99e6-6c31429fe3bd" });
@@ -377,13 +416,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_Button_ReturnsButtonDevice()
         {
-            var config = new InputConfigItem
-            {
-                DeviceType = InputConfigItem.TYPE_BUTTON,
-                DeviceName = "Button 1"
-            };
-
-            var result = InputConfigItem.CreateInputDevice(config);
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Button 1");
 
             Assert.IsInstanceOfType(result, typeof(MobiFlight.InputConfig.Button));
             Assert.AreEqual("Button 1", result.Name);
@@ -392,13 +425,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_Encoder_ReturnsEncoderDevice()
         {
-            var config = new InputConfigItem
-            {
-                DeviceType = InputConfigItem.TYPE_ENCODER,
-                DeviceName = "Encoder 1"
-            };
-
-            var result = InputConfigItem.CreateInputDevice(config);
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_ENCODER, "Encoder 1");
 
             Assert.IsInstanceOfType(result, typeof(MobiFlight.InputConfig.Encoder));
             Assert.AreEqual("Encoder 1", result.Name);
@@ -407,13 +434,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_AnalogInput_ReturnsAnalogInputDevice()
         {
-            var config = new InputConfigItem
-            {
-                DeviceType = InputConfigItem.TYPE_ANALOG,
-                DeviceName = "Potentiometer 1"
-            };
-
-            var result = InputConfigItem.CreateInputDevice(config);
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_ANALOG, "Potentiometer 1");
 
             Assert.IsInstanceOfType(result, typeof(MobiFlight.InputConfig.AnalogInput));
             Assert.AreEqual("Potentiometer 1", result.Name);
@@ -422,14 +443,11 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_InputShiftRegister_ReturnsInputShiftRegisterDeviceWithExtPin()
         {
-            var config = new InputConfigItem
-            {
-                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
-                DeviceName = "Shifter 1",
-                inputShiftRegister = new InputShiftRegisterConfig { ExtPin = 5 }
-            };
-
-            var result = InputConfigItem.CreateInputDevice(config) as MobiFlight.InputConfig.InputShiftRegister;
+            var result = InputConfigItem.CreateInputDevice(
+                            InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                            "Shifter 1",
+                            5
+                        ) as MobiFlight.InputConfig.InputShiftRegister;
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Shifter 1", result.Name);
@@ -439,14 +457,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_InputShiftRegister_NullConfig_UsesZeroExtPin()
         {
-            var config = new InputConfigItem
-            {
-                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
-                DeviceName = "Shifter 1",
-                inputShiftRegister = null  // null guard
-            };
-
-            var result = InputConfigItem.CreateInputDevice(config) as MobiFlight.InputConfig.InputShiftRegister;
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_SHIFT_REGISTER, "Shifter 1") as MobiFlight.InputConfig.InputShiftRegister;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(0, result.SubIndex);
@@ -455,14 +466,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_InputMultiplexer_ReturnsInputMultiplexerDeviceWithDataPin()
         {
-            var config = new InputConfigItem
-            {
-                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
-                DeviceName = "Mux 1",
-                inputMultiplexer = new InputMultiplexerConfig { DataPin = 3 }
-            };
-
-            var result = InputConfigItem.CreateInputDevice(config) as MobiFlight.InputConfig.InputMultiplexer;
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_MULTIPLEXER, "Mux 1", 3) as MobiFlight.InputConfig.InputMultiplexer;
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Mux 1", result.Name);
@@ -472,13 +476,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_TypeNotSet_ReturnsNull()
         {
-            var config = new InputConfigItem
-            {
-                DeviceType = InputConfigItem.TYPE_NOTSET,
-                DeviceName = "Something"
-            };
-
-            var result = InputConfigItem.CreateInputDevice(config);
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_NOTSET, "Something");
 
             Assert.IsNull(result);
         }

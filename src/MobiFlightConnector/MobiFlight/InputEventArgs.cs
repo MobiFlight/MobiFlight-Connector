@@ -86,14 +86,14 @@ namespace MobiFlight
             var eventAction = GetEventActionLabel();
 
             var subPinLabel = Device.SubId != null ? $":{Device.SubId}" : null;
-            return $"{Controller.Name} => {Device.Name}{subPinLabel} => {eventAction}";
+            return $"{Controller.Name} => {Device.Label}{subPinLabel} => {eventAction}";
         }
 
         public object Clone()
         {
             InputEventArgs clone = new InputEventArgs();
-            clone.Controller = Controller.Clone() as Controller;
-            clone.Device = Device.Clone() as DeviceReference;
+            clone.Controller = Controller?.Clone() as Controller;
+            clone.Device = Device?.Clone() as DeviceReference;
             clone.InputType = InputType;
             clone.Value = Value;
             clone.StrValue = StrValue;

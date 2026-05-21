@@ -36,6 +36,36 @@ namespace MobiFlight.Base.Serialization.Json
                 jsonObject.Remove("ModuleSerial");
             }
 
+            // Migration: If DeviceName and DeviceType exist but Device doesn't, convert them to Device
+            var deviceName = (string)jsonObject["DeviceName"];
+            var deviceType = (string)jsonObject["DeviceType"];
+            if (deviceName != null && deviceType != null && jsonObject["Device"] == null)
+            {
+                var subIndex = 0;
+                if (deviceType == InputConfigItem.TYPE_INPUT_MULTIPLEXER)
+                {
+                    var multiplexerPin = jsonObject["inputMultiplexer"]?["DataPin"];
+                    if (multiplexerPin != null) {
+                        int.TryParse(multiplexerPin.ToString(), out subIndex);
+                    }
+                }
+
+                if (deviceType == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
+                {
+                    var pin = jsonObject["inputShiftRegister"]?["ExtPin"];
+                    if (pin != null) {
+                        int.TryParse(pin.ToString(), out subIndex);
+                    }
+                }
+
+                var device = InputConfigItem.CreateInputDevice(deviceType, deviceName, subIndex);
+                if (device != null)
+                    jsonObject["Device"] = JObject.FromObject(device);
+
+                jsonObject.Remove("DeviceName");
+                jsonObject.Remove("DeviceType");
+            }
+
             var configItem = Activator.CreateInstance(type) as IConfigItem;
             serializer.Populate(jsonObject.CreateReader(), configItem);
             return configItem;

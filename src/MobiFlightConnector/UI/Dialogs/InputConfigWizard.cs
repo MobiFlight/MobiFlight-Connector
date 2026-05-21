@@ -299,10 +299,10 @@ namespace MobiFlight.UI.Dialogs
             }
 
             // second tab
-            if (config.DeviceName != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.DeviceName))
+            if (config.Device != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.Device.Name))
             {
                 // TODO: provide error message
-                Log.Instance.log($"Exception on selecting item in input type ComboBox. {config.DeviceName}", LogSeverity.Error);
+                Log.Instance.log($"Exception on selecting item in input type ComboBox. {config.Device.Name}", LogSeverity.Error);
             }
 
             preconditionPanel.syncFromConfig(config);
@@ -356,6 +356,7 @@ namespace MobiFlight.UI.Dialogs
         {
             var selectedControllerListItem = inputModuleNameComboBox.SelectedItem as ListItem<Controller>;
             config.Controller = selectedControllerListItem.Value;
+            var DeviceName = "";
 
             configRefPanel.syncToConfig(config);
 
@@ -364,8 +365,9 @@ namespace MobiFlight.UI.Dialogs
             if (config.Controller == null) return true;
 
             IBaseDevice device = ((ListItem<IBaseDevice>)inputTypeComboBox.SelectedItem).Value;
+
             if (device.Label != InputConfigItem.TYPE_NOTSET)
-                config.DeviceName = device.Name;
+                DeviceName = device.Name;
 
             DeviceType currentInputType = determineCurrentDeviceType(config.Controller.Serial);
 
@@ -374,21 +376,24 @@ namespace MobiFlight.UI.Dialogs
             switch (currentInputType)
             {
                 case DeviceType.Button:
-                    config.DeviceType = InputConfigItem.TYPE_BUTTON;
+                    config.Device = new InputConfig.Button()
+                    {
+                        Name = DeviceName
+                    };
                     if (config.button == null) config.button = new InputConfig.ButtonInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
                 case DeviceType.Encoder:
-                    config.DeviceType = InputConfigItem.TYPE_ENCODER;
+                    config.Device = new InputConfig.Encoder() { Name = DeviceName };
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
                     break;
 
                 case DeviceType.InputShiftRegister:
-                    config.DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+                    config.Device = new InputConfig.InputShiftRegister() { Name = DeviceName, SubIndex = (int)inputPinDropDown.SelectedItem };
                     if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
                     config.inputShiftRegister.ExtPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
@@ -396,7 +401,7 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case DeviceType.InputMultiplexer:
-                    config.DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER;
+                    config.Device = new InputConfig.InputMultiplexer() { Name = DeviceName, SubIndex = (int)inputPinDropDown.SelectedItem };
                     if (config.inputMultiplexer == null) config.inputMultiplexer = new InputConfig.InputMultiplexerConfig();
                     config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
@@ -404,19 +409,16 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case DeviceType.AnalogInput:
-                    config.DeviceType = InputConfigItem.TYPE_ANALOG;
+                    config.Device = new InputConfig.AnalogInput() { Name = DeviceName };
                     if (config.analog == null) config.analog = new InputConfig.AnalogInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as AnalogPanel).ToConfig(config.analog);
                     break;
 
                 case DeviceType.NotSet:
-                    config.DeviceType = InputConfigItem.TYPE_NOTSET;
-                    config.DeviceName = InputConfigItem.TYPE_NOTSET;
+                    config.Device = null;
                     break;
             }
-
-            config.Device = InputConfigItem.CreateInputDevice(config);
 
             // Clear unused config objects after switching device type to prevent incorrect input event matching
             ClearUnusedConfigObjects(currentInputType);
@@ -489,7 +491,7 @@ namespace MobiFlight.UI.Dialogs
 
                     if (device != null)
                     {
-                        device.Name = config.DeviceName;
+                        device.Name = config.Device.Name;
                         inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Label, Value = device });
                     }
                     inputTypeComboBox.Enabled = false;
@@ -566,9 +568,9 @@ namespace MobiFlight.UI.Dialogs
                 }
 
                 // third tab
-                if (config.DeviceName != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.DeviceName))
+                if (config.Device.Name != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.Device.Name))
                 {
-                    Log.Instance.log($"Problem setting input type ComboBox. {config.DeviceName}", LogSeverity.Error);
+                    Log.Instance.log($"Problem setting input type ComboBox. {config.Device.Name}", LogSeverity.Error);
                 }
             }
             catch (Exception ex)

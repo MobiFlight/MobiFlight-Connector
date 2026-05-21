@@ -157,13 +157,13 @@ namespace MobiFlight.Execution
             if (!serialMatches)
                 return false;
 
-            bool deviceNameMatches = cfg.DeviceName == e.Device.Name;
+            bool deviceNameMatches = cfg.Device.Name == e.Device.Name;
             
             // For backward compatibility we have to make this check
             // because we used to have the label in the config
             // but now we want to store the internal button identifier
             // so that the label can change any time without breaking the config
-            bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.Controller.Serial) && cfg.DeviceName == e.Device.Label;
+            bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.Controller.Serial) && cfg.Device.Name == e.Device.Label;
             
             return deviceNameMatches || isJoystickWithLabelMatch;
         }
@@ -175,10 +175,11 @@ namespace MobiFlight.Execution
             // would get added to the input cache and fired even though the pins don't match.
             // Only perform this check if the config's DeviceType is actually InputShiftRegister
             bool isButtonEvent = e.InputType == DeviceType.Button;
+            bool isInputShiftRegisterConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
             bool hasInputShiftRegisterConfig = cfg.inputShiftRegister != null;
             bool pinMismatch = cfg.inputShiftRegister?.ExtPin.ToString() != (e.Device.SubId);
 
-            return isButtonEvent && hasInputShiftRegisterConfig && pinMismatch;
+            return isButtonEvent && isInputShiftRegisterConfig && hasInputShiftRegisterConfig && pinMismatch;
         }
 
         internal static bool ShouldSkipDueToInputMultiplexerPinMismatch(InputConfigItem cfg, InputEventArgs e)
@@ -186,10 +187,11 @@ namespace MobiFlight.Execution
             // Similarly for digital input Multiplexer
             // Only perform this check if the config's DeviceType is actually InputMultiplexer
             bool isButtonEvent = e.InputType == DeviceType.Button;
+            bool isInputMultiplexerConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER;
             bool hasInputMultiplexerConfig = cfg.inputMultiplexer != null;
             bool pinMismatch = cfg.inputMultiplexer?.DataPin.ToString() != (e.Device.SubId);
 
-            return isButtonEvent && hasInputMultiplexerConfig && pinMismatch;
+            return isButtonEvent && isInputMultiplexerConfig && hasInputMultiplexerConfig && pinMismatch;
         }
 
         private bool CheckPreconditions(InputConfigItem cfg)

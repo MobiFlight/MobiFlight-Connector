@@ -11,7 +11,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
@@ -28,7 +28,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.RELEASE
             };
 
@@ -45,7 +45,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE
             };
 
@@ -62,7 +62,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = 999 // Invalid event
             };
 
@@ -79,7 +79,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Encoder,
+                InputType = DeviceType.Encoder,
                 Value = (int)MobiFlightEncoder.InputEvent.LEFT
             };
 
@@ -96,7 +96,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Encoder,
+                InputType = DeviceType.Encoder,
                 Value = (int)MobiFlightEncoder.InputEvent.RIGHT
             };
 
@@ -113,7 +113,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Encoder,
+                InputType = DeviceType.Encoder,
                 Value = (int)MobiFlightEncoder.InputEvent.LEFT_FAST
             };
 
@@ -130,7 +130,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Encoder,
+                InputType = DeviceType.Encoder,
                 Value = (int)MobiFlightEncoder.InputEvent.RIGHT_FAST
             };
 
@@ -147,7 +147,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Encoder,
+                InputType = DeviceType.Encoder,
                 Value = 999 // Invalid event
             };
 
@@ -164,7 +164,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
@@ -181,7 +181,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.RELEASE
             };
 
@@ -198,7 +198,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.InputShiftRegister,
+                InputType = DeviceType.InputShiftRegister,
                 Value = 999 // Invalid event
             };
 
@@ -215,7 +215,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS // InputMultiplexer uses Button events
             };
 
@@ -232,7 +232,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.RELEASE // InputMultiplexer uses Button events
             };
 
@@ -249,7 +249,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Button,
+                InputType = DeviceType.Button,
                 Value = 999 // Invalid event
             };
 
@@ -266,7 +266,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.AnalogInput,
+                InputType = DeviceType.AnalogInput,
                 Value = 512 // Analog value
             };
 
@@ -283,7 +283,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.AnalogInput,
+                InputType = DeviceType.AnalogInput,
                 Value = 0
             };
 
@@ -300,7 +300,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.AnalogInput,
+                InputType = DeviceType.AnalogInput,
                 Value = 1023
             };
 
@@ -317,7 +317,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.Output, // Not an input device
+                InputType = DeviceType.Output, // Not an input device
                 Value = 1
             };
 
@@ -334,7 +334,7 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Type = DeviceType.NotSet,
+                InputType = DeviceType.NotSet,
                 Value = 1
             };
 
@@ -351,9 +351,15 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Name = "TestModule",
-                DeviceLabel = "Button1",
-                Type = DeviceType.Button,
+                Controller = new Base.Controller()
+                {
+                    Name = "TestModule",
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Label = "Button1",
+                },
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
@@ -370,11 +376,18 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Name = "TestModule",
-                DeviceLabel = "InputShiftReg1",
-                Type = DeviceType.Button,
-                Value = (int)MobiFlightButton.InputEvent.PRESS,
-                ExtPin = 5
+                Controller = new Base.Controller()
+                {
+                    Name = "TestModule"
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Label = "InputShiftReg1",
+                    SubId = "5",
+                    Type = DeviceType.InputShiftRegister
+                },
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
             // Act
@@ -390,11 +403,17 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Name = "EncoderModule",
-                DeviceLabel = "Rotary1",
-                Type = DeviceType.Encoder,
-                Value = (int)MobiFlightEncoder.InputEvent.LEFT,
-                ExtPin = null
+                Controller = new Base.Controller()
+                {
+                    Name = "EncoderModule",
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Label = "Rotary1",
+                    Type = DeviceType.Encoder
+                },
+                InputType = DeviceType.Encoder,
+                Value = (int)MobiFlightEncoder.InputEvent.LEFT
             };
 
             // Act
@@ -410,11 +429,18 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Name = "MuxModule",
-                DeviceLabel = "Multiplexer1",
-                Type = DeviceType.Button,
-                Value = (int)MobiFlightButton.InputEvent.PRESS,
-                ExtPin = 12
+                Controller = new Base.Controller()
+                {
+                    Name = "MuxModule",
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Label = "Multiplexer1",
+                    Type = DeviceType.InputMultiplexer,
+                    SubId = "12"
+                },
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
             // Act
@@ -430,9 +456,16 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Name = "AnalogModule",
-                DeviceLabel = "Potentiometer1",
-                Type = DeviceType.AnalogInput,
+                Controller = new Base.Controller()
+                {
+                    Name = "AnalogModule"
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Label = "Potentiometer1",
+                    Type = DeviceType.AnalogInput
+                },
+                InputType = DeviceType.AnalogInput,
                 Value = 768
             };
 
@@ -449,9 +482,16 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Name = null,
-                DeviceLabel = "",
-                Type = DeviceType.Button,
+                Controller = new Base.Controller()
+                {
+                    Name = null
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Label = "",
+                    Type = DeviceType.Button
+                },
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
@@ -468,11 +508,19 @@ namespace MobiFlight.Tests
             // Arrange
             var inputEvent = new InputEventArgs
             {
-                Name = "TestModule",
-                DeviceLabel = "ShiftReg1",
-                Type = DeviceType.Button,
+                Controller = new Base.Controller()
+                {
+                    Name = "TestModule"
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Name = "ShiftReg1",
+                    Label = "ShiftReg1",
+                    Type = DeviceType.ShiftRegister,
+                    SubId = "0"
+                },
+                InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS,
-                ExtPin = 0 // Zero is a valid pin number
             };
 
             // Act
