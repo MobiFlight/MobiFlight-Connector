@@ -171,7 +171,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         />
 
         <ComboBox
-          getLabel={(device) => (device as BaseDevice)?.Label}
+          getLabel={(device) => (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name}
           getValue={(device) => (device as BaseDevice)?.Name}
           isSelected={(device, selected) =>
             (device as BaseDevice).Name === selected?.Name
