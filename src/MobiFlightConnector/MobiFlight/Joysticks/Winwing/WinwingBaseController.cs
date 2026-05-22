@@ -1,4 +1,5 @@
-﻿using MobiFlight.Firmware;
+﻿using MobiFlight.Base;
+using MobiFlight.Firmware;
 using MobiFlightWwFcu;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace MobiFlight.Joysticks.Winwing
         protected readonly int VendorId = 0x4098;
         protected WinwingDisplayControl DisplayControl;
         protected List<IBaseDevice> LcdDevices = new List<IBaseDevice>();
-        protected List<IBaseDevice> LedDevices = new List<IBaseDevice>();
+        protected List<DeviceReference> LedDevices = new List<DeviceReference>();
 
         public WinwingBaseController(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
         {
@@ -83,7 +84,7 @@ namespace MobiFlight.Joysticks.Winwing
             return LcdDevices;
         }
 
-        public override List<IBaseDevice> GetAvailableOutputDevices()
+        public override List<DeviceReference> GetAvailableOutputDevices()
         {
             return LedDevices;
         }

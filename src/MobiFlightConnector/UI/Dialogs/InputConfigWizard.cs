@@ -459,40 +459,40 @@ namespace MobiFlight.UI.Dialogs
                 inputTypeComboBox.ValueMember = "Value";
                 inputTypeComboBox.DisplayMember = "Label";
 
-                IBaseDevice emptyDevice = new BaseDevice() { Name = InputConfigItem.TYPE_NOTSET };
-                inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = InputConfigItem.TYPE_NOTSET, Value = emptyDevice });
+                DeviceReference emptyDevice = new DeviceReference() { Name = InputConfigItem.TYPE_NOTSET };
+                inputTypeComboBox.Items.Add(new ListItem<DeviceReference>() { Label = InputConfigItem.TYPE_NOTSET, Value = emptyDevice });
                 inputTypeComboBox.SelectedIndex = 0;
                 inputTypeComboBox.Enabled = true;
 
                 if (string.IsNullOrEmpty(serial))
                 {
-                    BaseDevice device = null;
+                    DeviceReference device = null;
 
                     if (config.button != null)
                     {
-                        device = new Firmware.Button();
+                        device = new DeviceReference() { Name = config.Device.Name, Label = config.Device.Name, Type = DeviceType.Button };
                     }
                     else if (config.encoder != null)
                     {
-                        device = new Encoder();
+                        device = new DeviceReference() { Name = config.Device.Name, Label = config.Device.Name, Type = DeviceType.Encoder };
                     }
                     else if (config.analog != null)
                     {
-                        device = new AnalogInput();
+                        device = new DeviceReference() { Name = config.Device.Name, Label = config.Device.Name, Type = DeviceType.AnalogInput };
                     }
                     else if (config.inputShiftRegister != null)
                     {
-                        device = new InputShiftRegister();
+                        device = new DeviceReference() { Name = config.Device.Name, Label = config.Device.Name, Type = DeviceType.InputShiftRegister };
                     }
                     else if (config.inputMultiplexer != null)
                     {
-                        device = new InputMultiplexer();
+                        device = new DeviceReference() { Name = config.Device.Name, Label = config.Device.Name, Type = DeviceType.InputMultiplexer };
                     }
 
                     if (device != null)
                     {
                         device.Name = config.Device.Name;
-                        inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Label, Value = device });
+                        inputTypeComboBox.Items.Add(new ListItem<DeviceReference>() { Label = device.Label, Value = device });
                     }
                     inputTypeComboBox.Enabled = false;
                 }
@@ -504,7 +504,7 @@ namespace MobiFlight.UI.Dialogs
                     foreach (var device in devices)
                     {
                         inputTypeComboBox.Items.Add(
-                            new ListItem<IBaseDevice>()
+                            new ListItem<DeviceReference>()
                             {
                                 Label = device.Label,
                                 Value = device
@@ -519,7 +519,7 @@ namespace MobiFlight.UI.Dialogs
                     foreach (var device in devices)
                     {
                         inputTypeComboBox.Items.Add(
-                            new ListItem<IBaseDevice>() { 
+                            new ListItem<DeviceReference>() { 
                                 Label = device.Label, 
                                 Value = device 
                             });
@@ -531,7 +531,7 @@ namespace MobiFlight.UI.Dialogs
 
                     if (module != null)
                     {
-                        foreach (IBaseDevice device in module.GetConnectedInputDevices())
+                        foreach (DeviceReference device in module.GetConnectedInputDevices())
                         {
                             switch (device.Type)
                             {
@@ -540,7 +540,7 @@ namespace MobiFlight.UI.Dialogs
                                 case DeviceType.Encoder:
                                 case DeviceType.InputShiftRegister:
                                 case DeviceType.InputMultiplexer:
-                                    inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Name, Value = device });
+                                    inputTypeComboBox.Items.Add(new ListItem<DeviceReference>() { Label = device.Name, Value = device });
                                     break;
                             }
                         }
@@ -827,13 +827,13 @@ namespace MobiFlight.UI.Dialogs
             else if (SerialNumber.IsMidiBoardSerial(serial))
             {
                 // Add item to device list if not yet there
-                if (!inputTypeComboBox.Items.OfType<ListItem<IBaseDevice>>().Any(i => i.Value.Name == e.Device.Name))
+                if (!inputTypeComboBox.Items.OfType<ListItem<DeviceReference>>().Any(i => i.Value.Name == e.Device.Name))
                 {
                     MidiBoardDevice mbd = new MidiBoardDevice();
                     mbd.Label = e.Device.Label;
                     mbd.Name = e.Device.Name;
                     mbd.Type = DeviceType.Button;
-                    inputTypeComboBox.Items.Add(new ListItem<IBaseDevice> { Label = mbd.Label, Value = mbd });
+                    inputTypeComboBox.Items.Add(new ListItem<DeviceReference> { Label = mbd.Label, Value = mbd });
                 }
                 ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.Device.Label);
             }

@@ -1,5 +1,6 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
+using MobiFlight.Base;
 using MobiFlight.Firmware;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -1239,22 +1240,20 @@ namespace MobiFlight
             return result;
         }
 
-        public IEnumerable<IBaseDevice> GetConnectedInputDevices()
+        public IEnumerable<DeviceReference> GetConnectedInputDevices()
         {
-            List<Firmware.BaseDevice> result = new List<Firmware.BaseDevice>();
+            var result = new List<DeviceReference>();
 
             foreach (Firmware.BaseDevice dev in Config.Items)
             {
-                switch (dev.Type)
+                var deviceReference = new DeviceReference()
                 {
-                    case DeviceType.Button:
-                    case DeviceType.Encoder:
-                    case DeviceType.InputShiftRegister:
-                    case DeviceType.InputMultiplexer:
-                    case DeviceType.AnalogInput:
-                        result.Add(dev);
-                        break;
-                }
+                    Name = dev.Name,
+                    Label = dev.Label,
+                    Type = dev.Type
+                };
+
+                result.Add(deviceReference);
             }
 
             result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });

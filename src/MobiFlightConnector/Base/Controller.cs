@@ -22,7 +22,7 @@ namespace MobiFlight.Base
         /// <summary>
         /// Gets the available devices of this controller
         /// </summary>
-        public List<IBaseDevice> Devices { get; set; } = new List<IBaseDevice>();
+        public List<DeviceReference> Devices { get; set; } = new List<DeviceReference>();
 
         public Controller() {}
 

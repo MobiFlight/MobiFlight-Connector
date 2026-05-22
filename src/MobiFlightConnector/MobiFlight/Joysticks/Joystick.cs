@@ -1,4 +1,5 @@
 ﻿using HidSharp;
+using MobiFlight.Base;
 using MobiFlight.Firmware;
 using SharpDX.DirectInput;
 using System;
@@ -239,9 +240,9 @@ namespace MobiFlight
             });
         }
 
-        public List<IBaseDevice> GetAvailableDevices()
+        public List<DeviceReference> GetAvailableDevices()
         {
-            List<IBaseDevice> result = new List<IBaseDevice>();
+            List<DeviceReference> result = new List<DeviceReference>();
 
             GetButtonsSorted().ForEach((item) =>
             {
@@ -298,9 +299,9 @@ namespace MobiFlight
             Stream = Device.Open();
         }
 
-        public virtual List<IBaseDevice> GetAvailableOutputDevices()
+        public virtual List<DeviceReference> GetAvailableOutputDevices()
         {
-            List<IBaseDevice> result = new List<IBaseDevice>();
+            var result = new List<DeviceReference>();
             Lights.ForEach((item) =>
             {
                 result.Add(item);
@@ -575,9 +576,9 @@ namespace MobiFlight
 
         }
 
-        public List<IBaseDevice> GetConnectedInputDevices()
+        public List<DeviceReference> GetConnectedInputDevices()
         {
-            List<IBaseDevice> result = new List<IBaseDevice>();
+            var result = new List<DeviceReference>();
             result.AddRange(Buttons);
             result.AddRange(Axes);
             result.AddRange(POV);
