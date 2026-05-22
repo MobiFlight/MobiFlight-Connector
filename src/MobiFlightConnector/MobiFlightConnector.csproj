@@ -303,10 +303,12 @@
     <Compile Include="Base\ConfigRefList.cs" />
     <Compile Include="Base\ConfigItemStatus.cs" />
     <Compile Include="Base\Controller.cs" />
+    <Compile Include="Base\DeviceReference.cs" />
     <Compile Include="Base\DPIUtil.cs" />
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\IConfigFile.cs" />
+    <Compile Include="Base\IDeviceConfig.cs" />
     <Compile Include="Base\InputEventExecutor.cs" />
     <Compile Include="Base\LruCache.cs" />
     <Compile Include="Base\Migration\Output_V_0_9_Migration.cs" />
@@ -320,7 +322,6 @@
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
-    <Compile Include="Base\IDeviceConfig.cs" />
     <Compile Include="Base\LogAppender\MessageExchangeAppender.cs" />
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\ProgressUpdateEvent.cs" />
