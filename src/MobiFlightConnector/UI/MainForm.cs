@@ -1807,11 +1807,202 @@ namespace MobiFlight.UI
 
                 // The Stop entry
                 contextMenuStripNotifyIcon.Items[1].Enabled = isRunning;
+
+                UpdateNotifyIconBadge(isRunning);
             }
             catch (Exception ex)
             {
                 // do nothing
                 Log.Instance.log(ex.Message, LogSeverity.Info);
+            }
+        }
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern bool DestroyIcon(IntPtr handle);
+
+        // We stash the designer-loaded base icons on first use, then for each state
+        // change build fresh HICONs via Bitmap.GetHicon() and hand them to the
+        // NotifyIcon and the Form. GetHicon() returns an unmanaged handle that we
+        // own — we must DestroyIcon the previous one when swapping, or we leak a
+        // GDI handle per toggle. Tray and form icons are built from their own
+        // base icons so each retains its native resolution (the tray is typically
+        // 16x16, the form/taskbar icon is larger).
+        private Icon notifyIconBaseIcon;
+        private Icon notifyIconBadged;
+        private IntPtr notifyIconBadgedHandle = IntPtr.Zero;
+
+        private Icon formIconBase;
+        private Icon formIconBadged;
+        private IntPtr formIconBadgedHandle = IntPtr.Zero;
+
+        // Taskbar overlay badge (works for pinned launcher icons while the app
+        // is running; SetOverlayIcon layers a small icon on top of whatever the
+        // taskbar is already showing).
+        private Icon taskbarOverlayIcon;
+        private IntPtr taskbarOverlayIconHandle = IntPtr.Zero;
+        private ITaskbarList3 taskbarList;
+        private bool taskbarListInitFailed;
+
+        private void UpdateNotifyIconBadge(bool isRunning)
+        {
+            if (notifyIconBaseIcon == null) notifyIconBaseIcon = notifyIcon.Icon;
+            if (formIconBase == null) formIconBase = this.Icon;
+
+            if (notifyIconBaseIcon != null)
+            {
+                IntPtr newHandle;
+                var newIcon = BuildBadgedIcon(notifyIconBaseIcon, isRunning, out newHandle);
+                notifyIcon.Icon = newIcon;
+
+                notifyIconBadged?.Dispose();
+                if (notifyIconBadgedHandle != IntPtr.Zero) DestroyIcon(notifyIconBadgedHandle);
+                notifyIconBadged = newIcon;
+                notifyIconBadgedHandle = newHandle;
+            }
+
+            if (formIconBase != null)
+            {
+                IntPtr newHandle;
+                var newIcon = BuildBadgedIcon(formIconBase, isRunning, out newHandle);
+                this.Icon = newIcon;
+
+                formIconBadged?.Dispose();
+                if (formIconBadgedHandle != IntPtr.Zero) DestroyIcon(formIconBadgedHandle);
+                formIconBadged = newIcon;
+                formIconBadgedHandle = newHandle;
+            }
+
+            UpdateTaskbarOverlay(isRunning);
+
+            notifyIcon.Text = "MobiFlight - " + (isRunning ? "Running" : "Stopped");
+        }
+
+        private void UpdateTaskbarOverlay(bool isRunning)
+        {
+            if (taskbarListInitFailed) return;
+            if (!this.IsHandleCreated) return; // can't overlay a window that has no HWND yet
+
+            try
+            {
+                if (taskbarList == null)
+                {
+                    taskbarList = (ITaskbarList3)new TaskbarInstance();
+                    taskbarList.HrInit();
+                }
+
+                IntPtr newHandle;
+                var newIcon = BuildOverlayIcon(isRunning, out newHandle);
+                string description = isRunning ? "Running" : "Stopped";
+                taskbarList.SetOverlayIcon(this.Handle, newHandle, description);
+
+                taskbarOverlayIcon?.Dispose();
+                if (taskbarOverlayIconHandle != IntPtr.Zero) DestroyIcon(taskbarOverlayIconHandle);
+                taskbarOverlayIcon = newIcon;
+                taskbarOverlayIconHandle = newHandle;
+            }
+            catch (Exception ex)
+            {
+                // Pre-Win7 or no shell — give up silently.
+                taskbarListInitFailed = true;
+                Log.Instance.log("Taskbar overlay unavailable: " + ex.Message, LogSeverity.Info);
+            }
+        }
+
+        private static Icon BuildOverlayIcon(bool isRunning, out IntPtr hIcon)
+        {
+            // Overlay is drawn small (Windows displays it at ~16x16 in the corner
+            // of the taskbar icon). We render JUST the colored shape on a
+            // transparent background — no app icon underneath.
+            const int size = 16;
+            using (var bmp = new Bitmap(size, size))
+            using (var g = Graphics.FromImage(bmp))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                var rect = new Rectangle(1, 1, size - 3, size - 3);
+                Color fill = isRunning ? Color.FromArgb(40, 200, 80) : Color.FromArgb(220, 50, 50);
+                using (var brush = new SolidBrush(fill))
+                using (var pen = new Pen(Color.FromArgb(220, 0, 0, 0), 1f))
+                {
+                    if (isRunning) { g.FillEllipse(brush, rect); g.DrawEllipse(pen, rect); }
+                    else { g.FillRectangle(brush, rect); g.DrawRectangle(pen, rect); }
+                }
+                hIcon = bmp.GetHicon();
+                return Icon.FromHandle(hIcon);
+            }
+        }
+
+        // COM interop for ITaskbarList3 — the shell interface that backs the Win7+
+        // taskbar API (progress bars, overlay icons, etc.). Discord/Slack use the
+        // same SetOverlayIcon call to put a small badge on the taskbar button.
+        // Methods MUST be declared in vtable order; we stop after SetOverlayIcon
+        // since we don't call any of the methods that come after it.
+        [ComImport]
+        [Guid("ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf")]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface ITaskbarList3
+        {
+            // ITaskbarList
+            void HrInit();
+            void AddTab(IntPtr hwnd);
+            void DeleteTab(IntPtr hwnd);
+            void ActivateTab(IntPtr hwnd);
+            void SetActiveAlt(IntPtr hwnd);
+            // ITaskbarList2
+            void MarkFullscreenWindow(IntPtr hwnd, [MarshalAs(UnmanagedType.Bool)] bool fFullscreen);
+            // ITaskbarList3 (only up through SetOverlayIcon — slots after are unused)
+            void SetProgressValue(IntPtr hwnd, ulong ullCompleted, ulong ullTotal);
+            void SetProgressState(IntPtr hwnd, int tbpFlags);
+            void RegisterTab(IntPtr hwndTab, IntPtr hwndMDI);
+            void UnregisterTab(IntPtr hwndTab);
+            void SetTabOrder(IntPtr hwndTab, IntPtr hwndInsertBefore);
+            void SetTabActive(IntPtr hwndTab, IntPtr hwndMDI, uint dwReserved);
+            void ThumbBarAddButtons(IntPtr hwnd, uint cButtons, IntPtr pButton);
+            void ThumbBarUpdateButtons(IntPtr hwnd, uint cButtons, IntPtr pButton);
+            void ThumbBarSetImageList(IntPtr hwnd, IntPtr himl);
+            void SetOverlayIcon(IntPtr hwnd, IntPtr hIcon, [MarshalAs(UnmanagedType.LPWStr)] string pszDescription);
+        }
+
+        [ComImport]
+        [Guid("56FDF344-FD6D-11d0-958A-006097C9A090")]
+        [ClassInterface(ClassInterfaceType.None)]
+        private class TaskbarInstance { }
+
+        private static Icon BuildBadgedIcon(Icon baseIcon, bool isRunning, out IntPtr hIcon)
+        {
+            // Render at the icon's native size (typically 32x32 in the tray on modern Windows).
+            int size = baseIcon.Width;
+            using (var bmp = new Bitmap(size, size))
+            using (var g = Graphics.FromImage(bmp))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.DrawIcon(baseIcon, new Rectangle(0, 0, size, size));
+
+                // Badge: ~40% of icon size, anchored bottom-right.
+                // Running = green circle, Stopped = red square.
+                int badgeSize = Math.Max(8, (int)(size * 0.4f));
+                int x = size - badgeSize - 1;
+                int y = size - badgeSize - 1;
+                var badgeRect = new Rectangle(x, y, badgeSize, badgeSize);
+
+                Color fill = isRunning ? Color.FromArgb(40, 200, 80) : Color.FromArgb(220, 50, 50);
+                using (var brush = new SolidBrush(fill))
+                using (var pen = new Pen(Color.FromArgb(220, 0, 0, 0), Math.Max(1f, size / 32f)))
+                {
+                    if (isRunning)
+                    {
+                        g.FillEllipse(brush, badgeRect);
+                        g.DrawEllipse(pen, badgeRect);
+                    }
+                    else
+                    {
+                        g.FillRectangle(brush, badgeRect);
+                        g.DrawRectangle(pen, badgeRect);
+                    }
+                }
+
+                hIcon = bmp.GetHicon();
+                // Icon.FromHandle does not own the handle; caller (us) must DestroyIcon it later.
+                return Icon.FromHandle(hIcon);
             }
         }
 
@@ -1876,10 +2067,6 @@ namespace MobiFlight.UI
             if (minimized)
             {
                 notifyIcon.Visible = true;
-                notifyIcon.BalloonTipTitle = i18n._tr("uiMessageMFConnectorInterfaceActive");
-                notifyIcon.BalloonTipText = i18n._tr("uiMessageApplicationIsRunningInBackgroundMode");
-                notifyIcon.ShowBalloonTip(1000);
-                this.Hide();
             }
             else
             {
