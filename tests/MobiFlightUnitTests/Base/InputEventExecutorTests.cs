@@ -360,7 +360,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Controller = new Controller() { Serial = "SN-a1b2c3" },
                 InputType = DeviceType.Button,
-                Device = new DeviceReference() { Name = "Device1", SubId = null },
+                Device = new DeviceReference() { Name = "Device1" },
                 Value = 0, // PRESS event
             };
 
@@ -415,7 +415,6 @@ namespace MobiFlight.Execution.Tests
                 Device = new DeviceReference()
                 {
                     Name = "Device1",
-                    SubId = null
                 },
                 InputType = DeviceType.Button,
                 Value = 0, // PRESS event
@@ -474,8 +473,7 @@ namespace MobiFlight.Execution.Tests
                 },
                 Device = new DeviceReference()
                 {
-                    Name = "Button1",
-                    SubId = null
+                    Name = "Button1"
                 },
                 InputType = DeviceType.Button,
                 Value = 0, // PRESS event
@@ -519,8 +517,7 @@ namespace MobiFlight.Execution.Tests
                 },
                 Device = new DeviceReference()
                 {
-                    Name = "Encoder1",
-                    SubId = null
+                    Name = "Encoder1"
                 },
                 InputType = DeviceType.Encoder,
                 Value = 1, // Rotation value
@@ -564,8 +561,7 @@ namespace MobiFlight.Execution.Tests
                 },
                 Device = new DeviceReference()
                 {
-                    Name = "InputShifter",
-                    SubId = "5",
+                    Name = "InputShifter:5",
                     Type = DeviceType.InputShiftRegister
                 },
                 InputType = DeviceType.Button,
@@ -611,8 +607,7 @@ namespace MobiFlight.Execution.Tests
                 },
                 Device = new DeviceReference()
                 {
-                    Name = "InputMux",
-                    SubId = "3",
+                    Name = "InputMux:3",
                     Type = DeviceType.InputMultiplexer
                 },
                 InputType = DeviceType.Button,
@@ -659,7 +654,6 @@ namespace MobiFlight.Execution.Tests
                 Device = new DeviceReference()
                 {
                     Name = "Analog1",
-                    SubId = null,
                     Type = DeviceType.AnalogInput
                 },
                 InputType = DeviceType.AnalogInput,
@@ -808,10 +802,9 @@ namespace MobiFlight.Execution.Tests
                 },
                 Device = new DeviceReference()
                 {
-                    Name = "InputShifter",
-                    Type = DeviceType.InputShiftRegister,
                     // Different pin
-                    SubId = "3"
+                    Name = "InputShifter:3",
+                    Type = DeviceType.InputShiftRegister,
                 },
                 InputType = DeviceType.Button,
                 Value = 0 
@@ -853,9 +846,8 @@ namespace MobiFlight.Execution.Tests
                 { Serial = "SN-edge004" },
                 Device = new DeviceReference()
                 {
-                    Name = "InputMux",
-                    Type = DeviceType.InputMultiplexer,
-                    SubId = "2" // Different pin
+                    Name = "InputMux:2",
+                    Type = DeviceType.InputMultiplexer
                 },
                 InputType = DeviceType.Button,
                 Value = 0

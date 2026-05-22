@@ -840,10 +840,6 @@ namespace MobiFlight.UI.Dialogs
             else
             {
                 ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.Device.Name);
-                if (e.Device.SubId != null)
-                {
-                    ComboBoxHelper.SetSelectedItem(inputPinDropDown, e.Device.SubId);
-                }
             }
 
             DeactivateScanForInputMode();

@@ -381,6 +381,7 @@
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\ConfigRefValue.cs" />
+    <Compile Include="MobiFlight\DeviceReferenceFactory.cs" />
     <Compile Include="MobiFlight\Firmware\Compatibility\LedModuleDeprecated.cs" />
     <Compile Include="MobiFlight\Firmware\Compatibility\StepperDeprecatedV2.cs" />
     <Compile Include="MobiFlight\Firmware\IBaseDevice.cs" />

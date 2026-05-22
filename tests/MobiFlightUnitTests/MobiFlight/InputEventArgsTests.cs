@@ -357,7 +357,8 @@ namespace MobiFlight.Tests
                 },
                 Device = new Base.DeviceReference()
                 {
-                    Label = "Button1",
+                    Name = "Button1",
+                    Label = "Button 1",
                 },
                 InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS
@@ -367,7 +368,7 @@ namespace MobiFlight.Tests
             var result = inputEvent.GetMsgEventLabel();
 
             // Assert
-            Assert.AreEqual("TestModule => Button1 => PRESS", result);
+            Assert.AreEqual("TestModule => Button 1 => PRESS", result);
         }
 
         [TestMethod]
@@ -382,8 +383,8 @@ namespace MobiFlight.Tests
                 },
                 Device = new Base.DeviceReference()
                 {
-                    Label = "InputShiftReg1",
-                    SubId = "5",
+                    Label = "InputShiftReg1 - 5",
+                    Name = "InputShiftReg1:5",
                     Type = DeviceType.InputShiftRegister
                 },
                 InputType = DeviceType.Button,
@@ -394,7 +395,7 @@ namespace MobiFlight.Tests
             var result = inputEvent.GetMsgEventLabel();
 
             // Assert
-            Assert.AreEqual("TestModule => InputShiftReg1:5 => PRESS", result);
+            Assert.AreEqual("TestModule => InputShiftReg1 - 5 => PRESS", result);
         }
 
         [TestMethod]
@@ -409,7 +410,8 @@ namespace MobiFlight.Tests
                 },
                 Device = new Base.DeviceReference()
                 {
-                    Label = "Rotary1",
+                    Label = "Rotary 1",
+                    Name = "Rotary1",
                     Type = DeviceType.Encoder
                 },
                 InputType = DeviceType.Encoder,
@@ -420,7 +422,7 @@ namespace MobiFlight.Tests
             var result = inputEvent.GetMsgEventLabel();
 
             // Assert
-            Assert.AreEqual("EncoderModule => Rotary1 => LEFT", result);
+            Assert.AreEqual("EncoderModule => Rotary 1 => LEFT", result);
         }
 
         [TestMethod]
@@ -435,9 +437,9 @@ namespace MobiFlight.Tests
                 },
                 Device = new Base.DeviceReference()
                 {
-                    Label = "Multiplexer1",
-                    Type = DeviceType.InputMultiplexer,
-                    SubId = "12"
+                    Label = "Multiplexer1 - 12",
+                    Name = "Multiplexer1:12",
+                    Type = DeviceType.InputMultiplexer
                 },
                 InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS
@@ -447,7 +449,7 @@ namespace MobiFlight.Tests
             var result = inputEvent.GetMsgEventLabel();
 
             // Assert
-            Assert.AreEqual("MuxModule => Multiplexer1:12 => PRESS", result);
+            Assert.AreEqual("MuxModule => Multiplexer1 - 12 => PRESS", result);
         }
 
         [TestMethod]
@@ -462,6 +464,7 @@ namespace MobiFlight.Tests
                 },
                 Device = new Base.DeviceReference()
                 {
+                    Name = "Potentiometer 1",
                     Label = "Potentiometer1",
                     Type = DeviceType.AnalogInput
                 },
@@ -489,6 +492,7 @@ namespace MobiFlight.Tests
                 Device = new Base.DeviceReference()
                 {
                     Label = "",
+                    Name = "",
                     Type = DeviceType.Button
                 },
                 InputType = DeviceType.Button,
@@ -514,10 +518,9 @@ namespace MobiFlight.Tests
                 },
                 Device = new Base.DeviceReference()
                 {
-                    Name = "ShiftReg1",
-                    Label = "ShiftReg1",
-                    Type = DeviceType.ShiftRegister,
-                    SubId = "0"
+                    Name = "ShiftReg1:0",
+                    Label = "ShiftReg1 - 0",      
+                    Type = DeviceType.ShiftRegister
                 },
                 InputType = DeviceType.Button,
                 Value = (int)MobiFlightButton.InputEvent.PRESS,
@@ -527,7 +530,7 @@ namespace MobiFlight.Tests
             var result = inputEvent.GetMsgEventLabel();
 
             // Assert
-            Assert.AreEqual("TestModule => ShiftReg1:0 => PRESS", result);
+            Assert.AreEqual("TestModule => ShiftReg1 - 0 => PRESS", result);
         }
     }
 }

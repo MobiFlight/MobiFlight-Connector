@@ -505,10 +505,9 @@ namespace MobiFlight.Tests
                 },
                 Device = new DeviceReference()
                 {
-                    Name = "TestDevice",
+                    Name = "TestDevice:1",
                     Label = "Test Button",
                     Type = DeviceType.InputMultiplexer,
-                    SubId = "1"
                 },
                 InputType = DeviceType.Button,
                 Value = 1

@@ -642,7 +642,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference(DeviceType.InputShiftRegister, deviceId, strChannel),
+                    Device = new Base.DeviceReference(DeviceType.InputShiftRegister, $"{deviceId}:{strChannel}"),
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -670,7 +670,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference(DeviceType.InputMultiplexer, deviceId, subId),
+                    Device = new Base.DeviceReference(DeviceType.InputMultiplexer, $"{deviceId}:{subId}"),
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -1246,14 +1246,8 @@ namespace MobiFlight
 
             foreach (Firmware.BaseDevice dev in Config.Items)
             {
-                var deviceReference = new DeviceReference()
-                {
-                    Name = dev.Name,
-                    Label = dev.Label,
-                    Type = dev.Type
-                };
-
-                result.Add(deviceReference);
+                var range = DeviceReferenceFactory.Create(dev);
+                result.AddRange(range);
             }
 
             result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });

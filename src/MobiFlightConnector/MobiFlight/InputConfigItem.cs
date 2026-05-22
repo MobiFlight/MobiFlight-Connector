@@ -212,11 +212,11 @@ namespace MobiFlight
                     break;
 
                 case TYPE_INPUT_SHIFT_REGISTER:
-                    result = new InputShiftRegister() { Name = DeviceName, SubIndex = SubIndex > 0 ? SubIndex : 0 };
+                    result = new InputShiftRegister() { Name = $"{DeviceName}:{SubIndex}" };
                     break;
 
                 case TYPE_INPUT_MULTIPLEXER:
-                    result = new InputMultiplexer() { Name = DeviceName, SubIndex = SubIndex > -1 ? SubIndex : 0 };
+                    result = new InputMultiplexer() { Name = $"{DeviceName}:{SubIndex}" };
                     break;
             }
 

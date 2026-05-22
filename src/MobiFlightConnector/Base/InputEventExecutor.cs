@@ -111,8 +111,6 @@ namespace MobiFlight.Execution
         private string CreateInputKey(InputEventArgs e)
         {
             var result = e.Controller.Serial + e.Device.Type + e.Device.Name;
-            if (e.Device.SubId != null) { result += e.Device.SubId; }
-
             return result;
         }
 
@@ -177,7 +175,7 @@ namespace MobiFlight.Execution
             bool isButtonEvent = e.InputType == DeviceType.Button;
             bool isInputShiftRegisterConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
             bool hasInputShiftRegisterConfig = cfg.inputShiftRegister != null;
-            bool pinMismatch = cfg.inputShiftRegister?.ExtPin.ToString() != (e.Device.SubId);
+            bool pinMismatch = cfg.Device.Name != e.Device.Name;
 
             return isButtonEvent && isInputShiftRegisterConfig && hasInputShiftRegisterConfig && pinMismatch;
         }
@@ -189,7 +187,7 @@ namespace MobiFlight.Execution
             bool isButtonEvent = e.InputType == DeviceType.Button;
             bool isInputMultiplexerConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER;
             bool hasInputMultiplexerConfig = cfg.inputMultiplexer != null;
-            bool pinMismatch = cfg.inputMultiplexer?.DataPin.ToString() != (e.Device.SubId);
+            bool pinMismatch = cfg.Device.Name != e.Device.Name;
 
             return isButtonEvent && isInputMultiplexerConfig && hasInputMultiplexerConfig && pinMismatch;
         }
