@@ -613,7 +613,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = this.Name },
-                    Device = new Base.DeviceReference(DeviceType.Encoder, enc),
+                    Device = new Base.DeviceReference() {Type = DeviceType.Encoder, Name = enc, Label = enc},
                     InputType = DeviceType.Encoder,
                     Value = value
                 });
@@ -642,7 +642,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference(DeviceType.InputShiftRegister, $"{deviceId}:{strChannel}"),
+                    Device = new Base.DeviceReference() { Type = DeviceType.InputShiftRegister, Name = $"{deviceId}:{strChannel}", Label = $"{deviceId} - {strChannel}" },
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -670,7 +670,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference(DeviceType.InputMultiplexer, $"{deviceId}:{subId}"),
+                    Device = new Base.DeviceReference() { Type = DeviceType.InputMultiplexer, Name = $"{deviceId}:{subId}", Label = $"{deviceId} - {subId}" },
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -691,7 +691,7 @@ namespace MobiFlight
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                Device = new Base.DeviceReference(DeviceType.Button, button),
+                Device = new Base.DeviceReference() { Type = DeviceType.Button, Name = button, Label = button },
                 InputType = DeviceType.Button,
                 Value = state
             });
@@ -712,7 +712,7 @@ namespace MobiFlight
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                Device = new Base.DeviceReference(DeviceType.AnalogInput, name),
+                Device = new Base.DeviceReference() { Type = DeviceType.AnalogInput, Name = name, Label = name },
                 InputType = DeviceType.AnalogInput,
                 Value = value
             });
