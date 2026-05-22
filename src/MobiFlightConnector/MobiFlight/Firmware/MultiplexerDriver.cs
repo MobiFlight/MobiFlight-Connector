@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
     // MultiplexerDriver is not really used as a full-fledged BaseDevice (though it could really well be);
     // it is mainly embedded in other devices which are mux clients.

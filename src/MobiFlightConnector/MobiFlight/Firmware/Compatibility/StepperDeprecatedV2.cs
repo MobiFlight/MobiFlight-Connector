@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config.Compatibility
+namespace MobiFlight.Firmware.Compatibility
 {
     public class StepperDeprecatedV2 : BaseDevice
     {

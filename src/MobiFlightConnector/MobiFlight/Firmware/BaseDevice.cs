@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
-    public class BaseDevice : IConfigItem
+    public class BaseDevice : IFirmwareConfigSerializable, IBaseDevice
     {
         protected DeviceType _type = DeviceType.NotSet;
         protected bool _muxClient = false;

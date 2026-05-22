@@ -1,5 +1,5 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 using MobiFlight.InputConfig;
 using System.Collections.Generic;
 using System;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Input;
 using Moq;
@@ -108,11 +108,11 @@ namespace MobiFlight.UI.Dialogs.Tests
             // Test cases for each device type
             var testCases = new List<(DeviceType DeviceType, IBaseDevice Device)>
             {
-                (DeviceType.Button, new Config.Button() { Name = "TestButton" }),
-                (DeviceType.Encoder, new Config.Encoder() { Name = "TestEncoder" }),
-                (DeviceType.AnalogInput, new Config.AnalogInput() { Name = "TestAnalog" }),
-                (DeviceType.InputShiftRegister, new Config.InputShiftRegister() { Name = "TestShifter", NumModules = "1" }),
-                (DeviceType.InputMultiplexer, new Config.InputMultiplexer() { Name = "TestMultiplexer", NumBytes = "1" })
+                (DeviceType.Button, new Firmware.Button() { Name = "TestButton" }),
+                (DeviceType.Encoder, new Firmware.Encoder() { Name = "TestEncoder" }),
+                (DeviceType.AnalogInput, new Firmware.AnalogInput() { Name = "TestAnalog" }),
+                (DeviceType.InputShiftRegister, new Firmware.InputShiftRegister() { Name = "TestShifter", NumModules = "1" }),
+                (DeviceType.InputMultiplexer, new Firmware.InputMultiplexer() { Name = "TestMultiplexer", NumBytes = "1" })
             };
 
             foreach (var testCase in testCases)

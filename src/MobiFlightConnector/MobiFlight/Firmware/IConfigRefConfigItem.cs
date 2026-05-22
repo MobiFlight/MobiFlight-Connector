@@ -1,6 +1,6 @@
 ﻿using MobiFlight.Base;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
     interface IConfigRefConfigItem
     {

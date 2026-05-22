@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
-    public interface IConfigItem : IBaseDevice
+    public interface IFirmwareConfigSerializable
     {
         bool FromInternal(String value);
         bool isMuxClient { get; }

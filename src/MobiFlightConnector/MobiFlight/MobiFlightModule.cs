@@ -1,6 +1,6 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
@@ -65,7 +65,7 @@ namespace MobiFlight
 
         delegate void AddLogCallback(string text);
         SerialPort _serialPort;
-        protected Config.Config _config = null;
+        protected Firmware.Config _config = null;
 
         /// <summary>
         /// max length of device name
@@ -141,7 +141,7 @@ namespace MobiFlight
             get { return CoreVersion?.StartsWith("0.0.") ?? false; }
         }
 
-        public Config.Config Config
+        public Firmware.Config Config
         {
             get
             {
@@ -173,12 +173,12 @@ namespace MobiFlight
                     {
                         // This is where the whole config in string form read from the Arduino is loaded
                         // to the internal objects (Config.Config.Items)
-                        _config = new Config.Config(InfoCommand.ReadStringArg());
+                        _config = new Firmware.Config(InfoCommand.ReadStringArg());
                     }
                     else
                     {
                         Log.Instance.log("!InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
-                        _config = new Config.Config();
+                        _config = new Firmware.Config();
                     }
 
                 }
@@ -328,7 +328,7 @@ namespace MobiFlight
             shiftRegisters.Clear();
             customDevices.Clear();
 
-            foreach (Config.BaseDevice device in Config.Items)
+            foreach (Firmware.BaseDevice device in Config.Items)
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
 
@@ -339,18 +339,18 @@ namespace MobiFlight
                         case DeviceType.LedModule:
                             int ledSubmodules = 1;
 
-                            if (!int.TryParse((device as Config.LedModule).NumModules, out ledSubmodules))
+                            if (!int.TryParse((device as Firmware.LedModule).NumModules, out ledSubmodules))
                             {
                                 Log.Instance.log(
-                                    $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Config.LedModule).Name}]." +
-                                    $"NumModules: {(device as Config.LedModule).NumModules}, " +
+                                    $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Firmware.LedModule).Name}]." +
+                                    $"NumModules: {(device as Firmware.LedModule).NumModules}, " +
                                     $"using default {ledSubmodules}",
                                     LogSeverity.Error);
                                 break;
                             }
 
                             device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
-                            var dev = device as Config.LedModule;
+                            var dev = device as Firmware.LedModule;
 
                             ledModules.Add(device.Name, new MobiFlightLedModule()
                             {
@@ -359,20 +359,20 @@ namespace MobiFlight
                                 ModuleNumber = ledModules.Count,
                                 ModelType = dev.ModelType,
                                 SubModules = ledSubmodules,
-                                Brightness = (device as Config.LedModule).Brightness
+                                Brightness = (device as Firmware.LedModule).Brightness
                             });
                             break;
 
                         case DeviceType.Stepper:
                             device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
-                            var profile = MFStepperPanel.Profiles.Find(p => p.Value.id == (device as Config.Stepper).Profile).Value;
+                            var profile = MFStepperPanel.Profiles.Find(p => p.Value.id == (device as Firmware.Stepper).Profile).Value;
 
                             stepperModules.Add(device.Name, new MobiFlightStepper()
                             {
                                 CmdMessenger = _cmdMessenger,
                                 Name = device.Name,
                                 StepperNumber = stepperModules.Count,
-                                HasAutoZero = (device as Config.Stepper).BtnPin != "0",
+                                HasAutoZero = (device as Firmware.Stepper).BtnPin != "0",
                                 Profile = profile
                             });
                             break;
@@ -383,11 +383,11 @@ namespace MobiFlight
                         case DeviceType.Output:
                             device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
 
-                            if (!Int16.TryParse((device as Config.Output).Pin, out short pin))
+                            if (!Int16.TryParse((device as Firmware.Output).Pin, out short pin))
                             {
                                 Log.Instance.log(
-                                    $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Config.Output).Name}]." +
-                                    $"Pin: {(device as Config.Output).Pin}, skipping device.",
+                                    $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Firmware.Output).Name}]." +
+                                    $"Pin: {(device as Firmware.Output).Pin}, skipping device.",
                                     LogSeverity.Error);
                                 break;
                             }
@@ -417,7 +417,7 @@ namespace MobiFlight
                             break;
                         case DeviceType.LcdDisplay:
                             device.Name = GenerateUniqueDeviceName(lcdDisplays.Keys.ToArray(), device.Name);
-                            lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
+                            lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Firmware.LcdDisplay).Cols, Lines = (device as Firmware.LcdDisplay).Lines });
                             break;
                         case DeviceType.Button:
                             device.Name = GenerateUniqueDeviceName(buttons.Keys.ToArray(), device.Name);
@@ -434,11 +434,11 @@ namespace MobiFlight
                         case DeviceType.ShiftRegister:
                             device.Name = GenerateUniqueDeviceName(shiftRegisters.Keys.ToArray(), device.Name);
                             int submodules = 1;
-                            if (!int.TryParse((device as Config.ShiftRegister).NumModules, out submodules))
+                            if (!int.TryParse((device as Firmware.ShiftRegister).NumModules, out submodules))
                             {
                                 Log.Instance.log(
-                                    $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Config.ShiftRegister).Name}]." +
-                                    $"NumModules: {(device as Config.ShiftRegister).NumModules}, " +
+                                    $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Firmware.ShiftRegister).Name}]." +
+                                    $"NumModules: {(device as Firmware.ShiftRegister).NumModules}, " +
                                     $"using default {submodules}",
                                     LogSeverity.Error);
                                 break;
@@ -465,7 +465,7 @@ namespace MobiFlight
                                 CmdMessenger = _cmdMessenger,
                                 DeviceNumber = customDevices.Count,
                                 Name = device.Name,
-                                CustomDevice = CustomDevices.CustomDeviceDefinitions.GetDeviceByType((device as Config.CustomDevice).CustomType)
+                                CustomDevice = CustomDevices.CustomDeviceDefinitions.GetDeviceByType((device as Firmware.CustomDevice).CustomType)
                             });
                             break;
                     }
@@ -1184,7 +1184,7 @@ namespace MobiFlight
 
             List<DeviceType> result = new List<DeviceType>();
 
-            foreach (Config.BaseDevice dev in Config.Items)
+            foreach (Firmware.BaseDevice dev in Config.Items)
             {
                 switch (dev.Type)
                 {
@@ -1215,11 +1215,11 @@ namespace MobiFlight
             return result;
         }
 
-        public IEnumerable<Config.BaseDevice> GetConnectedOutputDevices()
+        public IEnumerable<Firmware.BaseDevice> GetConnectedOutputDevices()
         {
-            List<Config.BaseDevice> result = new List<Config.BaseDevice>();
+            List<Firmware.BaseDevice> result = new List<Firmware.BaseDevice>();
 
-            foreach (Config.BaseDevice dev in Config.Items)
+            foreach (Firmware.BaseDevice dev in Config.Items)
             {
                 switch (dev.Type)
                 {
@@ -1241,9 +1241,9 @@ namespace MobiFlight
 
         public IEnumerable<IBaseDevice> GetConnectedInputDevices()
         {
-            List<Config.BaseDevice> result = new List<Config.BaseDevice>();
+            List<Firmware.BaseDevice> result = new List<Firmware.BaseDevice>();
 
-            foreach (Config.BaseDevice dev in Config.Items)
+            foreach (Firmware.BaseDevice dev in Config.Items)
             {
                 switch (dev.Type)
                 {
@@ -1349,7 +1349,7 @@ namespace MobiFlight
 
             List<uint> usedPins = new List<uint>();
 
-            foreach (Config.BaseDevice device in Config.Items)
+            foreach (Firmware.BaseDevice device in Config.Items)
             {
                 String deviceName = device.Name;
                 switch (device.Type)
@@ -1371,7 +1371,7 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToUInt32((device as Stepper).Pin4));
 
                         // We don't have to set the default 0 pin (for none auto zero)
-                        if ((device as MobiFlight.Config.Stepper).BtnPin != "0")
+                        if ((device as MobiFlight.Firmware.Stepper).BtnPin != "0")
                             usedPins.Add(Convert.ToUInt32((device as Stepper).BtnPin));
                         break;
 
@@ -1384,8 +1384,8 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.Encoder:
-                        usedPins.Add(Convert.ToUInt32((device as Config.Encoder).PinLeft));
-                        usedPins.Add(Convert.ToUInt32((device as Config.Encoder).PinRight));
+                        usedPins.Add(Convert.ToUInt32((device as Firmware.Encoder).PinLeft));
+                        usedPins.Add(Convert.ToUInt32((device as Firmware.Encoder).PinRight));
                         break;
 
                     case DeviceType.InputShiftRegister:

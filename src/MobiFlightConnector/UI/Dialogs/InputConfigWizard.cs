@@ -1,5 +1,5 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 using MobiFlight.UI.Panels.Config;
 using MobiFlight.UI.Panels.Input;
 using SharpDX.DirectInput;
@@ -470,7 +470,7 @@ namespace MobiFlight.UI.Dialogs
 
                     if (config.button != null)
                     {
-                        device = new Config.Button();
+                        device = new Firmware.Button();
                     }
                     else if (config.encoder != null)
                     {
@@ -629,7 +629,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputShiftRegister:
-                        Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputShiftRegister;
+                        Firmware.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Firmware.IBaseDevice>).Value as Firmware.InputShiftRegister;
                         panel = new Panels.Input.ButtonPanel()
                         {
                             Enabled = (serial != ""),
@@ -646,7 +646,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputMultiplexer:
-                        Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputMultiplexer;
+                        Firmware.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Firmware.IBaseDevice>).Value as Firmware.InputMultiplexer;
                         panel = new Panels.Input.ButtonPanel()
                         {
                             Enabled = (serial != ""),

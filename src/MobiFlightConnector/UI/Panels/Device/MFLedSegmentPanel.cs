@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {

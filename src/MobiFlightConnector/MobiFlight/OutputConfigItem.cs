@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    public class OutputConfigItem : ConfigItem, IXmlSerializable, ICloneable, Config.IConfigRefConfigItem
+    public class OutputConfigItem : ConfigItem, IXmlSerializable, ICloneable, Firmware.IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization

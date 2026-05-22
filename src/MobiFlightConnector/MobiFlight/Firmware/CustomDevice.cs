@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
     public class CustomDevice : BaseDevice
     {

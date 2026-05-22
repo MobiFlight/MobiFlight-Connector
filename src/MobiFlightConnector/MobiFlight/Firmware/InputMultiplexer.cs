@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
     public class InputMultiplexer : BaseDevice
     {
@@ -11,7 +11,7 @@ namespace MobiFlight.Config
         // This might be seen as consistent with including the selector pins in the config messages
         // (which is in itself arguable at least), but it has no real use and it might might lead to "strange" issues
         // if the config file is tampered with.
-        public MobiFlight.Config.MultiplexerDriver Selector;
+        public MobiFlight.Firmware.MultiplexerDriver Selector;
 
         const ushort _paramCount = 7;
         [XmlAttribute]
@@ -27,14 +27,14 @@ namespace MobiFlight.Config
             Selector = null;
         }
 
-        public InputMultiplexer(MobiFlight.Config.MultiplexerDriver muxSelector) { 
+        public InputMultiplexer(MobiFlight.Firmware.MultiplexerDriver muxSelector) { 
             Name = "Multiplexer"; 
             _type = DeviceType.InputMultiplexer;
             _muxClient = true;
             Selector = muxSelector;
         }
 
-        public void setDriver(MobiFlight.Config.MultiplexerDriver muxSelector)
+        public void setDriver(MobiFlight.Firmware.MultiplexerDriver muxSelector)
         {
             Selector = muxSelector;
         }

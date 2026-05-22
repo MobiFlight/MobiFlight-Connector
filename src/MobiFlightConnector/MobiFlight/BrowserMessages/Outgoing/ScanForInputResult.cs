@@ -1,5 +1,5 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 
 namespace MobiFlight.BrowserMessages.Outgoing
 {

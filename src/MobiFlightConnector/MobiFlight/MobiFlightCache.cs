@@ -1,4 +1,4 @@
-﻿using MobiFlight.Config;
+﻿using MobiFlight.Firmware;
 using MobiFlight.Monitors;
 using System;
 using System.Collections.Concurrent;

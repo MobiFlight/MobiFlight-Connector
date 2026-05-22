@@ -12,7 +12,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         /// </summary>
         public event EventHandler Changed;
 
-        private MobiFlight.Config.LcdDisplay config;
+        private MobiFlight.Firmware.LcdDisplay config;
         bool initialized = false;
 
         public MFLcddDisplayPanel()
@@ -20,7 +20,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             InitializeComponent();
         }
 
-        public MFLcddDisplayPanel(MobiFlight.Config.LcdDisplay config, List<MobiFlightPin> Pins): this()
+        public MFLcddDisplayPanel(MobiFlight.Firmware.LcdDisplay config, List<MobiFlightPin> Pins): this()
         {
             this.config = config;
             NameTextBox.Text = config.Name;

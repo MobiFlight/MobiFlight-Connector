@@ -6,7 +6,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFServoPanel : UserControl
     {
-        private MobiFlight.Config.Servo servo;
+        private MobiFlight.Firmware.Servo servo;
         private bool initialized = false;
         public event EventHandler Changed;
 
@@ -16,7 +16,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFServoPanel(MobiFlight.Config.Servo servo, List<MobiFlightPin> Pins): this()
+        public MFServoPanel(MobiFlight.Firmware.Servo servo, List<MobiFlightPin> Pins): this()
         {
             this.servo = servo;
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, servo.DataPin);

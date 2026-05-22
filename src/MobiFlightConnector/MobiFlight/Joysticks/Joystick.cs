@@ -1,5 +1,5 @@
 ﻿using HidSharp;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;

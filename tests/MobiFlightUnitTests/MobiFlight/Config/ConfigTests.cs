@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Config.Compatibility;
+using MobiFlight.Firmware.Compatibility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MobiFlight.Config.Tests
+namespace MobiFlight.Firmware.Tests
 {
     [TestClass()]
     public class ConfigTests

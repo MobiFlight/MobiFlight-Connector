@@ -1,6 +1,6 @@
 using System;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
     public interface IBaseDevice
     {

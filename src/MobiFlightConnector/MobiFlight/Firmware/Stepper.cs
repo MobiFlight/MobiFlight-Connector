@@ -1,9 +1,9 @@
-﻿using MobiFlight.Config.Compatibility;
+﻿using MobiFlight.Firmware.Compatibility;
 using System;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
     public class Stepper : BaseDevice
     {

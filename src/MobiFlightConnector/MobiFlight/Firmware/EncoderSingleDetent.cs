@@ -2,27 +2,24 @@
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
-    public class Encoder : BaseDevice
+    public class EncoderSingleDetent : BaseDevice
     {
         [XmlAttribute]
         public String PinLeft = "1";
         [XmlAttribute]
         public String PinRight = "2";
-        [XmlAttribute]
-        public String EncoderType = "0";
 
-        const ushort _paramCount = 4;
+        const ushort _paramCount = 3;
 
-        public Encoder() { Name = "Encoder"; _type = DeviceType.Encoder; }
+        public EncoderSingleDetent() { Name = "Encoder"; _type = DeviceType.EncoderSingleDetent; }
 
         override public String ToInternal()
         {
             return base.ToInternal() + Separator
                  + PinLeft + Separator
                  + PinRight + Separator
-                 + EncoderType + Separator
                  + Name + End;
         }
 
@@ -37,29 +34,14 @@ namespace MobiFlight.Config
 
             PinLeft = paramList[1];
             PinRight = paramList[2];
-            EncoderType = paramList[3];
-            Name = paramList[4];
+            Name = paramList[3];
 
             return true;
-        }
-        public override bool Equals(object obj)
-        {
-            Encoder other = obj as Encoder;
-            if (other == null)
-            {
-                return false;
-            }
-
-            return this.Name == other.Name
-                && this.PinLeft == other.PinLeft
-                && this.PinRight == other.PinRight
-                && this.EncoderType == other.EncoderType
-                && this.Type == other.Type;
         }
 
         public override string ToString()
         {
-            return $"{Type}:{Name} PinLeft:{PinLeft} PinRight:{PinRight} EncoderType:{EncoderType}";
+            return Type + ":" + Name + " PinLeft:" + PinLeft + " PinRight:" + PinRight;
         }
     }
 }

@@ -2,22 +2,26 @@
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
-    public class Button : BaseDevice
+    public class AnalogInput : BaseDevice
     {
         [XmlAttribute]
-        public String Pin = "1";                
+        public String Pin = "54";
 
-        const ushort _paramCount = 2;
+        [XmlAttribute]
+        public String Sensitivity = "5";
 
-        public Button() { Name = "Button"; _type  = DeviceType.Button; }
+        const ushort _paramCount = 3;
+
+        public AnalogInput() { Name = "Analog Input"; _type  = DeviceType.AnalogInput; }
 
         override public String ToInternal()
         {
             return base.ToInternal() + Separator
                     + Pin + Separator
-                    + Name 
+                    + Sensitivity + Separator
+                    + Name                    
                     + End;
         }
 
@@ -31,15 +35,15 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
             
-            Pin = paramList[1];
-            Name = paramList[2];
+            Pin = paramList[1];            
+            Sensitivity = paramList[2];
+            Name = paramList[3];
 
             return true;
         }
-
         public override bool Equals(object obj)
         {
-            Button other = obj as Button;
+            AnalogInput other = obj as AnalogInput;
             if (other == null)
             {
                 return false;
@@ -47,12 +51,12 @@ namespace MobiFlight.Config
 
             return this.Name == other.Name
                 && this.Pin == other.Pin
-                && this.Type == other.Type;
+                && this.Sensitivity == other.Sensitivity;
         }
 
         public override string ToString()
         {
-            return $"{Type}:{Name} Pin:{Pin}";
+            return $"{Type}:{Name} Pin:{Pin} Sensitivity:{Sensitivity}";
         }
     }
 }

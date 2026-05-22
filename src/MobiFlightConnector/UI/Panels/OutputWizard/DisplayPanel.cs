@@ -477,8 +477,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     case DeviceType.LcdDisplay:
                         foreach (var device in joystick.GetAvailableLcdDevices())
                         {
-                            int Cols = (device as MobiFlight.Config.LcdDisplay).Cols;
-                            int Lines = (device as MobiFlight.Config.LcdDisplay).Lines;
+                            int Cols = (device as MobiFlight.Firmware.LcdDisplay).Cols;
+                            int Lines = (device as MobiFlight.Firmware.LcdDisplay).Lines;
                             lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Label });
                         }
                         break;
@@ -755,9 +755,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                     var maxdigits = 8;
 
-                    if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
+                    if (dev.ModelType == MobiFlight.Firmware.LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
                     else
-                    if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
+                    if (dev.ModelType == MobiFlight.Firmware.LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
 
                     for (int i = 2; i < maxdigits; i++)
                     {

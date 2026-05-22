@@ -1,10 +1,10 @@
-﻿using MobiFlight.Config.Compatibility;
+﻿using MobiFlight.Firmware.Compatibility;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
     public class Config
     {
@@ -64,7 +64,7 @@ namespace MobiFlight.Config
             String[] items = value.Split(BaseDevice.End);
 
             // Need to set aside the MultiplexerDriver reference (for subsequent client devices) when we find it 
-            MobiFlight.Config.MultiplexerDriver multiplexerDriver = null;
+            MobiFlight.Firmware.MultiplexerDriver multiplexerDriver = null;
 
             foreach (String item in items)
             {
@@ -79,7 +79,7 @@ namespace MobiFlight.Config
                     switch (type)
                     {
                         case DeviceType.Button:
-                            currentItem = new MobiFlight.Config.Button();
+                            currentItem = new MobiFlight.Firmware.Button();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
@@ -88,11 +88,11 @@ namespace MobiFlight.Config
                             // Single-detent encoder (previously just encoder) is retained
                             // for backwards compatibility. We parse as a single detent encoder
                             // and then convert into an encoder with configurable detents.
-                            var encoderSingleDetent = new MobiFlight.Config.EncoderSingleDetent();
+                            var encoderSingleDetent = new MobiFlight.Firmware.EncoderSingleDetent();
                             encoderSingleDetent.FromInternal(item + BaseDevice.End);
 
                             // Create an encoder with configurable detents
-                            currentItem = new MobiFlight.Config.Encoder
+                            currentItem = new MobiFlight.Firmware.Encoder
                             {
                                 PinLeft = encoderSingleDetent.PinLeft,
                                 PinRight = encoderSingleDetent.PinRight,
@@ -102,57 +102,57 @@ namespace MobiFlight.Config
                             break;
 
                         case DeviceType.Output:
-                            currentItem = new MobiFlight.Config.Output();
+                            currentItem = new MobiFlight.Firmware.Output();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.Servo:
-                            currentItem = new MobiFlight.Config.Servo();
+                            currentItem = new MobiFlight.Firmware.Servo();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.Stepper:
-                            currentItem = new MobiFlight.Config.Stepper();
+                            currentItem = new MobiFlight.Firmware.Stepper();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.StepperDeprecatedV1:
-                            currentItem = new MobiFlight.Config.Compatibility.StepperDeprecatedV2();
+                            currentItem = new MobiFlight.Firmware.Compatibility.StepperDeprecatedV2();
                             currentItem.FromInternal(item + BaseDevice.End);
                             (currentItem as StepperDeprecatedV2).BtnPin = "0"; // set this explicitly to 0 because the default used to be 5.
-                            currentItem = new MobiFlight.Config.Stepper(currentItem as MobiFlight.Config.Compatibility.StepperDeprecatedV2);
+                            currentItem = new MobiFlight.Firmware.Stepper(currentItem as MobiFlight.Firmware.Compatibility.StepperDeprecatedV2);
                             break;
 
                         case DeviceType.StepperDeprecatedV2:
-                            currentItem = new MobiFlight.Config.Compatibility.StepperDeprecatedV2();
+                            currentItem = new MobiFlight.Firmware.Compatibility.StepperDeprecatedV2();
                             currentItem.FromInternal(item + BaseDevice.End);
-                            currentItem = new MobiFlight.Config.Stepper(currentItem as MobiFlight.Config.Compatibility.StepperDeprecatedV2);
+                            currentItem = new MobiFlight.Firmware.Stepper(currentItem as MobiFlight.Firmware.Compatibility.StepperDeprecatedV2);
                             break;
 
                         case DeviceType.LedModule:
-                            currentItem = new MobiFlight.Config.LedModule();
+                            currentItem = new MobiFlight.Firmware.LedModule();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         // backward compatibility
                         case DeviceType.LedModuleDeprecated:
-                            currentItem = new MobiFlight.Config.LedModuleDeprecated();
+                            currentItem = new MobiFlight.Firmware.LedModuleDeprecated();
                             currentItem.FromInternal(item + BaseDevice.End);
-                            currentItem = new MobiFlight.Config.LedModule(currentItem as MobiFlight.Config.LedModuleDeprecated);
+                            currentItem = new MobiFlight.Firmware.LedModule(currentItem as MobiFlight.Firmware.LedModuleDeprecated);
                             break;
 
                         case DeviceType.LcdDisplay:
-                            currentItem = new MobiFlight.Config.LcdDisplay();
+                            currentItem = new MobiFlight.Firmware.LcdDisplay();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.Encoder:
-                            currentItem = new MobiFlight.Config.Encoder();
+                            currentItem = new MobiFlight.Firmware.Encoder();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.InputShiftRegister:
-                            currentItem = new MobiFlight.Config.InputShiftRegister();
+                            currentItem = new MobiFlight.Firmware.InputShiftRegister();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
@@ -162,28 +162,28 @@ namespace MobiFlight.Config
                             if (multiplexerDriver == null)
                             {
                                 // Store it, so another clients will not create a new one
-                                multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
+                                multiplexerDriver = new MobiFlight.Firmware.MultiplexerDriver();
                                 // The MultiplexerDriver is registered as a "ghost" device in Config's items list; it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
                             }
                             multiplexerDriver.FromInternal(InputMultiplexer.GetMultiplexerDriverConfig(item + BaseDevice.End));
 
-                            currentItem = new MobiFlight.Config.InputMultiplexer(multiplexerDriver);
+                            currentItem = new MobiFlight.Firmware.InputMultiplexer(multiplexerDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.AnalogInput:
-                            currentItem = new MobiFlight.Config.AnalogInput();
+                            currentItem = new MobiFlight.Firmware.AnalogInput();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.ShiftRegister:
-                            currentItem = new MobiFlight.Config.ShiftRegister();
+                            currentItem = new MobiFlight.Firmware.ShiftRegister();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.CustomDevice:
-                            currentItem = new MobiFlight.Config.CustomDevice();
+                            currentItem = new MobiFlight.Firmware.CustomDevice();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
                     }
@@ -230,7 +230,7 @@ namespace MobiFlight.Config
 
         public void SaveToFile(string fileName)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Firmware.Config));
             TextWriter textWriter = new StreamWriter(fileName);
             serializer.Serialize(textWriter, this);
             textWriter.Close();

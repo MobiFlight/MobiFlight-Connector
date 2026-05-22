@@ -11,7 +11,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFButtonPanel : UserControl
     {
-        private MobiFlight.Config.Button button;
+        private MobiFlight.Firmware.Button button;
         private bool initialized = false;
 
         public event EventHandler Changed;
@@ -22,7 +22,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFButtonPanel(MobiFlight.Config.Button button, List<MobiFlightPin> Pins): this()
+        public MFButtonPanel(MobiFlight.Firmware.Button button, List<MobiFlightPin> Pins): this()
         {
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, button.Pin);
 

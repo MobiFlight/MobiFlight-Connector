@@ -2,26 +2,22 @@
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MobiFlight.Config
+namespace MobiFlight.Firmware
 {
-    public class AnalogInput : BaseDevice
+    public class Button : BaseDevice
     {
         [XmlAttribute]
-        public String Pin = "54";
+        public String Pin = "1";                
 
-        [XmlAttribute]
-        public String Sensitivity = "5";
+        const ushort _paramCount = 2;
 
-        const ushort _paramCount = 3;
-
-        public AnalogInput() { Name = "Analog Input"; _type  = DeviceType.AnalogInput; }
+        public Button() { Name = "Button"; _type  = DeviceType.Button; }
 
         override public String ToInternal()
         {
             return base.ToInternal() + Separator
                     + Pin + Separator
-                    + Sensitivity + Separator
-                    + Name                    
+                    + Name 
                     + End;
         }
 
@@ -35,15 +31,15 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
             
-            Pin = paramList[1];            
-            Sensitivity = paramList[2];
-            Name = paramList[3];
+            Pin = paramList[1];
+            Name = paramList[2];
 
             return true;
         }
+
         public override bool Equals(object obj)
         {
-            AnalogInput other = obj as AnalogInput;
+            Button other = obj as Button;
             if (other == null)
             {
                 return false;
@@ -51,12 +47,12 @@ namespace MobiFlight.Config
 
             return this.Name == other.Name
                 && this.Pin == other.Pin
-                && this.Sensitivity == other.Sensitivity;
+                && this.Type == other.Type;
         }
 
         public override string ToString()
         {
-            return $"{Type}:{Name} Pin:{Pin} Sensitivity:{Sensitivity}";
+            return $"{Type}:{Name} Pin:{Pin}";
         }
     }
 }

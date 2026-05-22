@@ -292,7 +292,7 @@ namespace MobiFlight
                 {
                     Name = controller.Name,
                     Serial = controller.Serial,
-                    Devices = controller.GetAvailableDevices().ToList<Config.IBaseDevice>()
+                    Devices = controller.GetAvailableDevices().ToList<Firmware.IBaseDevice>()
                 });
             });
 
