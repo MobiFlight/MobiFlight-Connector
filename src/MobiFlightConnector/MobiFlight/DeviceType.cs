@@ -1,5 +1,9 @@
-﻿namespace MobiFlight
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace MobiFlight
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum DeviceType
     {
         NotSet,              // 0 
