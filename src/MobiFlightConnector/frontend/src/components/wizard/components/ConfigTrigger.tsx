@@ -68,13 +68,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           Type: configItem.Device.Type,
           Label: configItem.Device.Name,
         }
-      : configItem.DeviceName
-        ? {
-            Name: configItem.DeviceName,
-            Type: (configItem.DeviceType as string) ?? "Unknown",
-            Label: configItem.DeviceName,
-          }
-        : undefined
+      : undefined
 
   const [selectedDevice, setSelectedDevice] = useState<BaseDevice | undefined>(
     configuredDevice,
@@ -101,11 +95,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             Type: device.Type,
           }
         : null,
-      DeviceName: device?.Name ?? null,
-      DeviceType: device?.Type ?? null,
     })
   }
-  
+
   const [scanning, setScanning] = useState(false)
 
   useAppMessage("ScanForInputResult", (message) => {
@@ -113,6 +105,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
     const { Controller, Device } = message.payload as ScanForInputResult
     setSelectedController(Controller)
     setSelectedDevice({ ...Device, Label: Device.Name })
+    updateConfigItem(Controller, Device)
     setScanning(false)
   })
 
@@ -171,7 +164,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         />
 
         <ComboBox
-          getLabel={(device) => (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name}
+          getLabel={(device) =>
+            (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
+          }
           getValue={(device) => (device as BaseDevice)?.Name}
           isSelected={(device, selected) =>
             (device as BaseDevice).Name === selected?.Name

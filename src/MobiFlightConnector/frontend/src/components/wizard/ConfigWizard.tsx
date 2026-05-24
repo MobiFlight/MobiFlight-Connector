@@ -7,22 +7,49 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import { useControllerStore } from "@/stores/controllerStore"
 import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import { IConfigItem } from "@/types"
+import { useState } from "react"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
 }
+
+const determineInputDeviceType = (
+  deviceType: string | undefined,
+): "Button" | "Encoder" | "AnalogInput" | null => {
+  switch (deviceType) {
+    case "InputShiftRegister":
+    case "InputMultiplexer":
+    case "Button":
+      return "Button"
+    case "Encoder":
+      return "Encoder"
+    case "AnalogInput":
+      return "AnalogInput"
+    default:
+      return null // Default to null if type is unknown
+  }
+}
+
 const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
   const { controllers } = useControllerStore()
-  const { BoardDefinitions, JoystickDefinitions, MidiControllerDefinitions } = useControllerDefinitionsStore()
-  
+  const { BoardDefinitions, JoystickDefinitions, MidiControllerDefinitions } =
+    useControllerDefinitionsStore()
+  const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
+
   console.log("controllers", controllers)
   console.log("BoardDefinitions", BoardDefinitions)
   console.log("JoystickDefinitions", JoystickDefinitions)
   console.log("MidiControllerDefinitions", MidiControllerDefinitions)
+
+  const currentDeviceType = determineInputDeviceType(
+    currentConfigItem.Device?.Type,
+  )
+  console.log("currentDeviceType", currentDeviceType)
 
   return (
     <div className="flex flex-col gap-4">
@@ -33,7 +60,13 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
           <TabsTrigger value="config-references">Config References</TabsTrigger>
         </TabsList>
         <TabsContent value="input" className="flex flex-col gap-4">
-          <ConfigTrigger configItem={configItem} setConfigItem={() => {}} />
+          <ConfigTrigger
+            configItem={currentConfigItem}
+            setConfigItem={(item: IConfigItem) => {
+              // Update the configItem state here
+              setCurrentConfigItem(item)
+            }}
+          />
           <Card>
             <CardHeader>
               <CardTitle>Action</CardTitle>
@@ -43,34 +76,42 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="onPress" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger
-                    value="onPress"
-                    className="data-[state=active]:border-primary [&:not(:first-child)]:border-l"
-                  >
-                    On Press
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="onRelease"
-                    className="data-[state=active]:border-primary"
-                  >
-                    On Release
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="onPress" className="mt-4">
-                  <p>
-                    Configure the action that will be executed when the trigger
-                    is activated.
-                  </p>
-                </TabsContent>
-                <TabsContent value="onRelease" className="mt-4">
-                  <p>
-                    Configure the action that will be executed when the trigger
-                    is deactivated.
-                  </p>
-                </TabsContent>
-              </Tabs>
+              {currentDeviceType === "Button" && (
+                <ActionBindingPanel
+                  trigger={currentConfigItem.button}
+                  onTriggerChange={(trigger) => {
+                    setCurrentConfigItem({
+                      ...currentConfigItem,
+                      button: trigger,
+                    })
+                  }}
+                  type={"Button"}
+                />
+              )}
+              {currentDeviceType === "Encoder" && (
+                <ActionBindingPanel
+                  trigger={currentConfigItem.encoder}
+                  onTriggerChange={(trigger) => {
+                    setCurrentConfigItem({
+                      ...currentConfigItem,
+                      encoder: trigger,
+                    })
+                  }}
+                  type={"Encoder"}
+                />
+              )}
+              {currentDeviceType === "AnalogInput" && (
+                <ActionBindingPanel
+                  trigger={currentConfigItem.analog}
+                  onTriggerChange={(trigger) => {
+                    setCurrentConfigItem({
+                      ...currentConfigItem,
+                      analog: trigger,
+                    })
+                  }}
+                  type={"AnalogInput"}
+                />
+              )}
             </CardContent>
           </Card>
         </TabsContent>

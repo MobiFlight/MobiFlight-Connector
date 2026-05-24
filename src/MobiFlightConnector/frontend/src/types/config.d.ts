@@ -20,16 +20,21 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   Name: string
   // name / serial of the device
   Controller?: Partial<Controller>
-  Device?: IDeviceConfig | null 
-  // this is the type of the Device
-  // Type: DeviceElementType;
-  DeviceName?: string | null
-  DeviceType?: DeviceElementType | string | null
+  Device?: IDeviceConfig | null
   // Tags: string[];
   Status: IDictionary<string, ConfigItemStatusType>
+  button?: ButtonTrigger
+  encoder?: EncoderTrigger
+  analog?: AnalogTrigger
 }
 
-export type ConfigItemStatusType = "Precondition" | "Source" | "Modifier" | "Test" | "Device" | "ConfigRef"
+export type ConfigItemStatusType =
+  | "Precondition"
+  | "Source"
+  | "Modifier"
+  | "Test"
+  | "Device"
+  | "ConfigRef"
 
 export interface IDictionary<T> {
   [Key: string]: T
@@ -46,11 +51,126 @@ export interface IDeviceConfig {
 
 export interface ExtendedDeviceConfig extends IDeviceConfig {
   Pin?: string | null
-  SubIndex?: number| null
+  SubIndex?: number | null
 }
 
 export interface ConfigFile {
   Label: string
   FileName: string | null
   ConfigItems: IConfigItem[]
+}
+
+export interface Action {
+  Type: string
+}
+
+export interface ButtonTrigger {
+  onPress?: Action
+  onRelease?: Action
+  onHold?: Action
+  onLongRelease?: Action
+  HoldDelay: number
+  LongReleaseDelay: number
+  RepeatDelay: number
+}
+
+export interface EncoderTrigger {
+  onLeft?: Action
+  onRight?: Action
+  onLeftFast?: Action
+  onRightFast?: Action
+}
+
+export interface AnalogTrigger {
+  onChange?: Action
+}
+
+export interface MsfsInputAction extends Action {
+  Type: "MSFS2020CustomInputAction"
+  Command: string
+  PresetId: string
+}
+
+export interface XplaneInputAction extends Action {
+  Type: "XplaneInputAction"
+  InputType: string
+  Path: string
+  Expression: string
+}
+
+export interface MobiFlightVariableAction extends Action {
+  Type: "VariableInputAction"
+  Variable: MobiFlightVariable
+}
+
+export type MobiFlightVariableType = "number" | "string"
+export interface MobiFlightVariable {
+  TYPE: MobiFlightVariableType
+  Name: string
+  Number: number
+  Text: string
+  Expression: string
+}
+
+export interface VJoyInputAction extends Action {
+  Type: "vJoyInputAction"
+  vJoyId: number
+  buttonNr: number
+  axisString: string
+  buttonCommand: boolean
+  sendValue: string
+}
+
+export interface RetriggerInputAction extends Action {
+  Type: "RetriggerInputAction"
+}
+
+export interface ProSimInputAction extends Action {
+  Type: "ProSimInputAction"
+  Path: string
+  Param: string
+}
+
+export interface EventIdInputAction extends Action {
+  Type: "EventIdInputAction"
+  EventId: string
+  Param: string
+}
+
+export interface PmdgEventIdInputAction extends EventIdInputAction {
+  Type: "PmdgEventIdInputAction"
+  AircraftType: "B737" | "B747" | "B77"
+}
+
+export interface LuaMacroInputAction extends Action {
+  Type: "LuaMacroInputAction"
+  MacroName: string
+  MacroValue: string
+}
+
+export interface KeyInputAction extends Action {
+  Type: "KeyInputAction"
+  Key: string
+  Control: boolean
+  Alt: boolean
+  Shift: boolean
+}
+
+export interface JeehellInputAction extends EventIdInputAction {
+  Type: "JeehellInputAction"
+}
+
+export type FsuipcOffset = {
+  Offset: number
+  Size: number
+  Mask: number
+  BcdMode: boolean
+  OffsetType: "Integer" | "Float" | "String"
+}
+
+export interface FsuipcOffsetInputAction extends Action {
+  Type: "FsuipcOffsetInputAction"
+  FSUIPC: FsuipcOffset
+  Value: string
+  Modifiers: Modifier[]
 }
