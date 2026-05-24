@@ -1,0 +1,59 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import ActionEditor from "@/components/wizard/components/ActionEditor"
+import { EncoderTrigger } from "@/types/config"
+
+export type EncoderActionBindingPanelProps = {
+  trigger?: EncoderTrigger
+  onTriggerChange: (trigger: EncoderTrigger) => void
+}
+
+const EncoderActionBindingPanel = ({
+  trigger,
+  onTriggerChange,
+}: EncoderActionBindingPanelProps) => {
+  const tabs = ["onLeft", "onRight", "onLeftFast", "onRightFast"]
+  const defaultEncoderTrigger: EncoderTrigger = {
+    onLeft: undefined,
+    onRight: undefined,
+    onLeftFast: undefined,
+    onRightFast: undefined,
+  }
+
+  const current = trigger ?? defaultEncoderTrigger
+
+  return (
+    <Tabs defaultValue={tabs[0]}>
+      <TabsList>
+        {tabs.map((trigger) => (
+          <TabsTrigger key={trigger} value={trigger}>
+            {trigger}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      {tabs.map((tab) => {
+        const action =
+          tab == "onLeft"
+            ? trigger?.onLeft
+            : tab === "onRight"
+              ? trigger?.onRight
+              : tab === "onLeftFast"
+                ? trigger?.onLeftFast
+                : trigger?.onRightFast
+        return (
+          <TabsContent key={tab} value={tab}>
+            <ActionEditor
+              action={action}
+              onActionChange={(action) => {
+                onTriggerChange({
+                  ...current,
+                  [tab]: action,
+                })
+              }}
+            />
+          </TabsContent>
+        )
+      })}
+    </Tabs>
+  )
+}
+export default EncoderActionBindingPanel

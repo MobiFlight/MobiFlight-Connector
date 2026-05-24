@@ -28,7 +28,7 @@ export type ControllerBinding = {
 
 export type DeviceReference = {
   Name: string
-  SubId?: string
+  Label: string
   Type: string
 }
 

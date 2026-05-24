@@ -7,8 +7,10 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
+import AnalogActionBindingPanel from "@/components/wizard/components/AnalogActionBindingPanel"
+import ButtonActionBindingPanel from "@/components/wizard/components/ButtonActionBindingPanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
+import EncoderActionBindingPanel from "@/components/wizard/components/EncoderActionBindingPanel"
 import { useControllerStore } from "@/stores/controllerStore"
 import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import { IConfigItem } from "@/types"
@@ -77,7 +79,7 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
             </CardHeader>
             <CardContent>
               {currentDeviceType === "Button" && (
-                <ActionBindingPanel
+                <ButtonActionBindingPanel
                   trigger={currentConfigItem.button}
                   onTriggerChange={(trigger) => {
                     setCurrentConfigItem({
@@ -85,11 +87,10 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
                       button: trigger,
                     })
                   }}
-                  type={"Button"}
                 />
               )}
               {currentDeviceType === "Encoder" && (
-                <ActionBindingPanel
+                <EncoderActionBindingPanel
                   trigger={currentConfigItem.encoder}
                   onTriggerChange={(trigger) => {
                     setCurrentConfigItem({
@@ -97,11 +98,10 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
                       encoder: trigger,
                     })
                   }}
-                  type={"Encoder"}
                 />
               )}
               {currentDeviceType === "AnalogInput" && (
-                <ActionBindingPanel
+                <AnalogActionBindingPanel
                   trigger={currentConfigItem.analog}
                   onTriggerChange={(trigger) => {
                     setCurrentConfigItem({
@@ -109,7 +109,6 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
                       analog: trigger,
                     })
                   }}
-                  type={"AnalogInput"}
                 />
               )}
             </CardContent>
