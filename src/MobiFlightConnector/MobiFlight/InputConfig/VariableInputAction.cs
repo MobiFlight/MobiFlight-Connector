@@ -1,9 +1,5 @@
-﻿using MobiFlight.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 
 namespace MobiFlight.InputConfig
 {
@@ -62,7 +58,6 @@ namespace MobiFlight.InputConfig
                 replacements.Add(replacement);
             }
 
-
             foreach (ConfigRefValue item in configRefs)
             {
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
@@ -79,7 +74,6 @@ namespace MobiFlight.InputConfig
                 }
                 catch (Exception)
                 {
-
 
                 }
             }
