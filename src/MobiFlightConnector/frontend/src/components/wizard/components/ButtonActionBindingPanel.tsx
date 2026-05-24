@@ -7,7 +7,10 @@ export type ButtonActionBindingPanelProps = {
   onTriggerChange: (trigger: ButtonTrigger) => void
 }
 
-const ButtonActionBindingPanel = (props: ButtonActionBindingPanelProps) => {
+const ButtonActionBindingPanel = ({
+  trigger,
+  onTriggerChange,
+}: ButtonActionBindingPanelProps) => {
   const tabs = ["onPress", "onRelease", "onHold", "onLongRelease"]
   const defaultButtonTrigger: ButtonTrigger = {
     onPress: undefined,
@@ -19,34 +22,35 @@ const ButtonActionBindingPanel = (props: ButtonActionBindingPanelProps) => {
     RepeatDelay: 0,
   }
 
-  const current = props.trigger ?? defaultButtonTrigger
+  const current = trigger ?? defaultButtonTrigger
+  console.log("Current Button Trigger in Panel:", current)
 
   return (
     <Tabs defaultValue={tabs[0]}>
       <TabsList>
-        {tabs.map((trigger) => (
-          <TabsTrigger key={trigger} value={trigger}>
-            {trigger}
+        {tabs.map((tab) => (
+          <TabsTrigger key={tab} value={tab}>
+            {tab}
           </TabsTrigger>
         ))}
       </TabsList>
-      {tabs.map((trigger) => {
+      {tabs.map((tab) => {
         const action =
-          trigger == "onPress"
-            ? props.trigger?.onPress
-            : trigger === "onRelease"
-              ? props.trigger?.onRelease
-              : trigger === "onHold"
-                ? props.trigger?.onHold
-                : props.trigger?.onLongRelease
+          tab === "onPress"
+            ? current?.onPress
+            : tab === "onRelease"
+              ? current?.onRelease
+              : tab === "onHold"
+                ? current?.onHold
+                : current?.onLongRelease
         return (
-          <TabsContent key={trigger} value={trigger}>
+          <TabsContent key={tab} value={tab}>
             <ActionEditor
               action={action}
               onActionChange={(action) => {
-                props.onTriggerChange({
+                onTriggerChange({
                   ...current,
-                  [trigger]: action,
+                  [tab]: action,
                 })
               }}
             />

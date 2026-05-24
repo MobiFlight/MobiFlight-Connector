@@ -1,4 +1,3 @@
-import { DeviceElementType } from "./deviceElements"
 import { Controller } from "./controller"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,6 +23,8 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   // Tags: string[];
   Status: IDictionary<string, ConfigItemStatusType>
   button?: ButtonTrigger
+  inputMultiplexer?: ButtonTrigger
+  inputShiftRegister?: ButtonTrigger
   encoder?: EncoderTrigger
   analog?: AnalogTrigger
 }

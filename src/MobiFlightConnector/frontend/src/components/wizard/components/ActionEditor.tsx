@@ -1,4 +1,6 @@
-import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
+import ActionTypeComboBox, {
+  ActionTypeOptions,
+} from "@/components/wizard/components/ActionTypeComboBox"
 import { Action } from "@/types/config"
 
 export interface ActionEditorProps {
@@ -7,10 +9,20 @@ export interface ActionEditorProps {
 }
 
 const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
+  console.log("Current Action in Editor:", action)
+  const selectedActionType = action
+    ? ActionTypeOptions.find((option) => option.value === action.Type)
+    : undefined
   return (
     <>
-      <div>ActionEditor</div>
-      <ActionTypeComboBox />
+      <ActionTypeComboBox
+        selectedActionType={selectedActionType}
+        setSelectedActionType={(option) => {
+          if (option) {
+            onActionChange({ ...action, Type: option.value })
+          }
+        }}
+      />
     </>
   )
 }

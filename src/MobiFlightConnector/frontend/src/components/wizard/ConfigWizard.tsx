@@ -80,7 +80,11 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
             <CardContent>
               {currentDeviceType === "Button" && (
                 <ButtonActionBindingPanel
-                  trigger={currentConfigItem.button}
+                  trigger={
+                    currentConfigItem.button ??
+                    currentConfigItem.inputMultiplexer ??
+                    currentConfigItem.inputShiftRegister
+                  }
                   onTriggerChange={(trigger) => {
                     setCurrentConfigItem({
                       ...currentConfigItem,

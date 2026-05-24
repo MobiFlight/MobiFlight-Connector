@@ -51,7 +51,7 @@ const ComboBox = <T,>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-50 justify-between"
+          className="w-auto justify-between"
           disabled={disabled}
         >
           {selected
@@ -60,7 +60,7 @@ const ComboBox = <T,>({
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-50 p-0">
+      <PopoverContent className="w-auto p-0">
         <Command>
           <CommandInput placeholder={searchPlaceholder} className="h-9" />
           <CommandList>
