@@ -39,6 +39,7 @@ const ActionTypeComboBox = ({ selectedActionType, setSelectedActionType }: Actio
         setSelected={(item) => {
           setSelectedActionType?.(item || undefined)
         }}
+        widthClass="w-100"
       />
     </div>
   )

@@ -11,8 +11,6 @@ import AnalogActionBindingPanel from "@/components/wizard/components/AnalogActio
 import ButtonActionBindingPanel from "@/components/wizard/components/ButtonActionBindingPanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import EncoderActionBindingPanel from "@/components/wizard/components/EncoderActionBindingPanel"
-import { useControllerStore } from "@/stores/controllerStore"
-import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import { IConfigItem } from "@/types"
 import { useState } from "react"
 
@@ -38,21 +36,12 @@ const determineInputDeviceType = (
 }
 
 const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
-  const { controllers } = useControllerStore()
-  const { BoardDefinitions, JoystickDefinitions, MidiControllerDefinitions } =
-    useControllerDefinitionsStore()
   const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
-
-  console.log("controllers", controllers)
-  console.log("BoardDefinitions", BoardDefinitions)
-  console.log("JoystickDefinitions", JoystickDefinitions)
-  console.log("MidiControllerDefinitions", MidiControllerDefinitions)
 
   const currentDeviceType = determineInputDeviceType(
     currentConfigItem.Device?.Type,
   )
-  console.log("currentDeviceType", currentDeviceType)
-
+  
   return (
     <div className="flex flex-col gap-4">
       <Tabs defaultValue="input" className="w-full">

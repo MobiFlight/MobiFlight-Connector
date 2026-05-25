@@ -27,6 +27,7 @@ export type ComboBoxProps<T> = {
   searchPlaceholder?: string
   emptyText?: string
   disabled?: boolean
+  widthClass?: string
 }
 
 const ComboBox = <T,>({
@@ -40,6 +41,7 @@ const ComboBox = <T,>({
   searchPlaceholder = "Search...",
   emptyText = "No item found.",
   disabled = false,
+  widthClass = "w-50",
 }: ComboBoxProps<T>) => {
   const [open, setOpen] = useState(false)
   const selectedValue = selected ? getValue(selected) : ""
@@ -51,46 +53,50 @@ const ComboBox = <T,>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-auto justify-between"
+          className={cn(widthClass, "justify-between")}
           disabled={disabled}
         >
           {selected
-            ? getLabel(items.find((item) => isSelected(item, selected)) ?? selected)
+            ? getLabel(
+                items.find((item) => isSelected(item, selected)) ?? selected,
+              )
             : placeholder}
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className={cn(widthClass, "p-0")}>
         <Command>
           <CommandInput placeholder={searchPlaceholder} className="h-9" />
           <CommandList>
             <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
-              {items.map((item) => (
-                <CommandItem
-                  key={getValue(item)}
-                  value={getValue(item)}
-                  onSelect={(currentValue) => {
-                    if (currentValue === selectedValue) {
-                      setSelected(undefined)
-                    } else {
-                      const nextSelected = items.find(
-                        (nextItem) => getValue(nextItem) === currentValue,
-                      )
-                      setSelected(nextSelected)
-                    }
-                    setOpen(false)
-                  }}
-                >
-                  {getLabel(item)}
-                  <IconCheck
-                    className={cn(
-                      "ml-auto",
-                      isSelected(item, selected) ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                </CommandItem>
-              ))}
+              {items.map((item) => {
+                const itemValue = getValue(item)
+                return (
+                  <CommandItem
+                    key={itemValue}
+                    value={getLabel(item)}
+                    onSelect={() => {
+                      if (itemValue === selectedValue) {
+                        setSelected(undefined)
+                      } else {
+                        setSelected(item)
+                      }
+                      setOpen(false)
+                    }}
+                  >
+                    {getLabel(item)}
+                    <IconCheck
+                      className={cn(
+                        "ml-auto",
+                        isSelected(item, selected)
+                          ? "opacity-100"
+                          : "opacity-0",
+                      )}
+                    />
+                  </CommandItem>
+                )
+              })}
             </CommandGroup>
           </CommandList>
         </Command>
