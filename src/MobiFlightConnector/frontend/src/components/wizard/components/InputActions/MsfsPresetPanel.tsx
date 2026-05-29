@@ -1,5 +1,6 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
@@ -17,22 +18,33 @@ export type Preset = {
   updatedBy?: string
   reported?: number
   score?: number
+  presetType: "input" | "output" | "potentiometer"
 }
 
 export type MsfsPresetPanelProps = {
+  variant: "input" | "output"
   selectedPresetId: string | null
   setSelectedPreset: (preset: Preset | null) => void
 }
 
 const MsfsPresetPanel = ({
+  variant,
   selectedPresetId,
   setSelectedPreset,
 }: MsfsPresetPanelProps) => {
+  const validPresetTypes =
+    variant === "input" ? ["input", "potentiometer"] : ["output"]
   // In MsfsPresetPanel (or a dedicated hook)
   const { data: presets = [], isLoading } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () =>
-      fetch("/presets/msfs2020_hubhop_presets.json").then((r) => r.json()) as Promise<Preset[]>,
+      fetch("/presets/msfs2020_hubhop_presets.json")
+        .then((r) => r.json())
+        .then((presets) =>
+          presets.filter((p: Preset) =>
+            validPresetTypes.includes(p.presetType.toLowerCase()),
+          ),
+        ) as Promise<Preset[]>,
     staleTime: Infinity, // presets don't change at runtime; HubHopState drives invalidation
   })
 
@@ -45,18 +57,27 @@ const MsfsPresetPanel = ({
     search: "",
   })
 
-  const filteredPresets = presets
-    .filter((p) => (filter.vendor ? p.vendor === filter.vendor : true))
-    .filter((p) => (filter.aircraft ? p.aircraft === filter.aircraft : true))
-    .filter((p) => (filter.system ? p.system === filter.system : true))
-    .filter((p) => p.label.toLowerCase().includes(filter.search.toLowerCase()))
-
-  const categories = [...new Set(presets.map((p) => p.system))]
-  const aircraft = [...new Set(presets.map((p) => p.aircraft))]
-  const vendors = [...new Set(presets.map((p) => p.vendor))]
+  const filteredPresets = presets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      (filter.system ? p.system === filter.system : true) &&
+      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+  )
+  const categories = [...new Set(filteredPresets.map((p) => p.system))]
+  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))]
+  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))]
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
+        <div className="text-lg font-semibold">
+          Microsoft Flight Simulator Presets
+        </div>
+        <div className="text-muted-foreground text-sm">
+          Select a preset to configure your input or output actions
+        </div>
+      </div>
       <div className="grid grid-cols-4 gap-4">
         <Input
           placeholder="Filter presets"
@@ -116,39 +137,26 @@ const MsfsPresetPanel = ({
           searchPlaceholder="Search presets..."
           widthClass="w-150"
         />
-        <div>
-          <div className="font-md">Selected Preset Details:</div>
-          <div>
-            Label:{" "}
-            {selectedPresetId
-              ? presets.find((p) => p.id === selectedPresetId)?.label
-              : "None"}
-          </div>
-          <div>
-            Vendor:{" "}
-            {selectedPresetId
-              ? presets.find((p) => p.id === selectedPresetId)?.vendor
-              : "None"}
-          </div>
-          <div>
-            Aircraft:{" "}
-            {selectedPresetId
-              ? presets.find((p) => p.id === selectedPresetId)?.aircraft
-              : "None"}
-          </div>
-          <div>
-            Category:{" "}
-            {selectedPresetId
-              ? presets.find((p) => p.id === selectedPresetId)?.system
-              : "None"}
-          </div>
-          <div>
-            Code:{" "}
-            {selectedPresetId
-              ? presets.find((p) => p.id === selectedPresetId)?.code
-              : "None"}
-          </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="text-md font-semibold">Description:</div>
+        <div className="p-2 border rounded bg-muted">
+          {selectedPresetId
+            ? presets.find((p) => p.id === selectedPresetId)?.description
+            : "None"}
         </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="text-md font-semibold">Code:</div>
+        <Textarea
+          value={
+            selectedPresetId
+              ? presets.find((p) => p.id === selectedPresetId)?.code
+              : "None"
+          }
+          readOnly
+        />
+        <div>Supports input value (@) and placeholders ($, #, etc.)</div>
       </div>
     </div>
   )

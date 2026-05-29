@@ -28,8 +28,15 @@ export type ActionTypeProps = {
 const ActionTypeComboBox = ({ selectedActionType, setSelectedActionType }: ActionTypeProps) => {
   console.log("Selected Action Type:", selectedActionType)
   return (
-    <div className="flex flex-row gap-2 items-center">
-      <div>Action Type</div>
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-col">
+        <div className="text-lg font-semibold">
+          Action Type
+        </div>
+        <div className="text-muted-foreground text-sm">
+          Select the type of action you want to perform
+        </div>
+      </div>
       <ComboBox
         selected={selectedActionType}
         items={ActionTypeOptions}

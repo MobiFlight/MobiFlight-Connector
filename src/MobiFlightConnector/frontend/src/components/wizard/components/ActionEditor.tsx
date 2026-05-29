@@ -26,6 +26,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
       />
       {selectedActionType?.value === "MSFS2020CustomInputAction" && (
         <MsfsPresetPanel
+          variant="input"
           selectedPresetId={action ? (action as MsfsInputAction).PresetId : null}
           setSelectedPreset={(preset) => {
             onActionChange({
