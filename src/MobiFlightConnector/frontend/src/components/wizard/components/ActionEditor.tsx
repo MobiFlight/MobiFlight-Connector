@@ -1,9 +1,18 @@
 import ActionTypeComboBox, {
   ActionTypeOptions,
 } from "@/components/wizard/components/ActionTypeComboBox"
+import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
+import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
-import { Action, MobiFlightVariableAction, MsfsInputAction } from "@/types/config"
+import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
+import {
+  Action,
+  KeyInputAction,
+  MobiFlightVariableAction,
+  MsfsInputAction,
+  VJoyInputAction,
+} from "@/types/config"
 
 export interface ActionEditorProps {
   action?: Action
@@ -28,7 +37,9 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
       {selectedActionType?.value === "MSFS2020CustomInputAction" && (
         <MsfsPresetPanel
           variant="input"
-          selectedPresetId={action ? (action as MsfsInputAction).PresetId : null}
+          selectedPresetId={
+            action ? (action as MsfsInputAction).PresetId : null
+          }
           setSelectedPreset={(preset) => {
             onActionChange({
               ...(action as MsfsInputAction),
@@ -39,7 +50,9 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
       )}
       {selectedActionType?.value === "VariableInputAction" && (
         <VariablePanel
-          currentVariable={action ? (action as MobiFlightVariableAction).Variable : undefined}
+          currentVariable={
+            action ? (action as MobiFlightVariableAction).Variable : undefined
+          }
           onVariableChange={(variable) => {
             console.log("Selected Variable in Action Editor:", variable)
             onActionChange({
@@ -47,6 +60,34 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               Variable: variable,
             } as MobiFlightVariableAction)
           }}
+        />
+      )}
+
+      {selectedActionType?.value === "RetriggerInputAction" && (
+        <RetriggerPanel />
+      )}
+
+      {selectedActionType?.value === "VJoyInputAction" && (
+        <VJoyInputActionPanel
+          config={action ? (action as VJoyInputAction) : null}
+          setConfig={(config) => {
+            onActionChange({
+              ...(action as VJoyInputAction),
+              ...config,
+            } as VJoyInputAction)
+          }}
+        />
+      )}
+
+      {selectedActionType?.value === "KeyInputAction" && (
+        <KeyboardInputActionPanel
+          config={action ? (action as KeyInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as KeyInputAction),
+              ...config,
+            } as KeyInputAction)
+          }
         />
       )}
     </div>
