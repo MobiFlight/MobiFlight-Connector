@@ -2,13 +2,9 @@
 
 <!-- Describe the problem being solved or feature being added -->
 
-## Related issue
+## Related issues
 
 Fixes #
-
-## Breaking changes
-
-<!-- If none, write "None" -->
 
 ## Technical notes
 
@@ -20,7 +16,7 @@ Fixes #
 
 ## Checklist
 
-- [ ] There should be a related issue that describes the problem
+- [ ] A related Issue exists, and describes the problem
 - [ ] Tests added or updated for new features where applicable
-- [ ] All new user-facing strings are translated
-- [ ] User interface, hardware, or feature changes are updated in documentation
+- [ ] All new user-facing strings are translated to core languages (en,de,es)
+- [ ] UI, hardware, and feature changes have related Docs Issues
