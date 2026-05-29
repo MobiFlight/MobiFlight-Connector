@@ -1,6 +1,7 @@
 import ActionTypeComboBox, {
   ActionTypeOptions,
 } from "@/components/wizard/components/ActionTypeComboBox"
+import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
@@ -89,6 +90,10 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
             } as KeyInputAction)
           }
         />
+      )}
+
+      {selectedActionType?.value === "FsuipcOffsetInputAction" && (
+        <FsuipcOffsetInputActionPanel />
       )}
     </div>
   )
