@@ -36,7 +36,7 @@ namespace MobiFlight.UI.Panels
                 _frontendDistPath = Path.Combine(Application.StartupPath, "frontend", "dist");
             }
 
-            _presetPath = Path.Combine(Application.StartupPath, "Presets");
+            _presetPath = Path.Combine(Application.StartupPath);
 
             InitializeComponent();
             if (!DesignMode)

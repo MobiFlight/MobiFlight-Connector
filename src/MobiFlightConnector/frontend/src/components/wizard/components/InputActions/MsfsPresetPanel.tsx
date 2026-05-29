@@ -32,7 +32,7 @@ const MsfsPresetPanel = ({
   const { data: presets = [], isLoading } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () =>
-      fetch("/presets/msfs_hubhop_presets.json").then((r) => r.json()) as Promise<Preset[]>,
+      fetch("/presets/msfs2020_hubhop_presets.json").then((r) => r.json()) as Promise<Preset[]>,
     staleTime: Infinity, // presets don't change at runtime; HubHopState drives invalidation
   })
 
