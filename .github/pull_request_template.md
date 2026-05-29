@@ -4,7 +4,7 @@
 
 ## Related issues
 
-Fixes #
+Fixes #ISSUE_NUMBER
 
 ## Technical notes
 
