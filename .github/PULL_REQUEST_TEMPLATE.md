@@ -20,11 +20,7 @@ Fixes #
 
 ## Checklist
 
-- [ ] There should be a related issue that describes the problem 
-- [ ] Describes the problem and solution
-- [ ] References related issues with "fixes #123" or "closes #123"
-- [ ] Unit tests added or updated where applicable
-- [ ] Integration or E2E tests added where applicable
-- [ ] All user-facing strings go through `t()` (i18n)
-- [ ] All existing and new tests pass
-- [ ] User interface or feature changes are updated in documentation
+- [ ] There should be a related issue that describes the problem
+- [ ] Tests added or updated for new features where applicable
+- [ ] All new user-facing strings are translated
+- [ ] User interface, hardware, or feature changes are updated in documentation
