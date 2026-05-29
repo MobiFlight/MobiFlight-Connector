@@ -618,13 +618,12 @@ namespace MobiFlight
 
         private void HandleCommandUpdateConfigItem(ConfigItem item)
         {
-            var configItem = ConfigItems.Find(i => i.GUID == item.GUID);
-            if (configItem == null) return;
+            var configItemIndex = ConfigItems.FindIndex(i => i.GUID == item.GUID);
+            if (configItemIndex == -1) return;
 
-            configItem.Active = item.Active;
-            configItem.Name = item.Name;
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(configItem));
-            OnConfigHasChanged?.Invoke(new IConfigItem[] { configItem }, null);
+            ConfigItems[configItemIndex] = item;
+            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
+            OnConfigHasChanged?.Invoke(new IConfigItem[] { item }, null);
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)

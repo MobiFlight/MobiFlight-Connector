@@ -20,11 +20,13 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const { project, activeConfigFileIndex } = useProjectStore()
   const configFile = project?.ConfigFiles[activeConfigFileIndex]
   const configItem = configFile?.ConfigItems?.find((item) => item.GUID === configId)
+
+  const closeDialog = () => {
+    navigate(-1)
+  }
   
   return (
-    <Dialog open={true} onOpenChange={() => {
-      navigate(-1)
-    }}>
+    <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250">
         <DialogHeader>
           <DialogTitle className="text-2xl">
@@ -34,7 +36,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             {t("Dialog.ConfigWizard.Description")}
           </DialogDescription>
         </DialogHeader>
-          { configItem && <ConfigWizard configItem={configItem} /> }
+          { configItem && <ConfigWizard configItem={configItem} onClose={closeDialog} /> }
       </DialogContent>
     </Dialog>
   )

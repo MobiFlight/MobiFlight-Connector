@@ -11,11 +11,13 @@ import AnalogActionBindingPanel from "@/components/wizard/components/AnalogActio
 import ButtonActionBindingPanel from "@/components/wizard/components/ButtonActionBindingPanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import EncoderActionBindingPanel from "@/components/wizard/components/EncoderActionBindingPanel"
+import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { IConfigItem } from "@/types"
 import { useState } from "react"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
+  onClose: () => void
 }
 
 const determineInputDeviceType = (
@@ -35,12 +37,25 @@ const determineInputDeviceType = (
   }
 }
 
-const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
+const ConfigWizard = ({ configItem, onClose }: ConfigWizardProps) => {
   const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
 
   const currentDeviceType = determineInputDeviceType(
     currentConfigItem.Device?.Type,
   )
+
+  const saveChanges = () => {
+    const { publish } = publishOnMessageExchange()
+    publish({
+      key: "CommandUpdateConfigItem",
+      payload: {
+        item: currentConfigItem,
+      },
+    })
+    onClose() // Close the wizard after saving
+  }
+
+  console.log("Current Config Item in Wizard:", currentConfigItem)
   
   return (
     <div className="flex flex-col gap-4">
@@ -133,7 +148,7 @@ const ConfigWizard = ({ configItem }: ConfigWizardProps) => {
       </Tabs>
       <div className="flex flex-row justify-end gap-2">
         <Button variant="outline">Cancel</Button>
-        <Button>Save</Button>
+        <Button onClick={saveChanges}>Save</Button>
       </div>
     </div>
   )
