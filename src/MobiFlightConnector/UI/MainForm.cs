@@ -284,7 +284,7 @@ namespace MobiFlight.UI
 
                 // Only evaluate success if AuthProcess is still in progress.
                 // Once the auth process is completed, we want to ignore any further messages.
-                if (message.State == CommandUserAuthenticationState.success && 
+                if (message.State == CommandUserAuthenticationState.success &&
                     frontendPanel1.AuthProcessInProgress)
                 {
                     frontendPanel1.EndAuthProcess();
@@ -639,6 +639,12 @@ namespace MobiFlight.UI
                     );
                 }
             }
+
+            // Publish the updated list of available variables
+            var availableVars = execManager.GetAvailableVariables();
+            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate() { 
+                Variables = availableVars.Values.ToList() 
+            });
 
             ProjectHasUnsavedChanges = true;
             SetProjectFilePathInTitle();

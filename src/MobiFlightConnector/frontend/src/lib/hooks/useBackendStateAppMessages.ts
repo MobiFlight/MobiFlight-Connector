@@ -12,6 +12,7 @@ import {
   HubHopState,
   JoystickDefinitions,
   MidiControllerDefinitions,
+  MobiFlightVariablesUpdate,
   ProjectStatus,
   RecentProjects,
 } from "@/types/messages"
@@ -30,6 +31,7 @@ import { ProjectInfo } from "@/types/project"
 import { useSearchParams } from "react-router"
 import _ from "lodash"
 import { Controller } from "@/types/controller"
+import { useVariableStore } from "@/stores/variableStore"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
@@ -44,6 +46,7 @@ export const useBackendStateAppMessages = () => {
     setMidiControllerDefinitions,
   } = useControllerDefinitionsStore()
   const { setIsRunning, setIsTesting } = useExecutionStateStore()
+  const { setVariables } = useVariableStore()
 
   const setHubHopState = useHubHopStateActions()
   const auth = useAuth()
@@ -141,6 +144,12 @@ export const useBackendStateAppMessages = () => {
     const controllerBindings = message.payload as ControllerBindingsUpdate
     console.log("ControllerBindingsUpdate message received", controllerBindings.Bindings)
     setControllerBindings(controllerBindings.Bindings)
+  })
+
+  useAppMessage("MobiFlightVariablesUpdate", (message) => {
+    const update = message.payload as MobiFlightVariablesUpdate
+    console.log("MobiFlightVariablesUpdate message received", update)
+    setVariables(update.Variables)
   })
 
   // this is only for easier UI testing

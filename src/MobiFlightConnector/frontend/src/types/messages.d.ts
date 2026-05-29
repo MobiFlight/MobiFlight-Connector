@@ -1,5 +1,5 @@
 import { Settings } from "http2"
-import { IConfigValueOnlyItem } from "./config"
+import { IConfigValueOnlyItem, MobiFlightVariable } from "./config"
 import { JoystickDefinition, MidiControllerDefinition } from "./definitions"
 import { ProjectInfo } from "@/types/project"
 import { Controller, ControllerBinding, DeviceReference } from "@/types/controller"
@@ -25,6 +25,7 @@ export type AppMessageKey =
   | "AuthenticationStatus"
   | "ControllerBindingsUpdate"
   | "ScanForInputResult"
+  | "MobiFlightVariablesUpdate"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -152,6 +153,11 @@ export type ScanForInputResult = {
   Controller: Controller
   Device: DeviceReference
 }
+
+export type MobiFlightVariablesUpdate = {
+  Variables: MobiFlightVariable[]
+}
+
 
 // Not sure what this is for
 // but we are using it in the tests

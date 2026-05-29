@@ -1,5 +1,6 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
+import { useVariableStore } from "@/stores/variableStore"
 import { MobiFlightVariable } from "@/types/config"
 export type VariablePanelProps = {
   currentVariable?: MobiFlightVariable
@@ -14,6 +15,7 @@ export const VariablePanel = ({
     { value: "number", label: "Number" },
     { value: "string", label: "String" },
   ]
+  const { variables } = useVariableStore()
 
   const variable =
     currentVariable ??
@@ -24,28 +26,10 @@ export const VariablePanel = ({
       Expression: "$",
     } as MobiFlightVariable)
 
-  const availableVariables = [
-    {
-      TYPE: "number",
-      Name: "Variable 1",
-      Text: "Variable 1",
-      Expression: "$+1",
-    } as MobiFlightVariable,
-    {
-      TYPE: "string",
-      Name: "Variable 2",
-      Text: "Variable 2",
-      Expression: "$+2",
-    } as MobiFlightVariable,
-    {
-      TYPE: "number",
-      Name: "Variable 3",
-      Text: "Variable 3",
-      Expression: "$+3",
-    } as MobiFlightVariable,
-  ]
+  const availableVariables = variables ?? []
 
   console.log("Current Variable in Panel:", currentVariable)
+  console.log("Available Variables in Panel:", availableVariables)
   console.log("Selected Variable in Panel:", variable)
 
   return (
