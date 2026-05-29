@@ -2,7 +2,8 @@ import ActionTypeComboBox, {
   ActionTypeOptions,
 } from "@/components/wizard/components/ActionTypeComboBox"
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
-import { Action, MsfsInputAction } from "@/types/config"
+import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
+import { Action, MobiFlightVariableAction, MsfsInputAction } from "@/types/config"
 
 export interface ActionEditorProps {
   action?: Action
@@ -33,6 +34,18 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               ...(action as MsfsInputAction),
               PresetId: preset ? preset.id : null,
             } as MsfsInputAction)
+          }}
+        />
+      )}
+      {selectedActionType?.value === "VariableInputAction" && (
+        <VariablePanel
+          currentVariable={action ? (action as MobiFlightVariableAction).Variable : undefined}
+          onVariableChange={(variable) => {
+            console.log("Selected Variable in Action Editor:", variable)
+            onActionChange({
+              ...(action as MobiFlightVariableAction),
+              Variable: variable,
+            } as MobiFlightVariableAction)
           }}
         />
       )}
