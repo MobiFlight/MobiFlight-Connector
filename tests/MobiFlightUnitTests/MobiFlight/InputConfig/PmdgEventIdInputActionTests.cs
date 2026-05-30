@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.BrowserMessages.Incoming.Converter;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +11,17 @@ namespace MobiFlight.InputConfig.Tests
     [TestClass()]
     public class PmdgEventIdInputActionTests
     {
+        private JsonSerializerSettings _serializerSettings;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _serializerSettings = new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter> { new InputActionConverter() }
+            };
+        }
+
         [TestMethod()]
         public void CloneTest()
         {
@@ -116,5 +129,116 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        #region JSON Serialization
+
+        [TestMethod()]
+        public void JsonSerialize_AircraftType_SerializesAsString()
+        {
+            // Arrange
+            var o = generateTestObject(); // AircraftType = B747
+
+            // Act
+            var json = JsonConvert.SerializeObject(o, _serializerSettings);
+
+            // Assert
+            Assert.Contains("\"B747\"", json, $"Expected AircraftType to be serialized as \"B747\" but got: {json}");
+        }
+
+        [TestMethod()]
+        public void JsonDeserialize_AircraftTypeAsString_DeserializesCorrectly_B737()
+        {
+            // Arrange
+            var json = $"{{\"Type\":\"PmdgEventIdInputAction\",\"AircraftType\":\"B737\",\"EventId\":100,\"Param\":\"42\"}}";
+
+            // Act
+            var o = JsonConvert.DeserializeObject<PmdgEventIdInputAction>(json, _serializerSettings);
+
+            // Assert
+            Assert.AreEqual(PmdgEventIdInputAction.PmdgAircraftType.B737, o.AircraftType);
+        }
+
+        [TestMethod()]
+        public void JsonDeserialize_AircraftTypeAsString_DeserializesCorrectly_B777()
+        {
+            // Arrange
+            var json = $"{{\"Type\":\"PmdgEventIdInputAction\",\"AircraftType\":\"B777\",\"EventId\":100,\"Param\":\"42\"}}";
+
+            // Act
+            var o = JsonConvert.DeserializeObject<PmdgEventIdInputAction>(json, _serializerSettings);
+
+            // Assert
+            Assert.AreEqual(PmdgEventIdInputAction.PmdgAircraftType.B777, o.AircraftType);
+        }
+
+        [TestMethod()]
+        public void JsonDeserialize_AircraftTypeAsString_DeserializesCorrectly_B747()
+        {
+            // Arrange
+            var json = $"{{\"Type\":\"PmdgEventIdInputAction\",\"AircraftType\":\"B747\",\"EventId\":100,\"Param\":\"42\"}}";
+
+            // Act
+            var o = JsonConvert.DeserializeObject<PmdgEventIdInputAction>(json, _serializerSettings);
+
+            // Assert
+            Assert.AreEqual(PmdgEventIdInputAction.PmdgAircraftType.B747, o.AircraftType);
+        }
+
+        [TestMethod()]
+        public void JsonDeserialize_AircraftTypeAsInteger_BackwardCompatibility_B737()
+        {
+            // Arrange - legacy format where enum was stored as integer
+            var json = $"{{\"Type\":\"PmdgEventIdInputAction\",\"AircraftType\":0,\"EventId\":100,\"Param\":\"42\"}}";
+
+            // Act
+            var o = JsonConvert.DeserializeObject<PmdgEventIdInputAction>(json, _serializerSettings);
+
+            // Assert
+            Assert.AreEqual(PmdgEventIdInputAction.PmdgAircraftType.B737, o.AircraftType, "Integer 0 should deserialize to B737 for backward compatibility");
+        }
+
+        [TestMethod()]
+        public void JsonDeserialize_AircraftTypeAsInteger_BackwardCompatibility_B777()
+        {
+            // Arrange - legacy format where enum was stored as integer
+            var json = $"{{\"Type\":\"PmdgEventIdInputAction\",\"AircraftType\":1,\"EventId\":100,\"Param\":\"42\"}}";
+
+            // Act
+            var o = JsonConvert.DeserializeObject<PmdgEventIdInputAction>(json, _serializerSettings);
+
+            // Assert
+            Assert.AreEqual(PmdgEventIdInputAction.PmdgAircraftType.B777, o.AircraftType, "Integer 1 should deserialize to B777 for backward compatibility");
+        }
+
+        [TestMethod()]
+        public void JsonDeserialize_AircraftTypeAsInteger_BackwardCompatibility_B747()
+        {
+            // Arrange - legacy format where enum was stored as integer
+            var json = $"{{\"Type\":\"PmdgEventIdInputAction\",\"AircraftType\":2,\"EventId\":100,\"Param\":\"42\"}}";
+
+            // Act
+            var o = JsonConvert.DeserializeObject<PmdgEventIdInputAction>(json, _serializerSettings);
+
+            // Assert
+            Assert.AreEqual(PmdgEventIdInputAction.PmdgAircraftType.B747, o.AircraftType, "Integer 2 should deserialize to B747 for backward compatibility");
+        }
+
+        [TestMethod()]
+        public void JsonRoundTrip_PreservesAllProperties()
+        {
+            // Arrange
+            var original = generateTestObject();
+
+            // Act
+            var json = JsonConvert.SerializeObject(original, _serializerSettings);
+            var deserialized = JsonConvert.DeserializeObject<PmdgEventIdInputAction>(json, _serializerSettings);
+
+            // Assert
+            Assert.AreEqual(original.EventId, deserialized.EventId, "EventId should survive round-trip");
+            Assert.AreEqual(original.Param, deserialized.Param, "Param should survive round-trip");
+            Assert.AreEqual(original.AircraftType, deserialized.AircraftType, "AircraftType should survive round-trip");
+        }
+
+        #endregion
     }
 }

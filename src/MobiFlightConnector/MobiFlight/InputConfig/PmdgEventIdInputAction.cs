@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 
 namespace MobiFlight.InputConfig
@@ -9,7 +11,9 @@ namespace MobiFlight.InputConfig
         public new const String Label = "FSUIPC - PMDG - Event ID";
         public new String Param { get; set; }
         public enum PmdgAircraftType { B737, B777, B747 };
-        public PmdgAircraftType AircraftType = PmdgAircraftType.B737;
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public PmdgAircraftType AircraftType { get; set; } = PmdgAircraftType.B737;
 
         override public object Clone()
         {

@@ -7,6 +7,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
 {
     public class InputActionConverter : JsonConverter
     {
+        public override bool CanWrite => false;
         public override bool CanConvert(Type objectType)
         {
             return typeof(InputAction).IsAssignableFrom(objectType);
@@ -14,24 +15,8 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var type = value.GetType();
-            writer.WriteStartObject();
-            writer.WritePropertyName("Type");
-            writer.WriteValue(type.Name); // Write the type discriminator
-            foreach (var property in type.GetProperties())
-            {
-                if (property.CanRead)
-                {
-                    var propertyValue = property.GetValue(value);
-                    if (propertyValue == null && serializer.NullValueHandling == NullValueHandling.Ignore)
-                    {
-                        continue; // Skip null values if NullValueHandling is set to Ignore
-                    }
-                    writer.WritePropertyName(property.Name);
-                    serializer.Serialize(writer, property.GetValue(value));
-                }
-            }
-            writer.WriteEndObject();
+            // Never called because CanWrite = false
+            throw new NotImplementedException();
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
