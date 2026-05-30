@@ -21,6 +21,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   Controller?: Partial<Controller>
   Device?: IDeviceConfig | null
   // Tags: string[];
+  Preconditions: Precondition[]
   Status: IDictionary<string, ConfigItemStatusType>
   button?: ButtonTrigger
   inputMultiplexer?: ButtonTrigger
@@ -175,3 +176,14 @@ export interface FsuipcOffsetInputAction extends Action {
   Value: string
   Modifiers: Modifier[]
 }
+
+export type Precondition = {
+  Type: string
+  Ref: string
+  Pin: string
+  Operand: "=", "<>", "<", ">", "<=", ">="
+  Value: string
+  Logic: "and" | "or"
+  Active: boolean
+}
+

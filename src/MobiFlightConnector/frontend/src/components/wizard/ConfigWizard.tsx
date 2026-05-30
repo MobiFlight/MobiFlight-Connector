@@ -7,11 +7,21 @@ import EncoderActionBindingPanel from "@/components/wizard/components/EncoderAct
 import PreconditionPanel from "@/components/wizard/components/PreconditionPanel"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { IConfigItem } from "@/types"
-import { useState } from "react"
+import { RefObject, useState } from "react"
+import { useLocation, useNavigate, useSearchParams } from "react-router"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerClose,
+} from "@/components/ui/drawer"
+import { IconArrowBack } from "@tabler/icons-react"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
   onClose: () => void
+  drawerContainer?: RefObject<HTMLDivElement | null>
 }
 
 const determineInputDeviceType = (
@@ -31,12 +41,35 @@ const determineInputDeviceType = (
   }
 }
 
-const ConfigWizard = ({ configItem, onClose }: ConfigWizardProps) => {
+const ConfigWizard = ({
+  configItem,
+  onClose,
+  drawerContainer,
+}: ConfigWizardProps) => {
   const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+
+  const location = useLocation()
+  console.log("Current location:", location)
 
   const currentDeviceType = determineInputDeviceType(
     currentConfigItem.Device?.Type,
   )
+
+  const detailView = searchParams.get("detail")
+  const navigateToDetailView = (view: string) => {
+    navigate(`?detail=${view}`)
+  }
+
+  const closeDetailView = (open: boolean) => {
+    console.log(
+      "Closing detail view, current search params:",
+      searchParams.toString(),
+    )
+    if (open) return
+    navigate(-1)
+  }
 
   const saveChanges = () => {
     const { publish } = publishOnMessageExchange()
@@ -60,7 +93,11 @@ const ConfigWizard = ({ configItem, onClose }: ConfigWizardProps) => {
       />
       <div className="flex flex-row gap-2">
         <div className="w-1/2">
-          <PreconditionPanel />
+          <PreconditionPanel
+            preconditions={currentConfigItem.Preconditions ?? []}
+            variant="summary"
+            openDetailsPanel={() => navigateToDetailView("precondition")}
+          />
         </div>
         <div className="w-1/2">
           <ConfigReferencePanel />
@@ -108,6 +145,32 @@ const ConfigWizard = ({ configItem, onClose }: ConfigWizardProps) => {
         <Button variant="outline">Cancel</Button>
         <Button onClick={saveChanges}>Save</Button>
       </div>
+
+      {detailView && (
+        <Drawer
+          container={drawerContainer?.current || undefined}
+          direction="right"
+          open={detailView === "precondition"}
+          onAnimationEnd={(open) => closeDetailView(open)}
+        >
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Preconditions</DrawerTitle>
+              <DrawerClose className="flex flex-row">
+                <Button variant="link">
+                  <IconArrowBack />
+                  Go back
+                </Button>
+              </DrawerClose>
+            </DrawerHeader>
+            <PreconditionPanel
+              preconditions={currentConfigItem.Preconditions ?? []}
+              variant="details"
+              openDetailsPanel={() => {}}
+            />
+          </DrawerContent>
+        </Drawer>
+      )}
     </div>
   )
 }
