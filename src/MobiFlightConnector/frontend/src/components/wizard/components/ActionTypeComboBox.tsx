@@ -12,7 +12,7 @@ export const ActionTypeOptions: ActionTypeOption[] = [
   { value: "VariableInputAction", label: "MobiFlight - Variable" },
   { value: "RetriggerInputAction", label: "MobiFlight - Retrigger switches" },
   { value: "KeyInputAction", label: "MobiFlight - Keyboard Input" },
-  { value: "vJoyInputAction", label: "MobiFlight - Virtual Joystick input (vJoy)" },
+  { value: "VJoyInputAction", label: "MobiFlight - Virtual Joystick input (vJoy)" },
   { value: "FsuipcOffsetInputAction", label: "FSUIPC - Offset" },
   { value: "PmdgEventIdInputAction", label: "FSUIPC - PMDG - Event ID" },
   { value: "LuaMacroInputAction", label: "FSUIPC - Lua Macro" },

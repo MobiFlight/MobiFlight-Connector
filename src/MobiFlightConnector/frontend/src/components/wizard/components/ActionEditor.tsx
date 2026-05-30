@@ -1,17 +1,27 @@
 import ActionTypeComboBox, {
   ActionTypeOptions,
 } from "@/components/wizard/components/ActionTypeComboBox"
+import EventIdInputActionPanel from "@/components/wizard/components/InputActions/EventIdInputActionPanel"
 import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
+import JeehellInputActionPanel from "@/components/wizard/components/InputActions/JeehellInputActionPanel"
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
+import LuaMacroInputActionPanel from "@/components/wizard/components/InputActions/LuaMacroInputActionPanel"
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
+import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
 import {
   Action,
+  EventIdInputAction,
+  FsuipcOffsetInputAction,
+  JeehellInputAction,
   KeyInputAction,
+  LuaMacroInputAction,
   MobiFlightVariableAction,
   MsfsInputAction,
+  PmdgEventIdInputAction,
+  ProSimInputAction,
   VJoyInputAction,
 } from "@/types/config"
 
@@ -93,7 +103,75 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
       )}
 
       {selectedActionType?.value === "FsuipcOffsetInputAction" && (
-        <FsuipcOffsetInputActionPanel />
+        <FsuipcOffsetInputActionPanel
+          config={action ? (action as FsuipcOffsetInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as FsuipcOffsetInputAction),
+              ...config,
+            } as FsuipcOffsetInputAction)
+          }
+        />
+      )}
+
+      {selectedActionType?.value === "ProSimInputAction" && (
+        <ProSimInputActionPanel
+          config={action ? (action as ProSimInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as ProSimInputAction),
+              ...config,
+            } as ProSimInputAction)
+          }
+        />
+      )}
+
+      {selectedActionType?.value === "LuaMacroInputAction" && (
+        <LuaMacroInputActionPanel
+          config={action ? (action as LuaMacroInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as LuaMacroInputAction),
+              ...config,
+            } as LuaMacroInputAction)
+          }
+        />
+      )}
+
+      {selectedActionType?.value === "JeehellInputAction" && (
+        <JeehellInputActionPanel
+          config={action ? (action as JeehellInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as JeehellInputAction),
+              ...config,
+            } as JeehellInputAction)
+          }
+        />
+      )}
+
+      {selectedActionType?.value === "EventIdInputAction" && (
+        <EventIdInputActionPanel
+          config={action ? (action as EventIdInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as EventIdInputAction),
+              ...config,
+            } as EventIdInputAction)
+          }
+        />
+      )}
+
+      {selectedActionType?.value === "PmdgEventIdInputAction" && (
+        <EventIdInputActionPanel
+          config={action ? (action as PmdgEventIdInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as PmdgEventIdInputAction),
+              ...config,
+            } as PmdgEventIdInputAction)
+          }
+        />
       )}
     </div>
   )
