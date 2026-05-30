@@ -35,7 +35,7 @@ const MsfsPresetPanel = ({
   const validPresetTypes =
     variant === "input" ? ["input", "potentiometer"] : ["output"]
   // In MsfsPresetPanel (or a dedicated hook)
-  const { data: presets = [], isLoading } = useQuery({
+  const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () =>
       fetch("/presets/msfs2020_hubhop_presets.json")
@@ -70,14 +70,6 @@ const MsfsPresetPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">
-          Microsoft Flight Simulator Presets
-        </div>
-        <div className="text-muted-foreground text-sm">
-          Select a preset to configure your input or output actions
-        </div>
-      </div>
       <div className="grid grid-cols-4 gap-4">
         <Input
           placeholder="Filter presets"
@@ -140,7 +132,7 @@ const MsfsPresetPanel = ({
       </div>
       <div className="flex flex-col gap-2">
         <div className="text-md font-semibold">Description:</div>
-        <div className="p-2 border rounded bg-muted">
+        <div className="rounded border p-2">
           {selectedPresetId
             ? presets.find((p) => p.id === selectedPresetId)?.description
             : "None"}
@@ -154,7 +146,6 @@ const MsfsPresetPanel = ({
               ? presets.find((p) => p.id === selectedPresetId)?.code
               : "None"
           }
-          readOnly
         />
         <div>Supports input value (@) and placeholders ($, #, etc.)</div>
       </div>

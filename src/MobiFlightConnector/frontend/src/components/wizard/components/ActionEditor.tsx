@@ -1,3 +1,5 @@
+import { Card, CardContent } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import ActionTypeComboBox, {
   ActionTypeOptions,
 } from "@/components/wizard/components/ActionTypeComboBox"
@@ -35,148 +37,155 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
-    
+
   return (
-    <div className="flex flex-col gap-4">
-      <ActionTypeComboBox
-        selectedActionType={selectedActionType}
-        setSelectedActionType={(option) => {
-          if (option) {
-            onActionChange({ ...action, Type: option.value })
-          }
-        }}
-      />
-      {selectedActionType?.value === "MSFS2020CustomInputAction" && (
-        <MsfsPresetPanel
-          variant="input"
-          selectedPresetId={
-            action ? (action as MsfsInputAction).PresetId : null
-          }
-          setSelectedPreset={(preset) => {
-            onActionChange({
-              ...(action as MsfsInputAction),
-              PresetId: preset ? preset.id : null,
-            } as MsfsInputAction)
-          }}
-        />
-      )}
-      {selectedActionType?.value === "VariableInputAction" && (
-        <VariablePanel
-          currentVariable={
-            action ? (action as MobiFlightVariableAction).Variable : undefined
-          }
-          onVariableChange={(variable) => {
-            console.log("Selected Variable in Action Editor:", variable)
-            onActionChange({
-              ...(action as MobiFlightVariableAction),
-              Variable: variable,
-            } as MobiFlightVariableAction)
-          }}
-        />
-      )}
+    <Card>
+      <CardContent className="pt-4">
+        <div className="flex flex-col gap-4">
+          <ActionTypeComboBox
+            selectedActionType={selectedActionType}
+            setSelectedActionType={(option) => {
+              if (option) {
+                onActionChange({ ...action, Type: option.value })
+              }
+            }}
+          />
+          <Separator />
+          {selectedActionType?.value === "MSFS2020CustomInputAction" && (
+            <MsfsPresetPanel
+              variant="input"
+              selectedPresetId={
+                action ? (action as MsfsInputAction).PresetId : null
+              }
+              setSelectedPreset={(preset) => {
+                onActionChange({
+                  ...(action as MsfsInputAction),
+                  PresetId: preset ? preset.id : null,
+                } as MsfsInputAction)
+              }}
+            />
+          )}
+          {selectedActionType?.value === "VariableInputAction" && (
+            <VariablePanel
+              currentVariable={
+                action
+                  ? (action as MobiFlightVariableAction).Variable
+                  : undefined
+              }
+              onVariableChange={(variable) => {
+                console.log("Selected Variable in Action Editor:", variable)
+                onActionChange({
+                  ...(action as MobiFlightVariableAction),
+                  Variable: variable,
+                } as MobiFlightVariableAction)
+              }}
+            />
+          )}
 
-      {selectedActionType?.value === "RetriggerInputAction" && (
-        <RetriggerPanel />
-      )}
+          {selectedActionType?.value === "RetriggerInputAction" && (
+            <RetriggerPanel />
+          )}
 
-      {selectedActionType?.value === "VJoyInputAction" && (
-        <VJoyInputActionPanel
-          config={action ? (action as VJoyInputAction) : null}
-          setConfig={(config) => {
-            onActionChange({
-              ...(action as VJoyInputAction),
-              ...config,
-            } as VJoyInputAction)
-          }}
-        />
-      )}
+          {selectedActionType?.value === "VJoyInputAction" && (
+            <VJoyInputActionPanel
+              config={action ? (action as VJoyInputAction) : null}
+              setConfig={(config) => {
+                onActionChange({
+                  ...(action as VJoyInputAction),
+                  ...config,
+                } as VJoyInputAction)
+              }}
+            />
+          )}
 
-      {selectedActionType?.value === "KeyInputAction" && (
-        <KeyboardInputActionPanel
-          config={action ? (action as KeyInputAction) : null}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as KeyInputAction),
-              ...config,
-            } as KeyInputAction)
-          }
-        />
-      )}
+          {selectedActionType?.value === "KeyInputAction" && (
+            <KeyboardInputActionPanel
+              config={action ? (action as KeyInputAction) : null}
+              onConfigChange={(config) =>
+                onActionChange({
+                  ...(action as KeyInputAction),
+                  ...config,
+                } as KeyInputAction)
+              }
+            />
+          )}
 
-      {selectedActionType?.value === "FsuipcOffsetInputAction" && (
-        <FsuipcOffsetInputActionPanel
-          config={action ? (action as FsuipcOffsetInputAction) : null}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as FsuipcOffsetInputAction),
-              ...config,
-            } as FsuipcOffsetInputAction)
-          }
-        />
-      )}
+          {selectedActionType?.value === "FsuipcOffsetInputAction" && (
+            <FsuipcOffsetInputActionPanel
+              config={action ? (action as FsuipcOffsetInputAction) : null}
+              onConfigChange={(config) =>
+                onActionChange({
+                  ...(action as FsuipcOffsetInputAction),
+                  ...config,
+                } as FsuipcOffsetInputAction)
+              }
+            />
+          )}
 
-      {selectedActionType?.value === "ProSimInputAction" && (
-        <ProSimInputActionPanel
-          config={action ? (action as ProSimInputAction) : null}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as ProSimInputAction),
-              ...config,
-            } as ProSimInputAction)
-          }
-        />
-      )}
+          {selectedActionType?.value === "ProSimInputAction" && (
+            <ProSimInputActionPanel
+              config={action ? (action as ProSimInputAction) : null}
+              onConfigChange={(config) =>
+                onActionChange({
+                  ...(action as ProSimInputAction),
+                  ...config,
+                } as ProSimInputAction)
+              }
+            />
+          )}
 
-      {selectedActionType?.value === "LuaMacroInputAction" && (
-        <LuaMacroInputActionPanel
-          config={action ? (action as LuaMacroInputAction) : null}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as LuaMacroInputAction),
-              ...config,
-            } as LuaMacroInputAction)
-          }
-        />
-      )}
+          {selectedActionType?.value === "LuaMacroInputAction" && (
+            <LuaMacroInputActionPanel
+              config={action ? (action as LuaMacroInputAction) : null}
+              onConfigChange={(config) =>
+                onActionChange({
+                  ...(action as LuaMacroInputAction),
+                  ...config,
+                } as LuaMacroInputAction)
+              }
+            />
+          )}
 
-      {selectedActionType?.value === "JeehellInputAction" && (
-        <JeehellInputActionPanel
-          config={action ? (action as JeehellInputAction) : null}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as JeehellInputAction),
-              ...config,
-            } as JeehellInputAction)
-          }
-        />
-      )}
+          {selectedActionType?.value === "JeehellInputAction" && (
+            <JeehellInputActionPanel
+              config={action ? (action as JeehellInputAction) : null}
+              onConfigChange={(config) =>
+                onActionChange({
+                  ...(action as JeehellInputAction),
+                  ...config,
+                } as JeehellInputAction)
+              }
+            />
+          )}
 
-      {selectedActionType?.value === "EventIdInputAction" && (
-        <EventIdInputActionPanel
-          variant="default"
-          config={action ? (action as EventIdInputAction) : null}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as EventIdInputAction),
-              ...config,
-            } as EventIdInputAction)
-          }
-        />
-      )}
+          {selectedActionType?.value === "EventIdInputAction" && (
+            <EventIdInputActionPanel
+              variant="default"
+              config={action ? (action as EventIdInputAction) : null}
+              onConfigChange={(config) =>
+                onActionChange({
+                  ...(action as EventIdInputAction),
+                  ...config,
+                } as EventIdInputAction)
+              }
+            />
+          )}
 
-      {selectedActionType?.value === "PmdgEventIdInputAction" && (
-        <EventIdInputActionPanel
-          variant="pmdg"
-          config={action ? (action as PmdgEventIdInputAction) : null}
-          onConfigChange={(config) =>
-            onActionChange({
-              ...(action as PmdgEventIdInputAction),
-              ...config,
-            } as PmdgEventIdInputAction)
-          }
-        />
-      )}
-    </div>
+          {selectedActionType?.value === "PmdgEventIdInputAction" && (
+            <EventIdInputActionPanel
+              variant="pmdg"
+              config={action ? (action as PmdgEventIdInputAction) : null}
+              onConfigChange={(config) =>
+                onActionChange({
+                  ...(action as PmdgEventIdInputAction),
+                  ...config,
+                } as PmdgEventIdInputAction)
+              }
+            />
+          )}
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 export default ActionEditor

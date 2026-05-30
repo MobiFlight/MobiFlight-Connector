@@ -1,12 +1,6 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 
 import { useControllerStore } from "@/stores/controllerStore"
@@ -14,7 +8,7 @@ import { CommandScanForInput } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { BaseDevice, Controller } from "@/types/controller"
 import { ScanForInputResult } from "@/types/messages"
-import { IconLoader2 } from "@tabler/icons-react"
+import { IconLoader2, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 
 export type ConfigTriggerProps = {
@@ -122,66 +116,82 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Define trigger</CardTitle>
-        <CardDescription>
-          The trigger defines the conditions or events that will activate this
-          configuration.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-row items-center gap-4">
-        <Button className="flex-1" onClick={scanForInput}>
-          {scanning ? (
-            <div className="flex flex-row items-center gap-2 text-sm">
-              <IconLoader2 className="animate-spin" />
-              Use any input
-            </div>
-          ) : (
-            "Scan for input"
-          )}
-        </Button>
-        <div className="font-md">Or select manually:</div>
-        <ComboBox
-          getLabel={(controller) => (controller as Controller).Name}
-          getValue={(controller) =>
-            (controller as Controller).Serial ?? (controller as Controller).Name
-          }
-          isSelected={(controller, selected) =>
-            (controller as Controller).Serial === selected?.Serial ||
-            (!(controller as Controller).Serial &&
-              (controller as Controller).Name === selected?.Name)
-          }
-          items={completeControllers}
-          selected={selectedController}
-          placeholder="Select controller..."
-          searchPlaceholder="Search controller..."
-          emptyText="No controller found."
-          setSelected={(controller) => {
-            setSelectedController(controller)
-            setSelectedDevice(undefined)
-            updateConfigItem(controller, undefined)
-          }}
-        />
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col gap-2">
+          <div className="text-lg font-semibold">Trigger</div>
+          <div className="text-muted-foreground text-sm">
+            The trigger defines the conditions or events that will activate this
+            configuration.
+          </div>
+        </div>
+        <div className="flex flex-row gap-2 items-end">
+          <Button onClick={scanForInput} className="w-50">
+            {scanning ? (
+              <div className="flex flex-row items-center gap-2 text-sm">
+                <IconLoader2 className="animate-spin" />
+                Use any input
+              </div>
+            ) : (
+              "Scan for input"
+            )}
+          </Button>
+          <div className="flex flex-col gap-2">
+            <ComboBox
+              widthClass="w-50"
+              getLabel={(controller) => (controller as Controller).Name}
+              getValue={(controller) =>
+                (controller as Controller).Serial ??
+                (controller as Controller).Name
+              }
+              isSelected={(controller, selected) =>
+                (controller as Controller).Serial === selected?.Serial ||
+                (!(controller as Controller).Serial &&
+                  (controller as Controller).Name === selected?.Name)
+              }
+              items={completeControllers}
+              selected={selectedController}
+              placeholder="Select controller..."
+              searchPlaceholder="Search controller..."
+              emptyText="No controller found."
+              setSelected={(controller) => {
+                setSelectedController(controller)
+                setSelectedDevice(undefined)
+                updateConfigItem(controller, undefined)
+              }}
+            />
+          </div>
 
-        <ComboBox
-          getLabel={(device) =>
-            (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
-          }
-          getValue={(device) => (device as BaseDevice)?.Name}
-          isSelected={(device, selected) =>
-            (device as BaseDevice).Name === selected?.Name
-          }
-          items={devices}
-          selected={selectedDevice}
-          placeholder="Select device..."
-          searchPlaceholder="Search device..."
-          emptyText="No device found."
-          disabled={!selectedController}
-          setSelected={(device) => {
-            setSelectedDevice(device)
-            updateConfigItem(selectedController, device)
-          }}
-        />
+          <div className="flex flex-col gap-2">
+            <ComboBox
+              widthClass="w-50"
+              getLabel={(device) =>
+                (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
+              }
+              getValue={(device) => (device as BaseDevice)?.Name}
+              isSelected={(device, selected) =>
+                (device as BaseDevice).Name === selected?.Name
+              }
+              items={devices}
+              selected={selectedDevice}
+              placeholder="Select device..."
+              searchPlaceholder="Search device..."
+              emptyText="No device found."
+              disabled={!selectedController}
+              setSelected={(device) => {
+                setSelectedDevice(device)
+                updateConfigItem(selectedController, device)
+              }}
+            />
+          </div>
+          <Button
+            variant="ghost"
+            className="gap-1"
+            onClick={() => updateConfigItem(undefined, undefined)}
+          >
+            <IconTrash className="mr-2" />
+            Clear selection
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )
