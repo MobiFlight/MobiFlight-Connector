@@ -19,8 +19,8 @@ interface ConfigItemTableDeviceCellProps {
 }
 
 function DetermineDeviceName(item: IConfigItem): string[] {
-  const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
-  const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
+  const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.Device?.Type
+  const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.Device?.Name
   
   if (!deviceName || isEmpty(deviceName)) {
     if (deviceType === "InputAction") {
@@ -38,7 +38,7 @@ function DetermineSubIndices(item: IConfigItem): string[] {
   const subIndex =
     extendedDevice?.SubIndex != null ? `${extendedDevice.SubIndex}` : null
   const firstName =
-    ((item.Device as IDeviceConfig)?.Name ?? item.DeviceName)?.split("|")[0] ??
+    ((item.Device as IDeviceConfig)?.Name ?? item.Device?.Name)?.split("|")[0] ??
     ""
 
   const pins = extendedDevice?.Pin?.split("|")
@@ -77,7 +77,7 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
 
   const deviceType =
     (item.Device as IDeviceConfig)?.Type ??
-    (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
+    (!isEmpty(item.Device?.Type) ? item.Device?.Type : "-")
 
   const icon = (
     <DeviceIcon
