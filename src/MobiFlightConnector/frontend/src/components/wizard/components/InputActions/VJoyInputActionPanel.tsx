@@ -23,24 +23,24 @@ const VJoyInputActionPanel = (
         <div className="text-muted-foreground text-sm">Select a variable</div>
       </div>
       <Input 
-        value={config.vJoyId}
-        onChange={(e) => setConfig({ ...config, vJoyId: Number(e.target.value) })}
+        value={config?.vJoyId ?? 1}
+        onChange={(e) => setConfig({ ...(config ?? {}), vJoyId: Number(e.target.value) } as VJoyInputAction)}
       />
       <Input
-        value={config.buttonNr}
-        onChange={(e) => setConfig({ ...config, buttonNr: Number(e.target.value) })}
+        value={config?.buttonNr ?? 1}
+        onChange={(e) => setConfig({ ...(config ?? {}), buttonNr: Number(e.target.value) } as VJoyInputAction)}
       />
       <Input
-        value={config.axisString}
-        onChange={(e) => setConfig({ ...config, axisString: e.target.value })}
+        value={config?.axisString ?? "X"}
+        onChange={(e) => setConfig({ ...(config ?? {}), axisString: e.target.value } as VJoyInputAction)}
       />
      <Switch
-        checked={config.buttonCommand}
-        onCheckedChange={(checked) => setConfig({ ...config, buttonCommand: checked })}
+        checked={config?.buttonCommand ?? true}
+        onCheckedChange={(checked) => setConfig({ ...(config ?? {}), buttonCommand: checked } as VJoyInputAction)}
       />
       <Input 
-        value={config.sendValue}
-        onChange={(e) => setConfig({ ...config, sendValue: e.target.value })} />
+        value={config?.sendValue ?? "1"}
+        onChange={(e) => setConfig({ ...(config ?? {}), sendValue: e.target.value } as VJoyInputAction)} />
     </div>
   )
 }

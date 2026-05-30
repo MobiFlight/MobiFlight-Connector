@@ -35,6 +35,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
+    
   return (
     <div className="flex flex-col gap-4">
       <ActionTypeComboBox
@@ -152,6 +153,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
       {selectedActionType?.value === "EventIdInputAction" && (
         <EventIdInputActionPanel
+          variant="default"
           config={action ? (action as EventIdInputAction) : null}
           onConfigChange={(config) =>
             onActionChange({
@@ -164,6 +166,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
       {selectedActionType?.value === "PmdgEventIdInputAction" && (
         <EventIdInputActionPanel
+          variant="pmdg"
           config={action ? (action as PmdgEventIdInputAction) : null}
           onConfigChange={(config) =>
             onActionChange({
