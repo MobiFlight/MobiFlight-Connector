@@ -100,7 +100,7 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
-            Assert.AreEqual("TestName", o.Device.Name, "Name not the same");
+            Assert.AreEqual("TestName:1", o.Device.Name, "Name not the same");
             Assert.AreEqual("InputShiftRegister", o.Device.Type, "Type not the same");
             Assert.IsNull(o.inputShiftRegister.onPress, "Input Shift Register onpress not null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease, "Input Shift Register onRelease is null");
@@ -109,7 +109,7 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(o.Device, "Device should not be null after ReadXml");
             var device = o.Device as MobiFlight.InputConfig.InputShiftRegister;
             Assert.IsNotNull(device, "Device should be of type InputShiftRegister");
-            Assert.AreEqual("TestName", device.Name);
+            Assert.AreEqual("TestName:1", device.Name);
             Assert.AreEqual(device.SubIndex, o.inputShiftRegister.ExtPin, "SubIndex should match inputShiftRegister.ExtPin");
         }
 
@@ -128,7 +128,7 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual("TestSerial", o.Controller.Serial, "ModuleSerial not the same");
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
-            Assert.AreEqual("TestName", o.Device.Name, "Name not the same");
+            Assert.AreEqual("TestName:1", o.Device.Name, "Name not the same");
             Assert.AreEqual("InputMultiplexer", o.Device.Type, "Type not the same");
             Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
@@ -137,7 +137,7 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(o.Device, "Device should not be null after ReadXml");
             var device = o.Device as MobiFlight.InputConfig.InputMultiplexer;
             Assert.IsNotNull(device, "Device should be of type InputMultiplexer");
-            Assert.AreEqual("TestName", device.Name);
+            Assert.AreEqual("TestName:1", device.Name);
             Assert.AreEqual(device.SubIndex, o.inputMultiplexer.DataPin, "SubIndex should match inputMultiplexer.DataPin");
         }
 
@@ -247,7 +247,7 @@ namespace MobiFlight.Tests
 
             Assert.IsNotNull(result.Device, "Device should be populated by OnDeserialized");
             Assert.IsInstanceOfType(result.Device, typeof(MobiFlight.InputConfig.InputMultiplexer));
-            Assert.AreEqual("Multiplexer 1", result.Device.Name);
+            Assert.AreEqual("Multiplexer 1:5", result.Device.Name);
             Assert.AreEqual(5, (result.Device as InputMultiplexer)?.SubIndex);
         }
 
@@ -269,7 +269,7 @@ namespace MobiFlight.Tests
 
             Assert.IsNotNull(result.Device, "Device should be populated by OnDeserialized");
             Assert.IsInstanceOfType(result.Device, typeof(MobiFlight.InputConfig.InputShiftRegister));
-            Assert.AreEqual("Shift Register 1", result.Device.Name);
+            Assert.AreEqual("Shift Register 1:5", result.Device.Name);
             Assert.AreEqual(5, (result.Device as InputShiftRegister)?.SubIndex);
         }
 
@@ -450,7 +450,7 @@ namespace MobiFlight.Tests
                         ) as MobiFlight.InputConfig.InputShiftRegister;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual("Shifter 1", result.Name);
+            Assert.AreEqual("Shifter 1:5", result.Name);
             Assert.AreEqual(5, result.SubIndex);
         }
 
@@ -469,7 +469,7 @@ namespace MobiFlight.Tests
             var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_MULTIPLEXER, "Mux 1", 3) as MobiFlight.InputConfig.InputMultiplexer;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual("Mux 1", result.Name);
+            Assert.AreEqual("Mux 1:3", result.Name);
             Assert.AreEqual(3, result.SubIndex);
         }
 
