@@ -13,6 +13,7 @@ import ProSimInputActionPanel from "@/components/wizard/components/InputActions/
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
+import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import {
   Action,
   EventIdInputAction,
@@ -25,6 +26,7 @@ import {
   PmdgEventIdInputAction,
   ProSimInputAction,
   VJoyInputAction,
+  XplaneInputAction,
 } from "@/types/config"
 
 export interface ActionEditorProps {
@@ -61,7 +63,23 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                 onActionChange({
                   ...(action as MsfsInputAction),
                   PresetId: preset ? preset.id : null,
+                  Command: preset ? preset.code : null,
                 } as MsfsInputAction)
+              }}
+            />
+          )}
+          {selectedActionType?.value === "XplaneInputAction" && (
+            <XplanePresetPanel
+              variant="input"
+              selectedPath={
+                action ? (action as XplaneInputAction).Path : null
+              }
+              setSelectedPreset={(preset) => {
+                onActionChange({
+                  ...(action as XplaneInputAction),
+                  Path: preset ? preset.code : null,
+                  InputType: preset ? preset.codeType : null
+                } as XplaneInputAction)
               }}
             />
           )}
