@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { preconditionVariants } from "@/components/wizard/variants"
 import { IConfigItem, MobiFlightVariable, Precondition } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 
@@ -54,110 +55,102 @@ const PreconditionItemRow = ({
       ? variables.find((v) => v.Name === precondition.Ref)
       : undefined
 
-  const variant = {
-    variable: "border-orange-400 bg-orange-50",
-    config: "border-blue-400 bg-blue-50",
-    pin: "border-green-400 bg-green-50",
-  } as Record<string, string>
+  const variantStyle = preconditionVariants[precondition.Type]
 
   return (
-    <div className={`flex flex-col gap-3 rounded-lg border-2 p-3 ${variant[precondition.Type]}`}>
-      <div className="flex flex-row flex-wrap items-center gap-3">
-        <div className="flex flex-row items-center gap-2">
-          <Checkbox
-            checked={precondition.Active}
-            onCheckedChange={(checked) =>
-              onChange({ ...precondition, Active: !!checked })
-            }
-          />
-          <Label className="text-sm">Active</Label>
-        </div>
-
-        <ComboBox
-          items={TYPE_OPTIONS}
-          selected={TYPE_OPTIONS.find((t) => t.value === precondition.Type)}
-          getValue={(t) => t.value}
-          getLabel={(t) => t.label}
-          isSelected={(t, s) => t.value === s?.value}
-          setSelected={(t) =>
-            onChange({ ...precondition, Type: t?.value ?? "config", Ref: "" })
+    <div
+      className={`flex flex-row gap-2 rounded-lg border-2 p-4 py-1 ${variantStyle}`}
+    >
+      <div className="flex flex-row items-center gap-2">
+        <Checkbox
+          checked={precondition.Active}
+          onCheckedChange={(checked) =>
+            onChange({ ...precondition, Active: !!checked })
           }
-          placeholder="Type"
-          widthClass="w-32"
-          variant="nofilter"
         />
-
-        {precondition.Type === "config" && (
-          <ComboBox
-            items={outputConfigs}
-            selected={selectedConfig}
-            getValue={(c) => c.GUID}
-            getLabel={(c) => c.Name}
-            isSelected={(c, s) => c.GUID === s?.GUID}
-            setSelected={(c) =>
-              onChange({ ...precondition, Ref: c?.GUID ?? "" })
-            }
-            placeholder="Select config..."
-            widthClass="w-48"
-          />
-        )}
-
-        {precondition.Type === "variable" && (
-          <ComboBox
-            items={variables}
-            selected={selectedVariable}
-            getValue={(v) => v.Name}
-            getLabel={(v) => v.Name}
-            isSelected={(v, s) => v.Name === s?.Name}
-            setSelected={(v) =>
-              onChange({ ...precondition, Ref: v?.Name ?? "" })
-            }
-            placeholder="Select variable..."
-            widthClass="w-48"
-          />
-        )}
-
-        <ComboBox
-          items={OPERAND_OPTIONS}
-          selected={precondition.Operand}
-          getValue={(o) => o}
-          getLabel={(o) => o}
-          isSelected={(o, s) => o === s}
-          setSelected={(o) => onChange({ ...precondition, Operand: o ?? "=" })}
-          variant="nofilter"
-          widthClass="w-18"
-        />
-        <Input
-          value={precondition.Value}
-          onChange={(e) => onChange({ ...precondition, Value: e.target.value })}
-          placeholder="Value"
-          className="w-16"
-        />
-        {showLogic && (
-          <div className="flex flex-row items-center gap-2">
-            <ComboBox
-              items={LOGIC_OPTIONS}
-              selected={precondition.Logic}
-              getValue={(l) => l}
-              getLabel={(l) => l}
-              isSelected={(l, s) => l === s}
-              setSelected={(l) =>
-                onChange({ ...precondition, Logic: l ?? "and" })
-              }
-              widthClass="w-24"
-              variant="nofilter"
-            />
-          </div>
-        )}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-destructive hover:text-destructive ml-auto"
-          onClick={onDelete}
-        >
-         <IconTrash className="h-4 w-4" />
-        </Button>
+        <Label className="text-sm">Active</Label>
       </div>
+
+      <ComboBox
+        items={TYPE_OPTIONS}
+        selected={TYPE_OPTIONS.find((t) => t.value === precondition.Type)}
+        getValue={(t) => t.value}
+        getLabel={(t) => t.label}
+        isSelected={(t, s) => t.value === s?.value}
+        setSelected={(t) =>
+          onChange({ ...precondition, Type: t?.value ?? "config", Ref: "" })
+        }
+        placeholder="Type"
+        widthClass="w-32"
+        variant="nofilter"
+      />
+
+      {precondition.Type === "config" && (
+        <ComboBox
+          items={outputConfigs}
+          selected={selectedConfig}
+          getValue={(c) => c.GUID}
+          getLabel={(c) => c.Name}
+          isSelected={(c, s) => c.GUID === s?.GUID}
+          setSelected={(c) => onChange({ ...precondition, Ref: c?.GUID ?? "" })}
+          placeholder="Select config..."
+          widthClass="w-48"
+        />
+      )}
+
+      {precondition.Type === "variable" && (
+        <ComboBox
+          items={variables}
+          selected={selectedVariable}
+          getValue={(v) => v.Name}
+          getLabel={(v) => v.Name}
+          isSelected={(v, s) => v.Name === s?.Name}
+          setSelected={(v) => onChange({ ...precondition, Ref: v?.Name ?? "" })}
+          placeholder="Select variable..."
+          widthClass="w-48"
+        />
+      )}
+
+      <ComboBox
+        items={OPERAND_OPTIONS}
+        selected={precondition.Operand}
+        getValue={(o) => o}
+        getLabel={(o) => o}
+        isSelected={(o, s) => o === s}
+        setSelected={(o) => onChange({ ...precondition, Operand: o ?? "=" })}
+        variant="nofilter"
+        widthClass="w-18"
+      />
+      <Input
+        value={precondition.Value}
+        onChange={(e) => onChange({ ...precondition, Value: e.target.value })}
+        placeholder="Value"
+        className="w-16"
+      />
+      {showLogic && (
+        <div className="flex flex-row items-center gap-2">
+          <ComboBox
+            items={LOGIC_OPTIONS}
+            selected={precondition.Logic}
+            getValue={(l) => l}
+            getLabel={(l) => l}
+            isSelected={(l, s) => l === s}
+            setSelected={(l) =>
+              onChange({ ...precondition, Logic: l ?? "and" })
+            }
+            widthClass="w-24"
+            variant="nofilter"
+          />
+        </div>
+      )}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="text-destructive hover:text-destructive ml-auto"
+        onClick={onDelete}
+      >
+        <IconTrash className="h-4 w-4" />
+      </Button>
     </div>
   )
 }

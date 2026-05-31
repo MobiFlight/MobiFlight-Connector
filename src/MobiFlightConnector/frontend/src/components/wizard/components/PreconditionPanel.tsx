@@ -1,11 +1,11 @@
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import PreconditionEditor from "@/components/wizard/Precondition/PreconditionEditor"
+import PreconditionSummary from "@/components/wizard/Precondition/PreconditionSummary"
 import { useProjectStore } from "@/stores/projectStore"
 import { useVariableStore } from "@/stores/variableStore"
-import { Precondition } from "@/types/config"
-import { IconEdit, IconPlus, IconTallymark2 } from "@tabler/icons-react"
+import { IConfigItem, Precondition } from "@/types/config"
+import { IconEdit, IconPlus } from "@tabler/icons-react"
 
 export type PreconditionPanelProps = {
   preconditions: Precondition[] // Replace with actual type of preconditions
@@ -26,16 +26,7 @@ const PreconditionPanel = ({
 
   const outputConfigs = project?.ConfigFiles[activeConfigFileIndex].ConfigItems.filter((item) =>
     item.Type === "OutputConfigItem"
-  ) || []
-
-  const preconditionIds = preconditions
-    .filter((precondition) => precondition.Ref !== undefined)
-    .map((precondition) => precondition.Ref) as string[]
-
-  const preconditionConfigs =
-    outputConfigs.filter((item) =>
-      preconditionIds.includes(item.GUID),
-    ).map((item) => ({ ref: item.GUID, name: item.Name })) || []
+  ) || [] as IConfigItem[]
 
   return variant === "summary" ? (
     <Card>
@@ -43,56 +34,11 @@ const PreconditionPanel = ({
         <div className="text-lg font-semibold">Preconditions (optional)</div>
         {preconditions.length > 0 ? (
           <div className="flex flex-col gap-2">
-            <div className="text-muted-foreground flex flex-row gap-2 py-2">
-              {preconditions
-                .slice(0, maxDisplayCount)
-                .map((precondition, index) => {
-                  const label =
-                    preconditionConfigs.find(
-                      (config) => config.ref === precondition.Ref,
-                    )?.name ?? precondition.Ref
-
-                  const color = {
-                    variable: "border-orange-400 bg-orange-50",
-                    config: "border-blue-400 bg-blue-50",
-                    pin: "border-green-400 bg-green-50",
-                  } as Record<string, string>
-
-                  const isLast = index === preconditions.slice(0, maxDisplayCount).length - 1 
-
-                  return (
-                    <>
-                      <Badge
-                        key={index}
-                        variant="outline"
-                        className={`px-4 ${color[precondition.Type]} flex flex-row items-center gap-1 rounded`}
-                      >
-                        <span className="max-w-30 truncate text-sm whitespace-nowrap">
-                          {label}
-                        </span>
-                        <span className="text-sm">{precondition.Operand}</span>
-                        <span className="text-sm">{precondition.Value}</span>
-                      </Badge>
-                      {!isLast && (
-                        <Badge variant="secondary" className="px-2">
-                          {precondition.Logic == "and" ? (
-                            <IconPlus size={10} />
-                          ) : (
-                            <IconTallymark2 size={10} />
-                          )}
-                        </Badge>
-                      )}
-                    </>
-                  )
-                })}
-              {preconditions.length > maxDisplayCount && (
-                <Badge variant="outline" className="px-4">
-                  <span className="text-sm whitespace-nowrap">
-                    +{preconditions.length - maxDisplayCount} more
-                  </span>
-                </Badge>
-              )}
-            </div>
+            <PreconditionSummary 
+              preconditions={preconditions}
+              outputConfigs={outputConfigs}
+              maxDisplayCount={maxDisplayCount}
+            />
             <Button variant="outline" onClick={openDetailsPanel}>
               <IconEdit className="" />
               Preconditions
@@ -117,7 +63,7 @@ const PreconditionPanel = ({
       variables={variables}
       outputConfigs={outputConfigs}
       preconditions={preconditions}
-      onPreconditionsChange={onPreconditionsChange!}
+      onPreconditionsChange={onPreconditionsChange ?? (() => {})}
     />
   )
 }
