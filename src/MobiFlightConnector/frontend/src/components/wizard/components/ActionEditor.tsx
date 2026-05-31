@@ -8,12 +8,12 @@ import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputAc
 import JeehellInputActionPanel from "@/components/wizard/components/InputActions/JeehellInputActionPanel"
 import KeyboardInputActionPanel from "@/components/wizard/components/InputActions/KeyboardInputActionPanel"
 import LuaMacroInputActionPanel from "@/components/wizard/components/InputActions/LuaMacroInputActionPanel"
-import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
+import MsfsInputActionPanel from "@/components/wizard/components/InputActions/MsfsInputActionPanel"
 import ProSimInputActionPanel from "@/components/wizard/components/InputActions/ProSimInputActionPanel"
 import RetriggerPanel from "@/components/wizard/components/InputActions/RetriggerPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
-import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
+import XplaneInputActionPanel from "@/components/wizard/components/InputActions/XplaneInputActionPanel"
 import {
   Action,
   EventIdInputAction,
@@ -54,33 +54,15 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
           />
           <Separator />
           {selectedActionType?.value === "MSFS2020CustomInputAction" && (
-            <MsfsPresetPanel
-              variant="input"
-              selectedPresetId={
-                action ? (action as MsfsInputAction).PresetId : null
-              }
-              setSelectedPreset={(preset) => {
-                onActionChange({
-                  ...(action as MsfsInputAction),
-                  PresetId: preset ? preset.id : null,
-                  Command: preset ? preset.code : null,
-                } as MsfsInputAction)
-              }}
+            <MsfsInputActionPanel
+              config={action ? (action as MsfsInputAction) : null}
+              onConfigChange={(config) => onActionChange(config)}
             />
           )}
           {selectedActionType?.value === "XplaneInputAction" && (
-            <XplanePresetPanel
-              variant="input"
-              selectedPath={
-                action ? (action as XplaneInputAction).Path : null
-              }
-              setSelectedPreset={(preset) => {
-                onActionChange({
-                  ...(action as XplaneInputAction),
-                  Path: preset ? preset.code : null,
-                  InputType: preset ? preset.codeType : null
-                } as XplaneInputAction)
-              }}
+            <XplaneInputActionPanel
+              config={action as XplaneInputAction}
+              onConfigChange={(c) => onActionChange(c)}
             />
           )}
           {selectedActionType?.value === "VariableInputAction" && (

@@ -1,6 +1,5 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
@@ -133,21 +132,10 @@ const MsfsPresetPanel = ({
       <div className="flex flex-col gap-2">
         <div className="text-md font-semibold">Description:</div>
         <div className="rounded border p-2">
-          {selectedPresetId
-            ? presets.find((p) => p.id === selectedPresetId)?.description
-            : "None"}
+          {selectedPreset?.description
+            ? selectedPreset?.description
+            : "No desciription available"}
         </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="text-md font-semibold">Code:</div>
-        <Textarea
-          value={
-            selectedPresetId
-              ? presets.find((p) => p.id === selectedPresetId)?.code
-              : "None"
-          }
-        />
-        <div>Supports input value (@) and placeholders ($, #, etc.)</div>
       </div>
     </div>
   )
