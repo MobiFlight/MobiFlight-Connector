@@ -55,13 +55,14 @@ const ComboBox = <T,>({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          size="sm"
           variant="outline"
           role="combobox"
           aria-expanded={open}
           className={cn(widthClass, "justify-between")}
           disabled={disabled}
         >
-          <span className="truncate" title={label}>
+          <span className="truncate text-sm" title={label}>
             {label}
           </span>
           <IconChevronDown className="opacity-50" />

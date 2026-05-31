@@ -1,4 +1,5 @@
 import ComboBox from "@/components/ComboBox"
+import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { XplaneInputAction } from "@/types/config"
@@ -45,8 +46,9 @@ const XplaneInputActionPanel = ({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <div className="text-md font-semibold">Path / Code:</div>
+        <Label htmlFor="code">Code:</Label>
         <Textarea
+          id="code"
           value={config?.Path ?? ""}
           onChange={(e) =>
             onConfigChange({
@@ -54,7 +56,7 @@ const XplaneInputActionPanel = ({
               Path: e.target.value,
             })
           }
-          placeholder="Enter path or select a preset above"
+          placeholder="Enter path for DataRef or Command, or select a preset above"
         />
         <div className="text-sm text-muted-foreground">
           Supports input value (@) and placeholders ($, #, etc.)

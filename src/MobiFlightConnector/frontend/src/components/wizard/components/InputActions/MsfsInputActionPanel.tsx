@@ -1,6 +1,7 @@
 import { Textarea } from "@/components/ui/textarea"
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import { MsfsInputAction } from "@/types/config"
+import { Label } from "@/components/ui/label"
 
 export type MsfsInputActionPanelProps = {
   config: MsfsInputAction | null
@@ -27,15 +28,16 @@ const MsfsInputActionPanel = ({
         }
       />
       <div className="flex flex-col gap-2">
-        <div className="text-md font-semibold">Code:</div>
+        <Label htmlFor="code">Code:</Label>
         <Textarea
+        id="code"
           value={
             command
               ? command
               : "None"
           }
         />
-        <div>Supports input value (@) and placeholders ($, #, etc.)</div>
+        <div className="text-sm text-muted-foreground">Supports input value (@) and placeholders ($, #, etc.)</div>
       </div>
     </div>
   )

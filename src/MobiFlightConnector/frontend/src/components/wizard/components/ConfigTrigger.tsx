@@ -125,7 +125,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           </div>
         </div>
         <div className="flex flex-row gap-2 items-end">
-          <Button onClick={scanForInput} className="w-50">
+          <Button onClick={scanForInput} className="w-50" size="sm">
             {scanning ? (
               <div className="flex flex-row items-center gap-2 text-sm">
                 <IconLoader2 className="animate-spin" />

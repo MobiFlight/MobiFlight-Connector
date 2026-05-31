@@ -1,5 +1,6 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
@@ -132,9 +133,11 @@ const XplanePresetPanel = ({
         widthClass="w-150"
       />
       <div className="flex flex-col gap-2">
-        <div className="text-md font-semibold">Description:</div>
-        <div className="text-muted-foreground rounded border p-2 text-sm">
-          {selectedPreset?.description ?? "No preset selected"}
+        <Label htmlFor="description">Description:</Label>
+        <div id="description" className="rounded border p-2 text-sm">
+          {selectedPreset?.description
+            ? selectedPreset?.description
+            : "No description available"}
         </div>
       </div>
     </div>
