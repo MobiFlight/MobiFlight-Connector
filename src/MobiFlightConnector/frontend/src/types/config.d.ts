@@ -181,7 +181,7 @@ export type Precondition = {
   Type: string
   Ref: string
   Pin: string
-  Operand: "=", "<>", "<", ">", "<=", ">="
+  Operand: "=" | "<>" | "<" | ">" | "<=" | ">="
   Value: string
   Logic: "and" | "or"
   Active: boolean

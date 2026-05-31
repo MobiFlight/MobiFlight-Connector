@@ -1,30 +1,39 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import PreconditionEditor from "@/components/wizard/Precondition/PreconditionEditor"
 import { useProjectStore } from "@/stores/projectStore"
+import { useVariableStore } from "@/stores/variableStore"
 import { Precondition } from "@/types/config"
 import { IconEdit, IconPlus, IconTallymark2 } from "@tabler/icons-react"
 
 export type PreconditionPanelProps = {
   preconditions: Precondition[] // Replace with actual type of preconditions
+  onPreconditionsChange?: (updatedPreconditions: Precondition[]) => void
   variant: "summary" | "details"
   openDetailsPanel: () => void
 }
 
 const PreconditionPanel = ({
   preconditions,
+  onPreconditionsChange,
   variant,
   openDetailsPanel,
 }: PreconditionPanelProps) => {
   const { project, activeConfigFileIndex } = useProjectStore()
+  const { variables } = useVariableStore()
   const maxDisplayCount = 2
+
+  const outputConfigs = project?.ConfigFiles[activeConfigFileIndex].ConfigItems.filter((item) =>
+    item.Type === "OutputConfigItem"
+  ) || []
 
   const preconditionIds = preconditions
     .filter((precondition) => precondition.Ref !== undefined)
     .map((precondition) => precondition.Ref) as string[]
 
   const preconditionConfigs =
-    project?.ConfigFiles[activeConfigFileIndex].ConfigItems.filter((item) =>
+    outputConfigs.filter((item) =>
       preconditionIds.includes(item.GUID),
     ).map((item) => ({ ref: item.GUID, name: item.Name })) || []
 
@@ -44,8 +53,9 @@ const PreconditionPanel = ({
                     )?.name ?? precondition.Ref
 
                   const color = {
-                    variable: "border-orange-400",
-                    config: "border-blue-400",
+                    variable: "border-orange-400 bg-orange-50",
+                    config: "border-blue-400 bg-blue-50",
+                    pin: "border-green-400 bg-green-50",
                   } as Record<string, string>
 
                   const isLast = index === preconditions.slice(0, maxDisplayCount).length - 1 
@@ -55,7 +65,7 @@ const PreconditionPanel = ({
                       <Badge
                         key={index}
                         variant="outline"
-                        className={`px-4 ${color[precondition.Type]} flex flex-row items-center gap-1`}
+                        className={`px-4 ${color[precondition.Type]} flex flex-row items-center gap-1 rounded`}
                       >
                         <span className="max-w-30 truncate text-sm whitespace-nowrap">
                           {label}
@@ -77,7 +87,7 @@ const PreconditionPanel = ({
                 })}
               {preconditions.length > maxDisplayCount && (
                 <Badge variant="outline" className="px-4">
-                  <span className="text-sm">
+                  <span className="text-sm whitespace-nowrap">
                     +{preconditions.length - maxDisplayCount} more
                   </span>
                 </Badge>
@@ -103,13 +113,12 @@ const PreconditionPanel = ({
       </CardContent>
     </Card>
   ) : (
-    <div className="flex flex-col gap-4">
-      <div className="text-lg font-semibold">Preconditions</div>
-      <div className="text-muted-foreground text-sm">
-        The preconditions define conditions that must be met before the action
-        can be executed.
-      </div>
-    </div>
+    <PreconditionEditor
+      variables={variables}
+      outputConfigs={outputConfigs}
+      preconditions={preconditions}
+      onPreconditionsChange={onPreconditionsChange!}
+    />
   )
 }
 export default PreconditionPanel

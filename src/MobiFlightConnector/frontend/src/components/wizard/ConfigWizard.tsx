@@ -56,9 +56,11 @@ const ConfigWizard = ({
   const currentDeviceType = determineInputDeviceType(
     currentConfigItem.Device?.Type,
   )
+  const [ drawerOpen, setDrawerOpen ] = useState(false)
 
   const detailView = searchParams.get("detail")
   const navigateToDetailView = (view: string) => {
+    setDrawerOpen(true)
     navigate(`?detail=${view}`)
   }
 
@@ -68,7 +70,8 @@ const ConfigWizard = ({
       searchParams.toString(),
     )
     if (open) return
-    navigate(-1)
+    setDrawerOpen(false)
+    setTimeout(() => navigate(-1), 500)
   }
 
   const saveChanges = () => {
@@ -150,12 +153,12 @@ const ConfigWizard = ({
         <Drawer
           container={drawerContainer?.current || undefined}
           direction="right"
-          open={detailView === "precondition"}
-          onAnimationEnd={(open) => closeDetailView(open)}
+          open={drawerOpen}
+          onClose={() => closeDetailView(false)}
         >
-          <DrawerContent>
+          <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-200 data-[vaul-drawer-direction=right]:w-200">
             <DrawerHeader>
-              <DrawerTitle>Preconditions</DrawerTitle>
+              <DrawerTitle className="sr-only">Preconditions</DrawerTitle>
               <DrawerClose className="flex flex-row">
                 <Button variant="link">
                   <IconArrowBack />
@@ -163,11 +166,19 @@ const ConfigWizard = ({
                 </Button>
               </DrawerClose>
             </DrawerHeader>
-            <PreconditionPanel
-              preconditions={currentConfigItem.Preconditions ?? []}
-              variant="details"
-              openDetailsPanel={() => {}}
-            />
+            <div className="px-4">
+              <PreconditionPanel
+                onPreconditionsChange={(preconditions) => {
+                  setCurrentConfigItem({
+                    ...currentConfigItem,
+                    Preconditions: preconditions,
+                  })
+                }} 
+                preconditions={currentConfigItem.Preconditions ?? []}
+                variant="details"
+                openDetailsPanel={() => {}}
+              />
+            </div>
           </DrawerContent>
         </Drawer>
       )}

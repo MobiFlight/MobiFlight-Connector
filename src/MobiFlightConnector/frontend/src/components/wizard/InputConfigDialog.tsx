@@ -32,7 +32,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
-      <DialogContent ref={containerRef} className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250">
+      <DialogContent ref={containerRef} className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250 overflow-x-hidden">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             {t("Dialog.ConfigWizard.Title")}

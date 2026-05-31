@@ -28,6 +28,7 @@ export type ComboBoxProps<T> = {
   emptyText?: string
   disabled?: boolean
   widthClass?: string
+  variant?: "default" | "nofilter"
 }
 
 const ComboBox = <T,>({
@@ -42,9 +43,13 @@ const ComboBox = <T,>({
   emptyText = "No item found.",
   disabled = false,
   widthClass = "w-50",
+  variant = "default",
 }: ComboBoxProps<T>) => {
   const [open, setOpen] = useState(false)
   const selectedValue = selected ? getValue(selected) : ""
+  const label = selected
+    ? getLabel(items.find((item) => isSelected(item, selected)) ?? selected)
+    : placeholder
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -56,17 +61,17 @@ const ComboBox = <T,>({
           className={cn(widthClass, "justify-between")}
           disabled={disabled}
         >
-          {selected
-            ? getLabel(
-                items.find((item) => isSelected(item, selected)) ?? selected,
-              )
-            : placeholder}
+          <span className="truncate" title={label}>
+            {label}
+          </span>
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cn(widthClass, "p-0")}>
         <Command>
-          <CommandInput placeholder={searchPlaceholder} className="h-9" />
+          {variant === "default" && (
+            <CommandInput placeholder={searchPlaceholder} className="h-9" />
+          )}
           <CommandList>
             <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
@@ -75,7 +80,7 @@ const ComboBox = <T,>({
                 return (
                   <CommandItem
                     key={itemValue}
-                    value={getLabel(item)}
+                    value={`${getLabel(item)}`}
                     onSelect={() => {
                       if (itemValue === selectedValue) {
                         setSelected(undefined)
@@ -85,7 +90,7 @@ const ComboBox = <T,>({
                       setOpen(false)
                     }}
                   >
-                    {getLabel(item)}
+                    <span className="truncate text-sm">{getLabel(item)}</span>
                     <IconCheck
                       className={cn(
                         "ml-auto",
