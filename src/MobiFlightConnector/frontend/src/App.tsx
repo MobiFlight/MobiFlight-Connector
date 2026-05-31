@@ -13,12 +13,14 @@ import { useTheme } from "@/lib/hooks/useTheme"
 import { ToastNotificationHandler } from "./components/notifications/ToastNotificationHandler"
 
 import DebugInfo from "@/components/DebugInfo"
+import LogPanel from "@/components/LogPanel"
 import { useTranslation } from "react-i18next"
 
 function App() {
   useKeyAccelerators(GlobalKeyAccelerators, true)
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
+  const [logVisible, setLogVisible] = useState(false)
   const { theme } = useTheme()
   
   useAppMessage("OverlayState", (message) => {
@@ -42,13 +44,14 @@ function App() {
         <div className="flex h-svh flex-row overflow-hidden p-0 select-none">
           {/* <Sidebar /> */}
           <div className="flex grow flex-col">
-            <MainMenu />
+            <MainMenu onToggleLog={() => setLogVisible(v => !v)} />
 
             {/* Uncomment the Navbar if needed */}
             {/* <Navbar /> */}
             <div className="flex grow flex-col overflow-hidden">
               <Outlet />
             </div>
+            {logVisible && <LogPanel />}
             <DebugInfo />
           </div>
         </div>

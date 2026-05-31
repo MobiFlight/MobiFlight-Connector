@@ -45,7 +45,8 @@
           "Reset": "Ctrl+0",
           "In": "Ctrl++",
           "Out": "Ctrl+-"
-        }
+        },
+        "Log": "Loki"
       }
     },
     "Extras": {
@@ -599,5 +600,9 @@
     "Action": {
       "Upgrade": "Nosta tasoa"
     }
+  },
+  "LogPanel": {
+    "Title": "Loki",
+    "Empty": "Ei lokimerkintöjä"
   }
 }

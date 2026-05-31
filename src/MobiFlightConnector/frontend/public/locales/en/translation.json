@@ -47,7 +47,8 @@
           "Reset": "Ctrl+0",
           "In": "Ctrl++",
           "Out": "Ctrl+-"
-        }
+        },
+        "Log": "Log"
       }
     },
     "Extras": {
@@ -605,5 +606,9 @@
     "Action": {
       "Upgrade": "Upgrade"
     }
+  },
+  "LogPanel": {
+    "Title": "Log",
+    "Empty": "No log entries"
   }
 }

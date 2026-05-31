@@ -45,7 +45,8 @@
           "Reset": "Ctrl+0",
           "In": "Ctrl++",
           "Out": "Ctrl+-"
-        }
+        },
+        "Log": "Log"
       }
     },
     "Extras": {
@@ -605,5 +606,9 @@
     "Action": {
       "Upgrade": "Mejorar plan"
     }
+  },
+  "LogPanel": {
+    "Title": "Log",
+    "Empty": "No hay entradas en el registro"
   }
 }

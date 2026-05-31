@@ -80,9 +80,7 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.logSplitter = new System.Windows.Forms.Splitter();
             this.frontendPanel1 = new MobiFlight.UI.Panels.FrontendPanel();
-            this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
             this.contextMenuStripNotifyIcon.SuspendLayout();
             this.statusStripPanel.SuspendLayout();
             this.statusStrip2.SuspendLayout();
@@ -429,31 +427,18 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // logSplitter
-            // 
-            resources.ApplyResources(this.logSplitter, "logSplitter");
-            this.logSplitter.Name = "logSplitter";
-            this.logSplitter.TabStop = false;
-            // 
+            //
             // frontendPanel1
             // 
             resources.ApplyResources(this.frontendPanel1, "frontendPanel1");
             this.frontendPanel1.Name = "frontendPanel1";
-            // 
-            // logPanel1
-            // 
-            resources.ApplyResources(this.logPanel1, "logPanel1");
-            this.logPanel1.Name = "logPanel1";
-            // 
+            //
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.logSplitter);
             this.Controls.Add(this.frontendPanel1);
             this.Controls.Add(this.panelMain);
-            this.Controls.Add(this.logPanel1);
             this.Controls.Add(this.statusStripPanel);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
@@ -500,7 +485,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.Splitter logSplitter;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel SimStatusToolStripStatusLabel;
@@ -510,7 +494,6 @@
         private System.Windows.Forms.ToolStripMenuItem simConnectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SimProcessDetectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
-        private Panels.LogPanel logPanel1;
         private System.Windows.Forms.ImageList tabPageImageList;
         private System.Windows.Forms.ToolStripMenuItem xPlaneDirectToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;

@@ -45,7 +45,8 @@
           "Reset": "Strg+0",
           "In": "Strg++",
           "Out": "Strg+-"
-        }
+        },
+        "Log": "Log"
       }
     },
     "Extras": {
@@ -605,5 +606,9 @@
     "Action": {
       "Upgrade": "Upgrade"
     }
+  },
+  "LogPanel": {
+    "Title": "Log",
+    "Empty": "Keine Protokolleinträge"
   }
 }

@@ -120,15 +120,10 @@ namespace MobiFlight.UI
 
         private void InitializeLogging()
         {
-            LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
-
-            Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
-            logPanel1.Visible = Log.Instance.Enabled;
-            logSplitter.Visible = Log.Instance.Enabled;
 
             try
             {
@@ -849,7 +844,6 @@ namespace MobiFlight.UI
             execManager.Shutdown();
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
-            logPanel1.Shutdown();
             runningStateBadge?.Dispose();
         } //Form1_FormClosed
 
@@ -1170,11 +1164,6 @@ namespace MobiFlight.UI
                 AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
             }
 
-            if (e.SettingName == "LogEnabled")
-            {
-                logPanel1.Visible = (bool)e.NewValue;
-                logSplitter.Visible = (bool)e.NewValue;
-            }
         }
 
         private void _autoloadConfig()
