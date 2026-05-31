@@ -20,6 +20,8 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   // name / serial of the device
   Controller?: Partial<Controller>
   Device?: IDeviceConfig | null
+  DeviceType?: string | null
+  DeviceName?: string | null
   // Tags: string[];
   Preconditions: Precondition[]
   Status: IDictionary<string, ConfigItemStatusType>

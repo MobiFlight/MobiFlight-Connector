@@ -546,10 +546,8 @@
             "HoldDelay": 350,
             "RepeatDelay": 0
           },
-          "Device": {
-            "Name": "Input Action Device",
-            "Type": "InputAction"
-          },
+          "DeviceType": "InputAction",
+          "DeviceName": null,
           "GUID": "5f9b8498-c18a-439c-b861-a005d8e82482",
           "Active": true,
           "Name": "Output Config With Input Action",
