@@ -59,7 +59,7 @@ const PreconditionItemRow = ({
 
   return (
     <div
-      className={`flex flex-row gap-2 rounded-lg border-2 p-4 py-1 ${variantStyle}`}
+      className={`flex flex-row gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
     >
       <div className="flex flex-row items-center gap-2">
         <Checkbox

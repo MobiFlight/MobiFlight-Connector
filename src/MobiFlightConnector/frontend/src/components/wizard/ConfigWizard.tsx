@@ -56,7 +56,7 @@ const ConfigWizard = ({
   const currentDeviceType = determineInputDeviceType(
     currentConfigItem.Device?.Type,
   )
-  const [ drawerOpen, setDrawerOpen ] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   const detailView = searchParams.get("detail")
   const navigateToDetailView = (view: string) => {
@@ -103,7 +103,11 @@ const ConfigWizard = ({
           />
         </div>
         <div className="w-1/2">
-          <ConfigReferencePanel />
+          <ConfigReferencePanel
+            configReferences={currentConfigItem.ConfigRefs ?? []}
+            variant="summary"
+            openDetailsPanel={() => navigateToDetailView("configReference")}
+          />
         </div>
       </div>
       {currentDeviceType === "Button" && (
@@ -156,7 +160,7 @@ const ConfigWizard = ({
           open={drawerOpen}
           onClose={() => closeDetailView(false)}
         >
-          <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-200 data-[vaul-drawer-direction=right]:w-200">
+          <DrawerContent className="data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200">
             <DrawerHeader>
               <DrawerTitle className="sr-only">Preconditions</DrawerTitle>
               <DrawerClose className="flex flex-row">
@@ -167,17 +171,32 @@ const ConfigWizard = ({
               </DrawerClose>
             </DrawerHeader>
             <div className="px-4">
-              <PreconditionPanel
-                onPreconditionsChange={(preconditions) => {
-                  setCurrentConfigItem({
-                    ...currentConfigItem,
-                    Preconditions: preconditions,
-                  })
-                }} 
-                preconditions={currentConfigItem.Preconditions ?? []}
-                variant="details"
-                openDetailsPanel={() => {}}
-              />
+              {detailView === "precondition" && (
+                <PreconditionPanel
+                  onPreconditionsChange={(preconditions) => {
+                    setCurrentConfigItem({
+                      ...currentConfigItem,
+                      Preconditions: preconditions,
+                    })
+                  }}
+                  preconditions={currentConfigItem.Preconditions ?? []}
+                  variant="details"
+                  openDetailsPanel={() => {}}
+                />
+              )}
+              {detailView === "configReference" && (
+                <ConfigReferencePanel
+                  onConfigReferencesChange={(configReferences) => {
+                    setCurrentConfigItem({
+                      ...currentConfigItem,
+                      ConfigRefs: configReferences,
+                    })
+                  }}
+                  configReferences={currentConfigItem.ConfigRefs ?? []}
+                  variant="details"
+                  openDetailsPanel={() => {}}
+                />
+              )}
             </div>
           </DrawerContent>
         </Drawer>

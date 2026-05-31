@@ -1,0 +1,173 @@
+import ComboBox from "@/components/ComboBox"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { configReferenceVariants } from "@/components/wizard/variants"
+import { ConfigReference, IConfigItem } from "@/types/config"
+import { IconPlus, IconTrash } from "@tabler/icons-react"
+
+export interface ConfigReferenceEditorProps {
+  outputConfigs: IConfigItem[]
+  configReferences: ConfigReference[]
+  onConfigReferencesChange: (configReferences: ConfigReference[]) => void
+}
+
+const SUGGESTED_PLACEHOLDERS = [
+  "#",
+  "!",
+  "?",
+  "@",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+]
+
+type ConfigReferenceItemRowProps = {
+  configReference: ConfigReference
+  outputConfigs: IConfigItem[]
+  onChange: (updated: ConfigReference) => void
+  onDelete: () => void
+}
+
+const ConfigReferenceItemRow = ({
+  configReference,
+  outputConfigs,
+  onChange,
+  onDelete,
+}: ConfigReferenceItemRowProps) => {
+  const selectedConfig = outputConfigs.find(
+    (c) => c.GUID === configReference.Ref,
+  )
+
+  const variantStyle = configReferenceVariants["default"]
+  return (
+    <div
+      className={`flex flex-row gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
+    >
+      <div className="flex flex-row items-center gap-2">
+        <Checkbox
+          checked={configReference.Active}
+          onCheckedChange={(checked) =>
+            onChange({ ...configReference, Active: !!checked })
+          }
+        />
+        <Label className="text-sm">Active</Label>
+      </div>
+
+      <ComboBox
+        items={outputConfigs}
+        selected={selectedConfig}
+        getValue={(c) => c.GUID}
+        getLabel={(c) => c.Name}
+        isSelected={(c, s) => c.GUID === s?.GUID}
+        setSelected={(c) =>
+          onChange({ ...configReference, Ref: c?.GUID ?? "" })
+        }
+        placeholder="Select config..."
+        widthClass="flex-1"
+      />
+
+      <Input
+        value={configReference.Placeholder}
+        onChange={(e) =>
+          onChange({ ...configReference, Placeholder: e.target.value })
+        }
+        placeholder="Value"
+        className="w-16"
+      />
+
+      <Input
+        value={configReference.TestValue}
+        onChange={(e) =>
+          onChange({ ...configReference, TestValue: e.target.value })
+        }
+        placeholder="Value"
+        className="w-16"
+      />
+
+      <Button
+        variant="ghost"
+        size="icon"
+        className="text-destructive hover:text-destructive ml-auto"
+        onClick={onDelete}
+      >
+        <IconTrash className="h-4 w-4" />
+      </Button>
+    </div>
+  )
+}
+
+const EMPTY_CONFIG_REFERENCE: ConfigReference = {
+  Active: true,
+  Ref: "",
+  Placeholder: "",
+  TestValue: "",
+}
+
+const ConfigReferenceEditor = ({
+  outputConfigs,
+  configReferences,
+  onConfigReferencesChange,
+}: ConfigReferenceEditorProps) => {
+  const handleChange = (index: number, updated: ConfigReference) => {
+    onConfigReferencesChange(
+      configReferences.map((c, i) => (i === index ? updated : c)),
+    )
+  }
+
+  const handleDelete = (index: number) => {
+    onConfigReferencesChange(configReferences.filter((_, i) => i !== index))
+  }
+
+  const handleAdd = () => {
+    const suggestedPlaceholder =
+      SUGGESTED_PLACEHOLDERS[configReferences.length % SUGGESTED_PLACEHOLDERS.length]
+    onConfigReferencesChange([
+      ...configReferences,
+      { ...EMPTY_CONFIG_REFERENCE, Placeholder: suggestedPlaceholder },
+    ])
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="text-lg font-semibold">Config References</div>
+      <div className="text-muted-foreground text-sm">
+        The preconditions define conditions that must be met before the action
+        can be executed.
+      </div>
+
+      {configReferences.length === 0 && (
+        <div className="text-muted-foreground rounded border p-4 text-center text-sm">
+          No config references defined.
+        </div>
+      )}
+
+      {configReferences.map((configReference, index) => (
+        <ConfigReferenceItemRow
+          key={index}
+          configReference={configReference}
+          outputConfigs={outputConfigs}
+          onChange={(updated) => handleChange(index, updated)}
+          onDelete={() => handleDelete(index)}
+        />
+      ))}
+
+      <Button variant="outline" className="self-start" onClick={handleAdd}>
+        <IconPlus className="h-4 w-4" />
+        Add Config Reference
+      </Button>
+    </div>
+  )
+}
+export default ConfigReferenceEditor

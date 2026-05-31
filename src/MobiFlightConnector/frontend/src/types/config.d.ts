@@ -28,6 +28,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   inputShiftRegister?: ButtonTrigger
   encoder?: EncoderTrigger
   analog?: AnalogTrigger
+  ConfigRefs: ConfigReference[]
 }
 
 export type ConfigItemStatusType =
@@ -187,3 +188,9 @@ export type Precondition = {
   Active: boolean
 }
 
+export type ConfigReference = {
+  Active: boolean
+  Placeholder: string
+  Ref: string
+  TestValue: string
+}
