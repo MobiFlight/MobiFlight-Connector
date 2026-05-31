@@ -45,9 +45,9 @@
           "Reset": "Ctrl+0",
           "In": "Ctrl++",
           "Out": "Ctrl+-"
-        },
-        "Log": "Loki"
-      }
+        }
+      },
+      "Log": "Näytä lokipaneeli"
     },
     "Extras": {
       "Label": "Lisätoiminnot",

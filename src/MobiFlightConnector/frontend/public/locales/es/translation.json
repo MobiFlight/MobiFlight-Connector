@@ -45,9 +45,9 @@
           "Reset": "Ctrl+0",
           "In": "Ctrl++",
           "Out": "Ctrl+-"
-        },
-        "Log": "Log"
-      }
+        }
+      },
+      "Log": "Alternar Panel de Registro"
     },
     "Extras": {
       "Label" : "Extras",

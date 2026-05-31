@@ -56,7 +56,7 @@ const LogPanel = () => {
     const entry = msg.payload as LogEntry
     setEntries(prev => [...prev.slice(-499), {
       Message: entry.Message,
-      Severity: entry.Severity as LogLevel,
+      Severity: entry.Severity.toLowerCase() as LogLevel,
       Timestamp: new Date(entry.Timestamp),
     }])
   }, [])

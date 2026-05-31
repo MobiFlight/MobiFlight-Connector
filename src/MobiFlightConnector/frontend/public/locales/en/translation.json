@@ -47,9 +47,9 @@
           "Reset": "Ctrl+0",
           "In": "Ctrl++",
           "Out": "Ctrl+-"
-        },
-        "Log": "Log"
-      }
+        }
+      },
+      "Log": "Toggle Log Panel"
     },
     "Extras": {
       "Label": "Extras",

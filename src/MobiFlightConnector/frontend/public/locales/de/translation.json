@@ -45,9 +45,9 @@
           "Reset": "Strg+0",
           "In": "Strg++",
           "Out": "Strg+-"
-        },
-        "Log": "Log"
-      }
+        }
+      },
+      "Log": "Protokollbereich ein-/ausblenden"
     },
     "Extras": {
       "Label": "Extras",
