@@ -30,6 +30,15 @@ const ConfigItemTableBody = forwardRef<
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement
+  
+      const isInputField = 
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable === true
+
+      if (isInputField) return // bail out when an editable widget has focus
+
       const supportedKeyPress = ["Delete", " ", "Enter", "Escape", "Backspace"]
 
       if (!supportedKeyPress.includes(e.key)) return
