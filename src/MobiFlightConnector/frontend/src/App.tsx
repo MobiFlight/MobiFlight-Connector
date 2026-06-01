@@ -51,7 +51,7 @@ function App() {
             <div className="flex grow flex-col overflow-hidden">
               <Outlet />
             </div>
-            {logVisible && <LogPanel />}
+            {logVisible && <LogPanel onClose={() => setLogVisible(false)} />}
             <DebugInfo />
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, type MouseEvent as ReactMouseEvent } from "react"
+import { IconX } from "@tabler/icons-react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { AppMessage, LogEntry } from "@/types/messages"
 import { ILogMessage, LogLevel } from "@/types/log"
@@ -27,7 +28,11 @@ const SEVERITY_CLASS: Record<string, string> = {
   trace: "text-gray-300",
 }
 
-const LogPanel = () => {
+interface LogPanelProps {
+  onClose: () => void
+}
+
+const LogPanel = ({ onClose }: LogPanelProps) => {
   const { t } = useTranslation()
   const [entries, setEntries] = useState<LogItem[]>([])
   const [height, setHeight] = useState(128)
@@ -87,14 +92,18 @@ const LogPanel = () => {
   return (
     <div className="flex flex-col border-t bg-background">
       <div
-        role="separator"
-        aria-label="Resize log panel"
-        aria-orientation="horizontal"
-        className="h-1 cursor-row-resize bg-border hover:bg-primary/50 transition-colors"
+        className="flex items-center px-3 py-1 text-xs font-medium text-muted-foreground border-b cursor-row-resize"
         onMouseDown={onDragHandleMouseDown}
-      />
-      <div className="flex items-center px-3 py-1 text-xs font-medium text-muted-foreground border-b">
-        {t("LogPanel.Title")}
+      >
+        <span className="grow">{t("LogPanel.Title")}</span>
+        <button
+          onMouseDown={e => e.stopPropagation()}
+          onClick={onClose}
+          className="text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Close log panel"
+        >
+          <IconX size={14} />
+        </button>
       </div>
       <div ref={scrollRef} style={{ height }} className="overflow-y-auto font-mono text-xs p-2 space-y-0.5 select-text">
         {logEnabled === false ? (
