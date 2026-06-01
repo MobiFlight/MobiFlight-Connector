@@ -36,8 +36,10 @@ const ProSimDataRefPanel = ({
 
   const refreshPresets = () => {
     publish({
-      key: "CommandRefreshProSimDataRefs",
-      payload: null,
+      key: "CommandRefreshPresets",
+      payload: {
+        type: "prosim",
+      },
     })
   }
 

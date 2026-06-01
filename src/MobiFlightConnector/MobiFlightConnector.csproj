@@ -345,7 +345,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandProjectToolbar.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandMainMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
-    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandRefreshProSimDataRefs.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandRefreshPresets.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandDiscardChanges.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandOpenLinkInBrowser.cs" />

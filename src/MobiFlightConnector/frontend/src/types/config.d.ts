@@ -144,7 +144,7 @@ export interface EventIdInputAction extends Action {
 
 export interface PmdgEventIdInputAction extends EventIdInputAction {
   Type: "PmdgEventIdInputAction"
-  AircraftType: "B737" | "B747" | "B77"
+  AircraftType: "B737" | "B747" | "B777"
 }
 
 export interface LuaMacroInputAction extends Action {

@@ -557,9 +557,12 @@ namespace MobiFlight
                 }
             });
 
-            MessageExchange.Instance.Subscribe<CommandRefreshProSimDataRefs>((message) =>
+            MessageExchange.Instance.Subscribe<CommandRefreshPresets>((message) =>
             {
-                PublishProSimDataRefDescriptions();
+                if (message.type == PresetType.PROSIM)
+                {
+                    PublishProSimDataRefDescriptions();
+                }
             });
         }
 
