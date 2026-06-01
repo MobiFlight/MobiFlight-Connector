@@ -1,3 +1,5 @@
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { LuaMacroInputAction } from "@/types/config"
 
 export type LuaMacroInputActionPanelProps = {
@@ -16,9 +18,33 @@ const LuaMacroInputActionPanel = ({
           Lua Macro Input Action
         </div>
         <div className="text-muted-foreground text-sm">
-          Select a preset to configure your input actions
+          Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.
         </div>
       </div>
+      <Label htmlFor="macroName">Macro Name:</Label>
+      <Input
+        id="macroName"
+        placeholder="Set macro name"
+        value={config?.MacroName ?? ""}
+        onChange={(e) =>
+          onConfigChange({
+            ...(config as LuaMacroInputAction),
+            MacroName: e.target.value,
+          } as LuaMacroInputAction)
+        }
+      />
+      <Label htmlFor="macroValue">Macro Value:</Label>
+      <Input
+        id="macroValue"
+        placeholder="Set macro value"
+        value={config?.MacroValue ?? ""}
+        onChange={(e) =>
+          onConfigChange({
+            ...(config as LuaMacroInputAction),
+            MacroValue: e.target.value,
+          } as LuaMacroInputAction)
+        }
+      />
     </div>
   )
 }
