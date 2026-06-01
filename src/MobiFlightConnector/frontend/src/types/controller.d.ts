@@ -33,3 +33,20 @@ export type DeviceReference = {
 }
 
 export type ControllerBindingStatus = "Match" | "AutoBind" | "Missing" | "RequiresManualBind"
+
+
+export type vJoyDefinition = {
+  Id: number
+  Name: string
+  Buttons: number
+  Axis: VJoyAxisState
+}
+
+export type VJoyAxisState = {
+  X: boolean
+  Y: boolean
+  Z: boolean
+  RX: boolean
+  RY: boolean
+  RZ: boolean
+}

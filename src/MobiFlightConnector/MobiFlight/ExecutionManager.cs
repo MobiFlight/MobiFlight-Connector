@@ -563,6 +563,10 @@ namespace MobiFlight
                 {
                     PublishProSimDataRefDescriptions();
                 }
+                else if (message.type == PresetType.VJOY)
+                {
+                    PublishVJoyDefinitions();
+                }
             });
         }
 
@@ -727,6 +731,22 @@ namespace MobiFlight
             catch (Exception ex)
             {
                 Log.Instance.log($"Error retrieving ProSim dataref descriptions: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        private void PublishVJoyDefinitions()
+        {
+            try
+            {
+                var vJoyDefinitions = VJoy.VJoyHelper.GetAvailableVJoyDefinitions();
+                MessageExchange.Instance.Publish(new VJoyDefinitionsUpdate()
+                {
+                    Definitions = vJoyDefinitions.ToArray()
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error retrieving vJoy definitions: {ex.Message}", LogSeverity.Error);
             }
         }
 

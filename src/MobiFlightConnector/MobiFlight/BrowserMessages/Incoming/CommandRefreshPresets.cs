@@ -7,12 +7,10 @@ namespace MobiFlight.BrowserMessages.Incoming
     {
         [EnumMember(Value = "prosim")]
         PROSIM,
-        [EnumMember(Value = "eventid")]
-        EVENTID,
-        [EnumMember(Value = "eventid.pmdg")]
-        EVENTID_PMDG,
+        [EnumMember(Value = "vjoy")]
+        VJOY
     }
-    internal class CommandRefreshPresets
+    public class CommandRefreshPresets
     {
         public PresetType type;
     }

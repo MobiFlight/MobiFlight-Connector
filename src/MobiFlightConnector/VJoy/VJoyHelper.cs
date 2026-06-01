@@ -1,36 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using vJoyInterfaceWrap;
 
 namespace MobiFlight.VJoy
 {
-    static class VJoyHelper
+    public struct AxisState
     {
-        public struct AxisState
-        {
-            public bool xAxis;
-            public bool yAxis;
-            public bool zAxis;
-            public bool rXAxis;
-            public bool rYAxis;
-            public bool rZAxis;
-        }
+        public bool X;
+        public bool Y;
+        public bool Z;
+        public bool RX;
+        public bool RY;
+        public bool RZ;
+    }
+
+    public class VJoyDefinition
+    {
+        public int Id { get; set; }
+        public int Buttons { get; set; }
+        public AxisState Axis { get; set; }
+    }
+
+    static public class VJoyHelper
+    {
+        const uint MAX_JOYSTICKS = 16;
 
         private static vJoy joystick;
         private static vJoy.JoystickState joyReport;
 
         public static List<uint> getAvailableVJoys()
         {
-            joystick = new vJoy();
-            List<uint> ret= new List<uint>();
+            if (joystick == null)
+                joystick = new vJoy();
+
+            List<uint> ret = new List<uint>();
             if (!joystick.vJoyEnabled())
             {
                 throw new VJoyNotEnabledException();
             }
-            for (uint i = 1; i <= 16; i++)
+            for (uint i = 1; i <= MAX_JOYSTICKS; i++)
             {
                 VjdStat status = joystick.GetVJDStatus(i);
                 switch (status)
@@ -54,13 +62,28 @@ namespace MobiFlight.VJoy
             return ret;
         }
 
+        public static List<VJoyDefinition> GetAvailableVJoyDefinitions()
+        {
+            List<VJoyDefinition> definitions = new List<VJoyDefinition>();
+            foreach (uint vJoyID in getAvailableVJoys())
+            {
+                VJoyDefinition def = new VJoyDefinition();
+                def.Id = (int)vJoyID;
+                def.Buttons = getAvailableButtons(vJoyID);
+                def.Axis = getAvailableAxis(vJoyID);
+                definitions.Add(def);
+            }
+            return definitions;
+        }
+
         public static int getAvailableButtons(uint vJoyID)
         {
             joystick = new vJoy();
             if (joystick.vJoyEnabled())
             {
                 return joystick.GetVJDButtonNumber(vJoyID);
-            }else
+            }
+            else
             {
                 throw new VJoyNotEnabledException();
             }
@@ -73,12 +96,12 @@ namespace MobiFlight.VJoy
             if (joystick.vJoyEnabled())
             {
                 AxisState state = new AxisState();
-                state.xAxis = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_X);
-                state.yAxis = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_Y);
-                state.zAxis = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_Z);
-                state.rXAxis = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_RX);
-                state.rYAxis = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_RY);
-                state.rZAxis = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_RZ);
+                state.X = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_X);
+                state.Y = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_Y);
+                state.Z = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_Z);
+                state.RX = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_RX);
+                state.RY = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_RY);
+                state.RZ = joystick.GetVJDAxisExist(vJoyID, HID_USAGES.HID_USAGE_RZ);
                 return state;
             }
             else
@@ -117,7 +140,8 @@ namespace MobiFlight.VJoy
         public static bool sendButton(uint vJoyID, uint buttonNr, bool state)
         {
             joystick = new vJoy();
-            if (joystick.vJoyEnabled() && (joystick.GetVJDStatus(vJoyID) == VjdStat.VJD_STAT_FREE && joystick.AcquireVJD(vJoyID))) {
+            if (joystick.vJoyEnabled() && (joystick.GetVJDStatus(vJoyID) == VjdStat.VJD_STAT_FREE && joystick.AcquireVJD(vJoyID)))
+            {
                 bool ret = joystick.SetBtn(state, vJoyID, buttonNr);
                 joystick.RelinquishVJD(vJoyID);
                 return ret;
@@ -131,7 +155,8 @@ namespace MobiFlight.VJoy
         public static bool setAxisVal(uint vJoyID, string axisString, int value)
         {
             joystick = new vJoy();
-            if (joystick.vJoyEnabled() && (joystick.GetVJDStatus(vJoyID) == VjdStat.VJD_STAT_FREE && joystick.AcquireVJD(vJoyID))) {
+            if (joystick.vJoyEnabled() && (joystick.GetVJDStatus(vJoyID) == VjdStat.VJD_STAT_FREE && joystick.AcquireVJD(vJoyID)))
+            {
                 long maxVal = 0;
                 HID_USAGES axis = getAxis(axisString);
                 joystick.GetVJDAxisMax(vJoyID, axis, ref maxVal);

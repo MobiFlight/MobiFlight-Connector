@@ -378,6 +378,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ExecutionState.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ScanForInputResult.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\VJoyDefinitionsUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\CompositePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />

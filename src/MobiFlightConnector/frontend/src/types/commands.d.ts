@@ -228,6 +228,6 @@ export interface CommandScanForInput extends CommandMessageBase {
 export interface CommandRefreshPresets extends CommandMessageBase {
   key: "CommandRefreshPresets"
   payload: {
-    type: "prosim" | "eventid" | "eventid.pmdg"
+    type: "prosim" | "vjoy"
   }
 }

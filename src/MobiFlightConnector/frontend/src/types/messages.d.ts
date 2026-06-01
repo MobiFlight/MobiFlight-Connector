@@ -3,6 +3,7 @@ import { IConfigValueOnlyItem, MobiFlightVariable } from "./config"
 import { JoystickDefinition, MidiControllerDefinition } from "./definitions"
 import { ProjectInfo } from "@/types/project"
 import { Controller, ControllerBinding, DeviceReference } from "@/types/controller"
+import { vJoyDefinition } from "@/types/controller"
 
 export type AppMessageKey =
   | "StatusBarUpdate"
@@ -27,6 +28,7 @@ export type AppMessageKey =
   | "ScanForInputResult"
   | "MobiFlightVariablesUpdate"
   | "ProSimDataRefDefinitionUpdate"
+  | "VJoyDefinitionsUpdate"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -48,6 +50,7 @@ export type AppMessagePayload =
   | ControllerBindingsUpdate
   | ScanForInputResult
   | ProSimDataRefDefinitionUpdate
+  | VJoyDefinitionsUpdate
 
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -164,6 +167,9 @@ export type ProSimDataRefDefinitionUpdate = {
   DataRefs: Record<string, ProSimDataRefDefinition>
 }
 
+export type VJoyDefinitionsUpdate = {
+  Definitions: vJoyDefinition[]
+}
 // Not sure what this is for
 // but we are using it in the tests
 // for mocking the chrome API
