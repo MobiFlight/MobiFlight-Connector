@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, type MouseEvent as ReactMouseEvent } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { AppMessage, LogEntry } from "@/types/messages"
 import { ILogMessage, LogLevel } from "@/types/log"
@@ -38,7 +38,7 @@ const LogPanel = () => {
   const entryCounterRef = useRef(0)
   const dragCleanupRef = useRef<(() => void) | null>(null)
 
-  const onDragHandleMouseDown = (e) => {
+  const onDragHandleMouseDown = (e: ReactMouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     dragStartRef.current = { y: e.clientY, height }
 
