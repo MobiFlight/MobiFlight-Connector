@@ -17,6 +17,8 @@ const shouldShow = (severity: string, setting: string | undefined): boolean => {
   return entryLevel >= filterLevel
 }
 
+type LogItem = ILogMessage & { id: number }
+
 const SEVERITY_CLASS: Record<string, string> = {
   error: "text-red-500",
   warn:  "text-yellow-500",
@@ -27,12 +29,13 @@ const SEVERITY_CLASS: Record<string, string> = {
 
 const LogPanel = () => {
   const { t } = useTranslation()
-  const [entries, setEntries] = useState<ILogMessage[]>([])
+  const [entries, setEntries] = useState<LogItem[]>([])
   const [height, setHeight] = useState(128)
   const logLevel = useSettingsStore(s => s.settings?.LogLevel)
   const logEnabled = useSettingsStore(s => s.settings?.LogEnabled)
   const scrollRef = useRef<HTMLDivElement>(null)
   const dragStartRef = useRef<{ y: number; height: number } | null>(null)
+  const entryCounterRef = useRef(0)
   const dragCleanupRef = useRef<(() => void) | null>(null)
 
   const onDragHandleMouseDown = (e) => {
@@ -64,6 +67,7 @@ const LogPanel = () => {
   const handleMessage = useCallback((msg: AppMessage) => {
     const entry = msg.payload as LogEntry
     setEntries(prev => [...prev.slice(-499), {
+      id: entryCounterRef.current++,
       Message: entry.Message,
       Severity: entry.Severity.toLowerCase() as LogLevel,
       Timestamp: new Date(entry.Timestamp),
@@ -83,6 +87,9 @@ const LogPanel = () => {
   return (
     <div className="flex flex-col border-t bg-background">
       <div
+        role="separator"
+        aria-label="Resize log panel"
+        aria-orientation="horizontal"
         className="h-1 cursor-row-resize bg-border hover:bg-primary/50 transition-colors"
         onMouseDown={onDragHandleMouseDown}
       />
@@ -95,8 +102,8 @@ const LogPanel = () => {
         ) : filtered.length === 0 ? (
           <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
         ) : (
-          filtered.map((entry, i) => (
-            <div key={i} className="flex gap-2">
+          filtered.map((entry) => (
+            <div key={entry.id} className="flex gap-2">
               <span className="text-muted-foreground shrink-0">
                 {entry.Timestamp.toLocaleTimeString()}
               </span>

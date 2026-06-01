@@ -609,7 +609,7 @@
   },
   "LogPanel": {
     "Title": "Log",
-    "Empty": "No hay entradas en el registro",
+    "Empty": "Esperando entradas de registro",
     "LoggingDisabled": "El registro está desactivado. Actívalo en la Configuración para ver los registros aquí."
   }
 }

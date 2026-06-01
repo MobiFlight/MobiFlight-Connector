@@ -609,7 +609,7 @@
   },
   "LogPanel": {
     "Title": "Log",
-    "Empty": "Keine Log-Einträge",
+    "Empty": "Warte auf Log-Einträge",
     "LoggingDisabled": "Logging ist deaktiviert. Aktivieren Sie das Logging in den Einstellungen."
   }
 }
