@@ -5,7 +5,6 @@ import ConfigReferencePanel from "@/components/wizard/components/ConfigReference
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import EncoderActionBindingPanel from "@/components/wizard/components/EncoderActionBindingPanel"
 import PreconditionPanel from "@/components/wizard/components/PreconditionPanel"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
 import { useLocation, useNavigate, useSearchParams } from "react-router"
@@ -20,7 +19,7 @@ import { IconArrowBack } from "@tabler/icons-react"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
-  onClose: () => void
+  onConfigChange: (configItem: IConfigItem) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
 }
 
@@ -43,10 +42,10 @@ const determineInputDeviceType = (
 
 const ConfigWizard = ({
   configItem,
-  onClose,
+  onConfigChange,
   drawerContainer,
 }: ConfigWizardProps) => {
-  const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
+  
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
@@ -54,7 +53,7 @@ const ConfigWizard = ({
   console.log("Current location:", location)
 
   const currentDeviceType = determineInputDeviceType(
-    currentConfigItem.Device?.Type,
+    configItem.Device?.Type,
   )
   const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -74,37 +73,28 @@ const ConfigWizard = ({
     setTimeout(() => navigate(-1), 500)
   }
 
-  const saveChanges = () => {
-    const { publish } = publishOnMessageExchange()
-    publish({
-      key: "CommandUpdateConfigItem",
-      payload: {
-        item: currentConfigItem,
-      },
-    })
-    onClose() // Close the wizard after saving
-  }
+  
 
   return (
     <div className="flex flex-col gap-4">
       <ConfigTrigger
-        configItem={currentConfigItem}
+        configItem={configItem}
         setConfigItem={(item: IConfigItem) => {
           // Update the configItem state here
-          setCurrentConfigItem(item)
+          onConfigChange(item)
         }}
       />
       <div className="flex flex-row gap-2">
         <div className="w-1/2">
           <PreconditionPanel
-            preconditions={currentConfigItem.Preconditions ?? []}
+            preconditions={configItem.Preconditions ?? []}
             variant="summary"
             openDetailsPanel={() => navigateToDetailView("precondition")}
           />
         </div>
         <div className="w-1/2">
           <ConfigReferencePanel
-            configReferences={currentConfigItem.ConfigRefs ?? []}
+            configReferences={configItem.ConfigRefs ?? []}
             variant="summary"
             openDetailsPanel={() => navigateToDetailView("configReference")}
           />
@@ -113,13 +103,13 @@ const ConfigWizard = ({
       {currentDeviceType === "Button" && (
         <ButtonActionBindingPanel
           trigger={
-            currentConfigItem.button ??
-            currentConfigItem.inputMultiplexer ??
-            currentConfigItem.inputShiftRegister
+            configItem.button ??
+            configItem.inputMultiplexer ??
+            configItem.inputShiftRegister
           }
           onTriggerChange={(trigger) => {
-            setCurrentConfigItem({
-              ...currentConfigItem,
+            onConfigChange({
+              ...configItem,
               button: trigger,
             })
           }}
@@ -127,10 +117,10 @@ const ConfigWizard = ({
       )}
       {currentDeviceType === "Encoder" && (
         <EncoderActionBindingPanel
-          trigger={currentConfigItem.encoder}
+          trigger={configItem.encoder}
           onTriggerChange={(trigger) => {
-            setCurrentConfigItem({
-              ...currentConfigItem,
+            onConfigChange({
+              ...configItem,
               encoder: trigger,
             })
           }}
@@ -138,20 +128,15 @@ const ConfigWizard = ({
       )}
       {currentDeviceType === "AnalogInput" && (
         <AnalogActionBindingPanel
-          trigger={currentConfigItem.analog}
+          trigger={configItem.analog}
           onTriggerChange={(trigger) => {
-            setCurrentConfigItem({
-              ...currentConfigItem,
+            onConfigChange({
+              ...configItem,
               analog: trigger,
             })
           }}
         />
       )}
-
-      <div className="flex flex-row justify-end gap-2">
-        <Button variant="outline">Cancel</Button>
-        <Button onClick={saveChanges}>Save</Button>
-      </div>
 
       {detailView && (
         <Drawer
@@ -174,12 +159,12 @@ const ConfigWizard = ({
               {detailView === "precondition" && (
                 <PreconditionPanel
                   onPreconditionsChange={(preconditions) => {
-                    setCurrentConfigItem({
-                      ...currentConfigItem,
+                    onConfigChange({
+                      ...configItem,
                       Preconditions: preconditions,
                     })
                   }}
-                  preconditions={currentConfigItem.Preconditions ?? []}
+                  preconditions={configItem.Preconditions ?? []}
                   variant="details"
                   openDetailsPanel={() => {}}
                 />
@@ -187,12 +172,12 @@ const ConfigWizard = ({
               {detailView === "configReference" && (
                 <ConfigReferencePanel
                   onConfigReferencesChange={(configReferences) => {
-                    setCurrentConfigItem({
-                      ...currentConfigItem,
+                    onConfigChange({
+                      ...configItem,
                       ConfigRefs: configReferences,
                     })
                   }}
-                  configReferences={currentConfigItem.ConfigRefs ?? []}
+                  configReferences={configItem.ConfigRefs ?? []}
                   variant="details"
                   openDetailsPanel={() => {}}
                 />

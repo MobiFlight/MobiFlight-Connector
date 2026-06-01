@@ -363,6 +363,10 @@
       "SelectController": "Select a controller",
       "SearchController": "Search controller...",
       "NoControllerFound": "No controller found."
+    },
+    "InputConfigWizard": {
+      "Title": "Edit input configuration",
+      "Description": "Edit all settings for this input configuration in this dialog."
     }
   },
   "Auth": {

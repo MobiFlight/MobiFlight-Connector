@@ -1,13 +1,17 @@
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import ConfigWizard from "@/components/wizard/ConfigWizard"
+import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
 
@@ -28,7 +32,20 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     navigate(-1)
   }
 
+  const saveChanges = () => {
+    const { publish } = publishOnMessageExchange()
+    publish({
+      key: "CommandUpdateConfigItem",
+      payload: {
+        item: currentConfigItem,
+      },
+    })
+    closeDialog()
+  }
+
   const containerRef = useRef<HTMLDivElement>(null)
+
+  const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
@@ -37,23 +54,37 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           e.stopPropagation()
         }}
         ref={containerRef}
-        className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-x-hidden overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250"
+        className="vlg:min-h-[80%] vxl:min-h-[75%] flex min-h-full flex-col justify-between overflow-x-hidden overflow-y-auto select-none sm:max-w-full lg:max-w-200 xl:max-w-250"
       >
         <DialogHeader>
           <DialogTitle className="text-2xl">
-            {t("Dialog.ConfigWizard.Title")}
+            {t("Dialog.InputConfigWizard.Title")}
           </DialogTitle>
           <DialogDescription className="text-md vsm:block hidden">
-            {t("Dialog.ConfigWizard.Description")}
+            {t("Dialog.InputConfigWizard.Description")}
           </DialogDescription>
         </DialogHeader>
-        {configItem && (
-          <ConfigWizard
-            configItem={configItem}
-            onClose={closeDialog}
-            drawerContainer={containerRef}
-          />
-        )}
+        <div className="relative flex grow flex-col gap-2">
+          <ScrollArea className="grow">
+            <div className="pr-3">
+              {currentConfigItem && (
+                <ConfigWizard
+                  configItem={currentConfigItem}
+                  onConfigChange={(item) => {
+                    setCurrentConfigItem(item)
+                  }}
+                  drawerContainer={containerRef}
+                />
+              )}
+            </div>
+          </ScrollArea>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={closeDialog}>
+            Close
+          </Button>
+          <Button onClick={saveChanges}>Save</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
