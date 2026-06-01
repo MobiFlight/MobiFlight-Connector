@@ -12,15 +12,67 @@ const KeyboardInputActionPanel = ({
   onConfigChange,
 }: KeyboardInputActionPanelProps) => {
   const [isScanning, setIsScanning] = useState(false)
+  const [scannedKeys, setScannedKeys] = useState<KeyInputAction>(config ?? {
+    Type: "KeyInputAction",
+    Control: false,
+    Alt: false,
+    Shift: false,
+    Key: "",
+  })
 
   const handleScanForInput = () => {
     setIsScanning((isScanning) => !isScanning)
+
+    if (isScanning) {
+      // If we were scanning and are now stopping, 
+      // update the config with the scanned keys
+      onConfigChange(scannedKeys)
+    }
   }
 
-  console.log("is scanning" , isScanning)
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    event.stopPropagation()
+    event.preventDefault()
+
+    if (isScanning) {
+      if (event.key === "Escape") {
+        setIsScanning(false)
+        return
+      }
+      const scannedKey = event.key
+      const keyCode = event.keyCode
+      const key = (scannedKey === "Control" || scannedKey === "Shift" || scannedKey === "Alt") ? 0 : keyCode
+
+      console.log("Scanned key:", scannedKey, "Key code:", keyCode)
+
+      const newConfig: KeyInputAction = {
+        Type: "KeyInputAction",
+        Control: event.ctrlKey,
+        Alt: event.altKey,
+        Shift: event.shiftKey,
+        Key: key.toString()
+      }
+      setScannedKeys(newConfig)
+    }
+  }
+
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    event.stopPropagation()
+    event.preventDefault()
+
+    if (isScanning) {
+      setScannedKeys({
+        Type: "KeyInputAction",
+        Control: event.ctrlKey,
+        Alt: event.altKey,
+        Shift: event.shiftKey,
+        Key: "0"
+      })
+    }
+  }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
       <div className="flex flex-col">
         <div className="text-lg font-semibold">Keyboard input action</div>
         <div className="text-muted-foreground text-sm">
@@ -35,10 +87,10 @@ const KeyboardInputActionPanel = ({
         <div className="flex flex-row items-center gap-2">
           <div className="text-sm font-medium">Key combo:</div>
           <div className="text-sm">
-            {config?.Control && "Ctrl + "}
-            {config?.Alt && "Alt + "}
-            {config?.Shift && "Shift + "}
-            {config?.Key || "None"}
+            {scannedKeys?.Control && "Ctrl + "}
+            {scannedKeys?.Alt && "Alt + "}
+            {scannedKeys?.Shift && "Shift + "}
+            {scannedKeys?.Key !== "0" ? String.fromCharCode(Number(scannedKeys.Key)).toUpperCase() : "None"}
           </div>
         </div>
         <Button
@@ -49,7 +101,7 @@ const KeyboardInputActionPanel = ({
               Control: false,
               Alt: false,
               Shift: false,
-              Key: "",
+              Key: "0",
             })
           }
           disabled={isScanning}
