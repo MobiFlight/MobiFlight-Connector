@@ -2,6 +2,7 @@ import { CommandMessageKey, CommandMessage } from "@/types/commands"
 import { AppMessage, ProjectStatus } from "@/types/messages"
 import { expect, type Locator, type Page } from "@playwright/test"
 import testProject from "../data/project.testdata.json" with { type: "json" }
+import inputActionTestProject from "../data/inputaction.testdata.json" with { type: "json" }
 import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
 import connectedControllers from "../data/connectedControllers.testdata.json" with { type: "json" }
 import { Project } from "@/types"
@@ -174,10 +175,11 @@ export class MobiFlightPage {
     await this.publishMessage(message)
   }
 
-  async initWithTestData() {
+  async initWithTestData(variant: string = "default") {
+    const project = variant === "default" ? testProject : inputActionTestProject
     const message: AppMessage = {
       key: "Project",
-      payload: testProject,
+      payload: project,
     }
     await this.publishMessage(message)
     await this.initWithRecentProjects()

@@ -81,7 +81,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={closeDialog}>
-            Close
+            Cancel
           </Button>
           <Button onClick={saveChanges}>Save</Button>
         </DialogFooter>

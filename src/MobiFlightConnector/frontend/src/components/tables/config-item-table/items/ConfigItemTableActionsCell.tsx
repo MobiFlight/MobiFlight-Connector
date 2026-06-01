@@ -40,6 +40,7 @@ function ConfigItemTableActionsCell({
           } as CommandConfigContextMenu)
         }}
       >
+        <span className="sr-only">Edit</span>
         <IconEdit
         />
       </Button>

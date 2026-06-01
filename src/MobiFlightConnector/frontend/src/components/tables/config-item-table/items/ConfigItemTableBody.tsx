@@ -9,6 +9,7 @@ import { RowInteractionProvider } from "../RowInteractionContext"
 import { IConfigItem } from "@/types"
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu"
 import ConfigItemRowContextMenu from "@/components/ConfigItemRowContextMenu"
+import { useNavigate } from "react-router"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData>
@@ -20,6 +21,7 @@ const ConfigItemTableBody = forwardRef<
   HTMLTableSectionElement,
   ConfigItemTableBodyProps<IConfigItem>
 >(({ table, dragItemId, onDeleteSelected, onToggleSelected }, ref) => {
+  const navigate = useNavigate()
   const { publish } = publishOnMessageExchange()
   const rows = table.getRowModel().rows
   const [lastSelected, setLastSelected] = useState<Row<IConfigItem> | null>(
@@ -74,6 +76,8 @@ const ConfigItemTableBody = forwardRef<
                 ? "is-dragging"
                 : "is-first-drag-item"
               : ""
+          const item = row.original as IConfigItem
+          const isInputConfig = item.Type === "InputConfigItem"
           return (
             <RowInteractionProvider key={row.id}>
               <DndTableRow
@@ -114,9 +118,13 @@ const ConfigItemTableBody = forwardRef<
                   setLastSelected(row)
                 }}
                 onDoubleClick={() => {
+                  if (isInputConfig) {
+                    navigate("/config/" + item.GUID)
+                    return
+                  }
                   publish({
                     key: "CommandConfigContextMenu",
-                    payload: { action: "edit", item: row.original },
+                    payload: { action: "edit", item: item },
                   })
                 }}
               >
@@ -134,12 +142,14 @@ const ConfigItemTableBody = forwardRef<
                         cellClassName: string
                       }
                     )?.cellClassName ?? ""
-                    
-                  
+
                   const isActionsCell = cell.column.id === "actions"
-                  
+
                   const cellContent = (
-                    <TableCell className={cn("p-0", className, cellClassName)} key={isActionsCell ? cell.id : undefined}>
+                    <TableCell
+                      className={cn("p-0", className, cellClassName)}
+                      key={isActionsCell ? cell.id : undefined}
+                    >
                       {flexRender(cell.column.columnDef.cell, {
                         ...cell.getContext(),
                         selectedRows: selectedRows,

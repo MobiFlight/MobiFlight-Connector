@@ -112,7 +112,7 @@ export class ConfigListPage {
   }
 
   getConfigItemByIndex(itemIndex: number): IConfigItem {
-    return testdata[itemIndex]
+    return testdata[itemIndex] as IConfigItem
   }
 
   async updateConfigItemStatus(
@@ -209,5 +209,17 @@ export class ConfigListPage {
     const filterInput =
       this.mobiFlightPage.page.getByPlaceholder("Filter items...")
     await filterInput.fill(text)
+  }
+
+  async clickEditButtonForRow(row: number) {
+    const editButton = this.mobiFlightPage.page
+      .getByRole("row")
+      .nth(row)
+      .getByRole("button", { name: "Edit" })
+    await editButton.click()
+  }
+
+  async getConfigItemRow(row: number) {
+    return this.mobiFlightPage.page.getByRole("row").nth(row)
   }
 }
