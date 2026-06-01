@@ -73,13 +73,6 @@ const KeyboardInputActionPanel = ({
 
   return (
     <div className="flex flex-col gap-4" onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">Keyboard input action</div>
-        <div className="text-muted-foreground text-sm">
-          Click the input field with your mouse and then press the desired key
-          combination on your keyboard.
-        </div>
-      </div>
       <div className="flex flex-row gap-4">
         <Button onClick={handleScanForInput}>
           {isScanning ? "Stop scanning" : "Scan for keyboard"}

@@ -1,75 +1,155 @@
 import { Input } from "@/components/ui/input"
 import { FsuipcOffsetInputAction } from "@/types/config"
-import { Switch } from "@radix-ui/react-switch"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import ComboBox from "@/components/ComboBox"
+import { useState } from "react"
 
 export type FsuipcOffsetInputActionPanelProps = {
   config: FsuipcOffsetInputAction | null
   onConfigChange: (config: FsuipcOffsetInputAction) => void
 }
 
+const FsuipcSizeOptions = [
+  { value: 1, label: "1 Byte" },
+  { value: 2, label: "2 Bytes" },
+  { value: 4, label: "4 Bytes" },
+  { value: 8, label: "8 Bytes" },
+]
+
+const defaultConfig: FsuipcOffsetInputAction = {
+  Type: "FsuipcOffsetInputAction",
+  FSUIPC: {
+    OffsetType: "Integer",
+    Offset: 0,
+    Size: 1,
+    Mask: 0,
+    BcdMode: false,
+  },
+  Modifiers: [],
+  Value: "",
+}
+
+const filterHexInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  // Allow only hex characters and control keys
+  if (
+    !/[0-9a-fA-F]/.test(e.key) &&
+    !["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)
+  ) {
+    e.preventDefault()
+  }
+}
+
 const FsuipcOffsetInputActionPanel = ({
   config,
   onConfigChange,
 }: FsuipcOffsetInputActionPanelProps) => {
-  const defaultConfig: FsuipcOffsetInputAction = {
-    Type: "FsuipcOffsetInputAction",
-    FSUIPC: {
-      OffsetType: "Integer",
-      Offset: 0,
-      Size: 1,
-      Mask: 0,
-      BcdMode: false,
-    },
-    Modifiers: [],
-    Value: "",
-  }
   const currentConfig = config ?? defaultConfig
+  const selectedSizeOption = FsuipcSizeOptions.find(
+    (option) => option.value === currentConfig.FSUIPC.Size,
+  )
+
+  const [mask, setMask] = useState<string | null>(null) // null = not editing
 
   console.log("FSUIPC Default Config in Panel:", defaultConfig)
   console.log("FSUIPC Config in Panel:", currentConfig)
 
+  const formattedMask = currentConfig.FSUIPC.Mask.toString(16)
+    .toUpperCase()
+    .padStart(currentConfig.FSUIPC.Size * 2, "0")
+    .slice(-(currentConfig.FSUIPC.Size * 2))
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">FSUIPC Offset</div>
-        <div className="text-muted-foreground text-sm">Select an offset</div>
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm font-medium" htmlFor="size">
+            Size
+          </Label>
+          <ComboBox
+            items={FsuipcSizeOptions}
+            selected={selectedSizeOption}
+            getValue={(option) => option.value.toString()}
+            getLabel={(option) => option.label}
+            isSelected={(option, selected) => option.value === selected?.value}
+            setSelected={(option) =>
+              onConfigChange({
+                ...currentConfig,
+                FSUIPC: {
+                  ...currentConfig.FSUIPC,
+                  Size: option?.value ?? 1,
+                },
+              } as FsuipcOffsetInputAction)
+            }
+            variant="nofilter"
+            widthClass="w-32"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm font-medium" htmlFor="offset">
+            Offset
+          </Label>
+          <Input
+            onKeyDown={filterHexInput}
+            id="offset"
+            value={currentConfig.FSUIPC.Offset.toString(16)
+              .toUpperCase()
+              .padStart(4, "0")
+              .slice(-4)}
+            onChange={(e) =>
+              onConfigChange({
+                ...currentConfig,
+                FSUIPC: {
+                  ...currentConfig.FSUIPC,
+                  Offset: parseInt(e.target.value, 16),
+                },
+              } as FsuipcOffsetInputAction)
+            }
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm font-medium" htmlFor="mask">
+            Mask
+          </Label>
+          <Input
+            autoComplete="off"
+            id="mask"
+            value={mask ?? formattedMask}
+            onKeyDown={filterHexInput}
+            onFocus={() => setMask(formattedMask)}
+            onChange={(e) => setMask(e.target.value.toUpperCase().slice(-currentConfig.FSUIPC.Size * 2))}
+            onBlur={() => {
+              const newMask = (mask ?? formattedMask)
+                .toUpperCase()
+                .padStart(currentConfig.FSUIPC.Size * 2, "0")
+                .slice(-(currentConfig.FSUIPC.Size * 2))
+              setMask(null)
+              onConfigChange({
+                ...currentConfig,
+                FSUIPC: {
+                  ...currentConfig.FSUIPC,
+                  Mask: parseInt(newMask, 16),
+                },
+              } as FsuipcOffsetInputAction)
+            }}
+          />
+        </div>
+        <div className="flex flex-row items-center gap-1 pt-6">
+          <Label className="text-sm font-medium" htmlFor="bcdMode">
+            BCD Mode
+          </Label>
+          <Switch
+            id="bcdMode"
+            checked={currentConfig.FSUIPC.BcdMode}
+            onCheckedChange={(e) =>
+              onConfigChange({
+                ...currentConfig,
+                FSUIPC: { ...currentConfig.FSUIPC, BcdMode: e },
+              } as FsuipcOffsetInputAction)
+            }
+          />
+        </div>
       </div>
-      <Input
-        value={currentConfig.FSUIPC.Size}
-        onChange={(e) =>
-          onConfigChange({
-            ...currentConfig,
-            FSUIPC: { ...currentConfig.FSUIPC, Size: Number(e.target.value) },
-          } as FsuipcOffsetInputAction)
-        }
-      />
-      <Input
-        value={currentConfig.FSUIPC.Offset}
-        onChange={(e) =>
-          onConfigChange({
-            ...currentConfig,
-            FSUIPC: { ...currentConfig.FSUIPC, Offset: Number(e.target.value) },
-          } as FsuipcOffsetInputAction)
-        }
-      />
-      <Input
-        value={currentConfig.FSUIPC.Mask}
-        onChange={(e) =>
-          onConfigChange({
-            ...currentConfig,
-            FSUIPC: { ...currentConfig.FSUIPC, Mask: Number(e.target.value) },
-          } as FsuipcOffsetInputAction)
-        }
-      />
-     <Switch
-        checked={currentConfig.FSUIPC.BcdMode}
-        onCheckedChange={(e) =>
-          onConfigChange({
-            ...currentConfig,
-            FSUIPC: { ...currentConfig.FSUIPC, BcdMode: e },
-          } as FsuipcOffsetInputAction)
-        }
-      />
     </div>
   )
 }
