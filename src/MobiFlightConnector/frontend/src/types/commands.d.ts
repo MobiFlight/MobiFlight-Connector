@@ -17,6 +17,7 @@ export type CommandMessageKey =
   | "CommandUserAuthentication"
   | "CommandFrontendState"
   | "CommandScanForInput"
+  | "CommandRefreshProSimDataRefs"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -35,6 +36,8 @@ export type CommandMessage =
   | CommandUserAuthentication
   | CommandFrontendState
   | CommandScanForInput
+  | CommandRefreshProSimDataRefs
+  
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -220,4 +223,9 @@ export interface CommandScanForInput extends CommandMessageBase {
   payload: {
     isScanning: boolean
   }
+}
+
+export interface CommandRefreshProSimDataRefs extends CommandMessageBase {
+  key: "CommandRefreshProSimDataRefs"
+  payload: null
 }

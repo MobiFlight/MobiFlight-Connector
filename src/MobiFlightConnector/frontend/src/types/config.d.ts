@@ -133,7 +133,7 @@ export interface RetriggerInputAction extends Action {
 export interface ProSimInputAction extends Action {
   Type: "ProSimInputAction"
   Path: string
-  Param: string
+  Expression: string
 }
 
 export interface EventIdInputAction extends Action {

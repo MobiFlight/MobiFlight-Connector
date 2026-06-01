@@ -26,6 +26,7 @@ export type AppMessageKey =
   | "ControllerBindingsUpdate"
   | "ScanForInputResult"
   | "MobiFlightVariablesUpdate"
+  | "ProSimDataRefDefinitionUpdate"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -46,6 +47,7 @@ export type AppMessagePayload =
   | AuthenticationStatus
   | ControllerBindingsUpdate
   | ScanForInputResult
+  | ProSimDataRefDefinitionUpdate
 
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -158,6 +160,9 @@ export type MobiFlightVariablesUpdate = {
   Variables: MobiFlightVariable[]
 }
 
+export type ProSimDataRefDefinitionUpdate = {
+  DataRefs: Record<string, ProSimDataRefDefinition>
+}
 
 // Not sure what this is for
 // but we are using it in the tests

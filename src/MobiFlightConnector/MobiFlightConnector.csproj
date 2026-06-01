@@ -345,6 +345,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandProjectToolbar.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandMainMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandRefreshProSimDataRefs.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandDiscardChanges.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandOpenLinkInBrowser.cs" />
@@ -362,6 +363,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\AuthenticationStatus.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConnectedControllers.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ControllerBindingsUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ProSimDataRefDefinitionUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\MobiFlightVariablesUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\RecentProjects.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />

@@ -48,6 +48,7 @@ const ButtonActionBindingPanel = ({
             <ActionEditor
               action={action}
               onActionChange={(action) => {
+                console.log(`Action changed for ${tab}:`, action)
                 onTriggerChange({
                   ...current,
                   [tab]: action,

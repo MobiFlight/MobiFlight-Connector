@@ -556,6 +556,11 @@ namespace MobiFlight
                     ScanForInputStop();
                 }
             });
+
+            MessageExchange.Instance.Subscribe<CommandRefreshProSimDataRefs>((message) =>
+            {
+                PublishProSimDataRefDescriptions();
+            });
         }
 
         private void ScanForInputStop()
@@ -697,6 +702,29 @@ namespace MobiFlight
             _proSimConnectionAttempts = 0;
             _proSimConnectionDisabled = false;
             this.OnSimCacheConnected(sender, e);
+            PublishProSimDataRefDescriptions();
+        }
+
+        private void PublishProSimDataRefDescriptions()
+        {
+            var proSimCache = GetProSimCache();
+            if (!proSimCache.IsConnected())
+            {
+                return; // Silently return if not connected
+            }
+
+            try
+            {
+                var _dataRefDescriptions = proSimCache.GetDataRefDescriptions();
+                MessageExchange.Instance.Publish(new ProSimDataRefDefinitionUpdate()
+                {
+                    DataRefs = _dataRefDescriptions
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error retrieving ProSim dataref descriptions: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         private void proSim_ConnectionLost(object sender, EventArgs e)

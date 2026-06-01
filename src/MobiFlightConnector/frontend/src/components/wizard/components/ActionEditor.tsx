@@ -125,7 +125,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
           {selectedActionType?.value === "ProSimInputAction" && (
             <ProSimInputActionPanel
               config={action ? (action as ProSimInputAction) : null}
-              onConfigChange={(config) =>
+              onConfigChange={(config) => 
                 onActionChange({
                   ...(action as ProSimInputAction),
                   ...config,

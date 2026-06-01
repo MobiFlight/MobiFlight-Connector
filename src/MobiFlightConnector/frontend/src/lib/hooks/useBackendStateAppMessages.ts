@@ -14,6 +14,7 @@ import {
   MidiControllerDefinitions,
   MobiFlightVariablesUpdate,
   ProjectStatus,
+  ProSimDataRefDefinitionUpdate,
   RecentProjects,
 } from "@/types/messages"
 import Settings from "@/types/settings"
@@ -32,6 +33,7 @@ import { useSearchParams } from "react-router"
 import _ from "lodash"
 import { Controller } from "@/types/controller"
 import { useVariableStore } from "@/stores/variableStore"
+import { useProSimDataRefStore } from "@/stores/prosimDataRefStore"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
@@ -47,6 +49,7 @@ export const useBackendStateAppMessages = () => {
   } = useControllerDefinitionsStore()
   const { setIsRunning, setIsTesting } = useExecutionStateStore()
   const { setVariables } = useVariableStore()
+  const { setDataRefs } = useProSimDataRefStore()
 
   const setHubHopState = useHubHopStateActions()
   const auth = useAuth()
@@ -150,6 +153,12 @@ export const useBackendStateAppMessages = () => {
     const update = message.payload as MobiFlightVariablesUpdate
     console.log("MobiFlightVariablesUpdate message received", update)
     setVariables(update.Variables)
+  })
+
+  useAppMessage("ProSimDataRefDefinitionUpdate", (message) => {
+    const update = message.payload as ProSimDataRefDefinitionUpdate
+    console.log("ProSimDataRefDefinitionUpdate message received", message)
+    setDataRefs(update.DataRefs)
   })
 
   // this is only for easier UI testing
