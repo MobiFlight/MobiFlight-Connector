@@ -32,7 +32,13 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
-      <DialogContent ref={containerRef} className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250 overflow-x-hidden">
+      <DialogContent
+        onKeyDown={(e) => {
+          e.stopPropagation()
+        }}
+        ref={containerRef}
+        className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-x-hidden overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250"
+      >
         <DialogHeader>
           <DialogTitle className="text-2xl">
             {t("Dialog.ConfigWizard.Title")}
@@ -42,7 +48,11 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           </DialogDescription>
         </DialogHeader>
         {configItem && (
-          <ConfigWizard configItem={configItem} onClose={closeDialog} drawerContainer={containerRef} />
+          <ConfigWizard
+            configItem={configItem}
+            onClose={closeDialog}
+            drawerContainer={containerRef}
+          />
         )}
       </DialogContent>
     </Dialog>
