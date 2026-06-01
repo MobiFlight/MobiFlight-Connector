@@ -17,6 +17,20 @@ const presetUrls = {
   },
 }
 
+export const parsePresets = (content: string) => {
+  const lines = content.split("\n")
+  return lines
+    .map((line) => {
+      const [name, eventId, description] = line.split(":").map((part) => part.trim())
+      const isGroup = eventId === "GROUP"
+      if (name && eventId && !isGroup) {
+        return { name, eventId: eventId.toString(), description }
+      }
+      return null
+    })
+    .filter((item): item is { name: string; eventId: string; description: string } => item !== null)
+}
+
 const EventIdPresetsPanel = ({
   variant,
   aircraft,
@@ -33,22 +47,9 @@ const EventIdPresetsPanel = ({
     queryFn: () =>
       fetch(presetUrl)
         .then((r) => r.text())
-        .then((content) => {
-          const lines = content.split("\n")
-          return lines
-            .map((line) => {
-              const [name, eventId] = line.split(":").map((part) => part.trim())
-              const isGroup = eventId === "GROUP"
-              if (name && eventId && !isGroup) {
-                return { name, eventId: eventId.toString() }
-              }
-              return null
-            })
-            .filter(
-              (item): item is { name: string; eventId: string } =>
-                item !== null,
-            )
-        }) as Promise<{ name: string; eventId: string }[]>,
+        .then((content) => parsePresets(content)) as Promise<
+        { name: string; eventId: string; description: string }[]
+      >,
     staleTime: Infinity, // presets don't change at runtime; HubHopState drives invalidation
   })
 
