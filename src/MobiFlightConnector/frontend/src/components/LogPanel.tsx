@@ -10,9 +10,10 @@ const LEVEL_ORDER: Record<LogLevel, number> = {
 }
 
 const shouldShow = (severity: string, setting: string | undefined): boolean => {
-  if (!setting || setting === "off") return false
+  const effectiveLevel = setting ?? "info"
+  if (effectiveLevel === "off") return false
   const entryLevel = LEVEL_ORDER[severity as LogLevel] ?? 2
-  const filterLevel = LEVEL_ORDER[setting as LogLevel] ?? 2
+  const filterLevel = LEVEL_ORDER[effectiveLevel as LogLevel] ?? 2
   return entryLevel >= filterLevel
 }
 
@@ -29,10 +30,12 @@ const LogPanel = () => {
   const [entries, setEntries] = useState<ILogMessage[]>([])
   const [height, setHeight] = useState(128)
   const logLevel = useSettingsStore(s => s.settings?.LogLevel)
+  const logEnabled = useSettingsStore(s => s.settings?.LogEnabled)
   const scrollRef = useRef<HTMLDivElement>(null)
   const dragStartRef = useRef<{ y: number; height: number } | null>(null)
+  const dragCleanupRef = useRef<(() => void) | null>(null)
 
-  const onDragHandleMouseDown = (e: React.MouseEvent) => {
+  const onDragHandleMouseDown = (e) => {
     e.preventDefault()
     dragStartRef.current = { y: e.clientY, height }
 
@@ -42,15 +45,21 @@ const LogPanel = () => {
       setHeight(Math.max(80, Math.min(600, dragStartRef.current.height + delta)))
     }
 
-    const onMouseUp = () => {
+    const cleanup = () => {
       dragStartRef.current = null
+      dragCleanupRef.current = null
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
     }
 
+    const onMouseUp = () => cleanup()
+    dragCleanupRef.current = cleanup
+
     document.addEventListener("mousemove", onMouseMove)
     document.addEventListener("mouseup", onMouseUp)
   }
+
+  useEffect(() => () => { dragCleanupRef.current?.() }, [])
 
   const handleMessage = useCallback((msg: AppMessage) => {
     const entry = msg.payload as LogEntry
@@ -81,7 +90,9 @@ const LogPanel = () => {
         {t("LogPanel.Title")}
       </div>
       <div ref={scrollRef} style={{ height }} className="overflow-y-auto font-mono text-xs p-2 space-y-0.5 select-text">
-        {filtered.length === 0 ? (
+        {logEnabled === false ? (
+          <div className="text-muted-foreground">{t("LogPanel.LoggingDisabled")}</div>
+        ) : filtered.length === 0 ? (
           <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
         ) : (
           filtered.map((entry, i) => (

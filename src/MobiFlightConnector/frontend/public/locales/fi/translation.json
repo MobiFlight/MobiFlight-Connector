@@ -603,6 +603,7 @@
   },
   "LogPanel": {
     "Title": "Loki",
-    "Empty": "Ei lokimerkintöjä"
+    "Empty": "Ei lokimerkintöjä",
+    "LoggingDisabled": "Loki ei ole käytössä. Ota loki käyttöön asetuksista nähdäksesi lokit täällä."
   }
 }

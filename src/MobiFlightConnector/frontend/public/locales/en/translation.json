@@ -609,6 +609,7 @@
   },
   "LogPanel": {
     "Title": "Log",
-    "Empty": "No log entries"
+    "Empty": "No log entries",
+    "LoggingDisabled": "Logging is disabled. Enable logging in Settings to see logs here."
   }
 }
