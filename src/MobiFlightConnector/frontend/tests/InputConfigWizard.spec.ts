@@ -1,3 +1,4 @@
+import { Locator } from "@playwright/test"
 import { ScanForInputResult } from "../src/types/messages"
 import { test, expect } from "./fixtures"
 
@@ -126,8 +127,14 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
       } as ScanForInputResult,
     })
 
-    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Bravo Throttle Quadrant"})).toBeVisible()
-    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Mode - ALT"})).toBeVisible()
+    await expect(
+      triggerPanel
+        .getByRole("combobox")
+        .filter({ hasText: "Bravo Throttle Quadrant" }),
+    ).toBeVisible()
+    await expect(
+      triggerPanel.getByRole("combobox").filter({ hasText: "Mode - ALT" }),
+    ).toBeVisible()
 
     const clearSelectedInputButton = triggerPanel.getByRole("button", {
       name: "Clear input",
@@ -135,72 +142,180 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await expect(clearSelectedInputButton).toBeVisible()
     await clearSelectedInputButton.click()
 
-    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Bravo Throttle Quadrant"})).not.toBeVisible()
-    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Mode - ALT"})).not.toBeVisible()
-    
-    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Select controller..."})).toBeVisible()
-    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Select device..."})).toBeVisible()
-    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Select device..."})).toBeDisabled()
+    await expect(
+      triggerPanel
+        .getByRole("combobox")
+        .filter({ hasText: "Bravo Throttle Quadrant" }),
+    ).not.toBeVisible()
+    await expect(
+      triggerPanel.getByRole("combobox").filter({ hasText: "Mode - ALT" }),
+    ).not.toBeVisible()
+
+    await expect(
+      triggerPanel
+        .getByRole("combobox")
+        .filter({ hasText: "Select controller..." }),
+    ).toBeVisible()
+    await expect(
+      triggerPanel
+        .getByRole("combobox")
+        .filter({ hasText: "Select device..." }),
+    ).toBeVisible()
+    await expect(
+      triggerPanel
+        .getByRole("combobox")
+        .filter({ hasText: "Select device..." }),
+    ).toBeDisabled()
   })
-
-  // test("Trigger panel shows correct data for button triggers", async ({
-  //   configListPage,
-  //   page,
-  // }) => {
-  //   await configListPage.gotoPage()
-  //   await configListPage.mobiFlightPage.initWithTestData("inputaction")
-
-  //   await configListPage.clickEditButtonForRow(1)
-  //   const triggerPanel = page.getByTestId("trigger-panel")
-  //   await expect(triggerPanel).toBeVisible()
-
-  //   const scanForInputButton = triggerPanel.getByRole("button", { name: "Scan for Input" })
-  //   await expect(scanForInputButton).toBeVisible()
-  //   await scanForInputButton.click()
-
-  //   const useAnyInputText = triggerPanel.getByText("Use any input")
-  //   await expect(useAnyInputText).toBeVisible()
-  //   await useAnyInputText.click()
-
-  //   scanForInputButton.click()
-  //   await expect(useAnyInputText).not.toBeVisible()
-  //   await expect(scanForInputButton).toBeVisible()
-  // })
-
-  // test("Trigger panel shows correct data for encoder triggers", async ({
-  //   configListPage,
-  //   page,
-  // }) => {})
-
-  // test("Trigger panel shows correct data for analog input triggers", async ({
-  //   configListPage,
-  //   page,
-  // }) => {})
-
-  // test("Trigger panel allows editing button triggers", async ({
-  //   configListPage,
-  //   page,
-  // }) => {})
-
-  // test("Trigger panel allows editing encoder triggers", async ({
-  //   configListPage,
-  //   page,
-  // }) => {})
 })
 
-// test.describe("Input Config Wizard - Precondition Panel", () => {
-//   test("Precondition panel opens when clicking on precondition section", async ({
-//     configListPage,
-//     page,
-//   }) => {})
+test.describe("Input Config Wizard - Preconditions panel", () => {
+  test("Preconditions panel shows correct data for existing preconditions", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-//   test("Precondition panel shows correct data for existing preconditions", async ({
-//     configListPage,
-//     page,
-//   }) => {})
+    const preconditionsPanel = page.getByTestId("preconditions-panel")
+    const preconditionEditButton = preconditionsPanel.getByRole("button", {
+      name: "Preconditions",
+    })
 
-//   test("Precondition panel allows editing preconditions", async ({
-//     configListPage,
-//     page,
-//   }) => {})
-// })
+    await configListPage.clickEditButtonForRow(1)
+    await expect(preconditionsPanel).toBeVisible()
+    await expect(preconditionEditButton).toBeVisible()
+
+    await expect(preconditionsPanel.getByText("MyVar=")).toBeVisible()
+    await expect(
+      preconditionsPanel.getByText(
+        "Just an output config for references and preconditions=",
+      ),
+    ).toBeVisible()
+  })
+
+  test("Preconditions panel editing works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const preconditionsPanel = page.getByTestId("preconditions-panel")
+    const preconditionEditButton = preconditionsPanel.getByRole("button", {
+      name: "Preconditions",
+    })
+
+    await configListPage.clickEditButtonForRow(1)
+    await expect(preconditionEditButton).toBeVisible()
+    await preconditionEditButton.click()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "MobiFlightVariablesUpdate",
+      payload: {
+        Variables: [
+          {
+            Expression: "$",
+            Name: "MyVar",
+            Number: 0,
+            TYPE: "number",
+            Text: "",
+          },
+        ],
+      },
+    })
+
+    const preconditionEditor = page.getByTestId("precondition-editor")
+    await expect(preconditionEditor).toBeVisible()
+
+    const preconditionItems = preconditionEditor.getByTestId(
+      "precondition-item-row",
+    )
+    await expect(preconditionItems).toHaveCount(2)
+
+    const comboBoxLocator = (locator: Locator, expectedText: string) => {
+      return locator.getByRole("combobox").filter({ hasText: new RegExp(`^${expectedText}$`) })
+    }
+
+    const expectedValues = [
+      {
+        type: "Variable",
+        name: "MyVar",
+        operand: "=",
+        value: "1",
+        logic: "and",
+      },
+      {
+        type: "Config",
+        name: "Just an output config for references and preconditions",
+        operand: "=",
+        value: null,
+        logic: null,
+      },
+    ]
+
+    let index = 0
+    for (const expected of expectedValues) {
+      const precondition = preconditionItems.nth(index)
+      await expect(comboBoxLocator(precondition, expected.type)).toBeVisible()
+      await expect(comboBoxLocator(precondition, expected.name)).toBeVisible()
+      await expect(
+        comboBoxLocator(precondition, expected.operand),
+      ).toBeVisible()
+      if (expected.value !== null) {
+        await expect(
+          precondition.getByRole("textbox", { name: "Value" }),
+        ).toBeVisible()
+        await expect(
+          precondition.getByRole("textbox", { name: "Value" }),
+        ).toHaveValue(expected.value)
+      }
+      if (expected.logic !== null) {
+        await expect(
+          comboBoxLocator(precondition, expected.logic),
+        ).toBeVisible()
+      }
+      index++
+    }
+  })
+
+  test("Preconditions can be added and deleted", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const preconditionsPanel = page.getByTestId("preconditions-panel")
+    const preconditionEditButton = preconditionsPanel.getByRole("button", {
+      name: "Preconditions",
+    })
+
+    await configListPage.clickEditButtonForRow(1)
+    await expect(preconditionEditButton).toBeVisible()
+    await preconditionEditButton.click()
+
+    const preconditionEditor = page.getByTestId("precondition-editor")
+    await expect(preconditionEditor).toBeVisible()
+
+    const addPreconditionButton = preconditionEditor.getByRole("button", {
+      name: "Add Precondition",
+    })
+    await expect(addPreconditionButton).toBeVisible()
+    await addPreconditionButton.click()
+
+    let preconditionItems = preconditionEditor.getByTestId(
+      "precondition-item-row",
+    )
+    await expect(preconditionItems).toHaveCount(3)
+
+    const firstPreconditionDeleteButton = preconditionItems
+      .nth(0)
+      .getByRole("button", { name: "Delete precondition" })
+    await expect(firstPreconditionDeleteButton).toBeVisible()
+    await firstPreconditionDeleteButton.click()
+
+    preconditionItems = preconditionEditor.getByTestId("precondition-item-row")
+    await expect(preconditionItems).toHaveCount(2)
+  })
+})

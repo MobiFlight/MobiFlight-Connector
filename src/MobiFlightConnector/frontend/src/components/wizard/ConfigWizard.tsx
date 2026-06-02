@@ -4,7 +4,7 @@ import ButtonActionBindingPanel from "@/components/wizard/components/ButtonActio
 import ConfigReferencePanel from "@/components/wizard/components/ConfigReferencePanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import EncoderActionBindingPanel from "@/components/wizard/components/EncoderActionBindingPanel"
-import PreconditionPanel from "@/components/wizard/components/PreconditionPanel"
+import PreconditionsPanel from "@/components/wizard/components/PreconditionsPanel"
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
 import { useLocation, useNavigate, useSearchParams } from "react-router"
@@ -86,7 +86,7 @@ const ConfigWizard = ({
       />
       <div className="flex flex-row gap-2">
         <div className="w-1/2">
-          <PreconditionPanel
+          <PreconditionsPanel
             preconditions={configItem.Preconditions ?? []}
             variant="summary"
             openDetailsPanel={() => navigateToDetailView("precondition")}
@@ -157,7 +157,7 @@ const ConfigWizard = ({
             </DrawerHeader>
             <div className="px-4">
               {detailView === "precondition" && (
-                <PreconditionPanel
+                <PreconditionsPanel
                   onPreconditionsChange={(preconditions) => {
                     onConfigChange({
                       ...configItem,

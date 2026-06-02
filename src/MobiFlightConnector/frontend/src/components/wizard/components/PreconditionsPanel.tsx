@@ -7,19 +7,19 @@ import { useVariableStore } from "@/stores/variableStore"
 import { IConfigItem, Precondition } from "@/types/config"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
 
-export type PreconditionPanelProps = {
+export type PreconditionsPanelProps = {
   preconditions: Precondition[] // Replace with actual type of preconditions
   onPreconditionsChange?: (updatedPreconditions: Precondition[]) => void
   variant: "summary" | "details"
   openDetailsPanel: () => void
 }
 
-const PreconditionPanel = ({
+const PreconditionsPanel = ({
   preconditions,
   onPreconditionsChange,
   variant,
   openDetailsPanel,
-}: PreconditionPanelProps) => {
+}: PreconditionsPanelProps) => {
   const { project, activeConfigFileIndex } = useProjectStore()
   const { variables } = useVariableStore()
   const maxDisplayCount = 2
@@ -29,7 +29,7 @@ const PreconditionPanel = ({
   ) || [] as IConfigItem[]
 
   return variant === "summary" ? (
-    <Card>
+    <Card data-testid="preconditions-panel" className="w-full">
       <CardContent className="flex flex-col gap-2 pt-4">
         <div className="text-lg font-semibold">Preconditions (optional)</div>
         {preconditions.length > 0 ? (
@@ -67,4 +67,4 @@ const PreconditionPanel = ({
     />
   )
 }
-export default PreconditionPanel
+export default PreconditionsPanel

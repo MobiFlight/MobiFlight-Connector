@@ -59,6 +59,7 @@ const PreconditionItemRow = ({
 
   return (
     <div
+      data-testid="precondition-item-row"
       className={`flex flex-row gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
     >
       <div className="flex flex-row items-center gap-2">
@@ -78,7 +79,7 @@ const PreconditionItemRow = ({
         getLabel={(t) => t.label}
         isSelected={(t, s) => t.value === s?.value}
         setSelected={(t) =>
-          onChange({ ...precondition, Type: t?.value ?? "config", Ref: "" })
+          onChange({ ...precondition, Type: t?.value as "config" | "variable" | "pin" ?? "config", Ref: "" })
         }
         placeholder="Type"
         widthClass="w-32"
@@ -149,6 +150,7 @@ const PreconditionItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
+        <div className="sr-only">Delete precondition</div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -186,7 +188,7 @@ const PreconditionEditor = ({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" data-testid="precondition-editor">
       <div className="text-lg font-semibold">Preconditions</div>
       <div className="text-muted-foreground text-sm">
         The preconditions define conditions that must be met before the action

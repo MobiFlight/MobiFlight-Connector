@@ -175,7 +175,7 @@ export class MobiFlightPage {
     await this.publishMessage(message)
   }
 
-  async initWithTestData(variant: string = "default") {
+  async initWithTestData(variant: "default" | "inputaction" = "default") {
     const project = variant === "default" ? testProject : inputActionTestProject
     const message: AppMessage = {
       key: "Project",
@@ -184,6 +184,10 @@ export class MobiFlightPage {
     await this.publishMessage(message)
     await this.initWithRecentProjects()
     await this.initWithConnectedControllers()
+  }
+
+  async getTestProjectData(variant: "default" | "inputaction" = "default") {
+    return variant === "default" ? testProject : inputActionTestProject
   }
 
   async initWithTestDataAndSpecificProfileCount(profileCount: number) {

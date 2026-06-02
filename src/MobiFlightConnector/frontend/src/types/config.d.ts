@@ -181,9 +181,9 @@ export interface FsuipcOffsetInputAction extends Action {
 }
 
 export type Precondition = {
-  Type: string
+  Type: "variable" | "pin" | "config"
   Ref: string
-  Pin: string
+  Pin: string | null
   Operand: "=" | "<>" | "<" | ">" | "<=" | ">="
   Value: string
   Logic: "and" | "or"
