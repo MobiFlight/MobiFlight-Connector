@@ -319,3 +319,101 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await expect(preconditionItems).toHaveCount(2)
   })
 })
+
+test.describe("Input Config Wizard - Config References panel", () => {
+  test("Config References panel shows correct data for existing references", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const configReferencesPanel = page.getByTestId("config-references-panel")
+    const editButton = configReferencesPanel.getByRole("button", {
+      name: "Config References",
+    })
+
+    await configListPage.clickEditButtonForRow(1)
+    await expect(configReferencesPanel).toBeVisible()
+    await expect(editButton).toBeVisible()
+
+    // Summary shows placeholder badges for each config reference
+    await expect(configReferencesPanel.getByText("#")).toBeVisible()
+    await expect(configReferencesPanel.getByText("!")).toBeVisible()
+    await expect(configReferencesPanel.getByText("?")).toBeVisible()
+  })
+
+  test("Config References panel editing works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const configReferencesPanel = page.getByTestId("config-references-panel")
+    const editButton = configReferencesPanel.getByRole("button", {
+      name: "Config References",
+    })
+
+    await configListPage.clickEditButtonForRow(1)
+    await editButton.click()
+
+    const configReferenceEditor = page.getByTestId("config-reference-editor")
+    await expect(configReferenceEditor).toBeVisible()
+
+    const referenceItems = configReferenceEditor.getByTestId(
+      "config-reference-item-row",
+    )
+    await expect(referenceItems).toHaveCount(3)
+
+    const expectedReferences = [
+      {
+        configName: "Just an output config for references and preconditions",
+        placeholder: "#",
+        testValue: "1",
+      },
+      { configName: "config reference #2", placeholder: "!", testValue: "1" },
+    ]
+
+    for (const [index, expected] of expectedReferences.entries()) {
+      const row = referenceItems.nth(index)
+      await expect(row.getByText(expected.configName)).toBeVisible()
+      await expect(row.getByRole("textbox").nth(0)).toHaveValue(
+        expected.placeholder,
+      )
+      await expect(row.getByRole("textbox").nth(1)).toHaveValue(
+        expected.testValue,
+      )
+    }
+  })
+
+  test("Config References can be added and deleted", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const configReferencesPanel = page.getByTestId("config-references-panel")
+    const editButton = configReferencesPanel.getByRole("button", {
+      name: "Config References",
+    })
+
+    await configListPage.clickEditButtonForRow(1)
+    await editButton.click()
+
+    const configReferenceEditor = page.getByTestId("config-reference-editor")
+    const referenceItems = configReferenceEditor.getByTestId(
+      "config-reference-item-row",
+    )
+    await expect(referenceItems).toHaveCount(3)
+
+    await configReferenceEditor
+      .getByRole("button", { name: "Add Config Reference" })
+      .click()
+    await expect(referenceItems).toHaveCount(4)
+
+    await referenceItems.nth(0).getByRole("button", { name: "Delete config reference" }).click()
+    await expect(referenceItems).toHaveCount(3)
+  })
+})

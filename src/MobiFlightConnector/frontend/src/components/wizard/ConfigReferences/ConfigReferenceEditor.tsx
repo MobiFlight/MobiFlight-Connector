@@ -53,6 +53,7 @@ const ConfigReferenceItemRow = ({
   const variantStyle = configReferenceVariants["default"]
   return (
     <div
+      data-testid="config-reference-item-row"
       className={`flex flex-row gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
     >
       <div className="flex flex-row items-center gap-2">
@@ -102,6 +103,7 @@ const ConfigReferenceItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
+        <div className="sr-only">Delete config reference</div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -140,7 +142,7 @@ const ConfigReferenceEditor = ({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" data-testid="config-reference-editor">
       <div className="text-lg font-semibold">Config References</div>
       <div className="text-muted-foreground text-sm">
         The preconditions define conditions that must be met before the action

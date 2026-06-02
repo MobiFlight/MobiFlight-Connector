@@ -27,7 +27,7 @@ const ConfigReferencePanel = ({
     ) || ([] as IConfigItem[])
 
   return variant === "summary" ? (
-    <Card>
+    <Card data-testid="config-references-panel">
       <CardContent className="flex flex-col gap-2 pt-4">
         <div className="text-lg font-semibold">Config References (optional)</div>
         {configReferences.length > 0 ? (
