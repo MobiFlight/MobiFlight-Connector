@@ -115,7 +115,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   }
 
   return (
-    <Card>
+    <Card data-testid="trigger-panel">
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col gap-2">
           <div className="text-lg font-semibold">Trigger</div>
@@ -124,7 +124,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             configuration.
           </div>
         </div>
-        <div className="flex flex-row gap-2 items-end">
+        <div className="flex flex-row items-end gap-2">
           <Button onClick={scanForInput} className="w-50" size="sm">
             {scanning ? (
               <div className="flex flex-row items-center gap-2 text-sm">
@@ -186,10 +186,14 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           <Button
             variant="ghost"
             className="gap-1"
-            onClick={() => updateConfigItem(undefined, undefined)}
+            onClick={() => {
+              setSelectedController(undefined)
+              setSelectedDevice(undefined)
+              updateConfigItem(undefined, undefined)
+            }}
           >
             <IconTrash className="mr-2" />
-            Clear selection
+            Clear input
           </Button>
         </div>
       </CardContent>

@@ -1,3 +1,4 @@
+import { ScanForInputResult } from "../src/types/messages"
 import { test, expect } from "./fixtures"
 
 test.describe("General Input Config Wizard Tests", () => {
@@ -65,32 +66,127 @@ test.describe("General Input Config Wizard Tests", () => {
   })
 })
 
-// test.describe("Input Config Wizard - Trigger Panel", () => {
-//   test("Trigger panel shows correct data for button triggers", async ({
-//     configListPage,
-//     page,
-//   }) => {})
+test.describe("Input Config Wizard - Trigger Panel", () => {
+  test("Trigger panel interactions work correctly - Scan for input", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.mobiFlightPage.trackCommand("CommandScanForInput")
 
-//   test("Trigger panel shows correct data for encoder triggers", async ({
-//     configListPage,
-//     page,
-//   }) => {})
+    await configListPage.clickEditButtonForRow(1)
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
 
-//   test("Trigger panel shows correct data for analog input triggers", async ({
-//     configListPage,
-//     page,
-//   }) => {})
+    const scanForInputButton = triggerPanel.getByRole("button", {
+      name: "Scan for Input",
+    })
+    await expect(scanForInputButton).toBeVisible()
+    await scanForInputButton.click()
 
-//   test("Trigger panel allows editing button triggers", async ({
-//     configListPage,
-//     page,
-//   }) => {})
+    let commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toContainEqual({
+      key: "CommandScanForInput",
+      payload: {
+        isScanning: true,
+      },
+    })
 
-//   test("Trigger panel allows editing encoder triggers", async ({
-//     configListPage,
-//     page,
-//   }) => {})
-// })
+    await configListPage.mobiFlightPage.clearTrackedCommands()
+
+    const useAnyInputText = triggerPanel.getByText("Use any input")
+    await expect(useAnyInputText).toBeVisible()
+    await useAnyInputText.click()
+
+    commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toContainEqual({
+      key: "CommandScanForInput",
+      payload: {
+        isScanning: false,
+      },
+    })
+
+    await expect(useAnyInputText).not.toBeVisible()
+    await expect(scanForInputButton).toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ScanForInputResult",
+      payload: {
+        Controller: {
+          Devices: [],
+          Name: "Bravo Throttle Quadrant",
+          Serial: "JS-87654321",
+        },
+        Device: {
+          Name: "Button 21",
+          Label: "Mode - ALT",
+          Type: "Button",
+        },
+      } as ScanForInputResult,
+    })
+
+    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Bravo Throttle Quadrant"})).toBeVisible()
+    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Mode - ALT"})).toBeVisible()
+
+    const clearSelectedInputButton = triggerPanel.getByRole("button", {
+      name: "Clear input",
+    })
+    await expect(clearSelectedInputButton).toBeVisible()
+    await clearSelectedInputButton.click()
+
+    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Bravo Throttle Quadrant"})).not.toBeVisible()
+    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Mode - ALT"})).not.toBeVisible()
+    
+    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Select controller..."})).toBeVisible()
+    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Select device..."})).toBeVisible()
+    await expect(triggerPanel.getByRole("combobox").filter({hasText: "Select device..."})).toBeDisabled()
+  })
+
+  // test("Trigger panel shows correct data for button triggers", async ({
+  //   configListPage,
+  //   page,
+  // }) => {
+  //   await configListPage.gotoPage()
+  //   await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+  //   await configListPage.clickEditButtonForRow(1)
+  //   const triggerPanel = page.getByTestId("trigger-panel")
+  //   await expect(triggerPanel).toBeVisible()
+
+  //   const scanForInputButton = triggerPanel.getByRole("button", { name: "Scan for Input" })
+  //   await expect(scanForInputButton).toBeVisible()
+  //   await scanForInputButton.click()
+
+  //   const useAnyInputText = triggerPanel.getByText("Use any input")
+  //   await expect(useAnyInputText).toBeVisible()
+  //   await useAnyInputText.click()
+
+  //   scanForInputButton.click()
+  //   await expect(useAnyInputText).not.toBeVisible()
+  //   await expect(scanForInputButton).toBeVisible()
+  // })
+
+  // test("Trigger panel shows correct data for encoder triggers", async ({
+  //   configListPage,
+  //   page,
+  // }) => {})
+
+  // test("Trigger panel shows correct data for analog input triggers", async ({
+  //   configListPage,
+  //   page,
+  // }) => {})
+
+  // test("Trigger panel allows editing button triggers", async ({
+  //   configListPage,
+  //   page,
+  // }) => {})
+
+  // test("Trigger panel allows editing encoder triggers", async ({
+  //   configListPage,
+  //   page,
+  // }) => {})
+})
 
 // test.describe("Input Config Wizard - Precondition Panel", () => {
 //   test("Precondition panel opens when clicking on precondition section", async ({
