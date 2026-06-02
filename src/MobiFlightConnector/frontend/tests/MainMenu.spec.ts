@@ -277,6 +277,44 @@ test("Confirm zoom menu items are present in View menu", async ({
   await expect(ZoomOutItem).toBeVisible()
 })
 
+test("Confirm View menu contains Toggle Log Panel item", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+
+  const ViewMenu = page
+    .getByRole("menubar")
+    .getByRole("menuitem", { name: "View" })
+  await ViewMenu.click()
+
+  await expect(
+    page.getByRole("menuitem", { name: "Toggle Log Panel" }),
+  ).toBeVisible()
+})
+
+test("Confirm View > Toggle Log Panel shows and hides the log panel", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+
+  const closeButton = page.getByRole("button", { name: "Close log panel" })
+  await expect(closeButton).not.toBeVisible()
+
+  const ViewMenu = page
+    .getByRole("menubar")
+    .getByRole("menuitem", { name: "View" })
+
+  await ViewMenu.click()
+  await page.getByRole("menuitem", { name: "Toggle Log Panel" }).click()
+  await expect(closeButton).toBeVisible()
+
+  await ViewMenu.click()
+  await page.getByRole("menuitem", { name: "Toggle Log Panel" }).click()
+  await expect(closeButton).not.toBeVisible()
+})
+
 test("Confirm zoom menu items send correct commands", async ({
   configListPage,
   page,
