@@ -19,7 +19,7 @@ const AnalogActionBindingPanel = ({
   const current = trigger ?? defaultAnalogTrigger
 
   return (
-    <Tabs defaultValue={"onChange"}>
+    <Tabs data-testid="analog-action-panel" defaultValue={"onChange"}>
       <TabsList>
         <TabsTrigger value={"onChange"}>{"onChange"}</TabsTrigger>
       </TabsList>

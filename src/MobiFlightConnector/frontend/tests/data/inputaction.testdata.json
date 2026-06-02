@@ -475,6 +475,57 @@
                 },
                 {
                     "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Encoder 1",
+                        "Type": "Encoder"
+                    },
+                    "GUID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                    "Name": "MSFS Encoder Action",
+                    "Type": "InputConfigItem",
+                    "encoder": {
+                        "onLeft": {
+                            "Command": "(>K:AP_SPD_VAR_DEC)",
+                            "PresetId": null,
+                            "Type": "MSFS2020CustomInputAction"
+                        },
+                        "onRight": {
+                            "Command": "(>K:AP_SPD_VAR_INC)",
+                            "PresetId": null,
+                            "Type": "MSFS2020CustomInputAction"
+                        },
+                        "onLeftFast": null,
+                        "onRightFast": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Analog 1",
+                        "Type": "AnalogInput"
+                    },
+                    "GUID": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "Name": "MSFS Analog Action",
+                    "Type": "InputConfigItem",
+                    "analog": {
+                        "onChange": {
+                            "Command": "(>K:HEADING_BUG_SET)",
+                            "PresetId": null,
+                            "Type": "MSFS2020CustomInputAction"
+                        }
+                    }
+                },
+                {
+                    "Active": true,
                     "Controller": null,
                     "DeviceName": null,
                     "DeviceType": null,

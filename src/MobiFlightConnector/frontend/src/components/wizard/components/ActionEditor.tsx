@@ -41,7 +41,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
     : undefined
 
   return (
-    <Card>
+    <Card data-testid="action-editor">
       <CardContent className="pt-4">
         <div className="flex flex-col gap-4">
           <ActionTypeComboBox

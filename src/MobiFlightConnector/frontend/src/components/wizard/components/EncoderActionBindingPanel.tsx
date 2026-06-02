@@ -22,7 +22,7 @@ const EncoderActionBindingPanel = ({
   const current = trigger ?? defaultEncoderTrigger
 
   return (
-    <Tabs defaultValue={tabs[0]}>
+    <Tabs data-testid="encoder-action-panel" defaultValue={tabs[0]}>
       <TabsList>
         {tabs.map((trigger) => (
           <TabsTrigger key={trigger} value={trigger}>

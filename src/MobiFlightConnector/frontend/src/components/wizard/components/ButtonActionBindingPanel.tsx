@@ -26,7 +26,7 @@ const ButtonActionBindingPanel = ({
   console.log("Current Button Trigger in Panel:", current)
 
   return (
-    <Tabs defaultValue={tabs[0]}>
+    <Tabs data-testid="button-action-panel" defaultValue={tabs[0]}>
       <TabsList>
         {tabs.map((tab) => (
           <TabsTrigger key={tab} value={tab}>

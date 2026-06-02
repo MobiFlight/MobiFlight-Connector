@@ -115,7 +115,7 @@ const MsfsPresetPanel = ({
           searchPlaceholder="Search systems..."
         />
       </div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-4 items-center">
         <ComboBox
           selected={selectedPreset}
           placeholder="Select preset"
@@ -129,6 +129,7 @@ const MsfsPresetPanel = ({
           searchPlaceholder="Search presets..."
           widthClass="w-150"
         />
+        <div role="status" className="text-sm">{ `${filteredPresets.length} preset(s) found` }</div>
       </div>
       <div className="flex flex-col gap-2">
         <Label htmlFor="description">Description:</Label>
