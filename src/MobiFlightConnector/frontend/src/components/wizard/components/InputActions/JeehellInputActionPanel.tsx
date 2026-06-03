@@ -34,9 +34,9 @@ const JeehellInputActionPanel = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <Label htmlFor="mouseParam">{t("Wizard.InputActions.Jeehell.FunctionLabel")}</Label>
+        <Label htmlFor="mouseParam">{t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}</Label>
         <ComboBox
-          placeholder={t("Wizard.InputActions.Jeehell.SelectFunctionPlaceholder")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Jeehell.SelectFunctionPlaceholder")}
           items={presets}
           getLabel={(item) => item.name}
           getValue={(item) => item.eventId}
@@ -53,7 +53,7 @@ const JeehellInputActionPanel = ({
         <p className="text-sm text-muted-foreground">{selectedPreset?.description}</p>
       </div>
       <div className="flex w-100 flex-col gap-2">
-        <Label htmlFor="value">{t("Wizard.InputActions.Jeehell.ValueLabel")}</Label>
+        <Label htmlFor="value">{t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}</Label>
         <Input
           id="value"
           value={config?.Param ?? ""}

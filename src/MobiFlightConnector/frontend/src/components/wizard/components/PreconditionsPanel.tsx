@@ -33,7 +33,7 @@ const PreconditionsPanel = ({
   return variant === "summary" ? (
     <Card data-testid="preconditions-panel" className="w-full">
       <CardContent className="flex flex-col gap-2 pt-4">
-        <div className="text-lg font-semibold">{t("Wizard.Preconditions.Title")}</div>
+        <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.Preconditions.Title")}</div>
         {preconditions.length > 0 ? (
           <div className="flex flex-col gap-2">
             <PreconditionSummary 
@@ -43,17 +43,17 @@ const PreconditionsPanel = ({
             />
             <Button variant="outline" onClick={openDetailsPanel}>
               <IconEdit className="" />
-              {t("Wizard.Preconditions.EditButton")}
+              {t("Dialog.InputConfigWizard.Preconditions.EditButton")}
             </Button>
           </div>
         ) : (
           <div className="flex flex-col gap-2">
             <div className="text-muted-foreground text-sm">
-              {t("Wizard.Preconditions.Description")}
+              {t("Dialog.InputConfigWizard.Preconditions.Description")}
             </div>
             <Button variant="outline" onClick={openDetailsPanel}>
               <IconPlus className="" />
-              {t("Wizard.Preconditions.AddButton")}
+              {t("Dialog.InputConfigWizard.Preconditions.AddButton")}
             </Button>
           </div>
         )}

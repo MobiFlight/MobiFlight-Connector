@@ -62,7 +62,7 @@ const FsuipcOffsetInputActionPanel = ({
       <div className="flex flex-row gap-4">
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="size">
-            {t("Wizard.InputActions.FsuipcOffset.SizeLabel")}
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
           </Label>
           <ComboBox
             items={FsuipcSizeOptions}
@@ -85,7 +85,7 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="offset">
-            {t("Wizard.InputActions.FsuipcOffset.OffsetLabel")}
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel")}
           </Label>
           <Input
             onKeyDown={filterHexInput}
@@ -107,7 +107,7 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="mask">
-            {t("Wizard.InputActions.FsuipcOffset.MaskLabel")}
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel")}
           </Label>
           <Input
             autoComplete="off"
@@ -134,7 +134,7 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-row items-center gap-1 pt-6">
           <Label className="text-sm font-medium" htmlFor="bcdMode">
-            {t("Wizard.InputActions.FsuipcOffset.BcdModeLabel")}
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel")}
           </Label>
           <Switch
             id="bcdMode"

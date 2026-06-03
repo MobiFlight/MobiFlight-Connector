@@ -120,9 +120,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
     <Card data-testid="trigger-panel">
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">{t("Wizard.ConfigTrigger.Title")}</div>
+          <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.ConfigTrigger.Title")}</div>
           <div className="text-muted-foreground text-sm">
-            {t("Wizard.ConfigTrigger.Description")}
+            {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
           </div>
         </div>
         <div className="flex flex-row items-end gap-2">
@@ -130,10 +130,10 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             {scanning ? (
               <div className="flex flex-row items-center gap-2 text-sm">
                 <IconLoader2 className="animate-spin" />
-                {t("Wizard.ConfigTrigger.UseAnyInput")}
+                {t("Dialog.InputConfigWizard.ConfigTrigger.UseAnyInput")}
               </div>
             ) : (
-              t("Wizard.ConfigTrigger.ScanForInput")
+              t("Dialog.InputConfigWizard.ConfigTrigger.ScanForInput")
             )}
           </Button>
           <div className="flex flex-col gap-2">
@@ -151,9 +151,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               }
               items={completeControllers}
               selected={selectedController}
-              placeholder={t("Wizard.ConfigTrigger.SelectController")}
-              searchPlaceholder={t("Wizard.ConfigTrigger.SearchController")}
-              emptyText={t("Wizard.ConfigTrigger.NoControllerFound")}
+              placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectController")}
+              searchPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.SearchController")}
+              emptyText={t("Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound")}
               setSelected={(controller) => {
                 setSelectedController(controller)
                 setSelectedDevice(undefined)
@@ -174,9 +174,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               }
               items={devices}
               selected={selectedDevice}
-              placeholder={t("Wizard.ConfigTrigger.SelectDevice")}
-              searchPlaceholder={t("Wizard.ConfigTrigger.SearchDevice")}
-              emptyText={t("Wizard.ConfigTrigger.NoDeviceFound")}
+              placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectDevice")}
+              searchPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.SearchDevice")}
+              emptyText={t("Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound")}
               disabled={!selectedController}
               setSelected={(device) => {
                 setSelectedDevice(device)
@@ -194,7 +194,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }}
           >
             <IconTrash className="mr-2" />
-            {t("Wizard.ConfigTrigger.ClearInput")}
+            {t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}
           </Button>
         </div>
       </CardContent>

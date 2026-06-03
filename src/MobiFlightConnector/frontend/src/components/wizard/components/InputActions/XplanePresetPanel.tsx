@@ -78,7 +78,7 @@ const XplanePresetPanel = ({
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-4 gap-4">
         <Input
-          placeholder={t("Wizard.InputActions.Common.FilterPresets")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterPresets")}
           value={filter.search}
           onChange={(e) =>
             setFilter((prev) => ({ ...prev, search: e.target.value }))
@@ -87,62 +87,62 @@ const XplanePresetPanel = ({
         <ComboBox
           items={vendors}
           selected={filter.vendor}
-          placeholder={t("Wizard.InputActions.Common.FilterByVendor")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterByVendor")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.vendor}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, vendor: item || "" }))
           }
-          searchPlaceholder={t("Wizard.InputActions.Common.SearchVendors")}
+          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchVendors")}
         />
         <ComboBox
           items={aircraft}
           selected={filter.aircraft}
-          placeholder={t("Wizard.InputActions.Common.FilterByAircraft")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.aircraft}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, aircraft: item || "" }))
           }
-          searchPlaceholder={t("Wizard.InputActions.Common.SearchAircraft")}
+          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchAircraft")}
         />
         <ComboBox
           items={categories}
           selected={filter.system}
-          placeholder={t("Wizard.InputActions.Common.FilterBySystem")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterBySystem")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.system}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, system: item || "" }))
           }
-          searchPlaceholder={t("Wizard.InputActions.Common.SearchSystems")}
+          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchSystems")}
         />
       </div>
       <div className="flex flex-row items-center gap-4">
         <ComboBox
           items={filteredPresets}
           selected={selectedPreset}
-          placeholder={t("Wizard.InputActions.Common.SelectPreset")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.SelectPreset")}
           getLabel={(item) => item.label}
           getValue={(item) => item.id}
           isSelected={(item) => item.id === selectedPreset?.id}
           setSelected={(item) => {
             if (item) onPresetSelect(item)
           }}
-          searchPlaceholder={t("Wizard.InputActions.Common.SearchPresets")}
+          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchPresets")}
           widthClass="w-150"
         />
-        <div role="status" className="text-sm">{t("Wizard.InputActions.Common.PresetsFound", { count: filteredPresets.length })}</div>
+        <div role="status" className="text-sm">{t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", { count: filteredPresets.length })}</div>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="description">{t("Wizard.InputActions.Common.DescriptionLabel")}</Label>
+        <Label htmlFor="description">{t("Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel")}</Label>
         <div id="description" className="rounded border p-2 text-sm">
           {selectedPreset?.description
             ? selectedPreset?.description
-            : t("Wizard.InputActions.Common.NoDescriptionAvailable")}
+            : t("Dialog.InputConfigWizard.InputActions.Common.NoDescriptionAvailable")}
         </div>
       </div>
     </div>

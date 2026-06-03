@@ -98,17 +98,17 @@ const KeyboardInputActionPanel = ({
     >
       <div className="flex flex-row gap-4">
         <Button onClick={handleScanForInput} size={"sm"}>
-          {isScanning ? t("Wizard.InputActions.Keyboard.StopScanning") : t("Wizard.InputActions.Keyboard.ScanForKeyboard")}
+          {isScanning ? t("Dialog.InputConfigWizard.InputActions.Keyboard.StopScanning") : t("Dialog.InputConfigWizard.InputActions.Keyboard.ScanForKeyboard")}
         </Button>
         <div className="flex flex-row items-center gap-2">
-          <div className="text-sm font-medium">{t("Wizard.InputActions.Keyboard.KeyComboLabel")}</div>
+          <div className="text-sm font-medium">{t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}</div>
           <div className="text-sm">
             {scannedKeys?.Control && "Ctrl + "}
             {scannedKeys?.Alt && "Alt + "}
             {scannedKeys?.Shift && "Shift + "}
             {scannedKeys?.Key !== "0"
               ? String.fromCharCode(Number(scannedKeys.Key)).toUpperCase()
-              : t("Wizard.InputActions.Keyboard.None")}
+              : t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}
           </div>
         </div>
         <Button
@@ -121,7 +121,7 @@ const KeyboardInputActionPanel = ({
           size={"sm"}
         >
           <IconTrash />
-          {t("Wizard.InputActions.Keyboard.ClearInput")}
+          {t("Dialog.InputConfigWizard.InputActions.Keyboard.ClearInput")}
         </Button>
       </div>
     </div>

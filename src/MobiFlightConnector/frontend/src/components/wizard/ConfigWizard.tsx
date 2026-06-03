@@ -148,11 +148,11 @@ const ConfigWizard = ({
         >
           <DrawerContent className="data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200">
             <DrawerHeader>
-              <DrawerTitle className="sr-only">{t("Wizard.DrawerTitle")}</DrawerTitle>
+              <DrawerTitle className="sr-only">{t("Dialog.InputConfigWizard.DrawerTitle")}</DrawerTitle>
               <DrawerClose className="flex flex-row">
                 <Button variant="link">
                   <IconArrowBack />
-                  {t("Wizard.GoBack")}
+                  {t("Dialog.InputConfigWizard.GoBack")}
                 </Button>
               </DrawerClose>
             </DrawerHeader>

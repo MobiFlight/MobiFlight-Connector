@@ -29,16 +29,16 @@ const MsfsInputActionPanel = ({
         }
       />
       <div className="flex flex-col gap-2">
-        <Label htmlFor="code">{t("Wizard.InputActions.Common.CodeLabel")}</Label>
+        <Label htmlFor="code">{t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}</Label>
         <Textarea
         id="code"
           value={
             command
               ? command
-              : t("Wizard.InputActions.Msfs.NoneCode")
+              : t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")
           }
         />
-        <div className="text-sm text-muted-foreground">{t("Wizard.InputActions.Common.SupportedPlaceholders")}</div>
+        <div className="text-sm text-muted-foreground">{t("Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders")}</div>
       </div>
     </div>
   )

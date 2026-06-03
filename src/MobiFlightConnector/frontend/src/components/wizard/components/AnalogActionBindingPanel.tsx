@@ -23,7 +23,7 @@ const AnalogActionBindingPanel = ({
   return (
     <Tabs data-testid="analog-action-panel" defaultValue={"onChange"}>
       <TabsList>
-        <TabsTrigger value={"onChange"}>{t("Wizard.Analog.Tabs.onChange")}</TabsTrigger>
+        <TabsTrigger value={"onChange"}>{t("Dialog.InputConfigWizard.Analog.Tabs.onChange")}</TabsTrigger>
       </TabsList>
       <TabsContent value={"onChange"}>
         <ActionEditor

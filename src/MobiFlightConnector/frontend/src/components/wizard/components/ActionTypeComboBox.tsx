@@ -35,9 +35,9 @@ const ActionTypeComboBox = ({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">
-        <div className="text-lg font-semibold">{t("Wizard.ActionType.Title")}</div>
+        <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.ActionType.Title")}</div>
         <div className="text-muted-foreground text-sm">
-          {t("Wizard.ActionType.Description")}
+          {t("Dialog.InputConfigWizard.ActionType.Description")}
         </div>
       </div>
       <ComboBox

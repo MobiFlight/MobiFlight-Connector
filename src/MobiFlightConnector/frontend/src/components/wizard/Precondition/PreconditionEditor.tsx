@@ -71,7 +71,7 @@ const PreconditionItemRow = ({
             onChange({ ...precondition, Active: !!checked })
           }
         />
-        <Label className="text-sm">{t("Wizard.PreconditionEditor.Active")}</Label>
+        <Label className="text-sm">{t("Dialog.InputConfigWizard.PreconditionEditor.Active")}</Label>
       </div>
 
       <ComboBox
@@ -83,7 +83,7 @@ const PreconditionItemRow = ({
         setSelected={(t) =>
           onChange({ ...precondition, Type: t?.value as "config" | "variable" | "pin" ?? "config", Ref: "" })
         }
-        placeholder={t("Wizard.PreconditionEditor.TypePlaceholder")}
+        placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.TypePlaceholder")}
         widthClass="w-32"
         variant="nofilter"
       />
@@ -96,7 +96,7 @@ const PreconditionItemRow = ({
           getLabel={(c) => c.Name}
           isSelected={(c, s) => c.GUID === s?.GUID}
           setSelected={(c) => onChange({ ...precondition, Ref: c?.GUID ?? "" })}
-          placeholder={t("Wizard.PreconditionEditor.SelectConfig")}
+          placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.SelectConfig")}
           widthClass="w-48"
         />
       )}
@@ -109,7 +109,7 @@ const PreconditionItemRow = ({
           getLabel={(v) => v.Name}
           isSelected={(v, s) => v.Name === s?.Name}
           setSelected={(v) => onChange({ ...precondition, Ref: v?.Name ?? "" })}
-          placeholder={t("Wizard.PreconditionEditor.SelectVariable")}
+          placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.SelectVariable")}
           widthClass="w-48"
         />
       )}
@@ -127,7 +127,7 @@ const PreconditionItemRow = ({
       <Input
         value={precondition.Value}
         onChange={(e) => onChange({ ...precondition, Value: e.target.value })}
-        placeholder={t("Wizard.PreconditionEditor.ValuePlaceholder")}
+        placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.ValuePlaceholder")}
       />
       {showLogic && (
         <div className="flex flex-row items-center gap-2">
@@ -151,7 +151,7 @@ const PreconditionItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
-        <div className="sr-only">{t("Wizard.PreconditionEditor.DeletePrecondition")}</div>
+        <div className="sr-only">{t("Dialog.InputConfigWizard.PreconditionEditor.DeletePrecondition")}</div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -191,14 +191,14 @@ const PreconditionEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="precondition-editor">
-      <div className="text-lg font-semibold">{t("Wizard.PreconditionEditor.Title")}</div>
+      <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.PreconditionEditor.Title")}</div>
       <div className="text-muted-foreground text-sm">
-        {t("Wizard.PreconditionEditor.Description")}
+        {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
       </div>
 
       {preconditions.length === 0 && (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t("Wizard.PreconditionEditor.NoPreconditions")}
+          {t("Dialog.InputConfigWizard.PreconditionEditor.NoPreconditions")}
         </div>
       )}
 
@@ -216,7 +216,7 @@ const PreconditionEditor = ({
 
       <Button variant="outline" className="self-start" onClick={handleAdd}>
         <IconPlus className="h-4 w-4" />
-        {t("Wizard.PreconditionEditor.AddPrecondition")}
+        {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
       </Button>
     </div>
   )

@@ -65,7 +65,7 @@ const ConfigReferenceItemRow = ({
             onChange({ ...configReference, Active: !!checked })
           }
         />
-        <Label className="text-sm">{t("Wizard.ConfigReferenceEditor.Active")}</Label>
+        <Label className="text-sm">{t("Dialog.InputConfigWizard.ConfigReferenceEditor.Active")}</Label>
       </div>
 
       <ComboBox
@@ -77,7 +77,7 @@ const ConfigReferenceItemRow = ({
         setSelected={(c) =>
           onChange({ ...configReference, Ref: c?.GUID ?? "" })
         }
-        placeholder={t("Wizard.ConfigReferenceEditor.SelectConfig")}
+        placeholder={t("Dialog.InputConfigWizard.ConfigReferenceEditor.SelectConfig")}
         widthClass="flex-1"
       />
 
@@ -105,7 +105,7 @@ const ConfigReferenceItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
-        <div className="sr-only">{t("Wizard.ConfigReferenceEditor.DeleteConfigReference")}</div>
+        <div className="sr-only">{t("Dialog.InputConfigWizard.ConfigReferenceEditor.DeleteConfigReference")}</div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -146,14 +146,14 @@ const ConfigReferenceEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="config-reference-editor">
-      <div className="text-lg font-semibold">{t("Wizard.ConfigReferenceEditor.Title")}</div>
+      <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title")}</div>
       <div className="text-muted-foreground text-sm">
-        {t("Wizard.ConfigReferenceEditor.Description")}
+        {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Description")}
       </div>
 
       {configReferences.length === 0 && (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t("Wizard.ConfigReferenceEditor.NoConfigReferences")}
+          {t("Dialog.InputConfigWizard.ConfigReferenceEditor.NoConfigReferences")}
         </div>
       )}
 
@@ -169,7 +169,7 @@ const ConfigReferenceEditor = ({
 
       <Button variant="outline" className="self-start" onClick={handleAdd}>
         <IconPlus className="h-4 w-4" />
-        {t("Wizard.ConfigReferenceEditor.AddConfigReference")}
+        {t("Dialog.InputConfigWizard.ConfigReferenceEditor.AddConfigReference")}
       </Button>
     </div>
   )

@@ -50,7 +50,7 @@ const ProSimDataRefPanel = ({
       {filteredPresets.length > 0 ? (
         <div className="flex flex-col gap-4">
           <Input
-            placeholder={t("Wizard.InputActions.ProSimDataRef.FilterPresetsPlaceholder")}
+            placeholder={t("Dialog.InputConfigWizard.InputActions.ProSimDataRef.FilterPresetsPlaceholder")}
             value={filter.search}
             onChange={(e) =>
               setFilter((prev) => ({ ...prev, search: e.target.value }))
@@ -85,10 +85,10 @@ const ProSimDataRefPanel = ({
       ) : (
         <div className="flex flex-col gap-2">
           <div className="text-muted-foreground text-sm">
-            {t("Wizard.InputActions.ProSimDataRef.NoPresetsAvailable")}
+            {t("Dialog.InputConfigWizard.InputActions.ProSimDataRef.NoPresetsAvailable")}
           </div>
           <Button variant="outline" onClick={() => refreshPresets()}>
-            {t("Wizard.InputActions.ProSimDataRef.RefreshPresets")}
+            {t("Dialog.InputConfigWizard.InputActions.ProSimDataRef.RefreshPresets")}
           </Button>
         </div>
       )}

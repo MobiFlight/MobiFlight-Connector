@@ -53,7 +53,7 @@ const EventIdInputActionPanel = ({
     <div className="flex flex-col gap-4">
       {variant === "pmdg" && (
         <div className="flex flex-col gap-2">
-          <div className="text-sm font-semibold">{t("Wizard.InputActions.EventId.PmdgAircraftLabel")}</div>
+          <div className="text-sm font-semibold">{t("Dialog.InputConfigWizard.InputActions.EventId.PmdgAircraftLabel")}</div>
           <RadioGroup
             defaultValue="B737"
             className="flex flex-row"
@@ -92,7 +92,7 @@ const EventIdInputActionPanel = ({
         }
       />
       <div className="flex w-100 flex-col gap-2">
-        <Label htmlFor="eventId">{t("Wizard.InputActions.EventId.EventIdLabel")}</Label>
+        <Label htmlFor="eventId">{t("Dialog.InputConfigWizard.InputActions.EventId.EventIdLabel")}</Label>
         <Input
           id="eventId"
           value={config?.EventId ?? ""}
@@ -105,9 +105,9 @@ const EventIdInputActionPanel = ({
       </div>
       {variant === "pmdg" && (
         <div className="flex flex-col gap-2">
-          <Label htmlFor="mouseParam">{t("Wizard.InputActions.EventId.MouseParamLabel")}</Label>
+          <Label htmlFor="mouseParam">{t("Dialog.InputConfigWizard.InputActions.EventId.MouseParamLabel")}</Label>
           <ComboBox
-            placeholder={t("Wizard.InputActions.EventId.SelectMouseParamPlaceholder")}
+            placeholder={t("Dialog.InputConfigWizard.InputActions.EventId.SelectMouseParamPlaceholder")}
             items={mouseParams}
             getLabel={(item) => item.Label}
             getValue={(item) => item.Value}
@@ -125,7 +125,7 @@ const EventIdInputActionPanel = ({
       )}
       {(variant === "default" || isCustomParam) && (
         <div className="flex w-100 flex-col gap-2">
-          <Label htmlFor="param">{t("Wizard.InputActions.EventId.CustomParamLabel")}</Label>
+          <Label htmlFor="param">{t("Dialog.InputConfigWizard.InputActions.EventId.CustomParamLabel")}</Label>
           <Input
             id="param"
             value={config?.Param ?? ""}

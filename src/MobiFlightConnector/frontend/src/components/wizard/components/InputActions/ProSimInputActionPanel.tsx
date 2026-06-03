@@ -18,9 +18,9 @@ const ProSimInputActionPanel = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
-        <div className="text-lg font-semibold">{t("Wizard.InputActions.ProSim.Title")}</div>
+        <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.InputActions.ProSim.Title")}</div>
         <div className="text-muted-foreground text-sm">
-          {t("Wizard.InputActions.ProSim.Description")}
+          {t("Dialog.InputConfigWizard.InputActions.ProSim.Description")}
         </div>
       </div>
       <ProSimDataRefPanel
@@ -35,16 +35,16 @@ const ProSimInputActionPanel = ({
       />
       <Separator />
       <div className="flex flex-col gap-2">
-        <Label htmlFor="path">{t("Wizard.InputActions.ProSim.PathLabel")}</Label>
+        <Label htmlFor="path">{t("Dialog.InputConfigWizard.InputActions.ProSim.PathLabel")}</Label>
         <div id="path" className="rounded border p-2 text-sm">
-          {config?.Path !== "" ? config?.Path : t("Wizard.InputActions.ProSim.NoPresetSelected")}
+          {config?.Path !== "" ? config?.Path : t("Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected")}
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="param">{t("Wizard.InputActions.ProSim.ParameterLabel")}</Label>
+        <Label htmlFor="param">{t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}</Label>
         <Input
           id="param"
-          placeholder={t("Wizard.InputActions.ProSim.ParameterPlaceholder")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterPlaceholder")}
           value={config?.Expression ?? ""}
           onChange={(e) =>
             onConfigChange({

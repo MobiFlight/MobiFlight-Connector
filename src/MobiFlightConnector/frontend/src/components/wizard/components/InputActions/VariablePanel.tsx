@@ -37,7 +37,7 @@ export const VariablePanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <Label>{t("Wizard.InputActions.Variable.VariableTypeLabel")}</Label>
+      <Label>{t("Dialog.InputConfigWizard.InputActions.Variable.VariableTypeLabel")}</Label>
       <ComboBox
         items={variableTypeOptions}
         getLabel={(item) => item.label}
@@ -59,7 +59,7 @@ export const VariablePanel = ({
         }}
         placeholder="Search variables..."
       />
-      <Label>{t("Wizard.InputActions.Variable.VariableNameLabel")}</Label>
+      <Label>{t("Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel")}</Label>
       <ComboBox
         items={availableVariables}
         getLabel={(item) => item.Name}
@@ -76,7 +76,7 @@ export const VariablePanel = ({
       />
       {variable && (
         <div className="flex flex-col gap-2">
-          <div className="text-sm font-medium">{t("Wizard.InputActions.Variable.ExpressionLabel")}</div>
+          <div className="text-sm font-medium">{t("Dialog.InputConfigWizard.InputActions.Variable.ExpressionLabel")}</div>
           <Input
             value={variable.Expression}
             onKeyDown={(e) => {
@@ -89,7 +89,7 @@ export const VariablePanel = ({
                 Expression: e.target.value,
               } as MobiFlightVariable)
             }}
-            placeholder={t("Wizard.InputActions.Variable.ExpressionPlaceholder")}
+            placeholder={t("Dialog.InputConfigWizard.InputActions.Variable.ExpressionPlaceholder")}
           />
           <div className="text-muted-foreground text-sm">
             <Trans i18nKey="Wizard.InputActions.Variable.ExpressionHelp">

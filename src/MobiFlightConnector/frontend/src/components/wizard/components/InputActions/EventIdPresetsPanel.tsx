@@ -65,10 +65,10 @@ const EventIdPresetsPanel = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <Label>{t("Wizard.InputActions.EventIdPresets.SelectPresetLabel")}</Label>
+      <Label>{t("Dialog.InputConfigWizard.InputActions.EventIdPresets.SelectPresetLabel")}</Label>
       <ComboBox
         selected={selectedPreset}
-        placeholder={t("Wizard.InputActions.EventIdPresets.SelectPresetPlaceholder")}
+        placeholder={t("Dialog.InputConfigWizard.InputActions.EventIdPresets.SelectPresetPlaceholder")}
         getLabel={(item) => item.name}
         getValue={(item) => item.eventId}
         items={presets}

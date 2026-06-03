@@ -31,11 +31,11 @@ const XplaneInputActionPanel = ({
         }
       />
       <div className="flex flex-col gap-2">
-        <Label>{t("Wizard.InputActions.Xplane.InputTypeLabel")}</Label>
+        <Label>{t("Dialog.InputConfigWizard.InputActions.Xplane.InputTypeLabel")}</Label>
         <ComboBox
           items={CODE_TYPE_OPTIONS}
           selected={(config?.InputType as "DataRef" | "Command") ?? undefined}
-          placeholder={t("Wizard.InputActions.Xplane.SelectInputTypePlaceholder")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Xplane.SelectInputTypePlaceholder")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === config?.InputType}
@@ -48,7 +48,7 @@ const XplaneInputActionPanel = ({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="code">{t("Wizard.InputActions.Common.CodeLabel")}</Label>
+        <Label htmlFor="code">{t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}</Label>
         <Textarea
           id="code"
           value={config?.Path ?? ""}
@@ -58,10 +58,10 @@ const XplaneInputActionPanel = ({
               Path: e.target.value,
             })
           }
-          placeholder={t("Wizard.InputActions.Xplane.CodePlaceholder")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Xplane.CodePlaceholder")}
         />
         <div className="text-sm text-muted-foreground">
-          {t("Wizard.InputActions.Common.SupportedPlaceholders")}
+          {t("Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders")}
         </div>
       </div>
     </div>
