@@ -12,9 +12,10 @@ const sendSettings = async (
   overrides: Partial<Settings>,
 ) => {
   const payload: Settings = { ...(defaultSettings as Settings), ...overrides }
-  await page.addScriptTag({
-    content: `window.postMessage(${JSON.stringify({ key: "Settings", payload })}, "*")`,
-  })
+  await page.evaluate(
+    (msg) => window.postMessage(msg, "*"),
+    { key: "Settings", payload },
+  )
 }
 
 // Opens the log panel via the View menu. Extracted because every test needs it.
@@ -42,30 +43,13 @@ const sendLogEntry = async (
       Timestamp: new Date().toISOString(),
     },
   }
-  await page.addScriptTag({
-    content: `window.postMessage(${JSON.stringify(msg)}, "*")`,
-  })
+  await page.evaluate((m) => window.postMessage(m, "*"), msg)
 }
 
-test("Log panel toggles via View > Toggle Log Panel", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-
-  // Panel is not rendered at startup — the close button is the most reliable
-  // indicator since it's inside the panel and has a stable aria-label.
-  const closeButton = page.getByRole("button", { name: "Close log panel" })
-  await expect(closeButton).not.toBeVisible()
-
-  await openLogPanel(page)
-  await expect(closeButton).toBeVisible()
-
-  // Clicking View > Log again toggles it back off.
-  await openLogPanel(page)
-  await expect(closeButton).not.toBeVisible()
-})
-
+// Note: toggling the panel on/off via View > Toggle Log Panel is covered by
+// MainMenu.spec.ts ("Confirm View > Toggle Log Panel shows and hides the log
+// panel"). That's a menu-wiring concern; the tests below cover panel-owned
+// behavior (the X button, re-opening, content rendering).
 test("Log panel closes via X button", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await openLogPanel(page)
@@ -141,7 +125,7 @@ test("Severity colours are applied to log entries", async ({
   // The severity label span carries the colour class. Severity text is
   // lowercased in handleMessage() and displayed uppercase via Tailwind.
   // toHaveClass checks that the class is present among others on the element.
-  const logContent = page.locator(".font-mono")
+  const logContent = page.getByTestId("log-panel-content")
 
   await expect(
     logContent.locator("span.uppercase").filter({ hasText: "error" }),
@@ -183,9 +167,10 @@ test("Log panel height changes when title bar is dragged upward", async ({
   await configListPage.gotoPage()
   await openLogPanel(page)
 
-  // The scrollable content div has an inline style={{ height }} driven by useState(128).
-  // We measure it before and after the drag.
-  const logContent = page.locator(".overflow-y-auto.font-mono")
+  // The scrollable content div has an inline style={{ height }} driven by DEFAULT_HEIGHT.
+  // We measure it before and after the drag (relative assertion, so the exact
+  // default doesn't matter as long as there's headroom below MAX_HEIGHT).
+  const logContent = page.getByTestId("log-panel-content")
   const before = await logContent.boundingBox()
   expect(before).not.toBeNull()
 
@@ -194,7 +179,7 @@ test("Log panel height changes when title bar is dragged upward", async ({
   // upward (decreasing Y) increases the panel height.
   // steps: 10 emits intermediate mousemove events, which is required since
   // the resize logic listens to document mousemove — not a Playwright drag target.
-  const titleBar = page.locator(".cursor-row-resize")
+  const titleBar = page.getByTestId("log-panel-titlebar")
   const titleBox = await titleBar.boundingBox()
   expect(titleBox).not.toBeNull()
 
