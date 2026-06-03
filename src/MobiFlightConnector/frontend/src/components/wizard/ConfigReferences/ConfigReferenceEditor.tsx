@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { configReferenceVariants } from "@/components/wizard/variants"
 import { ConfigReference, IConfigItem } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
+import { useTranslation } from "react-i18next"
 
 export interface ConfigReferenceEditorProps {
   outputConfigs: IConfigItem[]
@@ -46,6 +47,7 @@ const ConfigReferenceItemRow = ({
   onChange,
   onDelete,
 }: ConfigReferenceItemRowProps) => {
+  const { t } = useTranslation()
   const selectedConfig = outputConfigs.find(
     (c) => c.GUID === configReference.Ref,
   )
@@ -63,7 +65,7 @@ const ConfigReferenceItemRow = ({
             onChange({ ...configReference, Active: !!checked })
           }
         />
-        <Label className="text-sm">Active</Label>
+        <Label className="text-sm">{t("Wizard.ConfigReferenceEditor.Active")}</Label>
       </div>
 
       <ComboBox
@@ -75,7 +77,7 @@ const ConfigReferenceItemRow = ({
         setSelected={(c) =>
           onChange({ ...configReference, Ref: c?.GUID ?? "" })
         }
-        placeholder="Select config..."
+        placeholder={t("Wizard.ConfigReferenceEditor.SelectConfig")}
         widthClass="flex-1"
       />
 
@@ -103,7 +105,7 @@ const ConfigReferenceItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
-        <div className="sr-only">Delete config reference</div>
+        <div className="sr-only">{t("Wizard.ConfigReferenceEditor.DeleteConfigReference")}</div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -122,6 +124,7 @@ const ConfigReferenceEditor = ({
   configReferences,
   onConfigReferencesChange,
 }: ConfigReferenceEditorProps) => {
+  const { t } = useTranslation()
   const handleChange = (index: number, updated: ConfigReference) => {
     onConfigReferencesChange(
       configReferences.map((c, i) => (i === index ? updated : c)),
@@ -143,15 +146,14 @@ const ConfigReferenceEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="config-reference-editor">
-      <div className="text-lg font-semibold">Config References</div>
+      <div className="text-lg font-semibold">{t("Wizard.ConfigReferenceEditor.Title")}</div>
       <div className="text-muted-foreground text-sm">
-        The preconditions define conditions that must be met before the action
-        can be executed.
+        {t("Wizard.ConfigReferenceEditor.Description")}
       </div>
 
       {configReferences.length === 0 && (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          No config references defined.
+          {t("Wizard.ConfigReferenceEditor.NoConfigReferences")}
         </div>
       )}
 
@@ -167,7 +169,7 @@ const ConfigReferenceEditor = ({
 
       <Button variant="outline" className="self-start" onClick={handleAdd}>
         <IconPlus className="h-4 w-4" />
-        Add Config Reference
+        {t("Wizard.ConfigReferenceEditor.AddConfigReference")}
       </Button>
     </div>
   )

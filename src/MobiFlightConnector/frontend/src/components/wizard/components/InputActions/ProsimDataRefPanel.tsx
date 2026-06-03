@@ -7,6 +7,7 @@ import {
   useProSimDataRefStore,
 } from "@/stores/prosimDataRefStore"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export type ProSimDataRefPanelProps = {
   variant: "input" | "output"
@@ -19,6 +20,7 @@ const ProSimDataRefPanel = ({
   selectedPath,
   onPresetChange,
 }: ProSimDataRefPanelProps) => {
+  const { t } = useTranslation()
   const { dataRefs } = useProSimDataRefStore()
   const { publish } = publishOnMessageExchange()
   const selectedPreset = selectedPath ? dataRefs[selectedPath] : null
@@ -48,7 +50,7 @@ const ProSimDataRefPanel = ({
       {filteredPresets.length > 0 ? (
         <div className="flex flex-col gap-4">
           <Input
-            placeholder="Filter presets"
+            placeholder={t("Wizard.InputActions.ProSimDataRef.FilterPresetsPlaceholder")}
             value={filter.search}
             onChange={(e) =>
               setFilter((prev) => ({ ...prev, search: e.target.value }))
@@ -83,10 +85,10 @@ const ProSimDataRefPanel = ({
       ) : (
         <div className="flex flex-col gap-2">
           <div className="text-muted-foreground text-sm">
-            No presets available
+            {t("Wizard.InputActions.ProSimDataRef.NoPresetsAvailable")}
           </div>
           <Button variant="outline" onClick={() => refreshPresets()}>
-            Refresh Presets
+            {t("Wizard.InputActions.ProSimDataRef.RefreshPresets")}
           </Button>
         </div>
       )}

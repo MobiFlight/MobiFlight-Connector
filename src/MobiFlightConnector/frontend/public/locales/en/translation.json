@@ -344,6 +344,7 @@
     "General": {
       "Cancel": "Cancel",
       "Close": "Close",
+      "Save": "Save",
       "SaveChanges": "Save changes",
       "ApplyChanges": "Apply changes"
     },
@@ -398,6 +399,198 @@
     },
     "Action": {
       "Upgrade": "Upgrade"
+    }
+  },
+  "Wizard": {
+    "GoBack": "Go back",
+    "DrawerTitle": "Preconditions",
+    "ConfigTrigger": {
+      "Title": "Trigger",
+      "Description": "The trigger defines the conditions or events that will activate this configuration.",
+      "ScanForInput": "Scan for input",
+      "UseAnyInput": "Use any input",
+      "ClearInput": "Clear input",
+      "SelectController": "Select controller...",
+      "SearchController": "Search controller...",
+      "NoControllerFound": "No controller found.",
+      "SelectDevice": "Select device...",
+      "SearchDevice": "Search device...",
+      "NoDeviceFound": "No device found."
+    },
+    "ActionType": {
+      "Title": "Action Type",
+      "Description": "Select the type of action you want to perform",
+      "Options": {
+        "MSFS2020CustomInputAction": "Microsoft Flight Simulator (all versions)",
+        "XplaneInputAction": "X-Plane (all versions)",
+        "ProSimInputAction": "ProSim",
+        "VariableInputAction": "MobiFlight - Variable",
+        "RetriggerInputAction": "MobiFlight - Retrigger switches",
+        "KeyInputAction": "MobiFlight - Keyboard Input",
+        "VJoyInputAction": "MobiFlight - Virtual Joystick input (vJoy)",
+        "FsuipcOffsetInputAction": "FSUIPC - Offset",
+        "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
+        "LuaMacroInputAction": "FSUIPC - Lua Macro",
+        "JeehellInputAction": "FSUIPC - Jeehell - Events",
+        "EventIdInputAction": "FSUIPC - EventID"
+      }
+    },
+    "Button": {
+      "Tabs": {
+        "onPress": "On Press",
+        "onRelease": "On Release",
+        "onHold": "On Hold",
+        "onLongRelease": "On Long Release"
+      }
+    },
+    "Encoder": {
+      "Tabs": {
+        "onLeft": "On Left",
+        "onRight": "On Right",
+        "onLeftFast": "On Left Fast",
+        "onRightFast": "On Right Fast"
+      }
+    },
+    "Analog": {
+      "Tabs": {
+        "onChange": "On Change"
+      }
+    },
+    "Preconditions": {
+      "Title": "Preconditions (optional)",
+      "Description": "The preconditions define conditions that must be met before the action can be executed.",
+      "EditButton": "Preconditions",
+      "AddButton": "Preconditions"
+    },
+    "ConfigReferences": {
+      "Title": "Config References (optional)",
+      "Description": "The config references define the output configs whose values can be used in the action.",
+      "EditButton": "Config References",
+      "AddButton": "Config References"
+    },
+    "PreconditionEditor": {
+      "Title": "Preconditions",
+      "Description": "The preconditions define conditions that must be met before the action can be executed.",
+      "NoPreconditions": "No preconditions defined.",
+      "AddPrecondition": "Add Precondition",
+      "Active": "Active",
+      "TypePlaceholder": "Type",
+      "SelectConfig": "Select config...",
+      "SelectVariable": "Select variable...",
+      "ValuePlaceholder": "Value",
+      "DeletePrecondition": "Delete precondition"
+    },
+    "ConfigReferenceEditor": {
+      "Title": "Config References",
+      "Description": "The config references define the output configs whose values can be used in the action.",
+      "NoConfigReferences": "No config references defined.",
+      "AddConfigReference": "Add Config Reference",
+      "Active": "Active",
+      "SelectConfig": "Select config...",
+      "PlaceholderLabel": "Placeholder",
+      "TestValueLabel": "Test Value",
+      "DeleteConfigReference": "Delete config reference"
+    },
+    "InputActions": {
+      "Common": {
+        "CodeLabel": "Code:",
+        "NoDescriptionAvailable": "No description available",
+        "DescriptionLabel": "Description:",
+        "FilterPresets": "Filter presets",
+        "FilterByVendor": "Filter by vendor",
+        "SearchVendors": "Search vendors...",
+        "FilterByAircraft": "Filter by aircraft",
+        "SearchAircraft": "Search aircraft...",
+        "FilterBySystem": "Filter by system",
+        "SearchSystems": "Search systems...",
+        "SelectPreset": "Select preset",
+        "SearchPresets": "Search presets...",
+        "PresetsFound": "{{count}} preset(s) found",
+        "SupportedPlaceholders": "Supports input value (@) and placeholders ($, #, etc.)"
+      },
+      "Msfs": {
+        "NoneCode": "None"
+      },
+      "Xplane": {
+        "InputTypeLabel": "Input Type:",
+        "SelectInputTypePlaceholder": "Select input type",
+        "CodePlaceholder": "Enter path for DataRef or Command, or select a preset above"
+      },
+      "ProSim": {
+        "Title": "ProSim Input Action",
+        "Description": "Select a preset to configure your input actions.",
+        "PathLabel": "Path:",
+        "NoPresetSelected": "No preset selected",
+        "ParameterLabel": "Parameter (optional):",
+        "ParameterPlaceholder": "Set parameter (optional)"
+      },
+      "VJoy": {
+        "SelectDeviceLabel": "Select vJoy device",
+        "SelectDevicePlaceholder": "Select vJoy device...",
+        "ButtonTab": "Button",
+        "AxisTab": "Axis",
+        "ButtonNumberLabel": "Button number",
+        "SelectButtonPlaceholder": "Select button...",
+        "ButtonStateLabel": "Button state",
+        "Pressed": "Pressed",
+        "Released": "Released",
+        "SelectAxisPlaceholder": "Select axis...",
+        "AxisValueLabel": "Axis value"
+      },
+      "Keyboard": {
+        "StopScanning": "Stop scanning",
+        "ScanForKeyboard": "Scan for keyboard",
+        "KeyComboLabel": "Key combo:",
+        "None": "None",
+        "ClearInput": "Clear input"
+      },
+      "FsuipcOffset": {
+        "SizeLabel": "Size",
+        "OffsetLabel": "Offset",
+        "MaskLabel": "Mask",
+        "BcdModeLabel": "BCD Mode"
+      },
+      "LuaMacro": {
+        "Title": "Lua Macro Input Action",
+        "Description": "Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.",
+        "MacroNameLabel": "Macro Name:",
+        "MacroNamePlaceholder": "Set macro name",
+        "MacroValueLabel": "Macro Value:",
+        "MacroValuePlaceholder": "Set macro value"
+      },
+      "Jeehell": {
+        "FunctionLabel": "Jeehell Function",
+        "SelectFunctionPlaceholder": "Select Jeehell function...",
+        "ValueLabel": "Value"
+      },
+      "EventId": {
+        "PmdgAircraftLabel": "PMDG Aircraft",
+        "MouseParamLabel": "Mouse Param",
+        "SelectMouseParamPlaceholder": "Select mouse param",
+        "EventIdLabel": "Event ID",
+        "CustomParamLabel": "Custom Param"
+      },
+      "Retrigger": {
+        "Title": "Retrigger",
+        "Description1": "Use this input action to re-trigger all button states.",
+        "Description2": "This is helpful to sync your virtual cockpit to the switch and button states of your physical controllers."
+      },
+      "Variable": {
+        "VariableTypeLabel": "Variable Type",
+        "VariableNameLabel": "Variable name",
+        "ExpressionLabel": "Expression",
+        "ExpressionPlaceholder": "Enter expression...",
+        "ExpressionHelp": "Use <1>$</1> to represent the variable value in expressions, e.g. <3>$ * 2</3> to double a number variable."
+      },
+      "ProSimDataRef": {
+        "FilterPresetsPlaceholder": "Filter presets",
+        "NoPresetsAvailable": "No presets available",
+        "RefreshPresets": "Refresh Presets"
+      },
+      "EventIdPresets": {
+        "SelectPresetLabel": "Select Preset",
+        "SelectPresetPlaceholder": "Select preset..."
+      }
     }
   }
 }

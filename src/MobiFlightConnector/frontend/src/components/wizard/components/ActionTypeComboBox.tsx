@@ -1,4 +1,5 @@
 import ComboBox from "@/components/ComboBox"
+import { useTranslation } from "react-i18next"
 
 export type ActionTypeOption = {
   value: string
@@ -6,24 +7,18 @@ export type ActionTypeOption = {
 }
 
 export const ActionTypeOptions: ActionTypeOption[] = [
-  {
-    value: "MSFS2020CustomInputAction",
-    label: "Microsoft Flight Simulator (all versions)",
-  },
-  { value: "XplaneInputAction", label: "X-Plane (all versions)" },
-  { value: "ProSimInputAction", label: "ProSim" },
-  { value: "VariableInputAction", label: "MobiFlight - Variable" },
-  { value: "RetriggerInputAction", label: "MobiFlight - Retrigger switches" },
-  { value: "KeyInputAction", label: "MobiFlight - Keyboard Input" },
-  {
-    value: "VJoyInputAction",
-    label: "MobiFlight - Virtual Joystick input (vJoy)",
-  },
-  { value: "FsuipcOffsetInputAction", label: "FSUIPC - Offset" },
-  { value: "PmdgEventIdInputAction", label: "FSUIPC - PMDG - Event ID" },
-  { value: "LuaMacroInputAction", label: "FSUIPC - Lua Macro" },
-  { value: "JeehellInputAction", label: "FSUIPC - Jeehell - Events" },
-  { value: "EventIdInputAction", label: "FSUIPC - EventID" },
+  { value: "MSFS2020CustomInputAction", label: "MSFS2020CustomInputAction" },
+  { value: "XplaneInputAction", label: "XplaneInputAction" },
+  { value: "ProSimInputAction", label: "ProSimInputAction" },
+  { value: "VariableInputAction", label: "VariableInputAction" },
+  { value: "RetriggerInputAction", label: "RetriggerInputAction" },
+  { value: "KeyInputAction", label: "KeyInputAction" },
+  { value: "VJoyInputAction", label: "VJoyInputAction" },
+  { value: "FsuipcOffsetInputAction", label: "FsuipcOffsetInputAction" },
+  { value: "PmdgEventIdInputAction", label: "PmdgEventIdInputAction" },
+  { value: "LuaMacroInputAction", label: "LuaMacroInputAction" },
+  { value: "JeehellInputAction", label: "JeehellInputAction" },
+  { value: "EventIdInputAction", label: "EventIdInputAction" },
 ]
 
 export type ActionTypeProps = {
@@ -35,19 +30,20 @@ const ActionTypeComboBox = ({
   selectedActionType,
   setSelectedActionType,
 }: ActionTypeProps) => {
+  const { t } = useTranslation()
   console.log("Selected Action Type:", selectedActionType)
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">
-        <div className="text-lg font-semibold">Action Type</div>
+        <div className="text-lg font-semibold">{t("Wizard.ActionType.Title")}</div>
         <div className="text-muted-foreground text-sm">
-          Select the type of action you want to perform
+          {t("Wizard.ActionType.Description")}
         </div>
       </div>
       <ComboBox
         selected={selectedActionType}
         items={ActionTypeOptions}
-        getLabel={(item) => item.label}
+        getLabel={(item) => t(`Wizard.ActionType.Options.${item.value}`, item.value)}
         getValue={(item) => item.value}
         isSelected={(item) => item.value === selectedActionType?.value}
         setSelected={(item) => {

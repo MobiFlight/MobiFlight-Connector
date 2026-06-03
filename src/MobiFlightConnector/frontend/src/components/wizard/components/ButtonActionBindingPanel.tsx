@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import { ButtonTrigger } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 export type ButtonActionBindingPanelProps = {
   trigger?: ButtonTrigger
@@ -11,6 +12,7 @@ const ButtonActionBindingPanel = ({
   trigger,
   onTriggerChange,
 }: ButtonActionBindingPanelProps) => {
+  const { t } = useTranslation()
   const tabs = ["onPress", "onRelease", "onHold", "onLongRelease"]
   const defaultButtonTrigger: ButtonTrigger = {
     onPress: undefined,
@@ -30,7 +32,7 @@ const ButtonActionBindingPanel = ({
       <TabsList>
         {tabs.map((tab) => (
           <TabsTrigger key={tab} value={tab}>
-            {tab}
+            {t(`Wizard.Button.Tabs.${tab}`, tab)}
           </TabsTrigger>
         ))}
       </TabsList>

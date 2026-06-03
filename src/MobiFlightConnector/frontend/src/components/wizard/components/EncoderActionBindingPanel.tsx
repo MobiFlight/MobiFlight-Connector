@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import { EncoderTrigger } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 export type EncoderActionBindingPanelProps = {
   trigger?: EncoderTrigger
@@ -11,6 +12,7 @@ const EncoderActionBindingPanel = ({
   trigger,
   onTriggerChange,
 }: EncoderActionBindingPanelProps) => {
+  const { t } = useTranslation()
   const tabs = ["onLeft", "onRight", "onLeftFast", "onRightFast"]
   const defaultEncoderTrigger: EncoderTrigger = {
     onLeft: undefined,
@@ -26,7 +28,7 @@ const EncoderActionBindingPanel = ({
       <TabsList>
         {tabs.map((trigger) => (
           <TabsTrigger key={trigger} value={trigger}>
-            {trigger}
+            {t(`Wizard.Encoder.Tabs.${trigger}`, trigger)}
           </TabsTrigger>
         ))}
       </TabsList>

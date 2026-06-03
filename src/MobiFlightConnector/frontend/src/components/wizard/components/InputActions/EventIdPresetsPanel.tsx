@@ -1,6 +1,7 @@
 import ComboBox from "@/components/ComboBox"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 
 export type EventIdPresetsPanelProps = {
   variant: "default" | "pmdg"
@@ -38,6 +39,7 @@ const EventIdPresetsPanel = ({
   selectedPresetId,
   setSelectedPreset,
 }: EventIdPresetsPanelProps) => {
+  const { t } = useTranslation()
   const presetUrl =
     variant === "default"
       ? presetUrls.default
@@ -63,10 +65,10 @@ const EventIdPresetsPanel = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <Label>Select Preset</Label>
+      <Label>{t("Wizard.InputActions.EventIdPresets.SelectPresetLabel")}</Label>
       <ComboBox
         selected={selectedPreset}
-        placeholder="Select preset..."
+        placeholder={t("Wizard.InputActions.EventIdPresets.SelectPresetPlaceholder")}
         getLabel={(item) => item.name}
         getValue={(item) => item.eventId}
         items={presets}

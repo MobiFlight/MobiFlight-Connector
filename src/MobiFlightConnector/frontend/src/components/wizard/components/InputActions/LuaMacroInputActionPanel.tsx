@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { LuaMacroInputAction } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 export type LuaMacroInputActionPanelProps = {
   config: LuaMacroInputAction | null
@@ -11,21 +12,22 @@ const LuaMacroInputActionPanel = ({
   config,
   onConfigChange,
 }: LuaMacroInputActionPanelProps) => {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
         <div className="text-lg font-semibold">
-          Lua Macro Input Action
+          {t("Wizard.InputActions.LuaMacro.Title")}
         </div>
         <div className="text-muted-foreground text-sm">
-          Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.
+          {t("Wizard.InputActions.LuaMacro.Description")}
         </div>
       </div>
       <div className="flex flex-col gap-2">
-      <Label htmlFor="macroName">Macro Name:</Label>
+      <Label htmlFor="macroName">{t("Wizard.InputActions.LuaMacro.MacroNameLabel")}</Label>
       <Input
         id="macroName"
-        placeholder="Set macro name"
+        placeholder={t("Wizard.InputActions.LuaMacro.MacroNamePlaceholder")}
         value={config?.MacroName ?? ""}
         onChange={(e) =>
           onConfigChange({
@@ -36,10 +38,10 @@ const LuaMacroInputActionPanel = ({
       />
       </div>
       <div className="flex flex-col gap-2">
-      <Label htmlFor="macroValue">Macro Value:</Label>
+      <Label htmlFor="macroValue">{t("Wizard.InputActions.LuaMacro.MacroValueLabel")}</Label>
       <Input
         id="macroValue"
-        placeholder="Set macro value"
+        placeholder={t("Wizard.InputActions.LuaMacro.MacroValuePlaceholder")}
         value={config?.MacroValue ?? ""}
         onChange={(e) =>
           onConfigChange({

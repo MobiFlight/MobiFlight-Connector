@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import { AnalogTrigger } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 export type AnalogActionBindingPanelProps = {
   trigger?: AnalogTrigger
@@ -11,6 +12,7 @@ const AnalogActionBindingPanel = ({
   trigger,
   onTriggerChange,
 }: AnalogActionBindingPanelProps) => {
+  const { t } = useTranslation()
 
   const defaultAnalogTrigger: AnalogTrigger = {
     onChange: undefined,
@@ -21,7 +23,7 @@ const AnalogActionBindingPanel = ({
   return (
     <Tabs data-testid="analog-action-panel" defaultValue={"onChange"}>
       <TabsList>
-        <TabsTrigger value={"onChange"}>{"onChange"}</TabsTrigger>
+        <TabsTrigger value={"onChange"}>{t("Wizard.Analog.Tabs.onChange")}</TabsTrigger>
       </TabsList>
       <TabsContent value={"onChange"}>
         <ActionEditor

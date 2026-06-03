@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { XplaneInputAction } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 const CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = ["DataRef", "Command"]
 
@@ -15,6 +16,7 @@ const XplaneInputActionPanel = ({
   config,
   onConfigChange,
 }: XplaneInputActionPanelProps) => {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col gap-4">
       <XplanePresetPanel
@@ -29,11 +31,11 @@ const XplaneInputActionPanel = ({
         }
       />
       <div className="flex flex-col gap-2">
-        <Label>Input Type:</Label>
+        <Label>{t("Wizard.InputActions.Xplane.InputTypeLabel")}</Label>
         <ComboBox
           items={CODE_TYPE_OPTIONS}
           selected={(config?.InputType as "DataRef" | "Command") ?? undefined}
-          placeholder="Select input type"
+          placeholder={t("Wizard.InputActions.Xplane.SelectInputTypePlaceholder")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === config?.InputType}
@@ -46,7 +48,7 @@ const XplaneInputActionPanel = ({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="code">Code:</Label>
+        <Label htmlFor="code">{t("Wizard.InputActions.Common.CodeLabel")}</Label>
         <Textarea
           id="code"
           value={config?.Path ?? ""}
@@ -56,10 +58,10 @@ const XplaneInputActionPanel = ({
               Path: e.target.value,
             })
           }
-          placeholder="Enter path for DataRef or Command, or select a preset above"
+          placeholder={t("Wizard.InputActions.Xplane.CodePlaceholder")}
         />
         <div className="text-sm text-muted-foreground">
-          Supports input value (@) and placeholders ($, #, etc.)
+          {t("Wizard.InputActions.Common.SupportedPlaceholders")}
         </div>
       </div>
     </div>

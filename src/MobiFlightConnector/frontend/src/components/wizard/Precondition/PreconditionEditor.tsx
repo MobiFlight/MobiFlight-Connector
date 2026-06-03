@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { preconditionVariants } from "@/components/wizard/variants"
 import { IConfigItem, MobiFlightVariable, Precondition } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
+import { useTranslation } from "react-i18next"
 
 export interface PreconditionEditorProps {
   variables: MobiFlightVariable[]
@@ -45,6 +46,7 @@ const PreconditionItemRow = ({
   onDelete,
   showLogic,
 }: PreconditionItemRowProps) => {
+  const { t } = useTranslation()
   const selectedConfig =
     precondition.Type === "config"
       ? outputConfigs.find((c) => c.GUID === precondition.Ref)
@@ -69,7 +71,7 @@ const PreconditionItemRow = ({
             onChange({ ...precondition, Active: !!checked })
           }
         />
-        <Label className="text-sm">Active</Label>
+        <Label className="text-sm">{t("Wizard.PreconditionEditor.Active")}</Label>
       </div>
 
       <ComboBox
@@ -81,7 +83,7 @@ const PreconditionItemRow = ({
         setSelected={(t) =>
           onChange({ ...precondition, Type: t?.value as "config" | "variable" | "pin" ?? "config", Ref: "" })
         }
-        placeholder="Type"
+        placeholder={t("Wizard.PreconditionEditor.TypePlaceholder")}
         widthClass="w-32"
         variant="nofilter"
       />
@@ -94,7 +96,7 @@ const PreconditionItemRow = ({
           getLabel={(c) => c.Name}
           isSelected={(c, s) => c.GUID === s?.GUID}
           setSelected={(c) => onChange({ ...precondition, Ref: c?.GUID ?? "" })}
-          placeholder="Select config..."
+          placeholder={t("Wizard.PreconditionEditor.SelectConfig")}
           widthClass="w-48"
         />
       )}
@@ -107,7 +109,7 @@ const PreconditionItemRow = ({
           getLabel={(v) => v.Name}
           isSelected={(v, s) => v.Name === s?.Name}
           setSelected={(v) => onChange({ ...precondition, Ref: v?.Name ?? "" })}
-          placeholder="Select variable..."
+          placeholder={t("Wizard.PreconditionEditor.SelectVariable")}
           widthClass="w-48"
         />
       )}
@@ -125,8 +127,7 @@ const PreconditionItemRow = ({
       <Input
         value={precondition.Value}
         onChange={(e) => onChange({ ...precondition, Value: e.target.value })}
-        placeholder="Value"
-        className="w-16"
+        placeholder={t("Wizard.PreconditionEditor.ValuePlaceholder")}
       />
       {showLogic && (
         <div className="flex flex-row items-center gap-2">
@@ -150,7 +151,7 @@ const PreconditionItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
-        <div className="sr-only">Delete precondition</div>
+        <div className="sr-only">{t("Wizard.PreconditionEditor.DeletePrecondition")}</div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -173,6 +174,7 @@ const PreconditionEditor = ({
   preconditions,
   onPreconditionsChange,
 }: PreconditionEditorProps) => {
+  const { t } = useTranslation()
   const handleChange = (index: number, updated: Precondition) => {
     onPreconditionsChange(
       preconditions.map((p, i) => (i === index ? updated : p)),
@@ -189,15 +191,14 @@ const PreconditionEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="precondition-editor">
-      <div className="text-lg font-semibold">Preconditions</div>
+      <div className="text-lg font-semibold">{t("Wizard.PreconditionEditor.Title")}</div>
       <div className="text-muted-foreground text-sm">
-        The preconditions define conditions that must be met before the action
-        can be executed.
+        {t("Wizard.PreconditionEditor.Description")}
       </div>
 
       {preconditions.length === 0 && (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          No preconditions defined.
+          {t("Wizard.PreconditionEditor.NoPreconditions")}
         </div>
       )}
 
@@ -215,7 +216,7 @@ const PreconditionEditor = ({
 
       <Button variant="outline" className="self-start" onClick={handleAdd}>
         <IconPlus className="h-4 w-4" />
-        Add Precondition
+        {t("Wizard.PreconditionEditor.AddPrecondition")}
       </Button>
     </div>
   )

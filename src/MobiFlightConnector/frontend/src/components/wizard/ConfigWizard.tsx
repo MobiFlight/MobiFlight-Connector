@@ -16,6 +16,7 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer"
 import { IconArrowBack } from "@tabler/icons-react"
+import { useTranslation } from "react-i18next"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
@@ -45,7 +46,7 @@ const ConfigWizard = ({
   onConfigChange,
   drawerContainer,
 }: ConfigWizardProps) => {
-  
+  const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
@@ -147,11 +148,11 @@ const ConfigWizard = ({
         >
           <DrawerContent className="data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200">
             <DrawerHeader>
-              <DrawerTitle className="sr-only">Preconditions</DrawerTitle>
+              <DrawerTitle className="sr-only">{t("Wizard.DrawerTitle")}</DrawerTitle>
               <DrawerClose className="flex flex-row">
                 <Button variant="link">
                   <IconArrowBack />
-                  Go back
+                  {t("Wizard.GoBack")}
                 </Button>
               </DrawerClose>
             </DrawerHeader>

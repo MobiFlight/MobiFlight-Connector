@@ -6,6 +6,7 @@ import { useProjectStore } from "@/stores/projectStore"
 import { useVariableStore } from "@/stores/variableStore"
 import { IConfigItem, Precondition } from "@/types/config"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
+import { useTranslation } from "react-i18next"
 
 export type PreconditionsPanelProps = {
   preconditions: Precondition[] // Replace with actual type of preconditions
@@ -20,6 +21,7 @@ const PreconditionsPanel = ({
   variant,
   openDetailsPanel,
 }: PreconditionsPanelProps) => {
+  const { t } = useTranslation()
   const { project, activeConfigFileIndex } = useProjectStore()
   const { variables } = useVariableStore()
   const maxDisplayCount = 2
@@ -31,7 +33,7 @@ const PreconditionsPanel = ({
   return variant === "summary" ? (
     <Card data-testid="preconditions-panel" className="w-full">
       <CardContent className="flex flex-col gap-2 pt-4">
-        <div className="text-lg font-semibold">Preconditions (optional)</div>
+        <div className="text-lg font-semibold">{t("Wizard.Preconditions.Title")}</div>
         {preconditions.length > 0 ? (
           <div className="flex flex-col gap-2">
             <PreconditionSummary 
@@ -41,18 +43,17 @@ const PreconditionsPanel = ({
             />
             <Button variant="outline" onClick={openDetailsPanel}>
               <IconEdit className="" />
-              Preconditions
+              {t("Wizard.Preconditions.EditButton")}
             </Button>
           </div>
         ) : (
           <div className="flex flex-col gap-2">
             <div className="text-muted-foreground text-sm">
-              The preconditions define conditions that must be met before the
-              action can be executed.
+              {t("Wizard.Preconditions.Description")}
             </div>
             <Button variant="outline" onClick={openDetailsPanel}>
               <IconPlus className="" />
-              Preconditions
+              {t("Wizard.Preconditions.AddButton")}
             </Button>
           </div>
         )}

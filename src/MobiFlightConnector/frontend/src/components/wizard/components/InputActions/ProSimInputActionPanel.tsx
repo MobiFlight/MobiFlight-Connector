@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import ProSimDataRefPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
 import { ProSimInputAction } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 export type ProSimInputActionPanelProps = {
   config: ProSimInputAction | null
@@ -13,12 +14,13 @@ const ProSimInputActionPanel = ({
   config,
   onConfigChange,
 }: ProSimInputActionPanelProps) => {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
-        <div className="text-lg font-semibold">ProSim Input Action</div>
+        <div className="text-lg font-semibold">{t("Wizard.InputActions.ProSim.Title")}</div>
         <div className="text-muted-foreground text-sm">
-          Select a preset to configure your input actions ass
+          {t("Wizard.InputActions.ProSim.Description")}
         </div>
       </div>
       <ProSimDataRefPanel
@@ -33,16 +35,16 @@ const ProSimInputActionPanel = ({
       />
       <Separator />
       <div className="flex flex-col gap-2">
-        <Label htmlFor="path">Path:</Label>
+        <Label htmlFor="path">{t("Wizard.InputActions.ProSim.PathLabel")}</Label>
         <div id="path" className="rounded border p-2 text-sm">
-          {config?.Path !== "" ? config?.Path : "No preset selected"}
+          {config?.Path !== "" ? config?.Path : t("Wizard.InputActions.ProSim.NoPresetSelected")}
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="param">Parameter (optional):</Label>
+        <Label htmlFor="param">{t("Wizard.InputActions.ProSim.ParameterLabel")}</Label>
         <Input
           id="param"
-          placeholder="Set parameter (optional)"
+          placeholder={t("Wizard.InputActions.ProSim.ParameterPlaceholder")}
           value={config?.Expression ?? ""}
           onChange={(e) =>
             onConfigChange({

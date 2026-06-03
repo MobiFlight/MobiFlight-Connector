@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { useVariableStore } from "@/stores/variableStore"
 import { MobiFlightVariable } from "@/types/config"
 import { Label } from "@/components/ui/label"
+import { Trans, useTranslation } from "react-i18next"
 export type VariablePanelProps = {
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
@@ -12,6 +13,7 @@ export const VariablePanel = ({
   currentVariable,
   onVariableChange,
 }: VariablePanelProps) => {
+  const { t } = useTranslation()
   const variableTypeOptions = [
     { value: "number", label: "Number" },
     { value: "string", label: "String" },
@@ -35,7 +37,7 @@ export const VariablePanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <Label>Variable Type</Label>
+      <Label>{t("Wizard.InputActions.Variable.VariableTypeLabel")}</Label>
       <ComboBox
         items={variableTypeOptions}
         getLabel={(item) => item.label}
@@ -57,7 +59,7 @@ export const VariablePanel = ({
         }}
         placeholder="Search variables..."
       />
-      <Label>Variable name</Label>
+      <Label>{t("Wizard.InputActions.Variable.VariableNameLabel")}</Label>
       <ComboBox
         items={availableVariables}
         getLabel={(item) => item.Name}
@@ -74,7 +76,7 @@ export const VariablePanel = ({
       />
       {variable && (
         <div className="flex flex-col gap-2">
-          <div className="text-sm font-medium">Expression</div>
+          <div className="text-sm font-medium">{t("Wizard.InputActions.Variable.ExpressionLabel")}</div>
           <Input
             value={variable.Expression}
             onKeyDown={(e) => {
@@ -87,11 +89,13 @@ export const VariablePanel = ({
                 Expression: e.target.value,
               } as MobiFlightVariable)
             }}
-            placeholder="Enter expression..."
+            placeholder={t("Wizard.InputActions.Variable.ExpressionPlaceholder")}
           />
           <div className="text-muted-foreground text-sm">
-            Use <code>$</code> to represent the variable value in expressions,
-            e.g. <code>$ * 2</code> to double a number variable.
+            <Trans i18nKey="Wizard.InputActions.Variable.ExpressionHelp">
+              Use <code>$</code> to represent the variable value in expressions,
+              e.g. <code>$ * 2</code> to double a number variable.
+            </Trans>
           </div>
         </div>
       )}

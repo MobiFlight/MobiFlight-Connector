@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import ComboBox from "@/components/ComboBox"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export type FsuipcOffsetInputActionPanelProps = {
   config: FsuipcOffsetInputAction | null
@@ -44,6 +45,7 @@ const FsuipcOffsetInputActionPanel = ({
   config,
   onConfigChange,
 }: FsuipcOffsetInputActionPanelProps) => {
+  const { t } = useTranslation()
   const currentConfig = config ?? defaultConfig
   const selectedSizeOption = FsuipcSizeOptions.find(
     (option) => option.value === currentConfig.FSUIPC.Size,
@@ -60,7 +62,7 @@ const FsuipcOffsetInputActionPanel = ({
       <div className="flex flex-row gap-4">
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="size">
-            Size
+            {t("Wizard.InputActions.FsuipcOffset.SizeLabel")}
           </Label>
           <ComboBox
             items={FsuipcSizeOptions}
@@ -83,7 +85,7 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="offset">
-            Offset
+            {t("Wizard.InputActions.FsuipcOffset.OffsetLabel")}
           </Label>
           <Input
             onKeyDown={filterHexInput}
@@ -105,7 +107,7 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="mask">
-            Mask
+            {t("Wizard.InputActions.FsuipcOffset.MaskLabel")}
           </Label>
           <Input
             autoComplete="off"
@@ -132,7 +134,7 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-row items-center gap-1 pt-6">
           <Label className="text-sm font-medium" htmlFor="bcdMode">
-            BCD Mode
+            {t("Wizard.InputActions.FsuipcOffset.BcdModeLabel")}
           </Label>
           <Switch
             id="bcdMode"

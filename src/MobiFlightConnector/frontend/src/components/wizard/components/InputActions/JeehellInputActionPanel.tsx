@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import { parsePresets } from "@/components/wizard/components/InputActions/EventIdPresetsPanel"
 import { JeehellInputAction } from "@/types/config"
 import { useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 
 export type JeehellInputActionPanelProps = {
   config: JeehellInputAction | null
@@ -14,6 +15,7 @@ const JeehellInputActionPanel = ({
   config,
   onConfigChange,
 }: JeehellInputActionPanelProps) => {
+  const { t } = useTranslation()
   // In MsfsPresetPanel (or a dedicated hook)
   const presetUrl = "/presets/presets_jeehell.cip"
   const { data: presets = [] /*, isLoading */ } = useQuery({
@@ -32,9 +34,9 @@ const JeehellInputActionPanel = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <Label htmlFor="mouseParam">Jeehell Function</Label>
+        <Label htmlFor="mouseParam">{t("Wizard.InputActions.Jeehell.FunctionLabel")}</Label>
         <ComboBox
-          placeholder="Select Jeehell function..."
+          placeholder={t("Wizard.InputActions.Jeehell.SelectFunctionPlaceholder")}
           items={presets}
           getLabel={(item) => item.name}
           getValue={(item) => item.eventId}
@@ -51,7 +53,7 @@ const JeehellInputActionPanel = ({
         <p className="text-sm text-muted-foreground">{selectedPreset?.description}</p>
       </div>
       <div className="flex w-100 flex-col gap-2">
-        <Label htmlFor="value">Value</Label>
+        <Label htmlFor="value">{t("Wizard.InputActions.Jeehell.ValueLabel")}</Label>
         <Input
           id="value"
           value={config?.Param ?? ""}

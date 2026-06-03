@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import EventIdPresetsPanel from "@/components/wizard/components/InputActions/EventIdPresetsPanel"
 import { EventIdInputAction, PmdgEventIdInputAction } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 export type EventIdInputActionPanelProps = {
   variant: "default" | "pmdg"
@@ -21,6 +22,7 @@ const EventIdInputActionPanel = ({
   config,
   onConfigChange,
 }: EventIdInputActionPanelProps) => {
+  const { t } = useTranslation()
   const mouseParams = [
     { Label: "MOUSE_FLAG_RIGHTSINGLE", Value: "2147483648" },
     { Label: "MOUSE_FLAG_MIDDLESINGLE", Value: "1073741824" },
@@ -51,7 +53,7 @@ const EventIdInputActionPanel = ({
     <div className="flex flex-col gap-4">
       {variant === "pmdg" && (
         <div className="flex flex-col gap-2">
-          <div className="text-sm font-semibold">PMDG Aircraft</div>
+          <div className="text-sm font-semibold">{t("Wizard.InputActions.EventId.PmdgAircraftLabel")}</div>
           <RadioGroup
             defaultValue="B737"
             className="flex flex-row"
@@ -90,7 +92,7 @@ const EventIdInputActionPanel = ({
         }
       />
       <div className="flex w-100 flex-col gap-2">
-        <Label htmlFor="eventId">Event ID</Label>
+        <Label htmlFor="eventId">{t("Wizard.InputActions.EventId.EventIdLabel")}</Label>
         <Input
           id="eventId"
           value={config?.EventId ?? ""}
@@ -103,9 +105,9 @@ const EventIdInputActionPanel = ({
       </div>
       {variant === "pmdg" && (
         <div className="flex flex-col gap-2">
-          <Label htmlFor="mouseParam">Mouse Param</Label>
+          <Label htmlFor="mouseParam">{t("Wizard.InputActions.EventId.MouseParamLabel")}</Label>
           <ComboBox
-            placeholder="Select mouse param"
+            placeholder={t("Wizard.InputActions.EventId.SelectMouseParamPlaceholder")}
             items={mouseParams}
             getLabel={(item) => item.Label}
             getValue={(item) => item.Value}
@@ -123,7 +125,7 @@ const EventIdInputActionPanel = ({
       )}
       {(variant === "default" || isCustomParam) && (
         <div className="flex w-100 flex-col gap-2">
-          <Label htmlFor="param">Custom Param</Label>
+          <Label htmlFor="param">{t("Wizard.InputActions.EventId.CustomParamLabel")}</Label>
           <Input
             id="param"
             value={config?.Param ?? ""}

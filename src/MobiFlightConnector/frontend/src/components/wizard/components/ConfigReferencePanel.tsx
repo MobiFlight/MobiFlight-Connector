@@ -5,6 +5,7 @@ import ConfigReferenceSummary from "@/components/wizard/ConfigReferences/ConfigR
 import { useProjectStore } from "@/stores/projectStore"
 import { ConfigReference, IConfigItem } from "@/types/config"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
+import { useTranslation } from "react-i18next"
 
 type ConfigReferencePanelProps = {
   configReferences: ConfigReference[]
@@ -18,6 +19,7 @@ const ConfigReferencePanel = ({
   variant,
   openDetailsPanel,
 }: ConfigReferencePanelProps) => {
+  const { t } = useTranslation()
   const { project, activeConfigFileIndex } = useProjectStore()
   const maxDisplayCount = 5
 
@@ -29,7 +31,7 @@ const ConfigReferencePanel = ({
   return variant === "summary" ? (
     <Card data-testid="config-references-panel">
       <CardContent className="flex flex-col gap-2 pt-4">
-        <div className="text-lg font-semibold">Config References (optional)</div>
+        <div className="text-lg font-semibold">{t("Wizard.ConfigReferences.Title")}</div>
         {configReferences.length > 0 ? (
           <div className="flex flex-col gap-2">
             <ConfigReferenceSummary
@@ -39,18 +41,17 @@ const ConfigReferencePanel = ({
             />
             <Button variant="outline" onClick={openDetailsPanel}>
               <IconEdit className="" />
-              Config References
+              {t("Wizard.ConfigReferences.EditButton")}
             </Button>
           </div>
         ) : (
           <div className="flex flex-col gap-2">
             <div className="text-muted-foreground text-sm">
-              The config references define conditions that must be met before
-              the action can be executed.
+              {t("Wizard.ConfigReferences.Description")}
             </div>
             <Button variant="outline" onClick={openDetailsPanel}>
               <IconPlus className="" />
-              Config References
+              {t("Wizard.ConfigReferences.AddButton")}
             </Button>
           </div>
         )}

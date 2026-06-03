@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { KeyInputAction } from "@/types/config"
 import { IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export type KeyboardInputActionPanelProps = {
   config: KeyInputAction | null
@@ -20,6 +21,7 @@ const KeyboardInputActionPanel = ({
   config,
   onConfigChange,
 }: KeyboardInputActionPanelProps) => {
+  const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
   const [scannedKeys, setScannedKeys] = useState<KeyInputAction>(
     config ?? {
@@ -96,17 +98,17 @@ const KeyboardInputActionPanel = ({
     >
       <div className="flex flex-row gap-4">
         <Button onClick={handleScanForInput} size={"sm"}>
-          {isScanning ? "Stop scanning" : "Scan for keyboard"}
+          {isScanning ? t("Wizard.InputActions.Keyboard.StopScanning") : t("Wizard.InputActions.Keyboard.ScanForKeyboard")}
         </Button>
         <div className="flex flex-row items-center gap-2">
-          <div className="text-sm font-medium">Key combo:</div>
+          <div className="text-sm font-medium">{t("Wizard.InputActions.Keyboard.KeyComboLabel")}</div>
           <div className="text-sm">
             {scannedKeys?.Control && "Ctrl + "}
             {scannedKeys?.Alt && "Alt + "}
             {scannedKeys?.Shift && "Shift + "}
             {scannedKeys?.Key !== "0"
               ? String.fromCharCode(Number(scannedKeys.Key)).toUpperCase()
-              : "None"}
+              : t("Wizard.InputActions.Keyboard.None")}
           </div>
         </div>
         <Button
@@ -119,7 +121,7 @@ const KeyboardInputActionPanel = ({
           size={"sm"}
         >
           <IconTrash />
-          Clear input
+          {t("Wizard.InputActions.Keyboard.ClearInput")}
         </Button>
       </div>
     </div>

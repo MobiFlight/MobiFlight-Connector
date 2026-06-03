@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export type XplanePreset = {
   id: string
@@ -33,6 +34,7 @@ const XplanePresetPanel = ({
   selectedPath,
   onPresetSelect,
 }: XplanePresetPanelProps) => {
+  const { t } = useTranslation()
   const validPresetTypes =
     variant === "input"
       ? ["input", "inputoutput", "potentiometer"]
@@ -76,7 +78,7 @@ const XplanePresetPanel = ({
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-4 gap-4">
         <Input
-          placeholder="Filter presets"
+          placeholder={t("Wizard.InputActions.Common.FilterPresets")}
           value={filter.search}
           onChange={(e) =>
             setFilter((prev) => ({ ...prev, search: e.target.value }))
@@ -85,62 +87,62 @@ const XplanePresetPanel = ({
         <ComboBox
           items={vendors}
           selected={filter.vendor}
-          placeholder="Filter by vendor"
+          placeholder={t("Wizard.InputActions.Common.FilterByVendor")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.vendor}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, vendor: item || "" }))
           }
-          searchPlaceholder="Search vendors..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchVendors")}
         />
         <ComboBox
           items={aircraft}
           selected={filter.aircraft}
-          placeholder="Filter by aircraft"
+          placeholder={t("Wizard.InputActions.Common.FilterByAircraft")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.aircraft}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, aircraft: item || "" }))
           }
-          searchPlaceholder="Search aircraft..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchAircraft")}
         />
         <ComboBox
           items={categories}
           selected={filter.system}
-          placeholder="Filter by system"
+          placeholder={t("Wizard.InputActions.Common.FilterBySystem")}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.system}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, system: item || "" }))
           }
-          searchPlaceholder="Search systems..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchSystems")}
         />
       </div>
       <div className="flex flex-row items-center gap-4">
         <ComboBox
           items={filteredPresets}
           selected={selectedPreset}
-          placeholder="Select preset"
+          placeholder={t("Wizard.InputActions.Common.SelectPreset")}
           getLabel={(item) => item.label}
           getValue={(item) => item.id}
           isSelected={(item) => item.id === selectedPreset?.id}
           setSelected={(item) => {
             if (item) onPresetSelect(item)
           }}
-          searchPlaceholder="Search presets..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchPresets")}
           widthClass="w-150"
         />
-        <div role="status" className="text-sm">{`${filteredPresets.length} preset(s) found`}</div>
+        <div role="status" className="text-sm">{t("Wizard.InputActions.Common.PresetsFound", { count: filteredPresets.length })}</div>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="description">Description:</Label>
+        <Label htmlFor="description">{t("Wizard.InputActions.Common.DescriptionLabel")}</Label>
         <div id="description" className="rounded border p-2 text-sm">
           {selectedPreset?.description
             ? selectedPreset?.description
-            : "No description available"}
+            : t("Wizard.InputActions.Common.NoDescriptionAvailable")}
         </div>
       </div>
     </div>

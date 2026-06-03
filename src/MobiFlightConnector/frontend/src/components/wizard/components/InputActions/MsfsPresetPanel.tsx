@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export type Preset = {
   id: string
@@ -32,6 +33,7 @@ const MsfsPresetPanel = ({
   selectedPresetId,
   setSelectedPreset,
 }: MsfsPresetPanelProps) => {
+  const { t } = useTranslation()
   const validPresetTypes =
     variant === "input" ? ["input", "potentiometer"] : ["output"]
   // In MsfsPresetPanel (or a dedicated hook)
@@ -72,7 +74,7 @@ const MsfsPresetPanel = ({
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-4 gap-4">
         <Input
-          placeholder="Filter presets"
+          placeholder={t("Wizard.InputActions.Common.FilterPresets")}
           value={filter.search}
           onChange={(e) =>
             setFilter((prev) => ({ ...prev, search: e.target.value }))
@@ -80,7 +82,7 @@ const MsfsPresetPanel = ({
         />
         <ComboBox
           selected={filter?.vendor}
-          placeholder="Filter by vendor"
+          placeholder={t("Wizard.InputActions.Common.FilterByVendor")}
           getLabel={(item) => item}
           getValue={(item) => item}
           items={vendors}
@@ -88,10 +90,10 @@ const MsfsPresetPanel = ({
           setSelected={(item) => {
             setFilter((prev) => ({ ...prev, vendor: item || "" }))
           }}
-          searchPlaceholder="Search vendors..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchVendors")}
         />
         <ComboBox
-          placeholder="Filter by aircraft"
+          placeholder={t("Wizard.InputActions.Common.FilterByAircraft")}
           getLabel={(item) => item}
           getValue={(item) => item}
           items={aircraft}
@@ -100,10 +102,10 @@ const MsfsPresetPanel = ({
           setSelected={(item) => {
             setFilter((prev) => ({ ...prev, aircraft: item || "" }))
           }}
-          searchPlaceholder="Search aircraft..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchAircraft")}
         />
         <ComboBox
-          placeholder="Filter by system"
+          placeholder={t("Wizard.InputActions.Common.FilterBySystem")}
           getLabel={(item) => item}
           getValue={(item) => item}
           items={categories}
@@ -112,13 +114,13 @@ const MsfsPresetPanel = ({
           setSelected={(item) => {
             setFilter((prev) => ({ ...prev, system: item || "" }))
           }}
-          searchPlaceholder="Search systems..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchSystems")}
         />
       </div>
       <div className="flex flex-row gap-4 items-center">
         <ComboBox
           selected={selectedPreset}
-          placeholder="Select preset"
+          placeholder={t("Wizard.InputActions.Common.SelectPreset")}
           getLabel={(item) => item.label}
           getValue={(item) => item.id}
           items={filteredPresets}
@@ -126,17 +128,17 @@ const MsfsPresetPanel = ({
           setSelected={(item) => {
             setSelectedPreset(item ? item : null)
           }}
-          searchPlaceholder="Search presets..."
+          searchPlaceholder={t("Wizard.InputActions.Common.SearchPresets")}
           widthClass="w-150"
         />
-        <div role="status" className="text-sm">{ `${filteredPresets.length} preset(s) found` }</div>
+        <div role="status" className="text-sm">{ t("Wizard.InputActions.Common.PresetsFound", { count: filteredPresets.length }) }</div>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="description">Description:</Label>
+        <Label htmlFor="description">{t("Wizard.InputActions.Common.DescriptionLabel")}</Label>
         <div id="description" className="rounded border p-2 text-sm">
           {selectedPreset?.description
             ? selectedPreset?.description
-            : "No description available"}
+            : t("Wizard.InputActions.Common.NoDescriptionAvailable")}
         </div>
       </div>
     </div>
