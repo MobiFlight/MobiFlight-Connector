@@ -43,7 +43,7 @@ const ActionTypeComboBox = ({
       <ComboBox
         selected={selectedActionType}
         items={ActionTypeOptions}
-        getLabel={(item) => t(`Wizard.ActionType.Options.${item.value}`, item.value)}
+        getLabel={(item) => t(`Dialog.InputConfigWizard.ActionType.Options.${item.value}`, item.value)}
         getValue={(item) => item.value}
         isSelected={(item) => item.value === selectedActionType?.value}
         setSelected={(item) => {
