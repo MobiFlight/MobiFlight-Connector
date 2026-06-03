@@ -29,7 +29,7 @@ const XplaneInputActionPanel = ({
         }
       />
       <div className="flex flex-col gap-2">
-        <div className="text-md font-semibold">Input Type:</div>
+        <Label>Input Type:</Label>
         <ComboBox
           items={CODE_TYPE_OPTIONS}
           selected={(config?.InputType as "DataRef" | "Command") ?? undefined}

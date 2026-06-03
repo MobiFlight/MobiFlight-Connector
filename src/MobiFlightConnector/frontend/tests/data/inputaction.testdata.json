@@ -381,7 +381,7 @@
                         "onHold": null,
                         "onLongRelease": null,
                         "onPress": {
-                            "AircraftType": "B737",
+                            "AircraftType": "B747",
                             "EventId": 69648,
                             "Param": "536870912",
                             "Type": "PmdgEventIdInputAction"

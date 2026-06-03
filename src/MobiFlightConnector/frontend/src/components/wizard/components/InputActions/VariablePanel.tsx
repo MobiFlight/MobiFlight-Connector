@@ -2,6 +2,7 @@ import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { useVariableStore } from "@/stores/variableStore"
 import { MobiFlightVariable } from "@/types/config"
+import { Label } from "@/components/ui/label"
 export type VariablePanelProps = {
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
@@ -34,10 +35,7 @@ export const VariablePanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">MobiFlight Variable</div>
-        <div className="text-muted-foreground text-sm">Select a variable</div>
-      </div>
+      <Label>Variable Type</Label>
       <ComboBox
         items={variableTypeOptions}
         getLabel={(item) => item.label}
@@ -59,6 +57,7 @@ export const VariablePanel = ({
         }}
         placeholder="Search variables..."
       />
+      <Label>Variable name</Label>
       <ComboBox
         items={availableVariables}
         getLabel={(item) => item.Name}

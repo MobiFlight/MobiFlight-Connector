@@ -22,6 +22,7 @@ const VJoyInputActionPanel = ({
 
   useAppMessage("VJoyDefinitionsUpdate", (message) => {
     const { Definitions } = message.payload as VJoyDefinitionsUpdate
+    console.log("Received VJoy Definitions Update:", Definitions)
     setVJoyDefinitions(Definitions)
   })
 
@@ -61,23 +62,25 @@ const VJoyInputActionPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <ComboBox
-        placeholder="Select vJoy device..."
-        items={vJoyOptions}
-        getLabel={(item) => item.label}
-        getValue={(item) => item.value.toString()}
-        isSelected={(item) => item.value === selectedDeviceOption?.value}
-        selected={selectedDeviceOption}
-        setSelected={(item) =>
-          setConfig({
-            ...(config ?? {}),
-            vJoyID: item ? Number(item.value) : undefined,
-          } as VJoyInputAction)
-        }
-        widthClass="w-100"
-        variant="nofilter"
-      />
-
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="joystick">Select vJoy device</Label>
+        <ComboBox
+          placeholder="Select vJoy device..."
+          items={vJoyOptions}
+          getLabel={(item) => item.label}
+          getValue={(item) => item.value.toString()}
+          isSelected={(item) => item.value === selectedDeviceOption?.value}
+          selected={selectedDeviceOption}
+          setSelected={(item) =>
+            setConfig({
+              ...(config ?? {}),
+              vJoyID: item ? Number(item.value) : undefined,
+            } as VJoyInputAction)
+          }
+          widthClass="w-100"
+          variant="nofilter"
+        />
+      </div>
       <Tabs
         defaultValue={activeTab}
         onValueChange={(e) => {
@@ -106,35 +109,43 @@ const VJoyInputActionPanel = ({
         </TabsList>
         <TabsContent key="button" value="button">
           <div className="flex flex-col gap-4 pt-2">
-            <Label htmlFor="buttonNr">Button number</Label>
-            <ComboBox
-              placeholder="Select button..."
-              items={buttonOptions}
-              getLabel={(item) => `Button ${item}`}
-              getValue={(item) => item.toString()}
-              isSelected={(item) => item === config?.buttonNr}
-              selected={buttonOptions.find((item) => item === config?.buttonNr)}
-              setSelected={(item) =>
-                setConfig({
-                  ...(config ?? {}),
-                  buttonNr: item ? Number(item) : undefined,
-                } as VJoyInputAction)
-              }
-              variant="nofilter"
-            />
-            <Label htmlFor="buttonCommand">Button state</Label>
-            <div className="flex flex-row items-center gap-2">
-              <Switch
-                id="buttonCommand"
-                checked={config?.buttonComand ?? false}
-                onCheckedChange={(checked) =>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="buttonNr">Button number</Label>
+              <ComboBox
+                placeholder="Select button..."
+                items={buttonOptions}
+                getLabel={(item) => `Button ${item}`}
+                getValue={(item) => item.toString()}
+                isSelected={(item) => item === config?.buttonNr}
+                selected={buttonOptions.find(
+                  (item) => item === config?.buttonNr,
+                )}
+                setSelected={(item) =>
                   setConfig({
                     ...(config ?? {}),
-                    buttonComand: checked,
+                    buttonNr: item ? Number(item) : undefined,
                   } as VJoyInputAction)
                 }
+                variant="nofilter"
               />
-              <span className="text-sm">{config?.buttonComand ? "Pressed" : "Released"}</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="buttonCommand">Button state</Label>
+              <div className="flex flex-row items-center gap-2">
+                <Switch
+                  id="buttonCommand"
+                  checked={config?.buttonComand ?? false}
+                  onCheckedChange={(checked) =>
+                    setConfig({
+                      ...(config ?? {}),
+                      buttonComand: checked,
+                    } as VJoyInputAction)
+                  }
+                />
+                <span className="text-sm">
+                  {config?.buttonComand ? "Pressed" : "Released"}
+                </span>
+              </div>
             </div>
           </div>
         </TabsContent>
@@ -155,6 +166,7 @@ const VJoyInputActionPanel = ({
               }
               variant="nofilter"
             />
+            <div className="flex flex-col gap-2">
             <Label htmlFor="axisValue">Axis value</Label>
             <Input
               id="axisValue"
@@ -166,6 +178,7 @@ const VJoyInputActionPanel = ({
                 } as VJoyInputAction)
               }
             />
+            </div>
           </div>
         </TabsContent>
       </Tabs>

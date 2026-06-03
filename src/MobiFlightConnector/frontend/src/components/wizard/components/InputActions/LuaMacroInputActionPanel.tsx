@@ -21,6 +21,7 @@ const LuaMacroInputActionPanel = ({
           Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.
         </div>
       </div>
+      <div className="flex flex-col gap-2">
       <Label htmlFor="macroName">Macro Name:</Label>
       <Input
         id="macroName"
@@ -33,6 +34,8 @@ const LuaMacroInputActionPanel = ({
           } as LuaMacroInputAction)
         }
       />
+      </div>
+      <div className="flex flex-col gap-2">
       <Label htmlFor="macroValue">Macro Value:</Label>
       <Input
         id="macroValue"
@@ -45,6 +48,7 @@ const LuaMacroInputActionPanel = ({
           } as LuaMacroInputAction)
         }
       />
+      </div>
     </div>
   )
 }

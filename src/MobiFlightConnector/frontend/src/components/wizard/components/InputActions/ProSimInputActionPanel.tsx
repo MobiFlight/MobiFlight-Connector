@@ -32,22 +32,26 @@ const ProSimInputActionPanel = ({
         }
       />
       <Separator />
-      <Label htmlFor="path">Path:</Label>
-      <div id="path" className="rounded border p-2 text-sm">
-        {(config?.Path !== "" ? config?.Path : "No preset selected")}
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="path">Path:</Label>
+        <div id="path" className="rounded border p-2 text-sm">
+          {config?.Path !== "" ? config?.Path : "No preset selected"}
+        </div>
       </div>
-      <Label htmlFor="param">Parameter (optional):</Label>
-      <Input
-        id="param"
-        placeholder="Set parameter (optional)"
-        value={config?.Expression ?? ""}
-        onChange={(e) =>
-          onConfigChange({
-            ...(config as ProSimInputAction),
-            Expression: e.target.value,
-          } as ProSimInputAction)
-        }
-      />
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="param">Parameter (optional):</Label>
+        <Input
+          id="param"
+          placeholder="Set parameter (optional)"
+          value={config?.Expression ?? ""}
+          onChange={(e) =>
+            onConfigChange({
+              ...(config as ProSimInputAction),
+              Expression: e.target.value,
+            } as ProSimInputAction)
+          }
+        />
+      </div>
     </div>
   )
 }

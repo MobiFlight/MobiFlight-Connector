@@ -1,4 +1,5 @@
 import ComboBox from "@/components/ComboBox"
+import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 
 export type EventIdPresetsPanelProps = {
@@ -57,9 +58,12 @@ const EventIdPresetsPanel = ({
     (item) => item.eventId === selectedPresetId?.toString(),
   )
 
+  console.log("Available Presets:", presets)
+  console.log("Selected Preset:", selectedPreset)
+
   return (
-    <div>
-      <div>Select Preset</div>
+    <div className="flex flex-col gap-2">
+      <Label>Select Preset</Label>
       <ComboBox
         selected={selectedPreset}
         placeholder="Select preset..."

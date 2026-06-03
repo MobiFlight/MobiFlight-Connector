@@ -48,11 +48,7 @@ const FsuipcOffsetInputActionPanel = ({
   const selectedSizeOption = FsuipcSizeOptions.find(
     (option) => option.value === currentConfig.FSUIPC.Size,
   )
-
   const [mask, setMask] = useState<string | null>(null) // null = not editing
-
-  console.log("FSUIPC Default Config in Panel:", defaultConfig)
-  console.log("FSUIPC Config in Panel:", currentConfig)
 
   const formattedMask = currentConfig.FSUIPC.Mask.toString(16)
     .toUpperCase()

@@ -119,19 +119,22 @@ const XplanePresetPanel = ({
           searchPlaceholder="Search systems..."
         />
       </div>
-      <ComboBox
-        items={filteredPresets}
-        selected={selectedPreset}
-        placeholder="Select preset"
-        getLabel={(item) => item.label}
-        getValue={(item) => item.id}
-        isSelected={(item) => item.id === selectedPreset?.id}
-        setSelected={(item) => {
-          if (item) onPresetSelect(item)
-        }}
-        searchPlaceholder="Search presets..."
-        widthClass="w-150"
-      />
+      <div className="flex flex-row items-center gap-4">
+        <ComboBox
+          items={filteredPresets}
+          selected={selectedPreset}
+          placeholder="Select preset"
+          getLabel={(item) => item.label}
+          getValue={(item) => item.id}
+          isSelected={(item) => item.id === selectedPreset?.id}
+          setSelected={(item) => {
+            if (item) onPresetSelect(item)
+          }}
+          searchPlaceholder="Search presets..."
+          widthClass="w-150"
+        />
+        <div role="status" className="text-sm">{`${filteredPresets.length} preset(s) found`}</div>
+      </div>
       <div className="flex flex-col gap-2">
         <Label htmlFor="description">Description:</Label>
         <div id="description" className="rounded border p-2 text-sm">
