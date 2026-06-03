@@ -350,6 +350,7 @@
     "General": {
       "Cancel": "Cancelar",
       "Close": "Cerrar",
+      "Save": "Guardar",
       "SaveChanges": "Guardar cambios",
       "ApplyChanges": "Aplicar cambios"
     },
@@ -369,6 +370,200 @@
       "SelectController": "Seleccionar un controlador",
       "SearchController": "Buscar controlador...",
       "NoControllerFound": "No se encontró ningún controlador."
+    },
+    "InputConfigWizard": {
+      "Title": "Editar configuración de entrada",
+      "Description": "Edita todos los ajustes de esta configuración de entrada en este diálogo.",
+      "GoBack": "Volver",
+      "DrawerTitle": "Precondiciones",
+      "ConfigTrigger": {
+        "Title": "Disparador",
+        "Description": "El disparador define las condiciones o eventos que activarán esta configuración.",
+        "ScanForInput": "Buscar entrada",
+        "UseAnyInput": "Usar cualquier entrada",
+        "ClearInput": "Borrar entrada",
+        "SelectController": "Seleccionar controlador...",
+        "SearchController": "Buscar controlador...",
+        "NoControllerFound": "No se encontró ningún controlador.",
+        "SelectDevice": "Seleccionar dispositivo...",
+        "SearchDevice": "Buscar dispositivo...",
+        "NoDeviceFound": "No se encontró ningún dispositivo."
+      },
+      "ActionType": {
+        "Title": "Tipo de acción",
+        "Description": "Selecciona el tipo de acción que deseas realizar",
+        "Options": {
+          "MSFS2020CustomInputAction": "Microsoft Flight Simulator (todas las versiones)",
+          "XplaneInputAction": "X-Plane (todas las versiones)",
+          "ProSimInputAction": "ProSim",
+          "VariableInputAction": "MobiFlight - Variable",
+          "RetriggerInputAction": "MobiFlight - Reactivar interruptores",
+          "KeyInputAction": "MobiFlight - Entrada de teclado",
+          "VJoyInputAction": "MobiFlight - Joystick virtual (vJoy)",
+          "FsuipcOffsetInputAction": "FSUIPC - Offset",
+          "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
+          "LuaMacroInputAction": "FSUIPC - Macro Lua",
+          "JeehellInputAction": "FSUIPC - Jeehell - Events",
+          "EventIdInputAction": "FSUIPC - EventID"
+        }
+      },
+      "Button": {
+        "Tabs": {
+          "onPress": "Al presionar",
+          "onRelease": "Al soltar",
+          "onHold": "Al mantener",
+          "onLongRelease": "Al soltar prolongado"
+        }
+      },
+      "Encoder": {
+        "Tabs": {
+          "onLeft": "A la izquierda",
+          "onRight": "A la derecha",
+          "onLeftFast": "Rápido izquierda",
+          "onRightFast": "Rápido derecha"
+        }
+      },
+      "Analog": {
+        "Tabs": {
+          "onChange": "Al cambiar"
+        }
+      },
+      "Preconditions": {
+        "Title": "Precondiciones (opcional)",
+        "Description": "Las precondiciones definen las condiciones que deben cumplirse antes de que se pueda ejecutar la acción.",
+        "EditButton": "Precondiciones",
+        "AddButton": "Precondiciones"
+      },
+      "ConfigReferences": {
+        "Title": "Referencias de configuración (opcional)",
+        "Description": "Las referencias de configuración definen las configuraciones de salida cuyos valores pueden usarse en la acción.",
+        "EditButton": "Referencias de configuración",
+        "AddButton": "Referencias de configuración"
+      },
+      "PreconditionEditor": {
+        "Title": "Precondiciones",
+        "Description": "Las precondiciones definen las condiciones que deben cumplirse antes de que se pueda ejecutar la acción.",
+        "NoPreconditions": "No hay precondiciones definidas.",
+        "AddPrecondition": "Agregar precondición",
+        "Active": "Activo",
+        "TypePlaceholder": "Tipo",
+        "SelectConfig": "Seleccionar configuración...",
+        "SelectVariable": "Seleccionar variable...",
+        "ValuePlaceholder": "Valor",
+        "DeletePrecondition": "Eliminar precondición"
+      },
+      "ConfigReferenceEditor": {
+        "Title": "Referencias de configuración",
+        "Description": "Las referencias de configuración definen las configuraciones de salida cuyos valores pueden usarse en la acción.",
+        "NoConfigReferences": "No hay referencias de configuración definidas.",
+        "AddConfigReference": "Agregar referencia de configuración",
+        "Active": "Activo",
+        "SelectConfig": "Seleccionar configuración...",
+        "PlaceholderLabel": "Marcador de posición",
+        "TestValueLabel": "Valor de prueba",
+        "DeleteConfigReference": "Eliminar referencia de configuración"
+      },
+      "InputActions": {
+        "Common": {
+          "CodeLabel": "Código:",
+          "NoDescriptionAvailable": "No hay descripción disponible",
+          "DescriptionLabel": "Descripción:",
+          "FilterPresets": "Filtrar presets",
+          "FilterByVendor": "Filtrar por fabricante",
+          "SearchVendors": "Buscar fabricantes...",
+          "FilterByAircraft": "Filtrar por aeronave",
+          "SearchAircraft": "Buscar aeronaves...",
+          "FilterBySystem": "Filtrar por sistema",
+          "SearchSystems": "Buscar sistemas...",
+          "SelectPreset": "Seleccionar preset",
+          "SearchPresets": "Buscar presets...",
+          "PresetsFound": "{{count}} preset(s) encontrado(s)",
+          "SupportedPlaceholders": "Admite valor de entrada (@) y marcadores de posición ($, #, etc.)"
+        },
+        "Msfs": {
+          "NoneCode": "Ninguno"
+        },
+        "Xplane": {
+          "InputTypeLabel": "Tipo de entrada:",
+          "SelectInputTypePlaceholder": "Seleccionar tipo de entrada",
+          "CodePlaceholder": "Ingresa la ruta para DataRef o Comando, o selecciona un preset arriba"
+        },
+        "ProSim": {
+          "Title": "Acción de entrada ProSim",
+          "Description": "Selecciona un preset para configurar tus acciones de entrada.",
+          "PathLabel": "Ruta:",
+          "NoPresetSelected": "No hay preset seleccionado",
+          "ParameterLabel": "Parámetro (opcional):",
+          "ParameterPlaceholder": "Establecer parámetro (opcional)"
+        },
+        "VJoy": {
+          "SelectDeviceLabel": "Seleccionar dispositivo vJoy",
+          "SelectDevicePlaceholder": "Seleccionar dispositivo vJoy...",
+          "ButtonTab": "Botón",
+          "AxisTab": "Eje",
+          "ButtonNumberLabel": "Número de botón",
+          "SelectButtonPlaceholder": "Seleccionar botón...",
+          "ButtonStateLabel": "Estado del botón",
+          "Pressed": "Presionado",
+          "Released": "Soltado",
+          "SelectAxisPlaceholder": "Seleccionar eje...",
+          "AxisValueLabel": "Valor del eje"
+        },
+        "Keyboard": {
+          "StopScanning": "Detener búsqueda",
+          "ScanForKeyboard": "Buscar teclado",
+          "KeyComboLabel": "Combinación de teclas:",
+          "None": "Ninguno",
+          "ClearInput": "Borrar entrada"
+        },
+        "FsuipcOffset": {
+          "SizeLabel": "Tamaño",
+          "OffsetLabel": "Offset",
+          "MaskLabel": "Máscara",
+          "BcdModeLabel": "Modo BCD"
+        },
+        "LuaMacro": {
+          "Title": "Acción de entrada de macro Lua",
+          "Description": "Invoca tu macro Lua con un parámetro opcional. Requiere una macro Lua existente en FSUIPC.",
+          "MacroNameLabel": "Nombre de macro:",
+          "MacroNamePlaceholder": "Establecer nombre de macro",
+          "MacroValueLabel": "Valor de macro:",
+          "MacroValuePlaceholder": "Establecer valor de macro"
+        },
+        "Jeehell": {
+          "FunctionLabel": "Función Jeehell",
+          "SelectFunctionPlaceholder": "Seleccionar función Jeehell...",
+          "ValueLabel": "Valor"
+        },
+        "EventId": {
+          "PmdgAircraftLabel": "Aeronave PMDG",
+          "MouseParamLabel": "Parámetro de ratón",
+          "SelectMouseParamPlaceholder": "Seleccionar parámetro de ratón",
+          "EventIdLabel": "ID de evento",
+          "CustomParamLabel": "Parámetro personalizado"
+        },
+        "Retrigger": {
+          "Title": "Retrigger",
+          "Description1": "Usa esta acción de entrada para reactivar todos los estados de botón.",
+          "Description2": "Esto es útil para sincronizar tu cabina virtual con los estados de interruptores y botones de tus controladores físicos."
+        },
+        "Variable": {
+          "VariableTypeLabel": "Tipo de variable",
+          "VariableNameLabel": "Nombre de variable",
+          "ExpressionLabel": "Expresión",
+          "ExpressionPlaceholder": "Ingresar expresión...",
+          "ExpressionHelp": "Usa <1>$</1> para representar el valor de la variable en expresiones, p. ej. <3>$ * 2</3> para duplicar una variable numérica."
+        },
+        "ProSimDataRef": {
+          "FilterPresetsPlaceholder": "Filtrar presets",
+          "NoPresetsAvailable": "No hay presets disponibles",
+          "RefreshPresets": "Actualizar presets"
+        },
+        "EventIdPresets": {
+          "SelectPresetLabel": "Seleccionar preset",
+          "SelectPresetPlaceholder": "Seleccionar preset..."
+        }
+      }
     }
   },
   "Auth": {
