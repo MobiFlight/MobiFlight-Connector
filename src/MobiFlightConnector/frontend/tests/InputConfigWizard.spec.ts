@@ -37,10 +37,16 @@ const openActionEditor = async (
   })
 
   // Invoke
-  callback?.(configListPage)
+  await callback?.(configListPage)
 
   await configListPage.clickEditButtonForRow(row)
-  return page.getByTestId("action-editor")
+  const actionEditor = page.getByTestId("action-editor")
+
+  // expect it to become visible 
+  // this ensures that react render has completed and, e.g., useEffects have run
+  await expect(actionEditor).toBeVisible()
+
+  return actionEditor
 }
 
 test.describe("General Input Config Wizard Tests", () => {
@@ -768,7 +774,23 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 7)
+    const actionEditor = await openActionEditor(
+      configListPage,
+      page,
+      7,
+      async (configListPage) => {
+        await configListPage.mobiFlightPage.trackCommand(
+          "CommandRefreshPresets",
+        )
+      },
+    )
+    // The panel will as for the current vJoy definitions to get the device and button labels
+    const command = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(command).toContainEqual({
+      key: "CommandRefreshPresets",
+      payload: { type: "vjoy" },
+    })
+
     await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
     await expect(
       actionEditor
