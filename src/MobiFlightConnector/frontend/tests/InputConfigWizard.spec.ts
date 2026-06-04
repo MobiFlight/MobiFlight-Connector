@@ -42,7 +42,7 @@ const openActionEditor = async (
   await configListPage.clickEditButtonForRow(row)
   const actionEditor = page.getByTestId("action-editor")
 
-  // expect it to become visible 
+  // expect it to become visible
   // this ensures that react render has completed and, e.g., useEffects have run
   await expect(actionEditor).toBeVisible()
 
@@ -50,7 +50,7 @@ const openActionEditor = async (
 }
 
 test.describe("General Input Config Wizard Tests", () => {
-  test("Dialog open for input config items", async ({
+  test("Dialog open for input config items - via Edit button", async ({
     configListPage,
     page,
   }) => {
@@ -66,17 +66,32 @@ test.describe("General Input Config Wizard Tests", () => {
         "Edit all settings for this input configuration in this dialog.",
       ),
     ).toBeVisible()
+  })
 
+  test("Dialog open for input config items - via double click", async ({
+    configListPage,
+    page,
+  }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     const firstRow = await configListPage.getConfigItemRow(1)
+
     await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
     await firstRow.dblclick()
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
 
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
+  })
 
+  test("Dialog open for input config items - via context menu", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    const firstRow = await configListPage.getConfigItemRow(1)
+    
     const contextMenuButton = firstRow
       .getByRole("button", { name: "Open menu" })
       .first()
@@ -86,6 +101,21 @@ test.describe("General Input Config Wizard Tests", () => {
     const menuItem = contextMenu.getByRole("menuitem", { name: "Edit" })
     await expect(menuItem).toBeVisible()
     await menuItem.click()
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+  })
+
+  test("Dialog open for input config items - via 'Add Input Config' button", async ({
+    configListPage,
+    page,
+  }) => {
+    // Opens after clicking "Add Input Config" button and goes through the creation flow
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
   })
 
@@ -879,12 +909,15 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
       page,
       10,
       async (configListPage) => {
-        await configListPage.mobiFlightPage.page.route("*/**/presets/presets_eventids_pmdg_747.cip", async (route) => {
-          await route.fulfill({
-            body: "EVT_OH_ELEC_APU_GEN1_SWITCH:69648",
-            contentType: "text/plain",
-          })
-        })
+        await configListPage.mobiFlightPage.page.route(
+          "*/**/presets/presets_eventids_pmdg_747.cip",
+          async (route) => {
+            await route.fulfill({
+              body: "EVT_OH_ELEC_APU_GEN1_SWITCH:69648",
+              contentType: "text/plain",
+            })
+          },
+        )
       },
     )
 

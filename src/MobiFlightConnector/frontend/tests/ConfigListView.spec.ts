@@ -234,6 +234,44 @@ test.describe("Confirm content and basic functions are working", () => {
     await expect(TestIcon).toHaveAttribute("aria-disabled", "true")
     await expect(ConfigRefIcon).toHaveAttribute("aria-disabled", "true")
   })
+
+  test("Confirm add output config is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
+
+    const addOutputConfigButton = page.getByRole("button", {
+      name: "Add Output Config",
+    })
+    await addOutputConfigButton.click()
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandAddConfigItem")
+    expect(lastCommand.payload.type).toEqual("OutputConfig")
+  })
+
+  test("Confirm add input config is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
+
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandAddConfigItem")
+    expect(lastCommand.payload.type).toEqual("InputConfig")
+  })
 })
 
 test.describe("Verify Error Boundary", () => {
@@ -585,44 +623,6 @@ test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await expect(page.locator("html")).toHaveAttribute("class", "dark")
   await page.getByRole("button", { name: "Toggle light mode" }).click()
   await expect(page.locator("html")).toHaveAttribute("class", "light")
-})
-
-test("Confirm add output config is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
-
-  const addOutputConfigButton = page.getByRole("button", {
-    name: "Add Output Config",
-  })
-  await addOutputConfigButton.click()
-
-  const postedCommands =
-    await configListPage.mobiFlightPage.getTrackedCommands()
-  const lastCommand = postedCommands!.pop()
-  expect(lastCommand.key).toEqual("CommandAddConfigItem")
-  expect(lastCommand.payload.type).toEqual("OutputConfig")
-})
-
-test("Confirm add input config is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
-
-  const addOutputConfigButton = page.getByRole("button", {
-    name: "Add Input Config",
-  })
-  await addOutputConfigButton.click()
-
-  const postedCommands =
-    await configListPage.mobiFlightPage.getTrackedCommands()
-  const lastCommand = postedCommands!.pop()
-  expect(lastCommand.key).toEqual("CommandAddConfigItem")
-  expect(lastCommand.payload.type).toEqual("InputConfig")
 })
 
 test.describe("Filter toolbar tests", () => {

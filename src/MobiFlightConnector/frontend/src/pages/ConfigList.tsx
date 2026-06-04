@@ -61,8 +61,8 @@ const ConfigListPage = () => {
   })
 
   useAppMessage("ConfigValueFullUpdate", (message) => {
-    console.log("ConfigValueFullUpdate", message)
     const update = message.payload as ConfigValueFullUpdate
+    console.log("ConfigValueFullUpdate", update)
     setConfigItems(update.ConfigIndex, update.ConfigItems)
   })
 
