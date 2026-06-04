@@ -30,8 +30,8 @@ namespace MobiFlight.UI.Panels
         /// </summary>
         private void InitializeComponent()
         {
-            this.FrontendWebView = new MobiFlight.WebView.ThreadSafeWebView2();
-            this.UserAuthenticationWebView = new MobiFlight.WebView.ThreadSafeWebView2();
+            this.FrontendWebView = new ThreadSafeWebView2();
+            this.UserAuthenticationWebView = new ThreadSafeWebView2();
             ((System.ComponentModel.ISupportInitialize)(this.FrontendWebView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UserAuthenticationWebView)).BeginInit();
             this.SuspendLayout();

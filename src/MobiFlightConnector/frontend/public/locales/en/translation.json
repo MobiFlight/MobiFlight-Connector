@@ -50,6 +50,9 @@
           "Out": "Ctrl+-"
         }
       },
+      "OpenAttitude": {
+        "Toggle": "Toggle Window"
+      },
       "Log": {
         "Show": "Show Log Panel",
         "Hide": "Hide Log Panel"

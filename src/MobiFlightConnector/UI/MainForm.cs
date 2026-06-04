@@ -30,6 +30,7 @@ using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
 using System.Threading;
+using MobiFlight.OpenAttitude;
 
 namespace MobiFlight.UI
 {
@@ -66,6 +67,9 @@ namespace MobiFlight.UI
 
         // we need this property to control global logging during unit tests
         protected virtual bool LogIsEnabled { get => true; }
+
+        // In MainForm — menu item handler
+        private OpenAttitudeWindow OpenAttitudeWindow;
 
         public ExecutionManager ExecutionManager
         {
@@ -2987,6 +2991,22 @@ namespace MobiFlight.UI
         {
             Properties.Settings.Default.LogEnabled = !Properties.Settings.Default.LogEnabled;
             Properties.Settings.Default.Save();
+        }
+
+        internal void ToggleOpenAttitude()
+        {
+            if (OpenAttitudeWindow == null || OpenAttitudeWindow.IsDisposed)
+                OpenAttitudeWindow = new OpenAttitudeWindow(execManager.OpenAttitudeServer.Url);
+
+            if (OpenAttitudeWindow.Visible)
+            {
+                OpenAttitudeWindow.Close();
+                OpenAttitudeWindow.Dispose();
+                return;
+            }
+
+            OpenAttitudeWindow.Show();
+            OpenAttitudeWindow.BringToFront();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

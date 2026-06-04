@@ -56,28 +56,34 @@ export const MainMenu = () => {
                 showProjectOverlay({ mode: "create" })
               }}
             >
-              {t("MainMenu.File.New")}<MenubarShortcut>Ctrl+N</MenubarShortcut>
+              {t("MainMenu.File.New")}
+              <MenubarShortcut>Ctrl+N</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.open" })}
             >
-              {t("MainMenu.File.Open")}<MenubarShortcut>Ctrl+O</MenubarShortcut>
+              {t("MainMenu.File.Open")}
+              <MenubarShortcut>Ctrl+O</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.save" })}
               disabled={!hasChanged}
             >
-              {t("MainMenu.File.Save")}<MenubarShortcut>Ctrl+S</MenubarShortcut>
+              {t("MainMenu.File.Save")}
+              <MenubarShortcut>Ctrl+S</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.saveas" })}
             >
-              {t("MainMenu.File.SaveAs")}<MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>
+              {t("MainMenu.File.SaveAs")}
+              <MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarSub>
-              <MenubarSubTrigger>{t("MainMenu.File.RecentProjects")}</MenubarSubTrigger>
+              <MenubarSubTrigger>
+                {t("MainMenu.File.RecentProjects")}
+              </MenubarSubTrigger>
               <MenubarSubContent>
                 {settings && settings.RecentFiles.length > 0 ? (
                   settings.RecentFiles.map((file, index) => (
@@ -96,7 +102,9 @@ export const MainMenu = () => {
                     </MenubarItem>
                   ))
                 ) : (
-                  <MenubarItem disabled>{t("MainMenu.File.RecentProjects.None")}</MenubarItem>
+                  <MenubarItem disabled>
+                    {t("MainMenu.File.RecentProjects.None")}
+                  </MenubarItem>
                 )}
               </MenubarSubContent>
             </MenubarSub>
@@ -104,7 +112,8 @@ export const MainMenu = () => {
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.exit" })}
             >
-              {t("MainMenu.File.Exit")}<MenubarShortcut>Ctrl+Q</MenubarShortcut>
+              {t("MainMenu.File.Exit")}
+              <MenubarShortcut>Ctrl+Q</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
@@ -144,7 +153,7 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>{ t("MainMenu.Extras.Label") }</MenubarTrigger>
+          <MenubarTrigger>{t("MainMenu.Extras.Label")}</MenubarTrigger>
           <MenubarContent>
             <MenubarSub>
               <MenubarSubTrigger>HubHop</MenubarSubTrigger>
@@ -154,7 +163,7 @@ export const MainMenu = () => {
                     handleMenuItemClick({ action: "extras.hubhop.download" })
                   }
                 >
-                  { t("MainMenu.Extras.HubHop.DownloadLatestPresets")}
+                  {t("MainMenu.Extras.HubHop.DownloadLatestPresets")}
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
@@ -166,7 +175,19 @@ export const MainMenu = () => {
                     handleMenuItemClick({ action: "extras.msfs.reinstall" })
                   }
                 >
-                  { t("MainMenu.Extras.MSFS.ReinstallWASMModule") }
+                  {t("MainMenu.Extras.MSFS.ReinstallWASMModule")}
+                </MenubarItem>
+              </MenubarSubContent>
+            </MenubarSub>
+            <MenubarSub>
+              <MenubarSubTrigger>OpenAttitude</MenubarSubTrigger>
+              <MenubarSubContent>
+                <MenubarItem
+                  onSelect={() =>
+                    handleMenuItemClick({ action: "view.openattitude.toggle" })
+                  }
+                >
+                  {t("MainMenu.View.OpenAttitude.Toggle")}
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
@@ -175,7 +196,7 @@ export const MainMenu = () => {
                 handleMenuItemClick({ action: "extras.copylogs" })
               }
             >
-              { t("MainMenu.Extras.CopyLogs") }
+              {t("MainMenu.Extras.CopyLogs")}
             </MenubarItem>
             <MenubarItem
               onSelect={() => showModalOverlay({ route: "/bindings" })}
@@ -188,53 +209,54 @@ export const MainMenu = () => {
                 handleMenuItemClick({ action: "extras.settings" })
               }
             >
-              { t("MainMenu.Extras.Settings") }
+              {t("MainMenu.Extras.Settings")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>{ t("MainMenu.Help.Label") }</MenubarTrigger>
+          <MenubarTrigger>{t("MainMenu.Help.Label")}</MenubarTrigger>
           <MenubarContent>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.docs" })}
             >
-              { t("MainMenu.Help.Documentation") }<MenubarShortcut>F1</MenubarShortcut>
+              {t("MainMenu.Help.Documentation")}
+              <MenubarShortcut>F1</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "help.checkforupdate" })
               }
             >
-              { t("MainMenu.Help.CheckForUpdates") }
+              {t("MainMenu.Help.CheckForUpdates")}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.discord" })}
             >
-              { t("MainMenu.Help.VisitDiscord") }
+              {t("MainMenu.Help.VisitDiscord")}
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.hubhop" })}
             >
-              { t("MainMenu.Help.VisitHubHop") }
+              {t("MainMenu.Help.VisitHubHop")}
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.youtube" })}
             >
-              { t("MainMenu.Help.VisitYouTube") }
+              {t("MainMenu.Help.VisitYouTube")}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.about" })}
             >
-              { t("MainMenu.Help.About") }
+              {t("MainMenu.Help.About")}
             </MenubarItem>
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "help.releasenotes" })
               }
             >
-              { t("MainMenu.Help.ReleaseNotes") }
+              {t("MainMenu.Help.ReleaseNotes")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

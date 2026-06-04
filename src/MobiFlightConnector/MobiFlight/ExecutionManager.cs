@@ -5,6 +5,7 @@ using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.OpenAttitude;
 using MobiFlight.ProSim;
 using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
@@ -103,6 +104,9 @@ namespace MobiFlight
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
         readonly Dictionary<string, double> ScanForInputThreshold = new Dictionary<string, double>();
+
+        public PropertyListenerServer OpenAttitudeServer { get; private set; }
+        private readonly OpenAttitudePublisher OpenAttitudePublisher;
 
         public List<IConfigItem> ConfigItems
         {
@@ -247,6 +251,14 @@ namespace MobiFlight
 
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
+
+            OpenAttitudeServer = new PropertyListenerServer(port: 8080);
+            OpenAttitudeServer.Start();
+            OpenAttitudePublisher = new OpenAttitudePublisher(
+                OpenAttitudeServer,
+                () => ConfigItems  // ConfigItems is already List<IConfigItem>
+            );
+            OpenAttitudePublisher.SubscribeToUpdates();
         }
 
         public void PublishConnectedDevices()
@@ -1031,6 +1043,8 @@ namespace MobiFlight
 
             OnSimAircraftChanged -= scriptRunner.OnSimAircraftChanged;
             OnSimAircraftPathChanged -= scriptRunner.OnSimAircraftPathChanged;
+
+            OpenAttitudeServer?.Stop();
 
             this.OnShutdown?.Invoke(this, new EventArgs());
         }

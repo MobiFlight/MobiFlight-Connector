@@ -106,6 +106,9 @@
     <Reference Include="Device.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Device.Net.4.2.1\lib\net45\Device.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Fleck, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fleck.1.2.0\lib\net45\Fleck.dll</HintPath>
+    </Reference>
     <Reference Include="fsuipcClient, Version=3.3.16.420, Culture=neutral, PublicKeyToken=b8cb6f8a387dcef2">
       <HintPath>..\..\packages\FSUIPCClientDLL.3.3.16\lib\net462\fsuipcClient.dll</HintPath>
       <Private>True</Private>
@@ -506,6 +509,14 @@
     <Compile Include="MobiFlight\Modifier\Substring.cs" />
     <Compile Include="MobiFlight\Monitors\SerialPortMonitor.cs" />
     <Compile Include="MobiFlight\Monitors\UsbDeviceMonitor.cs" />
+    <Compile Include="MobiFlight\OpenAttitude\OpenAttitudeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\OpenAttitude\OpenAttitudeWindow.Designer.cs">
+      <DependentUpon>OpenAttitudeWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\OpenAttitude\PropertyListenerServer.cs" />
+    <Compile Include="MobiFlight\OpenAttitude\OpenAttitudePublisher.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
@@ -1228,6 +1239,9 @@
     <Content Include="Scripts\Winwing\pmdg_777_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="MobiFlight\OpenAttitude\OpenAttitudeWindow.resx">
+      <DependentUpon>OpenAttitudeWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ProSimPanel.resx">
       <DependentUpon>ProSimPanel.cs</DependentUpon>
     </EmbeddedResource>
