@@ -9,7 +9,7 @@ namespace MobiFlight.OpenAttitude
     public partial class OpenAttitudeWindow : Form
     {
 #if DEBUG
-        private bool IsRunningInProduction = true;
+        private bool IsRunningInProduction = false;
 #else 
         private bool IsRunningInProduction = true;
 #endif
