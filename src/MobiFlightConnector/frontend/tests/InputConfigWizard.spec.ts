@@ -669,14 +669,18 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
         .getByRole("combobox")
         .filter({ hasText: "MobiFlight - Variable" }),
     ).toBeVisible()
+    // Variable presets
+    await expect(
+      actionEditor.getByRole("combobox").filter({ hasText: /^MyVar \(number\)$/ }),
+    ).toBeVisible()
     // Variable type
     await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "Number" }),
+      actionEditor.getByRole("combobox").filter({ hasText: /^Number$/ }),
     ).toBeVisible()
     // Variable name
     await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: /^MyVar$/ }),
-    ).toBeVisible()
+      actionEditor.getByPlaceholder("Enter variable name..."),
+    ).toHaveValue("MyVar")
     // Expression field
     await expect(
       actionEditor.getByPlaceholder("Enter expression..."),

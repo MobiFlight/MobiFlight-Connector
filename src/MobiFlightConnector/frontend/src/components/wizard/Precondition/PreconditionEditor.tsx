@@ -170,6 +170,7 @@ const PreconditionItemRow = ({
               "Dialog.InputConfigWizard.PreconditionEditor.SelectPort",
             )}
             widthClass="w-28"
+            variant="nofilter"
           />
           <ComboBox
             items={ArcazePinOptions}
@@ -184,6 +185,7 @@ const PreconditionItemRow = ({
               "Dialog.InputConfigWizard.PreconditionEditor.SelectPin",
             )}
             widthClass="w-28"
+            variant="nofilter"
           />
         </div>
       )}

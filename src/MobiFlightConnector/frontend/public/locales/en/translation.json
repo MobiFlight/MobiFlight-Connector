@@ -17,6 +17,11 @@
     "Error": {
       "FallbackTitle": "Ooops... something went wrong!",
       "Unknown": "An unknown error occurred."
+    },
+    "ComboBox": {
+      "NoResults": "No item found.",
+      "Placeholder": "Select...",
+      "SearchPlaceholder": "Search..."
     }
   },
   "MainMenu": {
@@ -444,7 +449,9 @@
         "SelectConfig": "Select config...",
         "SelectVariable": "Select variable...",
         "ValuePlaceholder": "Value",
-        "DeletePrecondition": "Delete precondition"
+        "DeletePrecondition": "Delete precondition",
+        "SelectPort": "Select port...",
+        "SelectPin": "Select pin..."
       },
       "ConfigReferenceEditor": {
         "Title": "Config References",
@@ -542,8 +549,10 @@
           "Description2": "This is helpful to sync your virtual cockpit to the switch and button states of your physical controllers."
         },
         "Variable": {
-          "VariableTypeLabel": "Variable Type",
-          "VariableNameLabel": "Variable name",
+          "ExistingVariable": "Use existing variable",
+          "VariableTypeLabel": "Type",
+          "VariableNameLabel": "Name",
+          "VariableNamePlaceholder": "Enter variable name...",
           "ExpressionLabel": "Expression",
           "ExpressionPlaceholder": "Enter expression...",
           "ExpressionHelp": "Use <1>$</1> to represent the variable value in expressions, e.g. <3>$ * 2</3> to double a number variable."

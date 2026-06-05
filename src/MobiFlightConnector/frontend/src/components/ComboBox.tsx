@@ -15,6 +15,7 @@ import {
   CommandItem,
 } from "@/components/ui/command"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export type ComboBoxProps<T> = {
   items: T[]
@@ -23,9 +24,9 @@ export type ComboBoxProps<T> = {
   getLabel: (item: T) => string
   isSelected: (item: T, selected?: T) => boolean
   setSelected: (item?: T) => void
-  placeholder?: string
-  searchPlaceholder?: string
-  emptyText?: string
+  placeholder?: string | null
+  searchPlaceholder?: string | null
+  emptyText?: string | null
   disabled?: boolean
   widthClass?: string
   variant?: "default" | "nofilter"
@@ -38,17 +39,25 @@ const ComboBox = <T,>({
   getLabel,
   isSelected,
   setSelected,
-  placeholder = "Select...",
-  searchPlaceholder = "Search...",
-  emptyText = "No item found.",
+  placeholder,
+  searchPlaceholder,
+  emptyText,
   disabled = false,
   widthClass = "w-50",
   variant = "default",
 }: ComboBoxProps<T>) => {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  
+  placeholder ??= t("Common.ComboBox.Placeholder")
+  searchPlaceholder ??= t("Common.ComboBox.SearchPlaceholder")
+  emptyText ??= t("Common.ComboBox.EmptyText")
+  
   const selectedValue = selected ? getValue(selected) : ""
-  const label = selected
-    ? getLabel(items.find((item) => isSelected(item, selected)) ?? selected)
+
+  const selectedInItems = items.find((item) => isSelected(item, selected))
+  const label = selectedInItems
+    ? getLabel(selectedInItems)
     : placeholder
 
   return (
