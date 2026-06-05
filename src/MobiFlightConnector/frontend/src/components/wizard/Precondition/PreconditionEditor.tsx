@@ -27,7 +27,19 @@ const LOGIC_OPTIONS: Precondition["Logic"][] = ["and", "or"]
 const TYPE_OPTIONS = [
   { value: "config", label: "Config" },
   { value: "variable", label: "Variable" },
+  { value: "pin", label: "Arcaze-Pin" },
 ]
+
+const ArcazePortOptions = [
+  { value: "A", label: "Port A" },
+  { value: "B", label: "Port B" },
+]
+
+const ARCAZE_PIN_COUNT = 40
+const ArcazePinOptions = Array.from({ length: ARCAZE_PIN_COUNT }, (_, i) => ({
+  value: `${i + 1}`.padStart(2, "0"),
+  label: `Pin ${i + 1}`,
+}))
 
 type PreconditionItemRowProps = {
   precondition: Precondition
@@ -57,6 +69,21 @@ const PreconditionItemRow = ({
       ? variables.find((v) => v.Name === precondition.Ref)
       : undefined
 
+  const preconditionPin = {
+    Port: (precondition.Type === "pin") && (precondition.Pin?.charAt(0) ?? "A"),
+    Pin: (precondition.Type === "pin") && (precondition.Pin?.substring(1, 3) ?? "01"),
+  }
+  const selectedPort =
+    precondition.Type === "pin"
+      ? ArcazePortOptions.find((p) => p.value === preconditionPin.Port)
+      : ArcazePortOptions[0] // Default to Port A if not a pin type
+
+  const selectedPin =
+    precondition.Type === "pin"
+      ? ArcazePinOptions.find((p) => p.value === preconditionPin.Pin)
+      : ArcazePinOptions[0] // Default to Pin 01 if not a pin type
+
+
   const variantStyle = preconditionVariants[precondition.Type]
 
   return (
@@ -71,7 +98,9 @@ const PreconditionItemRow = ({
             onChange({ ...precondition, Active: !!checked })
           }
         />
-        <Label className="text-sm">{t("Dialog.InputConfigWizard.PreconditionEditor.Active")}</Label>
+        <Label className="text-sm">
+          {t("Dialog.InputConfigWizard.PreconditionEditor.Active")}
+        </Label>
       </div>
 
       <ComboBox
@@ -81,9 +110,15 @@ const PreconditionItemRow = ({
         getLabel={(t) => t.label}
         isSelected={(t, s) => t.value === s?.value}
         setSelected={(t) =>
-          onChange({ ...precondition, Type: t?.value as "config" | "variable" | "pin" ?? "config", Ref: "" })
+          onChange({
+            ...precondition,
+            Type: (t?.value as "config" | "variable" | "pin") ?? "config",
+            Ref: "",
+          })
         }
-        placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.TypePlaceholder")}
+        placeholder={t(
+          "Dialog.InputConfigWizard.PreconditionEditor.TypePlaceholder",
+        )}
         widthClass="w-32"
         variant="nofilter"
       />
@@ -96,8 +131,10 @@ const PreconditionItemRow = ({
           getLabel={(c) => c.Name}
           isSelected={(c, s) => c.GUID === s?.GUID}
           setSelected={(c) => onChange({ ...precondition, Ref: c?.GUID ?? "" })}
-          placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.SelectConfig")}
-          widthClass="w-48"
+          placeholder={t(
+            "Dialog.InputConfigWizard.PreconditionEditor.SelectConfig",
+          )}
+          widthClass="w-58"
         />
       )}
 
@@ -109,9 +146,46 @@ const PreconditionItemRow = ({
           getLabel={(v) => v.Name}
           isSelected={(v, s) => v.Name === s?.Name}
           setSelected={(v) => onChange({ ...precondition, Ref: v?.Name ?? "" })}
-          placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.SelectVariable")}
-          widthClass="w-48"
+          placeholder={t(
+            "Dialog.InputConfigWizard.PreconditionEditor.SelectVariable",
+          )}
+          widthClass="w-58"
         />
+      )}
+
+      {precondition.Type === "pin" && (
+        <div className="flex flex-row gap-2">
+          <ComboBox
+            items={ArcazePortOptions}
+            selected={selectedPort}
+            getValue={(p) => p.value}
+            getLabel={(p) => p.label}
+            isSelected={(p, s) => p.value === s?.value}
+            setSelected={(p) => {
+              const updated = { ...precondition, Pin: `${p?.value ?? ""}${preconditionPin.Pin}` }
+              console.log("Selected Port:", p, "Updated Precondition:", updated)
+              onChange(updated)
+            }}
+            placeholder={t(
+              "Dialog.InputConfigWizard.PreconditionEditor.SelectPort",
+            )}
+            widthClass="w-28"
+          />
+          <ComboBox
+            items={ArcazePinOptions}
+            selected={selectedPin}
+            getValue={(p) => p.value}
+            getLabel={(p) => p.label}
+            isSelected={(p, s) => p.value === s?.value}
+            setSelected={(p) =>
+              onChange({ ...precondition, Pin: `${preconditionPin.Port}${p?.value ?? ""}` })
+            }
+            placeholder={t(
+              "Dialog.InputConfigWizard.PreconditionEditor.SelectPin",
+            )}
+            widthClass="w-28"
+          />
+        </div>
       )}
 
       <ComboBox
@@ -127,7 +201,10 @@ const PreconditionItemRow = ({
       <Input
         value={precondition.Value}
         onChange={(e) => onChange({ ...precondition, Value: e.target.value })}
-        placeholder={t("Dialog.InputConfigWizard.PreconditionEditor.ValuePlaceholder")}
+        placeholder={t(
+          "Dialog.InputConfigWizard.PreconditionEditor.ValuePlaceholder",
+        )}
+        className="w-18"
       />
       {showLogic && (
         <div className="flex flex-row items-center gap-2">
@@ -151,7 +228,9 @@ const PreconditionItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
-        <div className="sr-only">{t("Dialog.InputConfigWizard.PreconditionEditor.DeletePrecondition")}</div>
+        <div className="sr-only">
+          {t("Dialog.InputConfigWizard.PreconditionEditor.DeletePrecondition")}
+        </div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -191,7 +270,9 @@ const PreconditionEditor = ({
 
   return (
     <div className="flex flex-col gap-4" data-testid="precondition-editor">
-      <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.PreconditionEditor.Title")}</div>
+      <div className="text-lg font-semibold">
+        {t("Dialog.InputConfigWizard.PreconditionEditor.Title")}
+      </div>
       <div className="text-muted-foreground text-sm">
         {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
       </div>

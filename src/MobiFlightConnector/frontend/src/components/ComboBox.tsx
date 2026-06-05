@@ -62,7 +62,7 @@ const ComboBox = <T,>({
           className={cn(widthClass, "justify-between")}
           disabled={disabled}
         >
-          <span className="truncate text-sm" title={label}>
+          <span className={cn(widthClass, "truncate text-sm text-left")} title={label}>
             {label}
           </span>
           <IconChevronDown className="opacity-50" />
