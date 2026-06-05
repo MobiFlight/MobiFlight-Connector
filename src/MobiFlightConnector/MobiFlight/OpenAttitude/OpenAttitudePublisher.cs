@@ -27,7 +27,7 @@ namespace MobiFlight.OpenAttitude
             MessageExchange.Instance.Subscribe<ConfigValueRawAndFinalUpdate>(OnConfigValuesUpdated);
         }
 
-        private void OnConfigValuesUpdated(ConfigValueRawAndFinalUpdate update)
+        internal void OnConfigValuesUpdated(ConfigValueRawAndFinalUpdate update)
         {
             if (!_server.IsRunning) return;
             if (update?.ConfigItems == null || update.ConfigItems.Count == 0) return;

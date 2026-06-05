@@ -1,13 +1,15 @@
 ﻿using MobiFlight.WebView;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using WpfScreenHelper;
 
 namespace MobiFlight.OpenAttitude
 {
     public partial class OpenAttitudeWindow : Form
     {
 #if DEBUG
-        private bool IsRunningInProduction = false;
+        private bool IsRunningInProduction = true;
 #else 
         private bool IsRunningInProduction = true;
 #endif
@@ -33,6 +35,9 @@ namespace MobiFlight.OpenAttitude
             }
 
             InitializeComponent();
+
+            Load += OpenAttitudeWindow_Load;
+
             if (!DesignMode)
                 InitializeAsync();
         }
@@ -66,6 +71,30 @@ namespace MobiFlight.OpenAttitude
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             // Navigate to start the app
             webView.CoreWebView2.Navigate($"{_frontendBaseUrl}{route}");
+        }
+
+        private void OpenAttitudeWindow_Load(object sender, System.EventArgs e)
+        {
+            // Set initial position and size
+            var screenName = FindDefaultScreenByResolution(1920, 720);
+            var screen = WpfScreenHelper.Screen.AllScreens.FirstOrDefault(s => s.DeviceName == screenName);
+            if (screen != null)
+            {
+                this.Left = (int)screen.WpfBounds.Left;
+                this.Top = (int)screen.WpfBounds.Top;
+                this.Width = (int)screen.WpfBounds.Width;
+                this.Height = (int)screen.WpfBounds.Height;
+            }
+        }
+
+        private string FindDefaultScreenByResolution(int width, int height)
+        {
+            // Look for specific resolution
+            var resolutionScreen = WpfScreenHelper.Screen.AllScreens.FirstOrDefault(s => s.WpfBounds.Width == width && s.WpfBounds.Height == height);
+            if (resolutionScreen != null) return resolutionScreen.DeviceName;
+
+            // Fallback to primary screen
+            return WpfScreenHelper.Screen.PrimaryScreen.DeviceName;
         }
     }
 }
