@@ -22,9 +22,9 @@ const defaultConfig: FsuipcOffsetInputAction = {
   Type: "FsuipcOffsetInputAction",
   FSUIPC: {
     OffsetType: "Integer",
-    Offset: 0,
+    Offset: 0x66C0,
     Size: 1,
-    Mask: 0,
+    Mask: 0xFF,
     BcdMode: false,
   },
   Modifiers: [],
@@ -46,7 +46,7 @@ const FsuipcOffsetInputActionPanel = ({
   onConfigChange,
 }: FsuipcOffsetInputActionPanelProps) => {
   const { t } = useTranslation()
-  const currentConfig = config ?? defaultConfig
+  const currentConfig = config?.FSUIPC ? config : defaultConfig
   const selectedSizeOption = FsuipcSizeOptions.find(
     (option) => option.value === currentConfig.FSUIPC.Size,
   )
