@@ -11,6 +11,7 @@ using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
@@ -252,7 +253,7 @@ namespace MobiFlight
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
 
-            OpenAttitudeServer = new PropertyListenerServer(port: 8080);
+            OpenAttitudeServer = new PropertyListenerServer(port: 2020);
             OpenAttitudeServer.Start();
             OpenAttitudePublisher = new OpenAttitudePublisher(
                 OpenAttitudeServer,
@@ -314,8 +315,8 @@ namespace MobiFlight
 
         private void FrontendUpdateTimer_Execute(object sender, EventArgs e)
         {
-            if (!updateFrontend) return;
 
+            if (!updateFrontend) return;
             UpdateInputPreconditions();
 
             if (updatedValues.Count == 0) return;
@@ -329,7 +330,6 @@ namespace MobiFlight
 
                 list.Add(new ConfigValueOnlyItem(value));
             });
-
             MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(list));
         }
 
@@ -1101,6 +1101,12 @@ namespace MobiFlight
                     executor.Execute(cfg, updatedValues);
                 }
             }
+            var list = updatedValues.Values.ToList().Select(value =>
+            {
+                return new ConfigValueOnlyItem(value) as IConfigValueOnlyItem;
+            }).ToList();
+
+            OpenAttitudePublisher.OnConfigValuesUpdated(new ConfigValueRawAndFinalUpdate(list));
 
             isExecuting = false;
         }
