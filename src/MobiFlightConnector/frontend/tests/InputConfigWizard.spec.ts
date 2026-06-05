@@ -722,6 +722,7 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
             GUID: "87654321-4321-4321-4321-BA0987654321",
             Preconditions: [],
             ConfigRefs: [],
+            Status: {}
           },
         ],
       } as ConfigValueFullUpdate,
