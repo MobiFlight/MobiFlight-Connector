@@ -1,5 +1,8 @@
 import { Locator, Page } from "@playwright/test"
-import { ScanForInputResult } from "../src/types/messages"
+import {
+  ConfigValueFullUpdate,
+  ScanForInputResult,
+} from "../src/types/messages"
 import { test, expect } from "./fixtures"
 import { ConfigListPage } from "./fixtures/ConfigListPage"
 import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" with { type: "json" }
@@ -91,7 +94,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     const firstRow = await configListPage.getConfigItemRow(1)
-    
+
     const contextMenuButton = firstRow
       .getByRole("button", { name: "Open menu" })
       .first()
@@ -696,6 +699,77 @@ test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
 })
 
 test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
+  test("New config data is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithEmptyData()
+
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ConfigValueFullUpdate",
+      payload: {
+        ConfigIndex: 0,
+        ConfigItems: [
+          {
+            Type: "InputConfigItem",
+            Name: "Keyboard Input Example",
+            Active: true,
+            GUID: "87654321-4321-4321-4321-BA0987654321",
+            Preconditions: [],
+            ConfigRefs: [],
+          },
+        ],
+      } as ConfigValueFullUpdate,
+    })
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+
+    const scanForInputButton = page.getByRole("button", {
+      name: "Scan for input",
+    })
+    await expect(scanForInputButton).toBeVisible()
+    await scanForInputButton.click()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ScanForInputResult",
+      payload: {
+        Controller: {
+          Devices: [],
+          Name: "Bravo Throttle Quadrant",
+          Serial: "JS-87654321",
+        },
+        Device: {
+          Name: "Button 21",
+          Label: "Mode - ALT",
+          Type: "Button",
+        },
+      } as ScanForInputResult,
+    })
+
+    const actionEditor = page.getByTestId("action-editor")
+    await expect(actionEditor).toBeVisible()
+
+    const actionComboBox = actionEditor.getByRole("combobox")
+    await expect(actionComboBox).toBeVisible()
+    await actionComboBox.click()
+
+    const keyboardInputOption = page.getByRole('option', { name: 'MobiFlight - Keyboard Input' })
+    await expect(keyboardInputOption).toBeVisible()
+    await keyboardInputOption.click()
+    await expect(keyboardInputOption).not.toBeVisible()
+
+    await expect(
+      actionEditor
+        .getByRole("combobox")
+        .filter({ hasText: "MobiFlight - Keyboard Input" }),
+    ).toBeVisible()
+    await expect(actionEditor.getByText('Key combo:None')).toBeVisible()
+  })
+
   test("Loaded config data is displayed correctly", async ({
     configListPage,
     page,

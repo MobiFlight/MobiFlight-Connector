@@ -1,5 +1,5 @@
 import { Settings } from "http2"
-import { IConfigValueOnlyItem, MobiFlightVariable } from "./config"
+import { IConfigItem, IConfigValueOnlyItem, MobiFlightVariable } from "./config"
 import { JoystickDefinition, MidiControllerDefinition } from "./definitions"
 import { ProjectInfo } from "@/types/project"
 import { Controller, ControllerBinding, DeviceReference } from "@/types/controller"

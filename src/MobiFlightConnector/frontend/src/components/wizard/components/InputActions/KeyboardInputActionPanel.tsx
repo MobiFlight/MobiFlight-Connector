@@ -14,7 +14,7 @@ const emptyConfig: KeyInputAction = {
   Control: false,
   Alt: false,
   Shift: false,
-  Key: "0",
+  Key: 0,
 }
 
 const KeyboardInputActionPanel = ({
@@ -24,13 +24,7 @@ const KeyboardInputActionPanel = ({
   const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
   const [scannedKeys, setScannedKeys] = useState<KeyInputAction>(
-    config ?? {
-      Type: "KeyInputAction",
-      Control: false,
-      Alt: false,
-      Shift: false,
-      Key: "",
-    },
+    config?.Key !== undefined ? config : emptyConfig,
   )
 
   const handleScanForInput = () => {
@@ -42,6 +36,9 @@ const KeyboardInputActionPanel = ({
       onConfigChange(scannedKeys)
     }
   }
+
+  console.log(config)
+  console.log(scannedKeys)
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     event.stopPropagation()
@@ -68,7 +65,7 @@ const KeyboardInputActionPanel = ({
         Control: event.ctrlKey,
         Alt: event.altKey,
         Shift: event.shiftKey,
-        Key: key.toString(),
+        Key: key
       }
       setScannedKeys(newConfig)
     }
@@ -84,7 +81,7 @@ const KeyboardInputActionPanel = ({
         Control: event.ctrlKey,
         Alt: event.altKey,
         Shift: event.shiftKey,
-        Key: "0",
+        Key: 0,
       })
     }
   }
@@ -106,8 +103,8 @@ const KeyboardInputActionPanel = ({
             {scannedKeys?.Control && "Ctrl + "}
             {scannedKeys?.Alt && "Alt + "}
             {scannedKeys?.Shift && "Shift + "}
-            {scannedKeys?.Key !== "0"
-              ? String.fromCharCode(Number(scannedKeys.Key)).toUpperCase()
+            {scannedKeys?.Key !== 0
+              ? String.fromCharCode(scannedKeys.Key).toUpperCase()
               : t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}
           </div>
         </div>

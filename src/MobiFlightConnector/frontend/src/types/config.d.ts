@@ -24,7 +24,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   DeviceName?: string | null
   // Tags: string[];
   Preconditions: Precondition[]
-  Status: IDictionary<string, ConfigItemStatusType>
+  Status?: IDictionary<string, ConfigItemStatusType>
   button?: ButtonTrigger
   inputMultiplexer?: ButtonTrigger
   inputShiftRegister?: ButtonTrigger
@@ -74,9 +74,9 @@ export interface ButtonTrigger {
   onRelease?: Action
   onHold?: Action
   onLongRelease?: Action
-  HoldDelay: number
-  LongReleaseDelay: number
-  RepeatDelay: number
+  HoldDelay?: number
+  LongReleaseDelay?: number
+  RepeatDelay?: number
 }
 
 export interface EncoderTrigger {
@@ -155,7 +155,7 @@ export interface LuaMacroInputAction extends Action {
 
 export interface KeyInputAction extends Action {
   Type: "KeyInputAction"
-  Key: string
+  Key: number
   Control: boolean
   Alt: boolean
   Shift: boolean

@@ -163,7 +163,9 @@ export class MobiFlightPage {
       payload: {
         Name: "Test Project",
         FilePath: "SomeFilePath.mfproj",
-        ConfigFiles: [],
+        ConfigFiles: [
+          { ConfigItems: [], FileName: "Config1", Label: "Config 1" },
+        ],
         Sim: "msfs",
         Features: {
           FSUIPC: false,
@@ -173,6 +175,8 @@ export class MobiFlightPage {
       } as Project,
     }
     await this.publishMessage(message)
+    await this.initWithRecentProjects()
+    await this.initWithConnectedControllers()
   }
 
   async initWithTestData(variant: "default" | "inputaction" = "default") {
