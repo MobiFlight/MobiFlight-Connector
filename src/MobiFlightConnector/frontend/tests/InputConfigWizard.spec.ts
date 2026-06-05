@@ -274,7 +274,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     ).toBeVisible()
   })
 
-  test("Preconditions panel editing works correctly", async ({
+  test("Preconditions panel shows correct data for existing preconditions", async ({
     configListPage,
     page,
   }) => {
