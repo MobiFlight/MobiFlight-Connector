@@ -17,6 +17,11 @@
     "Error": {
       "FallbackTitle": "Ooops... irgendwas ist schief gelaufen!",
       "Unknown": "Ein unbekannter Fehler ist aufgetreten."
+    },
+    "ComboBox": {
+      "NoResults": "Kein Eintrag gefunden.",
+      "Placeholder": "Auswählen...",
+      "SearchPlaceholder": "Suchen..."
     }
   },
   "MainMenu": {
@@ -450,7 +455,9 @@
         "SelectConfig": "Konfiguration auswählen...",
         "SelectVariable": "Variable auswählen...",
         "ValuePlaceholder": "Wert",
-        "DeletePrecondition": "Vorbedingung löschen"
+        "DeletePrecondition": "Vorbedingung löschen",
+        "SelectPort": "Port auswählen...",
+        "SelectPin": "Pin auswählen..."
       },
       "ConfigReferenceEditor": {
         "Title": "Konfig-Referenzen",
@@ -548,8 +555,10 @@
           "Description2": "Dies ist hilfreich, um dein virtuelles Cockpit mit den Schalter- und Tastenstatus deiner physischen Controller zu synchronisieren."
         },
         "Variable": {
+          "ExistingVariable": "Vorhandene Variable verwenden",
           "VariableTypeLabel": "Variablentyp",
           "VariableNameLabel": "Variablenname",
+          "VariableNamePlaceholder": "Variablennamen eingeben...",
           "ExpressionLabel": "Ausdruck",
           "ExpressionPlaceholder": "Ausdruck eingeben...",
           "ExpressionHelp": "Verwende <1>$</1> um den Variablenwert in Ausdrücken darzustellen, z. B. <3>$ * 2</3> um eine Zahlenvariable zu verdoppeln."

@@ -17,6 +17,11 @@
     "Error": {
       "FallbackTitle": "Ooops... algo pasó que no debería haber pasado!",
       "Unknown": "Ocurrió un error desconocido."
+    },
+    "ComboBox": {
+      "NoResults": "No se encontraron elementos.",
+      "Placeholder": "Seleccionar...",
+      "SearchPlaceholder": "Buscar..."
     }
   },
   "MainMenu": {
@@ -450,7 +455,9 @@
         "SelectConfig": "Seleccionar configuración...",
         "SelectVariable": "Seleccionar variable...",
         "ValuePlaceholder": "Valor",
-        "DeletePrecondition": "Eliminar precondición"
+        "DeletePrecondition": "Eliminar precondición",
+        "SelectPort": "Seleccionar puerto...",
+        "SelectPin": "Seleccionar pin..."
       },
       "ConfigReferenceEditor": {
         "Title": "Referencias de configuración",
@@ -548,8 +555,10 @@
           "Description2": "Esto es útil para sincronizar tu cabina virtual con los estados de interruptores y botones de tus controladores físicos."
         },
         "Variable": {
+          "ExistingVariable": "Usar variable existente",
           "VariableTypeLabel": "Tipo de variable",
           "VariableNameLabel": "Nombre de variable",
+          "VariableNamePlaceholder": "Ingresar nombre de variable...",
           "ExpressionLabel": "Expresión",
           "ExpressionPlaceholder": "Ingresar expresión...",
           "ExpressionHelp": "Usa <1>$</1> para representar el valor de la variable en expresiones, p. ej. <3>$ * 2</3> para duplicar una variable numérica."

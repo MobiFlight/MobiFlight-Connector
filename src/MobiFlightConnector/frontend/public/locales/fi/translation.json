@@ -17,6 +17,11 @@
     "Error": {
       "FallbackTitle": "Hupsista, jotain meni vikaan!",
       "Unknown": "Tuntematon virhe."
+    },
+    "ComboBox": {
+      "NoResults": "Ei kohteita löytynyt.",
+      "Placeholder": "Valitse...",
+      "SearchPlaceholder": "Haku..."
     }
   },
   "MainMenu": {
@@ -444,7 +449,9 @@
         "SelectConfig": "Valitse konfiguraatio...",
         "SelectVariable": "Valitse muuttuja...",
         "ValuePlaceholder": "Arvo",
-        "DeletePrecondition": "Poista esiehto"
+        "DeletePrecondition": "Poista esiehto",
+        "SelectPort": "Valitse portti...",
+        "SelectPin": "Valitse pinni..."
       },
       "ConfigReferenceEditor": {
         "Title": "Konfiguraatioviittaukset",
@@ -542,8 +549,10 @@
           "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
         },
         "Variable": {
+          "ExistingVariable": "Käytä olemassa olevaa muuttujaa",
           "VariableTypeLabel": "Muuttujatyyppi",
           "VariableNameLabel": "Muuttujan nimi",
+          "VariableNamePlaceholder": "Syötä muuttujan nimi...",
           "ExpressionLabel": "Lauseke",
           "ExpressionPlaceholder": "Syötä lauseke...",
           "ExpressionHelp": "Käytä <1>$</1> muuttujan arvon esittämiseen lausekkeissa, esim. <3>$ * 2</3> lukumuuttujan kaksinkertaistamiseksi."
