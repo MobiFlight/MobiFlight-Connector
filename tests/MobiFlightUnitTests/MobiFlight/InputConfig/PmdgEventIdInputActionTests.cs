@@ -1,5 +1,7 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.BrowserMessages.Incoming.Converter;
+using Moq;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -112,6 +114,42 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.HasCount(1, mock.Writes, "The message count is not as expected");
             Assert.AreEqual("SetEventID>" + o.EventId + ">" + 2, mock.Writes[0].Value, "The Write Value is wrong");
+        }
+
+        [TestMethod()]
+        public void executeTest_WithParamNull_LogsAndSkips()
+        {
+            PmdgEventIdInputAction o = generateTestObject();
+            MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
+            MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
+            MobiFlightUnitTests.mock.xplane.XplaneCacheMock xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            // Arrange
+            var mockLogAppender = new Mock<ILogAppender>();
+            Log.Instance.ClearAppenders();
+            Log.Instance.AddAppender(mockLogAppender.Object);
+            Log.Instance.Enabled = true;
+            Log.Instance.Severity = LogSeverity.Error;
+
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = mock,
+                simConnectCache = simConnectMock,
+                moduleCache = null,
+                xplaneCache = xplaneCacheMock
+            };
+
+            o.Param = null;
+            o.execute(cacheCollection, null, new List<ConfigRefValue>());
+            Assert.HasCount(0, mock.Writes, "The message count is not as expected");
+
+            // Assert
+            var expectedLogMessage = $"Unable to execute {PmdgEventIdInputAction.Label} action for eventId {o.EventId} because the parameter is not defined.";
+            mockLogAppender.Verify(
+                appender => appender.log(expectedLogMessage, LogSeverity.Error),
+                Times.Once,
+                "Expected log message should be logged once with Info severity"
+            );
         }
 
         [TestMethod()]

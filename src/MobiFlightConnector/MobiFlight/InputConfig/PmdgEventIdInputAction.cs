@@ -56,6 +56,12 @@ namespace MobiFlight.InputConfig
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {
+            if (Param == null)
+            {
+                Log.Instance.log($"Unable to execute {Label} action for eventId {EventId} because the parameter is not defined.", LogSeverity.Error);
+                return;
+            }
+
             String value = Param;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
