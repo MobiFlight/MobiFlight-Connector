@@ -250,7 +250,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
 })
 
 test.describe("Input Config Wizard - Preconditions panel", () => {
-  test("Preconditions panel shows correct data for existing preconditions", async ({
+  test("Preconditions panel shows correct summary for existing preconditions", async ({
     configListPage,
     page,
   }) => {
@@ -274,7 +274,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     ).toBeVisible()
   })
 
-  test("Preconditions panel shows correct data for existing preconditions", async ({
+  test("Preconditions panel shows correct form data for existing preconditions", async ({
     configListPage,
     page,
   }) => {
