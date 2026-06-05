@@ -38,6 +38,39 @@ namespace MobiFlight.InputConfig.Tests
             List<ConfigRefValue> configrefs = new List<ConfigRefValue>();
             configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
 
+            MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
+            MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
+            MobiFlightUnitTests.mock.xplane.XplaneCacheMock xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = mock,
+                simConnectCache = simConnectMock,
+                moduleCache = null,
+                xplaneCache = xplaneCacheMock
+            };
+
+            o.execute(cacheCollection, new InputEventArgs() { Value = 359 }, configrefs);
+
+            Assert.HasCount(1, simConnectMock.Writes, "The message count is not as expected");
+            Assert.AreEqual("359 (>K:THROTTLE_SET)", simConnectMock.Writes[0], "The Write Value is wrong");
+        }
+
+        [TestMethod()]
+        public void executeTest_CommandIsNull_skips()
+        {
+            MSFS2020CustomInputAction o = generateTestObject();
+            o.Command = null;
+
+            List<ConfigRefValue> configrefs = new List<ConfigRefValue>() {
+                new ConfigRefValue() { 
+                    ConfigRef = new Base.ConfigRef() { 
+                        Active = true, 
+                        Placeholder = "#" 
+                    }, 
+                    Value = "1" 
+                }
+            };
 
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
@@ -52,9 +85,8 @@ namespace MobiFlight.InputConfig.Tests
             };
 
             o.execute(cacheCollection, new InputEventArgs() { Value = 359 }, configrefs);
-            
-            Assert.HasCount(1, simConnectMock.Writes, "The message count is not as expected");
-            Assert.AreEqual("359 (>K:THROTTLE_SET)", simConnectMock.Writes[0], "The Write Value is wrong");
+
+            Assert.HasCount(0, simConnectMock.Writes, "The message count is not as expected");
         }
     }
 }
