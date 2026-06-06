@@ -7,7 +7,7 @@ import EncoderActionBindingPanel from "@/components/wizard/components/EncoderAct
 import PreconditionsPanel from "@/components/wizard/components/PreconditionsPanel"
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
-import { useLocation, useNavigate, useSearchParams } from "react-router"
+import { useNavigate, useSearchParams } from "react-router"
 import {
   Drawer,
   DrawerContent,
@@ -50,9 +50,6 @@ const ConfigWizard = ({
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
-  const location = useLocation()
-  console.log("Current location:", location)
-
   const currentDeviceType = determineInputDeviceType(
     configItem.Device?.Type,
   )
@@ -65,16 +62,10 @@ const ConfigWizard = ({
   }
 
   const closeDetailView = (open: boolean) => {
-    console.log(
-      "Closing detail view, current search params:",
-      searchParams.toString(),
-    )
     if (open) return
     setDrawerOpen(false)
     setTimeout(() => navigate(-1), 500)
   }
-
-  
 
   return (
     <div className="flex flex-col gap-4">

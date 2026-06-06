@@ -110,13 +110,12 @@ export const VariablePanel = ({
               onKeyDown={(e) => {
                 e.stopPropagation()
               }}
-              onChange={(e) => {
-                console.log("Updating Variable Expression:", e.target.value)
+              onChange={(e) =>
                 onVariableChange({
                   ...variable,
                   Expression: e.target.value,
                 } as MobiFlightVariable)
-              }}
+              }
               placeholder={t(
                 "Dialog.InputConfigWizard.InputActions.Variable.ExpressionPlaceholder",
               )}

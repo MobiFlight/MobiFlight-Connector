@@ -34,7 +34,6 @@ export interface ActionEditorProps {
 }
 
 const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
-  console.log("Current Action in Editor:", action)
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
@@ -71,13 +70,12 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ? (action as MobiFlightVariableAction).Variable
                   : undefined
               }
-              onVariableChange={(variable) => {
-                console.log("Selected Variable in Action Editor:", variable)
+              onVariableChange={(variable) =>
                 onActionChange({
                   ...(action as MobiFlightVariableAction),
                   Variable: variable,
                 } as MobiFlightVariableAction)
-              }}
+              }
             />
           )}
 
@@ -88,12 +86,12 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
           {selectedActionType?.value === "VJoyInputAction" && (
             <VJoyInputActionPanel
               config={action ? (action as VJoyInputAction) : null}
-              setConfig={(config) => {
+              setConfig={(config) =>
                 onActionChange({
                   ...(action as VJoyInputAction),
                   ...config,
                 } as VJoyInputAction)
-              }}
+              }
             />
           )}
 

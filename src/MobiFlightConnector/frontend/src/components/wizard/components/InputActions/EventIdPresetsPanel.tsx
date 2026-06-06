@@ -46,10 +46,7 @@ const EventIdPresetsPanel = ({
   const selectedPreset = presets.find(
     (item) => item.eventId === selectedPresetId?.toString(),
   )
-
-  console.log("Available Presets:", presets)
-  console.log("Selected Preset:", selectedPreset)
-
+  
   return (
     <div className="flex flex-col gap-2">
       <Label>{t("Dialog.InputConfigWizard.InputActions.EventIdPresets.SelectPresetLabel")}</Label>

@@ -25,7 +25,6 @@ const ButtonActionBindingPanel = ({
   }
 
   const current = trigger ?? defaultButtonTrigger
-  console.log("Current Button Trigger in Panel:", current)
 
   return (
     <Tabs data-testid="button-action-panel" defaultValue={tabs[0]}>
@@ -49,13 +48,12 @@ const ButtonActionBindingPanel = ({
           <TabsContent key={tab} value={tab}>
             <ActionEditor
               action={action}
-              onActionChange={(action) => {
-                console.log(`Action changed for ${tab}:`, action)
+              onActionChange={(action) =>
                 onTriggerChange({
                   ...current,
                   [tab]: action,
                 })
-              }}
+              }
             />
           </TabsContent>
         )

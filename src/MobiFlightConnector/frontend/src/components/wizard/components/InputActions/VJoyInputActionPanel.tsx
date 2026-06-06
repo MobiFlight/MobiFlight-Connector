@@ -24,7 +24,6 @@ const VJoyInputActionPanel = ({
 
   useAppMessage("VJoyDefinitionsUpdate", (message) => {
     const { Definitions } = message.payload as VJoyDefinitionsUpdate
-    console.log("Received VJoy Definitions Update:", Definitions)
     setVJoyDefinitions(Definitions)
   })
 

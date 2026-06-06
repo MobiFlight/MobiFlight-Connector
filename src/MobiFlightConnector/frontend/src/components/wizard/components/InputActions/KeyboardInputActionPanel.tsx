@@ -37,9 +37,6 @@ const KeyboardInputActionPanel = ({
     }
   }
 
-  console.log(config)
-  console.log(scannedKeys)
-
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     event.stopPropagation()
     event.preventDefault()
@@ -57,8 +54,6 @@ const KeyboardInputActionPanel = ({
         scannedKey === "Alt"
           ? 0
           : keyCode
-
-      console.log("Scanned key:", scannedKey, "Key code:", keyCode)
 
       const newConfig: KeyInputAction = {
         Type: "KeyInputAction",

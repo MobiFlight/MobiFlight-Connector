@@ -163,7 +163,6 @@ const PreconditionItemRow = ({
             isSelected={(p, s) => p.value === s?.value}
             setSelected={(p) => {
               const updated = { ...precondition, Pin: `${p?.value ?? ""}${preconditionPin.Pin}` }
-              console.log("Selected Port:", p, "Updated Precondition:", updated)
               onChange(updated)
             }}
             placeholder={t(

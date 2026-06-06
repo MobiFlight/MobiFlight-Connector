@@ -181,7 +181,6 @@ export function ConfigItemTable<TValue>({
 
   useEffect(() => {
     if (addedItem.current && data.length === prevDataLength.current + 1) {
-      console.log("New item added, trying to scroll into view")
       addedItem.current = false
       const lastItem = data[data.length - 1] as IConfigItem
       const rowElement = tableRef.current?.querySelector(

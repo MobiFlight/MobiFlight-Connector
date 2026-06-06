@@ -97,7 +97,6 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   const [scanning, setScanning] = useState(false)
 
   useAppMessage("ScanForInputResult", (message) => {
-    console.log("ScanForInputResult message received", message.payload)
     const { Controller, Device } = message.payload as ScanForInputResult
     setSelectedController(Controller)
     setSelectedDevice({ ...Device, Label: Device.Name })
