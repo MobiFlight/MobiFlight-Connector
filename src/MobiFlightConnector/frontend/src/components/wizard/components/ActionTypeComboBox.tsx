@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next"
 
 export type ActionTypeOption = {
   value: string
-  label: string
   isAvailable: (settings: Partial<Project>) => boolean
 }
 

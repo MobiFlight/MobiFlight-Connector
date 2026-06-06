@@ -9,7 +9,6 @@ import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" w
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { ActionTypeOptions } from "../src/lib/configWizard"
 import { Project } from "../src/types"
-import { useTranslation } from "react-i18next"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -511,11 +510,6 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
     configListPage,
     page,
   }) => {
-    const { t } = useTranslation()
-    const getLabel = (option: string) => {
-      return t(`Dialog.InputConfigWizard.ActionType.Options.${option}`, option)
-    }
-
     const projectSettingsToTest: Partial<Project>[] = [
       {
         Sim: "msfs",
