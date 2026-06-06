@@ -153,7 +153,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               selected={selectedController}
               placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectController")}
               searchPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.SearchController")}
-              emptyText={t("Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound")}
+              noOptionsPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound")}
               setSelected={(controller) => {
                 setSelectedController(controller)
                 setSelectedDevice(undefined)
@@ -176,7 +176,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               selected={selectedDevice}
               placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectDevice")}
               searchPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.SearchDevice")}
-              emptyText={t("Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound")}
+              noOptionsPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound")}
               disabled={!selectedController}
               setSelected={(device) => {
                 setSelectedDevice(device)

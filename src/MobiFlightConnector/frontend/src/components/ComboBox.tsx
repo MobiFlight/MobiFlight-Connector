@@ -26,7 +26,7 @@ export type ComboBoxProps<T> = HTMLAttributes<HTMLElement> & {
   setSelected: (item?: T) => void
   placeholder?: string | null
   searchPlaceholder?: string | null
-  emptyText?: string | null
+  noOptionsPlaceholder?: string | null
   disabled?: boolean
   widthClass?: string
   variant?: "default" | "nofilter"
@@ -41,7 +41,7 @@ const ComboBox = <T,>({
   setSelected,
   placeholder,
   searchPlaceholder,
-  emptyText,
+  noOptionsPlaceholder,
   disabled = false,
   widthClass = "w-50",
   variant = "default",
@@ -50,9 +50,9 @@ const ComboBox = <T,>({
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   
-  placeholder ??= t("Common.ComboBox.Placeholder")
-  searchPlaceholder ??= t("Common.ComboBox.SearchPlaceholder")
-  emptyText ??= t("Common.ComboBox.EmptyText")
+  placeholder ??= t("General.ComboBox.Placeholder")
+  searchPlaceholder ??= t("General.ComboBox.SearchPlaceholder")
+  noOptionsPlaceholder ??= t("General.ComboBox.NoOptions")
   
   const selectedValue = selected ? getValue(selected) : ""
 
@@ -85,7 +85,7 @@ const ComboBox = <T,>({
             <CommandInput placeholder={searchPlaceholder} className="h-9" />
           )}
           <CommandList>
-            <CommandEmpty>{emptyText}</CommandEmpty>
+            <CommandEmpty>{noOptionsPlaceholder}</CommandEmpty>
             <CommandGroup>
               {items.map((item) => {
                 const itemValue = getValue(item)
