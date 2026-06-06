@@ -77,6 +77,10 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     _mainForm.ToggleOpenAttitude();
                     break;
 
+                case CommandMainMenuAction.view_openattitude_next:
+                    _mainForm.NextScreen();
+                    break;
+
                 // Help Menu Actions
                 case CommandMainMenuAction.help_docs:
                     _mainForm.documentationToolStripMenuItem_Click(null, null);

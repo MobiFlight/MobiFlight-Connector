@@ -3009,6 +3009,13 @@ namespace MobiFlight.UI
             OpenAttitudeWindow.BringToFront();
         }
 
+        internal void NextScreen()
+        {
+            if (OpenAttitudeWindow == null || !OpenAttitudeWindow.Visible) return;
+
+            OpenAttitudeWindow.NextScreen();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 

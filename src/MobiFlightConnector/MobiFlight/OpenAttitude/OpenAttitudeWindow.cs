@@ -17,6 +17,8 @@ namespace MobiFlight.OpenAttitude
         private readonly string _frontendDistPath;
         private string WebsocketUrl { get; set; }
 
+        private WpfScreenHelper.Screen CurrentScreen = null;
+
         public new bool DesignMode
         {
             get
@@ -78,13 +80,7 @@ namespace MobiFlight.OpenAttitude
             // Set initial position and size
             var screenName = FindDefaultScreenByResolution(1920, 720);
             var screen = WpfScreenHelper.Screen.AllScreens.FirstOrDefault(s => s.DeviceName == screenName);
-            if (screen != null)
-            {
-                this.Left = (int)screen.WpfBounds.Left;
-                this.Top = (int)screen.WpfBounds.Top;
-                this.Width = (int)screen.WpfBounds.Width;
-                this.Height = (int)screen.WpfBounds.Height;
-            }
+            PostitionWindowOnScreen(screen);
         }
 
         private string FindDefaultScreenByResolution(int width, int height)
@@ -95,6 +91,35 @@ namespace MobiFlight.OpenAttitude
 
             // Fallback to primary screen
             return WpfScreenHelper.Screen.PrimaryScreen.DeviceName;
+        }
+
+        public void PostitionWindowOnScreen(WpfScreenHelper.Screen screen)
+        {
+            if (screen != null)
+            {
+                this.Left = (int)screen.WpfBounds.Left;
+                this.Top = (int)screen.WpfBounds.Top;
+                this.Width = (int)screen.WpfBounds.Width;
+                this.Height = (int)screen.WpfBounds.Height;
+            }
+            CurrentScreen = screen;
+        }
+
+        public void NextScreen()
+        {
+            var screens = WpfScreenHelper.Screen.AllScreens;
+            var currentIndex = GetCurrentScreenIndex();
+            var nextIndex = (currentIndex + 1) % screens.Count();
+
+            var screenName = screens.ElementAt(nextIndex).DeviceName;
+
+            PostitionWindowOnScreen(screens.ElementAt(nextIndex));
+        }
+
+        private int GetCurrentScreenIndex()
+        {
+            var screen = CurrentScreen ?? WpfScreenHelper.Screen.PrimaryScreen;
+            return WpfScreenHelper.Screen.AllScreens.ToList().FindIndex(s => s.DeviceName == screen.DeviceName);
         }
     }
 }

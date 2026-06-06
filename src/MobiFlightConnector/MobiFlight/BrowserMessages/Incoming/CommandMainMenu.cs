@@ -58,7 +58,9 @@ namespace MobiFlight.BrowserMessages.Incoming
         [EnumMember(Value = "virtual.recent.remove")]
         virtual_recent_remove,
         [EnumMember(Value = "view.openattitude.toggle")]
-        view_openattitude_toggle
+        view_openattitude_toggle,
+        [EnumMember(Value = "view.openattitude.next")]
+        view_openattitude_next
     }
 
     public class CommandMainMenu

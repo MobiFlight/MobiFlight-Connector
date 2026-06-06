@@ -51,6 +51,8 @@
         }
       },
       "OpenAttitude": {
+        "Toggle": "Toggle Window",
+        "Next": "Move to next screen"
         "Toggle": "Toggle Window"
       },
       "Log": {

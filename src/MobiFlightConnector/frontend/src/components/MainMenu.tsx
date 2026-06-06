@@ -189,6 +189,13 @@ export const MainMenu = () => {
                 >
                   {t("MainMenu.View.OpenAttitude.Toggle")}
                 </MenubarItem>
+                <MenubarItem
+                  onSelect={() =>
+                    handleMenuItemClick({ action: "view.openattitude.next" })
+                  }
+                >
+                  {t("MainMenu.View.OpenAttitude.Next")}
+                </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
             <MenubarItem

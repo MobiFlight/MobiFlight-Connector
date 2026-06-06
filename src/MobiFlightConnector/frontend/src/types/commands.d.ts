@@ -144,6 +144,7 @@ export type CommandMainMenuPayload = {
     | "view.zoom.reset"
     | "view.log.toggle"
     | "view.openattitude.toggle"
+    | "view.openattitude.next"
     | "help.docs"
     | "help.checkforupdate"
     | "help.discord"
