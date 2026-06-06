@@ -14,10 +14,10 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command"
-import { useState } from "react"
+import { HTMLAttributes, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-export type ComboBoxProps<T> = {
+export type ComboBoxProps<T> = HTMLAttributes<HTMLElement> & {
   items: T[]
   selected?: T
   getValue: (item: T) => string
@@ -45,6 +45,7 @@ const ComboBox = <T,>({
   disabled = false,
   widthClass = "w-50",
   variant = "default",
+  ...props
 }: ComboBoxProps<T>) => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
@@ -70,6 +71,7 @@ const ComboBox = <T,>({
           aria-expanded={open}
           className={cn(widthClass, "justify-between")}
           disabled={disabled}
+          {...props}
         >
           <span className={cn(widthClass, "truncate text-sm text-left")} title={label}>
             {label}

@@ -7,6 +7,9 @@ import { test, expect } from "./fixtures"
 import { ConfigListPage } from "./fixtures/ConfigListPage"
 import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" with { type: "json" }
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
+import { ActionTypeOptions } from "../src/lib/configWizard"
+import { Project } from "../src/types"
+import { useTranslation } from "react-i18next"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -503,6 +506,75 @@ test.describe("Input Config Wizard - Config References panel", () => {
   })
 })
 
+test.describe("Input Config Wizard - Action Type Panel", () => {
+  test("Action types honor project settings and features - MSFS", async ({
+    configListPage,
+    page,
+  }) => {
+    const { t } = useTranslation()
+    const getLabel = (option: string) => {
+      return t(`Dialog.InputConfigWizard.ActionType.Options.${option}`, option)
+    }
+
+    const projectSettingsToTest: Partial<Project>[] = [
+      {
+        Sim: "msfs",
+        Features: { ProSim: false, FSUIPC: false },
+      },
+      {
+        Sim: "msfs",
+        Features: { ProSim: true, FSUIPC: false },
+      },
+      {
+        Sim: "msfs",
+        Features: { ProSim: false, FSUIPC: true },
+      },
+      {
+        Sim: "xplane",
+        Features: { ProSim: false, FSUIPC: false },
+      },
+      {
+        Sim: "fsx",
+        Features: { ProSim: false, FSUIPC: true },
+      },
+    ]
+    const inputActionOption = ActionTypeOptions
+
+    for (const projectSettings of projectSettingsToTest) {
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+        projectSettings,
+        "inputaction",
+      )
+
+      await configListPage.clickEditButtonForRow(1)
+      const actionTypeComboBox = page.getByTestId("action-type-combobox")
+      await expect(actionTypeComboBox).toBeVisible()
+      await actionTypeComboBox.click()
+
+      const expectedOptionVisiblity = inputActionOption.map((option) => ({
+        value: option.value,
+        label: getLabel(option.value),
+        isVisible: option.isAvailable({
+          Sim: "msfs",
+          Features: { ProSim: false, FSUIPC: false },
+        } as Partial<Project>),
+      }))
+
+      for (const expected of expectedOptionVisiblity) {
+        const option = actionTypeComboBox.getByRole("option", {
+          name: expected.label,
+        })
+        if (expected.isVisible) {
+          await expect(option).toBeVisible()
+        } else {
+          await expect(option).not.toBeVisible()
+        }
+      }
+    }
+  })
+})
+
 test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
   test("Loaded config data is displayed correctly", async ({
     configListPage,
@@ -671,7 +743,9 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     ).toBeVisible()
     // Variable presets
     await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: /^MyVar \(number\)$/ }),
+      actionEditor
+        .getByRole("combobox")
+        .filter({ hasText: /^MyVar \(number\)$/ }),
     ).toBeVisible()
     // Variable type
     await expect(
@@ -726,7 +800,7 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
             GUID: "87654321-4321-4321-4321-BA0987654321",
             Preconditions: [],
             ConfigRefs: [],
-            Status: {}
+            Status: {},
           },
         ],
       } as ConfigValueFullUpdate,
@@ -762,7 +836,9 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     await expect(actionComboBox).toBeVisible()
     await actionComboBox.click()
 
-    const keyboardInputOption = page.getByRole('option', { name: 'MobiFlight - Keyboard Input' })
+    const keyboardInputOption = page.getByRole("option", {
+      name: "MobiFlight - Keyboard Input",
+    })
     await expect(keyboardInputOption).toBeVisible()
     await keyboardInputOption.click()
     await expect(keyboardInputOption).not.toBeVisible()
@@ -772,7 +848,7 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
         .getByRole("combobox")
         .filter({ hasText: "MobiFlight - Keyboard Input" }),
     ).toBeVisible()
-    await expect(actionEditor.getByText('Key combo:None')).toBeVisible()
+    await expect(actionEditor.getByText("Key combo:None")).toBeVisible()
   })
 
   test("Loaded config data is displayed correctly", async ({

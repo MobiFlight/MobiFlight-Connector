@@ -234,9 +234,9 @@ export class MobiFlightPage {
     await this.publishMessage(connectedControllersMessage)
   }
 
-  async initWithTestDataAndSpecificProjectProps(props: Partial<Project>) {
+  async initWithTestDataAndSpecificProjectProps(props: Partial<Project>, variant: "default" | "inputaction" = "default") {
     const testProjectWithProps = {
-      ...testProject,
+      ...(variant === "default" ? testProject : inputActionTestProject),
       ...props,
     }
 

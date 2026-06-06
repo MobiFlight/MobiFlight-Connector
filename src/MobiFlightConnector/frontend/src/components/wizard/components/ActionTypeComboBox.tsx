@@ -37,6 +37,7 @@ const ActionTypeComboBox = ({
         </div>
       </div>
       <ComboBox
+        data-testid="action-type-combobox"
         selected={selectedActionType}
         items={filteredOptions}
         getLabel={(item) =>
