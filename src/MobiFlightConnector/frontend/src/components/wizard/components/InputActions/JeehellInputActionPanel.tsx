@@ -1,7 +1,7 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { parsePresets } from "@/components/wizard/components/InputActions/EventIdPresetsPanel"
+import { parsePresets } from "@/lib/configWizard"
 import { JeehellInputAction } from "@/types/config"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
