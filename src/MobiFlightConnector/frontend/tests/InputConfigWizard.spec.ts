@@ -532,6 +532,22 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
         Features: { ProSim: false, FSUIPC: true },
       },
     ]
+
+    const actionTypeOptionLabels = {
+      MSFS2020CustomInputAction: "Microsoft Flight Simulator (all versions)",
+      XplaneInputAction: "X-Plane (all versions)",
+      ProSimInputAction: "ProSim",
+      VariableInputAction: "MobiFlight - Variable",
+      RetriggerInputAction: "MobiFlight - Retrigger switches",
+      KeyInputAction: "MobiFlight - Keyboard Input",
+      VJoyInputAction: "MobiFlight - Virtual Joystick input (vJoy)",
+      FsuipcOffsetInputAction: "FSUIPC - Offset",
+      PmdgEventIdInputAction: "FSUIPC - PMDG - Event ID",
+      LuaMacroInputAction: "FSUIPC - Lua Macro",
+      JeehellInputAction: "FSUIPC - Jeehell - Events",
+      EventIdInputAction: "FSUIPC - EventID",
+    } as Record<string, string>
+
     const inputActionOption = ActionTypeOptions
 
     for (const projectSettings of projectSettingsToTest) {
@@ -548,16 +564,14 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
 
       const expectedOptionVisiblity = inputActionOption.map((option) => ({
         value: option.value,
-        label: getLabel(option.value),
-        isVisible: option.isAvailable({
-          Sim: "msfs",
-          Features: { ProSim: false, FSUIPC: false },
-        } as Partial<Project>),
+        label: actionTypeOptionLabels[option.value],
+        isVisible: option.isAvailable(projectSettings),
       }))
 
       for (const expected of expectedOptionVisiblity) {
-        const option = actionTypeComboBox.getByRole("option", {
+        const option = page.getByRole("listbox").getByRole("option", {
           name: expected.label,
+          exact: true,
         })
         if (expected.isVisible) {
           await expect(option).toBeVisible()
