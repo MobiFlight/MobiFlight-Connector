@@ -24,6 +24,7 @@ namespace MobiFlight.Base.Tests
             var original = new Controller();
             original.Name = "TestBoard";
             original.Serial = "SN-123-456";
+            original.Devices.Add(new DeviceReference() { Name = "Device1", Type = DeviceType.Button });
 
             // Act
             var copy = new Controller(original);
@@ -31,6 +32,8 @@ namespace MobiFlight.Base.Tests
             // Assert
             Assert.AreEqual("TestBoard", copy.Name);
             Assert.AreEqual("SN-123-456", copy.Serial);
+            Assert.HasCount(1, copy.Devices);
+            Assert.AreEqual(original.Devices[0], copy.Devices[0]);
         }
 
         [TestMethod()]
@@ -42,6 +45,8 @@ namespace MobiFlight.Base.Tests
             // Assert
             Assert.IsNull(controller.Name);
             Assert.IsNull(controller.Serial);
+            Assert.IsNotNull(controller.Devices);
+            Assert.HasCount(0, controller.Devices);
         }
 
         [TestMethod()]
@@ -51,10 +56,12 @@ namespace MobiFlight.Base.Tests
             var controller1 = new Controller();
             controller1.Name = "TestBoard";
             controller1.Serial = "SN-123";
+            controller1.Devices.Add(new DeviceReference() { Name = "Device1", Type = DeviceType.Button });
 
             var controller2 = new Controller();
             controller2.Name = "TestBoard";
             controller2.Serial = "SN-123";
+            controller2.Devices.Add(new DeviceReference() { Name = "Device1", Type = DeviceType.Button });
 
             // Act & Assert
             Assert.IsTrue(controller1.Equals(controller2));
@@ -77,6 +84,19 @@ namespace MobiFlight.Base.Tests
             // Arrange
             var controller1 = new Controller() { Name = "TestBoard", Serial = "SN-123" };
             var controller2 = new Controller() { Name = "TestBoard", Serial = "SN-456" };
+
+            // Act & Assert
+            Assert.IsFalse(controller1.Equals(controller2));
+        }
+
+        [TestMethod()]
+        public void Equals_DifferentDevices_ReturnsFalse()
+        {
+            // Arrange
+            var controller1 = new Controller() { Name = "TestBoard", Serial = "SN-123" };
+            var controller2 = new Controller() { Name = "TestBoard", Serial = "SN-123" };
+            controller1.Devices.Add(new DeviceReference() { Name = "Device1", Type = DeviceType.Button });
+            controller2.Devices.Add(new DeviceReference() { Name = "Device2", Type = DeviceType.Button });
 
             // Act & Assert
             Assert.IsFalse(controller1.Equals(controller2));
