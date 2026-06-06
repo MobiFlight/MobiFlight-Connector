@@ -914,12 +914,6 @@
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
     <Compile Include="FSUIPC\FsuipcHelper.cs" />
     <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
-    <Compile Include="UI\Dialogs\InputConfigWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Dialogs\InputConfigWizard.Designer.cs">
-      <DependentUpon>InputConfigWizard.cs</DependentUpon>
-    </Compile>
     <Compile Include="Base\ListItem.cs" />
     <Compile Include="Base\Log.cs" />
     <Compile Include="UI\MainForm.cs">
@@ -2065,14 +2059,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\ConfigWizard.resx">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialogs\InputConfigWizard.de.resx">
-      <DependentUpon>InputConfigWizard.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialogs\InputConfigWizard.resx">
-      <DependentUpon>InputConfigWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.de.resx">

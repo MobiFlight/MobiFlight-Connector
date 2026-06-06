@@ -332,7 +332,6 @@
     <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetListTests.cs" />
-    <Compile Include="UI\Dialogs\InputConfigWizardTests.cs" />
     <Compile Include="UI\MainFormTests.cs" />
     <Compile Include="UI\Panels\Config\FsuipcConfigPanelTests.cs" />
     <Compile Include="UI\Panels\Output\DisplayLedDisplayPanelTests.cs" />
@@ -783,6 +782,7 @@
   <ItemGroup>
     <Folder Include="assets\MobiFlight\SimConnectMSFS\" />
     <Folder Include="MobiFlight\SimConnectMSFS\" />
+    <Folder Include="UI\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\MSTest.Analyzers.CodeFixes.dll" />
