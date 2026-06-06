@@ -4,7 +4,6 @@ import { MsfsInputAction } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
-import { useState } from "react"
 
 export type MsfsInputActionPanelProps = {
   config: MsfsInputAction | null
@@ -16,13 +15,6 @@ const MsfsInputActionPanel = ({
   onConfigChange,
 }: MsfsInputActionPanelProps) => {
   const { t } = useTranslation()
-  const [ currentCommand, setCurrentCommand ] = useState(config?.Command ?? "")
-  const [ prevCommand, setPrevCommand ] = useState(config?.Command ?? "")
-
-  if (config?.Command !== prevCommand) {
-    setPrevCommand(config?.Command ?? "")
-    setCurrentCommand(config?.Command ?? "")
-  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -43,15 +35,11 @@ const MsfsInputActionPanel = ({
         <Textarea
           id="code"
           placeholder={t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")}
-          value={currentCommand}
+          value={config?.Command ?? ""}
           onChange={(e) => {
-            setCurrentCommand(e.target.value)
-          }}
-
-          onBlur={() => {
             onConfigChange({
-              ...(config as MsfsInputAction), 
-              Command: currentCommand,
+              ...(config as MsfsInputAction),
+              Command: e.target.value,
               PresetId: "", // Clear preset if user manually edits command
             } as MsfsInputAction)
           }}
