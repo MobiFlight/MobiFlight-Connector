@@ -19,7 +19,7 @@
       "Unknown": "An unknown error occurred."
     },
     "ComboBox": {
-      "NoResults": "No item found.",
+      "NoOptions": "No options.",
       "Placeholder": "Select...",
       "SearchPlaceholder": "Search..."
     }

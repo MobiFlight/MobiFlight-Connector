@@ -22,9 +22,14 @@ const openActionEditor = async (
   page: Page,
   row: number,
   callback?: (configListPage: ConfigListPage) => Promise<void>,
+  projectOptions?: Partial<Project>,
 ) => {
   await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData("inputaction")
+  if (projectOptions) {
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(projectOptions, "inputaction")
+  } else {
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+  }
   await page.route(
     "*/**/presets/msfs2020_hubhop_presets.json",
     async (route) => {
@@ -655,7 +660,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 2)
+    const actionEditor = await openActionEditor(configListPage, page, 2, undefined, { Sim: "xplane" })
     await expect(
       actionEditor
         .getByRole("combobox")
