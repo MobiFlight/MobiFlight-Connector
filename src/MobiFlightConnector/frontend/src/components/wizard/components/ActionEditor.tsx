@@ -1,8 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import ActionTypeComboBox, {
-  ActionTypeOptions,
-} from "@/components/wizard/components/ActionTypeComboBox"
+import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
 import EventIdInputActionPanel from "@/components/wizard/components/InputActions/EventIdInputActionPanel"
 import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import JeehellInputActionPanel from "@/components/wizard/components/InputActions/JeehellInputActionPanel"
@@ -14,6 +12,7 @@ import RetriggerPanel from "@/components/wizard/components/InputActions/Retrigge
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import VJoyInputActionPanel from "@/components/wizard/components/InputActions/VJoyInputActionPanel"
 import XplaneInputActionPanel from "@/components/wizard/components/InputActions/XplaneInputActionPanel"
+import { ActionTypeOptions } from "@/lib/configWizard"
 import {
   Action,
   EventIdInputAction,

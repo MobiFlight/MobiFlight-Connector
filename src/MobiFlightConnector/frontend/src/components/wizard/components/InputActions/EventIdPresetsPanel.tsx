@@ -1,5 +1,6 @@
 import ComboBox from "@/components/ComboBox"
 import { Label } from "@/components/ui/label"
+import { parsePresets } from "@/lib/configWizard"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
@@ -17,20 +18,6 @@ const presetUrls = {
     B747: "/presets/presets_eventids_pmdg_747.cip",
     B777: "/presets/presets_eventids_pmdg_777.cip",
   },
-}
-
-export const parsePresets = (content: string) => {
-  const lines = content.split("\n")
-  return lines
-    .map((line) => {
-      const [name, eventId, description] = line.split(":").map((part) => part.trim())
-      const isGroup = eventId === "GROUP"
-      if (name && eventId && !isGroup) {
-        return { name, eventId: eventId.toString(), description }
-      }
-      return null
-    })
-    .filter((item): item is { name: string; eventId: string; description: string } => item !== null)
 }
 
 const EventIdPresetsPanel = ({
