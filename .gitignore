@@ -22,6 +22,9 @@
 /FirmwareSource/.vscode
 /Release/*
 
+# Ignore OpenAttitudePanels folder content
+/src/MobiFlightConnector/openattitude
+
 /Tutorials
 /TestResults
 /Releases

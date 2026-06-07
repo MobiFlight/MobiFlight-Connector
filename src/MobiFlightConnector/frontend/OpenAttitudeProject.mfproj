@@ -1,0 +1,1804 @@
+{
+  "Name": "OpenAttitudeProject",
+  "ConfigFiles": [
+    {
+      "Label": "New file",
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000001",
+              "Value": "(A:ZULU TIME,seconds)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000001",
+          "Active": true,
+          "Name": "/sim/time/utc/day-seconds",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000004",
+              "Value": "(A:ATTITUDE INDICATOR PITCH DEGREES,Radians)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "4f21d3b7-fd48-4372-829f-ebfb5e18b548",
+          "Active": true,
+          "Name": "/instrumentation/attitude-indicator/indicated-pitch-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000005",
+              "Value": "(A:ATTITUDE INDICATOR BANK DEGREES,Radians)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "598485b8-999e-40ee-9dac-e09569b51f8e",
+          "Active": true,
+          "Name": "/instrumentation/attitude-indicator/indicated-roll-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000007",
+              "Value": "(A:AIRSPEED INDICATED,knots)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000002",
+          "Active": true,
+          "Name": "/instrumentation/airspeed-indicator/indicated-speed-kt",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000008",
+              "Value": "(A:INDICATED ALTITUDE,feet)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000003",
+          "Active": true,
+          "Name": "/instrumentation/altimeter/indicated-altitude-ft",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000009",
+              "Value": "(A:KOHLSMAN SETTING MB,millibars)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000004",
+          "Active": true,
+          "Name": "/instrumentation/altimeter/setting-hpa",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000010",
+              "Value": "(A:VERTICAL SPEED,feet per minute)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000005",
+          "Active": true,
+          "Name": "/instrumentation/vertical-speed-indicator/indicated-speed-fpm",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000011",
+              "Value": "(A:DELTA HEADING RATE,degrees per second)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000006",
+          "Active": true,
+          "Name": "/instrumentation/turn-indicator/indicated-turn-rate",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000012",
+              "Value": "(A:TURN COORDINATOR BALL,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000007",
+          "Active": true,
+          "Name": "/instrumentation/slip-skid-ball/indicated-slip-skid",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000013",
+              "Value": "(A:PLANE HEADING DEGREES GYRO,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000008",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/kg102/indicated-heading-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000014",
+              "Value": "(A:NAV OBS:1,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000009",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/ki525/selected-course-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000015",
+              "Value": "(A:NAV CDI:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000010",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/ki525/cdi-deflection",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000016",
+              "Value": "(A:NAV GSI:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000011",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/ki525/gs-deflection",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000017",
+              "Value": "(A:AUTOPILOT HEADING LOCK DIR,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000012",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/ki525/selected-heading-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000018",
+              "Value": "(A:NAV HAS NAV:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000013",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/ki525/nav-flag",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000019",
+              "Value": "(A:NAV TOFROM:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000014",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/ki525/to-flag",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000019",
+              "Value": "(A:NAV TOFROM:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000015",
+          "Active": true,
+          "Name": "/instrumentation/kcs55/ki525/from-flag",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000020",
+              "Value": "(A:NAV HAS GLIDE SLOPE:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000016",
+          "Active": true,
+          "Name": "/instrumentation/nav/has-gs",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000021",
+              "Value": "(A:NAV GS FLAG:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000017",
+          "Active": true,
+          "Name": "/instrumentation/nav/gs/in-range",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000018",
+              "Value": "(A:NAV HAS NAV:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000018",
+          "Active": true,
+          "Name": "/instrumentation/nav/data-is-valid",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000022",
+              "Value": "(A:NAV OBS:2,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000019",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/radials/selected-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000023",
+              "Value": "(A:NAV CDI:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000020",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/heading-needle-deflection-norm",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000024",
+              "Value": "(A:NAV GSI:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000021",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/gs-needle-deflection-filtered",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000025",
+              "Value": "(A:NAV TOFROM:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000022",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/to-flag",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000025",
+              "Value": "(A:NAV TOFROM:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000023",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/from-flag",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000026",
+              "Value": "(A:NAV HAS GLIDE SLOPE:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000024",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/has-gs",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000027",
+              "Value": "(A:NAV GS FLAG:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000025",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/gs/in-range",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000028",
+              "Value": "(A:NAV HAS NAV:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000026",
+          "Active": true,
+          "Name": "/instrumentation/nav[1]/data-is-valid",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000029",
+              "Value": "(A:ADF RADIAL:1,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000027",
+          "Active": true,
+          "Name": "/instrumentation/adf/indicated-bearing-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000030",
+              "Value": "(A:ADF CARD:1,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000028",
+          "Active": true,
+          "Name": "/instrumentation/adf/rotation-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "b5a95362-411e-422d-9e6e-598b8b0bdcdf",
+              "Value": "(A:COM ACTIVE FREQUENCY:1,MHz)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "7e51a3da-5902-46e5-818c-66d44a6c74ba",
+          "Active": true,
+          "Name": "/radio/com/active-mhz",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "Modifiers": {
+            "Items": [
+              { "Type": "Transformation", "Expression": "Round($,3)", "Active": true },
+              { "Type": "Padding", "Character": "0", "Length": 7, "Direction": 1, "Active": true }
+            ]
+          },
+          "RawValue": "124.84999847412109",
+          "Value": "124.850"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "0c6afa60-4a6e-405d-91a5-1d7ba95bfe11",
+              "Value": "(A:COM STANDBY FREQUENCY:1,MHz)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "f16dd23e-82f8-4ce3-9348-b636a399159c",
+          "Active": true,
+          "Name": "/radio/com/standby-mhz",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "Modifiers": {
+            "Items": [
+              { "Type": "Transformation", "Expression": "Round($,3)", "Active": true },
+              { "Type": "Padding", "Character": "0", "Length": 7, "Direction": 1, "Active": true }
+            ]
+          },
+          "RawValue": "124.84999847412109",
+          "Value": "124.850"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "342814f7-3252-4e84-99fb-e4b2749aaee0",
+              "Value": "(A:COM ACTIVE FREQ IDENT:1,string)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "132b266b-b980-4601-8620-427d616ab661",
+          "Active": true,
+          "Name": "/radio/com/active-ident",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "COM",
+          "Value": "COM"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000031",
+              "Value": "(A:COM ACTIVE FREQ TYPE:1,string)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "9cd8f14e-f39c-4024-aed0-b992fd05264e",
+          "Active": true,
+          "Name": "/radio/com/active-type",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "",
+          "Value": ""
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000032",
+              "Value": "(A:COM STANDBY FREQ IDENT:1,string)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "79f496a0-18e8-4013-a106-3c9e960ba6e8",
+          "Active": true,
+          "Name": "/radio/com/standby-ident",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "",
+          "Value": ""
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000033",
+              "Value": "(A:COM STANDBY FREQ TYPE:1,string)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "37926e39-54c7-457f-a5aa-326427fb4989",
+          "Active": true,
+          "Name": "/radio/com/standby-type",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "",
+          "Value": ""
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000034",
+              "Value": "(A:NAV ACTIVE FREQUENCY:1,MHz)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000029",
+          "Active": true,
+          "Name": "/radio/nav/active-mhz",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "Modifiers": {
+            "Items": [
+              { "Type": "Transformation", "Expression": "Round($,3)", "Active": true },
+              { "Type": "Padding", "Character": "0", "Length": 7, "Direction": 1, "Active": true }
+            ]
+          },
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000035",
+              "Value": "(A:NAV STANDBY FREQUENCY:1,MHz)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000030",
+          "Active": true,
+          "Name": "/radio/nav/standby-mhz",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "Modifiers": {
+            "Items": [
+              { "Type": "Transformation", "Expression": "Round($,3)", "Active": true },
+              { "Type": "Padding", "Character": "0", "Length": 7, "Direction": 1, "Active": true }
+            ]
+          },
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000036",
+              "Value": "(A:NAV IDENT:1,string)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000031",
+          "Active": true,
+          "Name": "/radio/nav/ident",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "",
+          "Value": ""
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000037",
+              "Value": "(A:NAV NAME:1,string)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000032",
+          "Active": true,
+          "Name": "/radio/nav/name",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "",
+          "Value": ""
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000014",
+              "Value": "(A:NAV OBS:1,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000033",
+          "Active": true,
+          "Name": "/radio/nav/obs-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000038",
+              "Value": "(A:NAV RADIAL:1,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000034",
+          "Active": true,
+          "Name": "/radio/nav/radial-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000015",
+              "Value": "(A:NAV CDI:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000035",
+          "Active": true,
+          "Name": "/radio/nav/cdi",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000019",
+              "Value": "(A:NAV TOFROM:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000036",
+          "Active": true,
+          "Name": "/radio/nav/tofrom",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000039",
+              "Value": "(A:NAV DME:1,nautical miles)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000037",
+          "Active": true,
+          "Name": "/radio/nav/dme-nm",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000040",
+              "Value": "(A:NAV HAS DME:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000038",
+          "Active": true,
+          "Name": "/radio/nav/has-dme",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000018",
+              "Value": "(A:NAV HAS NAV:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000039",
+          "Active": true,
+          "Name": "/radio/nav/has-nav",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000041",
+              "Value": "(A:AUTOPILOT MASTER,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "330fb174-478d-4991-a4fb-0f2222072f3c",
+          "Active": true,
+          "Name": "/ap/master",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000042",
+              "Value": "(A:AUTOPILOT YAW DAMPER,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "c187a692-14cd-4dfd-b4a0-58643f74ba4e",
+          "Active": true,
+          "Name": "/ap/yaw-damper",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000043",
+              "Value": "(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "7f5ae44e-8805-4edc-be51-4558cdef2280",
+          "Active": true,
+          "Name": "/ap/flight-director",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000044",
+              "Value": "(A:AUTOPILOT HEADING LOCK,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "43bfa899-fad0-4f15-b235-f45c3fed3b31",
+          "Active": true,
+          "Name": "/ap/heading-lock",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000045",
+              "Value": "(A:AUTOPILOT NAV1 LOCK,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "e0c663f4-09ac-48f7-8abd-f091ff5157d1",
+          "Active": true,
+          "Name": "/ap/nav-lock",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000046",
+              "Value": "(A:AUTOPILOT APPROACH HOLD,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000040",
+          "Active": true,
+          "Name": "/ap/approach-hold",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000047",
+              "Value": "(A:AUTOPILOT BACKCOURSE HOLD,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000041",
+          "Active": true,
+          "Name": "/ap/backcourse-hold",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000048",
+              "Value": "(A:AUTOPILOT WING LEVELER,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000042",
+          "Active": true,
+          "Name": "/ap/wing-leveler",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000049",
+              "Value": "(A:AUTOPILOT ALTITUDE LOCK,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000043",
+          "Active": true,
+          "Name": "/ap/altitude-lock",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000050",
+              "Value": "(A:AUTOPILOT VERTICAL HOLD,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000044",
+          "Active": true,
+          "Name": "/ap/vertical-hold",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000051",
+              "Value": "(A:AUTOPILOT FLIGHT LEVEL CHANGE,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000045",
+          "Active": true,
+          "Name": "/ap/flc",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000052",
+              "Value": "(A:AUTOPILOT PITCH HOLD,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000046",
+          "Active": true,
+          "Name": "/ap/pitch-hold",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000053",
+              "Value": "(A:AUTOPILOT GLIDESLOPE HOLD,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000047",
+          "Active": true,
+          "Name": "/ap/glideslope-hold",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000054",
+              "Value": "(A:AUTOPILOT ALTITUDE LOCK VAR,feet)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000048",
+          "Active": true,
+          "Name": "/ap/selected-altitude-ft",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000055",
+              "Value": "(A:AUTOPILOT AIRSPEED HOLD VAR,knots)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000049",
+          "Active": true,
+          "Name": "/ap/selected-airspeed-kt",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000056",
+              "Value": "(A:AUTOPILOT VERTICAL HOLD VAR,feet per minute)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000050",
+          "Active": true,
+          "Name": "/ap/selected-vs-fpm",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000017",
+              "Value": "(A:AUTOPILOT HEADING LOCK DIR,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000051",
+          "Active": true,
+          "Name": "/ap/selected-heading-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000057",
+              "Value": "(A:PLANE LATITUDE,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000052",
+          "Active": true,
+          "Name": "/position/latitude-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000058",
+              "Value": "(A:PLANE LONGITUDE,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000053",
+          "Active": true,
+          "Name": "/position/longitude-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000059",
+              "Value": "(A:PLANE HEADING DEGREES TRUE,degrees)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000054",
+          "Active": true,
+          "Name": "/orientation/heading-deg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000060",
+              "Value": "(A:TRAILING EDGE FLAPS LEFT PERCENT,percent)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000055",
+          "Active": true,
+          "Name": "/surface-positions/flap-pos-norm",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000061",
+              "Value": "(A:ELEVATOR TRIM PCT,percent)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000056",
+          "Active": true,
+          "Name": "/controls/flight/elevator-trim",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000062",
+              "Value": "(A:GENERAL ENG RPM:1,rpm)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000057",
+          "Active": true,
+          "Name": "/engines/engine/rpm",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000063",
+              "Value": "(A:GENERAL ENG RPM:2,rpm)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000058",
+          "Active": true,
+          "Name": "/engines/engine[1]/rpm",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000064",
+              "Value": "(A:ENG MANIFOLD PRESSURE:1,inHg)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000059",
+          "Active": true,
+          "Name": "/engines/engine/mp-osi",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000065",
+              "Value": "(A:ENG MANIFOLD PRESSURE:2,inHg)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000060",
+          "Active": true,
+          "Name": "/engines/engine[1]/mp-osi",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000066",
+              "Value": "(A:ENG FUEL FLOW GPH:1,gallons per hour)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000061",
+          "Active": true,
+          "Name": "/engines/engine/fuel-flow-gph",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000067",
+              "Value": "(A:ENG FUEL FLOW GPH:2,gallons per hour)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000062",
+          "Active": true,
+          "Name": "/engines/engine[1]/fuel-flow-gph",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000068",
+              "Value": "(A:ENG EXHAUST GAS TEMPERATURE:1,Fahrenheit)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000063",
+          "Active": true,
+          "Name": "/engines/engine/egt-degf",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000069",
+              "Value": "(A:ENG EXHAUST GAS TEMPERATURE:2,Fahrenheit)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000064",
+          "Active": true,
+          "Name": "/engines/engine[1]/egt-degf",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000070",
+              "Value": "(A:ENG CYLINDER HEAD TEMPERATURE:1,Fahrenheit)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000065",
+          "Active": true,
+          "Name": "/engines/engine/cht-degf",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000071",
+              "Value": "(A:ENG CYLINDER HEAD TEMPERATURE:2,Fahrenheit)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000066",
+          "Active": true,
+          "Name": "/engines/engine[1]/cht-degf",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000072",
+              "Value": "(A:GENERAL ENG OIL TEMPERATURE:1,Fahrenheit)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000067",
+          "Active": true,
+          "Name": "/engines/engine/oil-temperature-degf",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000073",
+              "Value": "(A:GENERAL ENG OIL TEMPERATURE:2,Fahrenheit)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000068",
+          "Active": true,
+          "Name": "/engines/engine[1]/oil-temperature-degf",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000074",
+              "Value": "(A:GENERAL ENG OIL PRESSURE:1,psi)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000069",
+          "Active": true,
+          "Name": "/engines/engine/oil-pressure-psi",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000075",
+              "Value": "(A:GENERAL ENG OIL PRESSURE:2,psi)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000070",
+          "Active": true,
+          "Name": "/engines/engine[1]/oil-pressure-psi",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000076",
+              "Value": "(A:FUEL TANK LEFT MAIN QUANTITY,gallons)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000071",
+          "Active": true,
+          "Name": "/consumables/fuel/tank/level-gal_us",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000077",
+              "Value": "(A:FUEL TANK RIGHT MAIN QUANTITY,gallons)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000072",
+          "Active": true,
+          "Name": "/consumables/fuel/tank[1]/level-gal_us",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000078",
+              "Value": "(A:SUCTION PRESSURE,inHg)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000073",
+          "Active": true,
+          "Name": "/instrumentation/vacuum/suction-inhg",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000079",
+              "Value": "(A:GENERAL ENG FUEL PUMP ON:1,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000074",
+          "Active": true,
+          "Name": "/controls/engines/engine/fuel-pump",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "11111111-1111-4111-8111-000000000080",
+              "Value": "(A:GENERAL ENG FUEL PUMP ON:2,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": { "type": 1, "Float64": 1.0, "String": null },
+          "DeviceType": "-",
+          "DeviceName": null,
+          "GUID": "22222222-2222-4222-8222-000000000075",
+          "Active": true,
+          "Name": "/controls/engines/engine[1]/fuel-pump",
+          "Type": "OutputConfigItem",
+          "Controller": null,
+          "RawValue": "0",
+          "Value": "0"
+        }
+      ]
+    }
+  ],
+  "Sim": "msfs",
+  "Aircraft": [],
+  "Features": {
+    "FSUIPC": false,
+    "ProSim": false
+  },
+  "_version": "0.9"
+}
