@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.SimConnectMSFS
 {
@@ -44,7 +41,7 @@ namespace MobiFlight.SimConnectMSFS
     {
         public UInt32 ID { get; set; }
         public String Name { get; set; }
-        public float Data { get; set; }
+        public double Data { get; set; }
 
     }
 
