@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace MobiFlightWwFcu
 {
@@ -28,10 +30,50 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {
-            Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+            Device = GetWritableHidDevice();
             if (Device == null) return;
+
             Stream = Device.Open();
             Stream.ReadTimeout = System.Threading.Timeout.Infinite;
+        }
+
+        private HidDevice GetWritableHidDevice()
+        {
+            // Winwing devices can expose multiple HID collections. Display and light commands need a writable
+            // 64-byte output report.
+            HidDevice writableDevice = DeviceList.Local.GetHidDevices(vendorID: VendorId, productID: ProductId)
+                .Select(hidDevice => new
+                {
+                    Device = hidDevice,
+                    MaxOutputReportLength = GetMaxOutputReportLength(hidDevice)
+                })
+                .Where(candidate => candidate.MaxOutputReportLength >= 64)
+                .OrderByDescending(candidate => candidate.MaxOutputReportLength)
+                .Select(candidate => candidate.Device)
+                .FirstOrDefault();
+
+            return writableDevice;
+        }
+
+        private int GetMaxOutputReportLength(HidDevice device)
+        {
+            try
+            {
+                return device.GetMaxOutputReportLength();
+            }
+            catch (IOException)
+            {
+                return 0;
+            }
+            catch (InvalidOperationException)
+            {
+                return 0;
+            }
+            catch (NotSupportedException)
+            {
+                // Treat devices with unreadable descriptors as non-writable candidates and keep looking.
+                return 0;
+            }
         }
 
         public void Shutdown()
