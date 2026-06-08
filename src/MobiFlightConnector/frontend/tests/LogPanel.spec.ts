@@ -1,16 +1,5 @@
 import { test, expect } from "./fixtures"
 
-test("Log panel opens and closes via View menu", async ({ configListPage, page }) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.openLogPanel()
-
-  const logPanel = page.getByTestId("log-panel")
-  await expect(logPanel).toBeVisible()
-
-  await configListPage.mobiFlightPage.closeLogPanel()
-  await expect(logPanel).not.toBeVisible()
-})
-
 // Note: toggling the panel on/off via View > Toggle Log Panel is covered by
 // MainMenu.spec.ts ("Confirm View > Toggle Log Panel shows and hides the log
 // panel"). That's a menu-wiring concern; the tests below cover panel-owned
