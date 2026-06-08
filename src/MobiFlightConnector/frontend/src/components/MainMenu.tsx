@@ -22,10 +22,11 @@ import { useModal } from "@/lib/hooks/useModal"
 import UserMenuItem from "@/components/user/UserMenuItem"
 
 interface MainMenuProps {
+  logVisible: boolean
   onToggleLog: () => void
 }
 
-export const MainMenu = ({ onToggleLog }: MainMenuProps) => {
+export const MainMenu = ({ logVisible, onToggleLog }: MainMenuProps) => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { hasChanged } = useProjectStore()
@@ -134,7 +135,7 @@ export const MainMenu = ({ onToggleLog }: MainMenuProps) => {
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem onSelect={onToggleLog}>
-              {t("MainMenu.View.Log")}
+              {logVisible ? t("MainMenu.View.Log.Hide") : t("MainMenu.View.Log.Show")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

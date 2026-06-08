@@ -49,7 +49,10 @@
           "Out": "Ctrl+-"
         }
       },
-      "Log": "Toggle Log Panel"
+      "Log": {
+        "Show": "Show Log Panel",
+        "Hide": "Hide Log Panel"
+      }
     },
     "Extras": {
       "Label": "Extras",

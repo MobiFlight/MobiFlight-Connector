@@ -47,7 +47,10 @@
           "Out": "Ctrl+-"
         }
       },
-      "Log": "Näytä lokipaneeli"
+      "Log": {
+        "Show": "Näytä lokipaneeli",
+        "Hide": "Piilota lokipaneeli"
+      }
     },
     "Extras": {
       "Label": "Lisätoiminnot",

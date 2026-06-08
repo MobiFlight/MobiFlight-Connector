@@ -47,7 +47,10 @@
           "Out": "Strg+-"
         }
       },
-      "Log": "Protokollbereich ein-/ausblenden"
+      "Log": {
+        "Show": "Logs anzeigen",
+        "Hide": "Logs ausblenden"
+      }
     },
     "Extras": {
       "Label": "Extras",

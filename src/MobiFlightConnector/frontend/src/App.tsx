@@ -51,7 +51,10 @@ function App() {
           <ResizablePanelGroup orientation="vertical">
             <ResizablePanel className="flex grow flex-col overflow-hidden">
               <div className="flex grow flex-col overflow-hidden">
-                <MainMenu onToggleLog={() => setLogVisible((v) => !v)} />
+                <MainMenu
+                  logVisible={logVisible}
+                  onToggleLog={() => setLogVisible((v) => !v)}
+                />
 
                 {/* Uncomment the Navbar if needed */}
                 {/* <Navbar /> */}

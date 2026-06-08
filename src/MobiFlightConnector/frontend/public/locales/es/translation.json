@@ -47,7 +47,10 @@
           "Out": "Ctrl+-"
         }
       },
-      "Log": "Alternar Panel de Registro"
+      "Log": {
+        "Show": "Mostrar registro",
+        "Hide": "Ocultar registro"
+      }
     },
     "Extras": {
       "Label" : "Extras",
