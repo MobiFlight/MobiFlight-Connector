@@ -27,6 +27,7 @@ namespace MobiFlight.UI.Panels.Settings
             languageOptions.Add(new ListItem() { Value = "de-DE", Label = "Deutsch" });
             languageOptions.Add(new ListItem() { Value = "es-ES", Label = "Español" });
             languageOptions.Add(new ListItem() { Value = "fi-FI", Label = "Suomi" });
+            languageOptions.Add(new ListItem() { Value = "pt-PT", Label = "Português" });
 
             languageComboBox.DataSource = languageOptions;
             languageComboBox.DisplayMember = "Label";

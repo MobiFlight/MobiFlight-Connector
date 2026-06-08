@@ -1,0 +1,622 @@
+{
+  "General": {
+    "Action": {
+      "OpenMenu": "Abrir menu"
+    },
+    "Overlay": {
+      "OpeningWizard": "Abrindo assistente...",
+      "SavingChanges": "Salvando projeto..."
+    },
+    "HubHopUpdate": {
+      "Error": "Falha na atualização do HubHop. Tente novamente mais tarde.",
+      "Success": "Atualização do HubHop concluída com sucesso!",
+      "Title": "Atualização do HubHop disponível",
+      "Description": "Seu banco de dados do HubHop está desatualizado há {{days}} dias. Deseja atualizá-lo agora?",
+      "Title.Downloading": "Baixando atualização do HubHop..."
+    },
+    "Error": {
+      "FallbackTitle": "Ooops... algo deu errado!",
+      "Unknown": "Ocorreu um erro desconhecido."
+    },
+    "ComboBox": {
+      "NoOptions": "Sem opções.",
+      "Placeholder": "Selecionar...",
+      "SearchPlaceholder": "Pesquisar..."
+    },
+    "Copy": "Copiar",
+    "Paste": "Colar"
+  },
+  "MainMenu": {
+    "File": {
+      "Label": "Arquivo",
+      "New": "Novo",
+      "Open": "Abrir...",
+      "Save": "Salvar",
+      "SaveAs": "Salvar como...",
+      "RecentProjects": "Projetos recentes",
+      "RecentProjects.None": "Nenhum projeto",
+      "Exit": "Sair"
+    },
+    "View": {
+      "Label": "Visualizar",
+      "Zoom": {
+        "Reset": "Redefinir zoom",
+        "In": "Aumentar zoom",
+        "Out": "Diminuir zoom",
+        "Shortcut": {
+          "Reset": "Ctrl+0",
+          "In": "Ctrl++",
+          "Out": "Ctrl+-"
+        }
+      },
+      "Log": {
+        "Show": "Mostrar painel de logs",
+        "Hide": "Ocultar painel de logs"
+      }
+    },
+    "Extras": {
+      "Label": "Extras",
+      "HubHop.DownloadLatestPresets": "Baixar presets mais recentes",
+      "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
+      "CopyLogs": "Copiar logs para a área de transferência",
+      "ControllerBindings": "Vinculação de controladores",
+      "Settings": "Configurações"
+    },
+    "Help": {
+      "Label": "Ajuda",
+      "Documentation": "Documentação",
+      "CheckForUpdates": "Verificar atualizações",
+      "VisitDiscord": "Visitar servidor do Discord",
+      "VisitHubHop": "Visitar site do HubHop",
+      "VisitYouTube": "Visitar canal no YouTube",
+      "About": "Sobre",
+      "ReleaseNotes": "Notas de versão"
+    }
+  },
+  "Types": {
+    "Output": "Saída",
+    "LedModule": "Display de 7 segmentos",
+    "Stepper": "Motor de passo",
+    "Servo": "Servo",
+    "LcdDisplay": "Display LCD",
+    "ShiftRegister": "Registrador de deslocamento de saída",
+    "CustomDevice": "Dispositivo personalizado",
+    "InputShiftRegister": "Registrador de deslocamento de entrada",
+    "Button": "Botão",
+    "Encoder": "Encoder",
+    "AnalogInput": "Entrada analógica",
+    "-": "não definido",
+    "OutputConfigItem": "Configuração de saída",
+    "InputConfigItem": "Configuração de entrada",
+    "InputAction": "Ação de entrada"
+  },
+  "Project": {
+    "Label": "Projeto",
+    "File.Action": {
+      "Add": "Adicionar perfil",
+      "New": "Adicionar novo perfil",
+      "Label": "Novo perfil",
+      "Merge": "De projeto existente",
+      "Rename": "Renomear",
+      "Remove": "Remover",
+      "Export": "Exportar"
+    },
+    "Toolbar": {
+      "Save": {
+        "HasChanges": "Salvar alterações",
+        "NoChanges": "Nenhuma alteração para salvar",
+        "Success": "Salvo com sucesso"
+      },
+      "Settings": "Configurações"
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "Auto",
+        "Enable": "Ativar execução automática",
+        "Disable": "Desativar execução automática"
+      },
+      "Run": {
+        "Label": "Executar",
+        "Stop": "Parar",
+        "Start": "Iniciar modo de execução e processar todas as configurações",
+        "StopMode": "Parar modo de execução",
+        "BlockedByTest": "Modo de teste ativo. Pare-o primeiro."
+      },
+      "Test": {
+        "Label": "Teste",
+        "Stop": "Parar",
+        "Start": "Iniciar modo de teste e testar todas as configurações",
+        "StopMode": "Parar execução do modo de teste",
+        "BlockedByRun": "Modo de execução ativo. Pare-o primeiro."
+      }
+    },
+    "Tabs": {
+      "ScrollLeft": "Rolar para a esquerda",
+      "ScrollRight": "Rolar para a direita"
+    },
+    "Simulator": {
+      "msfs": "Microsoft Flight Simulator",
+      "xplane": "X-Plane",
+      "p3d": "Prepar3D",
+      "fsx": "FSX / FS2004",
+      "prosim": "ProSim",
+      "none": "Nenhum simulador"
+    },
+    "BindingStatus": {
+      "Match": "Controlador conectado",
+      "AutoBind": "Controlador vinculado automaticamente",
+      "Missing": "Controlador ausente",
+      "RequiresManualBind": "Vinculação manual necessária"
+    },
+    "Card": {
+      "Main": {
+        "Title": "Meus projetos",
+        "Description": "Acesso rápido aos meus projetos.",
+        "AllProjects": "Todos os projetos",
+        "CurrentProject": "Projeto atual",
+        "NoActiveProject": "Nenhum projeto está carregado no momento.",
+        "CreateFirstProject": "Crie seu primeiro projeto para começar!",
+        "BindingIssuesTooltip": "Clique para ver problemas de vinculação de controladores"
+      },
+      "Filter": {
+        "Search": {
+          "Placeholder": "Filtrar projetos..."
+        }
+      },
+      "NoActiveProjectHint": "Abra um dos seus projetos recentes à direita ou crie um novo projeto para começar."
+    },
+    "Form": {
+      "Title": {
+        "New": "Criar novo projeto",
+        "Edit": "Editar projeto"
+      },
+      "Description": "Configure as definições do seu projeto, como nome, simulador e aeronave.",
+      "Name": {
+        "Label": "Nome do projeto",
+        "Placeholder": "ex.: Boeing 737 Home Cockpit",
+        "Error": {
+          "Required": "Por favor, informe um nome para o projeto. É obrigatório."
+        }
+      },
+      "Simulator": {
+        "Label": "Simulador de voo",
+        "HelpText": "Selecione o simulador principal para este projeto.",
+        "UseFsuipc": "FSUIPC - interface alternativa legada usada por alguns addons, ex.: PMDG",
+        "UseProSim": "ProSim - interface para aeronaves ProSim",
+        "Feature": "Recursos adicionais"
+      },
+      "Aircraft": {
+        "Label": "Aeronave",
+        "HelpText": "Selecione a aeronave para este projeto."
+      },
+      "Buttons": {
+        "Create": "Criar projeto",
+        "Update": "Atualizar projeto"
+      }
+    },
+    "UnsavedChanges": {
+      "Title": "Alterações não salvas",
+      "Description": "Você possui alterações não salvas no projeto. O que deseja fazer?",
+      "Save": "Salvar alterações",
+      "Discard": "Descartar alterações"
+    }
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Filtrar itens..."
+      },
+      "Filter": {
+        "ConfigType": "Tipo de configuração",
+        "Device": "Controlador",
+        "Type": "Dispositivos",
+        "Name": "Nomes",
+        "Selected": "{{items}} selecionados",
+        "Clear": "Limpar filtros",
+        "NoResultsFound": "Nenhum resultado encontrado."
+      },
+      "NotSet": "não definido",
+      "Reset": "Redefinir filtros",
+      "SelectedRows": {
+        "Commands": {
+          "Label": "{{count}} linhas selecionadas",
+          "Delete": "Excluir selecionados",
+          "Toggle": "Alternar selecionados",
+          "Clear": "Limpar seleção"
+        }
+      }
+    },
+    "Header": {
+      "Active": "Ativo",
+      "Name": "Nome / Descrição",
+      "Device": "Controlador",
+      "Component": "Dispositivo",
+      "Status": "Status",
+      "RawValue": "Valor bruto",
+      "FinalValue": "Valor final",
+      "Actions": "Ações"
+    },
+    "Cell": {
+      "Waiting": "Aguardando",
+      "Controller": {
+        "openInSettings": "Abrir configurações do controlador",
+        "not set": "Nenhum controlador utilizado nesta configuração."
+      },
+      "Device": {
+        "not set": "Nenhum dispositivo utilizado nesta configuração."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "Esta é uma nova configuração. Por favor, adicione alguns itens.",
+      "DropHereToAdd": "Solte aqui para adicionar novos itens.",
+      "NoResultsMatchingFilter": "Nenhum resultado corresponde ao filtro.",
+      "Drag": {
+        "MovingItems": "Movendo itens"
+      }
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Adicionar configuração de saída",
+        "DefaultName": "Nova configuração de saída"
+      },
+      "InputConfigItem": {
+        "Add": "Adicionar configuração de entrada",
+        "DefaultName": "Nova configuração de entrada"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normal",
+        "not satisfied": "Pré-condição não satisfeita.",
+        "Error": "Erro ao avaliar a pré-condição. Verifique os logs para mais detalhes."
+      },
+      "Source": {
+        "available": "Fonte disponível.",
+        "SIMCONNECT_NOT_AVAILABLE": "Esta configuração usa SimConnect, conexão ausente.",
+        "FSUIPC_NOT_AVAILABLE": "Esta configuração usa FSUIPC, conexão ausente.",
+        "XPLANE_NOT_AVAILABLE": "Esta configuração usa X-Plane, conexão ausente.",
+        "PROSIM_NOT_AVAILABLE": "Esta configuração usa ProSim, conexão ausente.",
+        "ReadError": "Ocorreu um erro durante a leitura. Verifique os logs para mais detalhes."
+      },
+      "Modifier": {
+        "Error": "Há um modificador aplicado com erro.",
+        "OK": "Há um modificador aplicado."
+      },
+      "Device": {
+        "NotConnected": "O dispositivo utilizado nesta configuração não está conectado.",
+        "Connected": "O dispositivo utilizado nesta configuração está conectado."
+      },
+      "Test": {
+        "Executing": "Esta configuração está sendo testada no momento.",
+        "NotExecuting": "Esta configuração não está sendo testada."
+      },
+      "ConfigRef": {
+        "Missing": "Uma ou mais configurações referenciadas estão ausentes.",
+        "OK": "Todas as configurações referenciadas estão disponíveis."
+      }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "Nova configuração criada, mas não visível.",
+        "Description": "Sua configuração não corresponde aos filtros atuais e por isso não aparece na lista.",
+        "Action": "Redefinir filtros"
+      }
+    }
+  },
+  "Notifications": {
+    "ControllerAutoBindSuccessful": {
+      "Title": "Boas notícias!",
+      "Description": "Atualizamos seu projeto para funcionar com ‘{{controllerName}}’ — tudo pronto para uso!"
+    },
+    "ControllerManualBindRequired": {
+      "Title": "Sua ação é necessária!",
+      "Description": "O controlador {{controllerName}} usado neste perfil requer vinculação manual para funcionar corretamente.",
+      "Action": "Vincular controladores"
+    },
+    "SimConnectionLost": {
+      "Title": "Conexão perdida",
+      "Description": "A conexão com {{simType}} foi perdida."
+    },
+    "SimStopped": {
+      "Title": "Simulador de voo fechado",
+      "Description": "O simulador de voo foi fechado. A execução das configurações foi interrompida. Reinicie o simulador para retomar."
+    },
+    "TestModeException": {
+      "Title": "Erro no modo de teste",
+      "Description": "{{errorMessage}}"
+    },
+    "ProjectFileLoadError": {
+      "Title": "O projeto não pôde ser caregado",
+      "Description": "Um erro ocorreu ao carregar {{fileName}} - {{errorMessage}}"
+    }
+  },
+  "Startup": {
+    "Starting": "Iniciando MobiFlight...",
+    "CheckingFirmwareUpdates": "Verificando atualizações de firmware...",
+    "ScanningControllers": "Procurando controladores conectados...",
+    "LoadingLastConfig": "Carregando última configuração...",
+    "Finished": "Concluído.",
+    "Test": {
+      "Loading": "Carregando..."
+    }
+  },
+  "Feed": {
+    "Title": "Feed da comunidade",
+    "Description": "Notícias e atualizações da comunidade MobiFlight.",
+    "NoPosts": "Nenhuma publicação disponível.",
+    "Filter": {
+      "all": "Todos",
+      "shop": "Ofertas",
+      "events": "Eventos",
+      "community": "Comunidade"
+    }
+  },
+  "Dialog": {
+    "General": {
+      "Cancel": "Cancelar",
+      "Close": "Fechar",
+      "Save": "Salvar",
+      "SaveChanges": "Salvar alterações",
+      "ApplyChanges": "Aplicar alterações"
+    },
+    "ControllerBinding": {
+      "Title": "Vinculação de controladores",
+      "Description": "Vincule os controladores usados neste projeto aos dispositivos físicos conectados ao computador.",
+      "Filter": {
+        "all": "Todos",
+        "manual": "Vinculação manual",
+        "autobind": "Vinculação automática",
+        "missing": "Ausentes",
+        "match": "Correspondentes"
+      },
+      "ControllersInProject": "{{count}} controladores usados no projeto",
+      "ConnectedControllers": "{{count}} controladores conectados ao PC",
+      "AllSet": "Tudo pronto! Seu projeto está totalmente configurado.",
+      "SelectController": "Selecionar um controlador",
+      "SearchController": "Pesquisar controlador...",
+      "NoControllerFound": "Nenhum controlador encontrado."
+    },
+    "InputConfigWizard": {
+      "Title": "Editar configuração de entrada",
+      "Description": "Edite todas as configurações para esta configuração de entrada neste diálogo.",
+      "GoBack": "Voltar",
+      "DrawerTitle": "Pré-condições",
+      "ConfigTrigger": {
+        "Title": "Gatilho",
+        "Description": "O gatilho define as condições ou eventos que ativarão esta configuração.",
+        "ScanForInput": "Procurar entrada",
+        "UseAnyInput": "Usar qualquer entrada",
+        "ClearInput": "Limpar entrada",
+        "SelectController": "Selecionar controlador...",
+        "SearchController": "Pesquisar controlador...",
+        "NoControllerFound": "Nenhum controlador encontrado.",
+        "SelectDevice": "Selecionar dispositivo...",
+        "SearchDevice": "Pesquisar dispositivo...",
+        "NoDeviceFound": "Nenhum dispositivo encontrado."
+      },
+      "Action": {
+        "Copy": "Copiar ação",
+        "Paste": "Colar ação"
+      },
+      "ActionType": {
+        "Title": "Tipo de ação",
+        "Description": "Selecione o tipo de ação que deseja executarr",
+        "Options": {
+          "MSFS2020CustomInputAction": "Microsoft Flight Simulator (todas as versões)",
+          "XplaneInputAction": "X-Plane (todas as versões)",
+          "ProSimInputAction": "ProSim",
+          "VariableInputAction": "MobiFlight - Variável",
+          "RetriggerInputAction": "MobiFlight - Retrigger switches",
+          "KeyInputAction": "MobiFlight - Entrada de teclado",
+          "VJoyInputAction": "MobiFlight - Entrada de joystick virtual (vJoy)",
+          "FsuipcOffsetInputAction": "FSUIPC - Offset",
+          "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
+          "LuaMacroInputAction": "FSUIPC - Lua Macro",
+          "JeehellInputAction": "FSUIPC - Jeehell - Events",
+          "EventIdInputAction": "FSUIPC - EventID"
+        }
+      },
+      "Button": {
+        "Tabs": {
+          "onPress": "Ao pressionar",
+          "onRelease": "Ao soltar",
+          "onHold": "Ao segurar",
+          "onLongRelease": "Ao soltar por muito tempo"
+        }
+      },
+      "Encoder": {
+        "Tabs": {
+          "onLeft": "Para a esquerda",
+          "onRight": "Para a direita",
+          "onLeftFast": "Rapidamente para a esquerda",
+          "onRightFast": "Rapidamente para a direita"
+        }
+      },
+      "Analog": {
+        "Tabs": {
+          "onChange": "Ao mudar"
+        }
+      },
+      "Preconditions": {
+        "Title": "Precondições (opcional)",
+        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
+        "EditButton": "Precondições",
+        "AddButton": "Precondições"
+      },
+      "ConfigReferences": {
+        "Title": "Referências de Configuração (opcional)",
+        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
+        "EditButton": "Referências de Configuração",
+        "AddButton": "Referências de Configuração"
+      },
+      "PreconditionEditor": {
+        "Title": "Precondições",
+        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
+        "NoPreconditions": "Nenhuma precondição definida.",
+        "AddPrecondition": "Adicionar Precondição",
+        "Active": "Ativo",
+        "TypePlaceholder": "Tipo",
+        "SelectConfig": "Selecionar configuração...",
+        "SelectVariable": "Selecionar variável...",
+        "ValuePlaceholder": "Valor",
+        "DeletePrecondition": "Excluir precondição",
+        "SelectPort": "Selecionar porta...",
+        "SelectPin": "Selecionar pino..."
+      },
+      "ConfigReferenceEditor": {
+        "Title": "Referências de Configuração",
+        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
+        "NoConfigReferences": "Nenhuma referência de configuração definida.",
+        "AddConfigReference": "Adicionar Referência de Configuração",
+        "Active": "Ativo",
+        "SelectConfig": "Selecionar configuração...",
+        "PlaceholderLabel": "Espaço reservado",
+        "TestValueLabel": "Valor de teste",
+        "DeleteConfigReference": "Excluir referência de configuração"
+      },
+      "InputActions": {
+        "Common": {
+          "CodeLabel": "Código:",
+          "NoDescriptionAvailable": "Nenhuma descrição disponível",
+          "DescriptionLabel": "Descrição:",
+          "FilterPresets": "Filtrar predefinições",
+          "FilterByVendor": "Filtrar por fornecedor",
+          "SearchVendors": "Pesquisar fornecedores...",
+          "FilterByAircraft": "Filtrar por aeronave",
+          "SearchAircraft": "Pesquisar aeronaves...",
+          "FilterBySystem": "Filtrar por sistema",
+          "SearchSystems": "Pesquisar sistemas...",
+          "SelectPreset": "Selecionar predefinição",
+          "SearchPresets": "Pesquisar predefinições...",
+          "PresetsFound": "{{count}} predefinição(ões) encontrada(s)",
+          "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)"
+        },
+        "Msfs": {
+          "NoneCode": "Nenhum"
+        },
+        "Xplane": {
+          "InputTypeLabel": "Tipo de Entrada:",
+          "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
+          "PathLabel": "Caminho:",
+          "PathPlaceholder": "Digite o caminho para DataRef ou Comando, ou selecione uma predefinição acima",
+          "PathDescription": "Dica: Use a notação de índice para acessar Arrays, por exemplo, sim/cockpit2/annunciators/fuel_pressure_low[0] para o 1º motor.",
+          "ValueLabel": "Valor:",
+          "ValuePlaceholder": "Digite o valor"
+        },
+        "ProSim": {
+          "Title": "Ação de Entrada ProSim",
+          "Description": "Selecione uma predefinição para configurar suas ações de entrada.",
+          "PathLabel": "Caminho:",
+          "NoPresetSelected": "Nenhuma predefinição selecionada",
+          "ParameterLabel": "Parâmetro (opcional):",
+          "ParameterPlaceholder": "Definir parâmetro (opcional)"
+        },
+        "VJoy": {
+          "SelectDeviceLabel": "Selecionar dispositivo vJoy",
+          "SelectDevicePlaceholder": "Selecionar dispositivo vJoy...",
+          "ButtonTab": "Botão",
+          "AxisTab": "Eixo",
+          "ButtonNumberLabel": "Número do botão",
+          "SelectButtonPlaceholder": "Selecionar botão...",
+          "ButtonStateLabel": "Estado do botão",
+          "Pressed": "Pressionado",
+          "Released": "Liberado",
+          "SelectAxisPlaceholder": "Selecionar eixo...",
+          "AxisValueLabel": "Valor do eixo"
+        },
+        "Keyboard": {
+          "StopScanning": "Parar de escanear",
+          "ScanForKeyboard": "Escanear teclado...",
+          "KeyComboLabel": "Combinação de teclas:",
+          "None": "Nenhum",
+          "ClearInput": "Limpar entrada"
+        },
+        "FsuipcOffset": {
+          "SizeLabel": "Tamanho",
+          "OffsetLabel": "Deslocamento",
+          "MaskLabel": "Máscara",
+          "BcdModeLabel": "Modo BCD"
+        },
+        "LuaMacro": {
+          "Title": "Ação de Entrada Lua Macro",
+          "Description": "Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.",
+          "MacroNameLabel": "Nome da Macro:",
+          "MacroNamePlaceholder": "Definir nome da macro",
+          "MacroValueLabel": "Valor da Macro:",
+          "MacroValuePlaceholder": "Definir valor da macro"
+        },
+        "Jeehell": {
+          "FunctionLabel": "Função Jeehell",
+          "SelectFunctionPlaceholder": "Selecionar função Jeehell...",
+          "ValueLabel": "Valor"
+        },
+        "EventId": {
+          "PmdgAircraftLabel": "PMDG Aircraft",
+          "MouseParamLabel": "Parâmetro de Mouse",
+          "SelectMouseParamPlaceholder": "Selecionar parâmetro de mouse...",
+          "EventIdLabel": "Event ID",
+          "CustomParamLabel": "Parâmetro personalizado"
+        },
+        "Retrigger": {
+          "Title": "Retrigger",
+          "Description1": "Use esta ação de entrada para reativar todos os estados dos botões.",
+          "Description2": "Isso é útil para sincronizar seu cockpit virtual com os estados dos interruptores e botões de seus controladores físicos."
+        },
+        "Variable": {
+          "ExistingVariable": "Usar variável existente",
+          "VariableTypeLabel": "Tipo",
+          "VariableNameLabel": "Nome",
+          "VariableNamePlaceholder": "Definir nome da variável...",
+          "ExpressionLabel": "Expressão",
+          "ExpressionPlaceholder": "Definir expressão...",
+          "ExpressionHelp": "Use <1>$</1> para representar o valor da variável em expressões, por exemplo, <3>$ * 2</3> para dobrar uma variável numérica."
+        },
+        "ProSimDataRef": {
+          "FilterPresetsPlaceholder": "Filtrar predefinições",
+          "NoPresetsAvailable": "Nenhuma predefinição disponível",
+          "RefreshPresets": "Atualizar predefinições"
+        },
+        "EventIdPresets": {
+          "SelectPresetLabel": "Selecionar predefinição",
+          "SelectPresetPlaceholder": "Selecionar predefinição..."
+        }
+      }
+    }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "Entrar",
+      "SignOut": "Sair",
+      "Profile": "Perfil",
+      "ProfileFeatureComingSoon": "em breve"
+    },
+    "Redirect": {
+      "SignIn": "Redirecionando para login...",
+      "SignOut": "Redirecionando para saída...",
+      "CompletingFlow": "Concluindo processo...",
+      "FlowSuccessful": "Sucesso!"
+    },
+    "Notification": {
+      "Error": {
+        "Title": "Erro na autenticação",
+        "Description": "Ocorreu um erro durante a autenticação.",
+        "ActionCopyToClipboard": "Copiar mensagem"
+      }
+    }
+  },
+  "Membership": {
+    "Club": "MobiFlight Club",
+    "Status": {
+      "Member": "Membro do Clube",
+      "Basic": "Conta Básica"
+    },
+    "Action": {
+      "Upgrade": "Atualizar"
+    }
+  },
+  "LogPanel": {
+    "Title": "Log",
+    "Empty": "Aguardando entradas de log",
+    "LoggingDisabled": "O registro está desativado. Ative o registro nas Configurações para ver os logs aqui."
+  }
+}
