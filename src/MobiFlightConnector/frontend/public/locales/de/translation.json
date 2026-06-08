@@ -503,7 +503,11 @@
         "Xplane": {
           "InputTypeLabel": "Eingabetyp:",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",
-          "CodePlaceholder": "Pfad für DataRef oder Befehl eingeben, oder oben ein Preset auswählen"
+          "PathLabel": "Pfad:",
+          "PathPlaceholder": "Pfad für DataRef oder Befehl eingeben, oder oben ein Preset auswählen",
+          "PathDescription": "Hinweis: Verwende die Indexnotation, um auf Arrays zuzugreifen, z. B. sim/cockpit2/annunciators/fuel_pressure_low[0] für das 1. Triebwerk.",
+          "ValueLabel": "Wert:",
+          "ValuePlaceholder": "Wert eingeben"
         },
         "ProSim": {
           "Title": "ProSim-Eingabeaktion",
