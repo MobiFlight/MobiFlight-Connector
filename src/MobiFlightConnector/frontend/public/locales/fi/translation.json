@@ -19,10 +19,12 @@
       "Unknown": "Tuntematon virhe."
     },
     "ComboBox": {
-      "NoResults": "Ei kohteita löytynyt.",
+      "NoOptions": "Ei kohteita löytynyt.",
       "Placeholder": "Valitse...",
       "SearchPlaceholder": "Haku..."
-    }
+    },
+    "Copy" : "Kopioi",
+    "Paste" : "Liitä"
   },
   "MainMenu": {
     "File": {
@@ -391,6 +393,10 @@
         "SelectDevice": "Valitse laite...",
         "SearchDevice": "Etsi laitetta...",
         "NoDeviceFound": "Laitetta ei löytynyt."
+      },
+      "Action": {
+        "Copy": "Kopioi toiminto",
+        "Paste": "Liitä toiminto"
       },
       "ActionType": {
         "Title": "Toimintotyyppi",

@@ -19,10 +19,12 @@
       "Unknown": "Ocurrió un error desconocido."
     },
     "ComboBox": {
-      "NoResults": "No se encontraron elementos.",
+      "NoOptions": "No hay opciones.",
       "Placeholder": "Seleccionar...",
       "SearchPlaceholder": "Buscar..."
-    }
+    },
+    "Copy" : "Copiar",
+    "Paste" : "Pegar"
   },
   "MainMenu": {
     "File": {
@@ -397,6 +399,10 @@
         "SelectDevice": "Seleccionar dispositivo...",
         "SearchDevice": "Buscar dispositivo...",
         "NoDeviceFound": "No se encontró ningún dispositivo."
+      },
+      "Action": {
+        "Copy": "Copiar acción",
+        "Paste": "Pegar acción"
       },
       "ActionType": {
         "Title": "Tipo de acción",

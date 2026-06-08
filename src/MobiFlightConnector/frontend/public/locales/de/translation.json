@@ -19,10 +19,12 @@
       "Unknown": "Ein unbekannter Fehler ist aufgetreten."
     },
     "ComboBox": {
-      "NoResults": "Kein Eintrag gefunden.",
+      "NoOptions": "Keine Optionen.",
       "Placeholder": "Auswählen...",
       "SearchPlaceholder": "Suchen..."
-    }
+    },
+    "Copy" : "Kopieren",
+    "Paste" : "Einfügen"
   },
   "MainMenu": {
     "File": {
@@ -397,6 +399,10 @@
         "SelectDevice": "Gerät auswählen...",
         "SearchDevice": "Gerät suchen...",
         "NoDeviceFound": "Kein Gerät gefunden."
+      },
+      "Action": {
+        "Copy": "Aktion kopieren",
+        "Paste": "Aktion einfügen"
       },
       "ActionType": {
         "Title": "Aktionstyp",
