@@ -1304,19 +1304,25 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     ).toBeVisible()
 
     // Switching to onRelease shows an empty action editor (no type selected)
-    await buttonPanel.getByRole("tab", { name: "onRelease" }).click()
+    await buttonPanel.getByRole("tab", { name: "On Release" }).click()
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
     ).toBeVisible()
 
     // Switching to onHold shows an empty action editor
-    await buttonPanel.getByRole("tab", { name: "onHold" }).click()
+    await buttonPanel.getByRole("tab", { name: "On Hold" }).click()
+    await expect(
+      actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
+    ).toBeVisible()
+
+    // Switching to onLongRelease shows an empty action editor
+    await buttonPanel.getByRole("tab", { name: "On Long Release" }).click()
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
     ).toBeVisible()
 
     // Switching back to onPress still shows the MSFS action
-    await buttonPanel.getByRole("tab", { name: "onPress" }).click()
+    await buttonPanel.getByRole("tab", { name: "On Press" }).click()
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -1344,7 +1350,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
 
     // onRight also has an MSFS action
     await encoderPanel
-      .getByRole("tab", { name: "onRight", exact: true })
+      .getByRole("tab", { name: "On Right", exact: true })
       .click()
     await expect(
       actionEditor
@@ -1353,9 +1359,26 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     ).toBeVisible()
 
     // onLeftFast is empty
-    await encoderPanel.getByRole("tab", { name: "onLeftFast" }).click()
+    await encoderPanel.getByRole("tab", { name: "On Left Fast" }).click()
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
+    ).toBeVisible()
+
+
+    // onRightFast is empty
+    await encoderPanel.getByRole("tab", { name: "On Right Fast" }).click()
+    await expect(
+      actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
+    ).toBeVisible()
+
+    // switching back to onLeft shows the MSFS action
+    await encoderPanel
+      .getByRole("tab", { name: "On Left", exact: true })
+      .click()
+    await expect(
+      actionEditor
+        .getByRole("combobox")
+        .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
     ).toBeVisible()
   })
 
