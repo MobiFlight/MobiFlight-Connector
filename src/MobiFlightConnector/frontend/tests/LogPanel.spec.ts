@@ -128,19 +128,19 @@ test("Severity colours are applied to log entries", async ({
   const logContent = page.getByTestId("log-panel-content")
 
   await expect(
-    logContent.locator("span.uppercase").filter({ hasText: "error" }),
+    logContent.locator('[data-severity="error"]').getByText("error", { exact: true }),
   ).toHaveClass(/text-red-500/)
 
   await expect(
-    logContent.locator("span.uppercase").filter({ hasText: "warn" }),
+    logContent.locator('[data-severity="warn"]').getByText("warn", { exact: true }),
   ).toHaveClass(/text-yellow-500/)
 
   await expect(
-    logContent.locator("span.uppercase").filter({ hasText: "info" }),
+    logContent.locator('[data-severity="info"]').getByText("info", { exact: true }),
   ).toHaveClass(/text-blue-400/)
 
   await expect(
-    logContent.locator("span.uppercase").filter({ hasText: "debug" }),
+    logContent.locator('[data-severity="debug"]').getByText("debug", { exact: true }),
   ).toHaveClass(/text-gray-400/)
 })
 
@@ -166,29 +166,15 @@ test("Log panel height changes when title bar is dragged upward", async ({
 }) => {
   await configListPage.gotoPage()
   await openLogPanel(page)
-
-  // The scrollable content div has an inline style={{ height }} driven by DEFAULT_HEIGHT.
-  // We measure it before and after the drag (relative assertion, so the exact
-  // default doesn't matter as long as there's headroom below MAX_HEIGHT).
-  const logContent = page.getByTestId("log-panel-content")
+  const logContent = page.getByTestId("log-panel")
   const before = await logContent.boundingBox()
-  expect(before).not.toBeNull()
 
-  // Drag the title bar (cursor-row-resize) upward.
-  // The handler computes delta = startY - currentY, so moving the mouse
-  // upward (decreasing Y) increases the panel height.
-  // steps: 10 emits intermediate mousemove events, which is required since
-  // the resize logic listens to document mousemove — not a Playwright drag target.
-  const titleBar = page.getByTestId("log-panel-titlebar")
-  const titleBox = await titleBar.boundingBox()
-  expect(titleBox).not.toBeNull()
-
-  const cx = titleBox!.x + titleBox!.width / 2
-  const cy = titleBox!.y + titleBox!.height / 2
-
-  await page.mouse.move(cx, cy)
+  const separator = page.getByRole("separator")
+  await expect(separator).toBeVisible()
+  
+  await separator.hover()
   await page.mouse.down()
-  await page.mouse.move(cx, cy - 100, { steps: 10 })
+  await page.mouse.move(0, -100)
   await page.mouse.up()
 
   const after = await logContent.boundingBox()

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, type MouseEvent as ReactMouseEvent } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { IconX } from "@tabler/icons-react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { AppMessage, LogEntry } from "@/types/messages"
@@ -6,15 +6,16 @@ import { ILogMessage, LogLevel } from "@/types/log"
 import { useSettingsStore } from "@/stores/settingsStore"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
-  trace: 0, debug: 1, info: 2, warn: 3, error: 4, off: 5,
+  trace: 0,
+  debug: 1,
+  info: 2,
+  warn: 3,
+  error: 4,
+  off: 5,
 }
-
-// Panel height model: starts at DEFAULT_HEIGHT, draggable within [MIN, MAX].
-const DEFAULT_HEIGHT = 128
-const MIN_HEIGHT = 80
-const MAX_HEIGHT = 600
 
 // Cap on retained log entries. The newest entry is appended after slicing,
 // so we keep MAX_ENTRIES - 1 of the previous ones to land exactly at the cap.
@@ -32,8 +33,8 @@ type LogItem = ILogMessage & { id: number }
 
 const SEVERITY_CLASS: Record<string, string> = {
   error: "text-red-500",
-  warn:  "text-yellow-500",
-  info:  "text-blue-400",
+  warn: "text-yellow-500",
+  info: "text-blue-400",
   debug: "text-gray-400",
   trace: "text-gray-300",
 }
@@ -45,48 +46,22 @@ interface LogPanelProps {
 const LogPanel = ({ onClose }: LogPanelProps) => {
   const { t } = useTranslation()
   const [entries, setEntries] = useState<LogItem[]>([])
-  const [height, setHeight] = useState(DEFAULT_HEIGHT)
-  const logLevel = useSettingsStore(s => s.settings?.LogLevel)
-  const logEnabled = useSettingsStore(s => s.settings?.LogEnabled)
+  const logLevel = useSettingsStore((s) => s.settings?.LogLevel)
+  const logEnabled = useSettingsStore((s) => s.settings?.LogEnabled)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const dragStartRef = useRef<{ y: number; height: number } | null>(null)
   const entryCounterRef = useRef(0)
-  const dragCleanupRef = useRef<(() => void) | null>(null)
-
-  const onDragHandleMouseDown = (e: ReactMouseEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    dragStartRef.current = { y: e.clientY, height }
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (!dragStartRef.current) return
-      const delta = dragStartRef.current.y - e.clientY
-      setHeight(Math.max(MIN_HEIGHT, Math.min(MAX_HEIGHT, dragStartRef.current.height + delta)))
-    }
-
-    const cleanup = () => {
-      dragStartRef.current = null
-      dragCleanupRef.current = null
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
-    }
-
-    const onMouseUp = () => cleanup()
-    dragCleanupRef.current = cleanup
-
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
-  }
-
-  useEffect(() => () => { dragCleanupRef.current?.() }, [])
 
   const handleMessage = useCallback((msg: AppMessage) => {
     const entry = msg.payload as LogEntry
-    setEntries(prev => [...prev.slice(-(MAX_ENTRIES - 1)), {
-      id: entryCounterRef.current++,
-      Message: entry.Message,
-      Severity: entry.Severity.toLowerCase() as LogLevel,
-      Timestamp: new Date(entry.Timestamp),
-    }])
+    setEntries((prev) => [
+      ...prev.slice(-(MAX_ENTRIES - 1)),
+      {
+        id: entryCounterRef.current++,
+        Message: entry.Message,
+        Severity: entry.Severity.toLowerCase() as LogLevel,
+        Timestamp: new Date(entry.Timestamp),
+      },
+    ])
   }, [])
 
   useAppMessage("LogEntry", handleMessage)
@@ -97,41 +72,59 @@ const LogPanel = ({ onClose }: LogPanelProps) => {
     }
   }, [entries])
 
-  const filtered = entries.filter(e => shouldShow(e.Severity, logLevel))
+  const filtered = entries.filter((e) => shouldShow(e.Severity, logLevel))
 
   return (
-    <div className="flex flex-col border-t bg-background mt-2">
+    <div className="bg-background flex flex-col overflow-hidden grow" data-testid="log-panel">
+      {/* Title bar with close button */}
       <div
         data-testid="log-panel-titlebar"
-        className="flex items-center px-3 py-1 text-xs font-medium text-muted-foreground border-b cursor-row-resize"
-        onMouseDown={onDragHandleMouseDown}
+        className="text-muted-foreground flex flex-row items-center justify-between border-b px-3 py-1 font-medium"
       >
-        <span className="grow">{t("LogPanel.Title")}</span>
+        <span>{t("LogPanel.Title")}</span>
         <Button
           size="sm"
           variant="ghost"
-          onMouseDown={e => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
           onClick={onClose}
           aria-label="Close log panel"
         >
           <IconX size={14} />
         </Button>
       </div>
-      <div ref={scrollRef} data-testid="log-panel-content" style={{ height }} className="overflow-y-auto font-mono text-xs p-2 space-y-0.5 select-text">
+      {/* Log entries container */}
+      <div
+        role="log"
+        aria-live="polite"
+        ref={scrollRef}
+        data-testid="log-panel-content"
+        className="flex flex-col overflow-y-auto p-2 font-mono select-text"
+      >
         {logEnabled === false ? (
-          <div className="text-muted-foreground">{t("LogPanel.LoggingDisabled")}</div>
+          <div className="text-muted-foreground">
+            {t("LogPanel.LoggingDisabled")}
+          </div>
         ) : filtered.length === 0 ? (
           <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
         ) : (
           filtered.map((entry) => (
-            <div key={entry.id} className="flex gap-2">
-              <span className="text-muted-foreground shrink-0">
+            <div
+              key={entry.id}
+              className="flex flex-row gap-2"
+              data-severity={`${entry.Severity}`}
+            >
+              <div className="text-muted-foreground">
                 {entry.Timestamp.toLocaleTimeString()}
-              </span>
-              <span className={`shrink-0 uppercase ${SEVERITY_CLASS[entry.Severity] ?? ""}`}>
+              </div>
+              <div
+                className={cn(
+                  `uppercase`,
+                  SEVERITY_CLASS[entry.Severity] ?? "",
+                )}
+              >
                 {entry.Severity}
-              </span>
-              <span className="break-all">{entry.Message}</span>
+              </div>
+              <div className="truncate">{entry.Message}</div>
             </div>
           ))
         )}
