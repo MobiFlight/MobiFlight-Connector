@@ -497,7 +497,11 @@
         "Xplane": {
           "InputTypeLabel": "Tipo de Entrada:",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
-          "CodePlaceholder": "Digite o caminho para DataRef ou Comando, ou selecione uma predefinição acima"
+          "PathLabel": "Caminho:",
+          "PathPlaceholder": "Digite o caminho para DataRef ou Comando, ou selecione uma predefinição acima",
+          "PathDescription": "Dica: Use a notação de índice para acessar Arrays, por exemplo, sim/cockpit2/annunciators/fuel_pressure_low[0] para o 1º motor.",
+          "ValueLabel": "Valor:",
+          "ValuePlaceholder": "Digite o valor"
         },
         "ProSim": {
           "Title": "Ação de Entrada ProSim",
