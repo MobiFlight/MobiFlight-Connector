@@ -52,6 +52,7 @@ export type AppMessagePayload =
   | ScanForInputResult
   | ProSimDataRefDefinitionUpdate
   | VJoyDefinitionsUpdate
+  | LogEntry
 
 // AppMessage is the message format
 // when receiving messages from the backend

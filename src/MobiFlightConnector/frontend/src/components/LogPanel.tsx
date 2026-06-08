@@ -5,6 +5,7 @@ import { AppMessage, LogEntry } from "@/types/messages"
 import { ILogMessage, LogLevel } from "@/types/log"
 import { useSettingsStore } from "@/stores/settingsStore"
 import { useTranslation } from "react-i18next"
+import { Button } from "@/components/ui/button"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   trace: 0, debug: 1, info: 2, warn: 3, error: 4, off: 5,
@@ -99,21 +100,22 @@ const LogPanel = ({ onClose }: LogPanelProps) => {
   const filtered = entries.filter(e => shouldShow(e.Severity, logLevel))
 
   return (
-    <div className="flex flex-col border-t bg-background">
+    <div className="flex flex-col border-t bg-background mt-2">
       <div
         data-testid="log-panel-titlebar"
         className="flex items-center px-3 py-1 text-xs font-medium text-muted-foreground border-b cursor-row-resize"
         onMouseDown={onDragHandleMouseDown}
       >
         <span className="grow">{t("LogPanel.Title")}</span>
-        <button
+        <Button
+          size="sm"
+          variant="ghost"
           onMouseDown={e => e.stopPropagation()}
           onClick={onClose}
-          className="text-muted-foreground hover:text-foreground transition-colors"
           aria-label="Close log panel"
         >
           <IconX size={14} />
-        </button>
+        </Button>
       </div>
       <div ref={scrollRef} data-testid="log-panel-content" style={{ height }} className="overflow-y-auto font-mono text-xs p-2 space-y-0.5 select-text">
         {logEnabled === false ? (
