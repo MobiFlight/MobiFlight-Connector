@@ -1,50 +1,15 @@
 import { test, expect } from "./fixtures"
-import { AppMessage } from "../src/types/messages"
-import Settings from "../src/types/settings"
-import defaultSettings from "./data/settings.testdata.json" with { type: "json" }
 
-// Sends a Settings message that masquerades as the real backend: a *complete*
-// Settings object with only the fields under test overridden. Partial payloads
-// must be avoided — setSettings() replaces the whole store object, so a missing
-// required field (e.g. RecentFiles) crashes any component that reads it.
-const sendSettings = async (
-  page: import("@playwright/test").Page,
-  overrides: Partial<Settings>,
-) => {
-  const payload: Settings = { ...(defaultSettings as Settings), ...overrides }
-  await page.evaluate(
-    (msg) => window.postMessage(msg, "*"),
-    { key: "Settings", payload },
-  )
-}
+test("Log panel opens and closes via View menu", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.openLogPanel()
 
-// Opens the log panel via the View menu. Extracted because every test needs it.
-const openLogPanel = async (page: import("@playwright/test").Page) => {
-  await page
-    .getByRole("menubar")
-    .getByRole("menuitem", { name: "View" })
-    .click()
-  await page.getByRole("menuitem", { name: "Toggle Log Panel" }).click()
-}
+  const logPanel = page.getByTestId("log-panel")
+  await expect(logPanel).toBeVisible()
 
-// Injects a fake backend log message into the app.
-// The LogPanel listens for "LogEntry" messages on window via useAppMessage —
-// the same channel all other backend messages use.
-const sendLogEntry = async (
-  page: import("@playwright/test").Page,
-  severity: string,
-  message: string,
-) => {
-  const msg: AppMessage = {
-    key: "LogEntry",
-    payload: {
-      Message: message,
-      Severity: severity,
-      Timestamp: new Date().toISOString(),
-    },
-  }
-  await page.evaluate((m) => window.postMessage(m, "*"), msg)
-}
+  await configListPage.mobiFlightPage.closeLogPanel()
+  await expect(logPanel).not.toBeVisible()
+})
 
 // Note: toggling the panel on/off via View > Toggle Log Panel is covered by
 // MainMenu.spec.ts ("Confirm View > Toggle Log Panel shows and hides the log
@@ -52,7 +17,7 @@ const sendLogEntry = async (
 // behavior (the X button, re-opening, content rendering).
 test("Log panel closes via X button", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
 
   const closeButton = page.getByRole("button", { name: "Close log panel" })
   await expect(closeButton).toBeVisible()
@@ -66,7 +31,7 @@ test("Log panel re-opens after being closed with X", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
 
   const closeButton = page.getByRole("button", { name: "Close log panel" })
   await closeButton.click()
@@ -74,7 +39,7 @@ test("Log panel re-opens after being closed with X", async ({
 
   // View menu should be able to re-open it — verifies that onClose()
   // sets logVisible=false rather than unmounting permanently.
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
   await expect(closeButton).toBeVisible()
 })
 
@@ -83,7 +48,7 @@ test("Log panel shows empty placeholder before any messages arrive", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
 
   // No LogEntry messages have been sent, so the panel should show the
   // "Waiting for log entries" placeholder from LogPanel.Empty translation key.
@@ -95,11 +60,11 @@ test("Log entry messages appear in the panel", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
 
   // Crucially, the panel must be mounted *before* sending messages —
   // useAppMessage subscribes on mount, so messages sent before mount are lost.
-  await sendLogEntry(page, "Info", "Hello from the test")
+  await configListPage.mobiFlightPage.sendLogEntry("Info", "Hello from the test")
 
   await expect(page.getByText("Hello from the test")).toBeVisible()
 })
@@ -109,18 +74,18 @@ test("Severity colours are applied to log entries", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
 
   // Set log level to trace so all severities pass the filter and render.
   // Without this, the default "info" level would hide debug entries before
   // they reach the DOM, making the colour assertion fail.
-  await sendSettings(page, { LogLevel: "trace" })
+  await configListPage.mobiFlightPage.sendSettings({ LogLevel: "trace" })
 
   // Send one message per severity so all four colour classes get rendered.
-  await sendLogEntry(page, "Error", "error message")
-  await sendLogEntry(page, "Warn", "warn message")
-  await sendLogEntry(page, "Info", "info message")
-  await sendLogEntry(page, "Debug", "debug message")
+  await configListPage.mobiFlightPage.sendLogEntry("Error", "error message")
+  await configListPage.mobiFlightPage.sendLogEntry("Warn", "warn message")
+  await configListPage.mobiFlightPage.sendLogEntry("Info", "info message")
+  await configListPage.mobiFlightPage.sendLogEntry("Debug", "debug message")
 
   // The severity label span carries the colour class. Severity text is
   // lowercased in handleMessage() and displayed uppercase via Tailwind.
@@ -149,12 +114,12 @@ test("Default log level filters out debug messages", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
 
   // No Settings message sent → effectiveLevel defaults to "info" (see shouldShow()).
   // Debug (level 1) is below info (level 2), so it should be filtered out.
-  await sendLogEntry(page, "Debug", "this should be hidden")
-  await sendLogEntry(page, "Info", "this should be visible")
+  await configListPage.mobiFlightPage.sendLogEntry("Debug", "this should be hidden")
+  await configListPage.mobiFlightPage.sendLogEntry("Info", "this should be visible")
 
   await expect(page.getByText("this should be visible")).toBeVisible()
   await expect(page.getByText("this should be hidden")).not.toBeVisible()
@@ -165,7 +130,7 @@ test("Log panel height changes when title bar is dragged upward", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
   const logContent = page.getByTestId("log-panel")
   const before = await logContent.boundingBox()
 
@@ -186,11 +151,11 @@ test("Log panel shows disabled message when LogEnabled is false", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await openLogPanel(page)
+  await configListPage.mobiFlightPage.openLogPanel()
 
   // Disable logging via a Settings message. The Zustand store update causes
   // LogPanel to re-render in place, so it can be sent after the panel is open.
-  await sendSettings(page, { LogEnabled: false })
+  await configListPage.mobiFlightPage.sendSettings({ LogEnabled: false })
 
   // LogPanel checks logEnabled === false (strict equality). When it's false,
   // it renders LogPanel.LoggingDisabled instead of entries or the empty placeholder.

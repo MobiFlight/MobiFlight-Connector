@@ -1,10 +1,12 @@
 import { CommandMessageKey, CommandMessage } from "@/types/commands"
 import { AppMessage, ProjectStatus } from "@/types/messages"
 import { expect, type Locator, type Page } from "@playwright/test"
+import Settings from "@/types/settings"
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import inputActionTestProject from "../data/inputaction.testdata.json" with { type: "json" }
 import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
 import connectedControllers from "../data/connectedControllers.testdata.json" with { type: "json" }
+import defaultSettings from "../data/settings.testdata.json" with { type: "json" }
 import { Project } from "@/types"
 import { ProjectInfo } from "@/types/project"
 import { ControllerBinding } from "@/types/controller"
@@ -234,7 +236,10 @@ export class MobiFlightPage {
     await this.publishMessage(connectedControllersMessage)
   }
 
-  async initWithTestDataAndSpecificProjectProps(props: Partial<Project>, variant: "default" | "inputaction" = "default") {
+  async initWithTestDataAndSpecificProjectProps(
+    props: Partial<Project>,
+    variant: "default" | "inputaction" = "default",
+  ) {
     const testProjectWithProps = {
       ...(variant === "default" ? testProject : inputActionTestProject),
       ...props,
@@ -346,5 +351,51 @@ export class MobiFlightPage {
         Authenticated: true,
       },
     })
+  }
+  // Opens the log panel via the View menu. Extracted because every test needs it.
+  async openLogPanel() {
+    await this.page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "View" })
+      .click()
+    const menuItem = this.page.getByRole("menuitem", { name: "Show Log Panel" })
+    await menuItem.click()
+    await expect(menuItem).not.toBeVisible()
+  }
+
+  // Closes the log panel via the View menu. Extracted because every test needs it.
+  async closeLogPanel() {
+    await this.page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "View" })
+      .click()
+    const menuItem = this.page.getByRole("menuitem", { name: "Hide Log Panel" })
+    await menuItem.click()
+    await expect(menuItem).not.toBeVisible()
+  }
+
+  // Sends a Settings message that masquerades as the real backend: a *complete*
+  // Settings object with only the fields under test overridden.
+  async sendSettings(overrides: Partial<Settings>) {
+    const payload: Settings = { ...(defaultSettings as Settings), ...overrides }
+    await this.publishMessage({
+      key: "Settings",
+      payload,
+    })
+  }
+
+  // Injects a fake backend log message into the app.
+  // The LogPanel listens for "LogEntry" messages on window via useAppMessage —
+  // the same channel all other backend messages use.
+  async sendLogEntry(severity: string, message: string) {
+    const msg: AppMessage = {
+      key: "LogEntry",
+      payload: {
+        Message: message,
+        Severity: severity,
+        Timestamp: new Date().toISOString(),
+      },
+    }
+    await this.publishMessage(msg)
   }
 }
