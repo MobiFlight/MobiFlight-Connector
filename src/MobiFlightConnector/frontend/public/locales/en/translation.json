@@ -23,8 +23,8 @@
       "Placeholder": "Select...",
       "SearchPlaceholder": "Search..."
     },
-    "Copy" : "Copy",
-    "Paste" : "Paste"
+    "Copy": "Copy",
+    "Paste": "Paste"
   },
   "MainMenu": {
     "File": {

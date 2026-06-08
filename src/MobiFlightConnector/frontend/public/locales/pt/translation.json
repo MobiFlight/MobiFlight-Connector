@@ -17,7 +17,14 @@
     "Error": {
       "FallbackTitle": "Ooops... algo deu errado!",
       "Unknown": "Ocorreu um erro desconhecido."
-    }
+    },
+    "ComboBox": {
+      "NoOptions": "Sem opções.",
+      "Placeholder": "Selecionar...",
+      "SearchPlaceholder": "Pesquisar..."
+    },
+    "Copy": "Copiar",
+    "Paste": "Colar"
   },
   "MainMenu": {
     "File": {
@@ -41,10 +48,14 @@
           "In": "Ctrl++",
           "Out": "Ctrl+-"
         }
+      },
+      "Log": {
+        "Show": "Mostrar painel de logs",
+        "Hide": "Ocultar painel de logs"
       }
     },
     "Extras": {
-      "Label" : "Extras",
+      "Label": "Extras",
       "HubHop.DownloadLatestPresets": "Baixar presets mais recentes",
       "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
       "CopyLogs": "Copiar logs para a área de transferência",
@@ -344,6 +355,7 @@
     "General": {
       "Cancel": "Cancelar",
       "Close": "Fechar",
+      "Save": "Salvar",
       "SaveChanges": "Salvar alterações",
       "ApplyChanges": "Aplicar alterações"
     },
@@ -359,7 +371,212 @@
       },
       "ControllersInProject": "{{count}} controladores usados no projeto",
       "ConnectedControllers": "{{count}} controladores conectados ao PC",
-      "AllSet": "Tudo pronto! Seu projeto está totalmente configurado."
+      "AllSet": "Tudo pronto! Seu projeto está totalmente configurado.",
+      "SelectController": "Selecionar um controlador",
+      "SearchController": "Pesquisar controlador...",
+      "NoControllerFound": "Nenhum controlador encontrado."
+    },
+    "InputConfigWizard": {
+      "Title": "Editar configuração de entrada",
+      "Description": "Edite todas as configurações para esta configuração de entrada neste diálogo.",
+      "GoBack": "Voltar",
+      "DrawerTitle": "Pré-condições",
+      "ConfigTrigger": {
+        "Title": "Gatilho",
+        "Description": "O gatilho define as condições ou eventos que ativarão esta configuração.",
+        "ScanForInput": "Procurar entrada",
+        "UseAnyInput": "Usar qualquer entrada",
+        "ClearInput": "Limpar entrada",
+        "SelectController": "Selecionar controlador...",
+        "SearchController": "Pesquisar controlador...",
+        "NoControllerFound": "Nenhum controlador encontrado.",
+        "SelectDevice": "Selecionar dispositivo...",
+        "SearchDevice": "Pesquisar dispositivo...",
+        "NoDeviceFound": "Nenhum dispositivo encontrado."
+      },
+      "Action": {
+        "Copy": "Copiar ação",
+        "Paste": "Colar ação"
+      },
+      "ActionType": {
+        "Title": "Tipo de ação",
+        "Description": "Selecione o tipo de ação que deseja executarr",
+        "Options": {
+          "MSFS2020CustomInputAction": "Microsoft Flight Simulator (todas as versões)",
+          "XplaneInputAction": "X-Plane (todas as versões)",
+          "ProSimInputAction": "ProSim",
+          "VariableInputAction": "MobiFlight - Variável",
+          "RetriggerInputAction": "MobiFlight - Retrigger switches",
+          "KeyInputAction": "MobiFlight - Entrada de teclado",
+          "VJoyInputAction": "MobiFlight - Entrada de joystick virtual (vJoy)",
+          "FsuipcOffsetInputAction": "FSUIPC - Offset",
+          "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
+          "LuaMacroInputAction": "FSUIPC - Lua Macro",
+          "JeehellInputAction": "FSUIPC - Jeehell - Events",
+          "EventIdInputAction": "FSUIPC - EventID"
+        }
+      },
+      "Button": {
+        "Tabs": {
+          "onPress": "Ao pressionar",
+          "onRelease": "Ao soltar",
+          "onHold": "Ao segurar",
+          "onLongRelease": "Ao soltar por muito tempo"
+        }
+      },
+      "Encoder": {
+        "Tabs": {
+          "onLeft": "Para a esquerda",
+          "onRight": "Para a direita",
+          "onLeftFast": "Rapidamente para a esquerda",
+          "onRightFast": "Rapidamente para a direita"
+        }
+      },
+      "Analog": {
+        "Tabs": {
+          "onChange": "Ao mudar"
+        }
+      },
+      "Preconditions": {
+        "Title": "Precondições (opcional)",
+        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
+        "EditButton": "Precondições",
+        "AddButton": "Precondições"
+      },
+      "ConfigReferences": {
+        "Title": "Referências de Configuração (opcional)",
+        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
+        "EditButton": "Referências de Configuração",
+        "AddButton": "Referências de Configuração"
+      },
+      "PreconditionEditor": {
+        "Title": "Precondições",
+        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
+        "NoPreconditions": "Nenhuma precondição definida.",
+        "AddPrecondition": "Adicionar Precondição",
+        "Active": "Ativo",
+        "TypePlaceholder": "Tipo",
+        "SelectConfig": "Selecionar configuração...",
+        "SelectVariable": "Selecionar variável...",
+        "ValuePlaceholder": "Valor",
+        "DeletePrecondition": "Excluir precondição",
+        "SelectPort": "Selecionar porta...",
+        "SelectPin": "Selecionar pino..."
+      },
+      "ConfigReferenceEditor": {
+        "Title": "Referências de Configuração",
+        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
+        "NoConfigReferences": "Nenhuma referência de configuração definida.",
+        "AddConfigReference": "Adicionar Referência de Configuração",
+        "Active": "Ativo",
+        "SelectConfig": "Selecionar configuração...",
+        "PlaceholderLabel": "Espaço reservado",
+        "TestValueLabel": "Valor de teste",
+        "DeleteConfigReference": "Excluir referência de configuração"
+      },
+      "InputActions": {
+        "Common": {
+          "CodeLabel": "Código:",
+          "NoDescriptionAvailable": "Nenhuma descrição disponível",
+          "DescriptionLabel": "Descrição:",
+          "FilterPresets": "Filtrar predefinições",
+          "FilterByVendor": "Filtrar por fornecedor",
+          "SearchVendors": "Pesquisar fornecedores...",
+          "FilterByAircraft": "Filtrar por aeronave",
+          "SearchAircraft": "Pesquisar aeronaves...",
+          "FilterBySystem": "Filtrar por sistema",
+          "SearchSystems": "Pesquisar sistemas...",
+          "SelectPreset": "Selecionar predefinição",
+          "SearchPresets": "Pesquisar predefinições...",
+          "PresetsFound": "{{count}} predefinição(ões) encontrada(s)",
+          "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)"
+        },
+        "Msfs": {
+          "NoneCode": "Nenhum"
+        },
+        "Xplane": {
+          "InputTypeLabel": "Tipo de Entrada:",
+          "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
+          "CodePlaceholder": "Digite o caminho para DataRef ou Comando, ou selecione uma predefinição acima"
+        },
+        "ProSim": {
+          "Title": "Ação de Entrada ProSim",
+          "Description": "Selecione uma predefinição para configurar suas ações de entrada.",
+          "PathLabel": "Caminho:",
+          "NoPresetSelected": "Nenhuma predefinição selecionada",
+          "ParameterLabel": "Parâmetro (opcional):",
+          "ParameterPlaceholder": "Definir parâmetro (opcional)"
+        },
+        "VJoy": {
+          "SelectDeviceLabel": "Selecionar dispositivo vJoy",
+          "SelectDevicePlaceholder": "Selecionar dispositivo vJoy...",
+          "ButtonTab": "Botão",
+          "AxisTab": "Eixo",
+          "ButtonNumberLabel": "Número do botão",
+          "SelectButtonPlaceholder": "Selecionar botão...",
+          "ButtonStateLabel": "Estado do botão",
+          "Pressed": "Pressionado",
+          "Released": "Liberado",
+          "SelectAxisPlaceholder": "Selecionar eixo...",
+          "AxisValueLabel": "Valor do eixo"
+        },
+        "Keyboard": {
+          "StopScanning": "Parar de escanear",
+          "ScanForKeyboard": "Escanear teclado...",
+          "KeyComboLabel": "Combinação de teclas:",
+          "None": "Nenhum",
+          "ClearInput": "Limpar entrada"
+        },
+        "FsuipcOffset": {
+          "SizeLabel": "Tamanho",
+          "OffsetLabel": "Deslocamento",
+          "MaskLabel": "Máscara",
+          "BcdModeLabel": "Modo BCD"
+        },
+        "LuaMacro": {
+          "Title": "Ação de Entrada Lua Macro",
+          "Description": "Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.",
+          "MacroNameLabel": "Nome da Macro:",
+          "MacroNamePlaceholder": "Definir nome da macro",
+          "MacroValueLabel": "Valor da Macro:",
+          "MacroValuePlaceholder": "Definir valor da macro"
+        },
+        "Jeehell": {
+          "FunctionLabel": "Função Jeehell",
+          "SelectFunctionPlaceholder": "Selecionar função Jeehell...",
+          "ValueLabel": "Valor"
+        },
+        "EventId": {
+          "PmdgAircraftLabel": "PMDG Aircraft",
+          "MouseParamLabel": "Parâmetro de Mouse",
+          "SelectMouseParamPlaceholder": "Selecionar parâmetro de mouse...",
+          "EventIdLabel": "Event ID",
+          "CustomParamLabel": "Parâmetro personalizado"
+        },
+        "Retrigger": {
+          "Title": "Retrigger",
+          "Description1": "Use esta ação de entrada para reativar todos os estados dos botões.",
+          "Description2": "Isso é útil para sincronizar seu cockpit virtual com os estados dos interruptores e botões de seus controladores físicos."
+        },
+        "Variable": {
+          "ExistingVariable": "Usar variável existente",
+          "VariableTypeLabel": "Tipo",
+          "VariableNameLabel": "Nome",
+          "VariableNamePlaceholder": "Definir nome da variável...",
+          "ExpressionLabel": "Expressão",
+          "ExpressionPlaceholder": "Definir expressão...",
+          "ExpressionHelp": "Use <1>$</1> para representar o valor da variável em expressões, por exemplo, <3>$ * 2</3> para dobrar uma variável numérica."
+        },
+        "ProSimDataRef": {
+          "FilterPresetsPlaceholder": "Filtrar predefinições",
+          "NoPresetsAvailable": "Nenhuma predefinição disponível",
+          "RefreshPresets": "Atualizar predefinições"
+        },
+        "EventIdPresets": {
+          "SelectPresetLabel": "Selecionar predefinição",
+          "SelectPresetPlaceholder": "Selecionar predefinição..."
+        }
+      }
     }
   },
   "Auth": {
@@ -392,5 +609,10 @@
     "Action": {
       "Upgrade": "Atualizar"
     }
+  },
+  "LogPanel": {
+    "Title": "Log",
+    "Empty": "Aguardando entradas de log",
+    "LoggingDisabled": "O registro está desativado. Ative o registro nas Configurações para ver os logs aqui."
   }
 }
