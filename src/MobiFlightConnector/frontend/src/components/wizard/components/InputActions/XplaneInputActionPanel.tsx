@@ -1,6 +1,6 @@
 import ComboBox from "@/components/ComboBox"
+import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { XplaneInputAction } from "@/types/config"
 import { useTranslation } from "react-i18next"
@@ -48,9 +48,9 @@ const XplaneInputActionPanel = ({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="code">{t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}</Label>
-        <Textarea
-          id="code"
+        <Label htmlFor="path">{t("Dialog.InputConfigWizard.InputActions.Xplane.PathLabel")}</Label>
+        <Input
+          id="path"
           value={config?.Path ?? ""}
           onChange={(e) =>
             onConfigChange({
@@ -58,12 +58,29 @@ const XplaneInputActionPanel = ({
               Path: e.target.value,
             })
           }
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Xplane.CodePlaceholder")}
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Xplane.PathPlaceholder")}
+        />
+        <div className="text-sm text-muted-foreground">
+          {t("Dialog.InputConfigWizard.InputActions.Xplane.PathDescription")}
+        </div>
+      </div>
+      {config?.InputType === "DataRef" && <div className="flex flex-col gap-2">
+        <Label htmlFor="value">{t("Dialog.InputConfigWizard.InputActions.Xplane.ValueLabel")}</Label>
+        <Input
+          id="value"
+          value={config?.Expression ?? ""}
+          onChange={(e) =>
+            onConfigChange({
+              ...(config as XplaneInputAction),
+              Expression: e.target.value,
+            })
+          }
+          placeholder={t("Dialog.InputConfigWizard.InputActions.Xplane.ValuePlaceholder")}
         />
         <div className="text-sm text-muted-foreground">
           {t("Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders")}
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

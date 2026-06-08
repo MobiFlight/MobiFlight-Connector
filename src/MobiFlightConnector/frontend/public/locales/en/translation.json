@@ -23,8 +23,8 @@
       "Placeholder": "Select...",
       "SearchPlaceholder": "Search..."
     },
-    "Copy" : "Copy",
-    "Paste" : "Paste"
+    "Copy": "Copy",
+    "Paste": "Paste"
   },
   "MainMenu": {
     "File": {
@@ -497,7 +497,11 @@
         "Xplane": {
           "InputTypeLabel": "Input Type:",
           "SelectInputTypePlaceholder": "Select input type",
-          "CodePlaceholder": "Enter path for DataRef or Command, or select a preset above"
+          "PathLabel": "Path:",
+          "PathPlaceholder": "Enter path for DataRef or Command, or select a preset above",
+          "PathDescription": "Hint: Use index notation for access of Arrays, e.g. sim/cockpit2/annunciators/fuel_pressure_low[0] for 1st engine.",
+          "ValueLabel": "Value:",
+          "ValuePlaceholder": "Enter value"
         },
         "ProSim": {
           "Title": "ProSim Input Action",
