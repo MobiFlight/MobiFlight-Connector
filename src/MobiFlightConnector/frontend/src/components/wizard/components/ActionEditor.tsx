@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
+import CopyPasteActionPanel from "@/components/wizard/components/CopyPasteActionPanel"
 import EventIdInputActionPanel from "@/components/wizard/components/InputActions/EventIdInputActionPanel"
 import FsuipcOffsetInputActionPanel from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import JeehellInputActionPanel from "@/components/wizard/components/InputActions/JeehellInputActionPanel"
@@ -42,14 +43,22 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
     <Card data-testid="action-editor">
       <CardContent className="pt-4">
         <div className="flex flex-col gap-4">
-          <ActionTypeComboBox
-            selectedActionType={selectedActionType}
-            setSelectedActionType={(option) => {
-              if (option) {
-                onActionChange({ ...action, Type: option.value })
-              }
-            }}
-          />
+          <div className="flex flex-row justify-between items-end">
+            <ActionTypeComboBox
+              selectedActionType={selectedActionType}
+              setSelectedActionType={(option) => {
+                if (option) {
+                  onActionChange({ ...action, Type: option.value })
+                }
+              }}
+            />
+            <CopyPasteActionPanel
+              action={action}
+              onActionChange={(newAction) => {
+                onActionChange(newAction)
+              }}
+            />
+          </div>
           <Separator />
           {selectedActionType?.value === "MSFS2020CustomInputAction" && (
             <MsfsInputActionPanel

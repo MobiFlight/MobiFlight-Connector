@@ -22,7 +22,9 @@
       "NoOptions": "No options.",
       "Placeholder": "Select...",
       "SearchPlaceholder": "Search..."
-    }
+    },
+    "Copy" : "Copy",
+    "Paste" : "Paste"
   },
   "MainMenu": {
     "File": {
@@ -387,6 +389,10 @@
         "SelectDevice": "Select device...",
         "SearchDevice": "Search device...",
         "NoDeviceFound": "No device found."
+      },
+      "Action": {
+        "Copy": "Copy action",
+        "Paste": "Paste action"
       },
       "ActionType": {
         "Title": "Action Type",
