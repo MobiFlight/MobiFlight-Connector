@@ -23,8 +23,8 @@
       "Placeholder": "Valitse...",
       "SearchPlaceholder": "Haku..."
     },
-    "Copy" : "Kopioi",
-    "Paste" : "Liitä"
+    "Copy": "Kopioi",
+    "Paste": "Liitä"
   },
   "MainMenu": {
     "File": {
@@ -497,7 +497,11 @@
         "Xplane": {
           "InputTypeLabel": "Syötetyyppi:",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",
-          "CodePlaceholder": "Syötä polku DataRefille tai komennolle, tai valitse esiasetus yllä"
+          "PathLabel": "Polku:",
+          "PathPlaceholder": "Syötä polku DataRefille tai komennolle, tai valitse esiasetus yltä",
+          "PathDescription": "Vihje: Käytä indeksi-notaatiota taulukoiden käsittelyyn, esim. sim/cockpit2/annunciators/fuel_pressure_low[0] ensimmäiselle moottorille.",
+          "ValueLabel": "Arvo:",
+          "ValuePlaceholder": "Syötä arvo"
         },
         "ProSim": {
           "Title": "ProSim-syötetoiminto",

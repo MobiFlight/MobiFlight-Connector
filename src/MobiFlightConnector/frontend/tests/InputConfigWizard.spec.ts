@@ -707,7 +707,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     ).toBeVisible()
     // Code field reflects the path
     await expect(
-      actionEditor.getByRole("textbox", { name: "Code:" }),
+      actionEditor.getByPlaceholder("Enter path for DataRef or Command, or select a preset above"),
     ).toHaveValue("laminar/B738/knob/land_alt_press_dn")
   })
 
@@ -744,7 +744,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await page.getByRole("option", { name: "test_dataref" }).click()
     // Code field updates
     await expect(
-      actionEditor.getByRole("textbox", { name: "Code:" }),
+      actionEditor.getByPlaceholder("Enter path for DataRef or Command, or select a preset above"),
     ).toHaveValue("laminar/B738/test/dataref")
     // Input type updates from Command to DataRef
     await expect(
@@ -752,6 +752,26 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     ).toBeVisible()
     // Description updates
     await expect(actionEditor.getByText("Test DataRef Preset")).toBeVisible()
+  })
+
+  test("Switching between DataRef and Command updates the value field visibility correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await openActionEditor(configListPage, page, 2)
+    const inputTypeComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Command" })
+
+    await expect(inputTypeComboBox).toBeVisible()
+    const valueInput = actionEditor.getByPlaceholder("Enter value")
+
+    await expect(valueInput).not.toBeVisible()
+    // Switch to DataRef preset
+    await inputTypeComboBox.click()
+    await page.getByRole("option", { name: "DataRef" }).click()
+
+    await expect(valueInput).toBeVisible()
   })
 })
 
