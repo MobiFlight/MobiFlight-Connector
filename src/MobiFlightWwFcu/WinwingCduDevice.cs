@@ -96,6 +96,14 @@ namespace MobiFlightWwFcu
             //new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // without fonts 
         };
 
+        private readonly List<Tuple<string, byte[]>> InitCommandHeaderPfpWithoutUploadedFonts = new List<Tuple<string, byte[]>>()
+        {
+            new Tuple<string, byte[]>("1e01", new byte[0]), // clear feature info - zero-length payload is valid for this opcode
+            new Tuple<string, byte[]>("1801", new byte[] {0x32, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        };
+
         private List<Tuple<string, byte[]>> InitCommandData = new List<Tuple<string, byte[]>>()
         {
             new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x00, 0x00, 0x00, 0xff, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
@@ -165,6 +173,7 @@ namespace MobiFlightWwFcu
 
         private List<byte[]> InitCommands;
         private List<byte[]> ClearCommands;
+        private bool SkipFontUpload = false;
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
         private Dictionary<string, byte> LedIdentifiers;
@@ -212,9 +221,10 @@ namespace MobiFlightWwFcu
             }
             else if (CduType == WinwingCduType.PFP7)
             {
-                InitCommandSequence.AddRange(InitCommandHeaderPfp3n);
+                InitCommandSequence.AddRange(InitCommandHeaderPfpWithoutUploadedFonts);
                 InitCommandSequence.AddRange(InitCommandData);
                 DestinationAddress = WinwingConstants.DEST_PFP7;
+                SkipFontUpload = true;
                 LedIdentifiers = new Dictionary<string, byte>()
                 {
                     { $"DSPY",   0x03 },
@@ -290,11 +300,16 @@ namespace MobiFlightWwFcu
                 byte[] decrypted = CryptoHelper.Decrypt(Convert.FromBase64String(fontData), key, nonce);
                 plainFontJson = Encoding.UTF8.GetString(decrypted);
             }
-            var fontCommands = FontConverter.FontJsonToDisplayCommands(plainFontJson, DestinationAddress);
-            MessageSender.SendDisplayCommands(fontCommands.LargeFontHead);
-            MessageSender.SendDisplayCommands(fontCommands.LargeFont);
-            MessageSender.SendDisplayCommands(fontCommands.SmallFontHead);
-            MessageSender.SendDisplayCommands(fontCommands.SmallFont);
+            
+            if (!SkipFontUpload)
+            {
+                var fontCommands = FontConverter.FontJsonToDisplayCommands(plainFontJson, DestinationAddress);
+                MessageSender.SendDisplayCommands(fontCommands.LargeFontHead);
+                MessageSender.SendDisplayCommands(fontCommands.LargeFont);
+                MessageSender.SendDisplayCommands(fontCommands.SmallFontHead);
+                MessageSender.SendDisplayCommands(fontCommands.SmallFont);
+            }
+            
             MessageSender.SendDisplayCommands(InitCommands);
             EmptyDisplay();
         }
@@ -405,7 +420,7 @@ namespace MobiFlightWwFcu
             for (int i = 0; i < data.Count; i++)
             {
                 var item = data[i];
-                var (lowByte, highByte) = GetFormatBytes(item, out var currentChar); 
+                var (lowByte, highByte) = GetFormatBytes(item, out var currentChar);
                 
                 if (i == 0) // First char
                     lowByte += 0x01;
@@ -414,6 +429,13 @@ namespace MobiFlightWwFcu
 
                 byteList.Add(lowByte);
                 byteList.Add(highByte);
+                
+                // For PFP7 without font upload, only use single-byte ASCII
+                if (SkipFontUpload && currentChar > 127)
+                {
+                    // Replace multi-byte UTF-8 characters with ASCII equivalents
+                    currentChar = ' ';
+                }
                 byteList.AddRange(Encoding.UTF8.GetBytes(new char[] { currentChar }));
             }
 
