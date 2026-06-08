@@ -28,7 +28,7 @@ const EncoderActionBindingPanel = ({
       <TabsList>
         {tabs.map((trigger) => (
           <TabsTrigger key={trigger} value={trigger}>
-            {t(`Wizard.Encoder.Tabs.${trigger}`, trigger)}
+            {t(`Dialog.InputConfigWizard.Encoder.Tabs.${trigger}`)}
           </TabsTrigger>
         ))}
       </TabsList>

@@ -31,7 +31,7 @@ const ButtonActionBindingPanel = ({
       <TabsList>
         {tabs.map((tab) => (
           <TabsTrigger key={tab} value={tab}>
-            {t(`Wizard.Button.Tabs.${tab}`, tab)}
+            {t(`Dialog.InputConfigWizard.Button.Tabs.${tab}`)}
           </TabsTrigger>
         ))}
       </TabsList>

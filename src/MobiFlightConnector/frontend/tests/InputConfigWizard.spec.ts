@@ -511,7 +511,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
 })
 
 test.describe("Input Config Wizard - Action Type Panel", () => {
-  test("Action types honor project settings and features - MSFS", async ({
+  test("Action types honor project settings and features", async ({
     configListPage,
     page,
   }) => {
@@ -585,6 +585,32 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
         }
       }
     }
+  })
+
+  test("Action type panel copy and paste is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const actionEditor = await openActionEditor(configListPage, page, 1)
+    const copyButton = actionEditor.getByRole("button", { name: "Copy" })
+    const pasteButton = actionEditor.getByRole("button", { name: "Paste" })
+
+    await expect(copyButton).toBeVisible()
+    await expect(pasteButton).toBeVisible()
+    await expect(pasteButton).toBeDisabled()
+
+    await copyButton.click()
+    await expect(pasteButton).toBeEnabled()
+
+    const onReleaseTab = page.getByRole("tab", { name: "On Release" })
+    await onReleaseTab.click()
+    await expect(actionEditor.getByRole("combobox").filter({ hasText: "Select..." })).toBeVisible()
+
+    await pasteButton.click()
+    await expect(actionEditor.getByRole("combobox").filter({ hasText: "Microsoft Flight Simulator (all versions)" })).toBeVisible()
   })
 })
 
