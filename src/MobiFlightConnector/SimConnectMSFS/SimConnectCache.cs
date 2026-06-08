@@ -386,7 +386,8 @@ namespace MobiFlight.SimConnectMSFS
                     var simVarIndex = (int)(data.dwRequestID) - SIMVAR_DATA_DEFINITION_OFFSET;
 
                     if (SimVars.Count <= simVarIndex || simVarIndex < 0) return;
-                    SimVars[simVarIndex].Data = simData.data;
+                    var roundedValue = Math.Round(simData.data, 4);
+                    SimVars[simVarIndex].Data = roundedValue;
                 }
             }
             catch (Exception ex)
