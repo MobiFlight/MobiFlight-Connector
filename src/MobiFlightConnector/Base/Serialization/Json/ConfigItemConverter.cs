@@ -66,6 +66,22 @@ namespace MobiFlight.Base.Serialization.Json
                 jsonObject.Remove("DeviceType");
             }
 
+            // Migration: If Device still has SubIndex property, remove it (it will be ignored during deserialization anyway)
+            else if (jsonObject["Device"]?["SubIndex"] != null)
+            {
+                var subIndex = 0;
+                var dataPin = jsonObject["Device"]?["SubIndex"];
+                deviceType = jsonObject["Device"]?["Type"]?.ToString();
+                deviceName = (string)jsonObject["Device"]?["Name"]?.ToString();
+                if (dataPin != null)
+                {
+                    int.TryParse(dataPin.ToString(), out subIndex);
+                }
+                var device = InputConfigItem.CreateInputDevice(deviceType, deviceName, subIndex);
+                if (device != null)
+                    jsonObject["Device"] = JObject.FromObject(device);
+            }
+
             var configItem = Activator.CreateInstance(type) as IConfigItem;
             serializer.Populate(jsonObject.CreateReader(), configItem);
             return configItem;
