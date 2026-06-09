@@ -1,22 +1,40 @@
+<!-- 
+please use branch name following the convention: 
+#GITHUB_ISSUE/[descriptive-branch-name]
+-->
 ## Summary
-
-<!-- Describe the problem being solved or feature being added -->
+<!-- Describes the solution and what problem it addresses solved -->
+<!-- This is also for regular, non-technical users -->
 
 ## Related issues
-
-Fixes #ISSUE_NUMBER
-
-## Technical notes
-
-<!-- Brief description of your implementation approach -->
+<!-- fixes, relates to existing #issues -->
+fixes #ISSUE_NUMBER
 
 ## Screenshots / recordings
-
 <!-- Before/After For UI changes; delete this section if not applicable -->
 
-## Checklist
+## Acceptance criteria
+<!-- List specific testable items here, e.g. use cases, features -->
+<!-- This also serves as checklist during development -->
+- [ ] X added
+- [ ] Y still working
+- [ ] Z changed
 
-- [ ] A related Issue exists, and describes the problem
-- [ ] Tests added or updated for new features where applicable
-- [ ] All new user-facing strings are translated to core languages (en,de,es)
-- [ ] UI, hardware, and feature changes have related Docs Issues
+## DoD Checklist
+<!-- ~~strike irrelevant items~~ -->
+- [ ] Unit tests available
+  - [ ] .NET backend
+  - [ ] Frontend
+- [ ] Frontend tests
+- [ ] i18n - All user-facing strings are translated
+  - [ ] core (en,de,es)
+  - [ ] additional langs
+- [ ] documentation
+  - [ ] User docs (docs.mobiflight.com)
+  - [ ] Developer docs (e.g., readme.md)
+
+## Out-of-scope
+<!-- mention what is not covered by this PR -->
+
+## Notes
+<!-- provide furhter information that might be of interest -->
