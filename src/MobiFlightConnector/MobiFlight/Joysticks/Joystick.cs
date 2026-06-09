@@ -380,7 +380,7 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Controller = new Base.Controller() { Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(), Name = Name },
+                        Controller = new Base.Controller() { Serial = Serial, Name = Name },
                         Device = new Base.DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
                         InputType = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.RELEASE
@@ -395,7 +395,7 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Controller = new Base.Controller() { Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(), Name = Name },
+                        Controller = new Base.Controller() { Serial = Serial, Name = Name },
                         Device = new Base.DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
                         InputType = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.PRESS
