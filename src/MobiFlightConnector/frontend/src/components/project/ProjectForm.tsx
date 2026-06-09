@@ -74,8 +74,8 @@ const ProjectForm = ({
   }
 
   const handleFormKeyDown = (e: React.KeyboardEvent) => {
+    e.stopPropagation()
     if (e.key === "Enter") {
-      e.stopPropagation()
       handleSubmit(e as unknown as React.FormEvent)
     }
   }
