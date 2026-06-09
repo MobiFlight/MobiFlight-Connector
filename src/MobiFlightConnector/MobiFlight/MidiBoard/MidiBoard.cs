@@ -167,6 +167,8 @@ namespace MobiFlight
             // Use channel+1 because all miditools show channel starting with 1, technically it starts with 0
             byte adaptedChannel = (byte)(channel + 1);
 
+            inputEventArgs.Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial };
+
             // TODO: semantics of Device.Type is not entirely correct but data type doesn't allow us to set it to MidiBoardDeviceType
             // We have to refactor this before merging to main.
             inputEventArgs.Device = new DeviceReference()
