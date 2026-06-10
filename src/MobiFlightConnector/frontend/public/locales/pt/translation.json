@@ -357,7 +357,8 @@
       "Close": "Fechar",
       "Save": "Salvar",
       "SaveChanges": "Salvar alterações",
-      "ApplyChanges": "Aplicar alterações"
+      "ApplyChanges": "Aplicar alterações",
+      "ResetFilters": "Redefinir filtros"
     },
     "ControllerBinding": {
       "Title": "Vinculação de controladores",

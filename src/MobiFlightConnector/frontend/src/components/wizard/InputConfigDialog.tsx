@@ -54,7 +54,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           e.stopPropagation()
         }}
         ref={containerRef}
-        className="vlg:min-h-[80%] vxl:min-h-[75%] flex min-h-full flex-col justify-between overflow-x-hidden overflow-y-auto select-none sm:max-w-full lg:max-w-200 xl:max-w-250"
+        className="vlg:min-h-[80%] flex min-h-full flex-col justify-between overflow-x-hidden overflow-y-auto select-none sm:max-w-full lg:max-w-300"
       >
         <DialogHeader>
           <DialogTitle className="text-2xl">

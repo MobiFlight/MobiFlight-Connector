@@ -1,6 +1,8 @@
 import ComboBox from "@/components/ComboBox"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -76,73 +78,116 @@ const XplanePresetPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-2">
         <Input
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterPresets")}
+          placeholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.FilterPresets",
+          )}
           value={filter.search}
           onChange={(e) =>
             setFilter((prev) => ({ ...prev, search: e.target.value }))
           }
         />
         <ComboBox
+          widthClass="flex-1"
           items={vendors}
           selected={filter.vendor}
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterByVendor")}
+          placeholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.FilterByVendor",
+          )}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.vendor}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, vendor: item || "" }))
           }
-          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchVendors")}
+          searchPlaceholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.SearchVendors",
+          )}
         />
         <ComboBox
+          widthClass="flex-1"
           items={aircraft}
           selected={filter.aircraft}
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft")}
+          placeholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft",
+          )}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.aircraft}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, aircraft: item || "" }))
           }
-          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchAircraft")}
+          searchPlaceholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.SearchAircraft",
+          )}
         />
         <ComboBox
+          widthClass="flex-1"
           items={categories}
           selected={filter.system}
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.FilterBySystem")}
+          placeholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.FilterBySystem",
+          )}
           getLabel={(item) => item}
           getValue={(item) => item}
           isSelected={(item) => item === filter.system}
           setSelected={(item) =>
             setFilter((prev) => ({ ...prev, system: item || "" }))
           }
-          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchSystems")}
+          searchPlaceholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.SearchSystems",
+          )}
         />
       </div>
-      <div className="flex flex-row items-center gap-4">
+      <div className="grid grid-cols-4 items-center gap-2">
         <ComboBox
+          className="col-span-2"
           items={filteredPresets}
           selected={selectedPreset}
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Common.SelectPreset")}
+          placeholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.SelectPreset",
+          )}
           getLabel={(item) => item.label}
           getValue={(item) => item.id}
           isSelected={(item) => item.id === selectedPreset?.id}
           setSelected={(item) => {
             if (item) onPresetSelect(item)
           }}
-          searchPlaceholder={t("Dialog.InputConfigWizard.InputActions.Common.SearchPresets")}
-          widthClass="w-150"
+          searchPlaceholder={t(
+            "Dialog.InputConfigWizard.InputActions.Common.SearchPresets",
+          )}
+          widthClass="flex-1"
+          variant="nofilter"
         />
-        <div role="status" className="text-sm">{t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", { count: filteredPresets.length })}</div>
+        <div role="status" className="text-sm px-2">
+          {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
+            count: filteredPresets.length,
+          })}
+        </div>
+        <div>
+          <Button
+            size={"sm"}
+            variant="ghost"
+            onClick={() =>
+              setFilter({ vendor: "", aircraft: "", system: "", search: "" })
+            }
+          >
+            <IconX />
+            {t("Dialog.General.ResetFilters")}
+          </Button>
+        </div>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="description">{t("Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel")}</Label>
+        <Label htmlFor="description">
+          {t("Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel")}
+        </Label>
         <div id="description" className="rounded border p-2 text-sm">
           {selectedPreset?.description
             ? selectedPreset?.description
-            : t("Dialog.InputConfigWizard.InputActions.Common.NoDescriptionAvailable")}
+            : t(
+                "Dialog.InputConfigWizard.InputActions.Common.NoDescriptionAvailable",
+              )}
         </div>
       </div>
     </div>

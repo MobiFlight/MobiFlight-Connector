@@ -357,7 +357,8 @@
       "Close": "Close",
       "Save": "Save",
       "SaveChanges": "Save changes",
-      "ApplyChanges": "Apply changes"
+      "ApplyChanges": "Apply changes",
+      "ResetFilters": "Reset filters"
     },
     "ControllerBinding": {
       "Title": "Controller Bindings",

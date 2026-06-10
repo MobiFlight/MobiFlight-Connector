@@ -357,7 +357,8 @@
       "Close": "Sulje",
       "Save": "Tallenna",
       "SaveChanges": "Tallenna muutokset",
-      "ApplyChanges": "Hyväksy muutokset"
+      "ApplyChanges": "Hyväksy muutokset",
+      "ResetFilters": "Nollaa suodattimet"
     },
     "ControllerBinding": {
       "Title": "Ohjainten yhdistäminen",

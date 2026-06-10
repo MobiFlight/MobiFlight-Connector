@@ -363,7 +363,8 @@
       "Close": "Cerrar",
       "Save": "Guardar",
       "SaveChanges": "Guardar cambios",
-      "ApplyChanges": "Aplicar cambios"
+      "ApplyChanges": "Aplicar cambios",
+      "ResetFilters": "Borrar filtros"
     },
     "ControllerBinding": {
       "Title": "Vincular controladores",

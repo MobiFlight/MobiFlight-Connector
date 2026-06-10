@@ -363,7 +363,8 @@
       "Close": "Schließen",
       "Save": "Speichern",
       "SaveChanges": "Änderungen speichern",
-      "ApplyChanges": "Änderungen übernehmen"
+      "ApplyChanges": "Änderungen übernehmen",
+      "ResetFilters": "Filter zurücksetzen"
     },
     "ControllerBinding": {
       "Title": "Controller Zuordnungen",
