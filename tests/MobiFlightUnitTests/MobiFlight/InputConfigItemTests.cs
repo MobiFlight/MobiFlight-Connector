@@ -212,68 +212,6 @@ namespace MobiFlight.Tests
 
         #region JSON (de-)serialization tests
         [TestMethod()]
-        public void OnDeserialized_OldJsonFormat_CreatesDeviceFromDeviceTypeAndName()
-        {
-            // Simulate old JSON format: DeviceType + DeviceName set, but no Device object
-            string oldFormatJson = @"{
-                ""Type"": ""InputConfigItem"", 
-                ""GUID"": ""test-guid"",
-                ""DeviceType"": ""Button"",
-                ""DeviceName"": ""Button 1""
-            }";
-
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(oldFormatJson);
-
-            Assert.IsNotNull(result.Device, "Device should be populated by OnDeserialized");
-            Assert.IsInstanceOfType(result.Device, typeof(MobiFlight.InputConfig.Button));
-            Assert.AreEqual("Button 1", result.Device.Name);
-        }
-
-        [TestMethod()]
-        public void OnDeserialized_OldJsonFormat_CreatesDeviceFromDeviceTypeAndName_InputMultiplexer()
-        {
-            // Simulate old JSON format: DeviceType + DeviceName set, but no Device object
-            string oldFormatJson = @"{
-                ""inputMultiplexer"": {
-                    ""DataPin"": 5
-                },
-                ""Type"": ""InputConfigItem"", 
-                ""GUID"": ""test-guid"",
-                ""DeviceType"": ""InputMultiplexer"",
-                ""DeviceName"": ""Multiplexer 1""
-            }";
-
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(oldFormatJson);
-
-            Assert.IsNotNull(result.Device, "Device should be populated by OnDeserialized");
-            Assert.IsInstanceOfType(result.Device, typeof(MobiFlight.InputConfig.InputMultiplexer));
-            Assert.AreEqual("Multiplexer 1:5", result.Device.Name);
-            Assert.AreEqual(5, (result.Device as InputMultiplexer)?.SubIndex);
-        }
-
-        [TestMethod()]
-        public void OnDeserialized_OldJsonFormat_CreatesDeviceFromDeviceTypeAndName_InputShiftRegister()
-        {
-            // Simulate old JSON format: DeviceType + DeviceName set, but no Device object
-            string oldFormatJson = @"{
-                ""inputShiftRegister"": {
-                    ""ExtPin"": 5
-                },
-                ""Type"": ""InputConfigItem"", 
-                ""GUID"": ""test-guid"",
-                ""DeviceType"": ""InputShiftRegister"",
-                ""DeviceName"": ""Shift Register 1""
-            }";
-
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(oldFormatJson);
-
-            Assert.IsNotNull(result.Device, "Device should be populated by OnDeserialized");
-            Assert.IsInstanceOfType(result.Device, typeof(MobiFlight.InputConfig.InputShiftRegister));
-            Assert.AreEqual("Shift Register 1:5", result.Device.Name);
-            Assert.AreEqual(5, (result.Device as InputShiftRegister)?.SubIndex);
-        }
-
-        [TestMethod()]
         public void OnDeserialized_TypeNotSet_DoesNotCreateDevice()
         {
             string json = @"{

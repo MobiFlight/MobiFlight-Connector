@@ -231,6 +231,7 @@
     <Compile Include="Base\ExtensionsTests.cs" />
     <Compile Include="Base\InputEventExecutorTests.cs" />
     <Compile Include="Base\LRUCacheTests.cs" />
+    <Compile Include="Base\Migration\InputConfig_V_0_10_MigrationTests.cs" />
     <Compile Include="Base\Migration\Output_0_9_MigrationTests.cs" />
     <Compile Include="Base\Migration\ProjectMigrationTests.cs" />
     <Compile Include="Base\PreconditionListTests.cs" />

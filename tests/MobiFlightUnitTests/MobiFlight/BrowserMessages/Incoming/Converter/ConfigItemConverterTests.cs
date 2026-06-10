@@ -199,7 +199,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
         }
 
         [TestMethod()]
-        public void ReadJson_InputMultiplexer_WithOldFormat_DeserializesCorrectly()
+        public void ReadJson_InputMultiplexer_WithNewFormat_DeserializesCorrectly()
         {
 
             // Arrange
@@ -223,9 +223,8 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
                     ""RepeatDelay"": 0
                 },
                 ""Device"": {
-                    ""SubIndex"": 13,
                     ""Type"": ""InputMultiplexer"",
-                    ""Name"": ""Multiplexer""
+                    ""Name"": ""Multiplexer:13""
                 },
                 ""GUID"": ""2ec17354-70be-4d58-86bf-5b944fe4533d"",
                 ""Active"": true,
