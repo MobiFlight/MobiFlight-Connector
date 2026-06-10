@@ -137,32 +137,39 @@ const MsfsPresetPanel = ({
         />
       </div>
       <div className="grid grid-cols-4 items-center gap-2">
-        <ComboBox
-          className="col-span-2"
-          selected={selectedPreset}
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.Common.SelectPreset",
-          )}
-          getLabel={(item) => item.label}
-          getValue={(item) => item.id}
-          items={filteredPresets}
-          isSelected={(item) => item.id === selectedPreset?.id}
-          setSelected={(item) => {
-            setSelectedPreset(item ? item : null)
-          }}
-          searchPlaceholder={t(
-            "Dialog.InputConfigWizard.InputActions.Common.SearchPresets",
-          )}
-          widthClass="flex-1"
-          variant="nofilter"
-        />
-        <div role="status" className="text-sm px-2">
+        <div className="col-span-2">
+          <ComboBox
+            items={filteredPresets}
+            selected={selectedPreset}
+            placeholder={t(
+              "Dialog.InputConfigWizard.InputActions.Common.SelectPreset",
+            )}
+            getLabel={(item) => item.label}
+            getValue={(item) => item.id}
+            isSelected={(item) => item.id === selectedPreset?.id}
+            setSelected={(item) => {
+              setSelectedPreset(item ? item : null)
+            }}
+            searchPlaceholder={t(
+              "Dialog.InputConfigWizard.InputActions.Common.SearchPresets",
+            )}
+            widthClass="w-full"
+            variant="nofilter"
+          />
+        </div>
+        <div role="status" className="px-2 text-sm">
           {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
             count: filteredPresets.length,
           })}
         </div>
         <div>
-          <Button size={"sm"} variant="ghost" onClick={() => setFilter({ vendor: "", aircraft: "", system: "", search: "" })}>
+          <Button
+            size={"sm"}
+            variant="ghost"
+            onClick={() =>
+              setFilter({ vendor: "", aircraft: "", system: "", search: "" })
+            }
+          >
             <IconX />
             {t("Dialog.General.ResetFilters")}
           </Button>
