@@ -7,12 +7,13 @@ namespace MobiFlight.Base.LogAppender
 {
     public class MessageExchangeAppender : ILogAppender
     {
-        public ConcurrentQueue<LogEntry> LogQueue = new ConcurrentQueue<LogEntry>();
+        private readonly ConcurrentQueue<LogEntry> LogQueue = new ConcurrentQueue<LogEntry>();
         private Timer ProcessTimer;
+        private readonly object _timerLock = new object();
 
         public MessageExchangeAppender()
         {
-            
+
         }
 
         public void log(string message, LogSeverity severity)
@@ -25,19 +26,21 @@ namespace MobiFlight.Base.LogAppender
             };
 
             LogQueue.Enqueue(m);
-            
+
             if (ProcessTimer == null)
             {
-                ProcessTimer = new Timer(ProcessTimer_Tick, this, 0, 100);
-                return;
+                var newTimer = new Timer(ProcessTimer_Tick, this, 0, 100);
+                // handle potential race condition during timer initialization
+                if (Interlocked.CompareExchange(ref ProcessTimer, newTimer, null) != null)
+                {
+                    newTimer.Dispose();
+                }
             }
         }
 
-        public static void ProcessTimer_Tick(object state)
+        private static void ProcessTimer_Tick(object state)
         {
-            var appender = (MessageExchangeAppender)state;
-
-            if (appender == null) { return; }
+            if (!(state is MessageExchangeAppender appender)) return;
 
             while (appender.LogQueue.TryDequeue(out var logEntry))
             {
