@@ -142,6 +142,7 @@ test("Confirm Controller Binding assignment works correctly", async ({
     "JS-c0875190-3b89-11ed-8007-444553540000",
   )
   expect(updatedBinding!.Status).toBe("Match")
+  expect(updatedBinding!.BoundController?.Devices).toBeUndefined()
 })
 
 test("Confirm Controller Binding Dialog filters correctly", async ({
