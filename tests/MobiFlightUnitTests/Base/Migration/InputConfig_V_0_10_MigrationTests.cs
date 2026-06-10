@@ -197,8 +197,8 @@ namespace MobiFlightUnitTests.Base.Migration
             Assert.AreEqual("Multiplexer:1", device["Name"]);
             Assert.IsNotNull(device["Type"]);
             Assert.AreEqual(InputConfigItem.TYPE_BUTTON.ToString(), device["Type"]);
-            Assert.IsNull(configItem["DeviceType"]);
-            Assert.IsNull(configItem["DeviceName"]);
+            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceType"));
+            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceName"));
         }
 
         [TestMethod]
@@ -248,8 +248,74 @@ namespace MobiFlightUnitTests.Base.Migration
 
             // Assert
             var configItem = result["ConfigFiles"][0]["ConfigItems"][0];
-            Assert.IsNull(configItem["DeviceType"]);
-            Assert.IsNull(configItem["DeviceName"]);
+            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceType"));
+            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceName"));
+        }
+
+        [TestMethod]
+        public void Apply_ConfigMigration_AppliesToOutputConfig()
+        {
+            // Arrange
+            var inputDocument = JObject.Parse(@"{
+                'ConfigFiles': [
+                    {
+                        'ConfigItems': [
+                            {
+                                ""Source"": {
+                                    ""SimConnectValue"": {
+                                        ""UUID"": ""0c24f12b-0016-4da7-b941-587a581e5686"",
+                                        ""Value"": ""(L:I_FCU_TRACK_FPA_MODE)"",
+                                        ""VarType"": 2
+                                    },
+                                    ""Type"": ""SimConnectSource""
+                                },
+                                ""TestValue"": {
+                                    ""type"": 1,
+                                    ""Float64"": 1.0,
+                                    ""String"": null
+                                },
+                                ""Device"": {
+                                    ""Name"": ""TRK Mode On/Off"",
+                                    ""Address"": ""TRK Mode On/Off"",
+                                    ""Lines"": [],
+                                    ""Type"": ""LcdDisplay""
+                                },
+                                ""DeviceType"": ""LcdDisplay"",
+                                ""DeviceName"": ""TRK Mode On/Off"",
+                                ""GUID"": ""71618c5b-676f-41df-8ccf-d821d685de41"",
+                                ""Active"": true,
+                                ""Name"": ""Fenix A320 FCU: Mode TRK"",
+                                ""Type"": ""OutputConfigItem"",
+                                ""Controller"": {
+                                    ""Name"": ""WINWING FCU-32 + EFIS-32L + EFIS-32R"",
+                                    ""Serial"": ""JS-e23aa900-bee8-11ef-8001-444553540000"",
+                                ""Devices"": []
+                                },
+                                ""Preconditions"": [
+                                    {
+                                        ""Type"": ""config"",
+                                        ""Ref"": ""b22e0796-c2a4-4913-9bef-66a16d58f0b3"",
+                                        ""Serial"": null,
+                                        ""Pin"": null,
+                                        ""Operand"": ""="",
+                                        ""Value"": ""0"",
+                                        ""Logic"": ""and"",
+                                        ""Active"": true
+                                    }
+                                ]
+                             }
+                        ]
+                    }
+                ]
+            }");
+
+            // Act
+            var result = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+
+            // Assert
+            var configItem = result["ConfigFiles"][0]["ConfigItems"][0];
+            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceType"));
+            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceName"));
         }
 
         [TestMethod()]

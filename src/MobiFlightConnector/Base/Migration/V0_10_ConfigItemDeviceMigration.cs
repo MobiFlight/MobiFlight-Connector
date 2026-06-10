@@ -73,7 +73,7 @@ namespace MobiFlight.Base.Migration
             }
 
             // Migration: If Device still has SubIndex property, remove it
-            if (configItem["Device"]?["SubIndex"] != null)
+            else if (configItem["Device"]?["SubIndex"] != null)
             {
                 var subIndex = 0;
                 var dataPin = configItem["Device"]?["SubIndex"];
