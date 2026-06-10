@@ -84,7 +84,12 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   ) => {
     setConfigItem({
       ...configItem,
-      Controller: controller,
+      Controller: { 
+        ...controller,
+        // unset Devices 
+        // before sending it back to backend. 
+        Devices: undefined 
+      },
       Device: device
         ? {
             Name: device.Name,
@@ -119,7 +124,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
     <Card data-testid="trigger-panel">
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.ConfigTrigger.Title")}</div>
+          <div className="text-lg font-semibold">
+            {t("Dialog.InputConfigWizard.ConfigTrigger.Title")}
+          </div>
           <div className="text-muted-foreground text-sm">
             {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
           </div>
@@ -150,9 +157,15 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               }
               items={completeControllers}
               selected={selectedController}
-              placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectController")}
-              searchPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.SearchController")}
-              noOptionsPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound")}
+              placeholder={t(
+                "Dialog.InputConfigWizard.ConfigTrigger.SelectController",
+              )}
+              searchPlaceholder={t(
+                "Dialog.InputConfigWizard.ConfigTrigger.SearchController",
+              )}
+              noOptionsPlaceholder={t(
+                "Dialog.InputConfigWizard.ConfigTrigger.NoControllerFound",
+              )}
               setSelected={(controller) => {
                 setSelectedController(controller)
                 setSelectedDevice(undefined)
@@ -173,9 +186,15 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               }
               items={devices}
               selected={selectedDevice}
-              placeholder={t("Dialog.InputConfigWizard.ConfigTrigger.SelectDevice")}
-              searchPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.SearchDevice")}
-              noOptionsPlaceholder={t("Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound")}
+              placeholder={t(
+                "Dialog.InputConfigWizard.ConfigTrigger.SelectDevice",
+              )}
+              searchPlaceholder={t(
+                "Dialog.InputConfigWizard.ConfigTrigger.SearchDevice",
+              )}
+              noOptionsPlaceholder={t(
+                "Dialog.InputConfigWizard.ConfigTrigger.NoDeviceFound",
+              )}
               disabled={!selectedController}
               setSelected={(device) => {
                 setSelectedDevice(device)

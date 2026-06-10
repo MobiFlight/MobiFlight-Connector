@@ -67,5 +67,15 @@ namespace MobiFlight.Base
         {
             return $"{Serial}:{Name}";
         }
+
+        /// <summary>
+        /// Determines whether the <see cref="Devices"/> property should be serialized.
+        /// </summary>
+        /// <returns><see langword="true"/> if <see cref="Devices"/> contains one or more elements;
+        /// otherwise, <see langword="false"/>.</returns>
+        public bool ShouldSerializeDevices()
+        {
+            return Devices != null && Devices.Count > 0;
+        }
     }
 }
