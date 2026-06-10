@@ -679,6 +679,56 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     // Description updates
     await expect(actionEditor.getByText("Garmin G1000")).toBeVisible()
   })
+
+  test("Preset filter combo boxes work correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await openActionEditor(configListPage, page, 1)
+    const countLabel = actionEditor.getByRole("status")
+    const resetFiltersButton = actionEditor.getByRole("button", { name: "Reset filters" })
+
+    await expect(countLabel).toHaveText("4 preset(s) found")
+    await resetFiltersButton.click()
+
+    const optionsList = page.getByRole("listbox")
+    
+    // Select a vendor filter
+    await actionEditor.getByRole('combobox').filter({ hasText: 'Filter by vendor' }).click()
+    await expect(optionsList).toBeVisible()
+    const vendorOption = optionsList.getByRole("option", { name: "Microsoft" })
+    await expect(vendorOption).toBeVisible()
+    await vendorOption.click()
+    await expect(vendorOption).not.toBeVisible()
+    
+    await expect(countLabel).toHaveText("3 preset(s) found")
+    
+    // Select an aircraft filter
+    await actionEditor.getByRole("combobox").filter({ hasText: "Filter by aircraft" }).click()
+    await expect(optionsList).toBeVisible()    
+    const aircraftOption = optionsList.getByRole("option", { name: "Generic" })
+    await expect(aircraftOption).toBeVisible()
+    await aircraftOption.click()
+    await expect(aircraftOption).not.toBeVisible() // Should be removed from options since it's already selected as a filter
+    
+    await expect(countLabel).toHaveText("2 preset(s) found")
+    
+    // Select a system filter
+    await actionEditor.getByRole("combobox").filter({ hasText: "Filter by system" }).click()
+    await expect(optionsList).toBeVisible()    
+    const systemOption = optionsList.getByRole("option", { name: "Avionics" })
+    await expect(systemOption).toBeVisible()
+    await systemOption.click()
+    await expect(systemOption).not.toBeVisible()
+    
+    await expect(countLabel).toHaveText("1 preset(s) found")
+    
+    
+    await expect(resetFiltersButton).toBeVisible()
+    await resetFiltersButton.click()
+    
+    await expect(countLabel).toHaveText("4 preset(s) found")
+  })
 })
 
 test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
@@ -719,7 +769,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     const filterInput = actionEditor.getByPlaceholder("Filter presets")
     const countLabel = actionEditor.getByRole("status")
 
-    await expect(countLabel).toHaveText("3 preset(s) found")
+    await expect(countLabel).toHaveText("4 preset(s) found")
 
     await filterInput.fill("land_alt_press_dn")
     await expect(countLabel).toHaveText("1 preset(s) found")
@@ -728,7 +778,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(countLabel).toHaveText("0 preset(s) found")
 
     await filterInput.fill("")
-    await expect(countLabel).toHaveText("3 preset(s) found")
+    await expect(countLabel).toHaveText("4 preset(s) found")
   })
 
   test("Selecting a preset updates the code field and input type", async ({
@@ -745,13 +795,63 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     // Code field updates
     await expect(
       actionEditor.getByPlaceholder("Enter path for DataRef or Command, or select a preset above"),
-    ).toHaveValue("laminar/B738/test/dataref")
+    ).toHaveValue("laminar/B739/test/dataref")
     // Input type updates from Command to DataRef
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: /^DataRef$/ }),
     ).toBeVisible()
     // Description updates
     await expect(actionEditor.getByText("Test DataRef Preset")).toBeVisible()
+  })
+
+    test("Preset filter combo boxes work correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await openActionEditor(configListPage, page, 2)
+    const countLabel = actionEditor.getByRole("status")
+    const resetFiltersButton = actionEditor.getByRole("button", { name: "Reset filters" })
+
+    await expect(countLabel).toHaveText("4 preset(s) found")
+    await resetFiltersButton.click()
+
+    const optionsList = page.getByRole("listbox")
+    
+    // Select a vendor filter
+    await actionEditor.getByRole('combobox').filter({ hasText: 'Filter by vendor' }).click()
+    await expect(optionsList).toBeVisible()
+    const vendorOption = optionsList.getByRole("option", { name: "Laminar Research" })
+    await expect(vendorOption).toBeVisible()
+    await vendorOption.click()
+    await expect(vendorOption).not.toBeVisible()
+    
+    await expect(countLabel).toHaveText("3 preset(s) found")
+    
+    // Select an aircraft filter
+    await actionEditor.getByRole("combobox").filter({ hasText: "Filter by aircraft" }).click()
+    await expect(optionsList).toBeVisible()    
+    const aircraftOption = optionsList.getByRole("option", { name: "Boeing 737-800" })
+    await expect(aircraftOption).toBeVisible()
+    await aircraftOption.click()
+    await expect(aircraftOption).not.toBeVisible() // Should be removed from options since it's already selected as a filter
+    
+    await expect(countLabel).toHaveText("2 preset(s) found")
+    
+    // Select a system filter
+    await actionEditor.getByRole("combobox").filter({ hasText: "Filter by system" }).click()
+    await expect(optionsList).toBeVisible()    
+    const systemOption = optionsList.getByRole("option", { name: "Autopilot" })
+    await expect(systemOption).toBeVisible()
+    await systemOption.click()
+    await expect(systemOption).not.toBeVisible()
+    
+    await expect(countLabel).toHaveText("1 preset(s) found")
+    
+    
+    await expect(resetFiltersButton).toBeVisible()
+    await resetFiltersButton.click()
+    
+    await expect(countLabel).toHaveText("4 preset(s) found")
   })
 
   test("Switching between DataRef and Command updates the value field visibility correctly", async ({

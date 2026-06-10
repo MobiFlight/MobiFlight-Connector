@@ -19,7 +19,7 @@
     "path": "Microsoft.Generic.Avionics.AS1000_PFD_VOL_2_INC",
     "vendor": "Microsoft",
     "aircraft": "Generic",
-    "system": "Avionics",
+    "system": "Electrical",
     "label": "AS1000_PFD_VOL_2_INC",
     "code": "(>H:AS1000_PFD_VOL_2_INC)",
     "presetType": "Input",
@@ -33,7 +33,7 @@
     "id": "43b6acab-a27f-4955-a3d3-7dce8d756ec9",
     "path": "Microsoft.Generic.Avionics.AS1000_PFD_VOL_2_DEC",
     "vendor": "Microsoft",
-    "aircraft": "Generic",
+    "aircraft": "C172",
     "system": "Avionics",
     "label": "AS1000_PFD_VOL_2_DEC",
     "code": "(>H:AS1000_PFD_VOL_2_DEC)",
@@ -45,8 +45,8 @@
     "description": "Garmin G1000"
   },
   {
-    "path": "Microsoft.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
-    "vendor": "Microsoft",
+    "path": "Asobo.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
+    "vendor": "Asobo",
     "aircraft": "Generic",
     "system": "Autopilot",
     "code": "(>K:AP_PANEL_HEADING_HOLD)",
