@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace MobiFlight.Base.Tests
 {
@@ -144,5 +145,20 @@ namespace MobiFlight.Base.Tests
             // Assert
             Assert.AreEqual(hash1, hash2);
         }
+
+        #region Serialization tests
+        [TestMethod()]
+        public void OnSerialization_EmptyDevices_IsNotSerialized()
+        {
+            // Arrange
+            var controller = new Controller() { Name = "TestBoard", Serial = "SN-123", Devices = new List<DeviceReference>() };
+            
+            string expected = @"{""Name"":""TestBoard"",""Serial"":""SN-123""}";
+
+            var result = Newtonsoft.Json.JsonConvert.SerializeObject(controller);
+
+            Assert.AreEqual(expected, result, "The serialized JSON does not match the expected output");
+        }
+        #endregion
     }
 }
