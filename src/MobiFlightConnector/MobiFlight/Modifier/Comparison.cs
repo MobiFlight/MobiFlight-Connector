@@ -203,7 +203,7 @@ namespace MobiFlight.Modifier
                     break;
             }
 
-            result = result?.Replace("$", value.ToString());
+            result = result?.Replace("$", value.ToString() ?? string.Empty);
 
             return result;
         }

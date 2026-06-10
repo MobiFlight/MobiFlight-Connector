@@ -217,20 +217,13 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void Evaluate_ShouldNotThrowException_WhenValueIsNull()
+        public void Evaluate_ShouldReturnFalse_WhenValueIsNull()
         {
             var p = _generateTestObject();
             p.Value = null;
 
-            try
-            {
-                var result = p.Evaluate(null, new ConnectorValue());
-                Assert.IsFalse(result, "Evaluate should return false when Value is null.");
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Evaluate threw an exception when Value is null: {ex}");
-            }
+            var result = p.Evaluate(null, new ConnectorValue());
+            Assert.IsFalse(result, "Evaluate should return false when Value is null.");
         }
     }
 }
