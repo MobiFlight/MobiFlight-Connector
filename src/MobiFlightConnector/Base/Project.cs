@@ -491,7 +491,7 @@ namespace MobiFlight.Base
                 {
                     Log.Instance.log("Applying V0.10 migrations", LogSeverity.Debug);
                 }
-                migratedDocument = V0_10_ConfigItemDeviceMigration.Apply(migratedDocument);
+                migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(migratedDocument);
             }
 
             // Update version in migrated document

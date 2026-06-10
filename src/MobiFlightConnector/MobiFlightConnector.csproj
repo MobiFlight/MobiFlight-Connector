@@ -308,7 +308,7 @@
     <Compile Include="Base\IDeviceConfig.cs" />
     <Compile Include="Base\InputEventExecutor.cs" />
     <Compile Include="Base\LruCache.cs" />
-    <Compile Include="Base\Migration\V0_10_ConfigItemDeviceMigration.cs" />
+    <Compile Include="Base\Migration\V0_10_InputConfigItemDeviceMigration.cs" />
     <Compile Include="Base\Migration\Output_V_0_9_Migration.cs" />
     <Compile Include="Base\Migration\Precondition_V_0_9_Migration.cs" />
     <Compile Include="Base\ObservableObject.cs" />

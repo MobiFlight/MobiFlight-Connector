@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 namespace MobiFlightUnitTests.Base.Migration
 {
     [TestClass]
-    public class InputConfig_V_0_10_MigrationTests
+    public class V0_10_InputConfigItemDeviceMigrationTests
     {
         [TestMethod]
         public void Apply_InputMultiplexerActionWithDataPin_MigratesCompletely()
@@ -55,7 +55,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var result = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var result = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
 
             // Assert
             var configItem = result["ConfigFiles"][0]["ConfigItems"][0];
@@ -119,7 +119,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var result = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var result = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
 
             // Assert
             var configItem = result["ConfigFiles"][0]["ConfigItems"][0];
@@ -184,7 +184,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var result = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var result = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
 
             // Assert
             var configItem = result["ConfigFiles"][0]["ConfigItems"][0];
@@ -244,7 +244,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var result = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var result = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
 
             // Assert
             var configItem = result["ConfigFiles"][0]["ConfigItems"][0];
@@ -310,12 +310,12 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var result = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var result = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
 
             // Assert
             var configItem = result["ConfigFiles"][0]["ConfigItems"][0];
-            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceType"));
-            Assert.IsFalse((configItem as JObject).ContainsKey("DeviceName"));
+            Assert.IsTrue((configItem as JObject).ContainsKey("DeviceType"));
+            Assert.IsTrue((configItem as JObject).ContainsKey("DeviceName"));
         }
 
         [TestMethod()]
@@ -337,7 +337,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var migratedDocument = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
             var item = migratedDocument["ConfigFiles"][0]["ConfigItems"][0].ToString();
             var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(item);
 
@@ -368,7 +368,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var migratedDocument = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
             var item = migratedDocument["ConfigFiles"][0]["ConfigItems"][0].ToString();
             var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(item);
 
@@ -396,7 +396,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var migratedDocument = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
             var item = migratedDocument["ConfigFiles"][0]["ConfigItems"][0].ToString();
             var result = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(item);
 
@@ -420,7 +420,7 @@ namespace MobiFlightUnitTests.Base.Migration
             }");
 
             // Act
-            var migratedDocument = V0_10_ConfigItemDeviceMigration.Apply(inputDocument);
+            var migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
             var item = migratedDocument["ConfigFiles"][0]["ConfigItems"][0].ToString();
             var result = Newtonsoft.Json.JsonConvert.DeserializeObject<InputConfigItem>(item);
 

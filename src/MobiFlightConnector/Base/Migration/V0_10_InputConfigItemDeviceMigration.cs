@@ -12,7 +12,7 @@ namespace MobiFlight.Base.Migration
     /// - DeviceReference for InputMultiplexer is like button, with the name in the format "MultiplexerName:SubIndex"
     /// - DeviceReference for InputShiftRegister is like button, with the name in the format "ShiftRegisterName:SubIndex"
     /// </summary>
-    public static class V0_10_ConfigItemDeviceMigration
+    public static class V0_10_InputConfigItemDeviceMigration
     {
         public static JObject Apply(JObject document)
         {
@@ -31,6 +31,14 @@ namespace MobiFlight.Base.Migration
 
                 foreach (var configItem in configItems)
                 {
+                    if (configItem["Type"] == null)
+                    {
+                        continue;
+                    }
+                    if (configItem["Type"].ToString() != "InputConfigItem")
+                    {
+                        continue;
+                    }
                     InitializeDeviceIfNotPresent(configItem as JObject);
                     // Special handling for config that have been partially migrated during beta
                     MigrateDeviceNameAndTypeProperty(configItem as JObject);
