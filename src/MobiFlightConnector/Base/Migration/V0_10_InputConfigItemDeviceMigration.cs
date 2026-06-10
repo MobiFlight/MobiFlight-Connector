@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 
 namespace MobiFlight.Base.Migration
@@ -104,8 +103,6 @@ namespace MobiFlight.Base.Migration
 
             // no migration necessary
             if (!isInputMultiplexer && !isInputShiftRegister) return;
-
-            var deviceType = (string)configItem["Device"]["Type"];
 
             if (isInputMultiplexer)
             {

@@ -63,16 +63,16 @@ namespace MobiFlightUnitTests.Base.Migration
 
             var button = configItem["button"];
             Assert.IsNotNull(button);
-            Assert.AreEqual("MSFS2020CustomInputAction", button["onPress"]["Type"]);
-            Assert.AreEqual("(>K:A32NX.FCU_AP_1_PUSH)", button["onPress"]["Command"]);
-            Assert.AreEqual("7f471277-ed45-481b-aa59-6a305bc74465", button["onPress"]["PresetId"]);
+            Assert.AreEqual("MSFS2020CustomInputAction", button["onPress"]["Type"].ToString());
+            Assert.AreEqual("(>K:A32NX.FCU_AP_1_PUSH)", button["onPress"]["Command"].ToString());
+            Assert.AreEqual("7f471277-ed45-481b-aa59-6a305bc74465", button["onPress"]["PresetId"].ToString());
 
             var device = configItem["Device"];
             Assert.IsNull(device["SubIndex"], $"SubIndex is {device["SubIndex"]}");
             Assert.IsNotNull(device["Name"]);
-            Assert.AreEqual("Multiplexer:1", device["Name"]);
+            Assert.AreEqual("Multiplexer:1", device["Name"].ToString());
             Assert.IsNotNull(device["Type"]);
-            Assert.AreEqual("Button", device["Type"]);
+            Assert.AreEqual("Button", device["Type"].ToString());
             Assert.IsNull(configItem["DeviceType"]);
             Assert.IsNull(configItem["DeviceName"]);
         }
@@ -127,16 +127,16 @@ namespace MobiFlightUnitTests.Base.Migration
 
             var button = configItem["button"];
             Assert.IsNotNull(button);
-            Assert.AreEqual("MSFS2020CustomInputAction", button["onPress"]["Type"]);
-            Assert.AreEqual("(>K:A32NX.FCU_AP_1_PUSH)", button["onPress"]["Command"]);
-            Assert.AreEqual("7f471277-ed45-481b-aa59-6a305bc74465", button["onPress"]["PresetId"]);
+            Assert.AreEqual("MSFS2020CustomInputAction", button["onPress"]["Type"].ToString());
+            Assert.AreEqual("(>K:A32NX.FCU_AP_1_PUSH)", button["onPress"]["Command"].ToString());
+            Assert.AreEqual("7f471277-ed45-481b-aa59-6a305bc74465", button["onPress"]["PresetId"].ToString());
 
             var device = configItem["Device"];
             Assert.IsNull(device["SubIndex"], $"SubIndex is {device["SubIndex"]}");
             Assert.IsNotNull(device["Name"]);
-            Assert.AreEqual("Multiplexer:1", device["Name"]);
+            Assert.AreEqual("Multiplexer:1", device["Name"].ToString());
             Assert.IsNotNull(device["Type"]);
-            Assert.AreEqual("Button", device["Type"]);
+            Assert.AreEqual("Button", device["Type"].ToString());
             Assert.IsNull(configItem["DeviceType"]);
             Assert.IsNull(configItem["DeviceName"]);
         }
@@ -194,9 +194,9 @@ namespace MobiFlightUnitTests.Base.Migration
             var device = configItem["Device"];
             Assert.IsNull(device["SubIndex"], $"SubIndex is {device["SubIndex"]}");
             Assert.IsNotNull(device["Name"]);
-            Assert.AreEqual("Multiplexer:1", device["Name"]);
+            Assert.AreEqual("Multiplexer:1", device["Name"].ToString());
             Assert.IsNotNull(device["Type"]);
-            Assert.AreEqual(InputConfigItem.TYPE_BUTTON.ToString(), device["Type"]);
+            Assert.AreEqual(InputConfigItem.TYPE_BUTTON.ToString(), device["Type"].ToString());
             Assert.IsFalse((configItem as JObject).ContainsKey("DeviceType"));
             Assert.IsFalse((configItem as JObject).ContainsKey("DeviceName"));
         }
