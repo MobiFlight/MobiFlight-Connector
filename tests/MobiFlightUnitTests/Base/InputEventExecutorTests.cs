@@ -350,115 +350,6 @@ namespace MobiFlight.Execution.Tests
             );
         }
 
-        [TestMethod]
-        public void Execute_ConvertedFromMultiplexerToButton_ExecutesSuccessfully()
-        {
-            // Arrange
-            // This test reproduces the issue where a user changes from multiplexer to regular button
-            // but the old inputMultiplexer config is not cleared, causing the event to be skipped
-            var inputEventArgs = new InputEventArgs
-            {
-                Controller = new Controller() { Serial = "SN-a1b2c3" },
-                InputType = DeviceType.Button,
-                Device = new DeviceReference() { Name = "Device1" },
-                Value = 0, // PRESS event
-            };
-
-            var configItem = new InputConfigItem
-            {
-                Active = true,
-                Controller = SerialNumber.CreateController("TestModule / SN-a1b2c3"),
-                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
-                Name = "TestConfig",
-                button = new ButtonInputConfig()
-                {
-                    onPress = new MSFS2020CustomInputAction()
-                    {
-                        Command = "(>K:TestCommand)",
-                        PresetId = "TestPresetId"
-                    }
-                },
-                // Simulate the bug: inputMultiplexer is not cleared when type changed
-                inputMultiplexer = new InputMultiplexerConfig()
-                {
-                    DataPin = 5 // This should be null/cleared when type is Button
-                }
-            };
-
-            _configItems.Add(configItem);
-
-            // Act
-            var result = _executor.Execute(inputEventArgs, isStarted: true);
-
-            // Assert
-            Assert.HasCount(1, result, "Button event should be executed even if old multiplexer config exists");
-            Assert.IsTrue(result.ContainsKey(configItem.GUID));
-
-            _mockLogAppender.Verify(
-                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (PRESS)")), LogSeverity.Info),
-                Times.Once
-            );
-        }
-
-        [TestMethod]
-        public void Execute_ConvertedFromInputShiftRegisterToButton_ExecutesSuccessfully()
-        {
-            // Arrange
-            // This test reproduces the issue where a user changes from input shift register to regular button
-            // but the old inputShiftRegister config is not cleared, causing the event to be skipped
-            var inputEventArgs = new InputEventArgs
-            {
-                Controller = new Controller()
-                {
-                    Serial = "SN-d4e5f6",
-                },
-                Device = new DeviceReference()
-                {
-                    Name = "Device1",
-                },
-                InputType = DeviceType.Button,
-                Value = 0, // PRESS event
-             };
-
-            var configItem = new InputConfigItem
-            {
-                Active = true,
-                Controller = SerialNumber.CreateController("TestModule / SN-d4e5f6"),
-                Device = new InputConfig.Button()
-                {
-                    Name = "Device1",
-                },
-                Name = "TestConfig",
-                button = new ButtonInputConfig()
-                {
-                    onPress = new MSFS2020CustomInputAction()
-                    {
-                        Command = "(>K:TestCommand)",
-                        PresetId = "TestPresetId"
-                    }
-                },
-                // Simulate the bug: inputShiftRegister is not cleared when type changed
-                inputShiftRegister = new InputShiftRegisterConfig()
-                {
-                    ExtPin = 3 // This should be null/cleared when type is Button
-                }
-            };
-
-            _configItems.Add(configItem);
-
-            // Act
-            var result = _executor.Execute(inputEventArgs, isStarted: true);
-
-            // Assert
-            Assert.HasCount(1, result, "Button event should be executed even if old shift register config exists");
-            Assert.IsTrue(result.ContainsKey(configItem.GUID));
-
-            _mockLogAppender.Verify(
-                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (PRESS)")), LogSeverity.Info),
-                Times.Once
-            );
-        }
-
         #region Default Device Type Tests - Happy Path Scenarios
 
         [TestMethod]
@@ -574,9 +465,8 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController("TestModule / SN-isr001"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 5),
                 Name = "TestInputShiftRegister",
-                inputShiftRegister = new InputShiftRegisterConfig()
+                button = new ButtonInputConfig()
                 {
-                    ExtPin = 5, // Same pin as event
                     onPress = new MSFS2020CustomInputAction()
                     {
                         Command = "(>K:TestCommand)",
@@ -620,9 +510,8 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController("TestModule / SN-mux001"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_MULTIPLEXER, "InputMux", 3),
                 Name = "TestInputMultiplexer",
-                inputMultiplexer = new InputMultiplexerConfig()
+                button = new ButtonInputConfig()
                 {
-                    DataPin = 3, // Same pin as event
                     onPress = new MSFS2020CustomInputAction()
                     {
                         Command = "(>K:TestCommand)",
@@ -816,9 +705,8 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController("TestModule / SN-edge003"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 7),
                 Name = "ShiftRegisterWrongPin",
-                inputShiftRegister = new InputShiftRegisterConfig()
+                button = new ButtonInputConfig()
                 {
-                    ExtPin = 7, // Different pin - should skip
                     onPress = new MSFS2020CustomInputAction()
                     {
                         Command = "(>K:TestCommand)",
@@ -834,49 +722,6 @@ namespace MobiFlight.Execution.Tests
 
             // Assert
             Assert.HasCount(0, result, "Input shift register with wrong pin should be skipped");
-        }
-
-        [TestMethod]
-        public void Execute_InputMultiplexerWithWrongPinButCorrectDeviceType_Skips()
-        {
-            // Arrange - Edge case: correct DeviceType but wrong pin should skip
-            var inputEventArgs = new InputEventArgs
-            {
-                Controller = new Controller()
-                { Serial = "SN-edge004" },
-                Device = new DeviceReference()
-                {
-                    Name = "InputMux:2",
-                    Type = DeviceType.InputMultiplexer
-                },
-                InputType = DeviceType.Button,
-                Value = 0
-            };
-
-            var configItem = new InputConfigItem
-            {
-                Active = true,
-                Controller = SerialNumber.CreateController("TestModule / SN-edge004"),
-                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_MULTIPLEXER, "InputMux", 8),
-                Name = "MultiplexerWrongPin",
-                inputMultiplexer = new InputMultiplexerConfig()
-                {
-                    DataPin = 8, // Different pin - should skip
-                    onPress = new MSFS2020CustomInputAction()
-                    {
-                        Command = "(>K:TestCommand)",
-                        PresetId = "TestPresetId"
-                    }
-                }
-            };
-
-            _configItems.Add(configItem);
-
-            // Act
-            var result = _executor.Execute(inputEventArgs, isStarted: true);
-
-            // Assert
-            Assert.HasCount(0, result, "Input multiplexer with wrong pin should be skipped");
         }
 
         [TestMethod]

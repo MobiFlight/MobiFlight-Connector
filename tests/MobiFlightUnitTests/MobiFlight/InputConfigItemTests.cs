@@ -102,15 +102,14 @@ namespace MobiFlight.Tests
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
             Assert.AreEqual("TestName:1", o.Device.Name, "Name not the same");
             Assert.AreEqual("InputShiftRegister", o.Device.Type, "Type not the same");
-            Assert.IsNull(o.inputShiftRegister.onPress, "Input Shift Register onpress not null");
-            Assert.IsNotNull(o.inputShiftRegister.onRelease, "Input Shift Register onRelease is null");
-            Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
+            Assert.IsNull(o.button.onPress, "Input Shift Register onpress not null");
+            Assert.IsNotNull(o.button.onRelease, "Input Shift Register onRelease is null");
+            Assert.IsNotNull(o.button.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
 
             Assert.IsNotNull(o.Device, "Device should not be null after ReadXml");
             var device = o.Device as MobiFlight.InputConfig.InputShiftRegister;
             Assert.IsNotNull(device, "Device should be of type InputShiftRegister");
             Assert.AreEqual("TestName:1", device.Name);
-            Assert.AreEqual(device.SubIndex, o.inputShiftRegister.ExtPin, "SubIndex should match inputShiftRegister.ExtPin");
         }
 
         [TestMethod()]
@@ -130,15 +129,14 @@ namespace MobiFlight.Tests
             Assert.HasCount(0, o.Preconditions, "Preconditions Count not the same");
             Assert.AreEqual("TestName:1", o.Device.Name, "Name not the same");
             Assert.AreEqual("InputMultiplexer", o.Device.Type, "Type not the same");
-            Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
-            Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
-            Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
+            Assert.IsNull(o.button.onPress, "button onpress not null");
+            Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
+            Assert.IsNotNull(o.button.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
 
             Assert.IsNotNull(o.Device, "Device should not be null after ReadXml");
             var device = o.Device as MobiFlight.InputConfig.InputMultiplexer;
             Assert.IsNotNull(device, "Device should be of type InputMultiplexer");
             Assert.AreEqual("TestName:1", device.Name);
-            Assert.AreEqual(device.SubIndex, o.inputMultiplexer.DataPin, "SubIndex should match inputMultiplexer.DataPin");
         }
 
         [TestMethod()]
@@ -325,29 +323,29 @@ namespace MobiFlight.Tests
         public void GetInputActionsByTypeTest()
         {
             InputConfigItem o = new InputConfigItem();
-            o.analog = new InputConfig.AnalogInputConfig();
-            o.analog.onChange = new VariableInputAction();
+            o.analog = new AnalogInputConfig()
+            {
+                onChange = new VariableInputAction()
+            };
 
             var result = o.GetInputActionsByType(typeof(VariableInputAction));
             Assert.HasCount(1, result);
 
-            o.encoder = new InputConfig.EncoderInputConfig();
-            o.encoder.onLeft = new VariableInputAction();
+            o.encoder = new EncoderInputConfig()
+            {
+                onLeft = new VariableInputAction()
+            };
 
             result = o.GetInputActionsByType(typeof(VariableInputAction));
             Assert.HasCount(2, result);
 
-            o.button = new InputConfig.ButtonInputConfig();
-            o.button.onPress = new VariableInputAction();
+            o.button = new InputConfig.ButtonInputConfig()
+            {
+                onPress = new VariableInputAction()
+            };
 
             result = o.GetInputActionsByType(typeof(VariableInputAction));
             Assert.HasCount(3, result);
-
-            o.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
-            o.inputShiftRegister.onPress = new VariableInputAction();
-
-            result = o.GetInputActionsByType(typeof(VariableInputAction));
-            Assert.HasCount(4, result);
         }
 
         #region CreateInputDevice() tests

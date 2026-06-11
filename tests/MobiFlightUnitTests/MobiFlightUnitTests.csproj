@@ -279,8 +279,6 @@
     <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfigTests.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputShiftRegisterConfigTests.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputMultiplexerConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\LuaMacroInputActionTests.cs" />

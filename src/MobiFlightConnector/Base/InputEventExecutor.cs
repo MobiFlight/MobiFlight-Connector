@@ -174,7 +174,7 @@ namespace MobiFlight.Execution
             // Only perform this check if the config's DeviceType is actually InputShiftRegister
             bool isButtonEvent = e.InputType == DeviceType.Button;
             bool isInputShiftRegisterConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
-            bool hasInputShiftRegisterConfig = cfg.inputShiftRegister != null;
+            bool hasInputShiftRegisterConfig = cfg.button != null;
             bool pinMismatch = cfg.Device.Name != e.Device.Name;
 
             return isButtonEvent && isInputShiftRegisterConfig && hasInputShiftRegisterConfig && pinMismatch;
@@ -186,7 +186,7 @@ namespace MobiFlight.Execution
             // Only perform this check if the config's DeviceType is actually InputMultiplexer
             bool isButtonEvent = e.InputType == DeviceType.Button;
             bool isInputMultiplexerConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER;
-            bool hasInputMultiplexerConfig = cfg.inputMultiplexer != null;
+            bool hasInputMultiplexerConfig = cfg.button != null;
             bool pinMismatch = cfg.Device.Name != e.Device.Name;
 
             return isButtonEvent && isInputMultiplexerConfig && hasInputMultiplexerConfig && pinMismatch;
