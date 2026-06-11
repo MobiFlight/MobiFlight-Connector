@@ -84,12 +84,14 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   ) => {
     setConfigItem({
       ...configItem,
-      Controller: { 
-        ...controller,
-        // unset Devices 
-        // before sending it back to backend. 
-        Devices: undefined 
-      },
+      Controller: controller
+        ? {
+            ...controller,
+            // unset Devices 
+            // before sending it back to backend. 
+            Devices: undefined,
+          }
+        : undefined,
       Device: device
         ? {
             Name: device.Name,
