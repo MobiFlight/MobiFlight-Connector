@@ -99,11 +99,11 @@ const ControllerBindingsDialog = ({
 
       return {
         ...b,
-        BoundController: { 
+        BoundController: controller ? { 
           ...controller,
           // unset Devices before sending it back to backend. 
           Devices: undefined 
-        },
+        } : null,
         Status: controller ? "Match" : "Missing",
       } as ControllerBinding
     })

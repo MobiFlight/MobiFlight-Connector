@@ -153,11 +153,14 @@ namespace MobiFlight.Base.Tests
             // Arrange
             var controller = new Controller() { Name = "TestBoard", Serial = "SN-123", Devices = new List<DeviceReference>() };
             
-            string expected = @"{""Name"":""TestBoard"",""Serial"":""SN-123""}";
-
+            // Act
             var result = Newtonsoft.Json.JsonConvert.SerializeObject(controller);
 
-            Assert.AreEqual(expected, result, "The serialized JSON does not match the expected output");
+            // Assert
+            var json = Newtonsoft.Json.Linq.JObject.Parse(result);
+            Assert.AreEqual("TestBoard", (string)json["Name"]);
+            Assert.AreEqual("SN-123", (string)json["Serial"]);
+            Assert.IsFalse(json.ContainsKey("Devices"), "Devices should not be serialized when empty");
         }
         #endregion
     }
