@@ -16,9 +16,7 @@ namespace MobiFlightWwFcu
 
         void SendLightControlMessage(byte[] destination, byte type, byte value);
 
-        void SetBrightness(byte[] destinationAddress, byte type, string brightness);
-
-        void SetBrightness(byte[] destinationAddress, byte type, int brightness);
+        void SetBrightness(byte[] destinationAddress, byte type, byte brightness);
 
         void SetVibration(byte[] destinationAddress, byte type, byte level);
 

@@ -1,7 +1,6 @@
 ﻿using HidSharp;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace MobiFlightWwFcu
 {
@@ -154,18 +153,7 @@ namespace MobiFlightWwFcu
             WriteStream(lightControlMessage, 0, 14);
         }
 
-        public void SetBrightness(byte[] destinationAddress, byte type, string brightness)
-        {
-            double bright = Convert.ToDouble(brightness, CultureInfo.InvariantCulture);
-            SetBrightnessInternal(destinationAddress, type, bright);
-        }
-
-        public void SetBrightness(byte[] destinationAddress, byte type, int brightness)
-        {          
-            SetBrightnessInternal(destinationAddress, type, brightness);
-        }
-
-        private void SetBrightnessInternal(byte[] destinationAddress, byte type, double brightness)
+        public void SetBrightness(byte[] destinationAddress, byte type, byte brightness)
         {
             // Input should be 0 to 100 percent - scale to 0..255
             int value = (int)Math.Round(brightness * 2.55);

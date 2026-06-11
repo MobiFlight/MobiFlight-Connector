@@ -1,263 +1,153 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingEfisDevice : IWinwingDevice
+    internal class WinwingEfisDevice : SegmentDisplayDeviceBase
     {
-        public string Name { get => $"WinWing EFIS {EfisType}"; }
+        public override string Name => $"WinWing EFIS {EfisType}";
 
-        private IWinwingMessageSender MessageSender = null;
-        private string EfisType = WinwingConstants.EFISL_NAME;
+        protected override string SetValuesHeaderKey => "0201_E";
 
-        private byte[] DestinationAddress;
+        private readonly string EfisType;
 
         // https://docs.flybywiresim.com/pilots-corner/airliner-flying-guide/altitude-refs/
-        private string BaroHpa { get => $"hPa Value {EfisType}"; }
-        private string BaroInHg { get => $"inHg Value {EfisType}"; }
-        private string BaroInHgOnOff { get => $"inHg Mode On/Off {EfisType}"; }
-        private string BaroStd { get => $"STD Mode On/Off {EfisType}"; }
-        private string Qfe { get => $"QFE Mode On/Off {EfisType}"; }
-
-        private const string ANN_LIGHT = "LCD Test On/Off";
-        private const string BACK_BRIGHTNESS = "Backlight Percentage";
-        private const string LCD_BRIGHTNESS = "LCD Percentage";
-        private const string LED_BRIGHTNESS = "LED Percentage";
-
-        private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
-        {
-            { "AllOn",    new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x23 } } },
-            { "AllOff",   new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x24 } } },
-            { "Half1On",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x25 } } },
-            { "Half2On",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x26 } } },
-        };
-
-        private Dictionary<char, byte[]> BaroNumberCodes = new Dictionary<char, byte[]>()
-        {
-            { '*', new byte[] { 0x00 } },
-            { '0', new byte[] { 0x7d } },
-            { '1', new byte[] { 0x60 } },
-            { '2', new byte[] { 0x3e } },
-            { '3', new byte[] { 0x7a } },
-            { '4', new byte[] { 0x63 } },
-            { '5', new byte[] { 0x5b } },
-            { '6', new byte[] { 0x5f } },
-            { '7', new byte[] { 0x70 } },
-            { '8', new byte[] { 0x7f } },
-            { '9', new byte[] { 0x7b } },
-            { 'S', new byte[] { 0b01011011 } },
-            { 't', new byte[] { 0b00001111 } },
-            { 'd', new byte[] { 0b01101110 } },
-        };
-
-
-
-        private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
-        {
-            { "BaroThousands",  new MsgEntry { StartPos = 21, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x60 } } },
-            { "BaroHundreds",   new MsgEntry { StartPos = 22, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x7d } } },
-            { "BaroTens",       new MsgEntry { StartPos = 23, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x60 } } },
-            { "BaroOnes",       new MsgEntry { StartPos = 24, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x7a } } },
-            { "InHgDecPoint",   new MsgEntry { StartPos = 22, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b10000000 } } },
-            { "InHgNoDecPoint", new MsgEntry { StartPos = 22, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b00000000 } } },
-            { "NoBaro",         new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x00 } } },
-            { "QfeBaro",        new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x01 } } },
-            { "QnhBaro",        new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x02 } } },           
-        };
-
-        private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
-        private Dictionary<string, byte> LedIdentifiers;
-
-        private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
-        private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();       
-
-        private byte[] DisplayTestCommand = new byte[0x12];
-        private byte[] RefreshCommand = new byte[0x11];
-        private byte[] SetValuesCommand = new byte[0x1a];        
+        private string BaroHpa        => $"hPa Value {EfisType}";
+        private string BaroInHg       => $"inHg Value {EfisType}";
+        private string BaroInHgOnOff  => $"inHg Mode On/Off {EfisType}";
+        private string BaroStd        => $"STD Mode On/Off {EfisType}";
+        private string Qfe            => $"QFE Mode On/Off {EfisType}";
 
         public WinwingEfisDevice(IWinwingMessageSender sender, string efisType)
+            : base(sender, ResolveDestination(efisType), 0x1a)
         {
-            MessageSender = sender;
             EfisType = efisType;
 
-            if (EfisType == WinwingConstants.EFISL_NAME)
+            DisplayTestCommands = new Dictionary<string, DisplaySegment>()
             {
-                DestinationAddress = WinwingConstants.DEST_EFISL;
-            }
-            else if (EfisType == WinwingConstants.EFISR_NAME)
-            {
-                DestinationAddress = WinwingConstants.DEST_EFISR;
-            }           
-           
-            LedIdentifiers = new Dictionary<string, byte>()
-            {
-                { $"FD {EfisType}",   0x03 },
-                { $"LS {EfisType}",   0x04 },
-                { $"CSTR {EfisType}", 0x05 },
-                { $"WPT {EfisType}",  0x06 },
-                { $"VORD {EfisType}", 0x07 },
-                { $"NDB {EfisType}",  0x08 },
-                { $"ARPT {EfisType}", 0x09 }
+                { "AllOn",   new DisplaySegment(new Bit[] { new Bit(0,0,true),  new Bit(0,1,true),  new Bit(0,2,false), new Bit(0,5,true) }, false) },
+                { "AllOff",  new DisplaySegment(new Bit[] { new Bit(0,0,false), new Bit(0,1,false), new Bit(0,2,true),  new Bit(0,5,true) }, false) },
+                { "Half1On", new DisplaySegment(new Bit[] { new Bit(0,0,true),  new Bit(0,1,false), new Bit(0,2,true),  new Bit(0,5,true) }, false) },
+                { "Half2On", new DisplaySegment(new Bit[] { new Bit(0,0,false), new Bit(0,1,true),  new Bit(0,2,true),  new Bit(0,5,true) }, false) },
             };
 
-            DisplayNameToActionMapping.Add(BaroHpa, SetBaroHpa);
-            DisplayNameToActionMapping.Add(BaroInHg, SetBaroInHg);
-            DisplayNameToActionMapping.Add(BaroInHgOnOff, SetBaroInHgOnOff);
-            DisplayNameToActionMapping.Add(BaroStd, SetBaroStdOnOff);      
-            DisplayNameToActionMapping.Add(Qfe, SetQfeOnOff);
-
-            DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
-            DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
-            DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);
-            DisplayNameToActionMapping.Add(LED_BRIGHTNESS, SetLedBrightness);
-
-            foreach (var displayName in GetDisplayNames())
+            // Bit positions are byte-numbers in the data section (header offset 17 is added when writing).
+            // Iteration order matters: overlapping mode-presets resolve last-writer-wins, so the entry that
+            // should be active at init must come last within its bit-group.
+            DisplaySetValueSegments = new Dictionary<string, DisplaySegment>
             {
-                LcdCurrentValuesCache.Add(displayName, string.Empty);
-            }
+                { "BaroThousands",  BaroDigit(4, '1') },
+                { "BaroHundreds",   BaroDigit(5, '0') },
+                { "BaroTens",       BaroDigit(6, '1') },
+                { "BaroOnes",       BaroDigit(7, '3') },
+                { "InHgDecPoint",   new DisplaySegment(new Bit(5, 7, false)) },
+                { "NoBaroMode",     new DisplaySegment(new Bit[] { new Bit(8, 0, false), new Bit(8, 1, false) }, false) },
+                { "QfeMode",        new DisplaySegment(new Bit[] { new Bit(8, 0, true),  new Bit(8, 1, false) }, false) },
+                { "QnhMode",        new DisplaySegment(new Bit[] { new Bit(8, 0, false), new Bit(8, 1, true)  }, false) },
+            };
 
-            foreach (var ledName in GetLedNames())
-            {
-                LedCurrentValuesCache.Add(ledName, 255);
-            }
+            LedIdentifiers.Add($"FD {EfisType}",   0x03);
+            LedIdentifiers.Add($"LS {EfisType}",   0x04);
+            LedIdentifiers.Add($"CSTR {EfisType}", 0x05);
+            LedIdentifiers.Add($"WPT {EfisType}",  0x06);
+            LedIdentifiers.Add($"VORD {EfisType}", 0x07);
+            LedIdentifiers.Add($"NDB {EfisType}",  0x08);
+            LedIdentifiers.Add($"ARPT {EfisType}", 0x09);
 
+            DisplayNameToActionMapping.Add(BaroHpa,         SetBaroHpa);
+            DisplayNameToActionMapping.Add(BaroInHg,        SetBaroInHg);
+            DisplayNameToActionMapping.Add(BaroInHgOnOff,   SetBaroInHgOnOff);
+            DisplayNameToActionMapping.Add(BaroStd,         SetBaroStdOnOff);
+            DisplayNameToActionMapping.Add(Qfe,             SetQfeOnOff);
+            DisplayNameToActionMapping.Add(ANN_LIGHT,       SetAnnunciatorLightOnOffOverride);
+            DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, BrightnessFromString(0x00));
+            DisplayNameToActionMapping.Add(LCD_BRIGHTNESS,  BrightnessFromString(0x01));
+            DisplayNameToActionMapping.Add(LED_BRIGHTNESS,  BrightnessFromString(0x11));
+
+            InitializeCaches();
             PrepareCommands();
         }
 
-        private void PrepareCommands()
+        private static byte[] ResolveDestination(string efisType)
         {
-            // Init DisplayTestCommand
-            var initDisplayTest = new List<byte>(DestinationAddress);
-            initDisplayTest.AddRange(new byte[2]);
-            initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
-            initDisplayTest.CopyTo(DisplayTestCommand, 0);
-
-            // Init SetValuesCommand 
-            var initSetValues = new List<byte>(DestinationAddress);
-            initSetValues.AddRange(new byte[2]);
-            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_E"]);
-            initSetValues.CopyTo(SetValuesCommand, 0);
-
-            // Init RefreshCommand
-            var initRefresh = new List<byte>(DestinationAddress);
-            initRefresh.AddRange(new byte[2]);
-            initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
-            initRefresh.CopyTo(RefreshCommand, 0);
-
-            foreach (var entry in DisplaySetValuesData.Values)
-            {
-                SetBytesDisplayCommand(entry, SetValuesCommand);
-            }
+            if (efisType == WinwingConstants.EFISL_NAME) return WinwingConstants.DEST_EFISL;
+            if (efisType == WinwingConstants.EFISR_NAME) return WinwingConstants.DEST_EFISR;
+            return WinwingConstants.DEST_EFISL;
         }
 
-        public void Connect()
+        // EFIS Baro digit: 7 segments packed into one byte (bits 0..6); bit 7 is the inHg decimal point.
+        // Order in the Bit[] must match the segment order [T, TR, BR, B, BL, TL, M].
+        //   T = bit 4, TR = bit 5, BR = bit 6, B = bit 3, BL = bit 2, TL = bit 0, M = bit 1
+        private static DisplaySegment BaroDigit(int dataByte, char init)
         {
-            SendDisplayCommand(SetValuesCommand); // Init display
-            SetBacklightBrightness("20");
-            SetLcdBrightness("100");
-
-            //LcdTest("AllOff"); // used for testing
+            var seg = new DisplaySegment(new Bit[] {
+                new Bit(dataByte, 4), // T
+                new Bit(dataByte, 5), // TR
+                new Bit(dataByte, 6), // BR
+                new Bit(dataByte, 3), // B
+                new Bit(dataByte, 2), // BL
+                new Bit(dataByte, 0), // TL
+                new Bit(dataByte, 1), // M
+            }, true);
+            seg.SetCharacter(init);
+            return seg;
         }
 
-        private void TurnOffAllLEDs()
+        public override void Connect()
         {
-            foreach (var ledName in LedIdentifiers.Keys)
-            {
-                SetLed(ledName, 0);
-            }
+            SendValues();
+            InvokeDisplayBrightness(BACK_BRIGHTNESS, 20);
+            InvokeDisplayBrightness(LCD_BRIGHTNESS, 100);
         }
 
-        public void Shutdown()
+        public override void Shutdown()
         {
             EmptyDisplay();
-            SetBacklightBrightness("0");
-            SetLcdBrightness("0");
+            InvokeDisplayBrightness(BACK_BRIGHTNESS, 0);
+            InvokeDisplayBrightness(LCD_BRIGHTNESS, 0);
             TurnOffAllLEDs();
         }
 
-        public List<string> GetLedNames()
+        private void EmptyDisplay()
         {
-            return LedIdentifiers.Keys.ToList();
-        }
-
-        public List<string> GetDisplayNames()
-        {
-            return DisplayNameToActionMapping.Keys.ToList();
-        }
-
-        public List<string> GetInternalDisplayNames()
-        {
-            return new List<string>();
-        }
-
-        public void SetLed(string led, byte state)
-        {
-            if (!string.IsNullOrEmpty(led) && LedCurrentValuesCache[led] != state)
+            // Zero the data section bytes (absolute 21..25 = data 4..8): 4 digits + mode flag.
+            for (int i = HeaderOffset + 4; i <= HeaderOffset + 8; i++)
             {
-                LedCurrentValuesCache[led] = state;
-                byte stateAdjusted = state == 0 ? (byte)0 : (byte)1;
-                MessageSender.SendLightControlMessage(DestinationAddress, LedIdentifiers[led], stateAdjusted);
+                SetValuesCommand[i] = 0;
             }
-        }
-
-        public void SetDisplay(string name, string value)
-        {
-            if (!string.IsNullOrWhiteSpace(value) && LcdCurrentValuesCache[name] != value) // check cache
-            {
-                LcdCurrentValuesCache[name] = value;
-                DisplayNameToActionMapping[name](value); // Execute Action
-            }
+            SendValues();
         }
 
         private void ResetBaroCache()
         {
-            LcdCurrentValuesCache[BaroHpa] = string.Empty;
-            LcdCurrentValuesCache[BaroInHg] = string.Empty;
-            LcdCurrentValuesCache[Qfe] = string.Empty;
+            ClearLcdCache(BaroHpa, BaroInHg, Qfe);
         }
 
         private void SetBaroInternal(char[] baroChars, bool isInHg, bool isStd)
         {
-            var baroThousands = DisplaySetValuesData["BaroThousands"];
-            var baroHundreds = DisplaySetValuesData["BaroHundreds"];
-            var baroTens = DisplaySetValuesData["BaroTens"];
-            var baroOnes = DisplaySetValuesData["BaroOnes"];
-            baroThousands.Data = BaroNumberCodes[baroChars[0]];
-            baroHundreds.Data = BaroNumberCodes[baroChars[1]];
-            baroTens.Data = BaroNumberCodes[baroChars[2]];
-            baroOnes.Data = BaroNumberCodes[baroChars[3]];
+            SetDigits(baroChars, "BaroThousands", "BaroHundreds", "BaroTens", "BaroOnes");
 
-            SetBytesDisplayCommand(baroThousands, SetValuesCommand);
-            SetBytesDisplayCommand(baroHundreds, SetValuesCommand);
-            SetBytesDisplayCommand(baroTens, SetValuesCommand);
-            SetBytesDisplayCommand(baroOnes, SetValuesCommand);
+            var inHgDot = DisplaySetValueSegments["InHgDecPoint"];
             if (!isStd)
             {
-                if (isInHg)
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["InHgDecPoint"], SetValuesCommand);
-                }
-                else
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["InHgNoDecPoint"], SetValuesCommand);
-                }
+                inHgDot.SetValue(isInHg);
+                ApplySegment(inHgDot, SetValuesCommand);
             }
             else
-            {                
-                SetBytesDisplayCommand(DisplaySetValuesData["InHgNoDecPoint"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["NoBaro"], SetValuesCommand);
+            {
+                inHgDot.SetValue(false);
+                ApplySegment(inHgDot, SetValuesCommand);
+                ApplySegment(DisplaySetValueSegments["NoBaroMode"], SetValuesCommand);
             }
 
-            SendDisplayCommand(SetValuesCommand);
+            SendValues();
         }
 
         private void SetBaroHpa(string baro)
         {
             if (LcdCurrentValuesCache[BaroStd] != "1")
             {
-                int myBaro = (int)Convert.ToDouble(baro, CultureInfo.InvariantCulture);
+                int myBaro = AsInt(baro);
                 char[] baroChars = myBaro.ToString("D4", CultureInfo.InvariantCulture).ToCharArray();
                 SetBaroInternal(baroChars, false, false);
             }
@@ -267,7 +157,7 @@ namespace MobiFlightWwFcu
         {
             if (LcdCurrentValuesCache[BaroStd] != "1")
             {
-                int myBaro = (int)(Convert.ToDouble(baro, CultureInfo.InvariantCulture) * 100);
+                int myBaro = (int)(AsDouble(baro) * 100);
                 char[] baroChars = myBaro.ToString("D4", CultureInfo.InvariantCulture).ToCharArray();
                 SetBaroInternal(baroChars, true, false);
             }
@@ -280,98 +170,36 @@ namespace MobiFlightWwFcu
 
         private void SetBaroStdOnOff(string baroStd)
         {
-            int isBaroStd = (int)Convert.ToDouble(baroStd, CultureInfo.InvariantCulture);
-            if (isBaroStd == 1)
-            {                
+            if (AsBool(baroStd))
+            {
                 SetBaroInternal(new char[] { 'S', 't', 'd', '*' }, false, true);
             }
             ResetBaroCache();
-            SendDisplayCommand(SetValuesCommand);
+            SendValues();
         }
 
         private void SetQfeOnOff(string qfe)
         {
             if (LcdCurrentValuesCache[BaroStd] != "1")
             {
-                int isQfe = (int)Convert.ToDouble(qfe, CultureInfo.InvariantCulture);
-                if (isQfe == 1)
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["QfeBaro"], SetValuesCommand);
-                }
-                else
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["QnhBaro"], SetValuesCommand);
-                }
-                SendDisplayCommand(SetValuesCommand);
+                var preset = AsBool(qfe) ? "QfeMode" : "QnhMode";
+                ApplySegment(DisplaySetValueSegments[preset], SetValuesCommand);
+                SendValues();
             }
         }
 
-        private void PrepareAndSendDisplayTestCommand(MsgEntry entry)
+        // EFIS variant: "1" → AllOn test; otherwise re-emit the current SetValues frame.
+        // Same shape as the base default; kept explicit to match the original method name in the file.
+        private void SetAnnunciatorLightOnOffOverride(string annLight)
         {
-            SetBytesDisplayCommand(entry, DisplayTestCommand);
-            SendDisplayCommand(DisplayTestCommand);
-        }
-
-        private void EmptyDisplay()
-        {
-            var resetMsg = new MsgEntry { StartPos = 21, Mask = new byte[5], Data = new byte[5] };
-            SetBytesDisplayCommand(resetMsg, SetValuesCommand);
-            SendDisplayCommand(SetValuesCommand);
-        }
-
-        private void SendDisplayCommand(byte[] message)
-        {
-            MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
-        }
-
-        private void SetAnnunciatorLightOnOff(string annLight)
-        {
-            int myAnnLight = (int)Convert.ToDouble(annLight, CultureInfo.InvariantCulture);
-            if (myAnnLight == 1)
+            if (AsBool(annLight))
             {
-                PrepareAndSendDisplayTestCommand(DisplayTestCommands["AllOn"]);
+                LcdTest("AllOn");
             }
             else
             {
-                SendDisplayCommand(SetValuesCommand);
+                SendValues();
             }
-        }
-
-        private void SetLedBrightness(string brightness)
-        {
-            MessageSender.SetBrightness(DestinationAddress, 0x11, brightness);            
-        }
-
-        private void SetBacklightBrightness(string brightness)
-        {
-            MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);       
-        }
-
-        private void SetLcdBrightness(string brightness)
-        {
-            MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
-        }
-
-        // "AllOn", "AllOff", "Half1On", "Half2On"        
-        private void LcdTest(string command)
-        {
-            PrepareAndSendDisplayTestCommand(DisplayTestCommands[command]);
-        }
-
-        private void SetBytesDisplayCommand(MsgEntry msgEntry, byte[] message)
-        {
-            byte setPos = msgEntry.StartPos;
-            for (int i = 0; i < msgEntry.Data.Length; i++)
-            {
-                message[setPos] &= msgEntry.Mask[i];
-                message[setPos] |= msgEntry.Data[i];
-                setPos++;
-            }
-        }
-
-        public void Stop()
-        {
-            TurnOffAllLEDs();
         }
     }
 }
