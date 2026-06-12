@@ -463,7 +463,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-isr001"),
-                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 5),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 5),
                 Name = "TestInputShiftRegister",
                 button = new ButtonInputConfig()
                 {
@@ -508,7 +508,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-mux001"),
-                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_MULTIPLEXER, "InputMux", 3),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_MULTIPLEXER, "InputMux", 3),
                 Name = "TestInputMultiplexer",
                 button = new ButtonInputConfig()
                 {
@@ -703,7 +703,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-edge003"),
-                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 7),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 7),
                 Name = "ShiftRegisterWrongPin",
                 button = new ButtonInputConfig()
                 {

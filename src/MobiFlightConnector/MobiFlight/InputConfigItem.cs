@@ -27,7 +27,7 @@ namespace MobiFlight
         public const String TYPE_BUTTON = MobiFlightButton.TYPE;
         public const String TYPE_ENCODER = MobiFlightEncoder.TYPE;
         public const String DEPRECATED_TYPE_INPUT_SHIFT_REGISTER = MobiFlightInputShiftRegister.TYPE;
-        public const String DEPPRECATD_TYPE_INPUT_MULTIPLEXER = MobiFlightInputMultiplexer.TYPE;
+        public const String DEPRECATED_TYPE_INPUT_MULTIPLEXER = MobiFlightInputMultiplexer.TYPE;
         public const String TYPE_ANALOG = MobiFlightAnalogInput.TYPE;
         // only for backward compatibility during loading
         public const String TYPE_ANALOG_OLD = "Analog";
@@ -218,7 +218,7 @@ namespace MobiFlight
                     result = new InputShiftRegister() { Name = $"{DeviceName}:{SubIndex}", SubIndex = SubIndex };
                     break;
 
-                case DEPPRECATD_TYPE_INPUT_MULTIPLEXER:
+                case DEPRECATED_TYPE_INPUT_MULTIPLEXER:
                     result = new InputMultiplexer() { Name = $"{DeviceName}:{SubIndex}", SubIndex = SubIndex };
                     break;
             }
@@ -268,7 +268,7 @@ namespace MobiFlight
                 writer.WriteEndElement();
             }
 
-            if (this.Device?.Type == DEPPRECATD_TYPE_INPUT_MULTIPLEXER && button != null)
+            if (this.Device?.Type == DEPRECATED_TYPE_INPUT_MULTIPLEXER && button != null)
             {
                 writer.WriteStartElement("button");
                 button.WriteXml(writer);
@@ -323,7 +323,7 @@ namespace MobiFlight
             switch (Device.Type)
             {
                 case DEPRECATED_TYPE_INPUT_SHIFT_REGISTER:
-                case DEPPRECATD_TYPE_INPUT_MULTIPLEXER:
+                case DEPRECATED_TYPE_INPUT_MULTIPLEXER:
                 case TYPE_BUTTON:
                     if (button != null)
                         button.execute(cacheCollection, e, configRefs);

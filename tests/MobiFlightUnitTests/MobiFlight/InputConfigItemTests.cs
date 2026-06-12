@@ -380,7 +380,7 @@ namespace MobiFlight.Tests
         public void CreateInputDevice_InputShiftRegister_ReturnsInputShiftRegisterDeviceWithExtPin()
         {
             var result = InputConfigItem.CreateInputDevice(
-                            InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                            InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER,
                             "Shifter 1",
                             5
                         ) as MobiFlight.InputConfig.InputShiftRegister;
@@ -393,7 +393,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_InputShiftRegister_NullConfig_UsesZeroExtPin()
         {
-            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_SHIFT_REGISTER, "Shifter 1") as MobiFlight.InputConfig.InputShiftRegister;
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER, "Shifter 1") as MobiFlight.InputConfig.InputShiftRegister;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(0, result.SubIndex);
@@ -402,7 +402,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CreateInputDevice_InputMultiplexer_ReturnsInputMultiplexerDeviceWithDataPin()
         {
-            var result = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_INPUT_MULTIPLEXER, "Mux 1", 3) as MobiFlight.InputConfig.InputMultiplexer;
+            var result = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_MULTIPLEXER, "Mux 1", 3) as MobiFlight.InputConfig.InputMultiplexer;
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Mux 1:3", result.Name);
