@@ -26,7 +26,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// This is using the Device.Net library for HID communication.
         /// It provides improved performance compared to HidSharp
         /// </summary>
-        IHidDevice Device { get; set; }
+        new IHidDevice Device { get; set; }
 
         /// <summary>
         /// The FCU Cube needs to store the output state of those devices

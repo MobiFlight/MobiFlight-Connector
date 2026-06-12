@@ -31,11 +31,11 @@ namespace MobiFlight
         protected readonly SharpDX.DirectInput.Joystick DIJoystick;
         protected readonly JoystickDefinition Definition;
 
-        private HidDevice Device;
+        protected HidStream Stream;
+        protected HidDevice Device;
         protected bool RequiresOutputUpdate = false;
         private object StateLock = new object();
         protected JoystickState State = null;
-        private HidStream Stream;
 
         /// <summary>
         /// This map defines how a usageId maps to a JoystickState property name.

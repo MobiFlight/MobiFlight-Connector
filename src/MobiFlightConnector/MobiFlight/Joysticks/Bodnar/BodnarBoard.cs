@@ -35,7 +35,7 @@ namespace MobiFlight.Joysticks.Bodnar
         /// This is using the Device.Net library for HID communication.
         /// It provides improved performance compared to HidSharp
         /// </summary>
-        IHidDevice Device { get; set; }
+        new IHidDevice Device { get; set; }
 
         /// <summary>
         /// The report implementation.

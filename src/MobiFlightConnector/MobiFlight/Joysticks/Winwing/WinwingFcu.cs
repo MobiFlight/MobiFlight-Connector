@@ -16,7 +16,7 @@ namespace MobiFlight.Joysticks.Winwing
 
     internal class WinwingFcu : WinwingBaseController
     {
-        IHidDevice Device { get; set; }
+        new IHidDevice Device { get; set; }
 
         private const int SPD_DEC = 10;
         private const int SPD_INC = 11;

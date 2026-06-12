@@ -97,6 +97,11 @@
     {
       "Id": 19,
       "Type": "Button",
+      "Label": "VS"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
       "Label": "ALT"
     }
   ],

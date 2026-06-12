@@ -13,7 +13,7 @@ namespace MobiFlight.Joysticks
 
             switch (InstanceName.Trim())
             {
-                case "WINGFLEX DAP500":
+                //case "WINGFLEX DAP500":
                 case "FCU Cube":
                     return true;
             }
@@ -28,9 +28,9 @@ namespace MobiFlight.Joysticks
                 case "FCU Cube":
                     result = new WingFlex.FcuCube(definition);
                     break;
-                case "WINGFLEX DAP500":
-                    result = new WingFlex.WingFlexBaseController(definition);
-                    break;
+                //case "WINGFLEX DAP500":
+                //    result = new WingFlex.WingFlexBaseController(definition);
+                //    break;
             }
 
             return result;

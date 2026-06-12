@@ -221,8 +221,8 @@ namespace MobiFlight.Joysticks.WingFlex
 
             // Buttons
             // copy the button states from the buffer to the Buttons bit by bit starting from byte 6 to byte 8
-            var startingByte = 0;
-            for (int i = 0; i < 19; i++)
+            var startingByte = 1;
+            for (int i = 0; i < 20; i++)
             {
                 int byteIndex = startingByte + (i / 8);
                 int bitIndex = i % 8;
