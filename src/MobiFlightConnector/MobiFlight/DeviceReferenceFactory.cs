@@ -27,14 +27,14 @@ namespace MobiFlight
                     var mux = dev as InputMultiplexer;
                     int muxPinCount = int.TryParse(mux?.NumBytes, out int nb) ? nb * 8 : 16;
                     for (int i = 0; i < muxPinCount; i++)
-                        result.Add(new DeviceReference { Name = $"{dev.Name}:{i}", Label = $"{dev.Name} - {i}", Type = DeviceType.Button });
+                        result.Add(new DeviceReference { Name = $"{dev.Name}:{i}", Label = $"{dev.Name}:{i}", Type = DeviceType.Button });
                     break;
 
                 case DeviceType.InputShiftRegister:
                     var isr = dev as InputShiftRegister;
                     int isrPinCount = int.TryParse(isr?.NumModules, out int nm) ? nm * 8 : 8;
                     for (int i = 0; i < isrPinCount; i++)
-                        result.Add(new DeviceReference { Name = $"{dev.Name}:{i}", Label = $"{dev.Name} - {i}", Type = DeviceType.Button });
+                        result.Add(new DeviceReference { Name = $"{dev.Name}:{i}", Label = $"{dev.Name}:{i}", Type = DeviceType.Button });
                     break;
             }
             return result;
