@@ -1,0 +1,105 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINGFLEX DAP500",
+  "VendorId": "0xC687",
+  "ProductId": "0xB216",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "HDG_EC_L"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "HDG_EC_R"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "HDG_EC_SW"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "NOSE_DOWN"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "NOSE_UP"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "ALT_EC_L"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "ALT_EC_R"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "ALT_EC_SW"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "HDG"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "APR"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "NAV"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "TRK"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "AP"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "FD"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "LVL"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "YD"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "IAS"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "VNAV"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "ALT"
+    }
+  ],
+  "Outputs": [
+  ]
+}
