@@ -1,5 +1,6 @@
 ﻿using HidSharp;
-using MobiFlight.Config;
+using MobiFlight.Base;
+using MobiFlight.Firmware;
 using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
@@ -105,7 +106,6 @@ namespace MobiFlight
                 bool IsAxis = (device.ObjectId.Flags & DeviceObjectTypeFlags.AbsoluteAxis) > 0;
                 bool IsButton = (device.ObjectId.Flags & DeviceObjectTypeFlags.Button) > 0;
                 bool IsPOV = (device.ObjectId.Flags & DeviceObjectTypeFlags.PointOfViewController) > 0;
-
 
                 if (IsAxis && Axes.Count < DIJoystick.Capabilities.AxeCount)
                 {
@@ -240,21 +240,21 @@ namespace MobiFlight
             });
         }
 
-        public List<ListItem<IBaseDevice>> GetAvailableDevicesAsListItems()
+        public List<DeviceReference> GetAvailableDevices()
         {
-            List<ListItem<IBaseDevice>> result = new List<ListItem<IBaseDevice>>();
+            List<DeviceReference> result = new List<DeviceReference>();
 
             GetButtonsSorted().ForEach((item) =>
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             GetAxisSorted().ForEach((item) =>
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             POV.ForEach((item) =>
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             return result;
         }
@@ -299,12 +299,12 @@ namespace MobiFlight
             Stream = Device.Open();
         }
 
-        public virtual List<ListItem<IBaseDevice>> GetAvailableOutputDevicesAsListItems()
+        public virtual List<DeviceReference> GetAvailableOutputDevices()
         {
-            List<ListItem<IBaseDevice>> result = new List<ListItem<IBaseDevice>>();
+            var result = new List<DeviceReference>();
             Lights.ForEach((item) =>
             {
-                result.Add(item.ToListItem());
+                result.Add(item);
             });
             return result;
         }
@@ -358,7 +358,6 @@ namespace MobiFlight
             }
         }
 
-
         public JoystickDefinition GetJoystickDefinition()
         {
             return Definition;
@@ -381,11 +380,9 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Name = Name,
-                        DeviceId = POV[index].Name,
-                        DeviceLabel = POV[index].Label,
-                        Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                        Type = DeviceType.Button,
+                        Controller = new Base.Controller() { Serial = Serial, Name = Name },
+                        Device = new Base.DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
+                        InputType = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.RELEASE
                     });
                 }
@@ -398,11 +395,9 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Name = Name,
-                        DeviceId = POV[index].Name,
-                        DeviceLabel = POV[index].Label,
-                        Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                        Type = DeviceType.Button,
+                        Controller = new Base.Controller() { Serial = Serial, Name = Name },
+                        Device = new Base.DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
+                        InputType = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.PRESS
                     });
                 }
@@ -425,11 +420,9 @@ namespace MobiFlight
                 if (!StateExists() || oldValue != newValue)
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Name = Name,
-                        DeviceId = Axes[CurrentAxis].Name,
-                        DeviceLabel = Axes[CurrentAxis].Label,
-                        Serial = Serial,
-                        Type = DeviceType.AnalogInput,
+                        Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial },
+                        Device = new Base.DeviceReference() { Type = Axes[CurrentAxis].Type, Name = Axes[CurrentAxis].Name, Label = Axes[CurrentAxis].Label },
+                        InputType = DeviceType.AnalogInput,
                         Value = newValue
                     });
             }
@@ -446,11 +439,9 @@ namespace MobiFlight
                     if (newState.Buttons[i] || (State != null))
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
-                            Name = Name,
-                            DeviceId = Buttons[i].Name,
-                            DeviceLabel = Buttons[i].Label,
-                            Serial = Serial,
-                            Type = DeviceType.Button,
+                            Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial },
+                            Device = new Base.DeviceReference() { Type = Buttons[i].Type, Name = Buttons[i].Name, Label = Buttons[i].Label },
+                            InputType = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1
                         });
                 }
@@ -505,7 +496,6 @@ namespace MobiFlight
             RequiresOutputUpdate = true;
             display.Text = value;
         }
-
 
         public virtual IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
@@ -584,6 +574,15 @@ namespace MobiFlight
             DIJoystick?.Unacquire();
             OnDisconnected?.Invoke(this, null);
 
+        }
+
+        public List<DeviceReference> GetConnectedInputDevices()
+        {
+            var result = new List<DeviceReference>();
+            result.AddRange(Buttons);
+            result.AddRange(Axes);
+            result.AddRange(POV);
+            return result;
         }
     }
 }

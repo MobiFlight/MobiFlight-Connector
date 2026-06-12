@@ -1,4 +1,4 @@
-﻿using MobiFlight.Config;
+﻿using MobiFlight.Firmware;
 using MobiFlight.Modifier;
 using MobiFlight.UI.Panels.Modifier.BlinkModifier;
 using System;

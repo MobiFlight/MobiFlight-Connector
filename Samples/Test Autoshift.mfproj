@@ -1,0 +1,337 @@
+{
+  "Name": "Test Autoshift",
+  "ConfigFiles": [
+    {
+      "Label": "Shift Context demo",
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "button": {
+            "onPress": {
+              "Type": "VariableInputAction",
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Com 1 toggled",
+                "Number": 0.0,
+                "Text": "0",
+                "Expression": "Abs($-1)"
+              }
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button_COM1_TOG"
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button_COM1_TOG",
+          "GUID": "f76edfcc-2769-4882-b6df-1dc12f628973",
+          "Active": false,
+          "Name": "COM1 Toggled Var",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "RawValue": "RELEASE",
+          "Value": " "
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "Com 1 toggled",
+              "Number": 0.0,
+              "Text": "",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "AP Master",
+            "Pin": "AP Master",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AP Master",
+          "GUID": "67ffe0a2-71c2-437f-8df9-e41277477d15",
+          "Active": false,
+          "Name": "AP Master LED for COM1 Toggle",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "VariableInputAction",
+              "Variable": {
+                "TYPE": "number",
+                "Name": "CursorBlinker",
+                "Number": 0.0,
+                "Text": "0",
+                "Expression": "Abs($-1)"
+              }
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button_FMS1_CRSR"
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button_FMS1_CRSR",
+          "GUID": "490b911c-c9ab-44c1-a6c3-9679251aafde",
+          "Active": true,
+          "Name": "FMS1 Cursor",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "RawValue": "RELEASE",
+          "Value": " "
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "CursorBlinker",
+              "Number": 0.0,
+              "Text": "",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "Blink Context",
+            "Pin": "Blink Context",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Blink Context",
+          "GUID": "8f9e2044-0c78-4e40-b109-62b683100844",
+          "Active": false,
+          "Name": "cursor blink",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "Preconditions": [
+            {
+              "Type": "variable",
+              "Ref": "shifted",
+              "Serial": null,
+              "Pin": null,
+              "Operand": "=",
+              "Value": "0",
+              "Logic": "and",
+              "Active": true
+            }
+          ],
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "VariableInputAction",
+              "Variable": {
+                "TYPE": "number",
+                "Name": "shifted",
+                "Number": 1.0,
+                "Text": "1",
+                "Expression": "1"
+              }
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button_SHIFT_SW"
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button_SHIFT_SW",
+          "GUID": "cd1d53c1-4378-47c9-95a0-e93b89a1beeb",
+          "Active": false,
+          "Name": "shift",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "RawValue": "RELEASE",
+          "Value": " "
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "VariableInputAction",
+              "Variable": {
+                "TYPE": "number",
+                "Name": "shifted",
+                "Number": 0.0,
+                "Text": "0",
+                "Expression": "0"
+              }
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button_UNSHIFT_SW"
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button_UNSHIFT_SW",
+          "GUID": "17d2bc3e-abb7-476f-94b7-23b61ff87800",
+          "Active": false,
+          "Name": "unshift",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "RawValue": "RELEASE",
+          "Value": " "
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "shifted",
+              "Number": 0.0,
+              "Text": "",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "AP ALT",
+            "Pin": "AP ALT",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AP ALT",
+          "GUID": "17bebc90-2408-4e05-af53-0e24bd341002",
+          "Active": false,
+          "Name": "shift indicator led",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "RawValue": "0",
+          "Value": "0"
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "CursorBlinker",
+              "Number": 0.0,
+              "Text": "",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "AP APR",
+            "Pin": "AP APR",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AP APR",
+          "GUID": "9d708ff8-c143-4366-88ce-05548578fb52",
+          "Active": true,
+          "Name": "cursor indicator led",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "IFR1",
+            "Serial": "JS-439ed980-c5f4-11ee-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Blink",
+                "BlinkValue": "0",
+                "OnOffSequence": [
+                  180,
+                  180,
+                  180,
+                  500
+                ],
+                "OffDurationInMs": 500,
+                "FirstExecutionTime": 639123221724203593,
+                "Active": true
+              }
+            ]
+          },
+          "RawValue": "0",
+          "Value": "0"
+        }
+      ]
+    }
+  ],
+  "Sim": "msfs",
+  "Aircraft": [],
+  "Features": {
+    "FSUIPC": false,
+    "ProSim": false
+  },
+  "_version": "0.9"
+}

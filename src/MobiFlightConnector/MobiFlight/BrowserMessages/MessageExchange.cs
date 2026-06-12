@@ -97,7 +97,11 @@ namespace MobiFlight.BrowserMessages
 
             try
             {
-                var deserializedPayload = JsonConvert.DeserializeObject(eventToPublish.payload.ToString(), eventType);
+                var rawPayload = eventToPublish.payload?.ToString();
+                object deserializedPayload = null;
+                if (rawPayload != null)
+                    deserializedPayload =
+                        JsonConvert.DeserializeObject(eventToPublish.payload?.ToString(), eventType);
                 var synchronizationContext = _syncContextProvider != null
                     ? _syncContextProvider.Invoke()
                     : System.Threading.SynchronizationContext.Current;

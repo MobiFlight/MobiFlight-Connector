@@ -35,7 +35,8 @@ const ControllerBindingsDialog = ({
   onOpenChange,
 }: ControllerBindingsProps) => {
   const { t } = useTranslation()
-  const [lastPropBindings, setLastPropBindings] = useState<ControllerBinding[]>(bindings)
+  const [lastPropBindings, setLastPropBindings] =
+    useState<ControllerBinding[]>(bindings)
   const [finalBindings, setFinalBindings] =
     useState<ControllerBinding[]>(bindings)
   const { publish } = publishOnMessageExchange()
@@ -98,7 +99,11 @@ const ControllerBindingsDialog = ({
 
       return {
         ...b,
-        BoundController: controller,
+        BoundController: controller ? { 
+          ...controller,
+          // unset Devices before sending it back to backend. 
+          Devices: undefined 
+        } : null,
         Status: controller ? "Match" : "Missing",
       } as ControllerBinding
     })

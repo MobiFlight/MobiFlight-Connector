@@ -154,7 +154,7 @@
     <value>"Run" Optionen</value>
   </data>
   <data name="minimizeOnAutoRunCheckbox.Text" xml:space="preserve">
-    <value>Bei AutoRun in Task Leiste minimieren</value>
+    <value>Bei AutoRun minimieren</value>
   </data>
   <data name="autoRetriggerCheckBox.Text" xml:space="preserve">
     <value>Automatisch retrigger-action mit "run"-Mode ausführen.</value>

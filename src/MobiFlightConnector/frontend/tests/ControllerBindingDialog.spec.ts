@@ -142,6 +142,7 @@ test("Confirm Controller Binding assignment works correctly", async ({
     "JS-c0875190-3b89-11ed-8007-444553540000",
   )
   expect(updatedBinding!.Status).toBe("Match")
+  expect(updatedBinding!.BoundController?.Devices).toBeUndefined()
 })
 
 test("Confirm Controller Binding Dialog filters correctly", async ({
@@ -295,4 +296,44 @@ test.describe("Controller Bindings Update Message Tests", () => {
     const thirdItem = controllerBindingItems.nth(2)
     await expect(thirdItem).toContainText("Original Controller 1")
   })
+})
+
+// see: https://github.com/MobiFlight/MobiFlight-Connector/issues/2971
+test("Confirm Controller Binding Dialog input field content can be deleted using backspace", async ({
+  configListPage,
+  page,
+}) => {
+  const mobiFlightPage = configListPage.mobiFlightPage
+
+  await configListPage.gotoPage()
+  await mobiFlightPage.initWithTestData()
+
+  const rows = await page.getByRole("row")
+  // initially 7 items
+  await expect(rows).toHaveCount(17)
+
+  const firstRow = rows.first()
+  await firstRow.click()
+
+  await mobiFlightPage.openControllerBindingsDialog()
+  const dialog = page.getByRole("dialog", { name: "Controller Bindings" })
+  const comboboxConnected = dialog.getByRole("combobox").first()
+
+  await comboboxConnected.click()
+  const searchInput = page.getByPlaceholder("Search controller...")
+  await searchInput.fill("Test")
+  await expect(searchInput).toHaveValue("Test")
+  await searchInput.focus()
+  await page.keyboard.press("Backspace")
+  await expect(searchInput).toHaveValue("Tes")
+  
+  // Close the options overlay
+  await page.keyboard.press("Escape") 
+  await expect(searchInput).not.toBeVisible()
+
+  // we have to close the dialog first 
+  // to be able to check the number of rows.
+  await dialog.getByRole("button", { name: "Apply changes" }).click()
+  // still 7 items, backspace did not delete any
+  await expect(page.getByRole("row")).toHaveCount(17)
 })

@@ -2,7 +2,8 @@ import { AppMessage, IConfigItem } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
-import joystickDefinition from "../data/joystick.definition.json" with { type: "json" }
+import inputActionTestProject from "../data/inputaction.testdata.json" with { type: "json" }
+import joystickDefinitions from "../data/joystick.definition.json" with { type: "json" }
 import midiControllerDefinition from "../data/midicontroller.definition.json" with { type: "json" }
 import {
   ConfigValueFullUpdate,
@@ -44,7 +45,7 @@ export class ConfigListPage {
     const message: AppMessage = {
       key: "JoystickDefinitions",
       payload: {
-        Definitions: [joystickDefinition],
+        Definitions: joystickDefinitions,
       },
     }
     await this.mobiFlightPage.publishMessage(message)
@@ -90,12 +91,19 @@ export class ConfigListPage {
     await this.mobiFlightPage.publishMessage(message)
   }
 
-  async addNewConfigItem(itemType: ConfigItemType, configIndex: number = 0) {
-    const configItems = testProject.ConfigFiles[configIndex].ConfigItems
-    const newItem = configItems.find((i) => i.Type === itemType)
-    if (!newItem)
+  async addNewConfigItem(
+    itemType: ConfigItemType,
+    configIndex: number = 0,
+    variant: "default" | "inputaction" = "default",
+  ) {
+    const testdataProject =
+      variant === "default" ? testProject : inputActionTestProject
+    const configItems = testdataProject.ConfigFiles[configIndex].ConfigItems
+    const templateItem = configItems.find((i) => i.Type === itemType)
+    if (!templateItem)
       throw new Error(`No test data found for item type ${itemType}`)
 
+    const newItem = { ...templateItem }
     newItem.GUID = crypto.randomUUID()
     newItem.Name = `New ${itemType} (created from test)`
 
@@ -112,7 +120,7 @@ export class ConfigListPage {
   }
 
   getConfigItemByIndex(itemIndex: number): IConfigItem {
-    return testdata[itemIndex]
+    return testdata[itemIndex] as IConfigItem
   }
 
   async updateConfigItemStatus(
@@ -209,5 +217,17 @@ export class ConfigListPage {
     const filterInput =
       this.mobiFlightPage.page.getByPlaceholder("Filter items...")
     await filterInput.fill(text)
+  }
+
+  async clickEditButtonForRow(row: number) {
+    const editButton = this.mobiFlightPage.page
+      .getByRole("row")
+      .nth(row)
+      .getByRole("button", { name: "Edit" })
+    await editButton.click()
+  }
+
+  async getConfigItemRow(row: number) {
+    return this.mobiFlightPage.page.getByRole("row").nth(row)
   }
 }

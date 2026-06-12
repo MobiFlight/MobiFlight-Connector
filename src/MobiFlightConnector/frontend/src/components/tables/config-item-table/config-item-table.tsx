@@ -32,6 +32,7 @@ import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
 import { useDroppable } from "@dnd-kit/core"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
+import { useNavigate } from "react-router"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -46,6 +47,7 @@ export function ConfigItemTable<TValue>({
 }: DataTableProps<IConfigItem, TValue>) {
   "use no memo"
 
+  const navigate = useNavigate()
   // this component is wrapped in an error boundary
   // so we can trigger errors for testing purposes here
   const { trigger } = useErrorFallbackTest()
@@ -198,13 +200,18 @@ export function ConfigItemTable<TValue>({
         // and offer to reset the filters.
         showInvisibleToastOnDialogClose.current = lastItem.GUID
       }
-      publish({
-        key: "CommandConfigContextMenu",
-        payload: { action: "edit", item: lastItem },
-      } as CommandConfigContextMenu)
+
+      if (lastItem.Type === "InputConfigItem") {
+        navigate(`/config/${lastItem.GUID}`)
+      } else {
+        publish({
+          key: "CommandConfigContextMenu",
+          payload: { action: "edit", item: lastItem },
+        } as CommandConfigContextMenu)
+      }
     }
     prevDataLength.current = data.length
-  }, [publish, table, data])
+  }, [publish, navigate, table, data])
 
   const { t } = useTranslation()
 
@@ -343,13 +350,13 @@ export function ConfigItemTable<TValue>({
         )}
         <div className="flex justify-start gap-2">
           <Button
-            className="bg-pink-600 dark:bg-pink-900 text-white hover:bg-pink-500 dark:hover:bg-pink-700"
+            className="bg-pink-600 text-white hover:bg-pink-500 dark:bg-pink-900 dark:hover:bg-pink-700"
             onClick={handleAddOutputConfig}
           >
             {t("ConfigList.Actions.OutputConfigItem.Add")}
           </Button>
           <Button
-            className="bg-teal-600 dark:bg-teal-900 text-white hover:bg-teal-500 dark:hover:bg-teal-700"
+            className="bg-teal-600 text-white hover:bg-teal-500 dark:bg-teal-900 dark:hover:bg-teal-700"
             onClick={handleAddInputConfig}
           >
             {t("ConfigList.Actions.InputConfigItem.Add")}

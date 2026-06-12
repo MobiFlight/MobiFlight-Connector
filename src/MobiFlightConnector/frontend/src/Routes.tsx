@@ -30,7 +30,7 @@ export function AppRoutes() {
         <Route path="/home/:content" element={<App />}>
           <Route index element={<Dashboard />} />
         </Route>
-        <Route path="/config" element={<App />}>
+        <Route path="/config/:configId?" element={<App />}>
           <Route index element={<ConfigListPage />} />
         </Route>
         <Route index path="/index.html" element={<App />} />

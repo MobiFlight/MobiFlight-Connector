@@ -75,7 +75,6 @@ namespace MobiFlight
             else
                 Label = null;
 
-
             if (Type == "config" || Type == "variable")
             {
                 Ref = reader["ref"];
@@ -184,8 +183,6 @@ namespace MobiFlight
             return this.Label;
         }
 
-
-
         public bool Evaluate(MobiFlightVariable value)
         {
             var cacheKey = $"{value.TYPE}:{value.Number}:{value.Text}:{Value}:{Operand}";
@@ -228,7 +225,7 @@ namespace MobiFlight
             var comparison = new Comparison
             {
                 Active = true,
-                Value = Value.Replace("$", currentValue.ToString()),
+                Value = Value?.Replace("$", currentValue.ToString()),
                 Operand = Operand,
                 IfValue = "1",
                 ElseValue = "0"

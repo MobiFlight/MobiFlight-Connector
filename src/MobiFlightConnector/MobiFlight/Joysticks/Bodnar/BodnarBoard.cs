@@ -221,11 +221,9 @@ namespace MobiFlight.Joysticks.Bodnar
 
                 TriggerButtonPressed(this, new InputEventArgs()
                 {
-                    Name = Name,
-                    DeviceId = Axes[CurrentAxis].Name,
-                    DeviceLabel = Axes[CurrentAxis].Label,
-                    Serial = Serial,
-                    Type = DeviceType.AnalogInput,
+                    Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial },
+                    Device = new Base.DeviceReference() { Type = Axes[CurrentAxis].Type, Name = Axes[CurrentAxis].Name, Label = Axes[CurrentAxis].Label },
+                    InputType = DeviceType.AnalogInput,
                     Value = filteredValue
                 });
             }

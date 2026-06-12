@@ -101,6 +101,7 @@ namespace MobiFlight
         private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
+        readonly Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
 
         public List<IConfigItem> ConfigItems
         {
@@ -267,7 +268,9 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Serial = controller.Serial
+                    Serial = controller.Serial,
+                    Devices = controller.GetConnectedInputDevices()
+                                        .ToList()
                 });
             });
 
@@ -276,7 +279,10 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Serial = controller.Serial
+                    Serial = controller.Serial,
+                    Devices = controller.GetConnectedInputDevices()
+                                        .Union(controller.GetAvailableOutputDevices())
+                                        .ToList()
                 });
             });
 
@@ -285,7 +291,8 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = controller.Name,
-                    Serial = controller.Serial
+                    Serial = controller.Serial,
+                    Devices = controller.GetAvailableDevices().ToList<DeviceReference>()
                 });
             });
 
@@ -537,17 +544,98 @@ namespace MobiFlight
                 MessageExchange.Instance.Publish(Project);
                 OnConfigHasChanged?.Invoke(this, null);
             });
+
+            MessageExchange.Instance.Subscribe<CommandScanForInput>((message) =>
+            {
+                if (message.IsScanning)
+                {
+                    ScanForInputStart();
+                }
+                else
+                {
+                    ScanForInputStop();
+                }
+            });
+
+            MessageExchange.Instance.Subscribe<CommandRefreshPresets>((message) =>
+            {
+                if (message.type == PresetType.PROSIM)
+                {
+                    PublishProSimDataRefDescriptions();
+                }
+                else if (message.type == PresetType.VJOY)
+                {
+                    PublishVJoyDefinitions();
+                }
+            });
+        }
+
+        private void ScanForInputStop()
+        {
+            getMobiFlightModuleCache().OnButtonPressed -= ScanforInput_OnButtonPressed;
+            GetJoystickManager().OnButtonPressed -= ScanforInput_OnButtonPressed;
+            GetMidiBoardManager().OnButtonPressed -= ScanforInput_OnButtonPressed;
+        }
+
+        private void ScanForInputStart()
+        {
+            getMobiFlightModuleCache().OnButtonPressed += ScanforInput_OnButtonPressed;
+            GetJoystickManager().OnButtonPressed += ScanforInput_OnButtonPressed;
+            GetMidiBoardManager().OnButtonPressed += ScanforInput_OnButtonPressed;
+        }
+
+        private void ScanforInput_OnButtonPressed(object sender, InputEventArgs e)
+        {
+            if (!InputThresholdIsExceeded(e)) return;
+
+            // Only the "positive" PRESS events matter for buttons
+            if (e.InputType == DeviceType.Button)
+            {
+                if (e.Value != (int)MobiFlightButton.InputEvent.PRESS)
+                    return;
+            }
+
+            var controller = e.Controller;
+
+            MessageExchange.Instance.Publish(new ScanForInputResult() { Controller = controller, Device = e.Device});
+            ScanForInputStop();
+        }
+
+        private bool InputThresholdIsExceeded(InputEventArgs e)
+        {
+            const int JoystickThreshold = 2000;
+            const int AnalogInputThreshold = 20;
+
+            var serial = e.Controller.Serial;
+
+            if ((SerialNumber.IsJoystickSerial(serial) &&
+                e.Device.Name.Contains(Joystick.AxisPrefix)) || e.InputType == DeviceType.AnalogInput)
+            {
+                if (ScanForInputThreshold.ContainsKey(serial + e.Device.Name))
+                {
+                    if (Math.Abs(e.Value - ScanForInputThreshold[serial + e.Device.Name]) < (SerialNumber.IsJoystickSerial(serial) ? JoystickThreshold : AnalogInputThreshold))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    ScanForInputThreshold[serial + e.Device.Name] = e.Value;
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void HandleCommandUpdateConfigItem(ConfigItem item)
         {
-            var configItem = ConfigItems.Find(i => i.GUID == item.GUID);
-            if (configItem == null) return;
+            var configItemIndex = ConfigItems.FindIndex(i => i.GUID == item.GUID);
+            if (configItemIndex == -1) return;
 
-            configItem.Active = item.Active;
-            configItem.Name = item.Name;
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(configItem));
-            OnConfigHasChanged?.Invoke(new IConfigItem[] { configItem }, null);
+            ConfigItems[configItemIndex] = item;
+            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
+            OnConfigHasChanged?.Invoke(new IConfigItem[] { item }, null);
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)
@@ -621,6 +709,45 @@ namespace MobiFlight
             _proSimConnectionAttempts = 0;
             _proSimConnectionDisabled = false;
             this.OnSimCacheConnected(sender, e);
+            PublishProSimDataRefDescriptions();
+        }
+
+        private void PublishProSimDataRefDescriptions()
+        {
+            var proSimCache = GetProSimCache();
+            if (!proSimCache.IsConnected())
+            {
+                return; // Silently return if not connected
+            }
+
+            try
+            {
+                var _dataRefDescriptions = proSimCache.GetDataRefDescriptions();
+                MessageExchange.Instance.Publish(new ProSimDataRefDefinitionUpdate()
+                {
+                    DataRefs = _dataRefDescriptions
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error retrieving ProSim dataref descriptions: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        private void PublishVJoyDefinitions()
+        {
+            try
+            {
+                var vJoyDefinitions = VJoy.VJoyHelper.GetAvailableVJoyDefinitions();
+                MessageExchange.Instance.Publish(new VJoyDefinitionsUpdate()
+                {
+                    Definitions = vJoyDefinitions.ToArray()
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error retrieving vJoy definitions: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         private void proSim_ConnectionLost(object sender, EventArgs e)
@@ -1282,8 +1409,9 @@ namespace MobiFlight
         {
             var updatedInputValues = new Dictionary<string, IConfigItem>();
             var msgEventLabel = e.GetMsgEventLabel();
+            var serial = e.Controller.Serial;
 
-            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(e.Serial, e.Type))
+            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }

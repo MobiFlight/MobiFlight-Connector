@@ -1,9 +1,6 @@
-﻿using MobiFlight.Base;
-using MobiFlight.xplane;
+﻿using MobiFlight.xplane;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MobiFlight.InputConfig
 {
@@ -67,7 +64,6 @@ namespace MobiFlight.InputConfig
                 Tuple<string, string> replacement = new Tuple<string, string>("$", currentValue.ToString());
                 replacements.Add(replacement);
             }
-
 
             foreach (ConfigRefValue item in configRefs)
             {

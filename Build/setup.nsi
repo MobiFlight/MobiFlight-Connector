@@ -73,6 +73,9 @@ Section "install"
 
     ExecWait '"$INSTDIR\MobiFlight-Installer.exe" /installOnly'
  
+    # Register file associations for .mfproj and .mcc files
+    Call RegisterFileAssociations
+ 
     # create a shortcut named "new shortcut" in the start menu programs directory
     # point the new shortcut at the program uninstaller
     CreateShortcut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\MFConnector.exe"
@@ -85,6 +88,27 @@ Section "install"
 	WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoRepair" 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "EstimatedSize" 45000
 SectionEnd
+
+# Register file associations for .mfproj and .mcc files
+Function RegisterFileAssociations
+    SetRegView 64
+    
+    # Register .mfproj file type
+    WriteRegStr HKCU "Software\Classes\.mfproj" "" "MobiFlight.Project"
+    WriteRegStr HKCU "Software\Classes\.mfproj" "Content Type" "application/x-mfproj"
+    
+    # Register .mcc file type (legacy format)
+    WriteRegStr HKCU "Software\Classes\.mcc" "" "MobiFlight.Project"
+    WriteRegStr HKCU "Software\Classes\.mcc" "Content Type" "application/x-mcc"
+    
+    # Configure MobiFlight.Project class
+    WriteRegStr HKCU "Software\Classes\MobiFlight.Project" "" "MobiFlight Project"
+    WriteRegStr HKCU "Software\Classes\MobiFlight.Project\DefaultIcon" "" "$INSTDIR\mobiflight.ico"
+    WriteRegStr HKCU "Software\Classes\MobiFlight.Project\shell\open\command" "" "$\"$INSTDIR\MFConnector.exe$\" /cfg $\"%1$\""
+    
+    # Notify Windows of file association changes
+    System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
+FunctionEnd
 
 Function un.onInit
     System::Call 'kernel32::OpenMutex(i 0x100000, i 0, t "{57699317-1D72-4B54-82BC-CF6B38254550}")p.R0'
@@ -113,5 +137,13 @@ Section "uninstall"
     RMDir /r $LOCALAPPDATA\MobiFlight
 
     DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+    
+    # Remove file associations
+    DeleteRegKey HKCU "Software\Classes\.mfproj"
+    DeleteRegKey HKCU "Software\Classes\.mcc"
+    DeleteRegKey HKCU "Software\Classes\MobiFlight.Project"
+    
+    # Notify Windows of file association changes
+    System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
 # uninstaller section end
 SectionEnd

@@ -53,6 +53,8 @@ namespace MobiFlight.InputConfig
         {
             String value = Command;
 
+            if (value == null) return;
+
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
             if (value.Contains("@"))
             {

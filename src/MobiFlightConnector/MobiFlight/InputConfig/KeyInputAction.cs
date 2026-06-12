@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -10,6 +11,8 @@ namespace MobiFlight.InputConfig
         public bool Control { get; set; }
         public bool Alt { get; set; }
         public bool Shift { get; set; }
+
+        [JsonIgnore]
         public KeyboardInputInterface Keyboard;
         public new const String Label = "MobiFlight - Keyboard Input";
         public const String TYPE = "KeyInputAction";

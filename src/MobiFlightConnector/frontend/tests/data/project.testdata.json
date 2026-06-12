@@ -204,15 +204,15 @@
           "Name": "LED 1",
           "Preconditions": [
             {
-              "PreconditionActive": true,
-              "PreconditionLabel": "Config: <Ref:5b09dc42-d5cd-4284-9c03-355e579763f2> < 1 <Logic:and>",
-              "PreconditionLogic": "and",
-              "PreconditionOperand": "<",
-              "PreconditionPin": null,
-              "PreconditionRef": "5b09dc42-d5cd-4284-9c03-355e579763f2",
-              "PreconditionSerial": null,
-              "PreconditionType": "config",
-              "PreconditionValue": "1"
+              "Active": true,
+              "Label": "Config: <Ref:5b09dc42-d5cd-4284-9c03-355e579763f2> < 1 <Logic:and>",
+              "Logic": "and",
+              "Operand": "<",
+              "Pin": null,
+              "Ref": "5b09dc42-d5cd-4284-9c03-355e579763f2",
+              "Serial": null,
+              "Type": "config",
+              "Value": "1"
             }
           ],
           "Source": {
@@ -297,8 +297,10 @@
         {
           "Active": true,
           "ConfigRefs": [],
-          "DeviceName": "Button 4 With A Long Name To Test Truncation",
-          "DeviceType": "Button",
+          "Device": {
+            "Name": "Button 4 With A Long Name To Test Truncation",
+            "Type": "Button"
+          },
           "GUID": "49079f13-b7cc-442d-a64b-70edbf7a1334",
           "Modifiers": {
             "Items": []
@@ -326,8 +328,10 @@
         {
           "Active": false,
           "ConfigRefs": [],
-          "DeviceName": "Encoder 1",
-          "DeviceType": "Encoder",
+          "Device": {
+            "Name": "Encoder 1",
+            "Type": "Encoder"
+          },
           "GUID": "68285201-23d5-40ea-b81f-dbd3ffe7328d",
           "Modifiers": {
             "Items": []
@@ -354,8 +358,10 @@
         {
           "Active": false,
           "ConfigRefs": [],
-          "DeviceName": "POT 1",
-          "DeviceType": "AnalogInput",
+          "Device": {
+            "Name": "POT 1",
+            "Type": "AnalogInput"
+          },
           "GUID": "be1ffab3-4252-4001-a090-4b98c7cd126a",
           "Modifiers": {
             "Items": []
@@ -388,8 +394,10 @@
             "HoldDelay": 350,
             "RepeatDelay": 0
           },
-          "DeviceType": "Button",
-          "DeviceName": "Button 1",
+          "Device": {
+            "Name": "Button 1",
+            "Type": "Button"
+          },
           "GUID": "3e83caea-6234-4f3e-9e33-7f5eb436999c",
           "Active": true,
           "Name": "MCDU - L1",
@@ -400,14 +408,14 @@
           },
           "Preconditions": [
             {
-              "PreconditionType": "none",
-              "PreconditionRef": null,
-              "PreconditionSerial": null,
-              "PreconditionPin": null,
-              "PreconditionOperand": "=",
-              "PreconditionValue": null,
-              "PreconditionLogic": "and",
-              "PreconditionActive": true
+              "Type": "none",
+              "Ref": null,
+              "Serial": null,
+              "Pin": null,
+              "Operand": "=",
+              "Value": null,
+              "Logic": "and",
+              "Active": true
             }
           ],
           "Modifiers": {
@@ -437,8 +445,10 @@
             "HoldDelay": 350,
             "RepeatDelay": 0
           },
-          "DeviceType": "Button",
-          "DeviceName": "CC 1_0",
+          "Device": {
+            "Name": "CC 1_0",
+            "Type": "Button"
+          },
           "GUID": "39563d2e-9845-4c48-9b49-b024057181aa",
           "Active": true,
           "Name": "COM2 MIC",
@@ -459,8 +469,10 @@
         {
           "Active": false,
           "ConfigRefs": [],
-          "DeviceName": "CC 1_32",
-          "DeviceType": "Encoder",
+          "Device": {
+            "Name": "CC 1_32",
+            "Type": "Encoder"
+          },
           "GUID": "68285201-23d5-40ea-b81f-dbd3ffe7328e",
           "Modifiers": {
             "Items": []
@@ -487,8 +499,10 @@
         {
           "Active": true,
           "ConfigRefs": [],
-          "DeviceName": "CC 1_36",
-          "DeviceType": "AnalogInput",
+          "Device": {
+            "Name": "CC 1_36",
+            "Type": "AnalogInput"
+          },
           "GUID": "be1ffab3-4252-4001-a090-4b98c7cd126b",
           "Modifiers": {
             "Items": []
@@ -539,6 +553,35 @@
           "Name": "Output Config With Input Action",
           "Type": "OutputConfigItem",
           "Controller": null
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "MSFS2020CustomInputAction",
+              "Command": "(>K:AP_MASTER)",
+              "PresetId": "b17146c8-2db3-4239-b797-e7bc11d557da"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 21"
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button 21",
+          "GUID": "91f6588d-5cf5-4306-a1a0-1cadca0951fd",
+          "Active": true,
+          "Name": "AP Knob - ALT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Bravo Throttle Quadrant",
+            "Serial": "JS-87654321"
+          }
         }
       ],
       "EmbedContent": true,
@@ -551,8 +594,7 @@
         {
           "Active": true,
           "ConfigRefs": [],
-          "DeviceName": null,
-          "DeviceType": null,
+          "Device": null,
           "GUID": "0dc35235-118d-46a3-a7d7-6a1be0ffdbe6",
           "Modifiers": {
             "Items": []
@@ -584,8 +626,7 @@
         {
           "Active": true,
           "ConfigRefs": [],
-          "DeviceName": null,
-          "DeviceType": null,
+          "Device": null,
           "GUID": "0db8514f-5132-49df-97ef-d6226cd15323",
           "Modifiers": {
             "Items": []

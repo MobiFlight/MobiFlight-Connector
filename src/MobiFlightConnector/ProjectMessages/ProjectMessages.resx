@@ -669,4 +669,7 @@ Page will be opened, when pressing OK.</value>
   <data name="uiMessagePythonHint" xml:space="preserve">
     <value>Python environment not ready</value>
   </data>
+  <data name="uiLabelTrayTooltipFormat" xml:space="preserve">
+    <value>MobiFlight - {0}</value>
+  </data>
 </root>

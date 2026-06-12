@@ -1,0 +1,602 @@
+{
+    "Aircraft": [],
+    "ConfigFiles": [
+        {
+            "ConfigItems": [
+                {
+                    "Active": true,
+                    "ConfigRefs": [
+                        {
+                            "Active": true,
+                            "Placeholder": "#",
+                            "Ref": "bd9e846b-deab-4219-bbdb-6f0a8e7634f9",
+                            "TestValue": "1"
+                        },
+                        {
+                            "Active": true,
+                            "Placeholder": "!",
+                            "Ref": "09a117bb-9734-45d2-b53c-82fa36baf102",
+                            "TestValue": "1"
+                        },
+                        {
+                            "Active": true,
+                            "Placeholder": "?",
+                            "Ref": "2ff5eb95-d2ba-4fd1-b779-169083b695c1",
+                            "TestValue": "1"
+                        }
+                    ],
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "c23ae81c-4e46-45ae-9786-efbd63841537",
+                    "Name": "MSFS Input Action",
+                    "Preconditions": [
+                        {
+                            "Active": true,
+                            "Logic": "and",
+                            "Operand": "=",
+                            "Pin": null,
+                            "Ref": "MyVar",
+                            "Serial": null,
+                            "Type": "variable",
+                            "Value": "1"
+                        },
+                        {
+                            "Active": true,
+                            "Logic": "and",
+                            "Operand": "=",
+                            "Pin": null,
+                            "Ref": "bd9e846b-deab-4219-bbdb-6f0a8e7634f9",
+                            "Serial": null,
+                            "Type": "config",
+                            "Value": null
+                        }
+                    ],
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Command": "(>K:AP_PANEL_HEADING_HOLD)",
+                            "PresetId": "cf0526c0-da69-404f-a570-9f9d54d2803c",
+                            "Type": "MSFS2020CustomInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "ConfigRefs": [
+                        {
+                            "Active": true,
+                            "Placeholder": "#",
+                            "Ref": "bd9e846b-deab-4219-bbdb-6f0a8e7634f9",
+                            "TestValue": "1"
+                        },
+                        {
+                            "Active": true,
+                            "Placeholder": "!",
+                            "Ref": "09a117bb-9734-45d2-b53c-82fa36baf102",
+                            "TestValue": "1"
+                        },
+                        {
+                            "Active": true,
+                            "Placeholder": "?",
+                            "Ref": "2ff5eb95-d2ba-4fd1-b779-169083b695c1",
+                            "TestValue": "1"
+                        }
+                    ],
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "f16840ae-4967-4c10-a28a-64b982c695ec",
+                    "Name": "XPlane Input Action",
+                    "Preconditions": [
+                        {
+                            "Active": true,
+                            "Logic": "and",
+                            "Operand": "=",
+                            "Pin": null,
+                            "Ref": "MyVar",
+                            "Serial": null,
+                            "Type": "variable",
+                            "Value": "1"
+                        },
+                        {
+                            "Active": true,
+                            "Logic": "and",
+                            "Operand": "=",
+                            "Pin": null,
+                            "Ref": "bd9e846b-deab-4219-bbdb-6f0a8e7634f9",
+                            "Serial": null,
+                            "Type": "config",
+                            "Value": null
+                        }
+                    ],
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Expression": "$",
+                            "InputType": "Command",
+                            "Path": "laminar/B738/knob/land_alt_press_dn",
+                            "Type": "XplaneInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "2d0ff9e6-0a29-47aa-ab4f-b0af2418ad78",
+                    "Name": "Variable Input Action",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Type": "VariableInputAction",
+                            "Variable": {
+                                "Expression": "$",
+                                "Name": "MyVar",
+                                "Number": 0,
+                                "TYPE": "number",
+                                "Text": ""
+                            }
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "791e608c-7ee7-4140-b453-9c35f7fc0af4",
+                    "Name": "Retrigger",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Type": "RetriggerInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "7041ceaf-3bb0-4fe0-af47-a7932f6e5c8d",
+                    "Name": "Keyboard Input Action",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Alt": true,
+                            "Control": true,
+                            "Key": 68,
+                            "Shift": true,
+                            "Type": "KeyInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "e81df76e-5efa-46ee-b0ae-d6f05bdf8635",
+                    "Name": "vJoy Input Action - Button",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Type": "VJoyInputAction",
+                            "axisString": "",
+                            "buttonComand": true,
+                            "buttonNr": 4,
+                            "sendValue": null,
+                            "vJoyID": 1
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "2e08d905-5219-444b-8627-7a294dabcc6f",
+                    "Name": "vJoy Input Action - Axis",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Type": "VJoyInputAction",
+                            "axisString": "Z",
+                            "buttonComand": false,
+                            "buttonNr": -1,
+                            "sendValue": "1024",
+                            "vJoyID": 1
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 1",
+                        "Type": "Button"
+                    },
+                    "GUID": "8b8be5be-d3aa-4ffe-94e3-ee2dcbbde910",
+                    "Name": "FSUIPC Offset",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "FSUIPC": {
+                                "BcdMode": true,
+                                "Mask": 733295205870,
+                                "Offset": 26316,
+                                "OffsetType": 0,
+                                "Size": 4
+                            },
+                            "Modifiers": {
+                                "Items": []
+                            },
+                            "Type": "FsuipcOffsetInputAction",
+                            "Value": "$+123"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 2",
+                        "Type": "Button"
+                    },
+                    "GUID": "d46ae520-c12d-4184-93a7-ebbe37b79e5a",
+                    "Name": "FSUIPC Event ID",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "EventId": 68036,
+                            "Param": "0",
+                            "Type": "EventIdInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 2",
+                        "Type": "Button"
+                    },
+                    "GUID": "bd42f0c5-67a7-4de2-b4b9-925c22b1d8bb",
+                    "Name": "FSUIPC PMDG Event ID",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "AircraftType": "B747",
+                            "EventId": 69648,
+                            "Param": "536870912",
+                            "Type": "PmdgEventIdInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 2",
+                        "Type": "Button"
+                    },
+                    "GUID": "baecf758-779a-46ba-86a8-4c85e575b632",
+                    "Name": "FSUIPC Jeehell",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "EventId": 6,
+                            "Param": "1",
+                            "Type": "JeehellInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 2",
+                        "Type": "Button"
+                    },
+                    "GUID": "f80ded7c-43ed-4ab6-bf00-5faff9e6e36f",
+                    "Name": "FSUIPC Lua Macro",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "MacroName": "TestMacro",
+                            "MacroValue": "TestValue",
+                            "Type": "LuaMacroInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Button 2",
+                        "Type": "Button"
+                    },
+                    "GUID": "5107dd99-71dc-4087-94ef-9e88041c6392",
+                    "Name": "ProSim",
+                    "Type": "InputConfigItem",
+                    "button": {
+                        "HoldDelay": 350,
+                        "LongReleaseDelay": 350,
+                        "RepeatDelay": 0,
+                        "onHold": null,
+                        "onLongRelease": null,
+                        "onPress": {
+                            "Expression": "",
+                            "Path": "",
+                            "Type": "ProSimInputAction"
+                        },
+                        "onRelease": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Encoder 1",
+                        "Type": "Encoder"
+                    },
+                    "GUID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                    "Name": "MSFS Encoder Action",
+                    "Type": "InputConfigItem",
+                    "encoder": {
+                        "onLeft": {
+                            "Command": "(>K:AP_SPD_VAR_DEC)",
+                            "PresetId": null,
+                            "Type": "MSFS2020CustomInputAction"
+                        },
+                        "onRight": {
+                            "Command": "(>K:AP_SPD_VAR_INC)",
+                            "PresetId": null,
+                            "Type": "MSFS2020CustomInputAction"
+                        },
+                        "onLeftFast": null,
+                        "onRightFast": null
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": {
+                        "Devices": [],
+                        "Name": "FCU Cube",
+                        "Serial": "JS-5CEE68613138"
+                    },
+                    "Device": {
+                        "Name": "Analog 1",
+                        "Type": "AnalogInput"
+                    },
+                    "GUID": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "Name": "MSFS Analog Action",
+                    "Type": "InputConfigItem",
+                    "analog": {
+                        "onChange": {
+                            "Command": "(>K:HEADING_BUG_SET)",
+                            "PresetId": null,
+                            "Type": "MSFS2020CustomInputAction"
+                        }
+                    }
+                },
+                {
+                    "Active": true,
+                    "Controller": null,
+                    "DeviceName": null,
+                    "DeviceType": null,
+                    "GUID": "bd9e846b-deab-4219-bbdb-6f0a8e7634f9",
+                    "Name": "Just an output config for references and preconditions",
+                    "Source": {
+                        "SimConnectValue": {
+                            "VarType": 0
+                        },
+                        "Type": "SimConnectSource"
+                    },
+                    "TestValue": {
+                        "Float64": 1,
+                        "String": null,
+                        "type": 1
+                    },
+                    "Type": "OutputConfigItem"
+                },
+                {
+                    "Active": true,
+                    "Controller": null,
+                    "DeviceName": null,
+                    "DeviceType": null,
+                    "GUID": "09a117bb-9734-45d2-b53c-82fa36baf102",
+                    "Name": "config reference #2 ",
+                    "Source": {
+                        "SimConnectValue": {
+                            "VarType": 0
+                        },
+                        "Type": "SimConnectSource"
+                    },
+                    "TestValue": {
+                        "Float64": 1,
+                        "String": null,
+                        "type": 1
+                    },
+                    "Type": "OutputConfigItem"
+                },
+                {
+                    "Active": true,
+                    "Controller": null,
+                    "DeviceName": null,
+                    "DeviceType": null,
+                    "GUID": "2ff5eb95-d2ba-4fd1-b779-169083b695c1",
+                    "Name": "config reference #3",
+                    "Source": {
+                        "SimConnectValue": {
+                            "VarType": 0
+                        },
+                        "Type": "SimConnectSource"
+                    },
+                    "TestValue": {
+                        "Float64": 1,
+                        "String": null,
+                        "type": 1
+                    },
+                    "Type": "OutputConfigItem"
+                }
+            ],
+            "EmbedContent": true,
+            "FileName": null,
+            "Label": "New file",
+            "ReferenceOnly": false
+        }
+    ],
+    "ControllerBindings": null,
+    "Features": {
+        "FSUIPC": true,
+        "ProSim": true
+    },
+    "FilePath": "C:\\Users\\sebas\\Downloads\\test - input config wizard.mfproj",
+    "Name": "test - input config wizard",
+    "Sim": "msfs"
+}

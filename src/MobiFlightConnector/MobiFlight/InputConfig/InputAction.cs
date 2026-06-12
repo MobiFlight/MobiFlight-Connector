@@ -21,6 +21,9 @@ namespace MobiFlight.InputConfig
     [JsonConverter(typeof(InputActionConverter))]
     abstract public class InputAction : IXmlSerializable, ICloneable
     {
+        [JsonProperty("Type")]
+        public string Type => GetType().Name;
+
         public const String Label = "InputAction";
         public const String CacheType = "FSUIPC";
         
@@ -58,6 +61,5 @@ namespace MobiFlight.InputConfig
             return expression; 
         }
 
-        
     }
 }

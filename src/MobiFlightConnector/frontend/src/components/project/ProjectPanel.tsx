@@ -13,12 +13,13 @@ import { useTranslation } from "react-i18next"
 import ExecutionToolbar from "../ExecutionToolbar"
 import ProjectNameLabel from "./ProjectNameLabel"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { useWindowSize } from "@/lib/hooks/useWindowSize"
 import { useOverflowDetector } from "@/lib/hooks/useOverflowDetector"
 import { cn } from "@/lib/utils"
 import ConfirmationDialog from "@/components/ConfirmationDialog"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
+import InputConfigDialog from "@/components/wizard/InputConfigDialog"
 
 const ProjectPanel = () => {
   const SCROLL_TAB_INTO_VIEW_DELAY_MS = 1500
@@ -50,7 +51,8 @@ const ProjectPanel = () => {
   } = useProjectStore()
 
   const configFiles = project?.ConfigFiles ?? []
-
+  const { configId } = useParams() as { configId?: string }
+  
   useEffect(() => {
     if (project === null) return
 
@@ -390,6 +392,7 @@ const ProjectPanel = () => {
         saveChanges={saveChanges}
         discardChanges={discardChanges}
       />
+      {configId && <InputConfigDialog configId={configId} />}
     </div>
   )
 }

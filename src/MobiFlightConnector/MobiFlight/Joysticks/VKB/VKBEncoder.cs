@@ -24,7 +24,7 @@ namespace MobiFlight.Joysticks.VKB
             }
             else
             {
-                value = initialValue?? 0;
+                value = initialValue ?? 0;
                 firstStart = false;
             }
             CreateDevices(index);
@@ -51,8 +51,20 @@ namespace MobiFlight.Joysticks.VKB
         {
             // Virtual buttons use a button ID range that is out of the reach of DirectInput.
             // For ease of readability, the numbering scheme is 1IID, where II is a two-digit encoder ID and D is a direction (0 for decrement, 5 for increment).
-            DeviceInc = new JoystickDevice { Name = $"Button {1000 + 10 * index + (int)EncoderAction.INC}", Label = $"Encoder {index+1} INC", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button };
-            DeviceDec = new JoystickDevice { Name = $"Button {1000 + 10 * index + (int)EncoderAction.DEC}", Label = $"Encoder {index+1} DEC", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button };
+            DeviceInc = new JoystickDevice
+            {
+                Name = $"Button {1000 + 10 * index + (int)EncoderAction.INC}",
+                Label = $"Encoder {index + 1} INC",
+                Type = DeviceType.Button,
+                JoystickDeviceType = JoystickDeviceType.Button
+            };
+            DeviceDec = new JoystickDevice
+            {
+                Name = $"Button {1000 + 10 * index + (int)EncoderAction.DEC}",
+                Label = $"Encoder {index + 1} DEC",
+                Type = DeviceType.Button,
+                JoystickDeviceType = JoystickDeviceType.Button
+            };
         }
 
         public IEnumerable<InputEventArgs> Update(ushort newPosition)
@@ -61,7 +73,7 @@ namespace MobiFlight.Joysticks.VKB
             if (firstStart)
             {
                 value = newPosition;
-                firstStart= false;
+                firstStart = false;
                 return events;
             }
             short deltaCount = (short)((newPosition - value) & 0xFFFF); // Explicit type to highlight the importance of that cast to identify direction.
@@ -71,11 +83,21 @@ namespace MobiFlight.Joysticks.VKB
                 {
                     value++;
                     // null pointer check for avoiding runtime errors. This should not happen.
-                    if(DeviceInc == null)
+                    if (DeviceInc == null)
                     {
                         continue;
                     }
-                    events.Add(new InputEventArgs { DeviceId = DeviceInc.Name, DeviceLabel = DeviceInc.Label, Type = DeviceType.Button, Value = (int)MobiFlightButton.InputEvent.PRESS });
+                    events.Add(new InputEventArgs
+                    {
+                        Device = new Base.DeviceReference
+                        {
+                            Name = DeviceInc.Name,
+                            Label = DeviceInc.Label,
+                            Type = DeviceType.Button
+                        },
+                        InputType = DeviceType.Button,
+                        Value = (int)MobiFlightButton.InputEvent.PRESS
+                    });
                 }
             }
             else if (deltaCount < 0)
@@ -88,7 +110,17 @@ namespace MobiFlight.Joysticks.VKB
                     {
                         continue;
                     }
-                    events.Add(new InputEventArgs { DeviceId = DeviceDec.Name, DeviceLabel = DeviceDec.Label, Type = DeviceType.Button, Value = (int)MobiFlightButton.InputEvent.PRESS });
+                    events.Add(new InputEventArgs
+                    {
+                        Device = new Base.DeviceReference
+                        {
+                            Name = DeviceDec.Name,
+                            Label = DeviceDec.Label,
+                            Type = DeviceType.Button
+                        },
+                        InputType = DeviceType.Button,
+                        Value = (int)MobiFlightButton.InputEvent.PRESS
+                    });
                 }
             }
             return events;

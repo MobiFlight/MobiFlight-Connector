@@ -27,6 +27,7 @@ using System.Drawing;
 using MobiFlight.BrowserMessages.Incoming.Handler;
 using System.ComponentModel;
 using MobiFlight.Controllers;
+using MobiFlight.UI.StateBadge;
 
 namespace MobiFlight.UI
 {
@@ -119,15 +120,10 @@ namespace MobiFlight.UI
 
         private void InitializeLogging()
         {
-            LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
-
-            Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
-            logPanel1.Visible = Log.Instance.Enabled;
-            logSplitter.Visible = Log.Instance.Enabled;
 
             try
             {
@@ -220,10 +216,6 @@ namespace MobiFlight.UI
                 {
                     OpenOutputConfigWizardForId(message.Item.GUID);
                 }
-                else if (msg.Item.Type == typeof(InputConfigItem).Name)
-                {
-                    OpenInputConfigWizardForId(message.Item.GUID);
-                }
             });
 
             MessageExchange.Instance.Subscribe<CommandAddConfigFile>((message) =>
@@ -284,7 +276,7 @@ namespace MobiFlight.UI
 
                 // Only evaluate success if AuthProcess is still in progress.
                 // Once the auth process is completed, we want to ignore any further messages.
-                if (message.State == CommandUserAuthenticationState.success && 
+                if (message.State == CommandUserAuthenticationState.success &&
                     frontendPanel1.AuthProcessInProgress)
                 {
                     frontendPanel1.EndAuthProcess();
@@ -359,62 +351,6 @@ namespace MobiFlight.UI
                 }
             }
 
-            MessageExchange.Instance.Publish(new OverlayState() { Visible = false });
-        }
-
-        private void OpenInputConfigWizardForId(string guid)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((Action)(() => OpenInputConfigWizardForId(guid)));
-                return;
-            }
-
-            var cfg = execManager.ConfigItems.Find(c => c.GUID == guid);
-            if (cfg == null || !(cfg is InputConfigItem)) return;
-
-            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
-            System.Threading.SynchronizationContext.Current.Post((_) =>
-            {
-                _editConfigWithInputWizard(cfg as InputConfigItem, false);
-            }, null);
-        }
-
-        private void _editConfigWithInputWizard(InputConfigItem cfg, bool create)
-        {
-            // refactor!!! dependency to arcaze cache etc not nice
-            InputConfigWizard wizard = new InputConfigWizard(
-                                execManager,
-                                cfg,
-#if ARCAZE
-                                execManager.getModuleCache(),
-                                execManager.getModuleCache().GetArcazeModuleSettings(),
-#endif
-                                execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList(),
-                                execManager.GetAvailableVariables(),
-                                execManager.Project.ToProjectInfo()
-                                )
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
-
-            wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
-
-            MessageExchange.Instance.Publish(new OverlayState() { Visible = true });
-            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                if (wizard.ConfigHasChanged())
-                {
-                    // we have to update the config
-                    // using the duplicated config 
-                    // that the user edited with the wizard
-                    var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
-                    execManager.ConfigItems[index] = wizard.Config;
-                    MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    OnConfigItemHasChanged(wizard.Config, null);
-                    execManager.OnInputConfigSettingsChanged(wizard.Config, null);
-                }
-            }
             MessageExchange.Instance.Publish(new OverlayState() { Visible = false });
         }
 
@@ -639,6 +575,12 @@ namespace MobiFlight.UI
                     );
                 }
             }
+
+            // Publish the updated list of available variables
+            var availableVars = execManager.GetAvailableVariables();
+            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate() { 
+                Variables = availableVars.Values.ToList() 
+            });
 
             ProjectHasUnsavedChanges = true;
             SetProjectFilePathInTitle();
@@ -902,7 +844,7 @@ namespace MobiFlight.UI
             execManager.Shutdown();
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
-            logPanel1.Shutdown();
+            runningStateBadge?.Dispose();
         } //Form1_FormClosed
 
         private void SaveWindowPositionAndZoomLevel()
@@ -1222,11 +1164,6 @@ namespace MobiFlight.UI
                 AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
             }
 
-            if (e.SettingName == "LogEnabled")
-            {
-                logPanel1.Visible = (bool)e.NewValue;
-                logSplitter.Visible = (bool)e.NewValue;
-            }
         }
 
         private void _autoloadConfig()
@@ -1631,6 +1568,7 @@ namespace MobiFlight.UI
                 execManager.Start();
                 if (Properties.Settings.Default.MinimizeOnAutoRun)
                 {
+                    this.WindowState = FormWindowState.Minimized;
                     minimizeMainForm(true);
                 }
             }
@@ -1807,6 +1745,10 @@ namespace MobiFlight.UI
 
                 // The Stop entry
                 contextMenuStripNotifyIcon.Items[1].Enabled = isRunning;
+
+                if (runningStateBadge == null)
+                    runningStateBadge = new RunningStateIconBadge(notifyIcon, this);
+                runningStateBadge.Update(isRunning);
             }
             catch (Exception ex)
             {
@@ -1814,6 +1756,8 @@ namespace MobiFlight.UI
                 Log.Instance.log(ex.Message, LogSeverity.Info);
             }
         }
+
+        private RunningStateIconBadge runningStateBadge;
 
         /// <summary>
         /// present errors to user via message dialog or when minimized via balloon
@@ -1876,10 +1820,6 @@ namespace MobiFlight.UI
             if (minimized)
             {
                 notifyIcon.Visible = true;
-                notifyIcon.BalloonTipTitle = i18n._tr("uiMessageMFConnectorInterfaceActive");
-                notifyIcon.BalloonTipText = i18n._tr("uiMessageApplicationIsRunningInBackgroundMode");
-                notifyIcon.ShowBalloonTip(1000);
-                this.Hide();
             }
             else
             {

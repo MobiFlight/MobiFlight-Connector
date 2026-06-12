@@ -108,8 +108,6 @@ namespace MobiFlight.UI.Dialogs
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
             };
 
-
-
             testValuePanel1.FromConfig(config);
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
             testValuePanel1.TestModeStop += TestValuePanel_TestModeEnd;
@@ -245,8 +243,6 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.HubHopPresetPanel.LVars = (sender as List<String>);
         }
 
-
-
 #if ARCAZE
         /// <summary>
         /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
@@ -256,7 +252,6 @@ namespace MobiFlight.UI.Dialogs
         {
             var PreconditionModuleList = new List<ListItem<Controller>>();
             var DisplayModuleList = new List<ListItem<Controller>>();
-
 
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
@@ -318,7 +313,7 @@ namespace MobiFlight.UI.Dialogs
         {
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                if (joystick.GetAvailableOutputDevicesAsListItems().Count == 0 &&
+                if (joystick.GetAvailableOutputDevices().Count == 0 &&
                     joystick.GetAvailableLcdDevices().Count == 0) continue;
 
                 DisplayModuleList.Add(new ListItem<Controller>()

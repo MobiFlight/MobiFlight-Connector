@@ -12,7 +12,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
     public partial class MFOutputPanel : UserControl
     {
 
-        private MobiFlight.Config.Output output;
+        private MobiFlight.Firmware.Output output;
         private Board MobiFlightBoard;
         private bool initialized = false;
         
@@ -24,7 +24,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFOutputPanel(MobiFlight.Config.Output output, List<MobiFlightPin> Pins, Board MobiFlightBoard): this()
+        public MFOutputPanel(MobiFlight.Firmware.Output output, List<MobiFlightPin> Pins, Board MobiFlightBoard): this()
         {
             this.output = output;
             this.MobiFlightBoard = MobiFlightBoard;

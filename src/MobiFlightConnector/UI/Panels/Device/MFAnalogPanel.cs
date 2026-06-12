@@ -17,7 +17,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         static int MIN_SENSITIVITY = 1;
         static int MAX_SENSITIVITY = 20;
         static String DEFAULT_SENSITIVITY_STRING = DEFAULT_SENSITIVITY.ToString();
-        private MobiFlight.Config.AnalogInput analog;
+        private MobiFlight.Firmware.AnalogInput analog;
         private bool initialized = false;        
 
         public event EventHandler Changed;
@@ -36,7 +36,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             value_Changed(sender, e);
         }
 
-        public MFAnalogPanel(MobiFlight.Config.AnalogInput analogDevice, List<MobiFlightPin> FreePins): this()
+        public MFAnalogPanel(MobiFlight.Firmware.AnalogInput analogDevice, List<MobiFlightPin> FreePins): this()
         {
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, FreePins, analogDevice.Pin, true);
 

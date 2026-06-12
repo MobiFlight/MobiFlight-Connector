@@ -1,16 +1,12 @@
-﻿using MobiFlight.Config;
+﻿using MobiFlight.Base;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
 namespace MobiFlight
 {
-    public class MidiBoardDevice : IBaseDevice
+    public class MidiBoardDevice : DeviceReference
     {
-        public DeviceType Type { get; set; }
-        public String Name { get; set; }
-        public String Label { get; set; }
-
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public String Layer;
 

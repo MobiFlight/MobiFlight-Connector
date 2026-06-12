@@ -143,17 +143,14 @@
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3800.47, Culture=neutral, PublicKeyToken=2a8ab48044d2601e">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3800.47\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3800.47, Culture=neutral, PublicKeyToken=2a8ab48044d2601e">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3800.47\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3800.47, Culture=neutral, PublicKeyToken=2a8ab48044d2601e">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3800.47\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Midi">
       <HintPath>..\..\lib\Midi.dll</HintPath>
@@ -188,22 +185,20 @@
       <HintPath>..\..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.CodeDom, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\..\packages\System.CodeDom.10.0.5\lib\net462\System.CodeDom.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.CodeDom, Version=10.0.0.9, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.CodeDom.10.0.9\lib\net462\System.CodeDom.dll</HintPath>
     </Reference>
-    <Reference Include="System.Collections.Immutable, Version=10.0.0.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\..\packages\System.Collections.Immutable.10.0.5\lib\net462\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Collections.Immutable, Version=10.0.0.9, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Collections.Immutable.10.0.9\lib\net462\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.10.0.3\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.9, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.10.0.9\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Ports, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.IO.Ports.10.0.5\lib\net462\System.IO.Ports.dll</HintPath>
+    <Reference Include="System.IO.Ports, Version=10.0.0.9, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Ports.10.0.9\lib\net462\System.IO.Ports.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
@@ -303,12 +298,15 @@
     <Compile Include="Base\ConfigRefList.cs" />
     <Compile Include="Base\ConfigItemStatus.cs" />
     <Compile Include="Base\Controller.cs" />
+    <Compile Include="Base\DeviceReference.cs" />
     <Compile Include="Base\DPIUtil.cs" />
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\IConfigFile.cs" />
+    <Compile Include="Base\IDeviceConfig.cs" />
     <Compile Include="Base\InputEventExecutor.cs" />
     <Compile Include="Base\LruCache.cs" />
+    <Compile Include="Base\Migration\V0_10_InputConfigItemDeviceMigration.cs" />
     <Compile Include="Base\Migration\Output_V_0_9_Migration.cs" />
     <Compile Include="Base\Migration\Precondition_V_0_9_Migration.cs" />
     <Compile Include="Base\ObservableObject.cs" />
@@ -320,7 +318,6 @@
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
-    <Compile Include="Base\IDeviceConfig.cs" />
     <Compile Include="Base\LogAppender\MessageExchangeAppender.cs" />
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\ProgressUpdateEvent.cs" />
@@ -344,9 +341,11 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandProjectToolbar.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandMainMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandRefreshPresets.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandDiscardChanges.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandOpenLinkInBrowser.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandScanForInput.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
     <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
@@ -360,6 +359,8 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\AuthenticationStatus.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConnectedControllers.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ControllerBindingsUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ProSimDataRefDefinitionUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\MobiFlightVariablesUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\RecentProjects.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueFullUpdate.cs" />
@@ -371,23 +372,26 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ExecutionState.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ScanForInputResult.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\VJoyDefinitionsUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\CompositePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\ConfigRefValue.cs" />
-    <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
-    <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
-    <Compile Include="MobiFlight\Config\IBaseDevice.cs" />
-    <Compile Include="MobiFlight\Config\InputMultiplexer.cs" />
-    <Compile Include="MobiFlight\Config\CustomDevice.cs" />
-    <Compile Include="MobiFlight\Config\MultiplexerDriver.cs" />
-    <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
-    <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
-    <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
-    <Compile Include="MobiFlight\Config\AnalogInput.cs" />
+    <Compile Include="MobiFlight\DeviceReferenceFactory.cs" />
+    <Compile Include="MobiFlight\Firmware\Compatibility\LedModuleDeprecated.cs" />
+    <Compile Include="MobiFlight\Firmware\Compatibility\StepperDeprecatedV2.cs" />
+    <Compile Include="MobiFlight\Firmware\IBaseDevice.cs" />
+    <Compile Include="MobiFlight\Firmware\InputMultiplexer.cs" />
+    <Compile Include="MobiFlight\Firmware\CustomDevice.cs" />
+    <Compile Include="MobiFlight\Firmware\MultiplexerDriver.cs" />
+    <Compile Include="MobiFlight\Firmware\InputShiftRegister.cs" />
+    <Compile Include="MobiFlight\Firmware\ShiftRegister.cs" />
+    <Compile Include="MobiFlight\Firmware\IConfigRefConfigItem.cs" />
+    <Compile Include="MobiFlight\Firmware\AnalogInput.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerAutoBinder.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerBinding.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerBindingService.cs" />
@@ -403,12 +407,8 @@
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\Button.cs" />
     <Compile Include="MobiFlight\InputConfig\Encoder.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputMultiplexer.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputMultiplexerConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionExecutionCache.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionFactory.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputShiftRegister.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputShiftRegisterConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\ProSimInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
@@ -418,6 +418,7 @@
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoard.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
+    <Compile Include="MobiFlight\Joysticks\IIDB\IIDBDevice.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
     <Compile Include="MobiFlight\ControllerDefinitionMigrator.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDevice.cs" />
@@ -513,6 +514,10 @@
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClientData.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
+    <Compile Include="UI\StateBadge\BadgedIcon.cs" />
+    <Compile Include="UI\StateBadge\StateBadgeRenderer.cs" />
+    <Compile Include="UI\StateBadge\TaskbarOverlay.cs" />
+    <Compile Include="UI\StateBadge\RunningStateIconBadge.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -528,9 +533,9 @@
     <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
     <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
     <Compile Include="FSUIPC\FSUIPCCacheInterface.cs" />
-    <Compile Include="MobiFlight\Config\Encoder.cs" />
-    <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
-    <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
+    <Compile Include="MobiFlight\Firmware\Encoder.cs" />
+    <Compile Include="MobiFlight\Firmware\EncoderSingleDetent.cs" />
+    <Compile Include="MobiFlight\Firmware\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSim.cs" />
     <Compile Include="UI\Dialogs\DonateDialog.cs">
       <SubType>Form</SubType>
@@ -905,12 +910,6 @@
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
     <Compile Include="FSUIPC\FsuipcHelper.cs" />
     <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
-    <Compile Include="UI\Dialogs\InputConfigWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Dialogs\InputConfigWizard.Designer.cs">
-      <DependentUpon>InputConfigWizard.cs</DependentUpon>
-    </Compile>
     <Compile Include="Base\ListItem.cs" />
     <Compile Include="Base\Log.cs" />
     <Compile Include="UI\MainForm.cs">
@@ -925,14 +924,14 @@
     <Compile Include="Base\IOutputModule.cs" />
     <Compile Include="MobiFlight\FirmwareVersionTooLowException.cs" />
     <Compile Include="MobiFlight\InputConfigItem.cs" />
-    <Compile Include="MobiFlight\Config\BaseDevice.cs" />
-    <Compile Include="MobiFlight\Config\Button.cs" />
-    <Compile Include="MobiFlight\Config\IConfigItem.cs" />
-    <Compile Include="MobiFlight\Config\Config.cs" />
-    <Compile Include="MobiFlight\Config\Output.cs" />
-    <Compile Include="MobiFlight\Config\Stepper.cs" />
-    <Compile Include="MobiFlight\Config\Servo.cs" />
-    <Compile Include="MobiFlight\Config\LedModule.cs" />
+    <Compile Include="MobiFlight\Firmware\BaseDevice.cs" />
+    <Compile Include="MobiFlight\Firmware\Button.cs" />
+    <Compile Include="MobiFlight\Firmware\IFirmwareConfigSerializable.cs" />
+    <Compile Include="MobiFlight\Firmware\Config.cs" />
+    <Compile Include="MobiFlight\Firmware\Output.cs" />
+    <Compile Include="MobiFlight\Firmware\Stepper.cs" />
+    <Compile Include="MobiFlight\Firmware\Servo.cs" />
+    <Compile Include="MobiFlight\Firmware\LedModule.cs" />
     <Compile Include="UI\Forms\FirmwareUpdateProcess.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1313,6 +1312,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\bodnar\BU0836X.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\iidb\iidb_tiller_a32x_cpt.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\iidb\iidb_tiller_a32x_fo.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\vkbsim\s_tecs_modern_throttle_max.joystick.json">
@@ -2055,14 +2060,6 @@
       <DependentUpon>ConfigWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialogs\InputConfigWizard.de.resx">
-      <DependentUpon>InputConfigWizard.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialogs\InputConfigWizard.resx">
-      <DependentUpon>InputConfigWizard.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -2308,10 +2305,9 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3800.47\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.3800.47\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
-  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.3800.47\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3800.47\build\Microsoft.Web.WebView2.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -2319,4 +2315,5 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" />
 </Project>

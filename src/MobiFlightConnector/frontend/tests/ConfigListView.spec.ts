@@ -234,6 +234,44 @@ test.describe("Confirm content and basic functions are working", () => {
     await expect(TestIcon).toHaveAttribute("aria-disabled", "true")
     await expect(ConfigRefIcon).toHaveAttribute("aria-disabled", "true")
   })
+
+  test("Confirm add output config is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
+
+    const addOutputConfigButton = page.getByRole("button", {
+      name: "Add Output Config",
+    })
+    await addOutputConfigButton.click()
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandAddConfigItem")
+    expect(lastCommand.payload.type).toEqual("OutputConfig")
+  })
+
+  test("Confirm add input config is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
+
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandAddConfigItem")
+    expect(lastCommand.payload.type).toEqual("InputConfig")
+  })
 })
 
 test.describe("Verify Error Boundary", () => {
@@ -587,44 +625,6 @@ test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await expect(page.locator("html")).toHaveAttribute("class", "light")
 })
 
-test("Confirm add output config is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
-
-  const addOutputConfigButton = page.getByRole("button", {
-    name: "Add Output Config",
-  })
-  await addOutputConfigButton.click()
-
-  const postedCommands =
-    await configListPage.mobiFlightPage.getTrackedCommands()
-  const lastCommand = postedCommands!.pop()
-  expect(lastCommand.key).toEqual("CommandAddConfigItem")
-  expect(lastCommand.payload.type).toEqual("OutputConfig")
-})
-
-test("Confirm add input config is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
-
-  const addOutputConfigButton = page.getByRole("button", {
-    name: "Add Input Config",
-  })
-  await addOutputConfigButton.click()
-
-  const postedCommands =
-    await configListPage.mobiFlightPage.getTrackedCommands()
-  const lastCommand = postedCommands!.pop()
-  expect(lastCommand.key).toEqual("CommandAddConfigItem")
-  expect(lastCommand.payload.type).toEqual("InputConfig")
-})
-
 test.describe("Filter toolbar tests", () => {
   test("Confirm `Search text` filter toolbar is working", async ({
     configListPage,
@@ -635,10 +635,10 @@ test.describe("Filter toolbar tests", () => {
 
     const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
     const rows = page.locator("tbody tr")
-    await expect(rows).toHaveCount(15)
+    await expect(rows).toHaveCount(16)
 
     await searchTextBox.fill("A")
-    await expect(rows).toHaveCount(3)
+    await expect(rows).toHaveCount(4)
 
     await searchTextBox.fill("Ana")
     await expect(rows).toHaveCount(1)
@@ -650,7 +650,7 @@ test.describe("Filter toolbar tests", () => {
     await expect(clearButton).not.toHaveCount(0)
 
     await clearButton.first().click()
-    await expect(rows).toHaveCount(15)
+    await expect(rows).toHaveCount(16)
 
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
     await rows.first().click()
@@ -687,16 +687,16 @@ test.describe("Filter toolbar tests", () => {
 
     await inputOption.click()
     await outputOption.click()
-    await expect(visibleRows).toHaveCount(7)
+    await expect(visibleRows).toHaveCount(8)
 
     await clearFiltersOption.click()
-    await expect(visibleRows).toHaveCount(15)
+    await expect(visibleRows).toHaveCount(16)
 
     const inputField = page.getByPlaceholder("Config Type")
     await inputField.click()
     await inputField.fill("In")
     await inputField.press("Enter")
-    await expect(visibleRows).toHaveCount(7)
+    await expect(visibleRows).toHaveCount(8)
     await page.locator("#root").click()
     await page.waitForTimeout(500)
 
@@ -726,7 +726,7 @@ test.describe("Filter toolbar tests", () => {
       .click()
     await expect(rows).toHaveCount(1)
     await clearFilterOption.click()
-    await expect(rows).toHaveCount(15)
+    await expect(rows).toHaveCount(16)
 
     await page
       .getByRole("option", { name: "ProtoBoard" })
@@ -770,20 +770,20 @@ test.describe("Filter toolbar tests", () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(15)
+      await expect(rows).toHaveCount(16)
     }
 
     const deviceTypes = [
       ["Analog Input", 2],
       ["Encoder", 2],
-      ["Button", 3],
+      ["Button", 4],
       ["Output", 1],
       ["Output Shift Register", 1],
       ["LCD Display", 1],
       ["Servo", 1],
       ["Stepper", 1],
       ["7-Segment", 1],
-      ["not set", 1],
+      ["not set", 2],
     ] as Array<[string, number]>
 
     for (const [deviceTypeName, expectedCount] of deviceTypes) {
@@ -812,7 +812,7 @@ test.describe("Filter toolbar tests", () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(15)
+      await expect(rows).toHaveCount(16)
     }
 
     const deviceNames = [

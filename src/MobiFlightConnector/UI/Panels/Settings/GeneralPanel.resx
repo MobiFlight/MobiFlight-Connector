@@ -884,7 +884,7 @@
     <value>1</value>
   </data>
   <data name="minimizeOnAutoRunCheckbox.Text" xml:space="preserve">
-    <value>Minimize to system tray on AutoRun</value>
+    <value>Minimize on AutoRun</value>
   </data>
   <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Name" xml:space="preserve">
     <value>minimizeOnAutoRunCheckbox</value>

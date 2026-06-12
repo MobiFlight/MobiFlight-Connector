@@ -215,5 +215,15 @@ namespace MobiFlight.Tests
             Assert.AreNotEqual("", json, "Non-empty Precondition must not be serialized to empty when the converter is enabled.");
             Assert.IsFalse(string.IsNullOrEmpty(json), "Serialized JSON should not be empty.");
         }
+
+        [TestMethod]
+        public void Evaluate_ShouldReturnFalse_WhenValueIsNull()
+        {
+            var p = _generateTestObject();
+            p.Value = null;
+
+            var result = p.Evaluate(null, new ConnectorValue());
+            Assert.IsFalse(result, "Evaluate should return false when Value is null.");
+        }
     }
 }

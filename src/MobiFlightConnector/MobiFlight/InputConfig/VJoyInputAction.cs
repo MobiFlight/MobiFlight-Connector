@@ -1,11 +1,7 @@
-﻿using System;
+﻿using MobiFlight.VJoy;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using MobiFlight.FSUIPC;
-using MobiFlight.VJoy;
 
 namespace MobiFlight.InputConfig
 {

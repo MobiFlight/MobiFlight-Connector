@@ -704,4 +704,7 @@ Website wird nach Betätigung von OK geöffnet.</value>
   <data name="uiMessagePythonHint" xml:space="preserve">
     <value>Python Umgebung nicht bereit</value>
   </data>
+  <data name="uiLabelTrayTooltipFormat" xml:space="preserve">
+    <value>MFConnector - {0}</value>
+  </data>
 </root>

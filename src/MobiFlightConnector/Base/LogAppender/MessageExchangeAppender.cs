@@ -1,28 +1,23 @@
 ﻿using MobiFlight.BrowserMessages.Outgoing;
 using System;
 using System.Collections.Concurrent;
-using System.Windows.Forms;
+using System.Threading;
 
 namespace MobiFlight.Base.LogAppender
 {
     public class MessageExchangeAppender : ILogAppender
     {
-        private ConcurrentQueue<LogEntry> LogQueue = new ConcurrentQueue<LogEntry>();
-        private readonly Timer ProcessTimer = new System.Windows.Forms.Timer();
+        private readonly ConcurrentQueue<LogEntry> LogQueue = new ConcurrentQueue<LogEntry>();
+        private Timer ProcessTimer;
+        private readonly object _timerLock = new object();
 
         public MessageExchangeAppender()
         {
-            ProcessTimer.Interval = 50;
-            ProcessTimer.Tick += ProcessTimer_Tick;
+
         }
 
         public void log(string message, LogSeverity severity)
         {
-            if (!ProcessTimer.Enabled)
-            {
-                ProcessTimer.Start();
-            }
-
             var m = new LogEntry
             {
                 Timestamp = DateTime.Now,
@@ -31,11 +26,23 @@ namespace MobiFlight.Base.LogAppender
             };
 
             LogQueue.Enqueue(m);
+
+            if (ProcessTimer == null)
+            {
+                var newTimer = new Timer(ProcessTimer_Tick, this, 0, 100);
+                // handle potential race condition during timer initialization
+                if (Interlocked.CompareExchange(ref ProcessTimer, newTimer, null) != null)
+                {
+                    newTimer.Dispose();
+                }
+            }
         }
 
-        private void ProcessTimer_Tick(object sender, EventArgs e)
+        private static void ProcessTimer_Tick(object state)
         {
-            while (LogQueue.TryDequeue(out var logEntry))
+            if (!(state is MessageExchangeAppender appender)) return;
+
+            while (appender.LogQueue.TryDequeue(out var logEntry))
             {
                 BrowserMessages.MessageExchange.Instance.Publish(logEntry);
             }

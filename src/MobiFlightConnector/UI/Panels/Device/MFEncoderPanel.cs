@@ -12,7 +12,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
     public partial class MFEncoderPanel : UserControl
     {
 
-        private MobiFlight.Config.Encoder encoder;
+        private MobiFlight.Firmware.Encoder encoder;
         private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
         private bool initialized = false;
 
@@ -25,7 +25,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfRightPinComboBox.Items.Clear();
         }
 
-        public MFEncoderPanel(MobiFlight.Config.Encoder encoder, List<MobiFlightPin> Pins) : this()
+        public MFEncoderPanel(MobiFlight.Firmware.Encoder encoder, List<MobiFlightPin> Pins) : this()
         {
             pinList = Pins;
             this.encoder = encoder;

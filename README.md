@@ -1,42 +1,28 @@
 [![RunTests](https://github.com/MobiFlight/MobiFlight-Connector/actions/workflows/ci.yml/badge.svg)](https://github.com/MobiFlight/MobiFlight-Connector/actions/workflows/ci.yml)
 
-# Readme #
+# MobiFlight Connector
 
-### What is this repository for? ###
-This repository contains the code for the Mobiflight Project
+**Winner — Best DIY Hardware, [FlightSim Awards 2026](https://flightsim-awards.com/)**
 
-### How do I get set up? ###
+MobiFlight Connector is a free, open-source Windows application that bridges flight simulators and custom hardware. Connect physical buttons, encoders, displays, LEDs, and off-the-shelf controllers to MSFS, X-Plane, FSX, or P3D — no programming required.
 
-#### Summary of set up ####
-Checkout the code and open the MobiFlightConnector.sln project.
+## Highlights
 
-#### Configuration ####
-Compile with DEBUG option for development and debugging
-Compile with RELEASE option for release - this will also execute the release build scripts after compiling that package MobiFlight nicely.
+- **Works with what you have** - supports Arduino-based MobiFlight boards, MIDI controllers, USB HID game controllers, and more
+- **Multiple simulators** - MSFS (SimConnect), X-Plane, FSX, and P3D
+- **No coding needed** - configure everything through the UI with a point-and-click interface
+- **Active community** - thousands of users sharing configs, panels, and hardware builds
 
-#### Dependencies ####
-All Dependecies are currently contained in the repository and not referenced dynamically from their repository
+## Getting started
 
-* CommandMessenger - Library for communication back and forth between PC and Arduino
-* MobiflightConnector - The PC application for configuration and communication between Flightsim and Arduino
-* MobiFlightUnitTests - The test suite for the MobiFlight Connector
-* VersionInfo - A helper tool to detect the current release version, used during creation of Release Package
+Download from [mobiflight.com/download](https://mobiflight.com/download/) and check the [documentation](https://docs.mobiflight.com) to get up and running.
 
-#### How to run tests ####
-Run the MobiFlightConnectorTest project for unit tests
-#### Build release package instructions ####
-The release package is generated automatically using a RELEASE-build POST BUILD STEP. The necessary program to "sniff" the current version is part of the solution.
+## Community and Contributing
 
-### Contribution guidelines ###
+See [CONTRIBUTING](CONTRIBUTING.md) for ways to get involved in MobiFlight community - share ideas, help each other, submit bug reports, translations, hardware definitions, and code contributions.
 
-To be defined...
+## Supporting MobiFlight
 
-* Writing tests
-* Code review
-* Other guidelines
+MobiFlight is free and open source, maintained by volunteers. You can support the project through the [MobiFlight Club](https://mobiflight.com/members) membership program or via [GitHub Sponsors](https://github.com/sponsors/MobiFlight). Did I mention you can read more also about this on [CONTRIBUTING](CONTRIBUTING.md)? ;-)
 
-### Get more information ###
-Look at the wiki to [check for further information ](https://github.com/Mobiflight/MobiFlight-Connector/wiki)
-
-### Who do I talk to? ###
-Sebastian
+**Hardware vendors and businesses** that build on MobiFlight are encouraged to get in touch about partnership, consulting, and co-development options. See [the vendor section on CONTRIBUTING](CONTRIBUTING.md#for-businesses-and-hardware-vendors) for details.

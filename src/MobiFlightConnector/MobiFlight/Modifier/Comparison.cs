@@ -60,7 +60,6 @@ namespace MobiFlight.Modifier
             ElseValue = reader["elseValue"];
         }
 
-
         override public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("comparison");
@@ -204,7 +203,7 @@ namespace MobiFlight.Modifier
                     break;
             }
 
-            result = result.Replace("$", value.ToString());
+            result = result?.Replace("$", value.ToString() ?? string.Empty);
 
             return result;
         }

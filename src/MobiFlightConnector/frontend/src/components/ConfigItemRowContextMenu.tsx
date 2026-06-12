@@ -21,6 +21,7 @@ import {
   IconCopy,
   IconFlask,
 } from "@tabler/icons-react"
+import { useNavigate } from "react-router"
 
 // Shared items — no Radix Content wrapper, just the items themselves
 function MenuItems({
@@ -35,18 +36,25 @@ function MenuItems({
   Separator: typeof DropdownMenuSeparator | typeof ContextMenuSeparator
 }) {
   const { publish } = publishOnMessageExchange()
+  const navigate = useNavigate()
   const { startNameEdit } = useRowInteraction()
+
+  const isInputConfig = item.Type === "InputConfigItem"
 
   return (
     <>
       <Label>Actions</Label>
       <Item
-        onClick={() =>
+        onClick={() => {
+          if (isInputConfig) {
+            navigate("/config/" + item.GUID)
+            return
+          }
           publish({
             key: "CommandConfigContextMenu",
             payload: { action: "edit", item },
           } as CommandConfigContextMenu)
-        }
+        }}
       >
         <div className="flex items-center gap-2 [&_svg]:size-4">
           <IconEdit />

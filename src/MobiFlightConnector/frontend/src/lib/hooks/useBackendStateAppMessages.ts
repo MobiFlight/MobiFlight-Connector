@@ -12,7 +12,9 @@ import {
   HubHopState,
   JoystickDefinitions,
   MidiControllerDefinitions,
+  MobiFlightVariablesUpdate,
   ProjectStatus,
+  ProSimDataRefDefinitionUpdate,
   RecentProjects,
 } from "@/types/messages"
 import Settings from "@/types/settings"
@@ -30,6 +32,8 @@ import { ProjectInfo } from "@/types/project"
 import { useSearchParams } from "react-router"
 import _ from "lodash"
 import { Controller } from "@/types/controller"
+import { useVariableStore } from "@/stores/variableStore"
+import { useProSimDataRefStore } from "@/stores/prosimDataRefStore"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
@@ -44,6 +48,8 @@ export const useBackendStateAppMessages = () => {
     setMidiControllerDefinitions,
   } = useControllerDefinitionsStore()
   const { setIsRunning, setIsTesting } = useExecutionStateStore()
+  const { setVariables } = useVariableStore()
+  const { setDataRefs } = useProSimDataRefStore()
 
   const setHubHopState = useHubHopStateActions()
   const auth = useAuth()
@@ -143,6 +149,18 @@ export const useBackendStateAppMessages = () => {
     setControllerBindings(controllerBindings.Bindings)
   })
 
+  useAppMessage("MobiFlightVariablesUpdate", (message) => {
+    const update = message.payload as MobiFlightVariablesUpdate
+    console.log("MobiFlightVariablesUpdate message received", update)
+    setVariables(update.Variables)
+  })
+
+  useAppMessage("ProSimDataRefDefinitionUpdate", (message) => {
+    const update = message.payload as ProSimDataRefDefinitionUpdate
+    console.log("ProSimDataRefDefinitionUpdate message received", message)
+    setDataRefs(update.DataRefs)
+  })
+
   // this is only for easier UI testing
   // while developing the UI
   useEffect(() => {
@@ -157,11 +175,11 @@ export const useBackendStateAppMessages = () => {
             assert: { type: "json" },
           })
         ).default as Project
-        const testJsDefinition = (
+        const testJsDefinitions = (
           await import("@/../tests/data/joystick.definition.json", {
             assert: { type: "json" },
           })
-        ).default as JoystickDefinition
+        ).default as JoystickDefinition[]
         const testMidiDefinition = (
           await import("@/../tests/data/midicontroller.definition.json", {
             assert: { type: "json" },
@@ -180,7 +198,7 @@ export const useBackendStateAppMessages = () => {
 
         setProject(testProject)
         setRecentProjects(testRecentProjects)
-        setJoystickDefinitions([testJsDefinition])
+        setJoystickDefinitions(testJsDefinitions)
         setMidiControllerDefinitions([testMidiDefinition])
         setControllers(testControllers)
       })()

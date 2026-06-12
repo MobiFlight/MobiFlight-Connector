@@ -277,6 +277,17 @@ test("Confirm zoom menu items are present in View menu", async ({
   await expect(ZoomOutItem).toBeVisible()
 })
 
+test("Confirm View menu contains opens and closes Log Panel item", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.openLogPanel()
+
+  const logPanel = page.getByTestId("log-panel")
+  await expect(logPanel).toBeVisible()
+
+  await configListPage.mobiFlightPage.closeLogPanel()
+  await expect(logPanel).not.toBeVisible()
+})
+
 test("Confirm zoom menu items send correct commands", async ({
   configListPage,
   page,

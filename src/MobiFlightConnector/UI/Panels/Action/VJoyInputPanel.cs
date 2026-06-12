@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using MobiFlight.VJoy;
+﻿using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Config;
-using MobiFlight.InputConfig;
+using MobiFlight.VJoy;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Action
 {
@@ -150,15 +145,15 @@ namespace MobiFlight.UI.Panels.Action
             comboBoxButtonNr.Enabled = true;
             comboBoxButtonNr.SelectedIndex = 0;
 
-            VJoyHelper.AxisState axState = VJoyHelper.getAvailableAxis(id);
+            AxisState axState = VJoyHelper.getAvailableAxis(id);
             comboBoxAxis.Items.Clear();
             comboBoxAxis.Items.Add("--");
-            if (axState.xAxis) comboBoxAxis.Items.Add("X");
-            if (axState.yAxis) comboBoxAxis.Items.Add("Y");
-            if (axState.zAxis) comboBoxAxis.Items.Add("Z");
-            if (axState.rXAxis) comboBoxAxis.Items.Add("RX");
-            if (axState.rYAxis) comboBoxAxis.Items.Add("RY");
-            if (axState.rZAxis) comboBoxAxis.Items.Add("RZ");
+            if (axState.X) comboBoxAxis.Items.Add("X");
+            if (axState.Y) comboBoxAxis.Items.Add("Y");
+            if (axState.Z) comboBoxAxis.Items.Add("Z");
+            if (axState.RX) comboBoxAxis.Items.Add("RX");
+            if (axState.RY) comboBoxAxis.Items.Add("RY");
+            if (axState.RZ) comboBoxAxis.Items.Add("RZ");
             comboBoxAxis.Enabled = true;
             comboBoxAxis.SelectedIndex = 0;
         }
@@ -199,6 +194,5 @@ namespace MobiFlight.UI.Panels.Action
             }
         }
     }
-
 
 }

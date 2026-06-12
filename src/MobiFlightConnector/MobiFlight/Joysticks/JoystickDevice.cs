@@ -1,20 +1,10 @@
-using MobiFlight.Config;
-using System;
+using MobiFlight.Base;
 
 namespace MobiFlight
 {
-    public class JoystickDevice : IBaseDevice
+    public class JoystickDevice : DeviceReference
     {
-        public DeviceType Type { get; set; }
-        public String Name { get; set; }
-        public String Label { get; set; }
-
         public JoystickDeviceType JoystickDeviceType { get; set; }
-
-        public ListItem<IBaseDevice> ToListItem()
-        {
-            return new ListItem<IBaseDevice>() { Label = Label, Value = this };
-        }
     }
 
     public class JoystickOutputDevice : JoystickDevice

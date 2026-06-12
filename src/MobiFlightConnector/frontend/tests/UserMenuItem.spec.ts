@@ -11,10 +11,14 @@ const basicName = process.env.TESTS_BASIC_NAME
 
 const memberEmail = process.env.TESTS_MEMBER_EMAIL
 const memberName = process.env.TESTS_MEMBER_NAME
+const memberPassword = process.env.TESTS_MEMBER_PASSWORD
+
+const basicCredentialsAvailable = !!basicEmail && !!basicName && !!basicPassword
+const memberCredentialsAvailable = !!memberEmail && !!memberName && !!memberPassword
 
 test.describe("User Login flow", () => {
   test.skip(
-    !basicEmail || !basicPassword || !basicName,
+    !basicCredentialsAvailable,
     "Skipping user menu item tests: required secrets are missing",
   )
   test("Confirm SignIn Commands to Backend are correct", async ({
@@ -94,7 +98,7 @@ test.describe("User Login flow", () => {
 
 test.describe("Verify user menu item works for basic user", () => {
   test.skip(
-    !basicEmail || !basicName,
+    !basicCredentialsAvailable,
     "Skipping user menu item tests: required secrets are missing",
   )
   test.use({ storageState: "./tests/.auth/basic.json" })
@@ -185,7 +189,7 @@ test.describe("Verify user menu item works for basic user", () => {
 
 test.describe("Verify user menu item works for member user", () => {
   test.skip(
-    !memberEmail || !memberName,
+    !memberCredentialsAvailable,
     "Skipping user menu item tests: required secrets are missing",
   )
   test.use({ storageState: "./tests/.auth/member.json" })

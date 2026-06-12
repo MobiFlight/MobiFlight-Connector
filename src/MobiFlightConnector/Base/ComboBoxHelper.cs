@@ -1,6 +1,6 @@
 ﻿using MobiFlight;
 using MobiFlight.Base;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 using System.Collections.Generic;
 using System.Windows.Forms;
 

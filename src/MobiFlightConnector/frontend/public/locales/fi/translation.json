@@ -17,7 +17,14 @@
     "Error": {
       "FallbackTitle": "Hupsista, jotain meni vikaan!",
       "Unknown": "Tuntematon virhe."
-    }
+    },
+    "ComboBox": {
+      "NoOptions": "Ei kohteita löytynyt.",
+      "Placeholder": "Valitse...",
+      "SearchPlaceholder": "Haku..."
+    },
+    "Copy": "Kopioi",
+    "Paste": "Liitä"
   },
   "MainMenu": {
     "File": {
@@ -41,6 +48,10 @@
           "In": "Ctrl++",
           "Out": "Ctrl+-"
         }
+      },
+      "Log": {
+        "Show": "Näytä lokipaneeli",
+        "Hide": "Piilota lokipaneeli"
       }
     },
     "Extras": {
@@ -344,8 +355,10 @@
     "General": {
       "Cancel": "Peruuta",
       "Close": "Sulje",
+      "Save": "Tallenna",
       "SaveChanges": "Tallenna muutokset",
-      "ApplyChanges": "Käytä muutoksia"
+      "ApplyChanges": "Hyväksy muutokset",
+      "ResetFilters": "Nollaa suodattimet"
     },
     "ControllerBinding": {
       "Title": "Ohjainten yhdistäminen",
@@ -359,7 +372,216 @@
       },
       "ControllersInProject": "{{count}} projektissa käytettyä ohjainta",
       "ConnectedControllers": "{{count}} PC:hen yhdistettyä ohjainta",
-      "AllSet": "Valmista! Kaikki käytetyt ohjaimet on yhdistetty."
+      "AllSet": "Valmista! Kaikki käytetyt ohjaimet on yhdistetty.",
+      "SelectController": "Valitse ohjain",
+      "SearchController": "Etsi ohjainta...",
+      "NoControllerFound": "Ohjaimia ei löytynyt."
+    },
+    "InputConfigWizard": {
+      "Title": "Muokkaa syöttömääritystä",
+      "Description": "Muokkaa kaikkia tämän syöttömäärityksen asetuksia tässä dialogissa.",
+      "GoBack": "Takaisin",
+      "DrawerTitle": "Esiehdot",
+      "ConfigTrigger": {
+        "Title": "Laukaisin",
+        "Description": "Laukaisin määrittää ehdot tai tapahtumat, jotka aktivoivat tämän määrityksen.",
+        "ScanForInput": "Etsi syötettä",
+        "UseAnyInput": "Käytä mitä tahansa syötettä",
+        "ClearInput": "Tyhjennä syöte",
+        "SelectController": "Valitse ohjain...",
+        "SearchController": "Etsi ohjainta...",
+        "NoControllerFound": "Ohjainta ei löytynyt.",
+        "SelectDevice": "Valitse laite...",
+        "SearchDevice": "Etsi laitetta...",
+        "NoDeviceFound": "Laitetta ei löytynyt."
+      },
+      "Action": {
+        "Copy": "Kopioi toiminto",
+        "Paste": "Liitä toiminto"
+      },
+      "ActionType": {
+        "Title": "Toimintotyyppi",
+        "Description": "Valitse suoritettavan toiminnon tyyppi",
+        "Options": {
+          "MSFS2020CustomInputAction": "Microsoft Flight Simulator (kaikki versiot)",
+          "XplaneInputAction": "X-Plane (kaikki versiot)",
+          "ProSimInputAction": "ProSim",
+          "VariableInputAction": "MobiFlight - Muuttuja",
+          "RetriggerInputAction": "MobiFlight - Laukaise kytkimet uudelleen",
+          "KeyInputAction": "MobiFlight - Näppäimistösyöte",
+          "VJoyInputAction": "MobiFlight - Virtuaalinen ohjaussauva (vJoy)",
+          "FsuipcOffsetInputAction": "FSUIPC - Offset",
+          "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
+          "LuaMacroInputAction": "FSUIPC - Lua-makro",
+          "JeehellInputAction": "FSUIPC - Jeehell - Events",
+          "EventIdInputAction": "FSUIPC - EventID"
+        }
+      },
+      "Button": {
+        "Tabs": {
+          "onPress": "Painettaessa",
+          "onRelease": "Vapautettaessa",
+          "onHold": "Pidettäessä",
+          "onLongRelease": "Pitkällä vapautuksella"
+        }
+      },
+      "Encoder": {
+        "Tabs": {
+          "onLeft": "Vasemmalle",
+          "onRight": "Oikealle",
+          "onLeftFast": "Nopeasti vasemmalle",
+          "onRightFast": "Nopeasti oikealle"
+        }
+      },
+      "Analog": {
+        "Tabs": {
+          "onChange": "Muutettaessa"
+        }
+      },
+      "Preconditions": {
+        "Title": "Esiehdot (valinnainen)",
+        "Description": "Esiehdot määrittävät ehdot, jotka on täytettävä ennen kuin toiminto voidaan suorittaa.",
+        "EditButton": "Esiehdot",
+        "AddButton": "Esiehdot"
+      },
+      "ConfigReferences": {
+        "Title": "Konfiguraatioviittaukset (valinnainen)",
+        "Description": "Konfiguraatioviittaukset määrittävät lähtökonfiguraatiot, joiden arvoja voidaan käyttää toiminnossa.",
+        "EditButton": "Konfiguraatioviittaukset",
+        "AddButton": "Konfiguraatioviittaukset"
+      },
+      "PreconditionEditor": {
+        "Title": "Esiehdot",
+        "Description": "Esiehdot määrittävät ehdot, jotka on täytettävä ennen kuin toiminto voidaan suorittaa.",
+        "NoPreconditions": "Ei esiehtoja määritetty.",
+        "AddPrecondition": "Lisää esiehto",
+        "Active": "Aktiivinen",
+        "TypePlaceholder": "Tyyppi",
+        "SelectConfig": "Valitse konfiguraatio...",
+        "SelectVariable": "Valitse muuttuja...",
+        "ValuePlaceholder": "Arvo",
+        "DeletePrecondition": "Poista esiehto",
+        "SelectPort": "Valitse portti...",
+        "SelectPin": "Valitse pinni..."
+      },
+      "ConfigReferenceEditor": {
+        "Title": "Konfiguraatioviittaukset",
+        "Description": "Konfiguraatioviittaukset määrittävät lähtökonfiguraatiot, joiden arvoja voidaan käyttää toiminnossa.",
+        "NoConfigReferences": "Ei konfiguraatioviittauksia määritetty.",
+        "AddConfigReference": "Lisää konfiguraatioviittaus",
+        "Active": "Aktiivinen",
+        "SelectConfig": "Valitse konfiguraatio...",
+        "PlaceholderLabel": "Paikkamerkki",
+        "TestValueLabel": "Testiarvo",
+        "DeleteConfigReference": "Poista konfiguraatioviittaus"
+      },
+      "InputActions": {
+        "Common": {
+          "CodeLabel": "Koodi:",
+          "NoDescriptionAvailable": "Ei kuvausta saatavilla",
+          "DescriptionLabel": "Kuvaus:",
+          "FilterPresets": "Suodata esiasetuksia",
+          "FilterByVendor": "Suodata valmistajan mukaan",
+          "SearchVendors": "Etsi valmistajia...",
+          "FilterByAircraft": "Suodata lentokoneen mukaan",
+          "SearchAircraft": "Etsi lentokoneita...",
+          "FilterBySystem": "Suodata järjestelmän mukaan",
+          "SearchSystems": "Etsi järjestelmiä...",
+          "SelectPreset": "Valitse esiasetus",
+          "SearchPresets": "Etsi esiasetuksia...",
+          "PresetsFound": "{{count}} esiasetus(ta) löytyi",
+          "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)"
+        },
+        "Msfs": {
+          "NoneCode": "Ei mitään"
+        },
+        "Xplane": {
+          "InputTypeLabel": "Syötetyyppi:",
+          "SelectInputTypePlaceholder": "Valitse syötetyyppi",
+          "PathLabel": "Polku:",
+          "PathPlaceholder": "Syötä polku DataRefille tai komennolle, tai valitse esiasetus yltä",
+          "PathDescription": "Vihje: Käytä indeksi-notaatiota taulukoiden käsittelyyn, esim. sim/cockpit2/annunciators/fuel_pressure_low[0] ensimmäiselle moottorille.",
+          "ValueLabel": "Arvo:",
+          "ValuePlaceholder": "Syötä arvo"
+        },
+        "ProSim": {
+          "Title": "ProSim-syötetoiminto",
+          "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi.",
+          "PathLabel": "Polku:",
+          "NoPresetSelected": "Ei esiasetusta valittuna",
+          "ParameterLabel": "Parametri (valinnainen):",
+          "ParameterPlaceholder": "Aseta parametri (valinnainen)"
+        },
+        "VJoy": {
+          "SelectDeviceLabel": "Valitse vJoy-laite",
+          "SelectDevicePlaceholder": "Valitse vJoy-laite...",
+          "ButtonTab": "Painike",
+          "AxisTab": "Akseli",
+          "ButtonNumberLabel": "Painikkeen numero",
+          "SelectButtonPlaceholder": "Valitse painike...",
+          "ButtonStateLabel": "Painikkeen tila",
+          "Pressed": "Painettu",
+          "Released": "Vapautettu",
+          "SelectAxisPlaceholder": "Valitse akseli...",
+          "AxisValueLabel": "Akseliarvo"
+        },
+        "Keyboard": {
+          "StopScanning": "Lopeta etsintä",
+          "ScanForKeyboard": "Etsi näppäimistöä",
+          "KeyComboLabel": "Näppäinyhdistelmä:",
+          "None": "Ei mitään",
+          "ClearInput": "Tyhjennä syöte"
+        },
+        "FsuipcOffset": {
+          "SizeLabel": "Koko",
+          "OffsetLabel": "Offset",
+          "MaskLabel": "Maski",
+          "BcdModeLabel": "BCD-tila"
+        },
+        "LuaMacro": {
+          "Title": "Lua-makro-syötetoiminto",
+          "Description": "Kutsu Lua-makroasi valinnaisella parametrilla. Vaatii olemassa olevan Lua-makron FSUIPC:ssä.",
+          "MacroNameLabel": "Makron nimi:",
+          "MacroNamePlaceholder": "Aseta makron nimi",
+          "MacroValueLabel": "Makron arvo:",
+          "MacroValuePlaceholder": "Aseta makron arvo"
+        },
+        "Jeehell": {
+          "FunctionLabel": "Jeehell-funktio",
+          "SelectFunctionPlaceholder": "Valitse Jeehell-funktio...",
+          "ValueLabel": "Arvo"
+        },
+        "EventId": {
+          "PmdgAircraftLabel": "PMDG-lentokone",
+          "MouseParamLabel": "Hiiriparametri",
+          "SelectMouseParamPlaceholder": "Valitse hiiriparametri",
+          "EventIdLabel": "Tapahtuman tunnus",
+          "CustomParamLabel": "Mukautettu parametri"
+        },
+        "Retrigger": {
+          "Title": "Retrigger",
+          "Description1": "Käytä tätä syötetoimintoa kaikkien painikkeiden tilojen uudelleenlaukaisemiseen.",
+          "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
+        },
+        "Variable": {
+          "ExistingVariable": "Käytä olemassa olevaa muuttujaa",
+          "VariableTypeLabel": "Muuttujatyyppi",
+          "VariableNameLabel": "Muuttujan nimi",
+          "VariableNamePlaceholder": "Syötä muuttujan nimi...",
+          "ExpressionLabel": "Lauseke",
+          "ExpressionPlaceholder": "Syötä lauseke...",
+          "ExpressionHelp": "Käytä <1>$</1> muuttujan arvon esittämiseen lausekkeissa, esim. <3>$ * 2</3> lukumuuttujan kaksinkertaistamiseksi."
+        },
+        "ProSimDataRef": {
+          "FilterPresetsPlaceholder": "Suodata esiasetuksia",
+          "NoPresetsAvailable": "Ei esiasetuksia saatavilla",
+          "RefreshPresets": "Päivitä esiasetukset"
+        },
+        "EventIdPresets": {
+          "SelectPresetLabel": "Valitse esiasetus",
+          "SelectPresetPlaceholder": "Valitse esiasetus..."
+        }
+      }
     }
   },
   "Auth": {
@@ -392,5 +614,10 @@
     "Action": {
       "Upgrade": "Nosta tasoa"
     }
+  },
+  "LogPanel": {
+    "Title": "Loki",
+    "Empty": "Odotetaan lokimerkintöjä",
+    "LoggingDisabled": "Loki ei ole käytössä. Ota loki käyttöön asetuksista nähdäksesi lokit täällä."
   }
 }

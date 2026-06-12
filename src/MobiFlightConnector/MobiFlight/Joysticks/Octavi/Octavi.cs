@@ -65,8 +65,11 @@ namespace MobiFlight.Joysticks.Octavi
                 {
                     TriggerButtonPress(buttonIndex, inputEvent);
                 }
+
+                this.Update();
             }
         }
+
 
         protected override void SendData(byte[] data)
         {
@@ -84,13 +87,26 @@ namespace MobiFlight.Joysticks.Octavi
         {
             TriggerButtonPressed(this, new InputEventArgs()
             {
-                Name = Name,
-                DeviceId = Buttons[i].Name,
-                DeviceLabel = Buttons[i].Label,
-                Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                Type = DeviceType.Button,
+                Controller = new Base.Controller()
+                {
+                    Name = this.Name,
+                    Serial = this.Serial
+                },
+                Device = new Base.DeviceReference()
+                {
+                    Name = Buttons[i].Name,
+                    Label = Buttons[i].Label,
+                    Type = Buttons[i].Type
+                },
+                InputType = DeviceType.Button,
                 Value = (int)inputEvent
             });
+        }
+
+        private void UpdateShiftModeLed()
+        {
+            /* this will set nothing if the Ouput device label is not found - disable auto blinking by renaming the output in joystick.json */
+            this.SetOutputDeviceState("Auto Blink Context", (byte)(octaviHandler.IsInShiftMode ? 1 : 0));
         }
 
         public override void Update()
@@ -101,9 +117,13 @@ namespace MobiFlight.Joysticks.Octavi
             {
                 Connect();
             };
+
             // We don't do anything else
             // because we have a callback for
             // handling the incoming reports
+            // only check for updated shift state and update the outputs if needed.
+            this.UpdateShiftModeLed();
+            this.UpdateOutputDeviceStates();
         }
 
         protected override void EnumerateDevices()

@@ -92,7 +92,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const item = row.original as IConfigItem
       const name =
         (item.Device as IDeviceConfig)?.Name ??
-        (!isEmpty(item.DeviceName) ? item.DeviceName : "-")
+        (!isEmpty(item.Device?.Name) ? item.Device?.Name : "-")
       return value.includes(name)
     },
   },
@@ -120,7 +120,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const item = row.original as IConfigItem
       const type =
         (item.Device as IDeviceConfig)?.Type ??
-        (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
+        (!isEmpty(item.Device?.Type) ? item.Device?.Type : "-")
       return value.includes(type)
     },
   },

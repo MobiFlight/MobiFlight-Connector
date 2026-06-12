@@ -230,24 +230,24 @@ namespace MobiFlight.Tests
 
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
             MobiFlightModule o = new MobiFlightModule("COM1", board);
-            o.Config = new Config.Config();
+            o.Config = new Firmware.Config();
 
             Assert.HasCount(board.Pins.Count(), o.GetFreePins(), "Number of free pins is wrong");
-            o.Config.Items.Add(new Config.Button() { Name = "Test", Pin = "2" });
-            o.Config.Items.Add(new Config.Button() { Name = "Test", Pin = "5" });
+            o.Config.Items.Add(new Firmware.Button() { Name = "Test", Pin = "2" });
+            o.Config.Items.Add(new Firmware.Button() { Name = "Test", Pin = "5" });
 
             Assert.HasCount(board.Pins.Count() - o.Config.Items.Count, o.GetFreePins(), "Number of free pins is wrong");
             Assert.IsFalse(o.GetFreePins().Exists(x => x.Pin == 2), "Used pin still available");
             Assert.IsFalse(o.GetFreePins().Exists(x => x.Pin == 5), "Used pin still available");
             Assert.IsTrue(o.GetFreePins().Exists(x => x.Pin == 52), "Free pin not available");
 
-            (o.Config.Items[0] as Config.Button).Pin = "3";
+            (o.Config.Items[0] as Firmware.Button).Pin = "3";
             Assert.IsFalse(o.GetFreePins().Exists(x => x.Pin == 3), "Used pin still available");
             Assert.IsTrue(o.GetFreePins().Exists(x => x.Pin == 2), "Free pin not available");
 
             board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Uno");
             o = new MobiFlightModule("COM1", board);
-            o.Config = new Config.Config();
+            o.Config = new Firmware.Config();
             Assert.IsTrue(o.GetFreePins().Exists(x => x.Pin == 13), "Free pin not available");
             Assert.IsFalse(o.GetFreePins().Exists(x => x.Pin == 52), "Invalid pin available");
         }

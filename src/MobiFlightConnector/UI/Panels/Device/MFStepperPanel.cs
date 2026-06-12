@@ -1,4 +1,4 @@
-﻿using MobiFlight.Config;
+﻿using MobiFlight.Firmware;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

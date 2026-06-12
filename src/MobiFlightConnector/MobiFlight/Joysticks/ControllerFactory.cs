@@ -1,5 +1,6 @@
 using MobiFlight.Joysticks.VKB;
 using MobiFlight.Joysticks.Winwing;
+using MobiFlight.Joysticks.IIDB;
 using SharpDX.DirectInput;
 using WebSocketSharp.Server;
 
@@ -31,6 +32,12 @@ namespace MobiFlight.Joysticks
 
             // Check for VKB devices
             if (vendorId == VKBDevice.VKB_VENDOR_ID)
+            {
+                return true;
+            }
+
+            // Check for IIDB devices
+            if (vendorId == IIDBDevice.IIDB_VENDOR_ID)
             {
                 return true;
             }
@@ -101,6 +108,12 @@ namespace MobiFlight.Joysticks
             if (vendorId == VKBDevice.VKB_VENDOR_ID)
             {
                 return new VKBDevice(diJoystick, definition);
+            }
+
+            // Handle IIDB devices by vendor ID
+            if (vendorId == IIDBDevice.IIDB_VENDOR_ID)
+            {
+                return new IIDBDevice(diJoystick, definition);
             }
 
             // Handle AuthentiKit by instance name

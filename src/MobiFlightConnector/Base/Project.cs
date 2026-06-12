@@ -31,7 +31,6 @@ namespace MobiFlight.Base
         public List<ControllerBinding> ControllerBindings { get; set; }
     }
 
-
     /// <summary>
     /// Represents optional features that can be enabled for a MobiFlight project.
     /// </summary>
@@ -101,7 +100,7 @@ namespace MobiFlight.Base
         public event EventHandler ProjectChanged;
 
         [JsonIgnore]
-        public readonly Version SchemaVersion = new Version(0, 9);
+        public readonly Version SchemaVersion = new Version(0, 10);
         [JsonIgnore]
         public Version OriginalSchemaVersion { get; private set; } = null;
 
@@ -484,6 +483,15 @@ namespace MobiFlight.Base
                 }
                 migratedDocument = Precondition_V_0_9_Migration.Apply(migratedDocument);
                 migratedDocument = Output_V_0_9_Migration.Apply(migratedDocument);
+            }
+
+            if (currentVersion < new Version(0, 10))
+            {
+                if (!suppressLogging)
+                {
+                    Log.Instance.log("Applying V0.10 migrations", LogSeverity.Debug);
+                }
+                migratedDocument = V0_10_InputConfigItemDeviceMigration.Apply(migratedDocument);
             }
 
             // Update version in migrated document

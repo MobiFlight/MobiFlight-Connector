@@ -68,7 +68,7 @@
       "Bit": 5
     },
     {
-      "Label": "Blink Context",
+      "Label": "Auto Blink Context",
       "Id": "CS.SH",
       "Byte": 1,
       "Bit": 6

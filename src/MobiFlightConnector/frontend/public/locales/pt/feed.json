@@ -1,0 +1,61 @@
+{
+  "community": [
+    {
+      "date": "2025-11-30",
+      "title": "Autorizado para novos níveis de voo!",
+      "content": [
+        "Este ano fui com tudo — agora trabalho em tempo integral na MobiFlight para levar o projeto a novos patamares.",
+        "Seu apoio financeiro é essencial para cobrir meus custos de vida e sustentar o desenvolvimento contínuo."
+      ],
+      "featured": false,
+      "tags": ["community"],
+      "media": {
+        "type": "image",
+        "src": "/feed/full-time.jpg",
+        "alt": "Autorizado para novos níveis de voo!",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "Apoie-nos!",
+        "url": "https://mobiflight.com/donate"
+      }
+    },
+    {
+      "date": "2025-11-30",
+      "title": "Novos produtos na loja MobiFlight",
+      "content": [
+        "Confira as últimas novidades em nossa loja, incluindo novos módulos e acessórios para melhorar sua experiência de simulação de voo."
+      ],
+      "featured": true,
+      "tags": ["shop"],
+      "media": {
+        "type": "image",
+        "src": "/feed/shop-new-boards.jpg",
+        "alt": "Novos produtos na loja MobiFlight",
+        "className": "bg-foreground dark:bg-background"
+      },
+      "action": {
+        "title": "Confira agora!",
+        "url": "https://shop.mobiflight.com"
+      }
+    },
+    {
+      "date": "2025-11-30",
+      "title": "Assine nossa newsletter",
+      "content": [
+        "Fique por dentro das **últimas notícias, tutoriais e destaques da comunidade** assinando a [nossa newsletter](https://mobiflight.com/newsletter)."
+      ],
+      "action": {
+        "title": "Assinar",
+        "url": "https://mobiflight.com/newsletter"
+      },
+      "media": {
+        "type": "image",
+        "src": "/feed/newsletter-subscribe.jpg",
+        "alt": "Assine a nossa newsletter",
+        "className": "bg-gray-100 dark:bg-gray-100"
+      },
+      "tags": ["community"]
+    }
+  ]
+}

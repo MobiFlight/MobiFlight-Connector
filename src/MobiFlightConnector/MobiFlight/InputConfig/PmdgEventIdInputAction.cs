@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MobiFlight.InputConfig
 {
@@ -11,7 +11,9 @@ namespace MobiFlight.InputConfig
         public new const String Label = "FSUIPC - PMDG - Event ID";
         public new String Param { get; set; }
         public enum PmdgAircraftType { B737, B777, B747 };
-        public PmdgAircraftType AircraftType = PmdgAircraftType.B737;
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public PmdgAircraftType AircraftType { get; set; } = PmdgAircraftType.B737;
 
         override public object Clone()
         {
@@ -54,6 +56,12 @@ namespace MobiFlight.InputConfig
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {
+            if (Param == null)
+            {
+                Log.Instance.log($"Unable to execute {Label} action for eventId {EventId} because the parameter is not defined.", LogSeverity.Error);
+                return;
+            }
+
             String value = Param;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();

@@ -13,14 +13,21 @@ import { useTheme } from "@/lib/hooks/useTheme"
 import { ToastNotificationHandler } from "./components/notifications/ToastNotificationHandler"
 
 import DebugInfo from "@/components/DebugInfo"
+import LogPanel from "@/components/LogPanel"
 import { useTranslation } from "react-i18next"
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable"
 
 function App() {
   useKeyAccelerators(GlobalKeyAccelerators, true)
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
+  const [logVisible, setLogVisible] = useState(false)
   const { theme } = useTheme()
-  
+
   useAppMessage("OverlayState", (message) => {
     const overlayState = message.payload as OverlayState
     console.log("OverlayState message received", overlayState)
@@ -39,20 +46,40 @@ function App() {
         />
       )}
       {outlet && (
-        <div className="flex h-svh flex-row overflow-hidden p-0 select-none">
+        <div className="flex h-svh flex-col overflow-hidden p-0 select-none">
           {/* <Sidebar /> */}
-          <div className="flex grow flex-col">
-            <MainMenu />
+          <ResizablePanelGroup orientation="vertical">
+            <ResizablePanel className="flex grow flex-col overflow-hidden">
+              <div className="flex grow flex-col overflow-hidden">
+                <MainMenu
+                  logVisible={logVisible}
+                  onToggleLog={() => setLogVisible((v) => !v)}
+                />
 
-            {/* Uncomment the Navbar if needed */}
-            {/* <Navbar /> */}
-            <div className="flex grow flex-col overflow-hidden">
-              <Outlet />
-            </div>
-            <DebugInfo />
-          </div>
+                {/* Uncomment the Navbar if needed */}
+                {/* <Navbar /> */}
+                <div className="flex grow flex-col overflow-hidden">
+                  <Outlet />
+                </div>
+              </div>
+            </ResizablePanel>
+            {logVisible && (
+              <>
+                <ResizableHandle withHandle className="mt-2" />
+                <ResizablePanel
+                  className="flex flex-col overflow-hidden"
+                  defaultSize={"25%"}
+                  maxSize={"50%"}
+                  minSize={"10%"}
+                >
+                  <LogPanel onClose={() => setLogVisible(false)} />
+                </ResizablePanel>
+              </>
+            )}
+          </ResizablePanelGroup>
+          <DebugInfo />
         </div>
-      ) }
+      )}
       <ToastNotificationHandler />
       <Toaster
         expand

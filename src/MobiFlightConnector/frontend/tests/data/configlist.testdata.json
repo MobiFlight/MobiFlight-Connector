@@ -186,15 +186,15 @@
     "Name": "LED 1",
     "Preconditions": [
       {
-        "PreconditionActive": true,
-        "PreconditionLabel": "Config: <Ref:5b09dc42-d5cd-4284-9c03-355e579763f2> < 1 <Logic:and>",
-        "PreconditionLogic": "and",
-        "PreconditionOperand": "<",
-        "PreconditionPin": null,
-        "PreconditionRef": "5b09dc42-d5cd-4284-9c03-355e579763f2",
-        "PreconditionSerial": null,
-        "PreconditionType": "config",
-        "PreconditionValue": "1"
+        "Active": true,
+        "Label": "Config: <Ref:5b09dc42-d5cd-4284-9c03-355e579763f2> < 1 <Logic:and>",
+        "Logic": "and",
+        "Operand": "<",
+        "Pin": null,
+        "Ref": "5b09dc42-d5cd-4284-9c03-355e579763f2",
+        "Serial": null,
+        "Type": "config",
+        "Value": "1"
       }
     ],
     "Source": {

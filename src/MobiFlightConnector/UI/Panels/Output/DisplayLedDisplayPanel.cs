@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight.Base;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 
 namespace MobiFlight.UI.Panels
 {

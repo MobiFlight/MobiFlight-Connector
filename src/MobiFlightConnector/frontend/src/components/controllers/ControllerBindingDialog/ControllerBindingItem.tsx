@@ -16,6 +16,7 @@ import {
   CommandItem,
 } from "@/components/ui/command"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import ControllerBindingStatusIndicator from "@/components/controllers/ControllerBindingDialog/ControllerBindingStatusIndicator"
 import { cn } from "@/lib/utils"
 
@@ -69,6 +70,7 @@ const ControllerBindingItem = ({
     ? controllers.find((controller) => controller.Serial.includes(serial))
     : null
 
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [selectedSerial, setSelectedSerial] = useState(boundController?.Serial)
 
@@ -106,7 +108,7 @@ const ControllerBindingItem = ({
               {selectedBoundController ? (
                 <ControllerIconWithLabel controller={selectedBoundController} />
               ) : (
-                <span className="text-left">Select a controller</span>
+                <span className="text-left">{t("Dialog.ControllerBinding.SelectController")}</span>
               )}
 
               <IconSelector className="ml-2 h-4 w-4 flex-none shrink-0 opacity-50" />
@@ -114,9 +116,9 @@ const ControllerBindingItem = ({
           </PopoverTrigger>
           <PopoverContent className="w-107 p-0">
             <Command>
-              <CommandInput placeholder="Search controller..." />
+              <CommandInput placeholder={t("Dialog.ControllerBinding.SearchController")} />
               <CommandList>
-                <CommandEmpty>No controller found.</CommandEmpty>
+                <CommandEmpty>{t("Dialog.ControllerBinding.NoControllerFound")}</CommandEmpty>
                 <CommandGroup>
                   {controllers.map((controller) => (
                     <CommandItem

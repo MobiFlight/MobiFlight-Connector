@@ -87,7 +87,6 @@ namespace MobiFlight.Tests
             project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
             _executionManager.Project = project;
 
-
             var message = new CommandConfigBulkAction
             {
                 Action = "delete",
@@ -202,7 +201,6 @@ namespace MobiFlight.Tests
             // Assert
             Assert.AreEqual(1, _executionManager.ActiveConfigIndex);
         }
-
 
         [TestMethod]
         public void CommandConfigContextMenu_Duplicate_DuplicatesConfigItemCorrectly()
@@ -501,12 +499,17 @@ namespace MobiFlight.Tests
             // Create test input event args
             var inputEventArgs = new InputEventArgs
             {
+                Controller = new Controller() { 
                 Serial = "SN-000-001",
-                DeviceId = "TestDevice",
-                DeviceLabel = "Test Button",
-                Name = "TestButton",
-                Type = DeviceType.Button,
-                ExtPin = 1,
+                Name = "TestController",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "TestDevice:1",
+                    Label = "Test Button",
+                    Type = DeviceType.InputMultiplexer,
+                },
+                InputType = DeviceType.Button,
                 Value = 1
             };
 

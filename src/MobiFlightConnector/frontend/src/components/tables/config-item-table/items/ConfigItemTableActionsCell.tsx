@@ -9,6 +9,7 @@ import { IConfigItem } from "@/types/config"
 import { IconDots, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import ConfigItemRowContextMenu from "@/components/ConfigItemRowContextMenu"
+import { useNavigate } from "react-router"
 
 interface ConfigItemTableActionsCellProps {
   row: Row<IConfigItem>
@@ -19,6 +20,9 @@ function ConfigItemTableActionsCell({
 }: ConfigItemTableActionsCellProps) {
   const item = row.original
   const { publish } = publishOnMessageExchange()
+  const navigate = useNavigate()
+
+  const isInputConfig = item.Type === "InputConfigItem"
   
   return (
     <div className="flex justify-center">
@@ -26,12 +30,17 @@ function ConfigItemTableActionsCell({
         variant="outline"
         className="h-8 w-8 rounded-r-none border-r-0 p-0"
         onClick={() => {
+          if (isInputConfig) {
+            navigate("/config/" + item.GUID)
+            return
+          }
           publish({
             key: "CommandConfigContextMenu",
             payload: { action: "edit", item: item },
           } as CommandConfigContextMenu)
         }}
       >
+        <span className="sr-only">Edit</span>
         <IconEdit
         />
       </Button>

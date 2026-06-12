@@ -101,7 +101,7 @@ export function DataTableToolbar<TData>({
     ...new Set(
       items
         .filter((item) => item.Type == "InputConfigItem")
-        .map((item) => item.DeviceType ?? "-"),
+        .map((item) => item.Device?.Type ?? "-"),
     ),
   ]
     .map((type) => {
@@ -127,7 +127,7 @@ export function DataTableToolbar<TData>({
     ...new Set(
       items
         .filter((item) => item.Type == "InputConfigItem")
-        .map((item) => item.DeviceName ?? "-"),
+        .map((item) => item.Device?.Name ?? "-"),
     ),
   ]
     .map((device) => {

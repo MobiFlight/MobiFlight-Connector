@@ -38,7 +38,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         Panels.DisplayShiftRegisterPanel displayShiftRegisterPanel = new Panels.DisplayShiftRegisterPanel();
         Panels.CustomDevicePanel customDevicePanel = new Panels.CustomDevicePanel();
 
-
         public DisplayPanel()
         {
             InitializeComponent();
@@ -472,14 +471,14 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 switch (deviceType)
                 {
                     case DeviceType.Output:
-                        foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
+                        foreach (var device in joystick.GetAvailableOutputDevices())
                             outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
                         break;
                     case DeviceType.LcdDisplay:
                         foreach (var device in joystick.GetAvailableLcdDevices())
                         {
-                            int Cols = (device as MobiFlight.Config.LcdDisplay).Cols;
-                            int Lines = (device as MobiFlight.Config.LcdDisplay).Lines;
+                            int Cols = (device as MobiFlight.Firmware.LcdDisplay).Cols;
+                            int Lines = (device as MobiFlight.Firmware.LcdDisplay).Lines;
                             lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Label });
                         }
                         break;
@@ -589,7 +588,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem> lcdDisplays = new List<ListItem>();
             List<ListItem> shiftRegisters = new List<ListItem>();
             List<ListItem<MobiFlightCustomDevice>> customDevices = new List<ListItem<MobiFlightCustomDevice>>();
-
 
             if (module != null)
             {
@@ -740,7 +738,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             var serial = controller?.Serial;
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
-
             // Build list of chained modules and list of selectable sizes
             var chained = new List<ListItem>();
             var entries = new List<ListItem>();
@@ -758,9 +755,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                     var maxdigits = 8;
 
-                    if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
+                    if (dev.ModelType == MobiFlight.Firmware.LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
                     else
-                    if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
+                    if (dev.ModelType == MobiFlight.Firmware.LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
 
                     for (int i = 2; i < maxdigits; i++)
                     {

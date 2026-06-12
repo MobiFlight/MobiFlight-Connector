@@ -104,8 +104,8 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.Bodnar
             board.UpdateAxis(state);
 
             // Assert
-            Assert.AreEqual(DeviceType.AnalogInput, board.CapturedEvents[0].Type);
-            Assert.AreEqual("Axis X", board.CapturedEvents[0].DeviceId);
+            Assert.AreEqual(DeviceType.AnalogInput, board.CapturedEvents[0].InputType);
+            Assert.AreEqual("Axis X", board.CapturedEvents[0].Device.Name);
         }
 
         #endregion

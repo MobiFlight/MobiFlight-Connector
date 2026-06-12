@@ -8,7 +8,14 @@
     "Type": "MobiFlight",
     "Connected": true,
     "ImageUrl": null,
-    "certified": false
+    "certified": false,
+    "Devices": [
+      {
+        "Name": "1",
+        "Label": "Button 1",
+        "Type": "Button"
+      }
+    ]
   },
   {
     "Name": "Alpha Flight Controls Lite",
@@ -19,10 +26,17 @@
     "Type": "Joystick",
     "Connected": true,
     "ImageUrl": null,
-    "certified": false
+    "certified": false,
+    "Devices": [
+      {
+        "Name": "1",
+        "Label": "Button 1",
+        "Type": "Button"
+      }
+    ]
   },
   {
-    "Name": "Bravo Controls Throttle",
+    "Name": "Bravo Throttle Quadrant",
     "Serial": "JS-87654321",
     "Vendor": "Honeycomb",
     "ProductId": "",
@@ -30,7 +44,19 @@
     "Type": "Joystick",
     "Connected": true,
     "ImageUrl": null,
-    "certified": false
+    "certified": false,
+    "Devices": [
+      {
+        "Name": "1",
+        "Label": "Button 1",
+        "Type": "Button"
+      },
+      {
+        "Name": "Button 21",
+        "Label": "Mode - ALT",
+        "Type": "Button"
+      }
+    ]
   },
   {
     "Name": "Throttle B",
@@ -41,7 +67,14 @@
     "Type": "Midi",
     "Connected": true,
     "ImageUrl": null,
-    "certified": false
+    "certified": false,
+    "Devices": [
+      {
+        "Name": "1",
+        "Label": "Button 1",
+        "Type": "Button"
+      }
+    ]
   },
   {
     "Name": "miniCOCKPIT miniFCU",
@@ -52,7 +85,14 @@
     "Type": "Joystick",
     "Connected": true,
     "ImageUrl": null,
-    "certified": false
+    "certified": false,
+    "Devices": [
+      {
+        "Name": "1",
+        "Label": "Button 1",
+        "Type": "Button"
+      }
+    ]
   },
   {
     "Name": "MFG Crosswind V2/3",
@@ -63,7 +103,14 @@
     "Type": "Joystick",
     "Connected": true,
     "ImageUrl": null,
-    "certified": false
+    "certified": false,
+    "Devices": [
+      {
+        "Name": "1",
+        "Label": "Button 1",
+        "Type": "Button"
+      }
+    ]
   },
   {
     "Name": "Octavi",
@@ -74,6 +121,13 @@
     "Type": "Joystick",
     "Connected": true,
     "ImageUrl": null,
-    "certified": false
+    "certified": false,
+    "Devices": [
+      {
+        "Name": "1",
+        "Label": "Button 1",
+        "Type": "Button"
+      }
+    ]
   }
 ]

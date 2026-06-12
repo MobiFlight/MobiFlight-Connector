@@ -9,7 +9,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
     public partial class MFCustomDevicePanel : UserControl
     {
 
-        private MobiFlight.Config.CustomDevice device;
+        private MobiFlight.Firmware.CustomDevice device;
         private bool initialized = false;
         
         public event EventHandler Changed;
@@ -20,7 +20,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             groupBoxPinSettings.Controls.Clear();
         }
 
-        public MFCustomDevicePanel(MobiFlight.Config.CustomDevice device, List<MobiFlightPin> Pins): this()
+        public MFCustomDevicePanel(MobiFlight.Firmware.CustomDevice device, List<MobiFlightPin> Pins): this()
         {
             this.device = device;
 

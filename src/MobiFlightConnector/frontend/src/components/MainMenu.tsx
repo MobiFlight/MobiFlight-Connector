@@ -21,7 +21,12 @@ import { useTranslation } from "react-i18next"
 import { useModal } from "@/lib/hooks/useModal"
 import UserMenuItem from "@/components/user/UserMenuItem"
 
-export const MainMenu = () => {
+interface MainMenuProps {
+  logVisible: boolean
+  onToggleLog: () => void
+}
+
+export const MainMenu = ({ logVisible, onToggleLog }: MainMenuProps) => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { hasChanged } = useProjectStore()
@@ -127,6 +132,10 @@ export const MainMenu = () => {
               <MenubarShortcut>
                 {t("MainMenu.View.Zoom.Shortcut.Out")}
               </MenubarShortcut>
+            </MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem onSelect={onToggleLog}>
+              {logVisible ? t("MainMenu.View.Log.Hide") : t("MainMenu.View.Log.Show")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

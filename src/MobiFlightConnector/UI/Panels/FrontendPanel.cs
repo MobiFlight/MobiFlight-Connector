@@ -12,6 +12,7 @@ namespace MobiFlight.UI.Panels
         CompositePublisher compositePublisher = new CompositePublisher();
         private string _frontendBaseUrl = "http://localhost:5173";
         private string _frontendDistPath;
+        private string _presetPath;
 #if DEBUG
         private bool IsRunningInProduction = false;
 #else 
@@ -34,6 +35,8 @@ namespace MobiFlight.UI.Panels
                 _frontendBaseUrl = "https://mobiflight.app";
                 _frontendDistPath = Path.Combine(Application.StartupPath, "frontend", "dist");
             }
+
+            _presetPath = Path.Combine(Application.StartupPath);
 
             InitializeComponent();
             if (!DesignMode)
@@ -66,12 +69,16 @@ namespace MobiFlight.UI.Panels
                     _frontendBaseUrl, 
                     _frontendDistPath
                 );
+
                 staticPageHandler.RegisterWithWebView(webView);
 
                 webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
                 webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
 
+            var staticPresetsHandler = new StaticPageWebResourceRequestHandler(_frontendBaseUrl + "/presets", _presetPath);
+            staticPresetsHandler.RegisterWithWebView(webView);
+            
             var addButtonHandler = new AddCloseButtonHandlerOnNavigationCompleted();
             addButtonHandler.AddExclusionFilter(_frontendBaseUrl);
             addButtonHandler.RegisterWithWebView(webView);

@@ -1,6 +1,6 @@
 ﻿using CommandMessenger;
 using MobiFlight.Base;
-using MobiFlight.Config;
+using MobiFlight.Firmware;
 using System;
 using System.Collections.Generic;
 using System.Linq;

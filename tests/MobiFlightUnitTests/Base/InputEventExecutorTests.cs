@@ -82,8 +82,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = active,
                 Controller = SerialNumber.CreateController(moduleSerial),
-                DeviceName = deviceName,
-                DeviceType = DeviceType.Button.ToString(),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = name,
                 button = new ButtonInputConfig()
                 {
@@ -111,9 +110,9 @@ namespace MobiFlight.Execution.Tests
             // Arrange
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "123",
-                Type = DeviceType.Button,
-                DeviceId = "Device1"
+                Controller = new Controller() { Serial = "123" },
+                Device = new DeviceReference() { Name = "Device1" },
+                InputType = DeviceType.Button,
             };
 
             // Act
@@ -129,16 +128,16 @@ namespace MobiFlight.Execution.Tests
             // Arrange
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "123",
-                Type = DeviceType.Button,
-                DeviceId = "Device1"
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" }
             };
 
             var inactiveConfigItem = new InputConfigItem
             {
                 Active = false,
                 Controller = SerialNumber.CreateController("/ 123"),
-                DeviceName = "Device1",
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
                 Name = "TestConfig"
             };
 
@@ -162,9 +161,9 @@ namespace MobiFlight.Execution.Tests
             // Arrange
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "123",
-                Type = DeviceType.Button,
-                DeviceId = "Device1",
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
                 Value = 1
             };
 
@@ -172,7 +171,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("/ 123"),
-                DeviceName = "Device1",
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
                 Name = "TestConfig"
             };
 
@@ -265,9 +264,9 @@ namespace MobiFlight.Execution.Tests
         {
             var inputEventArgs = new InputEventArgs
             {
-                Serial = serial,
-                Type = DeviceType.Button,
-                DeviceId = deviceId,
+                Controller = new Controller() { Serial = serial },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = deviceId },
                 Value = isOnPress ? 0 : 1 // onPress else onRelease
             };
             return inputEventArgs;
@@ -279,9 +278,9 @@ namespace MobiFlight.Execution.Tests
             // Arrange
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "123",
-                Type = DeviceType.Button,
-                DeviceId = "Device1",
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
                 Value = 1
             };
 
@@ -289,7 +288,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("/ 123"),
-                DeviceName = "Device1",
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
                 Name = "TestConfig",
                 Preconditions = new PreconditionList()
                 {
@@ -323,9 +322,9 @@ namespace MobiFlight.Execution.Tests
             // Arrange
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "123",
-                Type = DeviceType.Button,
-                DeviceId = "Device1",
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
                 Value = 1
             };
 
@@ -333,7 +332,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("/ 123"),
-                DeviceName = "Device1",
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
                 Name = "TestConfig"
             };
 
@@ -351,110 +350,6 @@ namespace MobiFlight.Execution.Tests
             );
         }
 
-        [TestMethod]
-        public void Execute_ConvertedFromMultiplexerToButton_ExecutesSuccessfully()
-        {
-            // Arrange
-            // This test reproduces the issue where a user changes from multiplexer to regular button
-            // but the old inputMultiplexer config is not cleared, causing the event to be skipped
-            var inputEventArgs = new InputEventArgs
-            {
-                Serial = "SN-a1b2c3",
-                Type = DeviceType.Button,
-                DeviceId = "Device1",
-                Value = 0, // PRESS event
-                ExtPin = null // Regular buttons don't have ExtPin
-            };
-
-            var configItem = new InputConfigItem
-            {
-                Active = true,
-                Controller = SerialNumber.CreateController("TestModule / SN-a1b2c3"),
-                DeviceName = "Device1",
-                DeviceType = InputConfigItem.TYPE_BUTTON,
-                Name = "TestConfig",
-                button = new ButtonInputConfig()
-                {
-                    onPress = new MSFS2020CustomInputAction()
-                    {
-                        Command = "(>K:TestCommand)",
-                        PresetId = "TestPresetId"
-                    }
-                },
-                // Simulate the bug: inputMultiplexer is not cleared when type changed
-                inputMultiplexer = new InputMultiplexerConfig()
-                {
-                    DataPin = 5 // This should be null/cleared when type is Button
-                }
-            };
-
-            _configItems.Add(configItem);
-
-            // Act
-            var result = _executor.Execute(inputEventArgs, isStarted: true);
-
-            // Assert
-            Assert.HasCount(1, result, "Button event should be executed even if old multiplexer config exists");
-            Assert.IsTrue(result.ContainsKey(configItem.GUID));
-
-            _mockLogAppender.Verify(
-                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (PRESS)")), LogSeverity.Info),
-                Times.Once
-            );
-        }
-
-        [TestMethod]
-        public void Execute_ConvertedFromInputShiftRegisterToButton_ExecutesSuccessfully()
-        {
-            // Arrange
-            // This test reproduces the issue where a user changes from input shift register to regular button
-            // but the old inputShiftRegister config is not cleared, causing the event to be skipped
-            var inputEventArgs = new InputEventArgs
-            {
-                Serial = "SN-d4e5f6",
-                Type = DeviceType.Button,
-                DeviceId = "Device1",
-                Value = 0, // PRESS event
-                ExtPin = null // Regular buttons don't have ExtPin
-            };
-
-            var configItem = new InputConfigItem
-            {
-                Active = true,
-                Controller = SerialNumber.CreateController("TestModule / SN-d4e5f6"),
-                DeviceName = "Device1",
-                DeviceType = InputConfigItem.TYPE_BUTTON,
-                Name = "TestConfig",
-                button = new ButtonInputConfig()
-                {
-                    onPress = new MSFS2020CustomInputAction()
-                    {
-                        Command = "(>K:TestCommand)",
-                        PresetId = "TestPresetId"
-                    }
-                },
-                // Simulate the bug: inputShiftRegister is not cleared when type changed
-                inputShiftRegister = new InputShiftRegisterConfig()
-                {
-                    ExtPin = 3 // This should be null/cleared when type is Button
-                }
-            };
-
-            _configItems.Add(configItem);
-
-            // Act
-            var result = _executor.Execute(inputEventArgs, isStarted: true);
-
-            // Assert
-            Assert.HasCount(1, result, "Button event should be executed even if old shift register config exists");
-            Assert.IsTrue(result.ContainsKey(configItem.GUID));
-
-            _mockLogAppender.Verify(
-                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (PRESS)")), LogSeverity.Info),
-                Times.Once
-            );
-        }
-
         #region Default Device Type Tests - Happy Path Scenarios
 
         [TestMethod]
@@ -463,19 +358,23 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Test default case: regular button with proper config
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-btn001",
-                Type = DeviceType.Button,
-                DeviceId = "Button1",
+                Controller = new Controller()
+                {
+                    Serial = "SN-btn001",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "Button1"
+                },
+                InputType = DeviceType.Button,
                 Value = 0, // PRESS event
-                ExtPin = null
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-btn001"),
-                DeviceName = "Button1",
-                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Button1"),
                 Name = "RegularButton",
                 button = new ButtonInputConfig()
                 {
@@ -503,19 +402,23 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Test default case: encoder with proper config
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-enc001",
-                Type = DeviceType.Encoder,
-                DeviceId = "Encoder1",
+                Controller = new Controller()
+                {
+                    Serial = "SN-enc001",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "Encoder1"
+                },
+                InputType = DeviceType.Encoder,
                 Value = 1, // Rotation value
-                ExtPin = null
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-enc001"),
-                DeviceName = "Encoder1",
-                DeviceType = InputConfigItem.TYPE_ENCODER,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_ENCODER, "Encoder1"),
                 Name = "TestEncoder",
                 encoder = new EncoderInputConfig()
                 {
@@ -543,23 +446,27 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Test default case: input shift register with matching pin
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-isr001",
-                Type = DeviceType.Button,
-                DeviceId = "InputShifter",
-                Value = 0,
-                ExtPin = 5 // Matching pin
+                Controller = new Controller()
+                {
+                    Serial = "SN-isr001",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "InputShifter:5",
+                    Type = DeviceType.InputShiftRegister
+                },
+                InputType = DeviceType.Button,
+                Value = 0
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-isr001"),
-                DeviceName = "InputShifter",
-                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 5),
                 Name = "TestInputShiftRegister",
-                inputShiftRegister = new InputShiftRegisterConfig()
+                button = new ButtonInputConfig()
                 {
-                    ExtPin = 5, // Same pin as event
                     onPress = new MSFS2020CustomInputAction()
                     {
                         Command = "(>K:TestCommand)",
@@ -584,23 +491,27 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Test default case: input multiplexer with matching pin
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-mux001",
-                Type = DeviceType.Button,
-                DeviceId = "InputMux",
+                Controller = new Controller()
+                {
+                    Serial = "SN-mux001",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "InputMux:3",
+                    Type = DeviceType.InputMultiplexer
+                },
+                InputType = DeviceType.Button,
                 Value = 0,
-                ExtPin = 3 // Matching pin
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-mux001"),
-                DeviceName = "InputMux",
-                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_MULTIPLEXER, "InputMux", 3),
                 Name = "TestInputMultiplexer",
-                inputMultiplexer = new InputMultiplexerConfig()
+                button = new ButtonInputConfig()
                 {
-                    DataPin = 3, // Same pin as event
                     onPress = new MSFS2020CustomInputAction()
                     {
                         Command = "(>K:TestCommand)",
@@ -625,19 +536,24 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Test default case: analog input with proper config
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-analog001",
-                Type = DeviceType.AnalogInput,
-                DeviceId = "Analog1",
+                Controller = new Controller()
+                {
+                    Serial = "SN-analog001",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "Analog1",
+                    Type = DeviceType.AnalogInput
+                },
+                InputType = DeviceType.AnalogInput,
                 Value = 512, // Analog value
-                ExtPin = null
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-analog001"),
-                DeviceName = "Analog1",
-                DeviceType = InputConfigItem.TYPE_ANALOG,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_ANALOG, "Analog1"),
                 Name = "TestAnalogInput",
                 analog = new AnalogInputConfig()
                 {
@@ -669,19 +585,24 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Edge case: button config with stale encoder config (shouldn't affect execution)
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-edge001",
-                Type = DeviceType.Button,
-                DeviceId = "Button1",
-                Value = 0,
-                ExtPin = null
+                Controller = new Controller()
+                {
+                    Serial = "SN-edge001",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "Button1",
+                    Type = DeviceType.Button
+                },
+                InputType = DeviceType.Button,
+                Value = 0
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-edge001"),
-                DeviceName = "Button1",
-                DeviceType = InputConfigItem.TYPE_BUTTON, // Correct DeviceType
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Button1"),
                 Name = "ButtonWithStaleEncoder",
                 button = new ButtonInputConfig()
                 {
@@ -714,19 +635,24 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Edge case: encoder config with stale button config
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-edge002",
-                Type = DeviceType.Encoder,
-                DeviceId = "Encoder1",
-                Value = 1,
-                ExtPin = null
+                Controller = new Controller()
+                {
+                    Serial = "SN-edge002",
+                },
+                Device = new DeviceReference()
+                {
+                    Name = "Encoder1",
+                    Type = DeviceType.Encoder
+                },
+                InputType = DeviceType.Encoder,
+                Value = 1
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-edge002"),
-                DeviceName = "Encoder1",
-                DeviceType = InputConfigItem.TYPE_ENCODER, // Correct DeviceType
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_ENCODER, "Encoder1"),
                 Name = "EncoderWithStaleButton",
                 encoder = new EncoderInputConfig()
                 {
@@ -759,23 +685,28 @@ namespace MobiFlight.Execution.Tests
             // Arrange - Edge case: correct DeviceType but wrong pin should skip
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-edge003",
-                Type = DeviceType.Button,
-                DeviceId = "InputShifter",
-                Value = 0,
-                ExtPin = 3 // Different pin
+                Controller = new Controller()
+                {
+                    Serial = "SN-edge003",
+                },
+                Device = new DeviceReference()
+                {
+                    // Different pin
+                    Name = "InputShifter:3",
+                    Type = DeviceType.InputShiftRegister,
+                },
+                InputType = DeviceType.Button,
+                Value = 0 
             };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-edge003"),
-                DeviceName = "InputShifter",
-                DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER, "InputShifter", 7),
                 Name = "ShiftRegisterWrongPin",
-                inputShiftRegister = new InputShiftRegisterConfig()
+                button = new ButtonInputConfig()
                 {
-                    ExtPin = 7, // Different pin - should skip
                     onPress = new MSFS2020CustomInputAction()
                     {
                         Command = "(>K:TestCommand)",
@@ -794,64 +725,26 @@ namespace MobiFlight.Execution.Tests
         }
 
         [TestMethod]
-        public void Execute_InputMultiplexerWithWrongPinButCorrectDeviceType_Skips()
-        {
-            // Arrange - Edge case: correct DeviceType but wrong pin should skip
-            var inputEventArgs = new InputEventArgs
-            {
-                Serial = "SN-edge004",
-                Type = DeviceType.Button,
-                DeviceId = "InputMux",
-                Value = 0,
-                ExtPin = 2 // Different pin
-            };
-
-            var configItem = new InputConfigItem
-            {
-                Active = true,
-                Controller = SerialNumber.CreateController("TestModule / SN-edge004"),
-                DeviceName = "InputMux",
-                DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER,
-                Name = "MultiplexerWrongPin",
-                inputMultiplexer = new InputMultiplexerConfig()
-                {
-                    DataPin = 8, // Different pin - should skip
-                    onPress = new MSFS2020CustomInputAction()
-                    {
-                        Command = "(>K:TestCommand)",
-                        PresetId = "TestPresetId"
-                    }
-                }
-            };
-
-            _configItems.Add(configItem);
-
-            // Act
-            var result = _executor.Execute(inputEventArgs, isStarted: true);
-
-            // Assert
-            Assert.HasCount(0, result, "Input multiplexer with wrong pin should be skipped");
-        }
-
-        [TestMethod]
         public void Execute_MultipleConfigsSameSerialDifferentDevices_ExecutesOnlyMatching()
         {
             // Arrange - Edge case: multiple configs with same serial but different devices
             var inputEventArgs = new InputEventArgs
             {
-                Serial = "SN-multi001",
-                Type = DeviceType.Button,
-                DeviceId = "Button2",
-                Value = 0,
-                ExtPin = null
+                Controller = new Controller() { Serial = "SN-multi001" },
+                Device = new DeviceReference()
+                {
+                    Name = "Button2",
+                    Type = DeviceType.Button
+                },
+                InputType = DeviceType.Button,
+                Value = 0
             };
 
             var configItem1 = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-multi001"),
-                DeviceName = "Button1", // Different device
-                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Button1"),
                 Name = "Button1Config",
                 button = new ButtonInputConfig()
                 {
@@ -863,8 +756,7 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = true,
                 Controller = SerialNumber.CreateController("TestModule / SN-multi001"),
-                DeviceName = "Button2", // Matching device
-                DeviceType = InputConfigItem.TYPE_BUTTON,
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Button2"), // Matching device
                 Name = "Button2Config",
                 button = new ButtonInputConfig()
                 {
