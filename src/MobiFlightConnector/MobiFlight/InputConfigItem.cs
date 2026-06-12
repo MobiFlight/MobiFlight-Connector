@@ -34,10 +34,10 @@ namespace MobiFlight
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public ButtonInputConfig button { get; set; }
-        
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public EncoderInputConfig encoder { get; set; }
-        
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public AnalogInputConfig analog { get; set; }
 
@@ -109,11 +109,13 @@ namespace MobiFlight
                 // this is for backwards compatibility
                 // the name of the attribute changed over time, but there were only one
                 // so we will always try to read the first attribute, if it is present
-                if (reader.GetAttribute(0) != null)
+                ExtPin = 0;
+                var extPinAttribute = reader.GetAttribute(0);
+                if (!string.IsNullOrEmpty(extPinAttribute) &&
+                    int.TryParse(extPinAttribute, out var parsedExtPin))
                 {
-                    ExtPin = int.Parse(reader.GetAttribute(0));
+                    ExtPin = parsedExtPin;
                 }
-
                 button.ReadXml(reader);
 
             }
@@ -124,9 +126,12 @@ namespace MobiFlight
                 // this is for backwards compatibility
                 // the name of the attribute changed over time, but there were only one
                 // so we will always try to read the first attribute, if it is present
-                if (reader.GetAttribute(0) != null)
+                ExtPin = 0;
+                var extPinAttribute = reader.GetAttribute(0);
+                if (!string.IsNullOrEmpty(extPinAttribute) &&
+                    int.TryParse(extPinAttribute, out var parsedExtPin))
                 {
-                    ExtPin = int.Parse(reader.GetAttribute(0));
+                    ExtPin = parsedExtPin;
                 }
                 button.ReadXml(reader);
 
@@ -215,11 +220,11 @@ namespace MobiFlight
                     break;
 
                 case DEPRECATED_TYPE_INPUT_SHIFT_REGISTER:
-                    result = new InputShiftRegister() { Name = $"{DeviceName}:{SubIndex}", SubIndex = SubIndex };
+                    result = new Button() { Name = $"{DeviceName}:{SubIndex}" };
                     break;
 
                 case DEPRECATED_TYPE_INPUT_MULTIPLEXER:
-                    result = new InputMultiplexer() { Name = $"{DeviceName}:{SubIndex}", SubIndex = SubIndex };
+                    result = new Button() { Name = $"{DeviceName}:{SubIndex}" };
                     break;
             }
 
