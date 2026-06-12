@@ -409,10 +409,8 @@
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\Button.cs" />
     <Compile Include="MobiFlight\InputConfig\Encoder.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputMultiplexer.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionExecutionCache.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionFactory.cs" />
-    <Compile Include="MobiFlight\InputConfig\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\ProSimInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />

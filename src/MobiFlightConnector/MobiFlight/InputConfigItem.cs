@@ -10,8 +10,6 @@ using Newtonsoft.Json;
 using Button = MobiFlight.InputConfig.Button;
 using Encoder = MobiFlight.InputConfig.Encoder;
 using AnalogInput = MobiFlight.InputConfig.AnalogInput;
-using InputShiftRegister = MobiFlight.InputConfig.InputShiftRegister;
-using InputMultiplexer = MobiFlight.InputConfig.InputMultiplexer;
 
 namespace MobiFlight
 {
