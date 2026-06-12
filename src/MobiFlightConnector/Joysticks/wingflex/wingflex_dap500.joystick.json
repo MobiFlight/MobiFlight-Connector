@@ -106,5 +106,41 @@
     }
   ],
   "Outputs": [
+    {
+      "Label": "Light 1",
+      "Id": "Light1",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "Light 2",
+      "Id": "Light2",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "Light 3",
+      "Id": "Light3",
+      "Byte": 1,
+      "Bit": 3
+    },
+    {
+      "Label": "Light 4",
+      "Id": "Light4",
+      "Byte": 1,
+      "Bit": 4
+    },
+    {
+      "Label": "Light 5",
+      "Id": "Light5",
+      "Byte": 1,
+      "Bit": 5
+    },
+    {
+      "Label": "Light 6",
+      "Id": "Light6",
+      "Byte": 1,
+      "Bit": 6
+    }
   ]
 }

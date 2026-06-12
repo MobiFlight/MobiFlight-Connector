@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
 using HidSharp.Reports.Input;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -44,7 +45,9 @@ namespace MobiFlight.Joysticks.WingFlex
                 
                 if (Stream == null)
                 {
-                    Stream = Device.Open();
+                    OpenConfiguration config = new OpenConfiguration();
+                    config.SetOption(OpenOption.Exclusive, true);
+                    Stream = Device.Open(config);
                     Stream.ReadTimeout = Timeout.Infinite;
                 }
 
@@ -185,6 +188,32 @@ namespace MobiFlight.Joysticks.WingFlex
         public override void Stop()
         {
             base.Stop();
+        }
+
+        protected override void SendData(byte[] data)
+        {
+            // Don't try and send data if no outputs are defined.
+            if (Definition?.Outputs == null || Definition?.Outputs.Count == 0)
+            {
+                return;
+            }
+
+            if (!RequiresOutputUpdate) return;
+            if (Stream == null)
+            {
+                Connect();
+            }
+
+            try
+            {
+                Stream.SetFeature(data, 0, 5);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log($"Error sending data to device: {e.Message}", LogSeverity.Error);
+            }
+
+            RequiresOutputUpdate = false;
         }
     }
 }
