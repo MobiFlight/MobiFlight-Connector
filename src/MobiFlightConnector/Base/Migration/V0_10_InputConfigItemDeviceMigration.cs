@@ -56,7 +56,7 @@ namespace MobiFlight.Base.Migration
             if (deviceName != null && deviceType != null && configItem["Device"] == null)
             {
                 var subIndex = 0;
-                if (deviceType == InputConfigItem.TYPE_INPUT_MULTIPLEXER)
+                if (deviceType == InputConfigItem.DEPPRECATD_TYPE_INPUT_MULTIPLEXER)
                 {
                     var multiplexerPin = configItem["inputMultiplexer"]?["DataPin"];
                     if (multiplexerPin != null)
@@ -65,7 +65,7 @@ namespace MobiFlight.Base.Migration
                     }
                 }
 
-                if (deviceType == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
+                if (deviceType == InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER)
                 {
                     var pin = configItem["inputShiftRegister"]?["ExtPin"];
                     if (pin != null)
@@ -198,7 +198,7 @@ namespace MobiFlight.Base.Migration
             var deviceType = device["Type"]?.ToString();
 
             // We only deal with InputMultiplexer and InputShiftRegister here
-            if (deviceType != InputConfigItem.TYPE_INPUT_MULTIPLEXER && deviceType != InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
+            if (deviceType != InputConfigItem.DEPPRECATD_TYPE_INPUT_MULTIPLEXER && deviceType != InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER)
                 return;
 
             var deviceName = device["Name"]?.ToString();

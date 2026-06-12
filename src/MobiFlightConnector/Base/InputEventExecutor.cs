@@ -173,7 +173,7 @@ namespace MobiFlight.Execution
             // would get added to the input cache and fired even though the pins don't match.
             // Only perform this check if the config's DeviceType is actually InputShiftRegister
             bool isButtonEvent = e.InputType == DeviceType.Button;
-            bool isInputShiftRegisterConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+            bool isInputShiftRegisterConfig = cfg.Device.Type == InputConfigItem.DEPRECATED_TYPE_INPUT_SHIFT_REGISTER;
             bool hasInputShiftRegisterConfig = cfg.button != null;
             bool pinMismatch = cfg.Device.Name != e.Device.Name;
 
@@ -185,7 +185,7 @@ namespace MobiFlight.Execution
             // Similarly for digital input Multiplexer
             // Only perform this check if the config's DeviceType is actually InputMultiplexer
             bool isButtonEvent = e.InputType == DeviceType.Button;
-            bool isInputMultiplexerConfig = cfg.Device.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER;
+            bool isInputMultiplexerConfig = cfg.Device.Type == InputConfigItem.DEPPRECATD_TYPE_INPUT_MULTIPLEXER;
             bool hasInputMultiplexerConfig = cfg.button != null;
             bool pinMismatch = cfg.Device.Name != e.Device.Name;
 
