@@ -3,6 +3,7 @@ using MobiFlight;
 using MobiFlight.Base;
 using MobiFlight.Base.Migration;
 using MobiFlight.InputConfig;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MobiFlightUnitTests.Base.Migration
@@ -10,6 +11,64 @@ namespace MobiFlightUnitTests.Base.Migration
     [TestClass]
     public class V0_10_InputConfigItemDeviceMigrationTests
     {
+        [TestMethod()]
+        public void ReadJson_InputMultiplexer_WithBetaFormat_DeserializesCorrectly()
+        {
+            // Arrange
+            var inputDocument = JObject.Parse(@"{
+                ""ConfigFiles"": [
+                    {
+                        ""ConfigItems"": [
+                            {
+                                ""inputMultiplexer"": {
+                                    ""DataPin"": 13,
+                                    ""onPress"": {
+                                        ""Command"": ""(L:S_OH_GPWS_TERR) ! (>L:S_OH_GPWS_TERR) "",
+                                        ""PresetId"": ""f8fe1296-5c0e-409a-b2d3-608165240314"",
+                                        ""Type"": ""MSFS2020CustomInputAction""
+                                    },
+                                    ""onRelease"": {
+                                        ""Command"": ""(L:S_OH_GPWS_TERR) ! (>L:S_OH_GPWS_TERR) "",
+                                        ""PresetId"": ""f8fe1296-5c0e-409a-b2d3-608165240314"",
+                                        ""Type"": ""MSFS2020CustomInputAction""
+                                    },
+                                    ""onLongRelease"": null,
+                                    ""onHold"": null,
+                                    ""LongReleaseDelay"": 350,
+                                    ""HoldDelay"": 350,
+                                    ""RepeatDelay"": 0
+                                },
+                                ""Device"": {
+                                    ""Type"": ""InputMultiplexer"",
+                                    ""Name"": ""Multiplexer:13""
+                                },
+                                ""GUID"": ""2ec17354-70be-4d58-86bf-5b944fe4533d"",
+                                ""Active"": true,
+                                ""Name"": ""TERR PB"",
+                                ""Type"": ""InputConfigItem"",
+                                ""Controller"": {
+                                    ""Name"": ""Overhead Left"",
+                                    ""Serial"": ""SN-66E-7CA"",
+                                    ""Devices"": []
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }");
+
+            // Act
+            var result = V0_10_InputConfigItemDeviceMigration.Apply(inputDocument);
+            var rawConfigItem = result["ConfigFiles"][0]["ConfigItems"][0];
+            var configItem = JsonConvert.DeserializeObject<IConfigItem>(rawConfigItem.ToString());
+            // Assert
+            Assert.IsNotNull(configItem);
+            Assert.IsInstanceOfType(configItem, typeof(InputConfigItem));
+            Assert.IsNotNull(configItem.Device);
+            Assert.AreEqual("Multiplexer:13", configItem.Device.Name);
+            Assert.AreEqual("Button", configItem.Device.Type);
+        }
+
         [TestMethod]
         public void Apply_InputMultiplexerActionWithDataPin_MigratesCompletely()
         {
