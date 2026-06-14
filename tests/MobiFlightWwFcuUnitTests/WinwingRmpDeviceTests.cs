@@ -36,13 +36,13 @@ namespace MobiFlightWwFcuUnitTests
             return data;
         }
 
-        // Builds the expected 53-byte SetValues frame from the 36-byte data section.
+        // Builds the expected 145-byte SetValues frame 
         private static byte[] SetValuesFrame(byte[] data)
         {
-            var frame = new byte[0x35];
+            var frame = new byte[0x91];
             var header = new byte[]
             {
-                0x82, 0xBB, 0x00, 0x00, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x00, 0x00, 0x00
+                0x82, 0xBB, 0x00, 0x00, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00
             };
             header.CopyTo(frame, 0);
             data.CopyTo(frame, 17);
@@ -60,7 +60,7 @@ namespace MobiFlightWwFcuUnitTests
         [TestMethod]
         public void Name_LeftAndRightVariant_ContainVariantName()
         {
-            Assert.AreEqual("WinWing RMP Left",  new WinwingRmpDevice(mockMessageSender, "RMP Left").Name);
+            Assert.AreEqual("WinWing RMP Left", new WinwingRmpDevice(mockMessageSender, "RMP Left").Name);
             Assert.AreEqual("WinWing RMP Right", new WinwingRmpDevice(mockMessageSender, "RMP Right").Name);
         }
 
@@ -189,7 +189,7 @@ namespace MobiFlightWwFcuUnitTests
             Assert.HasCount(2, mockMessageSender.DisplayCommandsSent);
 
             var data = new byte[36];
-            data[4]  = 0x06; data[5]  = 0x06; data[6]  = 0xFF; data[7]  = 0x6F; data[8]  = 0x3F; data[9]  = 0x6D;
+            data[4] = 0x06; data[5] = 0x06; data[6] = 0xFF; data[7] = 0x6F; data[8] = 0x3F; data[9] = 0x6D;
             data[10] = 0x06; data[11] = 0x5B; data[12] = 0xDB; data[13] = 0x7F; data[14] = 0x3F; data[15] = 0x3F;
 
             List<byte[]> expectedCommands = new List<byte[]>()

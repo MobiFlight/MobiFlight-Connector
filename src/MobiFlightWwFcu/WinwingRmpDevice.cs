@@ -30,7 +30,7 @@ namespace MobiFlightWwFcu
         private string StandbyRawValue;
 
         public WinwingRmpDevice(IWinwingMessageSender sender, string rmpType)
-            : base(sender, WinwingConstants.DEST_RMP, 0x35) // 17 header + 36 data bytes, confirmed via capture
+            : base(sender, WinwingConstants.DEST_RMP, 0x91)
         {
             RmpType = rmpType;
 
