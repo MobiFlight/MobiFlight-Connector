@@ -48,7 +48,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
                 Name = "Initial Project",
                 Sim = "fsx",
                 Features = new ProjectFeatures { FSUIPC = false, ProSim = false },
-                Aircraft = new System.Collections.ObjectModel.ObservableCollection<string>() { "Cessna 172" }
+                Aircraft = new System.Collections.ObjectModel.ObservableCollection<AircraftInfo>() { new AircraftInfo { Name = "Cessna 172", Vendor = "Microsoft" } }
             };
             _mainForm.CreateNewProject(initialProject);
 
@@ -62,7 +62,7 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
                 Name = "Updated Project Name",
                 Sim = "msfs",
                 Features = new ProjectFeatures { FSUIPC = true, ProSim = false },
-                Aircraft = new System.Collections.ObjectModel.ObservableCollection<string>() { "Boeing 737" }
+                Aircraft = new System.Collections.ObjectModel.ObservableCollection<AircraftInfo>() { new AircraftInfo { Name = "Boeing 737", Vendor = "PMDG" } }
             };
 
             var message = new CommandMainMenu
@@ -88,7 +88,8 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Incoming.Handler
             Assert.IsTrue(savedProject.Features.FSUIPC);
             Assert.IsFalse(savedProject.Features.ProSim);
             Assert.HasCount(1, savedProject.Aircraft);
-            Assert.AreEqual("Boeing 737", savedProject.Aircraft[0]);
+            Assert.AreEqual("Boeing 737", savedProject.Aircraft[0].Name);
+            Assert.AreEqual("PMDG", savedProject.Aircraft[0].Vendor);
         }
 
         [TestMethod]
