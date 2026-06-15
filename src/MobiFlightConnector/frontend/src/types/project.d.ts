@@ -24,7 +24,7 @@ export interface ProjectInfo {
   FilePath: string
 
   Thumbnail?: string
-  Sim: "msfs", "xplane", "p3d", "fsx"
+  Sim: SimulatorType
   Favorite?: boolean
   Features: ProjectFeatures
   ControllerBindings: ControllerBinding[]
