@@ -14,11 +14,7 @@ export interface Project {
   Sim: "msfs" | "xplane" | "p3d" | "fsx" | "none"
   Features: ProjectFeatures
   ControllerBindings: ControllerBinding[]
-  Aircraft?: {
-    Name: string
-    Filter: string
-    Available: boolean
-  }[]
+  Aircraft?: AircraftInfo[]
 }
 
 export interface ProjectInfo {

@@ -286,6 +286,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\AircraftInfo.cs" />
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\CacheInterface.cs" />
     <Compile Include="Base\ConfigFile.cs" />

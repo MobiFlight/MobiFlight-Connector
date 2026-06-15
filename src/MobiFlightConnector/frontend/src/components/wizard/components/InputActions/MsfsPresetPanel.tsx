@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { fetchHubHopPresets } from "@/lib/configWizard"
+import { useProjectStore } from "@/stores/projectStore"
+import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
@@ -37,6 +39,8 @@ const MsfsPresetPanel = ({
   setSelectedPreset,
 }: MsfsPresetPanelProps) => {
   const { t } = useTranslation()
+  const { project } = useProjectStore()
+
   const validPresetTypes =
     variant === "input" ? ["input", "potentiometer"] : ["output"]
 
@@ -47,10 +51,19 @@ const MsfsPresetPanel = ({
     staleTime: Infinity,
   })
 
-  const validPresets = presets.filter((p: Preset) =>
-    validPresetTypes.includes(p.presetType.toLowerCase()),
+  const projectAircraftFilter = (p: Preset) =>
+    (project?.Aircraft?.length ?? 0) > 0
+      ? project!.Aircraft!.some(
+          (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
+        )
+      : true
+
+  const validPresets = presets.filter(
+    (p: Preset) =>
+      validPresetTypes.includes(p.presetType.toLowerCase()) &&
+      projectAircraftFilter(p),
   )
-  
+
   const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
 
   const [filter, setFilter] = useState({

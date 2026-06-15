@@ -20,7 +20,7 @@ namespace MobiFlight.Base
         public string Name { get; set; }
         public string Sim { get; set; }
         public ProjectFeatures Features { get; set; }
-        public List<string> Aircraft { get; set; }
+        public List<AircraftInfo> Aircraft { get; set; }
         public string FilePath { get; set; }
         public bool Favorite { get; set; } = false;
         /// <summary>
@@ -187,11 +187,11 @@ namespace MobiFlight.Base
             }
         }
 
-        private ObservableCollection<string> _aircraft = new ObservableCollection<string>();
+        private ObservableCollection<AircraftInfo> _aircraft = new ObservableCollection<AircraftInfo>();
         /// <summary>
         /// Gets or sets the name of the project.
         /// </summary>
-        public ObservableCollection<string> Aircraft
+        public ObservableCollection<AircraftInfo> Aircraft
         {
             get => _aircraft;
             set
@@ -280,7 +280,7 @@ namespace MobiFlight.Base
                 Name = Name,
                 Sim = Sim,
                 Features = Features,
-                Aircraft = Aircraft?.ToList() ?? new List<string>(),
+                Aircraft = Aircraft?.ToList() ?? new List<AircraftInfo>(),
                 FilePath = FilePath,
                 ControllerBindings = ControllerBindings
             };
@@ -430,7 +430,7 @@ namespace MobiFlight.Base
             this.Sim = project.Sim;
             this.Features = project.Features.Clone();
             this.Aircraft = project.Aircraft != null ?
-                                new ObservableCollection<string>(project.Aircraft) :
+                                new ObservableCollection<AircraftInfo>(project.Aircraft) :
                                 null;
 
             this.ConfigFiles = project.ConfigFiles != null ?
