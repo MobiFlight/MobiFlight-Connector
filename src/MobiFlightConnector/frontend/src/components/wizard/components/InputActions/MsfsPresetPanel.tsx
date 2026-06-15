@@ -2,6 +2,7 @@ import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { fetchHubHopPresets } from "@/lib/configWizard"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
@@ -38,21 +39,19 @@ const MsfsPresetPanel = ({
   const { t } = useTranslation()
   const validPresetTypes =
     variant === "input" ? ["input", "potentiometer"] : ["output"]
-  // In MsfsPresetPanel (or a dedicated hook)
+
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
-    queryFn: () =>
-      fetch("/presets/msfs2020_hubhop_presets.json")
-        .then((r) => r.json())
-        .then((presets) =>
-          presets.filter((p: Preset) =>
-            validPresetTypes.includes(p.presetType.toLowerCase()),
-          ),
-        ) as Promise<Preset[]>,
-    staleTime: Infinity, // presets don't change at runtime; HubHopState drives invalidation
+    queryFn: () => fetchHubHopPresets("msfs"),
+    // presets don't change at runtime; HubHopState drives invalidation
+    staleTime: Infinity,
   })
 
-  const selectedPreset = presets.find((p) => p.id === selectedPresetId)
+  const validPresets = presets.filter((p: Preset) =>
+    validPresetTypes.includes(p.presetType.toLowerCase()),
+  )
+  
+  const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
 
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
@@ -61,7 +60,7 @@ const MsfsPresetPanel = ({
     search: "",
   })
 
-  const filteredPresets = presets.filter(
+  const filteredPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&

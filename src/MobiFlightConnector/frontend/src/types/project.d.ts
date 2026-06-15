@@ -1,6 +1,11 @@
 import { ControllerBinding } from "@/types/controller"
 import { ConfigFile } from "./config"
 
+export type AircraftInfo = {
+  Vendor: string
+  Name: string
+}
+
 export interface Project {
   Name: string
   FilePath: string
@@ -25,10 +30,7 @@ export interface ProjectInfo {
   Favorite?: boolean
   Features: ProjectFeatures
   ControllerBindings: ControllerBinding[]
-  Aircraft?: {
-    Name: string
-    Filter: string
-  }[]
+  Aircraft?: AircraftInfo[]
 }
 
 export interface ProjectFeatures {
