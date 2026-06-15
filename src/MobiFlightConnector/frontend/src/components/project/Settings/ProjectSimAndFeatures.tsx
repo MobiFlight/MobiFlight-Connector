@@ -3,21 +3,17 @@ import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { ProjectFeatures, ProjectInfo } from "@/types/project"
 import { useTranslation } from "react-i18next"
-
-type ProjectSimSelectionProps = {
+type ProjectSimAndFeaturesProps = {
   simSettings: Partial<ProjectInfo>
   onChange: (values: Partial<ProjectInfo>) => void
 }
-
-const ProjectSimSelection = ({
+const ProjectSimAndFeatures = ({
   simSettings,
   onChange,
-}: ProjectSimSelectionProps) => {
+}: ProjectSimAndFeaturesProps) => {
   const { t } = useTranslation()
-
   const useFsuipc = simSettings.Features?.FSUIPC ?? false
   const useProsim = simSettings.Features?.ProSim ?? false
-
   return (
     <>
       <div>
@@ -29,7 +25,6 @@ const ProjectSimSelection = ({
         </p>
       </div>
       {/* Flight Simulator Selection */}
-
       <div className="flex flex-row gap-4">
         {["msfs", "xplane", "p3d", "fsx"].map((sim) => (
           <div
@@ -87,7 +82,6 @@ const ProjectSimSelection = ({
                 </Label>
               </div>
             )}
-
             {/* ProSim Option (MSFS & P3D) */}
             <div className="flex items-center space-x-2 pl-2">
               <Checkbox
@@ -111,4 +105,4 @@ const ProjectSimSelection = ({
     </>
   )
 }
-export default ProjectSimSelection
+export default ProjectSimAndFeatures

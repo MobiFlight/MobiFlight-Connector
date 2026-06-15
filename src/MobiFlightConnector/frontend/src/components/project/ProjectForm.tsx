@@ -14,8 +14,8 @@ import { useRef, useState } from "react"
 import { AircraftInfo, ProjectFeatures, ProjectInfo } from "@/types/project"
 import { useLocation } from "react-router"
 import { useTranslation } from "react-i18next"
-import ProjectAircraftForm from "@/components/project/ProjectAircraftForm"
-import ProjectSimSelection from "@/components/project/components/ProjectSimSelection"
+import ProjectAircraft from "@/components/project/Settings/ProjectAircraft"
+import ProjectSimAndFeatures from "@/components/project/Settings/ProjectSimAndFeatures"
 
 type ProjectFormProps = {
   project: ProjectInfo
@@ -138,7 +138,7 @@ const ProjectForm = ({
             )}{" "}
             {/* Show error */}
           </div>
-          <ProjectSimSelection
+          <ProjectSimAndFeatures
             simSettings={{
               Sim: simulator,
               Features: {
@@ -154,7 +154,7 @@ const ProjectForm = ({
               }
             }}
           />
-          <ProjectAircraftForm
+          <ProjectAircraft
             variant="summary"
             selectedAircraft={aircraft}
             setSelectedAircraft={setAircraft}

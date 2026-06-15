@@ -40,27 +40,27 @@ const AircraftItem = ({
   )
 }
 
-export interface ProjectAircraftFormProps {
+export interface ProjectAircraftProps {
   selectedAircraft: AircraftInfo[]
   setSelectedAircraft: (aircraft: AircraftInfo[]) => void
   variant?: "summary" | "form"
   drawerContainer?: RefObject<HTMLDivElement | null>
 }
 
-interface ProjectAircraftFormDrawerProps {
+interface ProjectAircraftDrawerProps {
   selectedAircraft: AircraftInfo[]
   setSelectedAircraft: (aircraft: AircraftInfo[]) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
   drawerOpen: boolean
   setDrawerOpen: (open: boolean) => void
 }
-const ProjectAircraftFormDrawer = ({
+const ProjectAircraftDrawer = ({
   selectedAircraft,
   setSelectedAircraft,
   drawerContainer,
   drawerOpen,
   setDrawerOpen,
-}: ProjectAircraftFormDrawerProps) => {
+}: ProjectAircraftDrawerProps) => {
   const { t } = useTranslation()
 
   const [filter, setFilter] = useState("")
@@ -177,11 +177,11 @@ const ProjectAircraftFormDrawer = ({
   )
 }
 
-const ProjectAircraftForm = ({
+const ProjectAircraft = ({
   selectedAircraft,
   setSelectedAircraft,
   drawerContainer,
-}: ProjectAircraftFormProps) => {
+}: ProjectAircraftProps) => {
   const navigate = useNavigate()
   const location = useLocation()
   const state = location.state as { backgroundLocation?: Location }
@@ -237,7 +237,7 @@ const ProjectAircraftForm = ({
         </div>
       </div>
       {detailView && (
-        <ProjectAircraftFormDrawer
+        <ProjectAircraftDrawer
           selectedAircraft={selectedAircraft}
           setSelectedAircraft={setSelectedAircraft}
           drawerOpen={drawerOpen}
@@ -248,4 +248,4 @@ const ProjectAircraftForm = ({
     </>
   )
 }
-export default ProjectAircraftForm
+export default ProjectAircraft
