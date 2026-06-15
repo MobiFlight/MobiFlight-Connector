@@ -11,7 +11,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useRef, useState } from "react"
-import { AircraftInfo, ProjectFeatures, ProjectInfo } from "@/types/project"
+import {
+  AircraftInfo,
+  ProjectFeatures,
+  ProjectInfo,
+  SimulatorType,
+} from "@/types/project"
 import { useLocation } from "react-router"
 import { useTranslation } from "react-i18next"
 import ProjectAircraft from "@/components/project/Settings/ProjectAircraft"
@@ -23,7 +28,7 @@ type ProjectFormProps = {
   onOpenChange: (open: boolean) => void
   onSave: (values: {
     Name: string
-    Sim: string
+    Sim: SimulatorType
     Features: ProjectFeatures
     Aircraft: AircraftInfo[]
   }) => void
@@ -35,17 +40,27 @@ const ProjectForm = ({
   onOpenChange,
   onSave,
 }: ProjectFormProps) => {
-  const [name, setName] = useState(project?.Name ?? "")
-  const [simulator, setSimulator] = useState<string>(project?.Sim ?? "msfs")
-  const [useFsuipc, setUseFsuipc] = useState(project?.Features?.FSUIPC ?? false)
-  const [useProsim, setUseProsim] = useState(project?.Features?.ProSim ?? false)
-
-  const [aircraft, setAircraft] = useState<AircraftInfo[]>(
-    project?.Aircraft ?? [
+  const defaultAircraft = {
+    msfs: [
       { Vendor: "Asobo", Name: "Generic" },
       { Vendor: "Microsoft", Name: "Generic" },
     ],
+    xplane: [{ Vendor: "Laminar Research", Name: "Generic" }],
+    p3d: [],
+    fsx: [],
+    none: [],
+  } as Record<SimulatorType, AircraftInfo[]>
+
+  const [name, setName] = useState(project?.Name ?? "")
+  const [simulator, setSimulator] = useState<SimulatorType>(
+    project?.Sim ?? "msfs",
   )
+  const [useFsuipc, setUseFsuipc] = useState(project?.Features?.FSUIPC ?? false)
+  const [useProsim, setUseProsim] = useState(project?.Features?.ProSim ?? false)
+  const [aircraft, setAircraft] = useState<AircraftInfo[]>(
+    project?.Aircraft ?? defaultAircraft[simulator],
+  )
+
   const [hasError, setHasError] = useState(false)
 
   const location = useLocation()
@@ -139,27 +154,32 @@ const ProjectForm = ({
             {/* Show error */}
           </div>
           <ProjectSimAndFeatures
-            simSettings={{
-              Sim: simulator,
-              Features: {
-                FSUIPC: useFsuipc,
-                ProSim: useProsim,
-              },
-            }}
+            simSettings={
+              {
+                Sim: simulator,
+                Features: {
+                  FSUIPC: useFsuipc,
+                  ProSim: useProsim,
+                },
+              } as Partial<ProjectInfo>
+            }
             onChange={(values) => {
-              if (values.Sim) setSimulator(values.Sim)
+              if (values.Sim) {
+                setSimulator(values.Sim)
+              }
               if (values.Features) {
                 setUseFsuipc(values.Features.FSUIPC ?? false)
                 setUseProsim(values.Features.ProSim ?? false)
               }
+              setAircraft(defaultAircraft[values.Sim ?? "none"])
             }}
           />
           <ProjectAircraft
-            variant="summary"
-            selectedAircraft={aircraft}
-            setSelectedAircraft={setAircraft}
-            drawerContainer={containerRef}
-          />
+              variant={simulator}
+              selectedAircraft={aircraft}
+              setSelectedAircraft={setAircraft}
+              drawerContainer={containerRef}
+            />
         </div>
 
         <DialogFooter>

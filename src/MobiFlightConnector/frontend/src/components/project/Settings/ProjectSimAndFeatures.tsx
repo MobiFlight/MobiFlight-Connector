@@ -44,7 +44,7 @@ const ProjectSimAndFeatures = ({
                   FSUIPC: false,
                   ProSim: false,
                 },
-              })
+              } as Partial<ProjectInfo>)
             }}
           >
             <img
@@ -57,9 +57,9 @@ const ProjectSimAndFeatures = ({
       </div>
       {/* Simulator name */}
       <div className="flex flex-col">{t(`Project.Simulator.${simSettings.Sim}`)}</div>
-      <div className="flex h-24 flex-col gap-2">
+      <div className="flex flex-col gap-2">
         {(simSettings.Sim === "msfs" || simSettings.Sim === "p3d") && (
-          <div className="flex h-24 flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <p className="text-muted-foreground text-sm">
               {t("Project.Form.Simulator.Feature")}
             </p>

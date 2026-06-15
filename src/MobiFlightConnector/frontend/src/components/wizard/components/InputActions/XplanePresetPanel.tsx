@@ -2,6 +2,9 @@ import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { fetchHubHopPresets } from "@/lib/configWizard"
+import { useProjectStore } from "@/stores/projectStore"
+import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
@@ -37,6 +40,8 @@ const XplanePresetPanel = ({
   onPresetSelect,
 }: XplanePresetPanelProps) => {
   const { t } = useTranslation()
+  const { project } = useProjectStore()
+
   const validPresetTypes =
     variant === "input"
       ? ["input", "inputoutput", "potentiometer"]
@@ -44,18 +49,24 @@ const XplanePresetPanel = ({
 
   const { data: presets = [] } = useQuery({
     queryKey: ["xplane-presets"],
-    queryFn: () =>
-      fetch("/presets/xplane_hubhop_presets.json")
-        .then((r) => r.json())
-        .then((presets) =>
-          presets.filter((p: XplanePreset) =>
-            validPresetTypes.includes(p.presetType.toLowerCase()),
-          ),
-        ) as Promise<XplanePreset[]>,
+    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>,
     staleTime: Infinity,
   })
 
-  const selectedPreset = presets.find((p) => p.code === selectedPath)
+  const projectAircraftFilter = (p: XplanePreset) =>
+    (project?.Aircraft?.length ?? 0) > 0
+      ? project!.Aircraft!.some(
+          (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
+        )
+      : true
+
+  const validPresets = presets.filter(
+    (p: XplanePreset) =>
+      validPresetTypes.includes(p.presetType.toLowerCase()) &&
+      projectAircraftFilter(p),
+  )
+
+  const selectedPreset = validPresets.find((p) => p.code === selectedPath)
 
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
@@ -64,7 +75,7 @@ const XplanePresetPanel = ({
     search: "",
   })
 
-  const filteredPresets = presets.filter(
+  const filteredPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&

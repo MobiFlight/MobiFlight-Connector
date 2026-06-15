@@ -6,12 +6,14 @@ export type AircraftInfo = {
   Name: string
 }
 
+export type SimulatorType = "msfs" | "xplane" | "p3d" | "fsx" | "none"
+
 export interface Project {
   Name: string
   FilePath: string
   ConfigFiles: ConfigFile[]
   Thumbnail?: string
-  Sim: "msfs" | "xplane" | "p3d" | "fsx" | "none"
+  Sim: SimulatorType
   Features: ProjectFeatures
   ControllerBindings: ControllerBinding[]
   Aircraft?: AircraftInfo[]
@@ -22,7 +24,7 @@ export interface ProjectInfo {
   FilePath: string
 
   Thumbnail?: string
-  Sim: string
+  Sim: "msfs", "xplane", "p3d", "fsx"
   Favorite?: boolean
   Features: ProjectFeatures
   ControllerBindings: ControllerBinding[]
