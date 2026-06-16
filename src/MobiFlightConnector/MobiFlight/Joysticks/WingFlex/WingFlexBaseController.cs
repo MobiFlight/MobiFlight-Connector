@@ -1,5 +1,4 @@
 ﻿using HidSharp;
-using HidSharp.Reports;
 using HidSharp.Reports.Input;
 using System;
 using System.Collections.Generic;
@@ -117,7 +116,23 @@ namespace MobiFlight.Joysticks.WingFlex
         /// inside SendData, and the `OnDeviceRemoved` method is invoked.</remarks>
         public override void UpdateOutputDeviceStates()
         {
-            base.UpdateOutputDeviceStates();
+            // Feature ReportID=2 for the LEDs
+            var data = new byte[] { 2, 0, 0, 0, 0 };
+
+            foreach (var light in Lights)
+            {
+                data[light.Byte] |= (byte)(light.State << light.Bit);
+            }
+
+            try
+            {
+                SendData(data);
+            }
+            catch (System.IO.IOException)
+            {
+                // this happens when the device is removed.
+                OnDeviceRemoved();
+            }
         }
 
         /// <summary>

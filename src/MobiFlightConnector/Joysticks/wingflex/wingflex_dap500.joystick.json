@@ -107,40 +107,82 @@
   ],
   "Outputs": [
     {
-      "Label": "Light 1",
-      "Id": "Light1",
+      "Label": "APR LED",
+      "Id": "APR_LED",
       "Byte": 1,
       "Bit": 0
     },
     {
-      "Label": "Light 2",
-      "Id": "Light2",
+      "Label": "NAV LED",
+      "Id": "NAV_LED",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "TRK LED",
+      "Id": "TRK_LED",
       "Byte": 1,
       "Bit": 2
     },
     {
-      "Label": "Light 3",
-      "Id": "Light3",
+      "Label": "HDG LED",
+      "Id": "HDG_LED",
       "Byte": 1,
       "Bit": 3
     },
     {
-      "Label": "Light 4",
-      "Id": "Light4",
+      "Label": "AP LED",
+      "Id": "AP_LED",
       "Byte": 1,
       "Bit": 4
     },
     {
-      "Label": "Light 5",
-      "Id": "Light5",
+      "Label": "FD LED",
+      "Id": "FD_LED",
       "Byte": 1,
       "Bit": 5
     },
     {
-      "Label": "Light 6",
-      "Id": "Light6",
+      "Label": "LVL LED",
+      "Id": "LVL_LED",
       "Byte": 1,
       "Bit": 6
+    },
+    {
+      "Label": "YD LED",
+      "Id": "YD_LED",
+      "Byte": 1,
+      "Bit": 7
+    },
+    {
+      "Label": "IAS LED",
+      "Id": "IAS_LED",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "VNAV LED",
+      "Id": "VNAV_LED",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "VS LED",
+      "Id": "VS_LED",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "ALT LED",
+      "Id": "ALT_LED",
+      "Byte": 2,
+      "Bit": 3
+    },
+    {
+      "Label": "Backlight Brightness",
+      "Id": "BACKLIGHT",
+      "Byte": 3,
+      "Bit": 0
     }
   ]
 }
