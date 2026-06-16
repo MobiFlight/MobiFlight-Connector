@@ -1,15 +1,23 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ActionEditor from "@/components/wizard/components/ActionEditor"
-import { EncoderTrigger } from "@/types/config"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
+import { ActionSummary } from "@/components/wizard/components/ActionEditor"
+import { Action, EncoderTrigger } from "@/types/config"
+import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type EncoderActionBindingPanelProps = {
   trigger?: EncoderTrigger
+  onActionEdit: (
+      action: Action | null,
+      onConfigChange: (config: Action) => void,
+    ) => void
   onTriggerChange: (trigger: EncoderTrigger) => void
 }
 
 const EncoderActionBindingPanel = ({
   trigger,
+  onActionEdit,
   onTriggerChange,
 }: EncoderActionBindingPanelProps) => {
   const { t } = useTranslation()
@@ -23,16 +31,25 @@ const EncoderActionBindingPanel = ({
 
   const current = trigger ?? defaultEncoderTrigger
 
+  const handleOnActionChange = (tab: string, action: Action) => {
+    onTriggerChange({
+      ...current,
+      [tab]: action,
+    })
+  }
+
   return (
-    <Tabs data-testid="encoder-action-panel" defaultValue={tabs[0]}>
-      <TabsList>
-        {tabs.map((trigger) => (
-          <TabsTrigger key={trigger} value={trigger}>
-            {t(`Dialog.InputConfigWizard.Encoder.Tabs.${trigger}`)}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-      {tabs.map((tab) => {
+    <div
+      data-testid="encoder-action-panel"
+      className="flex flex-col gap-4 rounded-md border px-6 py-3 pb-8 shadow-md"
+    >
+      <div className="flex flex-col gap-1">
+        <div className="text-lg font-semibold">Actions</div>
+        <div className="text-muted-foreground text-sm">
+          Define the actions for each event.
+        </div>
+      </div>
+      {tabs.map((tab, index) => {
         const action =
           tab == "onLeft"
             ? trigger?.onLeft
@@ -41,21 +58,55 @@ const EncoderActionBindingPanel = ({
               : tab === "onLeftFast"
                 ? trigger?.onLeftFast
                 : trigger?.onRightFast
-        return (
-          <TabsContent key={tab} value={tab}>
-            <ActionEditor
-              action={action}
-              onActionChange={(action) => {
-                onTriggerChange({
-                  ...current,
-                  [tab]: action,
-                })
+
+        const isLast = index === tabs.length - 1
+
+        return action?.Type ? (
+          <>
+            <div
+              className="hover:bg-accent/20 flex flex-row items-center gap-4 p-2 rounded-md"
+              key={tab}
+              onDoubleClick={() =>
+                onActionEdit(action, (newAction) =>
+                  handleOnActionChange(tab, newAction),
+                )
+              }
+            >
+              <div className="flex w-32 flex-col gap-1">
+                <Label>Event</Label>
+                <div>{t(`Dialog.InputConfigWizard.Encoder.Tabs.${tab}`)}</div>
+              </div>
+              <ActionSummary
+                action={action}
+                onActionEdit={() => {
+                  onActionEdit(action, (newAction) =>
+                    handleOnActionChange(tab, newAction),
+                  )
+                }}
+              />
+            </div>
+            {!isLast && <Separator />}
+          </>
+        ) : (
+          <>
+            <Button
+              className="w-1/2 self-center"
+              size={"sm"}
+              variant="outline"
+              onClick={() => {
+                onActionEdit(null, (newAction) =>
+                  handleOnActionChange(tab, newAction),
+                )
               }}
-            />
-          </TabsContent>
+            >
+              <IconPlus />
+              {t(`Dialog.InputConfigWizard.Encoder.Tabs.${tab}`)}
+            </Button>
+            {!isLast && <Separator />}
+          </>
         )
       })}
-    </Tabs>
+    </div>
   )
 }
 export default EncoderActionBindingPanel

@@ -50,7 +50,7 @@ const AnalogActionBindingPanel = ({
       {action?.Type ? (
         <>
           <div
-            className="hover:bg-accent bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
+            className="hover:bg-accent/20 flex flex-row items-center gap-4 rounded-md p-2"
             onDoubleClick={() =>
               onActionEdit(action, (newAction) =>
                 handleOnActionChange("onChange", newAction),

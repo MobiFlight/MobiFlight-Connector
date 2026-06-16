@@ -67,7 +67,7 @@ const ButtonActionBindingPanel = ({
         return action?.Type ? (
           <>
             <div
-              className="hover:bg-accent bg-accent/30 flex flex-row items-center gap-4 p-2 rounded-md"
+              className="hover:bg-accent/30 flex flex-row items-center gap-4 p-2 rounded-md"
               key={tab}
               onDoubleClick={() =>
                 onActionEdit(action, (newAction) =>
