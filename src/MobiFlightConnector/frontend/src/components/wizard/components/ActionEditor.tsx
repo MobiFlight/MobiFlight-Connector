@@ -139,8 +139,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
 
       {selectedActionType?.value === "LuaMacroInputAction" && (
         <LuaMacroInputActionPanel
+          variant="summary"
           config={action ? (action as LuaMacroInputAction) : null}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -293,6 +295,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
           {selectedActionType?.value === "LuaMacroInputAction" && (
             <LuaMacroInputActionPanel
+              variant="details"
               config={action ? (action as LuaMacroInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -300,6 +303,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as LuaMacroInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
 
