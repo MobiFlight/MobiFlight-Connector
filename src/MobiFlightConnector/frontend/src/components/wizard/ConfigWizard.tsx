@@ -121,6 +121,14 @@ const ConfigWizard = ({
       )}
       {currentDeviceType === "Encoder" && (
         <EncoderActionBindingPanel
+          onActionEdit={(
+            action: Action | null,
+            onConfigChange: (config: Action) => void,
+          ) => {
+            setEditAction(action)
+            setOnActionChange(() => onConfigChange)
+            navigateToDetailView("action")
+          }}
           trigger={configItem.encoder}
           onTriggerChange={(trigger) => {
             onConfigChange({
@@ -132,7 +140,7 @@ const ConfigWizard = ({
       )}
       {currentDeviceType === "AnalogInput" && (
         <AnalogActionBindingPanel
-        onActionEdit={(
+          onActionEdit={(
             action: Action | null,
             onConfigChange: (config: Action) => void,
           ) => {
