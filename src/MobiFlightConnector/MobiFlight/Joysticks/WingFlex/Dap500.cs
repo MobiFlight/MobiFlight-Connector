@@ -82,11 +82,29 @@ namespace MobiFlight.Joysticks.WingFlex
 
             if (Stream != null)
             {
-                RequiresOutputUpdate = true;
-                SendData(new DapConfig() { AutoBackLightEnabled = false, LightSensorEnabled = true, AutoStandByTimeout = 3600 }.ToData);
+                InitConfig();
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Initializes the device configuration by sending a DapConfig with specific settings to the device.
+        /// We do this once on connecting to the device.
+        /// </summary>
+        private void InitConfig()
+        {
+            RequiresOutputUpdate = true;
+            SendData(new DapConfig() { AutoBackLightEnabled = false, LightSensorEnabled = true, AutoStandByTimeout = 3600 }.ToData);
+        }
+
+        /// <summary>
+        /// Restores the default configuration of the device by sending a default DapConfig to the device.
+        /// </summary>
+        private void RestoreConfig()
+        {
+            RequiresOutputUpdate = true;
+            SendData(new DapConfig() { }.ToData);
         }
 
         private void InputReceiver_Received(object sender, System.EventArgs e)
@@ -194,47 +212,12 @@ namespace MobiFlight.Joysticks.WingFlex
         }
 
         /// <summary>
-        /// Enumerates and initializes the output devices associated with the current instance.
-        /// </summary>
-        /// <remarks>This method identifies output devices of type <see cref="DeviceType.LcdDisplay"/> and
-        /// adds them to the collection of lights as <see cref="JoystickOutputDisplay"/> instances. The method relies on
-        /// the `this.Definition` <see cref="JoystickDefinition"/> property to retrieve device information.</remarks>
-        protected override void EnumerateOutputDevices()
-        {
-            base.EnumerateOutputDevices();
-        }
-
-        /// <summary>
-        /// Retrieves a collection of distinct output device types that are currently connected.
-        /// </summary>
-        /// <remarks>
-        /// The method examines the outputs defined in the Defintiion property (<see cref="JoystickDefinition"/>) and
-        /// determines the corresponding device types. If an output does not specify a type, it is categorized as <see
-        /// cref="DeviceType.Output"/>. Duplicate device types are excluded from the result.
-        /// </remarks>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="DeviceType"/> representing the distinct types of connected
-        /// output devices. The collection will be empty if no outputs are defined or connected.</returns>
-        public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
-        {
-            return base.GetConnectedOutputDeviceTypes();
-        }
-
-        /// <summary>
         /// Cleans up any specific resources, e.g. thread and device connection.
         /// </summary>
         public override void Shutdown()
         {
-            RequiresOutputUpdate = true;
-            SendData(new DapConfig() { AutoBackLightEnabled = false, LightSensorEnabled = false, AutoStandByTimeout = 5 }.ToData);
+            RestoreConfig();
             base.Shutdown();
-        }
-
-        /// <summary>
-        /// Resets all outputs to a "stop" state
-        /// </summary>
-        public override void Stop()
-        {
-            base.Stop();
         }
 
         protected override void SendData(byte[] data)
@@ -261,11 +244,6 @@ namespace MobiFlight.Joysticks.WingFlex
             }
 
             RequiresOutputUpdate = false;
-        }
-
-        public void SetConfig(DapConfig config)
-        {
-
         }
     }
 }
