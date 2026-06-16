@@ -134,7 +134,7 @@ namespace MobiFlight.Joysticks
 
             if (instanceName == "WINGFLEX DAP500")
             {
-                return new WingFlex.WingFlexBaseController(diJoystick, definition);
+                return new WingFlex.Dap500(diJoystick, definition);
             }
 
             // Return null to indicate this should be handled as a standard Joystick

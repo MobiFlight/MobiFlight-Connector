@@ -434,7 +434,7 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
-    <Compile Include="MobiFlight\Joysticks\WingFlex\WingFlexBaseController.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500Report.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReport.cs" />
@@ -1468,6 +1468,7 @@
     <None Include="Joysticks\vkbsim\vkbsim_nxt_thqx3_fsm_ga.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\wingflex\projects\msfs\WingFlex - MSFS - Generic Plane.mfproj" />
     <None Include="Joysticks\wingflex\wingflex_dap500.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

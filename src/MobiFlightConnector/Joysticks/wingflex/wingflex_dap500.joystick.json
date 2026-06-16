@@ -7,42 +7,42 @@
     {
       "Id": 1,
       "Type": "Button",
-      "Label": "HDG_EC_L"
+      "Label": "HDG Knob Left"
     },
     {
       "Id": 2,
       "Type": "Button",
-      "Label": "HDG_EC_R"
+      "Label": "HDG Knob Right"
     },
     {
       "Id": 3,
       "Type": "Button",
-      "Label": "HDG_EC_SW"
+      "Label": "HDG Knob Push"
     },
     {
       "Id": 4,
       "Type": "Button",
-      "Label": "NOSE_DOWN"
+      "Label": "Trim Wheel - Nose Down"
     },
     {
       "Id": 5,
       "Type": "Button",
-      "Label": "NOSE_UP"
+      "Label": "Trim Wheel - Nose Up"
     },
     {
       "Id": 6,
       "Type": "Button",
-      "Label": "ALT_EC_L"
+      "Label": "ALT Knob Left"
     },
     {
       "Id": 7,
       "Type": "Button",
-      "Label": "ALT_EC_R"
+      "Label": "ALT Knob Right"
     },
     {
       "Id": 8,
       "Type": "Button",
-      "Label": "ALT_EC_SW"
+      "Label": "ALT Knob Push"
     },
     {
       "Id": 9,

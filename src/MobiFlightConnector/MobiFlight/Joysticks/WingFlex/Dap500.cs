@@ -6,7 +6,28 @@ using System.Threading;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
-    internal class WingFlexBaseController : Joystick
+    public class DapConfig
+    {
+        public bool AutoBackLightEnabled { get; set; }
+        public bool LightSensorEnabled { get; set; }
+        public int AutoStandByTimeout { get; set; }
+
+        public byte[] ToData
+        {
+            get
+            {
+                return new byte[] {
+                    4, // ReportID=4  
+                    (byte)((LightSensorEnabled ? 2 : 0) | (AutoBackLightEnabled ? 1 : 0)), // Bit 0: AutoBackLightEnabled, Bit 1: LightSensorEnabled 
+                    0, // Reserved 
+                    (byte)(AutoStandByTimeout >> 8), // Higher 8 bits of AutoStandByTimeout 
+                    (byte)(AutoStandByTimeout & 0xFF) // Lower 8 bits of AutoStandByTimeout
+                };
+            }
+        }
+    }
+
+    internal class Dap500 : Joystick
     {
         /// <summary>
         /// The report implementation for usb report.
@@ -18,7 +39,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// The constructor.
         /// </summary>
         /// <param name="definition">joystick definition file.</param>
-        public WingFlexBaseController(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
+        public Dap500(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
         {
         }
 
@@ -41,7 +62,7 @@ namespace MobiFlight.Joysticks.WingFlex
                 }
 
                 var reportDescriptor = Device.GetReportDescriptor();
-                
+
                 if (Stream == null)
                 {
                     OpenConfiguration config = new OpenConfiguration();
@@ -56,6 +77,12 @@ namespace MobiFlight.Joysticks.WingFlex
                     inputReceiver.Received += InputReceiver_Received;
                     inputReceiver.Start(Stream);
                 }
+            }
+
+            if (Stream != null)
+            {
+                RequiresOutputUpdate = true;
+                SendData(new DapConfig() { AutoBackLightEnabled = false, LightSensorEnabled = true, AutoStandByTimeout = 3600 }.ToData);
             }
 
             return true;
@@ -95,7 +122,8 @@ namespace MobiFlight.Joysticks.WingFlex
         /// This could be done in the base class.
         /// </remarks>
         /// <param name="inputReportBuffer"></param>
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer) {
+        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        {
             var newState = UsbReport.Parse(inputReportBuffer).ToJoystickState();
 
             UpdateButtons(newState);
@@ -143,7 +171,8 @@ namespace MobiFlight.Joysticks.WingFlex
         /// type.</remarks>
         protected override void EnumerateDevices()
         {
-            Definition.Inputs.ForEach(d => { 
+            Definition.Inputs.ForEach(d =>
+            {
                 var device = new JoystickDevice() { Name = d.Name, Label = d.Label, JoystickDeviceType = d.Type };
                 switch (d.Type)
                 {
@@ -194,6 +223,8 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override void Shutdown()
         {
+            RequiresOutputUpdate = true;
+            SendData(new DapConfig() { AutoBackLightEnabled = false, LightSensorEnabled = false, AutoStandByTimeout = 5 }.ToData);
             base.Shutdown();
         }
 
@@ -229,6 +260,11 @@ namespace MobiFlight.Joysticks.WingFlex
             }
 
             RequiresOutputUpdate = false;
+        }
+
+        public void SetConfig(DapConfig config)
+        {
+
         }
     }
 }
