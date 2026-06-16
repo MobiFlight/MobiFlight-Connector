@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
 import CopyPasteActionPanel from "@/components/wizard/components/CopyPasteActionPanel"
@@ -34,6 +35,117 @@ export interface ActionEditorProps {
   onActionChange: (item: Action) => void
 }
 
+export interface ActionSummaryProps {
+  action?: Action
+  onActionEdit: () => void
+  //onActionChange: (item: Action) => void
+}
+
+export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
+  if (!action)
+    return <span className="text-muted-foreground text-sm">No Action.</span>
+
+  const selectedActionType = action
+    ? ActionTypeOptions.find((option) => option.value === action.Type)
+    : undefined
+
+  const typeOption = ActionTypeOptions.find(
+    (option) => option.value === action.Type,
+  )
+  return (
+    <div className="flex grow flex-row items-center gap-8">
+      <div className="flex w-32 flex-col gap-1 truncate">
+        <Label>Action:</Label>
+        {typeOption ? typeOption.value : action.Type}
+      </div>
+      {selectedActionType?.value === "MSFS2020CustomInputAction" && (
+        <MsfsInputActionPanel
+          variant="summary"
+          config={action ? (action as MsfsInputAction) : null}
+          onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
+        />
+      )}
+      {selectedActionType?.value === "XplaneInputAction" && (
+        <XplaneInputActionPanel
+          config={action as XplaneInputAction}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "VariableInputAction" && (
+        <VariablePanel
+          currentVariable={
+            action ? (action as MobiFlightVariableAction).Variable : undefined
+          }
+          onVariableChange={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "RetriggerInputAction" && (
+        <RetriggerPanel />
+      )}
+
+      {selectedActionType?.value === "VJoyInputAction" && (
+        <VJoyInputActionPanel
+          config={action ? (action as VJoyInputAction) : null}
+          setConfig={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "KeyInputAction" && (
+        <KeyboardInputActionPanel
+          config={action ? (action as KeyInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "FsuipcOffsetInputAction" && (
+        <FsuipcOffsetInputActionPanel
+          config={action ? (action as FsuipcOffsetInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "ProSimInputAction" && (
+        <ProSimInputActionPanel
+          config={action ? (action as ProSimInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "LuaMacroInputAction" && (
+        <LuaMacroInputActionPanel
+          config={action ? (action as LuaMacroInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "JeehellInputAction" && (
+        <JeehellInputActionPanel
+          config={action ? (action as JeehellInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "EventIdInputAction" && (
+        <EventIdInputActionPanel
+          variant="default"
+          config={action ? (action as EventIdInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+
+      {selectedActionType?.value === "PmdgEventIdInputAction" && (
+        <EventIdInputActionPanel
+          variant="pmdg"
+          config={action ? (action as PmdgEventIdInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+    </div>
+  )
+}
+
 const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
@@ -43,7 +155,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
     <Card data-testid="action-editor">
       <CardContent className="pt-4">
         <div className="flex flex-col gap-4">
-          <div className="flex flex-row justify-between items-end">
+          <div className="flex flex-row items-end justify-between">
             <ActionTypeComboBox
               selectedActionType={selectedActionType}
               setSelectedActionType={(option) => {
@@ -62,8 +174,10 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
           <Separator />
           {selectedActionType?.value === "MSFS2020CustomInputAction" && (
             <MsfsInputActionPanel
+              variant="details"
               config={action ? (action as MsfsInputAction) : null}
               onConfigChange={(config) => onActionChange(config)}
+              onEditAction={() => {}}
             />
           )}
           {selectedActionType?.value === "XplaneInputAction" && (

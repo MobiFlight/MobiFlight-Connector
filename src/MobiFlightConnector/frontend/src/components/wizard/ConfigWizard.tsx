@@ -8,6 +8,7 @@ import PreconditionsPanel from "@/components/wizard/components/PreconditionsPane
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
+import { Action }from "@/types/config"
 import {
   Drawer,
   DrawerContent,
@@ -17,6 +18,7 @@ import {
 } from "@/components/ui/drawer"
 import { IconArrowBack } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
+import ActionEditor from "@/components/wizard/components/ActionEditor"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
@@ -54,6 +56,8 @@ const ConfigWizard = ({
     configItem.Device?.Type,
   )
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [editAction, setEditAction] = useState<Action | null>(null)
+  const [onActionChange, setOnActionChange] = useState<((action: Action) => void) | null>(null)
 
   const detailView = searchParams.get("detail")
   const navigateToDetailView = (view: string) => {
@@ -94,6 +98,11 @@ const ConfigWizard = ({
       </div>
       {currentDeviceType === "Button" && (
         <ButtonActionBindingPanel
+          onActionEdit={(action: Action, onConfigChange: (config: Action) => void) => {
+            setEditAction(action)
+            setOnActionChange(() => onConfigChange)
+            navigateToDetailView("action")
+          }}
           trigger={
             configItem.button ??
             configItem.inputMultiplexer ??
@@ -172,6 +181,17 @@ const ConfigWizard = ({
                   configReferences={configItem.ConfigRefs ?? []}
                   variant="details"
                   openDetailsPanel={() => {}}
+                />
+              )}
+              {detailView === "action" && (
+                <ActionEditor
+                  action={editAction!}
+                  onActionChange={(action) => {
+                    if (!action) return
+
+                    onActionChange?.(action)
+                    setEditAction(action)
+                  }}
                 />
               )}
             </div>

@@ -4,17 +4,53 @@ import { MsfsInputAction } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button"
+import { IconEdit } from "@tabler/icons-react"
 
 export type MsfsInputActionPanelProps = {
+  variant?: "summary" | "details"
   config: MsfsInputAction | null
   onConfigChange: (config: MsfsInputAction) => void
+  onEditAction: () => void
 }
 
 const MsfsInputActionPanel = ({
+  variant = "summary",
   config,
+  onEditAction,
   onConfigChange,
 }: MsfsInputActionPanelProps) => {
   const { t } = useTranslation()
+
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center gap-8">
+        <div className="flex flex-col gap-1 w-1/3">
+          <Label htmlFor="preset">
+            Preset:
+          </Label>
+          <div>
+            AP Panel Heading Hold
+          </div>
+        </div>
+        <div className="flex grow flex-col gap-1">
+          <Label htmlFor="code">
+            {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+          </Label>
+          <div
+            id="code"
+            className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
+          >
+            {config?.Command ??
+              t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")}
+          </div>
+        </div>
+        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
+          <IconEdit />
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -31,7 +67,9 @@ const MsfsInputActionPanel = ({
       />
       <Separator />
       <div className="flex flex-col gap-2">
-        <Label htmlFor="code">{t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}</Label>
+        <Label htmlFor="code">
+          {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+        </Label>
         <Textarea
           id="code"
           placeholder={t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")}
@@ -44,7 +82,11 @@ const MsfsInputActionPanel = ({
             } as MsfsInputAction)
           }}
         />
-        <div className="text-sm text-muted-foreground">{t("Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders")}</div>
+        <div className="text-muted-foreground text-sm">
+          {t(
+            "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
+          )}
+        </div>
       </div>
     </div>
   )
