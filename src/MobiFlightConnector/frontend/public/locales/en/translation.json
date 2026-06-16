@@ -510,7 +510,8 @@
           "PathLabel": "Path:",
           "NoPresetSelected": "No preset selected",
           "ParameterLabel": "Parameter (optional):",
-          "ParameterPlaceholder": "Set parameter (optional)"
+          "ParameterPlaceholder": "Set parameter (optional)",
+          "ParameterNone": "None"
         },
         "VJoy": {
           "SelectDeviceLabel": "Select vJoy device",

@@ -126,8 +126,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
 
       {selectedActionType?.value === "ProSimInputAction" && (
         <ProSimInputActionPanel
+          variant="summary"
           config={action ? (action as ProSimInputAction) : null}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -269,6 +271,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
           {selectedActionType?.value === "ProSimInputAction" && (
             <ProSimInputActionPanel
+              variant="details"
               config={action ? (action as ProSimInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -276,6 +279,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as ProSimInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
 
