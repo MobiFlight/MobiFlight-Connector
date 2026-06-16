@@ -121,8 +121,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
 
       {selectedActionType?.value === "FsuipcOffsetInputAction" && (
         <FsuipcOffsetInputActionPanel
+          variant="summary"
           config={action ? (action as FsuipcOffsetInputAction) : null}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -263,6 +265,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
           {selectedActionType?.value === "FsuipcOffsetInputAction" && (
             <FsuipcOffsetInputActionPanel
+              variant="details"
               config={action ? (action as FsuipcOffsetInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -270,6 +273,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as FsuipcOffsetInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
 

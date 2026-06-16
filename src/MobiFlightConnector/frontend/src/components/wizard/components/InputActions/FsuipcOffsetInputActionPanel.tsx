@@ -5,10 +5,14 @@ import { Switch } from "@/components/ui/switch"
 import ComboBox from "@/components/ComboBox"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Button } from "@/components/ui/button"
+import { IconEdit } from "@tabler/icons-react"
 
 export type FsuipcOffsetInputActionPanelProps = {
+  variant: "summary" | "details"
   config: FsuipcOffsetInputAction | null
   onConfigChange: (config: FsuipcOffsetInputAction) => void
+  onEditAction: () => void
 }
 
 const FsuipcSizeOptions = [
@@ -22,9 +26,9 @@ const defaultConfig: FsuipcOffsetInputAction = {
   Type: "FsuipcOffsetInputAction",
   FSUIPC: {
     OffsetType: "Integer",
-    Offset: 0x66C0,
+    Offset: 0x66c0,
     Size: 1,
-    Mask: 0xFF,
+    Mask: 0xff,
     BcdMode: false,
   },
   Modifiers: [],
@@ -42,8 +46,10 @@ const filterHexInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
 }
 
 const FsuipcOffsetInputActionPanel = ({
+  variant,
   config,
   onConfigChange,
+  onEditAction,
 }: FsuipcOffsetInputActionPanelProps) => {
   const { t } = useTranslation()
   const currentConfig = config?.FSUIPC ? config : defaultConfig
@@ -56,6 +62,60 @@ const FsuipcOffsetInputActionPanel = ({
     .toUpperCase()
     .padStart(currentConfig.FSUIPC.Size * 2, "0")
     .slice(-(currentConfig.FSUIPC.Size * 2))
+
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center gap-8">
+                <div className="flex flex-col gap-1">
+          <Label htmlFor="size">
+            {t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel",
+            )}
+          </Label>
+          <div>
+            {currentConfig.FSUIPC.Size.toString()}
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="offset">
+            {t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel",
+            )}
+          </Label>
+          <div>
+            {currentConfig.FSUIPC.Offset.toString(16)
+              .toUpperCase()
+              .padStart(4, "0")}
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="mask">
+            {t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel",
+            )}
+          </Label>
+          <div>
+            {currentConfig.FSUIPC.Mask.toString(16)
+              .toUpperCase()
+              .padStart(4, "0")}
+          </div>
+        </div>
+        <div className="flex grow flex-col gap-1">
+          <Label htmlFor="bcdMode">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel")}
+          </Label>
+          <div
+            id="bcdMode"
+          >
+            <Switch id="bcdMode" checked={currentConfig.FSUIPC.BcdMode} />
+          </div>
+        </div>
+        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
+          <IconEdit />
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -85,7 +145,9 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="offset">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel")}
+            {t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel",
+            )}
           </Label>
           <Input
             onKeyDown={filterHexInput}
@@ -115,7 +177,13 @@ const FsuipcOffsetInputActionPanel = ({
             value={mask ?? formattedMask}
             onKeyDown={filterHexInput}
             onFocus={() => setMask(formattedMask)}
-            onChange={(e) => setMask(e.target.value.toUpperCase().slice(-currentConfig.FSUIPC.Size * 2))}
+            onChange={(e) =>
+              setMask(
+                e.target.value
+                  .toUpperCase()
+                  .slice(-currentConfig.FSUIPC.Size * 2),
+              )
+            }
             onBlur={() => {
               const newMask = (mask ?? formattedMask)
                 .toUpperCase()
@@ -134,7 +202,9 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-row items-center gap-1 pt-6">
           <Label className="text-sm font-medium" htmlFor="bcdMode">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel")}
+            {t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
+            )}
           </Label>
           <Switch
             id="bcdMode"
