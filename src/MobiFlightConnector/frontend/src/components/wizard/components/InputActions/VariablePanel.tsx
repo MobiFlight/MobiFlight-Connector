@@ -5,13 +5,19 @@ import { MobiFlightVariable } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button"
+import { IconEdit } from "@tabler/icons-react"
 export type VariablePanelProps = {
+  variant: "summary" | "details"
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
+  onEditAction: () => void
 }
 
 export const VariablePanel = ({
+  variant,
   currentVariable,
+  onEditAction,
   onVariableChange,
 }: VariablePanelProps) => {
   const { t } = useTranslation()
@@ -31,6 +37,36 @@ export const VariablePanel = ({
     } as MobiFlightVariable)
 
   const availableVariables = variables ?? []
+
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center gap-8">
+        <div className="flex flex-col gap-1 w-1/3">
+          <Label htmlFor="variable">
+            Variable:
+          </Label>
+          <div>
+            { variable.Name} ({variable.TYPE})
+          </div>
+        </div>
+        <div className="flex grow flex-col gap-1">
+          <Label htmlFor="code">
+            {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+          </Label>
+          <div
+            id="code"
+            className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
+          >
+            {variable.Expression ??
+              t("Dialog.InputConfigWizard.InputActions.Variable.NoneExpression")}
+          </div>
+        </div>
+        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
+          <IconEdit />
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">

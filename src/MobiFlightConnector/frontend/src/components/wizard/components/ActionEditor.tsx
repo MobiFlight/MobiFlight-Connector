@@ -85,10 +85,12 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
       )}
       {selectedActionType?.value === "VariableInputAction" && (
         <VariablePanel
+          variant="summary"
           currentVariable={
             action ? (action as MobiFlightVariableAction).Variable : undefined
           }
           onVariableChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -199,6 +201,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
           )}
           {selectedActionType?.value === "VariableInputAction" && (
             <VariablePanel
+              variant="details"
               currentVariable={
                 action
                   ? (action as MobiFlightVariableAction).Variable
@@ -210,6 +213,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   Variable: variable,
                 } as MobiFlightVariableAction)
               }
+              onEditAction={() => {}}
             />
           )}
 
