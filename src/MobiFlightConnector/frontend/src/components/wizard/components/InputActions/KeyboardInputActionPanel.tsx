@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { KeyInputAction } from "@/types/config"
-import { IconTrash } from "@tabler/icons-react"
+import { IconEdit, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export type KeyboardInputActionPanelProps = {
+  variant: "summary" | "details"
   config: KeyInputAction | null
   onConfigChange: (config: KeyInputAction) => void
+  onEditAction: () => void
 }
 
 const emptyConfig: KeyInputAction = {
@@ -18,8 +21,10 @@ const emptyConfig: KeyInputAction = {
 }
 
 const KeyboardInputActionPanel = ({
+  variant,
   config,
   onConfigChange,
+  onEditAction,
 }: KeyboardInputActionPanelProps) => {
   const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
@@ -60,7 +65,7 @@ const KeyboardInputActionPanel = ({
         Control: event.ctrlKey,
         Alt: event.altKey,
         Shift: event.shiftKey,
-        Key: key
+        Key: key,
       }
       setScannedKeys(newConfig)
     }
@@ -81,6 +86,33 @@ const KeyboardInputActionPanel = ({
     }
   }
 
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center justify-between gap-8">
+        <div className="flex flex-row items-center gap-2">
+          <div className="text-sm font-medium">
+            <Label htmlFor="preset">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel",
+              )}
+            </Label>
+            <div className="text-sm">
+              {config?.Control && "Ctrl + "}
+              {config?.Alt && "Alt + "}
+              {config?.Shift && "Shift + "}
+              {config?.Key !== 0
+                ? String.fromCharCode(config!.Key).toUpperCase()
+                : t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}
+            </div>
+          </div>
+        </div>
+        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
+          <IconEdit />
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <div
       className="flex flex-col gap-4"
@@ -90,10 +122,16 @@ const KeyboardInputActionPanel = ({
     >
       <div className="flex flex-row gap-4">
         <Button onClick={handleScanForInput} size={"sm"}>
-          {isScanning ? t("Dialog.InputConfigWizard.InputActions.Keyboard.StopScanning") : t("Dialog.InputConfigWizard.InputActions.Keyboard.ScanForKeyboard")}
+          {isScanning
+            ? t("Dialog.InputConfigWizard.InputActions.Keyboard.StopScanning")
+            : t(
+                "Dialog.InputConfigWizard.InputActions.Keyboard.ScanForKeyboard",
+              )}
         </Button>
         <div className="flex flex-row items-center gap-2">
-          <div className="text-sm font-medium">{t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}</div>
+          <div className="text-sm font-medium">
+            {t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}
+          </div>
           <div className="text-sm">
             {scannedKeys?.Control && "Ctrl + "}
             {scannedKeys?.Alt && "Alt + "}

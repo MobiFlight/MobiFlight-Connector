@@ -112,8 +112,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
 
       {selectedActionType?.value === "KeyInputAction" && (
         <KeyboardInputActionPanel
+          variant="summary"
           config={action ? (action as KeyInputAction) : null}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -247,6 +249,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
           {selectedActionType?.value === "KeyInputAction" && (
             <KeyboardInputActionPanel
+              variant="details"
               config={action ? (action as KeyInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -254,6 +257,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as KeyInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
 
