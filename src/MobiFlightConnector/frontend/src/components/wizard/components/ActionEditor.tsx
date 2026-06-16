@@ -95,7 +95,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
       )}
 
       {selectedActionType?.value === "RetriggerInputAction" && (
-        <RetriggerPanel />
+        <RetriggerPanel 
+          variant="summary"
+          onEditAction={() => onActionEdit()}
+        />
       )}
 
       {selectedActionType?.value === "VJoyInputAction" && (
@@ -218,7 +221,10 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
           )}
 
           {selectedActionType?.value === "RetriggerInputAction" && (
-            <RetriggerPanel />
+            <RetriggerPanel 
+              variant="details"
+              onEditAction={() => {}}
+            />
           )}
 
           {selectedActionType?.value === "VJoyInputAction" && (
