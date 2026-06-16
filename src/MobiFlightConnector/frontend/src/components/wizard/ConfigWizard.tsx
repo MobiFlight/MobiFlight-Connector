@@ -8,7 +8,7 @@ import PreconditionsPanel from "@/components/wizard/components/PreconditionsPane
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
-import { Action }from "@/types/config"
+import { Action } from "@/types/config"
 import {
   Drawer,
   DrawerContent,
@@ -52,12 +52,12 @@ const ConfigWizard = ({
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
-  const currentDeviceType = determineInputDeviceType(
-    configItem.Device?.Type,
-  )
+  const currentDeviceType = determineInputDeviceType(configItem.Device?.Type)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [editAction, setEditAction] = useState<Action | null>(null)
-  const [onActionChange, setOnActionChange] = useState<((action: Action) => void) | null>(null)
+  const [onActionChange, setOnActionChange] = useState<
+    ((action: Action) => void) | null
+  >(null)
 
   const detailView = searchParams.get("detail")
   const navigateToDetailView = (view: string) => {
@@ -98,7 +98,10 @@ const ConfigWizard = ({
       </div>
       {currentDeviceType === "Button" && (
         <ButtonActionBindingPanel
-          onActionEdit={(action: Action, onConfigChange: (config: Action) => void) => {
+          onActionEdit={(
+            action: Action | null,
+            onConfigChange: (config: Action) => void,
+          ) => {
             setEditAction(action)
             setOnActionChange(() => onConfigChange)
             navigateToDetailView("action")
@@ -129,6 +132,14 @@ const ConfigWizard = ({
       )}
       {currentDeviceType === "AnalogInput" && (
         <AnalogActionBindingPanel
+        onActionEdit={(
+            action: Action | null,
+            onConfigChange: (config: Action) => void,
+          ) => {
+            setEditAction(action)
+            setOnActionChange(() => onConfigChange)
+            navigateToDetailView("action")
+          }}
           trigger={configItem.analog}
           onTriggerChange={(trigger) => {
             onConfigChange({
@@ -148,7 +159,9 @@ const ConfigWizard = ({
         >
           <DrawerContent className="data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200">
             <DrawerHeader>
-              <DrawerTitle className="sr-only">{t("Dialog.InputConfigWizard.DrawerTitle")}</DrawerTitle>
+              <DrawerTitle className="sr-only">
+                {t("Dialog.InputConfigWizard.DrawerTitle")}
+              </DrawerTitle>
               <DrawerClose className="flex flex-row">
                 <Button variant="link">
                   <IconArrowBack />
@@ -185,10 +198,8 @@ const ConfigWizard = ({
               )}
               {detailView === "action" && (
                 <ActionEditor
-                  action={editAction!}
+                  action={editAction}
                   onActionChange={(action) => {
-                    if (!action) return
-
                     onActionChange?.(action)
                     setEditAction(action)
                   }}

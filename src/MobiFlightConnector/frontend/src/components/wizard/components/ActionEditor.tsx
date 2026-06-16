@@ -29,19 +29,20 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "@/types/config"
+import { useTranslation } from "react-i18next"
 
 export interface ActionEditorProps {
-  action?: Action
+  action: Action | null
   onActionChange: (item: Action) => void
 }
 
 export interface ActionSummaryProps {
   action?: Action
   onActionEdit: () => void
-  //onActionChange: (item: Action) => void
 }
 
 export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
+  const { t } = useTranslation()
   if (!action)
     return <span className="text-muted-foreground text-sm">No Action.</span>
 
@@ -52,11 +53,19 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
   const typeOption = ActionTypeOptions.find(
     (option) => option.value === action.Type,
   )
+  const actionTypeLavbel = typeOption ? typeOption.value : action.Type
   return (
     <div className="flex grow flex-row items-center gap-8">
       <div className="flex w-32 flex-col gap-1 truncate">
         <Label>Action:</Label>
-        {typeOption ? typeOption.value : action.Type}
+        <span
+          className="truncate"
+          title={t(
+            `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLavbel}`,
+          )}
+        >
+          {t(`Dialog.InputConfigWizard.ActionType.Options.${actionTypeLavbel}`)}
+        </span>
       </div>
       {selectedActionType?.value === "MSFS2020CustomInputAction" && (
         <MsfsInputActionPanel
@@ -159,9 +168,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
             <ActionTypeComboBox
               selectedActionType={selectedActionType}
               setSelectedActionType={(option) => {
-                if (option) {
-                  onActionChange({ ...action, Type: option.value })
-                }
+                onActionChange({ ...action, Type: option?.value ?? null })
               }}
             />
             <CopyPasteActionPanel

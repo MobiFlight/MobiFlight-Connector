@@ -66,7 +66,7 @@ export interface ConfigFile {
 }
 
 export interface Action {
-  Type: string
+  Type: string | null
 }
 
 export interface ButtonTrigger {
