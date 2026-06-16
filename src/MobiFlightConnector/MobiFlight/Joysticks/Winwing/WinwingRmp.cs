@@ -11,7 +11,7 @@ namespace MobiFlight.Joysticks.Winwing
 {
     internal class WinwingRmp : WinwingBaseController
     {
-        IHidDevice Device { get; set; }
+        new IHidDevice Device { get; set; }
 
         private const int OUTER_KNOB_DEC = 15;
         private const int OUTER_KNOB_INC = 16;
