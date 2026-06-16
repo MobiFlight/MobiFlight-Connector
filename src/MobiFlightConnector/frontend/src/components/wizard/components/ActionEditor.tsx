@@ -103,8 +103,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
 
       {selectedActionType?.value === "VJoyInputAction" && (
         <VJoyInputActionPanel
+          variant="summary"
           config={action ? (action as VJoyInputAction) : null}
           setConfig={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -229,6 +231,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
           {selectedActionType?.value === "VJoyInputAction" && (
             <VJoyInputActionPanel
+              variant="details"
               config={action ? (action as VJoyInputAction) : null}
               setConfig={(config) =>
                 onActionChange({
@@ -236,6 +239,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as VJoyInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
 
