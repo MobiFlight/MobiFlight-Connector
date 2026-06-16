@@ -8,19 +8,20 @@ namespace MobiFlight.Joysticks.WingFlex
 {
     public class DapConfig
     {
-        public bool AutoBackLightEnabled { get; set; }
-        public bool LightSensorEnabled { get; set; }
-        public int AutoStandByTimeout { get; set; }
+        public static readonly byte ReportId = 4;
+        public bool AutoBackLightEnabled { get; set; } = false;
+        public bool LightSensorEnabled { get; set; } = false;
+        public ushort AutoStandByTimeout { get; set; } = 5;
 
         public byte[] ToData
         {
             get
             {
                 return new byte[] {
-                    4, // ReportID=4  
+                    ReportId, // ReportID=4  
                     (byte)((LightSensorEnabled ? 2 : 0) | (AutoBackLightEnabled ? 1 : 0)), // Bit 0: AutoBackLightEnabled, Bit 1: LightSensorEnabled 
                     0, // Reserved 
-                    (byte)(AutoStandByTimeout >> 8), // Higher 8 bits of AutoStandByTimeout 
+                    (byte)((AutoStandByTimeout >> 8) & 0xFF), // Higher 8 bits of AutoStandByTimeout 
                     (byte)(AutoStandByTimeout & 0xFF) // Lower 8 bits of AutoStandByTimeout
                 };
             }
