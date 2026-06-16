@@ -77,8 +77,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
       )}
       {selectedActionType?.value === "XplaneInputAction" && (
         <XplaneInputActionPanel
+          variant="summary"
           config={action as XplaneInputAction}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
       {selectedActionType?.value === "VariableInputAction" && (
@@ -189,8 +191,10 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
           )}
           {selectedActionType?.value === "XplaneInputAction" && (
             <XplaneInputActionPanel
-              config={action as XplaneInputAction}
+              variant="details"
+              config={action ? (action as XplaneInputAction) : null}
               onConfigChange={(c) => onActionChange(c)}
+              onEditAction={() => {}}
             />
           )}
           {selectedActionType?.value === "VariableInputAction" && (

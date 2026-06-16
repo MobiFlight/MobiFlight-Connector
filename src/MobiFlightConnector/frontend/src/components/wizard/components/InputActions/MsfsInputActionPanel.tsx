@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button"
 import { IconEdit } from "@tabler/icons-react"
 
 export type MsfsInputActionPanelProps = {
-  variant?: "summary" | "details"
+  variant: "summary" | "details"
   config: MsfsInputAction | null
   onConfigChange: (config: MsfsInputAction) => void
   onEditAction: () => void
 }
 
 const MsfsInputActionPanel = ({
-  variant = "summary",
+  variant,
   config,
   onEditAction,
   onConfigChange,
