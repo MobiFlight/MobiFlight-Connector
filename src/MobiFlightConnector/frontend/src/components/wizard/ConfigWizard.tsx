@@ -1,14 +1,12 @@
 import { Button } from "@/components/ui/button"
-import AnalogActionBindingPanel from "@/components/wizard/components/AnalogActionBindingPanel"
-import ButtonActionBindingPanel from "@/components/wizard/components/ButtonActionBindingPanel"
+import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
 import ConfigReferencePanel from "@/components/wizard/components/ConfigReferencePanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
-import EncoderActionBindingPanel from "@/components/wizard/components/EncoderActionBindingPanel"
 import PreconditionsPanel from "@/components/wizard/components/PreconditionsPanel"
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
-import { Action } from "@/types/config"
+import { Action, AnalogTrigger, ButtonTrigger, EncoderTrigger } from "@/types/config"
 import {
   Drawer,
   DrawerContent,
@@ -97,7 +95,8 @@ const ConfigWizard = ({
         </div>
       </div>
       {currentDeviceType === "Button" && (
-        <ButtonActionBindingPanel
+        <ActionBindingPanel
+          variant="button"
           onActionEdit={(
             action: Action | null,
             onConfigChange: (config: Action) => void,
@@ -114,13 +113,14 @@ const ConfigWizard = ({
           onTriggerChange={(trigger) => {
             onConfigChange({
               ...configItem,
-              button: trigger,
+              button: trigger as ButtonTrigger,
             })
           }}
         />
       )}
       {currentDeviceType === "Encoder" && (
-        <EncoderActionBindingPanel
+        <ActionBindingPanel
+        variant="encoder"
           onActionEdit={(
             action: Action | null,
             onConfigChange: (config: Action) => void,
@@ -133,13 +133,14 @@ const ConfigWizard = ({
           onTriggerChange={(trigger) => {
             onConfigChange({
               ...configItem,
-              encoder: trigger,
+              encoder: trigger as EncoderTrigger,
             })
           }}
         />
       )}
       {currentDeviceType === "AnalogInput" && (
-        <AnalogActionBindingPanel
+        <ActionBindingPanel
+        variant="analog"
           onActionEdit={(
             action: Action | null,
             onConfigChange: (config: Action) => void,
@@ -152,7 +153,7 @@ const ConfigWizard = ({
           onTriggerChange={(trigger) => {
             onConfigChange({
               ...configItem,
-              analog: trigger,
+              analog: trigger as AnalogTrigger,
             })
           }}
         />

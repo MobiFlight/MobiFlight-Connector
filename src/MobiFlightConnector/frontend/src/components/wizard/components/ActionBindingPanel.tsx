@@ -2,26 +2,36 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { ActionSummary } from "@/components/wizard/components/ActionEditor"
-import { Action, ButtonTrigger } from "@/types/config"
+import { Action, AnalogTrigger, ButtonTrigger, EncoderTrigger } from "@/types/config"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
-export type ButtonActionBindingPanelProps = {
-  trigger?: ButtonTrigger
+export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
+
+export type ActionBindingPanelProps = {
+  variant: "button" | "encoder" | "analog"
+  trigger?: ActionTrigger
   onActionEdit: (
     action: Action | null,
     onConfigChange: (config: Action) => void,
   ) => void
-  onTriggerChange: (trigger: ButtonTrigger) => void
+  onTriggerChange: (trigger: ActionTrigger) => void
 }
 
-const ButtonActionBindingPanel = ({
+const eventActionMap = {
+  "button": ["onPress", "onRelease", "onHold", "onLongRelease"],
+  "encoder": ["onLeft", "onRight", "onLeftFast", "onRightFast"],
+  "analog": ["onChange"],
+}
+
+const ActionBindingPanel = ({
+  variant,
   trigger,
   onActionEdit,
   onTriggerChange,
-}: ButtonActionBindingPanelProps) => {
+}: ActionBindingPanelProps) => {
   const { t } = useTranslation()
-  const tabs = ["onPress", "onRelease", "onHold", "onLongRelease"]
+  const events = eventActionMap[variant]
   const defaultButtonTrigger: ButtonTrigger = {
     onPress: undefined,
     onRelease: undefined,
@@ -43,7 +53,7 @@ const ButtonActionBindingPanel = ({
 
   return (
     <div
-      data-testid="button-action-panel"
+      data-testid={`${variant}-action-panel`}
       className="flex flex-col gap-4 rounded-md border px-6 py-3 pb-8 shadow-md"
     >
       <div className="flex flex-col gap-1">
@@ -52,17 +62,10 @@ const ButtonActionBindingPanel = ({
           Define the actions for each event.
         </div>
       </div>
-      {tabs.map((tab, index) => {
-        const action =
-          tab === "onPress"
-            ? current?.onPress
-            : tab === "onRelease"
-              ? current?.onRelease
-              : tab === "onHold"
-                ? current?.onHold
-                : current?.onLongRelease
+      {events.map((tab, index) => {
+        const action = current[tab as keyof ActionTrigger] as Action | undefined
 
-        const isLast = index === tabs.length - 1
+        const isLast = index === events.length - 1
 
         return action?.Type ? (
           <>
@@ -77,7 +80,7 @@ const ButtonActionBindingPanel = ({
             >
               <div className="flex w-32 flex-col gap-1">
                 <Label>Event</Label>
-                <div>{t(`Dialog.InputConfigWizard.Button.Tabs.${tab}`)}</div>
+                <div>{t(`Dialog.InputConfigWizard.${variant}.Event.${tab}`)}</div>
               </div>
               <ActionSummary
                 action={action}
@@ -110,7 +113,7 @@ const ButtonActionBindingPanel = ({
               }}
             >
               <IconPlus />
-              {t(`Dialog.InputConfigWizard.Button.Tabs.${tab}`)}
+              {t(`Dialog.InputConfigWizard.${variant}.Event.${tab}`)}
             </Button>
             {!isLast && <Separator />}
           </>
@@ -119,4 +122,4 @@ const ButtonActionBindingPanel = ({
     </div>
   )
 }
-export default ButtonActionBindingPanel
+export default ActionBindingPanel

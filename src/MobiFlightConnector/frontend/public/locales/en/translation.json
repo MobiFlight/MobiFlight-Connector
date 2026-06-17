@@ -417,24 +417,24 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
-      "Button": {
-        "Tabs": {
+      "button": {
+        "Event": {
           "onPress": "On Press",
           "onRelease": "On Release",
           "onHold": "On Hold",
           "onLongRelease": "On Long Release"
         }
       },
-      "Encoder": {
-        "Tabs": {
+      "encoder": {
+        "Event": {
           "onLeft": "On Left",
           "onRight": "On Right",
           "onLeftFast": "On Left Fast",
           "onRightFast": "On Right Fast"
         }
       },
-      "Analog": {
-        "Tabs": {
+      "analog": {
+        "Event": {
           "onChange": "On Change"
         }
       },
