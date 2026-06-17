@@ -39,7 +39,7 @@ export const VariablePanel = ({
       <div className="flex grow flex-row items-center gap-8">
         <div className="flex flex-col gap-1 w-1/3">
           <Label htmlFor="variable">
-            Variable:
+            {t("Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel")}
           </Label>
           <div>
             { variable.Name} ({variable.TYPE})

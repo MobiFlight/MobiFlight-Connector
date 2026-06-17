@@ -493,7 +493,9 @@
           "SelectPreset": "Selecionar predefinição",
           "SearchPresets": "Pesquisar predefinições...",
           "PresetsFound": "{{count}} predefinição(ões) encontrada(s)",
-          "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)"
+          "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)",
+          "PresetLabel": "Preset",
+          "ActionLabel": "Ação"
         },
         "Msfs": {
           "NoneCode": "Nenhum",
@@ -518,6 +520,8 @@
           "ParameterNone": "Nenhum"
         },
         "VJoy": {
+          "Controller": "Controlador",
+          "Device": "Dispositivo",
           "SelectDeviceLabel": "Selecionar dispositivo vJoy",
           "SelectDevicePlaceholder": "Selecionar dispositivo vJoy...",
           "ButtonTab": "Botão",
@@ -566,6 +570,7 @@
         "Retrigger": {
           "Title": "Retrigger",
           "Summary": "Sincronizar dispositivos de entrada.",
+          "NoteLabel": "Nota",
           "Description1": "Use esta ação de entrada para reativar todos os estados dos botões.",
           "Description2": "Isso é útil para sincronizar seu cockpit virtual com os estados dos interruptores e botões de seus controladores físicos."
         },

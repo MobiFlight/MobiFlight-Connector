@@ -56,7 +56,7 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
   return (
     <div className="flex grow flex-row items-center gap-8">
       <div className="flex w-32 flex-col gap-1 truncate">
-        <Label>Action:</Label>
+        <Label>{t("Dialog.InputConfigWizard.InputActions.Common.ActionLabel")}:</Label>
         <span
           className="truncate"
           title={t(

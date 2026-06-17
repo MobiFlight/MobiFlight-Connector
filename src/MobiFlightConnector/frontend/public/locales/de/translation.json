@@ -499,7 +499,9 @@
           "SelectPreset": "Preset auswählen",
           "SearchPresets": "Presets suchen...",
           "PresetsFound": "{{count}} Preset(s) gefunden",
-          "SupportedPlaceholders": "Unterstützt Eingabewert (@) und Platzhalter ($, #, etc.)"
+          "SupportedPlaceholders": "Unterstützt Eingabewert (@) und Platzhalter ($, #, etc.)",
+          "PresetLabel": "Preset",
+          "ActionLabel": "Aktion"
         },
         "Msfs": {
           "NoneCode": "Keiner",
@@ -524,6 +526,8 @@
           "ParameterNone": "Kein Parameter"
         },
         "VJoy": {
+          "Controller": "Controller",
+          "Device": "Gerät",
           "SelectDeviceLabel": "vJoy-Gerät auswählen",
           "SelectDevicePlaceholder": "vJoy-Gerät auswählen...",
           "ButtonTab": "Taste",
@@ -572,6 +576,7 @@
         "Retrigger": {
           "Title": "Retrigger",
           "Summary": "Sync Eingabegeräte mit dem Simulator.",
+          "NoteLabel": "Bemerkung",
           "Description1": "Verwende diese Eingabeaktion, um alle Tastenstatus erneut auszulösen.",
           "Description2": "Dies ist hilfreich, um dein virtuelles Cockpit mit den Schalter- und Tastenstatus deiner physischen Controller zu synchronisieren."
         },

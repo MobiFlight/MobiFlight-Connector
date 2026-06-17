@@ -493,7 +493,9 @@
           "SelectPreset": "Valitse esiasetus",
           "SearchPresets": "Etsi esiasetuksia...",
           "PresetsFound": "{{count}} esiasetus(ta) löytyi",
-          "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)"
+          "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)",
+          "PresetLabel": "Esiasetus",
+          "ActionLabel": "Toiminto"
         },
         "Msfs": {
           "NoneCode": "Ei mitään",
@@ -518,6 +520,8 @@
           "ParameterNone": "Ei mitään"
         },
         "VJoy": {
+          "Controller": "Ohjain",
+          "Device": "Laite",
           "SelectDeviceLabel": "Valitse vJoy-laite",
           "SelectDevicePlaceholder": "Valitse vJoy-laite...",
           "ButtonTab": "Painike",
@@ -566,6 +570,7 @@
         "Retrigger": {
           "Title": "Retrigger",
           "Summary": "Synkronoi syöttölaitteet simulaattorin kanssa.",
+          "NoteLabel": "Huomautus",
           "Description1": "Käytä tätä syötetoimintoa kaikkien painikkeiden tilojen uudelleenlaukaisemiseen.",
           "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
         },

@@ -67,11 +67,11 @@ const VJoyInputActionPanel = ({
     return (
       <div className="flex grow flex-row items-center justify-between gap-8">
         <div className="flex flex-col gap-1">
-          <Label htmlFor="preset">Controller:</Label>
+          <Label htmlFor="preset">{t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:</Label>
           <div>{selectedDeviceOption?.label}</div>
         </div>
         <div className="flex flex-col gap-1">
-          <Label htmlFor="preset">Device:</Label>
+          <Label htmlFor="preset">{t("Dialog.InputConfigWizard.InputActions.VJoy.Device")}:</Label>
           {activeTab === "button" && <div>Button {config?.buttonNr}</div>}
           {activeTab === "axis" && <div>Axis {config?.axisString}</div>}
         </div>

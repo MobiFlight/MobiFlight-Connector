@@ -499,7 +499,9 @@
           "SelectPreset": "Seleccionar preset",
           "SearchPresets": "Buscar presets...",
           "PresetsFound": "{{count}} preset(s) encontrado(s)",
-          "SupportedPlaceholders": "Admite valor de entrada (@) y marcadores de posición ($, #, etc.)"
+          "SupportedPlaceholders": "Admite valor de entrada (@) y marcadores de posición ($, #, etc.)",
+          "PresetLabel": "Preset",
+          "ActionLabel": "Acción"
         },
         "Msfs": {
           "NoneCode": "Ninguno",
@@ -524,6 +526,8 @@
           "ParameterNone": "Ninguno"
         },
         "VJoy": {
+          "Controller": "Controlador",
+          "Device": "Dispositivo",
           "SelectDeviceLabel": "Seleccionar dispositivo vJoy",
           "SelectDevicePlaceholder": "Seleccionar dispositivo vJoy...",
           "ButtonTab": "Botón",
@@ -572,6 +576,7 @@
         "Retrigger": {
           "Title": "Retrigger",
           "Summary": "Sincronizar dispositivos de entrada.",
+          "NoteLabel": "Nota",
           "Description1": "Usa esta acción de entrada para reactivar todos los estados de botón.",
           "Description2": "Esto es útil para sincronizar tu cabina virtual con los estados de interruptores y botones de tus controladores físicos."
         },

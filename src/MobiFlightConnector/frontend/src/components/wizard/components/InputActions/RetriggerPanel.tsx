@@ -12,7 +12,7 @@ const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
     return (
       <div className="flex grow flex-row items-center gap-8">
         <div className="flex grow flex-col gap-1">
-          <Label htmlFor="preset">Note:</Label>
+          <Label htmlFor="preset">{t("Dialog.InputConfigWizard.InputActions.Retrigger.NoteLabel")}:</Label>
           {t("Dialog.InputConfigWizard.InputActions.Retrigger.Summary")}
         </div>
       </div>

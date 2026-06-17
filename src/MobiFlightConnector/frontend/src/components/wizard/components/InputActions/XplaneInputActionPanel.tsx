@@ -25,7 +25,7 @@ const XplaneInputActionPanel = ({
       <div className="flex grow flex-row items-center gap-8">
         <div className="flex flex-col gap-1 w-1/3">
           <Label htmlFor="preset">
-            Preset:
+            {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
           </Label>
           <div>
             AP Panel Heading Hold

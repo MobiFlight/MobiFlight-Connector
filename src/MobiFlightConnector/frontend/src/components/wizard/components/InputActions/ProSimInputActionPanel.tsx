@@ -22,7 +22,9 @@ const ProSimInputActionPanel = ({
     return (
       <div className="flex grow flex-row items-center gap-8">
         <div className="flex w-1/3 flex-col gap-1">
-          <Label htmlFor="preset">Path:</Label>
+          <Label htmlFor="preset">
+            {t("Dialog.InputConfigWizard.InputActions.ProSim.PathLabel")}:
+          </Label>
           <div>
             {config?.Path
               ? config?.Path
