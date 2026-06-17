@@ -201,7 +201,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }}
             />
           </div>
-          <Separator />
+          { selectedActionType?.value && <Separator /> }
           {selectedActionType?.value === "MSFS2020CustomInputAction" && (
             <MsfsInputActionPanel
               variant="details"
