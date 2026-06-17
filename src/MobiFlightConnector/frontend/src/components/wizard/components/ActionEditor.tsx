@@ -155,17 +155,21 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
 
       {selectedActionType?.value === "EventIdInputAction" && (
         <EventIdInputActionPanel
-          variant="default"
+          variant="summary"
+          options="default"
           config={action ? (action as EventIdInputAction) : null}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
       {selectedActionType?.value === "PmdgEventIdInputAction" && (
         <EventIdInputActionPanel
-          variant="pmdg"
+          variant="summary"
+          options="pmdg"
           config={action ? (action as PmdgEventIdInputAction) : null}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
     </div>
@@ -321,7 +325,8 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
           {selectedActionType?.value === "EventIdInputAction" && (
             <EventIdInputActionPanel
-              variant="default"
+              variant="details"
+              options="default"
               config={action ? (action as EventIdInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -329,12 +334,14 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as EventIdInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
 
           {selectedActionType?.value === "PmdgEventIdInputAction" && (
             <EventIdInputActionPanel
-              variant="pmdg"
+              variant="details"
+              options="pmdg"
               config={action ? (action as PmdgEventIdInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -342,6 +349,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as PmdgEventIdInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
         </div>
