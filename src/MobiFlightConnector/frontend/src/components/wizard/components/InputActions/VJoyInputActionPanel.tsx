@@ -8,21 +8,17 @@ import { VJoyDefinitionsUpdate } from "@/types/messages"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
-import { Button } from "@/components/ui/button"
-import { IconEdit } from "@tabler/icons-react"
 
 export type VJoyInputActionPanelProps = {
   variant: "summary" | "details"
   config: VJoyInputAction | null
   setConfig: (item: VJoyInputAction) => void
-  onEditAction: () => void
 }
 
 const VJoyInputActionPanel = ({
   variant,
   config,
   setConfig,
-  onEditAction,
 }: VJoyInputActionPanelProps) => {
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
@@ -99,10 +95,6 @@ const VJoyInputActionPanel = ({
             <div>{config?.sendValue ?? "-"}</div>
           </div>
         )}
-
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

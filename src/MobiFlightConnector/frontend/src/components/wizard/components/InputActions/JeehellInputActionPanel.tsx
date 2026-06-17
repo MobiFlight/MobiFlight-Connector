@@ -1,10 +1,8 @@
 import ComboBox from "@/components/ComboBox"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { parsePresets } from "@/lib/configWizard"
 import { JeehellInputAction } from "@/types/config"
-import { IconEdit } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
@@ -12,14 +10,12 @@ export type JeehellInputActionPanelProps = {
   variant: "summary" | "details"
   config: JeehellInputAction | null
   onConfigChange: (config: JeehellInputAction) => void
-  onEditAction: () => void
 }
 
 const JeehellInputActionPanel = ({
   variant,
   config,
-  onConfigChange,
-  onEditAction,
+  onConfigChange
 }: JeehellInputActionPanelProps) => {
   const { t } = useTranslation()
   // In MsfsPresetPanel (or a dedicated hook)
@@ -57,10 +53,6 @@ const JeehellInputActionPanel = ({
             {config?.Param}
           </div>
         </div>
-
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

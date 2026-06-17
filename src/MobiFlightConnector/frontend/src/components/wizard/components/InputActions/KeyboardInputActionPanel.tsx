@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { KeyInputAction } from "@/types/config"
-import { IconEdit, IconTrash } from "@tabler/icons-react"
+import { IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -9,7 +9,6 @@ export type KeyboardInputActionPanelProps = {
   variant: "summary" | "details"
   config: KeyInputAction | null
   onConfigChange: (config: KeyInputAction) => void
-  onEditAction: () => void
 }
 
 const emptyConfig: KeyInputAction = {
@@ -23,8 +22,7 @@ const emptyConfig: KeyInputAction = {
 const KeyboardInputActionPanel = ({
   variant,
   config,
-  onConfigChange,
-  onEditAction,
+  onConfigChange
 }: KeyboardInputActionPanelProps) => {
   const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
@@ -106,9 +104,6 @@ const KeyboardInputActionPanel = ({
             </div>
           </div>
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

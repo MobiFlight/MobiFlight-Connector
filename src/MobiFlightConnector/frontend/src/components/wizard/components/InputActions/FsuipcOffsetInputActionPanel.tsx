@@ -5,14 +5,11 @@ import { Switch } from "@/components/ui/switch"
 import ComboBox from "@/components/ComboBox"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "@/components/ui/button"
-import { IconEdit } from "@tabler/icons-react"
 
 export type FsuipcOffsetInputActionPanelProps = {
   variant: "summary" | "details"
   config: FsuipcOffsetInputAction | null
   onConfigChange: (config: FsuipcOffsetInputAction) => void
-  onEditAction: () => void
 }
 
 const FsuipcSizeOptions = [
@@ -48,8 +45,7 @@ const filterHexInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
 const FsuipcOffsetInputActionPanel = ({
   variant,
   config,
-  onConfigChange,
-  onEditAction,
+  onConfigChange
 }: FsuipcOffsetInputActionPanelProps) => {
   const { t } = useTranslation()
   const currentConfig = config?.FSUIPC ? config : defaultConfig
@@ -110,9 +106,6 @@ const FsuipcOffsetInputActionPanel = ({
             <Switch id="bcdMode" checked={currentConfig.FSUIPC.BcdMode} />
           </div>
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

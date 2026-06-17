@@ -1,14 +1,11 @@
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type RetriggerPanelProps = {
   variant: "summary" | "details"
-  onEditAction: () => void
 }
 
-const RetriggerPanel = ({ variant, onEditAction }: RetriggerPanelProps) => {
+const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
   const { t } = useTranslation()
 
   if (variant === "summary") {
@@ -18,9 +15,6 @@ const RetriggerPanel = ({ variant, onEditAction }: RetriggerPanelProps) => {
           <Label htmlFor="preset">Note:</Label>
           {t("Dialog.InputConfigWizard.InputActions.Retrigger.Summary")}
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

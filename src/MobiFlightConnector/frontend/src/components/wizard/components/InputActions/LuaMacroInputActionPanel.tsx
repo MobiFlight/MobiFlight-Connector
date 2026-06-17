@@ -1,22 +1,18 @@
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { LuaMacroInputAction } from "@/types/config"
-import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type LuaMacroInputActionPanelProps = {
   variant: "summary" | "details"
   config: LuaMacroInputAction | null
   onConfigChange: (config: LuaMacroInputAction) => void
-  onEditAction: () => void
 }
 
 const LuaMacroInputActionPanel = ({
   variant,
   config,
   onConfigChange,
-  onEditAction,
 }: LuaMacroInputActionPanelProps) => {
   const { t } = useTranslation()
 
@@ -41,9 +37,6 @@ const LuaMacroInputActionPanel = ({
             <div>{config?.MacroValue ?? "-"}</div>
           </div>
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

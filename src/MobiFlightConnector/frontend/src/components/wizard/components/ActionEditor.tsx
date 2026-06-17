@@ -38,10 +38,9 @@ export interface ActionEditorProps {
 
 export interface ActionSummaryProps {
   action?: Action
-  onActionEdit: () => void
 }
 
-export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
+export const ActionSummary = ({ action }: ActionSummaryProps) => {
   const { t } = useTranslation()
   if (!action)
     return <span className="text-muted-foreground text-sm">No Action.</span>
@@ -72,7 +71,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action ? (action as MsfsInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
       {selectedActionType?.value === "XplaneInputAction" && (
@@ -80,7 +78,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action as XplaneInputAction}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
       {selectedActionType?.value === "VariableInputAction" && (
@@ -90,15 +87,11 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
             action ? (action as MobiFlightVariableAction).Variable : undefined
           }
           onVariableChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
       {selectedActionType?.value === "RetriggerInputAction" && (
-        <RetriggerPanel 
-          variant="summary"
-          onEditAction={() => onActionEdit()}
-        />
+        <RetriggerPanel variant="summary" />
       )}
 
       {selectedActionType?.value === "VJoyInputAction" && (
@@ -106,7 +99,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action ? (action as VJoyInputAction) : null}
           setConfig={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -115,7 +107,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action ? (action as KeyInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -124,7 +115,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action ? (action as FsuipcOffsetInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -133,7 +123,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action ? (action as ProSimInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -142,7 +131,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action ? (action as LuaMacroInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -151,7 +139,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           variant="summary"
           config={action ? (action as JeehellInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -161,7 +148,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           options="default"
           config={action ? (action as EventIdInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -171,7 +157,6 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
           options="pmdg"
           config={action ? (action as PmdgEventIdInputAction) : null}
           onConfigChange={() => {}}
-          onEditAction={() => onActionEdit()}
         />
       )}
     </div>
@@ -201,13 +186,12 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }}
             />
           </div>
-          { selectedActionType?.value && <Separator /> }
+          {selectedActionType?.value && <Separator />}
           {selectedActionType?.value === "MSFS2020CustomInputAction" && (
             <MsfsInputActionPanel
               variant="details"
               config={action ? (action as MsfsInputAction) : null}
               onConfigChange={(config) => onActionChange(config)}
-              onEditAction={() => {}}
             />
           )}
           {selectedActionType?.value === "XplaneInputAction" && (
@@ -215,7 +199,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               variant="details"
               config={action ? (action as XplaneInputAction) : null}
               onConfigChange={(c) => onActionChange(c)}
-              onEditAction={() => {}}
             />
           )}
           {selectedActionType?.value === "VariableInputAction" && (
@@ -232,15 +215,11 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   Variable: variable,
                 } as MobiFlightVariableAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
           {selectedActionType?.value === "RetriggerInputAction" && (
-            <RetriggerPanel 
-              variant="details"
-              onEditAction={() => {}}
-            />
+            <RetriggerPanel variant="details" />
           )}
 
           {selectedActionType?.value === "VJoyInputAction" && (
@@ -253,7 +232,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as VJoyInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
@@ -267,7 +245,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as KeyInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
@@ -281,7 +258,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as FsuipcOffsetInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
@@ -295,7 +271,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as ProSimInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
@@ -309,7 +284,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as LuaMacroInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
@@ -323,7 +297,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as JeehellInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
@@ -338,7 +311,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as EventIdInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
 
@@ -353,7 +325,6 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as PmdgEventIdInputAction)
               }
-              onEditAction={() => {}}
             />
           )}
         </div>

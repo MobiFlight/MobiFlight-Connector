@@ -4,20 +4,16 @@ import { MsfsInputAction } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
-import { IconEdit } from "@tabler/icons-react"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
   config: MsfsInputAction | null
   onConfigChange: (config: MsfsInputAction) => void
-  onEditAction: () => void
 }
 
 const MsfsInputActionPanel = ({
   variant,
   config,
-  onEditAction,
   onConfigChange,
 }: MsfsInputActionPanelProps) => {
   const { t } = useTranslation()
@@ -45,9 +41,6 @@ const MsfsInputActionPanel = ({
               t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")}
           </div>
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

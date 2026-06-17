@@ -5,19 +5,15 @@ import { MobiFlightVariable } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
-import { IconEdit } from "@tabler/icons-react"
 export type VariablePanelProps = {
   variant: "summary" | "details"
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
-  onEditAction: () => void
 }
 
 export const VariablePanel = ({
   variant,
   currentVariable,
-  onEditAction,
   onVariableChange,
 }: VariablePanelProps) => {
   const { t } = useTranslation()
@@ -61,9 +57,6 @@ export const VariablePanel = ({
               t("Dialog.InputConfigWizard.InputActions.Variable.NoneExpression")}
           </div>
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

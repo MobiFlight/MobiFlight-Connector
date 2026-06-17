@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { ActionSummary } from "@/components/wizard/components/ActionEditor"
 import { Action, AnalogTrigger } from "@/types/config"
-import { IconPlus } from "@tabler/icons-react"
+import { IconEdit, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type AnalogActionBindingPanelProps = {
@@ -63,12 +63,19 @@ const AnalogActionBindingPanel = ({
             </div>
             <ActionSummary
               action={action}
-              onActionEdit={() => {
-                onActionEdit(action, (newAction) =>
-                  handleOnActionChange("onChange", newAction),
-                )
-              }}
             />
+            <Button
+                size={"sm"}
+                variant="ghost"
+                onClick={() => {
+                  console.log("Edit action", action)
+                  onActionEdit(action, (newAction) =>
+                    handleOnActionChange("onChange", newAction),
+                  )
+                }}
+              >
+                <IconEdit />
+              </Button>
           </div>
         </>
       ) : (

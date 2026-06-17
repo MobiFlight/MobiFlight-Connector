@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { ActionSummary } from "@/components/wizard/components/ActionEditor"
 import { Action, EncoderTrigger } from "@/types/config"
-import { IconPlus } from "@tabler/icons-react"
+import { IconEdit, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type EncoderActionBindingPanelProps = {
@@ -78,12 +78,19 @@ const EncoderActionBindingPanel = ({
               </div>
               <ActionSummary
                 action={action}
-                onActionEdit={() => {
+              />
+              <Button
+                size={"sm"}
+                variant="ghost"
+                onClick={() => {
+                  console.log("Edit action", action)
                   onActionEdit(action, (newAction) =>
                     handleOnActionChange(tab, newAction),
                   )
                 }}
-              />
+              >
+                <IconEdit />
+              </Button>
             </div>
             {!isLast && <Separator />}
           </>

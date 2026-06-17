@@ -1,10 +1,8 @@
 import ComboBox from "@/components/ComboBox"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { XplaneInputAction } from "@/types/config"
-import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 const CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = ["DataRef", "Command"]
@@ -13,13 +11,11 @@ export type XplaneInputActionPanelProps = {
   variant: "summary" | "details"
   config: XplaneInputAction | null
   onConfigChange: (config: XplaneInputAction) => void
-  onEditAction: () => void
 }
 
 const XplaneInputActionPanel = ({
   variant,
   config,
-  onEditAction,
   onConfigChange,
 }: XplaneInputActionPanelProps) => {
   const { t } = useTranslation()
@@ -47,9 +43,6 @@ const XplaneInputActionPanel = ({
               t("Dialog.InputConfigWizard.InputActions.Xplane.NonePath")}
           </div>
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

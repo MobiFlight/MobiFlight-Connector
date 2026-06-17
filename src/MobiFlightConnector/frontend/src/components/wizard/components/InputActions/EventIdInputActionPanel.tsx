@@ -1,11 +1,9 @@
 import ComboBox from "@/components/ComboBox"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import EventIdPresetsPanel from "@/components/wizard/components/InputActions/EventIdPresetsPanel"
 import { EventIdInputAction, PmdgEventIdInputAction } from "@/types/config"
-import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type EventIdInputActionPanelProps = {
@@ -13,7 +11,6 @@ export type EventIdInputActionPanelProps = {
   options: "default" | "pmdg"
   config: EventIdInputAction | PmdgEventIdInputAction | null
   onConfigChange: (config: EventIdInputAction | PmdgEventIdInputAction) => void
-  onEditAction: () => void
 }
 
 type MouseParam = {
@@ -25,8 +22,7 @@ const EventIdInputActionPanel = ({
   variant,
   options,
   config,
-  onConfigChange,
-  onEditAction,
+  onConfigChange
 }: EventIdInputActionPanelProps) => {
   const { t } = useTranslation()
   const mouseParams = [
@@ -86,10 +82,6 @@ const EventIdInputActionPanel = ({
             {param}
           </div>
         </div>
-
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }

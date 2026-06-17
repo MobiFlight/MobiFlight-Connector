@@ -1,23 +1,19 @@
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import ProSimDataRefPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
 import { ProSimInputAction } from "@/types/config"
-import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type ProSimInputActionPanelProps = {
   variant: "summary" | "details"
   config: ProSimInputAction | null
   onConfigChange: (config: ProSimInputAction) => void
-  onEditAction: () => void
 }
 
 const ProSimInputActionPanel = ({
   variant,
   config,
-  onEditAction,
   onConfigChange,
 }: ProSimInputActionPanelProps) => {
   const { t } = useTranslation()
@@ -48,9 +44,6 @@ const ProSimInputActionPanel = ({
               : t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterNone")}
           </div>
         </div>
-        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
-          <IconEdit />
-        </Button>
       </div>
     )
   }
