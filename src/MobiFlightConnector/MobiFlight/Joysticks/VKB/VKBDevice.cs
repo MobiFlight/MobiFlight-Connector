@@ -10,8 +10,6 @@ namespace MobiFlight.Joysticks.VKB
     {
         public const int VKB_VENDOR_ID = 0x231D;
         const int ENCODER_MISSED_MESSAGE_THRESHOLD = 5; // How many missed encoder messages are allowed before we need to log them - chosen arbitrarily
-        private HidStream Stream;
-        private readonly HidDevice Device;
         private readonly new VKBLedContainer Lights = new VKBLedContainer();
         private HidDeviceInputReceiver InputReceiver;
         private readonly byte[] InputReportBuffer = new byte[64];

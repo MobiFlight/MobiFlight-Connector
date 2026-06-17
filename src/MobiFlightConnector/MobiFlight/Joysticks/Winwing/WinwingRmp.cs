@@ -9,49 +9,36 @@ using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.Winwing
 {
-    internal class HidBuffer
-    {
-        public Report HidReport { get; set; }
-    }
-
-    internal class WinwingFcu : WinwingBaseController
+    internal class WinwingRmp : WinwingBaseController
     {
         new IHidDevice Device { get; set; }
 
-        private const int SPD_DEC = 10;
-        private const int SPD_INC = 11;
-        private const int HDG_DEC = 14;
-        private const int HDG_INC = 15;
-        private const int ALT_DEC = 18;
-        private const int ALT_INC = 19;
-        private const int VS_DEC = 22;
-        private const int VS_INC = 23;
-        private const int BAROL_DEC = 42;
-        private const int BAROL_INC = 43;
-        private const int BAROR_DEC = 74;
-        private const int BAROR_INC = 75;
+        private const int OUTER_KNOB_DEC = 15;
+        private const int OUTER_KNOB_INC = 16;
+        private const int INNER_KNOB_DEC = 17;
+        private const int INNER_KNOB_INC = 18;
         private const uint BUTTONS_REPORT = 1;
 
         private Dictionary<int, JoystickDevice>  ButtonsToTrigger = new Dictionary<int, JoystickDevice>();
         private Dictionary<int, JoystickDevice> EncoderButtonsToTrigger = new Dictionary<int, JoystickDevice>();
         private List<int> EncoderIncDecButtons 
-            = new List<int> { SPD_DEC, SPD_INC, HDG_DEC, HDG_INC, ALT_DEC, ALT_INC, VS_DEC, VS_INC, BAROL_DEC, BAROL_INC, BAROR_DEC, BAROR_INC }; 
+            = new List<int> { OUTER_KNOB_DEC, OUTER_KNOB_INC, INNER_KNOB_DEC, INNER_KNOB_INC }; 
   
         private volatile bool DoInitialize = true;
         private volatile bool DoRetrigger = false;
         private volatile bool DoReadHidReports = false;
-        private WinwingFcuReport CurrentReport = new WinwingFcuReport();
-        private WinwingFcuReport PreviousReport = new WinwingFcuReport();
+        private WinwingRmpReport CurrentReport = new WinwingRmpReport();
+        private WinwingRmpReport PreviousReport = new WinwingRmpReport();
         private HidBuffer HidDataBuffer = new HidBuffer();
-       
-        public WinwingFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def, productId, server)
+
+        public WinwingRmp(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def, productId, server)
         {
             // ctor logic is in base class
         }
 
         public async override void Connect(IntPtr handle)
         {
-            base.Connect(handle);          
+            base.Connect(handle);
 
             var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory();
             var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
@@ -95,7 +82,7 @@ namespace MobiFlight.Joysticks.Winwing
                 {
                     EncoderButtonsToTrigger[input.Id] = device;
                 }
-                Log.Instance.log($"Added WINWING FCU Id: {input.Id} Axis: {input.Name} Label: {input.Label}.", LogSeverity.Debug);
+                Log.Instance.log($"Added WINWING RMP Id: {input.Id} Axis: {input.Name} Label: {input.Label}.", LogSeverity.Debug);
             }
         }
 
@@ -165,38 +152,21 @@ namespace MobiFlight.Joysticks.Winwing
                 if (DoRetrigger)
                 {
                     PreviousReport.ButtonState = ~CurrentReport.ButtonState; // to retrigger
-                    PreviousReport.ButtonState2 = ~CurrentReport.ButtonState2; // to retrigger
-                    PreviousReport.ButtonState3 = ~CurrentReport.ButtonState3; // to retrigger
                     DoRetrigger = false;
                 }
 
                 // Detect and Trigger Button Events
                 uint pressed = CurrentReport.ButtonState & ~PreviousReport.ButtonState; // rising edges
                 uint released = PreviousReport.ButtonState & ~CurrentReport.ButtonState; // falling edges
-                uint pressed2 = CurrentReport.ButtonState2 & ~PreviousReport.ButtonState2; // rising edges
-                uint released2 = PreviousReport.ButtonState2 & ~CurrentReport.ButtonState2; // falling edges
-                uint pressed3 = CurrentReport.ButtonState3 & ~PreviousReport.ButtonState3; // rising edges
-                uint released3 = PreviousReport.ButtonState3 & ~CurrentReport.ButtonState3; // falling edges
                 CheckForButtonTrigger(pressed, MobiFlightButton.InputEvent.PRESS, 0);
                 CheckForButtonTrigger(released, MobiFlightButton.InputEvent.RELEASE, 0);
-                CheckForButtonTrigger(pressed2, MobiFlightButton.InputEvent.PRESS, 32);
-                CheckForButtonTrigger(released2, MobiFlightButton.InputEvent.RELEASE, 32);
-                CheckForButtonTrigger(pressed3, MobiFlightButton.InputEvent.PRESS, 64);
-                CheckForButtonTrigger(released3, MobiFlightButton.InputEvent.RELEASE, 64);
 
                 // Detect and Trigger Encoder Turns
-                int spdIncrement = CurrentReport.SpdEncoderValue - PreviousReport.SpdEncoderValue;
-                CheckForEncoderTrigger(spdIncrement, SPD_DEC, SPD_INC);
-                int hdgIncrement = CurrentReport.HdgEncoderValue - PreviousReport.HdgEncoderValue;
-                CheckForEncoderTrigger(hdgIncrement, HDG_DEC, HDG_INC);
-                int altIncrement = CurrentReport.AltEncoderValue - PreviousReport.AltEncoderValue;
-                CheckForEncoderTrigger(altIncrement, ALT_DEC, ALT_INC);
-                int vsIncrement = CurrentReport.VsEncoderValue - PreviousReport.VsEncoderValue;
-                CheckForEncoderTrigger(vsIncrement, VS_DEC, VS_INC);
-                int baroLeftIncrement = CurrentReport.BaroLeftEncoderValue - PreviousReport.BaroLeftEncoderValue;
-                CheckForEncoderTrigger(baroLeftIncrement, BAROL_DEC, BAROL_INC);
-                int baroRightIncrement = CurrentReport.BaroRightEncoderValue - PreviousReport.BaroRightEncoderValue;
-                CheckForEncoderTrigger(baroRightIncrement, BAROR_DEC, BAROR_INC);
+                int innerKnobIncrement = CurrentReport.InnerKnobValue - PreviousReport.InnerKnobValue;
+                CheckForEncoderTrigger(innerKnobIncrement, INNER_KNOB_DEC, INNER_KNOB_INC);
+                int outerKnobIncrement = CurrentReport.OuterKnobValue - PreviousReport.OuterKnobValue;
+                CheckForEncoderTrigger(outerKnobIncrement, OUTER_KNOB_DEC, OUTER_KNOB_INC);
+
                 CurrentReport.CopyTo(PreviousReport);
             }
         }
@@ -205,9 +175,10 @@ namespace MobiFlight.Joysticks.Winwing
         {
             TriggerButtonPressed(this, new InputEventArgs()
             {
-                Controller = new Base.Controller() {
+                Controller = new Base.Controller()
+                {
                     Name = Name,
-                    Serial = Serial
+                    Serial = Serial,
                 },
                 Device = new Base.DeviceReference()
                 {
@@ -233,7 +204,7 @@ namespace MobiFlight.Joysticks.Winwing
         public override void Shutdown()
         {
             DoReadHidReports = false;
-            base.Shutdown();                      
+            base.Shutdown();
             if (Device != null) 
             {
                 Device.Close();

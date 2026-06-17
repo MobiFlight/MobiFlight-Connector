@@ -40,6 +40,10 @@
         internal const int PRODUCT_ID_AGP = 0xBB80;
         internal const int PRODUCT_ID_TCAS = 0xBB81;
 
+        internal const int PRODUCT_ID_RMP_L = 0xBB83;
+        internal const int PRODUCT_ID_RMP_R = 0xBB84;
+        internal const int PRODUCT_ID_RMP_C = 0xBB85;
+
         internal const int PRODUCT_ID_PTO2 = 0xBF05;
 
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
@@ -53,6 +57,7 @@
 
         internal static readonly int[] AIRBUS_STICK_PRODUCTIDS = { PRODUCT_ID_AIRBUS_STICK_L, PRODUCT_ID_AIRBUS_STICK_R };
         internal static readonly int[] PDC3_PRODUCTIDS = { PRODUCT_ID_3NPDCL, PRODUCT_ID_3NPDCR, PRODUCT_ID_3MPDCL, PRODUCT_ID_3MPDCR };
+        internal static readonly int[] RMP_PRODUCTIDS = { PRODUCT_ID_RMP_L, PRODUCT_ID_RMP_R, PRODUCT_ID_RMP_C };
 
         internal const string CDU_DATA = "Cdu Data";
         internal const string FONT_DATA = "Font Data";

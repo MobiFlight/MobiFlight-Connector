@@ -451,47 +451,6 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0x01, result[8] & 0x01, "Power should be automatically enabled for single test mode");
             Assert.AreEqual(0x02, result[6] & 0x02, "AP1 signal should be set");
         }
-
-        #endregion
-
-        #region Two's Complement Tests
-
-        [TestMethod]
-        public void TwosComplement_PositiveValue_ReturnsCorrectBytes()
-        {
-            // Test positive encoder values (right rotation)
-            sbyte positiveValue = 5;
-            byte byteValue = (byte)positiveValue;
-
-            Assert.AreEqual(5, byteValue, "Positive value should remain unchanged");
-            Assert.IsGreaterThan(0, positiveValue, "Should be detected as positive");
-        }
-
-        [TestMethod]
-        public void TwosComplement_NegativeValue_ReturnsCorrectBytes()
-        {
-            // Test negative encoder values (left rotation)
-            sbyte negativeValue = -5;
-            byte byteValue = (byte)negativeValue;
-
-            Assert.AreEqual(251, byteValue, "Negative value should be 251 in two's complement"); // 256 - 5 = 251
-            Assert.IsLessThan(0, (sbyte)byteValue, "Should be detected as negative when cast back to sbyte");
-        }
-
-        [TestMethod]
-        public void TwosComplement_ExtremValues_HandleCorrectly()
-        {
-            // Test extreme values
-            sbyte maxPositive = 127;
-            sbyte maxNegative = -128;
-
-            Assert.AreEqual(127, (byte)maxPositive, "Max positive should be 127");
-            Assert.AreEqual(128, (byte)maxNegative, "Max negative should be 128");
-
-            Assert.IsGreaterThan(0, (sbyte)(byte)maxPositive, "Max positive should remain positive");
-            Assert.IsLessThan(0, (sbyte)(byte)maxNegative, "Max negative should remain negative");
-        }
-
         #endregion
 
         #region Helper Methods

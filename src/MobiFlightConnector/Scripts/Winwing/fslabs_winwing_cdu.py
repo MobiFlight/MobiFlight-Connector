@@ -8,7 +8,7 @@ import http.client
 
 FSL_COLOR_MAP = {
     0: "w",  # black (ignore)
-    1: "c",  # cyan
+    1: "o",  # cyan
     2: "e",  # gray
     3: "y",  # yellow
     4: "g",  # light green
@@ -27,15 +27,14 @@ subs = {
     95: "\u2190",  
     110: "\u0394",  
     112: "*",
-    "#": "\u2610",  
-    "¤": "\u2191",  
-    "¥": "\u2193",  
-    "¢": "\u2192",  
-    "£": "\u2190",  
 }
 
 mobi_websocket_connections = {"captain": None, "co-pilot": None}
 data_queues = {"3CA1": asyncio.Queue(), "3CA2": asyncio.Queue()}
+
+# Most recent frame per MCDU, kept so it can be re-sent whenever a CDU
+# (re)connects -- otherwise a static display stays blank until it next changes.
+last_frames = {"3CA1": None, "3CA2": None}
 
 MAX_WS_RETRIES = 3   # <--- Added retry limit
 
@@ -43,6 +42,7 @@ MAX_WS_RETRIES = 3   # <--- Added retry limit
 async def fetch_fsl_mcdu(mcdu):
     """Fetch MCDU data using a persistent HTTP connection, avoiding redundant updates."""
     global data_queues
+    global last_frames
 
     last_fetched_data = None
     conn = http.client.HTTPConnection("localhost", 8080, timeout=1)
@@ -60,7 +60,13 @@ async def fetch_fsl_mcdu(mcdu):
 
                     if parsed_data != last_fetched_data:
                         last_fetched_data = parsed_data
+                        last_frames[mcdu] = parsed_data
                         await data_queues[mcdu].put(parsed_data)
+            else:
+                # Drain the body even on errors, otherwise the persistent
+                # HTTPConnection is left in a bad state and the next request
+                # raises ResponseNotReady.
+                response.read()
 
         except (http.client.HTTPException, TimeoutError) as ex:
             logging.warning(f"fetch_fsl_mcdu: Connection to FSLabs aircraft not possible. Timeout or HTTP error: {ex}")
@@ -77,16 +83,56 @@ async def fetch_fsl_mcdu(mcdu):
 async def run_fsl_http_client(mcdu, cdu):
     global mobi_websocket_connections
     global data_queues
+    global last_frames
 
-    while True:        
-        mobi_json = await data_queues[mcdu].get()
+    was_connected = False
 
-        if mobi_json and mobi_websocket_connections[cdu]:
-            await mobi_websocket_connections[cdu].send(mobi_json)
+    while True:
+        conn = mobi_websocket_connections[cdu]
+
+        # Not connected yet (or dropped): keep the latest frame queued and wait.
+        if conn is None:
+            was_connected = False
+            await asyncio.sleep(0.1)
+            continue
+
+        # Just (re)connected: the queue may only hold stale intermediate frames
+        # (or nothing), so drop the backlog and push the current frame straight
+        # away. This is what stops the screen loading blank on startup/reconnect.
+        if not was_connected:
+            was_connected = True
+            while not data_queues[mcdu].empty():
+                data_queues[mcdu].get_nowait()
+            if last_frames[mcdu] is not None:
+                try:
+                    await conn.send(last_frames[mcdu])
+                except Exception as ex:
+                    logging.warning(f"[{cdu}] resend on connect failed, will resync: {ex}")
+                    continue
+
+        # Wait for new frames, but time out so a disconnect is noticed promptly.
+        try:
+            mobi_json = await asyncio.wait_for(data_queues[mcdu].get(), timeout=0.5)
+        except asyncio.TimeoutError:
+            continue
+
+        conn = mobi_websocket_connections[cdu]
+        if mobi_json and conn:
+            try:
+                await conn.send(mobi_json)
+            except Exception as ex:
+                # Socket dropped between the check and the send; the ws task
+                # will reset the connection and we'll resync on reconnect.
+                logging.warning(f"[{cdu}] send failed, will resync on reconnect: {ex}")
 
 
 async def run_mobiflight_websocket_client(cdu_type):
-    """WebSocket client with retry limit."""
+    """WebSocket client.
+
+    The retry limit applies only until the first successful connection (so a
+    missing CDU stops trying); once connected, it reconnects indefinitely so a
+    transient drop doesn't permanently kill the CDU.
+    """
     global mobi_websocket_connections
 
     retries = 0
@@ -94,46 +140,47 @@ async def run_mobiflight_websocket_client(cdu_type):
 
     while True:
         try:
-            if mobi_websocket_connections[cdu_type] is None:
-
-                if not has_connected_once and retries >= MAX_WS_RETRIES:
-                    logging.info(
-                        f"[{cdu_type}] No CDU detected after {retries} attempts -> stopping task."
-                    )
-                    return
-
-                ws_url = f"ws://localhost:8320/winwing/cdu-{cdu_type}"
+            # Give up only if we've never connected -- likely no CDU attached.
+            if not has_connected_once and retries >= MAX_WS_RETRIES:
                 logging.info(
-                    f"[{cdu_type}] Connecting to MobiFlight WebSocket "
-                    f"(attempt {retries + 1}/{MAX_WS_RETRIES}) -> {ws_url}"
+                    f"[{cdu_type}] No CDU detected after {retries} attempts -> stopping task. "
+                    f"If you only have one CDU attached, you can ignore this message."
                 )
+                return
 
-                mobi_websocket_connections[cdu_type] = await ws_client.connect(ws_url)
-                logging.info(f"[{cdu_type}] Connected.")
+            ws_url = f"ws://localhost:8320/winwing/cdu-{cdu_type}"
+            logging.info(
+                f"[{cdu_type}] Connecting to MobiFlight WebSocket "
+                f"(attempt {retries + 1}) -> {ws_url}"
+            )
 
-                has_connected_once = True
-                retries = 0  # reset retry counter
+            connection = await ws_client.connect(ws_url)
+            logging.info(f"[{cdu_type}] Connected.")
 
-                fontName = "AirbusThales"
-                await mobi_websocket_connections[cdu_type].send(
-                    f'{{ "Target": "Font", "Data": "{fontName}" }}'
-                )
-                logging.info(f"[{cdu_type}] Setting font: {fontName}")
-                await asyncio.sleep(1) # wait a second for font to be set
+            # Set the font and let it settle BEFORE exposing the connection, so
+            # the first frame isn't sent with the wrong font.
+            fontName = "AirbusThales"
+            await connection.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
+            logging.info(f"[{cdu_type}] Setting font: {fontName}")
+            await asyncio.sleep(1)  # wait a second for font to be set
 
-            await asyncio.sleep(0.05)
-       
+            mobi_websocket_connections[cdu_type] = connection
+            has_connected_once = True
+            retries = 0  # reset retry counter
+
+            # Block until the connection drops. We don't expect inbound data;
+            # iterating the socket simply unblocks (or raises) when it closes.
+            try:
+                async for _ in connection:
+                    pass
+            finally:
+                mobi_websocket_connections[cdu_type] = None
+                logging.info(f"[{cdu_type}] Connection closed -> will reconnect.")
+
         except Exception as ex:
             logging.info(f"[{cdu_type}] WebSocket connection failed: {ex}")
             mobi_websocket_connections[cdu_type] = None
             retries += 1
-
-            if retries >= MAX_WS_RETRIES:
-                logging.info(
-                   f"[{cdu_type}] No CDU detected after {retries} attempts -> stopping task. If you only have one CDU attached, you can ignore this message."
-                )
-                return
-
             await asyncio.sleep(2)
 
 

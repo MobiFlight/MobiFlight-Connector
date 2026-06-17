@@ -1,0 +1,961 @@
+{
+  "Name": "WingFlex - MSFS - Generic Plane",
+  "ConfigFiles": [
+    {
+      "Label": "DAP500",
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "4eb2a124-0af9-45c5-a665-00b94bc0c207",
+              "Value": "(A:AUTOPILOT HEADING LOCK,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "HDG LED",
+            "Pin": "HDG LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "HDG LED",
+          "GUID": "facb8c82-5d95-44ff-96c3-99136297221a",
+          "Active": true,
+          "Name": "HDG LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "d7187230-2fd2-41a7-b22e-55e3e8a0ec12",
+              "Value": "(A:AUTOPILOT APPROACH HOLD,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "APR LED",
+            "Pin": "APR LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "APR LED",
+          "GUID": "51d01eb0-b012-4f53-ac89-aa71543e88d0",
+          "Active": true,
+          "Name": "APR LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "4224fc05-b6e9-44d4-9468-c546a05a99c4",
+              "Value": "(A:AUTOPILOT NAV1 LOCK,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "NAV LED",
+            "Pin": "NAV LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "NAV LED",
+          "GUID": "265d85b3-08f4-4d53-af42-e5b62c267c1b",
+          "Active": true,
+          "Name": "NAV LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "4224fc05-b6e9-44d4-9468-c546a05a99c4",
+              "Value": "(A:AUTOPILOT NAV1 LOCK,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "TRK LED",
+            "Pin": "TRK LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "TRK LED",
+          "GUID": "f743036e-9652-47ca-a138-be00dfd49042",
+          "Active": false,
+          "Name": "TRK LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "59411677-275b-4f69-82d2-eb93c20db76c",
+              "Value": "(A:AUTOPILOT MASTER,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "AP LED",
+            "Pin": "AP LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AP LED",
+          "GUID": "44d4b925-f8d4-4ac9-b6d4-b7f534def946",
+          "Active": true,
+          "Name": "AP LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "2ac729ee-dcb3-4103-b61b-da3913a471e2",
+              "Value": "(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "FD LED",
+            "Pin": "FD LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "FD LED",
+          "GUID": "0037e65a-a7a8-48bf-8aa1-a453a3a00200",
+          "Active": true,
+          "Name": "FD LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "4fcd3b6a-1ff4-406f-a140-4bbbf4fed3f6",
+              "Value": "(A:AUTOPILOT WING LEVELER,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "LVL LED",
+            "Pin": "LVL LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "LVL LED",
+          "GUID": "c552aa7d-b085-46a7-92dd-39e9eb9cac79",
+          "Active": true,
+          "Name": "LVL LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "YD LED",
+            "Pin": "YD LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "YD LED",
+          "GUID": "5fe65bef-f6de-4e53-b4ab-97bd658ad5bf",
+          "Active": true,
+          "Name": "YD LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "a4bace5b-4a8b-4c56-9af7-e52e149d02d3",
+              "Value": "(A:AUTOPILOT AIRSPEED HOLD,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "IAS LED",
+            "Pin": "IAS LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "IAS LED",
+          "GUID": "088798f1-3de1-4734-b793-59448bd1c4c8",
+          "Active": true,
+          "Name": "IAS LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "3c5c84e5-a499-4a07-8d0c-f812004f60fe",
+              "Value": "(A:AUTOPILOT VERTICAL HOLD,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "VNAV LED",
+            "Pin": "VNAV LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "VNAV LED",
+          "GUID": "4c82020b-78b4-4e9e-93c7-9ca0af17c85e",
+          "Active": false,
+          "Name": "VNAV LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "3c5c84e5-a499-4a07-8d0c-f812004f60fe",
+              "Value": "(A:AUTOPILOT VERTICAL HOLD,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "VS LED",
+            "Pin": "VS LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "VS LED",
+          "GUID": "0d17af98-4f19-43bb-99db-573386159908",
+          "Active": true,
+          "Name": "VS LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "09df7de7-01e4-43ac-8015-9573385d8acb",
+              "Value": "(A:AUTOPILOT ALTITUDE LOCK,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "ALT LED",
+            "Pin": "ALT LED",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "ALT LED",
+          "GUID": "6c88c085-5322-4d62-aece-e76f81dafb98",
+          "Active": true,
+          "Name": "ALT LED",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "8c1c330a-5254-4275-b2fd-94ed214f4453",
+              "Value": "(A:LIGHT POTENTIOMETER:3, Percent) (A:CIRCUIT ON:44, Bool) *",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 128.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "Backlight Brightness",
+            "Pin": "Backlight Brightness",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Backlight Brightness",
+          "GUID": "3990272c-7704-4eab-8e13-65471747f7a5",
+          "Active": true,
+          "Name": "Backlight Brightness",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Comparison",
+                "Operand": "=",
+                "Value": "0",
+                "IfValue": "128",
+                "ElseValue": "",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:HEADING_BUG_DEC)",
+              "PresetId": "cab52499-c789-4249-bc21-31f920d4e604",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 1"
+          },
+          "GUID": "f2071b31-655b-455b-ae15-d85c7daaeb83",
+          "Active": true,
+          "Name": "Heading Bug Turn Left",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:HEADING_BUG_INC)",
+              "PresetId": "debca2cf-3a15-40f0-b839-3e1e153cd0f4",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 2"
+          },
+          "GUID": "0869e677-6e47-4318-99be-6dee1e5c3dee",
+          "Active": true,
+          "Name": "Heading Bug Turn Right",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:HEADING_BUG_SELECT)",
+              "PresetId": "0447e4fe-6a4d-43bd-a4b5-44bd34acd749",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 3"
+          },
+          "GUID": "a122c60e-4a5b-4014-96db-a2b24e189ee5",
+          "Active": true,
+          "Name": "Heading Sync Current",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_PANEL_HEADING_HOLD)",
+              "PresetId": "cf0526c0-da69-404f-a570-9f9d54d2803c",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 9"
+          },
+          "GUID": "d3755506-2f05-44ad-ac8b-d3cf7c063506",
+          "Active": true,
+          "Name": "HDG Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_APR_HOLD)",
+              "PresetId": "de7fab05-76c5-4fc1-a86a-e32a31c5aff3",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 10"
+          },
+          "GUID": "c05fe1e8-6a92-4f25-8679-1a0ad2941240",
+          "Active": true,
+          "Name": "APR Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_NAV1_HOLD)",
+              "PresetId": "83a61eaf-5315-445b-bc1e-bc76135cca76",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 11"
+          },
+          "GUID": "8a1bf197-9e6c-43e1-bacf-80f696bf8de5",
+          "Active": true,
+          "Name": "NAV Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_ALT_HOLD)",
+              "PresetId": "a946ee03-bd6d-4ed4-b1c2-72d26df93848",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 12"
+          },
+          "GUID": "598e34a5-6fab-4211-adb9-29f128552c75",
+          "Active": true,
+          "Name": "TRK Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_MASTER)",
+              "PresetId": "b17146c8-2db3-4239-b797-e7bc11d557da",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 13"
+          },
+          "GUID": "420fc907-f6c2-44ed-a130-916548208e67",
+          "Active": true,
+          "Name": "AP Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:TOGGLE_FLIGHT_DIRECTOR)",
+              "PresetId": "fad1ae94-e742-4bee-8982-c45da3585497",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 14"
+          },
+          "GUID": "807024d9-87e0-4538-8737-394873b85bcd",
+          "Active": true,
+          "Name": "FD Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_WING_LEVELER)",
+              "PresetId": "dd17c9f1-199f-466e-befc-d4d73b0172cc",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 15"
+          },
+          "GUID": "7129644b-abb7-44e5-941f-8343d19f7946",
+          "Active": true,
+          "Name": "LVL Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_ALT_HOLD)",
+              "PresetId": "a946ee03-bd6d-4ed4-b1c2-72d26df93848",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 16"
+          },
+          "GUID": "d6500f80-4ee4-434f-9db7-a6101bd3278d",
+          "Active": true,
+          "Name": "FD Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:YAW_DAMPER_TOGGLE)",
+              "PresetId": "2beef46b-a8ac-4a25-b7eb-6d75b136f1f9",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 16"
+          },
+          "GUID": "2cf2476e-893a-417c-b433-351c6411b3d9",
+          "Active": true,
+          "Name": "YD Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_AIRSPEED_HOLD)",
+              "PresetId": "0c7952a8-d6f3-427f-9a19-8e5242f4c67a",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 17"
+          },
+          "GUID": "59ccc513-8d38-4fe8-bbdb-004bb0ab3491",
+          "Active": true,
+          "Name": "IAS Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_ALT_HOLD)",
+              "PresetId": "a946ee03-bd6d-4ed4-b1c2-72d26df93848",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 18"
+          },
+          "GUID": "25761b04-2f53-4578-be6b-4989d0d2aafa",
+          "Active": true,
+          "Name": "VNAV Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_PANEL_VS_HOLD)",
+              "PresetId": "6a81e461-5a7b-4dbf-b0b2-7cacc179df42",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 19"
+          },
+          "GUID": "77ae9c50-84da-45a8-af87-af4cbc6f986f",
+          "Active": true,
+          "Name": "VS Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_PANEL_ALTITUDE_HOLD)",
+              "PresetId": "9c7f4d04-0217-41a6-87a8-dee082bb2801",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 20"
+          },
+          "GUID": "0ff7d756-9e25-4575-a215-e68e3e9a44bb",
+          "Active": true,
+          "Name": "ALT Toggle",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_ALT_VAR_DEC)",
+              "PresetId": "035b1f1d-1e4e-4809-9713-07fe5ab0581d",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 6"
+          },
+          "GUID": "e114a1e0-8a9b-4d61-bcaf-d0f008ce4d13",
+          "Active": true,
+          "Name": "Altitude Turn Left",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_ALT_VAR_INC)",
+              "PresetId": "6b70bc27-97bf-499e-ba49-3d63984aa593",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 7"
+          },
+          "GUID": "88cc1d21-ca89-4142-bd98-889c8e0c9840",
+          "Active": true,
+          "Name": "Altitude Turn Right",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AUTOPILOT_Altitude_Sync)",
+              "PresetId": "",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 8"
+          },
+          "GUID": "d9d4a15b-7faf-4c91-a567-2a5d54ebadc9",
+          "Active": true,
+          "Name": "Altitude Sync",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX DAP500",
+            "Serial": "JS-9c35f3d0-667e-11f1-8001-444553540000"
+          }
+        }
+      ]
+    }
+  ],
+  "Sim": "msfs",
+  "Aircraft": [],
+  "Features": {
+    "FSUIPC": false,
+    "ProSim": false
+  },
+  "_version": "0.10"
+}

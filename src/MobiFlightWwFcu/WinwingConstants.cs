@@ -31,6 +31,9 @@ namespace MobiFlightWwFcu
 
         internal static readonly byte[] DEST_PTO2 = new byte[] { 0x05, 0xbf };
 
+        // All three RMP variants (L/R/C) share one destination address.
+        internal static readonly byte[] DEST_RMP = new byte[] { 0x82, 0xbb };
+
 
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
         internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
@@ -72,6 +75,10 @@ namespace MobiFlightWwFcu
 
         internal const int PRODUCT_ID_PTO2 = 0xBF05;
 
+        internal const int PRODUCT_ID_RMP_L = 0xBB83;
+        internal const int PRODUCT_ID_RMP_R = 0xBB84;
+        internal const int PRODUCT_ID_RMP_C = 0xBB85;
+
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
                                                           PRODUCT_ID_PFP3N_CPT, PRODUCT_ID_PFP3N_OBS, PRODUCT_ID_PFP3N_FO,
@@ -98,11 +105,16 @@ namespace MobiFlightWwFcu
         internal const string AIRBUS_STICK_L_NAME = "Airbus Sidestick Left";
         internal const string AIRBUS_STICK_R_NAME = "Airbus Sidestick Right";
 
+        internal const string RMP_L_NAME = "RMP Left";
+        internal const string RMP_R_NAME = "RMP Right";
+        internal const string RMP_C_NAME = "RMP Center";
+
         internal static Dictionary<string, byte[]> DisplayCmdHeaders = new Dictionary<string, byte[]>()
         {
             { "0201",   new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x00 } }, // FCU
             { "0201_E", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00 } }, // EFIS
             { "0201_PAP", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x00, 0x00 } }, // PAP3
+            { "0201_RMP", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00 } }, // RMP
             { "0201_PAC", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x00, 0x00, 0x00 } }, // PAC
             { "0201_AGP", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x00, 0x00, 0x00 } }, // AGP
             { "0201_TCAS", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x00, 0x00, 0x00 } },

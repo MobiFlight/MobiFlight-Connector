@@ -42,6 +42,10 @@ const ControllerIcons = {
     thrustmaster: {
       "T.16000M": "/controller/thrustmaster/t16000m.jpg",
     },
+    wingflex: {
+      "FCU Cube": "/controller/wingflex/wingflex-logo-square.png",
+      "WINGFLEX DAP500": "/controller/wingflex/wingflex-logo-square.png",
+    },
     winwing: {
       "WINWING MCDU-32-CAPTAIN": "/controller/winwing/mcdu.jpg",
     },

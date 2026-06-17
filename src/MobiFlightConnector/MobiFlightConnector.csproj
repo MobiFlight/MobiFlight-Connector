@@ -434,10 +434,14 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCube.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500Report.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReport.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingBaseController.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingRmp.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingRmpReport.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3Report.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingCdu.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingConstants.cs" />
@@ -1467,6 +1471,10 @@
     <None Include="Joysticks\vkbsim\vkbsim_nxt_thqx3_fsm_ga.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\wingflex\projects\msfs\WingFlex - MSFS - Generic Plane.mfproj" />
+    <None Include="Joysticks\wingflex\wingflex_dap500.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\winwing\winwing_ecam.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1552,6 +1560,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_pto2.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_rmp_right.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_rmp_center.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_rmp_left.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_tcas.joystick.json">
@@ -2191,6 +2208,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Scripts\ScriptMappings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Winwing\aerosoft_a340_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\Winwing\Fonts\Default\MCDU\AirbusThales.dat">

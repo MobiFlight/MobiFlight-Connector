@@ -376,19 +376,24 @@ namespace MobiFlightWwFcu
             }
         }
 
+        private static byte BrightnessToByte(string brightness)
+        {
+            return (byte)System.Convert.ToDouble(brightness, System.Globalization.CultureInfo.InvariantCulture);
+        }
+
         private void SetLedBrightness(string brightness)
         {
-            MessageSender.SetBrightness(DestinationAddress, 0x02, brightness);          
+            MessageSender.SetBrightness(DestinationAddress, 0x02, BrightnessToByte(brightness));
         }
 
         private void SetBacklightBrightness(string brightness)
         {
-            MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);          
+            MessageSender.SetBrightness(DestinationAddress, 0x00, BrightnessToByte(brightness));
         }
 
         private void SetLcdBrightness(string brightness)
         {
-            MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);         
+            MessageSender.SetBrightness(DestinationAddress, 0x01, BrightnessToByte(brightness));
         }
 
         private void EmptyDisplay()

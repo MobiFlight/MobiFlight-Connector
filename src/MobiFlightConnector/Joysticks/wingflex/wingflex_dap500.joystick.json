@@ -1,0 +1,188 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINGFLEX DAP500",
+  "VendorId": "0xC687",
+  "ProductId": "0xB216",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "HDG Knob Left"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "HDG Knob Right"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "HDG Knob Push"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Trim Wheel - Nose Down"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Trim Wheel - Nose Up"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "ALT Knob Left"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "ALT Knob Right"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "ALT Knob Push"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "HDG"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "APR"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "NAV"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "TRK"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "AP"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "FD"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "LVL"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "YD"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "IAS"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "VNAV"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "VS"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "ALT"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "APR LED",
+      "Id": "APR_LED",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "NAV LED",
+      "Id": "NAV_LED",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "TRK LED",
+      "Id": "TRK_LED",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "HDG LED",
+      "Id": "HDG_LED",
+      "Byte": 1,
+      "Bit": 3
+    },
+    {
+      "Label": "AP LED",
+      "Id": "AP_LED",
+      "Byte": 1,
+      "Bit": 4
+    },
+    {
+      "Label": "FD LED",
+      "Id": "FD_LED",
+      "Byte": 1,
+      "Bit": 5
+    },
+    {
+      "Label": "LVL LED",
+      "Id": "LVL_LED",
+      "Byte": 1,
+      "Bit": 6
+    },
+    {
+      "Label": "YD LED",
+      "Id": "YD_LED",
+      "Byte": 1,
+      "Bit": 7
+    },
+    {
+      "Label": "IAS LED",
+      "Id": "IAS_LED",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "VNAV LED",
+      "Id": "VNAV_LED",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "VS LED",
+      "Id": "VS_LED",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "ALT LED",
+      "Id": "ALT_LED",
+      "Byte": 2,
+      "Bit": 3
+    },
+    {
+      "Label": "Backlight Brightness",
+      "Id": "BACKLIGHT",
+      "Byte": 3,
+      "Bit": 0
+    }
+  ]
+}

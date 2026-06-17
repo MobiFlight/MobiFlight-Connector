@@ -1,0 +1,113 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINCTRL 32 RMP L",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB83",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "XFR"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "VHF1"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "VHF2"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "VHF3"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "LOAD"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "HF1"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "HF2"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "AM"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "NAV"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "VOR"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "ILS"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "GLS"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "MLS"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "ADF"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "OUTER KNOB DEC"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "OUTER KNOB INC"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "INNER KNOB DEC"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "INNER KNOB INC"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "FREQ KNOB PRESS"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "PWR ON"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "PWR OFF"
+    }
+  ]
+}

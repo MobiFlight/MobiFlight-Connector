@@ -53,6 +53,11 @@ namespace MobiFlight.Joysticks
                 return true;
             }
 
+            if (instanceName == "WINGFLEX DAP500")
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -125,6 +130,11 @@ namespace MobiFlight.Joysticks
             if (instanceName.Trim().Contains("BU0836"))
             {
                 return new Bodnar.BodnarBoard(32, diJoystick, definition);
+            }
+
+            if (instanceName == "WINGFLEX DAP500")
+            {
+                return new WingFlex.Dap500(diJoystick, definition);
             }
 
             // Return null to indicate this should be handled as a standard Joystick

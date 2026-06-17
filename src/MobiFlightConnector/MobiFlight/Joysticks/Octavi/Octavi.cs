@@ -8,8 +8,6 @@ namespace MobiFlight.Joysticks.Octavi
     {
         readonly int VendorId = 0x04D8;
         readonly int ProductId = 0xE6D6;
-        HidStream Stream { get; set; }
-        HidDevice Device { get; set; }
 
         protected HidDeviceInputReceiver inputReceiver;
         protected ReportDescriptor reportDescriptor;
@@ -69,7 +67,6 @@ namespace MobiFlight.Joysticks.Octavi
                 this.Update();
             }
         }
-
 
         protected override void SendData(byte[] data)
         {
