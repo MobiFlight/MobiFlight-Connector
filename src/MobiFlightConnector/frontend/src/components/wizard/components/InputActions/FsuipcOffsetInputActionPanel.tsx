@@ -45,7 +45,7 @@ const filterHexInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
 const FsuipcOffsetInputActionPanel = ({
   variant,
   config,
-  onConfigChange
+  onConfigChange,
 }: FsuipcOffsetInputActionPanelProps) => {
   const { t } = useTranslation()
   const currentConfig = config?.FSUIPC ? config : defaultConfig
@@ -62,15 +62,11 @@ const FsuipcOffsetInputActionPanel = ({
   if (variant === "summary") {
     return (
       <div className="flex grow flex-row items-center gap-8">
-                <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1">
           <Label htmlFor="size">
-            {t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel",
-            )}
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
           </Label>
-          <div>
-            {currentConfig.FSUIPC.Size.toString()}
-          </div>
+          <div>{currentConfig.FSUIPC.Size.toString()}</div>
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="offset">
@@ -86,9 +82,7 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="mask">
-            {t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel",
-            )}
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel")}
           </Label>
           <div>
             {currentConfig.FSUIPC.Mask.toString(16)
@@ -98,11 +92,11 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="bcdMode">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel")}
+            {t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
+            )}
           </Label>
-          <div
-            id="bcdMode"
-          >
+          <div id="bcdMode">
             <Switch id="bcdMode" checked={currentConfig.FSUIPC.BcdMode} />
           </div>
         </div>
@@ -193,12 +187,7 @@ const FsuipcOffsetInputActionPanel = ({
             }}
           />
         </div>
-        <div className="flex flex-row items-center gap-1 pt-6">
-          <Label className="text-sm font-medium" htmlFor="bcdMode">
-            {t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
-            )}
-          </Label>
+        <div className="flex flex-row items-center gap-2 pt-5">
           <Switch
             id="bcdMode"
             checked={currentConfig.FSUIPC.BcdMode}
@@ -209,6 +198,11 @@ const FsuipcOffsetInputActionPanel = ({
               } as FsuipcOffsetInputAction)
             }
           />
+          <Label className="text-sm font-medium" htmlFor="bcdMode">
+            {t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
+            )}
+          </Label>
         </div>
       </div>
     </div>

@@ -15,9 +15,9 @@ FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
 FCU_HDGKNOB_LONGPRESS:7:FCU Heading Knob Long Press
 AP_ENGAGE:8:Autopilot Engage`
 
-// Helper: open the dialog for a given row and return the action-editor locator
+// Helper: open the dialog for a given row and return the action-panel locator
 // (onPress tab is active by default for button inputs)
-const openActionEditor = async (
+const openWizardAndReturnActionPanel = async (
   configListPage: ConfigListPage,
   page: Page,
   row: number,
@@ -53,13 +53,13 @@ const openActionEditor = async (
   await callback?.(configListPage)
 
   await configListPage.clickEditButtonForRow(row)
-  const actionEditor = page.getByTestId("action-editor")
+  const actionPanel = page.getByTestId("action-panel")
 
   // expect it to become visible
   // this ensures that react render has completed and, e.g., useEffects have run
-  await expect(actionEditor).toBeVisible()
+  await expect(actionPanel).toBeVisible()
 
-  return actionEditor
+  return actionPanel
 }
 
 test.describe("General Input Config Wizard Tests", () => {
@@ -616,6 +616,13 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
       )
 
       await configListPage.clickEditButtonForRow(1)
+
+      const actionEditButton = page.getByRole("button", {
+        name: "Edit On Press Action",
+      })
+      await expect(actionEditButton).toBeVisible()
+      await actionEditButton.click()
+
       const actionTypeComboBox = page.getByTestId("action-type-combobox")
       await expect(actionTypeComboBox).toBeVisible()
       await actionTypeComboBox.click()
@@ -647,7 +654,18 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    const actionEditor = await openActionEditor(configListPage, page, 1)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
     const copyButton = actionEditor.getByRole("button", { name: "Copy" })
     const pasteButton = actionEditor.getByRole("button", { name: "Paste" })
 
@@ -658,7 +676,12 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
     await copyButton.click()
     await expect(pasteButton).toBeEnabled()
 
-    const onReleaseTab = page.getByRole("tab", { name: "On Release" })
+    // Navigate away and close the action editor
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    const onReleaseTab = page.getByRole("button", { name: "On Release" })
     await onReleaseTab.click()
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
@@ -678,7 +701,19 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 1)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -696,7 +731,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     ).toBeVisible()
     // Code field reflects the preset command
     await expect(
-      actionEditor.getByRole("textbox", { name: "Code:" }),
+      actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
     ).toHaveValue("(>K:AP_PANEL_HEADING_HOLD)")
   })
 
@@ -704,7 +739,18 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 1)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
     const filterInput = actionEditor.getByPlaceholder("Filter presets")
     const countLabel = actionEditor.getByRole("status")
 
@@ -724,7 +770,20 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 1)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     // Open the preset ComboBox (currently shows the selected preset)
     await actionEditor
       .getByRole("combobox")
@@ -733,7 +792,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await page.getByRole("option", { name: "AS1000_PFD_VOL_1_DEC" }).click()
     // Code field updates to the new preset's command
     await expect(
-      actionEditor.getByRole("textbox", { name: "Code:" }),
+      actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
     ).toHaveValue("(>H:AS1000_PFD_VOL_1_DEC)")
     // Description updates
     await expect(actionEditor.getByText("Garmin G1000")).toBeVisible()
@@ -743,7 +802,20 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 1)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     const countLabel = actionEditor.getByRole("status")
     const resetFiltersButton = actionEditor.getByRole("button", {
       name: "Reset filters",
@@ -805,13 +877,22 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(
+    const actionDialog = await openWizardAndReturnActionPanel(
       configListPage,
       page,
       2,
       undefined,
       { Sim: "xplane" },
     )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -842,7 +923,20 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 2)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      2,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     const filterInput = actionEditor.getByPlaceholder("Filter presets")
     const countLabel = actionEditor.getByRole("status")
 
@@ -862,7 +956,20 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 2)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      2,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     // Select a DataRef preset (different code type)
     await actionEditor
       .getByRole("combobox")
@@ -887,7 +994,20 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 2)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      2,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     const countLabel = actionEditor.getByRole("status")
     const resetFiltersButton = actionEditor.getByRole("button", {
       name: "Reset filters",
@@ -951,7 +1071,20 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 2)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      2,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     const inputTypeComboBox = actionEditor
       .getByRole("combobox")
       .filter({ hasText: "Command" })
@@ -973,7 +1106,20 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 3)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      3,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await configListPage.mobiFlightPage.publishMessage({
       key: "MobiFlightVariablesUpdate",
       payload: {
@@ -1016,7 +1162,20 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
 
 test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
   test("Panel description is shown", async ({ configListPage, page }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 4)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      4,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -1081,6 +1240,14 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
       } as ScanForInputResult,
     })
 
+    const actionPanel = page.getByTestId("action-panel")
+    // expect it to become visible
+    // this ensures that react render has completed and, e.g., useEffects have run
+    await expect(actionPanel).toBeVisible()
+    const addOnLeftButton = actionPanel.getByRole("button", { name: "On Press" })
+    await expect(addOnLeftButton).toBeVisible()
+    await addOnLeftButton.click()
+
     const actionEditor = page.getByTestId("action-editor")
     await expect(actionEditor).toBeVisible()
 
@@ -1107,7 +1274,20 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 5)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      5,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -1121,7 +1301,20 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 5)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      5,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     const scanButton = actionEditor.getByRole("button", {
       name: "Scan for keyboard",
     })
@@ -1141,7 +1334,20 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 5)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      5,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(actionEditor).toContainText("Ctrl + Alt + Shift + D")
 
     await actionEditor.getByRole("button", { name: "Clear input" }).click()
@@ -1168,7 +1374,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(
+    const actionDialog = await openWizardAndReturnActionPanel(
       configListPage,
       page,
       6,
@@ -1178,6 +1384,15 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
         )
       },
     )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     // The panel will as for the current vJoy definitions to get the device and button labels
     const command = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(command).toContainEqual({
@@ -1211,7 +1426,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(
+    const actionDialog = await openWizardAndReturnActionPanel(
       configListPage,
       page,
       7,
@@ -1221,6 +1436,15 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
         )
       },
     )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     // The panel will as for the current vJoy definitions to get the device and button labels
     const command = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(command).toContainEqual({
@@ -1254,7 +1478,20 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 8)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      8,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "FSUIPC - Offset" }),
     ).toBeVisible()
@@ -1271,7 +1508,8 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
       actionEditor.getByRole("textbox", { name: "Mask" }),
     ).toHaveValue("BBCCDDEE")
     // BcdMode=true
-    await expect(actionEditor.getByLabel("BCD Mode")).toHaveAttribute(
+    const bcdModeSwitch = actionEditor.getByRole("switch").filter()
+    await expect(bcdModeSwitch).toHaveAttribute(
       "aria-checked",
       "true",
     )
@@ -1283,7 +1521,20 @@ test.describe("Input Config Wizard - FSUIPC EventID Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 9)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      9,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -1311,7 +1562,7 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(
+    const actionDialog = await openWizardAndReturnActionPanel(
       configListPage,
       page,
       10,
@@ -1327,6 +1578,14 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
         )
       },
     )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
 
     await expect(
       actionEditor
@@ -1356,7 +1615,20 @@ test.describe("Input Config Wizard - FSUIPC Jeehell Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 11)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      11,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -1379,7 +1651,20 @@ test.describe("Input Config Wizard - FSUIPC Jeehell Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 11)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      11,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await actionEditor
       .getByRole("combobox")
       .filter({ hasText: "FCU_HDGKNOB_PRESS" })
@@ -1401,7 +1686,20 @@ test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () =>
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 12)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      12,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor
         .getByRole("combobox")
@@ -1419,7 +1717,20 @@ test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () =>
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 12)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      12,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     const macroNameInput = actionEditor.getByRole("textbox", {
       name: "Macro Name:",
     })
@@ -1440,7 +1751,20 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 13)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      13,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "ProSim" }),
     ).toBeVisible()
@@ -1459,7 +1783,20 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
     configListPage,
     page,
   }) => {
-    const actionEditor = await openActionEditor(configListPage, page, 13)
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      13,
+    )
+
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+
     await configListPage.mobiFlightPage.publishMessage({
       key: "ProSimDataRefDefinitionUpdate",
       payload: {
@@ -1502,113 +1839,67 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     configListPage,
     page,
   }) => {
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await configListPage.clickEditButtonForRow(1) // MSFS onPress, onRelease=null
+    const actionTestData = [
+      { type: "Button", eventTypes: ["On Press", "On Release", "On Hold", "On Long Release"] },
+      { type: "Encoder", eventTypes: ["On Left", "On Right", "On Left Fast", "On Right Fast"] },
+      { type: "AnalogInput", eventTypes: ["On Change"] },
+    ]
 
-    const buttonPanel = page.getByTestId("button-action-panel")
-    const actionEditor = page.getByTestId("action-editor")
+    for (const { type, eventTypes } of actionTestData) {
+      // Opens after clicking "Add Input Config" button and goes through the creation flow
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.initWithTestData("inputaction")
+      
+      // Add new config
+      const addInputConfigButton = page.getByRole("button", {
+        name: "Add Input Config",
+      })
+      await addInputConfigButton.click()
+      await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+      await expect(page.getByText("Edit Input Configuration")).toBeVisible()
 
-    // onPress tab is active by default and shows the MSFS action
-    await expect(
-      actionEditor
-        .getByRole("combobox")
-        .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
-    ).toBeVisible()
+      // Scan for input for device with respective input device type
+      const triggerPanel = page.getByTestId("trigger-panel")
+      await expect(triggerPanel).toBeVisible()
 
-    // Switching to onRelease shows an empty action editor (no type selected)
-    await buttonPanel.getByRole("tab", { name: "On Release" }).click()
-    await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
-    ).toBeVisible()
+      const scanForInputButton = triggerPanel.getByRole("button", {
+        name: "Scan for Input",
+      })
+      await expect(scanForInputButton).toBeVisible()
+      await scanForInputButton.click()
 
-    // Switching to onHold shows an empty action editor
-    await buttonPanel.getByRole("tab", { name: "On Hold" }).click()
-    await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
-    ).toBeVisible()
+      // fake the scan result for respective input device type
+      await configListPage.mobiFlightPage.publishMessage({
+        key: "ScanForInputResult",
+        payload: {
+          Controller: {
+            Devices: [],
+            Name: "Bravo Throttle Quadrant",
+            Serial: "JS-87654321",
+          },
+          Device: {
+            Name: `${type} 21`,
+            Label: "Mode - ALT",
+            Type: type,
+          },
+        } as ScanForInputResult,
+      })
 
-    // Switching to onLongRelease shows an empty action editor
-    await buttonPanel.getByRole("tab", { name: "On Long Release" }).click()
-    await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
-    ).toBeVisible()
+      const actionPanel = page.getByTestId("action-panel")
+      const actionEditor = page.getByTestId("action-editor")
 
-    // Switching back to onPress still shows the MSFS action
-    await buttonPanel.getByRole("tab", { name: "On Press" }).click()
-    await expect(
-      actionEditor
-        .getByRole("combobox")
-        .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
-    ).toBeVisible()
-  })
+      // verify that we have correct buttons and that they all open the drawer
+      for (const eventType of eventTypes) {
+        const button = actionPanel.getByRole("button", { name: eventType, exact: true })
+        await expect(button).toBeVisible()
+        await button.click()
+        await expect(actionEditor).toBeVisible()
 
-  test("Encoder panel: each tab routes to the correct event slot", async ({
-    configListPage,
-    page,
-  }) => {
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await configListPage.clickEditButtonForRow(14) // MSFS Encoder Action
-
-    const encoderPanel = page.getByTestId("encoder-action-panel")
-    const actionEditor = page.getByTestId("action-editor")
-
-    // onLeft tab is active by default
-    await expect(
-      actionEditor
-        .getByRole("combobox")
-        .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
-    ).toBeVisible()
-
-    // onRight also has an MSFS action
-    await encoderPanel
-      .getByRole("tab", { name: "On Right", exact: true })
-      .click()
-    await expect(
-      actionEditor
-        .getByRole("combobox")
-        .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
-    ).toBeVisible()
-
-    // onLeftFast is empty
-    await encoderPanel.getByRole("tab", { name: "On Left Fast" }).click()
-    await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
-    ).toBeVisible()
-
-    // onRightFast is empty
-    await encoderPanel.getByRole("tab", { name: "On Right Fast" }).click()
-    await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "Select..." }),
-    ).toBeVisible()
-
-    // switching back to onLeft shows the MSFS action
-    await encoderPanel
-      .getByRole("tab", { name: "On Left", exact: true })
-      .click()
-    await expect(
-      actionEditor
-        .getByRole("combobox")
-        .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
-    ).toBeVisible()
-  })
-
-  test("Analog panel: onChange routes to the correct event slot", async ({
-    configListPage,
-    page,
-  }) => {
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await configListPage.clickEditButtonForRow(15) // MSFS Analog Action
-
-    const actionEditor = page.getByTestId("action-editor")
-
-    // onChange is the only tab and shows the MSFS action
-    await expect(
-      actionEditor
-        .getByRole("combobox")
-        .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
-    ).toBeVisible()
+        const backButton = page.getByRole("button", { name: "Go back" })
+        await expect(backButton).toBeVisible()
+        await backButton.click()
+        await expect(actionEditor).not.toBeVisible()
+      }
+    }
   })
 })

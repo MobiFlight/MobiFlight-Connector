@@ -22,7 +22,7 @@ const EventIdInputActionPanel = ({
   variant,
   options,
   config,
-  onConfigChange
+  onConfigChange,
 }: EventIdInputActionPanelProps) => {
   const { t } = useTranslation()
   const mouseParams = [
@@ -72,9 +72,7 @@ const EventIdInputActionPanel = ({
           <div>{config?.EventId}</div>
         </div>
         <div className="flex grow flex-col gap-1">
-          <Label htmlFor="param">
-            {label}:
-          </Label>
+          <Label htmlFor="param">{label}:</Label>
           <div
             id="param"
             className="bg-accent/20 rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
@@ -146,6 +144,24 @@ const EventIdInputActionPanel = ({
           }
         />
       </div>
+      {(options === "default" || isCustomParam) && (
+        <div className="flex w-100 flex-col gap-2">
+          <Label htmlFor="customParam">
+            {t(
+              "Dialog.InputConfigWizard.InputActions.EventId.CustomParamLabel",
+            )}
+          </Label>
+          <Input
+            id="customParam"
+            value={config?.Param ?? ""}
+            onChange={(e) =>
+              onConfigChange({ ...config, Param: e.target.value } as
+                | EventIdInputAction
+                | PmdgEventIdInputAction)
+            }
+          />
+        </div>
+      )}
       {options === "pmdg" && (
         <div className="flex flex-col gap-2">
           <Label htmlFor="mouseParam">
@@ -167,24 +183,6 @@ const EventIdInputActionPanel = ({
               } as EventIdInputAction | PmdgEventIdInputAction)
             }
             widthClass="w-100"
-          />
-        </div>
-      )}
-      {(options === "default" || isCustomParam) && (
-        <div className="flex w-100 flex-col gap-2">
-          <Label htmlFor="param">
-            {t(
-              "Dialog.InputConfigWizard.InputActions.EventId.CustomParamLabel",
-            )}
-          </Label>
-          <Input
-            id="param"
-            value={config?.Param ?? ""}
-            onChange={(e) =>
-              onConfigChange({ ...config, Param: e.target.value } as
-                | EventIdInputAction
-                | PmdgEventIdInputAction)
-            }
           />
         </div>
       )}

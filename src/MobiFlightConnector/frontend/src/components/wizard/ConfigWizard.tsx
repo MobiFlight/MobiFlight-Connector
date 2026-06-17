@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
 import ConfigReferencePanel from "@/components/wizard/components/ConfigReferencePanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
@@ -171,11 +170,9 @@ const ConfigWizard = ({
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
               </DrawerTitle>
-              <DrawerClose className="flex flex-row">
-                <Button variant="link">
-                  <IconArrowBack />
+              <DrawerClose className="flex flex-row text-primary underline-offset-4 hover:underline items-center gap-2">
+                  <IconArrowBack size={16} />
                   {t("Dialog.InputConfigWizard.GoBack")}
-                </Button>
               </DrawerClose>
             </DrawerHeader>
             <div className="px-4">

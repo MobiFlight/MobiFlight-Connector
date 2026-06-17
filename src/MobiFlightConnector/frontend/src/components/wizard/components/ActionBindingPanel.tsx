@@ -53,7 +53,7 @@ const ActionBindingPanel = ({
 
   return (
     <div
-      data-testid={`${variant}-action-panel`}
+      data-testid="action-panel"
       className="flex flex-col gap-4 rounded-md border px-6 py-3 pb-8 shadow-md"
     >
       <div className="flex flex-col gap-1">
@@ -62,25 +62,26 @@ const ActionBindingPanel = ({
           Define the actions for each event.
         </div>
       </div>
-      {events.map((tab, index) => {
-        const action = current[tab as keyof ActionTrigger] as Action | undefined
+      {events.map((event, index) => {
+        const action = current[event as keyof ActionTrigger] as Action | undefined
 
         const isLast = index === events.length - 1
+        const eventLabel = t(`Dialog.InputConfigWizard.${variant}.Event.${event}`)
 
         return action?.Type ? (
           <>
             <div
               className="hover:bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
-              key={tab}
+              key={event}
               onDoubleClick={() =>
                 onActionEdit(action, (newAction) =>
-                  handleOnActionChange(tab, newAction),
+                  handleOnActionChange(event, newAction),
                 )
               }
             >
               <div className="flex w-32 flex-col gap-1">
                 <Label>Event</Label>
-                <div>{t(`Dialog.InputConfigWizard.${variant}.Event.${tab}`)}</div>
+                <div>{eventLabel}</div>
               </div>
               <ActionSummary
                 action={action}
@@ -89,13 +90,13 @@ const ActionBindingPanel = ({
                 size={"sm"}
                 variant="ghost"
                 onClick={() => {
-                  console.log("Edit action", action)
                   onActionEdit(action, (newAction) =>
-                    handleOnActionChange(tab, newAction),
+                    handleOnActionChange(event, newAction),
                   )
                 }}
               >
                 <IconEdit />
+                <span className="sr-only">{t(`Dialog.InputConfigWizard.Event.Edit`,{ eventLabel } )}</span>
               </Button>
             </div>
             {!isLast && <Separator />}
@@ -108,12 +109,12 @@ const ActionBindingPanel = ({
               variant="outline"
               onClick={() => {
                 onActionEdit(null, (newAction) =>
-                  handleOnActionChange(tab, newAction),
+                  handleOnActionChange(event, newAction),
                 )
               }}
             >
               <IconPlus />
-              {t(`Dialog.InputConfigWizard.${variant}.Event.${tab}`)}
+              {t(`Dialog.InputConfigWizard.${variant}.Event.${event}`)}
             </Button>
             {!isLast && <Separator />}
           </>

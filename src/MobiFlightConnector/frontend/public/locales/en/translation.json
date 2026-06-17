@@ -417,6 +417,9 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
+      "Event" : {
+        "Edit": "Edit {{eventLabel}} action"
+      },
       "button": {
         "Event": {
           "onPress": "On Press",
@@ -493,7 +496,8 @@
           "SupportedPlaceholders": "Supports input value (@) and placeholders ($, #, etc.)"
         },
         "Msfs": {
-          "NoneCode": "None"
+          "NoneCode": "None",
+          "CodePlaceholder": "Enter RPN code"
         },
         "Xplane": {
           "InputTypeLabel": "Input Type:",
