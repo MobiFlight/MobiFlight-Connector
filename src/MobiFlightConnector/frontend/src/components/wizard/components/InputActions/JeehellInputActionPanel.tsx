@@ -1,19 +1,25 @@
 import ComboBox from "@/components/ComboBox"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { parsePresets } from "@/lib/configWizard"
 import { JeehellInputAction } from "@/types/config"
+import { IconEdit } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
 export type JeehellInputActionPanelProps = {
+  variant: "summary" | "details"
   config: JeehellInputAction | null
   onConfigChange: (config: JeehellInputAction) => void
+  onEditAction: () => void
 }
 
 const JeehellInputActionPanel = ({
+  variant,
   config,
   onConfigChange,
+  onEditAction,
 }: JeehellInputActionPanelProps) => {
   const { t } = useTranslation()
   // In MsfsPresetPanel (or a dedicated hook)
@@ -30,6 +36,34 @@ const JeehellInputActionPanel = ({
   })
 
   const selectedPreset = presets.find((item) => item.eventId === config?.EventId?.toString())
+
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center gap-8">
+        <div className="flex w-1/3 flex-col gap-1">
+          <Label htmlFor="mouseParam">
+            {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}:
+          </Label>
+          <div>{selectedPreset?.name}</div>
+        </div>
+        <div className="flex grow flex-col gap-1">
+          <Label htmlFor="param">
+            {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}:
+          </Label>
+          <div
+            id="param"
+            className="bg-accent/20 rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
+          >
+            {config?.Param}
+          </div>
+        </div>
+
+        <Button size={"sm"} variant="ghost" onClick={() => onEditAction()}>
+          <IconEdit />
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">

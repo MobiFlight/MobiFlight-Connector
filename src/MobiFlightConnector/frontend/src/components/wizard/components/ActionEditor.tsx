@@ -148,8 +148,10 @@ export const ActionSummary = ({ action, onActionEdit }: ActionSummaryProps) => {
 
       {selectedActionType?.value === "JeehellInputAction" && (
         <JeehellInputActionPanel
+          variant="summary"
           config={action ? (action as JeehellInputAction) : null}
           onConfigChange={() => {}}
+          onEditAction={() => onActionEdit()}
         />
       )}
 
@@ -313,6 +315,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
 
           {selectedActionType?.value === "JeehellInputAction" && (
             <JeehellInputActionPanel
+              variant="details"
               config={action ? (action as JeehellInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -320,6 +323,7 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
                   ...config,
                 } as JeehellInputAction)
               }
+              onEditAction={() => {}}
             />
           )}
 
