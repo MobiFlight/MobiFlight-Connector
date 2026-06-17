@@ -417,24 +417,27 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
-      "Button": {
-        "Tabs": {
+      "Event" : {
+        "Edit": "Editar ação {{eventLabel}}"
+      },
+      "button": {
+        "Event": {
           "onPress": "Ao pressionar",
           "onRelease": "Ao soltar",
           "onHold": "Ao segurar",
           "onLongRelease": "Ao soltar por muito tempo"
         }
       },
-      "Encoder": {
-        "Tabs": {
+      "encoder": {
+        "Event": {
           "onLeft": "Para a esquerda",
           "onRight": "Para a direita",
           "onLeftFast": "Rapidamente para a esquerda",
           "onRightFast": "Rapidamente para a direita"
         }
       },
-      "Analog": {
-        "Tabs": {
+      "analog": {
+        "Event": {
           "onChange": "Ao mudar"
         }
       },
@@ -493,7 +496,8 @@
           "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)"
         },
         "Msfs": {
-          "NoneCode": "Nenhum"
+          "NoneCode": "Nenhum",
+          "CodePlaceholder": "Digite o código RPN"
         },
         "Xplane": {
           "InputTypeLabel": "Tipo de Entrada:",
@@ -510,7 +514,8 @@
           "PathLabel": "Caminho:",
           "NoPresetSelected": "Nenhuma predefinição selecionada",
           "ParameterLabel": "Parâmetro (opcional):",
-          "ParameterPlaceholder": "Definir parâmetro (opcional)"
+          "ParameterPlaceholder": "Definir parâmetro (opcional)",
+          "ParameterNone": "Nenhum"
         },
         "VJoy": {
           "SelectDeviceLabel": "Selecionar dispositivo vJoy",
@@ -560,6 +565,7 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
+          "Summary": "Sincronizar dispositivos de entrada.",
           "Description1": "Use esta ação de entrada para reativar todos os estados dos botões.",
           "Description2": "Isso é útil para sincronizar seu cockpit virtual com os estados dos interruptores e botões de seus controladores físicos."
         },

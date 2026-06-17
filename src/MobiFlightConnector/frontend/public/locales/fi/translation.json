@@ -417,24 +417,27 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
-      "Button": {
-        "Tabs": {
+      "Event" : {
+        "Edit": "Muokkaa toimintoa {{eventLabel}}"
+      },
+      "button": {
+        "Event": {
           "onPress": "Painettaessa",
           "onRelease": "Vapautettaessa",
           "onHold": "Pidettäessä",
           "onLongRelease": "Pitkällä vapautuksella"
         }
       },
-      "Encoder": {
-        "Tabs": {
+      "encoder": {
+        "Event": {
           "onLeft": "Vasemmalle",
           "onRight": "Oikealle",
           "onLeftFast": "Nopeasti vasemmalle",
           "onRightFast": "Nopeasti oikealle"
         }
       },
-      "Analog": {
-        "Tabs": {
+      "analog": {
+        "Event": {
           "onChange": "Muutettaessa"
         }
       },
@@ -493,7 +496,8 @@
           "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)"
         },
         "Msfs": {
-          "NoneCode": "Ei mitään"
+          "NoneCode": "Ei mitään",
+          "CodePlaceholder": "Syötä RPN-koodi"
         },
         "Xplane": {
           "InputTypeLabel": "Syötetyyppi:",
@@ -510,7 +514,8 @@
           "PathLabel": "Polku:",
           "NoPresetSelected": "Ei esiasetusta valittuna",
           "ParameterLabel": "Parametri (valinnainen):",
-          "ParameterPlaceholder": "Aseta parametri (valinnainen)"
+          "ParameterPlaceholder": "Aseta parametri (valinnainen)",
+          "ParameterNone": "Ei mitään"
         },
         "VJoy": {
           "SelectDeviceLabel": "Valitse vJoy-laite",
@@ -560,6 +565,7 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
+          "Summary": "Synkronoi syöttölaitteet simulaattorin kanssa.",
           "Description1": "Käytä tätä syötetoimintoa kaikkien painikkeiden tilojen uudelleenlaukaisemiseen.",
           "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
         },

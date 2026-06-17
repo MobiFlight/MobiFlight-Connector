@@ -423,24 +423,27 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
-      "Button": {
-        "Tabs": {
+      "Event" : {
+        "Edit": "{{eventLabel}} Aktion bearbeiten"
+      },
+      "button": {
+        "Event": {
           "onPress": "Bei Drücken",
           "onRelease": "Bei Loslassen",
           "onHold": "Bei Halten",
           "onLongRelease": "Bei langem Loslassen"
         }
       },
-      "Encoder": {
-        "Tabs": {
+      "encoder": {
+        "Event": {
           "onLeft": "Nach links",
           "onRight": "Nach rechts",
           "onLeftFast": "Schnell links",
           "onRightFast": "Schnell rechts"
         }
       },
-      "Analog": {
-        "Tabs": {
+      "analog": {
+        "Event": {
           "onChange": "Bei Änderung"
         }
       },
@@ -499,7 +502,8 @@
           "SupportedPlaceholders": "Unterstützt Eingabewert (@) und Platzhalter ($, #, etc.)"
         },
         "Msfs": {
-          "NoneCode": "Keiner"
+          "NoneCode": "Keiner",
+          "CodePlaceholder": "RPN-Code eingeben"
         },
         "Xplane": {
           "InputTypeLabel": "Eingabetyp:",
@@ -516,7 +520,8 @@
           "PathLabel": "Pfad:",
           "NoPresetSelected": "Kein Preset ausgewählt",
           "ParameterLabel": "Parameter (optional):",
-          "ParameterPlaceholder": "Parameter setzen (optional)"
+          "ParameterPlaceholder": "Parameter setzen (optional)",
+          "ParameterNone": "Kein Parameter"
         },
         "VJoy": {
           "SelectDeviceLabel": "vJoy-Gerät auswählen",
@@ -566,6 +571,7 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
+          "Summary": "Sync Eingabegeräte mit dem Simulator.",
           "Description1": "Verwende diese Eingabeaktion, um alle Tastenstatus erneut auszulösen.",
           "Description2": "Dies ist hilfreich, um dein virtuelles Cockpit mit den Schalter- und Tastenstatus deiner physischen Controller zu synchronisieren."
         },

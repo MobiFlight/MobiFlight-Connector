@@ -423,24 +423,27 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
-      "Button": {
-        "Tabs": {
+      "Event" : {
+        "Edit": "Editar acción {{eventLabel}}"
+      },
+      "button": {
+        "Event": {
           "onPress": "Al presionar",
           "onRelease": "Al soltar",
           "onHold": "Al mantener",
           "onLongRelease": "Al soltar prolongado"
         }
       },
-      "Encoder": {
-        "Tabs": {
+      "encoder": {
+        "Event": {
           "onLeft": "A la izquierda",
           "onRight": "A la derecha",
           "onLeftFast": "Rápido izquierda",
           "onRightFast": "Rápido derecha"
         }
       },
-      "Analog": {
-        "Tabs": {
+      "analog": {
+        "Event": {
           "onChange": "Al cambiar"
         }
       },
@@ -499,7 +502,8 @@
           "SupportedPlaceholders": "Admite valor de entrada (@) y marcadores de posición ($, #, etc.)"
         },
         "Msfs": {
-          "NoneCode": "Ninguno"
+          "NoneCode": "Ninguno",
+          "CodePlaceholder": "Ingresar código RPN"
         },
         "Xplane": {
           "InputTypeLabel": "Tipo de entrada:",
@@ -516,7 +520,8 @@
           "PathLabel": "Ruta:",
           "NoPresetSelected": "No hay preset seleccionado",
           "ParameterLabel": "Parámetro (opcional):",
-          "ParameterPlaceholder": "Establecer parámetro (opcional)"
+          "ParameterPlaceholder": "Establecer parámetro (opcional)",
+          "ParameterNone": "Ninguno"
         },
         "VJoy": {
           "SelectDeviceLabel": "Seleccionar dispositivo vJoy",
@@ -566,6 +571,7 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
+          "Summary": "Sincronizar dispositivos de entrada.",
           "Description1": "Usa esta acción de entrada para reactivar todos los estados de botón.",
           "Description2": "Esto es útil para sincronizar tu cabina virtual con los estados de interruptores y botones de tus controladores físicos."
         },

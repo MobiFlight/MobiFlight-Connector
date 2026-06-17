@@ -565,7 +565,7 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
-          "Summary": "Re-trigger button states",
+          "Summary": "Sync input devices with sim.",
           "Description1": "Use this input action to re-trigger all button states.",
           "Description2": "This is helpful to sync your virtual cockpit to the switch and button states of your physical controllers."
         },
