@@ -69,15 +69,23 @@ export interface Action {
   Type: string | null
 }
 
-export interface ButtonTrigger {
+export type ButtonHoldOptions = {
+  HoldDelay: number
+  RepeatDelay: number
+}
+
+export type ButtonLongReleaseOptions = {
+  LongReleaseDelay: number
+}
+
+export type ButtonTrigger = {
   onPress?: Action
   onRelease?: Action
   onHold?: Action
   onLongRelease?: Action
-  HoldDelay?: number
-  LongReleaseDelay?: number
-  RepeatDelay?: number
 }
+
+export type ButtonActions = ButtonTrigger & Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
 
 export interface EncoderTrigger {
   onLeft?: Action

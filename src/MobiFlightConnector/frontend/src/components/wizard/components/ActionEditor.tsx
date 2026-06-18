@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
@@ -17,6 +18,8 @@ import XplaneInputActionPanel from "@/components/wizard/components/InputActions/
 import { ActionTypeOptions } from "@/lib/configWizard"
 import {
   Action,
+  ButtonHoldOptions,
+  ButtonLongReleaseOptions,
   EventIdInputAction,
   FsuipcOffsetInputAction,
   JeehellInputAction,
@@ -32,6 +35,8 @@ import {
 import { useTranslation } from "react-i18next"
 
 export interface ActionEditorProps {
+  event: { variant: string; event: string }
+  buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
   action: Action | null
   onActionChange: (item: Action) => void
 }
@@ -56,7 +61,9 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
   return (
     <div className="flex grow flex-row items-center gap-8">
       <div className="flex w-32 flex-col gap-1 truncate">
-        <Label>{t("Dialog.InputConfigWizard.InputActions.Common.ActionLabel")}:</Label>
+        <Label>
+          {t("Dialog.InputConfigWizard.InputActions.Common.ActionLabel")}:
+        </Label>
         <span
           className="truncate"
           title={t(
@@ -163,7 +170,13 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
   )
 }
 
-const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
+const ActionEditor = ({
+  event,
+  buttonOptions,
+  action,
+  onActionChange
+}: ActionEditorProps) => {
+  const { t } = useTranslation()
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
@@ -172,6 +185,52 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
     <Card data-testid="action-editor">
       <CardContent className="pt-4">
         <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-1 flex-col">
+              <div className="text-lg font-semibold">
+                {t(
+                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}`,
+                )}
+              </div>
+              <div className="text-muted-foreground text-sm">
+                This action is triggered when the button is held down for a
+                certain duration and can repeat at a specified interval.
+              </div>
+            </div>
+            {event.variant === "button" && event.event === "onHold" && (
+              <div className="flex flex-1 flex-col gap-1">
+                <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
+                  <span>Delay action by</span>
+                  <Input className="w-16" />
+                  <span className="whitespace-nowrap">ms, repeat every</span>
+                  <Input className="w-16" />
+                  <span>ms</span>
+                </div>
+              </div>
+            )}
+
+            {event.variant === "button" && event.event === "onLongRelease" && (
+              <div className="flex flex-1 flex-col gap-1">
+                <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
+                  <span>Long release after</span>
+                  <Input
+                    className="w-16"
+                    onChange={(e) => { 
+                      const value = e.target.value
+                      onActionChange({
+                        ...action,
+                        LongReleaseDelay: value ? parseInt(value) : undefined,
+                      } as Action)
+                    }}
+                    value={buttonOptions?.LongReleaseDelay}
+                    placeholder="1000"
+                  />
+                  <span className="whitespace-nowrap">ms</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <Separator />
           <div className="flex flex-row items-end justify-between">
             <ActionTypeComboBox
               selectedActionType={selectedActionType}

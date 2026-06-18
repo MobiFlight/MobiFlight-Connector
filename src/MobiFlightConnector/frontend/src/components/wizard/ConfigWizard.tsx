@@ -5,7 +5,14 @@ import PreconditionsPanel from "@/components/wizard/components/PreconditionsPane
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
-import { Action, AnalogTrigger, ButtonTrigger, EncoderTrigger } from "@/types/config"
+import {
+  Action,
+  AnalogTrigger,
+  ButtonHoldOptions,
+  ButtonLongReleaseOptions,
+  ButtonTrigger,
+  EncoderTrigger,
+} from "@/types/config"
 import {
   Drawer,
   DrawerContent,
@@ -51,9 +58,23 @@ const ConfigWizard = ({
 
   const currentDeviceType = determineInputDeviceType(configItem.Device?.Type)
   const [drawerOpen, setDrawerOpen] = useState(false)
+
   const [editAction, setEditAction] = useState<Action | null>(null)
+  const [event, setEvent] = useState<{
+    variant: "button" | "encoder" | "analog"
+    event: string
+  }>({ variant: "button", event: "" })
+  
+  const [buttonOptions, setButtonOptions] = useState<
+    Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
+  >({})
+  
   const [onActionChange, setOnActionChange] = useState<
     ((action: Action) => void) | null
+  >(null)
+
+  const [onButtonOptionsChange, setOnButtonOptionsChange] = useState<
+    ((options: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>) => void) | null
   >(null)
 
   const detailView = searchParams.get("detail")
@@ -97,11 +118,17 @@ const ConfigWizard = ({
         <ActionBindingPanel
           variant="button"
           onActionEdit={(
+            event: string,
             action: Action | null,
-            onConfigChange: (config: Action) => void,
+            onConfigChange: (
+              config: Action,
+            ) => void,
           ) => {
+            setEvent({ variant: "button", event })
             setEditAction(action)
+            setButtonOptions(buttonOptions)
             setOnActionChange(() => onConfigChange)
+            setOnButtonOptionsChange(() => onButtonOptionsChange)
             navigateToDetailView("action")
           }}
           trigger={
@@ -119,11 +146,13 @@ const ConfigWizard = ({
       )}
       {currentDeviceType === "Encoder" && (
         <ActionBindingPanel
-        variant="encoder"
+          variant="encoder"
           onActionEdit={(
+            event: string,
             action: Action | null,
             onConfigChange: (config: Action) => void,
           ) => {
+            setEvent({ variant: "encoder", event })
             setEditAction(action)
             setOnActionChange(() => onConfigChange)
             navigateToDetailView("action")
@@ -139,11 +168,13 @@ const ConfigWizard = ({
       )}
       {currentDeviceType === "AnalogInput" && (
         <ActionBindingPanel
-        variant="analog"
+          variant="analog"
           onActionEdit={(
+            event: string,
             action: Action | null,
             onConfigChange: (config: Action) => void,
           ) => {
+            setEvent({ variant: "analog", event })
             setEditAction(action)
             setOnActionChange(() => onConfigChange)
             navigateToDetailView("action")
@@ -170,9 +201,9 @@ const ConfigWizard = ({
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
               </DrawerTitle>
-              <DrawerClose className="flex flex-row text-primary underline-offset-4 hover:underline items-center gap-2">
-                  <IconArrowBack size={16} />
-                  {t("Dialog.InputConfigWizard.GoBack")}
+              <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
+                <IconArrowBack size={16} />
+                {t("Dialog.InputConfigWizard.GoBack")}
               </DrawerClose>
             </DrawerHeader>
             <div className="px-4">
@@ -204,6 +235,8 @@ const ConfigWizard = ({
               )}
               {detailView === "action" && (
                 <ActionEditor
+                  event={event}
+                  buttonOptions={buttonOptions}
                   action={editAction}
                   onActionChange={(action) => {
                     onActionChange?.(action)
