@@ -386,7 +386,7 @@
         "Title": "Gatilho",
         "Description": "O gatilho define as condições ou eventos que ativarão esta configuração.",
         "ScanForInput": "Procurar entrada",
-        "UseAnyInput": "Usar qualquer entrada",
+        "UseAnyInput": "Usar entrada",
         "ClearInput": "Limpar entrada",
         "SelectController": "Selecionar controlador...",
         "SearchController": "Pesquisar controlador...",
@@ -396,6 +396,8 @@
         "NoDeviceFound": "Nenhum dispositivo encontrado."
       },
       "Action": {
+        "Title": "Ações",
+        "Description": "Defina as ações para cada evento.",
         "Copy": "Copiar ação",
         "Paste": "Colar ação"
       },
@@ -417,28 +419,71 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "Editar ação {{eventLabel}}"
       },
       "button": {
         "Event": {
-          "onPress": "Ao pressionar",
-          "onRelease": "Ao soltar",
-          "onHold": "Ao segurar",
-          "onLongRelease": "Ao soltar por muito tempo"
+          "onPress": {
+            "label": "Ao pressionar",
+            "description": "A ação será executada quando o botão for pressionado."
+          },
+          "onRelease": {
+            "label": "Ao soltar",
+            "description": "A ação será executada quando o botão for solto."
+          },
+          "onHold": {
+            "label": "Ao segurar",
+            "description": "A ação será executada repetidamente enquanto o botão estiver pressionado.",
+            "options": {
+              "holdDelay": {
+                "label": "Atraso de pressão (ms)",
+                "description": "A duração em milissegundos que o botão deve ser mantido pressionado antes que a ação seja ativada."
+              },
+              "repeatDelay": {
+                "label": "Intervalo de repetição (ms)",
+                "description": "O intervalo em milissegundos no qual a ação será reativada enquanto o botão estiver pressionado. Defina como 0 para desativar a repetição."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "Ao soltar por muito tempo",
+            "description": "A ação será executada quando o botão for solto após ser pressionado por um longo período.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Atraso de liberação longa (ms)",
+                "description": "A duração em milissegundos que o botão deve ser mantido pressionado antes que a liberação acione esta ação."
+              }
+            }
+          }
         }
       },
       "encoder": {
         "Event": {
-          "onLeft": "Para a esquerda",
-          "onRight": "Para a direita",
-          "onLeftFast": "Rapidamente para a esquerda",
-          "onRightFast": "Rapidamente para a direita"
+          "onLeft": {
+            "label": "Para a esquerda",
+            "description": "A ação será executada quando o encoder for girado para a esquerda."
+          },
+          "onRight": {
+            "label": "Para a direita",
+            "description": "A ação será executada quando o encoder for girado para a direita."
+          },
+          "onLeftFast": {
+            "label": "Rapidamente para a esquerda",
+            "description": "A ação será executada quando o encoder for girado rapidamente para a esquerda."
+          },
+          "onRightFast": {
+            "label": "Rapidamente para a direita",
+            "description": "A ação será executada quando o encoder for girado rapidamente para a direita."
+          }
         }
       },
       "analog": {
         "Event": {
-          "onChange": "Ao mudar"
+          "onChange": {
+            "label": "Ao mudar",
+            "description": "A ação será executada quando o valor da entrada mudar."
+          }
         }
       },
       "Preconditions": {

@@ -392,7 +392,7 @@
         "Title": "Auslöser",
         "Description": "Der Auslöser definiert die Bedingungen oder Ereignisse, die diese Konfiguration aktivieren.",
         "ScanForInput": "Eingabe suchen",
-        "UseAnyInput": "Beliebige Eingabe verwenden",
+        "UseAnyInput": "Warte auf Eingabe",
         "ClearInput": "Eingabe löschen",
         "SelectController": "Controller auswählen...",
         "SearchController": "Controller suchen...",
@@ -402,6 +402,8 @@
         "NoDeviceFound": "Kein Gerät gefunden."
       },
       "Action": {
+        "Title": "Aktionen",
+        "Description": "Definiere die Aktionen für die verschiedenen Ereignisse.",
         "Copy": "Aktion kopieren",
         "Paste": "Aktion einfügen"
       },
@@ -428,23 +430,66 @@
       },
       "button": {
         "Event": {
-          "onPress": "Bei Drücken",
-          "onRelease": "Bei Loslassen",
-          "onHold": "Bei Halten",
-          "onLongRelease": "Bei langem Loslassen"
+          "onPress": {
+            "label": "Bei Drücken",
+            "description": "Die Aktion wird ausgeführt, wenn die Taste gedrückt wird."
+          },
+          "onRelease": {
+            "label": "Bei Loslassen",
+            "description": "Die Aktion wird ausgeführt, wenn die Taste losgelassen wird."
+          },
+          "onHold": {
+            "label": "Bei Halten",
+            "description": "Die Aktion wird wiederholt ausgeführt, solange die Taste gehalten wird.",
+            "options": {
+              "holdDelay": {
+                "label": "Verzögerung (ms)",
+                "description": "Die Dauer in Millisekunden, die die Taste gedrückt gehalten werden muss, bevor die Aktion ausgelöst wird."
+              },
+              "repeatDelay": {
+                "label": "Verzögerung für Wiederholungen (ms)",
+                "description": "Das Intervall in Millisekunden, in dem die Aktion erneut ausgelöst wird, solange die Taste gedrückt gehalten wird. Auf 0 setzen, um die Wiederholung zu deaktivieren."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "Bei langem Loslassen",
+            "description": "Die Aktion wird ausgeführt, wenn die Taste nach einem langen Drücken losgelassen wird.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Verzögerung für langes Loslassen (ms)",
+                "description": "Die Dauer in Millisekunden, die die Taste gedrückt gehalten werden muss, bevor ein Loslassen diese Aktion auslöst."
+              }
+            }
+          }
         }
       },
       "encoder": {
         "Event": {
-          "onLeft": "Nach links",
-          "onRight": "Nach rechts",
-          "onLeftFast": "Schnell links",
-          "onRightFast": "Schnell rechts"
+          "onLeft": {
+            "label": "Nach links",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder nach links gedreht wird."
+          },
+          "onRight": {
+            "label": "Nach rechts",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder nach rechts gedreht wird."
+          },
+          "onLeftFast": {
+            "label": "Schnell links",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder schnell nach links gedreht wird."
+          },
+          "onRightFast": {
+            "label": "Schnell rechts",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder schnell nach rechts gedreht wird."
+          }
         }
       },
       "analog": {
         "Event": {
-          "onChange": "Bei Änderung"
+          "onChange": {
+            "label": "Bei Änderung",
+            "description": "Die Aktion wird ausgeführt, wenn sich der Wert der Eingabe ändert."
+          }
         }
       },
       "Preconditions": {

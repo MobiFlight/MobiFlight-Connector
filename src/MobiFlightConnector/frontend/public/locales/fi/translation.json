@@ -386,7 +386,7 @@
         "Title": "Laukaisin",
         "Description": "Laukaisin määrittää ehdot tai tapahtumat, jotka aktivoivat tämän määrityksen.",
         "ScanForInput": "Etsi syötettä",
-        "UseAnyInput": "Käytä mitä tahansa syötettä",
+        "UseAnyInput": "Skannataan...",
         "ClearInput": "Tyhjennä syöte",
         "SelectController": "Valitse ohjain...",
         "SearchController": "Etsi ohjainta...",
@@ -396,6 +396,8 @@
         "NoDeviceFound": "Laitetta ei löytynyt."
       },
       "Action": {
+        "Title": "Toiminnot",
+        "Description": "Määritä toiminnot jokaiselle tapahtumalle.",
         "Copy": "Kopioi toiminto",
         "Paste": "Liitä toiminto"
       },
@@ -422,23 +424,66 @@
       },
       "button": {
         "Event": {
-          "onPress": "Painettaessa",
-          "onRelease": "Vapautettaessa",
-          "onHold": "Pidettäessä",
-          "onLongRelease": "Pitkällä vapautuksella"
+          "onPress": {
+            "label": "Painettaessa",
+            "description": "Toiminto suoritetaan, kun painiketta painetaan."
+          },
+          "onRelease": {
+            "label": "Vapautettaessa",
+            "description": "Toiminto suoritetaan, kun painike vapautetaan."
+          },
+          "onHold": {
+            "label": "Pidettäessä",
+            "description": "Toiminto suoritetaan toistuvasti, kun painiketta pidetään painettuna.",
+            "options": {
+              "holdDelay": {
+                "label": "Painalluksen viive",
+                "description": "Kesto millisekunteina, jonka ajan painiketta on pidettävä painettuna ennen kuin toiminto aktivoituu."
+              },
+              "repeatDelay": {
+                "label": "Toistoviive (ms)",
+                "description": "Aikaväli millisekunteina, jonka välein toiminto aktivoituu uudelleen, kun painiketta pidetään painettuna. Aseta 0 poistaaksesi toiston käytöstä."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "Pitkällä vapautuksella",
+            "description": "Toiminto suoritetaan, kun painike vapautetaan pitkän painalluksen jälkeen.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Pitkän vapautuksen viive (ms)",
+                "description": "Kesto millisekunteina, jonka ajan painiketta on pidettävä painettuna ennen kuin vapautus laukaisee tämän toiminnon."
+              }
+            }
+          }
         }
       },
       "encoder": {
         "Event": {
-          "onLeft": "Vasemmalle",
-          "onRight": "Oikealle",
-          "onLeftFast": "Nopeasti vasemmalle",
-          "onRightFast": "Nopeasti oikealle"
+          "onLeft": {
+            "label": "Vasemmalle",
+            "description": "Toiminto suoritetaan, kun enkooderia käännetään vasemmalle."
+          },
+          "onRight": {
+            "label": "Oikealle",
+            "description": "Toiminto suoritetaan, kun enkooderia käännetään oikealle."
+          },
+          "onLeftFast": {
+            "label": "Nopeasti vasemmalle",
+            "description": "Toiminto suoritetaan, kun enkooderia käännetään nopeasti vasemmalle."
+          },
+          "onRightFast": {
+            "label": "Nopeasti oikealle",
+            "description": "Toiminto suoritetaan, kun enkooderia käännetään nopeasti oikealle."
+          }
         }
       },
       "analog": {
         "Event": {
-          "onChange": "Muutettaessa"
+          "onChange": {
+            "label": "Muutettaessa",
+            "description": "Toiminto suoritetaan, kun syötteen arvo muuttuu."
+          }
         }
       },
       "Preconditions": {

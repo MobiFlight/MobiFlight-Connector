@@ -392,7 +392,7 @@
         "Title": "Disparador",
         "Description": "El disparador define las condiciones o eventos que activarán esta configuración.",
         "ScanForInput": "Buscar entrada",
-        "UseAnyInput": "Usar cualquier entrada",
+        "UseAnyInput": "Usar entrada",
         "ClearInput": "Borrar entrada",
         "SelectController": "Seleccionar controlador...",
         "SearchController": "Buscar controlador...",
@@ -402,6 +402,8 @@
         "NoDeviceFound": "No se encontró ningún dispositivo."
       },
       "Action": {
+        "Title": "Acciones",
+        "Description": "Define las acciones para cada evento.",
         "Copy": "Copiar acción",
         "Paste": "Pegar acción"
       },
@@ -428,23 +430,66 @@
       },
       "button": {
         "Event": {
-          "onPress": "Al presionar",
-          "onRelease": "Al soltar",
-          "onHold": "Al mantener",
-          "onLongRelease": "Al soltar prolongado"
+          "onPress": {
+            "label": "Al presionar",
+            "description": "La acción se ejecuta cuando se presiona el botón."
+          },
+          "onRelease": {
+            "label": "Al soltar",
+            "description": "La acción se ejecuta cuando se suelta el botón."
+          },
+          "onHold": {
+            "label": "Al mantener",
+            "description": "La acción se ejecuta repetidamente mientras se mantiene presionado el botón.",
+            "options": {
+              "holdDelay": {
+                "label": "Retraso de presión (ms)",
+                "description": "La duración en milisegundos que el botón debe mantenerse presionado antes de que se active la acción."
+              },
+              "repeatDelay": {
+                "label": "Intervalo de repetición (ms)",
+                "description": "El intervalo en milisegundos en el que la acción se volverá a activar mientras se mantiene presionado el botón. Establecer en 0 para desactivar la repetición."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "Al soltar prolongado",
+            "description": "La acción se ejecuta cuando se suelta el botón después de una pulsación prolongada.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Long release delay (ms)",
+                "description": "The duration in milliseconds that the button must be held down before a release will trigger this action."
+              }
+            }
+          }
         }
       },
       "encoder": {
         "Event": {
-          "onLeft": "A la izquierda",
-          "onRight": "A la derecha",
-          "onLeftFast": "Rápido izquierda",
-          "onRightFast": "Rápido derecha"
+          "onLeft": {
+            "label": "A la izquierda",
+            "description": "La acción se ejecuta cuando el codificador se gira a la izquierda."
+          },
+          "onRight": {
+            "label": "A la derecha",
+            "description": "La acción se ejecuta cuando el codificador se gira a la derecha."
+          },
+          "onLeftFast": {
+            "label": "Rápido izquierda",
+            "description": "La acción se ejecuta cuando el codificador se gira rápidamente a la izquierda."
+          },
+          "onRightFast": {
+            "label": "Rápido derecha",
+            "description": "La acción se ejecuta cuando el codificador se gira rápidamente a la derecha."
+          }
         }
       },
       "analog": {
         "Event": {
-          "onChange": "Al cambiar"
+          "onChange": {
+            "label": "Al cambiar",
+            "description": "La acción se ejecuta cuando el valor de la entrada cambia."
+          }
         }
       },
       "Preconditions": {
