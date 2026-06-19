@@ -178,7 +178,7 @@ export type FsuipcOffset = {
   Size: number
   Mask: number
   BcdMode: boolean
-  OffsetType: "Integer" | "Float" | "String"
+  OffsetType: 0 | 1 | 2 // 0 = Integer, 1 = Float, 2 = String
 }
 
 export interface FsuipcOffsetInputAction extends Action {

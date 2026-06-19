@@ -19,10 +19,20 @@ const FsuipcSizeOptions = [
   { value: 8, label: "8 Bytes" },
 ]
 
+const FSUIPC_TYPE_INTEGER = 0
+const FSUIPC_TYPE_FLOAT = 1
+const FSUIPC_TYPE_STRING = 2
+
+const FsuipcTypeOptions = [
+  { value: FSUIPC_TYPE_INTEGER, label: "Integer" },
+  { value: FSUIPC_TYPE_FLOAT, label: "Float" },
+  { value: FSUIPC_TYPE_STRING, label: "String" },
+]
+
 const defaultConfig: FsuipcOffsetInputAction = {
   Type: "FsuipcOffsetInputAction",
   FSUIPC: {
-    OffsetType: "Integer",
+    OffsetType: FSUIPC_TYPE_INTEGER,
     Offset: 0x66c0,
     Size: 1,
     Mask: 0xff,
@@ -51,6 +61,9 @@ const FsuipcOffsetInputActionPanel = ({
   const currentConfig = config?.FSUIPC ? config : defaultConfig
   const selectedSizeOption = FsuipcSizeOptions.find(
     (option) => option.value === currentConfig.FSUIPC.Size,
+  )
+  const selectedTypeOption = FsuipcTypeOptions.find(
+    (option) => option.value === currentConfig.FSUIPC.OffsetType,
   )
   const [mask, setMask] = useState<string | null>(null) // null = not editing
 
@@ -108,6 +121,31 @@ const FsuipcOffsetInputActionPanel = ({
     <div className="flex flex-col gap-4">
       <div className="flex flex-row gap-4">
         <div className="flex flex-col gap-1">
+          <Label className="text-sm font-medium" htmlFor="type">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.TypeLabel")}
+          </Label>
+          <ComboBox
+            items={FsuipcTypeOptions}
+            selected={selectedTypeOption}
+            getValue={(option) => option.value.toString()}
+            getLabel={(option) => option.label}
+            isSelected={(option, selected) => option.value === selected?.value}
+            setSelected={(option) =>
+              onConfigChange({
+                ...currentConfig,
+                FSUIPC: {
+                  ...currentConfig.FSUIPC,
+                  OffsetType: option?.value ?? FSUIPC_TYPE_INTEGER,
+                  // if switching to string, set size to 255
+                  Size: option?.value === FSUIPC_TYPE_STRING ? 255 : currentConfig.FSUIPC.Size, 
+                },
+              } as FsuipcOffsetInputAction)
+            }
+            variant="nofilter"
+            widthClass="w-32"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="size">
             {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
           </Label>
@@ -152,13 +190,16 @@ const FsuipcOffsetInputActionPanel = ({
                 },
               } as FsuipcOffsetInputAction)
             }
+            className="w-32"
           />
         </div>
+        {currentConfig.FSUIPC.OffsetType === FSUIPC_TYPE_INTEGER && (
         <div className="flex flex-col gap-1">
           <Label className="text-sm font-medium" htmlFor="mask">
             {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel")}
           </Label>
           <Input
+            className="field-sizing-content"
             autoComplete="off"
             id="mask"
             value={mask ?? formattedMask}
@@ -187,6 +228,8 @@ const FsuipcOffsetInputActionPanel = ({
             }}
           />
         </div>
+        )}
+        {currentConfig.FSUIPC.OffsetType === FSUIPC_TYPE_INTEGER && (
         <div className="flex flex-row items-center gap-2 pt-5">
           <Switch
             id="bcdMode"
@@ -204,6 +247,7 @@ const FsuipcOffsetInputActionPanel = ({
             )}
           </Label>
         </div>
+        )}
       </div>
     </div>
   )

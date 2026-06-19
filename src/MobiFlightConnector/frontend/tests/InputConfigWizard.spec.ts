@@ -10,6 +10,7 @@ import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.jso
 import { ActionTypeOptions } from "../src/lib/configWizard"
 import { Project } from "../src/types"
 import {
+  FsuipcOffsetInputAction,
   KeyInputAction,
   MsfsInputAction,
   VJoyInputAction,
@@ -1891,19 +1892,17 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
       page,
     )
 
-    
     const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
     await expect(actionTypeComboBox).toBeVisible()
     await actionTypeComboBox.click()
-    
-    
+
     const actionTypeOption = page.getByRole("option", {
       name: "MobiFlight - Virtual Joystick input (vJoy)",
     })
     await expect(actionTypeOption).toBeVisible()
     await actionTypeOption.click()
     await expect(actionTypeOption).not.toBeVisible()
-    
+
     // Publish the vJoy definitions so the panel can render the correct labels
     await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
 
@@ -1968,19 +1967,17 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
       page,
     )
 
-    
     const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
     await expect(actionTypeComboBox).toBeVisible()
     await actionTypeComboBox.click()
-    
-    
+
     const actionTypeOption = page.getByRole("option", {
       name: "MobiFlight - Virtual Joystick input (vJoy)",
     })
     await expect(actionTypeOption).toBeVisible()
     await actionTypeOption.click()
     await expect(actionTypeOption).not.toBeVisible()
-    
+
     // Publish the vJoy definitions so the panel can render the correct labels
     await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
 
@@ -2005,9 +2002,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     await expect(buttonComboBox).toBeVisible()
     await buttonComboBox.click()
     await page.getByRole("option", { name: "Y" }).click()
-    await expect(
-      page.getByRole("option", { name: "Y" }),
-    ).not.toBeVisible()
+    await expect(page.getByRole("option", { name: "Y" })).not.toBeVisible()
 
     const valueInput = actionEditor.getByLabel("Axis value")
     await expect(valueInput).toBeVisible()
@@ -2033,7 +2028,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
       vJoyID: 1,
       axisString: "Y",
       sendValue: "16384",
-      buttonNr: -1
+      buttonNr: -1,
     } as VJoyInputAction)
   })
 })
@@ -2060,6 +2055,10 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "FSUIPC - Offset" }),
     ).toBeVisible()
+    // Type=Integer
+    await expect(
+      actionEditor.getByRole("combobox").filter({ hasText: "Integer" }),
+    ).toBeVisible()
     // Size=4 → "4 Bytes"
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: "4 Bytes" }),
@@ -2075,6 +2074,295 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     // BcdMode=true
     const bcdModeSwitch = actionEditor.getByRole("switch").filter()
     await expect(bcdModeSwitch).toHaveAttribute("aria-checked", "true")
+  })
+
+  test("BCDMode and Mask Visibility are displayed correctly based on type", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - Offset",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    const bcdModeSwitch = actionEditor.getByRole("switch")
+    await expect(bcdModeSwitch).toBeVisible()
+
+    const maskInput = actionEditor.getByRole("textbox", { name: "Mask" })
+    await expect(maskInput).toBeVisible()
+
+    // Provide specific user input
+    let currentType = "Integer"
+    const typeComboBoxInteger = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Integer" })
+    const typeComboBoxFloat = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Float" })
+    const typeComboBoxString = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "String" })
+
+    await expect(typeComboBoxInteger).toBeVisible()
+    await typeComboBoxInteger.click()
+
+    // Select float
+    currentType = "Float"
+    await page.getByRole("option", { name: currentType }).click()
+    await expect(
+      page.getByRole("option", { name: currentType }),
+    ).not.toBeVisible()
+
+    await expect(maskInput).not.toBeVisible()
+    await expect(bcdModeSwitch).not.toBeVisible()
+
+    // change type via combo box
+    currentType = "String"
+    await expect(typeComboBoxFloat).toBeVisible()
+    await typeComboBoxFloat.click()
+    await page.getByRole("option", { name: currentType }).click()
+    await expect(
+      page.getByRole("option", { name: currentType }),
+    ).not.toBeVisible()
+
+    await expect(maskInput).not.toBeVisible()
+    await expect(bcdModeSwitch).not.toBeVisible()
+
+    // change type via combo box
+    currentType = "Integer"
+    await expect(typeComboBoxString).toBeVisible()
+    await typeComboBoxString.click()
+    await page.getByRole("option", { name: currentType }).click()
+    await expect(
+      page.getByRole("option", { name: currentType }),
+    ).not.toBeVisible()
+
+    // mask and bcdmode switch are visible again
+    await expect(maskInput).toBeVisible()
+    await expect(bcdModeSwitch).toBeVisible()
+
+    // End: provide specific user input
+  })
+
+  test("Newly created FSUIPC Input Action (Integer) config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - Offset",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input
+    const fsuipcSizeComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "1 Byte" })
+    await expect(fsuipcSizeComboBox).toBeVisible()
+    await fsuipcSizeComboBox.click()
+
+    await page.getByRole("option", { name: "4 Bytes" }).click()
+    await expect(
+      page.getByRole("option", { name: "4 Bytes" }),
+    ).not.toBeVisible()
+
+    const offsetInput = actionEditor.getByRole("textbox", { name: "Offset" })
+    await expect(offsetInput).toBeVisible()
+    await offsetInput.fill("66CC")
+
+    const maskInput = actionEditor.getByRole("textbox", { name: "Mask" })
+    await expect(maskInput).toBeVisible()
+    await maskInput.fill("AABBCCDD")
+
+    const bcdModeSwitch = actionEditor.getByRole("switch")
+    await expect(bcdModeSwitch).toBeVisible()
+    // from false to true
+    await bcdModeSwitch.click()
+
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "FsuipcOffsetInputAction",
+      FSUIPC: {
+        OffsetType: 0,
+        Size: 4,
+        Offset: 0x66cc,
+        Mask: 0xaabbccdd,
+        BcdMode: true,
+      },
+      Value: "",
+      Modifiers: [],
+    } as FsuipcOffsetInputAction)
+  })
+
+  test("Newly created FSUIPC Input Action (Float) config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - Offset",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input
+    const typeComboBoxFloat = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Integer" })
+    await expect(typeComboBoxFloat).toBeVisible()
+    await typeComboBoxFloat.click()
+    await page.getByRole("option", { name: "Float" }).click()
+    await expect(page.getByRole("option", { name: "Float" })).not.toBeVisible()
+
+    const fsuipcSizeComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "1 Byte" })
+    await expect(fsuipcSizeComboBox).toBeVisible()
+    await fsuipcSizeComboBox.click()
+
+    await page.getByRole("option", { name: "4 Bytes" }).click()
+    await expect(
+      page.getByRole("option", { name: "4 Bytes" }),
+    ).not.toBeVisible()
+
+    const offsetInput = actionEditor.getByRole("textbox", { name: "Offset" })
+    await expect(offsetInput).toBeVisible()
+    await offsetInput.fill("66CC")
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "FsuipcOffsetInputAction",
+      FSUIPC: {
+        OffsetType: 1,
+        Size: 4,
+        Offset: 0x66cc,
+        Mask: 0xFF,
+        BcdMode: false,
+      },
+      Value: "",
+      Modifiers: [],
+    } as FsuipcOffsetInputAction)
+  })
+
+  test("Newly created FSUIPC Input Action (String) config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - Offset",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input
+    const typeComboBoxString = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Integer" })
+    await expect(typeComboBoxString).toBeVisible()
+    await typeComboBoxString.click()
+    await page.getByRole("option", { name: "String" }).click()
+    await expect(page.getByRole("option", { name: "String" })).not.toBeVisible()
+
+    const offsetInput = actionEditor.getByRole("textbox", { name: "Offset" })
+    await expect(offsetInput).toBeVisible()
+    await offsetInput.fill("66CC")
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "FsuipcOffsetInputAction",
+      FSUIPC: {
+        OffsetType: 2,
+        Size: 255,
+        Offset: 0x66cc,
+        Mask: 0xFF,
+        BcdMode: false,
+      },
+      Value: "",
+      Modifiers: [],
+    } as FsuipcOffsetInputAction)
   })
 })
 
