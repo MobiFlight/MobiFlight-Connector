@@ -9,7 +9,7 @@ import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" w
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { ActionTypeOptions } from "../src/lib/configWizard"
 import { Project } from "../src/types"
-import { MsfsInputAction } from "../src/types/config"
+import { MsfsInputAction, XplaneInputAction } from "../src/types/config"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -1145,6 +1145,130 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     await expect(valueInput).toBeVisible()
   })
+
+  test("Newly created XPlane Input Action (command) config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+      "Button",
+      "On Press",
+      { Sim: "xplane" },
+    )
+
+    // Open the action type combo box to get access to the options
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    // Select X-Plane action type
+    const actionInputOption = page.getByRole("option", {
+      name: "X-Plane (all versions)",
+    })
+    await expect(actionInputOption).toBeVisible()
+    await actionInputOption.click()
+
+    // Open the input type combo box to get access to the options
+    const inputTypeComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select input type" })
+    await expect(inputTypeComboBox).toBeVisible()
+    await inputTypeComboBox.click()
+
+    // Select DataRef input type
+    await page.getByRole("option", { name: "Command" }).click()
+
+    // Fill out form fields
+    const codeInput = actionEditor.getByPlaceholder("Enter path")
+    await expect(codeInput).toBeVisible()
+    await codeInput.fill("Test Code Input")
+
+    // Close the drawer
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    // Set up command tracking 
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    // Save the config
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "XplaneInputAction",
+      InputType: "Command",
+      Path: "Test Code Input"
+    } as XplaneInputAction)
+  })
+
+  test("Newly created XPlane Input Action (DataRef) config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+      "Button",
+      "On Press",
+      { Sim: "xplane" },
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionInputOption = page.getByRole("option", {
+      name: "X-Plane (all versions)",
+    })
+    await expect(actionInputOption).toBeVisible()
+    await actionInputOption.click()
+
+    const inputTypeComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select input type" })
+
+    await expect(inputTypeComboBox).toBeVisible()
+    await inputTypeComboBox.click()
+    await page.getByRole("option", { name: "DataRef" }).click()
+
+    const codeInput = actionEditor.getByPlaceholder("Enter path")
+
+    await expect(codeInput).toBeVisible()
+    await codeInput.fill("Test Code Input")
+
+    const valueInput = actionEditor.getByPlaceholder("Enter value")
+    await expect(valueInput).toBeVisible()
+    await valueInput.fill("Test Value")
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "XplaneInputAction",
+      InputType: "DataRef",
+      Path: "Test Code Input",
+      Expression: "Test Value",
+    } as XplaneInputAction)
+  })
 })
 
 test.describe("Input Config Wizard - Variable Input Action Panel", () => {
@@ -2185,11 +2309,17 @@ async function CreateNewInputConfigItemAndReturnActionPanel(
   page: Page,
   type: string = "Button",
   eventType: string = "On Press",
+  projectOptions?: Partial<Project>,
 ) {
-  // Opens after clicking "Add Input Config" button and goes through the creation flow
   await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData("inputaction")
-
+  if (projectOptions) {
+    await configListPage.mobiFlightPage.initWithTestDataAndSpecificProjectProps(
+      projectOptions,
+      "inputaction",
+    )
+  } else {
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+  }
   // Add new config
   const addInputConfigButton = page.getByRole("button", {
     name: "Add Input Config",
