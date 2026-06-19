@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import { KeyInputAction } from "@/types/config"
 import { IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
@@ -19,10 +20,91 @@ const emptyConfig: KeyInputAction = {
   Key: 0,
 }
 
+const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
+  const { t } = useTranslation()
+  return (
+    <KbdGroup>
+      {keys?.Control && (
+        <>
+          <Kbd>Ctrl</Kbd>
+          <span> + </span>
+        </>
+      )}
+      {keys?.Alt && (
+        <>
+          <Kbd>Alt</Kbd>
+          <span> + </span>
+        </>
+      )}
+      {keys?.Shift && (
+        <>
+          <Kbd>Shift</Kbd>
+          <span> + </span>
+        </>
+      )}
+      {keys?.Key !== 0 ? (
+        <Kbd>{renderLegacyKeyCode(keys.Key)}</Kbd>
+      ) : (
+        t("Dialog.InputConfigWizard.InputActions.Keyboard.None")
+      )}
+    </KbdGroup>
+  )
+}
+
+const renderLegacyKeyCode = (keyCode: number): string => {
+  const specialKeys: Record<number, string> = {
+    8: "Backspace",
+    9: "Tab",
+    13: "Enter",
+    16: "Shift",
+    17: "Ctrl",
+    18: "Alt",
+    27: "Esc",
+    32: "Space",
+    33: "Page Up",
+    34: "Page Down",
+    35: "End",
+    36: "Home",
+    37: "Left",
+    38: "Up",
+    39: "Right",
+    40: "Down",
+    45: "Insert",
+    46: "Delete",
+
+    112: "F1",
+    113: "F2",
+    114: "F3",
+    115: "F4",
+    116: "F5",
+    117: "F6",
+    118: "F7",
+    119: "F8",
+    120: "F9",
+    121: "F10",
+    122: "F11",
+    123: "F12",
+  }
+
+  if (specialKeys[keyCode]) {
+    return specialKeys[keyCode]
+  }
+
+  if (keyCode >= 48 && keyCode <= 90) {
+    return String.fromCharCode(keyCode).toUpperCase()
+  }
+
+  if (keyCode >= 96 && keyCode <= 105) {
+    return `Num ${keyCode - 96}`
+  }
+
+  return `Key ${keyCode}`
+}
+
 const KeyboardInputActionPanel = ({
   variant,
   config,
-  onConfigChange
+  onConfigChange,
 }: KeyboardInputActionPanelProps) => {
   const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
@@ -45,6 +127,15 @@ const KeyboardInputActionPanel = ({
     event.preventDefault()
 
     if (isScanning) {
+      console.log(
+        "Scanned key:",
+        event.key,
+        "Key Code:",
+        event.keyCode,
+        "Code:",
+        event.code,
+      )
+
       if (event.key === "Escape") {
         setIsScanning(false)
         return
@@ -73,15 +164,10 @@ const KeyboardInputActionPanel = ({
     event.stopPropagation()
     event.preventDefault()
 
-    if (isScanning) {
-      setScannedKeys({
-        Type: "KeyInputAction",
-        Control: event.ctrlKey,
-        Alt: event.altKey,
-        Shift: event.shiftKey,
-        Key: 0,
-      })
-    }
+    if (!isScanning) return
+
+    onConfigChange(scannedKeys)
+    setIsScanning(false)
   }
 
   if (variant === "summary") {
@@ -95,12 +181,7 @@ const KeyboardInputActionPanel = ({
               )}
             </Label>
             <div className="text-sm">
-              {config?.Control && "Ctrl + "}
-              {config?.Alt && "Alt + "}
-              {config?.Shift && "Shift + "}
-              {config?.Key !== 0
-                ? String.fromCharCode(config!.Key).toUpperCase()
-                : t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}
+              <KeyboardShortCut keys={config ?? emptyConfig} />
             </div>
           </div>
         </div>
@@ -128,12 +209,7 @@ const KeyboardInputActionPanel = ({
             {t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}
           </div>
           <div className="text-sm">
-            {scannedKeys?.Control && "Ctrl + "}
-            {scannedKeys?.Alt && "Alt + "}
-            {scannedKeys?.Shift && "Shift + "}
-            {scannedKeys?.Key !== 0
-              ? String.fromCharCode(scannedKeys.Key).toUpperCase()
-              : t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}
+            <KeyboardShortCut keys={scannedKeys} />
           </div>
         </div>
         <Button
