@@ -126,7 +126,7 @@ export interface MobiFlightVariable {
 }
 
 export interface VJoyInputAction extends Action {
-  Type: "vJoyInputAction"
+  Type: "VJoyInputAction"
   vJoyID: number
   buttonNr: number
   axisString: string

@@ -9,7 +9,12 @@ import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" w
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { ActionTypeOptions } from "../src/lib/configWizard"
 import { Project } from "../src/types"
-import { KeyInputAction, MsfsInputAction, XplaneInputAction } from "../src/types/config"
+import {
+  KeyInputAction,
+  MsfsInputAction,
+  VJoyInputAction,
+  XplaneInputAction,
+} from "../src/types/config"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -1191,7 +1196,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await backButton.click()
     await expect(actionEditor).not.toBeVisible()
 
-    // Set up command tracking 
+    // Set up command tracking
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
     // Save the config
@@ -1205,7 +1210,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     expect(payload.item.button?.onPress).toEqual({
       Type: "XplaneInputAction",
       InputType: "Command",
-      Path: "Test Code Input"
+      Path: "Test Code Input",
     } as XplaneInputAction)
   })
 
@@ -1522,7 +1527,7 @@ test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
     expect(payload.item.button?.onPress).toEqual({
-      Type: "RetriggerInputAction"
+      Type: "RetriggerInputAction",
     })
   })
 })
@@ -1875,6 +1880,161 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     ).toBeVisible()
     // sendValue="1024"
     await expect(actionEditor.getByLabel("Axis value")).toHaveValue("1024")
+  })
+
+  test("Newly created vJoy Input Action (Button) config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+    
+    
+    const actionTypeOption = page.getByRole("option", {
+      name: "MobiFlight - Virtual Joystick input (vJoy)",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+    
+    // Publish the vJoy definitions so the panel can render the correct labels
+    await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
+
+    // Provide specific user input
+    const vJoyDeviceComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select vJoy device" })
+    await expect(vJoyDeviceComboBox).toBeVisible()
+    await vJoyDeviceComboBox.click()
+    await page.getByRole("option", { name: "vJoy Device 1" }).click()
+    await expect(
+      page.getByRole("option", { name: "vJoy Device 1" }),
+    ).not.toBeVisible()
+
+    const typeTab = actionEditor.getByRole("tab", { name: "button" })
+    await expect(typeTab).toBeVisible()
+    await typeTab.click()
+
+    const buttonComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select button..." })
+    await expect(buttonComboBox).toBeVisible()
+    await buttonComboBox.click()
+    await page.getByRole("option", { name: "Button 4" }).click()
+    await expect(
+      page.getByRole("option", { name: "Button 4" }),
+    ).not.toBeVisible()
+
+    const stateSwitch = actionEditor.getByRole("switch")
+    await expect(stateSwitch).toBeVisible()
+    await stateSwitch.click() // from true to false (not pressed)
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "VJoyInputAction",
+      vJoyID: 1,
+      buttonNr: 4,
+      buttonComand: true,
+    } as VJoyInputAction)
+  })
+
+  test("Newly created vJoy Input Action (Axis) config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+    
+    
+    const actionTypeOption = page.getByRole("option", {
+      name: "MobiFlight - Virtual Joystick input (vJoy)",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+    
+    // Publish the vJoy definitions so the panel can render the correct labels
+    await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
+
+    // Provide specific user input
+    const vJoyDeviceComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select vJoy device" })
+    await expect(vJoyDeviceComboBox).toBeVisible()
+    await vJoyDeviceComboBox.click()
+    await page.getByRole("option", { name: "vJoy Device 1" }).click()
+    await expect(
+      page.getByRole("option", { name: "vJoy Device 1" }),
+    ).not.toBeVisible()
+
+    const typeTab = actionEditor.getByRole("tab", { name: "axis" })
+    await expect(typeTab).toBeVisible()
+    await typeTab.click()
+
+    const buttonComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select axis..." })
+    await expect(buttonComboBox).toBeVisible()
+    await buttonComboBox.click()
+    await page.getByRole("option", { name: "Y" }).click()
+    await expect(
+      page.getByRole("option", { name: "Y" }),
+    ).not.toBeVisible()
+
+    const valueInput = actionEditor.getByLabel("Axis value")
+    await expect(valueInput).toBeVisible()
+    await valueInput.fill("16384")
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "VJoyInputAction",
+      vJoyID: 1,
+      axisString: "Y",
+      sendValue: "16384",
+      buttonNr: -1
+    } as VJoyInputAction)
   })
 })
 
