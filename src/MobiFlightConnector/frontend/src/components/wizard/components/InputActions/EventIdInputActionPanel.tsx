@@ -127,6 +127,8 @@ const EventIdInputActionPanel = ({
           onConfigChange({
             ...config,
             EventId: preset ? preset.eventId : null,
+            // reset param when changing preset
+            Param: "0" 
           } as EventIdInputAction | PmdgEventIdInputAction)
         }
       />

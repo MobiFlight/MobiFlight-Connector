@@ -10,9 +10,14 @@ import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.jso
 import { ActionTypeOptions } from "../src/lib/configWizard"
 import { Project } from "../src/types"
 import {
+  EventIdInputAction,
   FsuipcOffsetInputAction,
+  JeehellInputAction,
   KeyInputAction,
+  LuaMacroInputAction,
   MsfsInputAction,
+  PmdgEventIdInputAction,
+  ProSimInputAction,
   VJoyInputAction,
   XplaneInputAction,
 } from "../src/types/config"
@@ -2295,7 +2300,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         OffsetType: 1,
         Size: 4,
         Offset: 0x66cc,
-        Mask: 0xFF,
+        Mask: 0xff,
         BcdMode: false,
       },
       Value: "",
@@ -2357,7 +2362,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         OffsetType: 2,
         Size: 255,
         Offset: 0x66cc,
-        Mask: 0xFF,
+        Mask: 0xff,
         BcdMode: false,
       },
       Value: "",
@@ -2404,6 +2409,81 @@ test.describe("Input Config Wizard - FSUIPC EventID Input Action Panel", () => {
         .getByRole("combobox")
         .filter({ hasText: "Select preset..." }),
     ).toBeVisible()
+  })
+
+  test("Newly created FSUIPC EventID Input Action config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    await configListPage.mobiFlightPage.page.route(
+      "*/**/presets/presets_eventids.cip",
+      async (route) => {
+        await route.fulfill({
+          body: "COM1_TRANSMIT_SELECT:66463",
+          contentType: "text/plain",
+        })
+      },
+    )
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - EventID",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input
+    const presetComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select preset..." })
+    await expect(presetComboBox).toBeVisible()
+    await presetComboBox.click()
+    await page.getByRole("option", { name: "COM1_TRANSMIT_SELECT" }).click()
+    await expect(
+      page.getByRole("option", { name: "COM1_TRANSMIT_SELECT" }),
+    ).not.toBeVisible()
+
+    const eventIdInput = actionEditor.getByLabel("Event ID")
+    await expect(eventIdInput).toBeVisible()
+    // after preset selection, the EventIdInput shall be preset value
+    await expect(eventIdInput).toHaveValue("66463")
+    await eventIdInput.fill("12345")
+
+    const customParamInput = actionEditor.getByLabel("Custom Param")
+    await expect(customParamInput).toBeVisible()
+    // after preset selection, the param shall be 0
+    await expect(customParamInput).toHaveValue("0")
+    await customParamInput.fill("54321")
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "EventIdInputAction",
+      EventId: "12345",
+      Param: "54321",
+    } as EventIdInputAction)
   })
 })
 
@@ -2457,6 +2537,93 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
         .getByRole("combobox")
         .filter({ hasText: "MOUSE_FLAG_LEFTSINGLE" }),
     ).toBeVisible()
+  })
+
+  test("Newly created FSUIPC PMDG EventID Input Action config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    await configListPage.mobiFlightPage.page.route(
+      "*/**/presets/presets_eventids_pmdg_747.cip",
+      async (route) => {
+        await route.fulfill({
+          body: "EVT_OH_ELEC_APU_GEN1_SWITCH:69648",
+          contentType: "text/plain",
+        })
+      },
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - PMDG - Event ID",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input\
+    const aircraftTypeRadioButton = actionEditor.getByRole("radio").nth(1)
+    await expect(aircraftTypeRadioButton).toBeVisible()
+    await aircraftTypeRadioButton.click()
+
+    const presetComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select preset..." })
+    await expect(presetComboBox).toBeVisible()
+    await presetComboBox.click()
+    await page
+      .getByRole("option", { name: "EVT_OH_ELEC_APU_GEN1_SWITCH" })
+      .click()
+    await expect(
+      page.getByRole("option", { name: "EVT_OH_ELEC_APU_GEN1_SWITCH" }),
+    ).not.toBeVisible()
+
+    const eventIdInput = actionEditor.getByLabel("Event ID")
+    await expect(eventIdInput).toBeVisible()
+    await eventIdInput.fill("12345")
+
+    const mouseParamComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select mouse param" })
+    await expect(mouseParamComboBox).toBeVisible()
+    await mouseParamComboBox.click()
+    await page.getByRole("option", { name: "MOUSE_FLAG_LEFTSINGLE" }).click()
+    await expect(
+      page.getByRole("option", { name: "MOUSE_FLAG_LEFTSINGLE" }),
+    ).not.toBeVisible()
+
+    const customParamInput = actionEditor.getByLabel("Custom Param")
+    await expect(customParamInput).not.toBeVisible()
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "PmdgEventIdInputAction",
+      AircraftType: "B747",
+      EventId: "12345",
+      Param: "536870912",
+    } as PmdgEventIdInputAction)
   })
 })
 
@@ -2529,6 +2696,72 @@ test.describe("Input Config Wizard - FSUIPC Jeehell Input Action Panel", () => {
       actionEditor.getByText("FCU Heading Knob Long Press"),
     ).toBeVisible()
   })
+
+  test("Newly created FSUIPC Jeehell Input Action config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    await page.route("*/**/presets/presets_jeehell.cip", async (route) => {
+      await route.fulfill({
+        body: jeehellPresetsContent,
+        contentType: "text/plain",
+      })
+    })
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - Jeehell - Events",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input
+    const presetComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Select Jeehell function..." })
+    await expect(presetComboBox).toBeVisible()
+    await presetComboBox.click()
+    await page.getByRole("option", { name: "AP_ENGAGE" }).click()
+    await expect(
+      page.getByRole("option", { name: "AP_ENGAGE" }),
+    ).not.toBeVisible()
+
+    const valueInput = actionEditor.getByLabel("Value")
+    await expect(valueInput).toBeVisible()
+    // after preset selection, the EventIdInput shall be preset value
+    await expect(valueInput).toHaveValue("")
+    await valueInput.fill("12345")
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "JeehellInputAction",
+      EventId: "8",
+      Param: "12345",
+    } as JeehellInputAction)
+  })
 })
 
 test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () => {
@@ -2593,6 +2826,57 @@ test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () =>
 
     await expect(macroNameInput).toHaveValue("UpdatedMacro")
     await expect(macroValueInput).toHaveValue("42")
+  })
+
+  test("Newly created FSUIPC Lua Macro Input Action config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "FSUIPC - Lua Macro",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input
+    const macroNameInput = actionEditor.getByLabel("Macro Name:")
+    await expect(macroNameInput).toBeVisible()
+    await macroNameInput.fill("MACRO NAME")
+
+    const macroValueInput = actionEditor.getByLabel("Macro Value:")
+    await expect(macroValueInput).toBeVisible()
+    await macroValueInput.fill("MACRO VALUE")
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "LuaMacroInputAction",
+      MacroName: "MACRO NAME",
+      MacroValue: "MACRO VALUE",
+    } as LuaMacroInputAction)
   })
 })
 
@@ -2681,6 +2965,87 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
     await expect(actionEditor.locator("#path")).toContainText(
       "aircraft.heading",
     )
+  })
+
+  test("Newly created ProSim Input Action config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ProSimDataRefDefinitionUpdate",
+      payload: {
+        DataRefs: {
+          "aircraft.heading": {
+            Name: "aircraft.heading",
+            Description: "Aircraft Heading",
+            CanRead: true,
+            CanWrite: true,
+            DataType: "float",
+            DataUnit: "degrees",
+          },
+          "autopilot.altitude": {
+            Name: "autopilot.altitude",
+            Description: "Autopilot Altitude",
+            CanRead: true,
+            CanWrite: true,
+            DataType: "float",
+            DataUnit: "feet",
+          },
+        },
+      },
+    })
+
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "ProSim",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+    await expect(actionTypeOption).not.toBeVisible()
+
+    // Provide specific user input
+    const presetRow = actionEditor.getByText("Aircraft Heading")
+    await expect(presetRow).toBeVisible()
+    await presetRow.click()
+
+    const pathValue = actionEditor.getByTestId("pathValue")
+    await expect(pathValue).toBeVisible()
+    await expect(pathValue).toHaveText("aircraft.heading")
+
+    const parameterInput = actionEditor.getByLabel("Parameter")
+    await expect(parameterInput).toBeVisible()
+    await expect(parameterInput).toHaveValue("")
+    await parameterInput.fill("Custom")
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "ProSimInputAction",
+      Path: "aircraft.heading",
+      Expression: "Custom",
+    } as ProSimInputAction)
   })
 })
 
