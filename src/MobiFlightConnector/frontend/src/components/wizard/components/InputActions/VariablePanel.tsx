@@ -5,11 +5,19 @@ import { MobiFlightVariable } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
+import { useEffect } from "react"
 export type VariablePanelProps = {
   variant: "summary" | "details"
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
 }
+
+const defaultVariable = {
+  TYPE: "number",
+  Name: "New Variable",
+  Text: "",
+  Expression: "$",
+} as MobiFlightVariable
 
 export const VariablePanel = ({
   variant,
@@ -22,27 +30,30 @@ export const VariablePanel = ({
     { value: "string", label: "String" },
   ]
   const { variables } = useVariableStore()
+  useEffect(() => {
+    if (!currentVariable) {
+      onVariableChange(defaultVariable)
+    }
+  }, [onVariableChange, currentVariable])
 
-  const variable =
-    currentVariable ??
-    ({
-      TYPE: "number",
-      Name: "New Variable",
-      Text: "",
-      Expression: "$",
-    } as MobiFlightVariable)
+  if (!currentVariable) {
+    return null
+  }
 
+  const variable = currentVariable
   const availableVariables = variables ?? []
 
   if (variant === "summary") {
     return (
       <div className="flex grow flex-row items-center gap-8">
-        <div className="flex flex-col gap-1 w-1/3">
+        <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="variable">
-            {t("Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel")}
+            {t(
+              "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
+            )}
           </Label>
           <div>
-            { variable.Name} ({variable.TYPE})
+            {variable.Name} ({variable.TYPE})
           </div>
         </div>
         <div className="flex grow flex-col gap-1">
@@ -54,7 +65,9 @@ export const VariablePanel = ({
             className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
           >
             {variable.Expression ??
-              t("Dialog.InputConfigWizard.InputActions.Variable.NoneExpression")}
+              t(
+                "Dialog.InputConfigWizard.InputActions.Variable.NoneExpression",
+              )}
           </div>
         </div>
       </div>
@@ -71,7 +84,9 @@ export const VariablePanel = ({
         getLabel={(item) => `${item.Name} (${item.TYPE})`}
         getValue={(item) => item.Name}
         selected={variable ?? undefined}
-        isSelected={(item) => item.Name === variable?.Name && item.TYPE === variable?.TYPE}
+        isSelected={(item) =>
+          item.Name === variable?.Name && item.TYPE === variable?.TYPE
+        }
         setSelected={(item) => {
           if (item) {
             onVariableChange(item)
