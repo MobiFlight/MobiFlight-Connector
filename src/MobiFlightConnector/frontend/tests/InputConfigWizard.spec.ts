@@ -870,6 +870,55 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     await expect(countLabel).toHaveText("4 preset(s) found")
   })
+
+  test("Newly created MSFS config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionInputOption = page.getByRole("option", {
+      name: "Microsoft Flight Simulator (all versions)",
+    })
+    await expect(actionInputOption).toBeVisible()
+    await actionInputOption.click()
+
+    const codeInput = actionEditor.getByPlaceholder("Provide RPN code")
+
+    await expect(codeInput).toBeVisible()
+    await codeInput.fill("Test Code Input")
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "MsfsInputAction",
+      Variable: {
+        TYPE: "number",
+        Name: "TestVariable",
+        Text: "",
+        Expression: "123",
+      },
+    })
+  })
 })
 
 test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
@@ -1166,55 +1215,12 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     const type = "Button"
     const eventType = "On Press"
 
-    // Opens after clicking "Add Input Config" button and goes through the creation flow
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-
-    // Add new config
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    await addInputConfigButton.click()
-    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-
-    // Scan for input for device with respective input device type
-    const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel).toBeVisible()
-
-    const scanForInputButton = triggerPanel.getByRole("button", {
-      name: "Scan for Input",
-    })
-    await expect(scanForInputButton).toBeVisible()
-    await scanForInputButton.click()
-
-    // fake the scan result for respective input device type
-    await configListPage.mobiFlightPage.publishMessage({
-      key: "ScanForInputResult",
-      payload: {
-        Controller: {
-          Devices: [],
-          Name: "Bravo Throttle Quadrant",
-          Serial: "JS-87654321",
-        },
-        Device: {
-          Name: `${type} 21`,
-          Label: "Mode - ALT",
-          Type: type,
-        },
-      } as ScanForInputResult,
-    })
-
-    const actionPanel = page.getByTestId("action-panel")
-    const actionEditor = page.getByTestId("action-editor")
-
-    const button = actionPanel.getByRole("button", {
-      name: eventType,
-      exact: true,
-    })
-    await expect(button).toBeVisible()
-    await button.click()
-    await expect(actionEditor).toBeVisible()
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+      type,
+      eventType
+    )
 
     const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
     await expect(actionTypeComboBox).toBeVisible()
@@ -1271,55 +1277,12 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     const type = "Button"
     const eventType = "On Press"
 
-    // Opens after clicking "Add Input Config" button and goes through the creation flow
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-
-    // Add new config
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    await addInputConfigButton.click()
-    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-
-    // Scan for input for device with respective input device type
-    const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel).toBeVisible()
-
-    const scanForInputButton = triggerPanel.getByRole("button", {
-      name: "Scan for Input",
-    })
-    await expect(scanForInputButton).toBeVisible()
-    await scanForInputButton.click()
-
-    // fake the scan result for respective input device type
-    await configListPage.mobiFlightPage.publishMessage({
-      key: "ScanForInputResult",
-      payload: {
-        Controller: {
-          Devices: [],
-          Name: "Bravo Throttle Quadrant",
-          Serial: "JS-87654321",
-        },
-        Device: {
-          Name: `${type} 21`,
-          Label: "Mode - ALT",
-          Type: type,
-        },
-      } as ScanForInputResult,
-    })
-
-    const actionPanel = page.getByTestId("action-panel")
-    const actionEditor = page.getByTestId("action-editor")
-
-    const button = actionPanel.getByRole("button", {
-      name: eventType,
-      exact: true,
-    })
-    await expect(button).toBeVisible()
-    await button.click()
-    await expect(actionEditor).toBeVisible()
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+      type,
+      eventType
+    )
 
     const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
     await expect(actionTypeComboBox).toBeVisible()
@@ -1338,14 +1301,16 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       "Enter expression...",
     )
 
-    const variableTypeComboBox = actionEditor.getByRole('combobox').filter({ hasText: 'Number' })
+    const variableTypeComboBox = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Number" })
 
     await expect(variableNameInput).toBeVisible()
     await expect(variableValueInput).toBeVisible()
     await expect(variableTypeComboBox).toBeVisible()
 
     await variableTypeComboBox.click()
-    await page.getByRole('option', { name: 'String' }).click()
+    await page.getByRole("option", { name: "String" }).click()
 
     await variableNameInput.fill("TestVariable")
     await variableValueInput.fill("123")
@@ -1637,7 +1602,9 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
       actionEditor.getByRole("combobox").filter({ hasText: "Button 4" }),
     ).toBeVisible()
     // buttonComand=true → "Pressed"
-    await expect(actionEditor.getByTestId("vjoy-button-command-state")).toHaveText("Pressed")
+    await expect(
+      actionEditor.getByTestId("vjoy-button-command-state"),
+    ).toHaveText("Pressed")
   })
 
   test("Axis config: device, axis and send value are displayed correctly", async ({
@@ -2134,55 +2101,12 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     const type = "Button"
     const eventType = "On Hold"
 
-    // Opens after clicking "Add Input Config" button and goes through the creation flow
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-
-    // Add new config
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    await addInputConfigButton.click()
-    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-
-    // Scan for input for device with respective input device type
-    const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel).toBeVisible()
-
-    const scanForInputButton = triggerPanel.getByRole("button", {
-      name: "Scan for Input",
-    })
-    await expect(scanForInputButton).toBeVisible()
-    await scanForInputButton.click()
-
-    // fake the scan result for respective input device type
-    await configListPage.mobiFlightPage.publishMessage({
-      key: "ScanForInputResult",
-      payload: {
-        Controller: {
-          Devices: [],
-          Name: "Bravo Throttle Quadrant",
-          Serial: "JS-87654321",
-        },
-        Device: {
-          Name: `${type} 21`,
-          Label: "Mode - ALT",
-          Type: type,
-        },
-      } as ScanForInputResult,
-    })
-
-    const actionPanel = page.getByTestId("action-panel")
-    const actionEditor = page.getByTestId("action-editor")
-
-    const button = actionPanel.getByRole("button", {
-      name: eventType,
-      exact: true,
-    })
-    await expect(button).toBeVisible()
-    await button.click()
-    await expect(actionEditor).toBeVisible()
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+      type,
+      eventType
+    )
 
     // Verify that the input fields are visible
     const inputHoldDelay = actionEditor.getByRole("textbox", {
@@ -2225,55 +2149,12 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     const type = "Button"
     const eventType = "On Long Release"
 
-    // Opens after clicking "Add Input Config" button and goes through the creation flow
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-
-    // Add new config
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    await addInputConfigButton.click()
-    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-
-    // Scan for input for device with respective input device type
-    const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel).toBeVisible()
-
-    const scanForInputButton = triggerPanel.getByRole("button", {
-      name: "Scan for Input",
-    })
-    await expect(scanForInputButton).toBeVisible()
-    await scanForInputButton.click()
-
-    // fake the scan result for respective input device type
-    await configListPage.mobiFlightPage.publishMessage({
-      key: "ScanForInputResult",
-      payload: {
-        Controller: {
-          Devices: [],
-          Name: "Bravo Throttle Quadrant",
-          Serial: "JS-87654321",
-        },
-        Device: {
-          Name: `${type} 21`,
-          Label: "Mode - ALT",
-          Type: type,
-        },
-      } as ScanForInputResult,
-    })
-
-    const actionPanel = page.getByTestId("action-panel")
-    const actionEditor = page.getByTestId("action-editor")
-
-    const button = actionPanel.getByRole("button", {
-      name: eventType,
-      exact: true,
-    })
-    await expect(button).toBeVisible()
-    await button.click()
-    await expect(actionEditor).toBeVisible()
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+      type,
+      eventType
+    )
 
     // Verify that the input fields are visible
     const inputLongReleaseDelay = actionEditor.getByRole("textbox", {
@@ -2302,3 +2183,60 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     expect(payload.item.button?.LongReleaseDelay).toBe(500)
   })
 })
+async function CreateNewInputConfigItemAndReturnActionPanel(
+  configListPage: ConfigListPage,
+  page: Page,
+  type: string = "Button",
+  eventType: string = "On Press",
+) {
+  // Opens after clicking "Add Input Config" button and goes through the creation flow
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+  // Add new config
+  const addInputConfigButton = page.getByRole("button", {
+    name: "Add Input Config",
+  })
+  await addInputConfigButton.click()
+  await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+  await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+
+  // Scan for input for device with respective input device type
+  const triggerPanel = page.getByTestId("trigger-panel")
+  await expect(triggerPanel).toBeVisible()
+
+  const scanForInputButton = triggerPanel.getByRole("button", {
+    name: "Scan for Input",
+  })
+  await expect(scanForInputButton).toBeVisible()
+  await scanForInputButton.click()
+
+  // fake the scan result for respective input device type
+  await configListPage.mobiFlightPage.publishMessage({
+    key: "ScanForInputResult",
+    payload: {
+      Controller: {
+        Devices: [],
+        Name: "Bravo Throttle Quadrant",
+        Serial: "JS-87654321",
+      },
+      Device: {
+        Name: `${type} 21`,
+        Label: "Mode - ALT",
+        Type: type,
+      },
+    } as ScanForInputResult,
+  })
+
+  const actionPanel = page.getByTestId("action-panel")
+  const actionEditor = page.getByTestId("action-editor")
+
+  const button = actionPanel.getByRole("button", {
+    name: eventType,
+    exact: true,
+  })
+  await expect(button).toBeVisible()
+  await button.click()
+  await expect(actionEditor).toBeVisible()
+  return actionEditor
+}
