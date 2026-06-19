@@ -67,7 +67,7 @@ const ActionBindingPanel = ({
   return (
     <div
       data-testid="action-panel"
-      className="flex flex-col gap-4 rounded-md border px-6 py-3 pb-8 shadow-md"
+      className="flex flex-col gap-2 rounded-md border px-6 py-3 pb-8 shadow-md"
     >
       <div className="flex flex-col gap-1">
         <div className="text-lg font-semibold">Actions</div>
@@ -83,58 +83,70 @@ const ActionBindingPanel = ({
         const eventLabel = t(
           `Dialog.InputConfigWizard.${variant}.Event.${event}`,
         )
-        return action?.Type ? (
-          <>
-            <div
-              className="hover:bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
-              key={event}
-              onDoubleClick={() =>
-                onActionEdit(event, action, (newAction, buttonOptions) =>
-                  handleOnActionChange(event, newAction, buttonOptions),
-                )
-              }
-            >
-              <div className="flex w-32 flex-col gap-1">
-                <Label>Event</Label>
-                <div>{eventLabel}</div>
-              </div>
-              <ActionSummary action={action} />
-              <Button
-                size={"sm"}
-                variant="ghost"
-                onClick={() => {
+        return (
+          action?.Type && (
+            <div key={event} className="flex flex-col gap-2">
+              <div
+                className="hover:bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
+                onDoubleClick={() =>
                   onActionEdit(event, action, (newAction, buttonOptions) =>
+                    handleOnActionChange(event, newAction, buttonOptions),
+                  )
+                }
+              >
+                <div className="flex w-32 flex-col gap-1">
+                  <Label>Event</Label>
+                  <div>{eventLabel}</div>
+                </div>
+                <ActionSummary action={action} />
+                <Button
+                  size={"sm"}
+                  variant="ghost"
+                  onClick={() => {
+                    onActionEdit(event, action, (newAction, buttonOptions) =>
+                      handleOnActionChange(event, newAction, buttonOptions),
+                    )
+                  }}
+                >
+                  <IconEdit />
+                  <span className="sr-only">
+                    {t(`Dialog.InputConfigWizard.Event.Edit`, { eventLabel })}
+                  </span>
+                </Button>
+              </div>
+              {!isLast && <Separator />}
+            </div>
+          )
+        )
+      })}
+
+      <div className="flex flex-row gap-2">
+        {events.map((event) => {
+          const action = current[event as keyof ActionTrigger] as
+            | Action
+            | undefined
+          const eventLabel = t(
+            `Dialog.InputConfigWizard.${variant}.Event.${event}`,
+          )
+          return (
+            !action?.Type && (
+              <Button                
+                key={event}
+                size={"sm"}
+                variant="outline"
+                onClick={() => {
+                  onActionEdit(event, null, (newAction, buttonOptions) =>
                     handleOnActionChange(event, newAction, buttonOptions),
                   )
                 }}
               >
-                <IconEdit />
-                <span className="sr-only">
-                  {t(`Dialog.InputConfigWizard.Event.Edit`, { eventLabel })}
-                </span>
+                <IconPlus />
+                {eventLabel}
               </Button>
-            </div>
-            {!isLast && <Separator />}
-          </>
-        ) : (
-          <>
-            <Button
-              className="w-1/2 self-center"
-              size={"sm"}
-              variant="outline"
-              onClick={() => {
-                onActionEdit(event, null, (newAction, buttonOptions) =>
-                  handleOnActionChange(event, newAction, buttonOptions),
-                )
-              }}
-            >
-              <IconPlus />
-              {t(`Dialog.InputConfigWizard.${variant}.Event.${event}`)}
-            </Button>
-            {!isLast && <Separator />}
-          </>
-        )
-      })}
+            )
+          )
+        })}
+      </div>
     </div>
   )
 }
