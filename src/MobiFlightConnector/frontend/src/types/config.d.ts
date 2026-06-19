@@ -85,7 +85,7 @@ export type ButtonTrigger = {
   onLongRelease?: Action
 }
 
-export type ButtonActions = ButtonTrigger & Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
+export type ButtonTrigger = ButtonTrigger & Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
 
 export interface EncoderTrigger {
   onLeft?: Action

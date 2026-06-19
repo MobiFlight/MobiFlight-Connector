@@ -1244,7 +1244,9 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     // expect it to become visible
     // this ensures that react render has completed and, e.g., useEffects have run
     await expect(actionPanel).toBeVisible()
-    const addOnLeftButton = actionPanel.getByRole("button", { name: "On Press" })
+    const addOnLeftButton = actionPanel.getByRole("button", {
+      name: "On Press",
+    })
     await expect(addOnLeftButton).toBeVisible()
     await addOnLeftButton.click()
 
@@ -1509,10 +1511,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     ).toHaveValue("BBCCDDEE")
     // BcdMode=true
     const bcdModeSwitch = actionEditor.getByRole("switch").filter()
-    await expect(bcdModeSwitch).toHaveAttribute(
-      "aria-checked",
-      "true",
-    )
+    await expect(bcdModeSwitch).toHaveAttribute("aria-checked", "true")
   })
 })
 
@@ -1835,13 +1834,19 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
 })
 
 test.describe("Input Config Wizard - Action Binding Panels", () => {
-  test("Button panel: each tab routes to the correct event slot", async ({
+  test("Action bindings panel: each tab routes to the correct event slot", async ({
     configListPage,
     page,
   }) => {
     const actionTestData = [
-      { type: "Button", eventTypes: ["On Press", "On Release", "On Hold", "On Long Release"] },
-      { type: "Encoder", eventTypes: ["On Left", "On Right", "On Left Fast", "On Right Fast"] },
+      {
+        type: "Button",
+        eventTypes: ["On Press", "On Release", "On Hold", "On Long Release"],
+      },
+      {
+        type: "Encoder",
+        eventTypes: ["On Left", "On Right", "On Left Fast", "On Right Fast"],
+      },
       { type: "AnalogInput", eventTypes: ["On Change"] },
     ]
 
@@ -1849,7 +1854,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
       // Opens after clicking "Add Input Config" button and goes through the creation flow
       await configListPage.gotoPage()
       await configListPage.mobiFlightPage.initWithTestData("inputaction")
-      
+
       // Add new config
       const addInputConfigButton = page.getByRole("button", {
         name: "Add Input Config",
@@ -1890,7 +1895,10 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
 
       // verify that we have correct buttons and that they all open the drawer
       for (const eventType of eventTypes) {
-        const button = actionPanel.getByRole("button", { name: eventType, exact: true })
+        const button = actionPanel.getByRole("button", {
+          name: eventType,
+          exact: true,
+        })
         await expect(button).toBeVisible()
         await button.click()
         await expect(actionEditor).toBeVisible()
@@ -1901,5 +1909,96 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
         await expect(actionEditor).not.toBeVisible()
       }
     }
+  })
+
+  test("Button hold options are displayed and update correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const type = "Button"
+    const eventType = "On Hold"
+
+    // Opens after clicking "Add Input Config" button and goes through the creation flow
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    // Add new config
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+
+    // Scan for input for device with respective input device type
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const scanForInputButton = triggerPanel.getByRole("button", {
+      name: "Scan for Input",
+    })
+    await expect(scanForInputButton).toBeVisible()
+    await scanForInputButton.click()
+
+    // fake the scan result for respective input device type
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ScanForInputResult",
+      payload: {
+        Controller: {
+          Devices: [],
+          Name: "Bravo Throttle Quadrant",
+          Serial: "JS-87654321",
+        },
+        Device: {
+          Name: `${type} 21`,
+          Label: "Mode - ALT",
+          Type: type,
+        },
+      } as ScanForInputResult,
+    })
+
+    const actionPanel = page.getByTestId("action-panel")
+    const actionEditor = page.getByTestId("action-editor")
+
+    const button = actionPanel.getByRole("button", {
+      name: eventType,
+      exact: true,
+    })
+    await expect(button).toBeVisible()
+    await button.click()
+    await expect(actionEditor).toBeVisible()
+
+    // Verify that the input fields are visible
+    const inputHoldDelay = actionEditor.getByRole("textbox", {
+      name: "Hold delay in ms",
+    })
+    const inputRepeatDelay = actionEditor.getByRole("textbox", {
+      name: "Repeat delay in ms",
+    })
+
+    await expect(inputHoldDelay).toBeVisible()
+    await expect(inputRepeatDelay).toBeVisible()
+    const inputHoldDelayValue = 500
+    const inputRepeatDelayValue = 1000
+
+    await inputHoldDelay.fill(inputHoldDelayValue.toString())
+    await inputRepeatDelay.fill(inputRepeatDelayValue.toString())
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.HoldDelay).toBe(500)
+    expect(payload.item.button?.RepeatDelay).toBe(1000)
   })
 })

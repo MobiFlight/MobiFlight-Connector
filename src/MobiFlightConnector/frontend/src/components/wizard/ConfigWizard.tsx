@@ -8,9 +8,9 @@ import { useNavigate, useSearchParams } from "react-router"
 import {
   Action,
   AnalogTrigger,
+  ButtonTrigger,
   ButtonHoldOptions,
   ButtonLongReleaseOptions,
-  ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
 import {
@@ -65,13 +65,18 @@ const ConfigWizard = ({
     event: string
   }>({ variant: "button", event: "" })
 
+  const initialButtonOptions = configItem.button
+    ? (configItem.button as Partial<ButtonHoldOptions> &
+        Partial<ButtonLongReleaseOptions>)
+    : {
+        HoldDelay: 350,
+        LongReleaseDelay: 350,
+        RepeatDelay: 0,
+      }
+
   const [buttonOptions, setButtonOptions] = useState<
     Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
-  >({
-    HoldDelay: 350,
-    LongReleaseDelay: 350,
-    RepeatDelay: 0,
-  })
+  >(initialButtonOptions)
 
   const [onActionChange, setOnActionChange] = useState<
     | ((
@@ -143,10 +148,11 @@ const ConfigWizard = ({
             configItem.inputShiftRegister
           }
           onTriggerChange={(trigger) => {
-            onConfigChange({
+            const updatedConfigItem = {
               ...configItem,
               button: trigger as ButtonTrigger,
-            })
+            }
+            onConfigChange(updatedConfigItem)
           }}
         />
       )}

@@ -33,7 +33,6 @@ import {
   XplaneInputAction,
 } from "@/types/config"
 import { useTranslation } from "react-i18next"
-
 export interface ActionEditorProps {
   event: { variant: string; event: string }
   buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
@@ -44,20 +43,16 @@ export interface ActionEditorProps {
       Partial<ButtonLongReleaseOptions>,
   ) => void
 }
-
 export interface ActionSummaryProps {
   action?: Action
 }
-
 export const ActionSummary = ({ action }: ActionSummaryProps) => {
   const { t } = useTranslation()
   if (!action)
     return <span className="text-muted-foreground text-sm">No Action.</span>
-
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
-
   const typeOption = ActionTypeOptions.find(
     (option) => option.value === action.Type,
   )
@@ -100,11 +95,9 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           onVariableChange={() => {}}
         />
       )}
-
       {selectedActionType?.value === "RetriggerInputAction" && (
         <RetriggerPanel variant="summary" />
       )}
-
       {selectedActionType?.value === "VJoyInputAction" && (
         <VJoyInputActionPanel
           variant="summary"
@@ -112,7 +105,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           setConfig={() => {}}
         />
       )}
-
       {selectedActionType?.value === "KeyInputAction" && (
         <KeyboardInputActionPanel
           variant="summary"
@@ -120,7 +112,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           onConfigChange={() => {}}
         />
       )}
-
       {selectedActionType?.value === "FsuipcOffsetInputAction" && (
         <FsuipcOffsetInputActionPanel
           variant="summary"
@@ -128,7 +119,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           onConfigChange={() => {}}
         />
       )}
-
       {selectedActionType?.value === "ProSimInputAction" && (
         <ProSimInputActionPanel
           variant="summary"
@@ -136,7 +126,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           onConfigChange={() => {}}
         />
       )}
-
       {selectedActionType?.value === "LuaMacroInputAction" && (
         <LuaMacroInputActionPanel
           variant="summary"
@@ -144,7 +133,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           onConfigChange={() => {}}
         />
       )}
-
       {selectedActionType?.value === "JeehellInputAction" && (
         <JeehellInputActionPanel
           variant="summary"
@@ -152,7 +140,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           onConfigChange={() => {}}
         />
       )}
-
       {selectedActionType?.value === "EventIdInputAction" && (
         <EventIdInputActionPanel
           variant="summary"
@@ -161,7 +148,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
           onConfigChange={() => {}}
         />
       )}
-
       {selectedActionType?.value === "PmdgEventIdInputAction" && (
         <EventIdInputActionPanel
           variant="summary"
@@ -173,7 +159,6 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
     </div>
   )
 }
-
 const ActionEditor = ({
   event,
   buttonOptions,
@@ -184,9 +169,7 @@ const ActionEditor = ({
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
-
   console.log("Button options in ActionEditor:", buttonOptions)
-
   return (
     <Card data-testid="action-editor">
       <CardContent className="pt-4">
@@ -208,22 +191,26 @@ const ActionEditor = ({
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
                   <span>Delay action by</span>
                   <Input
+                    aria-label="Hold delay in ms"
                     className="w-16"
                     value={buttonOptions?.HoldDelay}
                     onChange={(e) => {
                       const value = e.target.value
                       onActionChange(action, {
                         HoldDelay: value ? parseInt(value) : undefined,
+                        RepeatDelay: buttonOptions?.RepeatDelay, 
                       })
                     }}
                    />
                   <span className="whitespace-nowrap">ms, repeat every</span>
                   <Input
+                    aria-label="Repeat delay in ms"
                     className="w-16"
                     value={buttonOptions?.RepeatDelay}
                     onChange={(e) => {
                       const value = e.target.value
                       onActionChange(action, {
+                        HoldDelay: buttonOptions?.HoldDelay,
                         RepeatDelay: value ? parseInt(value) : undefined,
                       })
                     }}
@@ -232,7 +219,6 @@ const ActionEditor = ({
                 </div>
               </div>
             )}
-
             {event.variant === "button" && event.event === "onLongRelease" && (
               <div className="flex flex-1 flex-col gap-1">
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
@@ -298,11 +284,9 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "RetriggerInputAction" && (
             <RetriggerPanel variant="details" />
           )}
-
           {selectedActionType?.value === "VJoyInputAction" && (
             <VJoyInputActionPanel
               variant="details"
@@ -315,7 +299,6 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "KeyInputAction" && (
             <KeyboardInputActionPanel
               variant="details"
@@ -328,7 +311,6 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "FsuipcOffsetInputAction" && (
             <FsuipcOffsetInputActionPanel
               variant="details"
@@ -341,7 +323,6 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "ProSimInputAction" && (
             <ProSimInputActionPanel
               variant="details"
@@ -354,7 +335,6 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "LuaMacroInputAction" && (
             <LuaMacroInputActionPanel
               variant="details"
@@ -367,7 +347,6 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "JeehellInputAction" && (
             <JeehellInputActionPanel
               variant="details"
@@ -380,7 +359,6 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "EventIdInputAction" && (
             <EventIdInputActionPanel
               variant="details"
@@ -394,7 +372,6 @@ const ActionEditor = ({
               }
             />
           )}
-
           {selectedActionType?.value === "PmdgEventIdInputAction" && (
             <EventIdInputActionPanel
               variant="details"
