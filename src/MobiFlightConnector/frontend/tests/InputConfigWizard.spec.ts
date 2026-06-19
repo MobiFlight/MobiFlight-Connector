@@ -1970,10 +1970,10 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
 
     // Verify that the input fields are visible
     const inputHoldDelay = actionEditor.getByRole("textbox", {
-      name: "Hold delay in ms",
+      name: "Hold delay (ms)",
     })
     const inputRepeatDelay = actionEditor.getByRole("textbox", {
-      name: "Repeat delay in ms",
+      name: "Repeat delay (ms)",
     })
 
     await expect(inputHoldDelay).toBeVisible()
@@ -2061,7 +2061,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
 
     // Verify that the input fields are visible
     const inputLongReleaseDelay = actionEditor.getByRole("textbox", {
-      name: "Long release delay in ms",
+      name: "Long release delay (ms)",
     })
 
     await expect(inputLongReleaseDelay).toBeVisible()
