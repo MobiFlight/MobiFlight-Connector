@@ -12,31 +12,30 @@ import {
 } from "@/types/config"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
-
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
-
 export type ActionBindingPanelProps = {
   variant: "button" | "encoder" | "analog"
   trigger?: ActionTrigger
   onActionEdit: (
     event: string,
     action: Action | null,
-    onConfigChange: (config: Action) => void,
+    onActionChange: (
+      config: Action,
+      buttonOptions?: Partial<ButtonHoldOptions> &
+        Partial<ButtonLongReleaseOptions>,
+    ) => void,
   ) => void
   onTriggerChange: (trigger: ActionTrigger) => void
 }
-
 const eventActionMap = {
   button: ["onPress", "onRelease", "onHold", "onLongRelease"],
   encoder: ["onLeft", "onRight", "onLeftFast", "onRightFast"],
   analog: ["onChange"],
 }
-
 const ActionBindingPanel = ({
   variant,
   trigger,
   onActionEdit,
-  // onButtonOptionsChange,
   onTriggerChange,
 }: ActionBindingPanelProps) => {
   const { t } = useTranslation()
@@ -52,16 +51,19 @@ const ActionBindingPanel = ({
     LongReleaseDelay: 350,
     RepeatDelay: 0,
   }
-
   const current = trigger ?? defaultButtonTrigger
-
-  const handleOnActionChange = (event: string, action: Action) => {
+  const handleOnActionChange = (
+    event: string,
+    action: Action,
+    buttonOptions?: Partial<ButtonHoldOptions> &
+      Partial<ButtonLongReleaseOptions>,
+  ) => {
     onTriggerChange({
       ...current,
       [event]: action,
+      ...buttonOptions,
     })
   }
-
   return (
     <div
       data-testid="action-panel"
@@ -77,20 +79,18 @@ const ActionBindingPanel = ({
         const action = current[event as keyof ActionTrigger] as
           | Action
           | undefined
-
         const isLast = index === events.length - 1
         const eventLabel = t(
           `Dialog.InputConfigWizard.${variant}.Event.${event}`,
         )
-
         return action?.Type ? (
           <>
             <div
               className="hover:bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
               key={event}
               onDoubleClick={() =>
-                onActionEdit(event, action, (newAction) =>
-                  handleOnActionChange(event, newAction),
+                onActionEdit(event, action, (newAction, buttonOptions) =>
+                  handleOnActionChange(event, newAction, buttonOptions),
                 )
               }
             >
@@ -103,8 +103,8 @@ const ActionBindingPanel = ({
                 size={"sm"}
                 variant="ghost"
                 onClick={() => {
-                  onActionEdit(event, action, (newAction) =>
-                    handleOnActionChange(event, newAction),
+                  onActionEdit(event, action, (newAction, buttonOptions) =>
+                    handleOnActionChange(event, newAction, buttonOptions),
                   )
                 }}
               >
@@ -123,8 +123,8 @@ const ActionBindingPanel = ({
               size={"sm"}
               variant="outline"
               onClick={() => {
-                onActionEdit(event, null, (newAction) =>
-                  handleOnActionChange(event, newAction),
+                onActionEdit(event, null, (newAction, buttonOptions) =>
+                  handleOnActionChange(event, newAction, buttonOptions),
                 )
               }}
             >

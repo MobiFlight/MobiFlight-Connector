@@ -64,17 +64,22 @@ const ConfigWizard = ({
     variant: "button" | "encoder" | "analog"
     event: string
   }>({ variant: "button", event: "" })
-  
+
   const [buttonOptions, setButtonOptions] = useState<
     Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
-  >({})
-  
-  const [onActionChange, setOnActionChange] = useState<
-    ((action: Action) => void) | null
-  >(null)
+  >({
+    HoldDelay: 350,
+    LongReleaseDelay: 350,
+    RepeatDelay: 0,
+  })
 
-  const [onButtonOptionsChange, setOnButtonOptionsChange] = useState<
-    ((options: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>) => void) | null
+  const [onActionChange, setOnActionChange] = useState<
+    | ((
+        action: Action | null,
+        buttonOptions?: Partial<ButtonHoldOptions> &
+          Partial<ButtonLongReleaseOptions>,
+      ) => void)
+    | null
   >(null)
 
   const detailView = searchParams.get("detail")
@@ -120,15 +125,16 @@ const ConfigWizard = ({
           onActionEdit={(
             event: string,
             action: Action | null,
-            onConfigChange: (
+            onActionChange: (
               config: Action,
+              buttonOptions?: Partial<ButtonHoldOptions> &
+                Partial<ButtonLongReleaseOptions>,
             ) => void,
           ) => {
             setEvent({ variant: "button", event })
             setEditAction(action)
             setButtonOptions(buttonOptions)
-            setOnActionChange(() => onConfigChange)
-            setOnButtonOptionsChange(() => onButtonOptionsChange)
+            setOnActionChange(() => onActionChange)
             navigateToDetailView("action")
           }}
           trigger={
@@ -172,11 +178,11 @@ const ConfigWizard = ({
           onActionEdit={(
             event: string,
             action: Action | null,
-            onConfigChange: (config: Action) => void,
+            onActionChange: (config: Action) => void,
           ) => {
             setEvent({ variant: "analog", event })
             setEditAction(action)
-            setOnActionChange(() => onConfigChange)
+            setOnActionChange(() => onActionChange)
             navigateToDetailView("action")
           }}
           trigger={configItem.analog}
@@ -238,9 +244,19 @@ const ConfigWizard = ({
                   event={event}
                   buttonOptions={buttonOptions}
                   action={editAction}
-                  onActionChange={(action) => {
-                    onActionChange?.(action)
+                  onActionChange={(action, buttonOptions) => {
+                    console.log("Action updated in ActionEditor:", {
+                      action,
+                      buttonOptions,
+                    })
+                    onActionChange?.(action, buttonOptions)
                     setEditAction(action)
+                    if (buttonOptions) {
+                      setButtonOptions((prev) => ({
+                        ...prev,
+                        ...buttonOptions,
+                      }))
+                    }
                   }}
                 />
               )}

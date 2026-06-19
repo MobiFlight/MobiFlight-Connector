@@ -38,7 +38,11 @@ export interface ActionEditorProps {
   event: { variant: string; event: string }
   buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
   action: Action | null
-  onActionChange: (item: Action) => void
+  onActionChange: (
+    item: Action | null,
+    buttonOptions?: Partial<ButtonHoldOptions> &
+      Partial<ButtonLongReleaseOptions>,
+  ) => void
 }
 
 export interface ActionSummaryProps {
@@ -174,12 +178,14 @@ const ActionEditor = ({
   event,
   buttonOptions,
   action,
-  onActionChange
+  onActionChange,
 }: ActionEditorProps) => {
   const { t } = useTranslation()
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
+
+  console.log("Button options in ActionEditor:", buttonOptions)
 
   return (
     <Card data-testid="action-editor">
@@ -201,9 +207,27 @@ const ActionEditor = ({
               <div className="flex flex-1 flex-col gap-1">
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
                   <span>Delay action by</span>
-                  <Input className="w-16" />
+                  <Input
+                    className="w-16"
+                    value={buttonOptions?.HoldDelay}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      onActionChange(action, {
+                        HoldDelay: value ? parseInt(value) : undefined,
+                      })
+                    }}
+                   />
                   <span className="whitespace-nowrap">ms, repeat every</span>
-                  <Input className="w-16" />
+                  <Input
+                    className="w-16"
+                    value={buttonOptions?.RepeatDelay}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      onActionChange(action, {
+                        RepeatDelay: value ? parseInt(value) : undefined,
+                      })
+                    }}
+                  />
                   <span>ms</span>
                 </div>
               </div>
@@ -215,15 +239,13 @@ const ActionEditor = ({
                   <span>Long release after</span>
                   <Input
                     className="w-16"
-                    onChange={(e) => { 
+                    onChange={(e) => {
                       const value = e.target.value
-                      onActionChange({
-                        ...action,
+                      onActionChange(action, {
                         LongReleaseDelay: value ? parseInt(value) : undefined,
-                      } as Action)
+                      })
                     }}
                     value={buttonOptions?.LongReleaseDelay}
-                    placeholder="1000"
                   />
                   <span className="whitespace-nowrap">ms</span>
                 </div>
