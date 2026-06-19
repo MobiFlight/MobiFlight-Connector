@@ -1737,13 +1737,10 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     await page.keyboard.down("Control")
     await page.keyboard.down("Alt")
     await page.keyboard.down("Shift")
-    await page.keyboard.down("D")
+    await page.keyboard.down("F8")
 
-    const stopScanForKeyboardButton = actionEditor.getByRole("button", {
-      name: "Stop scanning",
-    })
-    await expect(stopScanForKeyboardButton).toBeVisible()
-    await stopScanForKeyboardButton.click()
+    // the up event will end scanning
+    await page.keyboard.up("F8")
     // End: provide specific user input
 
     const backButton = page.getByRole("button", { name: "Go back" })
@@ -1762,7 +1759,7 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     const payload = commands?.pop()?.payload
     expect(payload.item.button?.onPress).toEqual({
       Type: "KeyInputAction",
-      Key: 68,
+      Key: 119,
       Control: true,
       Alt: true,
       Shift: true,
