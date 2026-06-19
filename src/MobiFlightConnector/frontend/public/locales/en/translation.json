@@ -396,6 +396,8 @@
         "NoDeviceFound": "No device found."
       },
       "Action": {
+        "Title": "Actions",
+        "Description": "Define the actions for each event.",
         "Copy": "Copy action",
         "Paste": "Paste action"
       },
@@ -417,28 +419,71 @@
           "EventIdInputAction": "FSUIPC - EventID"
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "Edit {{eventLabel}} action"
       },
       "button": {
         "Event": {
-          "onPress": "On Press",
-          "onRelease": "On Release",
-          "onHold": "On Hold",
-          "onLongRelease": "On Long Release"
+          "onPress": {
+            "label": "On Press",
+            "description": "The action will be executed once when the button is pressed."
+          },
+          "onRelease": {
+            "label": "On Release",
+            "description": "The action will be executed once when the button is released."
+          },
+          "onHold": {
+            "label": "On Hold",
+            "description": "This action is triggered when the button is held down for a certain duration and can repeat at the specified interval.",
+            "options": {
+              "holdDelay": {
+                "label": "Hold delay (ms)",
+                "description": "The duration in milliseconds that the button must be held down before the action is triggered."
+              },
+              "repeatDelay": {
+                "label": "Repeat delay (ms)",
+                "description": "The interval in milliseconds at which the action will be re-triggered while the button is held down. Set to 0 to disable repeating."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "On Long Release",
+            "description": "The action will be executed once when the button is released after being held down for the specified duration.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Long release delay (ms)",
+                "description": "The duration in milliseconds that the button must be held down before a release will trigger this action."
+              }
+            }
+          }
         }
       },
       "encoder": {
         "Event": {
-          "onLeft": "On Left",
-          "onRight": "On Right",
-          "onLeftFast": "On Left Fast",
-          "onRightFast": "On Right Fast"
+          "onLeft": {
+            "label": "On Left",
+            "description": "The action will be executed once when the encoder is turned left."
+          },
+          "onRight": {
+            "label": "On Right",
+            "description": "The action will be executed once when the encoder is turned right."
+          },
+          "onLeftFast": {
+            "label": "On Left Fast",
+            "description": "The action will be executed once when the encoder is turned left quickly."
+          },
+          "onRightFast": {
+            "label": "On Right Fast",
+            "description": "The action will be executed once when the encoder is turned right quickly."
+          }
         }
       },
       "analog": {
         "Event": {
-          "onChange": "On Change"
+          "onChange": {
+            "label": "On Change",
+            "description": "The action will be executed once the value of the input changes."
+          }
         }
       },
       "Preconditions": {

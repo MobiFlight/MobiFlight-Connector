@@ -70,9 +70,10 @@ const ActionBindingPanel = ({
       className="flex flex-col gap-2 rounded-md border px-6 py-3 pb-8 shadow-md"
     >
       <div className="flex flex-col gap-1">
-        <div className="text-lg font-semibold">Actions</div>
+        <div className="text-lg font-semibold">
+          {t(`Dialog.InputConfigWizard.Action.Title`)}</div>
         <div className="text-muted-foreground text-sm">
-          Define the actions for each event.
+          {t(`Dialog.InputConfigWizard.Action.Description`)}
         </div>
       </div>
       {events.map((event, index) => {
@@ -81,7 +82,7 @@ const ActionBindingPanel = ({
           | undefined
         const isLast = index === events.length - 1
         const eventLabel = t(
-          `Dialog.InputConfigWizard.${variant}.Event.${event}`,
+          `Dialog.InputConfigWizard.${variant}.Event.${event}.label`,
         )
         return (
           action?.Type && (
@@ -126,7 +127,7 @@ const ActionBindingPanel = ({
             | Action
             | undefined
           const eventLabel = t(
-            `Dialog.InputConfigWizard.${variant}.Event.${event}`,
+            `Dialog.InputConfigWizard.${variant}.Event.${event}.label`,
           )
           return (
             !action?.Type && (

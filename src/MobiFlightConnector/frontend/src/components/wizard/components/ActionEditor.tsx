@@ -178,33 +178,50 @@ const ActionEditor = ({
             <div className="flex flex-1 flex-col">
               <div className="text-lg font-semibold">
                 {t(
-                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}`,
+                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
                 )}
               </div>
               <div className="text-muted-foreground text-sm">
-                This action is triggered when the button is held down for a
-                certain duration and can repeat at a specified interval.
+                {t(
+                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
+                )}
               </div>
             </div>
             {event.variant === "button" && event.event === "onHold" && (
               <div className="flex flex-1 flex-col gap-1">
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
-                  <span>Delay action by</span>
+                  <span title={t(
+                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.description`,
+                  )}>
+                    {t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+                    )}
+                  </span>
                   <Input
-                    aria-label="Hold delay in ms"
+                    aria-label={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+                    )}
                     className="w-16"
                     value={buttonOptions?.HoldDelay}
                     onChange={(e) => {
                       const value = e.target.value
                       onActionChange(action, {
                         HoldDelay: value ? parseInt(value) : undefined,
-                        RepeatDelay: buttonOptions?.RepeatDelay, 
+                        RepeatDelay: buttonOptions?.RepeatDelay,
                       })
                     }}
-                   />
-                  <span className="whitespace-nowrap">ms, repeat every</span>
+                  />
+                  <span title={t(
+                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
+                  )}>
+                    {t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+                    )}
+                  </span>
                   <Input
-                    aria-label="Repeat delay in ms"
+                    aria-label={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+                    )}
                     className="w-16"
                     value={buttonOptions?.RepeatDelay}
                     onChange={(e) => {
@@ -222,9 +239,17 @@ const ActionEditor = ({
             {event.variant === "button" && event.event === "onLongRelease" && (
               <div className="flex flex-1 flex-col gap-1">
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
-                  <span>Long release after</span>
+                  <span title={t(
+                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
+                  )}>
+                    {t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+                    )}
+                  </span>
                   <Input
-                    aria-label="Long release delay in ms"
+                    aria-label={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+                    )}
                     className="w-16"
                     onChange={(e) => {
                       const value = e.target.value
