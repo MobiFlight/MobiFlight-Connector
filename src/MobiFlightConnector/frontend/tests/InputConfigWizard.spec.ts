@@ -1158,6 +1158,222 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       actionEditor.getByPlaceholder("Enter expression..."),
     ).toHaveValue("$")
   })
+
+  test("Newly created (number) Variable config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const type = "Button"
+    const eventType = "On Press"
+
+    // Opens after clicking "Add Input Config" button and goes through the creation flow
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    // Add new config
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+
+    // Scan for input for device with respective input device type
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const scanForInputButton = triggerPanel.getByRole("button", {
+      name: "Scan for Input",
+    })
+    await expect(scanForInputButton).toBeVisible()
+    await scanForInputButton.click()
+
+    // fake the scan result for respective input device type
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ScanForInputResult",
+      payload: {
+        Controller: {
+          Devices: [],
+          Name: "Bravo Throttle Quadrant",
+          Serial: "JS-87654321",
+        },
+        Device: {
+          Name: `${type} 21`,
+          Label: "Mode - ALT",
+          Type: type,
+        },
+      } as ScanForInputResult,
+    })
+
+    const actionPanel = page.getByTestId("action-panel")
+    const actionEditor = page.getByTestId("action-editor")
+
+    const button = actionPanel.getByRole("button", {
+      name: eventType,
+      exact: true,
+    })
+    await expect(button).toBeVisible()
+    await button.click()
+    await expect(actionEditor).toBeVisible()
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const variableInputOption = page.getByRole("option", {
+      name: "MobiFlight - Variable",
+    })
+    await expect(variableInputOption).toBeVisible()
+    await variableInputOption.click()
+
+    const variableNameInput = actionEditor.getByPlaceholder(
+      "Enter variable name...",
+    )
+    const variableValueInput = actionEditor.getByPlaceholder(
+      "Enter expression...",
+    )
+
+    await expect(variableNameInput).toBeVisible()
+    await expect(variableValueInput).toBeVisible()
+
+    await variableNameInput.fill("TestVariable")
+    await variableValueInput.fill("123")
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "VariableInputAction",
+      Variable: {
+        TYPE: "number",
+        Name: "TestVariable",
+        Text: "",
+        Expression: "123",
+      },
+    })
+  })
+
+  test("Newly created (string) Variable config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const type = "Button"
+    const eventType = "On Press"
+
+    // Opens after clicking "Add Input Config" button and goes through the creation flow
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    // Add new config
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+
+    // Scan for input for device with respective input device type
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const scanForInputButton = triggerPanel.getByRole("button", {
+      name: "Scan for Input",
+    })
+    await expect(scanForInputButton).toBeVisible()
+    await scanForInputButton.click()
+
+    // fake the scan result for respective input device type
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ScanForInputResult",
+      payload: {
+        Controller: {
+          Devices: [],
+          Name: "Bravo Throttle Quadrant",
+          Serial: "JS-87654321",
+        },
+        Device: {
+          Name: `${type} 21`,
+          Label: "Mode - ALT",
+          Type: type,
+        },
+      } as ScanForInputResult,
+    })
+
+    const actionPanel = page.getByTestId("action-panel")
+    const actionEditor = page.getByTestId("action-editor")
+
+    const button = actionPanel.getByRole("button", {
+      name: eventType,
+      exact: true,
+    })
+    await expect(button).toBeVisible()
+    await button.click()
+    await expect(actionEditor).toBeVisible()
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const variableInputOption = page.getByRole("option", {
+      name: "MobiFlight - Variable",
+    })
+    await expect(variableInputOption).toBeVisible()
+    await variableInputOption.click()
+
+    const variableNameInput = actionEditor.getByPlaceholder(
+      "Enter variable name...",
+    )
+    const variableValueInput = actionEditor.getByPlaceholder(
+      "Enter expression...",
+    )
+
+    const variableTypeComboBox = actionEditor.getByRole('combobox').filter({ hasText: 'Number' })
+
+    await expect(variableNameInput).toBeVisible()
+    await expect(variableValueInput).toBeVisible()
+    await expect(variableTypeComboBox).toBeVisible()
+
+    await variableTypeComboBox.click()
+    await page.getByRole('option', { name: 'String' }).click()
+
+    await variableNameInput.fill("TestVariable")
+    await variableValueInput.fill("123")
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "VariableInputAction",
+      Variable: {
+        TYPE: "string",
+        Name: "TestVariable",
+        Text: "",
+        Expression: "123",
+      },
+    })
+  })
 })
 
 test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
