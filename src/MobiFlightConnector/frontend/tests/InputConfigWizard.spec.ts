@@ -9,6 +9,7 @@ import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" w
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { ActionTypeOptions } from "../src/lib/configWizard"
 import { Project } from "../src/types"
+import { MsfsInputAction } from "../src/types/config"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -877,7 +878,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
   }) => {
     const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
       configListPage,
-      page
+      page,
     )
 
     const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
@@ -890,7 +891,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(actionInputOption).toBeVisible()
     await actionInputOption.click()
 
-    const codeInput = actionEditor.getByPlaceholder("Provide RPN code")
+    const codeInput = actionEditor.getByPlaceholder("Enter RPN code")
 
     await expect(codeInput).toBeVisible()
     await codeInput.fill("Test Code Input")
@@ -910,14 +911,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
     expect(payload.item.button?.onPress).toEqual({
-      Type: "MsfsInputAction",
-      Variable: {
-        TYPE: "number",
-        Name: "TestVariable",
-        Text: "",
-        Expression: "123",
-      },
-    })
+      Type: "MSFS2020CustomInputAction",
+      Command: "Test Code Input",
+      PresetId: "",
+    } as MsfsInputAction)
   })
 })
 
@@ -1219,7 +1216,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       configListPage,
       page,
       type,
-      eventType
+      eventType,
     )
 
     const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
@@ -1281,7 +1278,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       configListPage,
       page,
       type,
-      eventType
+      eventType,
     )
 
     const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
@@ -2105,7 +2102,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
       configListPage,
       page,
       type,
-      eventType
+      eventType,
     )
 
     // Verify that the input fields are visible
@@ -2153,7 +2150,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
       configListPage,
       page,
       type,
-      eventType
+      eventType,
     )
 
     // Verify that the input fields are visible
