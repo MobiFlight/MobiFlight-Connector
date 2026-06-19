@@ -195,7 +195,7 @@ const VJoyInputActionPanel = ({
                     } as VJoyInputAction)
                   }
                 />
-                <span className="text-sm">
+                <span className="text-sm" data-testid="vjoy-button-command-state">
                   {config?.buttonComand
                     ? t("Dialog.InputConfigWizard.InputActions.VJoy.Pressed")
                     : t("Dialog.InputConfigWizard.InputActions.VJoy.Released")}

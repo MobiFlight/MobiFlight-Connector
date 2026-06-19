@@ -1637,7 +1637,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
       actionEditor.getByRole("combobox").filter({ hasText: "Button 4" }),
     ).toBeVisible()
     // buttonComand=true → "Pressed"
-    await expect(actionEditor.getByText("Pressed")).toBeVisible()
+    await expect(actionEditor.getByTestId("vjoy-button-command-state")).toHaveText("Pressed")
   })
 
   test("Axis config: device, axis and send value are displayed correctly", async ({
