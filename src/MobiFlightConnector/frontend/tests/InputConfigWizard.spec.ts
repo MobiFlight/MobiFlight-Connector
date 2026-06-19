@@ -9,7 +9,7 @@ import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" w
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { ActionTypeOptions } from "../src/lib/configWizard"
 import { Project } from "../src/types"
-import { MsfsInputAction, XplaneInputAction } from "../src/types/config"
+import { KeyInputAction, MsfsInputAction, XplaneInputAction } from "../src/types/config"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -1487,6 +1487,44 @@ test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
       actionEditor.getByText("re-trigger all button states"),
     ).toBeVisible()
   })
+
+  test("Newly created retrigger config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "MobiFlight - Retrigger switches",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "RetriggerInputAction"
+    })
+  })
 })
 
 test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
@@ -1657,6 +1695,67 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     await actionEditor.getByRole("button", { name: "Clear input" }).click()
     await expect(actionEditor).toContainText("None")
     await expect(actionEditor).not.toContainText("Ctrl +")
+  })
+
+  test("Newly created Keyboard Input Action config values are saved correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionPanel(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionTypeOption = page.getByRole("option", {
+      name: "MobiFlight - Keyboard Input",
+    })
+    await expect(actionTypeOption).toBeVisible()
+    await actionTypeOption.click()
+
+    // Provide specific user input
+    const scanForKeyboardButton = actionEditor.getByRole("button", {
+      name: "Scan for keyboard",
+    })
+    await expect(scanForKeyboardButton).toBeVisible()
+    await scanForKeyboardButton.click()
+
+    await page.keyboard.down("Control")
+    await page.keyboard.down("Alt")
+    await page.keyboard.down("Shift")
+    await page.keyboard.down("D")
+
+    const stopScanForKeyboardButton = actionEditor.getByRole("button", {
+      name: "Stop scanning",
+    })
+    await expect(stopScanForKeyboardButton).toBeVisible()
+    await stopScanForKeyboardButton.click()
+    // End: provide specific user input
+
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toEqual({
+      Type: "KeyInputAction",
+      Key: 68,
+      Control: true,
+      Alt: true,
+      Shift: true,
+    } as KeyInputAction)
   })
 })
 
