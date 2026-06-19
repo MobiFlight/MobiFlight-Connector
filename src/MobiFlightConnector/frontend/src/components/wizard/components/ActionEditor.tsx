@@ -224,6 +224,7 @@ const ActionEditor = ({
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
                   <span>Long release after</span>
                   <Input
+                    aria-label="Long release delay in ms"
                     className="w-16"
                     onChange={(e) => {
                       const value = e.target.value
