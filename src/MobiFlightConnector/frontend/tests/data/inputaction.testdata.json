@@ -226,7 +226,7 @@
                         "onPress": {
                             "Alt": true,
                             "Control": true,
-                            "Key": 68,
+                            "Code": "KeyD",
                             "Shift": true,
                             "Type": "KeyInputAction"
                         },
