@@ -50,6 +50,12 @@ namespace MobiFlight.Execution
             inputCache.Clear();
         }
 
+        public void StopAllHoldTimers()
+        {
+            foreach (var cfg in _configItems.OfType<InputConfigItem>())
+                cfg.button?.StopTimers();
+        }
+
         public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();

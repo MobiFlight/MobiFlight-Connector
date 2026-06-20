@@ -855,6 +855,8 @@ namespace MobiFlight
             joystickManager.Stop();
             midiBoardManager.Stop();
             inputActionExecutionCache.Clear();
+            foreach (var executor in _inputEventExecutors.Values)
+                executor.StopAllHoldTimers();
             ClearConfigItemStatus();
             ClearErrorMessages();
         }

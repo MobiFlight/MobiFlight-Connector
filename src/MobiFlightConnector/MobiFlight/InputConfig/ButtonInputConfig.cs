@@ -198,7 +198,14 @@ namespace MobiFlight.InputConfig
 
         private void RepeatTimer_Elapsed(object sender, EventArgs e)
         {
-            ExecuteOnHoldAction();
+            try
+            {
+                ExecuteOnHoldAction();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error executing onHold action: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         private void ExecuteRepeatOnHold()
@@ -212,9 +219,19 @@ namespace MobiFlight.InputConfig
 
         private void HoldTimer_Elapsed(object sender, EventArgs e)
         {
-            ExecuteOnHoldAction();
-            HoldTimer.Stop();
-            ExecuteRepeatOnHold();
+            try
+            {
+                ExecuteOnHoldAction();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error executing onHold action: {ex.Message}", LogSeverity.Error);
+            }
+            finally
+            {
+                HoldTimer.Stop();
+                ExecuteRepeatOnHold();
+            }
         }
 
         private void ExecuteOnHoldWithTimer()
@@ -237,6 +254,11 @@ namespace MobiFlight.InputConfig
                 HoldTimer.Stop();
             if (RepeatTimer.Enabled)
                 RepeatTimer.Stop();
+        }
+
+        public void StopTimers()
+        {
+            CheckAndStopTimer();
         }
 
         private void CheckAndAdaptForLongButtonRelease(InputEventArgs current, InputEventArgs previous)
