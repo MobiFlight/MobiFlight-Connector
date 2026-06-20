@@ -198,6 +198,14 @@ namespace MobiFlight.InputConfig.Tests
         }
 
         [TestMethod()]
+        public void StopTimers_WithNoOnHold_DoesNotThrow()
+        {
+            ButtonInputConfig o = new ButtonInputConfig();
+            o.onPress = new EventIdInputAction() { EventId = 12345 };
+            o.StopTimers();
+        }
+
+        [TestMethod()]
         public void JsonSerializationTest()
         {
             var serializerSettings = new JsonSerializerSettings
