@@ -20,6 +20,12 @@ const emptyConfig: KeyInputAction = {
   Code: "",
 }
 
+const skipRenderKeys = [
+  "ControlLeft", "ControlRight", 
+  "ShiftLeft", "ShiftRight", 
+  "AltLeft", "AltRight"]
+
+
 const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
   const { t } = useTranslation()
   return (
@@ -42,8 +48,8 @@ const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
           <span> + </span>
         </>
       )}
-      {keys?.Code !== "" ?  (
-        <Kbd>{keys.Code}</Kbd>
+      {keys?.Code !== "" && !skipRenderKeys.includes(keys?.Code) ? (
+        <Kbd>{keys?.Code?.replace("Key", "")}</Kbd>
       ) : (
         t("Dialog.InputConfigWizard.InputActions.Keyboard.None")
       )}
@@ -76,18 +82,7 @@ const KeyboardInputActionPanel = ({
     event.stopPropagation()
     event.preventDefault()
 
-    console.log("Key down:", event.key, "Code:", event.code, "KeyCode:", event.keyCode)
-
     if (isScanning) {
-      console.log(
-        "Scanned key:",
-        event.key,
-        "Key Code:",
-        event.keyCode,
-        "Code:",
-        event.code,
-      )
-
       if (event.key === "Escape") {
         setIsScanning(false)
         return
