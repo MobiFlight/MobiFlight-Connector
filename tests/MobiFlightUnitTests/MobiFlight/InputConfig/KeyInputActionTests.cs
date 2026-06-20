@@ -18,7 +18,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(i.Shift, o.Shift, "SHIFT value differs");
             Assert.AreEqual(i.Alt, o.Alt, "ALT value differs");
             Assert.AreEqual(i.Control, o.Control, "CONTROL value differs");
-            Assert.AreEqual(i.Key, o.Key, "Key value differs");
+            Assert.AreEqual(i.Code, o.Code, "Key value differs");
         }
 
         [TestMethod()]
@@ -59,7 +59,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.IsTrue(o.Alt, "Alt modifier not the same");
             Assert.IsTrue(o.Shift, "Shift modifier not the same");
             Assert.IsTrue(o.Control, "Ctrl modifier not the same");
-            Assert.AreEqual(Keys.A, o.Key, "Key not the same");
+            Assert.AreEqual(Keys.A.ToString(), o.Code, "Key not the same");
         }
 
         [TestMethod()]
@@ -92,7 +92,7 @@ namespace MobiFlight.InputConfig.Tests
             o.Alt = true;
             o.Control = true;
             o.Shift = true;
-            o.Key = Keys.A;
+            o.Code = Keys.A.ToString();
             return o;
         }
 
@@ -110,6 +110,60 @@ namespace MobiFlight.InputConfig.Tests
             o2 = generateTestObject();
 
             Assert.IsTrue(o1.Equals(o2));
+        }
+
+        [TestMethod]
+        public void JsonDeserialize_WithDeprecatedNumericKeyTest()
+        {
+            var jsonString = @"{
+                ""Type"": ""KeyInputAction"",
+                ""Alt"": true,
+                ""Control"": true,
+                ""Shift"": true,
+                ""Key"": 120
+            }";
+
+            KeyInputAction o = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
+            Assert.AreEqual(Keys.F9.ToString(), o.Code, "Key value differs");
+            Assert.IsTrue(o.Alt, "ALT value differs");
+            Assert.IsTrue(o.Control, "CTRL value differs");
+            Assert.IsTrue(o.Shift, "SHIFT value differs");
+        }
+
+        [TestMethod]
+        public void JsonDeserialize_WithDeprecatedKeyTest()
+        {
+            var jsonString = @"{
+                ""Type"": ""KeyInputAction"",
+                ""Alt"": true,
+                ""Control"": true,
+                ""Shift"": true,
+                ""Key"": ""F9""
+            }";
+
+            KeyInputAction o = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
+            Assert.AreEqual(Keys.F9.ToString(), o.Code, "Key value differs");
+            Assert.IsTrue(o.Alt, "ALT value differs");
+            Assert.IsTrue(o.Control, "CTRL value differs");
+            Assert.IsTrue(o.Shift, "SHIFT value differs");
+        }
+
+         [TestMethod]
+        public void JsonDeserialize_WithNewCodeTest_BackslashKey()
+        {
+            var jsonString = @"{
+                ""Type"": ""KeyInputAction"",
+                ""Alt"": false,
+                ""Control"": false,
+                ""Shift"": true,
+                ""Code"": ""F9""
+            }";
+
+            KeyInputAction o = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
+            Assert.AreEqual(Keys.F9.ToString(), o.Code, "Key value differs");
+            Assert.IsFalse(o.Alt, "ALT value differs");
+            Assert.IsFalse(o.Control, "CTRL value differs");
+            Assert.IsTrue(o.Shift, "SHIFT value differs");
         }
     }
 }

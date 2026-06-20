@@ -314,6 +314,7 @@
     <Compile Include="Base\ProjectListManager.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
     <Compile Include="Base\Serialization\Json\ConfigValueOnlyItemConverter.cs" />
+    <Compile Include="Base\Serialization\Json\KeyInputActionConverter.cs" />
     <Compile Include="Base\Serialization\Json\PreconditionConverter.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
@@ -1099,12 +1100,6 @@
     </Compile>
     <Compile Include="UI\Panels\Action\JeehellInputPanel.Designer.cs">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\Action\KeyboardInputPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Action\KeyboardInputPanel.Designer.cs">
-      <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Output\StepperPanel.cs">
       <SubType>UserControl</SubType>
@@ -2007,12 +2002,6 @@
     <EmbeddedResource Include="UI\Panels\Action\JeehellInputPanel.resx">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Action\KeyboardInputPanel.de.resx">
-      <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Action\KeyboardInputPanel.resx">
-      <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\ServoPanel.de.resx">
       <DependentUpon>ServoPanel.cs</DependentUpon>

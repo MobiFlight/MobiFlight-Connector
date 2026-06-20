@@ -163,7 +163,7 @@ export interface LuaMacroInputAction extends Action {
 
 export interface KeyInputAction extends Action {
   Type: "KeyInputAction"
-  Key: number
+  Code: string
   Control: boolean
   Alt: boolean
   Shift: boolean

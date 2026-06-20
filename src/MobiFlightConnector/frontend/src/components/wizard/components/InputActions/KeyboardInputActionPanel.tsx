@@ -17,7 +17,7 @@ const emptyConfig: KeyInputAction = {
   Control: false,
   Alt: false,
   Shift: false,
-  Key: 0,
+  Code: "",
 }
 
 const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
@@ -42,63 +42,13 @@ const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
           <span> + </span>
         </>
       )}
-      {keys?.Key !== 0 ? (
-        <Kbd>{renderLegacyKeyCode(keys.Key)}</Kbd>
+      {keys?.Code !== "" ?  (
+        <Kbd>{keys.Code}</Kbd>
       ) : (
         t("Dialog.InputConfigWizard.InputActions.Keyboard.None")
       )}
     </KbdGroup>
   )
-}
-
-const renderLegacyKeyCode = (keyCode: number): string => {
-  const specialKeys: Record<number, string> = {
-    8: "Backspace",
-    9: "Tab",
-    13: "Enter",
-    16: "Shift",
-    17: "Ctrl",
-    18: "Alt",
-    27: "Esc",
-    32: "Space",
-    33: "Page Up",
-    34: "Page Down",
-    35: "End",
-    36: "Home",
-    37: "Left",
-    38: "Up",
-    39: "Right",
-    40: "Down",
-    45: "Insert",
-    46: "Delete",
-
-    112: "F1",
-    113: "F2",
-    114: "F3",
-    115: "F4",
-    116: "F5",
-    117: "F6",
-    118: "F7",
-    119: "F8",
-    120: "F9",
-    121: "F10",
-    122: "F11",
-    123: "F12",
-  }
-
-  if (specialKeys[keyCode]) {
-    return specialKeys[keyCode]
-  }
-
-  if (keyCode >= 48 && keyCode <= 90) {
-    return String.fromCharCode(keyCode).toUpperCase()
-  }
-
-  if (keyCode >= 96 && keyCode <= 105) {
-    return `Num ${keyCode - 96}`
-  }
-
-  return `Key ${keyCode}`
 }
 
 const KeyboardInputActionPanel = ({
@@ -109,7 +59,7 @@ const KeyboardInputActionPanel = ({
   const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
   const [scannedKeys, setScannedKeys] = useState<KeyInputAction>(
-    config?.Key !== undefined ? config : emptyConfig,
+    config?.Code !== undefined ? config : emptyConfig,
   )
 
   const handleScanForInput = () => {
@@ -126,6 +76,8 @@ const KeyboardInputActionPanel = ({
     event.stopPropagation()
     event.preventDefault()
 
+    console.log("Key down:", event.key, "Code:", event.code, "KeyCode:", event.keyCode)
+
     if (isScanning) {
       console.log(
         "Scanned key:",
@@ -140,21 +92,20 @@ const KeyboardInputActionPanel = ({
         setIsScanning(false)
         return
       }
-      const scannedKey = event.key
-      const keyCode = event.keyCode
+      const scannedKey = event.code
       const key =
         scannedKey === "Control" ||
         scannedKey === "Shift" ||
         scannedKey === "Alt"
-          ? 0
-          : keyCode
+          ? ""
+          : scannedKey
 
       const newConfig: KeyInputAction = {
         Type: "KeyInputAction",
         Control: event.ctrlKey,
         Alt: event.altKey,
         Shift: event.shiftKey,
-        Key: key,
+        Code: key,
       }
       setScannedKeys(newConfig)
     }

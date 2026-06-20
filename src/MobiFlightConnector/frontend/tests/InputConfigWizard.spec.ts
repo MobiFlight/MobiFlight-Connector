@@ -1759,7 +1759,7 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
     const payload = commands?.pop()?.payload
     expect(payload.item.button?.onPress).toEqual({
       Type: "KeyInputAction",
-      Key: 119,
+      Code: 119,
       Control: true,
       Alt: true,
       Shift: true,

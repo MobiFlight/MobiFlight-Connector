@@ -79,16 +79,8 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new Panels.Config.FsuipcConfigPanel();
                     (panel as Panels.Config.FsuipcConfigPanel).setMode(false);
 
-
                     if (_config != null && _config.onChange != null) 
                         (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(_config.onChange as FsuipcOffsetInputAction);
-                    break;
-
-                case InputConfig.KeyInputAction.Label:
-                    panel = new MobiFlight.UI.Panels.Action.KeyboardInputPanel();
-                    if ( _config != null && _config.onChange != null)
-                        (panel as MobiFlight.UI.Panels.Action.KeyboardInputPanel).syncFromConfig(_config.onChange as KeyInputAction);
-
                     break;
 
                 case MobiFlight.InputConfig.EventIdInputAction.Label:
@@ -197,10 +189,6 @@ namespace MobiFlight.UI.Panels.Input
                 {
                     case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Config.FsuipcConfigPanel).ToConfig();
-                        break;
-
-                    case InputConfig.KeyInputAction.Label:
-                        config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.KeyboardInputPanel).ToConfig();
                         break;
 
                     case MobiFlight.InputConfig.EventIdInputAction.Label:

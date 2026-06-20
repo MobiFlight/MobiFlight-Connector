@@ -27,7 +27,6 @@ namespace MobiFlight.UI.Panels.Config
         public static Dictionary<string, Type> InputLabelsToConfigPanelTypes = new Dictionary<string, Type>
         {
             { FsuipcOffsetInputAction.Label, typeof(FsuipcConfigPanel) },
-            { KeyInputAction.Label, typeof(KeyboardInputPanel) },
             { EventIdInputAction.Label, typeof(EventIdInputPanel) },
             { PmdgEventIdInputAction.Label, typeof(PmdgEventIdInputPanel) },
             { JeehellInputAction.Label, typeof(JeehellInputPanel) },
