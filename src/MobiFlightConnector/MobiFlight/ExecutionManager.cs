@@ -635,6 +635,7 @@ namespace MobiFlight
 
             ConfigItems[configItemIndex] = item;
             MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
+            OnInputConfigSettingsChanged(item, null);
             OnConfigHasChanged?.Invoke(new IConfigItem[] { item }, null);
         }
 
