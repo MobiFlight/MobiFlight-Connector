@@ -3,6 +3,7 @@ using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.FSUIPC;
+using MobiFlight.InputConfig;
 using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -499,9 +500,10 @@ namespace MobiFlight.Tests
             // Create test input event args
             var inputEventArgs = new InputEventArgs
             {
-                Controller = new Controller() { 
-                Serial = "SN-000-001",
-                Name = "TestController",
+                Controller = new Controller()
+                {
+                    Serial = "SN-000-001",
+                    Name = "TestController",
                 },
                 Device = new DeviceReference()
                 {
@@ -686,9 +688,9 @@ namespace MobiFlight.Tests
             };
 
             var project = new Project();
-            project.ConfigFiles.Add(new ConfigFile() 
-            { 
-                ConfigItems = { outputConfigItem } 
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                ConfigItems = { outputConfigItem }
             });
             _executionManager.Project = project;
 
@@ -696,7 +698,7 @@ namespace MobiFlight.Tests
             Assert.IsFalse(_executionManager.ModulesAvailable(), "No MobiFlight modules and/or Arcaze Boards should be connected");
             Assert.IsFalse(_executionManager.GetJoystickManager().JoysticksConnected(), "No joysticks should be connected");
             Assert.IsFalse(_executionManager.GetMidiBoardManager().AreMidiBoardsConnected(), "No midi controllers should be connected.");
-            
+
             // Set up the variable so the config item has data to read
             _executionManager.getMobiFlightModuleCache().SetMobiFlightVariable(
                 new MobiFlightVariable() { Name = "TestVar", Number = 123.45 });
@@ -705,28 +707,28 @@ namespace MobiFlight.Tests
             var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
                 BindingFlags.NonPublic | BindingFlags.Instance);
             var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
-            
+
             var initialUpdatedValuesCount = updatedValues.Count;
 
             // Act - Instead of relying on timer, directly call ExecuteConfig via reflection
             _executionManager.Start(); // This sets up the execution manager state
-            
+
             // Use reflection to call the private ExecuteConfig method directly
-            var executeConfigMethod = typeof(ExecutionManager).GetMethod("ExecuteConfig", 
+            var executeConfigMethod = typeof(ExecutionManager).GetMethod("ExecuteConfig",
                 BindingFlags.NonPublic | BindingFlags.Instance);
             Assert.IsNotNull(executeConfigMethod, "ExecuteConfig method should exist");
 
             executeConfigMethod.Invoke(_executionManager, null);
 
             // Assert - The config item should be processed and cloned into updatedValues
-            Assert.IsTrue(updatedValues.ContainsKey(outputConfigItem.GUID), 
+            Assert.IsTrue(updatedValues.ContainsKey(outputConfigItem.GUID),
                 "Config item should be cloned and added to updatedValues when processed");
-            
+
             var clonedConfigItem = updatedValues[outputConfigItem.GUID] as OutputConfigItem;
             Assert.IsNotNull(clonedConfigItem, "Updated config item should be an OutputConfigItem");
-            Assert.AreEqual("123.45", clonedConfigItem.Value, 
+            Assert.AreEqual("123.45", clonedConfigItem.Value,
                 "Cloned config item should display the correct variable value");
-            Assert.AreEqual("123.45", clonedConfigItem.RawValue, 
+            Assert.AreEqual("123.45", clonedConfigItem.RawValue,
                 "Cloned config item should have the correct raw value");
         }
 
@@ -740,7 +742,7 @@ namespace MobiFlight.Tests
 
             var sourceFile = new ConfigFile() { ConfigItems = { configItem1, configItem2 } };
             var targetFile = new ConfigFile() { ConfigItems = { configItem3 } };
-            
+
             var project = new Project();
             project.ConfigFiles.Add(sourceFile);  // Index 0
             project.ConfigFiles.Add(targetFile);  // Index 1
@@ -775,7 +777,7 @@ namespace MobiFlight.Tests
             var configItem3 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item3", Active = true };
 
             var configFile = new ConfigFile() { ConfigItems = { configItem1, configItem2, configItem3 } };
-            
+
             var project = new Project();
             project.ConfigFiles.Add(configFile);  // Index 0
             _executionManager.Project = project;
@@ -810,7 +812,7 @@ namespace MobiFlight.Tests
 
             var sourceFile = new ConfigFile() { ConfigItems = { configItem1, configItem2, configItem3 } };
             var targetFile = new ConfigFile() { ConfigItems = { configItem4 } };
-            
+
             var project = new Project();
             project.ConfigFiles.Add(sourceFile);  // Index 0
             project.ConfigFiles.Add(targetFile);  // Index 1
@@ -819,8 +821,8 @@ namespace MobiFlight.Tests
             // Move multiple items (item1 and item3) to target file
             var message = new CommandResortConfigItem
             {
-                Items = new[] 
-                { 
+                Items = new[]
+                {
                     new OutputConfigItem { GUID = configItem1.GUID },
                     new OutputConfigItem { GUID = configItem3.GUID }
                 },
@@ -835,7 +837,7 @@ namespace MobiFlight.Tests
             // Assert
             Assert.HasCount(1, sourceFile.ConfigItems, "Source file should have 2 less items");
             Assert.AreEqual(sourceFile.ConfigItems[0].GUID, configItem2.GUID, "Only item2 should remain in source file");
-            
+
             Assert.HasCount(3, targetFile.ConfigItems, "Target file should have 2 more items");
             Assert.AreEqual(targetFile.ConfigItems[0].GUID, configItem4.GUID, "Original target item should remain at position 0");
             Assert.AreEqual(targetFile.ConfigItems[1].GUID, configItem1.GUID, "First moved item should be at position 1");
@@ -927,6 +929,111 @@ namespace MobiFlight.Tests
 
             // Execution manager should still be running
             Assert.IsTrue(_executionManager.IsStarted(), "ExecutionManager should still be running after error");
+
+            // Clean up
+            _executionManager.Stop();
+        }
+
+        [TestMethod]
+        public void ExecuteConfig_ChangedConfigItemBecomesEffectiveWithoutStopAndRun()
+        {
+            // Arrange - Input Config Item version #1
+            var Controller = new Controller()
+            {
+                Serial = "SN-000-001",
+                Name = "TestController",
+            };
+
+            var Device = new DeviceReference()
+            {
+                Name = "TestDevice:1",
+                Label = "Test Button",
+                Type = DeviceType.Button,
+            };
+
+            var configItem = new InputConfigItem { 
+                GUID = Guid.NewGuid().ToString(), 
+                Active = true, 
+                Name = "Test item version #1",
+                Controller = Controller,
+                Device = new Button() { Name = Device.Name },
+                button = new InputConfig.ButtonInputConfig()
+                {
+                    onPress = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "Var1", Number = 100 },
+                    }
+                }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                ConfigItems = { configItem }
+            });
+
+            // Create test input event args
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = Controller,
+                Device = Device,
+                InputType = DeviceType.Button,
+                Value = 1
+            };
+
+            // Set up logging to verify expected log messages when config item is executed
+            var mockLogAppender = new Mock<ILogAppender>();
+            Log.Instance.ClearAppenders();
+            Log.Instance.AddAppender(mockLogAppender.Object);
+            Log.Instance.Enabled = true;
+            Log.Instance.Severity = LogSeverity.Info;
+
+            var expectedLogMessage = $"{Controller.Name} => Executing \"{configItem.Name}\". ({inputEventArgs.GetEventActionLabel()})";
+
+            _executionManager.Project = project;
+
+            // Use reflection to get the private method
+            var methodInfo = typeof(ExecutionManager).GetMethod("mobiFlightCache_OnButtonPressed",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            Assert.IsNotNull(methodInfo, "mobiFlightCache_OnButtonPressed method should exist");
+
+            // Start execution manager
+            _executionManager.Start();
+
+            // Act - Trigger the input event to execute the config item version #1
+            methodInfo.Invoke(_executionManager, new object[] { _mockXplaneCache.Object, inputEventArgs });
+
+            // Assert
+            mockLogAppender.Verify(
+                appender => appender.log(expectedLogMessage, LogSeverity.Info),
+                Times.Once,
+                "Expected log message should be logged once with Info severity"
+            );
+
+            // Update config item as real copy and updated values
+            var newConfig =  configItem.Clone() as InputConfigItem;
+            newConfig.Name = "Test item version 2";
+
+            // update expected log message for version #2
+            expectedLogMessage = $"{Controller.Name} => Executing \"{newConfig.Name}\". ({inputEventArgs.GetEventActionLabel()})";
+
+            // Use reflection to get the private method
+            var handleUpdateMethodInfo = typeof(ExecutionManager).GetMethod("HandleCommandUpdateConfigItem",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            // Act
+            handleUpdateMethodInfo.Invoke(_executionManager, new object[] { newConfig });
+
+            // Trigger the input event again to see if the updated config item is effective
+            methodInfo.Invoke(_executionManager, new object[] { _mockXplaneCache.Object, inputEventArgs });
+
+            // Assert
+            mockLogAppender.Verify(
+                appender => appender.log(expectedLogMessage, LogSeverity.Info),
+                Times.Once,
+                "Expected log message should be logged once with Info severity"
+            );
 
             // Clean up
             _executionManager.Stop();
