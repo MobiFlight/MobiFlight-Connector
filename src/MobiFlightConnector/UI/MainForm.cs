@@ -1568,7 +1568,6 @@ namespace MobiFlight.UI
                 execManager.Start();
                 if (Properties.Settings.Default.MinimizeOnAutoRun)
                 {
-                    this.WindowState = FormWindowState.Minimized;
                     minimizeMainForm(true);
                 }
             }
@@ -1820,6 +1819,10 @@ namespace MobiFlight.UI
             if (minimized)
             {
                 notifyIcon.Visible = true;
+                notifyIcon.BalloonTipTitle = i18n._tr("uiMessageMFConnectorInterfaceActive");
+                notifyIcon.BalloonTipText = i18n._tr("uiMessageApplicationIsRunningInBackgroundMode");
+                notifyIcon.ShowBalloonTip(1000);
+                this.Hide();
             }
             else
             {
@@ -1828,6 +1831,9 @@ namespace MobiFlight.UI
                 if (this.WindowState != FormWindowState.Normal)
                     this.WindowState = FormWindowState.Normal;
                 ForceToFront();
+                // Hide() destroys the taskbar button, which takes the overlay with it.
+                // Re-apply the badge now that Show() has created a fresh button.
+                updateNotifyContextMenu(execManager?.IsStarted() ?? false);
             }
 
             execManager?.OnMinimize(minimized);
