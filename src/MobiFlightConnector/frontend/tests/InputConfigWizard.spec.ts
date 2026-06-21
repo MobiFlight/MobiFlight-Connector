@@ -2205,6 +2205,10 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     // from false to true
     await bcdModeSwitch.click()
 
+    const valueInput = actionEditor.getByRole("textbox", { name: "Value" })
+    await expect(valueInput).toBeVisible()
+    await valueInput.fill("1234")
+
     // End: provide specific user input
 
     const backButton = page.getByRole("button", { name: "Go back" })
@@ -2230,7 +2234,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         Mask: 0xaabbccdd,
         BcdMode: true,
       },
-      Value: "",
+      Value: "1234",
       Modifiers: [],
     } as FsuipcOffsetInputAction)
   })
@@ -2278,6 +2282,10 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     const offsetInput = actionEditor.getByRole("textbox", { name: "Offset" })
     await expect(offsetInput).toBeVisible()
     await offsetInput.fill("66CC")
+
+    const valueInput = actionEditor.getByRole("textbox", { name: "Value" })
+    await expect(valueInput).toBeVisible()
+    await valueInput.fill("1.234")
     // End: provide specific user input
 
     const backButton = page.getByRole("button", { name: "Go back" })
@@ -2303,7 +2311,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         Mask: 0xff,
         BcdMode: false,
       },
-      Value: "",
+      Value: "1.234",
       Modifiers: [],
     } as FsuipcOffsetInputAction)
   })
@@ -2340,6 +2348,10 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     const offsetInput = actionEditor.getByRole("textbox", { name: "Offset" })
     await expect(offsetInput).toBeVisible()
     await offsetInput.fill("66CC")
+
+    const valueInput = actionEditor.getByRole("textbox", { name: "Value" })
+    await expect(valueInput).toBeVisible()
+    await valueInput.fill("Test String")
     // End: provide specific user input
 
     const backButton = page.getByRole("button", { name: "Go back" })
@@ -2365,7 +2377,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
         Mask: 0xff,
         BcdMode: false,
       },
-      Value: "",
+      Value: "Test String",
       Modifiers: [],
     } as FsuipcOffsetInputAction)
   })

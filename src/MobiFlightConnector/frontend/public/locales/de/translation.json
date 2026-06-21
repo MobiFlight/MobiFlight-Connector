@@ -593,10 +593,13 @@
           "ClearInput": "Eingabe löschen"
         },
         "FsuipcOffset": {
+          "TypeLabel": "Typ",
           "SizeLabel": "Größe",
           "OffsetLabel": "Offset",
           "MaskLabel": "Maske",
-          "BcdModeLabel": "BCD-Modus"
+          "BcdModeLabel": "BCD-Modus",
+          "ValueLabel": "Wert",
+          "ValuePlaceholder": "Wert eingeben"
         },
         "LuaMacro": {
           "Title": "Lua-Makro-Eingabeaktion",

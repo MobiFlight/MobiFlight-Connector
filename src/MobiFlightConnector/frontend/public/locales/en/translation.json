@@ -591,7 +591,9 @@
           "SizeLabel": "Size",
           "OffsetLabel": "Offset",
           "MaskLabel": "Mask",
-          "BcdModeLabel": "BCD Mode"
+          "BcdModeLabel": "BCD Mode",
+          "ValueLabel": "Value",
+          "ValuePlaceholder": "Enter value"
         },
         "LuaMacro": {
           "Title": "Lua Macro Input Action",

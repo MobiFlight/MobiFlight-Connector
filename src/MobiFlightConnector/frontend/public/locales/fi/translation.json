@@ -587,10 +587,13 @@
           "ClearInput": "Tyhjennä syöte"
         },
         "FsuipcOffset": {
+          "TypeLabel": "Tyyppi",
           "SizeLabel": "Koko",
           "OffsetLabel": "Offset",
           "MaskLabel": "Maski",
-          "BcdModeLabel": "BCD-tila"
+          "BcdModeLabel": "BCD-tila",
+          "ValueLabel": "Arvo",
+          "ValuePlaceholder": "Syötä arvo"
         },
         "LuaMacro": {
           "Title": "Lua-makro-syötetoiminto",

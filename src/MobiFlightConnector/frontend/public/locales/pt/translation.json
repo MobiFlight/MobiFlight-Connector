@@ -587,10 +587,13 @@
           "ClearInput": "Limpar entrada"
         },
         "FsuipcOffset": {
+          "Type": "Tipo",
           "SizeLabel": "Tamanho",
           "OffsetLabel": "Deslocamento",
           "MaskLabel": "Máscara",
-          "BcdModeLabel": "Modo BCD"
+          "BcdModeLabel": "Modo BCD",
+          "ValueLabel": "Valor",
+          "ValuePlaceholder": "Digite o valor"
         },
         "LuaMacro": {
           "Title": "Ação de Entrada Lua Macro",
