@@ -1,13 +1,6 @@
-﻿using MobiFlight.InputConfig;
+﻿using MobiFlight.Base;
+using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Config;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Action
@@ -20,8 +13,11 @@ namespace MobiFlight.UI.Panels.Action
             hubHopPresetPanel1.FlightSimType = FlightSimType.XPLANE;
             hubHopPresetPanel1.Mode = Config.HubHopPanelMode.Input;
             hubHopPresetPanel1.PresetFile = @"Presets\xplane_hubhop_presets.json";
-            hubHopPresetPanel1.LoadPresets();
             Disposed += (sender, args) => { hubHopPresetPanel1.Dispose(); };
+        }
+        public void LoadPresets(ProjectInfo projectInfo)
+        {
+            hubHopPresetPanel1.LoadPresets(projectInfo);
         }
         public void syncFromConfig(object config)
         {

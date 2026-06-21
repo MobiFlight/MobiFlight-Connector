@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using MobiFlight.Base;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.HubHop
 {
@@ -46,6 +44,7 @@ public class Msfs2020HubhopPreset
     public class Msfs2020HubhopPresetList
     {
         public List<Msfs2020HubhopPreset> Items = new List<Msfs2020HubhopPreset>();
+        public ProjectInfo ProjectInfo = null;
         String LoadedFile = null;
 
         public void Clear()
@@ -130,7 +129,9 @@ public class Msfs2020HubhopPreset
             List<Msfs2020HubhopPreset> temp;
 
             temp = Items.FindAll(x => (x.presetType & presetType) > 0);
-            
+            if (ProjectInfo != null && ProjectInfo.Aircraft.Count>0)
+                temp = temp.FindAll(x => ProjectInfo.Aircraft.Any(a => a.Vendor == x.vendor && a.Name == x.aircraft));
+
             if (selectedVendor != null)
                 temp = temp.FindAll(x => x.vendor == selectedVendor);
 

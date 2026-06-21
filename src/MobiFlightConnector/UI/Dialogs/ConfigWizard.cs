@@ -115,6 +115,9 @@ namespace MobiFlight.UI.Dialogs
             TestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             TestTimer.Tick += TestTimer_Tick;
             modifierPanel1.ModifierChanged += ModifierPanel1_ModifierChanged;
+
+            simConnectPanel1.LoadPresets(projectInfo);
+            xplaneDataRefPanel1.LoadPresets(projectInfo);
         }
 
         private void ShowSourceOptionsBasedOnProjectInfo(ProjectInfo projectInfo)
