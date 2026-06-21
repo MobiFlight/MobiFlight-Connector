@@ -154,6 +154,7 @@ const EventIdInputActionPanel = ({
             )}
           </Label>
           <Input
+            className="font-mono text-sm whitespace-nowrap"
             id="customParam"
             value={config?.Param ?? ""}
             onChange={(e) =>

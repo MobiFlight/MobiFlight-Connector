@@ -65,6 +65,7 @@ const MsfsInputActionPanel = ({
         </Label>
         <Textarea
           name="code"
+          className="font-mono text-sm whitespace-nowrap"
           placeholder={t("Dialog.InputConfigWizard.InputActions.Msfs.CodePlaceholder")}
           value={config?.Command ?? ""}
           onChange={(e) => {

@@ -228,6 +228,7 @@ const VJoyInputActionPanel = ({
                 {t("Dialog.InputConfigWizard.InputActions.VJoy.AxisValueLabel")}
               </Label>
               <Input
+                className="font-mono text-sm whitespace-nowrap"
                 id="axisValue"
                 value={config?.sendValue ?? "1"}
                 onChange={(e) =>

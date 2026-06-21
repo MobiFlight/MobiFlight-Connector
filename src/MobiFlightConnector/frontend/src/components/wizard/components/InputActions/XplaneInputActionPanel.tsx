@@ -89,6 +89,7 @@ const XplaneInputActionPanel = ({
         </Label>
         <Input
           id="path"
+          className="font-mono text-sm whitespace-nowrap"
           value={config?.Path ?? ""}
           onChange={(e) =>
             onConfigChange({
@@ -110,6 +111,7 @@ const XplaneInputActionPanel = ({
             {t("Dialog.InputConfigWizard.InputActions.Xplane.ValueLabel")}
           </Label>
           <Input
+            className="font-mono text-sm whitespace-nowrap"
             id="value"
             value={config?.Expression ?? ""}
             onChange={(e) =>

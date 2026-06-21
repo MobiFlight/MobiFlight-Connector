@@ -75,8 +75,12 @@ const ProSimInputActionPanel = ({
         <Label htmlFor="path">
           {t("Dialog.InputConfigWizard.InputActions.ProSim.PathLabel")}
         </Label>
-        <div id="path" className="rounded border p-2 text-sm" data-testid="pathValue">
-          {(config?.Path && config?.Path !== "")
+        <div
+          id="path"
+          className="rounded border p-2 text-sm"
+          data-testid="pathValue"
+        >
+          {config?.Path && config?.Path !== ""
             ? config?.Path
             : t(
                 "Dialog.InputConfigWizard.InputActions.ProSim.NoPresetSelected",
@@ -88,6 +92,7 @@ const ProSimInputActionPanel = ({
           {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
         </Label>
         <Input
+          className="font-mono text-sm whitespace-nowrap"
           id="param"
           placeholder={t(
             "Dialog.InputConfigWizard.InputActions.ProSim.ParameterPlaceholder",

@@ -15,7 +15,7 @@ export type JeehellInputActionPanelProps = {
 const JeehellInputActionPanel = ({
   variant,
   config,
-  onConfigChange
+  onConfigChange,
 }: JeehellInputActionPanelProps) => {
   const { t } = useTranslation()
   // In MsfsPresetPanel (or a dedicated hook)
@@ -31,7 +31,9 @@ const JeehellInputActionPanel = ({
     staleTime: Infinity, // presets don't change at runtime; HubHopState drives invalidation
   })
 
-  const selectedPreset = presets.find((item) => item.eventId === config?.EventId?.toString())
+  const selectedPreset = presets.find(
+    (item) => item.eventId === config?.EventId?.toString(),
+  )
 
   if (variant === "summary") {
     return (
@@ -60,9 +62,13 @@ const JeehellInputActionPanel = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <Label htmlFor="mouseParam">{t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}</Label>
+        <Label htmlFor="mouseParam">
+          {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}
+        </Label>
         <ComboBox
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Jeehell.SelectFunctionPlaceholder")}
+          placeholder={t(
+            "Dialog.InputConfigWizard.InputActions.Jeehell.SelectFunctionPlaceholder",
+          )}
           items={presets}
           getLabel={(item) => item.name}
           getValue={(item) => item.eventId}
@@ -76,11 +82,16 @@ const JeehellInputActionPanel = ({
           }
           widthClass="w-100"
         />
-        <p className="text-sm text-muted-foreground">{selectedPreset?.description}</p>
+        <p className="text-muted-foreground text-sm">
+          {selectedPreset?.description}
+        </p>
       </div>
       <div className="flex w-100 flex-col gap-2">
-        <Label htmlFor="value">{t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}</Label>
+        <Label htmlFor="value">
+          {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}
+        </Label>
         <Input
+          className="font-mono text-sm whitespace-nowrap"
           id="value"
           value={config?.Param ?? ""}
           onChange={(e) =>

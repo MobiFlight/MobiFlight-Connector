@@ -150,6 +150,7 @@ export const VariablePanel = ({
               )}
             </Label>
             <Input
+              className="font-mono text-sm whitespace-nowrap"
               value={variable.Expression}
               onKeyDown={(e) => {
                 e.stopPropagation()
