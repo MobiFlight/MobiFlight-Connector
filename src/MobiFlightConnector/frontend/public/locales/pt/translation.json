@@ -587,7 +587,7 @@
           "ClearInput": "Limpar entrada"
         },
         "FsuipcOffset": {
-          "Type": "Tipo",
+          "TypeLabel": "Tipo",
           "SizeLabel": "Tamanho",
           "OffsetLabel": "Deslocamento",
           "MaskLabel": "Máscara",
