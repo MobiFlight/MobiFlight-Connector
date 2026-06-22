@@ -10,7 +10,7 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
-import { IconEdit, IconPlus } from "@tabler/icons-react"
+import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
 export type ActionBindingPanelProps = {
@@ -64,6 +64,15 @@ const ActionBindingPanel = ({
       ...buttonOptions,
     })
   }
+
+  const removeAction = (event: string) => {
+    const updatedTrigger = {
+      ...current,
+      [event]: undefined,
+    }
+    onTriggerChange(updatedTrigger)
+  }
+
   return (
     <div
       data-testid="action-panel"
@@ -71,7 +80,8 @@ const ActionBindingPanel = ({
     >
       <div className="flex flex-col gap-1">
         <div className="text-lg font-semibold">
-          {t(`Dialog.InputConfigWizard.Action.Title`)}</div>
+          {t(`Dialog.InputConfigWizard.Action.Title`)}
+        </div>
         <div className="text-muted-foreground text-sm">
           {t(`Dialog.InputConfigWizard.Action.Description`)}
         </div>
@@ -88,7 +98,7 @@ const ActionBindingPanel = ({
           action?.Type && (
             <div key={event} className="flex flex-col gap-2">
               <div
-                className="hover:bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
+                className="group hover:bg-accent/30 flex flex-row items-center gap-4 rounded-md p-2"
                 onDoubleClick={() =>
                   onActionEdit(event, action, (newAction, buttonOptions) =>
                     handleOnActionChange(event, newAction, buttonOptions),
@@ -100,20 +110,34 @@ const ActionBindingPanel = ({
                   <div>{eventLabel}</div>
                 </div>
                 <ActionSummary action={action} />
-                <Button
-                  size={"sm"}
-                  variant="ghost"
-                  onClick={() => {
-                    onActionEdit(event, action, (newAction, buttonOptions) =>
-                      handleOnActionChange(event, newAction, buttonOptions),
-                    )
-                  }}
-                >
-                  <IconEdit />
-                  <span className="sr-only">
-                    {t(`Dialog.InputConfigWizard.Event.Edit`, { eventLabel })}
-                  </span>
-                </Button>
+                <div className="gap1 flex flex-row pt-4">
+                  <Button
+                    size={"sm"}
+                    className="px-2 py-1 h-8 text-red-600 hover:text-red-600 group-hover:visible invisible"
+                    variant="ghost"
+                    onClick={() => removeAction(event)}
+                  >
+                    <IconTrash />
+                    <span className="sr-only">
+                      {t(`Dialog.InputConfigWizard.Event.Delete`, { eventLabel })}
+                    </span>
+                  </Button>
+                  <Button
+                    size={"sm"}
+                    className="px-2 py-1 h-8 group-hover:text-foreground text-muted-foreground"
+                    variant="ghost"
+                    onClick={() => {
+                      onActionEdit(event, action, (newAction, buttonOptions) =>
+                        handleOnActionChange(event, newAction, buttonOptions),
+                      )
+                    }}
+                  >
+                    <IconEdit />
+                    <span className="sr-only">
+                      {t(`Dialog.InputConfigWizard.Event.Edit`, { eventLabel })}
+                    </span>
+                  </Button>
+                </div>
               </div>
               {!isLast && <Separator />}
             </div>
@@ -131,7 +155,7 @@ const ActionBindingPanel = ({
           )
           return (
             !action?.Type && (
-              <Button                
+              <Button
                 key={event}
                 size={"sm"}
                 variant="outline"
