@@ -251,10 +251,6 @@ const ConfigWizard = ({
                   buttonOptions={buttonOptions}
                   action={editAction}
                   onActionChange={(action, buttonOptions) => {
-                    console.log("Action updated in ActionEditor:", {
-                      action,
-                      buttonOptions,
-                    })
                     onActionChange?.(action, buttonOptions)
                     setEditAction(action)
                     if (buttonOptions) {

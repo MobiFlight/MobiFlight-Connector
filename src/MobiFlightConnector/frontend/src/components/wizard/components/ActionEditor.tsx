@@ -169,7 +169,6 @@ const ActionEditor = ({
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
-  console.log("Button options in ActionEditor:", buttonOptions)
   return (
     <Card data-testid="action-editor">
       <CardContent className="pt-4">
@@ -269,7 +268,9 @@ const ActionEditor = ({
             <ActionTypeComboBox
               selectedActionType={selectedActionType}
               setSelectedActionType={(option) => {
-                onActionChange({ ...action, Type: option?.value ?? null })
+                onActionChange(option ? { ...action,
+                                          Type: option.value 
+                                        } : null)
               }}
             />
             <CopyPasteActionPanel
