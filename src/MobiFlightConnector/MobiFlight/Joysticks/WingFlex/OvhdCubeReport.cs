@@ -38,12 +38,6 @@ namespace MobiFlight.Joysticks.WingFlex
         private byte[] LastInputBufferState = new byte[64];
         private byte[] LastOutputBufferState = new byte[64];
 
-        private readonly static Dictionary<byte, byte> DotByteMapping = new Dictionary<byte, byte>
-            {
-                { 19, 13 }, // Left LCD
-                { 21, 14 }  // Right LCD
-            };
-
         public OvhdCubeReport()
         {
             InitLastInputBufferState();

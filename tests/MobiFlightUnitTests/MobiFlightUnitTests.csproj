@@ -260,6 +260,7 @@
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoardTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500ReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\EfisCubeReportTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\OvhdCubeReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\RmpCubeReportTests.cs" />
     <Compile Include="MobiFlight\Modifier\ExponentialAverageTests.cs" />
     <Compile Include="MobiFlight\InputEventArgsTests.cs" />
