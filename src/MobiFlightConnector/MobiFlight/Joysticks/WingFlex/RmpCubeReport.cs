@@ -1,9 +1,6 @@
-﻿using CommandMessenger;
-using SharpDX.DirectInput;
+﻿using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
@@ -74,7 +71,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public ICubeReport Parse(byte[] inputBuffer)
         {
-            var result = new EfisCubeReport();
+            var result = new RmpCubeReport();
             result.CopyFromInputBuffer(inputBuffer);
 
             return result;
@@ -138,7 +135,7 @@ namespace MobiFlight.Joysticks.WingFlex
             // This ensures that if no device state explicitly sets power off,
             // the power will remain on by default.
             //
-            
+
             // This is required to make test mode work correctly, as test mode
             // requires power to be on to light up the single LED and the display.
             // 
@@ -154,8 +151,10 @@ namespace MobiFlight.Joysticks.WingFlex
 
                     var textWithoutDot = lcdDisplay.Text.Replace(".", "");
                     var paddedText = textWithoutDot.PadLeft(lcdDisplay.Cols, '0');
-                    UpdateLcdDisplay(item.Byte, paddedText.Substring(0, (int)Math.Floor(lcdDisplay.Cols / 2.0)));
-                    UpdateLcdDisplay(item.Byte + 1, paddedText.Substring((int)Math.Floor(lcdDisplay.Cols / 2.0)));
+                    var group1 = paddedText.Substring(0, (int)Math.Floor(lcdDisplay.Cols / 2.0));
+                    var group2 = paddedText.Substring((int)Math.Floor(lcdDisplay.Cols / 2.0));
+                    UpdateLcdDisplay(item.Byte, group1);
+                    UpdateLcdDisplay(item.Byte + 2, group2);
 
                     // Update visible digits based on original text length without dots
 
