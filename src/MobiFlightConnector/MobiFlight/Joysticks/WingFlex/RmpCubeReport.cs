@@ -136,18 +136,6 @@ namespace MobiFlight.Joysticks.WingFlex
             //  STBY / CRS Right 3 Digit    High 8 bits of Uint16, 000 - 999        -       25      -       0x00
             //  STBY / CRS Right 3 Digit    Low 8 bits of Uint16, 000 - 999         -       26      -       0x00
 
-            // Set default power state to ON before processing device states.
-            // This may be overridden by subsequent device state logic below.
-            // This ensures that if no device state explicitly sets power off,
-            // the power will remain on by default.
-            //
-
-            // This is required to make test mode work correctly, as test mode
-            // requires power to be on to light up the single LED and the display.
-            // 
-            // Apparently the RMP Cube doesn't use this
-            // LastOutputBufferState[8] |= 1;
-
             state.ForEach(item =>
             {
                 if (item.Type == DeviceType.LcdDisplay)
@@ -195,11 +183,12 @@ namespace MobiFlight.Joysticks.WingFlex
             // Update visible digits based on original text length without dots
 
             // update dot position based on first dot position in the original text
+            // update active digits
             if (DotByteMapping.ContainsKey(lcdDisplay.Byte))
             {
                 var dotByte = DotByteMapping[lcdDisplay.Byte];
                 // Always clear the dot
-                LastOutputBufferState[dotByte] = 0; 
+                LastOutputBufferState[dotByte] = 0;
                 if (hasDot)
                 {
                     int dotPosition = lcdDisplay.Text.IndexOf(".");
@@ -207,6 +196,16 @@ namespace MobiFlight.Joysticks.WingFlex
                     // example: 123.456 -> dot-position is 3 which is the 3rd digit from the left
                     // this seems to be fine for the resulting dot position too.
                     LastOutputBufferState[dotByte] = (byte)(dotPosition);
+                }
+
+                // enable digits based on length of the text without dots, but only if the text is not empty
+                var digitByte = dotByte + 2;
+                // Always clear the digit enable bits
+                LastOutputBufferState[digitByte] = 0;
+                if (!string.IsNullOrEmpty(textWithoutDot))
+                {
+                    int visibleDigits = textWithoutDot.Length;
+                    LastOutputBufferState[digitByte] |= (byte)(visibleDigits & 0x0F);
                 }
             }
             // continue with next item, as we have already processed the LCD display state

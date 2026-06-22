@@ -195,6 +195,12 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0xE7, result[20], "Low byte should be 0xE7");
             Assert.AreEqual(0x03, result[21], "High byte should be 0x03");
             Assert.AreEqual(0xE7, result[22], "Low byte should be 0xE7");
+
+            // Assert dot position -> no dot!
+            Assert.AreEqual(0x00, result[13], "There should be no dot set");
+
+            // Assert active digits
+            Assert.AreEqual(0x06, result[15], "There should be all 6 digits set");
         }
 
         [TestMethod]
@@ -224,6 +230,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert dot position
             Assert.AreEqual(0x03, result[13], "Dot position byte should indicate dot after 3rd digit");
+
+            // Assert active digits
+            Assert.AreEqual(0x06, result[15], "There should be all 6 digits set");
         }
 
         [TestMethod]
@@ -253,6 +262,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert dot position, only first dot is rendered
             Assert.AreEqual(0x02, result[13], "Dot position byte should indicate dot after 2rd digit");
+
+            // Assert active digits
+            Assert.AreEqual(0x06, result[15], "There should be all 6 digits set");
         }
 
         [TestMethod]
@@ -279,6 +291,12 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0x00, result[20], "Low byte should be 0x00");
             Assert.AreEqual(0x00, result[21], "High byte should be 0x00");
             Assert.AreEqual(0x7B, result[22], "Low byte should be 0x7B");
+
+            // Assert dot position -> no dot!
+            Assert.AreEqual(0x00, result[13], "There should be no dot set");
+
+            // Assert active digits
+            Assert.AreEqual(0x03, result[15], "There should be 3 digits set");
         }
 
         [TestMethod]
@@ -305,10 +323,16 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0x00, result[20], "Low byte should be 0x00");
             Assert.AreEqual(0x00, result[21], "High byte should be 0x00");
             Assert.AreEqual(0x09, result[22], "Low byte should be 0x09");
+
+            // Assert dot position -> no dot!
+            Assert.AreEqual(0x00, result[13], "There should be no dot set");
+
+            // Assert active digits
+            Assert.AreEqual(0x01, result[15], "There should be 1 digit set");
         }
 
         [TestMethod]
-        public void FromOutputDeviceState_LcdDisplay_NonVS_HandlesZeroValue()
+        public void FromOutputDeviceState_LcdDisplay_HandlesZeroValue()
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
@@ -333,10 +357,16 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0x00, result[20], "Low byte should be 0x00");
             Assert.AreEqual(0x00, result[21], "High byte should be 0x00");
             Assert.AreEqual(0x00, result[22], "Low byte should be 0x00");
+
+            // Assert dot position -> no dot!
+            Assert.AreEqual(0x00, result[13], "There should be no dot set");
+
+            // Assert active digits
+            Assert.AreEqual(0x01, result[15], "There should be 1 digit set");
         }
 
         [TestMethod]
-        public void FromOutputDeviceState_LcdDisplay_NonVS_HandlesEmptyStringValue()
+        public void FromOutputDeviceState_LcdDisplay_HandlesEmptyStringValue()
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
@@ -361,6 +391,12 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0x00, result[20], "Low byte should be 0x00");
             Assert.AreEqual(0x00, result[21], "High byte should be 0x00");
             Assert.AreEqual(0x00, result[22], "Low byte should be 0x00");
+
+            // Assert dot position -> no dot!
+            Assert.AreEqual(0x00, result[13], "There should be no dot set");
+
+            // Assert active digits
+            Assert.AreEqual(0x00, result[15], "There should be 0 digit set");
         }
 
         [TestMethod]
