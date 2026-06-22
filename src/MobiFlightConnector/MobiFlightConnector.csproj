@@ -437,6 +437,8 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\BaseCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\OvhdCube.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\OvhdCubeReport.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\RmpCubeReport.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\RmpCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\EfisCube.cs" />
@@ -1474,6 +1476,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\wingflex\wingflex_efiscube.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\wingflex\wingflex_ovhdcube.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\wingflex\wingflex_rmpcube.joystick.json">

@@ -16,6 +16,7 @@ namespace MobiFlight.Joysticks
                 case "RMP Cube":
                 case "EFIS Cube":
                 case "FCU Cube":
+                case "OVHD Cube":
                     return true;
             }
 
@@ -34,6 +35,9 @@ namespace MobiFlight.Joysticks
                     break;
                 case "FCU Cube":
                     result = new WingFlex.FcuCube(definition);
+                    break;
+                case "OVHD Cube":
+                    result = new WingFlex.OvhdCube(definition);
                     break;
             }
 
