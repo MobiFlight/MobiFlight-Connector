@@ -85,6 +85,7 @@ namespace MobiFlight.Execution
                 if (!cfg.Active)
                 {
                     Log.Instance.log($"{msgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
+                    cfg.button?.StopTimers();
                     continue;
                 }
 
@@ -93,10 +94,14 @@ namespace MobiFlight.Execution
                     if (!CheckPreconditions(cfg))
                     {
                         Log.Instance.log($"{msgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
+                        cfg.button?.StopTimers();
                         continue;
                     }
 
                     Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
+
+                    if (cfg.button != null)
+                        cfg.button.CanExecute = () => cfg.Active && CheckPreconditions(cfg);
 
                     cfg.RawValue = e.GetEventActionLabel();
                     cfg.Value = " ";

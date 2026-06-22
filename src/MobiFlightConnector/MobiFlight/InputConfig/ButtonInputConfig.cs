@@ -2,6 +2,7 @@
 using System.Timers;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace MobiFlight.InputConfig
 {
@@ -24,6 +25,10 @@ namespace MobiFlight.InputConfig
         private Timer HoldTimer = new Timer();
         private Timer RepeatTimer = new Timer();
         private volatile bool _holdTimersStopped = false;
+
+        [XmlIgnore]
+        [JsonIgnore]
+        public Func<bool> CanExecute { get; set; }
 
         public ButtonInputConfig()
         {
@@ -188,6 +193,7 @@ namespace MobiFlight.InputConfig
 
         private void ExecuteOnHoldAction()
         {
+            if (CanExecute != null && !CanExecute()) { StopTimers(); return; }
             lock (LastOnPressLock)
             {
                 InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
