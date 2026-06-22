@@ -41,6 +41,12 @@ namespace MobiFlight.Joysticks.WingFlex
         private byte[] LastInputBufferState = new byte[64];
         private byte[] LastOutputBufferState = new byte[64];
 
+        private readonly static Dictionary<byte, byte> DotByteMapping = new Dictionary<byte, byte>
+            {
+                { 19, 13 }, // Left LCD
+                { 21, 14 }  // Right LCD
+            };
+
         public RmpCubeReport()
         {
             InitLastInputBufferState();
@@ -146,19 +152,7 @@ namespace MobiFlight.Joysticks.WingFlex
             {
                 if (item.Type == DeviceType.LcdDisplay)
                 {
-                    var lcdDisplay = item as JoystickOutputDisplay;
-                    if (lcdDisplay == null) return;
-
-                    var textWithoutDot = lcdDisplay.Text.Replace(".", "");
-                    var paddedText = textWithoutDot.PadLeft(lcdDisplay.Cols, '0');
-                    var group1 = paddedText.Substring(0, (int)Math.Floor(lcdDisplay.Cols / 2.0));
-                    var group2 = paddedText.Substring((int)Math.Floor(lcdDisplay.Cols / 2.0));
-                    UpdateLcdDisplay(item.Byte, group1);
-                    UpdateLcdDisplay(item.Byte + 2, group2);
-
-                    // Update visible digits based on original text length without dots
-
-                    // update dot position based on first dot position in the original text
+                    UpdateLcdDisplayOutputState(item);
                     return;
                 }
 
@@ -182,6 +176,41 @@ namespace MobiFlight.Joysticks.WingFlex
             });
 
             return LastOutputBufferState.Clone() as byte[];
+        }
+
+        private void UpdateLcdDisplayOutputState(JoystickOutputDevice item)
+        {
+
+            var lcdDisplay = item as JoystickOutputDisplay;
+            if (lcdDisplay == null) return;
+
+            var hasDot = lcdDisplay.Text.Contains(".");
+            var textWithoutDot = lcdDisplay.Text.Replace(".", "");
+            var paddedText = textWithoutDot.PadLeft(lcdDisplay.Cols, '0');
+            var group1 = paddedText.Substring(0, (int)Math.Floor(lcdDisplay.Cols / 2.0));
+            var group2 = paddedText.Substring((int)Math.Floor(lcdDisplay.Cols / 2.0));
+            UpdateLcdDisplay(item.Byte, group1);
+            UpdateLcdDisplay(item.Byte + 2, group2);
+
+            // Update visible digits based on original text length without dots
+
+            // update dot position based on first dot position in the original text
+            if (DotByteMapping.ContainsKey(lcdDisplay.Byte))
+            {
+                var dotByte = DotByteMapping[lcdDisplay.Byte];
+                // Always clear the dot
+                LastOutputBufferState[dotByte] = 0; 
+                if (hasDot)
+                {
+                    int dotPosition = lcdDisplay.Text.IndexOf(".");
+                    // the dot position corresponds to the position of the dot in the original text
+                    // example: 123.456 -> dot-position is 3 which is the 3rd digit from the left
+                    // this seems to be fine for the resulting dot position too.
+                    LastOutputBufferState[dotByte] = (byte)(dotPosition);
+                }
+            }
+            // continue with next item, as we have already processed the LCD display state
+            return;
         }
 
         protected void UpdateLcdDisplay(int byteIndex, string text)

@@ -221,10 +221,13 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0xE7, result[20], "Low byte should be 0xE7");
             Assert.AreEqual(0x03, result[21], "High byte should be 0x03");
             Assert.AreEqual(0xE7, result[22], "Low byte should be 0xE7");
+
+            // Assert dot position
+            Assert.AreEqual(0x03, result[13], "Dot position byte should indicate dot after 3rd digit");
         }
 
         [TestMethod]
-        public void FromOutputDeviceState_LcdDisplay_ParsesNumericValue_999dot9dot99()
+        public void FromOutputDeviceState_LcdDisplay_ParsesNumericValue_99dot99dot99()
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
@@ -233,7 +236,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
                 Type = DeviceType.LcdDisplay,
                 Byte = 19,
                 Cols = 6,
-                Text = "999.999"
+                Text = "99.99.99"
             };
             var devices = new List<JoystickOutputDevice> { lcdDisplay };
 
@@ -247,6 +250,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.AreEqual(0xE7, result[20], "Low byte should be 0xE7");
             Assert.AreEqual(0x03, result[21], "High byte should be 0x03");
             Assert.AreEqual(0xE7, result[22], "Low byte should be 0xE7");
+
+            // Assert dot position, only first dot is rendered
+            Assert.AreEqual(0x02, result[13], "Dot position byte should indicate dot after 2rd digit");
         }
 
         [TestMethod]
