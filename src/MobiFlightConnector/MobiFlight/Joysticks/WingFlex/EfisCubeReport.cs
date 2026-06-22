@@ -1,19 +1,10 @@
-﻿using CommandMessenger;
-using NCalc;
-using SharpDX.DirectInput;
+﻿using SharpDX.DirectInput;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Threading.Tasks;
-using System.Windows.Markup;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
-    internal class EfisCubeReport
+    internal class EfisCubeReport : ICubeReport
     {
         // -                Head                         Constant: 0xF2                          -       0       -       0xF2
         // -                Head                         Constant: 0xE1                          -       1       -       0xE1
@@ -31,10 +22,10 @@ namespace MobiFlight.Joysticks.WingFlex
         // -                Head                         Constant: 0xE1                          -       1       -       0xE1
         // -                Head                         Constant: 0x05                          -       2       -       0x05
         private readonly static byte[] OutputHeader = new byte[] { 0xF2, 0xE1, 0x05 };
-        // -                Data Type Total              Has 3 Data Type                         -       3       -       0x02
+        // -                Data Type Total              Has 3 Data Type                         -       3       -       0x03
         // -                Data Type                    Bit Type                                -       4       -       0x01
-        // -                Data Length                  Following data occupies 3 Bytes         -       5       -       0x02
-        private readonly static byte[] OutputBitSection = new byte[] { 0x02, 0x01, 0x02 };
+        // -                Data Length                  Following data occupies 3 Bytes         -       5       -       0x03
+        private readonly static byte[] OutputBitSection = new byte[] { 0x03, 0x01, 0x03 };
         // -                Data Type                    Single Byte Type                        -       9       -       0x02
         // -                Data Length                  Following data occupies 2 Bytes         -       10      -       0x02
         // Output           Background Light Brightness  0x00(Minimum)~0xFF(Maximum)             -       11      -       0
@@ -74,7 +65,7 @@ namespace MobiFlight.Joysticks.WingFlex
             LastInputBufferState = (byte[])inputBuffer?.Clone();
         }
 
-        public EfisCubeReport Parse(byte[] inputBuffer)
+        public ICubeReport Parse(byte[] inputBuffer)
         {
             var result = new EfisCubeReport();
             result.CopyFromInputBuffer(inputBuffer);
