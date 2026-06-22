@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Joysticks.WingFlex;
 using System;
 
-namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
+namespace MobiFlight.Joysticks.WingFlex.Tests
 {
     [TestClass]
     public class Dap500ReportTests
