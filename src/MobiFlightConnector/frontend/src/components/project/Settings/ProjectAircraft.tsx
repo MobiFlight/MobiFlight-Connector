@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/drawer"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Preset } from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
+import { cn } from "@/lib/utils"
 import { AircraftInfo, SimulatorType } from "@/types/project"
 import { IconArrowBack, IconEdit } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
@@ -24,23 +24,44 @@ const AircraftItem = ({
   checked,
   onChecked,
 }: {
-  aircraft: AircraftInfo
+  aircraft: AircraftInfoWithStats
   checked: boolean
   onChecked: (aircraft: AircraftInfo) => void
 }) => {
   return (
-    <div className="flex flex-row items-center gap-4 rounded-md border p-2">
+    <div
+      className={`hover:bg-accent flex cursor-pointer flex-row items-center gap-4 rounded-md border px-4 py-1 ${checked && "border-primary"}`}
+      onClick={() => onChecked(aircraft)}
+    >
       <Checkbox
         checked={checked}
         onCheckedChange={() => onChecked(aircraft)}
       ></Checkbox>
-      <span className="w-56 font-medium">
-        {aircraft.Vendor ?? "Unknown Vendor"}
-      </span>
-      <span className="font-medium">{aircraft.Name ?? "Unknown Aircraft"}</span>
+      <div className="flex grow flex-col font-medium">
+        <div className="grow font-medium">
+          {aircraft.Name ?? "Unknown Aircraft"}
+        </div>
+        <div className="text-muted-foreground text-xs">
+          {aircraft.Vendor ?? "Unknown Vendor"}
+        </div>
+      </div>
+      {aircraft.Count > 0 && (
+        <div className="w-32 text-right text-sm font-medium">
+          {aircraft.Count} Presets
+        </div>
+      )}
     </div>
   )
 }
+
+type AircraftStats = {
+  Count: number
+  Input: boolean
+  Output: boolean
+  Potentiometer: boolean
+}
+
+type AircraftInfoWithStats = AircraftInfo & AircraftStats
 
 export interface ProjectAircraftProps {
   selectedAircraft: AircraftInfo[]
@@ -76,13 +97,32 @@ const ProjectAircraftDrawer = ({
     staleTime: Infinity,
   })
 
-  const availableAircraft = [
-    ...new Set(presets.map((p: Preset) => `${p.vendor}###${p.aircraft}`)),
-  ]
-    .map((uniqueAircraft) => {
-      const [Vendor, Name] = uniqueAircraft.split("###")
-      return { Vendor, Name }
+  const aircarftStatsMap = new Map<string, AircraftInfoWithStats>()
+
+  presets.forEach((p) => {
+    const key = `${p.vendor}###${p.aircraft}`
+    const existing = aircarftStatsMap.get(key)
+
+    if (existing) {
+      existing.Count += 1
+      existing.Input = existing.Input || p.presetType === "input"
+      existing.Output = existing.Output || p.presetType === "output"
+      existing.Potentiometer =
+        existing.Potentiometer || p.presetType === "potentiometer"
+      return
+    }
+    aircarftStatsMap.set(key, {
+      Vendor: p.vendor,
+      Name: p.aircraft,
+      Count: 1,
+      Input: p.presetType === "input",
+      Output: p.presetType === "output",
+      Potentiometer: p.presetType === "potentiometer",
     })
+  })
+
+  const allAircraftWithStats = [...aircarftStatsMap.values()]
+  const availableAircraft = allAircraftWithStats
     .map((ac) => ({
       selected: selectedAircraft.some(
         (a) => a.Name === ac.Name && a.Vendor === ac.Vendor,
@@ -99,7 +139,6 @@ const ProjectAircraftDrawer = ({
     .sort((a, b) => a.Vendor?.localeCompare(b.Vendor || "") || 0)
 
   const addAircraft = (aircraft: AircraftInfo) => {
-    console.log("Adding aircraft", aircraft)
     const prev = selectedAircraft
     prev.push(aircraft)
     setSelectedAircraft([...prev])
@@ -111,6 +150,20 @@ const ProjectAircraftDrawer = ({
     )
     setSelectedAircraft([...prev])
   }
+
+  const selectedAircraftWithStats = selectedAircraft.map((ac) => {
+    return (
+      allAircraftWithStats.find(
+        (a) => a.Name === ac.Name && a.Vendor === ac.Vendor,
+      ) ?? {
+        ...ac,
+        Count: 0,
+        Input: false,
+        Output: false,
+        Potentiometer: false,
+      }
+    )
+  })
 
   return (
     <Drawer
@@ -136,30 +189,40 @@ const ProjectAircraftDrawer = ({
             Define one more aircraft that should be enabled for this project.
           </div>
           <div className="text-lg font-bold">Selected Aircraft</div>
-          {selectedAircraft.length === 0 ? (
-            <div className="text-muted-foreground text-sm">
-              No aircraft defined.
-            </div>
-          ) : (
-            <div className="flex flex-col gap-2">
-              {selectedAircraft.map((ac, index) => (
-                <AircraftItem
-                  key={`${index}`}
-                  aircraft={ac}
-                  checked={true}
-                  onChecked={removeAircraft}
-                />
-              ))}
-            </div>
-          )}
-          <div className="text-md">Available Aircraft</div>
-          <Input
-            placeholder="Search..."
-            className="mb-2"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
-          <div className="text-md flex flex-col gap-1 overflow-y-auto">
+          <div
+            className={cn(
+              `text-md flex flex-col gap-1`,
+              selectedAircraftWithStats.length >= 4 &&
+                "overflow-y-auto min-h-56",
+            )}
+          >
+            {selectedAircraftWithStats.length === 0 ? (
+              <div className="text-muted-foreground text-sm">
+                No aircraft defined.
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {selectedAircraftWithStats.map((ac, index) => (
+                  <AircraftItem
+                    key={`${index}`}
+                    aircraft={ac}
+                    checked={true}
+                    onChecked={removeAircraft}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col gap-2 pr-3">
+            <div className="text-md">Available Aircraft</div>
+            <Input
+              placeholder="Search..."
+              className="mb-2"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+          </div>
+          <div className="text-md flex min-h-32 flex-col gap-1 overflow-y-auto">
             {availableAircraft.length === 0 ? (
               <div className="text-muted-foreground text-sm">
                 No aircraft matches current filter.
