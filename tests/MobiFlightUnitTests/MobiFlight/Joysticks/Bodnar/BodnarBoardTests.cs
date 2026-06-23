@@ -4,6 +4,7 @@ using MobiFlight.Joysticks.Bodnar;
 using SharpDX.DirectInput;
 using System.Collections.Generic;
 using DeviceType = MobiFlight.DeviceType;
+using JoystickState = MobiFlight.Joysticks.JoystickState;
 
 namespace MobiFlightUnitTests.MobiFlight.Joysticks.Bodnar
 {

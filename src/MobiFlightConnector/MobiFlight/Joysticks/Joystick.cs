@@ -5,6 +5,7 @@ using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JoystickState = MobiFlight.Joysticks.JoystickState;
 
 namespace MobiFlight
 {
@@ -329,7 +330,7 @@ namespace MobiFlight
             {
                 DIJoystick.Poll();
 
-                JoystickState newState = DIJoystick.GetCurrentState();
+                JoystickState newState = JoystickState.Create(DIJoystick.GetCurrentState());
                 lock (StateLock)
                 {
                     UpdateButtons(newState);
