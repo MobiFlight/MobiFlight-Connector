@@ -95,7 +95,8 @@ namespace MobiFlight.Joysticks.WingFlex
                 Name = $"{Name}-HID-Reader"
             };
             readThread.Start();
-
+            Log.Instance.log($"Connected to {Name} with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Debug);
+            Log.Instance.log($"Starting read thread for HID reports. {Name}-HID-Reader", LogSeverity.Debug);
             return true;
         }
 
@@ -112,8 +113,10 @@ namespace MobiFlight.Joysticks.WingFlex
                     var data = HidReport.TransferResult.Data;
                     ProcessInputReportBuffer(HidReport.ReportId, data);
                 }
-                catch
+                catch (Exception ex) 
                 {
+                    Log.Instance.log($"Exception during read from {Name} ({ex.GetType().Name}): {ex.Message}", LogSeverity.Error);
+                    Log.Instance.log($"Stopping read thread and shutting down device {Name}.", LogSeverity.Error);
                     // Exception when disconnecting fcu while mobiflight is running.
                     Shutdown();
                     break;
