@@ -107,12 +107,12 @@
     {
       "Id": 21,
       "Type": "Button",
-      "Label": "Transponder - ON"
+      "Label": "Transponder - AUTO"
     },
     {
       "Id": 22,
       "Type": "Button",
-      "Label": "Transponder - AUTO"
+      "Label": "Transponder - ON"
     },
     {
       "Id": 23,
