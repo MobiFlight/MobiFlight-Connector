@@ -174,53 +174,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         #region LCD Display Tests
 
         [TestMethod]
-        public void FromOutputDeviceState_LcdDisplay_ParsesNumericValue_999()
-        {
-            // Arrange
-            var lcdDisplay = new JoystickOutputDisplay
-            {
-                Name = "Active",
-                Type = DeviceType.LcdDisplay,
-                Byte = 23,
-                Cols = 3,
-                Text = "999"
-            };
-            var devices = new List<JoystickOutputDevice> { lcdDisplay };
-
-            // Act
-            var result = _report.FromOutputDeviceState(devices);
-
-            // Assert
-            // Digit group will show 999 => 0x03E7, so high byte = 0x03, low byte = 0xE7
-            Assert.AreEqual(0x03, result[23], "High byte should be 0x03");
-            Assert.AreEqual(0xE7, result[24], "Low byte should be 0xE7");
-        }
-
-        [TestMethod]
-        public void FromOutputDeviceState_LcdDisplay_ParsesNumericValue_999dot999()
-        {
-            // Arrange
-            var lcdDisplay = new JoystickOutputDisplay
-            {
-                Name = "Active",
-                Type = DeviceType.LcdDisplay,
-                Byte = 23,
-                Cols = 3,
-                Text = "9.99"
-            };
-            var devices = new List<JoystickOutputDevice> { lcdDisplay };
-
-            // Act
-            var result = _report.FromOutputDeviceState(devices);
-
-            // Assert
-            // Digit group will show 999 => 0x03E7, so high byte = 0x03, low byte = 0xE7
-            Assert.AreEqual(0x03, result[23], "High byte should be 0x03");
-            Assert.AreEqual(0xE7, result[24], "Low byte should be 0xE7");
-        }
-
-        [TestMethod]
-        public void FromOutputDeviceState_LcdDisplay_ParsesNumericValue_9()
+        public void FromOutputDeviceState_LcdDisplay_L_ParsesNumericValue_9()
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
@@ -241,6 +195,194 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             // Right digit group will show 9 => 0x0009, so high byte = 0x00, low byte = 0x09
             Assert.AreEqual(0x00, result[23], "High byte should be 0x00");
             Assert.AreEqual(0x09, result[24], "Low byte should be 0x09");
+
+            // And the Volt Display L has to be turned on
+            Assert.AreEqual(0x01, result[15], "Volt Display L should be turned on");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_LcdDisplay_L_ParsesNumericValue_99()
+        {
+            // Arrange
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Name = "Active",
+                Type = DeviceType.LcdDisplay,
+                Byte = 23,
+                Cols = 3,
+                Text = "99"
+            };
+            var devices = new List<JoystickOutputDevice> { lcdDisplay };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            // Left digit group will show nothing => 0x0000, so high byte = 0x00, low byte = 0x00
+            // Right digit group will show 99 => 0x0063, so high byte = 0x00, low byte = 0x63
+            Assert.AreEqual(0x00, result[23], "High byte should be 0x00");
+            Assert.AreEqual(0x63, result[24], "Low byte should be 0x63");
+
+            // And the Volt Display L has to be turned on
+            Assert.AreEqual(0x01, result[15], "Volt Display L should be turned on");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_LcdDisplay_L_ParsesNumericValue_999()
+        {
+            // Arrange
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Name = "Active",
+                Type = DeviceType.LcdDisplay,
+                Byte = 23,
+                Cols = 3,
+                Text = "999"
+            };
+            var devices = new List<JoystickOutputDevice> { lcdDisplay };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            // Digit group will show 999 => 0x03E7, so high byte = 0x03, low byte = 0xE7
+            Assert.AreEqual(0x03, result[23], "High byte should be 0x03");
+            Assert.AreEqual(0xE7, result[24], "Low byte should be 0xE7");
+
+            // And the Volt Display L has to be turned on
+            Assert.AreEqual(0x01, result[15], "Volt Display L should be turned on");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_LcdDisplay_L_ParsesNumericValue_99dot9()
+        {
+            // Arrange
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Name = "Active",
+                Type = DeviceType.LcdDisplay,
+                Byte = 23,
+                Cols = 3,
+                Text = "99.9"
+            };
+            var devices = new List<JoystickOutputDevice> { lcdDisplay };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            // Digit group will show 999 => 0x03E7, so high byte = 0x03, low byte = 0xE7
+            Assert.AreEqual(0x03, result[23], "High byte should be 0x03");
+            Assert.AreEqual(0xE7, result[24], "Low byte should be 0xE7");
+
+            // And the Volt Display L has to be turned on
+            Assert.AreEqual(0x01, result[15], "Volt Display L should be turned on");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_LcdDisplay_R_ParsesNumericValue_9()
+        {
+            // Arrange
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Name = "Active",
+                Type = DeviceType.LcdDisplay,
+                Byte = 25,
+                Cols = 3,
+                Text = "9"
+            };
+            var devices = new List<JoystickOutputDevice> { lcdDisplay };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            // Left digit group will show nothing => 0x0000, so high byte = 0x00, low byte = 0x00
+            // Right digit group will show 9 => 0x0009, so high byte = 0x00, low byte = 0x09
+            Assert.AreEqual(0x00, result[25], "High byte should be 0x00");
+            Assert.AreEqual(0x09, result[26], "Low byte should be 0x09");
+
+            // And the Volt Display R has to be turned on
+            Assert.AreEqual(0x02, result[15], "Volt Display R should be turned on");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_LcdDisplay_R_ParsesNumericValue_99()
+        {
+            // Arrange
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Name = "Active",
+                Type = DeviceType.LcdDisplay,
+                Byte = 25,
+                Cols = 3,
+                Text = "99"
+            };
+            var devices = new List<JoystickOutputDevice> { lcdDisplay };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            // Left digit group will show nothing => 0x0000, so high byte = 0x00, low byte = 0x00
+            // Right digit group will show 99 => 0x0063, so high byte = 0x00, low byte = 0x63
+            Assert.AreEqual(0x00, result[25], "High byte should be 0x00");
+            Assert.AreEqual(0x63, result[26], "Low byte should be 0x63");
+
+            // And the Volt Display R has to be turned on
+            Assert.AreEqual(0x02, result[15], "Volt Display R should be turned on");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_LcdDisplay_R_ParsesNumericValue_999()
+        {
+            // Arrange
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Name = "Active",
+                Type = DeviceType.LcdDisplay,
+                Byte = 25,
+                Cols = 3,
+                Text = "999"
+            };
+            var devices = new List<JoystickOutputDevice> { lcdDisplay };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            // Digit group will show 999 => 0x03E7, so high byte = 0x03, low byte = 0xE7
+            Assert.AreEqual(0x03, result[25], "High byte should be 0x03");
+            Assert.AreEqual(0xE7, result[26], "Low byte should be 0xE7");
+
+            // And the Volt Display R has to be turned on
+            Assert.AreEqual(0x02, result[15], "Volt Display R should be turned on");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_LcdDisplay_R_ParsesNumericValue_99dot9()
+        {
+            // Arrange
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Name = "Active",
+                Type = DeviceType.LcdDisplay,
+                Byte = 25,
+                Cols = 3,
+                Text = "99.9"
+            };
+            var devices = new List<JoystickOutputDevice> { lcdDisplay };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            // Digit group will show 999 => 0x03E7, so high byte = 0x03, low byte = 0xE7
+            Assert.AreEqual(0x03, result[25], "High byte should be 0x03");
+            Assert.AreEqual(0xE7, result[26], "Low byte should be 0xE7");
+
+            // And the Volt Display R has to be turned on
+            Assert.AreEqual(0x02, result[15], "Volt Display R should be turned on");
         }
 
         [TestMethod]

@@ -37,6 +37,9 @@ namespace MobiFlight.Joysticks.WingFlex
         private byte[] LastInputBufferState = new byte[64];
         private byte[] LastOutputBufferState = new byte[64];
 
+        const byte VOLT_DISPLAY_LEFT = 23;
+        const byte VOLT_DISPLAY_RIGHT = 25;
+
         public OvhdCubeReport()
         {
             InitLastInputBufferState();
@@ -199,7 +202,7 @@ namespace MobiFlight.Joysticks.WingFlex
                 // Background Brightness = 18
                 // Volt L Light Brightness = 19
                 // Volt R Light Brightness = 20
-                else if (itemByte == 18 || itemByte == 19 || itemByte == 20) 
+                else if (itemByte == 18 || itemByte == 19 || itemByte == 20)
                 {
                     LastOutputBufferState[itemByte] = item.State;
                 }
@@ -217,6 +220,17 @@ namespace MobiFlight.Joysticks.WingFlex
             var text = lcdDisplay.Text.Replace(".", "");
             var paddedText = text.PadLeft(lcdDisplay.Cols, '0');
             UpdateLcdDisplay(item.Byte, paddedText);
+
+            if (lcdDisplay.Byte == VOLT_DISPLAY_LEFT)
+            {
+                // enable the volt display left
+                LastOutputBufferState[15] |= (byte)(1);
+            }
+            else if (lcdDisplay.Byte == VOLT_DISPLAY_RIGHT)
+            {
+                // enable the volt display right
+                LastOutputBufferState[15] |= (byte)(2);
+            }
 
             // continue with next item,
             // as we have already processed the LCD display state
