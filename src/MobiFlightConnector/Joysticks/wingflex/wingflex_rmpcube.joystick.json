@@ -308,30 +308,6 @@
       "Bit": 0
     },
     {
-      "Label": "Left Dot Position",
-      "Id": "left.dot.pos",
-      "Byte": 13,
-      "Bit": 0
-    },
-    {
-      "Label": "Right Dot Position",
-      "Id": "right.dot.pos",
-      "Byte": 14,
-      "Bit": 0
-    },
-    {
-      "Label": "Left Digits",
-      "Id": "left.digits",
-      "Byte": 15,
-      "Bit": 0
-    },
-    {
-      "Label": "Right Digits",
-      "Id": "right.digits",
-      "Byte": 16,
-      "Bit": 0
-    },
-    {
       "Label": "Active Lcd",
       "Id": "active.lcd",
       "Type": "LcdDisplay",
@@ -341,7 +317,7 @@
     },
     {
       "Label": "Standby Lcd",
-      "Id": "standby.l.lcd",
+      "Id": "standby.lcd",
       "Type": "LcdDisplay",
       "Byte": 23,
       "Cols": 6,
