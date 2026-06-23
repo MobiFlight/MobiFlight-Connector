@@ -231,44 +231,46 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public JoystickState ToJoystickState()
         {
-            //  Name                Note                                Mask    Byte[]  Bit[]   Example
-            //  Head                Constant: 0xF2                              0       -       0xF2
-            //  Head                Constant: 0xE1                              1       -       0xE1
-            //  Head                Constant: 0x06                              2       -       0x06
-            //  Data Type Total     Has 2 Data Type                             3       -       0x02
-            //  Data Type           Bit Type                                    4       -       0x01
-            //  Data Length         Following data occupies 4 Bytes             5       -       0x04
-            //  Transfer Key        Press: 1, Release: 0                0x01    6       0       0
-            //  VHF1 Key            Press: 1, Release: 0                0x02    6       1       0
-            //  VHF2 Key            Press: 1, Release: 0                0x04    6       2       0
-            //  VHF3 Key            Press: 1, Release: 0                0x08    6       3       0
-            //  LOAD Key            Press: 1, Release: 0                0x10    6       4       0
-            //  HF1 Key             Press: 1, Release: 0                0x20    6       5       0
-            //  HF2 Key             Press: 1, Release: 0                0x40    6       6       0
-            //  ATC Key             Press: 1, Release: 0                0x80    6       7       0
-            //  NAV Key             Push: 1, Release: 0                 0x01    7       0       0
-            //  VOR Key             Pull: 1, Release: 0                 0x02    7       1       0
-            //  ILS Key             Push: 1, Release: 0                 0x04    7       2       0
-            //  GLS Key             Pull: 1, Release: 0                 0x08    7       3       0
-            //  MLS Key             Press: 1, Release: 0                0x10    7       4       0
-            //  ADF Key             Press: 1, Release: 0                0x20    7       5       0
-            //  Encoder Key -IDENT  Press: 1, Release: 0                0x40    7       6       0
-            //  Power On            Press: 1, Release: 0                0x80    7       7       1
-            //  Power Off           Press: 1, Release: 0                0x01    8       0       0
-            //  ATC MSG Key         Press: 1, Release: 0                0x02    8       1       0
-            //  AUTO LAND Key       Press: 1, Release: 0                0x04    8       2       0
-            //  Mode Selector -STBY Pointing: 1, Non - pointing: 0      0x08    8       3       1
-            //  Mode Selector -ON   Pointing: 1, Non - pointing: 0      0x10    8       4       0
-            //  Mode Selector -AUTO Pointing: 1, Non - pointing: 0      0x20    8       5       0
-            //  TCAS Mode -STBY     Pointing: 1, Non - pointing: 0      0x40    8       6       1
-            //  TCAS Mode -TA       Pointing: 1, Non - pointing: 0      0x80    8       7       0
-            //  TCAS Mode -TA / RA  Pointing: 1, Non - pointing: 0      0x01    9       0       0
+            //  Name                                Note                                Mask    Byte[]  Bit[]   Example
+            //  Head                                Constant: 0xF2                              0       -       0xF2
+            //  Head                                Constant: 0xE1                              1       -       0xE1
+            //  Head                                Constant: 0x06                              2       -       0x06
+            //  Data Type Total                     Has 2 Data Type                             3       -       0x02
+            //  Data Type                           Bit Type                                    4       -       0x01
+            //  Data Length                         Following data occupies 4 Bytes             5       -       0x04
+            //  Transfer Key                        Press: 1, Release: 0                0x01    6       0       0
+            //  VHF1 Key                            Press: 1, Release: 0                0x02    6       1       0
+            //  VHF2 Key                            Press: 1, Release: 0                0x04    6       2       0
+            //  VHF3 Key                            Press: 1, Release: 0                0x08    6       3       0
+            //  LOAD Key                            Press: 1, Release: 0                0x10    6       4       0
+            //  HF1 Key                             Press: 1, Release: 0                0x20    6       5       0
+            //  HF2 Key                             Press: 1, Release: 0                0x40    6       6       0
+            //  ATC Key                             Press: 1, Release: 0                0x80    6       7       0
+            //  NAV Key                             Push: 1, Release: 0                 0x01    7       0       0
+            //  VOR Key                             Pull: 1, Release: 0                 0x02    7       1       0
+            //  ILS Key                             Push: 1, Release: 0                 0x04    7       2       0
+            //  GLS Key                             Pull: 1, Release: 0                 0x08    7       3       0
+            //  MLS Key                             Press: 1, Release: 0                0x10    7       4       0
+            //  ADF Key                             Press: 1, Release: 0                0x20    7       5       0
+            //  Encoder Key -IDENT                  Press: 1, Release: 0                0x40    7       6       0
+            //  Power On                            Press: 1, Release: 0                0x80    7       7       1
+            //  Power Off                           Press: 1, Release: 0                0x01    8       0       0
+            //  ATC MSG Key                         Press: 1, Release: 0                0x02    8       1       0
+            //  AUTO LAND Key                       Press: 1, Release: 0                0x04    8       2       0
+            //  Mode Selector -STBY                 Pointing: 1, Non - pointing: 0      0x08    8       3       1
+            //  Mode Selector -ON                   Pointing: 1, Non - pointing: 0      0x10    8       4       0
+            //  Mode Selector -AUTO                 Pointing: 1, Non - pointing: 0      0x20    8       5       0
+            //  TCAS Mode -STBY                     Pointing: 1, Non - pointing: 0      0x40    8       6       1
+            //  TCAS Mode -TA                       Pointing: 1, Non - pointing: 0      0x80    8       7       0
+            //  TCAS Mode -TA / RA                  Pointing: 1, Non - pointing: 0      0x01    9       0       0
+            //  Frequency Selector Knobs - Upper    0x00~0xFF in Two's Complement               12      -       0
+            //  Frequency Selector Knobs - Lower    0x00~0xFF in Two's Complement               13      -       0
 
             JoystickState state = new JoystickState();
 
             // Buttons
             // copy the button states from the buffer to the Buttons bit by bit starting from byte 6 to byte 9
-            for (int i = 0; i < 26; i++)
+            for (int i = 0; i < 25; i++)
             {
                 int byteIndex = 6 + (i / 8);
                 int bitIndex = i % 8;
@@ -278,10 +280,10 @@ namespace MobiFlight.Joysticks.WingFlex
 
             // Encoders
             // As long as we don't have proper Encoders, we will map them to buttons
-            state.Buttons[26] = ((sbyte)LastInputBufferState[12]) < 0; // Small Knob Rotate Left
-            state.Buttons[27] = ((sbyte)LastInputBufferState[12]) > 0; // Small Knob Rotate Right
-            state.Buttons[28] = ((sbyte)LastInputBufferState[13]) < 0; // Big Knob Rotate Left
-            state.Buttons[29] = ((sbyte)LastInputBufferState[13]) > 0; // Big Knob Rotate Right
+            state.Buttons[25] = ((sbyte)LastInputBufferState[12]) < 0; // Small Knob Rotate Left
+            state.Buttons[26] = ((sbyte)LastInputBufferState[12]) > 0; // Small Knob Rotate Right
+            state.Buttons[27] = ((sbyte)LastInputBufferState[13]) < 0; // Big Knob Rotate Left
+            state.Buttons[28] = ((sbyte)LastInputBufferState[13]) > 0; // Big Knob Rotate Right
 
             return state;
         }
