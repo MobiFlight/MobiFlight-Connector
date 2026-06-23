@@ -297,8 +297,12 @@ namespace MobiFlight
                         joystick.Connect(new IntPtr());
                         joystick.OnButtonPressed += Js_OnButtonPressed;
                         joystick.OnDisconnected += Js_OnDisconnected;
-                        Joysticks.TryAdd(joystick.Serial, joystick);
-                        Log.Instance.log($"Connected HID device: {definition.InstanceName}", LogSeverity.Info);
+                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                        {
+                            Log.Instance.log($"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.", LogSeverity.Error);
+                            return;
+                        }
+                        Log.Instance.log($"Connected HID device: {definition.InstanceName} / {joystick.Serial}", LogSeverity.Info);
                     }
                     catch (Exception ex)
                     {

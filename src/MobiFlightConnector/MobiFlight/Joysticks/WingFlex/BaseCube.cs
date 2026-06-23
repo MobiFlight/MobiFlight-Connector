@@ -45,7 +45,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override string Name
         {
-            get { return Definition?.InstanceName ?? "WingFlex Cube"; }
+            get { return Definition?.InstanceName ?? "WFCube"; }
         }
 
         /// <summary>
@@ -54,7 +54,13 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override string Serial
         {
-            get { return $"{Joystick.SerialPrefix}{Device?.ConnectedDeviceDefinition?.SerialNumber}" ?? "WFCUBE-1234-ABCD-12345678"; }
+            get
+            {
+                return
+                    (Device?.ConnectedDeviceDefinition?.SerialNumber != null) ?
+                    $"{Joystick.SerialPrefix}{Device?.ConnectedDeviceDefinition?.SerialNumber}"
+                    : $"{Name.ToUpper().Replace(" ", "-")}-1234-ABCD-12345678";
+            }
         }
 
         /// <summary>

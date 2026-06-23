@@ -12,19 +12,10 @@
         }
 
         /// <summary>
-        /// Provides Serial including prefix.
-        /// Serial information is provided through Device.Net
-        /// </summary>
-        public override string Serial
-        {
-            get { return $"{Joystick.SerialPrefix}{Device?.ConnectedDeviceDefinition?.SerialNumber}" ?? "RMP-CUBE-1234-ABCD-12345678"; }
-        }
-
-        /// <summary>
         /// The constructor.
         /// </summary>
         /// <param name="definition">joystick definition file.</param>
-        public RmpCube(JoystickDefinition definition) 
+        public RmpCube(JoystickDefinition definition)
             : base(new RmpCubeReport(), definition)
         {
         }

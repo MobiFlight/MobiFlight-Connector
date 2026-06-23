@@ -1,13 +1,4 @@
-﻿using Device.Net;
-using Hid.Net;
-using Hid.Net.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace MobiFlight.Joysticks.WingFlex
+﻿namespace MobiFlight.Joysticks.WingFlex
 {
     internal class FcuCube : BaseCube
     {
