@@ -205,7 +205,7 @@ namespace MobiFlight.Joysticks.WingFlex
                 if (!string.IsNullOrEmpty(textWithoutDot))
                 {
                     int visibleDigits = textWithoutDot.Length;
-                    LastOutputBufferState[digitByte] |= (byte)(visibleDigits & 0x0F);
+                    LastOutputBufferState[digitByte] = (byte)((1<<visibleDigits) - 1);
                 }
             }
             // continue with next item, as we have already processed the LCD display state
