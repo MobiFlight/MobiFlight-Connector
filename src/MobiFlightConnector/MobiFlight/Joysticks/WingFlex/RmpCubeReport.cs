@@ -205,8 +205,14 @@ namespace MobiFlight.Joysticks.WingFlex
                 if (!string.IsNullOrEmpty(textWithoutDot))
                 {
                     int visibleDigits = textWithoutDot.Length;
-                    LastOutputBufferState[digitByte] = (byte)((1<<visibleDigits) - 1);
+                    LastOutputBufferState[digitByte] = (byte)((1 << visibleDigits) - 1);
                 }
+
+                // enable Displays (Left LCD Switch / Right LCD Switch) based on the byte of the display
+                // Left Display (Byte19) is bit 1, Right Display (Byte 23) is bit 2
+                var bitOffset = lcdDisplay.Byte == 19 ? 1 : 2; 
+                
+                LastOutputBufferState[8] |= (byte)(1 << bitOffset);
             }
             // continue with next item, as we have already processed the LCD display state
             return;
