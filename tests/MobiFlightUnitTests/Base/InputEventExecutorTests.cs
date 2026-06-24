@@ -600,20 +600,20 @@ namespace MobiFlight.Execution.Tests
                 Name = "DeactivatedConfig",
                 button = new ButtonInputConfig
                 {
-                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" }
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
+                    HoldDelay = 10000
                 }
             };
             _configItems.Add(configItem);
 
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: true), isStarted: true);
+
             var holdTimer = GetHoldTimer(configItem.button);
-            holdTimer.Interval = 10000;
-            holdTimer.Start();
-            Assert.IsTrue(holdTimer.Enabled, "Timer should be running before deactivation.");
+            Assert.IsTrue(holdTimer.Enabled, "Timer should be running after press.");
 
             configItem.Active = false;
 
-            var releaseEvent = CreateButtonEventArgs(serial, deviceName, isOnPress: false);
-            _executor.Execute(releaseEvent, isStarted: true);
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: false), isStarted: true);
 
             Assert.IsFalse(holdTimer.Enabled, "Timer should be stopped when the config is deactivated.");
         }
@@ -624,6 +624,8 @@ namespace MobiFlight.Execution.Tests
             var serial = "SN-precond001";
             var deviceName = "Button1";
 
+            _configItems[0].Value = "ExpectedValue";
+
             var configItem = new InputConfigItem
             {
                 Active = true,
@@ -632,22 +634,24 @@ namespace MobiFlight.Execution.Tests
                 Name = "PreconditionConfig",
                 button = new ButtonInputConfig
                 {
-                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p2" }
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p2" },
+                    HoldDelay = 10000
                 },
                 Preconditions = new PreconditionList
                 {
-                    new Precondition { Type = "variable", Active = true, Ref = "NonExistentRef", Value = "ExpectedValue" }
+                    new Precondition { Type = "config", Active = true, Ref = _configItems[0].GUID, Value = "ExpectedValue" }
                 }
             };
             _configItems.Add(configItem);
 
-            var holdTimer = GetHoldTimer(configItem.button);
-            holdTimer.Interval = 10000;
-            holdTimer.Start();
-            Assert.IsTrue(holdTimer.Enabled, "Timer should be running before precondition fails.");
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: true), isStarted: true);
 
-            var releaseEvent = CreateButtonEventArgs(serial, deviceName, isOnPress: false);
-            _executor.Execute(releaseEvent, isStarted: true);
+            var holdTimer = GetHoldTimer(configItem.button);
+            Assert.IsTrue(holdTimer.Enabled, "Timer should be running after press with precondition satisfied.");
+
+            _configItems[0].Value = "DifferentValue";
+
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: false), isStarted: true);
 
             Assert.IsFalse(holdTimer.Enabled, "Timer should be stopped when the precondition is not satisfied.");
         }

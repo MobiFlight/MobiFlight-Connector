@@ -24,8 +24,10 @@ namespace MobiFlight.InputConfig
 
         private Timer HoldTimer = new Timer();
         private Timer RepeatTimer = new Timer();
-        private volatile bool _holdTimersStopped = false;
 
+        // Func<bool> rather than bool so the check is deferred — the closure captures cfg
+        // and CheckPreconditions, evaluating current state on each timer fire rather than
+        // at press time.
         [XmlIgnore]
         [JsonIgnore]
         public Func<bool> CanExecute { get; set; }
@@ -217,7 +219,6 @@ namespace MobiFlight.InputConfig
 
         private void ExecuteRepeatOnHold()
         {
-            if (_holdTimersStopped) return;
             if (RepeatDelay > 0)
             {
                 RepeatTimer.Interval = RepeatDelay;
@@ -266,7 +267,6 @@ namespace MobiFlight.InputConfig
 
         public void StopTimers()
         {
-            _holdTimersStopped = true;
             CheckAndStopTimer();
         }
 
@@ -291,7 +291,6 @@ namespace MobiFlight.InputConfig
                                           InputEventArgs args,
                                           List<ConfigRefValue> configRefs)
         {
-            _holdTimersStopped = false;
             lock (LastOnPressLock)
             {
                 LastOnPressEvent = args;
