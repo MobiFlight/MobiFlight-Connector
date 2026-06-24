@@ -927,6 +927,33 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       PresetId: "",
     } as MsfsInputAction)
   })
+
+  test("Existing action can be removed correctly resetting action selection", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Remove On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.button?.onPress).toBeNull()
+  })
 })
 
 test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
@@ -3223,6 +3250,51 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
     expect(payload.item.button?.LongReleaseDelay).toBe(500)
+  })
+
+  test("Existing action can be removed correctly using delete button", async ({
+    configListPage,
+    page,
+  }) => {
+    // For all of our 13 different input action config items
+    // open and remove the action, then save and verify that the action is removed from the config item
+    const maxConfigItems = 13
+    for (
+      let currentConfigItemIndex = 1;
+      currentConfigItemIndex <= maxConfigItems;
+      currentConfigItemIndex++
+    ) {
+      const actionDialog = await openWizardAndReturnActionPanel(
+        configListPage,
+        page,
+        currentConfigItemIndex,
+      )
+      const actionEditButton = actionDialog.getByRole("button", {
+        name: "Edit On Press Action",
+      })
+      const deleteActionButton = actionDialog.getByRole("button", {
+        name: "Remove On Press Action",
+      })
+
+      await expect(actionEditButton).toBeVisible()
+      await actionEditButton.hover()
+      await expect(deleteActionButton).toBeVisible()
+      await deleteActionButton.click()
+
+      await configListPage.mobiFlightPage.trackCommand(
+        "CommandUpdateConfigItem",
+      )
+
+      const saveButton = page.getByRole("button", { name: "Save" })
+      await expect(saveButton).toBeVisible()
+      await saveButton.click()
+
+      const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(commands).toBeDefined()
+      const payload = commands?.pop()?.payload
+      expect(payload.item.button.onPress).toBeUndefined()
+      await configListPage.mobiFlightPage.clearTrackedCommands()
+    }
   })
 })
 async function CreateNewInputConfigItemAndReturnActionPanel(
