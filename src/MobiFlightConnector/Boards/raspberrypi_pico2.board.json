@@ -22,7 +22,13 @@
     "FriendlyName": "Raspberry Pico2",
     "LatestFirmwareVersion": "3.1.0",
     "MobiFlightType": "MobiFlight RaspiPico2",
-    "ResetFirmwareFile": "reset.raspberry_pico2_1_0_2.uf2"
+    "ResetFirmwareFile": "reset.raspberry_pico2_1_0_2.uf2",
+    "Community": {
+      "Project": "MobiFlight",
+      "Website": "https://mobiflight.com",
+      "Docs": "https://docs.mobiflight.com/boards/recommended/raspberry-pi-pico-2/",
+      "Support": "https://mobiflight.com/discord"
+    }
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 3,
