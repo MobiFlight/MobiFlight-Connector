@@ -254,6 +254,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Boards\mobiflight_raspberrypico.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Boards\mobiflight_raspberrypico2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="frontend\dist\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1256,6 +1262,7 @@
     <None Include="Boards\raspberrypi_pico.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Boards\raspberrypi_pico2.board.json" />
     <None Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniEFIS.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1283,12 +1290,24 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_3_1_0.hex" />
-    <None Include="firmware\mobiflight_micro_3_1_0.hex" />
-    <None Include="firmware\mobiflight_nano_3_1_0.hex" />
-    <None Include="firmware\mobiflight_raspberrypico2_3_1_0.uf2" />
-    <None Include="firmware\mobiflight_raspberrypico_3_1_0.uf2" />
-    <None Include="firmware\mobiflight_uno_3_1_0.hex" />
+    <None Include="firmware\mobiflight_mega_3_1_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_micro_3_1_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_nano_3_1_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_raspberrypico2_3_1_0.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_raspberrypico_3_1_0.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_uno_3_1_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1298,7 +1317,9 @@
     <None Include="firmware\reset.arduino_uno_1_0_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\reset.raspberry_pico2_1_0_2.uf2" />
+    <None Include="firmware\reset.raspberry_pico2_1_0_2.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
