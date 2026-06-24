@@ -420,7 +420,8 @@
         }
       },
       "Event": {
-        "Edit": "Edit {{eventLabel}} action"
+        "Edit": "Edit {{eventLabel}} action",
+        "Remove": "Remove {{eventLabel}} action"
       },
       "button": {
         "Event": {

@@ -119,7 +119,7 @@ const ActionBindingPanel = ({
                   >
                     <IconTrash />
                     <span className="sr-only">
-                      {t(`Dialog.InputConfigWizard.Event.Delete`, { eventLabel })}
+                      {t(`Dialog.InputConfigWizard.Event.Remove`, { eventLabel })}
                     </span>
                   </Button>
                   <Button

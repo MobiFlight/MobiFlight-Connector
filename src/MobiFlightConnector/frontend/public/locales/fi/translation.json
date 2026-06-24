@@ -420,7 +420,8 @@
         }
       },
       "Event" : {
-        "Edit": "Muokkaa toimintoa {{eventLabel}}"
+        "Edit": "Muokkaa toimintoa {{eventLabel}}",
+        "Remove": "Poista toimintoa {{eventLabel}}"
       },
       "button": {
         "Event": {
