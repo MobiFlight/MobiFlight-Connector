@@ -1239,36 +1239,6 @@
       "Bit": 7
     },
     {
-      "Label": "VOLT DISPLAY L",
-      "Id": "volt.display.l",
-      "Byte": 15,
-      "Bit": 0
-    },
-    {
-      "Label": "VOLT DISPLAY R",
-      "Id": "volt.display.r",
-      "Byte": 15,
-      "Bit": 1
-    },
-    {
-      "Label": "Panel Brightness",
-      "Id": "brightness.panel",
-      "Byte": 18,
-      "Bit": 0
-    },
-    {
-      "Label": "Volt L Brightness",
-      "Id": "brightness.volt.l",
-      "Byte": 19,
-      "Bit": 0
-    },
-    {
-      "Label": "Volt R Brightness",
-      "Id": "brightness.volt.r",
-      "Byte": 20,
-      "Bit": 0
-    },
-    {
       "Label": "Volt L Display",
       "Id": "volt.l.display",
       "Type": "LcdDisplay",
