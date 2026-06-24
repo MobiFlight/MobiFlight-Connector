@@ -200,6 +200,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x01, result[15], "There should be 1 digit set");
+            
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -232,6 +235,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x03, result[15], "There should be 2 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -264,6 +270,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x07, result[15], "There should be 3 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -296,6 +305,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x0F, result[15], "There should be 4 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -328,6 +340,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x1F, result[15], "There should be all 5 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -360,6 +375,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x3F, result[15], "There should be all 6 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -392,6 +410,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x3F, result[15], "There should be all 6 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -424,6 +445,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x3F, result[15], "There should be all 6 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x02, result[8], "Left display should be enabled");
         }
 
         [TestMethod]
@@ -550,6 +574,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x01, result[16], "There should be 1 digit set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         [TestMethod]
@@ -582,6 +609,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x03, result[16], "There should be 2 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         [TestMethod]
@@ -614,6 +644,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x07, result[16], "There should be 3 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         [TestMethod]
@@ -646,6 +679,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x0F, result[16], "There should be 4 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         [TestMethod]
@@ -678,6 +714,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x1F, result[16], "There should be all 5 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         [TestMethod]
@@ -710,6 +749,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x3F, result[16], "There should be all 6 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         [TestMethod]
@@ -742,6 +784,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x3F, result[16], "There should be all 6 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         [TestMethod]
@@ -774,6 +819,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert active digits
             Assert.AreEqual(0x3F, result[16], "There should be all 6 digits set");
+
+            // Assert display enable bits
+            Assert.AreEqual(0x04, result[8], "Right display should be enabled");
         }
 
         #endregion
