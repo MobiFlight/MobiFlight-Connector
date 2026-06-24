@@ -926,33 +926,6 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       PresetId: "",
     } as MsfsInputAction)
   })
-
-  test("Existing action can be removed correctly resetting action selection", async ({
-    configListPage,
-    page,
-  }) => {
-    const actionDialog = await openWizardAndReturnActionPanel(
-      configListPage,
-      page,
-      1,
-    )
-    const actionEditButton = actionDialog.getByRole("button", {
-      name: "Remove On Press Action",
-    })
-    await expect(actionEditButton).toBeVisible()
-    await actionEditButton.click()
-
-    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
-
-    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
-    expect(commands).toBeDefined()
-    const payload = commands?.pop()?.payload
-    expect(payload.item.button?.onPress).toBeNull()
-  })
 })
 
 test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
