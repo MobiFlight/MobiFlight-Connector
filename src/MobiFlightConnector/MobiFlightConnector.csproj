@@ -1262,7 +1262,9 @@
     <None Include="Boards\raspberrypi_pico.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Boards\raspberrypi_pico2.board.json" />
+    <None Include="Boards\raspberrypi_pico2.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniEFIS.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
