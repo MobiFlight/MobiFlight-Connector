@@ -19,6 +19,7 @@ import { RefObject, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
 import { useLocation, useNavigate, useSearchParams } from "react-router"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const AircraftItem = ({
   aircraft,
@@ -185,7 +186,7 @@ const ProjectAircraftDrawer = ({
             </Button>
           </DrawerClose>
         </DrawerHeader>
-        <div className="flex flex-col gap-2 overflow-y-auto px-4">
+        <div className="flex grow flex-col gap-2 px-4">
           <div className="text-md text-muted-foreground">
             Define one more aircraft that should be enabled for this project.
           </div>
@@ -199,9 +200,11 @@ const ProjectAircraftDrawer = ({
           </div>
           <div
             className={cn(
-              `text-md flex flex-col gap-1`,
-              selectedAircraftWithStats.length >= 4 &&
-                "min-h-50 overflow-y-auto shadow-inner",
+              `text-md relative flex max-h-13 grow flex-col gap-1`,
+              selectedAircraftWithStats.length === 2 && "max-h-28",
+              selectedAircraftWithStats.length === 3 && "max-h-43",
+              selectedAircraftWithStats.length === 4 && "max-h-58",
+              selectedAircraftWithStats.length >= 5 && "max-h-60",
             )}
           >
             {selectedAircraftWithStats.length === 0 ? (
@@ -209,20 +212,22 @@ const ProjectAircraftDrawer = ({
                 No aircraft defined.
               </div>
             ) : (
-              <div className="flex flex-col gap-2">
-                {selectedAircraftWithStats.map((ac, index) => (
-                  <AircraftItem
-                    key={`${index}`}
-                    aircraft={ac}
-                    checked={true}
-                    onChecked={removeAircraft}
-                  />
-                ))}
-              </div>
+              <ScrollArea className="grow">
+                <div className="flex flex-col gap-2 pb-1">
+                  {selectedAircraftWithStats.map((ac, index) => (
+                    <AircraftItem
+                      key={`${index}`}
+                      aircraft={ac}
+                      checked={true}
+                      onChecked={removeAircraft}
+                    />
+                  ))}
+                </div>
+              </ScrollArea>
             )}
           </div>
-          <Separator className="my-4"/>
-          <div className="flex flex-col gap-2 pr-3">
+          <Separator className="mt-4 mb-2" />
+          <div className="flex flex-col gap-2">
             <div className="flex flex-row items-end justify-between">
               <div className="text-md font-bold">Available Aircraft</div>
               <div className="flex flex-row items-center gap-2">
@@ -239,21 +244,25 @@ const ProjectAircraftDrawer = ({
               onChange={(e) => setFilter(e.target.value)}
             />
           </div>
-          <div className="text-md flex min-h-32 flex-col gap-1 overflow-y-auto shadow-inner">
-            {availableAircraft.length === 0 ? (
-              <div className="text-muted-foreground text-sm">
-                No aircraft matches current filter.
-              </div>
-            ) : (
-              availableAircraft.map((ac) => (
-                <AircraftItem
-                  key={`${ac.Vendor}-${ac.Name}`}
-                  aircraft={ac}
-                  checked={ac.selected}
-                  onChecked={addAircraft}
-                />
-              ))
-            )}
+          <div className="text-md flex grow">
+            <ScrollArea className="grow">
+              {availableAircraft.length === 0 ? (
+                <div className="text-muted-foreground text-sm">
+                  No aircraft matches current filter.
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2 pb-1">
+                  {availableAircraft.map((ac) => (
+                    <AircraftItem
+                      key={`${ac.Vendor}-${ac.Name}`}
+                      aircraft={ac}
+                      checked={ac.selected}
+                      onChecked={addAircraft}
+                    />
+                  ))}
+                </div>
+              )}
+            </ScrollArea>
           </div>
         </div>
       </DrawerContent>
@@ -293,8 +302,7 @@ const ProjectAircraft = ({
         <Badge variant={"default"}>New</Badge>
       </div>
       <div className="text-muted-foreground text-sm">
-        Define one or more aircraft that are enabled for this project. Options
-        will be filtered based on the defined aircraft.
+        Define one or more aircraft that are enabled for this project. Presets will be limited to the selected aircraft.
       </div>
       {["msfs", "xplane"].includes(variant) ? (
         <>
