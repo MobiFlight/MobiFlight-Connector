@@ -164,6 +164,7 @@ const ProjectForm = ({
               } as Partial<ProjectInfo>
             }
             onChange={(values) => {
+              console.log(values)
               if (values.Sim) {
                 setSimulator(values.Sim)
               }
@@ -171,15 +172,16 @@ const ProjectForm = ({
                 setUseFsuipc(values.Features.FSUIPC ?? false)
                 setUseProsim(values.Features.ProSim ?? false)
               }
+              // reset to default aircraft on switching simulator type
               setAircraft(defaultAircraft[values.Sim ?? "none"])
             }}
           />
           <ProjectAircraft
-              variant={simulator}
-              selectedAircraft={aircraft}
-              setSelectedAircraft={setAircraft}
-              drawerContainer={containerRef}
-            />
+            variant={simulator}
+            selectedAircraft={aircraft}
+            setSelectedAircraft={setAircraft}
+            drawerContainer={containerRef}
+          />
         </div>
 
         <DialogFooter>

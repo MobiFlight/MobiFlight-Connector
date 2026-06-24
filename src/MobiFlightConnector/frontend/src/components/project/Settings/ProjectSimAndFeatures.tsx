@@ -32,7 +32,7 @@ const ProjectSimAndFeatures = ({
             aria-checked={simSettings.Sim === sim}
             key={sim}
             className={cn(
-              "inline-block h-48 flex-1 cursor-pointer rounded-lg transition-all duration-200 hover:scale-110",
+              "inline-block h-36 flex-1 cursor-pointer rounded-lg transition-all duration-200 hover:scale-110",
               simSettings.Sim === sim
                 ? "drop-shadow-primary/50 ring-primary ring-3 drop-shadow-lg"
                 : "opacity-50 hover:opacity-100",
@@ -43,7 +43,7 @@ const ProjectSimAndFeatures = ({
                 Features: {
                   FSUIPC: false,
                   ProSim: false,
-                },
+                }
               } as Partial<ProjectInfo>)
             }}
           >
@@ -55,27 +55,31 @@ const ProjectSimAndFeatures = ({
           </div>
         ))}
       </div>
-      {/* Simulator name */}
-      <div className="flex flex-col">{t(`Project.Simulator.${simSettings.Sim}`)}</div>
       <div className="flex flex-col gap-2">
-        {(simSettings.Sim === "msfs" || simSettings.Sim === "p3d") && (
-          <div className="flex flex-col gap-2">
-            <p className="text-muted-foreground text-sm">
-              {t("Project.Form.Simulator.Feature")}
-            </p>
+        {/* Simulator name */}
+        <div className="flex flex-col font-semibold">
+          {t(`Project.Simulator.${simSettings.Sim}`)}
+        </div>
+        <p className="text-muted-foreground text-sm">
+          {t("Project.Form.Simulator.Feature")}
+        </p>
+        {simSettings.Sim === "msfs" || simSettings.Sim === "p3d" ? (
+          <div className="flex flex-col gap-2 min-h-14">
             {/* FSUIPC Option (only for MSFS) */}
             {simSettings.Sim === "msfs" && (
               <div className="flex items-center space-x-2 pl-2">
                 <Checkbox
                   id="fsuipc"
                   checked={useFsuipc}
-                  onCheckedChange={(checked) => onChange({
-                    ...simSettings,
-                    Features: {
-                      ...simSettings.Features,
-                      FSUIPC: Boolean(checked),
-                    } as ProjectFeatures,
-                  })}
+                  onCheckedChange={(checked) =>
+                    onChange({
+                      ...simSettings,
+                      Features: {
+                        ...simSettings.Features,
+                        FSUIPC: Boolean(checked),
+                      } as ProjectFeatures,
+                    })
+                  }
                 />
                 <Label htmlFor="fsuipc" className="font-normal">
                   {t("Project.Form.Simulator.UseFsuipc")}
@@ -87,18 +91,24 @@ const ProjectSimAndFeatures = ({
               <Checkbox
                 id="prosim"
                 checked={useProsim}
-                onCheckedChange={(checked) => onChange({
-                  ...simSettings,
-                  Features: {
-                    ...simSettings.Features,
-                    ProSim: Boolean(checked),
-                  } as ProjectFeatures,
-                })}
+                onCheckedChange={(checked) =>
+                  onChange({
+                    ...simSettings,
+                    Features: {
+                      ...simSettings.Features,
+                      ProSim: Boolean(checked),
+                    } as ProjectFeatures,
+                  })
+                }
               />
               <Label htmlFor="prosim" className="font-normal">
                 {t("Project.Form.Simulator.UseProSim")}
               </Label>
             </div>
+          </div>
+        ) : (
+          <div className="bg-accent/20 h-14 rounded-md border p-2 text-center text-sm">
+            There are no additional features available for this simulator.
           </div>
         )}
       </div>
