@@ -68,7 +68,7 @@ const ActionBindingPanel = ({
   const removeAction = (event: string) => {
     const updatedTrigger = {
       ...current,
-      [event]: undefined,
+      [event]: null,
     }
     onTriggerChange(updatedTrigger)
   }
