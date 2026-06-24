@@ -44,7 +44,7 @@ namespace MobiFlight.Joysticks.WingFlex
         private readonly static Dictionary<byte, byte> DotByteMapping = new Dictionary<byte, byte>
             {
                 { 19, 13 }, // Left LCD
-                { 21, 14 }  // Right LCD
+                { 23, 14 }  // Right LCD
             };
 
         public RmpCubeReport()
