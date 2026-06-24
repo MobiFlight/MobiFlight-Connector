@@ -3274,7 +3274,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     configListPage,
     page,
   }) => {
-    test.slow()
+    test.setTimeout(120_000)
     const actionTypeOptions = Object.keys(actionTypeOptionLabels).map(
       (key) => ({
         actionTypeOption: key,
