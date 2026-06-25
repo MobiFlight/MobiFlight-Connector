@@ -387,7 +387,7 @@
     "InputConfigWizard": {
       "Title": "Editar configuración de entrada",
       "Description": "Edita todos los ajustes de esta configuración de entrada en este diálogo.",
-      "DrawerTitle": "Precondiciones",
+      "DrawerTitle": "Preferencias",
       "ConfigTrigger": {
         "Title": "Disparador",
         "Description": "El disparador define las condiciones o eventos que activarán esta configuración.",

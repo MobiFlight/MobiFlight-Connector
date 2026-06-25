@@ -381,7 +381,7 @@
     "InputConfigWizard": {
       "Title": "Editar configuração de entrada",
       "Description": "Edite todas as configurações para esta configuração de entrada neste diálogo.",
-      "DrawerTitle": "Pré-condições",
+      "DrawerTitle": "Configurações",
       "ConfigTrigger": {
         "Title": "Gatilho",
         "Description": "O gatilho define as condições ou eventos que ativarão esta configuração.",

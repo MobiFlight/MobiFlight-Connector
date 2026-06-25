@@ -387,7 +387,7 @@
     "InputConfigWizard": {
       "Title": "Eingabekonfiguration bearbeiten",
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",
-      "DrawerTitle": "Vorbedingungen",
+      "DrawerTitle": "Einstellungen",
       "ConfigTrigger": {
         "Title": "Auslöser",
         "Description": "Der Auslöser definiert die Bedingungen oder Ereignisse, die diese Konfiguration aktivieren.",

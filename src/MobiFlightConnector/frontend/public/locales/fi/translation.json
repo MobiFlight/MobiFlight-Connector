@@ -381,7 +381,7 @@
     "InputConfigWizard": {
       "Title": "Muokkaa syöttömääritystä",
       "Description": "Muokkaa kaikkia tämän syöttömäärityksen asetuksia tässä dialogissa.",
-      "DrawerTitle": "Esiehdot",
+      "DrawerTitle": "Asetukset",
       "ConfigTrigger": {
         "Title": "Laukaisin",
         "Description": "Laukaisin määrittää ehdot tai tapahtumat, jotka aktivoivat tämän määrityksen.",

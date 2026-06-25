@@ -381,7 +381,7 @@
     "InputConfigWizard": {
       "Title": "Edit input configuration",
       "Description": "Edit all settings for this input configuration in this dialog.",
-      "DrawerTitle": "Preconditions",
+      "DrawerTitle": "Settings",
       "ConfigTrigger": {
         "Title": "Trigger",
         "Description": "The trigger defines the conditions or events that will activate this configuration.",
