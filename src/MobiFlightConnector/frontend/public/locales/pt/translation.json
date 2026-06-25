@@ -353,6 +353,7 @@
   },
   "Dialog": {
     "General": {
+      "GoBack": "Voltar",
       "Cancel": "Cancelar",
       "Close": "Fechar",
       "Save": "Salvar",
@@ -380,7 +381,6 @@
     "InputConfigWizard": {
       "Title": "Editar configuração de entrada",
       "Description": "Edite todas as configurações para esta configuração de entrada neste diálogo.",
-      "GoBack": "Voltar",
       "DrawerTitle": "Pré-condições",
       "ConfigTrigger": {
         "Title": "Gatilho",

@@ -188,7 +188,7 @@ const ProjectAircraftDrawer = ({
           </DrawerTitle>
           <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
             <IconArrowBack size={16} />
-            {t("Dialog.InputConfigWizard.GoBack")}
+            {t("Dialog.General.GoBack")}
           </DrawerClose>
         </DrawerHeader>
         <div className="flex grow flex-col gap-2 px-4">

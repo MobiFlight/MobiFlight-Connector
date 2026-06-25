@@ -359,6 +359,7 @@
   },
   "Dialog": {
     "General": {
+      "GoBack": "Volver",
       "Cancel": "Cancelar",
       "Close": "Cerrar",
       "Save": "Guardar",
@@ -386,7 +387,6 @@
     "InputConfigWizard": {
       "Title": "Editar configuración de entrada",
       "Description": "Edita todos los ajustes de esta configuración de entrada en este diálogo.",
-      "GoBack": "Volver",
       "DrawerTitle": "Precondiciones",
       "ConfigTrigger": {
         "Title": "Disparador",

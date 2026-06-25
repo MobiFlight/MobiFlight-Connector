@@ -353,6 +353,7 @@
   },
   "Dialog": {
     "General": {
+      "GoBack": "Takaisin",
       "Cancel": "Peruuta",
       "Close": "Sulje",
       "Save": "Tallenna",
@@ -380,7 +381,6 @@
     "InputConfigWizard": {
       "Title": "Muokkaa syöttömääritystä",
       "Description": "Muokkaa kaikkia tämän syöttömäärityksen asetuksia tässä dialogissa.",
-      "GoBack": "Takaisin",
       "DrawerTitle": "Esiehdot",
       "ConfigTrigger": {
         "Title": "Laukaisin",

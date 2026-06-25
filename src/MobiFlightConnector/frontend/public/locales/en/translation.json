@@ -353,6 +353,7 @@
   },
   "Dialog": {
     "General": {
+      "GoBack": "Go back",
       "Cancel": "Cancel",
       "Close": "Close",
       "Save": "Save",
@@ -380,7 +381,6 @@
     "InputConfigWizard": {
       "Title": "Edit input configuration",
       "Description": "Edit all settings for this input configuration in this dialog.",
-      "GoBack": "Go back",
       "DrawerTitle": "Preconditions",
       "ConfigTrigger": {
         "Title": "Trigger",

@@ -359,6 +359,7 @@
   },
   "Dialog": {
     "General": {
+      "GoBack": "Zurück",
       "Cancel": "Abbrechen",
       "Close": "Schließen",
       "Save": "Speichern",
@@ -386,7 +387,6 @@
     "InputConfigWizard": {
       "Title": "Eingabekonfiguration bearbeiten",
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",
-      "GoBack": "Zurück",
       "DrawerTitle": "Vorbedingungen",
       "ConfigTrigger": {
         "Title": "Auslöser",
