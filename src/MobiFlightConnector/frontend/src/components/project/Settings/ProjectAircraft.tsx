@@ -351,7 +351,7 @@ const ProjectAircraft = ({
               onClick={() => navigateToDetailView("aircraft")}
             >
               <IconEdit />
-              <div className="sr-only">{t("Project.Form.Aircraft.Dialog.EditList")}</div>
+              <div className="sr-only">{t("Project.Form.Aircraft.EditList")}</div>
             </Button>
           </div>
           {detailView && (
