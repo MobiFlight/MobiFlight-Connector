@@ -24,7 +24,8 @@
       "SearchPlaceholder": "Buscar..."
     },
     "Copy" : "Copiar",
-    "Paste" : "Pegar"
+    "Paste" : "Pegar",
+    "NewFeature": "Nuevo"
   },
   "MainMenu": {
     "File": {
@@ -193,7 +194,26 @@
       },
       "Aircraft": {
         "Label": "Avión",
-        "HelpText": "Selecciona el avión para este proyecto."
+        "HelpText": "Selecciona el avión para este proyecto.",
+        "Description": "Selecciona uno o varios aviones que quieres usar para este proyecto. Las configuraciones predefinidas se limitarán a los aviones seleccionados.",
+        "Dialog" : {
+          "Title": "Configuración de Aviones",
+          "Description": "Selecciona uno o varios aviones que quieres usar para este proyecto.",
+          "SelectedAircraft": {
+            "Title": "Aviones Seleccionados",
+            "Count": "{{count}} seleccionados",
+            "None": "No se han seleccionado aviones. No se aplicará ningún filtro. Todas las configuraciones estarán disponibles."
+          },
+          "AvailableAircraft": {
+            "Title": "Aviones Disponibles",
+            "Count": "{{count}} disponibles",
+            "None": "No hay aviones disponibles."
+          },
+          "SearchPlaceholder": "Buscar aviones...",
+          "NoAircraftFound": "No hay aviones adicionales disponibles."
+        },
+        "EditList": "Editar lista de aviones",
+        "NotSupported": "La selección de aviones no existe para este simulador."
       },
       "Buttons": {
         "Create": "Crear proyecto",

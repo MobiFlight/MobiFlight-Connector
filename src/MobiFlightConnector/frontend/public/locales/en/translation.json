@@ -24,7 +24,8 @@
       "SearchPlaceholder": "Search..."
     },
     "Copy": "Copy",
-    "Paste": "Paste"
+    "Paste": "Paste",
+    "NewFeature": "New"
   },
   "MainMenu": {
     "File": {
@@ -187,7 +188,26 @@
       },
       "Aircraft": {
         "Label": "Aircraft",
-        "HelpText": "Select the aircraft for this project."
+        "HelpText": "Select the aircraft for this project.",
+        "Description": "Select one or more aircraft that are enabled for this project. Presets will be limited to the selected aircraft.",
+        "Dialog" : {
+          "Title": "Aircraft Settings",
+          "Description": "Select one or more aircraft that should be enabled for this project.",
+          "SelectedAircraft": {
+            "Title": "Selected Aircraft",
+            "Count": "{{count}} selected",
+            "None": "No aircraft selected. No filter will apply. All presets will be available."
+          },
+          "AvailableAircraft": {
+            "Title": "Available Aircraft",
+            "Count": "{{count}} available",
+            "None": "No aircraft available."
+          },
+          "SearchPlaceholder": "Search aircraft...",
+          "NoAircraftFound": "No additional aircraft available."
+        },
+        "EditList": "Edit aircraft list",
+        "NotSupported": "Aircraft selection is not supported for this sim."
       },
       "Buttons": {
         "Create": "Create project",

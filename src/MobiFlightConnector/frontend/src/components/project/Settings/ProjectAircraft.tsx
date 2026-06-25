@@ -184,7 +184,7 @@ const ProjectAircraftDrawer = ({
       >
         <DrawerHeader className="p-2">
           <DrawerTitle className="sr-only">
-            {t("Dialog.InputConfigWizard.DrawerTitle")}
+            {t("Project.Form.Aircraft.Dialog.Title")}
           </DrawerTitle>
           <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
             <IconArrowBack size={16} />
@@ -193,13 +193,17 @@ const ProjectAircraftDrawer = ({
         </DrawerHeader>
         <div className="flex grow flex-col gap-2 px-4">
           <div className="text-md text-muted-foreground">
-            Define one more aircraft that should be enabled for this project.
+            {t("Project.Form.Aircraft.Dialog.Description")}
           </div>
           <div className="flex flex-row items-end justify-between">
-            <div className="text-md font-bold">Selected Aircraft</div>
+            <div className="text-md font-bold">
+              {t("Project.Form.Aircraft.Dialog.SelectedAircraft.Title")}
+            </div>
             <div className="flex flex-row items-center gap-2">
               <div className="text-muted-foreground pr-4 text-sm">
-                {selectedAircraftWithStats.length} selected
+                {t("Project.Form.Aircraft.Dialog.SelectedAircraft.Count", {
+                  count: selectedAircraftWithStats.length,
+                })}
               </div>
             </div>
           </div>
@@ -213,15 +217,15 @@ const ProjectAircraftDrawer = ({
             )}
           >
             {selectedAircraftWithStats.length === 0 ? (
-              <div className="text-muted-foreground text-sm">
-                No aircraft defined.
+              <div className="text-muted-foreground text-sm p-3">
+                {t("Project.Form.Aircraft.Dialog.SelectedAircraft.None")}
               </div>
             ) : (
               <ScrollArea className="grow">
                 <div
                   className="flex flex-col gap-2 pb-1"
                   role="listbox"
-                  aria-label="Selected Aircraft"
+                  aria-label={t("Project.Form.Aircraft.Dialog.SelectedAircraft.Title")}
                 >
                   {selectedAircraftWithStats.map((ac, index) => (
                     <AircraftItem
@@ -239,16 +243,16 @@ const ProjectAircraftDrawer = ({
           <Separator className="mt-4 mb-2" />
           <div className="flex flex-col gap-2">
             <div className="flex flex-row items-end justify-between">
-              <div className="text-md font-bold">Available Aircraft</div>
+              <div className="text-md font-bold">{t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}</div>
               <div className="flex flex-row items-center gap-2">
                 <div className="text-muted-foreground pr-4 text-sm">
-                  {availableAircraft.length} available
+                  {t("Project.Form.Aircraft.Dialog.AvailableAircraft.Count", { count: availableAircraft.length })}
                 </div>
               </div>
             </div>
             <Input
               id="filter"
-              placeholder="Search..."
+              placeholder={t("Project.Form.Aircraft.Dialog.SearchPlaceholder")}
               className="mb-2"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
@@ -257,14 +261,14 @@ const ProjectAircraftDrawer = ({
           <div className="text-md flex grow">
             <ScrollArea className="grow">
               {availableAircraft.length === 0 ? (
-                <div className="text-muted-foreground text-sm">
-                  No aircraft matches current filter.
+                <div className="text-muted-foreground text-sm p-3">
+                  {t("Project.Form.Aircraft.Dialog.AvailableAircraft.None")}
                 </div>
               ) : (
                 <div
                   className="flex flex-col gap-2 pb-1"
                   role="listbox"
-                  aria-label="Available Aircraft"
+                  aria-label={t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}
                 >
                   {availableAircraft.map((ac, index) => (
                     <AircraftItem
@@ -291,6 +295,7 @@ const ProjectAircraft = ({
   setSelectedAircraft,
   drawerContainer,
 }: ProjectAircraftProps) => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const state = location.state as { backgroundLocation?: Location }
@@ -313,12 +318,11 @@ const ProjectAircraft = ({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row items-center gap-2">
-        <Label className="text-base font-semibold">Aircraft</Label>
-        <Badge variant={"default"}>New</Badge>
+        <Label className="text-base font-semibold">{t("Project.Form.Aircraft.Label")}</Label>
+        <Badge variant={"default"}>{t("General.NewFeature")}</Badge>
       </div>
       <div className="text-muted-foreground text-sm">
-        Define one or more aircraft that are enabled for this project. Presets
-        will be limited to the selected aircraft.
+        {t("Project.Form.Aircraft.Description")}
       </div>
       {["msfs", "xplane"].includes(variant) ? (
         <>
@@ -328,7 +332,7 @@ const ProjectAircraft = ({
                 className="text-muted-foreground text-sm"
                 variant={"secondary"}
               >
-                No aircraft defined.
+                {t("Project.Form.Aircraft.Dialog.SelectedAircraft.None")}
               </Badge>
             ) : (
               <div className="flex flex-row flex-wrap gap-2">
@@ -347,7 +351,7 @@ const ProjectAircraft = ({
               onClick={() => navigateToDetailView("aircraft")}
             >
               <IconEdit />
-              <div className="sr-only">Edit aircraft list</div>
+              <div className="sr-only">{t("Project.Form.Aircraft.Dialog.EditList")}</div>
             </Button>
           </div>
           {detailView && (
@@ -363,7 +367,7 @@ const ProjectAircraft = ({
         </>
       ) : (
         <div className="bg-accent/20 h-8 rounded-md border p-1 text-center text-sm">
-          Aircraft selection is not supported for this sim.
+          {t("Project.Form.Aircraft.NotSupported")}
         </div>
       )}
     </div>

@@ -24,7 +24,8 @@
       "SearchPlaceholder": "Haku..."
     },
     "Copy": "Kopioi",
-    "Paste": "Liitä"
+    "Paste": "Liitä",
+    "NewFeature": "Uusi"
   },
   "MainMenu": {
     "File": {
@@ -187,7 +188,26 @@
       },
       "Aircraft": {
         "Label": "Lentokone",
-        "HelpText": "Valitse tähän projektiin käytetty lentokone."
+        "HelpText": "Valitse tähän projektiin käytetty lentokone.",
+        "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa. Vaihtoehdot rajoittuvat valittuihin lentokoneisiin.",
+        "Dialog" : {
+          "Title": "Lentokoneasetukset",
+          "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa.",
+          "SelectedAircraft": {
+            "Title": "Valitut lentokoneet",
+            "Count": "{{count}} valittu",
+            "None": "Ei valittuja lentokoneita. Suodattimia ei käytetä. Kaikki vaihtoehdot ovat käytettävissä."
+          },
+          "AvailableAircraft": {
+            "Title": "Saatavilla olevat lentokoneet",
+            "Count": "{{count}} saatavilla",
+            "None": "Ei saatavilla olevia lentokoneita."
+          },
+          "SearchPlaceholder": "Etsi lentokoneita...",
+          "NoAircraftFound": "Ei lisälentokoneita saatavilla."
+        },
+        "EditList": "Muokkaa lentokonelistaa",
+        "NotSupported": "Lentokoneen valinta ei ole tuettu tässä simulaattorissa."
       },
       "Buttons": {
         "Create": "Luo projekti",

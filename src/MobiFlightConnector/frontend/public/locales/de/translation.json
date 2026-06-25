@@ -24,7 +24,8 @@
       "SearchPlaceholder": "Suchen..."
     },
     "Copy" : "Kopieren",
-    "Paste" : "Einfügen"
+    "Paste" : "Einfügen",
+    "NewFeature": "Neu"
   },
   "MainMenu": {
     "File": {
@@ -193,7 +194,26 @@
       },
       "Aircraft": {
         "Label": "Flugzeug",
-        "HelpText": "Wähle das Flugzeug für dieses Projekt aus."
+        "HelpText": "Wähle das Flugzeug für dieses Projekt aus.",
+        "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen. Optionen werden auf die ausgewählten Flugzeuge beschränkt.",
+        "Dialog" : {
+          "Title": "Flugzeugeinstellungen",
+          "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen.",
+          "SelectedAircraft": {
+            "Title": "Ausgewählte Flugzeuge",
+            "Count": "{{count}} ausgewählt",
+            "None": "Keine Flugzeuge ausgewählt. Es wird kein Filter angewendet. Alle Optionen sind verfügbar."
+          },
+          "AvailableAircraft": {
+            "Title": "Verfügbare Flugzeuge",
+            "Count": "{{count}} verfügbar",
+            "None": "Keine Flugzeuge verfügbar."
+          },
+          "SearchPlaceholder": "Flugzeuge suchen...",
+          "NoAircraftFound": "Keine zusätzlichen Flugzeuge verfügbar."
+        },
+        "EditList": "Flugzeugliste bearbeiten",
+        "NotSupported": "Flugzeugauswahl wird für diesen Simulator nicht unterstützt."
       },
       "Buttons": {
         "Create": "Projekt erstellen",
