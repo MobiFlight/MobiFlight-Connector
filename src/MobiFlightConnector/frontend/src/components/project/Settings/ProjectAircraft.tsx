@@ -21,19 +21,23 @@ import { Separator } from "@/components/ui/separator"
 import { useLocation, useNavigate, useSearchParams } from "react-router"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
+type AircraftItemProps = {
+  aircraft: AircraftInfoWithStats
+  checked: boolean
+  onChecked: (aircraft: AircraftInfo) => void
+} & React.HTMLAttributes<HTMLDivElement>
+
 const AircraftItem = ({
   aircraft,
   checked,
   onChecked,
-}: {
-  aircraft: AircraftInfoWithStats
-  checked: boolean
-  onChecked: (aircraft: AircraftInfo) => void
-}) => {
+  ...props
+}: AircraftItemProps) => {
   return (
     <div
       className={`hover:bg-accent flex cursor-pointer flex-row items-center gap-4 rounded-md border px-4 py-1 ${checked && "border-primary"}`}
       onClick={() => onChecked(aircraft)}
+      {...props}
     >
       <Checkbox
         checked={checked}
@@ -174,16 +178,17 @@ const ProjectAircraftDrawer = ({
       open={drawerOpen}
       onClose={() => setDrawerOpen(false)}
     >
-      <DrawerContent className="pb-8 data-[vaul-drawer-direction=right]:w-5/6 data-[vaul-drawer-direction=right]:sm:max-w-5/6">
+      <DrawerContent
+        data-testid="project-aircraft-drawer"
+        className="pb-8 data-[vaul-drawer-direction=right]:w-5/6 data-[vaul-drawer-direction=right]:sm:max-w-5/6"
+      >
         <DrawerHeader className="p-2">
           <DrawerTitle className="sr-only">
             {t("Dialog.InputConfigWizard.DrawerTitle")}
           </DrawerTitle>
-          <DrawerClose className="flex flex-row">
-            <Button variant="link">
-              <IconArrowBack />
-              {t("Dialog.InputConfigWizard.GoBack")}
-            </Button>
+          <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
+            <IconArrowBack size={16} />
+            {t("Dialog.InputConfigWizard.GoBack")}
           </DrawerClose>
         </DrawerHeader>
         <div className="flex grow flex-col gap-2 px-4">
@@ -213,9 +218,14 @@ const ProjectAircraftDrawer = ({
               </div>
             ) : (
               <ScrollArea className="grow">
-                <div className="flex flex-col gap-2 pb-1">
+                <div
+                  className="flex flex-col gap-2 pb-1"
+                  role="listbox"
+                  aria-label="Selected Aircraft"
+                >
                   {selectedAircraftWithStats.map((ac, index) => (
                     <AircraftItem
+                      role="option"
                       key={`${index}`}
                       aircraft={ac}
                       checked={true}
@@ -251,10 +261,15 @@ const ProjectAircraftDrawer = ({
                   No aircraft matches current filter.
                 </div>
               ) : (
-                <div className="flex flex-col gap-2 pb-1">
-                  {availableAircraft.map((ac) => (
+                <div
+                  className="flex flex-col gap-2 pb-1"
+                  role="listbox"
+                  aria-label="Available Aircraft"
+                >
+                  {availableAircraft.map((ac, index) => (
                     <AircraftItem
-                      key={`${ac.Vendor}-${ac.Name}`}
+                      role="option"
+                      key={`${ac.Vendor}-${ac.Name}-${index}`}
                       aircraft={ac}
                       checked={ac.selected}
                       onChecked={addAircraft}
@@ -302,7 +317,8 @@ const ProjectAircraft = ({
         <Badge variant={"default"}>New</Badge>
       </div>
       <div className="text-muted-foreground text-sm">
-        Define one or more aircraft that are enabled for this project. Presets will be limited to the selected aircraft.
+        Define one or more aircraft that are enabled for this project. Presets
+        will be limited to the selected aircraft.
       </div>
       {["msfs", "xplane"].includes(variant) ? (
         <>
@@ -331,6 +347,7 @@ const ProjectAircraft = ({
               onClick={() => navigateToDetailView("aircraft")}
             >
               <IconEdit />
+              <div className="sr-only">Edit aircraft list</div>
             </Button>
           </div>
           {detailView && (
