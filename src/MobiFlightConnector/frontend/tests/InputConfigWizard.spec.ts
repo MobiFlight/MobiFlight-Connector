@@ -883,6 +883,61 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(countLabel).toHaveText("4 preset(s) found")
   })
 
+  test("Preset list honors aircraft settings", async ({
+    configListPage,
+    page,
+  }) => {
+    const testSettings = [
+      { Aircraft: [], ExpectedPresetCount: 4, ExpectedVendorCount: 2 },
+      {
+        Aircraft: [{ Vendor: "Microsoft", Name: "Generic" }],
+        ExpectedPresetCount: 2,
+        ExpectedVendorCount: 1,
+      },
+    ]
+
+    for (const settings of testSettings) {
+      const actionDialog = await openWizardAndReturnActionPanel(
+        configListPage,
+        page,
+        1,
+        undefined,
+        {
+          Aircraft: settings.Aircraft,
+        } as Partial<Project>,
+      )
+
+      const actionEditButton = actionDialog.getByRole("button", {
+        name: "Edit On Press Action",
+      })
+      await expect(actionEditButton).toBeVisible()
+      await actionEditButton.click()
+
+      const actionEditor = page.getByTestId("action-editor")
+
+      const countLabel = actionEditor.getByRole("status")
+      const resetFiltersButton = actionEditor.getByRole("button", {
+        name: "Reset filters",
+      })
+
+      await expect(countLabel).toHaveText(
+        `${settings.ExpectedPresetCount} preset(s) found`,
+      )
+      await resetFiltersButton.click()
+
+      const optionsList = page.getByRole("listbox")
+      const vendorOptions = optionsList.getByRole("option")
+
+      // Select the vendor filter
+      await actionEditor
+        .getByRole("combobox")
+        .filter({ hasText: "Filter by vendor" })
+        .click()
+      await expect(optionsList).toBeVisible()
+      await expect(vendorOptions).toHaveCount(settings.ExpectedVendorCount)
+    }
+  })
+
   test("Newly created MSFS config values are saved correctly", async ({
     configListPage,
     page,
@@ -984,6 +1039,8 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
       configListPage,
       page,
       2,
+      undefined,
+      { Sim: "xplane" }
     )
 
     const actionEditButton = actionDialog.getByRole("button", {
@@ -1122,6 +1179,62 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await resetFiltersButton.click()
 
     await expect(countLabel).toHaveText("4 preset(s) found")
+  })
+
+  test("Preset list honors aircraft settings", async ({
+    configListPage,
+    page,
+  }) => {
+    const testSettings = [
+      { Aircraft: [], ExpectedPresetCount: 4, ExpectedVendorCount: 2 },
+      {
+        Aircraft: [{ Vendor: "Laminar Research", Name: "Boeing 737-800" }],
+        ExpectedPresetCount: 2,
+        ExpectedVendorCount: 1,
+      },
+    ]
+
+    for (const settings of testSettings) {
+      const actionDialog = await openWizardAndReturnActionPanel(
+        configListPage,
+        page,
+        2,
+        undefined,
+        {
+          Aircraft: settings.Aircraft,
+          Sim: "xplane",
+        } as Partial<Project>,
+      )
+
+      const actionEditButton = actionDialog.getByRole("button", {
+        name: "Edit On Press Action",
+      })
+      await expect(actionEditButton).toBeVisible()
+      await actionEditButton.click()
+
+      const actionEditor = page.getByTestId("action-editor")
+
+      const countLabel = actionEditor.getByRole("status")
+      const resetFiltersButton = actionEditor.getByRole("button", {
+        name: "Reset filters",
+      })
+
+      await expect(countLabel).toHaveText(
+        `${settings.ExpectedPresetCount} preset(s) found`,
+      )
+      await resetFiltersButton.click()
+
+      const optionsList = page.getByRole("listbox")
+      const vendorOptions = optionsList.getByRole("option")
+
+      // Select the vendor filter
+      await actionEditor
+        .getByRole("combobox")
+        .filter({ hasText: "Filter by vendor" })
+        .click()
+      await expect(optionsList).toBeVisible()
+      await expect(vendorOptions).toHaveCount(settings.ExpectedVendorCount)
+    }
   })
 
   test("Switching between DataRef and Command updates the value field visibility correctly", async ({
