@@ -68,13 +68,13 @@ const VJoyInputActionPanel = ({
     return (
       <div className="flex grow flex-row items-center justify-between gap-8">
         <div className="flex flex-col gap-1">
-          <Label htmlFor="preset">
+          <Label>
             {t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:
           </Label>
           <div className="text-sm">{selectedDeviceOption?.label}</div>
         </div>
         <div className="flex flex-col gap-1">
-          <Label htmlFor="preset">
+          <Label>
             {t("Dialog.InputConfigWizard.InputActions.VJoy.Device")}:
           </Label>
           {activeTab === "button" && (
@@ -86,7 +86,7 @@ const VJoyInputActionPanel = ({
         </div>
         {activeTab === "button" && (
           <div className="flex flex-col gap-1">
-            <Label htmlFor="buttonCommand">
+            <Label>
               {t("Dialog.InputConfigWizard.InputActions.VJoy.ButtonStateLabel")}
             </Label>
             <div className="text-sm">
@@ -98,10 +98,10 @@ const VJoyInputActionPanel = ({
         )}
         {activeTab === "axis" && (
           <div className="flex flex-col gap-1">
-            <Label htmlFor="axisValue">
+            <Label>
               {t("Dialog.InputConfigWizard.InputActions.VJoy.AxisValueLabel")}
             </Label>
-            <CodeValueLabel id="axisValue">
+            <CodeValueLabel>
               {config?.sendValue ?? "-"}
             </CodeValueLabel>
           </div>
