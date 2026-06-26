@@ -1,4 +1,4 @@
-import { InlineEditLabel } from "@/components/InlineEditLabel"
+import { InlineEditLabel, InlineEditLabelRef } from "@/components/InlineEditLabel"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,7 +13,7 @@ import ConfigWizard from "@/components/wizard/ConfigWizard"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
 import { IconChevronRight } from "@tabler/icons-react"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
 
@@ -46,12 +46,25 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   }
 
   const containerRef = useRef<HTMLDivElement>(null)
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
+
+  const defaultLabel = t("ConfigList.Actions.InputConfigItem.DefaultName")
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (configItem?.Name === defaultLabel) {
+        inlineEditRef.current?.startEditing()
+      }
+    }, 500)
+  }, [inlineEditRef, configItem, defaultLabel])
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
+        // prevents focusing on the inactive inline edit label
+       
         onEscapeKeyDown={(e) => {
           if ((e.target as HTMLElement).dataset.preventModalCloseOnEscape) {
             e.preventDefault()
@@ -61,7 +74,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         className="vlg:min-h-[80%] flex min-h-full flex-col justify-between overflow-x-hidden overflow-y-auto select-none sm:max-w-full lg:max-w-300"
       >
         <DialogHeader>
-          <DialogTitle className="flex flex-row items-center gap-2 text-2xl" data-testid="dialog-config-name">
+          <DialogTitle  tabIndex={undefined} className="flex flex-row items-center gap-2 text-2xl" data-testid="dialog-config-name">
             {t("Dialog.InputConfigWizard.Title")}{" "}
             <IconChevronRight className="mt-1" />
             <InlineEditLabel
@@ -73,6 +86,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                   setCurrentConfigItem({ ...currentConfigItem, Name: newName })
                 }
               }}
+              ref={inlineEditRef}
             />
           </DialogTitle>
           <DialogDescription className="vsm:block hidden">

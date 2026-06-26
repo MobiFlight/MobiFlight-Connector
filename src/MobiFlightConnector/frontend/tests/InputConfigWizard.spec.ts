@@ -634,6 +634,7 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
     configListPage,
     page,
   }) => {
+    test.slow()
     const projectSettingsToTest: Partial<Project>[] = [
       {
         Sim: "msfs",
@@ -3214,6 +3215,7 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
     configListPage,
     page,
   }) => {
+    test.slow()
     const actionTestData = [
       {
         type: "Button",
