@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
@@ -107,24 +108,28 @@ const ActionBindingPanel = ({
               >
                 <div className="flex w-32 flex-col gap-1">
                   <Label>Event</Label>
-                  <div>{eventLabel}</div>
+                  <div>
+                    <Badge variant={"secondary"}>{eventLabel}</Badge>
+                  </div>
                 </div>
                 <ActionSummary action={action} />
                 <div className="gap1 flex flex-row pt-4">
                   <Button
                     size={"sm"}
-                    className="px-2 py-1 h-8 text-red-600 hover:text-red-600 group-hover:visible invisible"
+                    className="invisible h-8 px-2 py-1 text-red-600 group-hover:visible hover:text-red-600"
                     variant="ghost"
                     onClick={() => removeAction(event)}
                   >
                     <IconTrash />
                     <span className="sr-only">
-                      {t(`Dialog.InputConfigWizard.Event.Remove`, { eventLabel })}
+                      {t(`Dialog.InputConfigWizard.Event.Remove`, {
+                        eventLabel,
+                      })}
                     </span>
                   </Button>
                   <Button
                     size={"sm"}
-                    className="px-2 py-1 h-8 group-hover:text-foreground text-muted-foreground"
+                    className="group-hover:text-foreground text-muted-foreground h-8 px-2 py-1"
                     variant="ghost"
                     onClick={() => {
                       onActionEdit(event, action, (newAction, buttonOptions) =>
