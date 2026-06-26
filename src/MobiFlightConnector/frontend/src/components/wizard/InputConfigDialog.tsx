@@ -1,3 +1,4 @@
+import { InlineEditLabel } from "@/components/InlineEditLabel"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -11,6 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import ConfigWizard from "@/components/wizard/ConfigWizard"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
+import { IconChevronRight } from "@tabler/icons-react"
 import { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
@@ -50,17 +52,30 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
-        onKeyDown={(e) => {
-          e.stopPropagation()
+        onEscapeKeyDown={(e) => {
+          if ((e.target as HTMLElement).dataset.preventModalCloseOnEscape) {
+            e.preventDefault()
+          }
         }}
         ref={containerRef}
         className="vlg:min-h-[80%] flex min-h-full flex-col justify-between overflow-x-hidden overflow-y-auto select-none sm:max-w-full lg:max-w-300"
       >
         <DialogHeader>
-          <DialogTitle className="text-2xl">
-            {t("Dialog.InputConfigWizard.Title")}
+          <DialogTitle className="flex flex-row items-center gap-2 text-2xl">
+            {t("Dialog.InputConfigWizard.Title")}{" "}
+            <IconChevronRight className="mt-1" />
+            <InlineEditLabel
+              labelClassName="text-2xl px-4.5 -ml-5"
+              inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
+              value={currentConfigItem?.Name || ""}
+              onSave={(newName) => {
+                if (currentConfigItem) {
+                  setCurrentConfigItem({ ...currentConfigItem, Name: newName })
+                }
+              }}
+            />
           </DialogTitle>
-          <DialogDescription className="text-md vsm:block hidden">
+          <DialogDescription className="text-md hidden">
             {t("Dialog.InputConfigWizard.Description")}
           </DialogDescription>
         </DialogHeader>

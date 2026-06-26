@@ -108,6 +108,7 @@ export const InlineEditLabel = forwardRef<
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
         onDoubleClick={(e) => e.stopPropagation()}
+        data-prevent-modal-close-on-escape="true"
       />
     ) : (
       <span
