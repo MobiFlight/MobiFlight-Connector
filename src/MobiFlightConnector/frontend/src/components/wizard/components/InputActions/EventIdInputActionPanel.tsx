@@ -2,6 +2,7 @@ import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import EventIdPresetsPanel from "@/components/wizard/components/InputActions/EventIdPresetsPanel"
 import { EventIdInputAction, PmdgEventIdInputAction } from "@/types/config"
 import { useTranslation } from "react-i18next"
@@ -69,16 +70,11 @@ const EventIdInputActionPanel = ({
           <Label htmlFor="eventid">
             {t("Dialog.InputConfigWizard.InputActions.EventId.EventIdLabel")}:
           </Label>
-          <div>{config?.EventId}</div>
+          <div className="text-sm">{config?.EventId}</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="param">{label}:</Label>
-          <div
-            id="param"
-            className="bg-accent/20 rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
-          >
-            {param}
-          </div>
+          <CodeValueLabel>{param}</CodeValueLabel>
         </div>
       </div>
     )
@@ -128,7 +124,7 @@ const EventIdInputActionPanel = ({
             ...config,
             EventId: preset ? preset.eventId : null,
             // reset param when changing preset
-            Param: "0" 
+            Param: "0",
           } as EventIdInputAction | PmdgEventIdInputAction)
         }
       />

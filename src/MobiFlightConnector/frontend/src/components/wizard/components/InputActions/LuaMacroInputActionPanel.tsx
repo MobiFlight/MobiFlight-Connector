@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { LuaMacroInputAction } from "@/types/config"
 import { useTranslation } from "react-i18next"
 
@@ -20,21 +21,23 @@ const LuaMacroInputActionPanel = ({
     return (
       <div className="flex grow flex-row items-center justify-between gap-8">
         <div className="flex grow flex-row items-center gap-8">
-          <div className="flex flex-col gap-1 w-1/4">
+          <div className="flex w-1/4 flex-col gap-1">
             <Label htmlFor="macroName">
               {t(
                 "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNameLabel",
               )}
             </Label>
-            <div>{config?.MacroName ?? "-"}</div>
+            <div className="text-sm">{config?.MacroName ?? "-"}</div>
           </div>
-          <div className="flex flex-col gap-1 w-1/4">
+          <div className="flex w-1/4 flex-col gap-1">
             <Label htmlFor="macroValue">
               {t(
                 "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValueLabel",
               )}
             </Label>
-            <div>{config?.MacroValue ?? "-"}</div>
+            <CodeValueLabel className="text-sm">
+              {config?.MacroValue ?? "-"}
+            </CodeValueLabel>
           </div>
         </div>
       </div>

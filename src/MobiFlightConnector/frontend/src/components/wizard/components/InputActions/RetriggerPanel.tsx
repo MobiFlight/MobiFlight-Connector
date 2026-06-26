@@ -11,7 +11,7 @@ const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
   if (variant === "summary") {
     return (
       <div className="flex grow flex-row items-center gap-8">
-        <div className="flex grow flex-col gap-1">
+        <div className="flex grow flex-col gap-1 text-sm">
           <Label htmlFor="preset">{t("Dialog.InputConfigWizard.InputActions.Retrigger.NoteLabel")}:</Label>
           {t("Dialog.InputConfigWizard.InputActions.Retrigger.Summary")}
         </div>

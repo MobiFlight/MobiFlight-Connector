@@ -5,6 +5,7 @@ import { Switch } from "@/components/ui/switch"
 import ComboBox from "@/components/ComboBox"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 
 export type FsuipcOffsetInputActionPanelProps = {
   variant: "summary" | "details"
@@ -79,7 +80,7 @@ const FsuipcOffsetInputActionPanel = ({
           <Label htmlFor="size">
             {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
           </Label>
-          <div>{currentConfig.FSUIPC.Size.toString()}</div>
+          <div className="text-sm">{currentConfig.FSUIPC.Size.toString()}</div>
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="offset">
@@ -87,7 +88,7 @@ const FsuipcOffsetInputActionPanel = ({
               "Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel",
             )}
           </Label>
-          <div>
+          <div className="text-sm">
             {currentConfig.FSUIPC.Offset.toString(16)
               .toUpperCase()
               .padStart(4, "0")}
@@ -97,7 +98,7 @@ const FsuipcOffsetInputActionPanel = ({
           <Label htmlFor="mask">
             {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel")}
           </Label>
-          <div>
+          <div className="text-sm">
             {currentConfig.FSUIPC.Mask.toString(16)
               .toUpperCase()
               .padStart(4, "0")}
@@ -109,17 +110,17 @@ const FsuipcOffsetInputActionPanel = ({
               "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
             )}
           </Label>
-          <div id="bcdMode">
-            <Switch id="bcdMode" checked={currentConfig.FSUIPC.BcdMode} />
+          <div id="bcdMode" className="text-sm">
+            {currentConfig.FSUIPC.BcdMode ? "True" : "False"}
           </div>
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex grow flex-col gap-1">
           <Label htmlFor="value">
             {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
           </Label>
-          <div className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap truncate">
+          <CodeValueLabel>
             {currentConfig.Value}
-          </div>
+          </CodeValueLabel>
         </div>
       </div>
     )

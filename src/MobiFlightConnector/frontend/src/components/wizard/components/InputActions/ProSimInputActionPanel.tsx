@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import ProSimDataRefPanel from "@/components/wizard/components/InputActions/ProsimDataRefPanel"
 import { ProSimInputAction } from "@/types/config"
 import { useTranslation } from "react-i18next"
@@ -25,7 +26,7 @@ const ProSimInputActionPanel = ({
           <Label htmlFor="preset">
             {t("Dialog.InputConfigWizard.InputActions.ProSim.PathLabel")}:
           </Label>
-          <div>
+          <div className="text-sm">
             {config?.Path
               ? config?.Path
               : t(
@@ -37,14 +38,11 @@ const ProSimInputActionPanel = ({
           <Label htmlFor="code">
             {t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterLabel")}
           </Label>
-          <div
-            id="code"
-            className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
-          >
+          <CodeValueLabel id="code">
             {config?.Expression
               ? config?.Expression
               : t("Dialog.InputConfigWizard.InputActions.ProSim.ParameterNone")}
-          </div>
+          </CodeValueLabel>
         </div>
       </div>
     )

@@ -4,6 +4,7 @@ import { MsfsInputAction } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
@@ -21,25 +22,20 @@ const MsfsInputActionPanel = ({
   if (variant === "summary") {
     return (
       <div className="flex grow flex-row items-center gap-8">
-        <div className="flex flex-col gap-1 w-1/3">
+        <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="preset">
             {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
           </Label>
-          <div>
-            AP Panel Heading Hold
-          </div>
+          <div className="text-sm">AP Panel Heading Hold</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="code">
             {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
           </Label>
-          <div
-            id="code"
-            className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
-          >
+          <CodeValueLabel id="code">
             {config?.Command ??
               t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")}
-          </div>
+          </CodeValueLabel>
         </div>
       </div>
     )
@@ -66,7 +62,9 @@ const MsfsInputActionPanel = ({
         <Textarea
           name="code"
           className="font-mono text-sm whitespace-nowrap"
-          placeholder={t("Dialog.InputConfigWizard.InputActions.Msfs.CodePlaceholder")}
+          placeholder={t(
+            "Dialog.InputConfigWizard.InputActions.Msfs.CodePlaceholder",
+          )}
           value={config?.Command ?? ""}
           onChange={(e) => {
             onConfigChange({

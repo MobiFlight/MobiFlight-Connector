@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label"
 import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
 import { useEffect } from "react"
+import { Badge } from "@/components/ui/badge"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 export type VariablePanelProps = {
   variant: "summary" | "details"
   currentVariable?: MobiFlightVariable
@@ -52,23 +54,21 @@ export const VariablePanel = ({
               "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
             )}
           </Label>
-          <div>
-            {variable.Name} ({variable.TYPE})
+          <div className="flex flex-row items-center gap-2">
+            <span className="text-sm">{variable.Name}</span>
+            <Badge variant="outline">{variable.TYPE}</Badge>
           </div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="code">
             {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
           </Label>
-          <div
-            id="code"
-            className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
-          >
+          <CodeValueLabel id="code">
             {variable.Expression ??
               t(
                 "Dialog.InputConfigWizard.InputActions.Variable.NoneExpression",
               )}
-          </div>
+          </CodeValueLabel>
         </div>
       </div>
     )

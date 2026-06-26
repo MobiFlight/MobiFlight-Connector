@@ -108,9 +108,9 @@ const ActionBindingPanel = ({
               >
                 <div className="flex w-32 flex-col gap-1">
                   <Label>Event</Label>
-                  <div>
-                    <Badge variant={"secondary"}>{eventLabel}</Badge>
-                  </div>
+                  <Badge className="w-fit" variant={"secondary"}>
+                    {eventLabel}
+                  </Badge>
                 </div>
                 <ActionSummary action={action} />
                 <div className="gap1 flex flex-row pt-4">

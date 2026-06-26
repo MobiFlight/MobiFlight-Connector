@@ -1,6 +1,7 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { parsePresets } from "@/lib/configWizard"
 import { JeehellInputAction } from "@/types/config"
 import { useQuery } from "@tanstack/react-query"
@@ -42,18 +43,13 @@ const JeehellInputActionPanel = ({
           <Label htmlFor="mouseParam">
             {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}:
           </Label>
-          <div>{selectedPreset?.name}</div>
+          <div className="text-sm">{selectedPreset?.name}</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="param">
             {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}:
           </Label>
-          <div
-            id="param"
-            className="bg-accent/20 rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
-          >
-            {config?.Param}
-          </div>
+          <CodeValueLabel id="param">{config?.Param}</CodeValueLabel>
         </div>
       </div>
     )

@@ -1,6 +1,7 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { XplaneInputAction } from "@/types/config"
 import { useTranslation } from "react-i18next"
@@ -23,25 +24,20 @@ const XplaneInputActionPanel = ({
   if (variant === "summary") {
     return (
       <div className="flex grow flex-row items-center gap-8">
-        <div className="flex flex-col gap-1 w-1/3">
+        <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="preset">
             {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
           </Label>
-          <div>
-            AP Panel Heading Hold
-          </div>
+          <div className="text-sm">AP Panel Heading Hold</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="code">
             {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
           </Label>
-          <div
-            id="code"
-            className="bg-accent rounded px-2 py-1 font-mono text-sm whitespace-pre-wrap"
-          >
+          <CodeValueLabel id="code">
             {config?.Path ??
               t("Dialog.InputConfigWizard.InputActions.Xplane.NonePath")}
-          </div>
+          </CodeValueLabel>
         </div>
       </div>
     )

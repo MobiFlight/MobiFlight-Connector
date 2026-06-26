@@ -8,6 +8,7 @@ import { VJoyDefinitionsUpdate } from "@/types/messages"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 
 export type VJoyInputActionPanelProps = {
   variant: "summary" | "details"
@@ -67,20 +68,28 @@ const VJoyInputActionPanel = ({
     return (
       <div className="flex grow flex-row items-center justify-between gap-8">
         <div className="flex flex-col gap-1">
-          <Label htmlFor="preset">{t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:</Label>
-          <div>{selectedDeviceOption?.label}</div>
+          <Label htmlFor="preset">
+            {t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:
+          </Label>
+          <div className="text-sm">{selectedDeviceOption?.label}</div>
         </div>
         <div className="flex flex-col gap-1">
-          <Label htmlFor="preset">{t("Dialog.InputConfigWizard.InputActions.VJoy.Device")}:</Label>
-          {activeTab === "button" && <div>Button {config?.buttonNr}</div>}
-          {activeTab === "axis" && <div>Axis {config?.axisString}</div>}
+          <Label htmlFor="preset">
+            {t("Dialog.InputConfigWizard.InputActions.VJoy.Device")}:
+          </Label>
+          {activeTab === "button" && (
+            <div className="text-sm">Button {config?.buttonNr}</div>
+          )}
+          {activeTab === "axis" && (
+            <div className="text-sm">Axis {config?.axisString}</div>
+          )}
         </div>
         {activeTab === "button" && (
           <div className="flex flex-col gap-1">
             <Label htmlFor="buttonCommand">
               {t("Dialog.InputConfigWizard.InputActions.VJoy.ButtonStateLabel")}
             </Label>
-            <div>
+            <div className="text-sm">
               {config?.buttonComand
                 ? t("Dialog.InputConfigWizard.InputActions.VJoy.Pressed")
                 : t("Dialog.InputConfigWizard.InputActions.VJoy.Released")}
@@ -92,7 +101,9 @@ const VJoyInputActionPanel = ({
             <Label htmlFor="axisValue">
               {t("Dialog.InputConfigWizard.InputActions.VJoy.AxisValueLabel")}
             </Label>
-            <div>{config?.sendValue ?? "-"}</div>
+            <CodeValueLabel id="axisValue">
+              {config?.sendValue ?? "-"}
+            </CodeValueLabel>
           </div>
         )}
       </div>
@@ -195,7 +206,10 @@ const VJoyInputActionPanel = ({
                     } as VJoyInputAction)
                   }
                 />
-                <span className="text-sm" data-testid="vjoy-button-command-state">
+                <span
+                  className="text-sm"
+                  data-testid="vjoy-button-command-state"
+                >
                   {config?.buttonComand
                     ? t("Dialog.InputConfigWizard.InputActions.VJoy.Pressed")
                     : t("Dialog.InputConfigWizard.InputActions.VJoy.Released")}

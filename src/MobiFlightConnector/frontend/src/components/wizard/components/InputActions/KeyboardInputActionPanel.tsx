@@ -28,6 +28,7 @@ const skipRenderKeys = [
 
 const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
   const { t } = useTranslation()
+  console.log("KeyboardShortCut keys:", keys)
   return (
     <KbdGroup>
       {keys?.Control && (
@@ -48,10 +49,10 @@ const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
           <span> + </span>
         </>
       )}
-      {keys?.Code !== "" && !skipRenderKeys.includes(keys?.Code) ? (
+      {keys?.Code && keys?.Code !== "" && !skipRenderKeys.includes(keys?.Code) ? (
         <Kbd>{keys?.Code?.replace("Key", "")}</Kbd>
       ) : (
-        t("Dialog.InputConfigWizard.InputActions.Keyboard.None")
+        <span className="text-sm">{t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}</span>
       )}
     </KbdGroup>
   )
