@@ -184,6 +184,39 @@ test.describe("General Input Config Wizard Tests", () => {
   })
 })
 
+test.describe("Input Config Wizard - Edit name", () => {
+  test("Editing name works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+
+    // click on the Name label to enter edit mode
+    const nameLabel = page.getByTestId("dialog-config-name").getByRole("button")
+    const nameInput = page.getByTestId("dialog-config-name").getByRole("textbox")
+    const testLabel = "My new input config"
+    
+    await expect(nameInput).not.toBeVisible()
+    await expect(nameLabel).toBeVisible()
+    await nameLabel.click()
+    
+    await expect(nameInput).toBeVisible()
+    await nameInput.fill(testLabel)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Name).toEqual(testLabel)
+  })
+})
+
 test.describe("Input Config Wizard - Trigger Panel", () => {
   test("Trigger panel interactions work correctly - Scan for input", async ({
     configListPage,

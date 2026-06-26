@@ -61,7 +61,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         className="vlg:min-h-[80%] flex min-h-full flex-col justify-between overflow-x-hidden overflow-y-auto select-none sm:max-w-full lg:max-w-300"
       >
         <DialogHeader>
-          <DialogTitle className="flex flex-row items-center gap-2 text-2xl">
+          <DialogTitle className="flex flex-row items-center gap-2 text-2xl" data-testid="dialog-config-name">
             {t("Dialog.InputConfigWizard.Title")}{" "}
             <IconChevronRight className="mt-1" />
             <InlineEditLabel
