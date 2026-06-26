@@ -121,7 +121,7 @@ const ProjectForm = ({
               ? t("Project.Form.Title.Edit")
               : t("Project.Form.Title.New")}
           </DialogTitle>
-          <DialogDescription className="text-md">
+          <DialogDescription>
             {t("Project.Form.Description")}
           </DialogDescription>
         </DialogHeader>

@@ -185,22 +185,28 @@ test.describe("General Input Config Wizard Tests", () => {
 })
 
 test.describe("Input Config Wizard - Edit name", () => {
-  test("Editing name works correctly", async ({
-    configListPage,
-    page,
-  }) => {
+  test("Editing name works correctly", async ({ configListPage, page }) => {
+    // Add new config
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await addInputConfigButton.click()
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
 
     // click on the Name label to enter edit mode
     const nameLabel = page.getByTestId("dialog-config-name").getByRole("button")
-    const nameInput = page.getByTestId("dialog-config-name").getByRole("textbox")
+    const nameInput = page
+      .getByTestId("dialog-config-name")
+      .getByRole("textbox")
     const testLabel = "My new input config"
-    
+
     await expect(nameInput).not.toBeVisible()
     await expect(nameLabel).toBeVisible()
-    await nameLabel.click()
-    
+    await nameLabel.dblclick()
+
     await expect(nameInput).toBeVisible()
     await nameInput.fill(testLabel)
 
@@ -1072,7 +1078,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
       page,
       2,
       undefined,
-      { Sim: "xplane" }
+      { Sim: "xplane" },
     )
 
     const actionEditButton = actionDialog.getByRole("button", {

@@ -75,7 +75,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               }}
             />
           </DialogTitle>
-          <DialogDescription className="text-md hidden">
+          <DialogDescription className="vsm:block hidden">
             {t("Dialog.InputConfigWizard.Description")}
           </DialogDescription>
         </DialogHeader>
