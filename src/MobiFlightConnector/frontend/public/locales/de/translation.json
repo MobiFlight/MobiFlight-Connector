@@ -431,18 +431,54 @@
         "Title": "Aktionstyp",
         "Description": "Wähle den Typ der Aktion aus, die du ausführen möchtest",
         "Options": {
-          "MSFS2020CustomInputAction": "Microsoft Flight Simulator (alle Versionen)",
-          "XplaneInputAction": "X-Plane (alle Versionen)",
-          "ProSimInputAction": "ProSim",
-          "VariableInputAction": "MobiFlight - Variable",
-          "RetriggerInputAction": "MobiFlight - Schalter erneut auslösen",
-          "KeyInputAction": "MobiFlight - Tastatureingabe",
-          "VJoyInputAction": "MobiFlight - Virtueller Joystick (vJoy)",
-          "FsuipcOffsetInputAction": "FSUIPC - Offset",
-          "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
-          "LuaMacroInputAction": "FSUIPC - Lua-Makro",
-          "JeehellInputAction": "FSUIPC - Jeehell - Events",
-          "EventIdInputAction": "FSUIPC - EventID"
+          "MSFS2020CustomInputAction": {
+            "label": "Microsoft Flight Simulator (alle Versionen)",
+            "short": "MSFS"
+          },
+          "XplaneInputAction": {
+            "label": "X-Plane (alle Versionen)",
+            "short": "X-Plane"
+          },
+          "ProSimInputAction": {
+            "label": "ProSim",
+            "short": "ProSim"
+          },
+          "VariableInputAction": {
+            "label": "MobiFlight - Variable",
+            "short": "Variable"
+          },
+          "RetriggerInputAction": {
+            "label": "MobiFlight - Schalter erneut auslösen",
+            "short": "Schalter erneut auslösen"
+          },
+          "KeyInputAction": {
+            "label": "MobiFlight - Tastatureingabe",
+            "short": "Tastatureingabe"
+          },
+          "VJoyInputAction": {
+            "label": "MobiFlight - Virtueller Joystick (vJoy)",
+            "short": "vJoy"
+          },
+          "FsuipcOffsetInputAction": {
+            "label": "FSUIPC - Offset",
+            "short": "Offset"
+          },
+          "PmdgEventIdInputAction": {
+            "label": "FSUIPC - PMDG - Event ID",
+            "short": "PMDG Event ID"
+          },
+          "LuaMacroInputAction": {
+            "label": "FSUIPC - Lua-Makro",
+            "short": "Lua-Makro"
+          },
+          "JeehellInputAction": {
+            "label": "FSUIPC - Jeehell - Events",
+            "short": "Jeehell Events"
+          },
+          "EventIdInputAction": {
+            "label": "FSUIPC - EventID",
+            "short": "EventID"
+          }
         }
       },
       "Event" : {

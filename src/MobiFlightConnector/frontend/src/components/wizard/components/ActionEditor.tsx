@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -56,21 +57,22 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
   const typeOption = ActionTypeOptions.find(
     (option) => option.value === action.Type,
   )
-  const actionTypeLavbel = typeOption ? typeOption.value : action.Type
+  const actionTypeLabel = typeOption ? typeOption.value : action.Type
   return (
     <div className="flex grow flex-row items-center gap-8">
-      <div className="flex w-32 flex-col gap-1 truncate">
+      <div className="flex w-32 flex-col gap-1">
         <Label>
           {t("Dialog.InputConfigWizard.InputActions.Common.ActionLabel")}:
         </Label>
-        <span
-          className="truncate"
+        <Badge
+          variant={"outline"}
+          className="w-fit"
           title={t(
-            `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLavbel}`,
+            `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.label`,
           )}
         >
-          {t(`Dialog.InputConfigWizard.ActionType.Options.${actionTypeLavbel}`)}
-        </span>
+          {t(`Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.short`)}
+        </Badge>
       </div>
       {selectedActionType?.value === "MSFS2020CustomInputAction" && (
         <MsfsInputActionPanel

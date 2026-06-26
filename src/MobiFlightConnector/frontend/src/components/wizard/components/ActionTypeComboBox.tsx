@@ -41,7 +41,7 @@ const ActionTypeComboBox = ({
         items={filteredOptions}
         getLabel={(item) =>
           t(
-            `Dialog.InputConfigWizard.ActionType.Options.${item.value}`,
+            `Dialog.InputConfigWizard.ActionType.Options.${item.value}.label`,
             item.value,
           )
         }
