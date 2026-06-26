@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Base;
 using MobiFlight.HubHop;
 using System;
 using System.Collections.Generic;
@@ -134,7 +135,6 @@ namespace MobiFlight.HubHop.Tests
             Assert.IsNotNull(preset);
             Assert.AreEqual("5ad9abcd-8777-41cb-a344-109719c6715c", preset.id);
 
-
             code = deprecatedList.FindCodeByEventId("ASCRJ_ECAM_AICE");
             preset = list.FindByCode(HubHopType.InputPotentiometer | HubHopType.Input, code);
 
@@ -152,6 +152,36 @@ namespace MobiFlight.HubHop.Tests
             Msfs2020HubhopPreset preset = list.FindByUUID(HubHopType.AllInputs, "167a047e-eee9-48e4-8101-398dc99d6ebb");
             Assert.IsNotNull(preset);
             Assert.AreEqual("AS1000_PFD_VOL_1_DEC", preset.label) ;
+        }
+
+        [TestMethod()]
+        public void PresetList_RespectsProjectSettings_FilterByAircraft()
+        {
+            Msfs2020HubhopPresetList list = new Msfs2020HubhopPresetList();
+            var project = new ProjectInfo()
+            {
+                Aircraft = new List<AircraftInfo>()
+                {
+                    new AircraftInfo()
+                    {
+                        Name = "Generic",
+                        Vendor = "Microsoft",
+                    }
+                }
+            };
+
+            // list.ProjectInfo = project;
+            String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
+            list.Load(TestFile);
+            var filteredList = list.Filtered(HubHopType.Output, null, null, null, null);
+
+            Assert.HasCount(2, filteredList);
+
+            // Use the aircraft settings from project settings to filter the list
+            list.ProjectInfo = project;
+            filteredList = list.Filtered(HubHopType.Output, null, null, null, null);
+
+            Assert.HasCount(1, filteredList);
         }
     }
 }
