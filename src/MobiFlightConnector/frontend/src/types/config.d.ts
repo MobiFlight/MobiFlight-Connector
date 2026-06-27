@@ -31,6 +31,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   encoder?: EncoderTrigger
   analog?: AnalogTrigger
   ConfigRefs: ConfigReference[]
+  Modifiers?: Modifier[]
 }
 
 export type ConfigItemStatusType =
