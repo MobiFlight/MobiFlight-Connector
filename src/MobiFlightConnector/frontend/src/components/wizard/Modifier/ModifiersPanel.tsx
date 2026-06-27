@@ -22,7 +22,7 @@ const ModifiersPanel = ({
   variant,
 }: ModifiersPanelProps) => {
   const { t } = useTranslation()
-  const modifiers = configItem.Modifiers || []
+  const modifiers = configItem.Modifiers?.Items || []
 
   return variant === "summary" ? (
     <Card data-testid="modifiers-panel" className="w-full">
@@ -58,7 +58,7 @@ const ModifiersPanel = ({
     <ModifierEditor
       modifiers={modifiers}
       onModifierChange={(updatedModifiers) =>
-        onConfigChange({ ...configItem, Modifiers: updatedModifiers })
+        onConfigChange({ ...configItem, Modifiers: { Items: updatedModifiers } })
       }
     />
   )

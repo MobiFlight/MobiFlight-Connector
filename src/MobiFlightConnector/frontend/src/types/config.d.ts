@@ -1,4 +1,5 @@
 import { Controller } from "./controller"
+import { ModifierList, Modifier } from "./modifier"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
@@ -31,7 +32,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   encoder?: EncoderTrigger
   analog?: AnalogTrigger
   ConfigRefs: ConfigReference[]
-  Modifiers?: Modifier[]
+  Modifiers?: ModifierList
 }
 
 export type ConfigItemStatusType =

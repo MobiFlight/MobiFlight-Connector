@@ -3,6 +3,10 @@ export interface IModifier {
   Active: boolean
 }
 
+export type ModifierList = {
+  Items: Modifier[]
+}
+
 export type Modifier = Transformation | Substring | Padding | Interpolation | Comparison | Blink
 
 export interface Transformation extends IModifier {
