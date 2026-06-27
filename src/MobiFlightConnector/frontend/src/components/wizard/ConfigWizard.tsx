@@ -23,6 +23,7 @@ import {
 import { IconArrowBack } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
+import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
@@ -124,6 +125,12 @@ const ConfigWizard = ({
           />
         </div>
       </div>
+      <ModifiersPanel
+        configItem={configItem}
+        variant="summary"
+        onConfigChange={onConfigChange}
+        openDetailsPanel={() => navigateToDetailView("modifier")}
+      />
       {currentDeviceType === "Button" && (
         <ActionBindingPanel
           variant="button"
@@ -243,6 +250,14 @@ const ConfigWizard = ({
                   configReferences={configItem.ConfigRefs ?? []}
                   variant="details"
                   openDetailsPanel={() => {}}
+                />
+              )}
+              {detailView === "modifier" && (
+                <ModifiersPanel
+                  configItem={configItem}
+                  onConfigChange={onConfigChange}
+                  openDetailsPanel={() => {}}
+                  variant="details"
                 />
               )}
               {detailView === "action" && (

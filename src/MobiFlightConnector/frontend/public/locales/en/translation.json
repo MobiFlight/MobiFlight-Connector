@@ -190,7 +190,7 @@
         "Label": "Aircraft",
         "HelpText": "Select the aircraft for this project.",
         "Description": "Select one or more aircraft that are enabled for this project. Presets will be limited to the selected aircraft.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Aircraft Settings",
           "Description": "Select one or more aircraft that should be enabled for this project.",
           "SelectedAircraft": {
@@ -398,6 +398,43 @@
       "SearchController": "Search controller...",
       "NoControllerFound": "No controller found."
     },
+    "Modifiers": {
+      "Title": "Modifiers",
+      "Description": "Change the original value by applying a sequence of modifiers.",
+      "EditButton": "Edit modifiers",
+      "AddButton": "Add modifier",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformation",
+          "Description": "Use expression syntax to transform the input value."
+        },
+        "Substring": {
+          "Label": "Substring",
+          "Description": "Extracts a portion of the input value based on specified start and end positions."
+        },
+        "Padding": {
+          "Label": "Padding",
+          "Description": "Adds a specified value to the input value."
+        },
+        "Interpolation": {
+          "Label": "Interpolation",
+          "Description": "Interpolates the input value based on a specified function."
+        },
+        "Comparison": {
+          "Label": "Comparison",
+          "Description": "Compares the input value to a specified value."
+        },
+        "Blink": {
+          "Label": "Blink",
+          "Description": "Makes the input value blink based on a specified interval."
+        }
+      },
+      "Editor": {
+        "AddModifier": "Add modifier",
+        "NoModifiers": "No modifiers defined.",
+        "DeleteModifier": "Delete modifier"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Edit input configuration",
       "Description": "Edit all settings for this input configuration in this dialog.",
@@ -425,7 +462,7 @@
         "Title": "Action Type",
         "Description": "Select the type of action you want to perform",
         "Options": {
-          "MSFS2020CustomInputAction": { 
+          "MSFS2020CustomInputAction": {
             "label": "Microsoft Flight Simulator (all versions)",
             "short": "MSFS Preset"
           },
