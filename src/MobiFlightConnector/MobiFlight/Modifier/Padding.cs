@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -6,6 +8,7 @@ namespace MobiFlight.Modifier
 {
     public class Padding : ModifierBase
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public enum PaddingDirection { Left, Right, Centered }
         public char Character { get; set; } = ' ';
         public int Length { get; set; } = 5;
@@ -24,7 +27,7 @@ namespace MobiFlight.Modifier
                     Direction = direction;
                 }
             }
-            
+
             if (reader["length"] != null)
                 Length = int.Parse(reader["length"]);
 
@@ -35,10 +38,10 @@ namespace MobiFlight.Modifier
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("padding");
-                writer.WriteAttributeString("active", Active.ToString());
-                writer.WriteAttributeString("direction", Direction.ToString());
-                writer.WriteAttributeString("length", Length.ToString());
-                writer.WriteAttributeString("character", Character.ToString());
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("direction", Direction.ToString());
+            writer.WriteAttributeString("length", Length.ToString());
+            writer.WriteAttributeString("character", Character.ToString());
             writer.WriteEndElement();
         }
 
@@ -110,7 +113,7 @@ namespace MobiFlight.Modifier
                     break;
 
                 case PaddingDirection.Right:
-                    value =  (value.PadRight(Length, Character));
+                    value = (value.PadRight(Length, Character));
                     break;
             }
 
