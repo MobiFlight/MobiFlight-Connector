@@ -8,7 +8,6 @@ import {
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react"
-import { Label } from "@/components/ui/label"
 
 import {
   Collapsible,
@@ -16,6 +15,14 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { useState } from "react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 type InterpolationPanelProps = {
   variant: "summary" | "editor"
@@ -60,6 +67,11 @@ const InterpolationPanel = ({
     onChange({ ...modifier, Values: convertToRecord(updatedValues) })
   }
 
+  const removeMapping = (index: number) => {
+    const updatedValues = interpolationValues.filter((_, i) => i !== index)
+    onChange({ ...modifier, Values: convertToRecord(updatedValues) })
+  }
+
   return variant === "summary" ? (
     <div>InterpolationPanel Summary</div>
   ) : (
@@ -88,59 +100,84 @@ const InterpolationPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="pr-13 pl-27">
-          <div className="flex w-1/2 flex-col gap-2">
-            {interpolationValues.map((range, index) => {
-              const { start, end } = range
-              return (
-                <div className="flex flex-row items-center gap-2" key={index}>
-                  <div className="flex flex-row items-center gap-1">
-                    <Label htmlFor="start">Value</Label>
-                    <Input
-                      id="start"
-                      value={start ?? ""}
-                      onChange={(e) =>
-                        onChange({
-                          ...modifier,
-                          Values: convertToRecord(
-                            interpolationValues.map((v, i) =>
-                              i === index
-                                ? {
-                                    start: parseInt(e.target.value),
-                                    end: v.end,
-                                  }
-                                : v,
-                            ),
-                          ),
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-row items-center gap-1">
-                    <Label htmlFor="end" className="whitespace-nowrap">maps to</Label>
-                    <Input
-                      id="end"
-                      value={end ?? ""}
-                      onChange={(e) =>
-                        onChange({
-                          ...modifier,
-                          Values: convertToRecord(
-                            interpolationValues.map((v, i) =>
-                              i === index
-                                ? {
-                                    start: v.start,
-                                    end: parseInt(e.target.value),
-                                  }
-                                : v,
-                            ),
-                          ),
-                        })
-                      }
-                    />
-                  </div>
-                </div>
-              )
-            })}
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-2 overflow-hidden pr-13 pl-27 transition-all pb-2">
+          <div className="text-muted-foreground text-sm">
+            Define mappings between input and output values. Values outside the
+            range are clamped.
+          </div>
+          <div>
+            <div className="text-md font-semibold">Mappings</div>
+            <Table className="">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>From</TableHead>
+                  <TableHead>To</TableHead>
+                  <TableHead>Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {interpolationValues.map((range, index) => {
+                  const { start, end } = range
+                  return (
+                    <TableRow key={index}>
+                      <TableCell className="px-2 py-1">
+                        <Input
+                          id="start"
+                          value={start ?? ""}
+                          onChange={(e) =>
+                            onChange({
+                              ...modifier,
+                              Values: convertToRecord(
+                                interpolationValues.map((v, i) =>
+                                  i === index
+                                    ? {
+                                        start: parseInt(e.target.value),
+                                        end: v.end,
+                                      }
+                                    : v,
+                                ),
+                              ),
+                            })
+                          }
+                        />
+                      </TableCell>
+                      <TableCell className="px-2 py-1">
+                        <Input
+                          id="end"
+                          value={end ?? ""}
+                          onChange={(e) =>
+                            onChange({
+                              ...modifier,
+                              Values: convertToRecord(
+                                interpolationValues.map((v, i) =>
+                                  i === index
+                                    ? {
+                                        start: v.start,
+                                        end: parseInt(e.target.value),
+                                      }
+                                    : v,
+                                ),
+                              ),
+                            })
+                          }
+                        />
+                      </TableCell>
+                      <TableCell className="px-2 py-1">
+                        <Button
+                          onClick={() => removeMapping(index)}
+                          size={"sm"}
+                          variant="ghost"
+                        >
+                          <IconTrash />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="pl-2">
             <Button variant="outline" size="sm" onClick={addMapping}>
               <IconPlus />
               Add mapping
