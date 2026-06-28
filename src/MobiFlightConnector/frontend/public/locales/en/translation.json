@@ -430,6 +430,8 @@
         }
       },
       "Editor": {
+        "Title": "Edit modifiers",
+        "Description": "Add, configure, rearrange, and remove modifiers to change the original input value.",
         "AddModifier": "Add modifier",
         "NoModifiers": "No modifiers defined.",
         "DeleteModifier": "Delete modifier"

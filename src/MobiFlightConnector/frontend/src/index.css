@@ -266,6 +266,6 @@
 
 @layer components {
   .text-code {
-    @apply font-mono text-sm tracking-widest whitespace-nowrap;
+    @apply font-mono text-sm tracking-widest whitespace-pre-wrap;
   }
 }

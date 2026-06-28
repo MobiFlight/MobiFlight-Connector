@@ -73,6 +73,12 @@ const InterpolationPanel = ({
     onChange({ ...modifier, Values: convertToRecord(updatedValues) })
   }
 
+  const summaryInfo = {
+    min: Math.min(...interpolationValues.map((v) => v.start)),
+    max: Math.max(...interpolationValues.map((v) => v.end)),
+    mappings: interpolationValues.length,
+  }
+
   return variant === "summary" ? (
     <Badge className="bg-sky-500">Interpolation</Badge>
   ) : (
@@ -82,7 +88,7 @@ const InterpolationPanel = ({
         onOpenChange={setOpen}
         className="flex flex-col gap-2"
       >
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2">
           <IconGripVertical className="stroke-2" />
           <Switch
             id="active"
@@ -92,7 +98,15 @@ const InterpolationPanel = ({
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="text-md px-2 font-semibold">Interpolation</div>
+            <div className="flex flex-row items-center gap-2">
+              <div className="text-md px-2 font-semibold w-32 text-left">Interpolation</div>
+              <div className="flex flex-row items-center gap-1 text-sm">
+                <Badge variant={"secondary"}>{summaryInfo.mappings}</Badge>
+                values, range from
+                <Badge variant={"secondary"}>{summaryInfo.min}</Badge> to
+                <Badge variant={"secondary"}>{summaryInfo.max}</Badge>
+              </div>
+            </div>
             <Button onClick={() => {}} size={"sm"} variant="ghost">
               <IconChevronDown />
             </Button>
@@ -101,7 +115,7 @@ const InterpolationPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
             Define mappings between input and output values. Values outside the
             range are clamped.

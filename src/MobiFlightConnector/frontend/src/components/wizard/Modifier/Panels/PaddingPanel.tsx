@@ -40,10 +40,14 @@ const PaddingPanel = ({
     { value: "Centered", label: "Centered" },
   ] as { value: "Left" | "Right" | "Centered"; label: string }[]
 
-  const selectedDirection = directionOptions.find((option) => option.value === modifier.Direction)
+  const selectedDirection = directionOptions.find(
+    (option) => option.value === modifier.Direction,
+  )
 
   const { t } = useTranslation()
-  const setSelectedDirection = (item : { value: "Left" | "Right" | "Centered"; label: string } | null) => {
+  const setSelectedDirection = (
+    item: { value: "Left" | "Right" | "Centered"; label: string } | null,
+  ) => {
     if (item) {
       onChange({ ...modifier, Direction: item.value })
     }
@@ -58,7 +62,7 @@ const PaddingPanel = ({
         onOpenChange={setOpen}
         className="flex flex-col gap-2"
       >
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2">
           <IconGripVertical className="stroke-2" />
           <Switch
             id="active"
@@ -68,7 +72,17 @@ const PaddingPanel = ({
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="text-md px-2 font-semibold">Padding</div>
+            <div className="flex flex-row items-center gap-2">
+              <div className="text-md w-32 px-2 text-left font-semibold">
+                Padding
+              </div>
+              <div className="flex flex-row items-center gap-2 text-sm">
+                Length <Badge variant={"secondary"}>{modifier.Length}</Badge>
+                Value <Badge variant={"secondary"}>{modifier.PadChar}</Badge>
+                Direction{" "}
+                <Badge variant={"secondary"}>{modifier.Direction}</Badge>
+              </div>
+            </div>
             <Button onClick={() => {}} size={"sm"} variant="ghost">
               <IconChevronDown />
             </Button>
@@ -77,7 +91,7 @@ const PaddingPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
             Adjust the padding of the input value using the specified length,
             character, and direction.

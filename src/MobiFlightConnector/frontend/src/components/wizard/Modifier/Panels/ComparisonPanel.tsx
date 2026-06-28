@@ -56,7 +56,7 @@ const ComparisonPanel = ({
         onOpenChange={setOpen}
         className="flex flex-col gap-2"
       >
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2">
           <IconGripVertical className="stroke-2" />
           <Switch
             id="active"
@@ -66,7 +66,7 @@ const ComparisonPanel = ({
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="text-md px-2 font-semibold">Comparison</div>
+            <div className="text-md px-2 font-semibold w-32 text-left">Comparison</div>
             <Button onClick={() => {}} size={"sm"} variant="ghost">
               <IconChevronDown />
             </Button>

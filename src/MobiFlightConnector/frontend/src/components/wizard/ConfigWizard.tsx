@@ -53,7 +53,7 @@ const determineInputDeviceType = (
 }
 
 const drawerVariant = {
-    small: "data-[vaul-drawer-direction=right]:w-160 data-[vaul-drawer-direction=right]:sm:max-w-160",
+    small: "data-[vaul-drawer-direction=right]:w-170 data-[vaul-drawer-direction=right]:sm:max-w-170",
     large: "data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200",
   };
 

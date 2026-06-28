@@ -41,7 +41,7 @@ const SubstringPanel = ({
         onOpenChange={setOpen}
         className="flex flex-col gap-2"
       >
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2">
           <IconGripVertical className="stroke-2" />
           <Switch
             id="active"
@@ -51,7 +51,15 @@ const SubstringPanel = ({
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="text-md px-2 font-semibold">Substring</div>
+            <div className="flex flex-row items-center gap-2">
+              <div className="text-md w-32 px-2 text-left font-semibold">
+                Substring
+              </div>
+              <div className="flex flex-row items-center gap-2 text-sm">
+                From <Badge variant={"secondary"}>{modifier.Start}</Badge> to{" "}
+                <Badge variant={"secondary"}>{modifier.End}</Badge>
+              </div>
+            </div>
             <Button onClick={() => {}} size={"sm"} variant="ghost">
               <IconChevronDown />
             </Button>
@@ -60,9 +68,10 @@ const SubstringPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
-            Extract a substring from the input value using the specified start and end indices.
+            Extract a substring from the input value using the specified start
+            and end indices.
           </div>
           <div className="flex flex-row items-center gap-4 pr-16 pb-4">
             <div className="flex flex-col gap-1">

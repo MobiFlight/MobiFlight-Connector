@@ -85,7 +85,7 @@ const BlinkPanel = ({
         onOpenChange={setOpen}
         className="flex flex-col gap-2"
       >
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2">
           <IconGripVertical className="stroke-2" />
           <Switch
             id="active"
@@ -95,7 +95,17 @@ const BlinkPanel = ({
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="text-md px-2 font-semibold">Blink</div>
+            <div className="flex flex-row items-center gap-2">
+              <div className="text-md px-2 font-semibold w-32 text-left">Blink</div>
+              <div className="flex flex-row items-center gap-2 text-sm">
+                Value
+                <Badge variant={"secondary"}>{modifier.BlinkValue}</Badge>
+                Sequence
+                <Badge variant={"secondary"}>{blinkValues.length > 0 ? `${blinkValues[0].on}` : ""}</Badge>
+                /
+                <Badge variant={"outline"}>{blinkValues.length > 0 ? `${blinkValues[0].off}` : ""}</Badge>
+              </div>
+            </div>
             <Button onClick={() => {}} size={"sm"} variant="ghost">
               <IconChevronDown />
             </Button>
@@ -104,7 +114,7 @@ const BlinkPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
             Alternates the original input value with the Off value using the
             sequence below.
