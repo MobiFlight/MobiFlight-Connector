@@ -48,6 +48,11 @@ const determineInputDeviceType = (
   }
 }
 
+const drawerVariant = {
+    small: "data-[vaul-drawer-direction=right]:w-160 data-[vaul-drawer-direction=right]:sm:max-w-160",
+    large: "data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200",
+  };
+
 const ConfigWizard = ({
   configItem,
   onConfigChange,
@@ -59,7 +64,7 @@ const ConfigWizard = ({
 
   const currentDeviceType = determineInputDeviceType(configItem.Device?.Type)
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [drawerSize, setDrawerSize] = useState(200)
+  const [drawerSize, setDrawerSize] = useState<"small" | "large">("large")
 
   const [editAction, setEditAction] = useState<Action | null>(null)
   const [event, setEvent] = useState<{
@@ -92,11 +97,7 @@ const ConfigWizard = ({
   const detailView = searchParams.get("detail")
   const navigateToDetailView = (view: string, size: "small" | "large" = "large") => {
     setDrawerOpen(true)
-    if (size === "small") {
-      setDrawerSize(150)
-    } else if (size === "large") {
-      setDrawerSize(200)
-    }
+    setDrawerSize(size)
     navigate(`?detail=${view}`)
   }
 
@@ -221,7 +222,7 @@ const ConfigWizard = ({
           open={drawerOpen}
           onClose={() => closeDetailView(false)}
         >
-          <DrawerContent className={`data-[vaul-drawer-direction=right]:w-${drawerSize} data-[vaul-drawer-direction=right]:sm:max-w-${drawerSize}`}>
+          <DrawerContent className={drawerVariant[drawerSize]}>
             <DrawerHeader>
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
