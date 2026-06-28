@@ -8,7 +8,6 @@ import {
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react"
-import { Label } from "@/components/ui/label"
 
 import {
   Collapsible,
@@ -16,6 +15,14 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { useState } from "react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 type BlinkPanelProps = {
   variant: "summary" | "editor"
@@ -96,100 +103,104 @@ const BlinkPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="border-t pt-2 pr-13 pl-27">
-          <div className="flex flex-row gap-2">
-            <div className="flex flex-col gap-1 pr-12">
-              <Label htmlFor="value">Blink value</Label>
-              <Input
-                className="w-12"
-                id="value"
-                value={modifier.BlinkValue}
-                onChange={(e) =>
-                  onChange({ ...modifier, BlinkValue: e.target.value })
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <Label htmlFor="repeat">Sequence</Label>
-              <div className="flex h-9 flex-row items-center gap-2 px-2">
-                <div className="w-12 text-sm font-semibold">#</div>
-                <div className="w-20 text-center text-sm font-semibold">On</div>
-                <div className="w-20 text-center text-sm font-semibold">
-                  Off
-                </div>
-              </div>
-              {blinkValues.map((range, index) => {
-                const { on, off } = range
-                return (
-                  <div
-                    className="flex flex-row items-center gap-2 px-2"
-                    key={index}
-                  >
-                    <div className="w-12 text-sm font-semibold">
-                      {index + 1}
-                    </div>
-                    <div className="flex w-20 flex-row items-center gap-1">
-                      <Input
-                        id="on"
-                        value={on ?? ""}
-                        onChange={(e) =>
-                          onChange({
-                            ...modifier,
-                            OnOffSequence: convertToFlatArray(
-                              blinkValues.map((v, i) =>
-                                i === index
-                                  ? {
-                                      on: parseInt(e.target.value),
-                                      off: v.off,
-                                    }
-                                  : v,
-                              ),
-                            ),
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex w-20 flex-row items-center gap-1">
-                      <Input
-                        id="off"
-                        value={off ?? ""}
-                        onChange={(e) =>
-                          onChange({
-                            ...modifier,
-                            OnOffSequence: convertToFlatArray(
-                              blinkValues.map((v, i) =>
-                                i === index
-                                  ? {
-                                      on: v.on,
-                                      off: parseInt(e.target.value),
-                                    }
-                                  : v,
-                              ),
-                            ),
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          deleteBlink(index)
-                        }}
-                      >
-                        <IconTrash />
-                      </Button>
-                    </div>
-                  </div>
-                )
-              })}
-              <Button variant="outline" size="sm" onClick={addBlink}>
-                <IconPlus />
-                Add blink sequence
-              </Button>
-            </div>
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
+          <div className="text-muted-foreground text-sm">
+            Alternates the original input value with the Off value using the
+            sequence below.
           </div>
+          <div className="flex flex-col gap-1 pr-12">
+            <div className="text-md font-semibold">Alternate value (Off)</div>
+            <Input
+              className="w-12"
+              id="value"
+              value={modifier.BlinkValue}
+              onChange={(e) =>
+                onChange({ ...modifier, BlinkValue: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <div className="text-md font-semibold">Blink sequence</div>
+            <Table className="">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>#</TableHead>
+                  <TableHead>On (in ms)</TableHead>
+                  <TableHead>Off (in ms)</TableHead>
+                  <TableHead>
+                    <span className="sr-only">Action</span>
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {blinkValues.map((range, index) => {
+                  const { on, off } = range
+                  return (
+                    <TableRow key={index}>
+                      <TableCell className="px-2 py-1">{index + 1}</TableCell>
+                      <TableCell className="px-2 py-1">
+                        <Input
+                          id="on"
+                          value={on ?? ""}
+                          onChange={(e) =>
+                            onChange({
+                              ...modifier,
+                              OnOffSequence: convertToFlatArray(
+                                blinkValues.map((v, i) =>
+                                  i === index
+                                    ? {
+                                        on: parseInt(e.target.value),
+                                        off: v.off,
+                                      }
+                                    : v,
+                                ),
+                              ),
+                            })
+                          }
+                        />
+                      </TableCell>
+                      <TableCell className="px-2 py-1">
+                        <Input
+                          id="off"
+                          value={off ?? ""}
+                          onChange={(e) =>
+                            onChange({
+                              ...modifier,
+                              OnOffSequence: convertToFlatArray(
+                                blinkValues.map((v, i) =>
+                                  i === index
+                                    ? {
+                                        on: v.on,
+                                        off: parseInt(e.target.value),
+                                      }
+                                    : v,
+                                ),
+                              ),
+                            })
+                          }
+                        />
+                      </TableCell>
+                      <TableCell className="px-2 py-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            deleteBlink(index)
+                          }}
+                        >
+                          <IconTrash />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </div>
+          <Button variant="outline" size="sm" onClick={addBlink}>
+            <IconPlus />
+            Add blink interval
+          </Button>
         </CollapsibleContent>
       </Collapsible>
     </div>
