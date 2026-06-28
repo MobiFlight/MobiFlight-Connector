@@ -1,22 +1,47 @@
-import { IModifier } from "@/types/modifier"
-import { useTranslation } from "react-i18next"
+import { Badge } from "@/components/ui/badge"
+import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
+import { Modifier } from "@/types/modifier"
 
 type ModifierSummaryProps = {
-  modifiers: IModifier[]
+  rawValue: string | null | undefined
+  finalValue: string | null | undefined
+  modifiers: Modifier[]
   maxDisplayCount: number
 }
 
 const ModifierSummary = ({
+  rawValue,
+  finalValue,
   modifiers,
   maxDisplayCount,
 }: ModifierSummaryProps) => {
-  const { t } = useTranslation()
-  return <div>{
-    modifiers.slice(0, maxDisplayCount).map((modifier, index) => (
-      <div key={index}>
-        {t(`Dialog.Modifiers.Type.${modifier.Type}.Label`)}
+  const rawValueClean = rawValue?.replace("CHANGE =>", "") ?? ""
+  return (
+    <div className="flex flex-row justify-between gap-2 items-center">
+      <Badge variant="secondary">{rawValueClean}</Badge>
+      <div className="mt-1 h-1 grow border-t border-dashed border-gray-800"></div>
+      <div className="flex flex-row flex-wrap gap-2">
+        {modifiers.slice(0, maxDisplayCount).map((modifier, index) => (
+          <div className="flex flex-row items-center gap-2" key={index}>
+            <ModifierItem
+              key={index}
+              modifier={modifier}
+              onChange={() => {}}
+              onDelete={() => {}}
+              variant="summary"
+            />
+            <div className="mt-1 h-1 w-16 border-t border-dashed border-gray-800"></div>
+          </div>
+        ))}
+        {modifiers.length > maxDisplayCount && (
+          <Badge variant="secondary">
+            + {modifiers.length - maxDisplayCount} more
+          </Badge>
+        )}
       </div>
-    ))
-  }</div>
+      <div className="mt-1 h-1 grow border-t border-dashed border-gray-800"></div>
+      <Badge variant="secondary">{finalValue}</Badge>
+    </div>
+  )
 }
 export default ModifierSummary

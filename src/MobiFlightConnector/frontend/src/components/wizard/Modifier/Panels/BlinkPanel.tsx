@@ -23,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
 
 type BlinkPanelProps = {
   variant: "summary" | "editor"
@@ -76,7 +77,7 @@ const BlinkPanel = ({
   }
 
   return variant === "summary" ? (
-    <div>BlinkPanel Summary</div>
+    <Badge className="bg-amber-400">Blink</Badge>
   ) : (
     <div className="flex flex-col gap-2 rounded-md border p-1">
       <Collapsible

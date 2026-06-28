@@ -17,6 +17,7 @@ import {
 import { useState } from "react"
 import ComboBox from "@/components/ComboBox"
 import { useTranslation } from "react-i18next"
+import { Badge } from "@/components/ui/badge"
 
 type PaddingPanelProps = {
   variant: "summary" | "editor"
@@ -49,7 +50,7 @@ const PaddingPanel = ({
   }
 
   return variant === "summary" ? (
-    <div>PaddingPanel Summary</div>
+    <Badge className="bg-teal-600">Padding</Badge>
   ) : (
     <div className="flex flex-col gap-2 rounded-md border px-1 py-0.5">
       <Collapsible

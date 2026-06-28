@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/collapsible"
 import { useState } from "react"
 import ComboBox from "@/components/ComboBox"
+import { Badge } from "@/components/ui/badge"
 
 type ComparisonPanelProps = {
   variant: "summary" | "editor"
@@ -47,7 +48,7 @@ const ComparisonPanel = ({
   }
 
   return variant === "summary" ? (
-    <div>ComparisonPanel Summary</div>
+    <Badge className="bg-amber-600">Comparison</Badge>
   ) : (
     <div className="flex flex-col gap-2 rounded-md border p-1">
       <Collapsible

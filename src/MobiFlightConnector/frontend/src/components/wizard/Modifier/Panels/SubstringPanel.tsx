@@ -15,6 +15,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { useState } from "react"
+import { Badge } from "@/components/ui/badge"
 
 type SubstringPanelProps = {
   variant: "summary" | "editor"
@@ -32,7 +33,7 @@ const SubstringPanel = ({
   const [open, setOpen] = useState(false)
 
   return variant === "summary" ? (
-    <div>SubstringPanel Summary</div>
+    <Badge className="bg-blue-700">Substring</Badge>
   ) : (
     <div className="flex flex-col gap-2 rounded-md border px-1 py-0.5">
       <Collapsible

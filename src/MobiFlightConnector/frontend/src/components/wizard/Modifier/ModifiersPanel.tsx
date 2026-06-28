@@ -10,7 +10,11 @@ type ModifiersPanelProps = {
   configItem: IConfigItem
   onConfigChange: (configItem: IConfigItem) => void
   openDetailsPanel: () => void
-  variant: "summary" | "details"
+  variant: "summary" | "details",
+  liveData: {
+    rawValue: string | null | undefined
+    finalValue: string | null | undefined
+  }
 }
 
 const maxDisplayCount = 4
@@ -20,6 +24,7 @@ const ModifiersPanel = ({
   onConfigChange,
   openDetailsPanel,
   variant,
+  liveData,
 }: ModifiersPanelProps) => {
   const { t } = useTranslation()
   const modifiers = configItem.Modifiers?.Items || []
@@ -33,6 +38,8 @@ const ModifiersPanel = ({
         {modifiers.length > 0 ? (
           <div className="flex flex-col gap-2">
             <ModifierSummary
+              rawValue={liveData.rawValue ?? "?"}
+              finalValue={liveData.finalValue ?? "?"}
               modifiers={modifiers}
               maxDisplayCount={maxDisplayCount}
             />
@@ -58,7 +65,10 @@ const ModifiersPanel = ({
     <ModifierEditor
       modifiers={modifiers}
       onModifierChange={(updatedModifiers) =>
-        onConfigChange({ ...configItem, Modifiers: { Items: updatedModifiers } })
+        onConfigChange({
+          ...configItem,
+          Modifiers: { Items: updatedModifiers },
+        })
       }
     />
   )

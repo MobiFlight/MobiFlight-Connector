@@ -23,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
 
 type InterpolationPanelProps = {
   variant: "summary" | "editor"
@@ -73,7 +74,7 @@ const InterpolationPanel = ({
   }
 
   return variant === "summary" ? (
-    <div>InterpolationPanel Summary</div>
+    <Badge className="bg-sky-500">Interpolation</Badge>
   ) : (
     <div className="flex flex-col gap-2 rounded-md border px-1 py-0.5">
       <Collapsible

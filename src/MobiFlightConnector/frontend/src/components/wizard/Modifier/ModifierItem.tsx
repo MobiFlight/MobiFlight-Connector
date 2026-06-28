@@ -10,51 +10,53 @@ type ModifierItemProps = {
   modifier: Modifier
   onChange: (updated: Modifier) => void
   onDelete: () => void
+  variant?: "summary" | "editor"
 }
 export const ModifierItem = ({
   modifier,
   onChange,
   onDelete,
+  variant = "editor",
 }: ModifierItemProps) => {
   switch (modifier.Type) {
     case "Transformation":
       return <TransformationPanel
-        variant="editor"
+        variant={variant}
         modifier={modifier}
         onChange={onChange}
         onDelete={onDelete}
       />
     case "Substring":
       return <SubstringPanel
-        variant="editor"
+        variant={variant}
         modifier={modifier}
         onChange={onChange}
         onDelete={onDelete}
       />
     case "Padding":
       return <PaddingPanel
-        variant="editor"
+        variant={variant}
         modifier={modifier}
         onChange={onChange}
         onDelete={onDelete}
       />
     case "Interpolation":
       return <InterpolationPanel
-        variant="editor"
+        variant={variant}
         modifier={modifier}
         onChange={onChange}
         onDelete={onDelete}
       />
     case "Comparison":
       return <ComparisonPanel
-        variant="editor"
+        variant={variant}
         modifier={modifier}
         onChange={onChange}
         onDelete={onDelete}
       />
     case "Blink":
       return <BlinkPanel
-        variant="editor"
+        variant={variant}
         modifier={modifier}
         onChange={onChange}
         onDelete={onDelete}

@@ -103,6 +103,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                     setCurrentConfigItem(item)
                   }}
                   drawerContainer={containerRef}
+                  liveData={{ rawValue: configItem?.RawValue, finalValue: configItem?.Value }}
                 />
               )}
             </div>

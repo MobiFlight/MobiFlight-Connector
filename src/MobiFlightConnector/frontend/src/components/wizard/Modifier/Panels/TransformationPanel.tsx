@@ -16,6 +16,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { useState } from "react"
+import { Badge } from "@/components/ui/badge"
 
 type TransformationPanelProps = {
   variant: "summary" | "editor"
@@ -33,7 +34,7 @@ const TransformationPanel = ({
   const [open, setOpen] = useState(false)
 
   return variant === "summary" ? (
-    <div>TransformationPanel Summary</div>
+    <Badge className="bg-indigo-600">Transformation</Badge>
   ) : (
     <div className="flex flex-col gap-2 rounded-md border px-1 py-0.5">
       <Collapsible

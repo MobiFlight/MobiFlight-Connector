@@ -29,6 +29,10 @@ export type ConfigWizardProps = {
   configItem: IConfigItem
   onConfigChange: (configItem: IConfigItem) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
+  liveData: {
+    rawValue: string | null | undefined
+    finalValue: string | null | undefined
+  }
 }
 
 const determineInputDeviceType = (
@@ -57,6 +61,7 @@ const ConfigWizard = ({
   configItem,
   onConfigChange,
   drawerContainer,
+  liveData,
 }: ConfigWizardProps) => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
@@ -137,6 +142,7 @@ const ConfigWizard = ({
         variant="summary"
         onConfigChange={onConfigChange}
         openDetailsPanel={() => navigateToDetailView("modifier", "small")}
+        liveData={liveData}
       />
       {currentDeviceType === "Button" && (
         <ActionBindingPanel
@@ -265,6 +271,7 @@ const ConfigWizard = ({
                   onConfigChange={onConfigChange}
                   openDetailsPanel={() => {}}
                   variant="details"
+                  liveData={{ rawValue: liveData.rawValue, finalValue: liveData.finalValue }}
                 />
               )}
               {detailView === "action" && (
