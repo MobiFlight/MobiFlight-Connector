@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import {
   IconChevronDown,
   IconGripVertical,
+  IconMathFunction,
   IconTrash,
 } from "@tabler/icons-react"
 import { Label } from "@/components/ui/label"
@@ -32,11 +33,16 @@ const ComparisonPanel = ({
 }: ComparisonPanelProps) => {
   const [open, setOpen] = useState(false)
   const availableOperators = ComparisonOperators
-  const selectedDirection = availableOperators.find((option) => option === modifier.Operand)
+  const selectedDirection = availableOperators.find(
+    (option) => option === modifier.Operand,
+  )
 
   const setSelectedDirection = (item: string | null) => {
     if (item) {
-      onChange({ ...modifier, Operand: item as "=" | "!=" | "<" | ">" | "<=" | ">=" })
+      onChange({
+        ...modifier,
+        Operand: item as "=" | "!=" | "<" | ">" | "<=" | ">=",
+      })
     }
   }
 
@@ -68,8 +74,12 @@ const ComparisonPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
-          <div className="flex flex-row items-center gap-4 pr-16 pb-4">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
+          <div className="text-muted-foreground text-sm">
+            Compare the current value with another value and adjust the output
+            if it matches or not.
+          </div>
+          <div className="flex flex-row items-center gap-4">
             <div className="flex flex-row gap-1">
               <Label htmlFor="current">If current value</Label>
             </div>
@@ -86,38 +96,50 @@ const ComparisonPanel = ({
                   setSelectedDirection(item ? item : null)
                 }}
                 variant="nofilter"
-                widthClass="w-32"
+                widthClass="w-20"
               />
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="start">Value</Label>
-              <Input
-                id="start"
-                value={modifier.Value}
-                onChange={(e) =>
-                  onChange({ ...modifier, Value: e.target.value })
-                }
-              />
+              <div className="relative flex flex-row items-center">
+                <Input
+                  id="start"
+                  className="text-code pl-8"
+                  value={modifier.Value}
+                  onChange={(e) =>
+                    onChange({ ...modifier, Value: e.target.value })
+                  }
+                />
+                <IconMathFunction className="stroke-muted-foreground bg-accent absolute rounded-l-sm px-1" />
+              </div>
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="if">Then</Label>
-              <Input
-                id="if"
-                value={modifier.IfValue}
-                onChange={(e) =>
-                  onChange({ ...modifier, IfValue: e.target.value })
-                }
-              />
+              <div className="relative flex flex-row items-center">
+                <Input
+                  id="if"
+                  className="text-code pl-8"
+                  value={modifier.IfValue}
+                  onChange={(e) =>
+                    onChange({ ...modifier, IfValue: e.target.value })
+                  }
+                />
+                <IconMathFunction className="stroke-muted-foreground bg-accent absolute rounded-l-sm px-1" />
+              </div>
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="else">Else</Label>
-              <Input
-                id="else"
-                value={modifier.ElseValue}
-                onChange={(e) =>
-                  onChange({ ...modifier, ElseValue: e.target.value })
-                }
-              />
+              <div className="relative flex flex-row items-center">
+                <Input
+                  className="text-code pl-8"
+                  id="else"
+                  value={modifier.ElseValue}
+                  onChange={(e) =>
+                    onChange({ ...modifier, ElseValue: e.target.value })
+                  }
+                />
+                <IconMathFunction className="stroke-muted-foreground bg-accent absolute rounded-l-sm px-1" />
+              </div>
             </div>
           </div>
         </CollapsibleContent>
