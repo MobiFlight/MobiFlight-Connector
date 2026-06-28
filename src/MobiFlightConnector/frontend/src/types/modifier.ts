@@ -32,6 +32,8 @@ export interface Interpolation extends IModifier {
   Values: Record<number, number>
 }
 
+export const ComparisonOperators: string[] = ["=", "!=", "<", ">", "<=", ">="]
+
 export interface Comparison extends IModifier {
   Type: "Comparison"
   Operand: "=" | "!=" | "<" | ">" | "<=" | ">="
@@ -62,7 +64,7 @@ export class ModifierFactory {
         return {
           Type: "Transformation",
           Active: true,
-          Expression: "",
+          Expression: "$",
         } as Transformation
       case "Substring":
         return {
@@ -75,30 +77,33 @@ export class ModifierFactory {
         return {
           Type: "Padding",
           Active: true,
-          Length: 1,
-          PadChar: " ",
-          Direction: "Right",
+          Length: 5,
+          PadChar: "0",
+          Direction: "Left",
         } as Padding
       case "Interpolation":
         return {
           Type: "Interpolation",
           Active: true,
-          Values: {},
+          Values: {
+            0: 0,
+            10: 1000,
+          },
         } as Interpolation
       case "Comparison":
         return {
           Type: "Comparison",
           Active: true,
           Operand: "=",
-          Value: "",
-          IfValue: "",
-          ElseValue: "",
+          Value: "0",
+          IfValue: "1",
+          ElseValue: "0",
         } as Comparison
       case "Blink":
         return {
           Type: "Blink",
           Active: true,
-          BlinkValue: "",
+          BlinkValue: "0",
           OnOffSequence: [500, 500],
         } as Blink
       default:

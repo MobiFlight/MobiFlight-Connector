@@ -8,35 +8,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
-import TransformationPanel from "@/components/wizard/Modifier/Panels/TransformationPanel"
-
-const ModifierItem = ({
-  modifier,
-  onChange,
-  onDelete,
-}: {
-  modifier: Modifier
-  onChange: (updated: Modifier) => void
-  onDelete: () => void
-}) => {
-  let PanelComponent = null
-  switch (modifier.Type) {
-    case "Transformation":
-      PanelComponent = TransformationPanel
-      break
-    default:
-      return null
-  }
-
-  return (
-    <PanelComponent
-      variant="editor"
-      modifier={modifier}
-      onChange={onChange}
-      onDelete={onDelete}
-    />
-  )
-}
+import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type ModifierEditorProps = {
   modifiers: Modifier[]
@@ -70,31 +43,40 @@ const ModifierEditor = ({
   }
 
   return (
-    <div className="flex flex-col gap-4" data-testid="config-reference-editor">
-      <div className="text-lg font-semibold">
-        {t("Dialog.Modifiers.Editor.Title")}
-      </div>
-      <div className="text-muted-foreground text-sm">
-        {t("Dialog.Modifiers.Editor.Description")}
+    <div
+      className="flex grow flex-col gap-4"
+      data-testid="config-reference-editor"
+    >
+      <div className="flex flex-col gap-1">
+        <div className="text-lg font-semibold">
+          {t("Dialog.Modifiers.Editor.Title")}
+        </div>
+        <div className="text-muted-foreground text-sm">
+          {t("Dialog.Modifiers.Editor.Description")}
+        </div>
       </div>
 
-      {modifiers.length === 0 && (
+      {modifiers.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
           {t("Dialog.Modifiers.Editor.NoModifiers")}
         </div>
+      ) : (
+        <ScrollArea className="grow">
+          <div className="flex flex-col gap-2">
+            {modifiers.map((modifier, index) => (
+              <ModifierItem
+                key={index}
+                modifier={modifier}
+                onChange={(updated) => handleChange(index, updated)}
+                onDelete={() => handleDelete(index)}
+              />
+            ))}
+          </div>
+        </ScrollArea>
       )}
-
-      {modifiers.map((modifier, index) => (
-        <ModifierItem
-          key={index}
-          modifier={modifier}
-          onChange={(updated) => handleChange(index, updated)}
-          onDelete={() => handleDelete(index)}
-        />
-      ))}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
+          <Button variant="outline" className="w-fit">
             <IconPlus className="h-4 w-4" />
             {t("Dialog.Modifiers.Editor.AddModifier")}
           </Button>

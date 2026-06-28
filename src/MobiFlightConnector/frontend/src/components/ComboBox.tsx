@@ -69,7 +69,7 @@ const ComboBox = <T,>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn(widthClass, "justify-between")}
+          className={cn("justify-between h-8", widthClass)}
           disabled={disabled}
           {...props}
         >

@@ -59,6 +59,7 @@ const ConfigWizard = ({
 
   const currentDeviceType = determineInputDeviceType(configItem.Device?.Type)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerSize, setDrawerSize] = useState(200)
 
   const [editAction, setEditAction] = useState<Action | null>(null)
   const [event, setEvent] = useState<{
@@ -89,8 +90,13 @@ const ConfigWizard = ({
   >(null)
 
   const detailView = searchParams.get("detail")
-  const navigateToDetailView = (view: string) => {
+  const navigateToDetailView = (view: string, size: "small" | "large" = "large") => {
     setDrawerOpen(true)
+    if (size === "small") {
+      setDrawerSize(150)
+    } else if (size === "large") {
+      setDrawerSize(200)
+    }
     navigate(`?detail=${view}`)
   }
 
@@ -129,7 +135,7 @@ const ConfigWizard = ({
         configItem={configItem}
         variant="summary"
         onConfigChange={onConfigChange}
-        openDetailsPanel={() => navigateToDetailView("modifier")}
+        openDetailsPanel={() => navigateToDetailView("modifier", "small")}
       />
       {currentDeviceType === "Button" && (
         <ActionBindingPanel
@@ -215,7 +221,7 @@ const ConfigWizard = ({
           open={drawerOpen}
           onClose={() => closeDetailView(false)}
         >
-          <DrawerContent className="data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200">
+          <DrawerContent className={`data-[vaul-drawer-direction=right]:w-${drawerSize} data-[vaul-drawer-direction=right]:sm:max-w-${drawerSize}`}>
             <DrawerHeader>
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
@@ -225,7 +231,7 @@ const ConfigWizard = ({
                 {t("Dialog.General.GoBack")}
               </DrawerClose>
             </DrawerHeader>
-            <div className="px-4">
+            <div className="px-4 flex flex-col flex-1 pb-4">
               {detailView === "precondition" && (
                 <PreconditionsPanel
                   onPreconditionsChange={(preconditions) => {
