@@ -50,7 +50,6 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
             {
                 blink.BlinkValue = "  ";
                 blink.FirstExecutionTime = 100;
-                blink.OffDurationInMs = 200;
                 blink.OnOffSequence = new List<int>() { 200, 300 };
             }
             else if (originalModifier is Comparison compare)

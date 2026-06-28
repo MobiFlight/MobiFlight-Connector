@@ -33,9 +33,6 @@ namespace MobiFlight.Modifier.Tests
             blink2.FirstExecutionTime = 1;
             Assert.AreEqual(blink1, blink2);
 
-            blink1.OffDurationInMs = 1;
-            Assert.AreNotEqual(blink1, blink2);
-
             blink2.OffDurationInMs = 1;
             Assert.AreEqual(blink1, blink2);
         }

@@ -9,7 +9,7 @@ namespace MobiFlight
         public Controller Controller { get; set; }
         public DeviceReference Device { get; set; }
         public DeviceType InputType { get; set; }
-        public int Value { get; set; }
+        public double Value { get; set; }
 
         public String StrValue { get; set; }
 
@@ -17,14 +17,15 @@ namespace MobiFlight
 
         public string GetEventActionLabel()
         {
+            var value = Convert.ToInt32(Value);
             switch (InputType)
             {
                 case DeviceType.Button:
-                    return MobiFlightButton.InputEventIdToString(Value);
+                    return MobiFlightButton.InputEventIdToString(value);
                 case DeviceType.Encoder:
-                    return MobiFlightEncoder.InputEventIdToString(Value);
+                    return MobiFlightEncoder.InputEventIdToString(value);
                 case DeviceType.AnalogInput:
-                    return $"{MobiFlightAnalogInput.InputEventIdToString(0)} => {Value}";
+                    return $"{MobiFlightAnalogInput.InputEventIdToString(0)} => {value}";
                 default:
                     return "n/a";
             }

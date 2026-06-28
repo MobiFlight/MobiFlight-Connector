@@ -101,7 +101,7 @@ namespace MobiFlight
         private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
-        readonly Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
+        readonly Dictionary<string, double> ScanForInputThreshold = new Dictionary<string, double>();
 
         public List<IConfigItem> ConfigItems
         {
