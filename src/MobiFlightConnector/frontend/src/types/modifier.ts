@@ -23,7 +23,7 @@ export interface Substring extends IModifier {
 export interface Padding extends IModifier {
   Type: "Padding"
   Length: number
-  PadChar: string
+  Character: string
   Direction: "Left" | "Right" | "Centered"
 }
 
@@ -78,7 +78,7 @@ export class ModifierFactory {
           Type: "Padding",
           Active: true,
           Length: 5,
-          PadChar: "0",
+          Character: "0",
           Direction: "Left",
         } as Padding
       case "Interpolation":

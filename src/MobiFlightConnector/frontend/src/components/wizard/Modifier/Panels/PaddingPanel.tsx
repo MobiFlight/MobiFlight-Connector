@@ -4,6 +4,7 @@ import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import {
   IconChevronDown,
+  IconChevronUp,
   IconGripVertical,
   IconTrash,
 } from "@tabler/icons-react"
@@ -78,14 +79,14 @@ const PaddingPanel = ({
               </div>
               <div className="flex flex-row items-center gap-2 text-sm">
                 Length <Badge variant={"secondary"}>{modifier.Length}</Badge>
-                Value <Badge variant={"secondary"}>{modifier.PadChar}</Badge>
+                Value <Badge variant={"secondary"}>{modifier.Character}</Badge>
                 Direction{" "}
                 <Badge variant={"secondary"}>{modifier.Direction}</Badge>
               </div>
             </div>
-            <Button onClick={() => {}} size={"sm"} variant="ghost">
-              <IconChevronDown />
-            </Button>
+            <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
+              { !open ? <IconChevronDown /> : <IconChevronUp /> }
+            </div>
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
@@ -109,21 +110,21 @@ const PaddingPanel = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="padChar">Value</Label>
+              <Label htmlFor="character">Value</Label>
               <Input
                 className="w-12"
-                id="padChar"
+                id="character"
                 maxLength={1}
-                value={modifier.PadChar}
+                value={modifier.Character}
                 onChange={(e) =>
-                  onChange({ ...modifier, PadChar: e.target.value })
+                  onChange({ ...modifier, Character: e.target.value })
                 }
               />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="padDirection">Direction</Label>
+              <Label htmlFor="direction">Direction</Label>
               <ComboBox
-                id="padDirection"
+                id="direction"
                 items={directionOptions}
                 selected={selectedDirection}
                 getLabel={(item) => item.label}

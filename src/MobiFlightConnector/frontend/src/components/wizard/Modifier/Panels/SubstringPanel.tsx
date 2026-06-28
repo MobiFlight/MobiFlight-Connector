@@ -4,6 +4,7 @@ import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import {
   IconChevronDown,
+  IconChevronUp,
   IconGripVertical,
   IconTrash,
 } from "@tabler/icons-react"
@@ -60,9 +61,9 @@ const SubstringPanel = ({
                 <Badge variant={"secondary"}>{modifier.End}</Badge>
               </div>
             </div>
-            <Button onClick={() => {}} size={"sm"} variant="ghost">
-              <IconChevronDown />
-            </Button>
+            <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
+              { !open ? <IconChevronDown /> : <IconChevronUp /> }
+            </div>
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
