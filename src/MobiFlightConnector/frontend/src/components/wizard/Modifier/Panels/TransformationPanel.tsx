@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import {
   IconChevronDown,
   IconGripVertical,
+  IconMathFunction,
   IconTrash,
 } from "@tabler/icons-react"
 import { Label } from "@/components/ui/label"
@@ -59,17 +60,21 @@ const TransformationPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="pl-27">
-          <div className="flex flex-row items-center gap-4 pr-16 pb-4">
+        <CollapsibleContent className="pl-27 pr-16 pb-4">
+          <div className="flex flex-row items-center gap-4">
             <div className="flex grow flex-col gap-1">
               <Label htmlFor="expression">Expression</Label>
-              <Input
-                id="expression"
-                value={modifier.Expression}
-                onChange={(e) =>
-                  onChange({ ...modifier, Expression: e.target.value })
-                }
-              />
+              <div className="flex flex-row items-center relative">
+                <Input
+                  id="expression"
+                  className="pl-8 text-code"
+                  value={modifier.Expression}
+                  onChange={(e) =>
+                    onChange({ ...modifier, Expression: e.target.value })
+                  }
+                />
+                <IconMathFunction className="px-1 absolute stroke-muted-foreground bg-accent rounded-l-sm" />
+              </div>
             </div>
           </div>
         </CollapsibleContent>

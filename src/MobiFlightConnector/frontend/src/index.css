@@ -242,3 +242,9 @@
 @custom-variant vsm (@media (min-height: 650px));
 @custom-variant vlg (@media (min-height: 900px));
 @custom-variant vxl (@media (min-height: 1200px));
+
+@layer components {
+    .text-code {
+        @apply font-mono tracking-widest text-sm whitespace-nowrap;
+    }
+}
