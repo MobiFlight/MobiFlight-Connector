@@ -100,7 +100,7 @@ const InterpolationPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-2 overflow-hidden pr-13 pl-27 transition-all pb-2">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
           <div className="text-muted-foreground text-sm">
             Define mappings between input and output values. Values outside the
             range are clamped.

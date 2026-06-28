@@ -60,7 +60,7 @@ const TransformationPanel = ({
             <IconTrash />
           </Button>
         </div>
-        <CollapsibleContent className="pl-27 pr-16 pb-4">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden flex flex-col gap-4 border-t pt-2 pr-12 pl-12 pb-2">
           <div className="flex flex-row items-center gap-4">
             <div className="flex grow flex-col gap-1">
               <Label htmlFor="expression">Expression</Label>
