@@ -227,10 +227,10 @@ const ProjectAircraftDrawer = ({
                   role="listbox"
                   aria-label={t("Project.Form.Aircraft.Dialog.SelectedAircraft.Title")}
                 >
-                  {selectedAircraftWithStats.map((ac, index) => (
+                  {selectedAircraftWithStats.map((ac) => (
                     <AircraftItem
                       role="option"
-                      key={`${index}`}
+                      key={`selected-${ac.Vendor}-${ac.Name}`}
                       aircraft={ac}
                       checked={true}
                       onChecked={removeAircraft}
@@ -270,10 +270,10 @@ const ProjectAircraftDrawer = ({
                   role="listbox"
                   aria-label={t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}
                 >
-                  {availableAircraft.map((ac, index) => (
+                  {availableAircraft.map((ac) => (
                     <AircraftItem
                       role="option"
-                      key={`${ac.Vendor}-${ac.Name}-${index}`}
+                      key={`available-${ac.Vendor}-${ac.Name}`}
                       aircraft={ac}
                       checked={ac.selected}
                       onChecked={addAircraft}
