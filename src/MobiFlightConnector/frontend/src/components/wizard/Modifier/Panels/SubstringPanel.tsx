@@ -17,12 +17,25 @@ import {
 } from "@/components/ui/collapsible"
 import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
+import {
+  useDraftCommitInput,
+  ValidationResult,
+} from "@/lib/hooks/useDraftCommitInput"
 
 type SubstringPanelProps = {
   variant: "summary" | "editor"
   modifier: Substring
   onChange: (updated: Substring) => void
   onDelete: () => void
+}
+
+const validateNumberInput = (draft: string): ValidationResult<number> => {
+  const parsed = parseInt(draft)
+  if (isNaN(parsed)) {
+    console.log("Invalid number input:", draft)
+    return { ok: false, error: "Invalid number", displayValue: draft }
+  }
+  return { ok: true, value: parsed }
 }
 
 const SubstringPanel = ({
@@ -32,6 +45,22 @@ const SubstringPanel = ({
   onDelete,
 }: SubstringPanelProps) => {
   const [open, setOpen] = useState(false)
+
+  const startInput = useDraftCommitInput({
+    originalValue: modifier.Start,
+    validateOnCommit: validateNumberInput,
+    onCommit: (value) => {
+      onChange({ ...modifier, Start: value })
+    },
+  })
+
+  const endInput = useDraftCommitInput({
+    originalValue: modifier.End,
+    validateOnCommit: validateNumberInput,
+    onCommit: (value) => {
+      onChange({ ...modifier, End: value })
+    },
+  })
 
   return variant === "summary" ? (
     <Badge className="bg-blue-700">Substring</Badge>
@@ -61,8 +90,8 @@ const SubstringPanel = ({
                 <Badge variant={"secondary"}>{modifier.End}</Badge>
               </div>
             </div>
-            <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
-              { !open ? <IconChevronDown /> : <IconChevronUp /> }
+            <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
+              {!open ? <IconChevronDown /> : <IconChevronUp />}
             </div>
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
@@ -77,25 +106,11 @@ const SubstringPanel = ({
           <div className="flex flex-row items-center gap-4 pr-16 pb-4">
             <div className="flex flex-col gap-1">
               <Label htmlFor="start">Start index</Label>
-              <Input
-                className="w-16"
-                id="start"
-                value={modifier.Start}
-                onChange={(e) =>
-                  onChange({ ...modifier, Start: parseInt(e.target.value) })
-                }
-              />
+              <Input className="w-16" {...startInput.inputProps} />
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="end">End index</Label>
-              <Input
-                className="w-16"
-                id="end"
-                value={modifier.End}
-                onChange={(e) =>
-                  onChange({ ...modifier, End: parseInt(e.target.value) })
-                }
-              />
+              <Input className="w-16" {...endInput.inputProps} />
             </div>
           </div>
         </CollapsibleContent>
