@@ -141,7 +141,6 @@ const ProjectForm = ({
               placeholder={t("Project.Form.Name.Placeholder")}
               aria-invalid={showErrorMessage ? "true" : "false"}
               required
-              autoComplete="off"
             />
             {showErrorMessage && (
               <p

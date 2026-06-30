@@ -214,7 +214,6 @@ const FsuipcOffsetInputActionPanel = ({
             </Label>
             <Input
               className="field-sizing-content"
-              autoComplete="off"
               id="mask"
               value={mask ?? formattedMask}
               onKeyDown={filterHexInput}
