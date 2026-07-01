@@ -21,7 +21,7 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "../src/types/config"
-import { MODIFIER_TYPES } from "../src/types/modifier"
+import { MODIFIER_TYPES, Substring, Transformation } from "../src/types/modifier"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -742,6 +742,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     page,
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Transformation"
 
     const modifiersPanel = page.getByTestId("modifiers-panel")
     await expect(modifiersPanel).toBeVisible()
@@ -762,7 +763,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await addModifierButtonInEditor.click()
 
     const transformationOption = page.getByRole("menuitem", {
-      name: "Transformation",
+      name: modifierLabel,
     })
     await expect(transformationOption).toBeVisible()
     await transformationOption.click()
@@ -773,7 +774,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await switchToggle.click()
 
     const modifierHeader = modifierEditor.getByRole("button", {
-      name: "Transformation",
+      name: modifierLabel,
     })
     await expect(modifierHeader).toBeVisible()
     await modifierHeader.click()
@@ -806,7 +807,96 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       Type: "Transformation",
       Active: false,
       Expression: "$*2",
+    } as Transformation)
+  })
+
+  test("Substring modifier works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Substring"
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add Modifier",
     })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    const transformationOption = page.getByRole("menuitem", {
+      name: modifierLabel,
+    })
+    await expect(transformationOption).toBeVisible()
+    await transformationOption.click()
+
+    // switch is visible and clickable
+    const switchToggle = modifierEditor.getByRole("switch")
+    await expect(switchToggle).toBeVisible()
+    await switchToggle.click()
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Start input field is visible
+    const startInputField = modifierEditor.getByRole("textbox", {
+      name: "Start index",
+    })
+    await expect(startInputField).toBeVisible()
+    await startInputField.fill("3")
+    
+    
+    // End input field is visible
+    const endInputField = modifierEditor.getByRole("textbox", {
+      name: "End index",
+    })
+    await expect(endInputField).toBeVisible()
+    await endInputField.fill("6")
+    
+    // The modifier is now collapsed1
+    await modifierHeader.click()
+    await expect(startInputField).not.toBeVisible()
+    await expect(endInputField).not.toBeVisible()
+
+    // Summary has updated
+    await expect(modifierHeader.getByText("From 3 to 6")).toBeVisible()
+
+    // Close the drawer
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    // Save the config
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    // Verify that the command sent to the backend has the correct modifier data
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Modifiers.Items[0]).toEqual({
+      Type: "Substring",
+      Active: false,
+      Start: 3,
+      End: 6,
+    } as Substring)
   })
 })
 

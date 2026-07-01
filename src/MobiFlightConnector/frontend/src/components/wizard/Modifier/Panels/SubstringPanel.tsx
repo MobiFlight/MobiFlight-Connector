@@ -107,11 +107,11 @@ const SubstringPanel = ({
           <div className="flex flex-row items-center gap-4 pr-16 pb-4">
             <div className="flex flex-col gap-1">
               <Label htmlFor="start">Start index</Label>
-              <Input className="w-16" {...startInput.inputProps} />
+              <Input id="start" className="w-16" {...startInput.inputProps} />
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="end">End index</Label>
-              <Input className="w-16" {...endInput.inputProps} />
+              <Input id="end" className="w-16" {...endInput.inputProps} />
             </div>
           </div>
         </CollapsibleContent>
