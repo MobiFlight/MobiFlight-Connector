@@ -629,6 +629,67 @@ test.describe("Input Config Wizard - Config References panel", () => {
   })
 })
 
+test.describe("Input Config Wizard - Modifier Panel", () => {
+  test("Summary is displayed correctly", async ({ configListPage, page }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(
+      configListPage,
+      page,
+    )
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+
+    await addModifierButtonInEditor.click()
+    
+    const modifierItems = page .getByRole("menuitem")
+    await expect(modifierItems).toHaveCount(6)
+    
+    for (const modifier of await modifierItems.all()) {
+      await expect(modifier).toBeVisible()
+      await modifier.click()
+      await expect(modifier).not.toBeVisible()
+      // open the popup with the options
+      await addModifierButtonInEditor.click()
+    }
+
+    // close the popup with the options
+    await page.keyboard.press("Escape")
+
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    await expect(modifierEditor).not.toBeVisible()
+
+    const labels = [
+      "Transformation",
+      "Substring",
+      "Padding",
+      "Interpolation",
+      "+ 2 more"
+    ]
+
+    for (const label of labels) {
+      await expect(modifiersPanel.getByText(label)).toBeVisible()
+    }
+  })
+})
+
 test.describe("Input Config Wizard - Action Type Panel", () => {
   test("Action types honor project settings and features", async ({
     configListPage,
@@ -3875,11 +3936,9 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
   })
 })
 
-async function CreateNewInputConfigItemAndReturnActionEditor(
+async function CreateNewInputConfigItemAndWaitForDialog(
   configListPage: ConfigListPage,
   page: Page,
-  type: string = "Button",
-  eventType: string = "On Press",
   projectOptions?: Partial<Project>,
 ) {
   await configListPage.gotoPage()
@@ -3898,7 +3957,20 @@ async function CreateNewInputConfigItemAndReturnActionEditor(
   await addInputConfigButton.click()
   await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
   await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+}
 
+async function CreateNewInputConfigItemAndReturnActionEditor(
+  configListPage: ConfigListPage,
+  page: Page,
+  type: string = "Button",
+  eventType: string = "On Press",
+  projectOptions?: Partial<Project>,
+) {
+  await CreateNewInputConfigItemAndWaitForDialog(
+    configListPage,
+    page,
+    projectOptions,
+  )
   // Scan for input for device with respective input device type
   const triggerPanel = page.getByTestId("trigger-panel")
   await expect(triggerPanel).toBeVisible()

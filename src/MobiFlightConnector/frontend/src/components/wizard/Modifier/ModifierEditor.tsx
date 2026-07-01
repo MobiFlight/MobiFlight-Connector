@@ -45,7 +45,7 @@ const ModifierEditor = ({
   return (
     <div
       className="flex grow flex-col gap-4"
-      data-testid="config-reference-editor"
+      data-testid="modifier-editor"
     >
       <div className="flex flex-row justify-between gap-4">
         <div className="flex flex-col gap-1">
