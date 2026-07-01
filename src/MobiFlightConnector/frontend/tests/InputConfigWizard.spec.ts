@@ -21,7 +21,16 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "../src/types/config"
-import { Blink, Comparison, ComparisonOperators, Interpolation, MODIFIER_TYPES, Padding, Substring, Transformation } from "../src/types/modifier"
+import {
+  Blink,
+  Comparison,
+  ComparisonOperators,
+  Interpolation,
+  MODIFIER_TYPES,
+  Padding,
+  Substring,
+  Transformation,
+} from "../src/types/modifier"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -731,7 +740,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       })
       await expect(removeButton).toBeVisible()
       await removeButton.click()
-      
+
       await expect(removeButton).not.toBeVisible()
       await expect(modifierHeader).not.toBeVisible()
     }
@@ -743,30 +752,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     const modifierLabel = "Transformation"
-
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-
-    const addModifierButton = modifiersPanel.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButton).toBeVisible()
-    await addModifierButton.click()
-
-    const modifierEditor = page.getByTestId("modifier-editor")
-    await expect(modifierEditor).toBeVisible()
-
-    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButtonInEditor).toBeVisible()
-    await addModifierButtonInEditor.click()
-
-    const transformationOption = page.getByRole("menuitem", {
-      name: modifierLabel,
-    })
-    await expect(transformationOption).toBeVisible()
-    await transformationOption.click()
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
 
     // switch is visible and clickable
     const switchToggle = modifierEditor.getByRole("switch")
@@ -816,30 +805,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     const modifierLabel = "Substring"
-
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-
-    const addModifierButton = modifiersPanel.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButton).toBeVisible()
-    await addModifierButton.click()
-
-    const modifierEditor = page.getByTestId("modifier-editor")
-    await expect(modifierEditor).toBeVisible()
-
-    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButtonInEditor).toBeVisible()
-    await addModifierButtonInEditor.click()
-
-    const transformationOption = page.getByRole("menuitem", {
-      name: modifierLabel,
-    })
-    await expect(transformationOption).toBeVisible()
-    await transformationOption.click()
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
 
     // switch is visible and clickable
     const switchToggle = modifierEditor.getByRole("switch")
@@ -859,15 +828,14 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     })
     await expect(startInputField).toBeVisible()
     await startInputField.fill("3")
-    
-    
+
     // End input field is visible
     const endInputField = modifierEditor.getByRole("textbox", {
       name: "End index",
     })
     await expect(endInputField).toBeVisible()
     await endInputField.fill("6")
-    
+
     // The modifier is now collapsed1
     await modifierHeader.click()
     await expect(startInputField).not.toBeVisible()
@@ -899,36 +867,13 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     } as Substring)
   })
 
-  test("Padding modifier works correctly", async ({
-    configListPage,
-    page,
-  }) => {
+  test("Padding modifier works correctly", async ({ configListPage, page }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     const modifierLabel = "Padding"
-
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-
-    const addModifierButton = modifiersPanel.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButton).toBeVisible()
-    await addModifierButton.click()
-
-    const modifierEditor = page.getByTestId("modifier-editor")
-    await expect(modifierEditor).toBeVisible()
-
-    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButtonInEditor).toBeVisible()
-    await addModifierButtonInEditor.click()
-
-    const transformationOption = page.getByRole("menuitem", {
-      name: modifierLabel,
-    })
-    await expect(transformationOption).toBeVisible()
-    await transformationOption.click()
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
 
     // switch is visible and clickable
     const switchToggle = modifierEditor.getByRole("switch")
@@ -948,7 +893,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     })
     await expect(lengthInputField).toBeVisible()
     await lengthInputField.fill("3")
-    
+
     // Value input field is visible
     const valueInputField = modifierEditor.getByRole("textbox", {
       name: "Value",
@@ -956,34 +901,45 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(valueInputField).toBeVisible()
     // Summary updates correctly
     await valueInputField.fill(" ")
-    await expect(modifierEditor.getByRole("button", { name: "Length 3 Value Space Direction Left" })).toBeVisible()
+    await expect(
+      modifierEditor.getByRole("button", {
+        name: "Length 3 Value Space Direction Left",
+      }),
+    ).toBeVisible()
     await valueInputField.fill("0")
-    await expect(modifierEditor.getByRole("button", { name: "Length 3 Value 0 Direction Left" })).toBeVisible()
-    
-    
+    await expect(
+      modifierEditor.getByRole("button", {
+        name: "Length 3 Value 0 Direction Left",
+      }),
+    ).toBeVisible()
+
     // Direction combobox
     const directionComboBox = modifierEditor.getByRole("combobox", {
       name: "Direction",
     })
     await expect(directionComboBox).toBeVisible()
     await directionComboBox.click()
-    
+
     const directionOptions = page.getByRole("listbox").getByRole("option")
     await expect(directionOptions).toHaveCount(3)
     await expect(directionOptions.filter({ hasText: "Left" })).toBeVisible()
     await expect(directionOptions.filter({ hasText: "Right" })).toBeVisible()
     await expect(directionOptions.filter({ hasText: "Centered" })).toBeVisible()
-    
+
     // click on Centered
     await directionOptions.filter({ hasText: "Centered" }).click()
-    
+
     // The modifier is now collapsed
     await modifierHeader.click()
     await expect(lengthInputField).not.toBeVisible()
     await expect(valueInputField).not.toBeVisible()
     await expect(directionComboBox).not.toBeVisible()
 
-    await expect(modifierEditor.getByRole("button", { name: "Length 3 Value 0 Direction Centered" })).toBeVisible()
+    await expect(
+      modifierEditor.getByRole("button", {
+        name: "Length 3 Value 0 Direction Centered",
+      }),
+    ).toBeVisible()
 
     // Close the drawer
     const goBackButton = page.getByRole("button", { name: "Go back" })
@@ -1015,30 +971,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     const modifierLabel = "Interpolation"
-
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-
-    const addModifierButton = modifiersPanel.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButton).toBeVisible()
-    await addModifierButton.click()
-
-    const modifierEditor = page.getByTestId("modifier-editor")
-    await expect(modifierEditor).toBeVisible()
-
-    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButtonInEditor).toBeVisible()
-    await addModifierButtonInEditor.click()
-
-    const transformationOption = page.getByRole("menuitem", {
-      name: modifierLabel,
-    })
-    await expect(transformationOption).toBeVisible()
-    await transformationOption.click()
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
 
     // switch is visible and clickable
     const switchToggle = modifierEditor.getByRole("switch")
@@ -1054,8 +990,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // The modifier is now expanded
     // Length input field is visible
     const mappingRows = modifierEditor.getByRole("row")
-    
-    // intially there are 3 rows for the header 
+
+    // intially there are 3 rows for the header
     // and the two default mappings
     await expect(mappingRows).toHaveCount(3)
 
@@ -1079,14 +1015,13 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await secondFromInput.fill("15")
     await secondToInput.fill("1500")
 
-    
     // Add another mapping row
     const addMappingButton = modifierEditor.getByRole("button", {
       name: "Add mapping",
     })
     await expect(addMappingButton).toBeVisible()
     await addMappingButton.click()
-    
+
     const thirdFromInput = mappingRows.nth(3).getByRole("textbox").first()
     await expect(thirdFromInput).toBeVisible()
     await expect(thirdFromInput).toHaveValue("30")
@@ -1099,15 +1034,19 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(mappingRows).toHaveCount(5)
     const fourthRow = mappingRows.nth(4)
     await expect(fourthRow).toBeVisible()
-    
+
     // and remove it
     await fourthRow.getByRole("button", { name: "Remove mapping" }).click()
     await expect(fourthRow).not.toBeVisible()
     await expect(mappingRows).toHaveCount(4)
-    
+
     // Summary updates correctly
-    await expect(modifierEditor.getByRole("button", { name: "3 values, range from 5 to 3000" })).toBeVisible()
-    
+    await expect(
+      modifierEditor.getByRole("button", {
+        name: "3 values, range from 5 to 3000",
+      }),
+    ).toBeVisible()
+
     // Close the drawer
     const goBackButton = page.getByRole("button", { name: "Go back" })
     await expect(goBackButton).toBeVisible()
@@ -1129,8 +1068,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       Values: {
         5: 50,
         15: 1500,
-        30: 3000
-      } as Record<number, number>
+        30: 3000,
+      } as Record<number, number>,
     } as Interpolation)
   })
 
@@ -1140,30 +1079,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     const modifierLabel = "Comparison"
-
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-
-    const addModifierButton = modifiersPanel.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButton).toBeVisible()
-    await addModifierButton.click()
-
-    const modifierEditor = page.getByTestId("modifier-editor")
-    await expect(modifierEditor).toBeVisible()
-
-    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButtonInEditor).toBeVisible()
-    await addModifierButtonInEditor.click()
-
-    const transformationOption = page.getByRole("menuitem", {
-      name: modifierLabel,
-    })
-    await expect(transformationOption).toBeVisible()
-    await transformationOption.click()
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
 
     // switch is visible and clickable
     const switchToggle = modifierEditor.getByRole("switch")
@@ -1183,13 +1102,15 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     })
     await expect(operatorComboBox).toBeVisible()
     await operatorComboBox.click()
-    
+
     const operatorOptions = page.getByRole("listbox").getByRole("option")
     await expect(operatorOptions).toHaveCount(ComparisonOperators.length)
 
     // all options are available
     for (const operator of ComparisonOperators) {
-      await expect(operatorOptions.getByText(operator, { exact: true })).toBeVisible()
+      await expect(
+        operatorOptions.getByText(operator, { exact: true }),
+      ).toBeVisible()
     }
 
     // select the "!=" operator
@@ -1201,24 +1122,26 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     })
     await expect(valueInputField).toBeVisible()
     await valueInputField.fill("3")
-    
+
     // Then input field is visible
     const thenInputField = modifierEditor.getByRole("textbox", {
       name: "Then",
     })
     await expect(thenInputField).toBeVisible()
     await thenInputField.fill("1")
-    
+
     // Else input field is visible
     const elseInputField = modifierEditor.getByRole("textbox", {
       name: "Else",
     })
     await expect(elseInputField).toBeVisible()
     await elseInputField.fill("0")
-    
+
     // Summary updates correctly
-    await expect(modifierEditor.getByRole("button", { name: "if $ != 3 then 1 else 0" })).toBeVisible()
-    
+    await expect(
+      modifierEditor.getByRole("button", { name: "if $ != 3 then 1 else 0" }),
+    ).toBeVisible()
+
     // The modifier is now collapsed
     await modifierHeader.click()
     await expect(operatorComboBox).not.toBeVisible()
@@ -1247,40 +1170,17 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       Value: "3",
       IfValue: "1",
       ElseValue: "0",
-      Operand: "!="
+      Operand: "!=",
     } as Comparison)
   })
 
-  test("Blink modifier works correctly", async ({
-    configListPage,
-    page,
-  }) => {
+  test("Blink modifier works correctly", async ({ configListPage, page }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     const modifierLabel = "Blink"
-
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-
-    const addModifierButton = modifiersPanel.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButton).toBeVisible()
-    await addModifierButton.click()
-
-    const modifierEditor = page.getByTestId("modifier-editor")
-    await expect(modifierEditor).toBeVisible()
-
-    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-      name: "Add Modifier",
-    })
-    await expect(addModifierButtonInEditor).toBeVisible()
-    await addModifierButtonInEditor.click()
-
-    const transformationOption = page.getByRole("menuitem", {
-      name: modifierLabel,
-    })
-    await expect(transformationOption).toBeVisible()
-    await transformationOption.click()
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
 
     // switch is visible and clickable
     const switchToggle = modifierEditor.getByRole("switch")
@@ -1305,9 +1205,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await alternateValueInputField.fill("1")
 
     const sequenceRows = modifierEditor.getByRole("row")
-    
-    // intially there are 2 rows 
-    // one for the header 
+
+    // intially there are 2 rows
+    // one for the header
     // and one for default sequence
     await expect(sequenceRows).toHaveCount(2)
 
@@ -1321,14 +1221,14 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await firstOnInput.fill("350")
     await firstOffInput.fill("650")
-    
+
     // Add another mapping row
     const addIntervalButton = modifierEditor.getByRole("button", {
       name: "Add blink interval",
     })
     await expect(addIntervalButton).toBeVisible()
     await addIntervalButton.click()
-    
+
     const secondOnInput = sequenceRows.nth(2).getByRole("textbox").first()
     await expect(secondOnInput).toBeVisible()
     await expect(secondOnInput).toHaveValue("350")
@@ -1341,15 +1241,19 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(sequenceRows).toHaveCount(4)
     const thirdRow = sequenceRows.nth(3)
     await expect(thirdRow).toBeVisible()
-    
+
     // and remove it
     await thirdRow.getByRole("button", { name: "Remove interval" }).click()
     await expect(thirdRow).not.toBeVisible()
     await expect(sequenceRows).toHaveCount(3)
-    
+
     // Summary updates correctly
-    await expect(modifierEditor.getByRole("button", { name: "Value 1 Sequence 350 / 650" })).toBeVisible()
-    
+    await expect(
+      modifierEditor.getByRole("button", {
+        name: "Value 1 Sequence 350 / 650",
+      }),
+    ).toBeVisible()
+
     // Close the drawer
     const goBackButton = page.getByRole("button", { name: "Go back" })
     await expect(goBackButton).toBeVisible()
@@ -1369,7 +1273,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       Type: "Blink",
       Active: false,
       BlinkValue: "1",
-      OnOffSequence: [350,650,350,650]
+      OnOffSequence: [350, 650, 350, 650],
     } as Blink)
   })
 })
@@ -4693,4 +4597,34 @@ async function CreateNewInputConfigItemAndReturnActionEditor(
   await button.click()
   await expect(actionEditor).toBeVisible()
   return actionEditor
+}
+
+async function addModifierItemAndReturnEditor(
+  modifierLabel: string,
+  page: Page,
+) {
+  const modifiersPanel = page.getByTestId("modifiers-panel")
+  await expect(modifiersPanel).toBeVisible()
+
+  const addModifierButton = modifiersPanel.getByRole("button", {
+    name: "Add Modifier",
+  })
+  await expect(addModifierButton).toBeVisible()
+  await addModifierButton.click()
+
+  const modifierEditor = page.getByTestId("modifier-editor")
+  await expect(modifierEditor).toBeVisible()
+
+  const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+    name: "Add Modifier",
+  })
+  await expect(addModifierButtonInEditor).toBeVisible()
+  await addModifierButtonInEditor.click()
+
+  const transformationOption = page.getByRole("menuitem", {
+    name: modifierLabel,
+  })
+  await expect(transformationOption).toBeVisible()
+  await transformationOption.click()
+  return modifierEditor
 }
