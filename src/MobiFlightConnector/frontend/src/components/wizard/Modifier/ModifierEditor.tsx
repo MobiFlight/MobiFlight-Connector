@@ -47,13 +47,33 @@ const ModifierEditor = ({
       className="flex grow flex-col gap-4"
       data-testid="config-reference-editor"
     >
-      <div className="flex flex-col gap-1">
-        <div className="text-lg font-semibold">
-          {t("Dialog.Modifiers.Editor.Title")}
+      <div className="flex flex-row justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <div className="text-lg font-semibold">
+            {t("Dialog.Modifiers.Editor.Title")}
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.Modifiers.Editor.Description")}
+          </div>
         </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.Modifiers.Editor.Description")}
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild className="self-end">
+            <Button variant="default" className="w-fit">
+              <IconPlus className="h-4 w-4" />
+              {t("Dialog.Modifiers.Editor.AddModifier")}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            {modifierTypes.map((modifierType) => (
+              <DropdownMenuItem
+                key={modifierType}
+                onClick={() => handleAdd(modifierType)}
+              >
+                {t(`Dialog.Modifiers.Type.${modifierType}.Label`)}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {modifiers.length === 0 ? (
@@ -74,24 +94,6 @@ const ModifierEditor = ({
           </div>
         </ScrollArea>
       )}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="w-fit">
-            <IconPlus className="h-4 w-4" />
-            {t("Dialog.Modifiers.Editor.AddModifier")}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          {modifierTypes.map((modifierType) => (
-            <DropdownMenuItem
-              key={modifierType}
-              onClick={() => handleAdd(modifierType)}
-            >
-              {t(`Dialog.Modifiers.Type.${modifierType}.Label`)}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
     </div>
   )
 }
