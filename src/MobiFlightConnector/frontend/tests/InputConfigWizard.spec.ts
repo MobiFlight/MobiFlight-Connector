@@ -21,6 +21,7 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "../src/types/config"
+import { MODIFIER_TYPES } from "../src/types/modifier"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -637,7 +638,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifiersPanel).toBeVisible()
 
     const addModifierButton = modifiersPanel.getByRole("button", {
-      name: "Add Modifier",
+      name: "Add modifier",
     })
     await expect(addModifierButton).toBeVisible()
 
@@ -647,7 +648,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifierEditor).toBeVisible()
 
     const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-      name: "Add Modifier",
+      name: "Add modifier",
     })
     await expect(addModifierButtonInEditor).toBeVisible()
 
@@ -683,6 +684,56 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     for (const label of labels) {
       await expect(modifiersPanel.getByText(label)).toBeVisible()
+    }
+  })
+
+  test("All modifiers can be added and removed", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifiers = MODIFIER_TYPES
+
+    for (const modifier of modifiers) {
+      const modifierEditor = page.getByTestId("modifier-editor")
+      await expect(modifierEditor).toBeVisible()
+
+      const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+        name: "Add modifier",
+      })
+      await expect(addModifierButtonInEditor).toBeVisible()
+      await addModifierButtonInEditor.click()
+
+      const modifierLabel = modifier
+
+      const transformationOption = page.getByRole("menuitem", {
+        name: modifierLabel,
+      })
+      await expect(transformationOption).toBeVisible()
+      await transformationOption.click()
+
+      const modifierHeader = modifierEditor.getByRole("button", {
+        name: modifierLabel,
+      })
+      await expect(modifierHeader).toBeVisible()
+
+      const removeButton = modifierEditor.getByRole("button", {
+        name: "Remove Modifier",
+      })
+      await expect(removeButton).toBeVisible()
+      await removeButton.click()
+      
+      await expect(removeButton).not.toBeVisible()
+      await expect(modifierHeader).not.toBeVisible()
     }
   })
 
