@@ -79,7 +79,7 @@ const PaddingPanel = ({
               </div>
               <div className="flex flex-row items-center gap-2 text-sm">
                 Length <Badge variant={"secondary"}>{modifier.Length}</Badge>
-                Value <Badge variant={"secondary"}>{modifier.Character}</Badge>
+                Value <Badge variant={"secondary"}>{modifier.Character === " " ? "Space" : modifier.Character}</Badge>
                 Direction{" "}
                 <Badge variant={"secondary"}>{modifier.Direction}</Badge>
               </div>

@@ -21,7 +21,7 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "../src/types/config"
-import { MODIFIER_TYPES, Substring, Transformation } from "../src/types/modifier"
+import { MODIFIER_TYPES, Padding, Substring, Transformation } from "../src/types/modifier"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -897,6 +897,116 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       Start: 3,
       End: 6,
     } as Substring)
+  })
+
+  test("Padding modifier works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Padding"
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    const transformationOption = page.getByRole("menuitem", {
+      name: modifierLabel,
+    })
+    await expect(transformationOption).toBeVisible()
+    await transformationOption.click()
+
+    // switch is visible and clickable
+    const switchToggle = modifierEditor.getByRole("switch")
+    await expect(switchToggle).toBeVisible()
+    await switchToggle.click()
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Length input field is visible
+    const lengthInputField = modifierEditor.getByRole("textbox", {
+      name: "Length",
+    })
+    await expect(lengthInputField).toBeVisible()
+    await lengthInputField.fill("3")
+    
+    // Value input field is visible
+    const valueInputField = modifierEditor.getByRole("textbox", {
+      name: "Value",
+    })
+    await expect(valueInputField).toBeVisible()
+    // Summary updates correctly
+    await valueInputField.fill(" ")
+    await expect(modifierEditor.getByRole("button", { name: "Length 3 Value Space Direction Left" })).toBeVisible()
+    await valueInputField.fill("0")
+    await expect(modifierEditor.getByRole("button", { name: "Length 3 Value 0 Direction Left" })).toBeVisible()
+    
+    
+    // Direction combobox
+    const directionComboBox = modifierEditor.getByRole("combobox", {
+      name: "Direction",
+    })
+    await expect(directionComboBox).toBeVisible()
+    await directionComboBox.click()
+    
+    const directionOptions = page.getByRole("listbox").getByRole("option")
+    await expect(directionOptions).toHaveCount(3)
+    await expect(directionOptions.filter({ hasText: "Left" })).toBeVisible()
+    await expect(directionOptions.filter({ hasText: "Right" })).toBeVisible()
+    await expect(directionOptions.filter({ hasText: "Centered" })).toBeVisible()
+    
+    // click on Centered
+    await directionOptions.filter({ hasText: "Centered" }).click()
+    
+    // The modifier is now collapsed
+    await modifierHeader.click()
+    await expect(lengthInputField).not.toBeVisible()
+    await expect(valueInputField).not.toBeVisible()
+    await expect(directionComboBox).not.toBeVisible()
+
+    await expect(modifierEditor.getByRole("button", { name: "Length 3 Value 0 Direction Centered" })).toBeVisible()
+
+    // Close the drawer
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    // Save the config
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    // Verify that the command sent to the backend has the correct modifier data
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Modifiers.Items[0]).toEqual({
+      Type: "Padding",
+      Active: false,
+      Length: 3,
+      Character: "0",
+      Direction: "Centered",
+    } as Padding)
   })
 })
 
