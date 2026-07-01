@@ -25,6 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { Label } from "@/components/ui/label"
 
 type BlinkPanelProps = {
   variant: "summary" | "editor"
@@ -122,10 +123,10 @@ const BlinkPanel = ({
             sequence below.
           </div>
           <div className="flex flex-col gap-1 pr-12">
-            <div className="text-md font-semibold">Alternate value (Off)</div>
+            <Label htmlFor="alternate" className="text-md font-semibold">Alternate value (Off)</Label>
             <Input
               className="w-12"
-              id="value"
+              id="alternate"
               value={modifier.BlinkValue}
               onChange={(e) =>
                 onChange({ ...modifier, BlinkValue: e.target.value })
@@ -202,6 +203,7 @@ const BlinkPanel = ({
                           }}
                         >
                           <IconTrash />
+                          <span className="sr-only">Remove interval</span>
                         </Button>
                       </TableCell>
                     </TableRow>

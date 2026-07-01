@@ -21,7 +21,7 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "../src/types/config"
-import { Interpolation, MODIFIER_TYPES, Padding, Substring, Transformation } from "../src/types/modifier"
+import { Blink, Comparison, ComparisonOperators, Interpolation, MODIFIER_TYPES, Padding, Substring, Transformation } from "../src/types/modifier"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -1132,6 +1132,245 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
         30: 3000
       } as Record<number, number>
     } as Interpolation)
+  })
+
+  test("Comparison modifier works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Comparison"
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    const transformationOption = page.getByRole("menuitem", {
+      name: modifierLabel,
+    })
+    await expect(transformationOption).toBeVisible()
+    await transformationOption.click()
+
+    // switch is visible and clickable
+    const switchToggle = modifierEditor.getByRole("switch")
+    await expect(switchToggle).toBeVisible()
+    await switchToggle.click()
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Operator combobox
+    const operatorComboBox = modifierEditor.getByRole("combobox", {
+      name: "Operator",
+    })
+    await expect(operatorComboBox).toBeVisible()
+    await operatorComboBox.click()
+    
+    const operatorOptions = page.getByRole("listbox").getByRole("option")
+    await expect(operatorOptions).toHaveCount(ComparisonOperators.length)
+
+    // all options are available
+    for (const operator of ComparisonOperators) {
+      await expect(operatorOptions.getByText(operator, { exact: true })).toBeVisible()
+    }
+
+    // select the "!=" operator
+    operatorOptions.getByText("!=", { exact: true }).click()
+
+    // Value input field is visible
+    const valueInputField = modifierEditor.getByRole("textbox", {
+      name: "Value",
+    })
+    await expect(valueInputField).toBeVisible()
+    await valueInputField.fill("3")
+    
+    // Then input field is visible
+    const thenInputField = modifierEditor.getByRole("textbox", {
+      name: "Then",
+    })
+    await expect(thenInputField).toBeVisible()
+    await thenInputField.fill("1")
+    
+    // Else input field is visible
+    const elseInputField = modifierEditor.getByRole("textbox", {
+      name: "Else",
+    })
+    await expect(elseInputField).toBeVisible()
+    await elseInputField.fill("0")
+    
+    // Summary updates correctly
+    await expect(modifierEditor.getByRole("button", { name: "if $ != 3 then 1 else 0" })).toBeVisible()
+    
+    // The modifier is now collapsed
+    await modifierHeader.click()
+    await expect(operatorComboBox).not.toBeVisible()
+    await expect(valueInputField).not.toBeVisible()
+    await expect(thenInputField).not.toBeVisible()
+    await expect(elseInputField).not.toBeVisible()
+
+    // Close the drawer
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    // Save the config
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    // Verify that the command sent to the backend has the correct modifier data
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Modifiers.Items[0]).toEqual({
+      Type: "Comparison",
+      Active: false,
+      Value: "3",
+      IfValue: "1",
+      ElseValue: "0",
+      Operand: "!="
+    } as Comparison)
+  })
+
+  test("Blink modifier works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Blink"
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    const transformationOption = page.getByRole("menuitem", {
+      name: modifierLabel,
+    })
+    await expect(transformationOption).toBeVisible()
+    await transformationOption.click()
+
+    // switch is visible and clickable
+    const switchToggle = modifierEditor.getByRole("switch")
+    await expect(switchToggle).toBeVisible()
+    await switchToggle.click()
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Alternate value input field is visible
+    const alternateValueInputField = modifierEditor.getByRole("textbox", {
+      name: "Alternate value (Off)",
+    })
+    await expect(alternateValueInputField).toBeVisible()
+    await expect(alternateValueInputField).toHaveValue("0")
+
+    // Fill in the alternate value
+    await alternateValueInputField.fill("1")
+
+    const sequenceRows = modifierEditor.getByRole("row")
+    
+    // intially there are 2 rows 
+    // one for the header 
+    // and one for default sequence
+    await expect(sequenceRows).toHaveCount(2)
+
+    const firstOnInput = sequenceRows.nth(1).getByRole("textbox").first()
+
+    await expect(firstOnInput).toBeVisible()
+    await expect(firstOnInput).toHaveValue("500")
+    const firstOffInput = sequenceRows.nth(1).getByRole("textbox").last()
+    await expect(firstOffInput).toBeVisible()
+    await expect(firstOffInput).toHaveValue("500")
+
+    await firstOnInput.fill("350")
+    await firstOffInput.fill("650")
+    
+    // Add another mapping row
+    const addIntervalButton = modifierEditor.getByRole("button", {
+      name: "Add blink interval",
+    })
+    await expect(addIntervalButton).toBeVisible()
+    await addIntervalButton.click()
+    
+    const secondOnInput = sequenceRows.nth(2).getByRole("textbox").first()
+    await expect(secondOnInput).toBeVisible()
+    await expect(secondOnInput).toHaveValue("350")
+    const secondOffInput = sequenceRows.nth(2).getByRole("textbox").last()
+    await expect(secondOffInput).toBeVisible()
+    await expect(secondOffInput).toHaveValue("650")
+
+    // add third mapping row
+    await addIntervalButton.click()
+    await expect(sequenceRows).toHaveCount(4)
+    const thirdRow = sequenceRows.nth(3)
+    await expect(thirdRow).toBeVisible()
+    
+    // and remove it
+    await thirdRow.getByRole("button", { name: "Remove interval" }).click()
+    await expect(thirdRow).not.toBeVisible()
+    await expect(sequenceRows).toHaveCount(3)
+    
+    // Summary updates correctly
+    await expect(modifierEditor.getByRole("button", { name: "Value 1 Sequence 350 / 650" })).toBeVisible()
+    
+    // Close the drawer
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    // Save the config
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    // Verify that the command sent to the backend has the correct modifier data
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Modifiers.Items[0]).toEqual({
+      Type: "Blink",
+      Active: false,
+      BlinkValue: "1",
+      OnOffSequence: [350,650,350,650]
+    } as Blink)
   })
 })
 
