@@ -30,7 +30,7 @@ const XplaneInputActionPanel = ({
   })
 
   const presetLabel = presets.find((p) => p.code === config?.Path)?.label ?? null
-
+  
   if (variant === "summary") {
     return (
       <div className="flex grow flex-row items-center gap-8">

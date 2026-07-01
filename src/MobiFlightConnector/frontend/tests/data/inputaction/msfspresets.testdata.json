@@ -50,7 +50,7 @@
     "aircraft": "Generic",
     "system": "Autopilot",
     "code": "(>K:AP_PANEL_HEADING_HOLD)",
-    "label": "AP_PANEL_HEADING_HOLD",
+    "label": "AP_PANEL_HEADING_HOLD_TEST",
     "presetType": "Input",
     "version": 2,
     "status": "Updated",
