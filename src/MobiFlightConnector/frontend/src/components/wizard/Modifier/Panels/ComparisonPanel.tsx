@@ -67,9 +67,21 @@ const ComparisonPanel = ({
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="text-md px-2 font-semibold w-32 text-left">Comparison</div>
-            <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
-              { !open ? <IconChevronDown /> : <IconChevronUp /> }
+            <div className="flex flex-row items-center gap-2">
+              <div className="text-md w-32 px-2 text-left font-semibold">
+                Comparison
+              </div>
+              <div className="flex flex-row items-center gap-2">
+                <span className="text-sm font-semibold">if</span>
+                <Badge variant={"secondary"}>$ {modifier.Operand} {modifier.Value}</Badge>
+                <span className="text-sm font-semibold">then</span>
+                <Badge variant={"outline"}>{modifier.IfValue}</Badge>
+                <span className="text-sm font-semibold">else</span>
+                <Badge variant={"secondary"}>{modifier.ElseValue ?? "$"}</Badge>
+              </div>
+            </div>
+            <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
+              {!open ? <IconChevronDown /> : <IconChevronUp />}
             </div>
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
