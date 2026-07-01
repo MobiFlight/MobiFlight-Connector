@@ -631,10 +631,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
 test.describe("Input Config Wizard - Modifier Panel", () => {
   test("Summary is displayed correctly", async ({ configListPage, page }) => {
-    await CreateNewInputConfigItemAndWaitForDialog(
-      configListPage,
-      page,
-    )
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
     const modifiersPanel = page.getByTestId("modifiers-panel")
     await expect(modifiersPanel).toBeVisible()
@@ -655,10 +652,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(addModifierButtonInEditor).toBeVisible()
 
     await addModifierButtonInEditor.click()
-    
-    const modifierItems = page .getByRole("menuitem")
+
+    const modifierItems = page.getByRole("menuitem")
     await expect(modifierItems).toHaveCount(6)
-    
+
     for (const modifier of await modifierItems.all()) {
       await expect(modifier).toBeVisible()
       await modifier.click()
@@ -681,12 +678,84 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       "Substring",
       "Padding",
       "Interpolation",
-      "+ 2 more"
+      "+ 2 more",
     ]
 
     for (const label of labels) {
       await expect(modifiersPanel.getByText(label)).toBeVisible()
     }
+  })
+
+  test("Transformation modifier works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    const transformationOption = page.getByRole("menuitem", {
+      name: "Transformation",
+    })
+    await expect(transformationOption).toBeVisible()
+    await transformationOption.click()
+
+    // switch is visible and clickable
+    const switchToggle = modifierEditor.getByRole("switch")
+    await expect(switchToggle).toBeVisible()
+    await switchToggle.click()
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: "Transformation",
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded and the input field is visible
+    const inputField = modifierEditor.getByRole("textbox", {
+      name: "Expression",
+    })
+    await expect(inputField).toBeVisible()
+    await inputField.fill("$*2")
+
+    await modifierHeader.click()
+    await expect(inputField).not.toBeVisible()
+
+    await expect(modifierHeader.getByText("$*2")).toBeVisible()
+
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Modifiers.Items[0]).toEqual({
+      Type: "Transformation",
+      Active: false,
+      Expression: "$*2",
+    })
   })
 })
 
