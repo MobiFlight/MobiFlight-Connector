@@ -601,23 +601,25 @@
         },
         "Msfs": {
           "NoneCode": "None",
-          "CodePlaceholder": "Enter RPN code"
+          "CodePlaceholder": "Enter RPN code",
+          "CustomPreset": "Custom Preset"
         },
         "Xplane": {
-          "InputTypeLabel": "Input Type:",
+          "InputTypeLabel": "Input Type",
           "SelectInputTypePlaceholder": "Select input type",
-          "PathLabel": "Path:",
+          "PathLabel": "Path",
           "PathPlaceholder": "Enter path for DataRef or Command, or select a preset above",
           "PathDescription": "Hint: Use index notation for access of Arrays, e.g. sim/cockpit2/annunciators/fuel_pressure_low[0] for 1st engine.",
-          "ValueLabel": "Value:",
-          "ValuePlaceholder": "Enter value"
+          "ValueLabel": "Value",
+          "ValuePlaceholder": "Enter value",
+          "CustomPreset": "Custom Preset"
         },
         "ProSim": {
           "Title": "ProSim Input Action",
           "Description": "Select a preset to configure your input actions.",
-          "PathLabel": "Path:",
+          "PathLabel": "Path",
           "NoPresetSelected": "No preset selected",
-          "ParameterLabel": "Parameter (optional):",
+          "ParameterLabel": "Parameter (optional)",
           "ParameterPlaceholder": "Set parameter (optional)",
           "ParameterNone": "None"
         },
@@ -639,7 +641,7 @@
         "Keyboard": {
           "StopScanning": "Stop scanning",
           "ScanForKeyboard": "Scan for keyboard",
-          "KeyComboLabel": "Key combo:",
+          "KeyComboLabel": "Key combo",
           "None": "None",
           "ClearInput": "Clear input"
         },
@@ -655,9 +657,9 @@
         "LuaMacro": {
           "Title": "Lua Macro Input Action",
           "Description": "Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.",
-          "MacroNameLabel": "Macro Name:",
+          "MacroNameLabel": "Macro Name",
           "MacroNamePlaceholder": "Set macro name",
-          "MacroValueLabel": "Macro Value:",
+          "MacroValueLabel": "Macro Value",
           "MacroValuePlaceholder": "Set macro value"
         },
         "Jeehell": {

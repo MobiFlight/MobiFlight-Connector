@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
+import { fetchHubHopPresets } from "@/lib/configWizard"
+import { useQuery } from "@tanstack/react-query"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
@@ -18,6 +20,13 @@ const MsfsInputActionPanel = ({
   onConfigChange,
 }: MsfsInputActionPanelProps) => {
   const { t } = useTranslation()
+    const { data: presets = [] /*, isLoading */ } = useQuery({
+    queryKey: ["msfs-presets"],
+    queryFn: () => fetchHubHopPresets("msfs"),
+    // presets don't change at runtime; HubHopState drives invalidation
+    staleTime: Infinity,
+  })
+  const presetLabel = presets.find((p) => p.id === config?.PresetId)?.label ?? null
 
   if (variant === "summary") {
     return (
@@ -26,7 +35,7 @@ const MsfsInputActionPanel = ({
           <Label htmlFor="preset">
             {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
           </Label>
-          <div className="text-sm">AP Panel Heading Hold</div>
+          <div className="text-sm">{presetLabel ?? t("Dialog.InputConfigWizard.InputActions.Msfs.CustomPreset")}</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="code">

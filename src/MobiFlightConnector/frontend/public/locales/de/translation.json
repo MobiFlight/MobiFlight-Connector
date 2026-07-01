@@ -607,23 +607,25 @@
         },
         "Msfs": {
           "NoneCode": "Keiner",
-          "CodePlaceholder": "RPN-Code eingeben"
+          "CodePlaceholder": "RPN-Code eingeben",
+          "CustomPreset": "Eigenes Preset"
         },
         "Xplane": {
-          "InputTypeLabel": "Eingabetyp:",
+          "InputTypeLabel": "Eingabetyp",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",
-          "PathLabel": "Pfad:",
+          "PathLabel": "Pfad",
           "PathPlaceholder": "Pfad für DataRef oder Befehl eingeben, oder oben ein Preset auswählen",
           "PathDescription": "Hinweis: Verwende die Indexnotation, um auf Arrays zuzugreifen, z. B. sim/cockpit2/annunciators/fuel_pressure_low[0] für das 1. Triebwerk.",
-          "ValueLabel": "Wert:",
-          "ValuePlaceholder": "Wert eingeben"
+          "ValueLabel": "Wert",
+          "ValuePlaceholder": "Wert eingeben",
+          "CustomPreset": "Eigenes Preset"
         },
         "ProSim": {
           "Title": "ProSim-Eingabeaktion",
           "Description": "Wähle ein Preset, um deine Eingabeaktionen zu konfigurieren.",
-          "PathLabel": "Pfad:",
+          "PathLabel": "Pfad",
           "NoPresetSelected": "Kein Preset ausgewählt",
-          "ParameterLabel": "Parameter (optional):",
+          "ParameterLabel": "Parameter (optional)",
           "ParameterPlaceholder": "Parameter setzen (optional)",
           "ParameterNone": "Kein Parameter"
         },
@@ -645,7 +647,7 @@
         "Keyboard": {
           "StopScanning": "Suche stoppen",
           "ScanForKeyboard": "Tastatur suchen",
-          "KeyComboLabel": "Tastenkombination:",
+          "KeyComboLabel": "Tastenkombination",
           "None": "Keine",
           "ClearInput": "Eingabe löschen"
         },
@@ -661,9 +663,9 @@
         "LuaMacro": {
           "Title": "Lua-Makro-Eingabeaktion",
           "Description": "Rufe dein Lua-Makro mit einem optionalen Parameter auf. Erfordert ein vorhandenes Lua-Makro in FSUIPC.",
-          "MacroNameLabel": "Makroname:",
+          "MacroNameLabel": "Makroname",
           "MacroNamePlaceholder": "Makronamen setzen",
-          "MacroValueLabel": "Makrowert:",
+          "MacroValueLabel": "Makrowert",
           "MacroValuePlaceholder": "Makrowert setzen"
         },
         "Jeehell": {

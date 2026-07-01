@@ -2,8 +2,10 @@ import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
-import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
+import XplanePresetPanel, { XplanePreset } from "@/components/wizard/components/InputActions/XplanePresetPanel"
+import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction } from "@/types/config"
+import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
 const CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = ["DataRef", "Command"]
@@ -21,6 +23,14 @@ const XplaneInputActionPanel = ({
 }: XplaneInputActionPanelProps) => {
   const { t } = useTranslation()
 
+  const { data: presets = [] } = useQuery({
+    queryKey: ["xplane-presets"],
+    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>,
+    staleTime: Infinity,
+  })
+
+  const presetLabel = presets.find((p) => p.code === config?.Path)?.label ?? null
+
   if (variant === "summary") {
     return (
       <div className="flex grow flex-row items-center gap-8">
@@ -28,7 +38,7 @@ const XplaneInputActionPanel = ({
           <Label htmlFor="preset">
             {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
           </Label>
-          <div className="text-sm">AP Panel Heading Hold</div>
+          <div className="text-sm">{presetLabel ?? t("Dialog.InputConfigWizard.InputActions.Xplane.CustomPreset")}</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="code">

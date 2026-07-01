@@ -601,23 +601,25 @@
         },
         "Msfs": {
           "NoneCode": "Nenhum",
-          "CodePlaceholder": "Digite o código RPN"
+          "CodePlaceholder": "Digite o código RPN",
+          "CustomPreset": "Predefinição personalizada"
         },
         "Xplane": {
-          "InputTypeLabel": "Tipo de Entrada:",
+          "InputTypeLabel": "Tipo de Entrada",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
-          "PathLabel": "Caminho:",
+          "PathLabel": "Caminho",
           "PathPlaceholder": "Digite o caminho para DataRef ou Comando, ou selecione uma predefinição acima",
           "PathDescription": "Dica: Use a notação de índice para acessar Arrays, por exemplo, sim/cockpit2/annunciators/fuel_pressure_low[0] para o 1º motor.",
-          "ValueLabel": "Valor:",
-          "ValuePlaceholder": "Digite o valor"
+          "ValueLabel": "Valor",
+          "ValuePlaceholder": "Digite o valor",
+          "CustomPreset": "Predefinição personalizada"
         },
         "ProSim": {
           "Title": "Ação de Entrada ProSim",
           "Description": "Selecione uma predefinição para configurar suas ações de entrada.",
-          "PathLabel": "Caminho:",
+          "PathLabel": "Caminho",
           "NoPresetSelected": "Nenhuma predefinição selecionada",
-          "ParameterLabel": "Parâmetro (opcional):",
+          "ParameterLabel": "Parâmetro (opcional)",
           "ParameterPlaceholder": "Definir parâmetro (opcional)",
           "ParameterNone": "Nenhum"
         },
@@ -639,7 +641,7 @@
         "Keyboard": {
           "StopScanning": "Parar de escanear",
           "ScanForKeyboard": "Escanear teclado...",
-          "KeyComboLabel": "Combinação de teclas:",
+          "KeyComboLabel": "Combinação de teclas",
           "None": "Nenhum",
           "ClearInput": "Limpar entrada"
         },
@@ -654,10 +656,10 @@
         },
         "LuaMacro": {
           "Title": "Ação de Entrada Lua Macro",
-          "Description": "Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.",
-          "MacroNameLabel": "Nome da Macro:",
+          "Description": "Chame sua macro Lua com um parâmetro opcional. Requer uma macro Lua existente no FSUIPC.",
+          "MacroNameLabel": "Nome da Macro",
           "MacroNamePlaceholder": "Definir nome da macro",
-          "MacroValueLabel": "Valor da Macro:",
+          "MacroValueLabel": "Valor da Macro",
           "MacroValuePlaceholder": "Definir valor da macro"
         },
         "Jeehell": {

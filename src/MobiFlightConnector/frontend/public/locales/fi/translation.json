@@ -601,23 +601,25 @@
         },
         "Msfs": {
           "NoneCode": "Ei mitään",
-          "CodePlaceholder": "Syötä RPN-koodi"
+          "CodePlaceholder": "Syötä RPN-koodi",
+          "CustomPreset": "Mukautettu esiasetus"
         },
         "Xplane": {
-          "InputTypeLabel": "Syötetyyppi:",
+          "InputTypeLabel": "Syötetyyppi",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",
-          "PathLabel": "Polku:",
+          "PathLabel": "Polku",
           "PathPlaceholder": "Syötä polku DataRefille tai komennolle, tai valitse esiasetus yltä",
           "PathDescription": "Vihje: Käytä indeksi-notaatiota taulukoiden käsittelyyn, esim. sim/cockpit2/annunciators/fuel_pressure_low[0] ensimmäiselle moottorille.",
-          "ValueLabel": "Arvo:",
-          "ValuePlaceholder": "Syötä arvo"
+          "ValueLabel": "Arvo",
+          "ValuePlaceholder": "Syötä arvo",
+          "CustomPreset": "Mukautettu esiasetus"
         },
         "ProSim": {
           "Title": "ProSim-syötetoiminto",
           "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi.",
-          "PathLabel": "Polku:",
+          "PathLabel": "Polku",
           "NoPresetSelected": "Ei esiasetusta valittuna",
-          "ParameterLabel": "Parametri (valinnainen):",
+          "ParameterLabel": "Parametri (valinnainen)",
           "ParameterPlaceholder": "Aseta parametri (valinnainen)",
           "ParameterNone": "Ei mitään"
         },
@@ -639,7 +641,7 @@
         "Keyboard": {
           "StopScanning": "Lopeta etsintä",
           "ScanForKeyboard": "Etsi näppäimistöä",
-          "KeyComboLabel": "Näppäinyhdistelmä:",
+          "KeyComboLabel": "Näppäinyhdistelmä",
           "None": "Ei mitään",
           "ClearInput": "Tyhjennä syöte"
         },
@@ -655,9 +657,9 @@
         "LuaMacro": {
           "Title": "Lua-makro-syötetoiminto",
           "Description": "Kutsu Lua-makroasi valinnaisella parametrilla. Vaatii olemassa olevan Lua-makron FSUIPC:ssä.",
-          "MacroNameLabel": "Makron nimi:",
+          "MacroNameLabel": "Makron nimi",
           "MacroNamePlaceholder": "Aseta makron nimi",
-          "MacroValueLabel": "Makron arvo:",
+          "MacroValueLabel": "Makron arvo",
           "MacroValuePlaceholder": "Aseta makron arvo"
         },
         "Jeehell": {

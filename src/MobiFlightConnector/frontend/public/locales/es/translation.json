@@ -607,23 +607,25 @@
         },
         "Msfs": {
           "NoneCode": "Ninguno",
-          "CodePlaceholder": "Ingresar código RPN"
+          "CodePlaceholder": "Ingresar código RPN",
+          "CustomPreset": "Preset personalizado"
         },
         "Xplane": {
-          "InputTypeLabel": "Tipo de entrada:",
+          "InputTypeLabel": "Tipo de entrada",
           "SelectInputTypePlaceholder": "Seleccionar tipo de entrada",
-          "PathLabel": "Ruta:",
+          "PathLabel": "Ruta",
           "PathPlaceholder": "Ingresa la ruta para DataRef o Comando, o selecciona un preset arriba",
           "PathDescription": "Nota: Usa la notación de índice para acceder a los arrays, p. ej., sim/cockpit2/annunciators/fuel_pressure_low[0] para el 1er motor.",
-          "ValueLabel": "Valor:",
-          "ValuePlaceholder": "Ingresa el valor"
+          "ValueLabel": "Valor",
+          "ValuePlaceholder": "Ingresa el valor",
+          "CustomPreset": "Preset personalizado"
         },
         "ProSim": {
           "Title": "Acción de entrada ProSim",
           "Description": "Selecciona un preset para configurar tus acciones de entrada.",
-          "PathLabel": "Ruta:",
+          "PathLabel": "Ruta",
           "NoPresetSelected": "No hay preset seleccionado",
-          "ParameterLabel": "Parámetro (opcional):",
+          "ParameterLabel": "Parámetro (opcional)",
           "ParameterPlaceholder": "Establecer parámetro (opcional)",
           "ParameterNone": "Ninguno"
         },
@@ -645,7 +647,7 @@
         "Keyboard": {
           "StopScanning": "Detener búsqueda",
           "ScanForKeyboard": "Buscar teclado",
-          "KeyComboLabel": "Combinación de teclas:",
+          "KeyComboLabel": "Combinación de teclas",
           "None": "Ninguno",
           "ClearInput": "Borrar entrada"
         },
@@ -661,9 +663,9 @@
         "LuaMacro": {
           "Title": "Acción de entrada de macro Lua",
           "Description": "Invoca tu macro Lua con un parámetro opcional. Requiere una macro Lua existente en FSUIPC.",
-          "MacroNameLabel": "Nombre de macro:",
+          "MacroNameLabel": "Nombre de macro",
           "MacroNamePlaceholder": "Establecer nombre de macro",
-          "MacroValueLabel": "Valor de macro:",
+          "MacroValueLabel": "Valor de macro",
           "MacroValuePlaceholder": "Establecer valor de macro"
         },
         "Jeehell": {
