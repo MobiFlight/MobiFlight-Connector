@@ -21,7 +21,7 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "../src/types/config"
-import { MODIFIER_TYPES, Padding, Substring, Transformation } from "../src/types/modifier"
+import { Interpolation, MODIFIER_TYPES, Padding, Substring, Transformation } from "../src/types/modifier"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -1007,6 +1007,131 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       Character: "0",
       Direction: "Centered",
     } as Padding)
+  })
+
+  test("Interpolation modifier works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Interpolation"
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add Modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    const transformationOption = page.getByRole("menuitem", {
+      name: modifierLabel,
+    })
+    await expect(transformationOption).toBeVisible()
+    await transformationOption.click()
+
+    // switch is visible and clickable
+    const switchToggle = modifierEditor.getByRole("switch")
+    await expect(switchToggle).toBeVisible()
+    await switchToggle.click()
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Length input field is visible
+    const mappingRows = modifierEditor.getByRole("row")
+    
+    // intially there are 3 rows for the header 
+    // and the two default mappings
+    await expect(mappingRows).toHaveCount(3)
+
+    const firstFromInput = mappingRows.nth(1).getByRole("textbox").first()
+
+    await expect(firstFromInput).toBeVisible()
+    await expect(firstFromInput).toHaveValue("0")
+    const firstToInput = mappingRows.nth(1).getByRole("textbox").last()
+    await expect(firstToInput).toBeVisible()
+    await expect(firstToInput).toHaveValue("0")
+
+    const secondFromInput = mappingRows.nth(2).getByRole("textbox").first()
+    await expect(secondFromInput).toBeVisible()
+    await expect(secondFromInput).toHaveValue("10")
+    const secondToInput = mappingRows.nth(2).getByRole("textbox").last()
+    await expect(secondToInput).toBeVisible()
+    await expect(secondToInput).toHaveValue("1000")
+
+    await firstFromInput.fill("5")
+    await firstToInput.fill("50")
+    await secondFromInput.fill("15")
+    await secondToInput.fill("1500")
+
+    
+    // Add another mapping row
+    const addMappingButton = modifierEditor.getByRole("button", {
+      name: "Add mapping",
+    })
+    await expect(addMappingButton).toBeVisible()
+    await addMappingButton.click()
+    
+    const thirdFromInput = mappingRows.nth(3).getByRole("textbox").first()
+    await expect(thirdFromInput).toBeVisible()
+    await expect(thirdFromInput).toHaveValue("30")
+    const thirdToInput = mappingRows.nth(3).getByRole("textbox").last()
+    await expect(thirdToInput).toBeVisible()
+    await expect(thirdToInput).toHaveValue("3000")
+
+    // add fourth mapping row
+    await addMappingButton.click()
+    await expect(mappingRows).toHaveCount(5)
+    const fourthRow = mappingRows.nth(4)
+    await expect(fourthRow).toBeVisible()
+    
+    // and remove it
+    await fourthRow.getByRole("button", { name: "Remove mapping" }).click()
+    await expect(fourthRow).not.toBeVisible()
+    await expect(mappingRows).toHaveCount(4)
+    
+    // Summary updates correctly
+    await expect(modifierEditor.getByRole("button", { name: "3 values, range from 5 to 3000" })).toBeVisible()
+    
+    // Close the drawer
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    // Save the config
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    // Verify that the command sent to the backend has the correct modifier data
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Modifiers.Items[0]).toEqual({
+      Type: "Interpolation",
+      Active: false,
+      Values: {
+        5: 50,
+        15: 1500,
+        30: 3000
+      } as Record<number, number>
+    } as Interpolation)
   })
 })
 

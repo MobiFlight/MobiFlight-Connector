@@ -134,13 +134,13 @@ const InterpolationPanel = ({
               </TableHeader>
               <TableBody>
                 {interpolationValues.map((range, index) => {
-                  const { start, end } = range
+                  const { start: from, end: to } = range
                   return (
                     <TableRow key={index}>
                       <TableCell className="px-2 py-1">
                         <Input
-                          id="start"
-                          value={start ?? ""}
+                          id="from"
+                          value={from ?? ""}
                           onChange={(e) =>
                             onChange({
                               ...modifier,
@@ -160,8 +160,8 @@ const InterpolationPanel = ({
                       </TableCell>
                       <TableCell className="px-2 py-1">
                         <Input
-                          id="end"
-                          value={end ?? ""}
+                          id="to"
+                          value={to ?? ""}
                           onChange={(e) =>
                             onChange({
                               ...modifier,
@@ -186,6 +186,7 @@ const InterpolationPanel = ({
                           variant="ghost"
                         >
                           <IconTrash />
+                          <span className="sr-only">Remove mapping</span>
                         </Button>
                       </TableCell>
                     </TableRow>
