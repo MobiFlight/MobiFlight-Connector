@@ -636,7 +636,8 @@
           "Pressed": "Pressed",
           "Released": "Released",
           "SelectAxisPlaceholder": "Select axis...",
-          "AxisValueLabel": "Axis value"
+          "AxisValueLabel": "Axis value",
+          "ControllerLabel": "vJoy Joystick {{index}}"
         },
         "Keyboard": {
           "StopScanning": "Stop scanning",

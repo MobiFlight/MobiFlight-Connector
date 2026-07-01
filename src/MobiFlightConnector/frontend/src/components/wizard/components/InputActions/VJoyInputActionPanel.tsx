@@ -40,7 +40,9 @@ const VJoyInputActionPanel = ({
   }
 
   const vJoyOptions = vJoyDefinitions.map((def) => ({
-    label: `vJoy Device ${def.Id}`,
+    label: t("Dialog.InputConfigWizard.InputActions.VJoy.ControllerLabel", {
+      index: def.Id,
+    }),
     value: def.Id,
   }))
 
@@ -71,7 +73,9 @@ const VJoyInputActionPanel = ({
           <Label>
             {t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:
           </Label>
-          <div className="text-sm">{selectedDeviceOption?.label}</div>
+          <div className="text-sm">{t("Dialog.InputConfigWizard.InputActions.VJoy.ControllerLabel", {
+              index: config?.vJoyID,
+            })}</div>
         </div>
         <div className="flex flex-col gap-1">
           <Label>

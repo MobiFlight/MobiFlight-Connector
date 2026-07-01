@@ -1250,7 +1250,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
       name: "Reset filters",
     })
 
-    // initially only 1 preset is available 
+    // initially only 1 preset is available
     // because of current test data filtering
     await expect(countLabel).toHaveText("1 preset(s) found")
 
@@ -1583,6 +1583,32 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
     ).toHaveValue("$")
   })
 
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      3,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("Variable")).toBeVisible()
+
+    // The variable name is shown in the summary
+    await expect(
+      actionPanel.getByText("MyVarnumber", { exact: true }),
+    ).toBeVisible()
+
+    // The code is shown in the summary
+    await expect(
+      actionPanel.getByText("$", {
+        exact: true,
+      }),
+    ).toBeVisible()
+  })
+
   test("Newly created (number) Variable config values are saved correctly", async ({
     configListPage,
     page,
@@ -1742,6 +1768,25 @@ test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
     ).toBeVisible()
   })
 
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      4,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("Retrigger")).toBeVisible()
+
+    // The note is shown in the summary
+    await expect(
+      actionPanel.getByText("Note:Sync input devices with sim.", { exact: true }),
+    ).toBeVisible()
+  })
+
   test("Newly created retrigger config values are saved correctly", async ({
     configListPage,
     page,
@@ -1864,6 +1909,25 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
         .filter({ hasText: "MobiFlight - Keyboard Input" }),
     ).toBeVisible()
     await expect(actionEditor.getByText("Key comboNone")).toBeVisible()
+  })
+
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      5,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("Keyboard")).toBeVisible()
+
+    // The variable name is shown in the summary
+    await expect(
+      actionPanel.getByText("Ctrl + Alt + Shift + D", { exact: true }),
+    ).toBeVisible()
   })
 
   test("Loaded config data is displayed correctly", async ({
@@ -2063,7 +2127,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
         .filter({ hasText: "MobiFlight - Virtual Joystick input (vJoy)" }),
     ).toBeVisible()
     await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "vJoy Device 1" }),
+      actionEditor.getByRole("combobox").filter({ hasText: "vJoy Joystick 1" }),
     ).toBeVisible()
     await expect(
       actionEditor.getByRole("tab", { name: "button" }),
@@ -2076,6 +2140,68 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     await expect(
       actionEditor.getByTestId("vjoy-button-command-state"),
     ).toHaveText("Pressed")
+  })
+
+  test("Summary information is displayed correctly (Button)", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      6,
+    )
+
+    // Publish the vJoy definitions so the panel can render the correct labels
+    await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("vJoy", {exact: true})).toBeVisible()
+
+    // The controller name is shown in the summary
+    await expect(
+      actionPanel.getByText("vJoy Joystick 1", { exact: true }),
+    ).toBeVisible()
+
+    // The device name is shown in the summary
+    await expect(
+      actionPanel.getByText("Button 4", { exact: true }),
+    ).toBeVisible()
+
+    // The button state is shown in the summary
+    await expect(
+      actionPanel.getByText("Pressed", {
+        exact: true,
+      }),
+    ).toBeVisible()
+  })
+
+  test("Summary information is displayed correctly (Axis)", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      7,
+    )
+
+    // Publish the vJoy definitions so the panel can render the correct labels
+    await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("vJoy", {exact: true})).toBeVisible()
+
+    // The controller name is shown in the summary
+    await expect(
+      actionPanel.getByText("vJoy Joystick 1", { exact: true }),
+    ).toBeVisible()
+
+    // The device name is shown in the summary
+    await expect(actionPanel.getByText("Axis Z", { exact: true })).toBeVisible()
+
+    // The axis value is shown in the summary
+    await expect(actionPanel.getByText("1024", { exact: true })).toBeVisible()
   })
 
   test("Axis config: device, axis and send value are displayed correctly", async ({
@@ -2115,7 +2241,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
         .filter({ hasText: "MobiFlight - Virtual Joystick input (vJoy)" }),
     ).toBeVisible()
     await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "vJoy Device 1" }),
+      actionEditor.getByRole("combobox").filter({ hasText: "vJoy Joystick 1" }),
     ).toBeVisible()
     await expect(
       actionEditor.getByRole("tab", { name: "axis" }),
@@ -2157,9 +2283,9 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
       .filter({ hasText: "Select vJoy device" })
     await expect(vJoyDeviceComboBox).toBeVisible()
     await vJoyDeviceComboBox.click()
-    await page.getByRole("option", { name: "vJoy Device 1" }).click()
+    await page.getByRole("option", { name: "vJoy Joystick 1" }).click()
     await expect(
-      page.getByRole("option", { name: "vJoy Device 1" }),
+      page.getByRole("option", { name: "vJoy Joystick 1" }),
     ).not.toBeVisible()
 
     const typeTab = actionEditor.getByRole("tab", { name: "button" })
@@ -2232,9 +2358,9 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
       .filter({ hasText: "Select vJoy device" })
     await expect(vJoyDeviceComboBox).toBeVisible()
     await vJoyDeviceComboBox.click()
-    await page.getByRole("option", { name: "vJoy Device 1" }).click()
+    await page.getByRole("option", { name: "vJoy Joystick 1" }).click()
     await expect(
-      page.getByRole("option", { name: "vJoy Device 1" }),
+      page.getByRole("option", { name: "vJoy Joystick 1" }),
     ).not.toBeVisible()
 
     const typeTab = actionEditor.getByRole("tab", { name: "axis" })
@@ -2319,6 +2445,41 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     // BcdMode=true
     const bcdModeSwitch = actionEditor.getByRole("switch").filter()
     await expect(bcdModeSwitch).toHaveAttribute("aria-checked", "true")
+  })
+
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      8,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("FSUIPC Offset")).toBeVisible()
+
+    // The Size is shown in the summary
+    await expect(
+      actionPanel.getByText("4", { exact: true }),
+    ).toBeVisible()
+
+    // The Offset is shown in the summary
+    await expect(
+      actionPanel.getByText("66CC", { exact: true }),
+    ).toBeVisible()
+    
+    // The mask is shown in the summary
+    await expect(
+      actionPanel.getByText("AABBCCDDEE", { exact: true }),
+    ).toBeVisible()
+
+    // The BCD mode is shown in the summary
+    await expect(actionPanel.getByText("True", { exact: true })).toBeVisible()
+
+    // The value is shown in the summary
+    await expect(actionPanel.getByText("$+123123123123", { exact: true })).toBeVisible()
   })
 
   test("BCDMode and Mask Visibility are displayed correctly based on type", async ({
@@ -2663,6 +2824,28 @@ test.describe("Input Config Wizard - FSUIPC EventID Input Action Panel", () => {
     ).toBeVisible()
   })
 
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      9,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("EventID")).toBeVisible()
+
+    // The event ID is shown in the summary
+    await expect(
+      actionPanel.getByText("68036", { exact: true }),
+    ).toBeVisible()
+
+    // The custom param is shown in the summary
+    await expect(actionPanel.getByText("0", { exact: true })).toBeVisible()
+  })
+
   test("Newly created FSUIPC EventID Input Action config values are saved correctly", async ({
     configListPage,
     page,
@@ -2791,6 +2974,28 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
     ).toBeVisible()
   })
 
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      10,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("PMDG Event ID")).toBeVisible()
+
+    // The event ID is shown in the summary
+    await expect(
+      actionPanel.getByText("69648", { exact: true }),
+    ).toBeVisible()
+
+    // The mouse parameter is shown in the summary
+    await expect(actionPanel.getByText("MOUSE_FLAG_LEFTSINGLE", { exact: true })).toBeVisible()
+  })
+
   test("Newly created FSUIPC PMDG EventID Input Action config values are saved correctly", async ({
     configListPage,
     page,
@@ -2914,6 +3119,28 @@ test.describe("Input Config Wizard - FSUIPC Jeehell Input Action Panel", () => {
     await expect(
       actionEditor.getByRole("textbox", { name: "Value" }),
     ).toHaveValue("1")
+  })
+
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      11,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("Jeehell Events")).toBeVisible()
+
+    // The function name is shown in the summary
+    await expect(
+      actionPanel.getByText("FO QNH", { exact: true }),
+    ).toBeVisible()
+
+    // The value is shown in the summary
+    await expect(actionPanel.getByText("1", { exact: true })).toBeVisible()
   })
 
   test("Selecting a preset updates the function and description", async ({
@@ -3048,6 +3275,28 @@ test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () =>
     ).toHaveValue("TestValue")
   })
 
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      12,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("Lua Macro")).toBeVisible()
+
+    // The macro name is shown in the summary
+    await expect(
+      actionPanel.getByText("TestMacro", { exact: true }),
+    ).toBeVisible()
+
+    // The macro value is shown in the summary
+    await expect(actionPanel.getByText("TestValue", { exact: true })).toBeVisible()
+  })
+
   test("Editing macro name and value updates the fields", async ({
     configListPage,
     page,
@@ -3163,6 +3412,28 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
       key: "CommandRefreshPresets",
       payload: { type: "prosim" },
     })
+  })
+
+  test("Summary information is displayed correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      12,
+    )
+
+    // Action type is shown in the summary
+    await expect(actionPanel.getByText("ProSim Preset")).toBeVisible()
+
+    // The preset path is shown in the summary
+    await expect(
+      actionPanel.getByText("TestMacro", { exact: true }),
+    ).toBeVisible()
+
+    // The optional parameter value is shown in the summary
+    await expect(actionPanel.getByText("TestValue", { exact: true })).toBeVisible()
   })
 
   test("With presets loaded: filter and select updates the path", async ({
