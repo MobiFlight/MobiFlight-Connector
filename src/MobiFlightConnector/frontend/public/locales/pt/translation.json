@@ -637,7 +637,8 @@
           "Released": "Liberado",
           "SelectAxisPlaceholder": "Selecionar eixo...",
           "AxisValueLabel": "Valor do eixo",
-          "ControllerLabel": "vJoy Joystick {{index}}"
+          "ControllerLabel": "vJoy Joystick {{index}}",
+          "None": "Nenhum"
         },
         "Keyboard": {
           "StopScanning": "Parar de escanear",

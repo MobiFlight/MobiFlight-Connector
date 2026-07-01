@@ -20,13 +20,14 @@ const MsfsInputActionPanel = ({
   onConfigChange,
 }: MsfsInputActionPanelProps) => {
   const { t } = useTranslation()
-    const { data: presets = [] /*, isLoading */ } = useQuery({
+  const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-  const presetLabel = presets.find((p) => p.id === config?.PresetId)?.label ?? null
+  const presetLabel =
+    presets.find((p) => p.id === config?.PresetId)?.label ?? null
 
   if (variant === "summary") {
     return (
@@ -35,7 +36,10 @@ const MsfsInputActionPanel = ({
           <Label htmlFor="preset">
             {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
           </Label>
-          <div className="text-sm">{presetLabel ?? t("Dialog.InputConfigWizard.InputActions.Msfs.CustomPreset")}</div>
+          <div className="text-sm">
+            {presetLabel ??
+              t("Dialog.InputConfigWizard.InputActions.Msfs.CustomPreset")}
+          </div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="code">

@@ -466,8 +466,8 @@
                         "onHold": null,
                         "onLongRelease": null,
                         "onPress": {
-                            "Expression": "",
-                            "Path": "",
+                            "Expression": "$",
+                            "Path": "prosim.test.path",
                             "Type": "ProSimInputAction"
                         },
                         "onRelease": null

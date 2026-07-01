@@ -643,7 +643,8 @@
           "Released": "Soltado",
           "SelectAxisPlaceholder": "Seleccionar eje...",
           "AxisValueLabel": "Valor del eje",
-          "ControllerLabel": "vJoy Joystick {{index}}"
+          "ControllerLabel": "vJoy Joystick {{index}}",
+          "None": "Ninguno"
         },
         "Keyboard": {
           "StopScanning": "Detener búsqueda",

@@ -643,7 +643,8 @@
           "Released": "Losgelassen",
           "SelectAxisPlaceholder": "Achse auswählen...",
           "AxisValueLabel": "Achsenwert",
-          "ControllerLabel": "vJoy Joystick {{index}}"
+          "ControllerLabel": "vJoy Joystick {{index}}",
+          "None": "Keiner"
         },
         "Keyboard": {
           "StopScanning": "Suche stoppen",

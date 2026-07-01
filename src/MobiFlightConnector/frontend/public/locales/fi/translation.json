@@ -637,7 +637,8 @@
           "Released": "Vapautettu",
           "SelectAxisPlaceholder": "Valitse akseli...",
           "AxisValueLabel": "Akseliarvo",
-          "ControllerLabel": "vJoy Joystick {{index}}"
+          "ControllerLabel": "vJoy Joystick {{index}}",
+          "None": "Ei mitään"
         },
         "Keyboard": {
           "StopScanning": "Lopeta etsintä",

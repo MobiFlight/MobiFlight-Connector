@@ -838,7 +838,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     // now all options are available
     await expect(countLabel).toHaveText("4 preset(s) found")
 
-    // Filter by a exact preset name -> 1 preset found
+    // Filter by an exact preset name -> 1 preset found
     await filterInput.fill("AP_PANEL_HEADING_HOLD")
     await expect(countLabel).toHaveText("1 preset(s) found")
 
@@ -846,7 +846,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await filterInput.fill("NonExistingPreset")
     await expect(countLabel).toHaveText("0 preset(s) found")
 
-    // Reset the filter -> all presets are available again202
+    // Reset the filter -> all presets are available again
     await filterInput.fill("")
     await expect(countLabel).toHaveText("4 preset(s) found")
   })
@@ -1347,7 +1347,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
         name: "Reset filters",
       })
 
-      // make sure we have all options avaible by resetting filters
+      // make sure we have all options available by resetting filters
       await resetFiltersButton.click()
 
       await expect(countLabel).toHaveText(
@@ -3421,7 +3421,7 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
     const actionPanel = await openWizardAndReturnActionPanel(
       configListPage,
       page,
-      12,
+      13,
     )
 
     // Action type is shown in the summary
@@ -3429,11 +3429,11 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
 
     // The preset path is shown in the summary
     await expect(
-      actionPanel.getByText("TestMacro", { exact: true }),
+      actionPanel.getByText("prosim.test.path", { exact: true }),
     ).toBeVisible()
 
     // The optional parameter value is shown in the summary
-    await expect(actionPanel.getByText("TestValue", { exact: true })).toBeVisible()
+    await expect(actionPanel.getByText("$", { exact: true })).toBeVisible()
   })
 
   test("With presets loaded: filter and select updates the path", async ({
