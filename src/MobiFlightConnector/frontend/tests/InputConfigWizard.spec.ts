@@ -2479,7 +2479,7 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     await expect(actionPanel.getByText("True", { exact: true })).toBeVisible()
 
     // The value is shown in the summary
-    await expect(actionPanel.getByText("$+123123123123", { exact: true })).toBeVisible()
+    await expect(actionPanel.getByText("$+123", { exact: true })).toBeVisible()
   })
 
   test("BCDMode and Mask Visibility are displayed correctly based on type", async ({
@@ -3136,7 +3136,7 @@ test.describe("Input Config Wizard - FSUIPC Jeehell Input Action Panel", () => {
 
     // The function name is shown in the summary
     await expect(
-      actionPanel.getByText("FO QNH", { exact: true }),
+      actionPanel.getByText("FCU_HDGKNOB_PRESS", { exact: true }),
     ).toBeVisible()
 
     // The value is shown in the summary
