@@ -114,7 +114,10 @@ namespace MobiFlight.Modifier
         {
             if (value.Length > Length)
             {
-                value = value.Substring(0, Length);
+                if (Direction == PaddingDirection.Left)
+                    value = value.Substring(value.Length - Length, Length);
+                else 
+                    value = value.Substring(0, Length);
             }
 
             switch (Direction)

@@ -299,6 +299,7 @@
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ProSimInputActionTests.cs" />
+    <Compile Include="MobiFlight\Modifier\PaddingTests.cs" />
     <Compile Include="MobiFlight\Modifier\QuantizeTests.cs" />
     <Compile Include="MobiFlight\Modifier\SimpleMovingAverageTest.cs" />
     <Compile Include="MobiFlight\Scripts\PythonEnvironmentTests.cs" />
