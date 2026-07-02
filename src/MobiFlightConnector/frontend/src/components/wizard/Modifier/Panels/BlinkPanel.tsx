@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input"
 import { Blink } from "@/types/modifier"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
@@ -26,6 +25,8 @@ import {
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Label } from "@/components/ui/label"
+import Input from "@/components/Input"
+import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
 
 type BlinkPanelProps = {
   variant: "summary" | "editor"
@@ -128,8 +129,8 @@ const BlinkPanel = ({
               className="w-12"
               id="alternate"
               value={modifier.BlinkValue}
-              onChange={(e) =>
-                onChange({ ...modifier, BlinkValue: e.target.value })
+              onChange={(value) =>
+                onChange({ ...modifier, BlinkValue: value })
               }
             />
           </div>
@@ -155,29 +156,31 @@ const BlinkPanel = ({
                       <TableCell className="px-2 py-1">
                         <Input
                           id="on"
-                          value={on ?? ""}
-                          onChange={(e) =>
+                          value={on ?? 500}
+                          validateOnCommit={validateNumberInput}
+                          onChange={(value) =>
                             onChange({
                               ...modifier,
                               OnOffSequence: convertToFlatArray(
                                 blinkValues.map((v, i) =>
                                   i === index
-                                    ? {
-                                        on: parseInt(e.target.value),
-                                        off: v.off,
-                                      }
-                                    : v,
-                                ),
+                                ? {
+                                  on: value,
+                                  off: v.off,
+                                }
+                                : v,
                               ),
-                            })
-                          }
+                            ),
+                          })
+                        }
                         />
                       </TableCell>
                       <TableCell className="px-2 py-1">
                         <Input
                           id="off"
-                          value={off ?? ""}
-                          onChange={(e) =>
+                          value={off ?? 500}
+                          validateOnCommit={validateNumberInput}
+                          onChange={(value) =>
                             onChange({
                               ...modifier,
                               OnOffSequence: convertToFlatArray(
@@ -185,7 +188,7 @@ const BlinkPanel = ({
                                   i === index
                                     ? {
                                         on: v.on,
-                                        off: parseInt(e.target.value),
+                                        off: value,
                                       }
                                     : v,
                                 ),

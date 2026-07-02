@@ -901,12 +901,15 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(valueInputField).toBeVisible()
     // Summary updates correctly
     await valueInputField.fill(" ")
+    await valueInputField.blur()
+    
     await expect(
       modifierEditor.getByRole("button", {
         name: "Length 3 Value Space Direction Left",
       }),
     ).toBeVisible()
     await valueInputField.fill("0")
+    await valueInputField.blur()
     await expect(
       modifierEditor.getByRole("button", {
         name: "Length 3 Value 0 Direction Left",
@@ -1227,6 +1230,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await firstOnInput.fill("350")
     await firstOffInput.fill("650")
+    // blur to trigger the change event
+    await firstOffInput.blur() 
 
     // Add another mapping row
     const addIntervalButton = modifierEditor.getByRole("button", {
@@ -1241,6 +1246,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const secondOffInput = sequenceRows.nth(2).getByRole("textbox").last()
     await expect(secondOffInput).toBeVisible()
     await expect(secondOffInput).toHaveValue("650")
+    await secondOffInput.blur()
 
     // add third mapping row
     await addIntervalButton.click()

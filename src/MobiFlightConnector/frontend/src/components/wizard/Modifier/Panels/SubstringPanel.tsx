@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input"
 import { Substring } from "@/types/modifier"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
@@ -18,9 +17,9 @@ import {
 import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import {
-  useDraftCommitInput,
-  validateNumberInput
+  validateNumberInput,
 } from "@/lib/hooks/useDraftCommitInput"
+import Input from "@/components/Input"
 
 type SubstringPanelProps = {
   variant: "summary" | "editor"
@@ -36,22 +35,6 @@ const SubstringPanel = ({
   onDelete,
 }: SubstringPanelProps) => {
   const [open, setOpen] = useState(false)
-
-  const startInput = useDraftCommitInput({
-    originalValue: modifier.Start,
-    validateOnCommit: validateNumberInput,
-    onCommit: (value) => {
-      onChange({ ...modifier, Start: value })
-    },
-  })
-
-  const endInput = useDraftCommitInput({
-    originalValue: modifier.End,
-    validateOnCommit: validateNumberInput,
-    onCommit: (value) => {
-      onChange({ ...modifier, End: value })
-    },
-  })
 
   return variant === "summary" ? (
     <Badge className="bg-blue-700">Substring</Badge>
@@ -98,11 +81,27 @@ const SubstringPanel = ({
           <div className="flex flex-row items-center gap-4 pr-16 pb-4">
             <div className="flex flex-col gap-1">
               <Label htmlFor="start">Start index</Label>
-              <Input id="start" className="w-16" {...startInput.inputProps} />
+              <Input
+                id="start"
+                value={modifier.Start}
+                className="w-16"
+                validateOnCommit={validateNumberInput}
+                onChange={(value) => {
+                  onChange({ ...modifier, Start: value })
+                }}
+              />
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="end">End index</Label>
-              <Input id="end" className="w-16" {...endInput.inputProps} />
+              <Input
+                id="end"
+                value={modifier.End}
+                className="w-16"
+                validateOnCommit={validateNumberInput}
+                onChange={(value) => {
+                  onChange({ ...modifier, End: value })
+                }}
+              />
             </div>
           </div>
         </CollapsibleContent>

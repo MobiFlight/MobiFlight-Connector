@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input"
 import { Padding } from "@/types/modifier"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
@@ -19,6 +18,8 @@ import { useState } from "react"
 import ComboBox from "@/components/ComboBox"
 import { useTranslation } from "react-i18next"
 import { Badge } from "@/components/ui/badge"
+import Input from "@/components/Input"
+import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
 
 type PaddingPanelProps = {
   variant: "summary" | "editor"
@@ -105,8 +106,9 @@ const PaddingPanel = ({
                 className="w-12"
                 id="length"
                 value={modifier.Length}
-                onChange={(e) =>
-                  onChange({ ...modifier, Length: parseInt(e.target.value) })
+                validateOnCommit={validateNumberInput}
+                onChange={(value) =>
+                  onChange({ ...modifier, Length: value })
                 }
               />
             </div>
@@ -117,8 +119,8 @@ const PaddingPanel = ({
                 id="character"
                 maxLength={1}
                 value={modifier.Character}
-                onChange={(e) =>
-                  onChange({ ...modifier, Character: e.target.value })
+                onChange={(value) =>
+                  onChange({ ...modifier, Character: value })
                 }
               />
             </div>
