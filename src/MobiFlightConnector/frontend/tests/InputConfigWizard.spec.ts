@@ -924,7 +924,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await directionComboBox.click()
 
     const directionOptions = page.getByRole("listbox").getByRole("option")
-    await expect(directionOptions).toHaveCount(3)
+    // we expect two options (left/right)
+    await expect(directionOptions).toHaveCount(2)
     await expect(directionOptions.filter({ hasText: "Left" })).toBeVisible()
     await expect(directionOptions.filter({ hasText: "Right" })).toBeVisible()
 
