@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge"
 import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
 import { Modifier } from "@/types/modifier"
+import { useTranslation } from "react-i18next"
 
 type ModifierSummaryProps = {
   rawValue: string | null | undefined
@@ -15,6 +16,7 @@ const ModifierSummary = ({
   modifiers,
   maxDisplayCount,
 }: ModifierSummaryProps) => {
+  const { t } = useTranslation()
   const rawValueClean = rawValue?.replace("CHANGE =>", "") ?? ""
   return (
     <div className="flex flex-row justify-between gap-2 items-center">
@@ -35,7 +37,7 @@ const ModifierSummary = ({
         ))}
         {modifiers.length > maxDisplayCount && (
           <Badge variant="secondary">
-            + {modifiers.length - maxDisplayCount} more
+            {t("Dialog.Modifiers.Summary.More", { count: modifiers.length - maxDisplayCount })}
           </Badge>
         )}
       </div>

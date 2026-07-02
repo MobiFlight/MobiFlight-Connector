@@ -406,35 +406,69 @@
       "Type": {
         "Transformation": {
           "Label": "Transformation",
-          "Description": "Use expression syntax to transform the input value."
+          "Description": "Apply a transformation to the input value using the specified expression.",
+          "Expression": "Expression"
         },
         "Substring": {
           "Label": "Substring",
-          "Description": "Extracts a portion of the input value based on specified start and end positions."
+          "Description": "Extract a substring from the input value using the specified start and end position.",
+          "From": "from",
+          "To": "to",
+          "Start": "Start position",
+          "End": "End position",
+          "Summary": "from <badge>{{start}}</badge> to <badge>{{end}}</badge>"
         },
         "Padding": {
           "Label": "Padding",
-          "Description": "Adds a specified value to the input value."
+          "Description": "Adjust the padding of the input value using the specified length, character, and direction.",
+          "Length": "Length",
+          "Character": "Character",
+          "Direction": "Direction",
+          "Summary": "Length:<badge>{{length}}</badge> Character:<badge><kbd>{{character}}</kbd></badge> Direction:<badge>{{direction}}</badge>"
         },
         "Interpolation": {
           "Label": "Interpolation",
-          "Description": "Interpolates the input value based on a specified function."
+          "Description": "Define mappings between input and output values. Values outside the range are clamped.",
+          "From": "From",
+          "To": "To",
+          "Action": "Action",
+          "Mappings": "Mappings",
+          "Add": "Add mapping", 
+          "Remove": "Remove mapping",
+          "Summary": "Maps <badge>{{count}}</badge> values, range from <badge>{{min}}</badge> to <badge>{{max}}</badge>"
         },
         "Comparison": {
           "Label": "Comparison",
-          "Description": "Compares the input value to a specified value."
+          "Description": "Compare the current value with another value and adjust the output if it matches or not.",
+          "IfCurrentValue": "If current value",
+          "Operator": "Operator",
+          "Value": "Value",
+          "Then": "Then",
+          "Else": "Else",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
         },
         "Blink": {
           "Label": "Blink",
-          "Description": "Makes the input value blink based on a specified interval."
+          "Description": "Alternates the original input value with the Off value using the sequence below.",
+          "AlternateValue": "Alternate value (Off)",
+          "BlinkSequence": "Blink sequence",
+          "On": "On (in ms)",
+          "Off": "Off (in ms)",
+          "Action": "Action",
+          "Add": "Add blink interval",
+          "Remove": "Remove blink interval",
+          "Summary": "Value <badge>{{blinkValue}}</badge> Sequence <badge>{{on}}</badge> / <badge>{{off}}</badge>"
         }
+      },
+      "Summary": {
+        "More": "+ {{count}} more"
       },
       "Editor": {
         "Title": "Edit modifiers",
         "Description": "Add, configure, rearrange, and remove modifiers to change the original input value.",
         "AddModifier": "Add modifier",
         "NoModifiers": "No modifiers defined.",
-        "DeleteModifier": "Delete modifier"
+        "DeleteModifier": "Remove modifier"
       }
     },
     "InputConfigWizard": {

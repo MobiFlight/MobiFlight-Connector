@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/collapsible"
 import { useState } from "react"
 import ComboBox from "@/components/ComboBox"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { Badge } from "@/components/ui/badge"
 import Input from "@/components/Input"
 import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
@@ -73,15 +73,23 @@ const PaddingPanel = ({
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-center gap-1">
               <div className="text-md w-32 px-2 text-left font-semibold">
-                Padding
+                {t("Dialog.Modifiers.Type.Padding.Label")}
               </div>
               <div className="flex flex-row items-center gap-2 text-sm">
-                Length <Badge variant={"secondary"}>{modifier.Length}</Badge>
-                Value <Badge variant={"secondary"}>{modifier.Character === " " ? "Space" : modifier.Character}</Badge>
-                Direction{" "}
-                <Badge variant={"secondary"}>{modifier.Direction}</Badge>
+                <Trans 
+                  i18nKey="Dialog.Modifiers.Type.Padding.Summary"
+                  values={{
+                    length: modifier.Length,
+                    character: modifier.Character === " " ? "SPACE" : modifier.Character,
+                    direction: modifier.Direction,
+                  }}  
+                  components={{
+                    badge: <Badge variant={"secondary"} />,
+                    kbd: <kbd />,
+                  }}
+                />
               </div>
             </div>
             <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
@@ -90,17 +98,16 @@ const PaddingPanel = ({
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
-            <span className="sr-only">Remove modifier</span>
+            <span className="sr-only">{t("Dialog.Modifiers.Editor.DeleteModifier")}</span>
           </Button>
         </div>
         <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
-            Adjust the padding of the input value using the specified length,
-            character, and direction.
+            {t("Dialog.Modifiers.Type.Padding.Description")}
           </div>
           <div className="flex flex-row items-center gap-4 pr-16 pb-4">
             <div className="flex flex-col gap-1">
-              <Label htmlFor="length">Length</Label>
+              <Label htmlFor="length">{t("Dialog.Modifiers.Type.Padding.Length")}</Label>
               <Input
                 className="w-12"
                 id="length"
@@ -112,7 +119,7 @@ const PaddingPanel = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="character">Value</Label>
+              <Label htmlFor="character">{t("Dialog.Modifiers.Type.Padding.Character")}</Label>
               <Input
                 className="w-12"
                 id="character"
@@ -124,7 +131,7 @@ const PaddingPanel = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="direction">Direction</Label>
+              <Label htmlFor="direction">{t("Dialog.Modifiers.Type.Padding.Direction")}</Label>
               <ComboBox
                 id="direction"
                 items={directionOptions}

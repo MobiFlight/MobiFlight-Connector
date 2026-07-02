@@ -27,6 +27,7 @@ import { Badge } from "@/components/ui/badge"
 import { Label } from "@/components/ui/label"
 import Input from "@/components/Input"
 import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
+import { Trans, useTranslation } from "react-i18next"
 
 type BlinkPanelProps = {
   variant: "summary" | "editor"
@@ -41,6 +42,7 @@ const BlinkPanel = ({
   onChange,
   onDelete,
 }: BlinkPanelProps) => {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const blinkValues: { on: number; off: number }[] = []
 
@@ -99,14 +101,20 @@ const BlinkPanel = ({
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-2">
-              <div className="text-md px-2 font-semibold w-32 text-left">Blink</div>
+              <div className="text-md px-2 font-semibold w-32 text-left">{t("Dialog.Modifiers.Type.Blink.Label")}</div>
               <div className="flex flex-row items-center gap-2 text-sm">
-                Value
-                <Badge variant={"secondary"}>{modifier.BlinkValue}</Badge>
-                Sequence
-                <Badge variant={"secondary"}>{blinkValues.length > 0 ? `${blinkValues[0].on}` : ""}</Badge>
-                /
-                <Badge variant={"outline"}>{blinkValues.length > 0 ? `${blinkValues[0].off}` : ""}</Badge>
+                <Trans 
+                  i18nKey="Dialog.Modifiers.Type.Blink.Summary"
+                  values={{
+                    blinkValue: modifier.BlinkValue,
+                    on: blinkValues.length > 0 ? `${blinkValues[0].on}` : "",
+                    off: blinkValues.length > 0 ? `${blinkValues[0].off}` : ""
+                  }}
+                  components={{
+                    badge: <Badge variant={"secondary"} />,
+                    span: <span className="text-sm font-semibold" />,
+                  }}
+                />
               </div>
             </div>
             <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
@@ -115,16 +123,15 @@ const BlinkPanel = ({
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
-            <span className="sr-only">Remove modifier</span>
+            <span className="sr-only">{t("Dialog.Modifiers.Editor.DeleteModifier")}</span>
           </Button>
         </div>
         <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
-            Alternates the original input value with the Off value using the
-            sequence below.
+            {t("Dialog.Modifiers.Type.Blink.Description")}
           </div>
           <div className="flex flex-col gap-1 pr-12">
-            <Label htmlFor="alternate" className="text-md font-semibold">Alternate value (Off)</Label>
+            <Label htmlFor="alternate" className="text-md font-semibold">{t("Dialog.Modifiers.Type.Blink.AlternateValue")}</Label>
             <Input
               className="w-12"
               id="alternate"
@@ -135,15 +142,14 @@ const BlinkPanel = ({
             />
           </div>
           <div>
-            <div className="text-md font-semibold">Blink sequence</div>
+            <div className="text-md font-semibold">{t("Dialog.Modifiers.Type.Blink.BlinkSequence")}</div>
             <Table className="">
               <TableHeader>
                 <TableRow>
-                  <TableHead>#</TableHead>
-                  <TableHead>On (in ms)</TableHead>
-                  <TableHead>Off (in ms)</TableHead>
+                  <TableHead>{t("Dialog.Modifiers.Type.Blink.On")}</TableHead>
+                  <TableHead>{t("Dialog.Modifiers.Type.Blink.Off")}</TableHead>
                   <TableHead>
-                    <span className="sr-only">Action</span>
+                    <span className="sr-only">{t("Dialog.Modifiers.Type.Blink.Action")}</span>
                   </TableHead>
                 </TableRow>
               </TableHeader>
@@ -152,7 +158,6 @@ const BlinkPanel = ({
                   const { on, off } = range
                   return (
                     <TableRow key={index}>
-                      <TableCell className="px-2 py-1">{index + 1}</TableCell>
                       <TableCell className="px-2 py-1">
                         <Input
                           id="on"
@@ -206,7 +211,7 @@ const BlinkPanel = ({
                           }}
                         >
                           <IconTrash />
-                          <span className="sr-only">Remove interval</span>
+                          <span className="sr-only">{t("Dialog.Modifiers.Type.Blink.Remove")}</span>
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -217,7 +222,7 @@ const BlinkPanel = ({
           </div>
           <Button variant="outline" size="sm" onClick={addBlink}>
             <IconPlus />
-            Add blink interval
+            {t("Dialog.Modifiers.Type.Blink.Add")}
           </Button>
         </CollapsibleContent>
       </Collapsible>

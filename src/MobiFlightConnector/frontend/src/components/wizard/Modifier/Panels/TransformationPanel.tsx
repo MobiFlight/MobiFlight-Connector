@@ -19,6 +19,7 @@ import {
 import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
+import { useTranslation } from "react-i18next"
 
 type TransformationPanelProps = {
   variant: "summary" | "editor"
@@ -33,10 +34,11 @@ const TransformationPanel = ({
   onChange,
   onDelete,
 }: TransformationPanelProps) => {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
 
   return variant === "summary" ? (
-    <Badge className="bg-indigo-600">Transformation</Badge>
+    <Badge className="bg-indigo-600">{t("Dialog.Modifiers.Type.Transformation.Label")}</Badge>
   ) : (
     <div className="flex flex-col gap-2 rounded-md border px-1 py-0.5">
       <Collapsible
@@ -55,7 +57,7 @@ const TransformationPanel = ({
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-2">
-              <div className="text-md px-2 font-semibold">Transformation</div>
+              <div className="text-md px-2 font-semibold">{t("Dialog.Modifiers.Type.Transformation.Label")}</div>
               <CodeValueLabel className="text-xs pt-2">{modifier.Expression}</CodeValueLabel>
             </div>
             <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
@@ -64,17 +66,16 @@ const TransformationPanel = ({
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
-            <span className="sr-only">Remove modifier</span>
+            <span className="sr-only">{t("Dialog.Modifiers.Editor.DeleteModifier")}</span>
           </Button>
         </div>
         <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
-            Apply a transformation to the input value using the specified
-            expression.
+            {t("Dialog.Modifiers.Type.Transformation.Description")}
           </div>
           <div className="flex flex-row items-center gap-2">
             <div className="flex grow flex-col gap-1">
-              <Label htmlFor="expression">Expression</Label>
+              <Label htmlFor="expression">{t("Dialog.Modifiers.Type.Transformation.Expression")}</Label>
               <div className="relative flex flex-row items-center">
                 <Input
                   id="expression"

@@ -398,6 +398,79 @@
       "SearchController": "Pesquisar controlador...",
       "NoControllerFound": "Nenhum controlador encontrado."
     },
+    "Modifiers": {
+      "Title": "Modificadores",
+      "Description": "Altere o valor original aplicando uma sequência de modificadores.",
+      "EditButton": "Editar modificadores",
+      "AddButton": "Adicionar modificador",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformação",
+          "Description": "Aplique uma transformação ao valor de entrada usando a expressão especificada.",
+          "Expression": "Expressão"
+        },
+        "Substring": {
+          "Label": "Subcadeia",
+          "Description": "Extraia uma subcadeia do valor de entrada usando a posição inicial e final especificada.",
+          "From": "de",
+          "To": "até",
+          "Start": "Posição inicial",
+          "End": "Posição final",
+          "Summary": "de <badge>{{start}}</badge> até <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Preenchimento",
+          "Description": "Ajuste o preenchimento do valor de entrada usando o comprimento, caractere e direção especificados.",
+          "Length": "Comprimento",
+          "Character": "Caractere",
+          "Direction": "Direção",
+          "Summary": "Comprimento:<badge>{{length}}</badge> Caractere:<badge><kbd>{{character}}</kbd></badge> Direção:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolação",
+          "Description": "Defina mapeamentos entre valores de entrada e saída. Valores fora do intervalo são limitados.",
+          "From": "De",
+          "To": "Até",
+          "Action": "Ação",
+          "Mappings": "Mapeamentos",
+          "Add": "Adicionar mapeamento",
+          "Remove": "Remover mapeamento",
+          "Summary": "Mapeia <badge>{{count}}</badge> valores, intervalo de <badge>{{min}}</badge> a <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Comparação",
+          "Description": "Compare o valor atual com outro valor e ajuste a saída se corresponder ou não.",
+          "IfCurrentValue": "Se o valor atual",
+          "Operator": "Operador",
+          "Value": "Valor",
+          "Then": "Então",
+          "Else": "Caso contrário",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Piscar",
+          "Description": "Alterna o valor de entrada original com o valor Desligado usando a sequência abaixo.",
+          "AlternateValue": "Valor alternativo (Desligado)",
+          "BlinkSequence": "Sequência de piscar",
+          "On": "Ligado (em ms)",
+          "Off": "Desligado (em ms)",
+          "Action": "Ação",
+          "Add": "Adicionar intervalo de piscar",
+          "Remove": "Remover intervalo de piscar",
+          "Summary": "Valor <badge>{{blinkValue}}</badge> Sequência <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "More": "+ {{count}} mais"
+      },
+      "Editor": {
+        "Title": "Editar modificadores",
+        "Description": "Adicione, configure, reorganize e remova modificadores para alterar o valor de entrada original.",
+        "AddModifier": "Adicionar modificador",
+        "NoModifiers": "Nenhum modificador definido.",
+        "DeleteModifier": "Remover modificador"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Editar configuração de entrada",
       "Description": "Edite todas as configurações para esta configuração de entrada neste diálogo.",

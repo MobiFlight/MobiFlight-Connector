@@ -404,6 +404,79 @@
       "SearchController": "Controller suchen...",
       "NoControllerFound": "Kein Controller gefunden."
     },
+    "Modifiers": {
+      "Title": "Modifikatoren",
+      "Description": "Ändere den ursprünglichen Wert, indem du eine Reihe von Modifikatoren anwendest.",
+      "EditButton": "Modifikatoren bearbeiten",
+      "AddButton": "Modifikator hinzufügen",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformation",
+          "Description": "Wende eine Transformation auf den Eingabewert an, indem du den angegebenen Ausdruck verwendest.",
+          "Expression": "Ausdruck"
+        },
+        "Substring": {
+          "Label": "Teil-String",
+          "Description": "Extrahiere einen Teilstring aus dem Eingabewert unter Verwendung der angegebenen Start- und Endposition.",
+          "From": "von",
+          "To": "bis",
+          "Start": "Startposition",
+          "End": "Endposition",
+          "Summary": "von <badge>{{start}}</badge> bis <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Padding",
+          "Description": "Passe das Padding des Eingabewerts unter Verwendung der angegebenen Länge, des Zeichens und der Richtung an.",
+          "Length": "Länge",
+          "Character": "Zeichen",
+          "Direction": "Richtung",
+          "Summary": "Länge:<badge>{{length}}</badge> Zeichen:<badge><kbd>{{character}}</kbd></badge> Richtung:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolation",
+          "Description": "Definiere Zuordnungen zwischen Eingabe- und Ausgabewerten. Werte außerhalb des Bereichs werden begrenzt.",
+          "From": "Von",
+          "To": "Bis",
+          "Action": "Aktion",
+          "Mappings": "Zuordnungen",
+          "Add": "Zuordnung hinzufügen", 
+          "Remove": "Zuordnung entfernen",
+          "Summary": "Mappe <badge>{{count}}</badge> Werte, Bereich von <badge>{{min}}</badge> bis <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Vergleich",
+          "Description": "Vergleiche den aktuellen Wert mit einem anderen Wert und passe die Ausgabe an, wenn er übereinstimmt oder nicht.",
+          "IfCurrentValue": "Wenn aktueller Wert",
+          "Operator": "Operator",
+          "Value": "Wert",
+          "Then": "Dann",
+          "Else": "Sonst",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Blink",
+          "Description": "Wechselt den ursprünglichen Eingabewert mit dem Aus-Wert unter Verwendung der untenstehenden Sequenz.",
+          "AlternateValue": "Alternativer Wert (Aus)",
+          "BlinkSequence": "Blinksequenz",
+          "On": "Ein (in ms)",
+          "Off": "Aus (in ms)",
+          "Action": "Aktion",
+          "Add": "Blinkintervall hinzufügen",
+          "Remove": "Blinkintervall entfernen",
+          "Summary": "Wert <badge>{{blinkValue}}</badge> Sequenz <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "More": "+ {{count}} mehr"
+      },
+      "Editor": {
+        "Title": "Modifikatoren bearbeiten",
+        "Description": "Modifikatoren hinzufügen, konfigurieren, neu anordnen und entfernen, um den ursprünglichen Eingabewert zu ändern.",
+        "AddModifier": "Modifikator hinzufügen",
+        "NoModifiers": "Keine Modifikatoren definiert.",
+        "DeleteModifier": "Modifikator entfernen"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Eingabekonfiguration bearbeiten",
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",

@@ -19,6 +19,7 @@ import {
 import { useState } from "react"
 import ComboBox from "@/components/ComboBox"
 import { Badge } from "@/components/ui/badge"
+import { Trans, useTranslation } from "react-i18next"
 
 type ComparisonPanelProps = {
   variant: "summary" | "editor"
@@ -33,6 +34,7 @@ const ComparisonPanel = ({
   onChange,
   onDelete,
 }: ComparisonPanelProps) => {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const availableOperators = ComparisonOperators
   const selectedDirection = availableOperators.find(
@@ -69,15 +71,23 @@ const ComparisonPanel = ({
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-2">
               <div className="text-md w-32 px-2 text-left font-semibold">
-                Comparison
+                {t("Dialog.Modifiers.Type.Comparison.Label")}
               </div>
               <div className="flex flex-row items-center gap-2">
-                <span className="text-sm font-semibold">if</span>
-                <Badge variant={"secondary"}>$ {modifier.Operand} {modifier.Value}</Badge>
-                <span className="text-sm font-semibold">then</span>
-                <Badge variant={"outline"}>{modifier.IfValue}</Badge>
-                <span className="text-sm font-semibold">else</span>
-                <Badge variant={"secondary"}>{modifier.ElseValue ?? "$"}</Badge>
+                <Trans
+                  shouldUnescape={true}
+                  i18nKey="Dialog.Modifiers.Type.Comparison.Summary"
+                  values={{
+                    operator: modifier.Operand,
+                    value: modifier.Value,
+                    ifValue: modifier.IfValue,
+                    elseValue: modifier.ElseValue ?? "$",
+                  }}
+                  components={{
+                    badge: <Badge variant={"secondary"} />,
+                    span: <span className="text-sm font-semibold" />,
+                  }}
+                />
               </div>
             </div>
             <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
@@ -86,20 +96,19 @@ const ComparisonPanel = ({
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
-            <span className="sr-only">Remove modifier</span>
+            <span className="sr-only">{t("Dialog.Modifiers.Editor.DeleteModifier")}</span>
           </Button>
         </div>
         <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
-            Compare the current value with another value and adjust the output
-            if it matches or not.
+            {t("Dialog.Modifiers.Type.Comparison.Description")}
           </div>
           <div className="flex flex-row items-center gap-4">
             <div className="flex flex-row gap-1">
-              <Label htmlFor="current">If current value</Label>
+              <Label htmlFor="current">{t("Dialog.Modifiers.Type.Comparison.IfCurrentValue")}</Label>
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="operator">Operator</Label>
+              <Label htmlFor="operator">{t("Dialog.Modifiers.Type.Comparison.Operator")}</Label>
               <ComboBox
                 id="operator"
                 items={availableOperators}
@@ -115,7 +124,7 @@ const ComparisonPanel = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="start">Value</Label>
+              <Label htmlFor="start">{t("Dialog.Modifiers.Type.Comparison.Value")}</Label>
               <div className="relative flex flex-row items-center">
                 <Input
                   id="start"
@@ -129,7 +138,7 @@ const ComparisonPanel = ({
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="if">Then</Label>
+              <Label htmlFor="if">{t("Dialog.Modifiers.Type.Comparison.Then")}</Label>
               <div className="relative flex flex-row items-center">
                 <Input
                   id="if"
@@ -143,7 +152,7 @@ const ComparisonPanel = ({
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="else">Else</Label>
+              <Label htmlFor="else">{t("Dialog.Modifiers.Type.Comparison.Else")}</Label>
               <div className="relative flex flex-row items-center">
                 <Input
                   className="text-code pl-8"

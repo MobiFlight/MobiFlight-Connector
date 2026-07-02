@@ -824,14 +824,14 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // The modifier is now expanded
     // Start input field is visible
     const startInputField = modifierEditor.getByRole("textbox", {
-      name: "Start index",
+      name: "Start position",
     })
     await expect(startInputField).toBeVisible()
     await startInputField.fill("3")
 
     // End input field is visible
     const endInputField = modifierEditor.getByRole("textbox", {
-      name: "End index",
+      name: "End position",
     })
     await expect(endInputField).toBeVisible()
     await endInputField.fill("6")
@@ -842,7 +842,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(endInputField).not.toBeVisible()
 
     // Summary has updated
-    await expect(modifierHeader.getByText("From 3 to 6")).toBeVisible()
+    await expect(modifierHeader.getByText("from 3 to 6")).toBeVisible()
 
     // Close the drawer
     const goBackButton = page.getByRole("button", { name: "Go back" })
@@ -896,7 +896,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Value input field is visible
     const valueInputField = modifierEditor.getByRole("textbox", {
-      name: "Value",
+      name: "Character",
     })
     await expect(valueInputField).toBeVisible()
     // Summary updates correctly
@@ -905,14 +905,14 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     
     await expect(
       modifierEditor.getByRole("button", {
-        name: "Length 3 Value Space Direction Left",
+        name: "Length: 3 Character: Space Direction: Left",
       }),
     ).toBeVisible()
     await valueInputField.fill("0")
     await valueInputField.blur()
     await expect(
       modifierEditor.getByRole("button", {
-        name: "Length 3 Value 0 Direction Left",
+        name: "Length: 3 Character: 0 Direction: Left",
       }),
     ).toBeVisible()
 
@@ -940,7 +940,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await expect(
       modifierEditor.getByRole("button", {
-        name: "Length 3 Value 0 Direction Right",
+        name: "Length: 3 Character: 0 Direction: Right",
       }),
     ).toBeVisible()
 
@@ -1255,7 +1255,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(thirdRow).toBeVisible()
 
     // and remove it
-    await thirdRow.getByRole("button", { name: "Remove interval" }).click()
+    await thirdRow.getByRole("button", { name: "Remove blink interval" }).click()
     await expect(thirdRow).not.toBeVisible()
     await expect(sequenceRows).toHaveCount(3)
 

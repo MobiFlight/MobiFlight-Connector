@@ -398,6 +398,79 @@
       "SearchController": "Etsi ohjainta...",
       "NoControllerFound": "Ohjaimia ei löytynyt."
     },
+    "Modifiers": {
+      "Title": "Muuntimet",
+      "Description": "Muuta alkuperäistä arvoa soveltamalla sarjaa muuntimia.",
+      "EditButton": "Muokkaa muuntimia",
+      "AddButton": "Lisää muunnin",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformaatio",
+          "Description": "Sovella muunnosta syötearvoon määritetyn lausekkeen avulla.",
+          "Expression": "Lauseke"
+        },
+        "Substring": {
+          "Label": "Alimerkkijono",
+          "Description": "Poimi alimerkkijono syötearvosta määritetyn aloitus- ja lopetusposition avulla.",
+          "From": "alkaen",
+          "To": "asti",
+          "Start": "Aloitusposition",
+          "End": "Lopetusposition",
+          "Summary": "alkaen <badge>{{start}}</badge> asti <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Täyttö",
+          "Description": "Säädä syötearvon täyttöä määritetyn pituuden, merkin ja suunnan avulla.",
+          "Length": "Pituus",
+          "Character": "Merkki",
+          "Direction": "Suunta",
+          "Summary": "Pituus:<badge>{{length}}</badge> Merkki:<badge><kbd>{{character}}</kbd></badge> Suunta:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolaatio",
+          "Description": "Määritä kartoitukset syöte- ja tulosarvojen välillä. Arvot, jotka ovat alueen ulkopuolella, rajataan.",
+          "From": "Alkaen",
+          "To": "Asti",
+          "Action": "Toiminto",
+          "Mappings": "Kartoitukset",
+          "Add": "Lisää kartoitus",
+          "Remove": "Poista kartoitus",
+          "Summary": "Kartoitukset <badge>{{count}}</badge> arvoa, alue <badge>{{min}}</badge> - <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Vertailu",
+          "Description": "Vertaa nykyistä arvoa toiseen arvoon ja säädä tulosta, jos se vastaa tai ei vastaa.",
+          "IfCurrentValue": "Jos nykyinen arvo",
+          "Operator": "Operaattori",
+          "Value": "Arvo",
+          "Then": "Sitten",
+          "Else": "Muuten",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Vilkutus",
+          "Description": "Vaihtele alkuperäistä syötearvoa Pois-arvon kanssa alla olevan sekvenssin avulla.",
+          "AlternateValue": "Vaihtoehtoinen arvo (Pois)",
+          "BlinkSequence": "Vilkutussekvenssi",
+          "On": "Päällä (ms)",
+          "Off": "Pois (ms)",
+          "Action": "Toiminto",
+          "Add": "Lisää vilkutusväli",
+          "Remove": "Poista vilkutusväli",
+          "Summary": "Arvo <badge>{{blinkValue}}</badge> Sekvenssi <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "More": "+ {{count}} lisää"
+      },
+      "Editor": {
+        "Title": "Muokkaa muuntimia",
+        "Description": "Lisää, määritä, järjestä uudelleen ja poista muuntimia alkuperäisen syötearvon muuttamiseksi.",
+        "AddModifier": "Lisää muunnin",
+        "NoModifiers": "Ei määritelty muuntimia.",
+        "DeleteModifier": "Poista muunnin"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Muokkaa syöttömääritystä",
       "Description": "Muokkaa kaikkia tämän syöttömäärityksen asetuksia tässä dialogissa.",

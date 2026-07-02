@@ -26,6 +26,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import Input from "@/components/Input"
 import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
+import { Trans, useTranslation } from "react-i18next"
 
 type InterpolationPanelProps = {
   variant: "summary" | "editor"
@@ -40,6 +41,7 @@ const InterpolationPanel = ({
   onChange,
   onDelete,
 }: InterpolationPanelProps) => {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const rangeStart = Object.keys(modifier.Values)
   const interpolationValues = rangeStart.map((start) => ({
@@ -134,13 +136,14 @@ const InterpolationPanel = ({
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-2">
               <div className="text-md w-32 px-2 text-left font-semibold">
-                Interpolation
+                {t("Dialog.Modifiers.Type.Interpolation.Label")}
               </div>
               <div className="flex flex-row items-center gap-1 text-sm">
-                <Badge variant={"secondary"}>{summaryInfo.mappings}</Badge>
-                values, range from
-                <Badge variant={"secondary"}>{summaryInfo.min}</Badge> to
-                <Badge variant={"secondary"}>{summaryInfo.max}</Badge>
+                <Trans
+                  i18nKey="Dialog.Modifiers.Type.Interpolation.Summary"
+                  components={{ badge: <Badge  variant={"secondary"}/>}}
+                  values={{ count: summaryInfo.mappings, min: summaryInfo.min, max: summaryInfo.max }}
+                />
               </div>
             </div>
             <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
@@ -149,22 +152,21 @@ const InterpolationPanel = ({
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
             <IconTrash />
-            <span className="sr-only">Remove modifier</span>
+            <span className="sr-only">{t("Dialog.Modifiers.Editor.DeleteModifier")}</span>
           </Button>
         </div>
         <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           <div className="text-muted-foreground text-sm">
-            Define mappings between input and output values. Values outside the
-            range are clamped.
+            {t("Dialog.Modifiers.Type.Interpolation.Description")}
           </div>
           <div>
-            <div className="text-md font-semibold">Mappings</div>
+            <div className="text-md font-semibold">{t("Dialog.Modifiers.Type.Interpolation.Mappings")}</div>
             <Table className="">
               <TableHeader>
                 <TableRow>
-                  <TableHead>From</TableHead>
-                  <TableHead>To</TableHead>
-                  <TableHead>Action</TableHead>
+                  <TableHead>{t("Dialog.Modifiers.Type.Interpolation.From")}</TableHead>
+                  <TableHead>{t("Dialog.Modifiers.Type.Interpolation.To")}</TableHead>
+                  <TableHead><span className="sr-only">{t("Dialog.Modifiers.Type.Interpolation.Action")}</span></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -195,7 +197,7 @@ const InterpolationPanel = ({
                           variant="ghost"
                         >
                           <IconTrash />
-                          <span className="sr-only">Remove mapping</span>
+                          <span className="sr-only">{t("Dialog.Modifiers.Type.Interpolation.Remove")}</span>
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -207,7 +209,7 @@ const InterpolationPanel = ({
           <div className="pl-2">
             <Button variant="outline" size="sm" onClick={addMapping}>
               <IconPlus />
-              Add mapping
+              {t("Dialog.Modifiers.Type.Interpolation.Add")}
             </Button>
           </div>
         </CollapsibleContent>
