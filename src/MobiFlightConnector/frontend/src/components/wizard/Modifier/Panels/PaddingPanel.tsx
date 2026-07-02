@@ -38,9 +38,8 @@ const PaddingPanel = ({
 
   const directionOptions = [
     { value: "Left", label: "Left" },
-    { value: "Right", label: "Right" },
-    { value: "Centered", label: "Centered" },
-  ] as { value: "Left" | "Right" | "Centered"; label: string }[]
+    { value: "Right", label: "Right" }
+  ] as { value: "Left" | "Right"; label: string }[]
 
   const selectedDirection = directionOptions.find(
     (option) => option.value === modifier.Direction,
@@ -48,7 +47,7 @@ const PaddingPanel = ({
 
   const { t } = useTranslation()
   const setSelectedDirection = (
-    item: { value: "Left" | "Right" | "Centered"; label: string } | null,
+    item: { value: "Left" | "Right"; label: string } | null,
   ) => {
     if (item) {
       onChange({ ...modifier, Direction: item.value })

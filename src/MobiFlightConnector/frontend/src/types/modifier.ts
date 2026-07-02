@@ -24,7 +24,7 @@ export interface Padding extends IModifier {
   Type: "Padding"
   Length: number
   Character: string
-  Direction: "Left" | "Right" | "Centered"
+  Direction: "Left" | "Right"
 }
 
 export interface Interpolation extends IModifier {

@@ -927,10 +927,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(directionOptions).toHaveCount(3)
     await expect(directionOptions.filter({ hasText: "Left" })).toBeVisible()
     await expect(directionOptions.filter({ hasText: "Right" })).toBeVisible()
-    await expect(directionOptions.filter({ hasText: "Centered" })).toBeVisible()
 
-    // click on Centered
-    await directionOptions.filter({ hasText: "Centered" }).click()
+    // click on Right
+    await directionOptions.filter({ hasText: "Right" }).click()
 
     // The modifier is now collapsed
     await modifierHeader.click()
@@ -940,7 +939,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await expect(
       modifierEditor.getByRole("button", {
-        name: "Length 3 Value 0 Direction Centered",
+        name: "Length 3 Value 0 Direction Right",
       }),
     ).toBeVisible()
 
@@ -964,7 +963,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       Active: false,
       Length: 3,
       Character: "0",
-      Direction: "Centered",
+      Direction: "Right",
     } as Padding)
   })
 

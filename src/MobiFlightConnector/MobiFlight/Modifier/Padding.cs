@@ -3,13 +3,14 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace MobiFlight.Modifier
 {
     public class Padding : ModifierBase
     {
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum PaddingDirection { Left, Right, Centered }
+        public enum PaddingDirection { Left, Right }
         public char Character { get; set; } = ' ';
         public int Length { get; set; } = 5;
         public PaddingDirection Direction { get; set; } = PaddingDirection.Left;
@@ -65,6 +66,16 @@ namespace MobiFlight.Modifier
                 Direction == other.Direction &&
                 Length == other.Length &&
                 Character == other.Character;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+            hash = hash * 23 + Active.GetHashCode();
+            hash = hash * 23 + Direction.GetHashCode();
+            hash = hash * 23 + Length.GetHashCode();
+            hash = hash * 23 + Character.GetHashCode();
+            return hash;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
