@@ -19,7 +19,7 @@ import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import {
   useDraftCommitInput,
-  ValidationResult,
+  validateNumberInput
 } from "@/lib/hooks/useDraftCommitInput"
 
 type SubstringPanelProps = {
@@ -27,15 +27,6 @@ type SubstringPanelProps = {
   modifier: Substring
   onChange: (updated: Substring) => void
   onDelete: () => void
-}
-
-const validateNumberInput = (draft: string): ValidationResult<number> => {
-  const parsed = parseInt(draft)
-  if (isNaN(parsed)) {
-    console.log("Invalid number input:", draft)
-    return { ok: false, error: "Invalid number", displayValue: draft }
-  }
-  return { ok: true, value: parsed }
 }
 
 const SubstringPanel = ({

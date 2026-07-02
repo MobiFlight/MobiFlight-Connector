@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input"
 import { Interpolation } from "@/types/modifier"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
@@ -25,6 +24,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import Input from "@/components/Input"
+import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
 
 type InterpolationPanelProps = {
   variant: "summary" | "editor"
@@ -80,6 +81,38 @@ const InterpolationPanel = ({
     mappings: interpolationValues.length,
   }
 
+  const updateFromValue = (value: number, index: number) => {
+    onChange({
+      ...modifier,
+      Values: convertToRecord(
+        interpolationValues.map((v, i) =>
+          i === index
+            ? {
+                start: value,
+                end: v.end,
+              }
+            : v,
+        ),
+      ),
+    })
+  }
+
+  const updateToValue = (value: number, index: number) => {
+    onChange({
+      ...modifier,
+      Values: convertToRecord(
+        interpolationValues.map((v, i) =>
+          i === index
+            ? {
+                start: v.start,
+                end: value,
+              }
+            : v,
+        ),
+      ),
+    })
+  }
+
   return variant === "summary" ? (
     <Badge className="bg-sky-500">Interpolation</Badge>
   ) : (
@@ -100,7 +133,9 @@ const InterpolationPanel = ({
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-2">
-              <div className="text-md px-2 font-semibold w-32 text-left">Interpolation</div>
+              <div className="text-md w-32 px-2 text-left font-semibold">
+                Interpolation
+              </div>
               <div className="flex flex-row items-center gap-1 text-sm">
                 <Badge variant={"secondary"}>{summaryInfo.mappings}</Badge>
                 values, range from
@@ -108,8 +143,8 @@ const InterpolationPanel = ({
                 <Badge variant={"secondary"}>{summaryInfo.max}</Badge>
               </div>
             </div>
-            <div className="h-8 rounded-md px-2 [&_svg]:size-4 flex flex-row items-center justify-center hover:bg-accent hover:text-accent-foreground">
-              { !open ? <IconChevronDown /> : <IconChevronUp /> }
+            <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
+              {!open ? <IconChevronDown /> : <IconChevronUp />}
             </div>
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
@@ -140,43 +175,17 @@ const InterpolationPanel = ({
                       <TableCell className="px-2 py-1">
                         <Input
                           id="from"
-                          value={from ?? ""}
-                          onChange={(e) =>
-                            onChange({
-                              ...modifier,
-                              Values: convertToRecord(
-                                interpolationValues.map((v, i) =>
-                                  i === index
-                                    ? {
-                                        start: parseInt(e.target.value),
-                                        end: v.end,
-                                      }
-                                    : v,
-                                ),
-                              ),
-                            })
-                          }
+                          value={from as number}
+                          onChange={(value) => updateFromValue(value, index)}
+                          validateOnCommit={validateNumberInput}
                         />
                       </TableCell>
                       <TableCell className="px-2 py-1">
                         <Input
                           id="to"
-                          value={to ?? ""}
-                          onChange={(e) =>
-                            onChange({
-                              ...modifier,
-                              Values: convertToRecord(
-                                interpolationValues.map((v, i) =>
-                                  i === index
-                                    ? {
-                                        start: v.start,
-                                        end: parseInt(e.target.value),
-                                      }
-                                    : v,
-                                ),
-                              ),
-                            })
-                          }
+                          value={to as number}
+                          onChange={(value) => updateToValue(value, index)}
+                          validateOnCommit={validateNumberInput}
                         />
                       </TableCell>
                       <TableCell className="px-2 py-1">

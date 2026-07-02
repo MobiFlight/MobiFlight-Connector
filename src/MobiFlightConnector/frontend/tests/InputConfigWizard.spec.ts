@@ -1020,7 +1020,13 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       name: "Add mapping",
     })
     await expect(addMappingButton).toBeVisible()
+
+    // bring focus out of input fields
+    // this will normally automatically happen 
+    // when a user clicks the element manually
+    await addMappingButton.focus()
     await addMappingButton.click()
+    await expect(mappingRows).toHaveCount(4)
 
     const thirdFromInput = mappingRows.nth(3).getByRole("textbox").first()
     await expect(thirdFromInput).toBeVisible()

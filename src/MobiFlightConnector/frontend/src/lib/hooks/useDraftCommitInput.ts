@@ -4,6 +4,17 @@ export type ValidationResult<T> =
   | { ok: true; value: T; displayValue?: string }
   | { ok: false; error?: string; displayValue?: string }
 
+export const validateNumberInput = (
+  draft: string,
+): ValidationResult<number> => {
+  const parsed = parseInt(draft)
+  if (isNaN(parsed)) {
+    console.log("Invalid number input:", draft)
+    return { ok: false, error: "Invalid number", displayValue: draft }
+  }
+  return { ok: true, value: parsed }
+}
+
 export function useDraftCommitInput<T>({
   originalValue,
   format = (value: T) => String(value),
@@ -12,7 +23,7 @@ export function useDraftCommitInput<T>({
 }: {
   originalValue: T
   format?: (value: T) => string
-  validateOnCommit: (draft: string) => ValidationResult<T>
+  validateOnCommit?: (draft: string) => ValidationResult<T>
   onCommit: (value: T) => void
 }) {
   const formattedOriginal = format(originalValue)
@@ -29,15 +40,18 @@ export function useDraftCommitInput<T>({
   }
 
   const handleBlur = () => {
-    const result = validateOnCommit(draftValue)
+    const result = validateOnCommit?.(draftValue) ?? {
+      ok: true,
+      value: draftValue,
+    }
 
     if (result.ok) {
       setError(null)
-      
+
       if (result.value === originalValue) return
 
       setTimeout(() => {
-        onCommit(result.value)
+        onCommit(result.value as T)
       }, 0)
     } else {
       setError(result.error ?? "Invalid value")

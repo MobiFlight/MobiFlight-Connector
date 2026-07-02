@@ -34,7 +34,6 @@ const ModifierEditor = ({
     ])
   }
   const handleChange = (index: number, updated: Modifier) => {
-    console.log("Change modifier at index:", index, "to", updated)
     onModifierChange([
       ...modifiers.slice(0, index),
       updated,
