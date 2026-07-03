@@ -746,6 +746,88 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     }
   })
 
+  test("Modifiers can be moved up and down", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+    const addModifierButton = modifiersPanel.getByRole("button", {
+      name: "Add modifier",
+    })
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    // only add first 3 modifiers for this test
+    const modifiers = MODIFIER_TYPES.slice(0,3)
+
+    for (const modifier of modifiers) {
+      const modifierEditor = page.getByTestId("modifier-editor")
+      await expect(modifierEditor).toBeVisible()
+
+      const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+        name: "Add modifier",
+      })
+      await expect(addModifierButtonInEditor).toBeVisible()
+      await addModifierButtonInEditor.click()
+
+      const modifierLabel = modifier
+
+      const transformationOption = page.getByRole("menuitem", {
+        name: modifierLabel,
+      })
+      await expect(transformationOption).toBeVisible()
+      await transformationOption.click()
+    }
+
+    const firstModifierItem = page.getByTestId("modifier-item").nth(0)
+    const secondModifierItem = page.getByTestId("modifier-item").nth(1)
+
+    await expect(firstModifierItem).toHaveText(/Transformation/)
+    await expect(secondModifierItem).toHaveText(/Substring/)
+    
+    const firstMoveUpButton = firstModifierItem.getByRole("button", {
+      name: "Move modifier up",
+    })
+    // first item cannot be moved up, so the button should be disabled
+    await expect(firstMoveUpButton).toBeVisible()
+    await expect(firstMoveUpButton).toBeDisabled()
+    
+    const firstMoveDownButton = firstModifierItem.getByRole("button", {
+      name: "Move modifier down",
+    })
+    await expect(firstMoveDownButton).toBeVisible()
+    await expect(firstMoveDownButton).toBeEnabled()
+    // move down
+    await firstMoveDownButton.click()
+
+    // Verify that the first and second items have swapped positions
+    await expect(firstModifierItem).toHaveText(/Substring/)
+    await expect(secondModifierItem).toHaveText(/Transformation/)
+
+    const secondMoveUpButton = secondModifierItem.getByRole("button", {
+      name: "Move modifier up",
+    })
+    await expect(secondMoveUpButton).toBeVisible()
+    // move up
+    await secondMoveUpButton.click()
+
+    // Verify that the first and second items have swapped positions back
+    await expect(firstModifierItem).toHaveText(/Transformation/)
+    await expect(secondModifierItem).toHaveText(/Substring/)
+    
+    // Verify last move down button is disabled
+    const lastModifierItem = page.getByTestId("modifier-item").last()
+    const lastMoveDownButton = lastModifierItem.getByRole("button", {
+      name: "Move modifier down",
+    })
+    await expect(lastMoveDownButton).toBeVisible()
+    await expect(lastMoveDownButton).toBeDisabled()
+  })
+
+
   test("Transformation modifier works correctly", async ({
     configListPage,
     page,

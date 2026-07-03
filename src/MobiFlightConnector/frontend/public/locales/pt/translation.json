@@ -468,7 +468,9 @@
         "Description": "Adicione, configure, reorganize e remova modificadores para alterar o valor de entrada original.",
         "AddModifier": "Adicionar modificador",
         "NoModifiers": "Nenhum modificador definido.",
-        "DeleteModifier": "Remover modificador"
+        "DeleteModifier": "Remover modificador",
+        "MoveUp": "Mover modificador para cima",
+        "MoveDown": "Mover modificador para baixo"
       }
     },
     "InputConfigWizard": {

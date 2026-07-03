@@ -468,7 +468,9 @@
         "Description": "Add, configure, rearrange, and remove modifiers to change the original input value.",
         "AddModifier": "Add modifier",
         "NoModifiers": "No modifiers defined.",
-        "DeleteModifier": "Remove modifier"
+        "DeleteModifier": "Remove modifier",
+        "MoveUp": "Move modifier up",
+        "MoveDown": "Move modifier down"
       }
     },
     "InputConfigWizard": {

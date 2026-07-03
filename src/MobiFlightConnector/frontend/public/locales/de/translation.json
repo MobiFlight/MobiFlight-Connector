@@ -474,7 +474,9 @@
         "Description": "Modifikatoren hinzufügen, konfigurieren, neu anordnen und entfernen, um den ursprünglichen Eingabewert zu ändern.",
         "AddModifier": "Modifikator hinzufügen",
         "NoModifiers": "Keine Modifikatoren definiert.",
-        "DeleteModifier": "Modifikator entfernen"
+        "DeleteModifier": "Modifikator entfernen",
+        "MoveUp": "Modifikator nach oben verschieben",
+        "MoveDown": "Modifikator nach unten verschieben"
       }
     },
     "InputConfigWizard": {

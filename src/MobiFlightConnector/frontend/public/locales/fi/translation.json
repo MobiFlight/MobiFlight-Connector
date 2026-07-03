@@ -468,7 +468,9 @@
         "Description": "Lisää, määritä, järjestä uudelleen ja poista muuntimia alkuperäisen syötearvon muuttamiseksi.",
         "AddModifier": "Lisää muunnin",
         "NoModifiers": "Ei määritelty muuntimia.",
-        "DeleteModifier": "Poista muunnin"
+        "DeleteModifier": "Poista muunnin",
+        "MoveUp": "Siirrä muunnin ylös",
+        "MoveDown": "Siirrä muunnin alas"
       }
     },
     "InputConfigWizard": {
