@@ -41,11 +41,28 @@ const ModifierEditor = ({
     ])
   }
 
+  const onMoveUp = (index: number) => {
+    if (index == 0) return
+
+    const newModifiers = [...modifiers]
+    const temp = newModifiers[index - 1]
+    newModifiers[index - 1] = newModifiers[index]
+    newModifiers[index] = temp
+    onModifierChange(newModifiers)
+  }
+
+  const onMoveDown = (index: number) => {
+    if (index == modifiers.length - 1) return
+
+    const newModifiers = [...modifiers]
+    const temp = newModifiers[index + 1]
+    newModifiers[index + 1] = newModifiers[index]
+    newModifiers[index] = temp
+    onModifierChange(newModifiers)
+  }
+
   return (
-    <div
-      className="flex grow flex-col gap-4"
-      data-testid="modifier-editor"
-    >
+    <div className="flex grow flex-col gap-4" data-testid="modifier-editor">
       <div className="flex flex-row justify-between gap-4">
         <div className="flex flex-col gap-1">
           <div className="text-lg font-semibold">
@@ -88,6 +105,8 @@ const ModifierEditor = ({
                 modifier={modifier}
                 onChange={(updated) => handleChange(index, updated)}
                 onDelete={() => handleDelete(index)}
+                onMoveUp={onMoveUp ? () => onMoveUp(index) : undefined}
+                onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}
               />
             ))}
           </div>

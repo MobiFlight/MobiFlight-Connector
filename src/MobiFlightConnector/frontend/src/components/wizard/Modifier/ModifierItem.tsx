@@ -33,7 +33,6 @@ import {
 import {
   IconChevronDown,
   IconChevronUp,
-  IconGripVertical,
   IconTrash,
 } from "@tabler/icons-react"
 import { Switch } from "@/components/ui/switch"
@@ -44,6 +43,8 @@ type ModifierItemProps = {
   modifier: Modifier
   onChange: (updated: Modifier) => void
   onDelete: () => void
+  onMoveUp?: () => void
+  onMoveDown?: () => void
   variant?: "summary" | "editor"
 }
 
@@ -51,6 +52,8 @@ export const ModifierItem = ({
   modifier,
   onChange,
   onDelete,
+  onMoveUp,
+  onMoveDown,
   variant = "editor",
 }: ModifierItemProps) => {
   const { t } = useTranslation()
@@ -100,8 +103,23 @@ export const ModifierItem = ({
         onOpenChange={setOpen}
         className="flex flex-col gap-2"
       >
-        <div className="flex flex-row items-center gap-2">
-          <IconGripVertical className="stroke-2" />
+        <div className="group flex flex-row items-center gap-2">
+          <div className="flex flex-col items-center justify-center">
+            <Button
+              className="group-hover:text-foreground text-muted-foreground h-5 w-5 p-1"
+              variant="ghost"
+              onClick={onMoveUp}
+            >
+              <IconChevronUp />
+            </Button>
+            <Button
+              className="group-hover:text-foreground text-muted-foreground h-5 w-5 p-1"
+              variant="ghost"
+              onClick={onMoveDown}
+            >
+              <IconChevronDown />
+            </Button>
+          </div>
           <Switch
             id="active"
             checked={modifier.Active}
@@ -112,7 +130,7 @@ export const ModifierItem = ({
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
             {modifierTrigger}
             <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
-              {!open ? <IconChevronDown /> : <IconChevronUp />}
+              {!open ? <IconChevronDown className="transition-transform" /> : <IconChevronDown className="rotate-180 transition-transform duration-500" />}
             </div>
           </CollapsibleTrigger>
           <Button onClick={onDelete} size={"sm"} variant="ghost">
@@ -122,7 +140,7 @@ export const ModifierItem = ({
             </span>
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down data-[state=open]:duration-500 flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
           {modifierContent}
         </CollapsibleContent>
       </Collapsible>
