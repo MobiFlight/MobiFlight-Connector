@@ -30,8 +30,10 @@ const ConfigReferencePanel = ({
 
   return variant === "summary" ? (
     <Card data-testid="config-references-panel">
-      <CardContent className="flex flex-col gap-2 pt-4">
-        <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.ConfigReferences.Title")}</div>
+      <CardContent className="flex flex-col gap-1 pt-4">
+        <div className="text-lg font-semibold">
+          {t("Dialog.InputConfigWizard.ConfigReferences.Title")}
+        </div>
         {configReferences.length > 0 ? (
           <div className="flex flex-col gap-2">
             <ConfigReferenceSummary
@@ -39,7 +41,7 @@ const ConfigReferencePanel = ({
               outputConfigs={outputConfigs}
               maxDisplayCount={maxDisplayCount}
             />
-            <Button variant="outline" onClick={openDetailsPanel}>
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
               <IconEdit className="" />
               {t("Dialog.InputConfigWizard.ConfigReferences.EditButton")}
             </Button>
@@ -49,7 +51,7 @@ const ConfigReferencePanel = ({
             <div className="text-muted-foreground text-sm">
               {t("Dialog.InputConfigWizard.ConfigReferences.Description")}
             </div>
-            <Button variant="outline" onClick={openDetailsPanel}>
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
               <IconPlus className="" />
               {t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
             </Button>

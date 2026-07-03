@@ -461,6 +461,7 @@
         }
       },
       "Summary": {
+        "None": "Nenhum",
         "More": "+ {{count}} mais"
       },
       "Editor": {

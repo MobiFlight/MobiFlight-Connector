@@ -35,6 +35,11 @@ const ModifierSummary = ({
             })}
           </Badge>
         )}
+        {modifiers.length === 0 && (
+          <Badge variant="secondary">
+            {t("Dialog.Modifiers.Summary.None")}
+          </Badge>
+        )}
       </div>
       <div className="mt-1 h-1 grow border-t border-dashed border-gray-800"></div>
       <Badge variant="secondary">{finalValue}</Badge>

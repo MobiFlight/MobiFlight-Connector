@@ -280,7 +280,7 @@ const PreconditionEditor = ({
             {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
           </div>
         </div>
-        <Button variant="default" className="self-end" onClick={handleAdd}>
+        <Button variant="default" size={"sm"} className="self-end" onClick={handleAdd}>
           <IconPlus className="h-4 w-4" />
           {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
         </Button>

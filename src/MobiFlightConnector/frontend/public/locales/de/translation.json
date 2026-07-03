@@ -467,6 +467,7 @@
         }
       },
       "Summary": {
+        "None": "Keiner",
         "More": "+ {{count}} mehr"
       },
       "Editor": {

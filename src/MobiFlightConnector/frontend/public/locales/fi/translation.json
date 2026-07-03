@@ -461,6 +461,7 @@
         }
       },
       "Summary": {
+        "None": "Ei muuntimia",
         "More": "+ {{count}} lisää"
       },
       "Editor": {
