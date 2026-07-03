@@ -1,114 +1,73 @@
 import { Substring } from "@/types/modifier"
-import { Switch } from "@/components/ui/switch"
-import { Button } from "@/components/ui/button"
-import {
-  IconChevronDown,
-  IconChevronUp,
-  IconGripVertical,
-  IconTrash,
-} from "@tabler/icons-react"
-import { Label } from "@/components/ui/label"
-
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
 import Input from "@/components/Input"
 import { Trans, useTranslation } from "react-i18next"
+import { Label } from "@/components/ui/label"
 
-type SubstringPanelProps = {
-  variant: "summary" | "editor"
-  modifier: Substring
-  onChange: (updated: Substring) => void
-  onDelete: () => void
-}
-
-const SubstringPanel = ({
-  variant,
+export const SubstringPanelTrigger = ({
   modifier,
-  onChange,
-  onDelete,
-}: SubstringPanelProps) => {
+}: {
+  modifier: Substring
+}) => {
   const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
-
-  return variant === "summary" ? (
-    <Badge className="bg-blue-700">{t("Dialog.Modifiers.Type.Substring.Label")}</Badge>
-  ) : (
-    <div className="flex flex-col gap-2 rounded-md border px-1 py-0.5">
-      <Collapsible
-        open={open}
-        onOpenChange={setOpen}
-        className="flex flex-col gap-2"
-      >
-        <div className="flex flex-row items-center gap-2">
-          <IconGripVertical className="stroke-2" />
-          <Switch
-            id="active"
-            checked={modifier.Active}
-            onCheckedChange={(checked) =>
-              onChange({ ...modifier, Active: checked })
-            }
-          />
-          <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="flex flex-row items-center gap-2">
-              <div className="text-md w-32 px-2 text-left font-semibold">
-                {t("Dialog.Modifiers.Type.Substring.Label")}
-              </div>
-              <Trans
-                i18nKey="Dialog.Modifiers.Type.Substring.Summary"
-                values={{ start: modifier.Start, end: modifier.End }}
-                components={{ badge: <Badge variant="secondary" /> }}
-              />
-            </div>
-            <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
-              {!open ? <IconChevronDown /> : <IconChevronUp />}
-            </div>
-          </CollapsibleTrigger>
-          <Button onClick={onDelete} size={"sm"} variant="ghost">
-            <IconTrash />
-            <span className="sr-only">
-              {t("Dialog.Modifiers.Editor.DeleteModifier")}
-            </span>
-          </Button>
-        </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.Modifiers.Type.Substring.Description")}
-          </div>
-          <div className="flex flex-row items-center gap-4 pr-16 pb-4">
-            <div className="flex flex-col gap-1">
-              <Label htmlFor="start">{t("Dialog.Modifiers.Type.Substring.Start")}</Label>
-              <Input
-                id="start"
-                value={modifier.Start}
-                className="w-16"
-                validateOnCommit={validateNumberInput}
-                onChange={(value) => {
-                  onChange({ ...modifier, Start: value })
-                }}
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <Label htmlFor="end">{t("Dialog.Modifiers.Type.Substring.End")}</Label>
-              <Input
-                id="end"
-                value={modifier.End}
-                className="w-16"
-                validateOnCommit={validateNumberInput}
-                onChange={(value) => {
-                  onChange({ ...modifier, End: value })
-                }}
-              />
-            </div>
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
+  return (
+    <div className="flex flex-row items-center gap-2">
+      <div className="text-md w-32 px-2 text-left font-semibold">
+        {t("Dialog.Modifiers.Type.Substring.Label")}
+      </div>
+      <Trans
+        i18nKey="Dialog.Modifiers.Type.Substring.Summary"
+        values={{ start: modifier.Start, end: modifier.End }}
+        components={{ badge: <Badge variant="secondary" /> }}
+      />
     </div>
   )
 }
-export default SubstringPanel
+
+export const SubstringPanelContent = ({
+  modifier,
+  onChange,
+}: {
+  modifier: Substring
+  onChange: (updated: Substring) => void
+}) => {
+  const { t } = useTranslation()
+  return (
+    <>
+      <div className="text-muted-foreground text-sm">
+        {t("Dialog.Modifiers.Type.Substring.Description")}
+      </div>
+      <div className="flex flex-row items-center gap-4 pr-16 pb-4">
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="start">
+            {t("Dialog.Modifiers.Type.Substring.Start")}
+          </Label>
+          <Input
+            id="start"
+            value={modifier.Start}
+            className="w-16"
+            validateOnCommit={validateNumberInput}
+            onChange={(value) => {
+              onChange({ ...modifier, Start: value })
+            }}
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="end">
+            {t("Dialog.Modifiers.Type.Substring.End")}
+          </Label>
+          <Input
+            id="end"
+            value={modifier.End}
+            className="w-16"
+            validateOnCommit={validateNumberInput}
+            onChange={(value) => {
+              onChange({ ...modifier, End: value })
+            }}
+          />
+        </div>
+      </div>
+    </>
+  )
+}

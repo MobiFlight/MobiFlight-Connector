@@ -1,20 +1,7 @@
 import { Interpolation } from "@/types/modifier"
-import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
-import {
-  IconChevronDown,
-  IconChevronUp,
-  IconGripVertical,
-  IconPlus,
-  IconTrash,
-} from "@tabler/icons-react"
+import { IconPlus, IconTrash } from "@tabler/icons-react"
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { useState } from "react"
 import {
   Table,
   TableBody,
@@ -28,21 +15,54 @@ import Input from "@/components/Input"
 import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
 import { Trans, useTranslation } from "react-i18next"
 
-type InterpolationPanelProps = {
-  variant: "summary" | "editor"
+export const InterpolationPanelTrigger = ({
+  modifier,
+}: {
   modifier: Interpolation
-  onChange: (updated: Interpolation) => void
-  onDelete: () => void
+}) => {
+  const { t } = useTranslation()
+
+  const rangeStart = Object.keys(modifier.Values)
+  const interpolationValues = rangeStart.map((start) => ({
+    start: parseInt(start),
+    end: modifier.Values[parseInt(start)],
+  }))
+
+  const summaryInfo = {
+    min: Math.min(...interpolationValues.map((v) => v.start)),
+    max: Math.max(...interpolationValues.map((v) => v.end)),
+    mappings: interpolationValues.length,
+  }
+
+  return (
+    <div className="flex flex-row items-center gap-2">
+      <div className="text-md w-32 px-2 text-left font-semibold">
+        {t("Dialog.Modifiers.Type.Interpolation.Label")}
+      </div>
+      <div className="flex flex-row items-center gap-1 text-sm">
+        <Trans
+          i18nKey="Dialog.Modifiers.Type.Interpolation.Summary"
+          components={{ badge: <Badge variant={"secondary"} /> }}
+          values={{
+            count: summaryInfo.mappings,
+            min: summaryInfo.min,
+            max: summaryInfo.max,
+          }}
+        />
+      </div>
+    </div>
+  )
 }
 
-const InterpolationPanel = ({
-  variant,
+export const InterpolationPanelContent = ({
   modifier,
   onChange,
-  onDelete,
-}: InterpolationPanelProps) => {
+}: {
+  modifier: Interpolation
+  onChange: (updated: Interpolation) => void
+}) => {
   const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
+
   const rangeStart = Object.keys(modifier.Values)
   const interpolationValues = rangeStart.map((start) => ({
     start: parseInt(start),
@@ -59,28 +79,9 @@ const InterpolationPanel = ({
     )
   }
 
-  const addMapping = () => {
-    const lastMapping =
-      interpolationValues.length > 0
-        ? interpolationValues[interpolationValues.length - 1]
-        : { start: 0, end: 0 }
-    const newMapping = {
-      start: lastMapping.start * 2,
-      end: lastMapping.end * 2,
-    }
-    const updatedValues = [...interpolationValues, newMapping]
-    onChange({ ...modifier, Values: convertToRecord(updatedValues) })
-  }
-
   const removeMapping = (index: number) => {
     const updatedValues = interpolationValues.filter((_, i) => i !== index)
     onChange({ ...modifier, Values: convertToRecord(updatedValues) })
-  }
-
-  const summaryInfo = {
-    min: Math.min(...interpolationValues.map((v) => v.start)),
-    max: Math.max(...interpolationValues.map((v) => v.end)),
-    mappings: interpolationValues.length,
   }
 
   const updateFromValue = (value: number, index: number) => {
@@ -115,106 +116,89 @@ const InterpolationPanel = ({
     })
   }
 
-  return variant === "summary" ? (
-    <Badge className="bg-sky-500">Interpolation</Badge>
-  ) : (
-    <div className="flex flex-col gap-2 rounded-md border px-1 py-0.5">
-      <Collapsible
-        open={open}
-        onOpenChange={setOpen}
-        className="flex flex-col gap-2"
-      >
-        <div className="flex flex-row items-center gap-2">
-          <IconGripVertical className="stroke-2" />
-          <Switch
-            id="active"
-            checked={modifier.Active}
-            onCheckedChange={(checked) =>
-              onChange({ ...modifier, Active: checked })
-            }
-          />
-          <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
-            <div className="flex flex-row items-center gap-2">
-              <div className="text-md w-32 px-2 text-left font-semibold">
-                {t("Dialog.Modifiers.Type.Interpolation.Label")}
-              </div>
-              <div className="flex flex-row items-center gap-1 text-sm">
-                <Trans
-                  i18nKey="Dialog.Modifiers.Type.Interpolation.Summary"
-                  components={{ badge: <Badge  variant={"secondary"}/>}}
-                  values={{ count: summaryInfo.mappings, min: summaryInfo.min, max: summaryInfo.max }}
-                />
-              </div>
-            </div>
-            <div className="hover:bg-accent hover:text-accent-foreground flex h-8 flex-row items-center justify-center rounded-md px-2 [&_svg]:size-4">
-              {!open ? <IconChevronDown /> : <IconChevronUp />}
-            </div>
-          </CollapsibleTrigger>
-          <Button onClick={onDelete} size={"sm"} variant="ghost">
-            <IconTrash />
-            <span className="sr-only">{t("Dialog.Modifiers.Editor.DeleteModifier")}</span>
-          </Button>
+  const addMapping = () => {
+    const lastMapping =
+      interpolationValues.length > 0
+        ? interpolationValues[interpolationValues.length - 1]
+        : { start: 0, end: 0 }
+    const newMapping = {
+      start: lastMapping.start * 2,
+      end: lastMapping.end * 2,
+    }
+    const updatedValues = [...interpolationValues, newMapping]
+    onChange({ ...modifier, Values: convertToRecord(updatedValues) })
+  }
+
+  return (
+    <>
+      <div className="text-muted-foreground text-sm">
+        {t("Dialog.Modifiers.Type.Interpolation.Description")}
+      </div>
+      <div>
+        <div className="text-md font-semibold">
+          {t("Dialog.Modifiers.Type.Interpolation.Mappings")}
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-12 pb-2 pl-12">
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.Modifiers.Type.Interpolation.Description")}
-          </div>
-          <div>
-            <div className="text-md font-semibold">{t("Dialog.Modifiers.Type.Interpolation.Mappings")}</div>
-            <Table className="">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("Dialog.Modifiers.Type.Interpolation.From")}</TableHead>
-                  <TableHead>{t("Dialog.Modifiers.Type.Interpolation.To")}</TableHead>
-                  <TableHead><span className="sr-only">{t("Dialog.Modifiers.Type.Interpolation.Action")}</span></TableHead>
+        <Table className="">
+          <TableHeader>
+            <TableRow>
+              <TableHead>
+                {t("Dialog.Modifiers.Type.Interpolation.From")}
+              </TableHead>
+              <TableHead>
+                {t("Dialog.Modifiers.Type.Interpolation.To")}
+              </TableHead>
+              <TableHead>
+                <span className="sr-only">
+                  {t("Dialog.Modifiers.Type.Interpolation.Action")}
+                </span>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {interpolationValues.map((range, index) => {
+              const { start: from, end: to } = range
+              return (
+                <TableRow key={index}>
+                  <TableCell className="px-2 py-1">
+                    <Input
+                      id="from"
+                      value={from as number}
+                      onChange={(value) => updateFromValue(value, index)}
+                      validateOnCommit={validateNumberInput}
+                    />
+                  </TableCell>
+                  <TableCell className="px-2 py-1">
+                    <Input
+                      id="to"
+                      value={to as number}
+                      onChange={(value) => updateToValue(value, index)}
+                      validateOnCommit={validateNumberInput}
+                    />
+                  </TableCell>
+                  <TableCell className="px-2 py-1">
+                    <Button
+                      onClick={() => removeMapping(index)}
+                      size={"sm"}
+                      variant="ghost"
+                    >
+                      <IconTrash />
+                      <span className="sr-only">
+                        {t("Dialog.Modifiers.Type.Interpolation.Remove")}
+                      </span>
+                    </Button>
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {interpolationValues.map((range, index) => {
-                  const { start: from, end: to } = range
-                  return (
-                    <TableRow key={index}>
-                      <TableCell className="px-2 py-1">
-                        <Input
-                          id="from"
-                          value={from as number}
-                          onChange={(value) => updateFromValue(value, index)}
-                          validateOnCommit={validateNumberInput}
-                        />
-                      </TableCell>
-                      <TableCell className="px-2 py-1">
-                        <Input
-                          id="to"
-                          value={to as number}
-                          onChange={(value) => updateToValue(value, index)}
-                          validateOnCommit={validateNumberInput}
-                        />
-                      </TableCell>
-                      <TableCell className="px-2 py-1">
-                        <Button
-                          onClick={() => removeMapping(index)}
-                          size={"sm"}
-                          variant="ghost"
-                        >
-                          <IconTrash />
-                          <span className="sr-only">{t("Dialog.Modifiers.Type.Interpolation.Remove")}</span>
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </div>
-          <div className="pl-2">
-            <Button variant="outline" size="sm" onClick={addMapping}>
-              <IconPlus />
-              {t("Dialog.Modifiers.Type.Interpolation.Add")}
-            </Button>
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-    </div>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="pl-2">
+        <Button variant="outline" size="sm" onClick={addMapping}>
+          <IconPlus />
+          {t("Dialog.Modifiers.Type.Interpolation.Add")}
+        </Button>
+      </div>
+    </>
   )
 }
-export default InterpolationPanel
