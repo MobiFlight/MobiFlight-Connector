@@ -37,7 +37,6 @@ import {
 } from "@tabler/icons-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 
 type ModifierItemProps = {
   modifier: Modifier
@@ -53,19 +52,11 @@ export const ModifierItem = ({
   onChange,
   onDelete,
   onMoveUp,
-  onMoveDown,
-  variant = "editor",
+  onMoveDown
 }: ModifierItemProps) => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
 
-  if (variant === "summary") {
-    return (
-      <Badge className={""}>
-        {t(`Dialog.Modifiers.Type.${modifier.Type}.Label`)}
-      </Badge>
-    )
-  }
   const modifierContent =
     modifier.Type === "Transformation" ? (
       <TransformationPanelContent modifier={modifier} onChange={onChange} />
