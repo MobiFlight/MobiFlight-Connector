@@ -39,10 +39,7 @@ const AircraftItem = ({
       onClick={() => onChecked(aircraft)}
       {...props}
     >
-      <Checkbox
-        checked={checked}
-        onCheckedChange={() => onChecked(aircraft)}
-      ></Checkbox>
+      <Checkbox checked={checked}></Checkbox>
       <div className="flex grow flex-col font-medium">
         <div className="grow font-medium">
           {aircraft.Name ?? "Unknown Aircraft"}
@@ -217,7 +214,7 @@ const ProjectAircraftDrawer = ({
             )}
           >
             {selectedAircraftWithStats.length === 0 ? (
-              <div className="text-muted-foreground text-sm p-3">
+              <div className="text-muted-foreground p-3 text-sm">
                 {t("Project.Form.Aircraft.Dialog.SelectedAircraft.None")}
               </div>
             ) : (
@@ -225,7 +222,9 @@ const ProjectAircraftDrawer = ({
                 <div
                   className="flex flex-col gap-2 pb-1"
                   role="listbox"
-                  aria-label={t("Project.Form.Aircraft.Dialog.SelectedAircraft.Title")}
+                  aria-label={t(
+                    "Project.Form.Aircraft.Dialog.SelectedAircraft.Title",
+                  )}
                 >
                   {selectedAircraftWithStats.map((ac) => (
                     <AircraftItem
@@ -243,10 +242,14 @@ const ProjectAircraftDrawer = ({
           <Separator className="mt-4 mb-2" />
           <div className="flex flex-col gap-2">
             <div className="flex flex-row items-end justify-between">
-              <div className="text-md font-bold">{t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}</div>
+              <div className="text-md font-bold">
+                {t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}
+              </div>
               <div className="flex flex-row items-center gap-2">
                 <div className="text-muted-foreground pr-4 text-sm">
-                  {t("Project.Form.Aircraft.Dialog.AvailableAircraft.Count", { count: availableAircraft.length })}
+                  {t("Project.Form.Aircraft.Dialog.AvailableAircraft.Count", {
+                    count: availableAircraft.length,
+                  })}
                 </div>
               </div>
             </div>
@@ -261,14 +264,16 @@ const ProjectAircraftDrawer = ({
           <div className="text-md flex grow">
             <ScrollArea className="grow">
               {availableAircraft.length === 0 ? (
-                <div className="text-muted-foreground text-sm p-3">
+                <div className="text-muted-foreground p-3 text-sm">
                   {t("Project.Form.Aircraft.Dialog.AvailableAircraft.None")}
                 </div>
               ) : (
                 <div
                   className="flex flex-col gap-2 pb-1"
                   role="listbox"
-                  aria-label={t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}
+                  aria-label={t(
+                    "Project.Form.Aircraft.Dialog.AvailableAircraft.Title",
+                  )}
                 >
                   {availableAircraft.map((ac) => (
                     <AircraftItem
@@ -318,7 +323,9 @@ const ProjectAircraft = ({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row items-center gap-2">
-        <Label className="text-base font-semibold">{t("Project.Form.Aircraft.Label")}</Label>
+        <Label className="text-base font-semibold">
+          {t("Project.Form.Aircraft.Label")}
+        </Label>
         <Badge variant={"default"}>{t("General.NewFeature")}</Badge>
       </div>
       <div className="text-muted-foreground text-sm">
@@ -351,7 +358,9 @@ const ProjectAircraft = ({
               onClick={() => navigateToDetailView("aircraft")}
             >
               <IconEdit />
-              <div className="sr-only">{t("Project.Form.Aircraft.EditList")}</div>
+              <div className="sr-only">
+                {t("Project.Form.Aircraft.EditList")}
+              </div>
             </Button>
           </div>
           {detailView && (

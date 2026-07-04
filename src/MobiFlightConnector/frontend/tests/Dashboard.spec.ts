@@ -646,6 +646,70 @@ test.describe("Project settings modal features", () => {
     // we don't check for correct project message
     // this is covered by the "Create new project in modal" test
   })
+
+  test("Clicking on aircraft list checkbox only adds one aircraft at a time", async ({ dashboardPage, page }) => {
+    // this was a bug because of two event handlers firing
+    // https://github.com/MobiFlight/MobiFlight-Connector/issues/3085
+
+    await dashboardPage.gotoPage()
+    await page.route(
+      "*/**/presets/msfs2020_hubhop_presets.json",
+      async (route) => {
+        await route.fulfill({ json: msfsPresetsResponse })
+      },
+    )
+    await page.route(
+      "*/**/presets/xplane_hubhop_presets.json",
+      async (route) => {
+        await route.fulfill({ json: xplanePresetsResponse })
+      },
+    )
+
+    const createProjectButton = page.getByRole("button", { name: "Project" })
+    const createProjectDialog = page.getByRole("dialog", {
+      name: "Create New Project",
+    })
+    const editAircraftButton = createProjectDialog.getByRole("button", {
+      name: "Edit aircraft list",
+    })
+    const projectAircraftDialog = page.getByTestId("project-aircraft-drawer")
+    
+    // create a new project with two aircraft selected
+    await createProjectButton.click()
+    await editAircraftButton.click()
+    await expect(projectAircraftDialog).toBeVisible()
+
+    const selectedAircraftList = projectAircraftDialog.getByRole("listbox", {
+      name: "Selected Aircraft",
+    })
+    const availableAircraftList = projectAircraftDialog.getByRole("listbox", {
+      name: "Available Aircraft",
+    })
+    const selectedAircraftOptions = selectedAircraftList.getByRole("option")
+    const availableAircraftOptions = availableAircraftList.getByRole("option")
+    
+    // verify initial state
+    await expect(selectedAircraftList).toBeVisible()
+    await expect(availableAircraftList).toBeVisible()
+    await expect(selectedAircraftOptions).toHaveCount(2)
+    await expect(availableAircraftOptions).toHaveCount(1)
+    
+    // explicitly click on the checkbox of the first available aircraft option
+    await availableAircraftOptions.first().getByRole("checkbox").click()
+
+    // only one aircraft should be added to the selected list, and 
+    // the available list should be empty
+    await expect(selectedAircraftOptions).toHaveCount(3)
+    await expect(availableAircraftOptions).toHaveCount(0)
+
+    // explicitly click on the checkbox of the first selected aircraft option
+    await selectedAircraftOptions.first().getByRole("checkbox").click()
+
+    // only one aircraft should be removed from the selected list, and 
+    // the available list should have one aircraft
+    await expect(selectedAircraftOptions).toHaveCount(2)
+    await expect(availableAircraftOptions).toHaveCount(1)
+  })
 })
 
 test.describe("Project list view tests", () => {
