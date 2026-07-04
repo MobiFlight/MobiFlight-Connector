@@ -53,9 +53,11 @@ const determineInputDeviceType = (
 }
 
 const drawerVariant = {
-    small: "data-[vaul-drawer-direction=right]:w-170 data-[vaul-drawer-direction=right]:sm:max-w-170",
-    large: "data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200",
-  };
+  small:
+    "data-[vaul-drawer-direction=right]:w-170 data-[vaul-drawer-direction=right]:sm:max-w-170",
+  large:
+    "data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200",
+}
 
 const ConfigWizard = ({
   configItem,
@@ -100,7 +102,10 @@ const ConfigWizard = ({
   >(null)
 
   const detailView = searchParams.get("detail")
-  const navigateToDetailView = (view: string, size: "small" | "large" = "large") => {
+  const navigateToDetailView = (
+    view: string,
+    size: "small" | "large" = "large",
+  ) => {
     setDrawerOpen(true)
     setDrawerSize(size)
     navigate(`?detail=${view}`)
@@ -238,7 +243,7 @@ const ConfigWizard = ({
                 {t("Dialog.General.GoBack")}
               </DrawerClose>
             </DrawerHeader>
-            <div className="px-4 flex flex-col flex-1 pb-4">
+            <div className="flex flex-1 flex-col px-4 pb-4">
               {detailView === "precondition" && (
                 <PreconditionsPanel
                   onPreconditionsChange={(preconditions) => {
@@ -271,7 +276,10 @@ const ConfigWizard = ({
                   onConfigChange={onConfigChange}
                   openDetailsPanel={() => {}}
                   variant="details"
-                  liveData={{ rawValue: liveData.rawValue, finalValue: liveData.finalValue }}
+                  liveData={{
+                    rawValue: liveData.rawValue,
+                    finalValue: liveData.finalValue,
+                  }}
                 />
               )}
               {detailView === "action" && (

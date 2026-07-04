@@ -4701,7 +4701,7 @@ async function addModifierItemAndReturnEditor(
   await expect(modifiersPanel).toBeVisible()
 
   const addModifierButton = modifiersPanel.getByRole("button", {
-    name: "Add Modifier",
+    name: "Add modifier",
   })
   await expect(addModifierButton).toBeVisible()
   await addModifierButton.click()
@@ -4710,7 +4710,7 @@ async function addModifierItemAndReturnEditor(
   await expect(modifierEditor).toBeVisible()
 
   const addModifierButtonInEditor = modifierEditor.getByRole("button", {
-    name: "Add Modifier",
+    name: "Add modifier",
   })
   await expect(addModifierButtonInEditor).toBeVisible()
   await addModifierButtonInEditor.click()

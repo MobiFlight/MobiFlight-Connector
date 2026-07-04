@@ -42,7 +42,7 @@ const ModifierEditor = ({
   }
 
   const onMoveUp = (index: number) => {
-    if (index == 0) return
+    if (index === 0) return
 
     const newModifiers = [...modifiers]
     const temp = newModifiers[index - 1]
@@ -52,7 +52,7 @@ const ModifierEditor = ({
   }
 
   const onMoveDown = (index: number) => {
-    if (index == modifiers.length - 1) return
+    if (index === modifiers.length - 1) return
 
     const newModifiers = [...modifiers]
     const temp = newModifiers[index + 1]

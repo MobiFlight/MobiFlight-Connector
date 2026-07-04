@@ -7,7 +7,7 @@ namespace MobiFlight.Modifier.Tests
     public class PaddingTests
     {
         [TestMethod()]
-        public void EqualsTest_HasCorrectDefaultsTest()
+        public void Constructor_ShouldSetExpectedDefaults()
         {
             var padding = new Padding();
             Assert.IsFalse(padding.Active, "Active should be false by default");
@@ -17,7 +17,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void EqualsTest_AreEqualTest()
+        public void EqualsTest_ShouldReturnExpectedResult()
         {
             // Check for equality between two Padding objects
             var padding1 = new Padding();
@@ -42,7 +42,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void EqualsTest_GetHashCodeTest()
+        public void GetHashCode_ShouldReturnExpectedResult()
         {
             var padding1 = new Padding();
             var padding2 = new Padding();
@@ -65,7 +65,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void Padding_Json_DeserializationTest()
+        public void Padding_Json_DeserializationWorksCorrectly()
         {
             var json = "{\"Type\":\"Padding\",\"Active\":true,\"Character\":\"0\",\"Length\":10,\"Direction\":\"Right\"}";
             var deserializedPadding = Newtonsoft.Json.JsonConvert.DeserializeObject<Padding>(json);
@@ -76,7 +76,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void Padding_CloneTest()
+        public void Padding_Clone_CreatesExpectedClone()
         {
             var padding = new Padding
             {
@@ -92,7 +92,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void Padding_Apply_PaddingLeftTest()
+        public void Padding_Apply_PaddingLeftCorrectly()
         {
             var padding = new Padding()
             {
@@ -110,7 +110,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void Padding_Apply_PaddingRightTest()
+        public void Padding_Apply_PaddingRightCorrectly()
         {
             var padding = new Padding()
             {
@@ -128,7 +128,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void Padding_Apply_PaddingWillTruncateLeftAligned_Test()
+        public void Padding_Apply_PaddingWillTruncateLeftAlignedCorrectly()
         {
             var padding = new Padding()
             {
@@ -146,7 +146,7 @@ namespace MobiFlight.Modifier.Tests
         }
 
         [TestMethod()]
-        public void Padding_Apply_PaddingWillTruncateRightAligned_Test()
+        public void Padding_Apply_PaddingWillTruncateRightAlignedCorrectly()
         {
             var padding = new Padding()
             {

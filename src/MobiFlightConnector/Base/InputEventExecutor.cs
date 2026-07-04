@@ -122,6 +122,7 @@ namespace MobiFlight.Execution
 
                         cfg.Value = modifiableValue.ToString();
                         e.Value = modifiableValue.Float64;
+                        e.StrValue = modifiableValue.type == FSUIPCOffsetType.String ? modifiableValue.String : null;
                     }
                     catch (Exception ex)
                     {
