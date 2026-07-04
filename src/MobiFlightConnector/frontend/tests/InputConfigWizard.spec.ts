@@ -1878,7 +1878,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await resetFiltersButton.click()
 
     // now all options are available
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("5 preset(s) found")
 
     // Filter by an exact preset name -> 1 preset found
     await filterInput.fill("AP_PANEL_HEADING_HOLD")
@@ -1890,7 +1890,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     // Reset the filter -> all presets are available again
     await filterInput.fill("")
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("5 preset(s) found")
   })
 
   test("Selecting a preset updates the code field and description", async ({
@@ -1956,7 +1956,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     await expect(countLabel).toHaveText("1 preset(s) found")
     await resetFiltersButton.click()
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("5 preset(s) found")
 
     const optionsList = page.getByRole("listbox")
 
@@ -1971,7 +1971,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await vendorOption.click()
     await expect(vendorOption).not.toBeVisible()
 
-    await expect(countLabel).toHaveText("3 preset(s) found")
+    await expect(countLabel).toHaveText("4 preset(s) found")
 
     // Select an aircraft filter
     await actionEditor
@@ -1984,7 +1984,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await aircraftOption.click()
     await expect(aircraftOption).not.toBeVisible() // Should be removed from options since it's already selected as a filter
 
-    await expect(countLabel).toHaveText("2 preset(s) found")
+    await expect(countLabel).toHaveText("3 preset(s) found")
 
     // Select a system filter
     await actionEditor
@@ -2002,7 +2002,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(resetFiltersButton).toBeVisible()
     await resetFiltersButton.click()
 
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("5 preset(s) found")
   })
 
   test("Preset list honors aircraft settings", async ({
@@ -2010,10 +2010,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     page,
   }) => {
     const testSettings = [
-      { Aircraft: [], ExpectedPresetCount: 4, ExpectedVendorCount: 2 },
+      { Aircraft: [], ExpectedPresetCount: 5, ExpectedVendorCount: 2 },
       {
         Aircraft: [{ Vendor: "Microsoft", Name: "Generic" }],
-        ExpectedPresetCount: 2,
+        ExpectedPresetCount: 3,
         ExpectedVendorCount: 1,
       },
     ]
@@ -2212,7 +2212,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
       name: "Reset filters",
     })
     await resetFiltersButton.click()
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("7 preset(s) found")
 
     // Filter by exact preset label -> 1 preset should be found
     await filterInput.fill("land_alt_press_dn")
@@ -2224,7 +2224,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     // Clear the filter -> all presets should be found
     await filterInput.fill("")
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("7 preset(s) found")
   })
 
   test("Selecting a preset updates the code field and input type", async ({
@@ -2298,7 +2298,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     // now reset all filters to show all options
     await resetFiltersButton.click()
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("7 preset(s) found")
 
     const optionsList = page.getByRole("listbox")
 
@@ -2315,7 +2315,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await vendorOption.click()
     await expect(vendorOption).not.toBeVisible()
 
-    await expect(countLabel).toHaveText("3 preset(s) found")
+    await expect(countLabel).toHaveText("4 preset(s) found")
 
     // Select an aircraft filter
     await actionEditor
@@ -2348,7 +2348,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(resetFiltersButton).toBeVisible()
     await resetFiltersButton.click()
 
-    await expect(countLabel).toHaveText("4 preset(s) found")
+    await expect(countLabel).toHaveText("7 preset(s) found")
   })
 
   test("Preset list honors aircraft settings", async ({
@@ -2356,7 +2356,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     page,
   }) => {
     const testSettings = [
-      { Aircraft: [], ExpectedPresetCount: 4, ExpectedVendorCount: 2 },
+      { Aircraft: [], ExpectedPresetCount: 7, ExpectedVendorCount: 3 },
       {
         Aircraft: [{ Vendor: "Laminar Research", Name: "Boeing 737-800" }],
         ExpectedPresetCount: 2,

@@ -44,7 +44,7 @@ const XplanePresetPanel = ({
 
   const validPresetTypes =
     variant === "input"
-      ? ["input", "inputoutput", "potentiometer"]
+      ? ["input", "inputoutput", "input (potentiometer)"]
       : ["output", "inputoutput"]
 
   const { data: presets = [] } = useQuery({

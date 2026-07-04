@@ -54,5 +54,50 @@
     "createdDate": "2021-08-01T00:00:00.000Z",
     "presetType": "input",
     "codeType": "DataRef"
+  },
+  {
+    "id": "xp-004",
+    "vendor": "ACME Vendor",
+    "aircraft": "Boeing 737-800",
+    "system": "Instruments",
+    "label": "another_dataref",
+    "description": "Test DataRef Preset 2",
+    "code": "laminar/B738/test/dataref",
+    "version": 1,
+    "status": "Submitted",
+    "createdDate": "2021-08-01T00:00:00.000Z",
+    "presetType": "input",
+    "codeType": "DataRef"
+  },
+  {
+    "vendor": "Laminar Research",
+    "aircraft": "AKD G650",
+    "system": "Lights",
+    "label": "AKD/Lights/left_console_switch",
+    "code": "AKD/Lights/left_console_switch",
+    "presetType": "Input (Potentiometer)",
+    "codeType": "DataRef",
+    "status": "Updated",
+    "createdDate": "2025-02-04T20:51:26.411Z",
+    "author": "Marvin Brooks",
+    "updatedBy": "Marvin Brooks",
+    "description": "Controls Left Console PNL LTS",
+    "version": 3,
+    "id": "93d16953-5a4d-4130-805f-4c8d66f9cd02"
+  },
+  {
+    "vendor": "IXEG",
+    "aircraft": "B737-300",
+    "system": "Autopilot",
+    "code": "ixeg/733/MCP/mcp_vs_dial_ann",
+    "label": "IXEG B733 MCP VS Display",
+    "presetType": "InputOutput",
+    "codeType": "DataRef",
+    "status": "Submitted",
+    "createdDate": "2025-06-06T12:25:50.983Z",
+    "author": "Andrew Spink",
+    "description": "MCP VS Display can be used as output & input",
+    "version": 1,
+    "id": "94100694-dda7-4c08-8130-c58f16712d06"
   }
 ]
