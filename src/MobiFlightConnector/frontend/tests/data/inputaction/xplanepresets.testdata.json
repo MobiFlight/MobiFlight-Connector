@@ -56,20 +56,6 @@
     "codeType": "DataRef"
   },
   {
-    "id": "xp-004",
-    "vendor": "ACME Vendor",
-    "aircraft": "Boeing 737-800",
-    "system": "Instruments",
-    "label": "another_dataref",
-    "description": "Test DataRef Preset 2",
-    "code": "laminar/B738/test/dataref",
-    "version": 1,
-    "status": "Submitted",
-    "createdDate": "2021-08-01T00:00:00.000Z",
-    "presetType": "input",
-    "codeType": "DataRef"
-  },
-  {
     "vendor": "Laminar Research",
     "aircraft": "AKD G650",
     "system": "Lights",

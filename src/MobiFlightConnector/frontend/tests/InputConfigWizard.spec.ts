@@ -2212,7 +2212,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
       name: "Reset filters",
     })
     await resetFiltersButton.click()
-    await expect(countLabel).toHaveText("7 preset(s) found")
+    await expect(countLabel).toHaveText("6 preset(s) found")
 
     // Filter by exact preset label -> 1 preset should be found
     await filterInput.fill("land_alt_press_dn")
@@ -2224,7 +2224,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     // Clear the filter -> all presets should be found
     await filterInput.fill("")
-    await expect(countLabel).toHaveText("7 preset(s) found")
+    await expect(countLabel).toHaveText("6 preset(s) found")
   })
 
   test("Selecting a preset updates the code field and input type", async ({
@@ -2298,7 +2298,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     // now reset all filters to show all options
     await resetFiltersButton.click()
-    await expect(countLabel).toHaveText("7 preset(s) found")
+    await expect(countLabel).toHaveText("6 preset(s) found")
 
     const optionsList = page.getByRole("listbox")
 
@@ -2348,7 +2348,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(resetFiltersButton).toBeVisible()
     await resetFiltersButton.click()
 
-    await expect(countLabel).toHaveText("7 preset(s) found")
+    await expect(countLabel).toHaveText("6 preset(s) found")
   })
 
   test("Preset list honors aircraft settings", async ({
@@ -2356,7 +2356,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     page,
   }) => {
     const testSettings = [
-      { Aircraft: [], ExpectedPresetCount: 7, ExpectedVendorCount: 3 },
+      { Aircraft: [], ExpectedPresetCount: 6, ExpectedVendorCount: 3 },
       {
         Aircraft: [{ Vendor: "Laminar Research", Name: "Boeing 737-800" }],
         ExpectedPresetCount: 2,
