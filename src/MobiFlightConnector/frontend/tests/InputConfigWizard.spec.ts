@@ -231,6 +231,108 @@ test.describe("Input Config Wizard - Edit name", () => {
     const payload = commands?.pop()?.payload
     expect(payload.item.Name).toEqual(testLabel)
   })
+
+  test("Config name is automatically in edit mode for new configs", async ({
+    configListPage,
+    page,
+  }) => {
+    // Add new config with default name
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await addInputConfigButton.click()
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+      Name: "New Input Config",
+      Controller: null, // ensure it's a new config
+    })
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(
+      page.getByTestId("dialog-config-name").getByRole("textbox"),
+    ).toBeVisible()
+    await expect(
+      page.getByTestId("dialog-config-name").getByRole("textbox"),
+    ).toBeFocused()
+  })
+
+  test("Config name is not in edit mode for configs with non-default name", async ({
+    configListPage,
+    page,
+  }) => {
+    // Add new config with default name
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    // Open a config with non-default name (we create a new one for the test and simplicity)
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await addInputConfigButton.click()
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+      Name: "New Input Config With Non-Default Name",
+      Controller: null, // ensure it looks like a new config
+    })
+
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    // Label should be visible
+    await expect(
+      page
+        .getByTestId("dialog-config-name")
+        .getByText("New Input Config With Non-Default Name", { exact: true }),
+    ).toBeVisible()
+
+    // No input should be visible 
+    await expect(
+      page.getByTestId("dialog-config-name").getByRole("textbox"),
+    ).not.toBeVisible()
+
+    //no button should be focused
+    await expect(
+      page.getByTestId("dialog-config-name").getByRole("button"),
+    ).not.toBeFocused()
+  })
+
+  test("Config name is not in edit mode for configs with default name but other settings made by user", async ({
+    configListPage,
+    page,
+  }) => {
+    // Add new config with default name
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    // Open a config with non-default name (we create a new one for the test and simplicity)
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await addInputConfigButton.click()
+
+    // We are setting the `controller` property which indicates that
+    // this is not a new default config anymore despite having the default name
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+      Name: "New Input Config",
+      Controller: {
+        Name: "Bravo Throttle Quadrant",
+        Serial: "JS-87654321",
+      }
+    })
+
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    // Label should be visible
+    await expect(
+      page
+        .getByTestId("dialog-config-name")
+        .getByText("New Input Config", { exact: true }),
+    ).toBeVisible()
+
+    // No input should be visible 
+    await expect(
+      page.getByTestId("dialog-config-name").getByRole("textbox"),
+    ).not.toBeVisible()
+
+    //no button should be focused
+    await expect(
+      page.getByTestId("dialog-config-name").getByRole("button"),
+    ).not.toBeFocused()
+  })
 })
 
 test.describe("Input Config Wizard - Trigger Panel", () => {
@@ -761,7 +863,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await addModifierButton.click()
 
     // only add first 3 modifiers for this test
-    const modifiers = MODIFIER_TYPES.slice(0,3)
+    const modifiers = MODIFIER_TYPES.slice(0, 3)
 
     for (const modifier of modifiers) {
       const modifierEditor = page.getByTestId("modifier-editor")
@@ -787,14 +889,14 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await expect(firstModifierItem).toHaveText(/Transformation/)
     await expect(secondModifierItem).toHaveText(/Substring/)
-    
+
     const firstMoveUpButton = firstModifierItem.getByRole("button", {
       name: "Move modifier up",
     })
     // first item cannot be moved up, so the button should be disabled
     await expect(firstMoveUpButton).toBeVisible()
     await expect(firstMoveUpButton).toBeDisabled()
-    
+
     const firstMoveDownButton = firstModifierItem.getByRole("button", {
       name: "Move modifier down",
     })
@@ -817,7 +919,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Verify that the first and second items have swapped positions back
     await expect(firstModifierItem).toHaveText(/Transformation/)
     await expect(secondModifierItem).toHaveText(/Substring/)
-    
+
     // Verify last move down button is disabled
     const lastModifierItem = page.getByTestId("modifier-item").last()
     const lastMoveDownButton = lastModifierItem.getByRole("button", {
@@ -826,7 +928,6 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(lastMoveDownButton).toBeVisible()
     await expect(lastMoveDownButton).toBeDisabled()
   })
-
 
   test("Transformation modifier works correctly", async ({
     configListPage,
@@ -984,7 +1085,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Summary updates correctly
     await valueInputField.fill(" ")
     await valueInputField.blur()
-    
+
     await expect(
       modifierEditor.getByRole("button", {
         name: "Length: 3 Character: Space Direction: Left",
@@ -1107,7 +1208,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(addMappingButton).toBeVisible()
 
     // bring focus out of input fields
-    // this will normally automatically happen 
+    // this will normally automatically happen
     // when a user clicks the element manually
     await addMappingButton.focus()
     await addMappingButton.click()
@@ -1199,10 +1300,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await expect(firstRemoveButton).toBeVisible()
     await expect(firstRemoveButton).toBeDisabled()
-    
+
     await expect(secondRemoveButton).toBeVisible()
     await expect(secondRemoveButton).toBeDisabled()
-    
+
     // Add another mapping row
     const addMappingButton = modifierEditor.getByRole("button", {
       name: "Add mapping",
@@ -1213,7 +1314,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Remove buttons are now enabled
     await expect(firstRemoveButton).toBeEnabled()
     await expect(secondRemoveButton).toBeEnabled()
-    
+
     // Remove the first mapping row
     await firstRemoveButton.click()
 
@@ -1371,7 +1472,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await firstOnInput.fill("350")
     await firstOffInput.fill("650")
     // blur to trigger the change event
-    await firstOffInput.blur() 
+    await firstOffInput.blur()
 
     // Add another mapping row
     const addIntervalButton = modifierEditor.getByRole("button", {
@@ -1395,7 +1496,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(thirdRow).toBeVisible()
 
     // and remove it
-    await thirdRow.getByRole("button", { name: "Remove blink interval" }).click()
+    await thirdRow
+      .getByRole("button", { name: "Remove blink interval" })
+      .click()
     await expect(thirdRow).not.toBeVisible()
     await expect(sequenceRows).toHaveCount(3)
 
@@ -1429,14 +1532,17 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     } as Blink)
   })
 
-  test("Blink modifier remove buttons work correctly", async ({ configListPage, page }) => {
+  test("Blink modifier remove buttons work correctly", async ({
+    configListPage,
+    page,
+  }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     const modifierLabel = "Blink"
     const modifierEditor = await addModifierItemAndReturnEditor(
       modifierLabel,
       page,
     )
-    
+
     const modifierHeader = modifierEditor.getByRole("button", {
       name: modifierLabel,
     })
@@ -1453,17 +1559,17 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await expect(firstRemoveButton).toBeVisible()
     await expect(firstRemoveButton).toBeDisabled()
-    
+
     // Add another mapping row
     const addIntervalButton = modifierEditor.getByRole("button", {
       name: "Add blink interval",
     })
     await expect(addIntervalButton).toBeVisible()
     await addIntervalButton.click()
-    
+
     await expect(firstRemoveButton).toBeEnabled()
     await expect(secondRemoveButton).toBeEnabled()
-    
+
     // Remove the first mapping row
     await firstRemoveButton.click()
     await expect(firstRemoveButton).toBeDisabled()
@@ -2624,7 +2730,9 @@ test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
 
     // The note is shown in the summary
     await expect(
-      actionPanel.getByText("Note:Sync input devices with sim.", { exact: true }),
+      actionPanel.getByText("Note:Sync input devices with sim.", {
+        exact: true,
+      }),
     ).toBeVisible()
   })
 
@@ -2997,7 +3105,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
 
     // Action type is shown in the summary
-    await expect(actionPanel.getByText("vJoy", {exact: true})).toBeVisible()
+    await expect(actionPanel.getByText("vJoy", { exact: true })).toBeVisible()
 
     // The controller name is shown in the summary
     await expect(
@@ -3031,7 +3139,7 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
     await configListPage.mobiFlightPage.publishMessage(vJoyDefinitions)
 
     // Action type is shown in the summary
-    await expect(actionPanel.getByText("vJoy", {exact: true})).toBeVisible()
+    await expect(actionPanel.getByText("vJoy", { exact: true })).toBeVisible()
 
     // The controller name is shown in the summary
     await expect(
@@ -3302,15 +3410,11 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
     await expect(actionPanel.getByText("FSUIPC Offset")).toBeVisible()
 
     // The Size is shown in the summary
-    await expect(
-      actionPanel.getByText("4", { exact: true }),
-    ).toBeVisible()
+    await expect(actionPanel.getByText("4", { exact: true })).toBeVisible()
 
     // The Offset is shown in the summary
-    await expect(
-      actionPanel.getByText("66CC", { exact: true }),
-    ).toBeVisible()
-    
+    await expect(actionPanel.getByText("66CC", { exact: true })).toBeVisible()
+
     // The mask is shown in the summary
     await expect(
       actionPanel.getByText("AABBCCDDEE", { exact: true }),
@@ -3679,9 +3783,7 @@ test.describe("Input Config Wizard - FSUIPC EventID Input Action Panel", () => {
     await expect(actionPanel.getByText("EventID")).toBeVisible()
 
     // The event ID is shown in the summary
-    await expect(
-      actionPanel.getByText("68036", { exact: true }),
-    ).toBeVisible()
+    await expect(actionPanel.getByText("68036", { exact: true })).toBeVisible()
 
     // The custom param is shown in the summary
     await expect(actionPanel.getByText("0", { exact: true })).toBeVisible()
@@ -3829,12 +3931,12 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
     await expect(actionPanel.getByText("PMDG Event ID")).toBeVisible()
 
     // The event ID is shown in the summary
-    await expect(
-      actionPanel.getByText("69648", { exact: true }),
-    ).toBeVisible()
+    await expect(actionPanel.getByText("69648", { exact: true })).toBeVisible()
 
     // The mouse parameter is shown in the summary
-    await expect(actionPanel.getByText("MOUSE_FLAG_LEFTSINGLE", { exact: true })).toBeVisible()
+    await expect(
+      actionPanel.getByText("MOUSE_FLAG_LEFTSINGLE", { exact: true }),
+    ).toBeVisible()
   })
 
   test("Newly created FSUIPC PMDG EventID Input Action config values are saved correctly", async ({
@@ -4135,7 +4237,9 @@ test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () =>
     ).toBeVisible()
 
     // The macro value is shown in the summary
-    await expect(actionPanel.getByText("TestValue", { exact: true })).toBeVisible()
+    await expect(
+      actionPanel.getByText("TestValue", { exact: true }),
+    ).toBeVisible()
   })
 
   test("Editing macro name and value updates the fields", async ({

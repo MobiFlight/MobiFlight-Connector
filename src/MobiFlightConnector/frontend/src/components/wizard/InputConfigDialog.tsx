@@ -30,10 +30,11 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     (item) => item.GUID === configId,
   )
 
+  
   const closeDialog = () => {
     navigate(-1)
   }
-
+  
   const saveChanges = () => {
     const { publish } = publishOnMessageExchange()
     publish({
@@ -44,21 +45,25 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     })
     closeDialog()
   }
-
+  
   const containerRef = useRef<HTMLDivElement>(null)
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
-
+  
   const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
-
+  
+  // Automatically start editing the config item name if it is the default name
+  const configItemName = configItem?.Name
+  // this is a simple test to check if the config item is a newly created default config item
   const defaultLabel = t("ConfigList.Actions.InputConfigItem.DefaultName")
+  const configIsDefaultConfig = configItem?.Controller===null && configItemName === defaultLabel
 
   useEffect(() => {
     setTimeout(() => {
-      if (configItem?.Name === defaultLabel) {
+      if (configIsDefaultConfig) {
         inlineEditRef.current?.startEditing()
       }
     }, 500)
-  }, [inlineEditRef, configItem, defaultLabel])
+  }, [inlineEditRef, configIsDefaultConfig])
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
