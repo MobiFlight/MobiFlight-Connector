@@ -90,7 +90,7 @@ const PreconditionItemRow = ({
   return (
     <div
       data-testid="precondition-item-row"
-      className={`flex flex-row gap-2 rounded-lg border p-4 py-1 items-center ${variantStyle}`}
+      className={`flex flex-row items-center gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
     >
       <div className="flex flex-row items-center gap-2">
         <Switch
@@ -280,7 +280,12 @@ const PreconditionEditor = ({
             {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
           </div>
         </div>
-        <Button variant="default" size={"sm"} className="self-end" onClick={handleAdd}>
+        <Button
+          variant="default"
+          size={"sm"}
+          className="self-end"
+          onClick={handleAdd}
+        >
           <IconPlus className="h-4 w-4" />
           {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
         </Button>

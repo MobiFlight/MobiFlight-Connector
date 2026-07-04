@@ -165,7 +165,12 @@ const ConfigReferenceEditor = ({
             {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Description")}
           </div>
         </div>
-        <Button variant="default" className="self-end" onClick={handleAdd}>
+        <Button
+          variant="default"
+          className="self-end"
+          onClick={handleAdd}
+          size={"sm"}
+        >
           <IconPlus className="h-4 w-4" />
           {t(
             "Dialog.InputConfigWizard.ConfigReferenceEditor.AddConfigReference",

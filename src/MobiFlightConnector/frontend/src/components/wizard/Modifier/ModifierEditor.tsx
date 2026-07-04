@@ -74,7 +74,7 @@ const ModifierEditor = ({
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="self-end">
-            <Button variant="default" className="w-fit">
+            <Button variant="default" className="w-fit" size={"sm"}>
               <IconPlus className="h-4 w-4" />
               {t("Dialog.Modifiers.Editor.AddModifier")}
             </Button>
