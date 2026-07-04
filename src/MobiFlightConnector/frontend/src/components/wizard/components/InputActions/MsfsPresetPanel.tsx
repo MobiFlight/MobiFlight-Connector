@@ -24,7 +24,7 @@ export type Preset = {
   updatedBy?: string
   reported?: number
   score?: number
-  presetType: "input" | "output" | "potentiometer"
+  presetType: "Input" | "Output" | "Input (Potentiometer)"
 }
 
 export type MsfsPresetPanelProps = {
@@ -42,7 +42,7 @@ const MsfsPresetPanel = ({
   const { project } = useProjectStore()
 
   const validPresetTypes =
-    variant === "input" ? ["input", "potentiometer"] : ["output"]
+    variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
 
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
