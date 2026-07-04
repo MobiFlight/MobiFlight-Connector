@@ -24,7 +24,7 @@ export type Preset = {
   updatedBy?: string
   reported?: number
   score?: number
-  presetType: "input" | "output" | "potentiometer"
+  presetType: "Input" | "Output" | "Input (Potentiometer)"
 }
 
 export type MsfsPresetPanelProps = {

@@ -24,7 +24,7 @@ export type XplanePreset = {
   updatedBy?: string
   reported?: number
   score?: number
-  presetType: "input" | "output" | "inputoutput" | "potentiometer"
+  presetType: "Input" | "Output" | "InputOutput" | "Input (Potentiometer)"
   codeType: "DataRef" | "Command"
 }
 
