@@ -59,9 +59,6 @@ const AircraftItem = ({
 
 type AircraftStats = {
   Count: number
-  Input: boolean
-  Output: boolean
-  Potentiometer: boolean
 }
 
 type AircraftInfoWithStats = AircraftInfo & AircraftStats
@@ -108,19 +105,12 @@ const ProjectAircraftDrawer = ({
 
     if (existing) {
       existing.Count += 1
-      existing.Input = existing.Input || p.presetType === "input"
-      existing.Output = existing.Output || p.presetType === "output"
-      existing.Potentiometer =
-        existing.Potentiometer || p.presetType === "potentiometer"
       return
     }
     aircarftStatsMap.set(key, {
       Vendor: p.vendor,
       Name: p.aircraft,
-      Count: 1,
-      Input: p.presetType === "input",
-      Output: p.presetType === "output",
-      Potentiometer: p.presetType === "potentiometer",
+      Count: 1
     })
   })
 
