@@ -107,6 +107,8 @@ const ModifierEditor = ({
                 onDelete={() => handleDelete(index)}
                 onMoveUp={onMoveUp ? () => onMoveUp(index) : undefined}
                 onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}
+                isFirst={index === 0}
+                isLast={index === modifiers.length - 1}
               />
             ))}
           </div>
