@@ -1265,6 +1265,101 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     } as Interpolation)
   })
 
+  test("Interpolation modifier items maintain position correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Interpolation"
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Length input field is visible
+    const mappingRows = modifierEditor.getByRole("row")
+
+    // intially there are 3 rows for the header
+    // and the two default mappings
+    await expect(mappingRows).toHaveCount(3)
+
+    const firstFromInput = mappingRows.nth(1).getByRole("textbox").first()
+    const secondFromInput = mappingRows.nth(2).getByRole("textbox").first()
+
+    await expect(firstFromInput).toBeVisible()
+    await expect(firstFromInput).toHaveValue("0")
+
+    await expect(secondFromInput).toBeVisible()
+    await expect(secondFromInput).toHaveValue("10")
+
+    // use a value that is higher than the next row
+    // verify that the row still stays in the same place
+    await firstFromInput.fill("20")
+    await firstFromInput.blur()
+
+    await expect(firstFromInput).toBeVisible()
+    await expect(firstFromInput).toHaveValue("20")
+
+    // Add another mapping row
+    const addMappingButton = modifierEditor.getByRole("button", {
+      name: "Add mapping",
+    })
+    await expect(addMappingButton).toBeVisible()
+
+    // bring focus out of input fields
+    // this will normally automatically happen
+    // when a user clicks the element manually
+    await addMappingButton.focus()
+    await addMappingButton.click()
+    await expect(mappingRows).toHaveCount(4)
+
+    const thirdFromInput = mappingRows.nth(3).getByRole("textbox").first()
+    await expect(thirdFromInput).toBeVisible()
+    await expect(thirdFromInput).toHaveValue("20")
+
+    // use a value that is smaller than the prior rows
+    // verify that the row still stays in the same place
+    await thirdFromInput.fill("5")
+    await thirdFromInput.blur()
+
+    await expect(thirdFromInput).toBeVisible()
+    await expect(thirdFromInput).toHaveValue("5")
+
+    // Close the drawer
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+
+    // Save the config
+    configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    const saveButton = page.getByRole("button", { name: "Save" })
+    await expect(saveButton).toBeVisible()
+    await saveButton.click()
+
+    // Verify that the command sent to the backend has the correct modifier data
+    // and that the order of the items is now sorted ASC for "from" value
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.item.Modifiers.Items[0]).toEqual({
+      Type: "Interpolation",
+      Active: true,
+      Values: {
+        5: 2000,
+        10: 1000,
+        20: 0,
+      } as Record<number, number>,
+    } as Interpolation)
+  })
+
+
   test("Interpolation modifier remove buttons work correctly", async ({
     configListPage,
     page,

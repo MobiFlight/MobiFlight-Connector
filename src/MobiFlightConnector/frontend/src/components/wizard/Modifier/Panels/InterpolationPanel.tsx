@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge"
 import Input from "@/components/Input"
 import { validateNumberInput } from "@/lib/hooks/useDraftCommitInput"
 import { Trans, useTranslation } from "react-i18next"
+import { useState } from "react"
 
 export const InterpolationPanelTrigger = ({
   modifier,
@@ -62,12 +63,15 @@ export const InterpolationPanelContent = ({
   onChange: (updated: Interpolation) => void
 }) => {
   const { t } = useTranslation()
-
   const rangeStart = Object.keys(modifier.Values)
-  const interpolationValues = rangeStart.map((start) => ({
-    start: parseInt(start),
-    end: modifier.Values[parseInt(start)],
-  }))
+  const [interpolationValues, setInterpolationValues] = useState<
+    { start: number; end: number }[]
+  >(
+    rangeStart.map((start) => ({
+      start: parseInt(start),
+      end: modifier.Values[parseInt(start)],
+    })),
+  )
 
   const convertToRecord = (updateValues: { start: number; end: number }[]) => {
     return updateValues.reduce(
@@ -81,38 +85,41 @@ export const InterpolationPanelContent = ({
 
   const removeMapping = (index: number) => {
     const updatedValues = interpolationValues.filter((_, i) => i !== index)
+    setInterpolationValues(updatedValues)
     onChange({ ...modifier, Values: convertToRecord(updatedValues) })
   }
 
   const updateFromValue = (value: number, index: number) => {
+    const updatedValues = interpolationValues.map((v, i) =>
+      i === index
+        ? {
+            start: value,
+            end: v.end,
+          }
+        : v,
+    )
+
+    setInterpolationValues(updatedValues)
     onChange({
       ...modifier,
-      Values: convertToRecord(
-        interpolationValues.map((v, i) =>
-          i === index
-            ? {
-                start: value,
-                end: v.end,
-              }
-            : v,
-        ),
-      ),
+      Values: convertToRecord(updatedValues),
     })
   }
 
   const updateToValue = (value: number, index: number) => {
+    const updatedValues = interpolationValues.map((v, i) =>
+      i === index
+        ? {
+            start: v.start,
+            end: value,
+          }
+        : v,
+    )
+
+    setInterpolationValues(updatedValues)
     onChange({
       ...modifier,
-      Values: convertToRecord(
-        interpolationValues.map((v, i) =>
-          i === index
-            ? {
-                start: v.start,
-                end: value,
-              }
-            : v,
-        ),
-      ),
+      Values: convertToRecord(updatedValues),
     })
   }
 
@@ -126,6 +133,7 @@ export const InterpolationPanelContent = ({
       end: lastMapping.end * 2,
     }
     const updatedValues = [...interpolationValues, newMapping]
+    setInterpolationValues(updatedValues)
     onChange({ ...modifier, Values: convertToRecord(updatedValues) })
   }
 
