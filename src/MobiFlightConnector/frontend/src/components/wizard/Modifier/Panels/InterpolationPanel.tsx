@@ -180,6 +180,7 @@ export const InterpolationPanelContent = ({
                       onClick={() => removeMapping(index)}
                       size={"sm"}
                       variant="ghost"
+                      disabled={interpolationValues.length <= 2}
                     >
                       <IconTrash />
                       <span className="sr-only">

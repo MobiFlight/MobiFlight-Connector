@@ -185,6 +185,7 @@ export const BlinkPanelContent = ({
                       onClick={() => {
                         deleteBlink(index)
                       }}
+                      disabled={blinkValues.length === 1}
                     >
                       <IconTrash />
                       <span className="sr-only">

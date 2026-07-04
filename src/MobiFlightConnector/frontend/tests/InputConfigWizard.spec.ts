@@ -1164,6 +1164,64 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     } as Interpolation)
   })
 
+  test("Interpolation modifier remove buttons work correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Interpolation"
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
+
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Length input field is visible
+    const mappingRows = modifierEditor.getByRole("row")
+
+    // intially there are 3 rows for the header
+    // and the two default mappings
+    await expect(mappingRows).toHaveCount(3)
+
+    // Remove buttons are disabled
+    const firstRemoveButton = mappingRows.nth(1).getByRole("button", {
+      name: "Remove mapping",
+    })
+    const secondRemoveButton = mappingRows.nth(2).getByRole("button", {
+      name: "Remove mapping",
+    })
+
+    await expect(firstRemoveButton).toBeVisible()
+    await expect(firstRemoveButton).toBeDisabled()
+    
+    await expect(secondRemoveButton).toBeVisible()
+    await expect(secondRemoveButton).toBeDisabled()
+    
+    // Add another mapping row
+    const addMappingButton = modifierEditor.getByRole("button", {
+      name: "Add mapping",
+    })
+    await expect(addMappingButton).toBeVisible()
+    await addMappingButton.click()
+
+    // Remove buttons are now enabled
+    await expect(firstRemoveButton).toBeEnabled()
+    await expect(secondRemoveButton).toBeEnabled()
+    
+    // Remove the first mapping row
+    await firstRemoveButton.click()
+
+    // Remove buttons are now disabled again
+    await expect(firstRemoveButton).toBeDisabled()
+    await expect(secondRemoveButton).toBeDisabled()
+  })
+
   test("Comparison modifier works correctly", async ({
     configListPage,
     page,
@@ -1369,6 +1427,46 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       BlinkValue: "1",
       OnOffSequence: [350, 650, 350, 650],
     } as Blink)
+  })
+
+  test("Blink modifier remove buttons work correctly", async ({ configListPage, page }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierLabel = "Blink"
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      modifierLabel,
+      page,
+    )
+    
+    const modifierHeader = modifierEditor.getByRole("button", {
+      name: modifierLabel,
+    })
+    await expect(modifierHeader).toBeVisible()
+    await modifierHeader.click()
+
+    // The modifier is now expanded
+    // Alternate value input field is visible
+    const sequenceRows = modifierEditor.getByRole("row")
+    await expect(sequenceRows).toHaveCount(2)
+
+    const firstRemoveButton = sequenceRows.nth(1).getByRole("button")
+    const secondRemoveButton = sequenceRows.nth(2).getByRole("button")
+
+    await expect(firstRemoveButton).toBeVisible()
+    await expect(firstRemoveButton).toBeDisabled()
+    
+    // Add another mapping row
+    const addIntervalButton = modifierEditor.getByRole("button", {
+      name: "Add blink interval",
+    })
+    await expect(addIntervalButton).toBeVisible()
+    await addIntervalButton.click()
+    
+    await expect(firstRemoveButton).toBeEnabled()
+    await expect(secondRemoveButton).toBeEnabled()
+    
+    // Remove the first mapping row
+    await firstRemoveButton.click()
+    await expect(firstRemoveButton).toBeDisabled()
   })
 })
 
