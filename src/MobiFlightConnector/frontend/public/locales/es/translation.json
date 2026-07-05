@@ -820,6 +820,12 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Esperando entradas de registro",
-    "LoggingDisabled": "El registro está desactivado. Actívalo en la Configuración para ver los registros aquí."
+    "Filter": {
+      "Placeholder": "Filtrar entradas de registro...",
+      "NoResults": "No hay entradas que coincidan con el filtro."
+    },
+    "Resume": "Reanudar",
+    "Pause": "Pausar",
+    "Clear": "Borrar filtros"
   }
 }

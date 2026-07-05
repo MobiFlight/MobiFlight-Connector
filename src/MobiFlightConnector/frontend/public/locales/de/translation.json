@@ -820,6 +820,12 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Warte auf Log-Einträge",
-    "LoggingDisabled": "Logging ist deaktiviert. Aktivieren Sie das Logging in den Einstellungen."
+    "Filter": {
+      "Placeholder": "Log-Einträge filtern...",
+      "NoResults": "Keine Einträge entsprechen dem Filter."
+    },
+    "Resume": "Fortsetzen",
+    "Pause": "Pause",
+    "Clear": "Filter löschen"
   }
 }

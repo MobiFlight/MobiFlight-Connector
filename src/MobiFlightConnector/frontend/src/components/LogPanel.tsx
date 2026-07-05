@@ -1,5 +1,13 @@
-import { useEffect, useRef } from "react"
-import { IconX } from "@tabler/icons-react"
+import { useEffect, useRef, useState } from "react"
+import {
+  IconClipboard,
+  IconClipboardCopy,
+  IconFilter,
+  IconLogs,
+  IconPlayerPause,
+  IconPlayerPlay,
+  IconX,
+} from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { LogLevel } from "@/types/log"
 import { useSettingsStore } from "@/stores/settingsStore"
@@ -7,6 +15,8 @@ import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useLogsStore } from "@/stores/logsStore"
+import { Input } from "@/components/ui/Input"
+import { Separator } from "@/components/ui/separator"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   debug: 0,
@@ -17,10 +27,11 @@ const LEVEL_ORDER: Record<LogLevel, number> = {
 }
 
 const shouldShow = (severity: string, setting: string | undefined): boolean => {
-  
   const effectiveLevel = setting ?? "info"
-  console.log(`shouldShow: severity=${severity}, setting=${setting}, effectiveLevel=${effectiveLevel}`)
-  
+  console.log(
+    `shouldShow: severity=${severity}, setting=${setting}, effectiveLevel=${effectiveLevel}`,
+  )
+
   if (effectiveLevel === "off") return false
   const entryLevel = LEVEL_ORDER[severity as LogLevel] ?? 2
   const filterLevel = LEVEL_ORDER[effectiveLevel as LogLevel] ?? 2
@@ -45,23 +56,46 @@ const LogPanel = () => {
   const { publish } = publishOnMessageExchange()
   const { logs } = useLogsStore()
 
+  // don't auto scroll, don't append new logs
+  const [pauseLog, setPauseLog] = useState(false)
+  const [filterText, setFilterText] = useState("")
+
   const logLevel = useSettingsStore((s) => s.settings?.LogLevel)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   // any time logs changes, scroll to the bottom of the log panel
   useEffect(() => {
+    if (pauseLog) return
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [logs])
+  }, [logs, pauseLog])
 
-  const filtered = logs.filter((e) => shouldShow(e.Severity, logLevel))
+  const filtered = logs.filter(
+    (e) =>
+      shouldShow(e.Severity, logLevel) &&
+      (filterText === "" ||
+        e.Message.toLowerCase().includes(filterText.toLowerCase())),
+  )
 
   const toggleLog = () => {
     publish({
       key: "CommandMainMenu",
       payload: {
         action: "view.log.toggle",
+      },
+    })
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+  }
+
+  const copyLogToClipboard = () => {
+    publish({
+      key: "CommandMainMenu",
+      payload: {
+        action: "extras.copylogs",
       },
     })
   }
@@ -76,7 +110,56 @@ const LogPanel = () => {
         data-testid="log-panel-titlebar"
         className="text-muted-foreground flex flex-row items-center justify-between border-b px-3 py-1 font-medium"
       >
-        <span>{t("LogPanel.Title")}</span>
+        <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center gap-2">
+            <IconLogs className={"h-6 w-6"} />
+            <span>{t("LogPanel.Title")}</span>
+            <Separator orientation="vertical" className="h-6" />
+            <Button
+              onClick={copyLogToClipboard}
+              size="sm"
+              variant="ghost"
+              className="px-2 [&_svg]:size-6"
+            >
+              <IconClipboardCopy />
+              <span className="sr-only">{t("MainMenu.Extras.CopyLogs")}</span>
+            </Button>
+            <Button
+              onClick={() => setPauseLog(!pauseLog)}
+              size="sm"
+              variant="ghost"
+              className="px-2 [&_svg]:size-5"
+            >
+              {pauseLog ? <IconPlayerPause /> : <IconPlayerPlay />}
+              <span className="sr-only">
+                {pauseLog ? t("LogPanel.Paused") : t("LogPanel.Resume")}
+              </span>
+            </Button>
+            <Separator orientation="vertical" className="h-6" />
+          </div>
+          <div
+            className="flex flex-row items-center gap-2"
+            onKeyDown={handleKeyDown}
+          >
+            <IconFilter />
+            <Input
+              placeholder={t("LogPanel.Filter.Placeholder")}
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+            />
+            {filterText !== "" && (
+              <Button
+                onClick={() => setFilterText("")}
+                size="sm"
+                variant="ghost"
+                className="px-2 [&_svg]:size-5"
+              >
+                <IconX />
+                <span className="sr-only">{t("LogPanel.Filter.Clear")}</span>
+              </Button>
+            )}
+          </div>
+        </div>
         <Button
           size="sm"
           variant="ghost"
@@ -96,7 +179,13 @@ const LogPanel = () => {
         className="flex flex-col overflow-y-auto p-2 font-mono select-text"
       >
         {filtered.length === 0 ? (
-          <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
+          filterText !== "" ? (
+            <div className="text-muted-foreground">
+              {t("LogPanel.Filter.NoResults")}
+            </div>
+          ) : (
+            <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
+          )
         ) : (
           filtered.map((entry) => (
             <div

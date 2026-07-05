@@ -814,6 +814,12 @@
   "LogPanel": {
     "Title": "Loki",
     "Empty": "Odotetaan lokimerkintöjä",
-    "LoggingDisabled": "Loki ei ole käytössä. Ota loki käyttöön asetuksista nähdäksesi lokit täällä."
+    "Filter": {
+      "Placeholder": "Suodata lokimerkintöjä...",
+      "NoResults": "Ei merkintöjä, jotka vastaavat suodatinta."
+    },
+    "Resume": "Jatka",
+    "Pause": "Tauko",
+    "Clear": "Tyhjennä suodattimet"
   }
 }

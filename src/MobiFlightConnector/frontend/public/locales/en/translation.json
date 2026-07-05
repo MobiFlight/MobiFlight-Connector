@@ -812,8 +812,14 @@
     }
   },
   "LogPanel": {
-    "Title": "Log",
+    "Title": "Logs",
     "Empty": "Waiting for log entries",
-    "LoggingDisabled": "Logging is disabled. Enable logging in Settings to see logs here."
+    "Filter": {
+      "Placeholder": "Filter log entries...",
+      "NoResults": "No entries matching filter."
+    },
+    "Resume": "Resume",
+    "Pause": "Pause",
+    "Clear": "Clear filters"
   }
 }

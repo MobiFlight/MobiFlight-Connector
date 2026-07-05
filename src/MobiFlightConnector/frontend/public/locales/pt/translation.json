@@ -190,7 +190,7 @@
         "Label": "Aeronave",
         "HelpText": "Selecione a aeronave para este projeto.",
         "Description": "Selecione uma ou várias aeronaves que deseja usar para este projeto. As configurações predefinidas serão limitadas às aeronaves selecionadas.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Configuração de Aeronaves",
           "Description": "Selecione uma ou várias aeronaves que deseja usar para este projeto.",
           "SelectedAircraft": {
@@ -501,7 +501,7 @@
         "Title": "Tipo de ação",
         "Description": "Selecione o tipo de ação que deseja executarr",
         "Options": {
-          "MSFS2020CustomInputAction": { 
+          "MSFS2020CustomInputAction": {
             "label": "Microsoft Flight Simulator (todas as versões)",
             "short": "MSFS"
           },
@@ -814,6 +814,12 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Aguardando entradas de log",
-    "LoggingDisabled": "O registro está desativado. Ative o registro nas Configurações para ver os logs aqui."
+    "Filter": {
+      "Placeholder": "Filtrar entradas de log...",
+      "NoResults": "Nenhuma entrada correspondente ao filtro."
+    },
+    "Resume": "Retomar",
+    "Pause": "Pausar",
+    "Clear": "Limpar filtros"
   }
 }
