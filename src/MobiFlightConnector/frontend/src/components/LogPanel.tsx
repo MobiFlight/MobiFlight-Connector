@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { IconX } from "@tabler/icons-react"
-import { useAppMessage } from "@/lib/hooks/appMessage"
+import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import { AppMessage, LogEntry } from "@/types/messages"
 import { ILogMessage, LogLevel } from "@/types/log"
 import { useSettingsStore } from "@/stores/settingsStore"
@@ -39,15 +39,12 @@ const SEVERITY_CLASS: Record<string, string> = {
   trace: "text-gray-300",
 }
 
-interface LogPanelProps {
-  onClose: () => void
-}
-
-const LogPanel = ({ onClose }: LogPanelProps) => {
+const LogPanel = () => {
   const { t } = useTranslation()
+  const { publish } = publishOnMessageExchange()
+
   const [entries, setEntries] = useState<LogItem[]>([])
   const logLevel = useSettingsStore((s) => s.settings?.LogLevel)
-  const logEnabled = useSettingsStore((s) => s.settings?.LogEnabled)
   const scrollRef = useRef<HTMLDivElement>(null)
   const entryCounterRef = useRef(0)
 
@@ -74,8 +71,20 @@ const LogPanel = ({ onClose }: LogPanelProps) => {
 
   const filtered = entries.filter((e) => shouldShow(e.Severity, logLevel))
 
+  const toggleLog = () => {
+    publish({
+      key: "CommandMainMenu",
+      payload: {
+        action: "view.log.toggle",
+      },
+    })
+  }
+
   return (
-    <div className="bg-background flex flex-col overflow-hidden grow" data-testid="log-panel">
+    <div
+      className="bg-background flex grow flex-col overflow-hidden"
+      data-testid="log-panel"
+    >
       {/* Title bar with close button */}
       <div
         data-testid="log-panel-titlebar"
@@ -86,7 +95,7 @@ const LogPanel = ({ onClose }: LogPanelProps) => {
           size="sm"
           variant="ghost"
           onMouseDown={(e) => e.stopPropagation()}
-          onClick={onClose}
+          onClick={toggleLog}
           aria-label="Close log panel"
         >
           <IconX size={14} />
@@ -100,11 +109,7 @@ const LogPanel = ({ onClose }: LogPanelProps) => {
         data-testid="log-panel-content"
         className="flex flex-col overflow-y-auto p-2 font-mono select-text"
       >
-        {logEnabled === false ? (
-          <div className="text-muted-foreground">
-            {t("LogPanel.LoggingDisabled")}
-          </div>
-        ) : filtered.length === 0 ? (
+        {filtered.length === 0 ? (
           <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
         ) : (
           filtered.map((entry) => (

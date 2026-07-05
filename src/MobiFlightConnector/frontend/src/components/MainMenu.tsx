@@ -1,4 +1,4 @@
-import { useSettingsStore } from "@/stores/settingsStore"
+import { useLogSettings, useSettingsStore } from "@/stores/settingsStore"
 import {
   Menubar,
   MenubarContent,
@@ -21,12 +21,7 @@ import { useTranslation } from "react-i18next"
 import { useModal } from "@/lib/hooks/useModal"
 import UserMenuItem from "@/components/user/UserMenuItem"
 
-interface MainMenuProps {
-  logVisible: boolean
-  onToggleLog: () => void
-}
-
-export const MainMenu = ({ logVisible, onToggleLog }: MainMenuProps) => {
+export const MainMenu = () => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { hasChanged } = useProjectStore()
@@ -40,6 +35,15 @@ export const MainMenu = ({ logVisible, onToggleLog }: MainMenuProps) => {
 
   const { showOverlay: showProjectOverlay } = useProjectModal()
   const { showOverlay: showModalOverlay } = useModal()
+  const { logEnabled : logVisible } = useLogSettings()
+  const toggleLog = () => {
+    publish({
+      key: "CommandMainMenu",
+      payload: {
+        action: "view.log.toggle"
+      }
+    })
+  }
 
   return (
     <Menubar className="bg-muted/20 justify-between">
@@ -134,7 +138,7 @@ export const MainMenu = ({ logVisible, onToggleLog }: MainMenuProps) => {
               </MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
-            <MenubarItem onSelect={onToggleLog}>
+            <MenubarItem onSelect={toggleLog}>
               {logVisible ? t("MainMenu.View.Log.Hide") : t("MainMenu.View.Log.Show")}
             </MenubarItem>
           </MenubarContent>

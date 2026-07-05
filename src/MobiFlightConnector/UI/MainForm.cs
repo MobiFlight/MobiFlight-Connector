@@ -122,19 +122,29 @@ namespace MobiFlight.UI
         {
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
-            Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
-            Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
 
+            ApplyLogSettings(Properties.Settings.Default);
+
+            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
+            Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
+        }
+
+        private void ApplyLogSettings(Properties.Settings settings)
+        {
+            // Instance is always enabled
+            Log.Instance.Enabled = true;
+
+            // Properties.Settings.Default.LogEnabled controls the visibility of the log panel
+
+            Log.Instance.LogJoystickAxis = settings.LogJoystickAxis;
             try
             {
-                Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel, true);
+                Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), settings.LogLevel, true);
             }
             catch (Exception e)
             {
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
-            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
-            Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
         }
 
         private static void SetCurrentWorkingDirectory()
@@ -153,6 +163,7 @@ namespace MobiFlight.UI
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
             Properties.Settings.Default.SettingsSaving += (s, e) =>
             {
+                ApplyLogSettings(Properties.Settings.Default);
                 PublishSettings();
             };
 
@@ -2933,6 +2944,12 @@ namespace MobiFlight.UI
         internal void RecentFilesRemove(int index)
         {
             ProjectListManager.RemoveProjectByIndex(index);
+        }
+
+        internal void ToggleLog()
+        {
+            Properties.Settings.Default.LogEnabled = !Properties.Settings.Default.LogEnabled;
+            Properties.Settings.Default.Save();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

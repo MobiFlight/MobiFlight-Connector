@@ -23,3 +23,9 @@ export const useRecentProjects = () => {
     setRecentProjects: useSettingsStore((state) => state.setRecentProjects),
   }
 }
+
+export const useLogSettings = () => {
+  return {
+    logEnabled: useSettingsStore((state) => state.settings?.LogEnabled ?? false)
+  }
+}
