@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef } from "react"
 import { IconX } from "@tabler/icons-react"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
-import { AppMessage, LogEntry } from "@/types/messages"
-import { ILogMessage, LogLevel } from "@/types/log"
+import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import { LogLevel } from "@/types/log"
 import { useSettingsStore } from "@/stores/settingsStore"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
@@ -10,34 +9,32 @@ import { cn } from "@/lib/utils"
 import { useLogsStore } from "@/stores/logsStore"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
-  trace: 0,
-  debug: 1,
-  info: 2,
-  warn: 3,
-  error: 4,
-  off: 5,
+  Debug: 0,
+  Info: 1,
+  Warn: 2,
+  Error: 3,
+  Off: 4,
 }
 
-// Cap on retained log entries. The newest entry is appended after slicing,
-// so we keep MAX_ENTRIES - 1 of the previous ones to land exactly at the cap.
-const MAX_ENTRIES = 500
-
 const shouldShow = (severity: string, setting: string | undefined): boolean => {
-  const effectiveLevel = setting ?? "info"
-  if (effectiveLevel === "off") return false
+  const effectiveLevel = setting ?? "Info"
+  if (effectiveLevel === "Off") return false
   const entryLevel = LEVEL_ORDER[severity as LogLevel] ?? 2
   const filterLevel = LEVEL_ORDER[effectiveLevel as LogLevel] ?? 2
   return entryLevel >= filterLevel
 }
 
-type LogItem = ILogMessage & { id: number }
+const formatTimestamp = (timestamp: string): string => {
+  const [, time] = timestamp.split("T")
+  return time.replace("Z", "")
+}
 
-const SEVERITY_CLASS: Record<string, string> = {
-  error: "text-red-500",
-  warn: "text-yellow-500",
-  info: "text-blue-400",
-  debug: "text-gray-400",
-  trace: "text-gray-300",
+const SEVERITY_CLASS: Record<LogLevel, string> = {
+  Error: "text-red-500",
+  Warn: "text-yellow-500",
+  Info: "text-blue-400",
+  Debug: "text-gray-400",
+  Off: "text-gray-300",
 }
 
 const LogPanel = () => {
@@ -45,42 +42,17 @@ const LogPanel = () => {
   const { publish } = publishOnMessageExchange()
   const { logs } = useLogsStore()
 
-  const [entries, setEntries] = useState<LogItem[]>(
-    logs.map((log, index) => ({
-      ...log,
-      id: index,
-      Severity: log.Severity.toLowerCase() as LogLevel,
-      Timestamp: new Date(log.Timestamp),
-    })),
-  )
   const logLevel = useSettingsStore((s) => s.settings?.LogLevel)
   const scrollRef = useRef<HTMLDivElement>(null)
 
-  // Start counter at the number of existing logs
-  const entryCounterRef = useRef(logs.length)
-
-  const handleMessage = useCallback((msg: AppMessage) => {
-    const entry = msg.payload as LogEntry
-    setEntries((prev) => [
-      ...prev.slice(-(MAX_ENTRIES - 1)),
-      {
-        id: entryCounterRef.current++,
-        Message: entry.Message,
-        Severity: entry.Severity.toLowerCase() as LogLevel,
-        Timestamp: new Date(entry.Timestamp),
-      },
-    ])
-  }, [])
-
-  useAppMessage("LogEntry", handleMessage)
-
+  // any time logs changes, scroll to the bottom of the log panel
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [entries])
+  }, [logs])
 
-  const filtered = entries.filter((e) => shouldShow(e.Severity, logLevel))
+  const filtered = logs.filter((e) => shouldShow(e.Severity, logLevel))
 
   const toggleLog = () => {
     publish({
@@ -125,12 +97,12 @@ const LogPanel = () => {
         ) : (
           filtered.map((entry) => (
             <div
-              key={entry.id}
+              key={entry.Id}
               className="flex flex-row gap-2"
               data-severity={`${entry.Severity}`}
             >
               <div className="text-muted-foreground">
-                {entry.Timestamp.toLocaleTimeString()}
+                {formatTimestamp(entry.Timestamp)}
               </div>
               <div
                 className={cn(

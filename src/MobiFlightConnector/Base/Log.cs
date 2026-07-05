@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using System.IO;
-using System.Threading.Tasks;
-using MobiFlight.UI.Panels;
 using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum LogSeverity
     {
         Debug = 0,
@@ -226,4 +226,3 @@ namespace MobiFlight
         }
     }
 }
-

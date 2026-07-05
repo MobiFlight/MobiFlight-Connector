@@ -21,6 +21,8 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { useLogSettings } from "@/stores/settingsStore"
+import { ErrorBoundary } from "react-error-boundary"
+import ErrorFallback from "@/components/ErrorFallback"
 
 function App() {
   useKeyAccelerators(GlobalKeyAccelerators, true)
@@ -71,7 +73,9 @@ function App() {
                   maxSize={"50%"}
                   minSize={"10%"}
                 >
-                  <LogPanel />
+                  <ErrorBoundary FallbackComponent={ErrorFallback}>
+                    <LogPanel />
+                  </ErrorBoundary>
                 </ResizablePanel>
               </>
             )}

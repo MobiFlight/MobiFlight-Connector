@@ -9,7 +9,7 @@ namespace MobiFlight.Base.LogAppender
     {
         private readonly ConcurrentQueue<LogEntry> LogQueue = new ConcurrentQueue<LogEntry>();
         private Timer ProcessTimer;
-        private readonly object _timerLock = new object();
+        private long MessageCounter = 0;
 
         public MessageExchangeAppender()
         {
@@ -18,8 +18,10 @@ namespace MobiFlight.Base.LogAppender
 
         public void log(string message, LogSeverity severity)
         {
+            MessageCounter++;
             var m = new LogEntry
             {
+                Id = (MessageCounter).ToString(),
                 Timestamp = DateTime.Now,
                 Message = message,
                 Severity = severity.ToString()

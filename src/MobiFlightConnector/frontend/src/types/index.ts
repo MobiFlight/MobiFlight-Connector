@@ -6,7 +6,7 @@ export type {
 
 export type { 
   LogLevel, 
-  ILogMessage 
+  LogEntry 
 } from "./log"
 
 export type {

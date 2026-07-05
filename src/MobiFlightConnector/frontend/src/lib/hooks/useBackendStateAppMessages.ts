@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import i18next from "i18next"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
-import { ILogMessage, Project } from "@/types"
+import { LogEntry, Project } from "@/types"
 import {
   AuthenticationStatus,
   BoardDefinitions,
@@ -164,7 +164,8 @@ export const useBackendStateAppMessages = () => {
   })
 
   useAppMessage("LogEntry", (message) => {
-    const log = message.payload as ILogMessage
+    const log = message.payload as LogEntry
+    console.log("LogEntry message received", log)
     addLog(log)
   })
 
