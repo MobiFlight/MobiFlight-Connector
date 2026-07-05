@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace MobiFlight
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum LogSeverity
     {
         [EnumMember(Value = "debug")]
