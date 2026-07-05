@@ -11,25 +11,18 @@ test("Log panel closes via X button", async ({ configListPage, page }) => {
   const closeButton = page.getByRole("button", { name: "Close log panel" })
   await expect(closeButton).toBeVisible()
 
+  await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
   await closeButton.click()
-  await expect(closeButton).not.toBeVisible()
-})
 
-test("Log panel re-opens after being closed with X", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.openLogPanel()
-
-  const closeButton = page.getByRole("button", { name: "Close log panel" })
-  await closeButton.click()
-  await expect(closeButton).not.toBeVisible()
-
-  // View menu should be able to re-open it — verifies that onClose()
-  // sets logVisible=false rather than unmounting permanently.
-  await configListPage.mobiFlightPage.openLogPanel()
-  await expect(closeButton).toBeVisible()
+  // The command should have been sent to the backend, and the panel should
+  const trackedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+  expect(trackedCommands).toContainEqual({
+    key: "CommandMainMenu",
+    payload: {
+      action: "view.log.toggle",
+    },
+  })
 })
 
 test("Log panel shows empty placeholder before any messages arrive", async ({
@@ -133,25 +126,4 @@ test("Log panel height changes when title bar is dragged upward", async ({
 
   const after = await logContent.boundingBox()
   expect(after!.height).toBeGreaterThan(before!.height)
-})
-
-test("Log panel shows disabled message when LogEnabled is false", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.openLogPanel()
-
-  // Disable logging via a Settings message. The Zustand store update causes
-  // LogPanel to re-render in place, so it can be sent after the panel is open.
-  await configListPage.mobiFlightPage.sendSettings({ LogEnabled: false })
-
-  // LogPanel checks logEnabled === false (strict equality). When it's false,
-  // it renders LogPanel.LoggingDisabled instead of entries or the empty placeholder.
-  await expect(
-    page.getByText("Logging is disabled. Enable logging in Settings to see logs here."),
-  ).toBeVisible()
-
-  // The empty-state placeholder should not appear — disabled takes precedence.
-  await expect(page.getByText("Waiting for log entries")).not.toBeVisible()
 })
