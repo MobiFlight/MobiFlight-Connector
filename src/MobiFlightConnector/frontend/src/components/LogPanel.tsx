@@ -7,6 +7,7 @@ import { useSettingsStore } from "@/stores/settingsStore"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useLogsStore } from "@/stores/logsStore"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   trace: 0,
@@ -42,11 +43,21 @@ const SEVERITY_CLASS: Record<string, string> = {
 const LogPanel = () => {
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
+  const { logs } = useLogsStore()
 
-  const [entries, setEntries] = useState<LogItem[]>([])
+  const [entries, setEntries] = useState<LogItem[]>(
+    logs.map((log, index) => ({
+      ...log,
+      id: index,
+      Severity: log.Severity.toLowerCase() as LogLevel,
+      Timestamp: new Date(log.Timestamp),
+    })),
+  )
   const logLevel = useSettingsStore((s) => s.settings?.LogLevel)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const entryCounterRef = useRef(0)
+
+  // Start counter at the number of existing logs
+  const entryCounterRef = useRef(logs.length)
 
   const handleMessage = useCallback((msg: AppMessage) => {
     const entry = msg.payload as LogEntry
