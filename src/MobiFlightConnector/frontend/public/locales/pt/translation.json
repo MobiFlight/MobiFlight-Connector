@@ -816,10 +816,11 @@
     "Empty": "Aguardando entradas de log",
     "Filter": {
       "Placeholder": "Filtrar entradas de log...",
-      "NoResults": "Nenhuma entrada correspondente ao filtro."
+      "NoResults": "Nenhuma entrada correspondente ao filtro.",
+      "Clear": "Limpar filtros"
     },
-    "Resume": "Retomar",
-    "Pause": "Pausar",
-    "Clear": "Limpar filtros"
+    "Resume": "Retomar deslocamento",
+    "Pause": "Pausar deslocamento",
+    "Close": "Fechar painel de log"
   }
 }

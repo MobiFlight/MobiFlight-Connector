@@ -23,8 +23,8 @@
       "Placeholder": "Seleccionar...",
       "SearchPlaceholder": "Buscar..."
     },
-    "Copy" : "Copiar",
-    "Paste" : "Pegar",
+    "Copy": "Copiar",
+    "Paste": "Pegar",
     "NewFeature": "Nuevo"
   },
   "MainMenu": {
@@ -56,7 +56,7 @@
       }
     },
     "Extras": {
-      "Label" : "Extras",
+      "Label": "Extras",
       "HubHop.DownloadLatestPresets": "Descargar los últimos presets",
       "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
       "CopyLogs": "Copiar registros al portapapeles",
@@ -196,7 +196,7 @@
         "Label": "Avión",
         "HelpText": "Selecciona el avión para este proyecto.",
         "Description": "Selecciona uno o varios aviones que quieres usar para este proyecto. Las configuraciones predefinidas se limitarán a los aviones seleccionados.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Configuración de Aviones",
           "Description": "Selecciona uno o varios aviones que quieres usar para este proyecto.",
           "SelectedAircraft": {
@@ -439,7 +439,7 @@
           "To": "Hasta",
           "Action": "Acción",
           "Mappings": "Asignaciones",
-          "Add": "Agregar asignación", 
+          "Add": "Agregar asignación",
           "Remove": "Eliminar asignación",
           "Summary": "Asigna <badge>{{count}}</badge> valores, rango de <badge>{{min}}</badge> a <badge>{{max}}</badge>"
         },
@@ -557,7 +557,7 @@
           }
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "Editar acción {{eventLabel}}",
         "Remove": "Remover acción {{eventLabel}}"
       },
@@ -793,15 +793,15 @@
       "Profile": "Perfil",
       "ProfileFeatureComingSoon": "próximamente"
     },
-    "Redirect" : {
+    "Redirect": {
       "SignIn": "Redirigiendo a iniciar sesión...",
       "SignOut": "Redirigiendo a cerrar sesión...",
       "CompletingFlow": "Completando proceso...",
       "FlowSuccessful": "¡Éxitoso!"
     },
-    "Notification":{
+    "Notification": {
       "Error": {
-        "Title":"Error en la autenticación",
+        "Title": "Error en la autenticación",
         "Description": "Ocurrió un error durante la autenticación.",
         "ActionCopyToClipboard": "Copiar mensaje"
       }
@@ -822,10 +822,11 @@
     "Empty": "Esperando entradas de registro",
     "Filter": {
       "Placeholder": "Filtrar entradas de registro...",
-      "NoResults": "No hay entradas que coincidan con el filtro."
+      "NoResults": "No hay entradas que coincidan con el filtro.",
+      "Clear": "Borrar filtros"
     },
-    "Resume": "Reanudar",
-    "Pause": "Pausar",
-    "Clear": "Borrar filtros"
+    "Resume": "Reanudar desplazamiento",
+    "Pause": "Pausar desplazamiento",
+    "Close": "Cerrar panel de registro"
   }
 }

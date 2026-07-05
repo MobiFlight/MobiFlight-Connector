@@ -816,10 +816,11 @@
     "Empty": "Waiting for log entries",
     "Filter": {
       "Placeholder": "Filter log entries...",
-      "NoResults": "No entries matching filter."
+      "NoResults": "No entries matching filter.",
+      "Clear": "Clear filters"
     },
-    "Resume": "Resume",
-    "Pause": "Pause",
-    "Clear": "Clear filters"
+    "Resume": "Resume scrolling",
+    "Pause": "Pause scrolling",
+    "Close": "Close log panel"
   }
 }

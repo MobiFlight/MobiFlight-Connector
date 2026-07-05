@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import {
-  IconClipboard,
   IconClipboardCopy,
   IconFilter,
   IconLogs,
@@ -120,6 +119,7 @@ const LogPanel = () => {
               size="sm"
               variant="ghost"
               className="px-2 [&_svg]:size-6"
+              title={t("MainMenu.Extras.CopyLogs")}
             >
               <IconClipboardCopy />
               <span className="sr-only">{t("MainMenu.Extras.CopyLogs")}</span>
@@ -129,10 +129,11 @@ const LogPanel = () => {
               size="sm"
               variant="ghost"
               className="px-2 [&_svg]:size-5"
+              title={pauseLog ? t("LogPanel.Resume") : t("LogPanel.Pause")}
             >
               {pauseLog ? <IconPlayerPause /> : <IconPlayerPlay />}
               <span className="sr-only">
-                {pauseLog ? t("LogPanel.Paused") : t("LogPanel.Resume")}
+                {pauseLog ? t("LogPanel.Resume") : t("LogPanel.Pause")}
               </span>
             </Button>
             <Separator orientation="vertical" className="h-6" />
@@ -153,6 +154,7 @@ const LogPanel = () => {
                 size="sm"
                 variant="ghost"
                 className="px-2 [&_svg]:size-5"
+                title={t("LogPanel.Filter.Clear")}
               >
                 <IconX />
                 <span className="sr-only">{t("LogPanel.Filter.Clear")}</span>
@@ -165,7 +167,7 @@ const LogPanel = () => {
           variant="ghost"
           onMouseDown={(e) => e.stopPropagation()}
           onClick={toggleLog}
-          aria-label="Close log panel"
+          title={t("LogPanel.Close")}
         >
           <IconX size={14} />
         </Button>

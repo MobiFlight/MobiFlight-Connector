@@ -17,7 +17,8 @@ test("Log panel closes via X button", async ({ configListPage, page }) => {
   await closeButton.click()
 
   // The command should have been sent to the backend, and the panel should
-  const trackedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+  const trackedCommands =
+    await configListPage.mobiFlightPage.getTrackedCommands()
   expect(trackedCommands).toContainEqual({
     key: "CommandMainMenu",
     payload: {
@@ -43,7 +44,10 @@ test("Log entry messages appear in the panel", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.sendLogEntry("info", "Hello from the test")
+  await configListPage.mobiFlightPage.sendLogEntry(
+    "info",
+    "Hello from the test",
+  )
 
   await configListPage.mobiFlightPage.openLogPanel()
   await expect(page.getByText("Hello from the test")).toBeVisible()
@@ -57,9 +61,9 @@ test("Severity colours are applied to log entries", async ({
   // First, set the log level to Debug so all severities pass the filter and render.
   // Without this, the default "Info" level would hide Debug entries before
   // they reach the DOM, making the colour assertion fail.
-  await configListPage.mobiFlightPage.sendSettings({ 
+  await configListPage.mobiFlightPage.sendSettings({
     LogEnabled: true,
-    LogLevel: "debug" 
+    LogLevel: "debug",
   } as Partial<Settings>)
 
   // Send one message per severity so all four colour classes get rendered.
@@ -74,19 +78,27 @@ test("Severity colours are applied to log entries", async ({
   const logContent = page.getByTestId("log-panel-content")
 
   await expect(
-    logContent.locator('[data-severity="error"]').getByText("error", { exact: true }),
+    logContent
+      .locator('[data-severity="error"]')
+      .getByText("error", { exact: true }),
   ).toHaveClass(/text-red-500/)
 
   await expect(
-    logContent.locator('[data-severity="warn"]').getByText("warn", { exact: true }),
+    logContent
+      .locator('[data-severity="warn"]')
+      .getByText("warn", { exact: true }),
   ).toHaveClass(/text-yellow-500/)
 
   await expect(
-    logContent.locator('[data-severity="info"]').getByText("info", { exact: true }),
+    logContent
+      .locator('[data-severity="info"]')
+      .getByText("info", { exact: true }),
   ).toHaveClass(/text-blue-400/)
 
   await expect(
-    logContent.locator('[data-severity="debug"]').getByText("debug", { exact: true }),
+    logContent
+      .locator('[data-severity="debug"]')
+      .getByText("debug", { exact: true }),
   ).toHaveClass(/text-gray-400/)
 })
 
@@ -99,8 +111,14 @@ test("Default log level filters out debug messages", async ({
 
   // No Settings message sent → effectiveLevel defaults to "info" (see shouldShow()).
   // Debug (level 1) is below info (level 2), so it should be filtered out.
-  await configListPage.mobiFlightPage.sendLogEntry("debug", "this should be hidden")
-  await configListPage.mobiFlightPage.sendLogEntry("info", "this should be visible")
+  await configListPage.mobiFlightPage.sendLogEntry(
+    "debug",
+    "this should be hidden",
+  )
+  await configListPage.mobiFlightPage.sendLogEntry(
+    "info",
+    "this should be visible",
+  )
 
   await expect(page.getByText("this should be visible")).toBeVisible()
   await expect(page.getByText("this should be hidden")).not.toBeVisible()
@@ -117,7 +135,7 @@ test("Log panel height changes when title bar is dragged upward", async ({
 
   const separator = page.getByRole("separator")
   await expect(separator).toBeVisible()
-  
+
   await separator.hover()
   await page.mouse.down()
   await page.mouse.move(0, -100)
@@ -125,4 +143,130 @@ test("Log panel height changes when title bar is dragged upward", async ({
 
   const after = await logContent.boundingBox()
   expect(after!.height).toBeGreaterThan(before!.height)
+})
+
+test.describe("Log panel - Toolbar tests", () => {
+  test("Copy to clipboard working correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+    const logPanel = page.getByTestId("log-panel")
+
+    const copyToClipboardButton = logPanel.getByRole("button", {
+      name: "Copy logs to clipboard",
+    })
+    await expect(copyToClipboardButton).toBeVisible()
+
+    configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    await copyToClipboardButton.click()
+    const trackedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(trackedCommands).toContainEqual({
+      key: "CommandMainMenu",
+      payload: {
+        action: "extras.copylogs",
+      },
+    })
+  })
+
+  test("Pause and resume is working correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+    const logPanel = page.getByTestId("log-panel")
+    const logContent = page.getByTestId("log-panel-content")
+
+    const pauseButton = logPanel.getByRole("button", {
+      name: "Pause scrolling",
+    })
+    const resumeButton = logPanel.getByRole("button", {
+      name: "Resume scrolling",
+    })
+    await expect(pauseButton).toBeVisible()
+    await expect(resumeButton).not.toBeVisible()
+
+    // first fill the log panel with some entries so we can see the height change
+    for (let i = 0; i < 10; i++) {
+      await configListPage.mobiFlightPage.sendLogEntry(
+        "info",
+        "Test log entry " + i,
+      )
+    }
+
+    const before = await logContent.getByText("Test log entry 9").boundingBox()
+
+    await pauseButton.click()
+    await expect(resumeButton).toBeVisible()
+
+    // now add more messages... the offset should not change because the log is paused
+    for (let i = 0; i < 10; i++) {
+      await configListPage.mobiFlightPage.sendLogEntry(
+        "info",
+        "Test log entry " + (10 + i),
+      )
+    }
+
+    const afterWithPause = await logContent
+      .getByText("Test log entry 9")
+      .boundingBox()
+    expect(afterWithPause!.x).toBe(before!.x)
+    expect(afterWithPause!.y).toBe(before!.y)
+
+    await resumeButton.click()
+    await expect(pauseButton).toBeVisible()
+
+    const afterWithResume = await logContent
+      .getByText("Test log entry 9")
+      .boundingBox()
+    expect(afterWithResume!.x).toBe(before!.x)
+    expect(afterWithResume!.y).toBeLessThan(before!.y)
+  })
+
+  test("Filtering is working correctly", async ({ configListPage, page }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+
+    const logPanel = page.getByTestId("log-panel")
+    const logContent = logPanel.getByTestId("log-panel-content")
+
+    await configListPage.mobiFlightPage.sendLogEntry(
+      "info",
+      "Test log entry - filter me",
+    )
+    await configListPage.mobiFlightPage.sendLogEntry(
+      "info",
+      "Test log entry - hide me",
+    )
+
+    const visibleEntry = logContent.getByText("Test log entry - filter me")
+    const hiddenEntry = logContent.getByText("Test log entry - hide me")
+
+    await expect(visibleEntry).toBeVisible()
+    await expect(hiddenEntry).toBeVisible()
+
+    const filterInput = logPanel.getByPlaceholder("Filter log entries...")
+    await filterInput.fill("filter me")
+
+    await expect(visibleEntry).toBeVisible()
+    await expect(hiddenEntry).not.toBeVisible()
+
+    await filterInput.fill("no match")
+    await expect(visibleEntry).not.toBeVisible()
+    await expect(hiddenEntry).not.toBeVisible()
+    await expect(
+      logContent.getByText("No entries matching filter."),
+    ).toBeVisible()
+
+    const resetFilterButton = logPanel.getByRole("button", {
+      name: "Clear filters",
+    })
+    await expect(resetFilterButton).toBeVisible()
+    await resetFilterButton.click()
+    await expect(visibleEntry).toBeVisible()
+    await expect(hiddenEntry).toBeVisible()
+  })
 })
