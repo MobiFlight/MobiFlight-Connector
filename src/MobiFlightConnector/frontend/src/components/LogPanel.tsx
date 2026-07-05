@@ -38,8 +38,8 @@ const shouldShow = (severity: string, setting: string | undefined): boolean => {
 }
 
 const formatTimestamp = (timestamp: string): string => {
-  const [, time] = timestamp.split("T")
-  return time.replace("Z", "")
+  const date = new Date(timestamp)
+  return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}]`
 }
 
 const SEVERITY_CLASS: Record<LogLevel, string> = {

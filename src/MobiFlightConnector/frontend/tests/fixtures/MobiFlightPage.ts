@@ -405,14 +405,14 @@ export class MobiFlightPage {
   // Injects a fake backend log message into the app.
   // The LogPanel listens for "LogEntry" messages on window via useAppMessage —
   // the same channel all other backend messages use.
-  async sendLogEntry(severity: LogLevel, message: string) {
+  async sendLogEntry(severity: LogLevel, message: string, timestamp?: string) {
     const msg: AppMessage = {
       key: "LogEntry",
       payload: {
         Id: crypto.randomUUID(),
         Message: message,
         Severity: severity,
-        Timestamp: new Date().toISOString(),
+        Timestamp: timestamp ?? new Date().toISOString(),
       } as LogEntry,
     }
     await this.publishMessage(msg)

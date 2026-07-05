@@ -47,10 +47,12 @@ test("Log entry messages appear in the panel", async ({
   await configListPage.mobiFlightPage.sendLogEntry(
     "info",
     "Hello from the test",
+    "2026-07-05T12:34:56.789Z"
   )
 
   await configListPage.mobiFlightPage.openLogPanel()
   await expect(page.getByText("Hello from the test")).toBeVisible()
+  await expect(page.getByText("[12:34:56]")).toBeVisible()
 })
 
 test("Severity colours are applied to log entries", async ({
