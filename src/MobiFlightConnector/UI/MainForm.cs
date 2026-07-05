@@ -62,6 +62,9 @@ namespace MobiFlight.UI
         private bool IsMSFSRunning = false;
         private bool frontendReady = false;
 
+        // we need this property to control global logging during unit tests
+        protected virtual bool LogIsEnabled { get => true; }
+
         public ExecutionManager ExecutionManager
         {
             get { return execManager; }
@@ -131,8 +134,9 @@ namespace MobiFlight.UI
 
         private void ApplyLogSettings(Properties.Settings settings)
         {
-            // Instance is always enabled
-            Log.Instance.Enabled = true;
+            // Logging is always enabled when running UI
+            // During unit tests, we can disable logging by overriding LogIsEnabled
+            Log.Instance.Enabled = LogIsEnabled;
 
             // Properties.Settings.Default.LogEnabled controls the visibility of the log panel
 
