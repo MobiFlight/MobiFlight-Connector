@@ -612,8 +612,8 @@ namespace MobiFlight
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
-                    Controller = new Base.Controller() { Serial = this.Serial, Name = this.Name },
-                    Device = new Base.DeviceReference() {Type = DeviceType.Encoder, Name = enc, Label = enc},
+                    Controller = new Controller() { Serial = this.Serial, Name = this.Name },
+                    Device = new DeviceReference() {Type = DeviceType.Encoder, Name = enc, Label = enc},
                     InputType = DeviceType.Encoder,
                     Value = value
                 });
@@ -641,8 +641,8 @@ namespace MobiFlight
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
-                    Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference() { Type = DeviceType.InputShiftRegister, Name = $"{deviceId}:{strChannel}", Label = $"{deviceId} - {strChannel}" },
+                    Controller = new Controller() { Serial = this.Serial, Name = Name },
+                    Device = new DeviceReference() { Type = DeviceType.Button, Name = $"{deviceId}:{strChannel}", Label = $"{deviceId}:{strChannel}" },
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -665,12 +665,12 @@ namespace MobiFlight
                 Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
                 return;
             }
-
+            
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
-                    Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference() { Type = DeviceType.InputMultiplexer, Name = $"{deviceId}:{subId}", Label = $"{deviceId} - {subId}" },
+                    Controller = new Controller() { Serial = this.Serial, Name = Name },
+                    Device =  new DeviceReference() { Type = DeviceType.Button, Name = $"{deviceId}:{subId}", Label = $"{deviceId}:{subId}" },
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -690,8 +690,8 @@ namespace MobiFlight
 
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
-                Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                Device = new Base.DeviceReference() { Type = DeviceType.Button, Name = button, Label = button },
+                Controller = new Controller() { Serial = this.Serial, Name = Name },
+                Device = new DeviceReference() { Type = DeviceType.Button, Name = button, Label = button },
                 InputType = DeviceType.Button,
                 Value = state
             });
@@ -711,8 +711,8 @@ namespace MobiFlight
             
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
-                Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                Device = new Base.DeviceReference() { Type = DeviceType.AnalogInput, Name = name, Label = name },
+                Controller = new Controller() { Serial = this.Serial, Name = Name },
+                Device = new DeviceReference() { Type = DeviceType.AnalogInput, Name = name, Label = name },
                 InputType = DeviceType.AnalogInput,
                 Value = value
             });

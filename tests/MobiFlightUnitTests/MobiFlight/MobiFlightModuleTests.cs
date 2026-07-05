@@ -1,7 +1,9 @@
+using CommandMessenger;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace MobiFlight.Tests
 {
@@ -333,7 +335,6 @@ namespace MobiFlight.Tests
             Assert.Fail();
         }
 
-
         [TestMethod()]
         [Ignore]
         public void GetPinsTest()
@@ -359,6 +360,207 @@ namespace MobiFlight.Tests
             // Dev Build
             o.Version = "0.0.1";
             Assert.IsFalse(o.FirmwareRequiresUpdate(), "Firmware version does NOT require update. Dev Build 0.0.1");
+        }
+
+        [TestMethod()]
+        public void Encoder_RaisesCorrectEncoderInputEvent()
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+
+            var module = new MobiFlightModule("COM1", board)
+            {
+                Serial = "SN-123-123",
+                Name = "TestBoard",
+                // These two fields make it a MobiFlight Board
+                // It will report the MobiFlight Type instead of the Arduino Type
+                CoreVersion = "1.0.0",
+                Version = "1.0.0"
+            };
+
+            InputEventArgs capturedArgs = null;
+            module.OnInputDeviceAction += (sender, e) => capturedArgs = e;
+
+            var command = new ReceivedCommand(new string[] {
+                "6", // EncoderChange
+                "Encoder",
+                "0"
+            });
+
+            var methodInfo = typeof(MobiFlightModule).GetMethod("OnEncoderChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnEncoderChange to exist.");
+            methodInfo.Invoke(module, new object[] { command });
+
+            // Assert
+            Assert.IsNotNull(capturedArgs, "OnInputDeviceAction was not raised.");
+            Assert.AreEqual(DeviceType.Encoder, capturedArgs.InputType, "Encoder should be reported as Encoder type");
+            Assert.AreEqual(DeviceType.Encoder, capturedArgs.Device.Type, "Encoder should be reported as Encoder events");
+            Assert.AreEqual("Encoder", capturedArgs.Device.Name, "Encoder have name");
+            Assert.AreEqual(0, capturedArgs.Value, "Encoder should report 0 (ON LEFT)");
+            Assert.AreEqual("SN-123-123", capturedArgs.Controller.Serial, "Controller serial should match");
+            Assert.AreEqual("TestBoard", capturedArgs.Controller.Name, "Controller name should match");
+        }
+
+        [TestMethod()]
+        public void InputMultiplexerChange_RaisesCorrectButtonInputEvent()
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+
+            var module = new MobiFlightModule("COM1", board) {
+                Serial = "SN-123-123",
+                Name = "TestBoard",
+                // These two fields make it a MobiFlight Board
+                // It will report the MobiFlight Type instead of the Arduino Type
+                CoreVersion = "1.0.0",
+                Version = "1.0.0"
+            };
+
+            InputEventArgs capturedArgs = null;
+            module.OnInputDeviceAction += (sender, e) => capturedArgs = e;
+
+            var command = new ReceivedCommand(new string[] {
+                "30",
+                "InputMultiplexer",
+                "2",
+                "0"
+            });
+
+            var methodInfo = typeof(MobiFlightModule).GetMethod("OnInputMultiplexerChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnInputMultiplexerChange to exist.");
+            methodInfo.Invoke(module, new object[] { command });
+
+            // Assert
+            Assert.IsNotNull(capturedArgs, "OnInputDeviceAction was not raised.");
+            Assert.AreEqual(DeviceType.Button, capturedArgs.InputType, "Input Multiplexer should be reported as Button type");
+            Assert.AreEqual(DeviceType.Button, capturedArgs.Device.Type, "Input Multiplexer should be reported as Button events");
+            Assert.AreEqual("InputMultiplexer:2", capturedArgs.Device.Name, "Input Multiplexer have name and sub-pin combined");
+            Assert.AreEqual(0, capturedArgs.Value, "Input Multiplexer should report 0 (ON PRESS)");
+            Assert.AreEqual("SN-123-123", capturedArgs.Controller.Serial, "Controller serial should match");
+            Assert.AreEqual("TestBoard", capturedArgs.Controller.Name, "Controller name should match");
+        }
+
+        [TestMethod()]
+        public void InputShiftRegisterChange_RaisesCorrectButtonInputEvent()
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+
+            var module = new MobiFlightModule("COM1", board)
+            {
+                Serial = "SN-123-123",
+                Name = "TestBoard",
+                // These two fields make it a MobiFlight Board
+                // It will report the MobiFlight Type instead of the Arduino Type
+                CoreVersion = "1.0.0",
+                Version = "1.0.0"
+            };
+
+            InputEventArgs capturedArgs = null;
+            module.OnInputDeviceAction += (sender, e) => capturedArgs = e;
+
+            var command = new ReceivedCommand(new string[] {
+                "29",
+                "InputShiftRegister",
+                "2",
+                "0"
+            });
+
+            var methodInfo = typeof(MobiFlightModule).GetMethod("OnInputShiftRegisterChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnInputShiftRegisterChange to exist.");
+            methodInfo.Invoke(module, new object[] { command });
+
+            // Assert
+            Assert.IsNotNull(capturedArgs, "OnInputDeviceAction was not raised.");
+            Assert.AreEqual(DeviceType.Button, capturedArgs.InputType, "Input Shift Register should be reported as Button type");
+            Assert.AreEqual(DeviceType.Button, capturedArgs.Device.Type, "Input Shift Register should be reported as Button events");
+            Assert.AreEqual("InputShiftRegister:2", capturedArgs.Device.Name, "Input Shift Register have name and sub-pin combined");
+            Assert.AreEqual(0, capturedArgs.Value, "Input Shift Register should report 0 (ON PRESS)");
+            Assert.AreEqual("SN-123-123", capturedArgs.Controller.Serial, "Controller serial should match");
+            Assert.AreEqual("TestBoard", capturedArgs.Controller.Name, "Controller name should match");
+        }
+
+        [TestMethod()]
+        public void Button_RaisesCorrectButtonInputEvent()
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+
+            var module = new MobiFlightModule("COM1", board)
+            {
+                Serial = "SN-123-123",
+                Name = "TestBoard",
+                // These two fields make it a MobiFlight Board
+                // It will report the MobiFlight Type instead of the Arduino Type
+                CoreVersion = "1.0.0",
+                Version = "1.0.0"
+            };
+
+            InputEventArgs capturedArgs = null;
+            module.OnInputDeviceAction += (sender, e) => capturedArgs = e;
+
+            var command = new ReceivedCommand(new string[] {
+                "7", // ButtonChange
+                "Button",
+                "0"
+            });
+
+            var methodInfo = typeof(MobiFlightModule).GetMethod("OnButtonChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnButtonChange to exist.");
+            methodInfo.Invoke(module, new object[] { command });
+
+            // Assert
+            Assert.IsNotNull(capturedArgs, "OnInputDeviceAction was not raised.");
+            Assert.AreEqual(DeviceType.Button, capturedArgs.InputType, "Button should be reported as Button type");
+            Assert.AreEqual(DeviceType.Button, capturedArgs.Device.Type, "Button should be reported as Button events");
+            Assert.AreEqual("Button", capturedArgs.Device.Name, "Button have name");
+            Assert.AreEqual(0, capturedArgs.Value, "Button should report 0 (ON PRESS)");
+            Assert.AreEqual("SN-123-123", capturedArgs.Controller.Serial, "Controller serial should match");
+            Assert.AreEqual("TestBoard", capturedArgs.Controller.Name, "Controller name should match");
+        }
+
+        [TestMethod()]
+        public void AnalogInput_RaisesCorrectAnalogInputEvent()
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+
+            var module = new MobiFlightModule("COM1", board)
+            {
+                Serial = "SN-123-123",
+                Name = "TestBoard",
+                // These two fields make it a MobiFlight Board
+                // It will report the MobiFlight Type instead of the Arduino Type
+                CoreVersion = "1.0.0",
+                Version = "1.0.0"
+            };
+
+            InputEventArgs capturedArgs = null;
+            module.OnInputDeviceAction += (sender, e) => capturedArgs = e;
+
+            var command = new ReceivedCommand(new string[] {
+                "28", // AnalogChange
+                "AnalogInput",
+                "768"
+            });
+
+            var methodInfo = typeof(MobiFlightModule).GetMethod("OnAnalogChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnAnalogChange to exist.");
+            methodInfo.Invoke(module, new object[] { command });
+
+            // Assert
+            Assert.IsNotNull(capturedArgs, "OnInputDeviceAction was not raised.");
+            Assert.AreEqual(DeviceType.AnalogInput, capturedArgs.InputType, "AnalogInput should be reported as Analog type");
+            Assert.AreEqual(DeviceType.AnalogInput, capturedArgs.Device.Type, "AnalogInput should be reported as Analog events");
+            Assert.AreEqual("AnalogInput", capturedArgs.Device.Name, "AnalogInput have name");
+            Assert.AreEqual(768, capturedArgs.Value, "AnalogInput should report 768");
+            Assert.AreEqual("SN-123-123", capturedArgs.Controller.Serial, "Controller serial should match");
+            Assert.AreEqual("TestBoard", capturedArgs.Controller.Name, "Controller name should match");
         }
     }
 }
