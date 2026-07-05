@@ -642,7 +642,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference() { Type = DeviceType.InputShiftRegister, Name = $"{deviceId}:{strChannel}", Label = $"{deviceId} - {strChannel}" },
+                    Device = new Base.DeviceReference() { Type = DeviceType.Button, Name = $"{deviceId}:{strChannel}", Label = $"{deviceId}:{strChannel}" },
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -665,12 +665,12 @@ namespace MobiFlight
                 Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
                 return;
             }
-
+            
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
-                    Controller = new Base.Controller() { Serial = this.Serial, Name = Name },
-                    Device = new Base.DeviceReference() { Type = DeviceType.InputMultiplexer, Name = $"{deviceId}:{subId}", Label = $"{deviceId} - {subId}" },
+                    Controller = new Controller() { Serial = this.Serial, Name = Name },
+                    Device =  new DeviceReference() { Type = DeviceType.Button, Name = $"{deviceId}:{subId}", Label = $"{deviceId}:{subId}" },
                     InputType = DeviceType.Button,
                     Value = state
                 });
