@@ -230,6 +230,7 @@
     <Compile Include="Base\Deprecated\DeprecatedConfigFileTests.cs" />
     <Compile Include="Base\ExtensionsTests.cs" />
     <Compile Include="Base\InputEventExecutorTests.cs" />
+    <Compile Include="Base\LogAppender\MessageExchangeAppenderTests.cs" />
     <Compile Include="Base\LRUCacheTests.cs" />
     <Compile Include="Base\Migration\V0_10_InputConfigItemDeviceMigrationTests.cs" />
     <Compile Include="Base\Migration\Output_0_9_MigrationTests.cs" />

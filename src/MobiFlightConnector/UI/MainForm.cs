@@ -28,6 +28,7 @@ using MobiFlight.BrowserMessages.Incoming.Handler;
 using System.ComponentModel;
 using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
+using MobiFlight.Base.LogAppender;
 
 namespace MobiFlight.UI
 {
@@ -84,6 +85,7 @@ namespace MobiFlight.UI
         public event EventHandler<Project> ProjectLoaded;
 
         private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
+        private readonly MessageExchangeAppender frontendAppender = new Base.LogAppender.MessageExchangeAppender();
 
         private int StartupProgressValue = 0;
 
@@ -124,7 +126,7 @@ namespace MobiFlight.UI
         private void InitializeLogging()
         {
             Log.Instance.AddAppender(logAppenderFile);
-            Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
+            Log.Instance.AddAppender(frontendAppender);
 
             ApplyLogSettings(Properties.Settings.Default);
 
@@ -453,6 +455,10 @@ namespace MobiFlight.UI
 
         private async void OnFrontendReady(object sender, EventArgs e)
         {
+            // Let the frontend appender know that frontend is ready
+            // so that we can dequeue available log messages
+            frontendAppender.FrontendAvailable = true;
+
             // Initialize the board configurations
             BoardDefinitions.LoadDefinitions();
 
