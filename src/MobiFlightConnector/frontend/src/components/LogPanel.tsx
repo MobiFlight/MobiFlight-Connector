@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils"
 import { useLogsStore } from "@/stores/logsStore"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   debug: 0,
@@ -65,6 +66,12 @@ const LogPanel = () => {
   useEffect(() => {
     if (pauseLog) return
     if (scrollRef.current) {
+      const scrollArea = scrollRef.current?.querySelector(
+        "[data-radix-scroll-area-viewport]",
+      )
+      if (scrollArea) {
+        scrollArea.scrollTop = scrollArea.scrollHeight
+      }
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
   }, [logs, pauseLog])
@@ -172,44 +179,45 @@ const LogPanel = () => {
         </Button>
       </div>
       {/* Log entries container */}
-      <div
-        role="log"
-        aria-live="polite"
-        ref={scrollRef}
-        data-testid="log-panel-content"
-        className="flex flex-col overflow-y-auto p-2 font-mono select-text"
-      >
-        {filtered.length === 0 ? (
-          filterText !== "" ? (
-            <div className="text-muted-foreground">
-              {t("LogPanel.Filter.NoResults")}
-            </div>
-          ) : (
-            <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
-          )
-        ) : (
-          filtered.map((entry) => (
-            <div
-              key={entry.Id}
-              className="flex flex-row gap-2"
-              data-severity={`${entry.Severity}`}
-            >
+      <ScrollArea className="grow" ref={scrollRef}>
+        <div
+          role="log"
+          aria-live="polite"
+          data-testid="log-panel-content"
+          className="flex grow flex-col p-2 font-mono select-text"
+        >
+          {filtered.length === 0 ? (
+            filterText !== "" ? (
               <div className="text-muted-foreground">
-                {formatTimestamp(entry.Timestamp)}
+                {t("LogPanel.Filter.NoResults")}
               </div>
+            ) : (
+              <div className="text-muted-foreground">{t("LogPanel.Empty")}</div>
+            )
+          ) : (
+            filtered.map((entry) => (
               <div
-                className={cn(
-                  `uppercase w-12`,
-                  SEVERITY_CLASS[entry.Severity] ?? "",
-                )}
+                key={entry.Id}
+                className="flex flex-row gap-2"
+                data-severity={`${entry.Severity}`}
               >
-                {entry.Severity}
+                <div className="text-muted-foreground">
+                  {formatTimestamp(entry.Timestamp)}
+                </div>
+                <div
+                  className={cn(
+                    `w-12 uppercase`,
+                    SEVERITY_CLASS[entry.Severity] ?? "",
+                  )}
+                >
+                  {entry.Severity}
+                </div>
+                <div className="truncate">{entry.Message}</div>
               </div>
-              <div className="truncate">{entry.Message}</div>
-            </div>
-          ))
-        )}
-      </div>
+            ))
+          )}
+        </div>
+      </ScrollArea>
     </div>
   )
 }
