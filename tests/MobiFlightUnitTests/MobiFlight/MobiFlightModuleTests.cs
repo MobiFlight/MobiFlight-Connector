@@ -363,7 +363,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void Encoder_RaisesCorrectButtonEvent()
+        public void Encoder_RaisesCorrectEncoderInputEvent()
         {
             BoardDefinitions.LoadDefinitions();
 
@@ -389,6 +389,7 @@ namespace MobiFlight.Tests
             });
 
             var methodInfo = typeof(MobiFlightModule).GetMethod("OnEncoderChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnEncoderChange to exist.");
             methodInfo.Invoke(module, new object[] { command });
 
             // Assert
@@ -402,7 +403,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void InputMultiplexerChange_RaisesCorrectButtonEvent()
+        public void InputMultiplexerChange_RaisesCorrectButtonInputEvent()
         {
             BoardDefinitions.LoadDefinitions();
 
@@ -428,6 +429,7 @@ namespace MobiFlight.Tests
             });
 
             var methodInfo = typeof(MobiFlightModule).GetMethod("OnInputMultiplexerChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnInputMultiplexerChange to exist.");
             methodInfo.Invoke(module, new object[] { command });
 
             // Assert
@@ -441,7 +443,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void InputShiftRegisterChange_RaisesCorrectButtonEvent()
+        public void InputShiftRegisterChange_RaisesCorrectButtonInputEvent()
         {
             BoardDefinitions.LoadDefinitions();
 
@@ -468,6 +470,7 @@ namespace MobiFlight.Tests
             });
 
             var methodInfo = typeof(MobiFlightModule).GetMethod("OnInputShiftRegisterChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnInputShiftRegisterChange to exist.");
             methodInfo.Invoke(module, new object[] { command });
 
             // Assert
@@ -481,7 +484,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void Button_RaisesCorrectButtonEvent()
+        public void Button_RaisesCorrectButtonInputEvent()
         {
             BoardDefinitions.LoadDefinitions();
 
@@ -507,6 +510,7 @@ namespace MobiFlight.Tests
             });
 
             var methodInfo = typeof(MobiFlightModule).GetMethod("OnButtonChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnButtonChange to exist.");
             methodInfo.Invoke(module, new object[] { command });
 
             // Assert
@@ -520,7 +524,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void AnalogInput_RaisesCorrectButtonEvent()
+        public void AnalogInput_RaisesCorrectAnalogInputEvent()
         {
             BoardDefinitions.LoadDefinitions();
 
@@ -546,6 +550,7 @@ namespace MobiFlight.Tests
             });
 
             var methodInfo = typeof(MobiFlightModule).GetMethod("OnAnalogChange", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(methodInfo, "Expected private method OnAnalogChange to exist.");
             methodInfo.Invoke(module, new object[] { command });
 
             // Assert
