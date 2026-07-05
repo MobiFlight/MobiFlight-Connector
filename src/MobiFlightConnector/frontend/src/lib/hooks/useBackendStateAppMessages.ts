@@ -165,7 +165,6 @@ export const useBackendStateAppMessages = () => {
 
   useAppMessage("LogEntry", (message) => {
     const log = message.payload as LogEntry
-    console.log("LogEntry message received", log)
     addLog(log)
   })
 

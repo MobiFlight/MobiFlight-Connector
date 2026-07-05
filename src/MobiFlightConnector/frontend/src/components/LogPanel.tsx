@@ -28,9 +28,6 @@ const LEVEL_ORDER: Record<LogLevel, number> = {
 
 const shouldShow = (severity: string, setting: string | undefined): boolean => {
   const effectiveLevel = setting ?? "info"
-  console.log(
-    `shouldShow: severity=${severity}, setting=${setting}, effectiveLevel=${effectiveLevel}`,
-  )
 
   if (effectiveLevel === "off") return false
   const entryLevel = LEVEL_ORDER[severity as LogLevel] ?? 2

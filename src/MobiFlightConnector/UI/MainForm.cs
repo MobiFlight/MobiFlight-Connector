@@ -149,6 +149,7 @@ namespace MobiFlight.UI
             }
             catch (Exception e)
             {
+                Log.Instance.Severity = LogSeverity.Info;
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
         }

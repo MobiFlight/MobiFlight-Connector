@@ -170,7 +170,7 @@ test.describe("Log panel - Toolbar tests", () => {
     })
     await expect(copyToClipboardButton).toBeVisible()
 
-    configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+    await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
     await copyToClipboardButton.click()
     const trackedCommands =
       await configListPage.mobiFlightPage.getTrackedCommands()

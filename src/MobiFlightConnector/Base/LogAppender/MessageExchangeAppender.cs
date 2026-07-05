@@ -19,10 +19,10 @@ namespace MobiFlight.Base.LogAppender
 
         public void log(string message, LogSeverity severity)
         {
-            MessageCounter++;
+            var messageId = Interlocked.Increment(ref MessageCounter);
             var m = new LogEntry
             {
-                Id = (MessageCounter).ToString(),
+                Id = (messageId).ToString(),
                 Timestamp = DateTime.Now,
                 Message = message,
                 Severity = severity
