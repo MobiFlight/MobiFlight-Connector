@@ -9,16 +9,19 @@ import { cn } from "@/lib/utils"
 import { useLogsStore } from "@/stores/logsStore"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
-  Debug: 0,
-  Info: 1,
-  Warn: 2,
-  Error: 3,
-  Off: 4,
+  debug: 0,
+  info: 1,
+  warn: 2,
+  error: 3,
+  off: 4,
 }
 
 const shouldShow = (severity: string, setting: string | undefined): boolean => {
-  const effectiveLevel = setting ?? "Info"
-  if (effectiveLevel === "Off") return false
+  
+  const effectiveLevel = setting ?? "info"
+  console.log(`shouldShow: severity=${severity}, setting=${setting}, effectiveLevel=${effectiveLevel}`)
+  
+  if (effectiveLevel === "off") return false
   const entryLevel = LEVEL_ORDER[severity as LogLevel] ?? 2
   const filterLevel = LEVEL_ORDER[effectiveLevel as LogLevel] ?? 2
   return entryLevel >= filterLevel
@@ -30,11 +33,11 @@ const formatTimestamp = (timestamp: string): string => {
 }
 
 const SEVERITY_CLASS: Record<LogLevel, string> = {
-  Error: "text-red-500",
-  Warn: "text-yellow-500",
-  Info: "text-blue-400",
-  Debug: "text-gray-400",
-  Off: "text-gray-300",
+  error: "text-red-500",
+  warn: "text-yellow-500",
+  info: "text-blue-400",
+  debug: "text-gray-400",
+  off: "text-gray-300",
 }
 
 const LogPanel = () => {

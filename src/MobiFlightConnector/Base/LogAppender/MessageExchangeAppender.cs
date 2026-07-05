@@ -24,7 +24,7 @@ namespace MobiFlight.Base.LogAppender
                 Id = (MessageCounter).ToString(),
                 Timestamp = DateTime.Now,
                 Message = message,
-                Severity = severity.ToString()
+                Severity = severity
             };
 
             LogQueue.Enqueue(m);

@@ -7,7 +7,7 @@ import inputActionTestProject from "../data/inputaction.testdata.json" with { ty
 import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
 import connectedControllers from "../data/connectedControllers.testdata.json" with { type: "json" }
 import defaultSettings from "../data/settings.testdata.json" with { type: "json" }
-import { Project } from "@/types"
+import { LogEntry, LogLevel, Project } from "@/types"
 import { ProjectInfo } from "@/types/project"
 import { ControllerBinding } from "@/types/controller"
 import { AuthContextProps } from "react-oidc-context"
@@ -367,7 +367,7 @@ export class MobiFlightPage {
 
     await this.sendSettings({
       LogEnabled: true,
-    })
+    } as Partial<Settings>)
     
     await expect(logPanel).toBeVisible()
   }
@@ -405,14 +405,15 @@ export class MobiFlightPage {
   // Injects a fake backend log message into the app.
   // The LogPanel listens for "LogEntry" messages on window via useAppMessage —
   // the same channel all other backend messages use.
-  async sendLogEntry(severity: string, message: string) {
+  async sendLogEntry(severity: LogLevel, message: string) {
     const msg: AppMessage = {
       key: "LogEntry",
       payload: {
+        Id: crypto.randomUUID(),
         Message: message,
         Severity: severity,
         Timestamp: new Date().toISOString(),
-      },
+      } as LogEntry,
     }
     await this.publishMessage(msg)
   }

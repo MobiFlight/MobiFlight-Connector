@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,9 +14,13 @@ namespace MobiFlight
     [JsonConverter(typeof(StringEnumConverter))]
     public enum LogSeverity
     {
+        [EnumMember(Value = "debug")]
         Debug = 0,
+        [EnumMember(Value = "info")]
         Info = 1,
+        [EnumMember(Value = "warn")]
         Warn = 2,
+        [EnumMember(Value = "error")]
         Error = 3
     }
 

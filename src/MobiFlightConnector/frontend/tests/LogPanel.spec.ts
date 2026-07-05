@@ -1,4 +1,5 @@
 import { test, expect } from "./fixtures"
+import Settings from "../src/types/settings"
 
 // Note: toggling the panel on/off via View > Toggle Log Panel is covered by
 // MainMenu.spec.ts ("Confirm View > Toggle Log Panel shows and hides the log
@@ -42,12 +43,9 @@ test("Log entry messages appear in the panel", async ({
   page,
 }) => {
   await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.sendLogEntry("info", "Hello from the test")
+
   await configListPage.mobiFlightPage.openLogPanel()
-
-  // Crucially, the panel must be mounted *before* sending messages —
-  // useAppMessage subscribes on mount, so messages sent before mount are lost.
-  await configListPage.mobiFlightPage.sendLogEntry("Info", "Hello from the test")
-
   await expect(page.getByText("Hello from the test")).toBeVisible()
 })
 
@@ -56,18 +54,19 @@ test("Severity colours are applied to log entries", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.openLogPanel()
-
-  // Set log level to trace so all severities pass the filter and render.
-  // Without this, the default "info" level would hide debug entries before
+  // First, set the log level to Debug so all severities pass the filter and render.
+  // Without this, the default "Info" level would hide Debug entries before
   // they reach the DOM, making the colour assertion fail.
-  await configListPage.mobiFlightPage.sendSettings({ LogLevel: "trace" })
+  await configListPage.mobiFlightPage.sendSettings({ 
+    LogEnabled: true,
+    LogLevel: "debug" 
+  } as Partial<Settings>)
 
   // Send one message per severity so all four colour classes get rendered.
-  await configListPage.mobiFlightPage.sendLogEntry("Error", "error message")
-  await configListPage.mobiFlightPage.sendLogEntry("Warn", "warn message")
-  await configListPage.mobiFlightPage.sendLogEntry("Info", "info message")
-  await configListPage.mobiFlightPage.sendLogEntry("Debug", "debug message")
+  await configListPage.mobiFlightPage.sendLogEntry("error", "error message")
+  await configListPage.mobiFlightPage.sendLogEntry("warn", "warn message")
+  await configListPage.mobiFlightPage.sendLogEntry("info", "info message")
+  await configListPage.mobiFlightPage.sendLogEntry("debug", "debug message")
 
   // The severity label span carries the colour class. Severity text is
   // lowercased in handleMessage() and displayed uppercase via Tailwind.
@@ -100,8 +99,8 @@ test("Default log level filters out debug messages", async ({
 
   // No Settings message sent → effectiveLevel defaults to "info" (see shouldShow()).
   // Debug (level 1) is below info (level 2), so it should be filtered out.
-  await configListPage.mobiFlightPage.sendLogEntry("Debug", "this should be hidden")
-  await configListPage.mobiFlightPage.sendLogEntry("Info", "this should be visible")
+  await configListPage.mobiFlightPage.sendLogEntry("debug", "this should be hidden")
+  await configListPage.mobiFlightPage.sendLogEntry("info", "this should be visible")
 
   await expect(page.getByText("this should be visible")).toBeVisible()
   await expect(page.getByText("this should be hidden")).not.toBeVisible()

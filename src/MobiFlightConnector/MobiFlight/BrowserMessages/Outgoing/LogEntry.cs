@@ -7,6 +7,6 @@ namespace MobiFlight.BrowserMessages.Outgoing
         public string Id;
         public DateTime Timestamp;
         public string Message;
-        public string Severity;
+        public LogSeverity Severity;
     }
 }
