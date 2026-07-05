@@ -38,8 +38,7 @@ const shouldShow = (severity: string, setting: string | undefined): boolean => {
 }
 
 const formatTimestamp = (timestamp: string): string => {
-  const date = new Date(timestamp)
-  return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}]`
+  return `[${timestamp.slice(11, 19)}]`
 }
 
 const SEVERITY_CLASS: Record<LogLevel, string> = {
@@ -200,7 +199,7 @@ const LogPanel = () => {
               </div>
               <div
                 className={cn(
-                  `uppercase`,
+                  `uppercase w-12`,
                   SEVERITY_CLASS[entry.Severity] ?? "",
                 )}
               >
