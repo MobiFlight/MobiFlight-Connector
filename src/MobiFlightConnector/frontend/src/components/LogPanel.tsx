@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useLogsStore } from "@/stores/logsStore"
-import { Input } from "@/components/ui/Input"
+import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
