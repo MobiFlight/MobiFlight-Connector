@@ -190,7 +190,7 @@
         "Label": "Lentokone",
         "HelpText": "Valitse tähän projektiin käytetty lentokone.",
         "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa. Vaihtoehdot rajoittuvat valittuihin lentokoneisiin.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Lentokoneasetukset",
           "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa.",
           "SelectedAircraft": {
@@ -501,7 +501,7 @@
         "Title": "Toimintotyyppi",
         "Description": "Valitse suoritettavan toiminnon tyyppi",
         "Options": {
-          "MSFS2020CustomInputAction": { 
+          "MSFS2020CustomInputAction": {
             "label": "Microsoft Flight Simulator (kaikki versiot)",
             "short": "MSFS"
           },
@@ -551,7 +551,7 @@
           }
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "Muokkaa toimintoa {{eventLabel}}",
         "Remove": "Poista toimintoa {{eventLabel}}"
       },
@@ -814,6 +814,13 @@
   "LogPanel": {
     "Title": "Loki",
     "Empty": "Odotetaan lokimerkintöjä",
-    "LoggingDisabled": "Loki ei ole käytössä. Ota loki käyttöön asetuksista nähdäksesi lokit täällä."
+    "Filter": {
+      "Placeholder": "Suodata lokimerkintöjä...",
+      "NoResults": "Ei merkintöjä, jotka vastaavat suodatinta.",
+      "Clear": "Tyhjennä suodattimet"
+    },
+    "Resume": "Jatka vieritystä",
+    "Pause": "Pysäytä vieritys",
+    "Close": "Sulje lokipaneeli"
   }
 }

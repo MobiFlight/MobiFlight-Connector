@@ -28,6 +28,7 @@ using MobiFlight.BrowserMessages.Incoming.Handler;
 using System.ComponentModel;
 using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
+using MobiFlight.Base.LogAppender;
 
 namespace MobiFlight.UI
 {
@@ -62,6 +63,9 @@ namespace MobiFlight.UI
         private bool IsMSFSRunning = false;
         private bool frontendReady = false;
 
+        // we need this property to control global logging during unit tests
+        protected virtual bool LogIsEnabled { get => true; }
+
         public ExecutionManager ExecutionManager
         {
             get { return execManager; }
@@ -81,6 +85,7 @@ namespace MobiFlight.UI
         public event EventHandler<Project> ProjectLoaded;
 
         private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
+        private readonly MessageExchangeAppender frontendAppender = new Base.LogAppender.MessageExchangeAppender();
 
         private int StartupProgressValue = 0;
 
@@ -121,20 +126,32 @@ namespace MobiFlight.UI
         private void InitializeLogging()
         {
             Log.Instance.AddAppender(logAppenderFile);
-            Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
-            Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
-            Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
+            Log.Instance.AddAppender(frontendAppender);
 
+            ApplyLogSettings(Properties.Settings.Default);
+
+            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
+            Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
+        }
+
+        private void ApplyLogSettings(Properties.Settings settings)
+        {
+            // Logging is always enabled when running UI
+            // During unit tests, we can disable logging by overriding LogIsEnabled
+            Log.Instance.Enabled = LogIsEnabled;
+
+            // Properties.Settings.Default.LogEnabled controls the visibility of the log panel
+
+            Log.Instance.LogJoystickAxis = settings.LogJoystickAxis;
             try
             {
-                Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel, true);
+                Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), settings.LogLevel, true);
             }
             catch (Exception e)
             {
+                Log.Instance.Severity = LogSeverity.Info;
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
-            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
-            Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
         }
 
         private static void SetCurrentWorkingDirectory()
@@ -153,6 +170,7 @@ namespace MobiFlight.UI
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
             Properties.Settings.Default.SettingsSaving += (s, e) =>
             {
+                ApplyLogSettings(Properties.Settings.Default);
                 PublishSettings();
             };
 
@@ -438,6 +456,10 @@ namespace MobiFlight.UI
 
         private async void OnFrontendReady(object sender, EventArgs e)
         {
+            // Let the frontend appender know that frontend is ready
+            // so that we can dequeue available log messages
+            frontendAppender.FrontendAvailable = true;
+
             // Initialize the board configurations
             BoardDefinitions.LoadDefinitions();
 
@@ -2933,6 +2955,12 @@ namespace MobiFlight.UI
         internal void RecentFilesRemove(int index)
         {
             ProjectListManager.RemoveProjectByIndex(index);
+        }
+
+        internal void ToggleLog()
+        {
+            Properties.Settings.Default.LogEnabled = !Properties.Settings.Default.LogEnabled;
+            Properties.Settings.Default.Save();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

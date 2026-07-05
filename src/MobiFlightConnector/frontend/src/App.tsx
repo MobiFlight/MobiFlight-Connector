@@ -20,12 +20,14 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { useLogSettings } from "@/stores/settingsStore"
+import { ErrorBoundary } from "react-error-boundary"
+import ErrorFallback from "@/components/ErrorFallback"
 
 function App() {
   useKeyAccelerators(GlobalKeyAccelerators, true)
   const outlet = useOutlet()
   const [overlayVisible, setOverlayVisible] = useState(false)
-  const [logVisible, setLogVisible] = useState(false)
   const { theme } = useTheme()
 
   useAppMessage("OverlayState", (message) => {
@@ -33,6 +35,9 @@ function App() {
     console.log("OverlayState message received", overlayState)
     setOverlayVisible(overlayState.Visible)
   })
+
+  const { logEnabled } = useLogSettings()
+  const logVisible = logEnabled
 
   const { t } = useTranslation()
 
@@ -51,11 +56,7 @@ function App() {
           <ResizablePanelGroup orientation="vertical">
             <ResizablePanel className="flex grow flex-col overflow-hidden">
               <div className="flex grow flex-col overflow-hidden">
-                <MainMenu
-                  logVisible={logVisible}
-                  onToggleLog={() => setLogVisible((v) => !v)}
-                />
-
+                <MainMenu/>
                 {/* Uncomment the Navbar if needed */}
                 {/* <Navbar /> */}
                 <div className="flex grow flex-col overflow-hidden">
@@ -72,7 +73,9 @@ function App() {
                   maxSize={"50%"}
                   minSize={"10%"}
                 >
-                  <LogPanel onClose={() => setLogVisible(false)} />
+                  <ErrorBoundary FallbackComponent={ErrorFallback}>
+                    <LogPanel />
+                  </ErrorBoundary>
                 </ResizablePanel>
               </>
             )}

@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import i18next from "i18next"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
-import { Project } from "@/types"
+import { LogEntry, Project } from "@/types"
 import {
   AuthenticationStatus,
   BoardDefinitions,
@@ -34,6 +34,7 @@ import _ from "lodash"
 import { Controller } from "@/types/controller"
 import { useVariableStore } from "@/stores/variableStore"
 import { useProSimDataRefStore } from "@/stores/prosimDataRefStore"
+import { useLogsStore } from "@/stores/logsStore"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
@@ -53,6 +54,7 @@ export const useBackendStateAppMessages = () => {
 
   const setHubHopState = useHubHopStateActions()
   const auth = useAuth()
+  const { addLog } = useLogsStore()
 
   useAppMessage("Project", (message) => {
     const project = message.payload as Project
@@ -159,6 +161,11 @@ export const useBackendStateAppMessages = () => {
     const update = message.payload as ProSimDataRefDefinitionUpdate
     console.log("ProSimDataRefDefinitionUpdate message received", message)
     setDataRefs(update.DataRefs)
+  })
+
+  useAppMessage("LogEntry", (message) => {
+    const log = message.payload as LogEntry
+    addLog(log)
   })
 
   // this is only for easier UI testing

@@ -172,11 +172,6 @@ export type ProSimDataRefDefinitionUpdate = {
 export type VJoyDefinitionsUpdate = {
   Definitions: vJoyDefinition[]
 }
-export interface LogEntry {
-  Timestamp: string
-  Message: string
-  Severity: string
-}
 
 // Not sure what this is for
 // but we are using it in the tests

@@ -23,8 +23,8 @@
       "Placeholder": "Auswählen...",
       "SearchPlaceholder": "Suchen..."
     },
-    "Copy" : "Kopieren",
-    "Paste" : "Einfügen",
+    "Copy": "Kopieren",
+    "Paste": "Einfügen",
     "NewFeature": "Neu"
   },
   "MainMenu": {
@@ -196,7 +196,7 @@
         "Label": "Flugzeug",
         "HelpText": "Wähle das Flugzeug für dieses Projekt aus.",
         "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen. Optionen werden auf die ausgewählten Flugzeuge beschränkt.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Flugzeugeinstellungen",
           "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen.",
           "SelectedAircraft": {
@@ -439,7 +439,7 @@
           "To": "Bis",
           "Action": "Aktion",
           "Mappings": "Zuordnungen",
-          "Add": "Zuordnung hinzufügen", 
+          "Add": "Zuordnung hinzufügen",
           "Remove": "Zuordnung entfernen",
           "Summary": "Mappe <badge>{{count}}</badge> Werte, Bereich von <badge>{{min}}</badge> bis <badge>{{max}}</badge>"
         },
@@ -557,7 +557,7 @@
           }
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "{{eventLabel}} Aktion bearbeiten",
         "Remove": "{{eventLabel}} Aktion entfernen"
       },
@@ -820,6 +820,13 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Warte auf Log-Einträge",
-    "LoggingDisabled": "Logging ist deaktiviert. Aktivieren Sie das Logging in den Einstellungen."
+    "Filter": {
+      "Placeholder": "Log-Einträge filtern...",
+      "NoResults": "Keine Einträge entsprechen dem Filter.",
+      "Clear": "Filter löschen"
+    },
+    "Resume": "Scrolling fortsetzen",
+    "Pause": "Scrolling pausieren",
+    "Close": "Log-Panel schließen"
   }
 }

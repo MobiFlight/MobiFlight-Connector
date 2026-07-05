@@ -230,6 +230,7 @@
     <Compile Include="Base\Deprecated\DeprecatedConfigFileTests.cs" />
     <Compile Include="Base\ExtensionsTests.cs" />
     <Compile Include="Base\InputEventExecutorTests.cs" />
+    <Compile Include="Base\LogAppender\MessageExchangeAppenderTests.cs" />
     <Compile Include="Base\LRUCacheTests.cs" />
     <Compile Include="Base\Migration\V0_10_InputConfigItemDeviceMigrationTests.cs" />
     <Compile Include="Base\Migration\Output_0_9_MigrationTests.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Base\ProjectTests.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverterTests.cs" />
     <Compile Include="Base\SerialNumberTests.cs" />
+    <Compile Include="Base\SettingsTest.cs" />
     <Compile Include="Base\SourceFactoryTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandProjectToolbarHandlerTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntryTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\CompositePublisherTests.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerAutoBinderTests.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerBindingServiceTests.cs" />

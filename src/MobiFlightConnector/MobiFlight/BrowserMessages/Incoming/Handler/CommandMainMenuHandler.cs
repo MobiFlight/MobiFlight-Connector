@@ -69,6 +69,9 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                 case CommandMainMenuAction.view_zoom_reset:
                     _mainForm.ZoomReset();
                     break;
+                case CommandMainMenuAction.view_log_toggle:
+                    _mainForm.ToggleLog();
+                    break;
 
                 // Help Menu Actions
                 case CommandMainMenuAction.help_docs:
@@ -112,4 +115,3 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
         }
     }
 }
-
