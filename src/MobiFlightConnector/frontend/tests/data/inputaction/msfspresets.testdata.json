@@ -63,7 +63,7 @@
   },
   {
     "path": "Microsoft.Generic.Controls.Axis Elevator Set",
-    "vendor": "Microsoft",
+    "vendor": "Other than Microsoft",
     "aircraft": "Generic",
     "system": "Controls",
     "code": "@ 32.0293 * 16383 - -16383 max 16383 min (>K:AXIS_ELEVATOR_SET)",

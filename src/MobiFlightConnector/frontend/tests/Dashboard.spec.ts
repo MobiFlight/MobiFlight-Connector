@@ -611,11 +611,14 @@ test.describe("Project settings modal features", () => {
     await expect(selectedAircraftList).toBeVisible()
     await expect(availableAircraftList).toBeVisible()
     await expect(selectedAircraftOptions).toHaveCount(1)
-    await expect(availableAircraftOptions).toHaveCount(1)
+    await expect(availableAircraftOptions).toHaveCount(2)
 
     // Verify clicking on an available aircraft option adds it to the selected list
     await availableAircraftOptions.first().click()
     await expect(selectedAircraftOptions).toHaveCount(2)
+    await expect(availableAircraftOptions).toHaveCount(1)
+    await availableAircraftOptions.first().click()
+    await expect(selectedAircraftOptions).toHaveCount(3)
     await expect(availableAircraftOptions).toHaveCount(0)
     // and a message is displayed
     await expect(
@@ -626,12 +629,13 @@ test.describe("Project settings modal features", () => {
 
     // Verify clicking on a selected aircraft option removes it from the selected list
     await selectedAircraftOptions.first().click()
-    await expect(selectedAircraftOptions).toHaveCount(1)
+    await expect(selectedAircraftOptions).toHaveCount(2)
     await expect(availableAircraftOptions).toHaveCount(1)
 
     await selectedAircraftOptions.first().click()
+    await selectedAircraftOptions.first().click()
     await expect(selectedAircraftOptions).toHaveCount(0)
-    await expect(availableAircraftOptions).toHaveCount(2)
+    await expect(availableAircraftOptions).toHaveCount(3)
     // and a message is displayed
     await expect(
       projectAircraftDialog.getByText("No aircraft selected. No filter will apply. All presets will be available.", {
@@ -707,23 +711,23 @@ test.describe("Project settings modal features", () => {
     await expect(selectedAircraftList).toBeVisible()
     await expect(availableAircraftList).toBeVisible()
     await expect(selectedAircraftOptions).toHaveCount(1)
-    await expect(availableAircraftOptions).toHaveCount(1)
+    await expect(availableAircraftOptions).toHaveCount(2)
 
     // explicitly click on the checkbox of the first available aircraft option
     await availableAircraftOptions.first().getByRole("checkbox").click()
 
     // only one aircraft should be added to the selected list, and
-    // the available list should be empty
+    // the available list should be showing one less aircraft
     await expect(selectedAircraftOptions).toHaveCount(2)
-    await expect(availableAircraftOptions).toHaveCount(0)
+    await expect(availableAircraftOptions).toHaveCount(1)
 
     // explicitly click on the checkbox of the first selected aircraft option
     await selectedAircraftOptions.first().getByRole("checkbox").click()
 
     // only one aircraft should be removed from the selected list, and
-    // the available list should have one aircraft
+    // the available list should have one more aircraft
     await expect(selectedAircraftOptions).toHaveCount(1)
-    await expect(availableAircraftOptions).toHaveCount(1)
+    await expect(availableAircraftOptions).toHaveCount(2)
   })
 })
 
