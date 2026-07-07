@@ -633,6 +633,9 @@ test.describe("Project settings modal features", () => {
     await expect(availableAircraftOptions).toHaveCount(1)
 
     await selectedAircraftOptions.first().click()
+    await expect(selectedAircraftOptions).toHaveCount(1)
+    await expect(availableAircraftOptions).toHaveCount(2)
+    
     await selectedAircraftOptions.first().click()
     await expect(selectedAircraftOptions).toHaveCount(0)
     await expect(availableAircraftOptions).toHaveCount(3)
@@ -693,7 +696,7 @@ test.describe("Project settings modal features", () => {
     })
     const projectAircraftDialog = page.getByTestId("project-aircraft-drawer")
 
-    // create a new project with two aircraft selected
+    // create a new project with default aircraft selected
     await createProjectButton.click()
     await editAircraftButton.click()
     await expect(projectAircraftDialog).toBeVisible()
