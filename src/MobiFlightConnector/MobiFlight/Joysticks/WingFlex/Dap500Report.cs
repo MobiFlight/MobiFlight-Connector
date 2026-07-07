@@ -72,8 +72,8 @@ namespace MobiFlight.Joysticks.WingFlex
             }
 
             // Axes
-            // Background Light Brightness
-            state.X = LastInputBufferState[3];  // Light sensor value
+            // Light sensor value
+            state.X = LastInputBufferState[4];
 
             return state;
         }

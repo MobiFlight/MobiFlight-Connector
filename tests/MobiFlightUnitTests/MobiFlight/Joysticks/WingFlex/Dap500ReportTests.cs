@@ -15,7 +15,6 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         }
 
         #region Parse Tests
-
         [TestMethod]
         public void Parse_ValidInputBuffer_ReturnsNewReportInstance()
         {
@@ -59,6 +58,27 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Act & Assert - Should throw exception
             Assert.ThrowsExactly<ArgumentException>(() => _report.Parse(inputBuffer));
+        }
+        #endregion
+
+        #region Dap Input Report Tests
+        [TestMethod]
+        public void DapInputReport_SensorValueReportedCorrectly()
+        {
+            // Arrange
+            var inputBuffer = CreateValidInputBuffer();
+            inputBuffer[4] = 128;
+
+            var result = _report.Parse(inputBuffer).ToJoystickState();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(128, result.X);
+
+            // Verify with another value to make sure
+            // we are looking at the correct byte in the buffer
+            inputBuffer[4] = 15;
+            result = _report.Parse(inputBuffer).ToJoystickState();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(15, result.X);
         }
         #endregion
 

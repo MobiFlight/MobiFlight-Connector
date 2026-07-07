@@ -103,6 +103,11 @@
       "Id": 20,
       "Type": "Button",
       "Label": "ALT"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "Light Sensor"
     }
   ],
   "Outputs": [
