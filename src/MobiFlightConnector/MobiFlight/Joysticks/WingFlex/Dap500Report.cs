@@ -5,7 +5,7 @@ namespace MobiFlight.Joysticks.WingFlex
 {
     internal class Dap500Report
     {
-        private byte[] LastInputBufferState = new byte[4];
+        private byte[] LastInputBufferState = new byte[5];
         
         public Dap500Report() {}
 
