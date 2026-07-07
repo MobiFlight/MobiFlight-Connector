@@ -305,7 +305,6 @@ test.describe("Project settings modal features", () => {
         fsuipc: { click: false, use: false },
         prosim: { click: false, use: false },
         aircraft: [
-          { Vendor: "Asobo", Name: "Generic" },
           { Vendor: "Microsoft", Name: "Generic" },
         ],
       },
@@ -316,7 +315,6 @@ test.describe("Project settings modal features", () => {
         fsuipc: { click: true, use: true },
         prosim: { click: false, use: false },
         aircraft: [
-          { Vendor: "Asobo", Name: "Generic" },
           { Vendor: "Microsoft", Name: "Generic" },
         ],
       },
@@ -351,7 +349,6 @@ test.describe("Project settings modal features", () => {
         fsuipc: { click: false, use: false },
         prosim: { click: true, use: true },
         aircraft: [
-          { Vendor: "Asobo", Name: "Generic" },
           { Vendor: "Microsoft", Name: "Generic" },
         ],
       },
@@ -591,9 +588,7 @@ test.describe("Project settings modal features", () => {
 
     // verify badges are showing
     const msGenericBadge = createProjectDialog.getByText("Microsoft - Generic")
-    const asoboGenericBadge = createProjectDialog.getByText("Asobo - Generic")
     await expect(msGenericBadge).toBeVisible()
-    await expect(asoboGenericBadge).toBeVisible()
 
     const editAircraftButton = createProjectDialog.getByRole("button", {
       name: "Edit aircraft list",
@@ -612,25 +607,43 @@ test.describe("Project settings modal features", () => {
     const selectedAircraftOptions = selectedAircraftList.getByRole("option")
     const availableAircraftOptions = availableAircraftList.getByRole("option")
 
-    
-    
+    // Verify initial state of aircraft lists
     await expect(selectedAircraftList).toBeVisible()
     await expect(availableAircraftList).toBeVisible()
-    await expect(selectedAircraftOptions).toHaveCount(2)
+    await expect(selectedAircraftOptions).toHaveCount(1)
     await expect(availableAircraftOptions).toHaveCount(1)
-    
-    await availableAircraftOptions.first().click()
-    await expect(selectedAircraftOptions).toHaveCount(3)
-    await expect(availableAircraftOptions).toHaveCount(0)
 
-    await selectedAircraftOptions.first().click()
+    // Verify clicking on an available aircraft option adds it to the selected list
+    await availableAircraftOptions.first().click()
     await expect(selectedAircraftOptions).toHaveCount(2)
-    await expect(availableAircraftOptions).toHaveCount(1)
-    
+    await expect(availableAircraftOptions).toHaveCount(0)
+    // and a message is displayed
+    await expect(
+      projectAircraftDialog.getByText("No aircraft available.", {
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    // Verify clicking on a selected aircraft option removes it from the selected list
     await selectedAircraftOptions.first().click()
     await expect(selectedAircraftOptions).toHaveCount(1)
+    await expect(availableAircraftOptions).toHaveCount(1)
+
+    await selectedAircraftOptions.first().click()
+    await expect(selectedAircraftOptions).toHaveCount(0)
     await expect(availableAircraftOptions).toHaveCount(2)
+    // and a message is displayed
+    await expect(
+      projectAircraftDialog.getByText("No aircraft selected. No filter will apply. All presets will be available.", {
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    // Now re-add the first available aircraft
+    // so that we can verify that the badge shows correct value
+    await availableAircraftOptions.first().click()
     
+    // Close drawer
     const goBackButton = page.getByRole("button", {
       name: "Go back",
     })
@@ -639,7 +652,6 @@ test.describe("Project settings modal features", () => {
     await expect(projectAircraftDialog).not.toBeVisible()
 
     await expect(msGenericBadge).not.toBeVisible()
-    await expect(asoboGenericBadge).not.toBeVisible()
     const c172Badge = createProjectDialog.getByText("Microsoft - C172")
     await expect(c172Badge).toBeVisible()
 
@@ -647,7 +659,10 @@ test.describe("Project settings modal features", () => {
     // this is covered by the "Create new project in modal" test
   })
 
-  test("Clicking on aircraft list checkbox only adds one aircraft at a time", async ({ dashboardPage, page }) => {
+  test("Clicking on aircraft list checkbox only adds one aircraft at a time", async ({
+    dashboardPage,
+    page,
+  }) => {
     // this was a bug because of two event handlers firing
     // https://github.com/MobiFlight/MobiFlight-Connector/issues/3085
 
@@ -673,7 +688,7 @@ test.describe("Project settings modal features", () => {
       name: "Edit aircraft list",
     })
     const projectAircraftDialog = page.getByTestId("project-aircraft-drawer")
-    
+
     // create a new project with two aircraft selected
     await createProjectButton.click()
     await editAircraftButton.click()
@@ -687,27 +702,27 @@ test.describe("Project settings modal features", () => {
     })
     const selectedAircraftOptions = selectedAircraftList.getByRole("option")
     const availableAircraftOptions = availableAircraftList.getByRole("option")
-    
+
     // verify initial state
     await expect(selectedAircraftList).toBeVisible()
     await expect(availableAircraftList).toBeVisible()
-    await expect(selectedAircraftOptions).toHaveCount(2)
+    await expect(selectedAircraftOptions).toHaveCount(1)
     await expect(availableAircraftOptions).toHaveCount(1)
-    
+
     // explicitly click on the checkbox of the first available aircraft option
     await availableAircraftOptions.first().getByRole("checkbox").click()
 
-    // only one aircraft should be added to the selected list, and 
+    // only one aircraft should be added to the selected list, and
     // the available list should be empty
-    await expect(selectedAircraftOptions).toHaveCount(3)
+    await expect(selectedAircraftOptions).toHaveCount(2)
     await expect(availableAircraftOptions).toHaveCount(0)
 
     // explicitly click on the checkbox of the first selected aircraft option
     await selectedAircraftOptions.first().getByRole("checkbox").click()
 
-    // only one aircraft should be removed from the selected list, and 
+    // only one aircraft should be removed from the selected list, and
     // the available list should have one aircraft
-    await expect(selectedAircraftOptions).toHaveCount(2)
+    await expect(selectedAircraftOptions).toHaveCount(1)
     await expect(availableAircraftOptions).toHaveCount(1)
   })
 })

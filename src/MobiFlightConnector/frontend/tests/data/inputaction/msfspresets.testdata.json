@@ -45,8 +45,8 @@
     "description": "Garmin G1000"
   },
   {
-    "path": "Asobo.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
-    "vendor": "Asobo",
+    "path": "Microsoft.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
+    "vendor": "Microsoft",
     "aircraft": "Generic",
     "system": "Autopilot",
     "code": "(>K:AP_PANEL_HEADING_HOLD)",
