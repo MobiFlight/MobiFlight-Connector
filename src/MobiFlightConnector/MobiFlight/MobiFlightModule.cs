@@ -194,6 +194,7 @@ namespace MobiFlight
 
         public const int CommandTimeout = 2500;
         public const int MessageSizeReductionValue = 10;
+        internal int StopDelayInMs = 20;
 
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
@@ -1324,7 +1325,12 @@ namespace MobiFlight
 
             GetConnectedDevices().ForEach(device =>
             {
-                //System.Threading.Thread.Sleep(10); 
+                // A short wait time is needed
+                // otherwise the arduino can be overloaded with messages
+                // and will not be able to process them all
+                // which can lead to random behavior on the arduino side
+                // see #3117
+                Thread.Sleep(StopDelayInMs); 
                 device.Stop();
             });
         }
