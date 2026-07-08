@@ -45,8 +45,8 @@
     "description": "Garmin G1000"
   },
   {
-    "path": "Asobo.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
-    "vendor": "Asobo",
+    "path": "Microsoft.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
+    "vendor": "Microsoft",
     "aircraft": "Generic",
     "system": "Autopilot",
     "code": "(>K:AP_PANEL_HEADING_HOLD)",
@@ -63,7 +63,7 @@
   },
   {
     "path": "Microsoft.Generic.Controls.Axis Elevator Set",
-    "vendor": "Microsoft",
+    "vendor": "Other than Microsoft",
     "aircraft": "Generic",
     "system": "Controls",
     "code": "@ 32.0293 * 16383 - -16383 max 16383 min (>K:AXIS_ELEVATOR_SET)",

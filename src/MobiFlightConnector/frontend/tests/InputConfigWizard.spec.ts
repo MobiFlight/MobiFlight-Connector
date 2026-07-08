@@ -1966,7 +1966,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       .filter({ hasText: "Filter by vendor" })
       .click()
     await expect(optionsList).toBeVisible()
-    const vendorOption = optionsList.getByRole("option", { name: "Microsoft" })
+    const vendorOption = optionsList.getByRole("option", { name: "Microsoft", exact: true })
     await expect(vendorOption).toBeVisible()
     await vendorOption.click()
     await expect(vendorOption).not.toBeVisible()

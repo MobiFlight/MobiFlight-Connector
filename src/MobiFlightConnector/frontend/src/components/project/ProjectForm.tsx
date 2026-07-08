@@ -42,7 +42,6 @@ const ProjectForm = ({
 }: ProjectFormProps) => {
   const defaultAircraft = {
     msfs: [
-      { Vendor: "Asobo", Name: "Generic" },
       { Vendor: "Microsoft", Name: "Generic" },
     ],
     xplane: [{ Vendor: "Laminar Research", Name: "Generic" }],
