@@ -10,12 +10,17 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { useState } from "react"
-import { ProjectFeatures, ProjectInfo } from "@/types/project"
+import { useRef, useState } from "react"
+import {
+  AircraftInfo,
+  ProjectFeatures,
+  ProjectInfo,
+  SimulatorType,
+} from "@/types/project"
 import { useLocation } from "react-router"
 import { useTranslation } from "react-i18next"
-import { cn } from "@/lib/utils"
+import ProjectAircraft from "@/components/project/Settings/ProjectAircraft"
+import ProjectSimAndFeatures from "@/components/project/Settings/ProjectSimAndFeatures"
 
 type ProjectFormProps = {
   project: ProjectInfo
@@ -23,8 +28,9 @@ type ProjectFormProps = {
   onOpenChange: (open: boolean) => void
   onSave: (values: {
     Name: string
-    Sim: string
+    Sim: SimulatorType
     Features: ProjectFeatures
+    Aircraft: AircraftInfo[]
   }) => void
 }
 
@@ -34,10 +40,26 @@ const ProjectForm = ({
   onOpenChange,
   onSave,
 }: ProjectFormProps) => {
+  const defaultAircraft = {
+    msfs: [
+      { Vendor: "Microsoft", Name: "Generic" },
+    ],
+    xplane: [{ Vendor: "Laminar Research", Name: "Generic" }],
+    p3d: [],
+    fsx: [],
+    none: [],
+  } as Record<SimulatorType, AircraftInfo[]>
+
   const [name, setName] = useState(project?.Name ?? "")
-  const [simulator, setSimulator] = useState<string>(project?.Sim ?? "msfs")
+  const [simulator, setSimulator] = useState<SimulatorType>(
+    project?.Sim ?? "msfs",
+  )
   const [useFsuipc, setUseFsuipc] = useState(project?.Features?.FSUIPC ?? false)
   const [useProsim, setUseProsim] = useState(project?.Features?.ProSim ?? false)
+  const [aircraft, setAircraft] = useState<AircraftInfo[]>(
+    project?.Aircraft ?? defaultAircraft[simulator],
+  )
+
   const [hasError, setHasError] = useState(false)
 
   const location = useLocation()
@@ -52,6 +74,8 @@ const ProjectForm = ({
   const ProSimFeatureIsSupportedBySimulator = (simulator: string) => {
     return simulator === "msfs" || simulator === "p3d"
   }
+
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,6 +94,7 @@ const ProjectForm = ({
         FSUIPC: useFsuipc || FsuipcOptionIsDefaultForSimulator(simulator),
         ProSim: useProsim && ProSimFeatureIsSupportedBySimulator(simulator),
       },
+      Aircraft: aircraft,
     })
   }
 
@@ -85,8 +110,9 @@ const ProjectForm = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-h-[90vh] overflow-y-auto sm:max-w-[600px]"
+        className="max-h-[90vh] overflow-x-hidden overflow-y-auto sm:max-w-[600px]"
         onKeyDown={handleFormKeyDown}
+        ref={containerRef}
       >
         <DialogHeader>
           <DialogTitle className="text-2xl">
@@ -94,7 +120,7 @@ const ProjectForm = ({
               ? t("Project.Form.Title.Edit")
               : t("Project.Form.Title.New")}
           </DialogTitle>
-          <DialogDescription className="text-md">
+          <DialogDescription>
             {t("Project.Form.Description")}
           </DialogDescription>
         </DialogHeader>
@@ -114,7 +140,6 @@ const ProjectForm = ({
               placeholder={t("Project.Form.Name.Placeholder")}
               aria-invalid={showErrorMessage ? "true" : "false"}
               required
-              autoComplete="off"
             />
             {showErrorMessage && (
               <p
@@ -126,84 +151,35 @@ const ProjectForm = ({
             )}{" "}
             {/* Show error */}
           </div>
-          <div>
-            <Label className="text-base font-semibold">
-              {t("Project.Form.Simulator.Label")}
-            </Label>
-            <p className="text-muted-foreground text-sm">
-              {t("Project.Form.Simulator.HelpText")}
-            </p>
-          </div>
-          {/* Flight Simulator Selection */}
-
-          <div className="flex flex-row gap-4">
-            {["msfs", "xplane", "p3d", "fsx"].map((sim) => (
-              <div
-                role="radio"
-                aria-checked={simulator === sim}
-                key={sim}
-                className={cn(
-                  "inline-block h-48 flex-1 cursor-pointer rounded-lg transition-all duration-200 hover:scale-110",
-                  simulator === sim
-                    ? "drop-shadow-primary/50 ring-primary ring-3 drop-shadow-lg"
-                    : "opacity-50 hover:opacity-100",
-                )}
-                onClick={() => {
-                  setUseFsuipc(false)
-                  setUseProsim(false)
-                  setSimulator(sim)
-                }}
-              >
-                <img
-                  src={`/sim/${sim.toLowerCase()}.jpg`}
-                  alt={sim}
-                  className="h-full w-full rounded-lg object-cover"
-                />
-              </div>
-            ))}
-          </div>
-          {/* Simulator name */}
-          <div className="flex flex-col">
-            {t(`Project.Simulator.${simulator}`)}
-          </div>
-          <div className="flex h-24 flex-col gap-2">
-            {(simulator === "msfs" || simulator === "p3d") && (
-              <div className="flex h-24 flex-col gap-2">
-                <p className="text-muted-foreground text-sm">
-                  {t("Project.Form.Simulator.Feature")}
-                </p>
-                {/* FSUIPC Option (only for MSFS) */}
-                {simulator === "msfs" && (
-                  <div className="flex items-center space-x-2 pl-2">
-                    <Checkbox
-                      id="fsuipc"
-                      checked={useFsuipc}
-                      onCheckedChange={(checked) =>
-                        setUseFsuipc(Boolean(checked))
-                      }
-                    />
-                    <Label htmlFor="fsuipc" className="font-normal">
-                      {t("Project.Form.Simulator.UseFsuipc")}
-                    </Label>
-                  </div>
-                )}
-
-                {/* ProSim Option (MSFS & P3D) */}
-                <div className="flex items-center space-x-2 pl-2">
-                  <Checkbox
-                    id="prosim"
-                    checked={useProsim}
-                    onCheckedChange={(checked) =>
-                      setUseProsim(Boolean(checked))
-                    }
-                  />
-                  <Label htmlFor="prosim" className="font-normal">
-                    {t("Project.Form.Simulator.UseProSim")}
-                  </Label>
-                </div>
-              </div>
-            )}
-          </div>
+          <ProjectSimAndFeatures
+            simSettings={
+              {
+                Sim: simulator,
+                Features: {
+                  FSUIPC: useFsuipc,
+                  ProSim: useProsim,
+                },
+              } as Partial<ProjectInfo>
+            }
+            onChange={(values) => {
+              console.log(values)
+              if (values.Sim) {
+                setSimulator(values.Sim)
+              }
+              if (values.Features) {
+                setUseFsuipc(values.Features.FSUIPC ?? false)
+                setUseProsim(values.Features.ProSim ?? false)
+              }
+              // reset to default aircraft on switching simulator type
+              setAircraft(defaultAircraft[values.Sim ?? "none"])
+            }}
+          />
+          <ProjectAircraft
+            variant={simulator}
+            selectedAircraft={aircraft}
+            setSelectedAircraft={setAircraft}
+            drawerContainer={containerRef}
+          />
         </div>
 
         <DialogFooter>

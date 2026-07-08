@@ -1,4 +1,7 @@
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
 import CopyPasteActionPanel from "@/components/wizard/components/CopyPasteActionPanel"
@@ -16,6 +19,8 @@ import XplaneInputActionPanel from "@/components/wizard/components/InputActions/
 import { ActionTypeOptions } from "@/lib/configWizard"
 import {
   Action,
+  ButtonHoldOptions,
+  ButtonLongReleaseOptions,
   EventIdInputAction,
   FsuipcOffsetInputAction,
   JeehellInputAction,
@@ -28,28 +33,246 @@ import {
   VJoyInputAction,
   XplaneInputAction,
 } from "@/types/config"
-
+import { useTranslation } from "react-i18next"
 export interface ActionEditorProps {
-  action?: Action
-  onActionChange: (item: Action) => void
+  event: { variant: string; event: string }
+  buttonOptions?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
+  action: Action | null
+  onActionChange: (
+    item: Action | null,
+    buttonOptions?: Partial<ButtonHoldOptions> &
+      Partial<ButtonLongReleaseOptions>,
+  ) => void
 }
-
-const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
+export interface ActionSummaryProps {
+  action?: Action
+}
+export const ActionSummary = ({ action }: ActionSummaryProps) => {
+  const { t } = useTranslation()
+  if (!action)
+    return <span className="text-muted-foreground text-sm">No Action.</span>
   const selectedActionType = action
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
-
+  const typeOption = ActionTypeOptions.find(
+    (option) => option.value === action.Type,
+  )
+  const actionTypeLabel = typeOption ? typeOption.value : action.Type
+  return (
+    <div className="flex grow flex-row items-center gap-8">
+      <div className="flex w-32 flex-col gap-1">
+        <Label>
+          {t("Dialog.InputConfigWizard.InputActions.Common.ActionLabel")}:
+        </Label>
+        <Badge
+          variant={"outline"}
+          className="w-fit"
+          title={t(
+            `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.label`,
+          )}
+        >
+          {t(`Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.short`)}
+        </Badge>
+      </div>
+      {selectedActionType?.value === "MSFS2020CustomInputAction" && (
+        <MsfsInputActionPanel
+          variant="summary"
+          config={action ? (action as MsfsInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "XplaneInputAction" && (
+        <XplaneInputActionPanel
+          variant="summary"
+          config={action as XplaneInputAction}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "VariableInputAction" && (
+        <VariablePanel
+          variant="summary"
+          currentVariable={
+            action ? (action as MobiFlightVariableAction).Variable : undefined
+          }
+          onVariableChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "RetriggerInputAction" && (
+        <RetriggerPanel variant="summary" />
+      )}
+      {selectedActionType?.value === "VJoyInputAction" && (
+        <VJoyInputActionPanel
+          variant="summary"
+          config={action ? (action as VJoyInputAction) : null}
+          setConfig={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "KeyInputAction" && (
+        <KeyboardInputActionPanel
+          variant="summary"
+          config={action ? (action as KeyInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "FsuipcOffsetInputAction" && (
+        <FsuipcOffsetInputActionPanel
+          variant="summary"
+          config={action ? (action as FsuipcOffsetInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "ProSimInputAction" && (
+        <ProSimInputActionPanel
+          variant="summary"
+          config={action ? (action as ProSimInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "LuaMacroInputAction" && (
+        <LuaMacroInputActionPanel
+          variant="summary"
+          config={action ? (action as LuaMacroInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "JeehellInputAction" && (
+        <JeehellInputActionPanel
+          variant="summary"
+          config={action ? (action as JeehellInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "EventIdInputAction" && (
+        <EventIdInputActionPanel
+          variant="summary"
+          options="default"
+          config={action ? (action as EventIdInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+      {selectedActionType?.value === "PmdgEventIdInputAction" && (
+        <EventIdInputActionPanel
+          variant="summary"
+          options="pmdg"
+          config={action ? (action as PmdgEventIdInputAction) : null}
+          onConfigChange={() => {}}
+        />
+      )}
+    </div>
+  )
+}
+const ActionEditor = ({
+  event,
+  buttonOptions,
+  action,
+  onActionChange,
+}: ActionEditorProps) => {
+  const { t } = useTranslation()
+  const selectedActionType = action
+    ? ActionTypeOptions.find((option) => option.value === action.Type)
+    : undefined
   return (
     <Card data-testid="action-editor">
       <CardContent className="pt-4">
         <div className="flex flex-col gap-4">
-          <div className="flex flex-row justify-between items-end">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-1 flex-col">
+              <div className="text-lg font-semibold">
+                {t(
+                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
+                )}
+              </div>
+              <div className="text-muted-foreground text-sm">
+                {t(
+                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
+                )}
+              </div>
+            </div>
+            {event.variant === "button" && event.event === "onHold" && (
+              <div className="flex flex-1 flex-col gap-1">
+                <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
+                  <span title={t(
+                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.description`,
+                  )}>
+                    {t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+                    )}
+                  </span>
+                  <Input
+                    aria-label={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+                    )}
+                    className="w-16"
+                    value={buttonOptions?.HoldDelay}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      onActionChange(action, {
+                        HoldDelay: value ? parseInt(value) : undefined,
+                        RepeatDelay: buttonOptions?.RepeatDelay,
+                      })
+                    }}
+                  />
+                  <span title={t(
+                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
+                  )}>
+                    {t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+                    )}
+                  </span>
+                  <Input
+                    aria-label={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+                    )}
+                    className="w-16"
+                    value={buttonOptions?.RepeatDelay}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      onActionChange(action, {
+                        HoldDelay: buttonOptions?.HoldDelay,
+                        RepeatDelay: value ? parseInt(value) : undefined,
+                      })
+                    }}
+                  />
+                  <span>ms</span>
+                </div>
+              </div>
+            )}
+            {event.variant === "button" && event.event === "onLongRelease" && (
+              <div className="flex flex-1 flex-col gap-1">
+                <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
+                  <span title={t(
+                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
+                  )}>
+                    {t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+                    )}
+                  </span>
+                  <Input
+                    aria-label={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+                    )}
+                    className="w-16"
+                    onChange={(e) => {
+                      const value = e.target.value
+                      onActionChange(action, {
+                        LongReleaseDelay: value ? parseInt(value) : undefined,
+                      })
+                    }}
+                    value={buttonOptions?.LongReleaseDelay}
+                  />
+                  <span className="whitespace-nowrap">ms</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <Separator />
+          <div className="flex flex-row items-end justify-between">
             <ActionTypeComboBox
               selectedActionType={selectedActionType}
               setSelectedActionType={(option) => {
-                if (option) {
-                  onActionChange({ ...action, Type: option.value })
-                }
+                onActionChange(option ? { ...action,
+                                          Type: option.value 
+                                        } : null)
               }}
             />
             <CopyPasteActionPanel
@@ -59,21 +282,24 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }}
             />
           </div>
-          <Separator />
+          {selectedActionType?.value && <Separator />}
           {selectedActionType?.value === "MSFS2020CustomInputAction" && (
             <MsfsInputActionPanel
+              variant="details"
               config={action ? (action as MsfsInputAction) : null}
               onConfigChange={(config) => onActionChange(config)}
             />
           )}
           {selectedActionType?.value === "XplaneInputAction" && (
             <XplaneInputActionPanel
-              config={action as XplaneInputAction}
+              variant="details"
+              config={action ? (action as XplaneInputAction) : null}
               onConfigChange={(c) => onActionChange(c)}
             />
           )}
           {selectedActionType?.value === "VariableInputAction" && (
             <VariablePanel
+              variant="details"
               currentVariable={
                 action
                   ? (action as MobiFlightVariableAction).Variable
@@ -87,13 +313,12 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "RetriggerInputAction" && (
-            <RetriggerPanel />
+            <RetriggerPanel variant="details" />
           )}
-
           {selectedActionType?.value === "VJoyInputAction" && (
             <VJoyInputActionPanel
+              variant="details"
               config={action ? (action as VJoyInputAction) : null}
               setConfig={(config) =>
                 onActionChange({
@@ -103,9 +328,9 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "KeyInputAction" && (
             <KeyboardInputActionPanel
+              variant="details"
               config={action ? (action as KeyInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -115,9 +340,9 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "FsuipcOffsetInputAction" && (
             <FsuipcOffsetInputActionPanel
+              variant="details"
               config={action ? (action as FsuipcOffsetInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -127,9 +352,9 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "ProSimInputAction" && (
             <ProSimInputActionPanel
+              variant="details"
               config={action ? (action as ProSimInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -139,9 +364,9 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "LuaMacroInputAction" && (
             <LuaMacroInputActionPanel
+              variant="details"
               config={action ? (action as LuaMacroInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -151,9 +376,9 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "JeehellInputAction" && (
             <JeehellInputActionPanel
+              variant="details"
               config={action ? (action as JeehellInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -163,10 +388,10 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "EventIdInputAction" && (
             <EventIdInputActionPanel
-              variant="default"
+              variant="details"
+              options="default"
               config={action ? (action as EventIdInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({
@@ -176,10 +401,10 @@ const ActionEditor = ({ action, onActionChange }: ActionEditorProps) => {
               }
             />
           )}
-
           {selectedActionType?.value === "PmdgEventIdInputAction" && (
             <EventIdInputActionPanel
-              variant="pmdg"
+              variant="details"
+              options="pmdg"
               config={action ? (action as PmdgEventIdInputAction) : null}
               onConfigChange={(config) =>
                 onActionChange({

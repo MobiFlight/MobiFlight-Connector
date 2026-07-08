@@ -147,7 +147,6 @@ namespace MobiFlight.UI.Panels.Input
             UpdatePanelWithAction(owner, config, inputLabel, inputActionName);
         }
 
-
         private void UpdatePanelWithAction(Panel owner, ButtonInputConfig config, string inputLabel, string inputActionName)
         {
             this.SuspendLayout();            
@@ -173,6 +172,9 @@ namespace MobiFlight.UI.Panels.Input
                 else if (inputLabel == ProSimInputAction.Label)
                 {
                     (panel as ProSimInputPanel).Init(_executionManager);
+                } else if(inputLabel == MSFS2020CustomInputAction.Label)
+                {
+                    (panel as MSFS2020CustomInputPanel).LoadPresets(ProjectInfo);
                 }
 
                 // Sync data from config for inputAction

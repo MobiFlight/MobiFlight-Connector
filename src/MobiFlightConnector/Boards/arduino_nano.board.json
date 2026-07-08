@@ -33,11 +33,11 @@
     "FirmwareBaseName": "mobiflight_nano",
     "FirmwareExtension": "hex",
     "FriendlyName": "Arduino Nano",
-    "LatestFirmwareVersion": "2.5.1",
+    "LatestFirmwareVersion": "3.1.1",
     "MobiFlightType": "MobiFlight Nano",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex",
     "Community": {
-      "Project": "MobiFlight Nano",
+      "Project": "MobiFlight",
       "Website": "https://mobiflight.com/links/connector/info/website/nano.html",
       "Docs": "https://mobiflight.com/links/connector/info/docs/nano.html",
       "Support": "https://mobiflight.com/discord"

@@ -131,7 +131,7 @@ const ControllerBindingsDialog = ({
           <DialogTitle className="text-2xl">
             {t("Dialog.ControllerBinding.Title")}
           </DialogTitle>
-          <DialogDescription className="text-md vsm:block hidden">
+          <DialogDescription className="vsm:block hidden">
             {t("Dialog.ControllerBinding.Description")}
           </DialogDescription>
         </DialogHeader>

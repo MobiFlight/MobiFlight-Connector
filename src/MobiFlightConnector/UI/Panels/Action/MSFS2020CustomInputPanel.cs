@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MobiFlight.Base;
 using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Config;
+using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Action
 {
@@ -21,9 +14,13 @@ namespace MobiFlight.UI.Panels.Action
             InitializeComponent();
             hubHopPresetPanel1.Mode = Config.HubHopPanelMode.Input;
             hubHopPresetPanel1.FlightSimType = FlightSimType.MSFS2020;
-            hubHopPresetPanel1.LoadPresets();
             Disposed += (sender, args) => { hubHopPresetPanel1.Dispose(); };
-        }       
+        }
+
+        public void LoadPresets(ProjectInfo projectInfo)
+        {
+            hubHopPresetPanel1.LoadPresets(projectInfo);
+        }
 
         public InputConfig.InputAction ToConfig()
         {

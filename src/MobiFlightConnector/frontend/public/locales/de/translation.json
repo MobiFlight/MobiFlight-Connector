@@ -23,8 +23,9 @@
       "Placeholder": "Auswählen...",
       "SearchPlaceholder": "Suchen..."
     },
-    "Copy" : "Kopieren",
-    "Paste" : "Einfügen"
+    "Copy": "Kopieren",
+    "Paste": "Einfügen",
+    "NewFeature": "Neu"
   },
   "MainMenu": {
     "File": {
@@ -193,7 +194,26 @@
       },
       "Aircraft": {
         "Label": "Flugzeug",
-        "HelpText": "Wähle das Flugzeug für dieses Projekt aus."
+        "HelpText": "Wähle das Flugzeug für dieses Projekt aus.",
+        "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen. Optionen werden auf die ausgewählten Flugzeuge beschränkt.",
+        "Dialog": {
+          "Title": "Flugzeugeinstellungen",
+          "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen.",
+          "SelectedAircraft": {
+            "Title": "Ausgewählte Flugzeuge",
+            "Count": "{{count}} ausgewählt",
+            "None": "Keine Flugzeuge ausgewählt. Es wird kein Filter angewendet. Alle Optionen sind verfügbar."
+          },
+          "AvailableAircraft": {
+            "Title": "Verfügbare Flugzeuge",
+            "Count": "{{count}} verfügbar",
+            "None": "Keine Flugzeuge verfügbar."
+          },
+          "SearchPlaceholder": "Flugzeuge suchen...",
+          "NoAircraftFound": "Keine zusätzlichen Flugzeuge verfügbar."
+        },
+        "EditList": "Flugzeugliste bearbeiten",
+        "NotSupported": "Flugzeugauswahl wird für diesen Simulator nicht unterstützt."
       },
       "Buttons": {
         "Create": "Projekt erstellen",
@@ -359,6 +379,7 @@
   },
   "Dialog": {
     "General": {
+      "GoBack": "Zurück",
       "Cancel": "Abbrechen",
       "Close": "Schließen",
       "Save": "Speichern",
@@ -383,16 +404,91 @@
       "SearchController": "Controller suchen...",
       "NoControllerFound": "Kein Controller gefunden."
     },
+    "Modifiers": {
+      "Title": "Modifikatoren",
+      "Description": "Ändere den ursprünglichen Wert, indem du eine Reihe von Modifikatoren anwendest.",
+      "EditButton": "Modifikatoren bearbeiten",
+      "AddButton": "Modifikator hinzufügen",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformation",
+          "Description": "Wende eine Transformation auf den Eingabewert an, indem du den angegebenen Ausdruck verwendest.",
+          "Expression": "Ausdruck"
+        },
+        "Substring": {
+          "Label": "Teil-String",
+          "Description": "Extrahiere einen Teilstring aus dem Eingabewert unter Verwendung der angegebenen Start- und Endposition.",
+          "From": "von",
+          "To": "bis",
+          "Start": "Startposition",
+          "End": "Endposition",
+          "Summary": "von <badge>{{start}}</badge> bis <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Padding",
+          "Description": "Passe das Padding des Eingabewerts unter Verwendung der angegebenen Länge, des Zeichens und der Richtung an.",
+          "Length": "Länge",
+          "Character": "Zeichen",
+          "Direction": "Richtung",
+          "Summary": "Länge:<badge>{{length}}</badge> Zeichen:<badge><kbd>{{character}}</kbd></badge> Richtung:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolation",
+          "Description": "Definiere Zuordnungen zwischen Eingabe- und Ausgabewerten. Werte außerhalb des Bereichs werden begrenzt.",
+          "From": "Von",
+          "To": "Bis",
+          "Action": "Aktion",
+          "Mappings": "Zuordnungen",
+          "Add": "Zuordnung hinzufügen",
+          "Remove": "Zuordnung entfernen",
+          "Summary": "Mappe <badge>{{count}}</badge> Werte, Bereich von <badge>{{min}}</badge> bis <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Vergleich",
+          "Description": "Vergleiche den aktuellen Wert mit einem anderen Wert und passe die Ausgabe an, wenn er übereinstimmt oder nicht.",
+          "IfCurrentValue": "Wenn aktueller Wert",
+          "Operator": "Operator",
+          "Value": "Wert",
+          "Then": "Dann",
+          "Else": "Sonst",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Blink",
+          "Description": "Wechselt den ursprünglichen Eingabewert mit dem Aus-Wert unter Verwendung der untenstehenden Sequenz.",
+          "AlternateValue": "Alternativer Wert (Aus)",
+          "BlinkSequence": "Blinksequenz",
+          "On": "Ein (in ms)",
+          "Off": "Aus (in ms)",
+          "Action": "Aktion",
+          "Add": "Blinkintervall hinzufügen",
+          "Remove": "Blinkintervall entfernen",
+          "Summary": "Wert <badge>{{blinkValue}}</badge> Sequenz <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "Keiner",
+        "More": "+ {{count}} mehr"
+      },
+      "Editor": {
+        "Title": "Modifikatoren bearbeiten",
+        "Description": "Modifikatoren hinzufügen, konfigurieren, neu anordnen und entfernen, um den ursprünglichen Eingabewert zu ändern.",
+        "AddModifier": "Modifikator hinzufügen",
+        "NoModifiers": "Keine Modifikatoren definiert.",
+        "DeleteModifier": "Modifikator entfernen",
+        "MoveUp": "Modifikator nach oben verschieben",
+        "MoveDown": "Modifikator nach unten verschieben"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Eingabekonfiguration bearbeiten",
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",
-      "GoBack": "Zurück",
-      "DrawerTitle": "Vorbedingungen",
+      "DrawerTitle": "Einstellungen",
       "ConfigTrigger": {
         "Title": "Auslöser",
         "Description": "Der Auslöser definiert die Bedingungen oder Ereignisse, die diese Konfiguration aktivieren.",
         "ScanForInput": "Eingabe suchen",
-        "UseAnyInput": "Beliebige Eingabe verwenden",
+        "UseAnyInput": "Warte auf Eingabe",
         "ClearInput": "Eingabe löschen",
         "SelectController": "Controller auswählen...",
         "SearchController": "Controller suchen...",
@@ -402,6 +498,8 @@
         "NoDeviceFound": "Kein Gerät gefunden."
       },
       "Action": {
+        "Title": "Aktionen",
+        "Description": "Definiere die Aktionen für die verschiedenen Ereignisse.",
         "Copy": "Aktion kopieren",
         "Paste": "Aktion einfügen"
       },
@@ -409,39 +507,122 @@
         "Title": "Aktionstyp",
         "Description": "Wähle den Typ der Aktion aus, die du ausführen möchtest",
         "Options": {
-          "MSFS2020CustomInputAction": "Microsoft Flight Simulator (alle Versionen)",
-          "XplaneInputAction": "X-Plane (alle Versionen)",
-          "ProSimInputAction": "ProSim",
-          "VariableInputAction": "MobiFlight - Variable",
-          "RetriggerInputAction": "MobiFlight - Schalter erneut auslösen",
-          "KeyInputAction": "MobiFlight - Tastatureingabe",
-          "VJoyInputAction": "MobiFlight - Virtueller Joystick (vJoy)",
-          "FsuipcOffsetInputAction": "FSUIPC - Offset",
-          "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
-          "LuaMacroInputAction": "FSUIPC - Lua-Makro",
-          "JeehellInputAction": "FSUIPC - Jeehell - Events",
-          "EventIdInputAction": "FSUIPC - EventID"
+          "MSFS2020CustomInputAction": {
+            "label": "Microsoft Flight Simulator (alle Versionen)",
+            "short": "MSFS"
+          },
+          "XplaneInputAction": {
+            "label": "X-Plane (alle Versionen)",
+            "short": "X-Plane"
+          },
+          "ProSimInputAction": {
+            "label": "ProSim",
+            "short": "ProSim"
+          },
+          "VariableInputAction": {
+            "label": "MobiFlight - Variable",
+            "short": "Variable"
+          },
+          "RetriggerInputAction": {
+            "label": "MobiFlight - Schalter erneut auslösen",
+            "short": "Schalter erneut auslösen"
+          },
+          "KeyInputAction": {
+            "label": "MobiFlight - Tastatureingabe",
+            "short": "Tastatureingabe"
+          },
+          "VJoyInputAction": {
+            "label": "MobiFlight - Virtueller Joystick (vJoy)",
+            "short": "vJoy"
+          },
+          "FsuipcOffsetInputAction": {
+            "label": "FSUIPC - Offset",
+            "short": "Offset"
+          },
+          "PmdgEventIdInputAction": {
+            "label": "FSUIPC - PMDG - Event ID",
+            "short": "PMDG Event ID"
+          },
+          "LuaMacroInputAction": {
+            "label": "FSUIPC - Lua-Makro",
+            "short": "Lua-Makro"
+          },
+          "JeehellInputAction": {
+            "label": "FSUIPC - Jeehell - Events",
+            "short": "Jeehell Events"
+          },
+          "EventIdInputAction": {
+            "label": "FSUIPC - EventID",
+            "short": "EventID"
+          }
         }
       },
-      "Button": {
-        "Tabs": {
-          "onPress": "Bei Drücken",
-          "onRelease": "Bei Loslassen",
-          "onHold": "Bei Halten",
-          "onLongRelease": "Bei langem Loslassen"
+      "Event": {
+        "Edit": "{{eventLabel}} Aktion bearbeiten",
+        "Remove": "{{eventLabel}} Aktion entfernen"
+      },
+      "button": {
+        "Event": {
+          "onPress": {
+            "label": "Bei Drücken",
+            "description": "Die Aktion wird ausgeführt, wenn die Taste gedrückt wird."
+          },
+          "onRelease": {
+            "label": "Bei Loslassen",
+            "description": "Die Aktion wird ausgeführt, wenn die Taste losgelassen wird."
+          },
+          "onHold": {
+            "label": "Bei Halten",
+            "description": "Die Aktion wird wiederholt ausgeführt, solange die Taste gehalten wird.",
+            "options": {
+              "holdDelay": {
+                "label": "Verzögerung (ms)",
+                "description": "Die Dauer in Millisekunden, die die Taste gedrückt gehalten werden muss, bevor die Aktion ausgelöst wird."
+              },
+              "repeatDelay": {
+                "label": "Verzögerung für Wiederholungen (ms)",
+                "description": "Das Intervall in Millisekunden, in dem die Aktion erneut ausgelöst wird, solange die Taste gedrückt gehalten wird. Auf 0 setzen, um die Wiederholung zu deaktivieren."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "Bei langem Loslassen",
+            "description": "Die Aktion wird ausgeführt, wenn die Taste nach einem langen Drücken losgelassen wird.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Verzögerung für langes Loslassen (ms)",
+                "description": "Die Dauer in Millisekunden, die die Taste gedrückt gehalten werden muss, bevor ein Loslassen diese Aktion auslöst."
+              }
+            }
+          }
         }
       },
-      "Encoder": {
-        "Tabs": {
-          "onLeft": "Nach links",
-          "onRight": "Nach rechts",
-          "onLeftFast": "Schnell links",
-          "onRightFast": "Schnell rechts"
+      "encoder": {
+        "Event": {
+          "onLeft": {
+            "label": "Nach links",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder nach links gedreht wird."
+          },
+          "onRight": {
+            "label": "Nach rechts",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder nach rechts gedreht wird."
+          },
+          "onLeftFast": {
+            "label": "Schnell links",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder schnell nach links gedreht wird."
+          },
+          "onRightFast": {
+            "label": "Schnell rechts",
+            "description": "Die Aktion wird ausgeführt, wenn der Encoder schnell nach rechts gedreht wird."
+          }
         }
       },
-      "Analog": {
-        "Tabs": {
-          "onChange": "Bei Änderung"
+      "analog": {
+        "Event": {
+          "onChange": {
+            "label": "Bei Änderung",
+            "description": "Die Aktion wird ausgeführt, wenn sich der Wert der Eingabe ändert."
+          }
         }
       },
       "Preconditions": {
@@ -496,29 +677,37 @@
           "SelectPreset": "Preset auswählen",
           "SearchPresets": "Presets suchen...",
           "PresetsFound": "{{count}} Preset(s) gefunden",
-          "SupportedPlaceholders": "Unterstützt Eingabewert (@) und Platzhalter ($, #, etc.)"
+          "SupportedPlaceholders": "Unterstützt Eingabewert (@) und Platzhalter ($, #, etc.)",
+          "PresetLabel": "Preset",
+          "ActionLabel": "Aktion"
         },
         "Msfs": {
-          "NoneCode": "Keiner"
+          "NoneCode": "Keiner",
+          "CodePlaceholder": "RPN-Code eingeben",
+          "CustomPreset": "Eigenes Preset"
         },
         "Xplane": {
-          "InputTypeLabel": "Eingabetyp:",
+          "InputTypeLabel": "Eingabetyp",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",
-          "PathLabel": "Pfad:",
+          "PathLabel": "Pfad",
           "PathPlaceholder": "Pfad für DataRef oder Befehl eingeben, oder oben ein Preset auswählen",
           "PathDescription": "Hinweis: Verwende die Indexnotation, um auf Arrays zuzugreifen, z. B. sim/cockpit2/annunciators/fuel_pressure_low[0] für das 1. Triebwerk.",
-          "ValueLabel": "Wert:",
-          "ValuePlaceholder": "Wert eingeben"
+          "ValueLabel": "Wert",
+          "ValuePlaceholder": "Wert eingeben",
+          "CustomPreset": "Eigenes Preset"
         },
         "ProSim": {
           "Title": "ProSim-Eingabeaktion",
           "Description": "Wähle ein Preset, um deine Eingabeaktionen zu konfigurieren.",
-          "PathLabel": "Pfad:",
+          "PathLabel": "Pfad",
           "NoPresetSelected": "Kein Preset ausgewählt",
-          "ParameterLabel": "Parameter (optional):",
-          "ParameterPlaceholder": "Parameter setzen (optional)"
+          "ParameterLabel": "Parameter (optional)",
+          "ParameterPlaceholder": "Parameter setzen (optional)",
+          "ParameterNone": "Kein Parameter"
         },
         "VJoy": {
+          "Controller": "Controller",
+          "Device": "Gerät",
           "SelectDeviceLabel": "vJoy-Gerät auswählen",
           "SelectDevicePlaceholder": "vJoy-Gerät auswählen...",
           "ButtonTab": "Taste",
@@ -529,27 +718,32 @@
           "Pressed": "Gedrückt",
           "Released": "Losgelassen",
           "SelectAxisPlaceholder": "Achse auswählen...",
-          "AxisValueLabel": "Achsenwert"
+          "AxisValueLabel": "Achsenwert",
+          "ControllerLabel": "vJoy Joystick {{index}}",
+          "None": "Keiner"
         },
         "Keyboard": {
           "StopScanning": "Suche stoppen",
           "ScanForKeyboard": "Tastatur suchen",
-          "KeyComboLabel": "Tastenkombination:",
+          "KeyComboLabel": "Tastenkombination",
           "None": "Keine",
           "ClearInput": "Eingabe löschen"
         },
         "FsuipcOffset": {
+          "TypeLabel": "Typ",
           "SizeLabel": "Größe",
           "OffsetLabel": "Offset",
           "MaskLabel": "Maske",
-          "BcdModeLabel": "BCD-Modus"
+          "BcdModeLabel": "BCD-Modus",
+          "ValueLabel": "Wert",
+          "ValuePlaceholder": "Wert eingeben"
         },
         "LuaMacro": {
           "Title": "Lua-Makro-Eingabeaktion",
           "Description": "Rufe dein Lua-Makro mit einem optionalen Parameter auf. Erfordert ein vorhandenes Lua-Makro in FSUIPC.",
-          "MacroNameLabel": "Makroname:",
+          "MacroNameLabel": "Makroname",
           "MacroNamePlaceholder": "Makronamen setzen",
-          "MacroValueLabel": "Makrowert:",
+          "MacroValueLabel": "Makrowert",
           "MacroValuePlaceholder": "Makrowert setzen"
         },
         "Jeehell": {
@@ -566,6 +760,8 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
+          "Summary": "Sync Eingabegeräte mit dem Simulator.",
+          "NoteLabel": "Bemerkung",
           "Description1": "Verwende diese Eingabeaktion, um alle Tastenstatus erneut auszulösen.",
           "Description2": "Dies ist hilfreich, um dein virtuelles Cockpit mit den Schalter- und Tastenstatus deiner physischen Controller zu synchronisieren."
         },
@@ -624,6 +820,13 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Warte auf Log-Einträge",
-    "LoggingDisabled": "Logging ist deaktiviert. Aktivieren Sie das Logging in den Einstellungen."
+    "Filter": {
+      "Placeholder": "Log-Einträge filtern...",
+      "NoResults": "Keine Einträge entsprechen dem Filter.",
+      "Clear": "Filter löschen"
+    },
+    "Resume": "Scrolling fortsetzen",
+    "Pause": "Scrolling pausieren",
+    "Close": "Log-Panel schließen"
   }
 }

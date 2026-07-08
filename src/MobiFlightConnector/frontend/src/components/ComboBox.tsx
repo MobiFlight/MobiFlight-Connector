@@ -62,14 +62,14 @@ const ComboBox = <T,>({
     : placeholder
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
         <Button
           size="sm"
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn(widthClass, "justify-between")}
+          className={cn("justify-between h-8", widthClass)}
           disabled={disabled}
           {...props}
         >

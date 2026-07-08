@@ -577,6 +577,87 @@ namespace MobiFlight.Execution.Tests
 
         #endregion
 
+        #region Hold Timer Cleanup on Skip
+
+        private static System.Timers.Timer GetHoldTimer(ButtonInputConfig button)
+        {
+            return (System.Timers.Timer)typeof(ButtonInputConfig)
+                .GetField("HoldTimer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(button);
+        }
+
+        [TestMethod]
+        public void Execute_ConfigDeactivatedWhileButtonHeld_StopsHoldTimer()
+        {
+            var serial = "SN-deact001";
+            var deviceName = "Button1";
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "DeactivatedConfig",
+                button = new ButtonInputConfig
+                {
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
+                    HoldDelay = 10000
+                }
+            };
+            _configItems.Add(configItem);
+
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: true), isStarted: true);
+
+            var holdTimer = GetHoldTimer(configItem.button);
+            Assert.IsTrue(holdTimer.Enabled, "Timer should be running after press.");
+
+            configItem.Active = false;
+
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: false), isStarted: true);
+
+            Assert.IsFalse(holdTimer.Enabled, "Timer should be stopped when the config is deactivated.");
+        }
+
+        [TestMethod]
+        public void Execute_PreconditionFailsWhileButtonHeld_StopsHoldTimer()
+        {
+            var serial = "SN-precond001";
+            var deviceName = "Button1";
+
+            _configItems[0].Value = "ExpectedValue";
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "PreconditionConfig",
+                button = new ButtonInputConfig
+                {
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p2" },
+                    HoldDelay = 10000
+                },
+                Preconditions = new PreconditionList
+                {
+                    new Precondition { Type = "config", Active = true, Ref = _configItems[0].GUID, Value = "ExpectedValue" }
+                }
+            };
+            _configItems.Add(configItem);
+
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: true), isStarted: true);
+
+            var holdTimer = GetHoldTimer(configItem.button);
+            Assert.IsTrue(holdTimer.Enabled, "Timer should be running after press with precondition satisfied.");
+
+            _configItems[0].Value = "DifferentValue";
+
+            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: false), isStarted: true);
+
+            Assert.IsFalse(holdTimer.Enabled, "Timer should be stopped when the precondition is not satisfied.");
+        }
+
+        #endregion
+
         #region Edge Cases - Stale Configs With Correct DeviceType
 
         [TestMethod]

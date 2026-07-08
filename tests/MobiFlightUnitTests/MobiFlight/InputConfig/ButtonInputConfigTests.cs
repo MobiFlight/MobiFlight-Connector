@@ -198,6 +198,33 @@ namespace MobiFlight.InputConfig.Tests
         }
 
         [TestMethod()]
+        public void StopTimers_WithNoOnHold_DoesNotThrow()
+        {
+            ButtonInputConfig o = new ButtonInputConfig();
+            o.onPress = new EventIdInputAction() { EventId = 12345 };
+            o.StopTimers();
+        }
+
+        [TestMethod()]
+        public void StopTimers_WithRunningHoldTimer_StopsTimer()
+        {
+            ButtonInputConfig o = new ButtonInputConfig();
+            o.onHold = new XplaneInputAction() { Expression = "", InputType = "Command", Path = "sim/test" };
+
+            var holdTimer = typeof(ButtonInputConfig)
+                .GetField("HoldTimer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(o) as System.Timers.Timer;
+
+            holdTimer.Interval = 10000;
+            holdTimer.Start();
+            Assert.IsTrue(holdTimer.Enabled, "HoldTimer should be running before StopTimers()");
+
+            o.StopTimers();
+
+            Assert.IsFalse(holdTimer.Enabled, "HoldTimer should be stopped after StopTimers()");
+        }
+
+        [TestMethod()]
         public void JsonSerializationTest()
         {
             var serializerSettings = new JsonSerializerSettings

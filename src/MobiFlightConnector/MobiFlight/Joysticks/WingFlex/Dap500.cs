@@ -1,7 +1,6 @@
 ﻿using HidSharp;
 using HidSharp.Reports.Input;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace MobiFlight.Joysticks.WingFlex
@@ -123,7 +122,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// Update is called by the base class
         /// It is currently needed to ensure that the hid device is correctly initialized.
         /// </summary>
-        public override async void Update()
+        public override void Update()
         {
             // Octavi is not a DirectInput device
             // so we have to connect it here.

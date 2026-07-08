@@ -19,7 +19,7 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreNotSame(o, c, "Objects are the same");
             Assert.AreEqual((o.onLeft as FsuipcOffsetInputAction).FSUIPC.Offset, (c.onLeft as FsuipcOffsetInputAction).FSUIPC.Offset, "onLeft are not cloned correctly");
-            Assert.AreEqual((o.onLeftFast as KeyInputAction).Key, (c.onLeftFast as KeyInputAction).Key, "onLeftFast are not cloned correctly");
+            Assert.AreEqual((o.onLeftFast as KeyInputAction).Code, (c.onLeftFast as KeyInputAction).Code, "onLeftFast are not cloned correctly");
             Assert.AreEqual((o.onRight as EventIdInputAction).EventId, (c.onRight as EventIdInputAction).EventId, "onRight are not cloned correctly");
             Assert.AreEqual((o.onRightFast as VJoyInputAction).sendValue, (c.onRightFast as VJoyInputAction).sendValue, "onRightFast are not cloned correctly");
         }
@@ -76,7 +76,7 @@ namespace MobiFlight.InputConfig.Tests
         {
             EncoderInputConfig result = new EncoderInputConfig();
             result.onLeft = new FsuipcOffsetInputAction() { FSUIPC = new OutputConfig.FsuipcOffset() { Offset = 0x1234 } };
-            result.onLeftFast = new KeyInputAction() { Alt = true, Control = true, Key = System.Windows.Forms.Keys.A, Shift = true };
+            result.onLeftFast = new KeyInputAction() { Alt = true, Control = true, Code = System.Windows.Forms.Keys.A.ToString(), Shift = true };
             result.onRight = new EventIdInputAction() { EventId = 123456, Param = "1" };
             result.onRightFast = new VJoyInputAction() { axisString = "Z", buttonComand = true, buttonNr = 1, sendValue = "sendValue", vJoyID = 1 };
 

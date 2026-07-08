@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Joysticks.WingFlex;
 using System;
 
-namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
+namespace MobiFlight.Joysticks.WingFlex.Tests
 {
     [TestClass]
     public class Dap500ReportTests
@@ -16,7 +15,6 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
         }
 
         #region Parse Tests
-
         [TestMethod]
         public void Parse_ValidInputBuffer_ReturnsNewReportInstance()
         {
@@ -63,11 +61,33 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
         }
         #endregion
 
+        #region Dap Input Report Tests
+        [TestMethod]
+        public void DapInputReport_SensorValueReportedCorrectly()
+        {
+            // Arrange
+            var inputBuffer = CreateValidInputBuffer();
+            inputBuffer[4] = 128;
+
+            // Act
+            var result = _report.Parse(inputBuffer).ToJoystickState();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(128, result.X);
+
+            // Verify with another value to make sure
+            // we are looking at the correct byte in the buffer
+            inputBuffer[4] = 15;
+            result = _report.Parse(inputBuffer).ToJoystickState();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(15, result.X);
+        }
+        #endregion
+
         #region DapConfig Tests
         [TestMethod]
         public void DapConfig_HasCorrectDefaultValues()
         {
-            // Act
+            // Arrange
             var config = new DapConfig();
             // Assert
             Assert.IsNotNull(config);
@@ -79,10 +99,13 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
         [TestMethod]
         public void DapConfig_ToData_ReturnsExpectedValue_ForDefaultValues()
         {
-            // Act
+            // Arrange
             var config = new DapConfig();
+            
+            // Act
             var byteData = config.ToData;
             var expectedReportId = (byte)4;
+            
             // Assert
             Assert.IsNotNull(config);
             Assert.AreEqual(expectedReportId, DapConfig.ReportId);
@@ -98,14 +121,16 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
         [TestMethod]
         public void DapConfig_ToData_ReturnsExpectedValue_ForAutoBackLightEnabled()
         {
-            // Act
+            // Arrange
             var config = new DapConfig()
             {
                 AutoBackLightEnabled = true
             };
 
+            // Act
             var byteData = config.ToData;
             var expectedReportId = (byte)4;
+            
             // Assert
             Assert.IsNotNull(config);
             Assert.AreEqual(expectedReportId, DapConfig.ReportId);
@@ -121,14 +146,16 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
         [TestMethod]
         public void DapConfig_ToData_ReturnsExpectedValue_ForLightSensorEnabled()
         {
-            // Act
+            // Arrange
             var config = new DapConfig()
             {
                 LightSensorEnabled = true
             };
 
+            // Act
             var byteData = config.ToData;
             var expectedReportId = (byte)4;
+            
             // Assert
             Assert.IsNotNull(config);
             Assert.AreEqual(expectedReportId, DapConfig.ReportId);
@@ -144,13 +171,15 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
         [TestMethod]
         public void DapConfig_ToData_ReturnsExpectedValue_ForAutoStandByTimeout()
         {
-            // Act
+            // Arrange
             var config = new DapConfig()
             {
                 AutoStandByTimeout = ushort.MaxValue
             };
 
+            // Act
             var byteData = config.ToData;
+            
             // Assert
             Assert.IsNotNull(config);
             Assert.AreEqual(DapConfig.ReportId, byteData[0]);
@@ -159,9 +188,12 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks.WingFlex
             Assert.AreEqual(0xFF, byteData[3]);
             Assert.AreEqual(0xFF, byteData[4]);
 
+            // Arange
             config.AutoStandByTimeout = 511;
 
+            // Act
             byteData = config.ToData;
+            
             // Assert
             Assert.IsNotNull(config);
             Assert.AreEqual(DapConfig.ReportId, byteData[0]);

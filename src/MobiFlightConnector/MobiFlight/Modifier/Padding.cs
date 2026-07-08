@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -6,7 +8,8 @@ namespace MobiFlight.Modifier
 {
     public class Padding : ModifierBase
     {
-        public enum PaddingDirection { Left, Right, Centered }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum PaddingDirection { Left, Right }
         public char Character { get; set; } = ' ';
         public int Length { get; set; } = 5;
         public PaddingDirection Direction { get; set; } = PaddingDirection.Left;
@@ -24,7 +27,7 @@ namespace MobiFlight.Modifier
                     Direction = direction;
                 }
             }
-            
+
             if (reader["length"] != null)
                 Length = int.Parse(reader["length"]);
 
@@ -35,10 +38,10 @@ namespace MobiFlight.Modifier
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("padding");
-                writer.WriteAttributeString("active", Active.ToString());
-                writer.WriteAttributeString("direction", Direction.ToString());
-                writer.WriteAttributeString("length", Length.ToString());
-                writer.WriteAttributeString("character", Character.ToString());
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("direction", Direction.ToString());
+            writer.WriteAttributeString("length", Length.ToString());
+            writer.WriteAttributeString("character", Character.ToString());
             writer.WriteEndElement();
         }
 
@@ -62,6 +65,16 @@ namespace MobiFlight.Modifier
                 Direction == other.Direction &&
                 Length == other.Length &&
                 Character == other.Character;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+            hash = hash * 23 + Active.GetHashCode();
+            hash = hash * 23 + Direction.GetHashCode();
+            hash = hash * 23 + Length.GetHashCode();
+            hash = hash * 23 + Character.GetHashCode();
+            return hash;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
@@ -100,7 +113,10 @@ namespace MobiFlight.Modifier
         {
             if (value.Length > Length)
             {
-                value = value.Substring(0, Length);
+                if (Direction == PaddingDirection.Left)
+                    value = value.Substring(value.Length - Length, Length);
+                else 
+                    value = value.Substring(0, Length);
             }
 
             switch (Direction)
@@ -110,7 +126,7 @@ namespace MobiFlight.Modifier
                     break;
 
                 case PaddingDirection.Right:
-                    value =  (value.PadRight(Length, Character));
+                    value = (value.PadRight(Length, Character));
                     break;
             }
 

@@ -226,7 +226,7 @@
                         "onPress": {
                             "Alt": true,
                             "Control": true,
-                            "Key": 68,
+                            "Code": "KeyD",
                             "Shift": true,
                             "Type": "KeyInputAction"
                         },
@@ -466,8 +466,8 @@
                         "onHold": null,
                         "onLongRelease": null,
                         "onPress": {
-                            "Expression": "",
-                            "Path": "",
+                            "Expression": "$",
+                            "Path": "prosim.test.path",
                             "Type": "ProSimInputAction"
                         },
                         "onRelease": null

@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import { KeyInputAction } from "@/types/config"
 import { IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export type KeyboardInputActionPanelProps = {
+  variant: "summary" | "details"
   config: KeyInputAction | null
   onConfigChange: (config: KeyInputAction) => void
 }
@@ -14,17 +17,56 @@ const emptyConfig: KeyInputAction = {
   Control: false,
   Alt: false,
   Shift: false,
-  Key: 0,
+  Code: "",
+}
+
+const skipRenderKeys = [
+  "ControlLeft", "ControlRight", 
+  "ShiftLeft", "ShiftRight", 
+  "AltLeft", "AltRight"]
+
+
+const KeyboardShortCut = ({ keys }: { keys: KeyInputAction }) => {
+  const { t } = useTranslation()
+  console.log("KeyboardShortCut keys:", keys)
+  return (
+    <KbdGroup>
+      {keys?.Control && (
+        <>
+          <Kbd>Ctrl</Kbd>
+          <span> + </span>
+        </>
+      )}
+      {keys?.Alt && (
+        <>
+          <Kbd>Alt</Kbd>
+          <span> + </span>
+        </>
+      )}
+      {keys?.Shift && (
+        <>
+          <Kbd>Shift</Kbd>
+          <span> + </span>
+        </>
+      )}
+      {keys?.Code && keys?.Code !== "" && !skipRenderKeys.includes(keys?.Code) ? (
+        <Kbd>{keys?.Code?.replace("Key", "")}</Kbd>
+      ) : (
+        <span className="text-sm">{t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}</span>
+      )}
+    </KbdGroup>
+  )
 }
 
 const KeyboardInputActionPanel = ({
+  variant,
   config,
   onConfigChange,
 }: KeyboardInputActionPanelProps) => {
   const { t } = useTranslation()
   const [isScanning, setIsScanning] = useState(false)
   const [scannedKeys, setScannedKeys] = useState<KeyInputAction>(
-    config?.Key !== undefined ? config : emptyConfig,
+    config?.Code !== undefined ? config : emptyConfig,
   )
 
   const handleScanForInput = () => {
@@ -46,21 +88,20 @@ const KeyboardInputActionPanel = ({
         setIsScanning(false)
         return
       }
-      const scannedKey = event.key
-      const keyCode = event.keyCode
+      const scannedKey = event.code
       const key =
         scannedKey === "Control" ||
         scannedKey === "Shift" ||
         scannedKey === "Alt"
-          ? 0
-          : keyCode
+          ? ""
+          : scannedKey
 
       const newConfig: KeyInputAction = {
         Type: "KeyInputAction",
         Control: event.ctrlKey,
         Alt: event.altKey,
         Shift: event.shiftKey,
-        Key: key
+        Code: key,
       }
       setScannedKeys(newConfig)
     }
@@ -70,15 +111,29 @@ const KeyboardInputActionPanel = ({
     event.stopPropagation()
     event.preventDefault()
 
-    if (isScanning) {
-      setScannedKeys({
-        Type: "KeyInputAction",
-        Control: event.ctrlKey,
-        Alt: event.altKey,
-        Shift: event.shiftKey,
-        Key: 0,
-      })
-    }
+    if (!isScanning) return
+
+    onConfigChange(scannedKeys)
+    setIsScanning(false)
+  }
+
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center justify-between gap-8">
+        <div className="flex flex-row items-center gap-2">
+          <div className="text-sm font-medium">
+            <Label htmlFor="preset">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel",
+              )}
+            </Label>
+            <div className="text-sm">
+              <KeyboardShortCut keys={config ?? emptyConfig} />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -90,17 +145,18 @@ const KeyboardInputActionPanel = ({
     >
       <div className="flex flex-row gap-4">
         <Button onClick={handleScanForInput} size={"sm"}>
-          {isScanning ? t("Dialog.InputConfigWizard.InputActions.Keyboard.StopScanning") : t("Dialog.InputConfigWizard.InputActions.Keyboard.ScanForKeyboard")}
+          {isScanning
+            ? t("Dialog.InputConfigWizard.InputActions.Keyboard.StopScanning")
+            : t(
+                "Dialog.InputConfigWizard.InputActions.Keyboard.ScanForKeyboard",
+              )}
         </Button>
         <div className="flex flex-row items-center gap-2">
-          <div className="text-sm font-medium">{t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}</div>
+          <div className="text-sm font-medium">
+            {t("Dialog.InputConfigWizard.InputActions.Keyboard.KeyComboLabel")}
+          </div>
           <div className="text-sm">
-            {scannedKeys?.Control && "Ctrl + "}
-            {scannedKeys?.Alt && "Alt + "}
-            {scannedKeys?.Shift && "Shift + "}
-            {scannedKeys?.Key !== 0
-              ? String.fromCharCode(scannedKeys.Key).toUpperCase()
-              : t("Dialog.InputConfigWizard.InputActions.Keyboard.None")}
+            <KeyboardShortCut keys={scannedKeys} />
           </div>
         </div>
         <Button

@@ -1,4 +1,5 @@
-import { ActionTypeOption } from "@/components/wizard/components/ActionTypeComboBox";
+import { ActionTypeOption } from "@/components/wizard/components/ActionTypeComboBox"
+import { Preset } from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 
 export const ActionTypeOptions: ActionTypeOption[] = [
   {
@@ -52,12 +53,25 @@ export const parsePresets = (content: string) => {
   const lines = content.split("\n")
   return lines
     .map((line) => {
-      const [name, eventId, description] = line.split(":").map((part) => part.trim())
+      const [name, eventId, description] = line
+        .split(":")
+        .map((part) => part.trim())
       const isGroup = eventId === "GROUP"
       if (name && eventId && !isGroup) {
         return { name, eventId: eventId.toString(), description }
       }
       return null
     })
-    .filter((item): item is { name: string; eventId: string; description: string } => item !== null)
+    .filter(
+      (item): item is { name: string; eventId: string; description: string } =>
+        item !== null,
+    )
+}
+
+export const fetchHubHopPresets = async (sim: "msfs" | "xplane") => {
+  const presetFile =
+    sim === "msfs"
+      ? "/presets/msfs2020_hubhop_presets.json"
+      : "/presets/xplane_hubhop_presets.json"
+  return fetch(presetFile).then((r) => r.json() as Promise<Preset[]>)
 }

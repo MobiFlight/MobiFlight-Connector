@@ -108,13 +108,13 @@ export const InlineEditLabel = forwardRef<
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
         onDoubleClick={(e) => e.stopPropagation()}
+        data-prevent-modal-close-on-escape="true"
       />
     ) : (
       <span
         role="button"
         onDoubleClick={(e) => handleDoubleClick(e)}
         onKeyDown={handleKeyDown}
-        tabIndex={0}
         className={cn(
           `cursor-pointer px-2 font-semibold`,
           `ring-offset-background focus-visible:ring-ring focus-visible:ring-offset-muted focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden`,

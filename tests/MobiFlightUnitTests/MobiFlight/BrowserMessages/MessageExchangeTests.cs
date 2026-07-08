@@ -1,4 +1,5 @@
 ﻿using MobiFlight.BrowserMessages;
+using MobiFlight.BrowserMessages.Incoming;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
@@ -159,6 +160,26 @@ namespace MobiFlight.BrowserMessages.Tests
             capturedCallback(messageJson);
 
             Assert.IsTrue(newSubscriberInvoked, "New subscriber should work after clearing subscriptions");
+        }
+
+        [TestMethod()]
+        public void SubscribeTest_CommandRefreshPresets_DeserializesEnumMemberPayloadToProSim()
+        {
+            // Arrange
+            var messageJson = "{\"key\":\"CommandRefreshPresets\",\"payload\":{\"type\":\"prosim\"}}";
+            var receivedMessage = default(CommandRefreshPresets);
+
+            messageExchange.Subscribe<CommandRefreshPresets>(message =>
+            {
+                receivedMessage = message;
+            });
+
+            // Act
+            capturedCallback(messageJson);
+
+            // Assert
+            Assert.IsNotNull(receivedMessage, "The refresh command payload should deserialize successfully.");
+            Assert.AreEqual(PresetType.PROSIM, receivedMessage.type, "The EnumMember value 'prosim' should deserialize to PresetType.PROSIM.");
         }
     }
 

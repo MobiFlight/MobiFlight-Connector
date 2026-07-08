@@ -130,14 +130,14 @@
       <HintPath>..\..\packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Moq, Version=4.20.72.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Moq.4.20.72\lib\net462\Moq.dll</HintPath>
@@ -230,6 +230,7 @@
     <Compile Include="Base\Deprecated\DeprecatedConfigFileTests.cs" />
     <Compile Include="Base\ExtensionsTests.cs" />
     <Compile Include="Base\InputEventExecutorTests.cs" />
+    <Compile Include="Base\LogAppender\MessageExchangeAppenderTests.cs" />
     <Compile Include="Base\LRUCacheTests.cs" />
     <Compile Include="Base\Migration\V0_10_InputConfigItemDeviceMigrationTests.cs" />
     <Compile Include="Base\Migration\Output_0_9_MigrationTests.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Base\ProjectTests.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverterTests.cs" />
     <Compile Include="Base\SerialNumberTests.cs" />
+    <Compile Include="Base\SettingsTest.cs" />
     <Compile Include="Base\SourceFactoryTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandProjectToolbarHandlerTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntryTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\CompositePublisherTests.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerAutoBinderTests.cs" />
     <Compile Include="MobiFlight\Controllers\ControllerBindingServiceTests.cs" />
@@ -259,6 +262,9 @@
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoardTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500ReportTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\EfisCubeReportTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\OvhdCubeReportTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\RmpCubeReportTests.cs" />
     <Compile Include="MobiFlight\Modifier\ExponentialAverageTests.cs" />
     <Compile Include="MobiFlight\InputEventArgsTests.cs" />
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReportTests.cs" />
@@ -296,6 +302,7 @@
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ProSimInputActionTests.cs" />
+    <Compile Include="MobiFlight\Modifier\PaddingTests.cs" />
     <Compile Include="MobiFlight\Modifier\QuantizeTests.cs" />
     <Compile Include="MobiFlight\Modifier\SimpleMovingAverageTest.cs" />
     <Compile Include="MobiFlight\Scripts\PythonEnvironmentTests.cs" />
@@ -821,7 +828,7 @@ xcopy /R /Y "$(SolutionDir)\lib\x86\SimConnect.dll" "$(TargetDir)"</PreBuildEven
     <Error Condition="!Exists('..\..\packages\Microsoft.Testing.Extensions.Telemetry.2.1.0\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Testing.Extensions.Telemetry.2.1.0\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Testing.Platform.MSBuild.2.1.0\build\Microsoft.Testing.Platform.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Testing.Platform.MSBuild.2.1.0\build\Microsoft.Testing.Platform.MSBuild.props'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Testing.Platform.MSBuild.2.1.0\build\Microsoft.Testing.Platform.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Testing.Platform.MSBuild.2.1.0\build\Microsoft.Testing.Platform.MSBuild.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="..\..\packages\MSTest.TestFramework.4.0.2\build\net462\MSTest.TestFramework.targets" Condition="Exists('..\..\packages\MSTest.TestFramework.4.0.2\build\net462\MSTest.TestFramework.targets')" />
   <Import Project="..\..\packages\MSTest.TestAdapter.4.0.2\build\net462\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.4.0.2\build\net462\MSTest.TestAdapter.targets')" />
@@ -834,5 +841,5 @@ xcopy /R /Y "$(SolutionDir)\lib\x86\SimConnect.dll" "$(TargetDir)"</PreBuildEven
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets')" />
 </Project>

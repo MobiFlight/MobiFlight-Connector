@@ -1,0 +1,302 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "EFIS Cube",
+  "VendorId": "0xA516",
+  "ProductId": "0xC987",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Master Warning"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Master Caution"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Chrono"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Stick Priority"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "FD"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "LS"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "CSTR"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "WPT"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "VOR.D"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "NDB"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "ARPT"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "inHG"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "hPA"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "Rotary LS"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "Rotary VOR"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Rotary NAV"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "Rotary ARC"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "Rotary PLAN"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "Rotary 10"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "Rotary 20"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Rotary 40"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Rotary 80"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "Rotary 160"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "Rotary 320"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "ADF1"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "OFF1"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "VOR1"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "ADF2"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "OFF2"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "VOR2"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "BARO Push"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "BARO Pull"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "BARO Left"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "BARO Right"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Master Warning",
+      "Id": "MASTER.WARN.signal",
+      "Byte": 6,
+      "Bit": 0
+    },
+    {
+      "Label": "Master Caution",
+      "Id": "MASTER.CAUTION.signal",
+      "Byte": 6,
+      "Bit": 1
+    },
+    {
+      "Label": "CAPT Arrow",
+      "Id": "CAPT.ARROW.signal",
+      "Byte": 6,
+      "Bit": 2
+    },
+    {
+      "Label": "CAPT",
+      "Id": "CAPT.signal",
+      "Byte": 6,
+      "Bit": 3
+    },
+    {
+      "Label": "FD Light",
+      "Id": "FD.signal",
+      "Byte": 6,
+      "Bit": 4
+    },
+    {
+      "Label": "LS Light",
+      "Id": "LS.signal",
+      "Byte": 6,
+      "Bit": 5
+    },
+    {
+      "Label": "CSTR Light",
+      "Id": "CSTR.signal",
+      "Byte": 6,
+      "Bit": 6
+    },
+    {
+      "Label": "WPT Light",
+      "Id": "WPT.signal",
+      "Byte": 6,
+      "Bit": 7
+    },
+    {
+      "Label": "VOR.D Light",
+      "Id": "VOR.D.signal",
+      "Byte": 7,
+      "Bit": 0
+    },
+    {
+      "Label": "NDB Light",
+      "Id": "NDB.signal",
+      "Byte": 7,
+      "Bit": 1
+    },
+    {
+      "Label": "ARPT Light",
+      "Id": "ARPT.signal",
+      "Byte": 7,
+      "Bit": 2
+    },
+    {
+      "Label": "Light Control Mode",
+      "Id": "light.control.mode",
+      "Byte": 7,
+      "Bit": 3
+    },
+    {
+      "Label": "LCD QFE Tag",
+      "Id": "LCD.qfe_tag",
+      "Byte": 7,
+      "Bit": 4
+    },
+    {
+      "Label": "LCD QNH Tag",
+      "Id": "LCD.qnh_tag",
+      "Byte": 7,
+      "Bit": 5
+    },
+    {
+      "Label": "LCD Dot",
+      "Id": "LCD.dot",
+      "Byte": 7,
+      "Bit": 6
+    },
+    {
+      "Label": "LCD STD Mode",
+      "Id": "LCD.std_mode",
+      "Byte": 7,
+      "Bit": 7
+    },
+    {
+      "Label": "Power",
+      "Id": "power",
+      "Byte": 8,
+      "Bit": 0
+    },
+    {
+      "Label": "Panel Brightness",
+      "Id": "brightness.panel",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "Display Brightness",
+      "Id": "brightness.display",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
+      "Label": "inHG-hPa Display",
+      "Id": "BARO.value",
+      "Type": "LcdDisplay",
+      "Byte": 15,
+      "Cols": 4,
+      "Lines": 1
+    }
+  ]
+}

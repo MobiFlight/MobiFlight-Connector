@@ -33,15 +33,14 @@
   "Info": {
     "CanInstallFirmware": true,
     "CanResetBoard": true,
-    "DelayAfterFirmwareUpdate": 0,
     "FirmwareBaseName": "mobiflight_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.5.1",
+    "LatestFirmwareVersion": "3.1.1",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "Community": {
-      "Project": "MobiFlight Mega",
+      "Project": "MobiFlight",
       "Website": "https://mobiflight.com/links/connector/info/website/mega.html",
       "Docs": "https://mobiflight.com/links/connector/info/docs/mega.html",
       "Support": "https://mobiflight.com/discord"

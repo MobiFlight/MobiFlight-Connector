@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.InputConfig;
+using MobiFlight.UI.Panels.Action;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -79,16 +80,8 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new Panels.Config.FsuipcConfigPanel();
                     (panel as Panels.Config.FsuipcConfigPanel).setMode(false);
 
-
                     if (_config != null && _config.onChange != null) 
                         (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(_config.onChange as FsuipcOffsetInputAction);
-                    break;
-
-                case InputConfig.KeyInputAction.Label:
-                    panel = new MobiFlight.UI.Panels.Action.KeyboardInputPanel();
-                    if ( _config != null && _config.onChange != null)
-                        (panel as MobiFlight.UI.Panels.Action.KeyboardInputPanel).syncFromConfig(_config.onChange as KeyInputAction);
-
                     break;
 
                 case MobiFlight.InputConfig.EventIdInputAction.Label:
@@ -143,6 +136,7 @@ namespace MobiFlight.UI.Panels.Input
                 // For backward compatibility this is now combined and MSFS2020EventIdInputAction was removed
                 case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel();
+                    (panel as MSFS2020CustomInputPanel).LoadPresets(ProjectInfo);
                     if (_config != null && _config.onChange != null)
                     {
                         if (_config.onChange is MSFS2020EventIdInputAction)
@@ -197,10 +191,6 @@ namespace MobiFlight.UI.Panels.Input
                 {
                     case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Config.FsuipcConfigPanel).ToConfig();
-                        break;
-
-                    case InputConfig.KeyInputAction.Label:
-                        config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.KeyboardInputPanel).ToConfig();
                         break;
 
                     case MobiFlight.InputConfig.EventIdInputAction.Label:

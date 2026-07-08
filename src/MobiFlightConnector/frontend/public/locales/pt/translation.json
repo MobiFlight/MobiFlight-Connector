@@ -24,7 +24,8 @@
       "SearchPlaceholder": "Pesquisar..."
     },
     "Copy": "Copiar",
-    "Paste": "Colar"
+    "Paste": "Colar",
+    "NewFeature": "Novo"
   },
   "MainMenu": {
     "File": {
@@ -187,7 +188,26 @@
       },
       "Aircraft": {
         "Label": "Aeronave",
-        "HelpText": "Selecione a aeronave para este projeto."
+        "HelpText": "Selecione a aeronave para este projeto.",
+        "Description": "Selecione uma ou várias aeronaves que deseja usar para este projeto. As configurações predefinidas serão limitadas às aeronaves selecionadas.",
+        "Dialog": {
+          "Title": "Configuração de Aeronaves",
+          "Description": "Selecione uma ou várias aeronaves que deseja usar para este projeto.",
+          "SelectedAircraft": {
+            "Title": "Aeronaves Selecionadas",
+            "Count": "{{count}} selecionadas",
+            "None": "Nenhuma aeronave selecionada. Nenhum filtro será aplicado. Todas as configurações estarão disponíveis."
+          },
+          "AvailableAircraft": {
+            "Title": "Aeronaves Disponíveis",
+            "Count": "{{count}} disponíveis",
+            "None": "Nenhuma aeronave disponível."
+          },
+          "SearchPlaceholder": "Buscar aeronaves...",
+          "NoAircraftFound": "Nenhuma aeronave adicional disponível."
+        },
+        "EditList": "Editar lista de aeronaves",
+        "NotSupported": "A seleção de aeronaves não existe para este simulador."
       },
       "Buttons": {
         "Create": "Criar projeto",
@@ -353,6 +373,7 @@
   },
   "Dialog": {
     "General": {
+      "GoBack": "Voltar",
       "Cancel": "Cancelar",
       "Close": "Fechar",
       "Save": "Salvar",
@@ -377,16 +398,91 @@
       "SearchController": "Pesquisar controlador...",
       "NoControllerFound": "Nenhum controlador encontrado."
     },
+    "Modifiers": {
+      "Title": "Modificadores",
+      "Description": "Altere o valor original aplicando uma sequência de modificadores.",
+      "EditButton": "Editar modificadores",
+      "AddButton": "Adicionar modificador",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformação",
+          "Description": "Aplique uma transformação ao valor de entrada usando a expressão especificada.",
+          "Expression": "Expressão"
+        },
+        "Substring": {
+          "Label": "Subcadeia",
+          "Description": "Extraia uma subcadeia do valor de entrada usando a posição inicial e final especificada.",
+          "From": "de",
+          "To": "até",
+          "Start": "Posição inicial",
+          "End": "Posição final",
+          "Summary": "de <badge>{{start}}</badge> até <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Preenchimento",
+          "Description": "Ajuste o preenchimento do valor de entrada usando o comprimento, caractere e direção especificados.",
+          "Length": "Comprimento",
+          "Character": "Caractere",
+          "Direction": "Direção",
+          "Summary": "Comprimento:<badge>{{length}}</badge> Caractere:<badge><kbd>{{character}}</kbd></badge> Direção:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolação",
+          "Description": "Defina mapeamentos entre valores de entrada e saída. Valores fora do intervalo são limitados.",
+          "From": "De",
+          "To": "Até",
+          "Action": "Ação",
+          "Mappings": "Mapeamentos",
+          "Add": "Adicionar mapeamento",
+          "Remove": "Remover mapeamento",
+          "Summary": "Mapeia <badge>{{count}}</badge> valores, intervalo de <badge>{{min}}</badge> a <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Comparação",
+          "Description": "Compare o valor atual com outro valor e ajuste a saída se corresponder ou não.",
+          "IfCurrentValue": "Se o valor atual",
+          "Operator": "Operador",
+          "Value": "Valor",
+          "Then": "Então",
+          "Else": "Caso contrário",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Piscar",
+          "Description": "Alterna o valor de entrada original com o valor Desligado usando a sequência abaixo.",
+          "AlternateValue": "Valor alternativo (Desligado)",
+          "BlinkSequence": "Sequência de piscar",
+          "On": "Ligado (em ms)",
+          "Off": "Desligado (em ms)",
+          "Action": "Ação",
+          "Add": "Adicionar intervalo de piscar",
+          "Remove": "Remover intervalo de piscar",
+          "Summary": "Valor <badge>{{blinkValue}}</badge> Sequência <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "Nenhum",
+        "More": "+ {{count}} mais"
+      },
+      "Editor": {
+        "Title": "Editar modificadores",
+        "Description": "Adicione, configure, reorganize e remova modificadores para alterar o valor de entrada original.",
+        "AddModifier": "Adicionar modificador",
+        "NoModifiers": "Nenhum modificador definido.",
+        "DeleteModifier": "Remover modificador",
+        "MoveUp": "Mover modificador para cima",
+        "MoveDown": "Mover modificador para baixo"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Editar configuração de entrada",
       "Description": "Edite todas as configurações para esta configuração de entrada neste diálogo.",
-      "GoBack": "Voltar",
-      "DrawerTitle": "Pré-condições",
+      "DrawerTitle": "Configurações",
       "ConfigTrigger": {
         "Title": "Gatilho",
         "Description": "O gatilho define as condições ou eventos que ativarão esta configuração.",
         "ScanForInput": "Procurar entrada",
-        "UseAnyInput": "Usar qualquer entrada",
+        "UseAnyInput": "Usar entrada",
         "ClearInput": "Limpar entrada",
         "SelectController": "Selecionar controlador...",
         "SearchController": "Pesquisar controlador...",
@@ -396,6 +492,8 @@
         "NoDeviceFound": "Nenhum dispositivo encontrado."
       },
       "Action": {
+        "Title": "Ações",
+        "Description": "Defina as ações para cada evento.",
         "Copy": "Copiar ação",
         "Paste": "Colar ação"
       },
@@ -403,39 +501,122 @@
         "Title": "Tipo de ação",
         "Description": "Selecione o tipo de ação que deseja executarr",
         "Options": {
-          "MSFS2020CustomInputAction": "Microsoft Flight Simulator (todas as versões)",
-          "XplaneInputAction": "X-Plane (todas as versões)",
-          "ProSimInputAction": "ProSim",
-          "VariableInputAction": "MobiFlight - Variável",
-          "RetriggerInputAction": "MobiFlight - Retrigger switches",
-          "KeyInputAction": "MobiFlight - Entrada de teclado",
-          "VJoyInputAction": "MobiFlight - Entrada de joystick virtual (vJoy)",
-          "FsuipcOffsetInputAction": "FSUIPC - Offset",
-          "PmdgEventIdInputAction": "FSUIPC - PMDG - Event ID",
-          "LuaMacroInputAction": "FSUIPC - Lua Macro",
-          "JeehellInputAction": "FSUIPC - Jeehell - Events",
-          "EventIdInputAction": "FSUIPC - EventID"
+          "MSFS2020CustomInputAction": {
+            "label": "Microsoft Flight Simulator (todas as versões)",
+            "short": "MSFS"
+          },
+          "XplaneInputAction": {
+            "label": "X-Plane (todas as versões)",
+            "short": "X-Plane"
+          },
+          "ProSimInputAction": {
+            "label": "ProSim",
+            "short": "ProSim"
+          },
+          "VariableInputAction": {
+            "label": "MobiFlight - Variável",
+            "short": "Variável"
+          },
+          "RetriggerInputAction": {
+            "label": "MobiFlight - Retrigger switches",
+            "short": "Retrigger"
+          },
+          "KeyInputAction": {
+            "label": "MobiFlight - Entrada de teclado",
+            "short": "Teclado"
+          },
+          "VJoyInputAction": {
+            "label": "MobiFlight - Entrada de joystick virtual (vJoy)",
+            "short": "vJoy"
+          },
+          "FsuipcOffsetInputAction": {
+            "label": "FSUIPC - Offset",
+            "short": "Offset"
+          },
+          "PmdgEventIdInputAction": {
+            "label": "FSUIPC - PMDG - Event ID",
+            "short": "PMDG Event ID"
+          },
+          "LuaMacroInputAction": {
+            "label": "FSUIPC - Lua Macro",
+            "short": "Lua Macro"
+          },
+          "JeehellInputAction": {
+            "label": "FSUIPC - Jeehell - Events",
+            "short": "Jeehell Events"
+          },
+          "EventIdInputAction": {
+            "label": "FSUIPC - EventID",
+            "short": "EventID"
+          }
         }
       },
-      "Button": {
-        "Tabs": {
-          "onPress": "Ao pressionar",
-          "onRelease": "Ao soltar",
-          "onHold": "Ao segurar",
-          "onLongRelease": "Ao soltar por muito tempo"
+      "Event": {
+        "Edit": "Editar ação {{eventLabel}}",
+        "Remove": "Remover ação {{eventLabel}}"
+      },
+      "button": {
+        "Event": {
+          "onPress": {
+            "label": "Ao pressionar",
+            "description": "A ação será executada quando o botão for pressionado."
+          },
+          "onRelease": {
+            "label": "Ao soltar",
+            "description": "A ação será executada quando o botão for solto."
+          },
+          "onHold": {
+            "label": "Ao segurar",
+            "description": "A ação será executada repetidamente enquanto o botão estiver pressionado.",
+            "options": {
+              "holdDelay": {
+                "label": "Atraso de pressão (ms)",
+                "description": "A duração em milissegundos que o botão deve ser mantido pressionado antes que a ação seja ativada."
+              },
+              "repeatDelay": {
+                "label": "Intervalo de repetição (ms)",
+                "description": "O intervalo em milissegundos no qual a ação será reativada enquanto o botão estiver pressionado. Defina como 0 para desativar a repetição."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "Ao soltar por muito tempo",
+            "description": "A ação será executada quando o botão for solto após ser pressionado por um longo período.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "Atraso de liberação longa (ms)",
+                "description": "A duração em milissegundos que o botão deve ser mantido pressionado antes que a liberação acione esta ação."
+              }
+            }
+          }
         }
       },
-      "Encoder": {
-        "Tabs": {
-          "onLeft": "Para a esquerda",
-          "onRight": "Para a direita",
-          "onLeftFast": "Rapidamente para a esquerda",
-          "onRightFast": "Rapidamente para a direita"
+      "encoder": {
+        "Event": {
+          "onLeft": {
+            "label": "Para a esquerda",
+            "description": "A ação será executada quando o encoder for girado para a esquerda."
+          },
+          "onRight": {
+            "label": "Para a direita",
+            "description": "A ação será executada quando o encoder for girado para a direita."
+          },
+          "onLeftFast": {
+            "label": "Rapidamente para a esquerda",
+            "description": "A ação será executada quando o encoder for girado rapidamente para a esquerda."
+          },
+          "onRightFast": {
+            "label": "Rapidamente para a direita",
+            "description": "A ação será executada quando o encoder for girado rapidamente para a direita."
+          }
         }
       },
-      "Analog": {
-        "Tabs": {
-          "onChange": "Ao mudar"
+      "analog": {
+        "Event": {
+          "onChange": {
+            "label": "Ao mudar",
+            "description": "A ação será executada quando o valor da entrada mudar."
+          }
         }
       },
       "Preconditions": {
@@ -490,29 +671,37 @@
           "SelectPreset": "Selecionar predefinição",
           "SearchPresets": "Pesquisar predefinições...",
           "PresetsFound": "{{count}} predefinição(ões) encontrada(s)",
-          "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)"
+          "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)",
+          "PresetLabel": "Preset",
+          "ActionLabel": "Ação"
         },
         "Msfs": {
-          "NoneCode": "Nenhum"
+          "NoneCode": "Nenhum",
+          "CodePlaceholder": "Digite o código RPN",
+          "CustomPreset": "Predefinição personalizada"
         },
         "Xplane": {
-          "InputTypeLabel": "Tipo de Entrada:",
+          "InputTypeLabel": "Tipo de Entrada",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
-          "PathLabel": "Caminho:",
+          "PathLabel": "Caminho",
           "PathPlaceholder": "Digite o caminho para DataRef ou Comando, ou selecione uma predefinição acima",
           "PathDescription": "Dica: Use a notação de índice para acessar Arrays, por exemplo, sim/cockpit2/annunciators/fuel_pressure_low[0] para o 1º motor.",
-          "ValueLabel": "Valor:",
-          "ValuePlaceholder": "Digite o valor"
+          "ValueLabel": "Valor",
+          "ValuePlaceholder": "Digite o valor",
+          "CustomPreset": "Predefinição personalizada"
         },
         "ProSim": {
           "Title": "Ação de Entrada ProSim",
           "Description": "Selecione uma predefinição para configurar suas ações de entrada.",
-          "PathLabel": "Caminho:",
+          "PathLabel": "Caminho",
           "NoPresetSelected": "Nenhuma predefinição selecionada",
-          "ParameterLabel": "Parâmetro (opcional):",
-          "ParameterPlaceholder": "Definir parâmetro (opcional)"
+          "ParameterLabel": "Parâmetro (opcional)",
+          "ParameterPlaceholder": "Definir parâmetro (opcional)",
+          "ParameterNone": "Nenhum"
         },
         "VJoy": {
+          "Controller": "Controlador",
+          "Device": "Dispositivo",
           "SelectDeviceLabel": "Selecionar dispositivo vJoy",
           "SelectDevicePlaceholder": "Selecionar dispositivo vJoy...",
           "ButtonTab": "Botão",
@@ -523,27 +712,32 @@
           "Pressed": "Pressionado",
           "Released": "Liberado",
           "SelectAxisPlaceholder": "Selecionar eixo...",
-          "AxisValueLabel": "Valor do eixo"
+          "AxisValueLabel": "Valor do eixo",
+          "ControllerLabel": "vJoy Joystick {{index}}",
+          "None": "Nenhum"
         },
         "Keyboard": {
           "StopScanning": "Parar de escanear",
           "ScanForKeyboard": "Escanear teclado...",
-          "KeyComboLabel": "Combinação de teclas:",
+          "KeyComboLabel": "Combinação de teclas",
           "None": "Nenhum",
           "ClearInput": "Limpar entrada"
         },
         "FsuipcOffset": {
+          "TypeLabel": "Tipo",
           "SizeLabel": "Tamanho",
           "OffsetLabel": "Deslocamento",
           "MaskLabel": "Máscara",
-          "BcdModeLabel": "Modo BCD"
+          "BcdModeLabel": "Modo BCD",
+          "ValueLabel": "Valor",
+          "ValuePlaceholder": "Digite o valor"
         },
         "LuaMacro": {
           "Title": "Ação de Entrada Lua Macro",
-          "Description": "Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.",
-          "MacroNameLabel": "Nome da Macro:",
+          "Description": "Chame sua macro Lua com um parâmetro opcional. Requer uma macro Lua existente no FSUIPC.",
+          "MacroNameLabel": "Nome da Macro",
           "MacroNamePlaceholder": "Definir nome da macro",
-          "MacroValueLabel": "Valor da Macro:",
+          "MacroValueLabel": "Valor da Macro",
           "MacroValuePlaceholder": "Definir valor da macro"
         },
         "Jeehell": {
@@ -560,6 +754,8 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
+          "Summary": "Sincronizar dispositivos de entrada.",
+          "NoteLabel": "Nota",
           "Description1": "Use esta ação de entrada para reativar todos os estados dos botões.",
           "Description2": "Isso é útil para sincronizar seu cockpit virtual com os estados dos interruptores e botões de seus controladores físicos."
         },
@@ -618,6 +814,13 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Aguardando entradas de log",
-    "LoggingDisabled": "O registro está desativado. Ative o registro nas Configurações para ver os logs aqui."
+    "Filter": {
+      "Placeholder": "Filtrar entradas de log...",
+      "NoResults": "Nenhuma entrada correspondente ao filtro.",
+      "Clear": "Limpar filtros"
+    },
+    "Resume": "Retomar deslocamento",
+    "Pause": "Pausar deslocamento",
+    "Close": "Fechar painel de log"
   }
 }

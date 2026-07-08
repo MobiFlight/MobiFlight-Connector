@@ -72,7 +72,6 @@ namespace MobiFlight.UI.Panels.Input
 
             UpdateActionPanelCallbacks();
 
-
             Clipboard.Instance.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
                 if (e.PropertyName != "InputAction") return;
@@ -219,18 +218,6 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onRightFast as FsuipcOffsetInputAction);
                     break;
 
-                case InputConfig.KeyInputAction.Label:
-                    panel = new KeyboardInputPanel();
-                    if (isLeft && !isFast && config != null && config.onLeft != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(config.onLeft as KeyInputAction);
-                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(config.onLeftFast as KeyInputAction);
-                    else if (!isLeft && !isFast && config != null && config.onRight != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(config.onRight as KeyInputAction);
-                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(config.onRightFast as KeyInputAction);
-                    break;
-
                 case MobiFlight.InputConfig.EventIdInputAction.Label:
                     panel = new EventIdInputPanel();
                     if (isLeft && !isFast && config != null && config.onLeft != null)
@@ -308,6 +295,7 @@ namespace MobiFlight.UI.Panels.Input
                 // For backward compatibility this is now combined and MSFS2020EventIdInputAction was removed
                 case MSFS2020CustomInputAction.Label:
                     panel = new MSFS2020CustomInputPanel();
+                    (panel as MSFS2020CustomInputPanel).LoadPresets(ProjectInfo);
                     if (isLeft && !isFast && config != null && config.onLeft != null)
                     {
                         if (config.onLeft is MSFS2020CustomInputAction)
@@ -411,9 +399,6 @@ namespace MobiFlight.UI.Panels.Input
                     case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
-                    case InputConfig.KeyInputAction.Label:
-                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
-                        break;
                     case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
@@ -457,9 +442,6 @@ namespace MobiFlight.UI.Panels.Input
                 {
                     case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
-                        break;
-                    case InputConfig.KeyInputAction.Label:
-                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
                     case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
@@ -510,9 +492,6 @@ namespace MobiFlight.UI.Panels.Input
                     case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
-                    case InputConfig.KeyInputAction.Label:
-                        config.onRight = (onRightActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
-                        break;
                     case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
@@ -556,9 +535,6 @@ namespace MobiFlight.UI.Panels.Input
                 {
                     case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
-                        break;
-                    case InputConfig.KeyInputAction.Label:
-                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
                     case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();

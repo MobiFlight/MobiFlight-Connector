@@ -5,12 +5,24 @@ import { MobiFlightVariable } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
+import { useEffect } from "react"
+import { Badge } from "@/components/ui/badge"
+import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 export type VariablePanelProps = {
+  variant: "summary" | "details"
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
 }
 
+const defaultVariable = {
+  TYPE: "number",
+  Name: "New Variable",
+  Text: "",
+  Expression: "$",
+} as MobiFlightVariable
+
 export const VariablePanel = ({
+  variant,
   currentVariable,
   onVariableChange,
 }: VariablePanelProps) => {
@@ -20,17 +32,47 @@ export const VariablePanel = ({
     { value: "string", label: "String" },
   ]
   const { variables } = useVariableStore()
+  useEffect(() => {
+    if (!currentVariable) {
+      onVariableChange(defaultVariable)
+    }
+  }, [onVariableChange, currentVariable])
 
-  const variable =
-    currentVariable ??
-    ({
-      TYPE: "number",
-      Name: "New Variable",
-      Text: "",
-      Expression: "$",
-    } as MobiFlightVariable)
+  if (!currentVariable) {
+    return null
+  }
 
+  const variable = currentVariable
   const availableVariables = variables ?? []
+
+  if (variant === "summary") {
+    return (
+      <div className="flex grow flex-row items-center gap-8">
+        <div className="flex w-1/3 flex-col gap-1">
+          <Label htmlFor="variable">
+            {t(
+              "Dialog.InputConfigWizard.InputActions.Variable.VariableNameLabel",
+            )}
+          </Label>
+          <div className="flex flex-row items-center gap-2">
+            <span className="text-sm">{variable.Name}</span>
+            <Badge variant="outline">{variable.TYPE}</Badge>
+          </div>
+        </div>
+        <div className="flex grow flex-col gap-1">
+          <Label htmlFor="code">
+            {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+          </Label>
+          <CodeValueLabel id="code">
+            {variable.Expression ??
+              t(
+                "Dialog.InputConfigWizard.InputActions.Variable.NoneExpression",
+              )}
+          </CodeValueLabel>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -42,7 +84,9 @@ export const VariablePanel = ({
         getLabel={(item) => `${item.Name} (${item.TYPE})`}
         getValue={(item) => item.Name}
         selected={variable ?? undefined}
-        isSelected={(item) => item.Name === variable?.Name && item.TYPE === variable?.TYPE}
+        isSelected={(item) =>
+          item.Name === variable?.Name && item.TYPE === variable?.TYPE
+        }
         setSelected={(item) => {
           if (item) {
             onVariableChange(item)
@@ -106,6 +150,7 @@ export const VariablePanel = ({
               )}
             </Label>
             <Input
+              className="font-mono text-sm whitespace-nowrap"
               value={variable.Expression}
               onKeyDown={(e) => {
                 e.stopPropagation()

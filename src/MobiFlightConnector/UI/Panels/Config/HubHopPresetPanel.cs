@@ -117,12 +117,10 @@ namespace MobiFlight.UI.Panels.Config
                 OnLVarsSet?.Invoke(lVars, new EventArgs());
             }
         }
-        
 
         public HubHopPresetPanel()
         {
             InitializeComponent();
-
 
             PresetList = Msfs2020HubhopPresetListSingleton.Instance;
 
@@ -166,8 +164,9 @@ namespace MobiFlight.UI.Panels.Config
             FilteredPresetList.Clear();
         }
 
-        public void LoadPresets()
+        public void LoadPresets(ProjectInfo projectInfo)
         {
+            PresetList.ProjectInfo = projectInfo;
             _loadPresets();
         }
 

@@ -20,9 +20,15 @@
     "FirmwareBaseName": "mobiflight_raspberrypico",
     "FirmwareExtension": "uf2",
     "FriendlyName": "Raspberry Pico",
-    "LatestFirmwareVersion": "2.5.1",
+    "LatestFirmwareVersion": "3.1.1",
     "MobiFlightType": "MobiFlight RaspiPico",
-    "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2"
+    "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
+    "Community": {
+      "Project": "MobiFlight",
+      "Website": "https://mobiflight.com",
+      "Docs": "https://docs.mobiflight.com/boards/recommended/raspberry-pi-pico/",
+      "Support": "https://mobiflight.com/discord"
+    }
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 3,

@@ -91,8 +91,26 @@
       background-color: transparent;
     }
   }
-}
+  @keyframes collapsible-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+  @keyframes collapsible-up {
+    from {
+      height: var(--radix-collapsible-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
 
+  --animate-collapsible-down: collapsible-down 0.2s ease-out;
+  --animate-collapsible-up: collapsible-up 0.2s ease-out;
+}
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -232,8 +250,11 @@
   }
 
   .inset-shadow-l-sm {
-    --tw-inset-shadow: inset 0 0 2px var(--tw-inset-shadow-color, rgb(0 0 0 / 0.05));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-inset-shadow: inset 0 0 2px
+      var(--tw-inset-shadow-color, rgb(0 0 0 / 0.05));
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow),
+      var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     clip-path: inset(0px 0px 0px 2px);
   }
 }
@@ -242,3 +263,9 @@
 @custom-variant vsm (@media (min-height: 650px));
 @custom-variant vlg (@media (min-height: 900px));
 @custom-variant vxl (@media (min-height: 1200px));
+
+@layer components {
+  .text-code {
+    @apply font-mono text-sm tracking-widest whitespace-pre-wrap;
+  }
+}

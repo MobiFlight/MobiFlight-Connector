@@ -27,11 +27,11 @@
     "FirmwareBaseName": "mobiflight_micro",
     "FirmwareExtension": "hex",
     "FriendlyName": "Arduino Pro Micro",
-    "LatestFirmwareVersion": "2.5.1",
+    "LatestFirmwareVersion": "3.1.1",
     "MobiFlightType": "MobiFlight Micro",
     "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex",
     "Community": {
-      "Project": "MobiFlight Pro Micro",
+      "Project": "MobiFlight",
       "Website": "https://mobiflight.com/links/connector/info/website/micro.html",
       "Docs": "https://mobiflight.com/links/connector/info/docs/micro.html",
       "Support": "https://mobiflight.com/discord"

@@ -95,17 +95,31 @@ export class ConfigListPage {
     itemType: ConfigItemType,
     configIndex: number = 0,
     variant: "default" | "inputaction" = "default",
+    configItemProps: Partial<IConfigItem> = {},
   ) {
     const testdataProject =
       variant === "default" ? testProject : inputActionTestProject
     const configItems = testdataProject.ConfigFiles[configIndex].ConfigItems
-    const templateItem = configItems.find((i) => i.Type === itemType)
+    const templateInputConfig = {
+      Active: true,
+      Controller: {},
+      Device: {},
+      GUID: "b2c3d4e5-f6a7-8901-bcde-f12345678902",
+      Name: "Empty Input Config Item",
+      Type: "InputConfigItem",
+    }
+    const templateItem = itemType === "InputConfigItem" ? templateInputConfig : configItems.find((i) => i.Type === itemType)
     if (!templateItem)
       throw new Error(`No test data found for item type ${itemType}`)
 
-    const newItem = { ...templateItem }
-    newItem.GUID = crypto.randomUUID()
-    newItem.Name = `New ${itemType} (created from test)`
+    const newItem = { 
+      ...templateItem,
+      ...{
+        GUID:  crypto.randomUUID(),
+        Name: `New ${itemType} (created from test)`,
+      },
+      ...configItemProps,
+    }
 
     const newTestData = [...configItems, newItem]
 

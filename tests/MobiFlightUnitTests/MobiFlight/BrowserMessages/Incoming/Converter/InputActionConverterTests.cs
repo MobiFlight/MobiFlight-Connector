@@ -55,7 +55,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
             }
             else if (action is KeyInputAction keyAction)
             {
-                keyAction.Key = System.Windows.Forms.Keys.V;
+                keyAction.Code = System.Windows.Forms.Keys.V.ToString();
             }
             else if (action is LuaMacroInputAction luaAction)
             {

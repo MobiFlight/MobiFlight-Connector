@@ -11,8 +11,7 @@ namespace MobiFlight.Modifier
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
         public string BlinkValue { get; set; } = "0";
         public List<int> OnOffSequence { get; set; } = new List<int>();
-        public int OffDurationInMs { get; set; } = 500;
-        public long FirstExecutionTime { get; set; } = 0;
+        private long FirstExecutionTime { get; set; } = 0;
 
         public override void ReadXml(XmlReader reader)
         {
@@ -46,8 +45,6 @@ namespace MobiFlight.Modifier
             var Clone = new Blink();
             Clone.Active = Active;
             Clone.BlinkValue = BlinkValue;
-            Clone.OffDurationInMs = OffDurationInMs;
-            Clone.FirstExecutionTime = FirstExecutionTime;
             Clone.OnOffSequence = OnOffSequence.ToArray().ToList();
             return Clone;
         }
@@ -61,8 +58,6 @@ namespace MobiFlight.Modifier
             return
                 Active == other.Active &&
                 BlinkValue.AreEqual(other.BlinkValue) &&
-                OffDurationInMs == other.OffDurationInMs &&
-                FirstExecutionTime == other.FirstExecutionTime &&
                 OnOffSequence.SequenceEqual(other.OnOffSequence);
         }
 

@@ -2,6 +2,9 @@ import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { fetchHubHopPresets } from "@/lib/configWizard"
+import { useProjectStore } from "@/stores/projectStore"
+import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
@@ -21,7 +24,7 @@ export type Preset = {
   updatedBy?: string
   reported?: number
   score?: number
-  presetType: "input" | "output" | "potentiometer"
+  presetType: "Input" | "Output" | "Input (Potentiometer)"
 }
 
 export type MsfsPresetPanelProps = {
@@ -36,23 +39,32 @@ const MsfsPresetPanel = ({
   setSelectedPreset,
 }: MsfsPresetPanelProps) => {
   const { t } = useTranslation()
+  const { project } = useProjectStore()
+
   const validPresetTypes =
-    variant === "input" ? ["input", "potentiometer"] : ["output"]
-  // In MsfsPresetPanel (or a dedicated hook)
+    variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
+
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
-    queryFn: () =>
-      fetch("/presets/msfs2020_hubhop_presets.json")
-        .then((r) => r.json())
-        .then((presets) =>
-          presets.filter((p: Preset) =>
-            validPresetTypes.includes(p.presetType.toLowerCase()),
-          ),
-        ) as Promise<Preset[]>,
-    staleTime: Infinity, // presets don't change at runtime; HubHopState drives invalidation
+    queryFn: () => fetchHubHopPresets("msfs"),
+    // presets don't change at runtime; HubHopState drives invalidation
+    staleTime: Infinity,
   })
 
-  const selectedPreset = presets.find((p) => p.id === selectedPresetId)
+  const projectAircraftFilter = (p: Preset) =>
+    (project?.Aircraft?.length ?? 0) > 0
+      ? project!.Aircraft!.some(
+          (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
+        )
+      : true
+
+  const validPresets = presets.filter(
+    (p: Preset) =>
+      validPresetTypes.includes(p.presetType.toLowerCase()) &&
+      projectAircraftFilter(p),
+  )
+
+  const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
 
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
@@ -61,7 +73,7 @@ const MsfsPresetPanel = ({
     search: "",
   })
 
-  const filteredPresets = presets.filter(
+  const filteredPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&

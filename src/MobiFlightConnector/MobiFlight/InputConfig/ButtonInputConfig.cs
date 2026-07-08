@@ -2,7 +2,7 @@
 using System.Timers;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MobiFlight.Base;
+using Newtonsoft.Json;
 
 namespace MobiFlight.InputConfig
 {
@@ -24,6 +24,13 @@ namespace MobiFlight.InputConfig
 
         private Timer HoldTimer = new Timer();
         private Timer RepeatTimer = new Timer();
+
+        // Func<bool> rather than bool so the check is deferred — the closure captures cfg
+        // and CheckPreconditions, evaluating current state on each timer fire rather than
+        // at press time.
+        [XmlIgnore]
+        [JsonIgnore]
+        public Func<bool> CanExecute { get; set; }
 
         public ButtonInputConfig()
         {
@@ -188,6 +195,7 @@ namespace MobiFlight.InputConfig
 
         private void ExecuteOnHoldAction()
         {
+            if (CanExecute != null && !CanExecute()) { StopTimers(); return; }
             lock (LastOnPressLock)
             {
                 InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
@@ -199,7 +207,14 @@ namespace MobiFlight.InputConfig
 
         private void RepeatTimer_Elapsed(object sender, EventArgs e)
         {
-            ExecuteOnHoldAction();
+            try
+            {
+                ExecuteOnHoldAction();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error executing onHold action: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         private void ExecuteRepeatOnHold()
@@ -213,9 +228,19 @@ namespace MobiFlight.InputConfig
 
         private void HoldTimer_Elapsed(object sender, EventArgs e)
         {
-            ExecuteOnHoldAction();
-            HoldTimer.Stop();
-            ExecuteRepeatOnHold();
+            try
+            {
+                ExecuteOnHoldAction();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error executing onHold action: {ex.Message}", LogSeverity.Error);
+            }
+            finally
+            {
+                HoldTimer.Stop();
+                ExecuteRepeatOnHold();
+            }
         }
 
         private void ExecuteOnHoldWithTimer()
@@ -238,6 +263,11 @@ namespace MobiFlight.InputConfig
                 HoldTimer.Stop();
             if (RepeatTimer.Enabled)
                 RepeatTimer.Stop();
+        }
+
+        public void StopTimers()
+        {
+            CheckAndStopTimer();
         }
 
         private void CheckAndAdaptForLongButtonRelease(InputEventArgs current, InputEventArgs previous)

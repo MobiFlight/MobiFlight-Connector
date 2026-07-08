@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
-    internal class FcuCubeReport
+    internal class FcuCubeReport : ICubeReport
     {
         // -                Head                         Constant: 0xF2                          -       0       -       0xF2
         // -                Head                         Constant: 0xE1                          -       1       -       0xE1
@@ -33,7 +33,6 @@ namespace MobiFlight.Joysticks.WingFlex
         //                  Data Type                    Double Byte Type                        -       13      -       0
         //                  Data Length                  Following data occupies 8 Bytes         -       14      -       0x08
         private readonly static byte[] OutputByteSection = new byte[] { 0x02, 0x02, 0, 0, 0, 0x08 };
-
 
         private byte[] LastInputBufferState = new byte[64];
         private byte[] LastOutputBufferState = new byte[64];
@@ -66,7 +65,7 @@ namespace MobiFlight.Joysticks.WingFlex
             LastInputBufferState = (byte[])inputBuffer?.Clone();
         }
 
-        public FcuCubeReport Parse(byte[] inputBuffer)
+        public ICubeReport Parse(byte[] inputBuffer)
         {
             var result = new FcuCubeReport();
             result.CopyFromInputBuffer(inputBuffer);

@@ -11,7 +11,7 @@ export type ActionTypeOption = {
 
 export type ActionTypeProps = {
   selectedActionType?: ActionTypeOption
-  setSelectedActionType?: (option: ActionTypeOption | undefined) => void
+  setSelectedActionType?: (option: ActionTypeOption | null) => void
 }
 
 const ActionTypeComboBox = ({
@@ -41,14 +41,14 @@ const ActionTypeComboBox = ({
         items={filteredOptions}
         getLabel={(item) =>
           t(
-            `Dialog.InputConfigWizard.ActionType.Options.${item.value}`,
+            `Dialog.InputConfigWizard.ActionType.Options.${item.value}.label`,
             item.value,
           )
         }
         getValue={(item) => item.value}
         isSelected={(item) => item.value === selectedActionType?.value}
         setSelected={(item) => {
-          setSelectedActionType?.(item || undefined)
+          setSelectedActionType?.(item || null)
         }}
         widthClass="w-100"
       />

@@ -5,6 +5,7 @@ using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JoystickState = MobiFlight.Joysticks.JoystickState;
 
 namespace MobiFlight
 {
@@ -329,7 +330,7 @@ namespace MobiFlight
             {
                 DIJoystick.Poll();
 
-                JoystickState newState = DIJoystick.GetCurrentState();
+                JoystickState newState = JoystickState.Create(DIJoystick.GetCurrentState());
                 lock (StateLock)
                 {
                     UpdateButtons(newState);
@@ -380,12 +381,12 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Controller = new Base.Controller() { Serial = Serial, Name = Name },
-                        Device = new Base.DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
+                        Controller = new Controller() { Serial = Serial, Name = Name },
+                        Device = new DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
                         InputType = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.RELEASE
                     });
-                }
+                }   
                 ;
 
                 if (newValue > -1)
@@ -395,8 +396,8 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Controller = new Base.Controller() { Serial = Serial, Name = Name },
-                        Device = new Base.DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
+                        Controller = new Controller() { Serial = Serial, Name = Name },
+                        Device = new DeviceReference() { Type = POV[index].Type, Name = POV[index].Name, Label = POV[index].Label },
                         InputType = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.PRESS
                     });
@@ -420,8 +421,8 @@ namespace MobiFlight
                 if (!StateExists() || oldValue != newValue)
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
-                        Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial },
-                        Device = new Base.DeviceReference() { Type = Axes[CurrentAxis].Type, Name = Axes[CurrentAxis].Name, Label = Axes[CurrentAxis].Label },
+                        Controller = new Controller() { Name = this.Name, Serial = this.Serial },
+                        Device = new DeviceReference() { Type = Axes[CurrentAxis].Type, Name = Axes[CurrentAxis].Name, Label = Axes[CurrentAxis].Label },
                         InputType = DeviceType.AnalogInput,
                         Value = newValue
                     });
@@ -439,8 +440,8 @@ namespace MobiFlight
                     if (newState.Buttons[i] || (State != null))
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
-                            Controller = new Base.Controller() { Name = this.Name, Serial = this.Serial },
-                            Device = new Base.DeviceReference() { Type = Buttons[i].Type, Name = Buttons[i].Name, Label = Buttons[i].Label },
+                            Controller = new Controller() { Name = this.Name, Serial = this.Serial },
+                            Device = new DeviceReference() { Type = Buttons[i].Type, Name = Buttons[i].Name, Label = Buttons[i].Label },
                             InputType = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1
                         });

@@ -143,14 +143,14 @@
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Midi">
       <HintPath>..\..\lib\Midi.dll</HintPath>
@@ -254,7 +254,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Boards\mobiflight_raspberrypico.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Boards\mobiflight_raspberrypico2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="frontend\dist\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\contrail_fa50_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Winwing\rotate_md80.py">
@@ -286,6 +295,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\AircraftInfo.cs" />
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\CacheInterface.cs" />
     <Compile Include="Base\ConfigFile.cs" />
@@ -314,6 +324,7 @@
     <Compile Include="Base\ProjectListManager.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
     <Compile Include="Base\Serialization\Json\ConfigValueOnlyItemConverter.cs" />
+    <Compile Include="Base\Serialization\Json\KeyInputActionConverter.cs" />
     <Compile Include="Base\Serialization\Json\PreconditionConverter.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
@@ -382,6 +393,7 @@
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\ConfigRefValue.cs" />
     <Compile Include="MobiFlight\DeviceReferenceFactory.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickState.cs" />
     <Compile Include="MobiFlight\Firmware\Compatibility\LedModuleDeprecated.cs" />
     <Compile Include="MobiFlight\Firmware\Compatibility\StepperDeprecatedV2.cs" />
     <Compile Include="MobiFlight\Firmware\IBaseDevice.cs" />
@@ -434,10 +446,18 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\BaseCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\OvhdCube.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\OvhdCubeReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\RmpCubeReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\RmpCube.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\EfisCube.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\EfisCubeReport.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500Report.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\CubeReport.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingBaseController.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingRmp.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3.cs" />
@@ -1100,12 +1120,6 @@
     <Compile Include="UI\Panels\Action\JeehellInputPanel.Designer.cs">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Action\KeyboardInputPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Action\KeyboardInputPanel.Designer.cs">
-      <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\Output\StepperPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1255,6 +1269,9 @@
     <None Include="Boards\raspberrypi_pico.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Boards\raspberrypi_pico2.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniEFIS.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1282,19 +1299,22 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_2_5_1.hex">
+    <None Include="firmware\mobiflight_mega_3_1_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_2_5_1.hex">
+    <None Include="firmware\mobiflight_micro_3_1_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_nano_2_5_1.hex">
+    <None Include="firmware\mobiflight_nano_3_1_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_raspberrypico_2_5_1.uf2">
+    <None Include="firmware\mobiflight_raspberrypico2_3_1_1.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_2_5_1.hex">
+    <None Include="firmware\mobiflight_raspberrypico_3_1_1.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_uno_3_1_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
@@ -1304,6 +1324,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.arduino_uno_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\reset.raspberry_pico2_1_0_2.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
@@ -1473,6 +1496,15 @@
     </None>
     <None Include="Joysticks\wingflex\projects\msfs\WingFlex - MSFS - Generic Plane.mfproj" />
     <None Include="Joysticks\wingflex\wingflex_dap500.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\wingflex\wingflex_efiscube.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\wingflex\wingflex_ovhdcube.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\wingflex\wingflex_rmpcube.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_ecam.joystick.json">
@@ -2011,12 +2043,6 @@
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Action\KeyboardInputPanel.de.resx">
-      <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Action\KeyboardInputPanel.resx">
-      <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\ServoPanel.de.resx">
       <DependentUpon>ServoPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -2325,7 +2351,7 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -2335,5 +2361,5 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets')" />
 </Project>

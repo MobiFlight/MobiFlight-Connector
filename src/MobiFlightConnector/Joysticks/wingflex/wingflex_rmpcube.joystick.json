@@ -1,0 +1,327 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "RMP Cube",
+  "VendorId": "0xA616",
+  "ProductId": "0x5750",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Transfer Key"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "VHF1 Key"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "VHF2 Key"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "VHF3 Key"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "LOAD Key"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "HF1 Key"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "HF2 Key"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "ATC Key"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "NAV Key"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "VOR Key"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "ILS Key"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "GLS Key"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "MLS Key"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "ADF Key"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "IDENT Key"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Power On"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "Power Off"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "ATC MSG Key"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "AUTO LAND Key"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "Transponder - STBY"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Transponder - AUTO"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Transponder - ON"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "TCAS - STBY"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "TCAS - TA"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "TCAS - TA/RA"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "Small Knob - Turn Left"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "Small Knob - Turn Right"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "Big Knob - Turn Left"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "Big Knob - Turn Right"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Transfer Light",
+      "Id": "transfer.led",
+      "Byte": 6,
+      "Bit": 0
+    },
+    {
+      "Label": "VHF1",
+      "Id": "VHF1.led",
+      "Byte": 6,
+      "Bit": 1
+    },
+    {
+      "Label": "VHF2",
+      "Id": "VHF2.led",
+      "Byte": 6,
+      "Bit": 2
+    },
+    {
+      "Label": "VHF3",
+      "Id": "VHF3.led",
+      "Byte": 6,
+      "Bit": 3
+    },
+    {
+      "Label": "LOAD",
+      "Id": "LOAD.led",
+      "Byte": 6,
+      "Bit": 4
+    },
+    {
+      "Label": "HF1",
+      "Id": "HF1.led",
+      "Byte": 6,
+      "Bit": 5
+    },
+    {
+      "Label": "SEL",
+      "Id": "SEL.led",
+      "Byte": 6,
+      "Bit": 6
+    },
+    {
+      "Label": "HF2",
+      "Id": "HF2.led",
+      "Byte": 6,
+      "Bit": 7
+    },
+    {
+      "Label": "ATC",
+      "Id": "ATC.led",
+      "Byte": 7,
+      "Bit": 0
+    },
+    {
+      "Label": "NAV",
+      "Id": "NAV.led",
+      "Byte": 7,
+      "Bit": 1
+    },
+    {
+      "Label": "VOR",
+      "Id": "VOR.led",
+      "Byte": 7,
+      "Bit": 2
+    },
+    {
+      "Label": "ILS",
+      "Id": "ILS.led",
+      "Byte": 7,
+      "Bit": 3
+    },
+    {
+      "Label": "GLS",
+      "Id": "GLS.led",
+      "Byte": 7,
+      "Bit": 4
+    },
+    {
+      "Label": "MLS",
+      "Id": "MLS.led",
+      "Byte": 7,
+      "Bit": 5
+    },
+    {
+      "Label": "ADF",
+      "Id": "ADF.led",
+      "Byte": 7,
+      "Bit": 6
+    },
+    {
+      "Label": "ATC MSG (upper)",
+      "Id": "ATC.upper.led",
+      "Byte": 7,
+      "Bit": 7
+    },
+    {
+      "Label": "AUTO LAND",
+      "Id": "autoland.led",
+      "Byte": 8,
+      "Bit": 0
+    },
+    {
+      "Label": "Left LCD Switch",
+      "Id": "llcd.switch",
+      "Byte": 8,
+      "Bit": 1
+    },
+    {
+      "Label": "Right LCD Switch",
+      "Id": "rlcd.switch",
+      "Byte": 8,
+      "Bit": 2
+    },
+    {
+      "Label": "Left Display - \"C\" Mode",
+      "Id": "lcmode.switch",
+      "Byte": 8,
+      "Bit": 3
+    },
+    {
+      "Label": "Right Display - \"C\" Mode",
+      "Id": "rcmode.switch",
+      "Byte": 8,
+      "Bit": 4
+    },
+    {
+      "Label": "Left Display - \"DATA\" Mode",
+      "Id": "ldatamode.switch",
+      "Byte": 8,
+      "Bit": 5
+    },
+    {
+      "Label": "Right Display - \"DATA\" Mode",
+      "Id": "rdatamode.switch",
+      "Byte": 8,
+      "Bit": 6
+    },
+    {
+      "Label": "ATC MSG (lower)",
+      "Id": "ATC.lower.led",
+      "Byte": 8,
+      "Bit": 7
+    },
+    {
+      "Label": "Display Brightness",
+      "Id": "brightness.panel",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "Background Brightness",
+      "Id": "brightness.display",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
+      "Label": "Active Lcd",
+      "Id": "active.lcd",
+      "Type": "LcdDisplay",
+      "Byte": 19,
+      "Cols": 6,
+      "Lines": 1
+    },
+    {
+      "Label": "Standby Lcd",
+      "Id": "standby.lcd",
+      "Type": "LcdDisplay",
+      "Byte": 23,
+      "Cols": 6,
+      "Lines": 1
+    }
+  ]
+}

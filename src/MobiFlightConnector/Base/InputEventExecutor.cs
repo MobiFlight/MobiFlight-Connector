@@ -50,6 +50,12 @@ namespace MobiFlight.Execution
             inputCache.Clear();
         }
 
+        public void StopAllHoldTimers()
+        {
+            foreach (var cfg in _configItems.OfType<InputConfigItem>())
+                cfg.button?.StopTimers();
+        }
+
         public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
@@ -79,6 +85,7 @@ namespace MobiFlight.Execution
                 if (!cfg.Active)
                 {
                     Log.Instance.log($"{msgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
+                    cfg.button?.StopTimers();
                     continue;
                 }
 
@@ -87,15 +94,42 @@ namespace MobiFlight.Execution
                     if (!CheckPreconditions(cfg))
                     {
                         Log.Instance.log($"{msgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
+                        cfg.button?.StopTimers();
                         continue;
                     }
 
                     Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
 
+                    if (cfg.button != null)
+                        cfg.button.CanExecute = () => cfg.Active && CheckPreconditions(cfg);
+
                     cfg.RawValue = e.GetEventActionLabel();
                     cfg.Value = " ";
                     updatedValues[cfg.GUID] = cfg;
                     var references = ResolveReferences(cfg.ConfigRefs);
+                    var modifiableValue = new ConnectorValue()
+                    {
+                        type = FSUIPCOffsetType.Float,
+                        Float64 = e.Value,
+                    };
+
+                    try
+                    {
+                        foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
+                        {
+                            modifiableValue = modifier.Apply(modifiableValue, references);
+                        }
+
+                        cfg.Value = modifiableValue.ToString();
+                        e.Value = modifiableValue.Float64;
+                        e.StrValue = modifiableValue.type == FSUIPCOffsetType.String ? modifiableValue.String : null;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
+                    }
+
                     cfg.execute(cacheCollection, e, references);
                 }
                 catch (Exception ex)

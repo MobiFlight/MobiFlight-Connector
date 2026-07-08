@@ -5,7 +5,7 @@ import { IconClipboard, IconCopy } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export type CopyPasteActionPanelProps = {
-  action: Action | undefined
+  action: Action | null
   onActionChange: (action: Action) => void
 }
 
@@ -16,7 +16,7 @@ const CopyPasteActionPanel = ({
   const { t } = useTranslation()
   const copy = useClipboardCopy()
   const clipBoardAction = useClipboardAction()
-  const copyEnabled = action !== undefined
+  const copyEnabled = action !== null
   const pasteEnabled = clipBoardAction !== null
 
   return (

@@ -1,0 +1,1258 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "OVHD Cube",
+  "VendorId": "0xA716",
+  "ProductId": "0xCB87",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "IR1 NORM"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "IR1 PUSH"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "IR2 NORM"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "IR2 PUSH"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "IR3 NORM"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "IR3 PUSH"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "IR1 OFF"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "IR1 NAV"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "IR1 ATT"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "IR2 OFF"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "IR2 NAV"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "IR2 ATT"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "IR3 OFF"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "IR3 NAV"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "IR3 ATT"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "ENG1 AGENT1 NORM"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "ENG1 AGENT1 PUSH"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "ENG1 AGENT2 NORM"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "ENG1 AGENT2 PUSH"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "APU AGENT NORM"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "APU AGENT PUSH"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "ENG2 AGENT1 NORM"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "ENG2 AGENT1 PUSH"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "ENG2 AGENT2 NORM"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "ENG2 AGENT2 PUSH"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "ENG1 FIRE NORM"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "ENG1 FIRE POPOUT"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "APU FIRE NORM"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "APU FIRE POPOUT"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "ENG2 FIRE NORM"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "ENG2 FIRE POPOUT"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "ENG1 FIRE TEST"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "APU FIRE TEST"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "ENG2 FIRE TEST"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "XFEED NORM"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "XFEED PUSH"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "L TK PUMP1 NORM"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "L TK PUMP1 PUSH"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "L TK PUMP2 NORM"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "L TK PUMP2 PUSH"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "CTR TK PUMP1 NORM"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "CTR TK PUMP1 PUSH"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "MODE SEL NORM"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "MODE SEL PUSH"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "CTR TK PUMP2 NORM"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "CTR TK PUMP2 PUSH"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "R TK PUMP1 NORM"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "R TK PUMP1 PUSH"
+    },
+    {
+      "Id": 49,
+      "Type": "Button",
+      "Label": "R TK PUMP2 NORM"
+    },
+    {
+      "Id": 50,
+      "Type": "Button",
+      "Label": "R TK PUMP2 PUSH"
+    },
+    {
+      "Id": 51,
+      "Type": "Button",
+      "Label": "COMMERCIAL NORM"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "COMMERCIAL PUSH"
+    },
+    {
+      "Id": 53,
+      "Type": "Button",
+      "Label": "BAT1 NORM"
+    },
+    {
+      "Id": 54,
+      "Type": "Button",
+      "Label": "BAT1 PUSH"
+    },
+    {
+      "Id": 55,
+      "Type": "Button",
+      "Label": "BAT2 NORM"
+    },
+    {
+      "Id": 56,
+      "Type": "Button",
+      "Label": "BAT2 PUSH"
+    },
+    {
+      "Id": 57,
+      "Type": "Button",
+      "Label": "APU GEN NORM"
+    },
+    {
+      "Id": 58,
+      "Type": "Button",
+      "Label": "APU GEN PUSH"
+    },
+    {
+      "Id": 59,
+      "Type": "Button",
+      "Label": "EXT PWR"
+    },
+    {
+      "Id": 60,
+      "Type": "Button",
+      "Label": "PACK FLOW LO"
+    },
+    {
+      "Id": 61,
+      "Type": "Button",
+      "Label": "PACK FLOW NORM"
+    },
+    {
+      "Id": 62,
+      "Type": "Button",
+      "Label": "PACK FLOW HI"
+    },
+    {
+      "Id": 63,
+      "Type": "Button",
+      "Label": "COCKPIT PACK 1"
+    },
+    {
+      "Id": 64,
+      "Type": "Button",
+      "Label": "COCKPIT PACK 2"
+    },
+    {
+      "Id": 65,
+      "Type": "Button",
+      "Label": "COCKPIT PACK 3"
+    },
+    {
+      "Id": 66,
+      "Type": "Button",
+      "Label": "COCKPIT PACK 4"
+    },
+    {
+      "Id": 67,
+      "Type": "Button",
+      "Label": "COCKPIT PACK 5"
+    },
+    {
+      "Id": 68,
+      "Type": "Button",
+      "Label": "COCKPIT PACK 6"
+    },
+    {
+      "Id": 69,
+      "Type": "Button",
+      "Label": "COCKPIT PACK 7"
+    },
+    {
+      "Id": 70,
+      "Type": "Button",
+      "Label": "FWD CABIN PACK 1"
+    },
+    {
+      "Id": 71,
+      "Type": "Button",
+      "Label": "FWD CABIN PACK 2"
+    },
+    {
+      "Id": 72,
+      "Type": "Button",
+      "Label": "FWD CABIN PACK 3"
+    },
+    {
+      "Id": 73,
+      "Type": "Button",
+      "Label": "FWD CABIN PACK 4"
+    },
+    {
+      "Id": 74,
+      "Type": "Button",
+      "Label": "FWD CABIN PACK 5"
+    },
+    {
+      "Id": 75,
+      "Type": "Button",
+      "Label": "FWD CABIN PACK 6"
+    },
+    {
+      "Id": 76,
+      "Type": "Button",
+      "Label": "FWD CABIN PACK 7"
+    },
+    {
+      "Id": 77,
+      "Type": "Button",
+      "Label": "AFT CABIN PACK 1"
+    },
+    {
+      "Id": 78,
+      "Type": "Button",
+      "Label": "AFT CABIN PACK 2"
+    },
+    {
+      "Id": 79,
+      "Type": "Button",
+      "Label": "AFT CABIN PACK 3"
+    },
+    {
+      "Id": 80,
+      "Type": "Button",
+      "Label": "AFT CABIN PACK 4"
+    },
+    {
+      "Id": 81,
+      "Type": "Button",
+      "Label": "AFT CABIN PACK 5"
+    },
+    {
+      "Id": 82,
+      "Type": "Button",
+      "Label": "AFT CABIN PACK 6"
+    },
+    {
+      "Id": 83,
+      "Type": "Button",
+      "Label": "AFT CABIN PACK 7"
+    },
+    {
+      "Id": 84,
+      "Type": "Button",
+      "Label": "PACK1 NORM"
+    },
+    {
+      "Id": 85,
+      "Type": "Button",
+      "Label": "PACK1 PUSH"
+    },
+    {
+      "Id": 86,
+      "Type": "Button",
+      "Label": "APU BLEED NORM"
+    },
+    {
+      "Id": 87,
+      "Type": "Button",
+      "Label": "APU BLEED PUSH"
+    },
+    {
+      "Id": 88,
+      "Type": "Button",
+      "Label": "PACK2 NORM"
+    },
+    {
+      "Id": 89,
+      "Type": "Button",
+      "Label": "PACK2 PUSH"
+    },
+    {
+      "Id": 90,
+      "Type": "Button",
+      "Label": "HOT AIR NORM"
+    },
+    {
+      "Id": 91,
+      "Type": "Button",
+      "Label": "HOT AIR PUSH"
+    },
+    {
+      "Id": 92,
+      "Type": "Button",
+      "Label": "AFT ISOL VALVE NORM"
+    },
+    {
+      "Id": 93,
+      "Type": "Button",
+      "Label": "AFT ISOL VALVE PUSH"
+    },
+    {
+      "Id": 94,
+      "Type": "Button",
+      "Label": "CARGO PACK 1"
+    },
+    {
+      "Id": 95,
+      "Type": "Button",
+      "Label": "CARGO PACK 2"
+    },
+    {
+      "Id": 96,
+      "Type": "Button",
+      "Label": "CARGO PACK 3"
+    },
+    {
+      "Id": 97,
+      "Type": "Button",
+      "Label": "CARGO PACK 4"
+    },
+    {
+      "Id": 98,
+      "Type": "Button",
+      "Label": "CARGO PACK 5"
+    },
+    {
+      "Id": 99,
+      "Type": "Button",
+      "Label": "CARGO PACK 6"
+    },
+    {
+      "Id": 100,
+      "Type": "Button",
+      "Label": "CARGO PACK 7"
+    },
+    {
+      "Id": 101,
+      "Type": "Button",
+      "Label": "ANTI-ICE WING NORM"
+    },
+    {
+      "Id": 102,
+      "Type": "Button",
+      "Label": "ANTI-ICE WING PUSH"
+    },
+    {
+      "Id": 103,
+      "Type": "Button",
+      "Label": "ANTI-ICE ENG1 NORM"
+    },
+    {
+      "Id": 104,
+      "Type": "Button",
+      "Label": "ANTI-ICE ENG1 PUSH"
+    },
+    {
+      "Id": 105,
+      "Type": "Button",
+      "Label": "ANTI-ICE ENG2 NORM"
+    },
+    {
+      "Id": 106,
+      "Type": "Button",
+      "Label": "ANTI-ICE ENG2 PUSH"
+    },
+    {
+      "Id": 107,
+      "Type": "Button",
+      "Label": "WINDOW HEAT NORM"
+    },
+    {
+      "Id": 108,
+      "Type": "Button",
+      "Label": "WINDOW HEAT PUSH"
+    },
+    {
+      "Id": 109,
+      "Type": "Button",
+      "Label": "CREW SUPPLY NORM"
+    },
+    {
+      "Id": 110,
+      "Type": "Button",
+      "Label": "CREW SUPPLY PUSH"
+    },
+    {
+      "Id": 111,
+      "Type": "Button",
+      "Label": "GND CTL"
+    },
+    {
+      "Id": 112,
+      "Type": "Button",
+      "Label": "CVR TEST"
+    },
+    {
+      "Id": 113,
+      "Type": "Button",
+      "Label": "CALLS ALL"
+    },
+    {
+      "Id": 114,
+      "Type": "Button",
+      "Label": "WIPER OFF"
+    },
+    {
+      "Id": 115,
+      "Type": "Button",
+      "Label": "WIPER SLOW"
+    },
+    {
+      "Id": 116,
+      "Type": "Button",
+      "Label": "WIPER FAST"
+    },
+    {
+      "Id": 117,
+      "Type": "Button",
+      "Label": "STROBE OFF"
+    },
+    {
+      "Id": 118,
+      "Type": "Button",
+      "Label": "STROBE AUTO"
+    },
+    {
+      "Id": 119,
+      "Type": "Button",
+      "Label": "STROBE ON"
+    },
+    {
+      "Id": 120,
+      "Type": "Button",
+      "Label": "BEACON OFF"
+    },
+    {
+      "Id": 121,
+      "Type": "Button",
+      "Label": "BEACON ON"
+    },
+    {
+      "Id": 122,
+      "Type": "Button",
+      "Label": "WING OFF"
+    },
+    {
+      "Id": 123,
+      "Type": "Button",
+      "Label": "WING ON"
+    },
+    {
+      "Id": 124,
+      "Type": "Button",
+      "Label": "NAV & LOGO OFF"
+    },
+    {
+      "Id": 125,
+      "Type": "Button",
+      "Label": "NAV & LOGO 1"
+    },
+    {
+      "Id": 126,
+      "Type": "Button",
+      "Label": "NAV & LOGO 2"
+    },
+    {
+      "Id": 127,
+      "Type": "Button",
+      "Label": "RWY TURN-OFF OFF"
+    },
+    {
+      "Id": 128,
+      "Type": "Button",
+      "Label": "RWY TURN-OFF ON"
+    },
+    {
+      "Id": 129,
+      "Type": "Button",
+      "Label": "LAND L RETRACT"
+    },
+    {
+      "Id": 130,
+      "Type": "Button",
+      "Label": "LAND L OFF"
+    },
+    {
+      "Id": 131,
+      "Type": "Button",
+      "Label": "LAND L ON"
+    },
+    {
+      "Id": 132,
+      "Type": "Button",
+      "Label": "LAND R RETRACT"
+    },
+    {
+      "Id": 133,
+      "Type": "Button",
+      "Label": "LAND R OFF"
+    },
+    {
+      "Id": 134,
+      "Type": "Button",
+      "Label": "LAND R ON"
+    },
+    {
+      "Id": 135,
+      "Type": "Button",
+      "Label": "NOSE OFF"
+    },
+    {
+      "Id": 136,
+      "Type": "Button",
+      "Label": "NOSE TAXI"
+    },
+    {
+      "Id": 137,
+      "Type": "Button",
+      "Label": "NOSE T.O"
+    },
+    {
+      "Id": 138,
+      "Type": "Button",
+      "Label": "APU MASTER NORM"
+    },
+    {
+      "Id": 139,
+      "Type": "Button",
+      "Label": "APU MASTER PUSH"
+    },
+    {
+      "Id": 140,
+      "Type": "Button",
+      "Label": "APU START"
+    },
+    {
+      "Id": 141,
+      "Type": "Button",
+      "Label": "STBY COMPASS OFF"
+    },
+    {
+      "Id": 142,
+      "Type": "Button",
+      "Label": "STBY COMPASS ON"
+    },
+    {
+      "Id": 143,
+      "Type": "Button",
+      "Label": "DOME OFF"
+    },
+    {
+      "Id": 144,
+      "Type": "Button",
+      "Label": "DOME DIM"
+    },
+    {
+      "Id": 145,
+      "Type": "Button",
+      "Label": "DOME BRT"
+    },
+    {
+      "Id": 146,
+      "Type": "Button",
+      "Label": "ANN LT DIM"
+    },
+    {
+      "Id": 147,
+      "Type": "Button",
+      "Label": "ANN LT BRT"
+    },
+    {
+      "Id": 148,
+      "Type": "Button",
+      "Label": "ANN LT TEST"
+    },
+    {
+      "Id": 149,
+      "Type": "Button",
+      "Label": "SEAT BELTS OFF"
+    },
+    {
+      "Id": 150,
+      "Type": "Button",
+      "Label": "SEAT BELTS ON"
+    },
+    {
+      "Id": 151,
+      "Type": "Button",
+      "Label": "NO SMOKING OFF"
+    },
+    {
+      "Id": 152,
+      "Type": "Button",
+      "Label": "NO SMOKING AUTO"
+    },
+    {
+      "Id": 153,
+      "Type": "Button",
+      "Label": "NO SMOKING ON"
+    },
+    {
+      "Id": 154,
+      "Type": "Button",
+      "Label": "EMER EXIT KEY NORN"
+    },
+    {
+      "Id": 155,
+      "Type": "Button",
+      "Label": "EMER EXIT KEY PUSH"
+    },
+    {
+      "Id": 156,
+      "Type": "Button",
+      "Label": "EMER EXIT LT OFF"
+    },
+    {
+      "Id": 157,
+      "Type": "Button",
+      "Label": "EMER EXIT LT ARM"
+    },
+    {
+      "Id": 158,
+      "Type": "Button",
+      "Label": "EMER EXIT LT ON"
+    },
+    {
+      "Id": 159,
+      "Type": "Button",
+      "Label": "RAIN RPLNT"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "OVHD INTEG LT"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "ON BAT",
+      "Id": "on.bat",
+      "Byte": 6,
+      "Bit": 0
+    },
+    {
+      "Label": "IR1 U",
+      "Id": "ir1.u",
+      "Byte": 6,
+      "Bit": 1
+    },
+    {
+      "Label": "IR1 L",
+      "Id": "ir1.l",
+      "Byte": 6,
+      "Bit": 2
+    },
+    {
+      "Label": "IR2 U",
+      "Id": "ir2.u",
+      "Byte": 6,
+      "Bit": 3
+    },
+    {
+      "Label": "IR2 L",
+      "Id": "ir2.l",
+      "Byte": 6,
+      "Bit": 4
+    },
+    {
+      "Label": "IR3 U",
+      "Id": "ir3.u",
+      "Byte": 6,
+      "Bit": 5
+    },
+    {
+      "Label": "IR3 L",
+      "Id": "ir3.l",
+      "Byte": 6,
+      "Bit": 6
+    },
+    {
+      "Label": "ENG1 FIRE L",
+      "Id": "eng1.fire.l",
+      "Byte": 6,
+      "Bit": 7
+    },
+    {
+      "Label": "ENG1 FIRE R",
+      "Id": "eng1.fire.r",
+      "Byte": 7,
+      "Bit": 0
+    },
+    {
+      "Label": "APU FIRE L",
+      "Id": "apu.fire.l",
+      "Byte": 7,
+      "Bit": 1
+    },
+    {
+      "Label": "APU FIRE R",
+      "Id": "apu.fire.r",
+      "Byte": 7,
+      "Bit": 2
+    },
+    {
+      "Label": "ENG2 FIRE L",
+      "Id": "eng2.fire.l",
+      "Byte": 7,
+      "Bit": 3
+    },
+    {
+      "Label": "ENG2 FIRE R",
+      "Id": "eng2.fire.r",
+      "Byte": 7,
+      "Bit": 4
+    },
+    {
+      "Label": "ENG1 AGENT1 U",
+      "Id": "eng1.agent1.u",
+      "Byte": 7,
+      "Bit": 5
+    },
+    {
+      "Label": "ENG1 AGENT1 L",
+      "Id": "eng1.agent1.l",
+      "Byte": 7,
+      "Bit": 6
+    },
+    {
+      "Label": "ENG1 AGENT2 U",
+      "Id": "eng1.agent2.u",
+      "Byte": 7,
+      "Bit": 7
+    },
+    {
+      "Label": "ENG1 AGENT2 L",
+      "Id": "eng1.agent2.l",
+      "Byte": 8,
+      "Bit": 0
+    },
+    {
+      "Label": "APU AGENT U",
+      "Id": "apu.agent.u",
+      "Byte": 8,
+      "Bit": 1
+    },
+    {
+      "Label": "APU AGENT L",
+      "Id": "apu.agent.l",
+      "Byte": 8,
+      "Bit": 2
+    },
+    {
+      "Label": "ENG2 AGENT1 U",
+      "Id": "eng2.agent1.u",
+      "Byte": 8,
+      "Bit": 3
+    },
+    {
+      "Label": "ENG2 AGENT1 L",
+      "Id": "eng2.agent1.l",
+      "Byte": 8,
+      "Bit": 4
+    },
+    {
+      "Label": "ENG2 AGENT2 U",
+      "Id": "eng2.agent2.u",
+      "Byte": 8,
+      "Bit": 5
+    },
+    {
+      "Label": "ENG2 AGENT2 L",
+      "Id": "eng2.agent2.l",
+      "Byte": 8,
+      "Bit": 6
+    },
+    {
+      "Label": "XFEED U",
+      "Id": "xfeed.u",
+      "Byte": 8,
+      "Bit": 7
+    },
+    {
+      "Label": "XFEED L",
+      "Id": "xfeed.l",
+      "Byte": 9,
+      "Bit": 0
+    },
+    {
+      "Label": "L TK PUMP1 U",
+      "Id": "l.tk.pump1.u",
+      "Byte": 9,
+      "Bit": 1
+    },
+    {
+      "Label": "L TK PUMP1 L",
+      "Id": "l.tk.pump1.l",
+      "Byte": 9,
+      "Bit": 2
+    },
+    {
+      "Label": "L TK PUMP2 U",
+      "Id": "l.tk.pump2.u",
+      "Byte": 9,
+      "Bit": 3
+    },
+    {
+      "Label": "L TK PUMP2 L",
+      "Id": "l.tk.pump2.l",
+      "Byte": 9,
+      "Bit": 4
+    },
+    {
+      "Label": "C TK PUMP1 U",
+      "Id": "c.tk.pump1.u",
+      "Byte": 9,
+      "Bit": 5
+    },
+    {
+      "Label": "C TK PUMP1 L",
+      "Id": "c.tk.pump1.l",
+      "Byte": 9,
+      "Bit": 6
+    },
+    {
+      "Label": "MODE SEL U",
+      "Id": "mode.sel.u",
+      "Byte": 9,
+      "Bit": 7
+    },
+    {
+      "Label": "MODE SEL L",
+      "Id": "mode.sel.l",
+      "Byte": 10,
+      "Bit": 0
+    },
+    {
+      "Label": "C TK PUMP2 U",
+      "Id": "c.tk.pump2.u",
+      "Byte": 10,
+      "Bit": 1
+    },
+    {
+      "Label": "C TK PUMP2 L",
+      "Id": "c.tk.pump2.l",
+      "Byte": 10,
+      "Bit": 2
+    },
+    {
+      "Label": "R TK PUMP1 U",
+      "Id": "r.tk.pump1.u",
+      "Byte": 10,
+      "Bit": 3
+    },
+    {
+      "Label": "R TK PUMP1 L",
+      "Id": "r.tk.pump1.l",
+      "Byte": 10,
+      "Bit": 4
+    },
+    {
+      "Label": "R TK PUMP2 U",
+      "Id": "r.tk.pump2.u",
+      "Byte": 10,
+      "Bit": 5
+    },
+    {
+      "Label": "R TK PUMP2 L",
+      "Id": "r.tk.pump2.l",
+      "Byte": 10,
+      "Bit": 6
+    },
+    {
+      "Label": "COMMERCIAL L",
+      "Id": "commercial.l",
+      "Byte": 10,
+      "Bit": 7
+    },
+    {
+      "Label": "BAT1 U",
+      "Id": "bat1.u",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "BAT1 L",
+      "Id": "bat1.l",
+      "Byte": 11,
+      "Bit": 1
+    },
+    {
+      "Label": "BAT2 U",
+      "Id": "bat2.u",
+      "Byte": 11,
+      "Bit": 2
+    },
+    {
+      "Label": "BAT2 L",
+      "Id": "bat2.l",
+      "Byte": 11,
+      "Bit": 3
+    },
+    {
+      "Label": "APU GEN U",
+      "Id": "apu.gen.u",
+      "Byte": 11,
+      "Bit": 4
+    },
+    {
+      "Label": "APU GEN L",
+      "Id": "apu.gen.l",
+      "Byte": 11,
+      "Bit": 5
+    },
+    {
+      "Label": "EXT PWR U",
+      "Id": "ext.pwr.u",
+      "Byte": 11,
+      "Bit": 6
+    },
+    {
+      "Label": "EXT PWR L",
+      "Id": "ext.pwr.l",
+      "Byte": 11,
+      "Bit": 7
+    },
+    {
+      "Label": "PACK1 U",
+      "Id": "pack1.u",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
+      "Label": "PACK1 L",
+      "Id": "pack1.l",
+      "Byte": 12,
+      "Bit": 1
+    },
+    {
+      "Label": "PACK2 U",
+      "Id": "pack2.u",
+      "Byte": 12,
+      "Bit": 2
+    },
+    {
+      "Label": "PACK2 L",
+      "Id": "pack2.l",
+      "Byte": 12,
+      "Bit": 3
+    },
+    {
+      "Label": "APU BLEED U",
+      "Id": "apu.bleed.u",
+      "Byte": 12,
+      "Bit": 4
+    },
+    {
+      "Label": "APU BLEED L",
+      "Id": "apu.bleed.l",
+      "Byte": 12,
+      "Bit": 5
+    },
+    {
+      "Label": "HOT AIR U",
+      "Id": "hot.air.u",
+      "Byte": 12,
+      "Bit": 6
+    },
+    {
+      "Label": "HOT AIR L",
+      "Id": "hot.air.l",
+      "Byte": 12,
+      "Bit": 7
+    },
+    {
+      "Label": "AFT ISOL VALVE U",
+      "Id": "aft.isol.valve.u",
+      "Byte": 13,
+      "Bit": 0
+    },
+    {
+      "Label": "AFT ISOL VALVE L",
+      "Id": "aft.isol.valve.l",
+      "Byte": 13,
+      "Bit": 1
+    },
+    {
+      "Label": "ANTI-ICE WING U",
+      "Id": "anti.ice.wing.u",
+      "Byte": 13,
+      "Bit": 2
+    },
+    {
+      "Label": "ANTI-ICE WING L",
+      "Id": "anti.ice.wing.l",
+      "Byte": 13,
+      "Bit": 3
+    },
+    {
+      "Label": "ANTI-ICE ENG1 U",
+      "Id": "anti.ice.eng1.u",
+      "Byte": 13,
+      "Bit": 4
+    },
+    {
+      "Label": "ANTI-ICE ENG1 L",
+      "Id": "anti.ice.eng1.l",
+      "Byte": 13,
+      "Bit": 5
+    },
+    {
+      "Label": "ANTI-ICE ENG2 U",
+      "Id": "anti.ice.eng2.u",
+      "Byte": 13,
+      "Bit": 6
+    },
+    {
+      "Label": "ANTI-ICE ENG2 L",
+      "Id": "anti.ice.eng2.l",
+      "Byte": 13,
+      "Bit": 7
+    },
+    {
+      "Label": "WINDOW HEAT L",
+      "Id": "window.heat.l",
+      "Byte": 14,
+      "Bit": 0
+    },
+    {
+      "Label": "CREW SUPPLY L",
+      "Id": "crew.supply.l",
+      "Byte": 14,
+      "Bit": 1
+    },
+    {
+      "Label": "APU MASTER U",
+      "Id": "apu.master.u",
+      "Byte": 14,
+      "Bit": 2
+    },
+    {
+      "Label": "APU MASTER L",
+      "Id": "apu.master.l",
+      "Byte": 14,
+      "Bit": 3
+    },
+    {
+      "Label": "APU START U",
+      "Id": "apu.start.u",
+      "Byte": 14,
+      "Bit": 4
+    },
+    {
+      "Label": "APU START L",
+      "Id": "apu.start.l",
+      "Byte": 14,
+      "Bit": 5
+    },
+    {
+      "Label": "EMER EXIT LT L",
+      "Id": "emer.exit.lt.l",
+      "Byte": 14,
+      "Bit": 6
+    },
+    {
+      "Label": "EXT_LT_STROBE_AUTO",
+      "Id": "ext.lt.strobe.auto",
+      "Byte": 14,
+      "Bit": 7
+    },
+    {
+      "Label": "Volt L Display",
+      "Id": "volt.l.display",
+      "Type": "LcdDisplay",
+      "Byte": 23,
+      "Cols": 3,
+      "Lines": 1
+    },
+    {
+      "Label": "Volt R Display",
+      "Id": "volt.r.display",
+      "Type": "LcdDisplay",
+      "Byte": 25,
+      "Cols": 3,
+      "Lines": 1
+    }
+  ]
+}
