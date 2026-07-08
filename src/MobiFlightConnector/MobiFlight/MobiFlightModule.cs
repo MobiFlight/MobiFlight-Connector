@@ -194,6 +194,7 @@ namespace MobiFlight
 
         public const int CommandTimeout = 2500;
         public const int MessageSizeReductionValue = 10;
+        internal int StopDelayInMs = 20;
 
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
@@ -1329,7 +1330,7 @@ namespace MobiFlight
                 // and will not be able to process them all
                 // which can lead to random behavior on the arduino side
                 // see #3117
-                Thread.Sleep(20); 
+                Thread.Sleep(StopDelayInMs); 
                 device.Stop();
             });
         }

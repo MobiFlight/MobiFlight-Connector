@@ -2,6 +2,7 @@ using CommandMessenger;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -409,7 +410,8 @@ namespace MobiFlight.Tests
 
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
 
-            var module = new MobiFlightModule("COM1", board) {
+            var module = new MobiFlightModule("COM1", board)
+            {
                 Serial = "SN-123-123",
                 Name = "TestBoard",
                 // These two fields make it a MobiFlight Board
@@ -561,6 +563,83 @@ namespace MobiFlight.Tests
             Assert.AreEqual(768, capturedArgs.Value, "AnalogInput should report 768");
             Assert.AreEqual("SN-123-123", capturedArgs.Controller.Serial, "Controller serial should match");
             Assert.AreEqual("TestBoard", capturedArgs.Controller.Name, "Controller name should match");
+        }
+
+        #region Stop Tests
+
+        [TestMethod()]
+        public void Stop_WaitsConfiguredDelayBetweenDeviceStopMessages()
+        {
+            // Arrange
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            Assert.IsNotNull(board, "Board not found.");
+
+            var module = new MobiFlightModule("COM1", board)
+            {
+                Version = "1.0.0"
+            };
+
+            // Mark the module as connected so Stop() enters the device loop.
+            var connectedField = typeof(MobiFlightModule).GetField(
+                "connected",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(connectedField, "connected field should exist.");
+            connectedField.SetValue(module, true);
+
+            // Use a larger delay so the test is deterministic and still fast.
+            var delayField = typeof(MobiFlightModule).GetField(
+                "StopDelayInMs",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(delayField, "StopDelayInMs field should exist.");
+            const int TestDelayMs = 50;
+            delayField.SetValue(module, TestDelayMs);
+
+            var stopwatch = Stopwatch.StartNew();
+            var stopTimes = new List<TimeSpan>();
+
+            var outputs = (Dictionary<string, MobiFlightOutput>)typeof(MobiFlightModule)
+                .GetField("outputs", BindingFlags.NonPublic | BindingFlags.Instance)
+                .GetValue(module);
+
+            outputs.Add("Output1", new TestOutput
+            {
+                OnSet = _ => stopTimes.Add(stopwatch.Elapsed)
+            });
+            outputs.Add("Output2", new TestOutput
+            {
+                OnSet = _ => stopTimes.Add(stopwatch.Elapsed)
+            });
+
+            // Act
+            module.Stop();
+
+            // Assert
+            Assert.HasCount(2, stopTimes, "Both devices should have been stopped.");
+
+            var interval = stopTimes[1] - stopTimes[0];
+            Assert.IsGreaterThanOrEqualTo(
+                TestDelayMs,
+                interval.TotalMilliseconds, $"Expected interval of at least {TestDelayMs}ms, was {interval.TotalMilliseconds}ms.");
+            Assert.IsLessThan(
+                TestDelayMs *2 ,
+                interval.TotalMilliseconds, $"Expected interval below {TestDelayMs *2}ms, was {interval.TotalMilliseconds}ms.");
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Test double that records when Stop() reaches it without sending commands.
+        /// </summary>
+        private class TestOutput : MobiFlightOutput
+        {
+            public Action<int> OnSet { get; set; }
+
+            public override void Set(int value)
+            {
+                OnSet?.Invoke(value);
+            }
         }
     }
 }
