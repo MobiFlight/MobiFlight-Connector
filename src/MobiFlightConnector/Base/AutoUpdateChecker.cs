@@ -11,6 +11,24 @@ namespace MobiFlight.UpdateChecker
     {
         static readonly string mobiFlightInstaller = "MobiFlight-Installer.exe";
         static readonly int UpdateCheckTimeoutInMs = 5000;
+        private static bool VersionCheck(string output, out string newVersion, out string betaOrRelease)
+        {
+            newVersion = null;
+            betaOrRelease = null;
+
+            if (!output.Contains("##RESULT##|1"))
+                return false;
+            string[] outputArray = output.Split('|'); // Get the version number
+            newVersion = outputArray[2];
+            string[] versionArray = newVersion.Split('.'); // Split the version number to get the last number
+            int versionLastNumber = Int32.Parse(versionArray[3]);
+
+            betaOrRelease = (outputArray.Length == 4) && (versionLastNumber > 0)
+                ? "BETA"
+                : "RELEASE";
+            return true;
+            
+        }
         public static void CheckForUpdate(bool silent = false)
         {
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
@@ -58,20 +76,10 @@ namespace MobiFlight.UpdateChecker
             p.WaitForExit(UpdateCheckTimeoutInMs);
 
             Console.WriteLine(output + error);
-            if (output.Contains("##RESULT##|1"))
-            {
-                string[] OutputArray = output.Split('|'); // Get the version number
-                string newVersion = OutputArray[2];
-                string[] VersionArray = newVersion.Split('.'); // Split the version number to get the last number
-                int VersionLastnumber = Int32.Parse(VersionArray[3]);
-                string BetaOrRelease;
-                
-                if ((OutputArray.Length == 4) & (VersionLastnumber > 0)) // If the last number is > 0 is a beta version
-                    BetaOrRelease = "BETA";
-                else
-                    BetaOrRelease = "RELEASE";
 
-                Log.Instance.log($"Found a new version: {newVersion} {BetaOrRelease}.", LogSeverity.Info);
+            if (VersionCheck(output, out string newVersion, out string betaOrRelease))
+            {
+                Log.Instance.log($"Found a new version: {newVersion} {betaOrRelease}.", LogSeverity.Info);
 
                 DialogResult dialogResult = MessageBox.Show(
                     String.Format(i18n._tr("uiMessageNewUpdateAvailablePleaseUpdate"), newVersion),
