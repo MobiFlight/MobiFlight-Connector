@@ -53,14 +53,6 @@ const ProSimInputActionPanel = ({
     <Card>
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.ProSim.Title")}
-            </div>
-            <div className="text-muted-foreground text-sm">
-              {t("Dialog.InputConfigWizard.InputActions.ProSim.Description")}
-            </div>
-          </div>
           <ProSimDataRefPanel
             variant="input"
             selectedPath={config?.Path ?? null}

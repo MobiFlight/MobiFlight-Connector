@@ -128,6 +128,14 @@ const FsuipcOffsetInputActionPanel = ({
   return (
     <Card>
       <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col">
+          <div className="text-lg font-semibold">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description")}
+          </div>
+        </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-row gap-4">
             <div className="flex flex-col gap-1">

@@ -147,6 +147,14 @@ const KeyboardInputActionPanel = ({
   return (
     <Card>
       <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.InputConfigWizard.InputActions.Keyboard.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t("Dialog.InputConfigWizard.InputActions.Keyboard.Description")}
+            </div>
+          </div>
         <div
           className="flex flex-col gap-4"
           onKeyDown={handleKeyDown}

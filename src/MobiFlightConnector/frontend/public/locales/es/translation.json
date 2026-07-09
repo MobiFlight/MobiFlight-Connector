@@ -687,8 +687,12 @@
             "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
             "ProjectAircraftOnly": "Solo aviones del proyecto"
           },
-          "NoneCode": "Ninguno",
-          "CodePlaceholder": "Ingresar código RPN",
+          "Code": {
+            "Title": "Paso 3 - Refinar código (opcional)",
+            "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
+            "None": "Ninguno",
+            "Placeholder": "Ingresar código RPN"
+          },
           "CustomPreset": "Preset personalizado"
         },
         "Xplane": {
@@ -707,8 +711,10 @@
           "CustomPreset": "Preset personalizado"
         },
         "ProSim": {
-          "Title": "Acción de entrada ProSim",
-          "Description": "Selecciona un preset para configurar tus acciones de entrada.",
+          "Preset": {
+            "Title": "Paso 2 - Acción de entrada ProSim",
+            "Description": "Selecciona un preset para configurar tus acciones de entrada."
+          },
           "PathLabel": "Ruta",
           "NoPresetSelected": "No hay preset seleccionado",
           "ParameterLabel": "Parámetro (opcional)",
@@ -716,6 +722,8 @@
           "ParameterNone": "Ninguno"
         },
         "VJoy": {
+          "Title": "Paso 2 - Configurar vJoy",
+          "Description": "Define el botón o eje vJoy que deseas usar.",
           "Controller": "Controlador",
           "Device": "Dispositivo",
           "SelectDeviceLabel": "Seleccionar dispositivo vJoy",
@@ -733,6 +741,8 @@
           "None": "Ninguno"
         },
         "Keyboard": {
+          "Title": "Paso 2 - Configurar entrada de teclado",
+          "Description": "Define la combinación de teclas que deseas usar.",
           "StopScanning": "Detener búsqueda",
           "ScanForKeyboard": "Buscar teclado",
           "KeyComboLabel": "Combinación de teclas",
@@ -740,6 +750,8 @@
           "ClearInput": "Borrar entrada"
         },
         "FsuipcOffset": {
+          "Title": "Paso 2 - Configurar offset FSUIPC",
+          "Description": "Define el offset FSUIPC que deseas usar.",
           "TypeLabel": "Tipo",
           "SizeLabel": "Tamaño",
           "OffsetLabel": "Offset",
@@ -749,7 +761,7 @@
           "ValuePlaceholder": "Ingresar valor"
         },
         "LuaMacro": {
-          "Title": "Acción de entrada de macro Lua",
+          "Title": "Paso 2 - Configurar acción de entrada de macro Lua",
           "Description": "Invoca tu macro Lua con un parámetro opcional. Requiere una macro Lua existente en FSUIPC.",
           "MacroNameLabel": "Nombre de macro",
           "MacroNamePlaceholder": "Establecer nombre de macro",
@@ -757,11 +769,15 @@
           "MacroValuePlaceholder": "Establecer valor de macro"
         },
         "Jeehell": {
+          "Title": "Paso 2 - Configurar Jeehell",
+          "Description": "Define la función Jeehell que deseas usar. Puedes crear una nueva o usar una función existente.",
           "FunctionLabel": "Función Jeehell",
           "SelectFunctionPlaceholder": "Seleccionar función Jeehell...",
           "ValueLabel": "Valor"
         },
         "EventId": {
+          "Title": "Paso 2 - Configurar Event ID",
+          "Description": "Define el Event ID que deseas usar. Puedes crear uno nuevo o usar uno existente.",
           "PmdgAircraftLabel": "Aeronave PMDG",
           "MouseParamLabel": "Parámetro de ratón",
           "SelectMouseParamPlaceholder": "Seleccionar parámetro de ratón",
@@ -776,6 +792,8 @@
           "Description2": "Esto es útil para sincronizar tu cabina virtual con los estados de interruptores y botones de tus controladores físicos."
         },
         "Variable": {
+          "Title": "Step 2 - Configure Variable",
+          "Description": "Define the variable that you want to use. You can either create a new one or use an existing variable.",
           "ExistingVariable": "Usar variable existente",
           "VariableTypeLabel": "Tipo de variable",
           "VariableNameLabel": "Nombre de variable",

@@ -161,9 +161,9 @@ const MsfsPresetPanel = ({
     <div className="flex flex-col gap-4 rounded-lg border p-4 px-6 pb-2 shadow">
       <div className="flex flex-row items-end justify-between">
         <div className="flex flex-col">
-          <div className="text-lg font-semibold">{ t("Dialog.InputConfigWizard.InputAction.Msfs.Preset.Title") }</div>
+          <div className="text-lg font-semibold">{ t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Title") }</div>
           <div className="text-muted-foreground text-sm">
-            { t("Dialog.InputConfigWizard.InputAction.Msfs.Preset.Description") }
+            { t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Description") }
           </div>
         </div>
         <div className="flex flex-row items-center gap-2">
@@ -171,7 +171,7 @@ const MsfsPresetPanel = ({
             checked={favoritesOnly}
             onCheckedChange={(checked) => setFavoritesOnly(checked)}
           ></Switch>
-          <Label>{ t("Dialog.InputConfigWizard.InputAction.Msfs.Preset.ProjectAircraftOnly") }</Label>
+          <Label>{ t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.ProjectAircraftOnly") }</Label>
         </div>
       </div>
       <div className="flex flex-col gap-1">

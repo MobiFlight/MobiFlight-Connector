@@ -59,6 +59,14 @@ const JeehellInputActionPanel = ({
   return (
     <Card>
       <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col">
+          <div className="text-lg font-semibold">
+            {t("Dialog.InputConfigWizard.InputActions.Jeehell.Title")}
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.InputConfigWizard.InputActions.Jeehell.Description")}
+          </div>
+        </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="mouseParam">

@@ -687,8 +687,12 @@
             "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
             "ProjectAircraftOnly": "Nur Projektflugzeuge"
           },
-          "NoneCode": "Keiner",
-          "CodePlaceholder": "RPN-Code eingeben",
+          "Code": {
+            "Title": "Schritt 3 - Code anpassen (optional)",
+            "Description": "Dieser Code wird vom Simulator verwendet. Du kannst ihn manuell bearbeiten oder ein Preset aus der obigen Liste auswählen.",
+            "None": "Keiner",
+            "Placeholder": "RPN-Code eingeben"
+          },
           "CustomPreset": "Eigenes Preset"
         },
         "Xplane": {
@@ -707,8 +711,10 @@
           "CustomPreset": "Eigenes Preset"
         },
         "ProSim": {
-          "Title": "ProSim-Eingabeaktion",
-          "Description": "Wähle ein Preset, um deine Eingabeaktionen zu konfigurieren.",
+          "Preset": {
+            "Title": "Schritt 2 - ProSim Eingabeaktion",
+            "Description": "Wähle ein Preset, um deine Eingabeaktionen zu konfigurieren."
+          },
           "PathLabel": "Pfad",
           "NoPresetSelected": "Kein Preset ausgewählt",
           "ParameterLabel": "Parameter (optional)",
@@ -716,6 +722,8 @@
           "ParameterNone": "Kein Parameter"
         },
         "VJoy": {
+          "Title": "Schritt 2 - vJoy konfigurieren",
+          "Description": "Definiere die vJoy-Taste oder Achse, die du verwenden möchtest.",
           "Controller": "Controller",
           "Device": "Gerät",
           "SelectDeviceLabel": "vJoy-Gerät auswählen",
@@ -733,6 +741,8 @@
           "None": "Keiner"
         },
         "Keyboard": {
+          "Title": "Schritt 2 - Tastatureingabe konfigurieren",
+          "Description": "Definiere die Tastenkombination, die du verwenden möchtest.",
           "StopScanning": "Suche stoppen",
           "ScanForKeyboard": "Tastatur suchen",
           "KeyComboLabel": "Tastenkombination",
@@ -740,6 +750,8 @@
           "ClearInput": "Eingabe löschen"
         },
         "FsuipcOffset": {
+          "Title": "Schritt 2 - FSUIPC-Offset konfigurieren",
+          "Description": "Definiere den FSUIPC-Offset, den du verwenden möchtest.",
           "TypeLabel": "Typ",
           "SizeLabel": "Größe",
           "OffsetLabel": "Offset",
@@ -749,7 +761,7 @@
           "ValuePlaceholder": "Wert eingeben"
         },
         "LuaMacro": {
-          "Title": "Lua-Makro-Eingabeaktion",
+          "Title": "Schritt 2 - Lua-Makro-Eingabeaktion",
           "Description": "Rufe dein Lua-Makro mit einem optionalen Parameter auf. Erfordert ein vorhandenes Lua-Makro in FSUIPC.",
           "MacroNameLabel": "Makroname",
           "MacroNamePlaceholder": "Makronamen setzen",
@@ -757,11 +769,15 @@
           "MacroValuePlaceholder": "Makrowert setzen"
         },
         "Jeehell": {
+          "Title": "Schritt 2 - Jeehell konfigurieren",
+          "Description": "Definiere die Jeehell-Funktion, die du verwenden möchtest. Du kannst entweder eine neue erstellen oder eine vorhandene Funktion verwenden.",
           "FunctionLabel": "Jeehell-Funktion",
           "SelectFunctionPlaceholder": "Jeehell-Funktion auswählen...",
           "ValueLabel": "Wert"
         },
         "EventId": {
+          "Title": "Schritt 2 - Event-ID definieren",
+          "Description": "Definiere die Event-ID, die du verwenden möchtest. Du kannst entweder eine neue erstellen oder eine vorhandene Event-ID verwenden.",
           "PmdgAircraftLabel": "PMDG-Flugzeug",
           "MouseParamLabel": "Mausparameter",
           "SelectMouseParamPlaceholder": "Mausparameter auswählen",
@@ -769,13 +785,15 @@
           "CustomParamLabel": "Benutzerdefinierter Parameter"
         },
         "Retrigger": {
-          "Title": "Retrigger",
-          "Summary": "Sync Eingabegeräte mit dem Simulator.",
+          "Title": "Schritt 2 - Retrigger",
+          "Summary": "Eingabegeräte mit dem Simulator synchronisieren.",
           "NoteLabel": "Bemerkung",
           "Description1": "Verwende diese Eingabeaktion, um alle Tastenstatus erneut auszulösen.",
           "Description2": "Dies ist hilfreich, um dein virtuelles Cockpit mit den Schalter- und Tastenstatus deiner physischen Controller zu synchronisieren."
         },
         "Variable": {
+          "Title": "Schritt 2 - Variable konfigurieren",
+          "Description": "Definiere die Variable, die du verwenden möchtest. Du kannst entweder eine neue erstellen oder eine vorhandene Variable verwenden.",
           "ExistingVariable": "Vorhandene Variable verwenden",
           "VariableTypeLabel": "Variablentyp",
           "VariableNameLabel": "Variablenname",

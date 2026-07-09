@@ -46,7 +46,7 @@ const MsfsInputActionPanel = ({
           </Label>
           <CodeValueLabel id="code">
             {config?.Command ??
-              t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")}
+              t("Dialog.InputConfigWizard.InputActions.Msfs.Code.None")}
           </CodeValueLabel>
         </div>
       </div>
@@ -69,11 +69,10 @@ const MsfsInputActionPanel = ({
       <div className="flex flex-col gap-4 rounded-lg border p-4 px-6">
         <div className="flex flex-col">
           <div className="text-lg font-semibold">
-            Step 3 - Refine code (optional)
+            { t("Dialog.InputConfigWizard.InputActions.Msfs.Code.Title")}
           </div>
           <div className="text-muted-foreground text-sm">
-            This code is used by the simulator. You can edit it manually or
-            select a preset from the list above.
+            { t("Dialog.InputConfigWizard.InputActions.Msfs.Code.Description")}
           </div>
         </div>
         <div className="flex flex-col gap-1">
@@ -84,7 +83,7 @@ const MsfsInputActionPanel = ({
             name="code"
             className="font-mono text-sm whitespace-nowrap dark:focus:bg-input/20 dark:bg-transparent"
             placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Msfs.CodePlaceholder",
+              "Dialog.InputConfigWizard.InputActions.Msfs.Code.Placeholder",
             )}
             value={config?.Command ?? ""}
             onChange={(e) => {

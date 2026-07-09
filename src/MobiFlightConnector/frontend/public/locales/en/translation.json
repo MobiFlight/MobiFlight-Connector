@@ -681,8 +681,12 @@
             "Description": "Choose a preset from our preset library. Use filters to narrow down your search.",
             "ProjectAircraftOnly": "Project aircraft only"
           },
-          "NoneCode": "None",
-          "CodePlaceholder": "Enter RPN code",
+          "Code": {
+            "Title": "Step 3 - Refine code (optional)",
+            "Description": "This code is used by the simulator. You can edit it manually or select a preset from the list above.",
+            "None": "None",
+            "Placeholder": "Enter RPN code"
+          },
           "CustomPreset": "Custom Preset"
         },
         "Xplane": {
@@ -701,8 +705,10 @@
           "CustomPreset": "Custom Preset"
         },
         "ProSim": {
-          "Title": "ProSim Input Action",
-          "Description": "Select a preset to configure your input actions.",
+          "Preset": {
+            "Title": "Step 2 - ProSim Input Action",
+            "Description": "Select a preset to configure your input actions."
+          },
           "PathLabel": "Path",
           "NoPresetSelected": "No preset selected",
           "ParameterLabel": "Parameter (optional)",
@@ -710,6 +716,8 @@
           "ParameterNone": "None"
         },
         "VJoy": {
+          "Title": "Step 2 - Configure vJoy",
+          "Description": "Define the vJoy button or axis that you want to use.",
           "Controller": "Controller",
           "Device": "Device",
           "SelectDeviceLabel": "Select vJoy device",
@@ -727,6 +735,8 @@
           "None": "None"
         },
         "Keyboard": {
+          "Title": "Step 2 - Configure Keyboard Input",
+          "Description": "Define the keyboard key combination that you want to use.",
           "StopScanning": "Stop scanning",
           "ScanForKeyboard": "Scan for keyboard",
           "KeyComboLabel": "Key combo",
@@ -734,6 +744,8 @@
           "ClearInput": "Clear input"
         },
         "FsuipcOffset": {
+          "Title": "Step 2 - Configure FSUIPC Offset",
+          "Description": "Define the FSUIPC offset that you want to use.",
           "TypeLabel": "Type",
           "SizeLabel": "Size",
           "OffsetLabel": "Offset",
@@ -743,7 +755,7 @@
           "ValuePlaceholder": "Enter value"
         },
         "LuaMacro": {
-          "Title": "Lua Macro Input Action",
+          "Title": "Step 2 - Lua Macro Input Action",
           "Description": "Invoke your Lua macro with an optional parameter. Requires an existing Lua macro in FSUIPC.",
           "MacroNameLabel": "Macro Name",
           "MacroNamePlaceholder": "Set macro name",
@@ -751,11 +763,15 @@
           "MacroValuePlaceholder": "Set macro value"
         },
         "Jeehell": {
+          "Title": "Step 2 - Configure Jeehell",
+          "Description": "Define the Jeehell function that you want to use. You can either create a new one or use an existing function.",
           "FunctionLabel": "Jeehell Function",
           "SelectFunctionPlaceholder": "Select Jeehell function...",
           "ValueLabel": "Value"
         },
         "EventId": {
+          "Title": "Step 2 - Define Event ID",
+          "Description": "Define the Event ID that you want to use. You can either create a new one or use an existing Event ID.",
           "PmdgAircraftLabel": "PMDG Aircraft",
           "MouseParamLabel": "Mouse Param",
           "SelectMouseParamPlaceholder": "Select mouse param",
@@ -770,6 +786,8 @@
           "Description2": "This is helpful to sync your virtual cockpit to the switch and button states of your physical controllers."
         },
         "Variable": {
+          "Title": "Step 2 - Configure Variable",
+          "Description": "Define the variable that you want to use. You can either create a new one or use an existing variable.",
           "ExistingVariable": "Use existing variable",
           "VariableTypeLabel": "Type",
           "VariableNameLabel": "Name",
