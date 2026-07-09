@@ -71,7 +71,9 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
             `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.label`,
           )}
         >
-          {t(`Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.short`)}
+          {t(
+            `Dialog.InputConfigWizard.ActionType.Options.${actionTypeLabel}.short`,
+          )}
         </Badge>
       </div>
       {selectedActionType?.value === "MSFS2020CustomInputAction" && (
@@ -161,6 +163,162 @@ export const ActionSummary = ({ action }: ActionSummaryProps) => {
     </div>
   )
 }
+
+const ActionPanel = ({
+  action,
+  onActionChange,
+}: {
+  action: Action | null
+  onActionChange: (action: Action) => void
+}) => {
+  if (!action) return null
+
+  switch (action.Type) {
+    case "MSFS2020CustomInputAction":
+      return (
+        <MsfsInputActionPanel
+          variant="details"
+          config={action ? (action as MsfsInputAction) : null}
+          onConfigChange={(config) => onActionChange(config)}
+        />
+      )
+    case "XplaneInputAction":
+      return (
+        <XplaneInputActionPanel
+          variant="details"
+          config={action ? (action as XplaneInputAction) : null}
+          onConfigChange={(c) => onActionChange(c)}
+        />
+      )
+    case "VariableInputAction":
+      return (
+        <VariablePanel
+          variant="details"
+          currentVariable={
+            action ? (action as MobiFlightVariableAction).Variable : undefined
+          }
+          onVariableChange={(variable) =>
+            onActionChange({
+              ...(action as MobiFlightVariableAction),
+              Variable: variable,
+            } as MobiFlightVariableAction)
+          }
+        />
+      )
+    case "RetriggerInputAction":
+      return <RetriggerPanel variant="details" />
+
+    case "VJoyInputAction":
+      return (
+        <VJoyInputActionPanel
+          variant="details"
+          config={action ? (action as VJoyInputAction) : null}
+          setConfig={(config) =>
+            onActionChange({
+              ...(action as VJoyInputAction),
+              ...config,
+            } as VJoyInputAction)
+          }
+        />
+      )
+
+    case "KeyInputAction":
+      return (
+        <KeyboardInputActionPanel
+          variant="details"
+          config={action ? (action as KeyInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as KeyInputAction),
+              ...config,
+            } as KeyInputAction)
+          }
+        />
+      )
+
+    case "FsuipcOffsetInputAction":
+      return (
+        <FsuipcOffsetInputActionPanel
+          variant="details"
+          config={action ? (action as FsuipcOffsetInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as FsuipcOffsetInputAction),
+              ...config,
+            } as FsuipcOffsetInputAction)
+          }
+        />
+      )
+    case "ProSimInputAction":
+      return (
+        <ProSimInputActionPanel
+          variant="details"
+          config={action ? (action as ProSimInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as ProSimInputAction),
+              ...config,
+            } as ProSimInputAction)
+          }
+        />
+      )
+    case "LuaMacroInputAction":
+      return (
+        <LuaMacroInputActionPanel
+          variant="details"
+          config={action ? (action as LuaMacroInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as LuaMacroInputAction),
+              ...config,
+            } as LuaMacroInputAction)
+          }
+        />
+      )
+    case "JeehellInputAction":
+      return (
+        <JeehellInputActionPanel
+          variant="details"
+          config={action ? (action as JeehellInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as JeehellInputAction),
+              ...config,
+            } as JeehellInputAction)
+          }
+        />
+      )
+    case "EventIdInputAction":
+      return (
+        <EventIdInputActionPanel
+          variant="details"
+          options="default"
+          config={action ? (action as EventIdInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as EventIdInputAction),
+              ...config,
+            } as EventIdInputAction)
+          }
+        />
+      )
+    case "PmdgEventIdInputAction":
+      return (
+        <EventIdInputActionPanel
+          variant="details"
+          options="pmdg"
+          config={action ? (action as PmdgEventIdInputAction) : null}
+          onConfigChange={(config) =>
+            onActionChange({
+              ...(action as PmdgEventIdInputAction),
+              ...config,
+            } as PmdgEventIdInputAction)
+          }
+        />
+      )
+  }
+}
+
 const ActionEditor = ({
   event,
   buttonOptions,
@@ -191,9 +349,11 @@ const ActionEditor = ({
             {event.variant === "button" && event.event === "onHold" && (
               <div className="flex flex-1 flex-col gap-1">
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
-                  <span title={t(
-                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.description`,
-                  )}>
+                  <span
+                    title={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.description`,
+                    )}
+                  >
                     {t(
                       `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
                     )}
@@ -212,9 +372,11 @@ const ActionEditor = ({
                       })
                     }}
                   />
-                  <span title={t(
-                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
-                  )}>
+                  <span
+                    title={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
+                    )}
+                  >
                     {t(
                       `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
                     )}
@@ -240,9 +402,11 @@ const ActionEditor = ({
             {event.variant === "button" && event.event === "onLongRelease" && (
               <div className="flex flex-1 flex-col gap-1">
                 <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
-                  <span title={t(
-                    `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
-                  )}>
+                  <span
+                    title={t(
+                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
+                    )}
+                  >
                     {t(
                       `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
                     )}
@@ -270,9 +434,9 @@ const ActionEditor = ({
             <ActionTypeComboBox
               selectedActionType={selectedActionType}
               setSelectedActionType={(option) => {
-                onActionChange(option ? { ...action,
-                                          Type: option.value 
-                                        } : null)
+                onActionChange(
+                  option ? { ...action, Type: option.value } : null,
+                )
               }}
             />
             <CopyPasteActionPanel
@@ -283,137 +447,7 @@ const ActionEditor = ({
             />
           </div>
           {selectedActionType?.value && <Separator />}
-          {selectedActionType?.value === "MSFS2020CustomInputAction" && (
-            <MsfsInputActionPanel
-              variant="details"
-              config={action ? (action as MsfsInputAction) : null}
-              onConfigChange={(config) => onActionChange(config)}
-            />
-          )}
-          {selectedActionType?.value === "XplaneInputAction" && (
-            <XplaneInputActionPanel
-              variant="details"
-              config={action ? (action as XplaneInputAction) : null}
-              onConfigChange={(c) => onActionChange(c)}
-            />
-          )}
-          {selectedActionType?.value === "VariableInputAction" && (
-            <VariablePanel
-              variant="details"
-              currentVariable={
-                action
-                  ? (action as MobiFlightVariableAction).Variable
-                  : undefined
-              }
-              onVariableChange={(variable) =>
-                onActionChange({
-                  ...(action as MobiFlightVariableAction),
-                  Variable: variable,
-                } as MobiFlightVariableAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "RetriggerInputAction" && (
-            <RetriggerPanel variant="details" />
-          )}
-          {selectedActionType?.value === "VJoyInputAction" && (
-            <VJoyInputActionPanel
-              variant="details"
-              config={action ? (action as VJoyInputAction) : null}
-              setConfig={(config) =>
-                onActionChange({
-                  ...(action as VJoyInputAction),
-                  ...config,
-                } as VJoyInputAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "KeyInputAction" && (
-            <KeyboardInputActionPanel
-              variant="details"
-              config={action ? (action as KeyInputAction) : null}
-              onConfigChange={(config) =>
-                onActionChange({
-                  ...(action as KeyInputAction),
-                  ...config,
-                } as KeyInputAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "FsuipcOffsetInputAction" && (
-            <FsuipcOffsetInputActionPanel
-              variant="details"
-              config={action ? (action as FsuipcOffsetInputAction) : null}
-              onConfigChange={(config) =>
-                onActionChange({
-                  ...(action as FsuipcOffsetInputAction),
-                  ...config,
-                } as FsuipcOffsetInputAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "ProSimInputAction" && (
-            <ProSimInputActionPanel
-              variant="details"
-              config={action ? (action as ProSimInputAction) : null}
-              onConfigChange={(config) =>
-                onActionChange({
-                  ...(action as ProSimInputAction),
-                  ...config,
-                } as ProSimInputAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "LuaMacroInputAction" && (
-            <LuaMacroInputActionPanel
-              variant="details"
-              config={action ? (action as LuaMacroInputAction) : null}
-              onConfigChange={(config) =>
-                onActionChange({
-                  ...(action as LuaMacroInputAction),
-                  ...config,
-                } as LuaMacroInputAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "JeehellInputAction" && (
-            <JeehellInputActionPanel
-              variant="details"
-              config={action ? (action as JeehellInputAction) : null}
-              onConfigChange={(config) =>
-                onActionChange({
-                  ...(action as JeehellInputAction),
-                  ...config,
-                } as JeehellInputAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "EventIdInputAction" && (
-            <EventIdInputActionPanel
-              variant="details"
-              options="default"
-              config={action ? (action as EventIdInputAction) : null}
-              onConfigChange={(config) =>
-                onActionChange({
-                  ...(action as EventIdInputAction),
-                  ...config,
-                } as EventIdInputAction)
-              }
-            />
-          )}
-          {selectedActionType?.value === "PmdgEventIdInputAction" && (
-            <EventIdInputActionPanel
-              variant="details"
-              options="pmdg"
-              config={action ? (action as PmdgEventIdInputAction) : null}
-              onConfigChange={(config) =>
-                onActionChange({
-                  ...(action as PmdgEventIdInputAction),
-                  ...config,
-                } as PmdgEventIdInputAction)
-              }
-            />
-          )}
+          <ActionPanel onActionChange={onActionChange} action={action} />
         </div>
       </CardContent>
     </Card>
