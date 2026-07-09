@@ -682,6 +682,11 @@
           "ActionLabel": "Acción"
         },
         "Msfs": {
+          "Preset": {
+            "Title": "Paso 2 - Seleccionar preset",
+            "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
+            "ProjectAircraftOnly": "Solo aviones del proyecto"
+          },
           "NoneCode": "Ninguno",
           "CodePlaceholder": "Ingresar código RPN",
           "CustomPreset": "Preset personalizado"

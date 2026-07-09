@@ -682,6 +682,11 @@
           "ActionLabel": "Aktion"
         },
         "Msfs": {
+          "Preset": {
+            "Title": "Schritt 2 - Preset auswählen",
+            "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
+            "ProjectAircraftOnly": "Nur Projektflugzeuge"
+          },
           "NoneCode": "Keiner",
           "CodePlaceholder": "RPN-Code eingeben",
           "CustomPreset": "Eigenes Preset"

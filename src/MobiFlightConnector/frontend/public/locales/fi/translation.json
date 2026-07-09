@@ -676,6 +676,11 @@
           "ActionLabel": "Toiminto"
         },
         "Msfs": {
+          "Preset": {
+            "Title": "Vaihe 2 - Valitse esiasetus",
+            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+          },
           "NoneCode": "Ei mitään",
           "CodePlaceholder": "Syötä RPN-koodi",
           "CustomPreset": "Mukautettu esiasetus"

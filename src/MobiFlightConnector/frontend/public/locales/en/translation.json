@@ -433,7 +433,7 @@
           "To": "To",
           "Action": "Action",
           "Mappings": "Mappings",
-          "Add": "Add mapping", 
+          "Add": "Add mapping",
           "Remove": "Remove mapping",
           "Summary": "Maps <badge>{{count}}</badge> values, range from <badge>{{min}}</badge> to <badge>{{max}}</badge>"
         },
@@ -676,6 +676,10 @@
           "ActionLabel": "Action"
         },
         "Msfs": {
+          "Preset": {
+            "Title": "Step 2 - Select preset",
+            "Description": "Choose a preset from our preset library. Use filters to narrow down your search."
+          },
           "NoneCode": "None",
           "CodePlaceholder": "Enter RPN code",
           "CustomPreset": "Custom Preset"

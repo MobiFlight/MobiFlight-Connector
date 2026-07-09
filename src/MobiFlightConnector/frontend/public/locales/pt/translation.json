@@ -676,6 +676,11 @@
           "ActionLabel": "Ação"
         },
         "Msfs": {
+          "Preset": {
+            "Title": "Passo 2 - Selecionar predefinição",
+            "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
+            "ProjectAircraftOnly": "Apenas aeronaves do projeto"
+          },
           "NoneCode": "Nenhum",
           "CodePlaceholder": "Digite o código RPN",
           "CustomPreset": "Predefinição personalizada"
