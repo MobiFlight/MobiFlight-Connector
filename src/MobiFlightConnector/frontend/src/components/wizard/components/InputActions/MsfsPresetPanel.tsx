@@ -61,7 +61,7 @@ const MsfsPresetPanel = ({
       : true
 
   const validPresets = presets.filter((p: Preset) =>
-    // validPresetTypes.includes(p.presetType.toLowerCase()) &&
+    validPresetTypes.includes(p.presetType.toLowerCase()) &&
     favoritesOnly ? projectAircraftFilter(p) : true,
   )
 
@@ -82,32 +82,6 @@ const MsfsPresetPanel = ({
       p.label.toLowerCase().includes(filter.search.toLowerCase()),
   )
 
-  const categoryStatsMap = new Map<
-    string,
-    { category: string; Count: number }
-  >()
-
-  filteredPresets.forEach((p) => {
-    const key = `${p.system}`
-    const existing = categoryStatsMap.get(key)
-
-    if (existing) {
-      existing.Count += 1
-      return
-    }
-    categoryStatsMap.set(key, {
-      category: p.system,
-      Count: 1,
-    })
-  })
-
-  const categoriesWithStats = [...categoryStatsMap.values()].sort((a, b) =>
-    a.category.localeCompare(b.category),
-  )
-  const selectedCategoryWithStats = categoriesWithStats.find(
-    (c) => c.category === filter.system,
-  )
-
   const categories = [...new Set(filteredPresets.map((p) => p.system))].sort()
   const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))].sort()
   const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
@@ -116,10 +90,10 @@ const MsfsPresetPanel = ({
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
         <div className="text-lg font-semibold">
-          Microsoft Flight Simulator 
+          Select your preset
         </div>
         <div className="text-muted-foreground text-sm">
-          {t(`Dialog.InputConfigWizard.Action.Description`)}
+          Choose a preset from our preset library. Use filters to narrow down your search.
         </div>
       </div>
       <div className="grid grid-cols-4 gap-2">
@@ -186,13 +160,13 @@ const MsfsPresetPanel = ({
           placeholder={t(
             "Dialog.InputConfigWizard.InputActions.Common.FilterBySystem",
           )}
-          getLabel={(item) => `${item.category} (${item.Count})`}
-          getValue={(item) => item.category}
-          items={categoriesWithStats}
-          selected={selectedCategoryWithStats}
-          isSelected={(item) => item.category === filter?.system}
+          getLabel={(item) => `${item}`}
+          getValue={(item) => item}
+          items={categories}
+          selected={filter?.system}
+          isSelected={(item) => item === filter?.system}
           setSelected={(item) => {
-            setFilter((prev) => ({ ...prev, system: item?.category || "" }))
+            setFilter((prev) => ({ ...prev, system: item || "" }))
           }}
           searchPlaceholder={t(
             "Dialog.InputConfigWizard.InputActions.Common.SearchSystems",
