@@ -2,6 +2,7 @@ import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
 import { AircraftInfo } from "@/types/project"
@@ -40,6 +41,7 @@ const MsfsPresetPanel = ({
 }: MsfsPresetPanelProps) => {
   const { t } = useTranslation()
   const { project } = useProjectStore()
+  const [favoritesOnly, setFavoritesOnly] = useState(true)
 
   const validPresetTypes =
     variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
@@ -58,10 +60,9 @@ const MsfsPresetPanel = ({
         )
       : true
 
-  const validPresets = presets.filter(
-    (p: Preset) =>
-      validPresetTypes.includes(p.presetType.toLowerCase()) &&
-      projectAircraftFilter(p),
+  const validPresets = presets.filter((p: Preset) =>
+    // validPresetTypes.includes(p.presetType.toLowerCase()) &&
+    favoritesOnly ? projectAircraftFilter(p) : true,
   )
 
   const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
@@ -80,23 +81,71 @@ const MsfsPresetPanel = ({
       (filter.system ? p.system === filter.system : true) &&
       p.label.toLowerCase().includes(filter.search.toLowerCase()),
   )
-  const categories = [...new Set(filteredPresets.map((p) => p.system))]
-  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))]
-  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))]
+
+  const categoryStatsMap = new Map<
+    string,
+    { category: string; Count: number }
+  >()
+
+  filteredPresets.forEach((p) => {
+    const key = `${p.system}`
+    const existing = categoryStatsMap.get(key)
+
+    if (existing) {
+      existing.Count += 1
+      return
+    }
+    categoryStatsMap.set(key, {
+      category: p.system,
+      Count: 1,
+    })
+  })
+
+  const categoriesWithStats = [...categoryStatsMap.values()].sort((a, b) =>
+    a.category.localeCompare(b.category),
+  )
+  const selectedCategoryWithStats = categoriesWithStats.find(
+    (c) => c.category === filter.system,
+  )
+
+  const categories = [...new Set(filteredPresets.map((p) => p.system))].sort()
+  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))].sort()
+  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
+        <div className="text-lg font-semibold">
+          Microsoft Flight Simulator 
+        </div>
+        <div className="text-muted-foreground text-sm">
+          {t(`Dialog.InputConfigWizard.Action.Description`)}
+        </div>
+      </div>
       <div className="grid grid-cols-4 gap-2">
-        <Input
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.Common.FilterPresets",
-          )}
-          value={filter.search}
-          onChange={(e) =>
-            setFilter((prev) => ({ ...prev, search: e.target.value }))
-          }
-        />
+        <div className="col-span-3">
+          <Input
+            placeholder={t(
+              "Dialog.InputConfigWizard.InputActions.Common.FilterPresets",
+            )}
+            value={filter.search}
+            onChange={(e) =>
+              setFilter((prev) => ({ ...prev, search: e.target.value }))
+            }
+          />
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <Switch
+          className="data-[state=checked]:bg-secondary"
+            checked={favoritesOnly}
+            onCheckedChange={(checked) => setFavoritesOnly(checked)}
+          ></Switch>
+          <Label>Project aircraft only</Label>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 gap-2">
         <ComboBox
+          align="start"
           widthClass="flex-1"
           selected={filter?.vendor}
           placeholder={t(
@@ -114,6 +163,7 @@ const MsfsPresetPanel = ({
           )}
         />
         <ComboBox
+          align="start"
           widthClass="flex-1"
           placeholder={t(
             "Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft",
@@ -131,26 +181,39 @@ const MsfsPresetPanel = ({
           )}
         />
         <ComboBox
+          align="start"
           widthClass="flex-1"
           placeholder={t(
             "Dialog.InputConfigWizard.InputActions.Common.FilterBySystem",
           )}
-          getLabel={(item) => item}
-          getValue={(item) => item}
-          items={categories}
-          selected={filter?.system}
-          isSelected={(item) => item === filter?.system}
+          getLabel={(item) => `${item.category} (${item.Count})`}
+          getValue={(item) => item.category}
+          items={categoriesWithStats}
+          selected={selectedCategoryWithStats}
+          isSelected={(item) => item.category === filter?.system}
           setSelected={(item) => {
-            setFilter((prev) => ({ ...prev, system: item || "" }))
+            setFilter((prev) => ({ ...prev, system: item?.category || "" }))
           }}
           searchPlaceholder={t(
             "Dialog.InputConfigWizard.InputActions.Common.SearchSystems",
           )}
         />
+        <Button
+          size={"sm"}
+          className="w-fit"
+          variant="ghost"
+          onClick={() =>
+            setFilter({ vendor: "", aircraft: "", system: "", search: "" })
+          }
+        >
+          <IconX />
+          <span className="text-sm">{t("Dialog.General.ResetFilters")}</span>
+        </Button>
       </div>
       <div className="grid grid-cols-4 items-center gap-2">
-        <div className="col-span-2">
+        <div className="col-span-3">
           <ComboBox
+            align="start"
             items={filteredPresets}
             selected={selectedPreset}
             placeholder={t(
@@ -166,25 +229,12 @@ const MsfsPresetPanel = ({
               "Dialog.InputConfigWizard.InputActions.Common.SearchPresets",
             )}
             widthClass="w-full"
-            variant="nofilter"
           />
         </div>
         <div role="status" className="px-2 text-sm">
           {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
             count: filteredPresets.length,
           })}
-        </div>
-        <div>
-          <Button
-            size={"sm"}
-            variant="ghost"
-            onClick={() =>
-              setFilter({ vendor: "", aircraft: "", system: "", search: "" })
-            }
-          >
-            <IconX />
-            {t("Dialog.General.ResetFilters")}
-          </Button>
         </div>
       </div>
       <div className="flex flex-col gap-4">
