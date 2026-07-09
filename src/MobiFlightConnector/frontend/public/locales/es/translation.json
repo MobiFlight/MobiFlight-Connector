@@ -692,6 +692,11 @@
           "CustomPreset": "Preset personalizado"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Paso 2 - Seleccionar preset",
+            "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
+            "ProjectAircraftOnly": "Solo aviones del proyecto"
+          },
           "InputTypeLabel": "Tipo de entrada",
           "SelectInputTypePlaceholder": "Seleccionar tipo de entrada",
           "PathLabel": "Ruta",

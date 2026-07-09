@@ -686,6 +686,11 @@
           "CustomPreset": "Mukautettu esiasetus"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Vaihe 2 - Valitse esiasetus",
+            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+          },
           "InputTypeLabel": "Syötetyyppi",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",
           "PathLabel": "Polku",

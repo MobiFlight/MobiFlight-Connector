@@ -89,6 +89,14 @@ const XplanePresetPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
+        <div className="text-lg font-semibold">
+          {t("Dialog.InputConfigWizard.InputAction.Xplane.Preset.Title")}
+        </div>
+        <div className="text-muted-foreground text-sm">
+          {t("Dialog.InputConfigWizard.InputAction.Xplane.Preset.Description")}
+        </div>
+      </div>
       <div className="grid grid-cols-4 gap-2">
         <Input
           placeholder={t(

@@ -686,6 +686,11 @@
           "CustomPreset": "Predefinição personalizada"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Passo 2 - Selecionar predefinição",
+            "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
+            "ProjectAircraftOnly": "Apenas aeronaves do projeto"
+          },
           "InputTypeLabel": "Tipo de Entrada",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
           "PathLabel": "Caminho",

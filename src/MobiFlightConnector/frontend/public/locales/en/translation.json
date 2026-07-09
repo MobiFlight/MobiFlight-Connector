@@ -678,13 +678,19 @@
         "Msfs": {
           "Preset": {
             "Title": "Step 2 - Select preset",
-            "Description": "Choose a preset from our preset library. Use filters to narrow down your search."
+            "Description": "Choose a preset from our preset library. Use filters to narrow down your search.",
+            "ProjectAircraftOnly": "Project aircraft only"
           },
           "NoneCode": "None",
           "CodePlaceholder": "Enter RPN code",
           "CustomPreset": "Custom Preset"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Step 2 - Select preset",
+            "Description": "Choose a preset from our preset library. Use filters to narrow down your search.",
+            "ProjectAircraftOnly": "Project aircraft only"
+          },
           "InputTypeLabel": "Input Type",
           "SelectInputTypePlaceholder": "Select input type",
           "PathLabel": "Path",

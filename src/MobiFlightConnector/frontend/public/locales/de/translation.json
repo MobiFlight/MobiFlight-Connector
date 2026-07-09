@@ -692,6 +692,11 @@
           "CustomPreset": "Eigenes Preset"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Schritt 2 - Preset auswählen",
+            "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
+            "ProjectAircraftOnly": "Nur Projektflugzeuge"
+          },
           "InputTypeLabel": "Eingabetyp",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",
           "PathLabel": "Pfad",
