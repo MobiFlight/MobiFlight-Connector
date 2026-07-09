@@ -1,4 +1,5 @@
 import ComboBox from "@/components/ComboBox"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -81,111 +82,119 @@ const EventIdInputActionPanel = ({
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      {options === "pmdg" && (
-        <div className="flex flex-col gap-2">
-          <div className="text-sm font-semibold">
-            {t(
-              "Dialog.InputConfigWizard.InputActions.EventId.PmdgAircraftLabel",
-            )}
-          </div>
-          <RadioGroup
-            defaultValue="B737"
-            className="flex flex-row"
-            value={(config as PmdgEventIdInputAction).AircraftType}
-            onValueChange={(value) =>
-              onConfigChange({
-                ...(config as PmdgEventIdInputAction),
-                AircraftType: value,
-              } as PmdgEventIdInputAction)
-            }
-          >
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="B737" id="b737" />
-              <Label htmlFor="B737">B737</Label>
+    <Card>
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col gap-4">
+          {options === "pmdg" && (
+            <div className="flex flex-col gap-2">
+              <div className="text-sm font-semibold">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.EventId.PmdgAircraftLabel",
+                )}
+              </div>
+              <RadioGroup
+                defaultValue="B737"
+                className="flex flex-row"
+                value={(config as PmdgEventIdInputAction).AircraftType}
+                onValueChange={(value) =>
+                  onConfigChange({
+                    ...(config as PmdgEventIdInputAction),
+                    AircraftType: value,
+                  } as PmdgEventIdInputAction)
+                }
+              >
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="B737" id="b737" />
+                  <Label htmlFor="B737">B737</Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="B747" id="b747" />
+                  <Label htmlFor="B747">B747</Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="B777" id="b777" />
+                  <Label htmlFor="B777">B777</Label>
+                </div>
+              </RadioGroup>
             </div>
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="B747" id="b747" />
-              <Label htmlFor="B747">B747</Label>
-            </div>
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="B777" id="b777" />
-              <Label htmlFor="B777">B777</Label>
-            </div>
-          </RadioGroup>
-        </div>
-      )}
-      <EventIdPresetsPanel
-        variant={options}
-        aircraft={(config as PmdgEventIdInputAction).AircraftType}
-        selectedPresetId={config?.EventId ?? null}
-        setSelectedPreset={(preset) =>
-          onConfigChange({
-            ...config,
-            EventId: preset ? preset.eventId : null,
-            // reset param when changing preset
-            Param: "0",
-          } as EventIdInputAction | PmdgEventIdInputAction)
-        }
-      />
-      <div className="flex w-100 flex-col gap-2">
-        <Label htmlFor="eventId">
-          {t("Dialog.InputConfigWizard.InputActions.EventId.EventIdLabel")}
-        </Label>
-        <Input
-          id="eventId"
-          value={config?.EventId ?? ""}
-          onChange={(e) =>
-            onConfigChange({ ...config, EventId: e.target.value } as
-              | EventIdInputAction
-              | PmdgEventIdInputAction)
-          }
-        />
-      </div>
-      {(options === "default" || isCustomParam) && (
-        <div className="flex w-100 flex-col gap-2">
-          <Label htmlFor="customParam">
-            {t(
-              "Dialog.InputConfigWizard.InputActions.EventId.CustomParamLabel",
-            )}
-          </Label>
-          <Input
-            className="font-mono text-sm whitespace-nowrap"
-            id="customParam"
-            value={config?.Param ?? ""}
-            onChange={(e) =>
-              onConfigChange({ ...config, Param: e.target.value } as
-                | EventIdInputAction
-                | PmdgEventIdInputAction)
-            }
-          />
-        </div>
-      )}
-      {options === "pmdg" && (
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="mouseParam">
-            {t("Dialog.InputConfigWizard.InputActions.EventId.MouseParamLabel")}
-          </Label>
-          <ComboBox
-            placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.EventId.SelectMouseParamPlaceholder",
-            )}
-            items={mouseParams}
-            getLabel={(item) => item.Label}
-            getValue={(item) => item.Value}
-            isSelected={(item) => item.Value === config?.Param}
-            selected={mouseParams.find((item) => item.Value === config?.Param)}
-            setSelected={(item) =>
+          )}
+          <EventIdPresetsPanel
+            variant={options}
+            aircraft={(config as PmdgEventIdInputAction).AircraftType}
+            selectedPresetId={config?.EventId ?? null}
+            setSelectedPreset={(preset) =>
               onConfigChange({
                 ...config,
-                Param: item ? item.Value : "",
+                EventId: preset ? preset.eventId : null,
+                // reset param when changing preset
+                Param: "0",
               } as EventIdInputAction | PmdgEventIdInputAction)
             }
-            widthClass="w-100"
           />
+          <div className="flex w-100 flex-col gap-2">
+            <Label htmlFor="eventId">
+              {t("Dialog.InputConfigWizard.InputActions.EventId.EventIdLabel")}
+            </Label>
+            <Input
+              id="eventId"
+              value={config?.EventId ?? ""}
+              onChange={(e) =>
+                onConfigChange({ ...config, EventId: e.target.value } as
+                  | EventIdInputAction
+                  | PmdgEventIdInputAction)
+              }
+            />
+          </div>
+          {(options === "default" || isCustomParam) && (
+            <div className="flex w-100 flex-col gap-2">
+              <Label htmlFor="customParam">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.EventId.CustomParamLabel",
+                )}
+              </Label>
+              <Input
+                className="font-mono text-sm whitespace-nowrap"
+                id="customParam"
+                value={config?.Param ?? ""}
+                onChange={(e) =>
+                  onConfigChange({ ...config, Param: e.target.value } as
+                    | EventIdInputAction
+                    | PmdgEventIdInputAction)
+                }
+              />
+            </div>
+          )}
+          {options === "pmdg" && (
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="mouseParam">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.EventId.MouseParamLabel",
+                )}
+              </Label>
+              <ComboBox
+                placeholder={t(
+                  "Dialog.InputConfigWizard.InputActions.EventId.SelectMouseParamPlaceholder",
+                )}
+                items={mouseParams}
+                getLabel={(item) => item.Label}
+                getValue={(item) => item.Value}
+                isSelected={(item) => item.Value === config?.Param}
+                selected={mouseParams.find(
+                  (item) => item.Value === config?.Param,
+                )}
+                setSelected={(item) =>
+                  onConfigChange({
+                    ...config,
+                    Param: item ? item.Value : "",
+                  } as EventIdInputAction | PmdgEventIdInputAction)
+                }
+                widthClass="w-100"
+              />
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 export default EventIdInputActionPanel

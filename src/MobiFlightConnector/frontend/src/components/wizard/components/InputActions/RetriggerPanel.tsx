@@ -1,3 +1,4 @@
+import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
 
@@ -12,7 +13,9 @@ const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
     return (
       <div className="flex grow flex-row items-center gap-8">
         <div className="flex grow flex-col gap-1 text-sm">
-          <Label htmlFor="preset">{t("Dialog.InputConfigWizard.InputActions.Retrigger.NoteLabel")}:</Label>
+          <Label htmlFor="preset">
+            {t("Dialog.InputConfigWizard.InputActions.Retrigger.NoteLabel")}:
+          </Label>
           {t("Dialog.InputConfigWizard.InputActions.Retrigger.Summary")}
         </div>
       </div>
@@ -20,19 +23,27 @@ const RetriggerPanel = ({ variant }: RetriggerPanelProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">
-          {t("Dialog.InputConfigWizard.InputActions.Retrigger.Title")}
+    <Card>
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.InputConfigWizard.InputActions.Retrigger.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Retrigger.Description1",
+              )}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Retrigger.Description2",
+              )}
+            </div>
+          </div>
         </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.Retrigger.Description1")}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.Retrigger.Description2")}
-        </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 export default RetriggerPanel

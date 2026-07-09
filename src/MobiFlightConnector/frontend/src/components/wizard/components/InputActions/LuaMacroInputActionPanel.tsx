@@ -1,3 +1,4 @@
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
@@ -45,52 +46,60 @@ const LuaMacroInputActionPanel = ({
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">
-          {t("Dialog.InputConfigWizard.InputActions.LuaMacro.Title")}
+    <Card>
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.InputConfigWizard.InputActions.LuaMacro.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t("Dialog.InputConfigWizard.InputActions.LuaMacro.Description")}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="macroName">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNameLabel",
+              )}
+            </Label>
+            <Input
+              id="macroName"
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNamePlaceholder",
+              )}
+              value={config?.MacroName ?? ""}
+              onChange={(e) =>
+                onConfigChange({
+                  ...(config as LuaMacroInputAction),
+                  MacroName: e.target.value,
+                } as LuaMacroInputAction)
+              }
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="macroValue">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValueLabel",
+              )}
+            </Label>
+            <Input
+              id="macroValue"
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValuePlaceholder",
+              )}
+              value={config?.MacroValue ?? ""}
+              onChange={(e) =>
+                onConfigChange({
+                  ...(config as LuaMacroInputAction),
+                  MacroValue: e.target.value,
+                } as LuaMacroInputAction)
+              }
+            />
+          </div>
         </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.LuaMacro.Description")}
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="macroName">
-          {t("Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNameLabel")}
-        </Label>
-        <Input
-          id="macroName"
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroNamePlaceholder",
-          )}
-          value={config?.MacroName ?? ""}
-          onChange={(e) =>
-            onConfigChange({
-              ...(config as LuaMacroInputAction),
-              MacroName: e.target.value,
-            } as LuaMacroInputAction)
-          }
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="macroValue">
-          {t("Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValueLabel")}
-        </Label>
-        <Input
-          id="macroValue"
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.LuaMacro.MacroValuePlaceholder",
-          )}
-          value={config?.MacroValue ?? ""}
-          onChange={(e) =>
-            onConfigChange({
-              ...(config as LuaMacroInputAction),
-              MacroValue: e.target.value,
-            } as LuaMacroInputAction)
-          }
-        />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 export default LuaMacroInputActionPanel

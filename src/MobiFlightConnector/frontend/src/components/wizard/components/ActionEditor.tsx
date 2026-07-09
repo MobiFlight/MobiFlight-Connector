@@ -430,36 +430,38 @@ const ActionEditor = ({
     : undefined
   return (
     <div className="flex flex-col gap-4" data-testid="action-editor">
-      <div className="flex flex-col gap-4 rounded-lg border px-6 py-4 shadow">
-        <div className="flex flex-1 flex-col">
-          <div className="text-lg font-semibold">
-            {t(
-              `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
-            )}
+      <Card>
+        <CardContent className="pt-4 flex flex-col gap-4">
+          <div className="flex flex-1 flex-col">
+            <div className="text-lg font-semibold">
+              {t(
+                `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
+              )}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t(
+                `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
+              )}
+            </div>
           </div>
-          <div className="text-muted-foreground text-sm">
-            {t(
-              `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
-            )}
-          </div>
-        </div>
-        {event.variant === "button" && event.event === "onHold" && (
-          <ButtonOnHoldOptions
-            event={event}
-            buttonOptions={buttonOptions}
-            action={action}
-            onActionChange={onActionChange}
-          />
-        )}
-        {event.variant === "button" && event.event === "onLongRelease" && (
-          <ButtonOnLongReleaseOptions
-            event={event}
-            buttonOptions={buttonOptions}
-            action={action}
-            onActionChange={onActionChange}
-          />
-        )}
-      </div>
+          {event.variant === "button" && event.event === "onHold" && (
+            <ButtonOnHoldOptions
+              event={event}
+              buttonOptions={buttonOptions}
+              action={action}
+              onActionChange={onActionChange}
+            />
+          )}
+          {event.variant === "button" && event.event === "onLongRelease" && (
+            <ButtonOnLongReleaseOptions
+              event={event}
+              buttonOptions={buttonOptions}
+              action={action}
+              onActionChange={onActionChange}
+            />
+          )}
+        </CardContent>
+      </Card>
       <Card>
         <CardContent className="pt-4">
           <div className="flex flex-col gap-4">
