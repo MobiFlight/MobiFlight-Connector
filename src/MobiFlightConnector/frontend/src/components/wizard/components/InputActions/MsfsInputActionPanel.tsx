@@ -3,7 +3,6 @@ import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPre
 import { MsfsInputAction } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
-import { Separator } from "@/components/ui/separator"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { useQuery } from "@tanstack/react-query"
@@ -67,30 +66,40 @@ const MsfsInputActionPanel = ({
           } as MsfsInputAction)
         }
       />
-      <Separator />
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="code">
-          {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
-        </Label>
-        <Textarea
-          name="code"
-          className="font-mono text-sm whitespace-nowrap"
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.Msfs.CodePlaceholder",
-          )}
-          value={config?.Command ?? ""}
-          onChange={(e) => {
-            onConfigChange({
-              ...(config as MsfsInputAction),
-              Command: e.target.value,
-              PresetId: "", // Clear preset if user manually edits command
-            } as MsfsInputAction)
-          }}
-        />
-        <div className="text-muted-foreground text-sm">
-          {t(
-            "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
-          )}
+      <div className="flex flex-col gap-4 rounded-lg border p-4 px-6">
+        <div className="flex flex-col">
+          <div className="text-lg font-semibold">
+            Step 3 - Refine code (optional)
+          </div>
+          <div className="text-muted-foreground text-sm">
+            This code is used by the simulator. You can edit it manually or
+            select a preset from the list above.
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="code">
+            {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+          </Label>
+          <Textarea
+            name="code"
+            className="font-mono text-sm whitespace-nowrap dark:focus:bg-input/20 dark:bg-transparent"
+            placeholder={t(
+              "Dialog.InputConfigWizard.InputActions.Msfs.CodePlaceholder",
+            )}
+            value={config?.Command ?? ""}
+            onChange={(e) => {
+              onConfigChange({
+                ...(config as MsfsInputAction),
+                Command: e.target.value,
+                PresetId: "", // Clear preset if user manually edits command
+              } as MsfsInputAction)
+            }}
+          />
+          <div className="text-muted-foreground text-sm">
+            {t(
+              "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
+            )}
+          </div>
         </div>
       </div>
     </div>

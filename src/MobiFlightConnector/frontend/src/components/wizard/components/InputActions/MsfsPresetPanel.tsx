@@ -61,8 +61,9 @@ const MsfsPresetPanel = ({
       : true
 
   const validPresets = presets.filter((p: Preset) =>
-    validPresetTypes.includes(p.presetType.toLowerCase()) &&
-    favoritesOnly ? projectAircraftFilter(p) : true,
+    validPresetTypes.includes(p.presetType.toLowerCase()) && favoritesOnly
+      ? projectAircraftFilter(p)
+      : true,
   )
 
   const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
@@ -87,15 +88,17 @@ const MsfsPresetPanel = ({
   const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-4 rounded-lg border p-4 px-6 shadow pb-2">
+      <div className="flex flex-col">
         <div className="text-lg font-semibold">
-          Select your preset
+          Step 2 - Select preset
         </div>
         <div className="text-muted-foreground text-sm">
-          Choose a preset from our preset library. Use filters to narrow down your search.
+          Choose a preset from our preset library. Use filters to narrow down
+          your search.
         </div>
       </div>
+
       <div className="grid grid-cols-4 gap-2">
         <div className="col-span-3">
           <Input
@@ -110,7 +113,6 @@ const MsfsPresetPanel = ({
         </div>
         <div className="flex flex-row items-center gap-2">
           <Switch
-          className="data-[state=checked]:bg-secondary"
             checked={favoritesOnly}
             onCheckedChange={(checked) => setFavoritesOnly(checked)}
           ></Switch>
@@ -184,43 +186,48 @@ const MsfsPresetPanel = ({
           <span className="text-sm">{t("Dialog.General.ResetFilters")}</span>
         </Button>
       </div>
-      <div className="grid grid-cols-4 items-center gap-2">
-        <div className="col-span-3">
-          <ComboBox
-            align="start"
-            items={filteredPresets}
-            selected={selectedPreset}
-            placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.SelectPreset",
-            )}
-            getLabel={(item) => item.label}
-            getValue={(item) => item.id}
-            isSelected={(item) => item.id === selectedPreset?.id}
-            setSelected={(item) => {
-              setSelectedPreset(item ? item : null)
-            }}
-            searchPlaceholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.SearchPresets",
-            )}
-            widthClass="w-full"
-          />
-        </div>
-        <div role="status" className="px-2 text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
-            count: filteredPresets.length,
-          })}
-        </div>
-      </div>
-      <div className="flex flex-col gap-4">
-        <Label htmlFor="description">
-          {t("Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel")}
-        </Label>
-        <div id="description" className="rounded border p-2 text-sm">
-          {selectedPreset?.description
-            ? selectedPreset?.description
-            : t(
-                "Dialog.InputConfigWizard.InputActions.Common.NoDescriptionAvailable",
+      <div className="bg-accent/50 -mx-4 flex flex-col gap-4 rounded-lg p-4 shadow-inner ">
+        <div className="grid grid-cols-4 items-center gap-2">
+          <div className="col-span-3">
+            <ComboBox
+              align="start"
+              items={filteredPresets}
+              selected={selectedPreset}
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.SelectPreset",
               )}
+              getLabel={(item) => item.label}
+              getValue={(item) => item.id}
+              isSelected={(item) => item.id === selectedPreset?.id}
+              setSelected={(item) => {
+                setSelectedPreset(item ? item : null)
+              }}
+              searchPlaceholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.SearchPresets",
+              )}
+              widthClass="w-full"
+            />
+          </div>
+          <div role="status" className="px-2 text-sm">
+            {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
+              count: filteredPresets.length,
+            })}
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="description">
+            {t("Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel")}
+          </Label>
+          <div
+            id="description"
+            className="rounded border-2 border-dashed p-2 text-sm bg-background"
+          >
+            {selectedPreset?.description
+              ? selectedPreset?.description
+              : t(
+                  "Dialog.InputConfigWizard.InputActions.Common.NoDescriptionAvailable",
+                )}
+          </div>
         </div>
       </div>
     </div>

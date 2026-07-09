@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
 import ActionTypeComboBox from "@/components/wizard/components/ActionTypeComboBox"
 import CopyPasteActionPanel from "@/components/wizard/components/CopyPasteActionPanel"
 import EventIdInputActionPanel from "@/components/wizard/components/InputActions/EventIdInputActionPanel"
@@ -319,6 +318,106 @@ const ActionPanel = ({
   }
 }
 
+const ButtonOnHoldOptions = ({
+  event,
+  buttonOptions,
+  action,
+  onActionChange,
+}: ActionEditorProps) => {
+  const { t } = useTranslation()
+  return (
+    <div className="flex flex-1 flex-col gap-1">
+      <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
+        <span
+          title={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.description`,
+          )}
+        >
+          {t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+          )}
+        </span>
+        <Input
+          aria-label={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
+          )}
+          className="w-16"
+          value={buttonOptions?.HoldDelay}
+          onChange={(e) => {
+            const value = e.target.value
+            onActionChange(action, {
+              HoldDelay: value ? parseInt(value) : undefined,
+              RepeatDelay: buttonOptions?.RepeatDelay,
+            })
+          }}
+        />
+        <span
+          title={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
+          )}
+        >
+          {t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+          )}
+        </span>
+        <Input
+          aria-label={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
+          )}
+          className="w-16"
+          value={buttonOptions?.RepeatDelay}
+          onChange={(e) => {
+            const value = e.target.value
+            onActionChange(action, {
+              HoldDelay: buttonOptions?.HoldDelay,
+              RepeatDelay: value ? parseInt(value) : undefined,
+            })
+          }}
+        />
+        <span>ms</span>
+      </div>
+    </div>
+  )
+}
+
+const ButtonOnLongReleaseOptions = ({
+  event,
+  buttonOptions,
+  action,
+  onActionChange,
+}: ActionEditorProps) => {
+  const { t } = useTranslation()
+  return (
+    <div className="flex flex-1 flex-col gap-1">
+      <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
+        <span
+          title={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
+          )}
+        >
+          {t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+          )}
+        </span>
+        <Input
+          aria-label={t(
+            `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
+          )}
+          className="w-16"
+          onChange={(e) => {
+            const value = e.target.value
+            onActionChange(action, {
+              LongReleaseDelay: value ? parseInt(value) : undefined,
+            })
+          }}
+          value={buttonOptions?.LongReleaseDelay}
+        />
+        <span className="whitespace-nowrap">ms</span>
+      </div>
+    </div>
+  )
+}
+
 const ActionEditor = ({
   event,
   buttonOptions,
@@ -330,127 +429,61 @@ const ActionEditor = ({
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
   return (
-    <Card data-testid="action-editor">
-      <CardContent className="pt-4">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-1 flex-col">
-              <div className="text-lg font-semibold">
-                {t(
-                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
-                )}
-              </div>
-              <div className="text-muted-foreground text-sm">
-                {t(
-                  `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
-                )}
-              </div>
-            </div>
-            {event.variant === "button" && event.event === "onHold" && (
-              <div className="flex flex-1 flex-col gap-1">
-                <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
-                  <span
-                    title={t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.description`,
-                    )}
-                  >
-                    {t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
-                    )}
-                  </span>
-                  <Input
-                    aria-label={t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.holdDelay.label`,
-                    )}
-                    className="w-16"
-                    value={buttonOptions?.HoldDelay}
-                    onChange={(e) => {
-                      const value = e.target.value
-                      onActionChange(action, {
-                        HoldDelay: value ? parseInt(value) : undefined,
-                        RepeatDelay: buttonOptions?.RepeatDelay,
-                      })
-                    }}
-                  />
-                  <span
-                    title={t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.description`,
-                    )}
-                  >
-                    {t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
-                    )}
-                  </span>
-                  <Input
-                    aria-label={t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.repeatDelay.label`,
-                    )}
-                    className="w-16"
-                    value={buttonOptions?.RepeatDelay}
-                    onChange={(e) => {
-                      const value = e.target.value
-                      onActionChange(action, {
-                        HoldDelay: buttonOptions?.HoldDelay,
-                        RepeatDelay: value ? parseInt(value) : undefined,
-                      })
-                    }}
-                  />
-                  <span>ms</span>
-                </div>
-              </div>
-            )}
-            {event.variant === "button" && event.event === "onLongRelease" && (
-              <div className="flex flex-1 flex-col gap-1">
-                <div className="flex flex-row items-center gap-2 [&_span]:text-sm">
-                  <span
-                    title={t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.description`,
-                    )}
-                  >
-                    {t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
-                    )}
-                  </span>
-                  <Input
-                    aria-label={t(
-                      `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.options.longReleaseDelay.label`,
-                    )}
-                    className="w-16"
-                    onChange={(e) => {
-                      const value = e.target.value
-                      onActionChange(action, {
-                        LongReleaseDelay: value ? parseInt(value) : undefined,
-                      })
-                    }}
-                    value={buttonOptions?.LongReleaseDelay}
-                  />
-                  <span className="whitespace-nowrap">ms</span>
-                </div>
-              </div>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 rounded-lg border px-6 py-4 shadow">
+        <div className="flex flex-1 flex-col">
+          <div className="text-lg font-semibold">
+            {t(
+              `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.label`,
             )}
           </div>
-          <Separator />
-          <div className="flex flex-row items-end justify-between">
-            <ActionTypeComboBox
-              selectedActionType={selectedActionType}
-              setSelectedActionType={(option) => {
-                onActionChange(
-                  option ? { ...action, Type: option.value } : null,
-                )
-              }}
-            />
-            <CopyPasteActionPanel
-              action={action}
-              onActionChange={(newAction) => {
-                onActionChange(newAction)
-              }}
-            />
+          <div className="text-muted-foreground text-sm">
+            {t(
+              `Dialog.InputConfigWizard.${event.variant}.Event.${event.event}.description`,
+            )}
           </div>
-          {selectedActionType?.value && <Separator />}
-          <ActionPanel onActionChange={onActionChange} action={action} />
         </div>
-      </CardContent>
-    </Card>
+        {event.variant === "button" && event.event === "onHold" && (
+          <ButtonOnHoldOptions
+            event={event}
+            buttonOptions={buttonOptions}
+            action={action}
+            onActionChange={onActionChange}
+          />
+        )}
+        {event.variant === "button" && event.event === "onLongRelease" && (
+          <ButtonOnLongReleaseOptions
+            event={event}
+            buttonOptions={buttonOptions}
+            action={action}
+            onActionChange={onActionChange}
+          />
+        )}
+      </div>
+      <Card data-testid="action-editor">
+        <CardContent className="pt-4">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row items-end justify-between">
+              <ActionTypeComboBox
+                selectedActionType={selectedActionType}
+                setSelectedActionType={(option) => {
+                  onActionChange(
+                    option ? { ...action, Type: option.value } : null,
+                  )
+                }}
+              />
+              <CopyPasteActionPanel
+                action={action}
+                onActionChange={(newAction) => {
+                  onActionChange(newAction)
+                }}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      <ActionPanel onActionChange={onActionChange} action={action} />
+    </div>
   )
 }
 export default ActionEditor

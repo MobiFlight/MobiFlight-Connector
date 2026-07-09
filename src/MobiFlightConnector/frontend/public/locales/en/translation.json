@@ -498,7 +498,7 @@
         "Paste": "Paste action"
       },
       "ActionType": {
-        "Title": "Action Type",
+        "Title": "Step 1 - Action Type",
         "Description": "Select the type of action you want to perform",
         "Options": {
           "MSFS2020CustomInputAction": {
@@ -661,7 +661,7 @@
           "CodeLabel": "Code:",
           "NoDescriptionAvailable": "No description available",
           "DescriptionLabel": "Description:",
-          "FilterPresets": "Filter presets",
+          "FilterPresets": "Filter presets by text",
           "FilterByVendor": "Filter by vendor",
           "SearchVendors": "Search vendors...",
           "FilterByAircraft": "Filter by aircraft",
