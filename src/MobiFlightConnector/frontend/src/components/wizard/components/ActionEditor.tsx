@@ -429,7 +429,7 @@ const ActionEditor = ({
     ? ActionTypeOptions.find((option) => option.value === action.Type)
     : undefined
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" data-testid="action-editor">
       <div className="flex flex-col gap-4 rounded-lg border px-6 py-4 shadow">
         <div className="flex flex-1 flex-col">
           <div className="text-lg font-semibold">
@@ -460,7 +460,7 @@ const ActionEditor = ({
           />
         )}
       </div>
-      <Card data-testid="action-editor">
+      <Card>
         <CardContent className="pt-4">
           <div className="flex flex-col gap-4">
             <div className="flex flex-row items-end justify-between">

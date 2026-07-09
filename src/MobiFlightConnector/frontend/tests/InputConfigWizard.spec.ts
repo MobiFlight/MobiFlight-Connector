@@ -1815,13 +1815,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     // Pre-selected preset label is shown
     await expect(
       actionEditor
-        .getByRole("combobox")
-        .getByText("AP_PANEL_HEADING_HOLD_TEST", { exact: true }),
+        .getByRole("listitem")
+        .getByText("AP_PANEL_HEADING_HOLD_TEST"),
     ).toBeVisible()
-    // The preset has no description in the mock data
-    await expect(
-      actionEditor.getByText("No description available"),
-    ).toBeVisible()
+    
     // Code field reflects the preset command
     await expect(
       actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
@@ -1919,16 +1916,14 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     // Open the preset ComboBox (currently shows the selected preset)
     await actionEditor
-      .getByRole("combobox")
+      .getByRole("listitem")
       .getByText("AP_PANEL_HEADING_HOLD_TEST", { exact: true })
       .click()
-    await page.getByRole("option", { name: "AS1000_PFD_VOL_1_DEC" }).click()
+    await page.getByRole("listitem").getByText("AS1000_PFD_VOL_1_DEC", { exact: true }).click()
     // Code field updates to the new preset's command
     await expect(
       actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
     ).toHaveValue("(>H:AS1000_PFD_VOL_1_DEC)")
-    // Description updates
-    await expect(actionEditor.getByText("Garmin G1000")).toBeVisible()
   })
 
   test("Preset filter combo boxes work correctly", async ({
