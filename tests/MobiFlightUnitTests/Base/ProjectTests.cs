@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
 
@@ -475,7 +476,6 @@ namespace MobiFlight.Base.Tests
 
         #endregion
 
-
         #region ProjectInfo Tests
         [TestMethod()]
         public void DetermineProjectInfos_WithEmptyProject_ShouldHaveCorrectDefaults()
@@ -730,6 +730,85 @@ namespace MobiFlight.Base.Tests
             // Assert
             Assert.AreEqual("xplane", project.Sim);
         }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithoutInputConfigItems_ShouldStillMaintainProjectSettings()
+        {
+            // Arrange
+            var project = new Project();
+            project.Features.FSUIPC = true;
+            project.Features.ProSim = true;
+
+            var config = new ConfigFile();
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.IsTrue(project.Features.FSUIPC);
+            Assert.IsTrue(project.Features.ProSim);
+        }
+
+        [TestMethod()]
+        public void ProjectInfos_WithFsuipcEnabled_ShouldSerializeCorrectly()
+        {
+            // Arrange
+            var project = new Project();
+            project.Features.FSUIPC = true;
+
+            // Act
+            var json = JsonConvert.SerializeObject(project);
+            var deserializedProject = JsonConvert.DeserializeObject<Project>(json);
+
+            // Assert
+            Assert.IsTrue(deserializedProject.Features.FSUIPC);
+        }
+
+        [TestMethod()]
+        public void ProjectInfos_WithFsuipcDisabled_ShouldSerializeCorrectly()
+        {
+            // Arrange
+            var project = new Project();
+            project.Features.FSUIPC = false;
+
+            // Act
+            var json = JsonConvert.SerializeObject(project);
+            var deserializedProject = JsonConvert.DeserializeObject<Project>(json);
+
+            // Assert
+            Assert.IsFalse(deserializedProject.Features.FSUIPC);
+        }
+
+        [TestMethod()]
+        public void ProjectInfos_WithProSimEnabled_ShouldSerializeCorrectly()
+        {
+            // Arrange
+            var project = new Project();
+            project.Features.ProSim = true;
+
+            // Act
+            var json = JsonConvert.SerializeObject(project);
+            var deserializedProject = JsonConvert.DeserializeObject<Project>(json);
+
+            // Assert
+            Assert.IsTrue(deserializedProject.Features.ProSim);
+        }
+
+        [TestMethod()]
+        public void ProjectInfos_WithProSimDisabled_ShouldSerializeCorrectly()
+        {
+            // Arrange
+            var project = new Project();
+            project.Features.ProSim = false;
+
+            // Act
+            var json = JsonConvert.SerializeObject(project);
+            var deserializedProject = JsonConvert.DeserializeObject<Project>(json);
+
+            // Assert
+            Assert.IsFalse(deserializedProject.Features.ProSim);
+        }
+
         #endregion
 
         [TestMethod()]
@@ -854,7 +933,6 @@ namespace MobiFlight.Base.Tests
         }
 
         #endregion
-
 
     }
 }
