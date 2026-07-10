@@ -95,9 +95,9 @@ const XplanePresetPanel = ({
       p.label.toLowerCase().includes(filter.search.toLowerCase()),
   )
 
-  const categories = [...new Set(filteredPresets.map((p) => p.system))]
-  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))]
-  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))]
+  const categories = [...new Set(filteredPresets.map((p) => p.system))].sort()
+  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))].sort()
+  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
 
   useEffect(() => {
     if (!refActiveElement.current) return
@@ -142,52 +142,55 @@ const XplanePresetPanel = ({
               }
             />
             <ComboBox
+              align="start"
               widthClass="flex-1"
-              items={vendors}
-              selected={filter.vendor}
+              selected={filter?.vendor}
               placeholder={t(
                 "Dialog.InputConfigWizard.InputActions.Common.FilterByVendor",
               )}
               getLabel={(item) => item}
               getValue={(item) => item}
-              isSelected={(item) => item === filter.vendor}
-              setSelected={(item) =>
+              items={vendors}
+              isSelected={(item) => item === filter?.vendor}
+              setSelected={(item) => {
                 setFilter((prev) => ({ ...prev, vendor: item || "" }))
-              }
+              }}
               searchPlaceholder={t(
                 "Dialog.InputConfigWizard.InputActions.Common.SearchVendors",
               )}
             />
             <ComboBox
+              align="start"
               widthClass="flex-1"
-              items={aircraft}
-              selected={filter.aircraft}
               placeholder={t(
                 "Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft",
               )}
               getLabel={(item) => item}
               getValue={(item) => item}
-              isSelected={(item) => item === filter.aircraft}
-              setSelected={(item) =>
+              items={aircraft}
+              selected={filter?.aircraft}
+              isSelected={(item) => item === filter?.aircraft}
+              setSelected={(item) => {
                 setFilter((prev) => ({ ...prev, aircraft: item || "" }))
-              }
+              }}
               searchPlaceholder={t(
                 "Dialog.InputConfigWizard.InputActions.Common.SearchAircraft",
               )}
             />
             <ComboBox
+              align="start"
               widthClass="flex-1"
-              items={categories}
-              selected={filter.system}
               placeholder={t(
                 "Dialog.InputConfigWizard.InputActions.Common.FilterBySystem",
               )}
-              getLabel={(item) => item}
+              getLabel={(item) => `${item}`}
               getValue={(item) => item}
-              isSelected={(item) => item === filter.system}
-              setSelected={(item) =>
+              items={categories}
+              selected={filter?.system}
+              isSelected={(item) => item === filter?.system}
+              setSelected={(item) => {
                 setFilter((prev) => ({ ...prev, system: item || "" }))
-              }
+              }}
               searchPlaceholder={t(
                 "Dialog.InputConfigWizard.InputActions.Common.SearchSystems",
               )}
@@ -203,10 +206,10 @@ const XplanePresetPanel = ({
             <div className="flex flex-col gap-1" role="list">
               {filteredPresets.map((preset) => (
                 <PresetListItem
-                  ref={preset.id === selectedPath ? refActiveElement : null}
-                  key={preset.id}
+                  ref={preset.code === selectedPath ? refActiveElement : null}
+                  key={preset.code}
                   preset={preset}
-                  isSelected={preset.id === selectedPath}
+                  isSelected={preset.code === selectedPath}
                   setSelectedPreset={setSelectedPreset}
                 />
               ))}

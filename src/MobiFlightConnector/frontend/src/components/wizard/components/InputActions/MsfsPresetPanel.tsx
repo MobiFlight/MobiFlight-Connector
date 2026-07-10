@@ -94,14 +94,14 @@ const MsfsPresetPanel = ({
       p.label.toLowerCase().includes(filter.search.toLowerCase()),
   )
 
+  const categories = [...new Set(filteredPresets.map((p) => p.system))].sort()
+  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))].sort()
+  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
+
   useEffect(() => {
     if (!refActiveElement.current) return
     scrollActiveProjectIntoView()
   }, [refActiveElement, scrollActiveProjectIntoView])
-
-  const categories = [...new Set(filteredPresets.map((p) => p.system))].sort()
-  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))].sort()
-  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
 
   return (
     <Card>
