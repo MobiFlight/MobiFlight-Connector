@@ -1,5 +1,6 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -45,7 +46,7 @@ const MsfsPresetItem = forwardRef<HTMLDivElement, PresetItemProps>(
         role="listitem"
         key={key}
         className={cn(
-          "bg-background hover:bg-accent/50 flex cursor-pointer flex-row justify-between gap-2 px-2 pt-0.5 pb-1.5 rounded-md border-2 border-background",
+          "bg-background hover:bg-accent/50 border-background flex cursor-pointer flex-row justify-between gap-2 rounded-md border-2 px-2 pt-0.5 pb-1.5",
           isSelected && "bg-primary/20 border-primary border-2",
         )}
         onClick={() => setSelectedPreset(preset)}
@@ -158,127 +159,139 @@ const MsfsPresetPanel = ({
   const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border p-4 px-6 pb-2 shadow">
-      <div className="flex flex-row items-end justify-between">
-        <div className="flex flex-col">
-          <div className="text-lg font-semibold">{ t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Title") }</div>
-          <div className="text-muted-foreground text-sm">
-            { t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Description") }
+    <Card>
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-row items-end justify-between">
+          <div className="flex flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Msfs.Preset.Description",
+              )}
+            </div>
+          </div>
+          <div className="flex flex-row items-center gap-2">
+            <Switch
+              checked={favoritesOnly}
+              onCheckedChange={(checked) => setFavoritesOnly(checked)}
+            ></Switch>
+            <Label>
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Msfs.Preset.ProjectAircraftOnly",
+              )}
+            </Label>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-2">
-          <Switch
-            checked={favoritesOnly}
-            onCheckedChange={(checked) => setFavoritesOnly(checked)}
-          ></Switch>
-          <Label>{ t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.ProjectAircraftOnly") }</Label>
-        </div>
-      </div>
-      <div className="flex flex-col gap-1">
-        <div className="grid grid-cols-4 gap-2">
-          <Input
-            placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.FilterPresets",
-            )}
-            value={filter.search}
-            onChange={(e) =>
-              setFilter((prev) => ({ ...prev, search: e.target.value }))
-            }
-          />
-          <ComboBox
-            align="start"
-            widthClass="flex-1"
-            selected={filter?.vendor}
-            placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.FilterByVendor",
-            )}
-            getLabel={(item) => item}
-            getValue={(item) => item}
-            items={vendors}
-            isSelected={(item) => item === filter?.vendor}
-            setSelected={(item) => {
-              setFilter((prev) => ({ ...prev, vendor: item || "" }))
-            }}
-            searchPlaceholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.SearchVendors",
-            )}
-          />
-          <ComboBox
-            align="start"
-            widthClass="flex-1"
-            placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft",
-            )}
-            getLabel={(item) => item}
-            getValue={(item) => item}
-            items={aircraft}
-            selected={filter?.aircraft}
-            isSelected={(item) => item === filter?.aircraft}
-            setSelected={(item) => {
-              setFilter((prev) => ({ ...prev, aircraft: item || "" }))
-            }}
-            searchPlaceholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.SearchAircraft",
-            )}
-          />
-          <ComboBox
-            align="start"
-            widthClass="flex-1"
-            placeholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.FilterBySystem",
-            )}
-            getLabel={(item) => `${item}`}
-            getValue={(item) => item}
-            items={categories}
-            selected={filter?.system}
-            isSelected={(item) => item === filter?.system}
-            setSelected={(item) => {
-              setFilter((prev) => ({ ...prev, system: item || "" }))
-            }}
-            searchPlaceholder={t(
-              "Dialog.InputConfigWizard.InputActions.Common.SearchSystems",
-            )}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <ScrollArea
-          className="h-56"
-          onMouseEnter={cancelScrollIntoView}
-          onMouseLeave={scrollActiveProjectIntoView}
-        >
-          <div className="flex flex-col gap-1" role="list">
-            {filteredPresets.map((preset) => (
-              <MsfsPresetItem
-                ref={preset.id === selectedPresetId ? refActiveElement : null}
-                key={preset.id}
-                preset={preset}
-                isSelected={preset.id === selectedPresetId}
-                setSelectedPreset={setSelectedPreset}
-              />
-            ))}
+        <div className="flex flex-col gap-1">
+          <div className="grid grid-cols-4 gap-2">
+            <Input
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.FilterPresets",
+              )}
+              value={filter.search}
+              onChange={(e) =>
+                setFilter((prev) => ({ ...prev, search: e.target.value }))
+              }
+            />
+            <ComboBox
+              align="start"
+              widthClass="flex-1"
+              selected={filter?.vendor}
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.FilterByVendor",
+              )}
+              getLabel={(item) => item}
+              getValue={(item) => item}
+              items={vendors}
+              isSelected={(item) => item === filter?.vendor}
+              setSelected={(item) => {
+                setFilter((prev) => ({ ...prev, vendor: item || "" }))
+              }}
+              searchPlaceholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.SearchVendors",
+              )}
+            />
+            <ComboBox
+              align="start"
+              widthClass="flex-1"
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.FilterByAircraft",
+              )}
+              getLabel={(item) => item}
+              getValue={(item) => item}
+              items={aircraft}
+              selected={filter?.aircraft}
+              isSelected={(item) => item === filter?.aircraft}
+              setSelected={(item) => {
+                setFilter((prev) => ({ ...prev, aircraft: item || "" }))
+              }}
+              searchPlaceholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.SearchAircraft",
+              )}
+            />
+            <ComboBox
+              align="start"
+              widthClass="flex-1"
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.FilterBySystem",
+              )}
+              getLabel={(item) => `${item}`}
+              getValue={(item) => item}
+              items={categories}
+              selected={filter?.system}
+              isSelected={(item) => item === filter?.system}
+              setSelected={(item) => {
+                setFilter((prev) => ({ ...prev, system: item || "" }))
+              }}
+              searchPlaceholder={t(
+                "Dialog.InputConfigWizard.InputActions.Common.SearchSystems",
+              )}
+            />
           </div>
-        </ScrollArea>
-        <div className="flex flex-row items-center justify-between">
-        <div role="status" className="px-2 text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
-            count: filteredPresets.length,
-          })}
         </div>
-        <Button
-          size={"sm"}
-          className="w-fit px-2 py-1"
-          variant="ghost"
-          onClick={() =>
-            setFilter({ vendor: "", aircraft: "", system: "", search: "" })
-          }
-        >
-          <IconX />
-          <span className="text-sm">{t("Dialog.General.ResetFilters")}</span>
-        </Button>
-      </div>
-      </div>
-    </div>
+        <div className="flex flex-col gap-2">
+          <ScrollArea
+            className="h-56"
+            onMouseEnter={cancelScrollIntoView}
+            onMouseLeave={scrollActiveProjectIntoView}
+          >
+            <div className="flex flex-col gap-1" role="list">
+              {filteredPresets.map((preset) => (
+                <MsfsPresetItem
+                  ref={preset.id === selectedPresetId ? refActiveElement : null}
+                  key={preset.id}
+                  preset={preset}
+                  isSelected={preset.id === selectedPresetId}
+                  setSelectedPreset={setSelectedPreset}
+                />
+              ))}
+            </div>
+          </ScrollArea>
+          <div className="flex flex-row items-center justify-between">
+            <div role="status" className="px-2 text-sm">
+              {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
+                count: filteredPresets.length,
+              })}
+            </div>
+            <Button
+              size={"sm"}
+              className="w-fit px-2 py-1"
+              variant="ghost"
+              onClick={() =>
+                setFilter({ vendor: "", aircraft: "", system: "", search: "" })
+              }
+            >
+              <IconX />
+              <span className="text-sm">
+                {t("Dialog.General.ResetFilters")}
+              </span>
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 export default MsfsPresetPanel
