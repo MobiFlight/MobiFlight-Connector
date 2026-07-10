@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Modifier, MODIFIER_TYPES, ModifierFactory } from "@/types/modifier"
 import {
@@ -22,9 +23,11 @@ const ModifierEditor = ({
 }: ModifierEditorProps) => {
   const { t } = useTranslation()
   const modifierTypes = MODIFIER_TYPES
+  const [newlyAddedIndex, setNewlyAddedIndex] = useState<number | null>(null)
 
   const handleAdd = (type: string) => {
     const newModifier = ModifierFactory.createModifier(type)
+    setNewlyAddedIndex(modifiers.length)
     onModifierChange([...modifiers, newModifier])
   }
   const handleDelete = (index: number) => {
@@ -109,6 +112,7 @@ const ModifierEditor = ({
                 onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}
                 isFirst={index === 0}
                 isLast={index === modifiers.length - 1}
+                defaultOpen={index === newlyAddedIndex}
               />
             ))}
           </div>
