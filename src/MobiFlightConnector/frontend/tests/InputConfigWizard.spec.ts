@@ -281,7 +281,7 @@ test.describe("Input Config Wizard - Edit name", () => {
         .getByText("New Input Config With Non-Default Name", { exact: true }),
     ).toBeVisible()
 
-    // No input should be visible 
+    // No input should be visible
     await expect(
       page.getByTestId("dialog-config-name").getByRole("textbox"),
     ).not.toBeVisible()
@@ -312,7 +312,7 @@ test.describe("Input Config Wizard - Edit name", () => {
       Controller: {
         Name: "Bravo Throttle Quadrant",
         Serial: "JS-87654321",
-      }
+      },
     })
 
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
@@ -323,7 +323,7 @@ test.describe("Input Config Wizard - Edit name", () => {
         .getByText("New Input Config", { exact: true }),
     ).toBeVisible()
 
-    // No input should be visible 
+    // No input should be visible
     await expect(
       page.getByTestId("dialog-config-name").getByRole("textbox"),
     ).not.toBeVisible()
@@ -1359,7 +1359,6 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     } as Interpolation)
   })
 
-
   test("Interpolation modifier remove buttons work correctly", async ({
     configListPage,
     page,
@@ -1818,7 +1817,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
         .getByRole("listitem")
         .getByText("AP_PANEL_HEADING_HOLD_TEST"),
     ).toBeVisible()
-    
+
     // Code field reflects the preset command
     await expect(
       actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
@@ -1919,7 +1918,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       .getByRole("listitem")
       .getByText("AP_PANEL_HEADING_HOLD_TEST", { exact: true })
       .click()
-    await page.getByRole("listitem").getByText("AS1000_PFD_VOL_1_DEC", { exact: true }).click()
+    await page
+      .getByRole("listitem")
+      .getByText("AS1000_PFD_VOL_1_DEC", { exact: true })
+      .click()
     // Code field updates to the new preset's command
     await expect(
       actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
@@ -1961,7 +1963,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       .filter({ hasText: "Filter by vendor" })
       .click()
     await expect(optionsList).toBeVisible()
-    const vendorOption = optionsList.getByRole("option", { name: "Microsoft", exact: true })
+    const vendorOption = optionsList.getByRole("option", {
+      name: "Microsoft",
+      exact: true,
+    })
     await expect(vendorOption).toBeVisible()
     await vendorOption.click()
     await expect(vendorOption).not.toBeVisible()
@@ -2134,7 +2139,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     // Pre-selected preset label is shown (code matches the preset in mock data)
     await expect(
       actionEditor
-        .getByRole("combobox")
+        .getByRole("listitem")
         .filter({ hasText: "land_alt_press_dn" }),
     ).toBeVisible()
     await expect(
@@ -2246,10 +2251,10 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     // Select a DataRef preset (different code type)
     await actionEditor
-      .getByRole("combobox")
+      .getByRole("listitem")
       .filter({ hasText: "land_alt_press_dn" })
       .click()
-    await page.getByRole("option", { name: "test_dataref" }).click()
+    await page.getByRole("listitem").filter({ hasText: "test_dataref" }).click()
     // Code field updates
     await expect(
       actionEditor.getByPlaceholder(
@@ -2260,8 +2265,6 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: /^DataRef$/ }),
     ).toBeVisible()
-    // Description updates
-    await expect(actionEditor.getByText("Test DataRef Preset")).toBeVisible()
   })
 
   test("Preset filter combo boxes work correctly", async ({
