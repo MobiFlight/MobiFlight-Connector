@@ -3,30 +3,17 @@ import { Preset, XplanePreset } from "@/types/preset"
 import { forwardRef } from "react"
 
 type PresetListItemProps = {
-  key: string
   preset: Preset | XplanePreset
   isSelected: boolean
   setSelectedPreset: (preset: Preset | XplanePreset | null) => void
 }
 
-export const PresetListItem = forwardRef<
-  HTMLDivElement,
-  PresetListItemProps
->(
-  (
-    {
-      key,
-      preset,
-      isSelected,
-      setSelectedPreset,
-    }: PresetListItemProps,
-    ref,
-  ) => {
+export const PresetListItem = forwardRef<HTMLDivElement, PresetListItemProps>(
+  ({ preset, isSelected, setSelectedPreset }: PresetListItemProps, ref) => {
     return (
       <div
         ref={ref}
         role="listitem"
-        key={key}
         className={cn(
           "bg-background hover:bg-accent/50 border-background flex cursor-pointer flex-row justify-between gap-2 rounded-md border-2 px-2 pt-0.5 pb-1.5",
           isSelected && "bg-primary/20 border-primary border-2",
