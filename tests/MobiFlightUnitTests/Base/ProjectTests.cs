@@ -739,8 +739,6 @@ namespace MobiFlight.Base.Tests
             project.Features.FSUIPC = true;
             project.Features.ProSim = true;
 
-            var config = new ConfigFile();
-
             // Act
             project.DetermineProjectInfos();
 
