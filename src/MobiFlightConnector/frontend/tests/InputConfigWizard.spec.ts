@@ -31,6 +31,7 @@ import {
   Substring,
   Transformation,
 } from "../src/types/modifier"
+import { Preset } from "../src/types/preset"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -281,7 +282,7 @@ test.describe("Input Config Wizard - Edit name", () => {
         .getByText("New Input Config With Non-Default Name", { exact: true }),
     ).toBeVisible()
 
-    // No input should be visible 
+    // No input should be visible
     await expect(
       page.getByTestId("dialog-config-name").getByRole("textbox"),
     ).not.toBeVisible()
@@ -312,7 +313,7 @@ test.describe("Input Config Wizard - Edit name", () => {
       Controller: {
         Name: "Bravo Throttle Quadrant",
         Serial: "JS-87654321",
-      }
+      },
     })
 
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
@@ -323,7 +324,7 @@ test.describe("Input Config Wizard - Edit name", () => {
         .getByText("New Input Config", { exact: true }),
     ).toBeVisible()
 
-    // No input should be visible 
+    // No input should be visible
     await expect(
       page.getByTestId("dialog-config-name").getByRole("textbox"),
     ).not.toBeVisible()
@@ -1359,7 +1360,6 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     } as Interpolation)
   })
 
-
   test("Interpolation modifier remove buttons work correctly", async ({
     configListPage,
     page,
@@ -1815,13 +1815,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     // Pre-selected preset label is shown
     await expect(
       actionEditor
-        .getByRole("combobox")
-        .getByText("AP_PANEL_HEADING_HOLD_TEST", { exact: true }),
+        .getByRole("listitem")
+        .getByText("AP_PANEL_HEADING_HOLD_TEST"),
     ).toBeVisible()
-    // The preset has no description in the mock data
-    await expect(
-      actionEditor.getByText("No description available"),
-    ).toBeVisible()
+
     // Code field reflects the preset command
     await expect(
       actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
@@ -1893,7 +1890,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(countLabel).toHaveText("5 preset(s) found")
   })
 
-  test("Selecting a preset updates the code field and description", async ({
+  test("Selecting a preset updates the code field", async ({
     configListPage,
     page,
   }) => {
@@ -1919,16 +1916,17 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     // Open the preset ComboBox (currently shows the selected preset)
     await actionEditor
-      .getByRole("combobox")
+      .getByRole("listitem")
       .getByText("AP_PANEL_HEADING_HOLD_TEST", { exact: true })
       .click()
-    await page.getByRole("option", { name: "AS1000_PFD_VOL_1_DEC" }).click()
+    await page
+      .getByRole("listitem")
+      .getByText("AS1000_PFD_VOL_1_DEC", { exact: true })
+      .click()
     // Code field updates to the new preset's command
     await expect(
       actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
     ).toHaveValue("(>H:AS1000_PFD_VOL_1_DEC)")
-    // Description updates
-    await expect(actionEditor.getByText("Garmin G1000")).toBeVisible()
   })
 
   test("Preset filter combo boxes work correctly", async ({
@@ -1966,7 +1964,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       .filter({ hasText: "Filter by vendor" })
       .click()
     await expect(optionsList).toBeVisible()
-    const vendorOption = optionsList.getByRole("option", { name: "Microsoft", exact: true })
+    const vendorOption = optionsList.getByRole("option", {
+      name: "Microsoft",
+      exact: true,
+    })
     await expect(vendorOption).toBeVisible()
     await vendorOption.click()
     await expect(vendorOption).not.toBeVisible()
@@ -2003,6 +2004,105 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await resetFiltersButton.click()
 
     await expect(countLabel).toHaveText("5 preset(s) found")
+  })
+
+  test("Preset filters are sorted correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const unsortedPresets: Partial<Preset>[] = [
+      {
+        id: "3",
+        label: "C Preset",
+        system: "System C",
+        aircraft: "Aircraft C",
+        vendor: "Vendor C",
+        presetType: "Input",
+      },
+      {
+        id: "2",
+        label: "A Preset",
+        system: "System A",
+        aircraft: "Aircraft A",
+        vendor: "Vendor A",
+        presetType: "Input",
+      },
+      {
+        id: "1",
+        label: "B Preset",
+        system: "System B",
+        aircraft: "Aircraft B",
+        vendor: "Vendor B",
+        presetType: "Input",
+      },
+    ]
+
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+      async () => {
+        await page.route(
+          "*/**/presets/msfs2020_hubhop_presets.json",
+          async (route) => {
+            await route.fulfill({ json: unsortedPresets })
+          },
+        )
+      },
+    )
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    const optionsList = page.getByRole("listbox")
+
+    // Select an aircraft filter
+    await actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Filter by vendor" })
+      .click()
+
+    await expect(optionsList).toBeVisible()
+    await expect(optionsList.getByRole("option").nth(0)).toHaveText("Vendor A")
+    await expect(optionsList.getByRole("option").nth(1)).toHaveText("Vendor B")
+    await expect(optionsList.getByRole("option").nth(2)).toHaveText("Vendor C")
+
+    // Hit escape to close the combobox
+    await page.keyboard.press("Escape")
+    await expect(optionsList).not.toBeVisible()
+
+    // Select an aircraft filter
+    await actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Filter by aircraft" })
+      .click()
+    await expect(optionsList).toBeVisible()
+    await expect(optionsList.getByRole("option").nth(0)).toHaveText(
+      "Aircraft A",
+    )
+    await expect(optionsList.getByRole("option").nth(1)).toHaveText(
+      "Aircraft B",
+    )
+    await expect(optionsList.getByRole("option").nth(2)).toHaveText(
+      "Aircraft C",
+    )
+
+    // Hit escape to close the combobox
+    await page.keyboard.press("Escape")
+    await expect(optionsList).not.toBeVisible()
+
+    // Select a system filter
+    await actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Filter by system" })
+      .click()
+    await expect(optionsList).toBeVisible()
+    await expect(optionsList.getByRole("option").nth(0)).toHaveText("System A")
+    await expect(optionsList.getByRole("option").nth(1)).toHaveText("System B")
+    await expect(optionsList.getByRole("option").nth(2)).toHaveText("System C")
   })
 
   test("Preset list honors aircraft settings", async ({
@@ -2139,7 +2239,7 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     // Pre-selected preset label is shown (code matches the preset in mock data)
     await expect(
       actionEditor
-        .getByRole("combobox")
+        .getByRole("listitem")
         .filter({ hasText: "land_alt_press_dn" }),
     ).toBeVisible()
     await expect(
@@ -2251,10 +2351,10 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     // Select a DataRef preset (different code type)
     await actionEditor
-      .getByRole("combobox")
+      .getByRole("listitem")
       .filter({ hasText: "land_alt_press_dn" })
       .click()
-    await page.getByRole("option", { name: "test_dataref" }).click()
+    await page.getByRole("listitem").filter({ hasText: "test_dataref" }).click()
     // Code field updates
     await expect(
       actionEditor.getByPlaceholder(
@@ -2265,8 +2365,6 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(
       actionEditor.getByRole("combobox").filter({ hasText: /^DataRef$/ }),
     ).toBeVisible()
-    // Description updates
-    await expect(actionEditor.getByText("Test DataRef Preset")).toBeVisible()
   })
 
   test("Preset filter combo boxes work correctly", async ({
@@ -2349,6 +2447,105 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await resetFiltersButton.click()
 
     await expect(countLabel).toHaveText("6 preset(s) found")
+  })
+
+  test("Preset filters are sorted correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    const unsortedPresets: Partial<Preset>[] = [
+      {
+        id: "3",
+        label: "C Preset",
+        system: "System C",
+        aircraft: "Aircraft C",
+        vendor: "Vendor C",
+        presetType: "Input",
+      },
+      {
+        id: "2",
+        label: "A Preset",
+        system: "System A",
+        aircraft: "Aircraft A",
+        vendor: "Vendor A",
+        presetType: "Input",
+      },
+      {
+        id: "1",
+        label: "B Preset",
+        system: "System B",
+        aircraft: "Aircraft B",
+        vendor: "Vendor B",
+        presetType: "Input",
+      },
+    ]
+
+    const actionDialog = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      2,
+      async () => {
+        await page.route(
+          "*/**/presets/xplane_hubhop_presets.json",
+          async (route) => {
+            await route.fulfill({ json: unsortedPresets })
+          },
+        )
+      },
+    )
+    const actionEditButton = actionDialog.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    const optionsList = page.getByRole("listbox")
+
+    // Select an aircraft filter
+    await actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Filter by vendor" })
+      .click()
+
+    await expect(optionsList).toBeVisible()
+    await expect(optionsList.getByRole("option").nth(0)).toHaveText("Vendor A")
+    await expect(optionsList.getByRole("option").nth(1)).toHaveText("Vendor B")
+    await expect(optionsList.getByRole("option").nth(2)).toHaveText("Vendor C")
+
+    // Hit escape to close the combobox
+    await page.keyboard.press("Escape")
+    await expect(optionsList).not.toBeVisible()
+
+    // Select an aircraft filter
+    await actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Filter by aircraft" })
+      .click()
+    await expect(optionsList).toBeVisible()
+    await expect(optionsList.getByRole("option").nth(0)).toHaveText(
+      "Aircraft A",
+    )
+    await expect(optionsList.getByRole("option").nth(1)).toHaveText(
+      "Aircraft B",
+    )
+    await expect(optionsList.getByRole("option").nth(2)).toHaveText(
+      "Aircraft C",
+    )
+
+    // Hit escape to close the combobox
+    await page.keyboard.press("Escape")
+    await expect(optionsList).not.toBeVisible()
+
+    // Select a system filter
+    await actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: "Filter by system" })
+      .click()
+    await expect(optionsList).toBeVisible()
+    await expect(optionsList.getByRole("option").nth(0)).toHaveText("System A")
+    await expect(optionsList.getByRole("option").nth(1)).toHaveText("System B")
+    await expect(optionsList.getByRole("option").nth(2)).toHaveText("System C")
   })
 
   test("Preset list honors aircraft settings", async ({

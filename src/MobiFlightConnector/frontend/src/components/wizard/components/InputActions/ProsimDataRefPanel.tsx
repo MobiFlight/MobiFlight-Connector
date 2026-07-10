@@ -32,7 +32,11 @@ const ProSimDataRefPanel = ({
   const filteredPresets = Object.values(dataRefs).filter((preset) => {
     if (variant === "input" && !preset.CanWrite) return false
     if (variant === "output" && !preset.CanRead) return false
-    if (filter.search && !preset.Description.toLowerCase().includes(filter.search.toLowerCase())) return false
+    if (
+      filter.search &&
+      !preset.Description.toLowerCase().includes(filter.search.toLowerCase())
+    )
+      return false
     return true
   })
 
@@ -46,11 +50,21 @@ const ProSimDataRefPanel = ({
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
+        <div className="text-lg font-semibold">
+          {t("Dialog.InputConfigWizard.InputActions.Prosim.Preset.Title")}
+        </div>
+        <div className="text-muted-foreground text-sm">
+          {t("Dialog.InputConfigWizard.InputActions.Prosim.Preset.Description")}
+        </div>
+      </div>
       {filteredPresets.length > 0 ? (
         <div className="flex flex-col gap-4">
           <Input
-            placeholder={t("Dialog.InputConfigWizard.InputActions.ProSimDataRef.FilterPresetsPlaceholder")}
+            placeholder={t(
+              "Dialog.InputConfigWizard.InputActions.ProSimDataRef.FilterPresetsPlaceholder",
+            )}
             value={filter.search}
             onChange={(e) =>
               setFilter((prev) => ({ ...prev, search: e.target.value }))
@@ -85,10 +99,14 @@ const ProSimDataRefPanel = ({
       ) : (
         <div className="flex flex-col gap-2">
           <div className="text-muted-foreground text-sm">
-            {t("Dialog.InputConfigWizard.InputActions.ProSimDataRef.NoPresetsAvailable")}
+            {t(
+              "Dialog.InputConfigWizard.InputActions.ProSimDataRef.NoPresetsAvailable",
+            )}
           </div>
           <Button variant="outline" onClick={() => refreshPresets()}>
-            {t("Dialog.InputConfigWizard.InputActions.ProSimDataRef.RefreshPresets")}
+            {t(
+              "Dialog.InputConfigWizard.InputActions.ProSimDataRef.RefreshPresets",
+            )}
           </Button>
         </div>
       )}

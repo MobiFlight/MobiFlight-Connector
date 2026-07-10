@@ -1679,12 +1679,6 @@
     <None Include="Presets\presets_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Presets\msfs2020_hubhop_presets.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Presets\xplane_hubhop_presets.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />

@@ -3,10 +3,10 @@ import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPre
 import { MsfsInputAction } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "react-i18next"
-import { Separator } from "@/components/ui/separator"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { useQuery } from "@tanstack/react-query"
+import { Card, CardContent } from "@/components/ui/card"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
@@ -47,7 +47,7 @@ const MsfsInputActionPanel = ({
           </Label>
           <CodeValueLabel id="code">
             {config?.Command ??
-              t("Dialog.InputConfigWizard.InputActions.Msfs.NoneCode")}
+              t("Dialog.InputConfigWizard.InputActions.Msfs.Code.None")}
           </CodeValueLabel>
         </div>
       </div>
@@ -67,32 +67,43 @@ const MsfsInputActionPanel = ({
           } as MsfsInputAction)
         }
       />
-      <Separator />
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="code">
-          {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
-        </Label>
-        <Textarea
-          name="code"
-          className="font-mono text-sm whitespace-nowrap"
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.Msfs.CodePlaceholder",
-          )}
-          value={config?.Command ?? ""}
-          onChange={(e) => {
-            onConfigChange({
-              ...(config as MsfsInputAction),
-              Command: e.target.value,
-              PresetId: "", // Clear preset if user manually edits command
-            } as MsfsInputAction)
-          }}
-        />
-        <div className="text-muted-foreground text-sm">
-          {t(
-            "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
-          )}
-        </div>
-      </div>
+      <Card>
+        <CardContent className="flex flex-col gap-4 pt-4">
+          <div className="flex flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.InputConfigWizard.InputActions.Msfs.Code.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t("Dialog.InputConfigWizard.InputActions.Msfs.Code.Description")}
+            </div>
+          </div>
+          <div className="flex flex-col gap-1">
+            <Label htmlFor="code">
+              {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
+            </Label>
+            <Textarea
+              name="code"
+              className="dark:focus:bg-input/20 font-mono text-sm whitespace-nowrap dark:bg-transparent"
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Msfs.Code.Placeholder",
+              )}
+              value={config?.Command ?? ""}
+              onChange={(e) => {
+                onConfigChange({
+                  ...(config as MsfsInputAction),
+                  Command: e.target.value,
+                  PresetId: "", // Clear preset if user manually edits command
+                } as MsfsInputAction)
+              }}
+            />
+            <div className="text-muted-foreground text-sm">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
