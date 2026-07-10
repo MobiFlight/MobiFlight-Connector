@@ -5,75 +5,22 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import { PresetListItem } from "@/components/wizard/components/PresetListItem"
 import { fetchHubHopPresets } from "@/lib/configWizard"
-import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
+import { Preset, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
-import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-export type Preset = {
-  id: string
-  vendor: string
-  aircraft: string
-  system: string
-  label: string
-  description: string
-  code: string
-  version: number
-  status: string
-  createdDate: string
-  updatedBy?: string
-  reported?: number
-  score?: number
-  presetType: "Input" | "Output" | "Input (Potentiometer)"
-}
 
-type PresetItemProps = {
-  key: string
-  preset: Preset
-  isSelected: boolean
-  setSelectedPreset: (preset: Preset | null) => void
-}
-
-const MsfsPresetItem = forwardRef<HTMLDivElement, PresetItemProps>(
-  ({ key, preset, isSelected, setSelectedPreset }: PresetItemProps, ref) => {
-    return (
-      <div
-        ref={ref}
-        role="listitem"
-        key={key}
-        className={cn(
-          "bg-background hover:bg-accent/50 border-background flex cursor-pointer flex-row justify-between gap-2 rounded-md border-2 px-2 pt-0.5 pb-1.5",
-          isSelected && "bg-primary/20 border-primary border-2",
-        )}
-        onClick={() => setSelectedPreset(preset)}
-      >
-        <div className="flex flex-col">
-          <div className="text-sm font-semibold">{preset.label}</div>
-          <div className="text-muted-foreground text-xs/3">
-            {preset.description ?? "-"}
-          </div>
-        </div>
-        <div className="flex flex-col justify-items-end px-2">
-          <div className="text-right text-sm/5 font-semibold">
-            {preset.system}
-          </div>
-          <div className="text-muted-foreground text-right text-xs/3">
-            {preset.aircraft}
-          </div>
-        </div>
-      </div>
-    )
-  },
-)
 
 export type MsfsPresetPanelProps = {
   variant: "input" | "output"
   selectedPresetId: string | null
-  setSelectedPreset: (preset: Preset | null) => void
+  setSelectedPreset: (preset: Preset | XplanePreset | null) => void
 }
 
 const MsfsPresetPanel = ({
@@ -259,7 +206,7 @@ const MsfsPresetPanel = ({
           >
             <div className="flex flex-col gap-1" role="list">
               {filteredPresets.map((preset) => (
-                <MsfsPresetItem
+                <PresetListItem
                   ref={preset.id === selectedPresetId ? refActiveElement : null}
                   key={preset.id}
                   preset={preset}

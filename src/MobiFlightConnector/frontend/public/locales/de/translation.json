@@ -701,6 +701,10 @@
             "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
             "ProjectAircraftOnly": "Nur Projektflugzeuge"
           },
+          "Code": {
+            "Title": "Schritt 3 - Code anpassen (optional)",
+            "Description": "Dieser Code wird vom Simulator verwendet. Du kannst ihn manuell bearbeiten oder ein Preset aus der obigen Liste auswählen."
+          },
           "InputTypeLabel": "Eingabetyp",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",
           "PathLabel": "Pfad",

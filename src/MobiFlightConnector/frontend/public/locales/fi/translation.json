@@ -695,6 +695,10 @@
             "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
             "ProjectAircraftOnly": "Vain projektin lentokoneet"
           },
+          "Code": {
+            "Title": "Vaihe 3 - Hienosäädä koodi (valinnainen)",
+            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta."
+          },
           "InputTypeLabel": "Syötetyyppi",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",
           "PathLabel": "Polku",

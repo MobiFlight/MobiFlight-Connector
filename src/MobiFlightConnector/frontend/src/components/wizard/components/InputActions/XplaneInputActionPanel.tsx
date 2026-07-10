@@ -3,11 +3,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
-import XplanePresetPanel, {
-  XplanePreset,
-} from "@/components/wizard/components/InputActions/XplanePresetPanel"
+import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction } from "@/types/config"
+import { XplanePreset } from "@/types/preset"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
@@ -60,72 +59,86 @@ const XplaneInputActionPanel = ({
     )
   }
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col gap-4">
-          <XplanePresetPanel
-            variant="input"
-            selectedPath={config?.Path ?? null}
-            onPresetSelect={(preset) =>
-              onConfigChange({
-                ...(config as XplaneInputAction),
-                Path: preset.code,
-                InputType: preset.codeType,
-              })
-            }
-          />
-          <div className="flex flex-col gap-2">
-            <Label>
-              {t("Dialog.InputConfigWizard.InputActions.Xplane.InputTypeLabel")}
-            </Label>
-            <ComboBox
-              items={CODE_TYPE_OPTIONS}
-              selected={
-                (config?.InputType as "DataRef" | "Command") ?? undefined
-              }
-              placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.Xplane.SelectInputTypePlaceholder",
-              )}
-              getLabel={(item) => item}
-              getValue={(item) => item}
-              isSelected={(item) => item === config?.InputType}
-              setSelected={(item) => {
-                if (!item) return
-                onConfigChange({
-                  ...(config as XplaneInputAction),
-                  InputType: item,
-                })
-              }}
-              variant="nofilter"
-              widthClass="w-48"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="path">
-              {t("Dialog.InputConfigWizard.InputActions.Xplane.PathLabel")}
-            </Label>
-            <Input
-              id="path"
-              className="font-mono text-sm whitespace-nowrap"
-              value={config?.Path ?? ""}
-              onChange={(e) =>
-                onConfigChange({
-                  ...(config as XplaneInputAction),
-                  Path: e.target.value,
-                })
-              }
-              placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.Xplane.PathPlaceholder",
-              )}
-            />
+    <div className="flex flex-col gap-4">
+      <XplanePresetPanel
+        variant="input"
+        selectedPath={config?.Path ?? null}
+        setSelectedPreset={(preset) =>
+          onConfigChange({
+            ...(config as XplaneInputAction),
+            Path: preset ? preset.code : null,
+            InputType: preset ? (preset as XplanePreset).codeType : null,
+          })
+        }
+      />
+      <Card>
+        <CardContent className="flex flex-col gap-4 pt-4">
+          <div className="flex flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.InputConfigWizard.InputActions.Xplane.Code.Title")}
+            </div>
             <div className="text-muted-foreground text-sm">
               {t(
-                "Dialog.InputConfigWizard.InputActions.Xplane.PathDescription",
+                "Dialog.InputConfigWizard.InputActions.Xplane.Code.Description",
               )}
             </div>
           </div>
+          <div className="flex flex-row gap-2">
+            <div className="flex flex-col gap-1">
+              <Label>
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.Xplane.InputTypeLabel",
+                )}
+              </Label>
+              <ComboBox
+                items={CODE_TYPE_OPTIONS}
+                selected={
+                  (config?.InputType as "DataRef" | "Command") ?? undefined
+                }
+                placeholder={t(
+                  "Dialog.InputConfigWizard.InputActions.Xplane.SelectInputTypePlaceholder",
+                )}
+                getLabel={(item) => item}
+                getValue={(item) => item}
+                isSelected={(item) => item === config?.InputType}
+                setSelected={(item) => {
+                  if (!item) return
+                  onConfigChange({
+                    ...(config as XplaneInputAction),
+                    InputType: item,
+                  })
+                }}
+                variant="nofilter"
+                widthClass="w-32"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="path">
+                {t("Dialog.InputConfigWizard.InputActions.Xplane.PathLabel")}
+              </Label>
+              <Input
+                id="path"
+                className="font-mono text-sm whitespace-nowrap"
+                value={config?.Path ?? ""}
+                onChange={(e) =>
+                  onConfigChange({
+                    ...(config as XplaneInputAction),
+                    Path: e.target.value,
+                  })
+                }
+                placeholder={t(
+                  "Dialog.InputConfigWizard.InputActions.Xplane.PathPlaceholder",
+                )}
+              />
+              <div className="text-muted-foreground text-sm">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.Xplane.PathDescription",
+                )}
+              </div>
+            </div>
+          </div>
           {config?.InputType === "DataRef" && (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <Label htmlFor="value">
                 {t("Dialog.InputConfigWizard.InputActions.Xplane.ValueLabel")}
               </Label>
@@ -150,9 +163,9 @@ const XplaneInputActionPanel = ({
               </div>
             </div>
           )}
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 

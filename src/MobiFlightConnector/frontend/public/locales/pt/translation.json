@@ -695,6 +695,10 @@
             "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
             "ProjectAircraftOnly": "Apenas aeronaves do projeto"
           },
+          "Code": {
+            "Title": "Passo 3 - Refinar código (opcional)",
+            "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima."
+          },
           "InputTypeLabel": "Tipo de Entrada",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
           "PathLabel": "Caminho",

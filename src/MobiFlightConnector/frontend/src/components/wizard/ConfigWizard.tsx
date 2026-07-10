@@ -246,7 +246,7 @@ const ConfigWizard = ({
                 {t("Dialog.General.GoBack")}
               </DrawerClose>
             </DrawerHeader>
-            <div className="flex flex-1 flex-col px-4 pb-4">
+            <div className="flex flex-1 flex-col px-4 pb-4 overflow-y-auto">
               {detailView === "precondition" && (
                 <PreconditionsPanel
                   onPreconditionsChange={(preconditions) => {
