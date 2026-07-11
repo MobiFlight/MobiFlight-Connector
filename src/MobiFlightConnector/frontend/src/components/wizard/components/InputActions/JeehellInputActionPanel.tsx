@@ -39,18 +39,20 @@ const JeehellInputActionPanel = ({
 
   if (variant === "summary") {
     return (
-      <div className="flex grow flex-row items-center gap-8">
+      <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="mouseParam">
             {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}:
           </Label>
-          <div className="text-sm">{selectedPreset?.name}</div>
+          <div className="text-sm">{selectedPreset?.name ?? "-"}</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="param">
             {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}:
           </Label>
-          <CodeValueLabel id="param">{config?.Param}</CodeValueLabel>
+          <CodeValueLabel id="param" className="max-w-80 lg:max-w-100">
+            {config?.Param}
+          </CodeValueLabel>
         </div>
       </div>
     )

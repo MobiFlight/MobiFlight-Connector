@@ -77,7 +77,7 @@ const ActionBindingPanel = ({
 
   return (
     <Card data-testid="action-panel">
-      <CardContent className="pt-4 flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col gap-1">
           <div className="text-lg font-semibold">
             {t(`Dialog.InputConfigWizard.Action.Title`)}
@@ -112,7 +112,7 @@ const ActionBindingPanel = ({
                     </Badge>
                   </div>
                   <ActionSummary action={action} />
-                  <div className="gap1 flex flex-row pt-4">
+                  <div className="flex w-20 flex-row justify-end pt-4">
                     <Button
                       size={"sm"}
                       className="invisible h-8 px-2 py-1 text-red-600 group-hover:visible hover:text-red-600"

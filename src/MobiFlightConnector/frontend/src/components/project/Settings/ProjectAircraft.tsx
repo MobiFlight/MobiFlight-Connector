@@ -110,7 +110,7 @@ const ProjectAircraftDrawer = ({
     aircarftStatsMap.set(key, {
       Vendor: p.vendor,
       Name: p.aircraft,
-      Count: 1
+      Count: 1,
     })
   })
 
@@ -160,6 +160,7 @@ const ProjectAircraftDrawer = ({
 
   return (
     <Drawer
+      dismissible={false}
       container={drawerContainer?.current || undefined}
       direction="right"
       open={drawerOpen}
@@ -169,11 +170,14 @@ const ProjectAircraftDrawer = ({
         data-testid="project-aircraft-drawer"
         className="pb-8 data-[vaul-drawer-direction=right]:w-5/6 data-[vaul-drawer-direction=right]:sm:max-w-5/6"
       >
-        <DrawerHeader className="p-2">
+        <DrawerHeader>
           <DrawerTitle className="sr-only">
             {t("Project.Form.Aircraft.Dialog.Title")}
           </DrawerTitle>
-          <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
+          <DrawerClose
+            onClick={() => setDrawerOpen(false)}
+            className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
+          >
             <IconArrowBack size={16} />
             {t("Dialog.General.GoBack")}
           </DrawerClose>
