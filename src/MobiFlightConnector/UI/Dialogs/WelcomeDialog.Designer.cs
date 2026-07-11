@@ -34,6 +34,7 @@ namespace MobiFlight.UI.Dialogs
             this.okButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
             this.doNotUpdateButton = new System.Windows.Forms.Button();
+            this.disableBetaButton = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
             this.panel = new System.Windows.Forms.Panel();
             this.openReleaseNotesinBrowserLabel = new System.Windows.Forms.Label();
@@ -66,6 +67,15 @@ namespace MobiFlight.UI.Dialogs
             this.doNotUpdateButton.TabIndex = 4;
             this.doNotUpdateButton.UseVisualStyleBackColor = true;
             this.doNotUpdateButton.Click += new System.EventHandler(this.doNotUpdateButton_Click);
+            //
+            // disableBetaButton
+            //
+            this.disableBetaButton.Location = new System.Drawing.Point(600, 2);
+            this.disableBetaButton.Name = "disableBetaButton";
+            this.disableBetaButton.Size = new System.Drawing.Size(185, 35);
+            this.disableBetaButton.TabIndex = 5;
+            this.disableBetaButton.UseVisualStyleBackColor = true;
+            this.disableBetaButton.Click += new System.EventHandler(this.disableBetaButton_Click);
             // 
             // titleLabel
             // 
@@ -78,6 +88,7 @@ namespace MobiFlight.UI.Dialogs
             this.panel.Controls.Add(this.okButton);
             this.panel.Controls.Add(this.updateButton);
             this.panel.Controls.Add(this.doNotUpdateButton);
+            this.panel.Controls.Add(this.disableBetaButton);
             resources.ApplyResources(this.panel, "panel");
             this.panel.Name = "panel";
             // 
@@ -117,6 +128,7 @@ namespace MobiFlight.UI.Dialogs
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button doNotUpdateButton;
+        private System.Windows.Forms.Button disableBetaButton;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel panel;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView;

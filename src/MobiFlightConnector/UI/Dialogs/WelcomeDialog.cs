@@ -15,6 +15,7 @@ namespace MobiFlight.UI.Dialogs
     public partial class WelcomeDialog : Form
     {
         public event EventHandler<EventArgs> ReleaseNotesClicked;
+        public event EventHandler<EventArgs> DisableBetaUpdatesClicked;
 
         public string WebsiteUrl {
             get { return this.webView.Source.ToString(); }
@@ -39,12 +40,24 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
+        public bool ShowDisableBetaButton
+        {
+            get { return disableBetaButton.Visible; }
+            set
+            {
+                disableBetaButton.Visible = value;
+                openReleaseNotesinBrowserLabel.Visible = !value;
+            }
+        }
+
         public WelcomeDialog()
         {
             InitializeComponent();
             updateButton.Text = "Update now";
             doNotUpdateButton.Text = "Next time";
+            disableBetaButton.Text = "Disable BETA updates";
             ShowUpdateButtons = false;
+            ShowDisableBetaButton = false;
             WebsiteUrl = "about:blank";
             this.webView.NavigationCompleted += WebView21_NavigationCompleted;
         }
@@ -74,6 +87,12 @@ namespace MobiFlight.UI.Dialogs
 
         private void doNotUpdateButton_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.No;
+        }
+
+        private void disableBetaButton_Click(object sender, EventArgs e)
+        {
+            DisableBetaUpdatesClicked?.Invoke(this, EventArgs.Empty);
             DialogResult = DialogResult.No;
         }
 

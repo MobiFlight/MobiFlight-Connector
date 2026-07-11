@@ -127,8 +127,14 @@ namespace MobiFlight.UpdateChecker
                     dialog.WebsiteUrl = releaseUrl;
                     dialog.StartPosition = FormStartPosition.CenterParent;
                     dialog.ShowUpdateButtons = true;
+                    dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta;
                     dialog.Text = "MobiFlight Release Notes " + releaseVersion;
                     dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
+                    dialog.DisableBetaUpdatesClicked += (sender, e) =>
+                    {
+                        Properties.Settings.Default.BetaUpdates = false;
+                        Properties.Settings.Default.Save();
+                    };
 
                     if (dialog.ShowDialog() == DialogResult.Yes)
                     {
