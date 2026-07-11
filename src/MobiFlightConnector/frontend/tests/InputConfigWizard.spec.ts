@@ -170,12 +170,12 @@ test.describe("General Input Config Wizard Tests", () => {
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
   })
 
-  test("Dialog closes with save button", async ({ configListPage, page }) => {
+  test("Dialog closes with apply changes button", async ({ configListPage, page }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
     await configListPage.clickEditButtonForRow(1)
-    const saveButton = page.getByRole("button", { name: "Save" })
+    const saveButton = page.getByRole("button", { name: "Apply changes" })
     await expect(saveButton).toBeVisible()
     await saveButton.click()
 
