@@ -48,7 +48,7 @@ export const VariablePanel = ({
 
   if (variant === "summary") {
     return (
-      <div className="flex grow flex-row items-center gap-8">
+      <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="variable">
             {t(
@@ -64,7 +64,7 @@ export const VariablePanel = ({
           <Label htmlFor="code">
             {t("Dialog.InputConfigWizard.InputActions.Common.CodeLabel")}
           </Label>
-          <CodeValueLabel id="code">
+          <CodeValueLabel id="code" className="max-w-100">
             {variable.Expression ??
               t(
                 "Dialog.InputConfigWizard.InputActions.Variable.NoneExpression",

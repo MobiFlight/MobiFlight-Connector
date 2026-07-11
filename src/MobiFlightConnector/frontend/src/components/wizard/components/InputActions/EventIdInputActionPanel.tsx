@@ -66,14 +66,14 @@ const EventIdInputActionPanel = ({
         : config?.Param
 
     return (
-      <div className="flex grow flex-row items-center gap-8">
+      <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="eventid">
             {t("Dialog.InputConfigWizard.InputActions.EventId.EventIdLabel")}:
           </Label>
-          <div className="text-sm">{config?.EventId}</div>
+          <div className="text-sm">{config?.EventId ?? "-"}</div>
         </div>
-        <div className="flex grow flex-col gap-1">
+        <div className="flex grow flex-col gap-1 max-w-100">
           <Label htmlFor="param">{label}:</Label>
           <CodeValueLabel>{param}</CodeValueLabel>
         </div>

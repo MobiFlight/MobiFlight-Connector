@@ -75,14 +75,14 @@ const VJoyInputActionPanel = ({
 
   if (variant === "summary") {
     return (
-      <div className="flex grow flex-row items-center justify-between gap-8">
-        <div className="flex flex-col gap-1">
+      <div className="flex grow flex-row items-center justify-between gap-2">
+        <div className="w-1/3 flex flex-col gap-1">
           <Label>
             {t("Dialog.InputConfigWizard.InputActions.VJoy.Controller")}:
           </Label>
           <div className="text-sm">{controllerLabel}</div>
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="w-1/3 flex flex-col gap-1">
           <Label>
             {t("Dialog.InputConfigWizard.InputActions.VJoy.Device")}:
           </Label>
@@ -94,7 +94,7 @@ const VJoyInputActionPanel = ({
           )}
         </div>
         {activeTab === "button" && (
-          <div className="flex flex-col gap-1">
+          <div className="w-1/3 flex flex-col gap-1">
             <Label>
               {t("Dialog.InputConfigWizard.InputActions.VJoy.ButtonStateLabel")}
             </Label>
@@ -106,7 +106,7 @@ const VJoyInputActionPanel = ({
           </div>
         )}
         {activeTab === "axis" && (
-          <div className="flex flex-col gap-1">
+          <div className="w-1/3 flex flex-col gap-1">
             <Label>
               {t("Dialog.InputConfigWizard.InputActions.VJoy.AxisValueLabel")}
             </Label>
