@@ -52,7 +52,7 @@ namespace MobiFlight.UI.Dialogs
             //
             // updateButton
             //
-            this.updateButton.Location = new System.Drawing.Point(321, 2);
+            this.updateButton.Location = new System.Drawing.Point(510, 2);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(125, 35);
             this.updateButton.TabIndex = 3;
@@ -61,7 +61,7 @@ namespace MobiFlight.UI.Dialogs
             //
             // doNotUpdateButton
             //
-            this.doNotUpdateButton.Location = new System.Drawing.Point(452, 2);
+            this.doNotUpdateButton.Location = new System.Drawing.Point(641, 2);
             this.doNotUpdateButton.Name = "doNotUpdateButton";
             this.doNotUpdateButton.Size = new System.Drawing.Size(145, 35);
             this.doNotUpdateButton.TabIndex = 4;
@@ -70,7 +70,7 @@ namespace MobiFlight.UI.Dialogs
             //
             // disableBetaButton
             //
-            this.disableBetaButton.Location = new System.Drawing.Point(600, 2);
+            this.disableBetaButton.Location = new System.Drawing.Point(319, 2);
             this.disableBetaButton.Name = "disableBetaButton";
             this.disableBetaButton.Size = new System.Drawing.Size(185, 35);
             this.disableBetaButton.TabIndex = 5;
