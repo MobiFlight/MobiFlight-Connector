@@ -178,9 +178,9 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
     await configListPage.clickEditButtonForRow(1)
-    const saveButton = page.getByRole("button", { name: "Apply changes" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
   })
@@ -226,9 +226,9 @@ test.describe("Input Config Wizard - Edit name", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -476,10 +476,10 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await expect(
       options.filter({ hasText: "Bravo Throttle Quadrant" }),
     ).not.toBeVisible()
-    const saveButton = page.getByRole("button", {
-      name: "Save",
+    const applyChangesButton = page.getByRole("button", {
+      name: "Apply changes",
     })
-    await saveButton.click()
+    await applyChangesButton.click()
 
     const commandsAfterClick =
       await configListPage.mobiFlightPage.getTrackedCommands()
@@ -972,9 +972,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await goBackButton.click()
 
     configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -1038,9 +1038,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Save the config
     configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     // Verify that the command sent to the backend has the correct modifier data
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -1138,9 +1138,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Save the config
     configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     // Verify that the command sent to the backend has the correct modifier data
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -1250,9 +1250,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Save the config
     configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     // Verify that the command sent to the backend has the correct modifier data
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -1343,9 +1343,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Save the config
     configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     // Verify that the command sent to the backend has the correct modifier data
     // and that the order of the items is now sorted ASC for "from" value
@@ -1504,9 +1504,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Save the config
     configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     // Verify that the command sent to the backend has the correct modifier data
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -1614,9 +1614,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     // Save the config
     configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     // Verify that the command sent to the backend has the correct modifier data
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -2229,9 +2229,9 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -2726,9 +2726,9 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
     // Save the config
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -2786,9 +2786,9 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -2930,9 +2930,9 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -3000,9 +3000,9 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -3092,9 +3092,9 @@ test.describe("Input Config Wizard - Retrigger Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -3336,9 +3336,9 @@ test.describe("Input Config Wizard - Keyboard Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -3593,9 +3593,9 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -3666,9 +3666,9 @@ test.describe("Input Config Wizard - vJoy Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -3894,9 +3894,9 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -3971,9 +3971,9 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -4037,9 +4037,9 @@ test.describe("Input Config Wizard - FSUIPC Offset Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -4180,9 +4180,9 @@ test.describe("Input Config Wizard - FSUIPC EventID Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -4341,9 +4341,9 @@ test.describe("Input Config Wizard - FSUIPC PMDG EventID Input Action Panel", ()
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -4501,9 +4501,9 @@ test.describe("Input Config Wizard - FSUIPC Jeehell Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -4641,9 +4641,9 @@ test.describe("Input Config Wizard - FSUIPC Lua Macro Input Action Panel", () =>
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -4832,9 +4832,9 @@ test.describe("Input Config Wizard - ProSim Input Action Panel", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -4963,9 +4963,9 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -5005,9 +5005,9 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
-    const saveButton = page.getByRole("button", { name: "Save" })
-    await expect(saveButton).toBeVisible()
-    await saveButton.click()
+    const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+    await expect(applyChangesButton).toBeVisible()
+    await applyChangesButton.click()
 
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
@@ -5049,9 +5049,9 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
         "CommandUpdateConfigItem",
       )
 
-      const saveButton = page.getByRole("button", { name: "Save" })
-      await expect(saveButton).toBeVisible()
-      await saveButton.click()
+      const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+      await expect(applyChangesButton).toBeVisible()
+      await applyChangesButton.click()
 
       const commands = await configListPage.mobiFlightPage.getTrackedCommands()
       expect(commands).toBeDefined()
@@ -5138,9 +5138,9 @@ test.describe("Input Config Wizard - Action Binding Panels", () => {
         "CommandUpdateConfigItem",
       )
 
-      const saveButton = page.getByRole("button", { name: "Save" })
-      await expect(saveButton).toBeVisible()
-      await saveButton.click()
+      const applyChangesButton = page.getByRole("button", { name: "Apply changes" })
+      await expect(applyChangesButton).toBeVisible()
+      await applyChangesButton.click()
 
       const commands = await configListPage.mobiFlightPage.getTrackedCommands()
       expect(commands).toBeDefined()
