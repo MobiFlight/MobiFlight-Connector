@@ -17,7 +17,7 @@ namespace MobiFlightUnitTests.WebView
         {
             _testRootPath = Path.Combine(Path.GetTempPath(), "Test_" + Guid.NewGuid());
             Directory.CreateDirectory(_testRootPath);
-            _handler = new StaticPageWebResourceRequestHandler(BaseUrl, _testRootPath);
+            _handler = new StaticPageWebResourceRequestHandler("test", BaseUrl, _testRootPath);
         }
 
         [TestCleanup]
@@ -77,6 +77,62 @@ namespace MobiFlightUnitTests.WebView
             // Assert
             Assert.IsTrue(response.ShouldServe);
             Assert.AreEqual("text/html", response.ContentType);
+        }
+
+        [TestMethod()]
+        public void GetFileResponse_SpaRoute_DoesntFallBackToIndex_IfIndexFallbackDisabled()
+        {
+            // Arrange
+            CreateFile("index.html", "<html>SPA</html>");
+            _handler.IndexFallback = false;
+
+            // Act
+            var response = _handler.GetFileResponse($"{BaseUrl}/user/profile");
+
+            // Assert
+            Assert.IsFalse(response.ShouldServe);
+        }
+
+        [TestMethod()]
+        public void GetFileResponse_UriMatchesBaseUrl_IsNotIgnored()
+        {
+            // Arrange
+            var baseUrl = $"{BaseUrl}/test";
+            _handler = new StaticPageWebResourceRequestHandler("test", baseUrl, _testRootPath);
+
+            // Act
+            var response = _handler.GetFileResponse($"{BaseUrl}/test");
+
+            // Assert
+            Assert.IsTrue(response.ShouldServe);
+        }
+
+        [TestMethod()]
+        public void GetFileResponse_UriMatchesBaseUrlNot_IsIgnored()
+        {
+            // Arrange
+            var baseUrl = $"{BaseUrl}/test";
+            _handler = new StaticPageWebResourceRequestHandler("test", baseUrl, _testRootPath);
+
+            // Act
+            var response = _handler.GetFileResponse($"{BaseUrl}/foo");
+
+            // Assert
+            Assert.IsFalse(response.ShouldServe);
+        }
+
+        [TestMethod()]
+        public void GetFileResponse_UriMatchesBase_WithExclusionFilter_IsIgnored()
+        {
+            // Arrange
+            var baseUrl = $"{BaseUrl}";
+            _handler = new StaticPageWebResourceRequestHandler("test", baseUrl, _testRootPath, new string[] { $"{BaseUrl}/test" });
+
+            // Act
+            var response = _handler.GetFileResponse($"{BaseUrl}/test");
+
+            // Assert
+            Assert.IsFalse(response.ShouldServe);
         }
 
         [TestMethod()]

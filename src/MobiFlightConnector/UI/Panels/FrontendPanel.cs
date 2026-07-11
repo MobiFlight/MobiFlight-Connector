@@ -68,7 +68,8 @@ namespace MobiFlight.UI.Panels
                 var staticPageHandler = new StaticPageWebResourceRequestHandler(
                     "frontend",
                     _frontendBaseUrl,
-                    _frontendDistPath
+                    _frontendDistPath,
+                    new string[] { _frontendBaseUrl + "/presets" }
                 );
 
                 staticPageHandler.RegisterWithWebView(webView);
