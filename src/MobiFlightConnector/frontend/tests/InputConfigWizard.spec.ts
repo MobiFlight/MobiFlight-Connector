@@ -833,9 +833,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       await expect(transformationOption).toBeVisible()
       await transformationOption.click()
 
-      const modifierHeader = modifierEditor.getByRole("button", {
-        name: modifierLabel,
-      })
+      const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
       await expect(modifierHeader).toBeVisible()
 
       const removeButton = modifierEditor.getByRole("button", {
@@ -1001,11 +999,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded and the input field is visible
     const inputField = modifierEditor.getByRole("textbox", {
@@ -1054,11 +1050,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Start input field is visible
@@ -1119,11 +1113,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1223,11 +1215,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1332,11 +1322,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       page,
     )
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1426,11 +1414,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       page,
     )
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1489,11 +1475,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Operator combobox
@@ -1587,11 +1571,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Alternate value input field is visible
@@ -1693,11 +1675,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       page,
     )
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Alternate value input field is visible
@@ -5240,6 +5220,19 @@ async function CreateNewInputConfigItemAndReturnActionEditor(
   await button.click()
   await expect(actionEditor).toBeVisible()
   return actionEditor
+}
+
+function getModifierHeader(modifierEditor: Locator, modifierLabel: string) {
+  return modifierEditor
+    .locator('[data-slot="collapsible-trigger"]')
+    .filter({ hasText: modifierLabel })
+}
+
+async function expandModifierIfCollapsed(modifierHeader: Locator) {
+  const expanded = await modifierHeader.getAttribute("aria-expanded")
+  if (expanded === "false") {
+    await modifierHeader.click()
+  }
 }
 
 async function addModifierItemAndReturnEditor(
