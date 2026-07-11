@@ -46,7 +46,11 @@ namespace MobiFlight.WebView
 
         internal void RegisterWithWebView(WebView2 webView)
         {
-            webView.CoreWebView2.AddWebResourceRequestedFilter($"{BaseUrl}/*", CoreWebView2WebResourceContext.All, CoreWebView2WebResourceRequestSourceKinds.Document);
+            webView.CoreWebView2.AddWebResourceRequestedFilter(
+                $"{BaseUrl}/*", 
+                CoreWebView2WebResourceContext.All, 
+                CoreWebView2WebResourceRequestSourceKinds.All
+            );
             webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
         }
 
