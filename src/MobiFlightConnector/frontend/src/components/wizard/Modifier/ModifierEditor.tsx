@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Modifier, MODIFIER_TYPES, ModifierFactory } from "@/types/modifier"
 import {
@@ -23,11 +23,26 @@ const ModifierEditor = ({
 }: ModifierEditorProps) => {
   const { t } = useTranslation()
   const modifierTypes = MODIFIER_TYPES
-  const [newlyAddedIndex, setNewlyAddedIndex] = useState<number | null>(null)
+  const [newlyAddedId, setNewlyAddedId] = useState<string | null>(null)
+  const [fallbackIds] = useState(() => new WeakMap<Modifier, string>())
+
+  const modifiersWithIds = useMemo(
+    () =>
+      modifiers.map((modifier) => {
+        if (modifier.Id) return modifier
+        let id = fallbackIds.get(modifier)
+        if (!id) {
+          id = crypto.randomUUID()
+          fallbackIds.set(modifier, id)
+        }
+        return { ...modifier, Id: id }
+      }),
+    [modifiers, fallbackIds],
+  )
 
   const handleAdd = (type: string) => {
     const newModifier = ModifierFactory.createModifier(type)
-    setNewlyAddedIndex(modifiers.length)
+    setNewlyAddedId(newModifier.Id ?? null)
     onModifierChange([...modifiers, newModifier])
   }
   const handleDelete = (index: number) => {
@@ -102,9 +117,9 @@ const ModifierEditor = ({
       ) : (
         <ScrollArea className="grow">
           <div className="flex flex-col gap-2">
-            {modifiers.map((modifier, index) => (
+            {modifiersWithIds.map((modifier, index) => (
               <ModifierItem
-                key={index}
+                key={modifier.Id}
                 modifier={modifier}
                 onChange={(updated) => handleChange(index, updated)}
                 onDelete={() => handleDelete(index)}
@@ -112,7 +127,7 @@ const ModifierEditor = ({
                 onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}
                 isFirst={index === 0}
                 isLast={index === modifiers.length - 1}
-                defaultOpen={index === newlyAddedIndex}
+                defaultOpen={modifier.Id === newlyAddedId}
               />
             ))}
           </div>

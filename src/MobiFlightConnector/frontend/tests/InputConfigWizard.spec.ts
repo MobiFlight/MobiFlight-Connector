@@ -1031,7 +1031,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Transformation",
       Active: false,
       Expression: "$*2",
@@ -1098,7 +1098,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Substring",
       Active: false,
       Start: 3,
@@ -1198,7 +1198,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Padding",
       Active: false,
       Length: 3,
@@ -1310,7 +1310,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Interpolation",
       Active: false,
       Values: {
@@ -1404,7 +1404,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Interpolation",
       Active: true,
       Values: {
@@ -1564,7 +1564,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Comparison",
       Active: false,
       Value: "3",
@@ -1674,7 +1674,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Blink",
       Active: false,
       BlinkValue: "1",

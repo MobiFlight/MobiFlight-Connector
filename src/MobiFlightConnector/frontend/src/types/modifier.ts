@@ -1,6 +1,7 @@
 export interface IModifier {
   Type: string
   Active: boolean
+  Id?: string
 }
 
 export type ModifierList = {
@@ -65,6 +66,7 @@ export class ModifierFactory {
           Type: "Transformation",
           Active: true,
           Expression: "$",
+          Id: crypto.randomUUID(),
         } as Transformation
       case "Substring":
         return {
@@ -72,6 +74,7 @@ export class ModifierFactory {
           Active: true,
           Start: 0,
           End: 1,
+          Id: crypto.randomUUID(),
         } as Substring
       case "Padding":
         return {
@@ -80,6 +83,7 @@ export class ModifierFactory {
           Length: 5,
           Character: "0",
           Direction: "Left",
+          Id: crypto.randomUUID(),
         } as Padding
       case "Interpolation":
         return {
@@ -89,6 +93,7 @@ export class ModifierFactory {
             0: 0,
             10: 1000,
           },
+          Id: crypto.randomUUID(),
         } as Interpolation
       case "Comparison":
         return {
@@ -98,6 +103,7 @@ export class ModifierFactory {
           Value: "0",
           IfValue: "1",
           ElseValue: "0",
+          Id: crypto.randomUUID(),
         } as Comparison
       case "Blink":
         return {
@@ -105,6 +111,7 @@ export class ModifierFactory {
           Active: true,
           BlinkValue: "0",
           OnOffSequence: [500, 500],
+          Id: crypto.randomUUID(),
         } as Blink
       default:
         throw new Error(`Unknown modifier type: ${type}`)
