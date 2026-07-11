@@ -428,11 +428,11 @@ namespace MobiFlight.UI
             }
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
+        private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
 #if (!DEBUG)
-            AutoUpdateChecker.CheckForUpdate(true);
+            await AutoUpdateChecker.CheckForUpdate(true);
 #endif
         }
 
@@ -1134,9 +1134,9 @@ namespace MobiFlight.UI
             }
         }
 
-        public void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        public async void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AutoUpdateChecker.CheckForUpdate();
+            await AutoUpdateChecker.CheckForUpdate();
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)

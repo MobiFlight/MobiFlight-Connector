@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using MobiFlight.UI.Dialogs;
 
 namespace MobiFlight.UpdateChecker
@@ -66,7 +67,7 @@ namespace MobiFlight.UpdateChecker
             return UpdatePath.BetaToStable;
         }
 
-        public static void CheckForUpdate(bool silent = false)
+        public static async Task CheckForUpdate(bool silent = false)
         {
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
@@ -100,17 +101,17 @@ namespace MobiFlight.UpdateChecker
                 return;
             }
 
-            System.Diagnostics.Process p = new Process();
-            p.StartInfo.FileName = mobiFlightInstaller;
-            p.StartInfo.Arguments = CommandToSend;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.Start();
-            string output = p.StandardOutput.ReadToEnd();
-            string error = p.StandardError.ReadToEnd();
-            p.WaitForExit(UpdateCheckTimeoutInMs);
+            string output;
+            string error;
+            try
+            {
+                (output, error) = await Task.Run(() => RunInstallerCheck(CommandToSend));
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log("Unable to run MobiFlight-Installer.exe: " + ex.Message, LogSeverity.Error);
+                return;
+            }
 
             Console.WriteLine(output + error);
 
@@ -122,13 +123,15 @@ namespace MobiFlight.UpdateChecker
 
                 var releaseVersion = ReleaseVersion(newVersion);
                 var releaseUrl = $"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{releaseVersion}";
+                var releaseLabel = betaOrRelease == "BETA" ? " (BETA)" : string.Empty;
                 using (var dialog = new WelcomeDialog())
                 {
                     dialog.WebsiteUrl = releaseUrl;
                     dialog.StartPosition = FormStartPosition.CenterParent;
                     dialog.ShowUpdateButtons = true;
-                    dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta;
-                    dialog.Text = "MobiFlight Release Notes " + releaseVersion;
+                    dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta
+                        && Properties.Settings.Default.BetaUpdates;
+                    dialog.Text = "MobiFlight Release Notes " + releaseVersion + releaseLabel;
                     dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
                     dialog.DisableBetaUpdatesClicked += (sender, e) =>
                     {
@@ -138,8 +141,16 @@ namespace MobiFlight.UpdateChecker
 
                     if (dialog.ShowDialog() == DialogResult.Yes)
                     {
-                        Process.Start(mobiFlightInstaller, "/install " + newVersion);
-                        Environment.Exit(0);
+                        try
+                        {
+                            Process.Start(mobiFlightInstaller, "/install " + newVersion);
+                            Environment.Exit(0);
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Instance.log("Unable to start MobiFlight-Installer.exe: " + ex.Message, LogSeverity.Error);
+                            MessageBox.Show("The installer could not be started. Please update manually.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 return;
@@ -152,6 +163,24 @@ namespace MobiFlight.UpdateChecker
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             Log.Instance.log("MobiFlight is up to date.", LogSeverity.Info);
             return;
+        }
+
+        private static (string output, string error) RunInstallerCheck(string arguments)
+        {
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = mobiFlightInstaller;
+                process.StartInfo.Arguments = arguments;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.Start();
+                var output = process.StandardOutput.ReadToEnd();
+                var error = process.StandardError.ReadToEnd();
+                process.WaitForExit(UpdateCheckTimeoutInMs);
+                return (output, error);
+            }
         }
     }
 }

@@ -64,7 +64,10 @@ namespace MobiFlight.UI.Dialogs
         private async void WebView21_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
             if (!e.IsSuccess)
+            {
+                webView.NavigateToString("<html><body style='font-family:Segoe UI;padding:12px'>Release notes are currently unavailable. You can open them in your browser using the button below.</body></html>");
                 return;
+            }
 
             await webView.ExecuteScriptAsync(@"(() => {
                 document.getElementById('repository-container-header')?.remove();
