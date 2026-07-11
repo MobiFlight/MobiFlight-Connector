@@ -42,8 +42,8 @@ namespace MobiFlight.UI.Dialogs
         public WelcomeDialog()
         {
             InitializeComponent();
-            updateButton.Text = "Update";
-            doNotUpdateButton.Text = "Do not update";
+            updateButton.Text = "Update now";
+            doNotUpdateButton.Text = "Next time";
             ShowUpdateButtons = false;
             WebsiteUrl = "about:blank";
             this.webView.NavigationCompleted += WebView21_NavigationCompleted;
