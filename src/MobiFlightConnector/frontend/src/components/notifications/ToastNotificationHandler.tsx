@@ -99,7 +99,7 @@ export const ToastNotificationHandler = () => {
 
   useAppMessage("HubHopState", (message) => {
     const status = message.payload
-    if (status.ShouldUpdate && status.Result === "Pending") {
+    if (status.ShouldUpdate && status.Result === "Pending" && status.UpdateProgress === 0) {
       toast({
         id: "hubhop-auto-update",
         title: t("General.HubHopUpdate.Title"),
@@ -117,7 +117,6 @@ export const ToastNotificationHandler = () => {
     }
 
     if (
-      status.ShouldUpdate &&
       status.Result === "InProgress" &&
       status.UpdateProgress === 0
     ) {
