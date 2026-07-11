@@ -46,7 +46,6 @@ namespace MobiFlight.WebView
 
         internal void RegisterWithWebView(WebView2 webView)
         {
-            Log.Instance.log($"SPWRRHandler:{Name} - Registering filter for {BaseUrl}/*", LogSeverity.Debug);
             webView.CoreWebView2.AddWebResourceRequestedFilter($"{BaseUrl}/*", CoreWebView2WebResourceContext.All, CoreWebView2WebResourceRequestSourceKinds.Document);
             webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
         }
