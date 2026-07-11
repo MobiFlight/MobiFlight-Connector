@@ -29,6 +29,7 @@ using System.ComponentModel;
 using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
+using System.Threading;
 
 namespace MobiFlight.UI
 {
@@ -938,7 +939,6 @@ namespace MobiFlight.UI
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Finished" });
 
             CheckForWasmModuleUpdate();
-            CheckForHubhopUpdate();
 
             UpdateAllConnectionIcons();
 
@@ -952,6 +952,10 @@ namespace MobiFlight.UI
             // Now we are done with all initialization stuff
             // and now we are ready to look for sims
             execManager.AutoConnectStart();
+
+            // delay the HubHop presets download 
+            // so that we can display the toast correctly
+            Task.Run(() => Thread.Sleep(5000)).ContinueWith(_ => CheckForHubhopUpdate());
         }
 
         private void CheckForHubhopUpdate()
@@ -2723,6 +2727,8 @@ namespace MobiFlight.UI
                     Msfs2020HubhopPresetListSingleton.Instance.Clear();
                     XplaneHubhopPresetListSingleton.Instance.Clear();
                     HubHopState.Result = "Success";
+
+                    UpdateHubHopTimestampInStatusBar(DateTime.Now);
                 }
                 else
                 {
@@ -2739,6 +2745,11 @@ namespace MobiFlight.UI
 
         private void UpdateHubHopTimestampInStatusBar(DateTime lastModification)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => UpdateHubHopTimestampInStatusBar(lastModification)));
+                return;
+            }
             toolStripStatusLabelHubHop.Text = lastModification.ToLocalTime().ToShortDateString();
             toolStripStatusLabelHubHop.ToolTipText = lastModification.ToLocalTime().ToString();
         }
