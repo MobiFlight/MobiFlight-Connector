@@ -1,43 +1,110 @@
 using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Windows.Forms;
 using System.Reflection;
+using System.Diagnostics;
+using System.IO;
 using MobiFlight.UI.Dialogs;
-using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UpdateChecker
 {
     static class AutoUpdateChecker
     {
-        private const string GitHubLatestReleaseUrl = "https://api.github.com/repos/MobiFlight/MobiFlight-Connector/releases/latest";
-        private const string GitHubReleasesUrl = "https://api.github.com/repos/MobiFlight/MobiFlight-Connector/releases";
-        private const string MobiFlightInstaller = "MobiFlight-Installer.exe";
+        static readonly string mobiFlightInstaller = "MobiFlight-Installer.exe";
+        static readonly int UpdateCheckTimeoutInMs = 5000;
+
+        private static bool VersionCheck(string output, out string newVersion, out string betaOrRelease)
+        {
+            newVersion = null;
+            betaOrRelease = null;
+
+            if (!output.Contains("##RESULT##|1"))
+                return false;
+            string[] outputArray = output.Split('|'); // Get the version number
+            newVersion = outputArray[2];
+            string[] versionArray = newVersion.Split('.'); // Split the version number to get the last number
+            int versionLastNumber = Int32.Parse(versionArray[3]);
+
+            betaOrRelease = (outputArray.Length == 4) && (versionLastNumber > 0)
+                ? "BETA"
+                : "RELEASE";
+            return true;
+        }
+
+        private static string ReleaseVersion(string version)
+        {
+            if (!Version.TryParse(version, out var parsedVersion))
+                return version;
+
+            return parsedVersion.Revision > 0
+                ? parsedVersion.ToString(4)
+                : parsedVersion.ToString(3);
+        }
 
         public static void CheckForUpdate(bool silent = false)
         {
-            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            if (currentVersion.Major == 0)
+            String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
+            if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
+            var trackingParams = $"{hash}-{Properties.Settings.Default.CacheId}-{Properties.Settings.Default.Started}";
+
+            var CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            // Issue 1365: Don't check for updates if the build came from a pull request. These builds are
+            // identified by the major version being 0.
+            if (CurVersion.Major == 0)
             {
                 Log.Instance.log("Skipping update check since this is an unreleased build.", LogSeverity.Info);
                 return;
             }
 
-            if (!TryGetLatestRelease(out var latestVersion, out var latestReleaseUrl, out var releaseNotes))
+            var CommandToSend = $"/check /version {CurVersion} /cacheId {trackingParams}";
+
+            if (Properties.Settings.Default.BetaUpdates)
             {
-                Log.Instance.log("Unable to check for updates from GitHub.", LogSeverity.Error);
+                CommandToSend += " /beta";
+                Log.Instance.log("Checking for BETA update...", LogSeverity.Info);
+            }
+            else
+            {
+                Log.Instance.log("Checking for RELEASE update...", LogSeverity.Info);
+            }
+
+            if (!File.Exists(mobiFlightInstaller))
+            {
+                Log.Instance.log("MobiFlight-Installer.exe does not exist, impossible to check for update.", LogSeverity.Error);
                 return;
             }
 
-            var hasUpdate = currentVersion.CompareTo(latestVersion) < 0;
-            if (hasUpdate)
+            System.Diagnostics.Process p = new Process();
+            p.StartInfo.FileName = mobiFlightInstaller;
+            p.StartInfo.Arguments = CommandToSend;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.Start();
+            string output = p.StandardOutput.ReadToEnd();
+            string error = p.StandardError.ReadToEnd();
+            p.WaitForExit(UpdateCheckTimeoutInMs);
+
+            Console.WriteLine(output + error);
+
+            if (VersionCheck(output, out string newVersion, out string betaOrRelease))
             {
-                using (var dialog = CreateReleaseNotesDialog(latestReleaseUrl, latestVersion, releaseNotes, true))
+                Log.Instance.log($"Found a new version: {newVersion} {betaOrRelease}.", LogSeverity.Info);
+
+                var releaseVersion = ReleaseVersion(newVersion);
+                var releaseUrl = $"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{releaseVersion}";
+                using (var dialog = new WelcomeDialog())
                 {
-                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.Yes)
+                    dialog.WebsiteUrl = releaseUrl;
+                    dialog.StartPosition = FormStartPosition.CenterParent;
+                    dialog.ShowUpdateButtons = true;
+                    dialog.Text = "MobiFlight Release Notes " + releaseVersion;
+                    dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
+
+                    if (dialog.ShowDialog() == DialogResult.Yes)
                     {
-                        Process.Start(MobiFlightInstaller, "/install " + latestVersion);
+                        Process.Start(mobiFlightInstaller, "/install " + newVersion);
                         Environment.Exit(0);
                     }
                 }
@@ -45,123 +112,12 @@ namespace MobiFlight.UpdateChecker
             }
 
             if (!silent)
-            {
-                using (var dialog = CreateReleaseNotesDialog(latestReleaseUrl, latestVersion, releaseNotes, false))
-                {
-                    dialog.ShowDialog();
-                }
-            }
-
+                MessageBox.Show(
+                    String.Format(i18n._tr("uiMessageNoUpdateNecessary"), MobiFlight.UI.MainForm.DisplayVersion()),
+                    i18n._tr("Hint"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             Log.Instance.log("MobiFlight is up to date.", LogSeverity.Info);
-        }
-
-        private static WelcomeDialog CreateReleaseNotesDialog(string releaseUrl, Version version, string releaseNotes, bool showUpdateButtons)
-        {
-            var dialog = new WelcomeDialog
-            {
-                ReleaseNotes = releaseNotes,
-                StartPosition = System.Windows.Forms.FormStartPosition.CenterParent,
-                ShowUpdateButtons = showUpdateButtons,
-                Text = "MobiFlight Release Notes " + version
-            };
-            if (string.IsNullOrEmpty(releaseNotes))
-                dialog.WebsiteUrl = releaseUrl;
-            dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
-            return dialog;
-        }
-
-        private static bool TryGetLatestRelease(out Version latestVersion, out string releaseUrl, out string releaseNotes)
-        {
-            latestVersion = null;
-            releaseUrl = null;
-            releaseNotes = null;
-            try
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                using (var client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.UserAgent.ParseAdd("MobiFlight-Connector");
-                    client.Timeout = TimeSpan.FromSeconds(5);
-                    var url = Properties.Settings.Default.BetaUpdates
-                        ? GitHubReleasesUrl
-                        : GitHubLatestReleaseUrl;
-                    var response = client.GetAsync(url).GetAwaiter().GetResult();
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        Log.Instance.log($"GitHub update check returned HTTP {(int)response.StatusCode}.", LogSeverity.Error);
-                        return !Properties.Settings.Default.BetaUpdates && TryGetLatestReleaseFromRedirect(client, out latestVersion, out releaseUrl);
-                    }
-
-                    var releaseJson = JToken.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                    var releases = releaseJson is JArray
-                        ? (JArray)releaseJson
-                        : new JArray { releaseJson };
-
-                    foreach (var release in releases.Where(IsEligibleRelease))
-                    {
-                        var tag = (string)release["tag_name"];
-                        if (TryParseVersion(tag, out var version) && (latestVersion == null || version > latestVersion))
-                        {
-                            latestVersion = version;
-                            releaseUrl = (string)release["html_url"];
-                            releaseNotes = (string)release["body"];
-                        }
-                    }
-
-                    Log.Instance.log($"Update check: current release candidate {latestVersion}.", LogSeverity.Info);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log("GitHub update check failed: " + ex.Message, LogSeverity.Error);
-                if (!Properties.Settings.Default.BetaUpdates)
-                {
-                    using (var fallbackClient = new HttpClient())
-                        return TryGetLatestReleaseFromRedirect(fallbackClient, out latestVersion, out releaseUrl);
-                }
-            }
-
-            return latestVersion != null && !string.IsNullOrWhiteSpace(releaseUrl);
-        }
-
-        private static bool TryGetLatestReleaseFromRedirect(HttpClient client, out Version latestVersion, out string releaseUrl)
-        {
-            latestVersion = null;
-            releaseUrl = null;
-            try
-            {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd("MobiFlight-Connector");
-                var response = client.GetAsync("https://github.com/MobiFlight/MobiFlight-Connector/releases/latest").GetAwaiter().GetResult();
-                releaseUrl = response.RequestMessage.RequestUri.ToString();
-                var tag = releaseUrl.Substring(releaseUrl.LastIndexOf('/') + 1);
-                return TryParseVersion(tag, out latestVersion);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log("GitHub latest release fallback failed: " + ex.Message, LogSeverity.Error);
-                return false;
-            }
-        }
-
-        private static bool IsEligibleRelease(JToken release)
-        {
-            if ((bool?)release["draft"] == true)
-                return false;
-
-            if (Properties.Settings.Default.BetaUpdates)
-                return true;
-
-            return (bool?)release["prerelease"] != true;
-        }
-
-        private static bool TryParseVersion(string tag, out Version version)
-        {
-            version = null;
-            if (string.IsNullOrWhiteSpace(tag))
-                return false;
-
-            tag = tag.Trim().TrimStart('v', 'V');
-            return Version.TryParse(tag, out version);
+            return;
         }
     }
 }
