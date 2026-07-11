@@ -170,7 +170,10 @@ test.describe("General Input Config Wizard Tests", () => {
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
   })
 
-  test("Dialog closes with apply changes button", async ({ configListPage, page }) => {
+  test("Dialog closes with apply changes button", async ({
+    configListPage,
+    page,
+  }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
@@ -1738,6 +1741,41 @@ test.describe("Input Config Wizard - Action Type Panel", () => {
         }
       }
     }
+  })
+
+  test("Action editor drawer closes only via Go Back button", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    const actionEditButton = page.getByRole("button", {
+      name: "Edit On Press Action",
+    })
+    await expect(actionEditButton).toBeVisible()
+    await actionEditButton.click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    await expect(actionEditor).toBeVisible()
+
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+
+    // Hitting Escape should not close the drawer
+    await page.keyboard.press("Escape")
+    await expect(goBackButton).toBeVisible()
+
+    // Clicking outside the drawer should not close the drawer
+    await page.mouse.click(0, 0)
+    await expect(goBackButton).toBeVisible()
+
+    // Clicking the Go Back button should close the drawer
+    await goBackButton.click()
+    await expect(goBackButton).not.toBeVisible()
+    await expect(actionEditor).not.toBeVisible()
   })
 
   test("Action type panel copy and paste is working", async ({
