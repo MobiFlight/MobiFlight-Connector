@@ -3,7 +3,7 @@ import { Progress } from "../ui/progress"
 import {
   IconCircleCheckFilled,
   IconCircleXFilled,
-  IconCloudDownload
+  IconCloudDownload,
 } from "@tabler/icons-react"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"

@@ -601,8 +601,9 @@ namespace MobiFlight.UI
 
             // Publish the updated list of available variables
             var availableVars = execManager.GetAvailableVariables();
-            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate() { 
-                Variables = availableVars.Values.ToList() 
+            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate()
+            {
+                Variables = availableVars.Values.ToList()
             });
 
             ProjectHasUnsavedChanges = true;
@@ -955,7 +956,11 @@ namespace MobiFlight.UI
 
             // delay the HubHop presets download 
             // so that we can display the toast correctly
-            Task.Run(() => Thread.Sleep(5000)).ContinueWith(_ => CheckForHubhopUpdate());
+            Task.Delay(5000).ContinueWith(_ =>
+            {
+                if (IsDisposed || Disposing) return;
+                CheckForHubhopUpdate();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void CheckForHubhopUpdate()
@@ -2728,7 +2733,9 @@ namespace MobiFlight.UI
                     XplaneHubhopPresetListSingleton.Instance.Clear();
                     HubHopState.Result = "Success";
 
-                    UpdateHubHopTimestampInStatusBar(DateTime.Now);
+                    var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+                    HubHopState.LastUpdate = lastModification;
+                    UpdateHubHopTimestampInStatusBar(lastModification);
                 }
                 else
                 {
@@ -2745,11 +2752,6 @@ namespace MobiFlight.UI
 
         private void UpdateHubHopTimestampInStatusBar(DateTime lastModification)
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action(() => UpdateHubHopTimestampInStatusBar(lastModification)));
-                return;
-            }
             toolStripStatusLabelHubHop.Text = lastModification.ToLocalTime().ToShortDateString();
             toolStripStatusLabelHubHop.ToolTipText = lastModification.ToLocalTime().ToString();
         }
