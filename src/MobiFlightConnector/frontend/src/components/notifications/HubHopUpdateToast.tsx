@@ -3,7 +3,7 @@ import { Progress } from "../ui/progress"
 import {
   IconCircleCheckFilled,
   IconCircleXFilled,
-  IconLoader2,
+  IconCloudDownload
 } from "@tabler/icons-react"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
@@ -30,7 +30,7 @@ const HubHopUpdateToast = ({ timeout = 2000 }: HubHopUpdateToastProps) => {
 
   return HubHopState?.Result === "InProgress" ? (
     <div className="flex flex-row items-center gap-2">
-      <IconLoader2 className="animate-spin" />
+      <IconCloudDownload className="animate-low-bounce text-primary" />
       <Progress value={HubHopState?.UpdateProgress} className="h-6 w-full" />
     </div>
   ) : HubHopState?.Result === "Success" ? (
