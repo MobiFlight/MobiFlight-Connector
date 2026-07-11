@@ -98,10 +98,12 @@ namespace MobiFlightUnitTests.WebView
         {
             // Arrange
             var baseUrl = $"{BaseUrl}/test";
+            CreateFile("index.html", "<html>SPA</html>");
+
             _handler = new StaticPageWebResourceRequestHandler("test", baseUrl, _testRootPath);
 
             // Act
-            var response = _handler.GetFileResponse($"{BaseUrl}/test");
+            var response = _handler.GetFileResponse($"{baseUrl}");
 
             // Assert
             Assert.IsTrue(response.ShouldServe);
