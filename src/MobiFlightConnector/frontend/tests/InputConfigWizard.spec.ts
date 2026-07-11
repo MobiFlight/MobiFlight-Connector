@@ -930,6 +930,61 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(lastMoveDownButton).toBeDisabled()
   })
 
+  test("New modifier is expanded by default when added", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    // Content should be visible without clicking the header
+    const expressionInput = modifierEditor.getByRole("textbox", {
+      name: "Expression",
+    })
+    await expect(expressionInput).toBeVisible()
+  })
+
+  test("Each new modifier expands by default without disturbing existing ones", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    // Collapse the first modifier manually
+    const transformationHeader = modifierEditor.getByRole("button", {
+      name: "Transformation",
+    })
+    await transformationHeader.click()
+    const expressionInput = modifierEditor.getByRole("textbox", {
+      name: "Expression",
+    })
+    await expect(expressionInput).not.toBeVisible()
+
+    // Add a second modifier
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add modifier",
+    })
+    await addModifierButtonInEditor.click()
+    const substringOption = page.getByRole("menuitem", { name: "Substring" })
+    await substringOption.click()
+
+    // Second modifier should open by default
+    const startInput = modifierEditor.getByRole("textbox", {
+      name: "Start position",
+    })
+    await expect(startInput).toBeVisible()
+
+    // First modifier should remain collapsed
+    await expect(expressionInput).not.toBeVisible()
+  })
+
   test("Transformation modifier works correctly", async ({
     configListPage,
     page,
