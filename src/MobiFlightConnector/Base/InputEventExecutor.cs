@@ -115,10 +115,18 @@ namespace MobiFlight.Execution
 
                     try
                     {
-                        foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
+                        // Capture the value entering each modifier (by Items index) so the
+                        // frontend can show the live value flowing through the chain. Inactive
+                        // modifiers pass the value through unchanged but still get an entry, so
+                        // the list stays aligned 1:1 with Modifiers.Items.
+                        var modifierInputValues = new List<string>();
+                        foreach (var modifier in cfg.Modifiers.Items)
                         {
-                            modifiableValue = modifier.Apply(modifiableValue, references);
+                            modifierInputValues.Add(modifiableValue.ToString());
+                            if (modifier.Active)
+                                modifiableValue = modifier.Apply(modifiableValue, references);
                         }
+                        cfg.ModifierInputValues = modifierInputValues;
 
                         cfg.Value = modifiableValue.ToString();
                         e.Value = modifiableValue.Float64;

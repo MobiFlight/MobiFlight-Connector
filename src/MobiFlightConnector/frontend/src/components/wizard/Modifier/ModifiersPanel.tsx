@@ -14,6 +14,7 @@ type ModifiersPanelProps = {
   liveData: {
     rawValue: string | null | undefined
     finalValue: string | null | undefined
+    modifierValues: string[] | null | undefined
   }
 }
 
@@ -69,6 +70,7 @@ const ModifiersPanel = ({
           Modifiers: { Items: updatedModifiers },
         })
       }
+      liveData={liveData}
     />
   )
 }

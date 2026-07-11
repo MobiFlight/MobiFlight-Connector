@@ -1,5 +1,9 @@
 {
   "General": {
+    "Terms": {
+      "RawValue": "Valor Original",
+      "FinalValue": "Valor Final"
+    },
     "Action": {
       "OpenMenu": "Abrir menú"
     },
@@ -258,8 +262,6 @@
       "Device": "Controlador",
       "Component": "Dispositivo",
       "Status": "Estado",
-      "RawValue": "Valor Original",
-      "FinalValue": "Valor Final",
       "Actions": "Acciones"
     },
     "Cell": {

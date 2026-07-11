@@ -10,6 +10,10 @@ export interface IConfigValueOnlyItem {
   GUID: string
   RawValue?: string | null
   Value?: string | null
+  // Live value entering each modifier in the chain, aligned 1:1 to Modifiers.Items by index.
+  // ModifierInputValues[i] is the value entering Items[i]; index 0 is the numeric input to the
+  // first modifier. Only populated while the app is running (device events fire).
+  ModifierInputValues?: string[] | null
   Status: IDictionary<string, ConfigItemStatusType>
 }
 

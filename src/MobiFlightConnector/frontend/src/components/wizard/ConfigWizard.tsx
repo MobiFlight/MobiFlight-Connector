@@ -32,6 +32,7 @@ export type ConfigWizardProps = {
   liveData: {
     rawValue: string | null | undefined
     finalValue: string | null | undefined
+    modifierValues: string[] | null | undefined
   }
 }
 
@@ -282,6 +283,7 @@ const ConfigWizard = ({
                   liveData={{
                     rawValue: liveData.rawValue,
                     finalValue: liveData.finalValue,
+                    modifierValues: liveData.modifierValues,
                   }}
                 />
               )}

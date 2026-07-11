@@ -13,6 +13,10 @@ namespace MobiFlight.Base
         string GUID { get; set; }
         string RawValue { get; set; }
         string Value { get; set; }
+        // The live value entering each modifier in the chain, aligned 1:1 to Modifiers.Items
+        // by index. ModifierInputValues[i] is the value that enters Items[i]; index 0 is the
+        // numeric value entering the first modifier (distinct from the event-label RawValue).
+        List<string> ModifierInputValues { get; set; }
         Dictionary<ConfigItemStatusType, string> Status { get; set; }
     }
 
@@ -23,6 +27,8 @@ namespace MobiFlight.Base
         public string RawValue { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ModifierInputValues { get; set; }
         public Dictionary<ConfigItemStatusType, string> Status { get; set; }
         public ConfigValueOnlyItem() { }
         public ConfigValueOnlyItem(IConfigValueOnlyItem item)
@@ -30,6 +36,7 @@ namespace MobiFlight.Base
             GUID = item.GUID.Clone() as string;
             RawValue = item.RawValue?.Clone() as string;
             Value = item.Value?.Clone() as string;
+            ModifierInputValues = item.ModifierInputValues != null ? new List<string>(item.ModifierInputValues) : null;
             Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
         }
     }
@@ -63,6 +70,12 @@ namespace MobiFlight.Base
         public string RawValue { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
+
+        // Runtime-only live values (the value entering each active/inactive modifier by index).
+        // JsonIgnore keeps this out of the persisted project file; it is emitted to the frontend
+        // only via the ConfigValueOnlyItem projection / ConfigValueOnlyItemConverter.
+        [JsonIgnore]
+        public List<string> ModifierInputValues { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { new NotImplementedException(); } }

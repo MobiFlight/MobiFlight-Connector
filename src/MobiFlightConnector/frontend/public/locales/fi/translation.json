@@ -1,5 +1,9 @@
 {
   "General": {
+    "Terms": {
+      "RawValue": "Tuloarvo",
+      "FinalValue": "Lähtöarvo"
+    },
     "Action": {
       "OpenMenu": "Avaa valikko"
     },
@@ -252,8 +256,6 @@
       "Device": "Ohjain",
       "Component": "Laite",
       "Status": "Tila",
-      "RawValue": "Tuloarvo",
-      "FinalValue": "Lähtöarvo",
       "Actions": "Toiminnot"
     },
     "Cell": {

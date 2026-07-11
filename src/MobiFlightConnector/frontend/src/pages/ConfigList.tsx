@@ -54,6 +54,7 @@ const ConfigListPage = () => {
         ...item,
         RawValue: newItem.RawValue,
         Value: newItem.Value,
+        ModifierInputValues: newItem.ModifierInputValues,
         Status: newItem.Status,
       }
     }) as IConfigItem[]

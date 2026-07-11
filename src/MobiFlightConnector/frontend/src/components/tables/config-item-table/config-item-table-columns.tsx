@@ -162,7 +162,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="text-center">{t("ConfigList.Header.RawValue")}</div>
+      return <div className="text-center">{t("General.Terms.RawValue")}</div>
     },
     cell: ConfigItemTableRawValueCell,
   },
@@ -175,7 +175,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="text-center">{t("ConfigList.Header.FinalValue")}</div>
+      return <div className="text-center">{t("General.Terms.FinalValue")}</div>
     },
     cell: ConfigItemTableFinalValueCell,
   },

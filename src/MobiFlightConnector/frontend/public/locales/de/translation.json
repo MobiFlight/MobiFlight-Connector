@@ -1,5 +1,9 @@
 {
   "General": {
+    "Terms": {
+      "RawValue": "Rohwert",
+      "FinalValue": "Endwert"
+    },
     "Action": {
       "OpenMenu": "Menü öffnen"
     },
@@ -258,8 +262,6 @@
       "Device": "Steuerung",
       "Component": "Gerät",
       "Status": "Status",
-      "RawValue": "Rohwert",
-      "FinalValue": "Endwert",
       "Actions": "Aktionen"
     },
     "Cell": {
