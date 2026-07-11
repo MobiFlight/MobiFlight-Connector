@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
@@ -22,21 +23,43 @@ namespace MobiFlight.UI.Dialogs
             } 
         }
 
+        public string ReleaseNotes
+        {
+            get; set;
+        }
+
+        public bool ShowUpdateButtons
+        {
+            get { return updateButton.Visible; }
+            set
+            {
+                updateButton.Visible = value;
+                doNotUpdateButton.Visible = value;
+                okButton.Visible = !value;
+            }
+        }
+
         public WelcomeDialog()
         {
             InitializeComponent();
-            WebsiteUrl = "https://www.mobiflight.com/en/release-notes.html";
+            updateButton.Text = "Update";
+            doNotUpdateButton.Text = "Do not update";
+            ShowUpdateButtons = false;
+            WebsiteUrl = "about:blank";
             this.webView.NavigationCompleted += WebView21_NavigationCompleted;
         }
 
         private async void WebView21_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
-            await webView.ExecuteScriptAsync($"" +
-                $"document.getElementById('repository-container-header').remove();" +
-                $"document.getElementsByClassName('js-header-wrapper')[0].remove();" +
-                $"document.getElementsByClassName('footer')[0].remove();" +
-                @"document.getElementsByClassName('Box-footer')[0].childNodes.forEach((item, i)=>{{ if (i>0) item.remove(); }});"
-                );
+            if (!e.IsSuccess)
+                return;
+
+            await webView.ExecuteScriptAsync(@"(() => {
+                document.getElementById('repository-container-header')?.remove();
+                document.getElementsByClassName('js-header-wrapper')[0]?.remove();
+                document.getElementsByClassName('footer')[0]?.remove();
+                document.getElementsByClassName('Box-footer')[0]?.childNodes.forEach((item, i) => { if (i > 0) item.remove(); });
+            })();");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,9 +67,25 @@ namespace MobiFlight.UI.Dialogs
             DialogResult = DialogResult.OK;
         }
 
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Yes;
+        }
+
+        private void doNotUpdateButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.No;
+        }
+
         private void WelcomeDialog_Load(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(ReleaseNotes))
+            {
+                webView.NavigateToString(
+                    "<html><body style='font-family:Segoe UI;font-size:10pt;white-space:pre-wrap;padding:12px'>" +
+                    WebUtility.HtmlEncode(ReleaseNotes).Replace("\r\n", "\n") +
+                    "</body></html>");
+            }
         }
 
         private void transparentOverlay1_Click(object sender, EventArgs e)
