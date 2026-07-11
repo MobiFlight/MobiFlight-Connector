@@ -9,13 +9,17 @@ namespace MobiFlight.WebView
     internal class StaticPageWebResourceRequestHandler
     {
         private Dictionary<string, string> MimeTypes;
-        private string BaseUrl;
-        private string RootPath;
+        private readonly string BaseUrl;
+        private readonly string RootPath;
+        private readonly string Name;
 
-        public StaticPageWebResourceRequestHandler(string baseUrl, string rootPath)
+        public bool IndexFallback { get; set; } = true;
+
+        public StaticPageWebResourceRequestHandler(string name, string baseUrl, string rootPath)
         {
             BaseUrl = baseUrl;
             RootPath = rootPath;
+            Name = name;
 
             // Initialize MIME types for common web files
             MimeTypes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -61,7 +65,7 @@ namespace MobiFlight.WebView
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error handling web resource request: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"SPWRRHandler:{Name} - Error handling web resource request: {ex.Message}", LogSeverity.Error);
             }
         }
 
@@ -83,7 +87,7 @@ namespace MobiFlight.WebView
             var fullPath = Path.GetFullPath(filePath);
             if (!fullPath.StartsWith(RootPath, StringComparison.OrdinalIgnoreCase))
             {
-                Log.Instance.log($"Security: Blocked path traversal attempt - {fullPath}", LogSeverity.Warn);
+                Log.Instance.log($"SPWRRHandler:{Name} - Security: Blocked path traversal attempt - {fullPath}", LogSeverity.Warn);
                 return FileResponse.Blocked();
             }
 
@@ -94,16 +98,22 @@ namespace MobiFlight.WebView
             }
             else
             {
+                if (!IndexFallback)
+                {
+                    Log.Instance.log($"SPWRRHandler:{Name} - Error: {requestUri} not found", LogSeverity.Error);
+                    return FileResponse.NotFound();
+                }
+
                 // File doesn't exist - serve index.html for SPA routing
                 var indexPath = Path.Combine(RootPath, "index.html");
                 if (File.Exists(indexPath))
                 {
-                    Log.Instance.log($"SPA Route: {relativePath} -> serving index.html", LogSeverity.Debug);
+                    Log.Instance.log($"SPWRRHandler:{Name} - SPA Route: {relativePath} -> serving index.html", LogSeverity.Debug);
                     return CreateFileResponse(indexPath, "text/html");
                 }
                 else
                 {
-                    Log.Instance.log($"Error: index.html not found at {indexPath}", LogSeverity.Error);
+                    Log.Instance.log($"SPWRRHandler:{Name} - Error: index.html not found at {indexPath}", LogSeverity.Error);
                     return FileResponse.NotFound();
                 }
             }
