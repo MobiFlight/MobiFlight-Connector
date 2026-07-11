@@ -37,7 +37,7 @@ namespace MobiFlight.UI.Dialogs
             this.disableBetaButton = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
             this.panel = new System.Windows.Forms.Panel();
-            this.openReleaseNotesinBrowserLabel = new System.Windows.Forms.Label();
+            this.openReleaseNotesButton = new System.Windows.Forms.Button();
             this.webView = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView)).BeginInit();
@@ -84,7 +84,7 @@ namespace MobiFlight.UI.Dialogs
             // 
             // panel
             // 
-            this.panel.Controls.Add(this.openReleaseNotesinBrowserLabel);
+            this.panel.Controls.Add(this.openReleaseNotesButton);
             this.panel.Controls.Add(this.okButton);
             this.panel.Controls.Add(this.updateButton);
             this.panel.Controls.Add(this.doNotUpdateButton);
@@ -92,12 +92,15 @@ namespace MobiFlight.UI.Dialogs
             resources.ApplyResources(this.panel, "panel");
             this.panel.Name = "panel";
             // 
-            // openReleaseNotesinBrowserLabel
-            // 
-            resources.ApplyResources(this.openReleaseNotesinBrowserLabel, "openReleaseNotesinBrowserLabel");
-            this.openReleaseNotesinBrowserLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.openReleaseNotesinBrowserLabel.Name = "openReleaseNotesinBrowserLabel";
-            this.openReleaseNotesinBrowserLabel.Click += new System.EventHandler(this.transparentOverlay1_Click);
+            // openReleaseNotesButton
+            //
+            this.openReleaseNotesButton.Location = new System.Drawing.Point(6, 2);
+            this.openReleaseNotesButton.Name = "openReleaseNotesButton";
+            this.openReleaseNotesButton.Size = new System.Drawing.Size(250, 35);
+            this.openReleaseNotesButton.TabIndex = 2;
+            this.openReleaseNotesButton.Text = "Open Release Notes in browser";
+            this.openReleaseNotesButton.UseVisualStyleBackColor = true;
+            this.openReleaseNotesButton.Click += new System.EventHandler(this.transparentOverlay1_Click);
             // 
             // webView
             // 
@@ -132,6 +135,6 @@ namespace MobiFlight.UI.Dialogs
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel panel;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView;
-        private System.Windows.Forms.Label openReleaseNotesinBrowserLabel;
+        private System.Windows.Forms.Button openReleaseNotesButton;
     }
 }

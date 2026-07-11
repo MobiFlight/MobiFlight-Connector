@@ -46,7 +46,6 @@ namespace MobiFlight.UI.Dialogs
             set
             {
                 disableBetaButton.Visible = value;
-                openReleaseNotesinBrowserLabel.Visible = !value;
             }
         }
 
