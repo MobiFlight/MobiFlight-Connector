@@ -1,3 +1,5 @@
+import { LogLevel } from "./log"
+
 export default interface Settings {
   ArcazeSupportEnabled: boolean
   AutoRetrigger: boolean
@@ -15,7 +17,7 @@ export default interface Settings {
   Language: string
   LogEnabled: boolean
   LogJoystickAxis: boolean
-  LogLevel: string
+  LogLevel: LogLevel
   MinimizeOnAutoRun: boolean
   ModuleSettings: string
   RecentFiles: string[]

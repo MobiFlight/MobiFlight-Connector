@@ -1,4 +1,5 @@
 import { Controller } from "./controller"
+import { ModifierList, Modifier } from "./modifier"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
@@ -31,6 +32,7 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   encoder?: EncoderTrigger
   analog?: AnalogTrigger
   ConfigRefs: ConfigReference[]
+  Modifiers?: ModifierList
 }
 
 export type ConfigItemStatusType =
@@ -106,8 +108,8 @@ export interface MsfsInputAction extends Action {
 
 export interface XplaneInputAction extends Action {
   Type: "XplaneInputAction"
-  InputType: string
-  Path: string
+  InputType: string | null
+  Path: string | null
   Expression: string
 }
 

@@ -119,8 +119,8 @@ test("Confirm Controller Binding assignment works correctly", async ({
 
   // click second option
   await options.nth(1).click()
-  const saveButton = dialog.getByRole("button", { name: "Apply Changes" })
-  await saveButton.click()
+  const applyChangesButton = dialog.getByRole("button", { name: "Apply Changes" })
+  await applyChangesButton.click()
   await expect(dialog).not.toBeVisible()
 
   const commandsAfterClick = await mobiFlightPage.getTrackedCommands()

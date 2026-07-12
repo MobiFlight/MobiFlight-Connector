@@ -13,7 +13,7 @@
   "HubHopAutoCheck": true,
   "IgnoredComPortsList": "",
   "Language": "en",
-  "LogEnabled": true,
+  "LogEnabled": false,
   "LogJoystickAxis": false,
   "LogLevel": "info",
   "MinimizeOnAutoRun": false,

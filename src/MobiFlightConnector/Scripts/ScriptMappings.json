@@ -21,6 +21,12 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
+      "AircraftMatchPattern": "ctl_fa50",
+      "ScriptName": "contrail_fa50_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
       "AircraftMatchPattern": "fnx_3",
       "ScriptName": "fenix_winwing_cdu.py"
     },
@@ -141,7 +147,7 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftMatchPattern": "A300",
+      "AircraftMatchPattern": "[aA]300",
       "ScriptName": "ini_a300_winwing_cdu.py"
     },
     {

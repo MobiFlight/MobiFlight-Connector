@@ -23,8 +23,8 @@
       "Placeholder": "Auswählen...",
       "SearchPlaceholder": "Suchen..."
     },
-    "Copy" : "Kopieren",
-    "Paste" : "Einfügen",
+    "Copy": "Kopieren",
+    "Paste": "Einfügen",
     "NewFeature": "Neu"
   },
   "MainMenu": {
@@ -196,7 +196,7 @@
         "Label": "Flugzeug",
         "HelpText": "Wähle das Flugzeug für dieses Projekt aus.",
         "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen. Optionen werden auf die ausgewählten Flugzeuge beschränkt.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Flugzeugeinstellungen",
           "Description": "Wähle ein oder mehrere Flugzeuge aus, die für dieses Projekt aktiviert werden sollen.",
           "SelectedAircraft": {
@@ -404,6 +404,82 @@
       "SearchController": "Controller suchen...",
       "NoControllerFound": "Kein Controller gefunden."
     },
+    "Modifiers": {
+      "Title": "Modifikatoren",
+      "Description": "Ändere den ursprünglichen Wert, indem du eine Reihe von Modifikatoren anwendest.",
+      "EditButton": "Modifikatoren bearbeiten",
+      "AddButton": "Modifikator hinzufügen",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformation",
+          "Description": "Wende eine Transformation auf den Eingabewert an, indem du den angegebenen Ausdruck verwendest.",
+          "Expression": "Ausdruck"
+        },
+        "Substring": {
+          "Label": "Teil-String",
+          "Description": "Extrahiere einen Teilstring aus dem Eingabewert unter Verwendung der angegebenen Start- und Endposition.",
+          "From": "von",
+          "To": "bis",
+          "Start": "Startposition",
+          "End": "Endposition",
+          "Summary": "von <badge>{{start}}</badge> bis <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Padding",
+          "Description": "Passe das Padding des Eingabewerts unter Verwendung der angegebenen Länge, des Zeichens und der Richtung an.",
+          "Length": "Länge",
+          "Character": "Zeichen",
+          "Direction": "Richtung",
+          "Summary": "Länge:<badge>{{length}}</badge> Zeichen:<badge><kbd>{{character}}</kbd></badge> Richtung:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolation",
+          "Description": "Definiere Zuordnungen zwischen Eingabe- und Ausgabewerten. Werte außerhalb des Bereichs werden begrenzt.",
+          "From": "Von",
+          "To": "Bis",
+          "Action": "Aktion",
+          "Mappings": "Zuordnungen",
+          "Add": "Zuordnung hinzufügen",
+          "Remove": "Zuordnung entfernen",
+          "Summary": "Mappe <badge>{{count}}</badge> Werte, Bereich von <badge>{{min}}</badge> bis <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Vergleich",
+          "Description": "Vergleiche den aktuellen Wert mit einem anderen Wert und passe die Ausgabe an, wenn er übereinstimmt oder nicht.",
+          "IfCurrentValue": "Wenn aktueller Wert",
+          "Operator": "Operator",
+          "Value": "Wert",
+          "Then": "Dann",
+          "Else": "Sonst",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Blink",
+          "Description": "Wechselt den ursprünglichen Eingabewert mit dem Aus-Wert unter Verwendung der untenstehenden Sequenz.",
+          "AlternateValue": "Alternativer Wert (Aus)",
+          "BlinkSequence": "Blinksequenz",
+          "On": "Ein (in ms)",
+          "Off": "Aus (in ms)",
+          "Action": "Aktion",
+          "Add": "Blinkintervall hinzufügen",
+          "Remove": "Blinkintervall entfernen",
+          "Summary": "Wert <badge>{{blinkValue}}</badge> Sequenz <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "Keiner",
+        "More": "+ {{count}} mehr"
+      },
+      "Editor": {
+        "Title": "Modifikatoren bearbeiten",
+        "Description": "Modifikatoren hinzufügen, konfigurieren, neu anordnen und entfernen, um den ursprünglichen Eingabewert zu ändern.",
+        "AddModifier": "Modifikator hinzufügen",
+        "NoModifiers": "Keine Modifikatoren definiert.",
+        "DeleteModifier": "Modifikator entfernen",
+        "MoveUp": "Modifikator nach oben verschieben",
+        "MoveDown": "Modifikator nach unten verschieben"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Eingabekonfiguration bearbeiten",
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",
@@ -481,7 +557,7 @@
           }
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "{{eventLabel}} Aktion bearbeiten",
         "Remove": "{{eventLabel}} Aktion entfernen"
       },
@@ -606,11 +682,29 @@
           "ActionLabel": "Aktion"
         },
         "Msfs": {
-          "NoneCode": "Keiner",
-          "CodePlaceholder": "RPN-Code eingeben",
+          "Preset": {
+            "Title": "Schritt 2 - Preset auswählen",
+            "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
+            "ProjectAircraftOnly": "Nur Projektflugzeuge"
+          },
+          "Code": {
+            "Title": "Schritt 3 - Code anpassen (optional)",
+            "Description": "Dieser Code wird vom Simulator verwendet. Du kannst ihn manuell bearbeiten oder ein Preset aus der obigen Liste auswählen.",
+            "None": "Keiner",
+            "Placeholder": "RPN-Code eingeben"
+          },
           "CustomPreset": "Eigenes Preset"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Schritt 2 - Preset auswählen",
+            "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
+            "ProjectAircraftOnly": "Nur Projektflugzeuge"
+          },
+          "Code": {
+            "Title": "Schritt 3 - Code anpassen (optional)",
+            "Description": "Dieser Code wird vom Simulator verwendet. Du kannst ihn manuell bearbeiten oder ein Preset aus der obigen Liste auswählen."
+          },
           "InputTypeLabel": "Eingabetyp",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",
           "PathLabel": "Pfad",
@@ -621,8 +715,10 @@
           "CustomPreset": "Eigenes Preset"
         },
         "ProSim": {
-          "Title": "ProSim-Eingabeaktion",
-          "Description": "Wähle ein Preset, um deine Eingabeaktionen zu konfigurieren.",
+          "Preset": {
+            "Title": "Schritt 2 - ProSim Eingabeaktion",
+            "Description": "Wähle ein Preset, um deine Eingabeaktionen zu konfigurieren."
+          },
           "PathLabel": "Pfad",
           "NoPresetSelected": "Kein Preset ausgewählt",
           "ParameterLabel": "Parameter (optional)",
@@ -630,6 +726,8 @@
           "ParameterNone": "Kein Parameter"
         },
         "VJoy": {
+          "Title": "Schritt 2 - vJoy konfigurieren",
+          "Description": "Definiere die vJoy-Taste oder Achse, die du verwenden möchtest.",
           "Controller": "Controller",
           "Device": "Gerät",
           "SelectDeviceLabel": "vJoy-Gerät auswählen",
@@ -647,6 +745,8 @@
           "None": "Keiner"
         },
         "Keyboard": {
+          "Title": "Schritt 2 - Tastatureingabe konfigurieren",
+          "Description": "Definiere die Tastenkombination, die du verwenden möchtest.",
           "StopScanning": "Suche stoppen",
           "ScanForKeyboard": "Tastatur suchen",
           "KeyComboLabel": "Tastenkombination",
@@ -654,6 +754,8 @@
           "ClearInput": "Eingabe löschen"
         },
         "FsuipcOffset": {
+          "Title": "Schritt 2 - FSUIPC-Offset konfigurieren",
+          "Description": "Definiere den FSUIPC-Offset, den du verwenden möchtest.",
           "TypeLabel": "Typ",
           "SizeLabel": "Größe",
           "OffsetLabel": "Offset",
@@ -663,7 +765,7 @@
           "ValuePlaceholder": "Wert eingeben"
         },
         "LuaMacro": {
-          "Title": "Lua-Makro-Eingabeaktion",
+          "Title": "Schritt 2 - Lua-Makro-Eingabeaktion",
           "Description": "Rufe dein Lua-Makro mit einem optionalen Parameter auf. Erfordert ein vorhandenes Lua-Makro in FSUIPC.",
           "MacroNameLabel": "Makroname",
           "MacroNamePlaceholder": "Makronamen setzen",
@@ -671,11 +773,15 @@
           "MacroValuePlaceholder": "Makrowert setzen"
         },
         "Jeehell": {
+          "Title": "Schritt 2 - Jeehell konfigurieren",
+          "Description": "Definiere die Jeehell-Funktion, die du verwenden möchtest. Du kannst entweder eine neue erstellen oder eine vorhandene Funktion verwenden.",
           "FunctionLabel": "Jeehell-Funktion",
           "SelectFunctionPlaceholder": "Jeehell-Funktion auswählen...",
           "ValueLabel": "Wert"
         },
         "EventId": {
+          "Title": "Schritt 2 - Event-ID definieren",
+          "Description": "Definiere die Event-ID, die du verwenden möchtest. Du kannst entweder eine neue erstellen oder eine vorhandene Event-ID verwenden.",
           "PmdgAircraftLabel": "PMDG-Flugzeug",
           "MouseParamLabel": "Mausparameter",
           "SelectMouseParamPlaceholder": "Mausparameter auswählen",
@@ -683,13 +789,15 @@
           "CustomParamLabel": "Benutzerdefinierter Parameter"
         },
         "Retrigger": {
-          "Title": "Retrigger",
-          "Summary": "Sync Eingabegeräte mit dem Simulator.",
+          "Title": "Schritt 2 - Retrigger",
+          "Summary": "Eingabegeräte mit dem Simulator synchronisieren.",
           "NoteLabel": "Bemerkung",
           "Description1": "Verwende diese Eingabeaktion, um alle Tastenstatus erneut auszulösen.",
           "Description2": "Dies ist hilfreich, um dein virtuelles Cockpit mit den Schalter- und Tastenstatus deiner physischen Controller zu synchronisieren."
         },
         "Variable": {
+          "Title": "Schritt 2 - Variable konfigurieren",
+          "Description": "Definiere die Variable, die du verwenden möchtest. Du kannst entweder eine neue erstellen oder eine vorhandene Variable verwenden.",
           "ExistingVariable": "Vorhandene Variable verwenden",
           "VariableTypeLabel": "Variablentyp",
           "VariableNameLabel": "Variablenname",
@@ -744,6 +852,13 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Warte auf Log-Einträge",
-    "LoggingDisabled": "Logging ist deaktiviert. Aktivieren Sie das Logging in den Einstellungen."
+    "Filter": {
+      "Placeholder": "Log-Einträge filtern...",
+      "NoResults": "Keine Einträge entsprechen dem Filter.",
+      "Clear": "Filter löschen"
+    },
+    "Resume": "Scrolling fortsetzen",
+    "Pause": "Scrolling pausieren",
+    "Close": "Log-Panel schließen"
   }
 }

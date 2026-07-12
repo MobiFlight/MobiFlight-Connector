@@ -1,8 +1,8 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Switch } from "@/components/ui/switch"
 import { preconditionVariants } from "@/components/wizard/variants"
 import { IConfigItem, MobiFlightVariable, Precondition } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
@@ -70,8 +70,10 @@ const PreconditionItemRow = ({
       : undefined
 
   const preconditionPin = {
-    Port: (precondition.Type === "pin") && (precondition.Pin?.charAt(0) ?? "A"),
-    Pin: (precondition.Type === "pin") && (precondition.Pin?.substring(1, 3) ?? "01"),
+    Port: precondition.Type === "pin" && (precondition.Pin?.charAt(0) ?? "A"),
+    Pin:
+      precondition.Type === "pin" &&
+      (precondition.Pin?.substring(1, 3) ?? "01"),
   }
   const selectedPort =
     precondition.Type === "pin"
@@ -83,24 +85,20 @@ const PreconditionItemRow = ({
       ? ArcazePinOptions.find((p) => p.value === preconditionPin.Pin)
       : ArcazePinOptions[0] // Default to Pin 01 if not a pin type
 
-
   const variantStyle = preconditionVariants[precondition.Type]
 
   return (
     <div
       data-testid="precondition-item-row"
-      className={`flex flex-row gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
+      className={`flex flex-row items-center gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
     >
       <div className="flex flex-row items-center gap-2">
-        <Checkbox
+        <Switch
           checked={precondition.Active}
           onCheckedChange={(checked) =>
             onChange({ ...precondition, Active: !!checked })
           }
         />
-        <Label className="text-sm">
-          {t("Dialog.InputConfigWizard.PreconditionEditor.Active")}
-        </Label>
       </div>
 
       <ComboBox
@@ -162,7 +160,10 @@ const PreconditionItemRow = ({
             getLabel={(p) => p.label}
             isSelected={(p, s) => p.value === s?.value}
             setSelected={(p) => {
-              const updated = { ...precondition, Pin: `${p?.value ?? ""}${preconditionPin.Pin}` }
+              const updated = {
+                ...precondition,
+                Pin: `${p?.value ?? ""}${preconditionPin.Pin}`,
+              }
               onChange(updated)
             }}
             placeholder={t(
@@ -178,7 +179,10 @@ const PreconditionItemRow = ({
             getLabel={(p) => p.label}
             isSelected={(p, s) => p.value === s?.value}
             setSelected={(p) =>
-              onChange({ ...precondition, Pin: `${preconditionPin.Port}${p?.value ?? ""}` })
+              onChange({
+                ...precondition,
+                Pin: `${preconditionPin.Port}${p?.value ?? ""}`,
+              })
             }
             placeholder={t(
               "Dialog.InputConfigWizard.PreconditionEditor.SelectPin",
@@ -208,20 +212,16 @@ const PreconditionItemRow = ({
         className="w-18"
       />
       {showLogic && (
-        <div className="flex flex-row items-center gap-2">
-          <ComboBox
-            items={LOGIC_OPTIONS}
-            selected={precondition.Logic}
-            getValue={(l) => l}
-            getLabel={(l) => l}
-            isSelected={(l, s) => l === s}
-            setSelected={(l) =>
-              onChange({ ...precondition, Logic: l ?? "and" })
-            }
-            widthClass="w-24"
-            variant="nofilter"
-          />
-        </div>
+        <ComboBox
+          items={LOGIC_OPTIONS}
+          selected={precondition.Logic}
+          getValue={(l) => l}
+          getLabel={(l) => l}
+          isSelected={(l, s) => l === s}
+          setSelected={(l) => onChange({ ...precondition, Logic: l ?? "and" })}
+          widthClass="w-20"
+          variant="nofilter"
+        />
       )}
       <Button
         variant="ghost"
@@ -270,36 +270,48 @@ const PreconditionEditor = ({
   }
 
   return (
-    <div className="flex flex-col gap-4" data-testid="precondition-editor">
-      <div className="text-lg font-semibold">
-        {t("Dialog.InputConfigWizard.PreconditionEditor.Title")}
-      </div>
-      <div className="text-muted-foreground text-sm">
-        {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
+    <div className="flex grow flex-col gap-4" data-testid="precondition-editor">
+      <div className="flex flex-row justify-between gap-4">
+        <div className="flex flex-col gap-2">
+          <div className="text-lg font-semibold">
+            {t("Dialog.InputConfigWizard.PreconditionEditor.Title")}
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
+          </div>
+        </div>
+        <Button
+          variant="default"
+          size={"sm"}
+          className="self-end"
+          onClick={handleAdd}
+        >
+          <IconPlus className="h-4 w-4" />
+          {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
+        </Button>
       </div>
 
-      {preconditions.length === 0 && (
+      {preconditions.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
           {t("Dialog.InputConfigWizard.PreconditionEditor.NoPreconditions")}
         </div>
+      ) : (
+        <ScrollArea className="grow">
+          <div className="flex flex-col gap-2">
+            {preconditions.map((precondition, index) => (
+              <PreconditionItemRow
+                key={index}
+                precondition={precondition}
+                variables={variables}
+                outputConfigs={outputConfigs}
+                onChange={(updated) => handleChange(index, updated)}
+                onDelete={() => handleDelete(index)}
+                showLogic={index < preconditions.length - 1}
+              />
+            ))}
+          </div>
+        </ScrollArea>
       )}
-
-      {preconditions.map((precondition, index) => (
-        <PreconditionItemRow
-          key={index}
-          precondition={precondition}
-          variables={variables}
-          outputConfigs={outputConfigs}
-          onChange={(updated) => handleChange(index, updated)}
-          onDelete={() => handleDelete(index)}
-          showLogic={index < preconditions.length - 1}
-        />
-      ))}
-
-      <Button variant="outline" className="self-start" onClick={handleAdd}>
-        <IconPlus className="h-4 w-4" />
-        {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
-      </Button>
     </div>
   )
 }

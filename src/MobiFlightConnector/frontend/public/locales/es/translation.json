@@ -23,8 +23,8 @@
       "Placeholder": "Seleccionar...",
       "SearchPlaceholder": "Buscar..."
     },
-    "Copy" : "Copiar",
-    "Paste" : "Pegar",
+    "Copy": "Copiar",
+    "Paste": "Pegar",
     "NewFeature": "Nuevo"
   },
   "MainMenu": {
@@ -56,7 +56,7 @@
       }
     },
     "Extras": {
-      "Label" : "Extras",
+      "Label": "Extras",
       "HubHop.DownloadLatestPresets": "Descargar los últimos presets",
       "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
       "CopyLogs": "Copiar registros al portapapeles",
@@ -196,7 +196,7 @@
         "Label": "Avión",
         "HelpText": "Selecciona el avión para este proyecto.",
         "Description": "Selecciona uno o varios aviones que quieres usar para este proyecto. Las configuraciones predefinidas se limitarán a los aviones seleccionados.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Configuración de Aviones",
           "Description": "Selecciona uno o varios aviones que quieres usar para este proyecto.",
           "SelectedAircraft": {
@@ -404,6 +404,82 @@
       "SearchController": "Buscar controlador...",
       "NoControllerFound": "No se encontró ningún controlador."
     },
+    "Modifiers": {
+      "Title": "Modificadores",
+      "Description": "Cambia el valor original aplicando una secuencia de modificadores.",
+      "EditButton": "Editar modificadores",
+      "AddButton": "Agregar modificador",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformación",
+          "Description": "Aplica una transformación al valor de entrada utilizando la expresión especificada.",
+          "Expression": "Expresión"
+        },
+        "Substring": {
+          "Label": "Subcadena",
+          "Description": "Extrae una subcadena del valor de entrada utilizando la posición de inicio y fin especificada.",
+          "From": "Desde",
+          "To": "Hasta",
+          "Start": "Posición de inicio",
+          "End": "Posición de fin",
+          "Summary": "Desde <badge>{{start}}</badge> hasta <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Relleno",
+          "Description": "Ajusta el relleno del valor de entrada utilizando la longitud, el carácter y la dirección especificados.",
+          "Length": "Longitud",
+          "Character": "Carácter",
+          "Direction": "Dirección",
+          "Summary": "Longitud:<badge>{{length}}</badge> Carácter:<badge><kbd>{{character}}</kbd></badge> Dirección:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolación",
+          "Description": "Define asignaciones entre valores de entrada y salida. Los valores fuera del rango se limitan.",
+          "From": "Desde",
+          "To": "Hasta",
+          "Action": "Acción",
+          "Mappings": "Asignaciones",
+          "Add": "Agregar asignación",
+          "Remove": "Eliminar asignación",
+          "Summary": "Asigna <badge>{{count}}</badge> valores, rango de <badge>{{min}}</badge> a <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Comparación",
+          "Description": "Compara el valor actual con otro valor y ajusta la salida si coincide o no.",
+          "IfCurrentValue": "Si el valor actual",
+          "Operator": "Operador",
+          "Value": "Valor",
+          "Then": "Entonces",
+          "Else": "Si no",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Parpadeo",
+          "Description": "Alterna el valor de entrada original con el valor Apagado utilizando la secuencia a continuación.",
+          "AlternateValue": "Valor alternativo (Apagado)",
+          "BlinkSequence": "Secuencia de parpadeo",
+          "On": "Encendido (en ms)",
+          "Off": "Apagado (en ms)",
+          "Action": "Acción",
+          "Add": "Agregar intervalo de parpadeo",
+          "Remove": "Eliminar intervalo de parpadeo",
+          "Summary": "Valor <badge>{{blinkValue}}</badge> Secuencia <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "Ninguno",
+        "More": "+ {{count}} más"
+      },
+      "Editor": {
+        "Title": "Editar modificadores",
+        "Description": "Agregar, configurar, reorganizar y eliminar modificadores para cambiar el valor de entrada original.",
+        "AddModifier": "Agregar modificador",
+        "NoModifiers": "No hay modificadores definidos.",
+        "DeleteModifier": "Eliminar modificador",
+        "MoveUp": "Mover modificador hacia arriba",
+        "MoveDown": "Mover modificador hacia abajo"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Editar configuración de entrada",
       "Description": "Edita todos los ajustes de esta configuración de entrada en este diálogo.",
@@ -481,7 +557,7 @@
           }
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "Editar acción {{eventLabel}}",
         "Remove": "Remover acción {{eventLabel}}"
       },
@@ -606,11 +682,29 @@
           "ActionLabel": "Acción"
         },
         "Msfs": {
-          "NoneCode": "Ninguno",
-          "CodePlaceholder": "Ingresar código RPN",
+          "Preset": {
+            "Title": "Paso 2 - Seleccionar preset",
+            "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
+            "ProjectAircraftOnly": "Solo aviones del proyecto"
+          },
+          "Code": {
+            "Title": "Paso 3 - Refinar código (opcional)",
+            "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
+            "None": "Ninguno",
+            "Placeholder": "Ingresar código RPN"
+          },
           "CustomPreset": "Preset personalizado"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Paso 2 - Seleccionar preset",
+            "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
+            "ProjectAircraftOnly": "Solo aviones del proyecto"
+          },
+          "Code": {
+            "Title": "Paso 3 - Refinar código (opcional)",
+            "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior."
+          },
           "InputTypeLabel": "Tipo de entrada",
           "SelectInputTypePlaceholder": "Seleccionar tipo de entrada",
           "PathLabel": "Ruta",
@@ -621,8 +715,10 @@
           "CustomPreset": "Preset personalizado"
         },
         "ProSim": {
-          "Title": "Acción de entrada ProSim",
-          "Description": "Selecciona un preset para configurar tus acciones de entrada.",
+          "Preset": {
+            "Title": "Paso 2 - Acción de entrada ProSim",
+            "Description": "Selecciona un preset para configurar tus acciones de entrada."
+          },
           "PathLabel": "Ruta",
           "NoPresetSelected": "No hay preset seleccionado",
           "ParameterLabel": "Parámetro (opcional)",
@@ -630,6 +726,8 @@
           "ParameterNone": "Ninguno"
         },
         "VJoy": {
+          "Title": "Paso 2 - Configurar vJoy",
+          "Description": "Define el botón o eje vJoy que deseas usar.",
           "Controller": "Controlador",
           "Device": "Dispositivo",
           "SelectDeviceLabel": "Seleccionar dispositivo vJoy",
@@ -647,6 +745,8 @@
           "None": "Ninguno"
         },
         "Keyboard": {
+          "Title": "Paso 2 - Configurar entrada de teclado",
+          "Description": "Define la combinación de teclas que deseas usar.",
           "StopScanning": "Detener búsqueda",
           "ScanForKeyboard": "Buscar teclado",
           "KeyComboLabel": "Combinación de teclas",
@@ -654,6 +754,8 @@
           "ClearInput": "Borrar entrada"
         },
         "FsuipcOffset": {
+          "Title": "Paso 2 - Configurar offset FSUIPC",
+          "Description": "Define el offset FSUIPC que deseas usar.",
           "TypeLabel": "Tipo",
           "SizeLabel": "Tamaño",
           "OffsetLabel": "Offset",
@@ -663,7 +765,7 @@
           "ValuePlaceholder": "Ingresar valor"
         },
         "LuaMacro": {
-          "Title": "Acción de entrada de macro Lua",
+          "Title": "Paso 2 - Configurar acción de entrada de macro Lua",
           "Description": "Invoca tu macro Lua con un parámetro opcional. Requiere una macro Lua existente en FSUIPC.",
           "MacroNameLabel": "Nombre de macro",
           "MacroNamePlaceholder": "Establecer nombre de macro",
@@ -671,11 +773,15 @@
           "MacroValuePlaceholder": "Establecer valor de macro"
         },
         "Jeehell": {
+          "Title": "Paso 2 - Configurar Jeehell",
+          "Description": "Define la función Jeehell que deseas usar. Puedes crear una nueva o usar una función existente.",
           "FunctionLabel": "Función Jeehell",
           "SelectFunctionPlaceholder": "Seleccionar función Jeehell...",
           "ValueLabel": "Valor"
         },
         "EventId": {
+          "Title": "Paso 2 - Configurar Event ID",
+          "Description": "Define el Event ID que deseas usar. Puedes crear uno nuevo o usar uno existente.",
           "PmdgAircraftLabel": "Aeronave PMDG",
           "MouseParamLabel": "Parámetro de ratón",
           "SelectMouseParamPlaceholder": "Seleccionar parámetro de ratón",
@@ -690,6 +796,8 @@
           "Description2": "Esto es útil para sincronizar tu cabina virtual con los estados de interruptores y botones de tus controladores físicos."
         },
         "Variable": {
+          "Title": "Paso 2 - Configurar Variable",
+          "Description": "Define la variable que deseas usar. Puedes crear una nueva o usar una existente.",
           "ExistingVariable": "Usar variable existente",
           "VariableTypeLabel": "Tipo de variable",
           "VariableNameLabel": "Nombre de variable",
@@ -717,15 +825,15 @@
       "Profile": "Perfil",
       "ProfileFeatureComingSoon": "próximamente"
     },
-    "Redirect" : {
+    "Redirect": {
       "SignIn": "Redirigiendo a iniciar sesión...",
       "SignOut": "Redirigiendo a cerrar sesión...",
       "CompletingFlow": "Completando proceso...",
       "FlowSuccessful": "¡Éxitoso!"
     },
-    "Notification":{
+    "Notification": {
       "Error": {
-        "Title":"Error en la autenticación",
+        "Title": "Error en la autenticación",
         "Description": "Ocurrió un error durante la autenticación.",
         "ActionCopyToClipboard": "Copiar mensaje"
       }
@@ -744,6 +852,13 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Esperando entradas de registro",
-    "LoggingDisabled": "El registro está desactivado. Actívalo en la Configuración para ver los registros aquí."
+    "Filter": {
+      "Placeholder": "Filtrar entradas de registro...",
+      "NoResults": "No hay entradas que coincidan con el filtro.",
+      "Clear": "Borrar filtros"
+    },
+    "Resume": "Reanudar desplazamiento",
+    "Pause": "Pausar desplazamiento",
+    "Close": "Cerrar panel de registro"
   }
 }

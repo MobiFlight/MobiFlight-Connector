@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.ProSim;
@@ -391,6 +392,177 @@ namespace MobiFlight.Tests
             // Assert
             Assert.HasCount(1, result);
             Assert.IsTrue(result.ContainsKey("varB"));
+        }
+
+        [TestMethod]
+        public void CommandRefreshPresets_WhenProSimIsConnected_RefreshesBeforePublishingProSimDataRefDefinitions()
+        {
+            // Arrange
+            var dataRefDescriptions = new Dictionary<string, DataRefDescription>
+            {
+                {
+                    "aircraft/test/path",
+                    new DataRefDescription
+                    {
+                        Name = "aircraft/test/path",
+                        CanWrite = true,
+                        DataType = "System.Boolean"
+                    }
+                }
+            };
+            var refreshCompletion = new TaskCompletionSource<bool>();
+            var publishSignal = new ManualResetEventSlim(false);
+            var calls = new List<string>();
+            ProSimDataRefDefinitionUpdate publishedUpdate = null;
+
+            _mockProSimCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockProSimCache
+                .Setup(x => x.RefreshDataDefinitionsAsync())
+                .Returns(() =>
+                {
+                    calls.Add("refresh");
+                    return refreshCompletion.Task;
+                });
+            _mockProSimCache
+                .Setup(x => x.GetDataRefDescriptions())
+                .Returns(() =>
+                {
+                    calls.Add("get");
+                    return dataRefDescriptions;
+                });
+
+            _mockMessagePublisher
+                .Setup(publisher => publisher.Publish(It.IsAny<object>()))
+                .Callback<object>(publishedMessage =>
+                {
+                    if (publishedMessage is ProSimDataRefDefinitionUpdate update)
+                    {
+                        calls.Add("publish");
+                        publishedUpdate = update;
+                        publishSignal.Set();
+                    }
+
+                    var jsonMessage = JsonConvert.SerializeObject(new Message<object>(publishedMessage.GetType().Name, publishedMessage));
+                    _OnMessageReceivedCallback?.Invoke(jsonMessage);
+                });
+
+            var message = new CommandRefreshPresets
+            {
+                type = PresetType.PROSIM
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            Assert.IsFalse(publishSignal.Wait(50), "Definitions should not publish before the ProSim refresh completes.");
+            refreshCompletion.SetResult(true);
+
+            // Assert
+            Assert.IsTrue(publishSignal.Wait(1000), "Definitions should publish after the ProSim refresh completes.");
+            Assert.IsNotNull(publishedUpdate);
+            Assert.AreSame(dataRefDescriptions, publishedUpdate.DataRefs);
+            Assert.IsTrue(publishedUpdate.DataRefs.ContainsKey("aircraft/test/path"));
+            CollectionAssert.AreEqual(new[] { "refresh", "get", "publish" }, calls);
+            _mockProSimCache.Verify(x => x.RefreshDataDefinitionsAsync(), Times.Once);
+        }
+
+        [TestMethod]
+        public void CommandRefreshPresets_WhenProSimIsDisconnected_DoesNotPublishStaleProSimDataRefDefinitions()
+        {
+            // Arrange
+            _mockProSimCache.Setup(x => x.IsConnected()).Returns(false);
+
+            var message = new CommandRefreshPresets
+            {
+                type = PresetType.PROSIM
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            _mockProSimCache.Verify(x => x.RefreshDataDefinitionsAsync(), Times.Never);
+            _mockProSimCache.Verify(x => x.GetDataRefDescriptions(), Times.Never);
+            _mockMessagePublisher.Verify(
+                publisher => publisher.Publish(It.IsAny<ProSimDataRefDefinitionUpdate>()),
+                Times.Never);
+        }
+
+        [TestMethod]
+        public void CommandRefreshPresets_WhenProSimRefreshFailsWithEmptyCache_DoesNotPublishProSimDataRefDefinitions()
+        {
+            // Arrange
+            _mockProSimCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockProSimCache.Setup(x => x.RefreshDataDefinitionsAsync()).Returns(Task.FromResult(false));
+            _mockProSimCache
+                .Setup(x => x.GetDataRefDescriptions())
+                .Returns(new Dictionary<string, DataRefDescription>());
+
+            var message = new CommandRefreshPresets
+            {
+                type = PresetType.PROSIM
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            _mockProSimCache.Verify(x => x.RefreshDataDefinitionsAsync(), Times.Once);
+            _mockMessagePublisher.Verify(
+                publisher => publisher.Publish(It.IsAny<ProSimDataRefDefinitionUpdate>()),
+                Times.Never);
+        }
+
+        [TestMethod]
+        public void CommandRefreshPresets_WhenProSimRefreshFailsWithCachedDefinitions_PublishesCachedDefinitions()
+        {
+            // Arrange
+            var cachedDefinitions = new Dictionary<string, DataRefDescription>
+            {
+                {
+                    "aircraft/test/path",
+                    new DataRefDescription
+                    {
+                        Name = "aircraft/test/path",
+                        CanWrite = true,
+                        DataType = "System.Boolean"
+                    }
+                }
+            };
+            var publishSignal = new ManualResetEventSlim(false);
+            ProSimDataRefDefinitionUpdate publishedUpdate = null;
+
+            _mockProSimCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockProSimCache.Setup(x => x.RefreshDataDefinitionsAsync()).Returns(Task.FromResult(false));
+            _mockProSimCache.Setup(x => x.GetDataRefDescriptions()).Returns(cachedDefinitions);
+
+            _mockMessagePublisher
+                .Setup(publisher => publisher.Publish(It.IsAny<object>()))
+                .Callback<object>(publishedMessage =>
+                {
+                    if (publishedMessage is ProSimDataRefDefinitionUpdate update)
+                    {
+                        publishedUpdate = update;
+                        publishSignal.Set();
+                    }
+
+                    var jsonMessage = JsonConvert.SerializeObject(new Message<object>(publishedMessage.GetType().Name, publishedMessage));
+                    _OnMessageReceivedCallback?.Invoke(jsonMessage);
+                });
+
+            var message = new CommandRefreshPresets
+            {
+                type = PresetType.PROSIM
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.IsTrue(publishSignal.Wait(1000), "Cached definitions should be published as a fallback when the refresh fails.");
+            Assert.IsNotNull(publishedUpdate);
+            Assert.AreSame(cachedDefinitions, publishedUpdate.DataRefs);
+            _mockProSimCache.Verify(x => x.RefreshDataDefinitionsAsync(), Times.Once);
         }
 
         [TestMethod]

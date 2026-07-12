@@ -1,8 +1,8 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Switch } from "@/components/ui/switch"
 import { configReferenceVariants } from "@/components/wizard/variants"
 import { ConfigReference, IConfigItem } from "@/types/config"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
@@ -56,16 +56,15 @@ const ConfigReferenceItemRow = ({
   return (
     <div
       data-testid="config-reference-item-row"
-      className={`flex flex-row gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
+      className={`flex flex-row items-center gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
     >
       <div className="flex flex-row items-center gap-2">
-        <Checkbox
+        <Switch
           checked={configReference.Active}
           onCheckedChange={(checked) =>
             onChange({ ...configReference, Active: !!checked })
           }
         />
-        <Label className="text-sm">{t("Dialog.InputConfigWizard.ConfigReferenceEditor.Active")}</Label>
       </div>
 
       <ComboBox
@@ -77,7 +76,9 @@ const ConfigReferenceItemRow = ({
         setSelected={(c) =>
           onChange({ ...configReference, Ref: c?.GUID ?? "" })
         }
-        placeholder={t("Dialog.InputConfigWizard.ConfigReferenceEditor.SelectConfig")}
+        placeholder={t(
+          "Dialog.InputConfigWizard.ConfigReferenceEditor.SelectConfig",
+        )}
         widthClass="flex-1"
       />
 
@@ -105,7 +106,11 @@ const ConfigReferenceItemRow = ({
         className="text-destructive hover:text-destructive ml-auto"
         onClick={onDelete}
       >
-        <div className="sr-only">{t("Dialog.InputConfigWizard.ConfigReferenceEditor.DeleteConfigReference")}</div>
+        <div className="sr-only">
+          {t(
+            "Dialog.InputConfigWizard.ConfigReferenceEditor.DeleteConfigReference",
+          )}
+        </div>
         <IconTrash className="h-4 w-4" />
       </Button>
     </div>
@@ -137,7 +142,9 @@ const ConfigReferenceEditor = ({
 
   const handleAdd = () => {
     const suggestedPlaceholder =
-      SUGGESTED_PLACEHOLDERS[configReferences.length % SUGGESTED_PLACEHOLDERS.length]
+      SUGGESTED_PLACEHOLDERS[
+        configReferences.length % SUGGESTED_PLACEHOLDERS.length
+      ]
     onConfigReferencesChange([
       ...configReferences,
       { ...EMPTY_CONFIG_REFERENCE, Placeholder: suggestedPlaceholder },
@@ -145,32 +152,53 @@ const ConfigReferenceEditor = ({
   }
 
   return (
-    <div className="flex flex-col gap-4" data-testid="config-reference-editor">
-      <div className="text-lg font-semibold">{t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title")}</div>
-      <div className="text-muted-foreground text-sm">
-        {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Description")}
+    <div
+      className="flex grow flex-col gap-4"
+      data-testid="config-reference-editor"
+    >
+      <div className="flex flex-row justify-between gap-4">
+        <div className="flex flex-col gap-2">
+          <div className="text-lg font-semibold">
+            {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Title")}
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.InputConfigWizard.ConfigReferenceEditor.Description")}
+          </div>
+        </div>
+        <Button
+          variant="default"
+          className="self-end"
+          onClick={handleAdd}
+          size={"sm"}
+        >
+          <IconPlus className="h-4 w-4" />
+          {t(
+            "Dialog.InputConfigWizard.ConfigReferenceEditor.AddConfigReference",
+          )}
+        </Button>
       </div>
 
-      {configReferences.length === 0 && (
+      {configReferences.length === 0 ? (
         <div className="text-muted-foreground rounded border p-4 text-center text-sm">
-          {t("Dialog.InputConfigWizard.ConfigReferenceEditor.NoConfigReferences")}
+          {t(
+            "Dialog.InputConfigWizard.ConfigReferenceEditor.NoConfigReferences",
+          )}
         </div>
+      ) : (
+        <ScrollArea className="grow">
+          <div className="flex flex-col gap-2">
+            {configReferences.map((configReference, index) => (
+              <ConfigReferenceItemRow
+                key={index}
+                configReference={configReference}
+                outputConfigs={outputConfigs}
+                onChange={(updated) => handleChange(index, updated)}
+                onDelete={() => handleDelete(index)}
+              />
+            ))}
+          </div>
+        </ScrollArea>
       )}
-
-      {configReferences.map((configReference, index) => (
-        <ConfigReferenceItemRow
-          key={index}
-          configReference={configReference}
-          outputConfigs={outputConfigs}
-          onChange={(updated) => handleChange(index, updated)}
-          onDelete={() => handleDelete(index)}
-        />
-      ))}
-
-      <Button variant="outline" className="self-start" onClick={handleAdd}>
-        <IconPlus className="h-4 w-4" />
-        {t("Dialog.InputConfigWizard.ConfigReferenceEditor.AddConfigReference")}
-      </Button>
     </div>
   )
 }

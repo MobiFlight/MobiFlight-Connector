@@ -29,7 +29,8 @@ export type ComboBoxProps<T> = HTMLAttributes<HTMLElement> & {
   noOptionsPlaceholder?: string | null
   disabled?: boolean
   widthClass?: string
-  variant?: "default" | "nofilter"
+  variant?: "default" | "nofilter",
+  align?: "start" | "center" | "end"
 }
 
 const ComboBox = <T,>({
@@ -45,6 +46,7 @@ const ComboBox = <T,>({
   disabled = false,
   widthClass = "w-50",
   variant = "default",
+  align = "center",
   ...props
 }: ComboBoxProps<T>) => {
   const { t } = useTranslation()
@@ -69,7 +71,7 @@ const ComboBox = <T,>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn(widthClass, "justify-between")}
+          className={cn("justify-between h-8", widthClass)}
           disabled={disabled}
           {...props}
         >
@@ -79,7 +81,7 @@ const ComboBox = <T,>({
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn(widthClass, "p-0")}>
+      <PopoverContent className={cn(widthClass, "p-0")} align={align}>
         <Command>
           {variant === "default" && (
             <CommandInput placeholder={searchPlaceholder} className="h-9" />

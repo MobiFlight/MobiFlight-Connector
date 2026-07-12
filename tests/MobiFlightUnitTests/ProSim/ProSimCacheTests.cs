@@ -5,6 +5,7 @@ using MobiFlight.ProSim;
 using Moq;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Tests.ProSim
 {
@@ -423,6 +424,88 @@ namespace MobiFlight.Tests.ProSim
 
         #endregion
 
+        #region RefreshDataDefinitions Tests
+
+        [TestMethod()]
+        public async Task RefreshDataDefinitionsAsync_WhenRefreshIsInProgress_ShouldReuseExistingTask()
+        {
+            // Arrange
+            var queryCompletion = new TaskCompletionSource<GraphQLResponse<DataRefData>>();
+            var sendQueryCallCount = 0;
+            var mockClient = new Mock<IGraphQLWebSocketClient>();
+            mockClient.Setup(c => c.SendQueryAsync<DataRefData>(It.IsAny<GraphQLRequest>(), default))
+                .Callback<GraphQLRequest, System.Threading.CancellationToken>((request, ct) =>
+                {
+                    sendQueryCallCount++;
+                })
+                .Returns(queryCompletion.Task);
+
+            SetupConnectedCache(_cache, mockClient.Object, new Dictionary<string, DataRefDescription>());
+
+            // Act
+            var firstRefresh = _cache.RefreshDataDefinitionsAsync();
+            var secondRefresh = _cache.RefreshDataDefinitionsAsync();
+
+            // Assert
+            Assert.AreSame(firstRefresh, secondRefresh, "Concurrent refresh callers should wait for the same in-flight task.");
+            Assert.AreEqual(
+                1,
+                sendQueryCallCount,
+                "Only one ProSim data definition query should be sent while a refresh is in progress.");
+
+            queryCompletion.SetResult(CreateDataRefResponse());
+
+            Assert.IsTrue(await firstRefresh);
+            Assert.HasCount(1, _cache.GetDataRefDescriptions());
+        }
+
+        [TestMethod()]
+        public async Task RefreshDataDefinitionsAsync_WhenDisconnected_ShouldReturnCompletedFalseTask()
+        {
+            // Act
+            var refreshTask = _cache.RefreshDataDefinitionsAsync();
+
+            // Assert
+            Assert.IsNotNull(refreshTask);
+            Assert.IsFalse(await refreshTask);
+        }
+
+        [TestMethod()]
+        public async Task RefreshDataDefinitionsAsync_WhenOldRefreshCompletesAfterReconnect_ShouldKeepNewRefreshInProgress()
+        {
+            // Arrange
+            var firstQueryCompletion = new TaskCompletionSource<GraphQLResponse<DataRefData>>();
+            var secondQueryCompletion = new TaskCompletionSource<GraphQLResponse<DataRefData>>();
+            var firstClient = new Mock<IGraphQLWebSocketClient>();
+            var secondClient = new Mock<IGraphQLWebSocketClient>();
+
+            firstClient.Setup(c => c.SendQueryAsync<DataRefData>(It.IsAny<GraphQLRequest>(), default))
+                .Returns(firstQueryCompletion.Task);
+            secondClient.Setup(c => c.SendQueryAsync<DataRefData>(It.IsAny<GraphQLRequest>(), default))
+                .Returns(secondQueryCompletion.Task);
+
+            SetupConnectedCache(_cache, firstClient.Object, new Dictionary<string, DataRefDescription>());
+            var firstRefresh = _cache.RefreshDataDefinitionsAsync();
+
+            _cache.Disconnect();
+            SetupConnectedCache(_cache, secondClient.Object, new Dictionary<string, DataRefDescription>());
+            var secondRefresh = _cache.RefreshDataDefinitionsAsync();
+
+            // Act
+            firstQueryCompletion.SetResult(CreateDataRefResponse());
+            var firstRefreshResult = await firstRefresh;
+
+            // Assert
+            Assert.IsFalse(firstRefreshResult);
+            Assert.IsTrue(GetRefreshInProgress(_cache));
+
+            secondQueryCompletion.SetResult(CreateDataRefResponse());
+            Assert.IsTrue(await secondRefresh);
+            Assert.IsFalse(GetRefreshInProgress(_cache));
+        }
+
+        #endregion
+
         #region Connection Tests
 
         [TestMethod()]
@@ -444,6 +527,39 @@ namespace MobiFlight.Tests.ProSim
         }
 
         #endregion
+
+        private GraphQLResponse<DataRefData> CreateDataRefResponse()
+        {
+            return new GraphQLResponse<DataRefData>
+            {
+                Data = new DataRefData
+                {
+                    DataRef = new DataRefResponse
+                    {
+                        DataRefDescriptions = new List<DataRefDescription>
+                        {
+                            new DataRefDescription
+                            {
+                                Name = "aircraft/test/path",
+                                CanRead = true,
+                                CanWrite = true,
+                                DataType = "System.Boolean"
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private bool GetRefreshInProgress(ProSimCache cache)
+        {
+            var refreshTaskField = typeof(ProSimCache).GetField(
+                "_refreshTask",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+
+            var refreshTask = (Task<bool>)refreshTaskField.GetValue(cache);
+            return refreshTask != null && !refreshTask.IsCompleted;
+        }
 
         #region readDataref Tests
 

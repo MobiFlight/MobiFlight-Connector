@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight
@@ -101,7 +102,7 @@ namespace MobiFlight
         private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
-        readonly Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
+        readonly Dictionary<string, double> ScanForInputThreshold = new Dictionary<string, double>();
 
         public List<IConfigItem> ConfigItems
         {
@@ -561,7 +562,10 @@ namespace MobiFlight
             {
                 if (message.type == PresetType.PROSIM)
                 {
-                    PublishProSimDataRefDescriptions();
+                    RunProSimRefreshAndPublishAsync().ContinueWith(t =>
+                    {
+                        Log.Instance.log($"Error refreshing ProSim presets: {t.Exception?.GetBaseException().Message}", LogSeverity.Error);
+                    }, TaskContinuationOptions.OnlyOnFaulted);
                 }
                 else if (message.type == PresetType.VJOY)
                 {
@@ -713,6 +717,33 @@ namespace MobiFlight
             _proSimConnectionAttempts = 0;
             _proSimConnectionDisabled = false;
             this.OnSimCacheConnected(sender, e);
+            RunProSimRefreshAndPublishAsync().ContinueWith(t =>
+            {
+                Log.Instance.log($"Error refreshing ProSim data definitions after connect: {t.Exception?.GetBaseException().Message}", LogSeverity.Error);
+            }, TaskContinuationOptions.OnlyOnFaulted);
+        }
+
+        private async Task RunProSimRefreshAndPublishAsync()
+        {
+            var cache = GetProSimCache();
+            if (!cache.IsConnected())
+            {
+                Log.Instance.log("Skipping ProSim refresh because the cache is not connected.", LogSeverity.Debug);
+                return;
+            }
+
+            var refreshSuccessful = await cache.RefreshDataDefinitionsAsync().ConfigureAwait(false);
+            if (!refreshSuccessful)
+            {
+                if (cache.GetDataRefDescriptions().Count == 0)
+                {
+                    Log.Instance.log("ProSim refresh did not complete successfully and no cached definitions are available, so nothing was published.", LogSeverity.Warn);
+                    return;
+                }
+
+                Log.Instance.log("ProSim refresh did not complete successfully; publishing previously cached definitions.", LogSeverity.Warn);
+            }
+
             PublishProSimDataRefDescriptions();
         }
 

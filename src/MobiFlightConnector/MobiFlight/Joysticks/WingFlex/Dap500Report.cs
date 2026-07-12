@@ -5,7 +5,7 @@ namespace MobiFlight.Joysticks.WingFlex
 {
     internal class Dap500Report
     {
-        private byte[] LastInputBufferState = new byte[4];
+        private byte[] LastInputBufferState = new byte[5];
         
         public Dap500Report() {}
 
@@ -72,8 +72,8 @@ namespace MobiFlight.Joysticks.WingFlex
             }
 
             // Axes
-            // Background Light Brightness
-            state.X = LastInputBufferState[3];  // Light sensor value
+            // Light sensor value
+            state.X = LastInputBufferState[4];
 
             return state;
         }

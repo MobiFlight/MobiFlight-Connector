@@ -111,12 +111,8 @@ namespace MobiFlight.UI.Panels.Settings
             // log settings
             Properties.Settings.Default.LogEnabled = logLevelCheckBox.Checked;
             Properties.Settings.Default.LogLevel = (logLevelComboBox.SelectedItem as ListItem).Value;
-            Log.Instance.Enabled = logLevelCheckBox.Checked;
-            Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel);
-
             Properties.Settings.Default.LogJoystickAxis = LogJoystickAxisCheckBox.Checked;
-            Log.Instance.LogJoystickAxis = LogJoystickAxisCheckBox.Checked;
-
+            
             // System Language
             Properties.Settings.Default.Language = languageComboBox.SelectedValue.ToString();
 

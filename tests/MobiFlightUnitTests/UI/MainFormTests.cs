@@ -21,11 +21,13 @@ namespace MobiFlight.UI.Tests
         private bool originalAutoRun;
         private StringCollection originalRecentFiles;
         private string _tempDirectory;
+        private bool originalLoggingState;
 
         public class TestableMainForm : MainForm
         {
             public TestMessagePublisher Publisher { get; set; }
             public IMessagePublisher OriginalPublisher { get; private set; }
+            protected override bool LogIsEnabled => false;
 
             // Expose protected/private members for testing if needed
             public new Dictionary<string, string> AutoLoadConfigs
@@ -102,6 +104,10 @@ namespace MobiFlight.UI.Tests
             Directory.CreateDirectory(_tempDirectory);
 
             _mainForm.SetTestPublisher();
+
+            // disable logging
+            originalLoggingState = Log.Instance.Enabled;
+            Log.Instance.Enabled = false;
         }
 
         [TestCleanup]
@@ -123,6 +129,11 @@ namespace MobiFlight.UI.Tests
                 }
             }
             catch { }
+            finally
+            {
+                // Restore logging state
+                Log.Instance.Enabled = originalLoggingState;
+            }
         }
 
         /// <summary>
@@ -135,7 +146,6 @@ namespace MobiFlight.UI.Tests
             testProject.SaveFile();
             return filePath;
         }
-
 
         [TestMethod()]
         public void CreateNewProject_ProjectHasUnsavedChanges_Updates_Correctly()
@@ -171,7 +181,6 @@ namespace MobiFlight.UI.Tests
             // Assert
             Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true when starting with a fresh project.");
         }
-
 
         [TestMethod()]
         public void AddNewFileToProjectTest_ProjectHasUnsavedChanges_Updates_Correctly()
@@ -209,7 +218,6 @@ namespace MobiFlight.UI.Tests
             {
                 { "NONE:No aircraft detected", "Path/To/TestConfig1" },
             };
-
 
             try
             {

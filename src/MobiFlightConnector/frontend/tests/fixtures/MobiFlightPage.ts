@@ -7,7 +7,7 @@ import inputActionTestProject from "../data/inputaction.testdata.json" with { ty
 import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
 import connectedControllers from "../data/connectedControllers.testdata.json" with { type: "json" }
 import defaultSettings from "../data/settings.testdata.json" with { type: "json" }
-import { Project } from "@/types"
+import { LogEntry, LogLevel, Project } from "@/types"
 import { ProjectInfo } from "@/types/project"
 import { ControllerBinding } from "@/types/controller"
 import { AuthContextProps } from "react-oidc-context"
@@ -352,26 +352,44 @@ export class MobiFlightPage {
       },
     })
   }
-  // Opens the log panel via the View menu. Extracted because every test needs it.
+  // Opens the log panel by simulating toggle command and the respective settings update.
   async openLogPanel() {
-    await this.page
-      .getByRole("menubar")
-      .getByRole("menuitem", { name: "View" })
-      .click()
-    const menuItem = this.page.getByRole("menuitem", { name: "Show Log Panel" })
-    await menuItem.click()
-    await expect(menuItem).not.toBeVisible()
+    const logPanel = this.page.getByTestId("log-panel")
+    const logPanelVisible = await logPanel.isVisible()
+    if (logPanelVisible) return
+
+    await this.publishCommand({
+      key: "CommandMainMenu",
+      payload: {
+        action: "view.log.toggle",
+      },
+    })
+
+    await this.sendSettings({
+      LogEnabled: true,
+    } as Partial<Settings>)
+    
+    await expect(logPanel).toBeVisible()
   }
 
-  // Closes the log panel via the View menu. Extracted because every test needs it.
+  // Closes the log panel by simulating toggle command and the respective settings update.
   async closeLogPanel() {
-    await this.page
-      .getByRole("menubar")
-      .getByRole("menuitem", { name: "View" })
-      .click()
-    const menuItem = this.page.getByRole("menuitem", { name: "Hide Log Panel" })
-    await menuItem.click()
-    await expect(menuItem).not.toBeVisible()
+    const logPanel = this.page.getByTestId("log-panel")
+    const logPanelVisible = await logPanel.isVisible()
+    if (!logPanelVisible) return
+
+    await this.publishCommand({
+      key: "CommandMainMenu",
+      payload: {
+        action: "view.log.toggle",
+      },
+    })
+    
+    await this.sendSettings({
+      LogEnabled: false,
+    })
+
+    await expect(logPanel).not.toBeVisible()
   }
 
   // Sends a Settings message that masquerades as the real backend: a *complete*
@@ -387,14 +405,15 @@ export class MobiFlightPage {
   // Injects a fake backend log message into the app.
   // The LogPanel listens for "LogEntry" messages on window via useAppMessage —
   // the same channel all other backend messages use.
-  async sendLogEntry(severity: string, message: string) {
+  async sendLogEntry(severity: LogLevel, message: string, timestamp?: string) {
     const msg: AppMessage = {
       key: "LogEntry",
       payload: {
+        Id: crypto.randomUUID(),
         Message: message,
         Severity: severity,
-        Timestamp: new Date().toISOString(),
-      },
+        Timestamp: timestamp ?? new Date().toISOString(),
+      } as LogEntry,
     }
     await this.publishMessage(msg)
   }

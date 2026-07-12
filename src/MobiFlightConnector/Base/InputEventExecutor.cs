@@ -107,6 +107,29 @@ namespace MobiFlight.Execution
                     cfg.Value = " ";
                     updatedValues[cfg.GUID] = cfg;
                     var references = ResolveReferences(cfg.ConfigRefs);
+                    var modifiableValue = new ConnectorValue()
+                    {
+                        type = FSUIPCOffsetType.Float,
+                        Float64 = e.Value,
+                    };
+
+                    try
+                    {
+                        foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
+                        {
+                            modifiableValue = modifier.Apply(modifiableValue, references);
+                        }
+
+                        cfg.Value = modifiableValue.ToString();
+                        e.Value = modifiableValue.Float64;
+                        e.StrValue = modifiableValue.type == FSUIPCOffsetType.String ? modifiableValue.String : null;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
+                        cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
+                    }
+
                     cfg.execute(cacheCollection, e, references);
                 }
                 catch (Exception ex)

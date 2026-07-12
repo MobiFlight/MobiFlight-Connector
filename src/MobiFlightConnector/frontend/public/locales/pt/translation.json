@@ -190,7 +190,7 @@
         "Label": "Aeronave",
         "HelpText": "Selecione a aeronave para este projeto.",
         "Description": "Selecione uma ou várias aeronaves que deseja usar para este projeto. As configurações predefinidas serão limitadas às aeronaves selecionadas.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Configuração de Aeronaves",
           "Description": "Selecione uma ou várias aeronaves que deseja usar para este projeto.",
           "SelectedAircraft": {
@@ -398,6 +398,82 @@
       "SearchController": "Pesquisar controlador...",
       "NoControllerFound": "Nenhum controlador encontrado."
     },
+    "Modifiers": {
+      "Title": "Modificadores",
+      "Description": "Altere o valor original aplicando uma sequência de modificadores.",
+      "EditButton": "Editar modificadores",
+      "AddButton": "Adicionar modificador",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformação",
+          "Description": "Aplique uma transformação ao valor de entrada usando a expressão especificada.",
+          "Expression": "Expressão"
+        },
+        "Substring": {
+          "Label": "Subcadeia",
+          "Description": "Extraia uma subcadeia do valor de entrada usando a posição inicial e final especificada.",
+          "From": "de",
+          "To": "até",
+          "Start": "Posição inicial",
+          "End": "Posição final",
+          "Summary": "de <badge>{{start}}</badge> até <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Preenchimento",
+          "Description": "Ajuste o preenchimento do valor de entrada usando o comprimento, caractere e direção especificados.",
+          "Length": "Comprimento",
+          "Character": "Caractere",
+          "Direction": "Direção",
+          "Summary": "Comprimento:<badge>{{length}}</badge> Caractere:<badge><kbd>{{character}}</kbd></badge> Direção:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolação",
+          "Description": "Defina mapeamentos entre valores de entrada e saída. Valores fora do intervalo são limitados.",
+          "From": "De",
+          "To": "Até",
+          "Action": "Ação",
+          "Mappings": "Mapeamentos",
+          "Add": "Adicionar mapeamento",
+          "Remove": "Remover mapeamento",
+          "Summary": "Mapeia <badge>{{count}}</badge> valores, intervalo de <badge>{{min}}</badge> a <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Comparação",
+          "Description": "Compare o valor atual com outro valor e ajuste a saída se corresponder ou não.",
+          "IfCurrentValue": "Se o valor atual",
+          "Operator": "Operador",
+          "Value": "Valor",
+          "Then": "Então",
+          "Else": "Caso contrário",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Piscar",
+          "Description": "Alterna o valor de entrada original com o valor Desligado usando a sequência abaixo.",
+          "AlternateValue": "Valor alternativo (Desligado)",
+          "BlinkSequence": "Sequência de piscar",
+          "On": "Ligado (em ms)",
+          "Off": "Desligado (em ms)",
+          "Action": "Ação",
+          "Add": "Adicionar intervalo de piscar",
+          "Remove": "Remover intervalo de piscar",
+          "Summary": "Valor <badge>{{blinkValue}}</badge> Sequência <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "Nenhum",
+        "More": "+ {{count}} mais"
+      },
+      "Editor": {
+        "Title": "Editar modificadores",
+        "Description": "Adicione, configure, reorganize e remova modificadores para alterar o valor de entrada original.",
+        "AddModifier": "Adicionar modificador",
+        "NoModifiers": "Nenhum modificador definido.",
+        "DeleteModifier": "Remover modificador",
+        "MoveUp": "Mover modificador para cima",
+        "MoveDown": "Mover modificador para baixo"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Editar configuração de entrada",
       "Description": "Edite todas as configurações para esta configuração de entrada neste diálogo.",
@@ -425,7 +501,7 @@
         "Title": "Tipo de ação",
         "Description": "Selecione o tipo de ação que deseja executarr",
         "Options": {
-          "MSFS2020CustomInputAction": { 
+          "MSFS2020CustomInputAction": {
             "label": "Microsoft Flight Simulator (todas as versões)",
             "short": "MSFS"
           },
@@ -600,11 +676,29 @@
           "ActionLabel": "Ação"
         },
         "Msfs": {
-          "NoneCode": "Nenhum",
-          "CodePlaceholder": "Digite o código RPN",
+          "Preset": {
+            "Title": "Passo 2 - Selecionar predefinição",
+            "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
+            "ProjectAircraftOnly": "Apenas aeronaves do projeto"
+          },
+          "Code": {
+            "Title": "Passo 3 - Refinar código (opcional)",
+            "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima.",
+            "None": "Nenhum",
+            "Placeholder": "Digite o código RPN"
+          },
           "CustomPreset": "Predefinição personalizada"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Passo 2 - Selecionar predefinição",
+            "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
+            "ProjectAircraftOnly": "Apenas aeronaves do projeto"
+          },
+          "Code": {
+            "Title": "Passo 3 - Refinar código (opcional)",
+            "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima."
+          },
           "InputTypeLabel": "Tipo de Entrada",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
           "PathLabel": "Caminho",
@@ -615,8 +709,10 @@
           "CustomPreset": "Predefinição personalizada"
         },
         "ProSim": {
-          "Title": "Ação de Entrada ProSim",
-          "Description": "Selecione uma predefinição para configurar suas ações de entrada.",
+          "Preset": {
+            "Title": "Passo 2 - Ação de Entrada ProSim",
+            "Description": "Selecione uma predefinição para configurar suas ações de entrada."
+          },
           "PathLabel": "Caminho",
           "NoPresetSelected": "Nenhuma predefinição selecionada",
           "ParameterLabel": "Parâmetro (opcional)",
@@ -624,6 +720,8 @@
           "ParameterNone": "Nenhum"
         },
         "VJoy": {
+          "Title": "Passo 2 - Configurar vJoy",
+          "Description": "Defina o botão ou eixo vJoy que você deseja usar.",
           "Controller": "Controlador",
           "Device": "Dispositivo",
           "SelectDeviceLabel": "Selecionar dispositivo vJoy",
@@ -641,6 +739,8 @@
           "None": "Nenhum"
         },
         "Keyboard": {
+          "Title": "Passo 2 - Configurar Entrada do Teclado",
+          "Description": "Defina a combinação de teclas do teclado que você deseja usar.",
           "StopScanning": "Parar de escanear",
           "ScanForKeyboard": "Escanear teclado...",
           "KeyComboLabel": "Combinação de teclas",
@@ -648,6 +748,8 @@
           "ClearInput": "Limpar entrada"
         },
         "FsuipcOffset": {
+          "Title": "Passo 2 - Configurar FSUIPC Offset",
+          "Description": "Defina o offset FSUIPC que você deseja usar.",
           "TypeLabel": "Tipo",
           "SizeLabel": "Tamanho",
           "OffsetLabel": "Deslocamento",
@@ -657,7 +759,7 @@
           "ValuePlaceholder": "Digite o valor"
         },
         "LuaMacro": {
-          "Title": "Ação de Entrada Lua Macro",
+          "Title": "Passo 2 - Ação de Entrada Lua Macro",
           "Description": "Chame sua macro Lua com um parâmetro opcional. Requer uma macro Lua existente no FSUIPC.",
           "MacroNameLabel": "Nome da Macro",
           "MacroNamePlaceholder": "Definir nome da macro",
@@ -665,12 +767,16 @@
           "MacroValuePlaceholder": "Definir valor da macro"
         },
         "Jeehell": {
+          "Title": "Passo 2 - Configurar Jeehell",
+          "Description": "Defina a função Jeehell que você deseja usar. Você pode criar uma nova ou usar uma função existente.",
           "FunctionLabel": "Função Jeehell",
           "SelectFunctionPlaceholder": "Selecionar função Jeehell...",
           "ValueLabel": "Valor"
         },
         "EventId": {
-          "PmdgAircraftLabel": "PMDG Aircraft",
+          "Title": "Passo 2 - Definir Event ID",
+          "Description": "Defina o Event ID que você deseja usar. Você pode criar um novo ou usar um Event ID existente.",
+          "PmdgAircraftLabel": "Aeronave PMDG",
           "MouseParamLabel": "Parâmetro de Mouse",
           "SelectMouseParamPlaceholder": "Selecionar parâmetro de mouse...",
           "EventIdLabel": "Event ID",
@@ -684,6 +790,8 @@
           "Description2": "Isso é útil para sincronizar seu cockpit virtual com os estados dos interruptores e botões de seus controladores físicos."
         },
         "Variable": {
+          "Title": "Passo 2 - Configurar Variável",
+          "Description": "Defina a variável que você deseja usar. Você pode criar uma nova ou usar uma variável existente.",
           "ExistingVariable": "Usar variável existente",
           "VariableTypeLabel": "Tipo",
           "VariableNameLabel": "Nome",
@@ -738,6 +846,13 @@
   "LogPanel": {
     "Title": "Log",
     "Empty": "Aguardando entradas de log",
-    "LoggingDisabled": "O registro está desativado. Ative o registro nas Configurações para ver os logs aqui."
+    "Filter": {
+      "Placeholder": "Filtrar entradas de log...",
+      "NoResults": "Nenhuma entrada correspondente ao filtro.",
+      "Clear": "Limpar filtros"
+    },
+    "Resume": "Retomar deslocamento",
+    "Pause": "Pausar deslocamento",
+    "Close": "Fechar painel de log"
   }
 }

@@ -45,8 +45,8 @@
     "description": "Garmin G1000"
   },
   {
-    "path": "Asobo.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
-    "vendor": "Asobo",
+    "path": "Microsoft.Generic.Autopilot.AP_PANEL_HEADING_HOLD",
+    "vendor": "Microsoft",
     "aircraft": "Generic",
     "system": "Autopilot",
     "code": "(>K:AP_PANEL_HEADING_HOLD)",
@@ -60,5 +60,20 @@
     "reported": null,
     "score": null,
     "id": "cf0526c0-da69-404f-a570-9f9d54d2803c"
+  },
+  {
+    "path": "Microsoft.Generic.Controls.Axis Elevator Set",
+    "vendor": "Other than Microsoft",
+    "aircraft": "Generic",
+    "system": "Controls",
+    "code": "@ 32.0293 * 16383 - -16383 max 16383 min (>K:AXIS_ELEVATOR_SET)",
+    "label": "Axis Elevator Set",
+    "presetType": "Input (Potentiometer)",
+    "status": "Submitted",
+    "createdDate": "2022-03-29T00:28:58.661Z",
+    "author": "Jaime Leon",
+    "description": "New axis event.  Sets elevator position (-16383 to +16383)\nIntended for potentiometer analog input.\n",
+    "version": 1,
+    "id": "b97129fa-9955-4da9-a40b-d7cd03dad49b"
   }
 ]

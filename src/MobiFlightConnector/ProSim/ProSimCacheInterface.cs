@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MobiFlight.ProSim
 {
@@ -9,5 +9,6 @@ namespace MobiFlight.ProSim
         object readDataref(string datarefPath);
         void writeDataref(string datarefPath, object value);
         Dictionary<string, DataRefDescription> GetDataRefDescriptions();
+        Task<bool> RefreshDataDefinitionsAsync();
     }
-} 
+}

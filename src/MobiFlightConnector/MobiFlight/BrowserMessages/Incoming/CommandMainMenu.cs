@@ -37,6 +37,8 @@ namespace MobiFlight.BrowserMessages.Incoming
         view_zoom_out,
         [EnumMember(Value = "view.zoom.reset")]
         view_zoom_reset,
+        [EnumMember(Value = "view.log.toggle")]
+        view_log_toggle,
         [EnumMember(Value = "help.docs")]
         help_docs,
         [EnumMember(Value = "help.checkforupdate")]

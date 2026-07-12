@@ -39,10 +39,7 @@ const AircraftItem = ({
       onClick={() => onChecked(aircraft)}
       {...props}
     >
-      <Checkbox
-        checked={checked}
-        onCheckedChange={() => onChecked(aircraft)}
-      ></Checkbox>
+      <Checkbox checked={checked}></Checkbox>
       <div className="flex grow flex-col font-medium">
         <div className="grow font-medium">
           {aircraft.Name ?? "Unknown Aircraft"}
@@ -62,9 +59,6 @@ const AircraftItem = ({
 
 type AircraftStats = {
   Count: number
-  Input: boolean
-  Output: boolean
-  Potentiometer: boolean
 }
 
 type AircraftInfoWithStats = AircraftInfo & AircraftStats
@@ -111,19 +105,12 @@ const ProjectAircraftDrawer = ({
 
     if (existing) {
       existing.Count += 1
-      existing.Input = existing.Input || p.presetType === "input"
-      existing.Output = existing.Output || p.presetType === "output"
-      existing.Potentiometer =
-        existing.Potentiometer || p.presetType === "potentiometer"
       return
     }
     aircarftStatsMap.set(key, {
       Vendor: p.vendor,
       Name: p.aircraft,
       Count: 1,
-      Input: p.presetType === "input",
-      Output: p.presetType === "output",
-      Potentiometer: p.presetType === "potentiometer",
     })
   })
 
@@ -173,6 +160,7 @@ const ProjectAircraftDrawer = ({
 
   return (
     <Drawer
+      dismissible={false}
       container={drawerContainer?.current || undefined}
       direction="right"
       open={drawerOpen}
@@ -182,11 +170,14 @@ const ProjectAircraftDrawer = ({
         data-testid="project-aircraft-drawer"
         className="pb-8 data-[vaul-drawer-direction=right]:w-5/6 data-[vaul-drawer-direction=right]:sm:max-w-5/6"
       >
-        <DrawerHeader className="p-2">
+        <DrawerHeader>
           <DrawerTitle className="sr-only">
             {t("Project.Form.Aircraft.Dialog.Title")}
           </DrawerTitle>
-          <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
+          <DrawerClose
+            onClick={() => setDrawerOpen(false)}
+            className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
+          >
             <IconArrowBack size={16} />
             {t("Dialog.General.GoBack")}
           </DrawerClose>
@@ -217,7 +208,7 @@ const ProjectAircraftDrawer = ({
             )}
           >
             {selectedAircraftWithStats.length === 0 ? (
-              <div className="text-muted-foreground text-sm p-3">
+              <div className="text-muted-foreground p-3 text-sm">
                 {t("Project.Form.Aircraft.Dialog.SelectedAircraft.None")}
               </div>
             ) : (
@@ -225,12 +216,14 @@ const ProjectAircraftDrawer = ({
                 <div
                   className="flex flex-col gap-2 pb-1"
                   role="listbox"
-                  aria-label={t("Project.Form.Aircraft.Dialog.SelectedAircraft.Title")}
+                  aria-label={t(
+                    "Project.Form.Aircraft.Dialog.SelectedAircraft.Title",
+                  )}
                 >
-                  {selectedAircraftWithStats.map((ac, index) => (
+                  {selectedAircraftWithStats.map((ac) => (
                     <AircraftItem
                       role="option"
-                      key={`${index}`}
+                      key={`selected-${ac.Vendor}-${ac.Name}`}
                       aircraft={ac}
                       checked={true}
                       onChecked={removeAircraft}
@@ -243,10 +236,14 @@ const ProjectAircraftDrawer = ({
           <Separator className="mt-4 mb-2" />
           <div className="flex flex-col gap-2">
             <div className="flex flex-row items-end justify-between">
-              <div className="text-md font-bold">{t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}</div>
+              <div className="text-md font-bold">
+                {t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}
+              </div>
               <div className="flex flex-row items-center gap-2">
                 <div className="text-muted-foreground pr-4 text-sm">
-                  {t("Project.Form.Aircraft.Dialog.AvailableAircraft.Count", { count: availableAircraft.length })}
+                  {t("Project.Form.Aircraft.Dialog.AvailableAircraft.Count", {
+                    count: availableAircraft.length,
+                  })}
                 </div>
               </div>
             </div>
@@ -261,19 +258,21 @@ const ProjectAircraftDrawer = ({
           <div className="text-md flex grow">
             <ScrollArea className="grow">
               {availableAircraft.length === 0 ? (
-                <div className="text-muted-foreground text-sm p-3">
+                <div className="text-muted-foreground p-3 text-sm">
                   {t("Project.Form.Aircraft.Dialog.AvailableAircraft.None")}
                 </div>
               ) : (
                 <div
                   className="flex flex-col gap-2 pb-1"
                   role="listbox"
-                  aria-label={t("Project.Form.Aircraft.Dialog.AvailableAircraft.Title")}
+                  aria-label={t(
+                    "Project.Form.Aircraft.Dialog.AvailableAircraft.Title",
+                  )}
                 >
-                  {availableAircraft.map((ac, index) => (
+                  {availableAircraft.map((ac) => (
                     <AircraftItem
                       role="option"
-                      key={`${ac.Vendor}-${ac.Name}-${index}`}
+                      key={`available-${ac.Vendor}-${ac.Name}`}
                       aircraft={ac}
                       checked={ac.selected}
                       onChecked={addAircraft}
@@ -318,7 +317,9 @@ const ProjectAircraft = ({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row items-center gap-2">
-        <Label className="text-base font-semibold">{t("Project.Form.Aircraft.Label")}</Label>
+        <Label className="text-base font-semibold">
+          {t("Project.Form.Aircraft.Label")}
+        </Label>
         <Badge variant={"default"}>{t("General.NewFeature")}</Badge>
       </div>
       <div className="text-muted-foreground text-sm">
@@ -351,7 +352,9 @@ const ProjectAircraft = ({
               onClick={() => navigateToDetailView("aircraft")}
             >
               <IconEdit />
-              <div className="sr-only">{t("Project.Form.Aircraft.EditList")}</div>
+              <div className="sr-only">
+                {t("Project.Form.Aircraft.EditList")}
+              </div>
             </Button>
           </div>
           {detailView && (

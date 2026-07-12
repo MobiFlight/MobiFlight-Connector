@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace MobiFlight.Base
 {
@@ -20,7 +21,7 @@ namespace MobiFlight.Base
         public string Language { get; set; }
         public bool LogEnabled { get; set; }
         public bool LogJoystickAxis { get; set; }
-        public string LogLevel { get; set; }
+        public LogSeverity LogLevel { get; set; }
         public bool MinimizeOnAutoRun { get; set; }
         public string ModuleSettings { get; set; }
         public string[] RecentFiles { get; set; }
@@ -49,7 +50,16 @@ namespace MobiFlight.Base
             Language = settings.Language;
             LogEnabled = settings.LogEnabled;
             LogJoystickAxis = settings.LogJoystickAxis;
-            LogLevel = settings.LogLevel;
+
+            try
+            {
+                LogLevel = (LogSeverity)Enum.Parse(typeof(LogSeverity), settings.LogLevel, true);
+            }
+            catch (Exception)
+            {
+                LogLevel = LogSeverity.Debug;
+            }
+
             MinimizeOnAutoRun = settings.MinimizeOnAutoRun;
             ModuleSettings = settings.ModuleSettings;
             // Skip: OfflineMode = settings.OfflineMode;
@@ -81,7 +91,6 @@ namespace MobiFlight.Base
             // Properties.Settings.Default.RecentFilesMaxCount = 10;
             // Skip: Properties.Settings.Default.TestTimerInterval = 1000;
         }
-
 
     }
 }

@@ -66,8 +66,10 @@ namespace MobiFlight.UI.Panels
 
                 // Add event handler
                 var staticPageHandler = new StaticPageWebResourceRequestHandler(
-                    _frontendBaseUrl, 
-                    _frontendDistPath
+                    "frontend",
+                    _frontendBaseUrl,
+                    _frontendDistPath,
+                    new string[] { _frontendBaseUrl + "/presets" }
                 );
 
                 staticPageHandler.RegisterWithWebView(webView);
@@ -76,13 +78,20 @@ namespace MobiFlight.UI.Panels
                 webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
 
-            var staticPresetsHandler = new StaticPageWebResourceRequestHandler(_frontendBaseUrl + "/presets", _presetPath);
+            var staticPresetsHandler = new StaticPageWebResourceRequestHandler(
+                "presets",
+                _frontendBaseUrl + "/presets",
+                _presetPath
+            )
+            {
+                IndexFallback = false
+            };
             staticPresetsHandler.RegisterWithWebView(webView);
-            
+
             var addButtonHandler = new AddCloseButtonHandlerOnNavigationCompleted();
             addButtonHandler.AddExclusionFilter(_frontendBaseUrl);
             addButtonHandler.RegisterWithWebView(webView);
-            
+
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             // Navigate to start the app

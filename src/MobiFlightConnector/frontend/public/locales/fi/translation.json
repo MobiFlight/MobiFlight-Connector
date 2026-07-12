@@ -190,7 +190,7 @@
         "Label": "Lentokone",
         "HelpText": "Valitse tähän projektiin käytetty lentokone.",
         "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa. Vaihtoehdot rajoittuvat valittuihin lentokoneisiin.",
-        "Dialog" : {
+        "Dialog": {
           "Title": "Lentokoneasetukset",
           "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa.",
           "SelectedAircraft": {
@@ -398,6 +398,82 @@
       "SearchController": "Etsi ohjainta...",
       "NoControllerFound": "Ohjaimia ei löytynyt."
     },
+    "Modifiers": {
+      "Title": "Muuntimet",
+      "Description": "Muuta alkuperäistä arvoa soveltamalla sarjaa muuntimia.",
+      "EditButton": "Muokkaa muuntimia",
+      "AddButton": "Lisää muunnin",
+      "Type": {
+        "Transformation": {
+          "Label": "Transformaatio",
+          "Description": "Sovella muunnosta syötearvoon määritetyn lausekkeen avulla.",
+          "Expression": "Lauseke"
+        },
+        "Substring": {
+          "Label": "Alimerkkijono",
+          "Description": "Poimi alimerkkijono syötearvosta määritetyn aloitus- ja lopetusposition avulla.",
+          "From": "alkaen",
+          "To": "asti",
+          "Start": "Aloitusposition",
+          "End": "Lopetusposition",
+          "Summary": "alkaen <badge>{{start}}</badge> asti <badge>{{end}}</badge>"
+        },
+        "Padding": {
+          "Label": "Täyttö",
+          "Description": "Säädä syötearvon täyttöä määritetyn pituuden, merkin ja suunnan avulla.",
+          "Length": "Pituus",
+          "Character": "Merkki",
+          "Direction": "Suunta",
+          "Summary": "Pituus:<badge>{{length}}</badge> Merkki:<badge><kbd>{{character}}</kbd></badge> Suunta:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "Interpolaatio",
+          "Description": "Määritä kartoitukset syöte- ja tulosarvojen välillä. Arvot, jotka ovat alueen ulkopuolella, rajataan.",
+          "From": "Alkaen",
+          "To": "Asti",
+          "Action": "Toiminto",
+          "Mappings": "Kartoitukset",
+          "Add": "Lisää kartoitus",
+          "Remove": "Poista kartoitus",
+          "Summary": "Kartoitukset <badge>{{count}}</badge> arvoa, alue <badge>{{min}}</badge> - <badge>{{max}}</badge>"
+        },
+        "Comparison": {
+          "Label": "Vertailu",
+          "Description": "Vertaa nykyistä arvoa toiseen arvoon ja säädä tulosta, jos se vastaa tai ei vastaa.",
+          "IfCurrentValue": "Jos nykyinen arvo",
+          "Operator": "Operaattori",
+          "Value": "Arvo",
+          "Then": "Sitten",
+          "Else": "Muuten",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "Vilkutus",
+          "Description": "Vaihtele alkuperäistä syötearvoa Pois-arvon kanssa alla olevan sekvenssin avulla.",
+          "AlternateValue": "Vaihtoehtoinen arvo (Pois)",
+          "BlinkSequence": "Vilkutussekvenssi",
+          "On": "Päällä (ms)",
+          "Off": "Pois (ms)",
+          "Action": "Toiminto",
+          "Add": "Lisää vilkutusväli",
+          "Remove": "Poista vilkutusväli",
+          "Summary": "Arvo <badge>{{blinkValue}}</badge> Sekvenssi <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "Ei muuntimia",
+        "More": "+ {{count}} lisää"
+      },
+      "Editor": {
+        "Title": "Muokkaa muuntimia",
+        "Description": "Lisää, määritä, järjestä uudelleen ja poista muuntimia alkuperäisen syötearvon muuttamiseksi.",
+        "AddModifier": "Lisää muunnin",
+        "NoModifiers": "Ei määritelty muuntimia.",
+        "DeleteModifier": "Poista muunnin",
+        "MoveUp": "Siirrä muunnin ylös",
+        "MoveDown": "Siirrä muunnin alas"
+      }
+    },
     "InputConfigWizard": {
       "Title": "Muokkaa syöttömääritystä",
       "Description": "Muokkaa kaikkia tämän syöttömäärityksen asetuksia tässä dialogissa.",
@@ -425,7 +501,7 @@
         "Title": "Toimintotyyppi",
         "Description": "Valitse suoritettavan toiminnon tyyppi",
         "Options": {
-          "MSFS2020CustomInputAction": { 
+          "MSFS2020CustomInputAction": {
             "label": "Microsoft Flight Simulator (kaikki versiot)",
             "short": "MSFS"
           },
@@ -475,7 +551,7 @@
           }
         }
       },
-      "Event" : {
+      "Event": {
         "Edit": "Muokkaa toimintoa {{eventLabel}}",
         "Remove": "Poista toimintoa {{eventLabel}}"
       },
@@ -600,11 +676,29 @@
           "ActionLabel": "Toiminto"
         },
         "Msfs": {
-          "NoneCode": "Ei mitään",
-          "CodePlaceholder": "Syötä RPN-koodi",
+          "Preset": {
+            "Title": "Vaihe 2 - Valitse esiasetus",
+            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+          },
+          "Code": {
+            "Title": "Vaihe 3 - Hienosäädä koodi (valinnainen)",
+            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
+            "None": "Ei mitään",
+            "Placeholder": "Syötä RPN-koodi"
+          },
           "CustomPreset": "Mukautettu esiasetus"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Vaihe 2 - Valitse esiasetus",
+            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+          },
+          "Code": {
+            "Title": "Vaihe 3 - Hienosäädä koodi (valinnainen)",
+            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta."
+          },
           "InputTypeLabel": "Syötetyyppi",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",
           "PathLabel": "Polku",
@@ -615,8 +709,10 @@
           "CustomPreset": "Mukautettu esiasetus"
         },
         "ProSim": {
-          "Title": "ProSim-syötetoiminto",
-          "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi.",
+          "Preset": {
+            "Title": "Vaihe 2 - ProSim-syötetoiminto",
+            "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi."
+          },
           "PathLabel": "Polku",
           "NoPresetSelected": "Ei esiasetusta valittuna",
           "ParameterLabel": "Parametri (valinnainen)",
@@ -624,6 +720,8 @@
           "ParameterNone": "Ei mitään"
         },
         "VJoy": {
+          "Title": "Vaihe 2 - Konfiguroi vJoy",
+          "Description": "Määritä käytettävä vJoy-painike tai -akseli.",
           "Controller": "Ohjain",
           "Device": "Laite",
           "SelectDeviceLabel": "Valitse vJoy-laite",
@@ -641,6 +739,8 @@
           "None": "Ei mitään"
         },
         "Keyboard": {
+          "Title": "Vaihe 2 - Konfiguroi näppäimistön syöte",
+          "Description": "Määritä käytettävä näppäinyhdistelmä.",
           "StopScanning": "Lopeta etsintä",
           "ScanForKeyboard": "Etsi näppäimistöä",
           "KeyComboLabel": "Näppäinyhdistelmä",
@@ -648,6 +748,8 @@
           "ClearInput": "Tyhjennä syöte"
         },
         "FsuipcOffset": {
+          "Title": "Vaihe 2 - Konfiguroi FSUIPC-offset",
+          "Description": "Määritä käytettävä FSUIPC-offset.",
           "TypeLabel": "Tyyppi",
           "SizeLabel": "Koko",
           "OffsetLabel": "Offset",
@@ -657,7 +759,7 @@
           "ValuePlaceholder": "Syötä arvo"
         },
         "LuaMacro": {
-          "Title": "Lua-makro-syötetoiminto",
+          "Title": "Vaihe 2 - Konfiguroi Lua-makro-syöte",
           "Description": "Kutsu Lua-makroasi valinnaisella parametrilla. Vaatii olemassa olevan Lua-makron FSUIPC:ssä.",
           "MacroNameLabel": "Makron nimi",
           "MacroNamePlaceholder": "Aseta makron nimi",
@@ -665,11 +767,15 @@
           "MacroValuePlaceholder": "Aseta makron arvo"
         },
         "Jeehell": {
+          "Title": "Vaihe 2 - Konfiguroi Jeehell",
+          "Description": "Määritä käytettävä Jeehell-funktio. Voit joko luoda uuden tai käyttää olemassa olevaa funktiota.",
           "FunctionLabel": "Jeehell-funktio",
           "SelectFunctionPlaceholder": "Valitse Jeehell-funktio...",
           "ValueLabel": "Arvo"
         },
         "EventId": {
+          "Title": "Vaihe 2 - Määritä Event ID",
+          "Description": "Määritä käytettävä Event ID. Voit joko luoda uuden tai käyttää olemassa olevaa Event ID:tä.",
           "PmdgAircraftLabel": "PMDG-lentokone",
           "MouseParamLabel": "Hiiriparametri",
           "SelectMouseParamPlaceholder": "Valitse hiiriparametri",
@@ -684,6 +790,8 @@
           "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
         },
         "Variable": {
+          "Title": "Vaihe 2 - Konfiguroi muuttuja",
+          "Description": "Määritä käytettävä muuttuja. Voit joko luoda uuden tai käyttää olemassa olevaa muuttujaa.",
           "ExistingVariable": "Käytä olemassa olevaa muuttujaa",
           "VariableTypeLabel": "Muuttujatyyppi",
           "VariableNameLabel": "Muuttujan nimi",
@@ -738,6 +846,13 @@
   "LogPanel": {
     "Title": "Loki",
     "Empty": "Odotetaan lokimerkintöjä",
-    "LoggingDisabled": "Loki ei ole käytössä. Ota loki käyttöön asetuksista nähdäksesi lokit täällä."
+    "Filter": {
+      "Placeholder": "Suodata lokimerkintöjä...",
+      "NoResults": "Ei merkintöjä, jotka vastaavat suodatinta.",
+      "Clear": "Tyhjennä suodattimet"
+    },
+    "Resume": "Jatka vieritystä",
+    "Pause": "Pysäytä vieritys",
+    "Close": "Sulje lokipaneeli"
   }
 }

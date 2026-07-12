@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import i18next from "i18next"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
-import { Project } from "@/types"
+import { LogEntry, Project } from "@/types"
 import {
   AuthenticationStatus,
   BoardDefinitions,
@@ -34,11 +34,14 @@ import _ from "lodash"
 import { Controller } from "@/types/controller"
 import { useVariableStore } from "@/stores/variableStore"
 import { useProSimDataRefStore } from "@/stores/prosimDataRefStore"
+import { useLogsStore } from "@/stores/logsStore"
+import { useQueryClient } from "@tanstack/react-query"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
 
-  const { project, setProject, setProjectStatus, setControllerBindings } = useProjectStore()
+  const { project, setProject, setProjectStatus, setControllerBindings } =
+    useProjectStore()
   const { setRecentProjects } = useRecentProjects()
   const { setSettings } = useSettingsStore()
   const { setControllers } = useControllerStore()
@@ -53,6 +56,9 @@ export const useBackendStateAppMessages = () => {
 
   const setHubHopState = useHubHopStateActions()
   const auth = useAuth()
+  const { addLog } = useLogsStore()
+
+  const queryClient = useQueryClient()
 
   useAppMessage("Project", (message) => {
     const project = message.payload as Project
@@ -108,10 +114,20 @@ export const useBackendStateAppMessages = () => {
     console.log("ProjectStatus message received", projectStatus)
     setProjectStatus(projectStatus)
   })
-
+  
   useAppMessage("HubHopState", (message) => {
     const state = message.payload as HubHopState
+    console.log("HubHopState message received", state)
     setHubHopState(state)
+    
+    if (state.Result === "Success") {
+      queryClient.invalidateQueries({
+        queryKey: ["msfs-presets"],
+      })
+      queryClient.invalidateQueries({
+        queryKey: ["xplane-presets"],
+      })
+    }
   })
 
   useAppMessage("ConnectedControllers", (message) => {
@@ -145,7 +161,10 @@ export const useBackendStateAppMessages = () => {
 
   useAppMessage("ControllerBindingsUpdate", (message) => {
     const controllerBindings = message.payload as ControllerBindingsUpdate
-    console.log("ControllerBindingsUpdate message received", controllerBindings.Bindings)
+    console.log(
+      "ControllerBindingsUpdate message received",
+      controllerBindings.Bindings,
+    )
     setControllerBindings(controllerBindings.Bindings)
   })
 
@@ -159,6 +178,11 @@ export const useBackendStateAppMessages = () => {
     const update = message.payload as ProSimDataRefDefinitionUpdate
     console.log("ProSimDataRefDefinitionUpdate message received", message)
     setDataRefs(update.DataRefs)
+  })
+
+  useAppMessage("LogEntry", (message) => {
+    const log = message.payload as LogEntry
+    addLog(log)
   })
 
   // this is only for easier UI testing

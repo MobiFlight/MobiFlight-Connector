@@ -23,11 +23,16 @@ import {
 import { IconArrowBack } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
+import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
   onConfigChange: (configItem: IConfigItem) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
+  liveData: {
+    rawValue: string | null | undefined
+    finalValue: string | null | undefined
+  }
 }
 
 const determineInputDeviceType = (
@@ -47,10 +52,18 @@ const determineInputDeviceType = (
   }
 }
 
+const drawerVariant = {
+  small:
+    "data-[vaul-drawer-direction=right]:w-170 data-[vaul-drawer-direction=right]:sm:max-w-170",
+  large:
+    "data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200",
+}
+
 const ConfigWizard = ({
   configItem,
   onConfigChange,
   drawerContainer,
+  liveData,
 }: ConfigWizardProps) => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
@@ -58,6 +71,7 @@ const ConfigWizard = ({
 
   const currentDeviceType = determineInputDeviceType(configItem.Device?.Type)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerSize, setDrawerSize] = useState<"small" | "large">("large")
 
   const [editAction, setEditAction] = useState<Action | null>(null)
   const [event, setEvent] = useState<{
@@ -88,8 +102,12 @@ const ConfigWizard = ({
   >(null)
 
   const detailView = searchParams.get("detail")
-  const navigateToDetailView = (view: string) => {
+  const navigateToDetailView = (
+    view: string,
+    size: "small" | "large" = "large",
+  ) => {
     setDrawerOpen(true)
+    setDrawerSize(size)
     navigate(`?detail=${view}`)
   }
 
@@ -124,6 +142,13 @@ const ConfigWizard = ({
           />
         </div>
       </div>
+      <ModifiersPanel
+        configItem={configItem}
+        variant="summary"
+        onConfigChange={onConfigChange}
+        openDetailsPanel={() => navigateToDetailView("modifier", "small")}
+        liveData={liveData}
+      />
       {currentDeviceType === "Button" && (
         <ActionBindingPanel
           variant="button"
@@ -203,22 +228,25 @@ const ConfigWizard = ({
 
       {detailView && (
         <Drawer
+          dismissible={false}
           container={drawerContainer?.current || undefined}
           direction="right"
           open={drawerOpen}
           onClose={() => closeDetailView(false)}
         >
-          <DrawerContent className="data-[vaul-drawer-direction=right]:w-200 data-[vaul-drawer-direction=right]:sm:max-w-200">
+          <DrawerContent className={drawerVariant[drawerSize]}>
             <DrawerHeader>
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
               </DrawerTitle>
-              <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
+              <DrawerClose
+                onClick={() => closeDetailView(false)}
+                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
                 <IconArrowBack size={16} />
                 {t("Dialog.General.GoBack")}
               </DrawerClose>
             </DrawerHeader>
-            <div className="px-4">
+            <div className="flex flex-1 flex-col px-4 pb-4 overflow-y-auto">
               {detailView === "precondition" && (
                 <PreconditionsPanel
                   onPreconditionsChange={(preconditions) => {
@@ -243,6 +271,18 @@ const ConfigWizard = ({
                   configReferences={configItem.ConfigRefs ?? []}
                   variant="details"
                   openDetailsPanel={() => {}}
+                />
+              )}
+              {detailView === "modifier" && (
+                <ModifiersPanel
+                  configItem={configItem}
+                  onConfigChange={onConfigChange}
+                  openDetailsPanel={() => {}}
+                  variant="details"
+                  liveData={{
+                    rawValue: liveData.rawValue,
+                    finalValue: liveData.finalValue,
+                  }}
                 />
               )}
               {detailView === "action" && (

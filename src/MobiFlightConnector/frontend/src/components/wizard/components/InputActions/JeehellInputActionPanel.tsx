@@ -1,4 +1,5 @@
 import ComboBox from "@/components/ComboBox"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
@@ -38,67 +39,83 @@ const JeehellInputActionPanel = ({
 
   if (variant === "summary") {
     return (
-      <div className="flex grow flex-row items-center gap-8">
+      <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="mouseParam">
             {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}:
           </Label>
-          <div className="text-sm">{selectedPreset?.name}</div>
+          <div className="text-sm">{selectedPreset?.name ?? "-"}</div>
         </div>
         <div className="flex grow flex-col gap-1">
           <Label htmlFor="param">
             {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}:
           </Label>
-          <CodeValueLabel id="param">{config?.Param}</CodeValueLabel>
+          <CodeValueLabel id="param" className="max-w-80 lg:max-w-100">
+            {config?.Param}
+          </CodeValueLabel>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="mouseParam">
-          {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}
-        </Label>
-        <ComboBox
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.Jeehell.SelectFunctionPlaceholder",
-          )}
-          items={presets}
-          getLabel={(item) => item.name}
-          getValue={(item) => item.eventId}
-          isSelected={(item) => item.eventId === config?.EventId?.toString()}
-          selected={selectedPreset}
-          setSelected={(item) =>
-            onConfigChange({
-              ...config,
-              EventId: item ? item.eventId : "",
-            } as JeehellInputAction)
-          }
-          widthClass="w-100"
-        />
-        <p className="text-muted-foreground text-sm">
-          {selectedPreset?.description}
-        </p>
-      </div>
-      <div className="flex w-100 flex-col gap-2">
-        <Label htmlFor="value">
-          {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}
-        </Label>
-        <Input
-          className="font-mono text-sm whitespace-nowrap"
-          id="value"
-          value={config?.Param ?? ""}
-          onChange={(e) =>
-            onConfigChange({
-              ...config,
-              Param: e.target.value,
-            } as JeehellInputAction)
-          }
-        />
-      </div>
-    </div>
+    <Card>
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col">
+          <div className="text-lg font-semibold">
+            {t("Dialog.InputConfigWizard.InputActions.Jeehell.Title")}
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.InputConfigWizard.InputActions.Jeehell.Description")}
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="mouseParam">
+              {t("Dialog.InputConfigWizard.InputActions.Jeehell.FunctionLabel")}
+            </Label>
+            <ComboBox
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.Jeehell.SelectFunctionPlaceholder",
+              )}
+              items={presets}
+              getLabel={(item) => item.name}
+              getValue={(item) => item.eventId}
+              isSelected={(item) =>
+                item.eventId === config?.EventId?.toString()
+              }
+              selected={selectedPreset}
+              setSelected={(item) =>
+                onConfigChange({
+                  ...config,
+                  EventId: item ? item.eventId : "",
+                } as JeehellInputAction)
+              }
+              widthClass="w-100"
+            />
+            <p className="text-muted-foreground text-sm">
+              {selectedPreset?.description}
+            </p>
+          </div>
+          <div className="flex w-100 flex-col gap-2">
+            <Label htmlFor="value">
+              {t("Dialog.InputConfigWizard.InputActions.Jeehell.ValueLabel")}
+            </Label>
+            <Input
+              className="font-mono text-sm whitespace-nowrap"
+              id="value"
+              value={config?.Param ?? ""}
+              onChange={(e) =>
+                onConfigChange({
+                  ...config,
+                  Param: e.target.value,
+                } as JeehellInputAction)
+              }
+            />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 export default JeehellInputActionPanel

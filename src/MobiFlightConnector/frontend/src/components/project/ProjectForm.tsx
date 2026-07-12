@@ -42,7 +42,6 @@ const ProjectForm = ({
 }: ProjectFormProps) => {
   const defaultAircraft = {
     msfs: [
-      { Vendor: "Asobo", Name: "Generic" },
       { Vendor: "Microsoft", Name: "Generic" },
     ],
     xplane: [{ Vendor: "Laminar Research", Name: "Generic" }],
@@ -141,7 +140,6 @@ const ProjectForm = ({
               placeholder={t("Project.Form.Name.Placeholder")}
               aria-invalid={showErrorMessage ? "true" : "false"}
               required
-              autoComplete="off"
             />
             {showErrorMessage && (
               <p

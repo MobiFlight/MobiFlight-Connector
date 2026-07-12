@@ -1,5 +1,5 @@
 import { ActionTypeOption } from "@/components/wizard/components/ActionTypeComboBox"
-import { Preset } from "@/components/wizard/components/InputActions/MsfsPresetPanel"
+import { Preset } from "@/types/preset"
 
 export const ActionTypeOptions: ActionTypeOption[] = [
   {

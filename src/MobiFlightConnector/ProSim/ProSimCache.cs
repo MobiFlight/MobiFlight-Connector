@@ -24,9 +24,12 @@ namespace MobiFlight.ProSim
 
         private readonly Dictionary<string, IDisposable> _subscriptions = new Dictionary<string, IDisposable>();
 
-        // ProSim SDK object 
+        // ProSim SDK object
         private IGraphQLWebSocketClient _connection;
-        
+
+        // Subscription to the current connection's websocket state changes
+        private IDisposable _connectionStateSubscription;
+
         // Heartbeat timer to keep WebSocket connection active
         private Timer _heartbeatTimer;
 
@@ -36,9 +39,9 @@ namespace MobiFlight.ProSim
 
         // Queue for writes that need to wait for data definitions refresh
         private readonly ConcurrentQueue<(string datarefPath, object value)> _pendingWrites = new ConcurrentQueue<(string, object)>();
-        
-        // Flag to track if refresh is in progress
-        private volatile bool _refreshInProgress = false;
+
+        // The in-flight refresh; concurrent callers share this task. Guarded by _refreshLock.
+        private Task<bool> _refreshTask;
 
         // Helper class to store cached values
         private class CachedDataRef
@@ -60,28 +63,24 @@ namespace MobiFlight.ProSim
 
                 var port = Properties.Settings.Default.ProSimPort;
 
-                _connection = new GraphQLHttpClient($"http://{host}:{port}/graphql", new NewtonsoftJsonSerializer());
-                _connection.InitializeWebsocketConnection();
+                // Retry attempts must not leave orphaned clients behind whose state
+                // handlers would keep mutating _connected/_dataRefDescriptions.
+                DisposeConnection();
 
-                _connection.WebsocketConnectionState.Subscribe(state =>
+                var connection = new GraphQLHttpClient($"http://{host}:{port}/graphql", new NewtonsoftJsonSerializer());
+                _connection = connection;
+                connection.InitializeWebsocketConnection();
+
+                _connectionStateSubscription = connection.WebsocketConnectionState.Subscribe(state =>
                 {
                     if (state == GraphQLWebsocketConnectionState.Connected)
                     {
                         Log.Instance.log("Connected to ProSim GraphQL WebSocket!", LogSeverity.Debug);
                         _connected = true;
-                        
-                        // Refresh data definitions on connection
-                        RefreshDataDefinitionsAsync().ContinueWith(task =>
-                        {
-                            if (task.IsFaulted)
-                            {
-                                Log.Instance.log($"Failed to refresh data definitions: {task.Exception?.GetBaseException().Message}", LogSeverity.Error);
-                            }
-                        });
-                        
+
                         // Start heartbeat timer to keep WebSocket active
                         StartHeartbeat();
-                        
+
                         Connected?.Invoke(this, new EventArgs());
                     }
                     else if (state == GraphQLWebsocketConnectionState.Disconnected)
@@ -96,6 +95,9 @@ namespace MobiFlight.ProSim
                             {
                                 _dataRefDescriptions.Clear();
                             }
+                            // Drop the in-flight refresh so the next connect starts a
+                            // fresh one instead of coalescing onto this dead connection's task
+                            ResetRefreshState();
                             ConnectionLost?.Invoke(this, new EventArgs());
                         }
                     }
@@ -113,7 +115,36 @@ namespace MobiFlight.ProSim
 
         public void Clear()
         {
-            _dataRefDescriptions = new Dictionary<string, DataRefDescription>();
+            lock (_cacheLock)
+            {
+                _dataRefDescriptions = new Dictionary<string, DataRefDescription>();
+            }
+        }
+
+        private void DisposeConnection()
+        {
+            _connectionStateSubscription?.Dispose();
+            _connectionStateSubscription = null;
+
+            var oldConnection = _connection as IDisposable;
+            _connection = null;
+
+            try
+            {
+                oldConnection?.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error disposing previous ProSim connection: {ex.Message}", LogSeverity.Debug);
+            }
+        }
+
+        private void ResetRefreshState()
+        {
+            lock (_refreshLock)
+            {
+                _refreshTask = null;
+            }
         }
 
         private void StartHeartbeat()
@@ -121,26 +152,44 @@ namespace MobiFlight.ProSim
             StopHeartbeat(); // Ensure we don't have multiple timers
             
             _heartbeatTimer = new Timer(5000); // 5 seconds
-            _heartbeatTimer.Elapsed += async (sender, e) =>
-            {
-                if (IsConnected() && _connection != null)
-                {
-                    try
-                    {
-                        // Send a lightweight introspection query to keep WebSocket active
-                        await _connection.SendQueryAsync<object>(new GraphQL.GraphQLRequest
-                        {
-                            Query = "{ __typename }"
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Instance.log($"Heartbeat failed: {ex.Message}", LogSeverity.Debug);
-                    }
-                }
-            };
+            _heartbeatTimer.Elapsed += HeartbeatTimer_Elapsed;
             _heartbeatTimer.Start();
             Log.Instance.log("Started WebSocket heartbeat timer", LogSeverity.Debug);
+        }
+
+        private void HeartbeatTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            LogTaskFault(RunHeartbeatAsync(), "Heartbeat task failed", LogSeverity.Debug);
+        }
+
+        private static void LogTaskFault(Task task, string errorMessage, LogSeverity severity = LogSeverity.Error)
+        {
+            task.ContinueWith(t =>
+            {
+                Log.Instance.log($"{errorMessage}: {t.Exception?.GetBaseException().Message}", severity);
+            }, TaskContinuationOptions.OnlyOnFaulted);
+        }
+
+        private async Task RunHeartbeatAsync()
+        {
+            var connection = _connection;
+            if (!IsConnected() || connection == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // Send a lightweight introspection query to keep WebSocket active
+                await connection.SendQueryAsync<object>(new GraphQL.GraphQLRequest
+                {
+                    Query = "{ __typename }"
+                }).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Heartbeat failed: {ex.Message}", LogSeverity.Debug);
+            }
         }
 
         private void StopHeartbeat()
@@ -156,11 +205,20 @@ namespace MobiFlight.ProSim
 
         private void SubscribeToDataRef(string datarefPath)
         {
-            // Skip if we already have a subscription for this dataref
-            if (_subscriptions.ContainsKey(datarefPath))
-                return;
+            lock (_subscriptions)
+            {
+                // Skip if we already have a subscription for this dataref
+                if (_subscriptions.ContainsKey(datarefPath))
+                    return;
 
-            var subscription = @"
+                // Disconnect flips the connection state before it takes this lock to
+                // clean up, so a null check here keeps us off a disposed client and
+                // prevents entries from being added behind Disconnect's back.
+                var connection = _connection;
+                if (!IsConnected() || connection == null)
+                    return;
+
+                var subscription = @"
                 subscription ($names: [String!]!) {
                   dataRefs(names: $names) {
                     name
@@ -168,27 +226,28 @@ namespace MobiFlight.ProSim
                   }
                 }";
 
-            var variables = new
-            {
-                names = new[] { datarefPath }
-            };
-
-            var dataRefObservable = _connection.CreateSubscriptionStream<DataRefSubscriptionResult>(new GraphQL.GraphQLRequest
-            {
-                Query = subscription,
-                Variables = variables
-            });
-
-            var disposable = dataRefObservable.Subscribe(response =>
-            {
-                if (response?.Data != null)
+                var variables = new
                 {
-                    var dataRef = response.Data.DataRefs;
-                    UpdateCachedValue(dataRef.Name, dataRef.Value);
-                }
-            });
+                    names = new[] { datarefPath }
+                };
 
-            _subscriptions[datarefPath] = disposable;
+                var dataRefObservable = connection.CreateSubscriptionStream<DataRefSubscriptionResult>(new GraphQL.GraphQLRequest
+                {
+                    Query = subscription,
+                    Variables = variables
+                });
+
+                var disposable = dataRefObservable.Subscribe(response =>
+                {
+                    if (response?.Data != null)
+                    {
+                        var dataRef = response.Data.DataRefs;
+                        UpdateCachedValue(dataRef.Name, dataRef.Value);
+                    }
+                });
+
+                _subscriptions[datarefPath] = disposable;
+            }
 
             Log.Instance.log($"Created subscription for dataref: {datarefPath}", LogSeverity.Debug);
         }
@@ -231,20 +290,6 @@ namespace MobiFlight.ProSim
 
         private void WriteOutValue(string datarefPath, object value)
         {
-            // Check if refresh is in progress
-            if (_refreshInProgress)
-            {
-                // Queue the write for later processing
-                _pendingWrites.Enqueue((datarefPath, value));
-                Log.Instance.log($"Queued write for {datarefPath} during data definitions refresh", LogSeverity.Debug);
-                return;
-            }
-
-            WriteOutValueInternal(datarefPath, value);
-        }
-
-        private void WriteOutValueInternal(string datarefPath, object value)
-        {
             try
             {
                 if (!IsConnected() || _connection == null)
@@ -252,9 +297,13 @@ namespace MobiFlight.ProSim
                     return;
                 }
 
-                if (!_dataRefDescriptions.TryGetValue(datarefPath, out var description))
+                DataRefDescription description = null;
+                lock (_cacheLock)
                 {
-                    return;
+                    if (!_dataRefDescriptions.TryGetValue(datarefPath, out description))
+                    {
+                        return;
+                    }
                 }
 
                 if (!description.CanWrite)
@@ -269,54 +318,83 @@ namespace MobiFlight.ProSim
 
                 var (method, graphqlType) = mutation;
 
-                Task.Run(async () => {
-                    try
-                    {
-                        var query = $@"
+                var query = $@"
 mutation ($name: String!, $value: {graphqlType}) {{
 	dataRef {{
 		{method}(name: $name, value: $value)
 	}}
 }}";
-                        await _connection.SendMutationAsync<object>(new GraphQL.GraphQLRequest
-                        {
-                            Query = query,
-                            Variables = new { name = datarefPath, value }
-                        });
-                    }
-                    catch
-                    {
-                        // Ignore all errors
-                    }
-                });
+
+                RunWriteMutationAsync(datarefPath, value, query);
             }
-            catch
+            catch (Exception ex)
             {
-                // Ignore all errors
+                Log.Instance.log($"Error preparing ProSim write for {datarefPath}: {ex.Message}", LogSeverity.Error);
             }
         }
 
-        private async Task RefreshDataDefinitionsAsync()
+        private void RunWriteMutationAsync(string datarefPath, object value, string query)
+        {
+            var connection = _connection;
+            if (connection == null)
+            {
+                return;
+            }
+
+            LogTaskFault(connection.SendMutationAsync<object>(new GraphQL.GraphQLRequest
+            {
+                Query = query,
+                Variables = new { name = datarefPath, value }
+            }), $"Failed to write ProSim dataref {datarefPath}");
+        }
+
+        public Task<bool> RefreshDataDefinitionsAsync()
         {
             lock (_refreshLock)
             {
-                if (_refreshInProgress)
+                if (_refreshTask != null && !_refreshTask.IsCompleted)
                 {
-                    return;
+                    return _refreshTask;
                 }
-                _refreshInProgress = true;
-            }
 
+                var refreshTask = RefreshDataDefinitionsInternalAsync();
+                _refreshTask = refreshTask;
+                refreshTask.ContinueWith(completedTask =>
+                {
+                    lock (_refreshLock)
+                    {
+                        if (ReferenceEquals(_refreshTask, completedTask))
+                        {
+                            _refreshTask = null;
+                        }
+                    }
+
+                    // Drain after the task is cleared so writes queued during the
+                    // refresh cannot race the drain and get stranded.
+                    if (completedTask.Status == TaskStatus.RanToCompletion && completedTask.Result)
+                    {
+                        ProcessPendingWrites();
+                    }
+                }, TaskContinuationOptions.ExecuteSynchronously);
+
+                return refreshTask;
+            }
+        }
+
+        private async Task<bool> RefreshDataDefinitionsInternalAsync()
+        {
             try
             {
-                if (!IsConnected() || _connection == null)
+                var refreshConnection = _connection;
+                if (!IsConnected() || refreshConnection == null)
                 {
-                    return;
+                    Log.Instance.log("Skipping ProSim data definitions refresh because the connection is not available.", LogSeverity.Warn);
+                    return false;
                 }
 
                 Log.Instance.log("Refreshing ProSim data definitions...", LogSeverity.Debug);
                 
-                var dataRefDescriptions = await _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
+                var dataRefDescriptions = await refreshConnection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
                 {
                     Query = @"
                     {
@@ -330,37 +408,41 @@ mutation ($name: String!, $value: {graphqlType}) {{
                     		    dataUnit
                             __typename
                         }
-                        __typename
+                            __typename
                         }
                     }"
-                });
+                }).ConfigureAwait(false);
 
                 if (dataRefDescriptions?.Data?.DataRef?.DataRefDescriptions == null)
                 {
-                    return;
+                    Log.Instance.log("ProSim data definitions refresh returned no data definitions.", LogSeverity.Error);
+                    return false;
                 }
 
                 var newDataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
 
+                // Disconnect paths flip the connection state before clearing the cache
+                // under _cacheLock, so checking inside the lock guarantees a stale
+                // refresh either bails here or is cleared right after the swap.
                 lock (_cacheLock)
                 {
+                    if (!IsConnected() || !ReferenceEquals(refreshConnection, _connection))
+                    {
+                        Log.Instance.log("Discarding ProSim data definitions because the connection changed during refresh.", LogSeverity.Warn);
+                        return false;
+                    }
+
                     _dataRefDescriptions = newDataRefDescriptions;
                 }
 
-                Log.Instance.log($"Refreshed {_dataRefDescriptions.Count} data definitions", LogSeverity.Debug);
+                Log.Instance.log($"Refreshed {newDataRefDescriptions.Count} data definitions", LogSeverity.Debug);
 
-                ProcessPendingWrites();
+                return true;
             }
-            catch
+            catch (Exception ex)
             {
-                // Ignore all errors
-            }
-            finally
-            {
-                lock (_refreshLock)
-                {
-                    _refreshInProgress = false;
-                }
+                Log.Instance.log($"Error refreshing ProSim data definitions: {ex.Message}", LogSeverity.Error);
+                return false;
             }
         }
 
@@ -384,21 +466,24 @@ mutation ($name: String!, $value: {graphqlType}) {{
             {
                 try
                 {
-                    if (_dataRefDescriptions.Count == 0)
+                    lock (_cacheLock)
                     {
-                        continue;
+                        if (_dataRefDescriptions.Count == 0)
+                        {
+                            continue;
+                        }
+
+                        if (!_dataRefDescriptions.ContainsKey(pendingWrite.datarefPath))
+                        {
+                            continue;
+                        }
                     }
 
-                    if (!_dataRefDescriptions.ContainsKey(pendingWrite.datarefPath))
-                    {
-                        continue;
-                    }
-
-                    WriteOutValueInternal(pendingWrite.datarefPath, pendingWrite.value);
+                    WriteOutValue(pendingWrite.datarefPath, pendingWrite.value);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // Ignore all errors
+                    Log.Instance.log($"Error processing pending ProSim write for {pendingWrite.datarefPath}: {ex.Message}", LogSeverity.Error);
                 }
             }
         }
@@ -406,7 +491,10 @@ mutation ($name: String!, $value: {graphqlType}) {{
         public bool Disconnect()
         {
             if (_connected)
-            {                
+            {
+                _connected = false;
+                DisposeConnection();
+
                 lock (_subscribedDataRefs)
                 {
                     _subscribedDataRefs.Clear();
@@ -420,21 +508,21 @@ mutation ($name: String!, $value: {graphqlType}) {{
                 // Clear pending writes
                 while (_pendingWrites.TryDequeue(out _)) { }
 
-                lock (_refreshLock)
-                {
-                    _refreshInProgress = false;
-                }
+                ResetRefreshState();
 
                 // Stop heartbeat timer
                 StopHeartbeat();
 
-                foreach (var subscription in _subscriptions.Values)
+                lock (_subscriptions)
                 {
-                    subscription.Dispose();
+                    foreach (var subscription in _subscriptions.Values)
+                    {
+                        subscription.Dispose();
+                    }
+                    // Remove the disposed entries so datarefs re-subscribe after a reconnect
+                    _subscriptions.Clear();
                 }
 
-                _connected = false;
-                _connection = null;
                 Closed?.Invoke(this, new EventArgs());
             }
             return !_connected;
@@ -454,7 +542,13 @@ mutation ($name: String!, $value: {graphqlType}) {{
 
             try
             {
-                if (!_subscriptions.ContainsKey(datarefPath))
+                bool isSubscribed;
+                lock (_subscriptions)
+                {
+                    isSubscribed = _subscriptions.ContainsKey(datarefPath);
+                }
+
+                if (!isSubscribed)
                 {
                     SubscribeToDataRef(datarefPath);
                     return (double)0;
@@ -499,25 +593,29 @@ mutation ($name: String!, $value: {graphqlType}) {{
 
             try
             {
-                if (_dataRefDescriptions.Count == 0)
+                DataRefDescription description = null;
+                var queueWrite = false;
+                lock (_cacheLock)
                 {
-                    if (_refreshInProgress)
+                    if (_dataRefDescriptions.Count == 0)
                     {
                         _pendingWrites.Enqueue((datarefPath, value));
+                        queueWrite = true;
+                    }
+                    else if (!_dataRefDescriptions.TryGetValue(datarefPath, out description))
+                    {
                         return;
                     }
-
-                    _pendingWrites.Enqueue((datarefPath, value));
-                    RefreshDataDefinitionsAsync().ConfigureAwait(false);
-                    return;
                 }
 
-                if (!_dataRefDescriptions.ContainsKey(datarefPath))
+                if (queueWrite)
                 {
+                    Log.Instance.log($"Queued write for {datarefPath} until data definitions are available", LogSeverity.Debug);
+                    // Joins the in-flight refresh if one is running, starts a new one
+                    // otherwise; the refresh drains the queue on success.
+                    TriggerRefreshInBackground();
                     return;
                 }
-                
-                var description = _dataRefDescriptions[datarefPath];
 
                 if (!description.CanWrite)
                 {
@@ -542,22 +640,40 @@ mutation ($name: String!, $value: {graphqlType}) {{
                         transformedValue = Convert.ToBoolean(value);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Log.Instance.log($"Failed to transform ProSim write value for {datarefPath}: {ex.Message}", LogSeverity.Error);
                     return;
                 }
 
                 WriteOutValue(datarefPath, transformedValue);
             }
-            catch
+            catch (Exception ex)
             {
-                // Ignore all errors
+                Log.Instance.log($"Error writing ProSim dataref {datarefPath}: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        private void TriggerRefreshInBackground()
+        {
+            LogTaskFault(RefreshAndWarnAsync(), "Background ProSim refresh failed");
+        }
+
+        private async Task RefreshAndWarnAsync()
+        {
+            var refreshSuccessful = await RefreshDataDefinitionsAsync().ConfigureAwait(false);
+            if (!refreshSuccessful)
+            {
+                Log.Instance.log("Background ProSim refresh completed without data definitions.", LogSeverity.Warn);
             }
         }
 
         public Dictionary<string, DataRefDescription> GetDataRefDescriptions()
         {
-            return new Dictionary<string, DataRefDescription>(_dataRefDescriptions);
+            lock (_cacheLock)
+            {
+                return new Dictionary<string, DataRefDescription>(_dataRefDescriptions);
+            }
         }
     }
 } 

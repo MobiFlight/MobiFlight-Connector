@@ -143,14 +143,14 @@
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3967.48, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.4022.49, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Midi">
       <HintPath>..\..\lib\Midi.dll</HintPath>
@@ -261,6 +261,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="frontend\dist\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\contrail_fa50_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Winwing\rotate_md80.py">
@@ -1293,22 +1296,22 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_3_1_1.hex">
+    <None Include="firmware\mobiflight_mega_3_1_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_3_1_1.hex">
+    <None Include="firmware\mobiflight_micro_3_1_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_nano_3_1_1.hex">
+    <None Include="firmware\mobiflight_nano_3_1_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_raspberrypico2_3_1_1.uf2">
+    <None Include="firmware\mobiflight_raspberrypico2_3_1_2.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_raspberrypico_3_1_1.uf2">
+    <None Include="firmware\mobiflight_raspberrypico_3_1_2.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_3_1_1.hex">
+    <None Include="firmware\mobiflight_uno_3_1_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
@@ -1674,12 +1677,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Presets\presets_eventids.cip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Presets\msfs2020_hubhop_presets.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Presets\xplane_hubhop_presets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\arcaze-module.png" />
@@ -2345,7 +2342,7 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -2355,5 +2352,5 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3967.48\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.4022.49\build\Microsoft.Web.WebView2.targets')" />
 </Project>
