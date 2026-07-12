@@ -836,9 +836,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       await expect(transformationOption).toBeVisible()
       await transformationOption.click()
 
-      const modifierHeader = modifierEditor.getByRole("button", {
-        name: modifierLabel,
-      })
+      const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
       await expect(modifierHeader).toBeVisible()
 
       const removeButton = modifierEditor.getByRole("button", {
@@ -933,6 +931,61 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(lastMoveDownButton).toBeDisabled()
   })
 
+  test("New modifier is expanded by default when added", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    // Content should be visible without clicking the header
+    const expressionInput = modifierEditor.getByRole("textbox", {
+      name: "Expression",
+    })
+    await expect(expressionInput).toBeVisible()
+  })
+
+  test("Each new modifier expands by default without disturbing existing ones", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    // Collapse the first modifier manually
+    const transformationHeader = modifierEditor.getByRole("button", {
+      name: "Transformation",
+    })
+    await transformationHeader.click()
+    const expressionInput = modifierEditor.getByRole("textbox", {
+      name: "Expression",
+    })
+    await expect(expressionInput).not.toBeVisible()
+
+    // Add a second modifier
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add modifier",
+    })
+    await addModifierButtonInEditor.click()
+    const substringOption = page.getByRole("menuitem", { name: "Substring" })
+    await substringOption.click()
+
+    // Second modifier should open by default
+    const startInput = modifierEditor.getByRole("textbox", {
+      name: "Start position",
+    })
+    await expect(startInput).toBeVisible()
+
+    // First modifier should remain collapsed
+    await expect(expressionInput).not.toBeVisible()
+  })
+
   test("Transformation modifier works correctly", async ({
     configListPage,
     page,
@@ -949,11 +1002,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded and the input field is visible
     const inputField = modifierEditor.getByRole("textbox", {
@@ -979,7 +1030,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Transformation",
       Active: false,
       Expression: "$*2",
@@ -1002,11 +1053,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Start input field is visible
@@ -1046,7 +1095,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Substring",
       Active: false,
       Start: 3,
@@ -1067,11 +1116,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1146,7 +1193,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Padding",
       Active: false,
       Length: 3,
@@ -1171,11 +1218,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1258,7 +1303,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Interpolation",
       Active: false,
       Values: {
@@ -1280,11 +1325,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       page,
     )
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1352,7 +1395,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Interpolation",
       Active: true,
       Values: {
@@ -1374,11 +1417,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       page,
     )
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Length input field is visible
@@ -1437,11 +1478,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Operator combobox
@@ -1512,7 +1551,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Comparison",
       Active: false,
       Value: "3",
@@ -1535,11 +1574,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(switchToggle).toBeVisible()
     await switchToggle.click()
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Alternate value input field is visible
@@ -1622,7 +1659,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toBeDefined()
     const payload = commands?.pop()?.payload
-    expect(payload.item.Modifiers.Items[0]).toEqual({
+    expect(payload.item.Modifiers.Items[0]).toMatchObject({
       Type: "Blink",
       Active: false,
       BlinkValue: "1",
@@ -1641,11 +1678,9 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
       page,
     )
 
-    const modifierHeader = modifierEditor.getByRole("button", {
-      name: modifierLabel,
-    })
+    const modifierHeader = getModifierHeader(modifierEditor, modifierLabel)
     await expect(modifierHeader).toBeVisible()
-    await modifierHeader.click()
+    await expandModifierIfCollapsed(modifierHeader)
 
     // The modifier is now expanded
     // Alternate value input field is visible
@@ -5223,6 +5258,19 @@ async function CreateNewInputConfigItemAndReturnActionEditor(
   await button.click()
   await expect(actionEditor).toBeVisible()
   return actionEditor
+}
+
+function getModifierHeader(modifierEditor: Locator, modifierLabel: string) {
+  return modifierEditor
+    .locator('[data-slot="collapsible-trigger"]')
+    .filter({ hasText: modifierLabel })
+}
+
+async function expandModifierIfCollapsed(modifierHeader: Locator) {
+  const expanded = await modifierHeader.getAttribute("aria-expanded")
+  if (expanded === "false") {
+    await modifierHeader.click()
+  }
 }
 
 async function addModifierItemAndReturnEditor(

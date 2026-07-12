@@ -42,6 +42,7 @@ type ModifierItemProps = {
   onMoveDown?: () => void
   isFirst?: boolean
   isLast?: boolean
+  defaultOpen?: boolean
 }
 
 export const ModifierItem = ({
@@ -52,9 +53,10 @@ export const ModifierItem = ({
   onMoveDown,
   isFirst,
   isLast,
+  defaultOpen,
 }: ModifierItemProps) => {
   const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(defaultOpen ?? false)
 
   const modifierContent =
     modifier.Type === "Transformation" ? (
