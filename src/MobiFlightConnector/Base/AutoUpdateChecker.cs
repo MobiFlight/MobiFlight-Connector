@@ -115,6 +115,7 @@ namespace MobiFlight.UpdateChecker
 
             Console.WriteLine(output + error);
 
+            // Get the new version and the channel (BETA or RELEASE) from the installer output
             if (VersionCheck(output, out string newVersion, out string betaOrRelease))
             {
                 Log.Instance.log($"Found a new version: {newVersion} {betaOrRelease}.", LogSeverity.Info);
@@ -129,7 +130,7 @@ namespace MobiFlight.UpdateChecker
                     dialog.WebsiteUrl = releaseUrl;
                     dialog.StartPosition = FormStartPosition.CenterParent;
                     dialog.ShowUpdateButtons = true;
-                    dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta
+                    dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta //Show "DisableBetaButton" if update from stable to beta
                         && Properties.Settings.Default.BetaUpdates;
                     dialog.Text = "MobiFlight Release Notes " + releaseVersion + releaseLabel;
                     dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
@@ -165,6 +166,7 @@ namespace MobiFlight.UpdateChecker
             return;
         }
 
+        // Installer Fallback in case the update check fails 
         private static (string output, string error) RunInstallerCheck(string arguments)
         {
             using (var process = new Process())
