@@ -1,6 +1,10 @@
 import { useHubHopState } from "@/stores/stateStore"
 import { Progress } from "../ui/progress"
-import { IconCircleCheckFilled, IconCircleXFilled } from "@tabler/icons-react"
+import {
+  IconCircleCheckFilled,
+  IconCircleXFilled,
+  IconCloudDownload,
+} from "@tabler/icons-react"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useToastContext } from "@/lib/hooks/useToastContext"
@@ -25,16 +29,19 @@ const HubHopUpdateToast = ({ timeout = 2000 }: HubHopUpdateToastProps) => {
   }, [HubHopState, dismiss, timeout])
 
   return HubHopState?.Result === "InProgress" ? (
-    <Progress value={HubHopState?.UpdateProgress} className="h-6 w-full" />
+    <div className="flex flex-row items-center gap-2">
+      <IconCloudDownload className="animate-low-bounce text-primary" />
+      <Progress value={HubHopState?.UpdateProgress} className="h-6 w-full" />
+    </div>
   ) : HubHopState?.Result === "Success" ? (
     <div className="flex flex-row items-center gap-2">
       <IconCircleCheckFilled className="fill-green-700" />
-      { t("General.HubHopUpdate.Success") }
+      {t("General.HubHopUpdate.Success")}
     </div>
   ) : (
     <div className="flex flex-row items-center gap-2">
       <IconCircleXFilled className="fill-red-700" />
-      <div>{ t("General.HubHopUpdate.Error") }</div>
+      <div>{t("General.HubHopUpdate.Error")}</div>
     </div>
   )
 }

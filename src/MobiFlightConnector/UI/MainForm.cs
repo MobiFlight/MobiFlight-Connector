@@ -29,6 +29,7 @@ using System.ComponentModel;
 using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
+using System.Threading;
 
 namespace MobiFlight.UI
 {
@@ -600,8 +601,9 @@ namespace MobiFlight.UI
 
             // Publish the updated list of available variables
             var availableVars = execManager.GetAvailableVariables();
-            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate() { 
-                Variables = availableVars.Values.ToList() 
+            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate()
+            {
+                Variables = availableVars.Values.ToList()
             });
 
             ProjectHasUnsavedChanges = true;
@@ -938,7 +940,6 @@ namespace MobiFlight.UI
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Finished" });
 
             CheckForWasmModuleUpdate();
-            CheckForHubhopUpdate();
 
             UpdateAllConnectionIcons();
 
@@ -952,6 +953,14 @@ namespace MobiFlight.UI
             // Now we are done with all initialization stuff
             // and now we are ready to look for sims
             execManager.AutoConnectStart();
+
+            // delay the HubHop presets download 
+            // so that we can display the toast correctly
+            Task.Delay(5000).ContinueWith(_ =>
+            {
+                if (IsDisposed || Disposing) return;
+                CheckForHubhopUpdate();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void CheckForHubhopUpdate()
@@ -2723,6 +2732,10 @@ namespace MobiFlight.UI
                     Msfs2020HubhopPresetListSingleton.Instance.Clear();
                     XplaneHubhopPresetListSingleton.Instance.Clear();
                     HubHopState.Result = "Success";
+
+                    var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+                    HubHopState.LastUpdate = lastModification;
+                    UpdateHubHopTimestampInStatusBar(lastModification);
                 }
                 else
                 {
