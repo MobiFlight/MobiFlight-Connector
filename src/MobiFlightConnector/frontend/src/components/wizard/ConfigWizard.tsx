@@ -228,6 +228,7 @@ const ConfigWizard = ({
 
       {detailView && (
         <Drawer
+          dismissible={false}
           container={drawerContainer?.current || undefined}
           direction="right"
           open={drawerOpen}
@@ -238,12 +239,14 @@ const ConfigWizard = ({
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
               </DrawerTitle>
-              <DrawerClose className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
+              <DrawerClose
+                onClick={() => closeDetailView(false)}
+                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
                 <IconArrowBack size={16} />
                 {t("Dialog.General.GoBack")}
               </DrawerClose>
             </DrawerHeader>
-            <div className="flex flex-1 flex-col px-4 pb-4">
+            <div className="flex flex-1 flex-col px-4 pb-4 overflow-y-auto">
               {detailView === "precondition" && (
                 <PreconditionsPanel
                   onPreconditionsChange={(preconditions) => {

@@ -676,11 +676,29 @@
           "ActionLabel": "Toiminto"
         },
         "Msfs": {
-          "NoneCode": "Ei mitään",
-          "CodePlaceholder": "Syötä RPN-koodi",
+          "Preset": {
+            "Title": "Vaihe 2 - Valitse esiasetus",
+            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+          },
+          "Code": {
+            "Title": "Vaihe 3 - Hienosäädä koodi (valinnainen)",
+            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
+            "None": "Ei mitään",
+            "Placeholder": "Syötä RPN-koodi"
+          },
           "CustomPreset": "Mukautettu esiasetus"
         },
         "Xplane": {
+          "Preset": {
+            "Title": "Vaihe 2 - Valitse esiasetus",
+            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+          },
+          "Code": {
+            "Title": "Vaihe 3 - Hienosäädä koodi (valinnainen)",
+            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta."
+          },
           "InputTypeLabel": "Syötetyyppi",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",
           "PathLabel": "Polku",
@@ -691,8 +709,10 @@
           "CustomPreset": "Mukautettu esiasetus"
         },
         "ProSim": {
-          "Title": "ProSim-syötetoiminto",
-          "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi.",
+          "Preset": {
+            "Title": "Vaihe 2 - ProSim-syötetoiminto",
+            "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi."
+          },
           "PathLabel": "Polku",
           "NoPresetSelected": "Ei esiasetusta valittuna",
           "ParameterLabel": "Parametri (valinnainen)",
@@ -700,6 +720,8 @@
           "ParameterNone": "Ei mitään"
         },
         "VJoy": {
+          "Title": "Vaihe 2 - Konfiguroi vJoy",
+          "Description": "Määritä käytettävä vJoy-painike tai -akseli.",
           "Controller": "Ohjain",
           "Device": "Laite",
           "SelectDeviceLabel": "Valitse vJoy-laite",
@@ -717,6 +739,8 @@
           "None": "Ei mitään"
         },
         "Keyboard": {
+          "Title": "Vaihe 2 - Konfiguroi näppäimistön syöte",
+          "Description": "Määritä käytettävä näppäinyhdistelmä.",
           "StopScanning": "Lopeta etsintä",
           "ScanForKeyboard": "Etsi näppäimistöä",
           "KeyComboLabel": "Näppäinyhdistelmä",
@@ -724,6 +748,8 @@
           "ClearInput": "Tyhjennä syöte"
         },
         "FsuipcOffset": {
+          "Title": "Vaihe 2 - Konfiguroi FSUIPC-offset",
+          "Description": "Määritä käytettävä FSUIPC-offset.",
           "TypeLabel": "Tyyppi",
           "SizeLabel": "Koko",
           "OffsetLabel": "Offset",
@@ -733,7 +759,7 @@
           "ValuePlaceholder": "Syötä arvo"
         },
         "LuaMacro": {
-          "Title": "Lua-makro-syötetoiminto",
+          "Title": "Vaihe 2 - Konfiguroi Lua-makro-syöte",
           "Description": "Kutsu Lua-makroasi valinnaisella parametrilla. Vaatii olemassa olevan Lua-makron FSUIPC:ssä.",
           "MacroNameLabel": "Makron nimi",
           "MacroNamePlaceholder": "Aseta makron nimi",
@@ -741,11 +767,15 @@
           "MacroValuePlaceholder": "Aseta makron arvo"
         },
         "Jeehell": {
+          "Title": "Vaihe 2 - Konfiguroi Jeehell",
+          "Description": "Määritä käytettävä Jeehell-funktio. Voit joko luoda uuden tai käyttää olemassa olevaa funktiota.",
           "FunctionLabel": "Jeehell-funktio",
           "SelectFunctionPlaceholder": "Valitse Jeehell-funktio...",
           "ValueLabel": "Arvo"
         },
         "EventId": {
+          "Title": "Vaihe 2 - Määritä Event ID",
+          "Description": "Määritä käytettävä Event ID. Voit joko luoda uuden tai käyttää olemassa olevaa Event ID:tä.",
           "PmdgAircraftLabel": "PMDG-lentokone",
           "MouseParamLabel": "Hiiriparametri",
           "SelectMouseParamPlaceholder": "Valitse hiiriparametri",
@@ -760,6 +790,8 @@
           "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
         },
         "Variable": {
+          "Title": "Vaihe 2 - Konfiguroi muuttuja",
+          "Description": "Määritä käytettävä muuttuja. Voit joko luoda uuden tai käyttää olemassa olevaa muuttujaa.",
           "ExistingVariable": "Käytä olemassa olevaa muuttujaa",
           "VariableTypeLabel": "Muuttujatyyppi",
           "VariableNameLabel": "Muuttujan nimi",

@@ -732,6 +732,42 @@ test.describe("Project settings modal features", () => {
     await expect(selectedAircraftOptions).toHaveCount(1)
     await expect(availableAircraftOptions).toHaveCount(2)
   })
+
+  test("Aircraft editor drawer closes only via Go Back button", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    const createProjectButton = page.getByRole("button", { name: "Project" })
+    const createProjectDialog = page.getByRole("dialog", {
+      name: "Create New Project",
+    })
+    const editAircraftButton = createProjectDialog.getByRole("button", {
+      name: "Edit aircraft list",
+    })
+    const projectAircraftDialog = page.getByTestId("project-aircraft-drawer")
+
+    // create a new project with default aircraft selected
+    await createProjectButton.click()
+    await editAircraftButton.click()
+    await expect(projectAircraftDialog).toBeVisible()
+
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+
+    // Hitting Escape should not close the drawer
+    await page.keyboard.press("Escape")
+    await expect(goBackButton).toBeVisible()
+
+    // Clicking outside the drawer should not close the drawer
+    await page.mouse.click(0, 0)
+    await expect(goBackButton).toBeVisible()
+
+    // Clicking the Go Back button should close the drawer
+    await goBackButton.click()
+    await expect(goBackButton).not.toBeVisible()
+    await expect(projectAircraftDialog).not.toBeVisible()
+  })
 })
 
 test.describe("Project list view tests", () => {

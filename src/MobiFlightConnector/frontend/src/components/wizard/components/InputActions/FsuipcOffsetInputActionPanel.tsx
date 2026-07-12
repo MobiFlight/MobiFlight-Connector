@@ -6,6 +6,7 @@ import ComboBox from "@/components/ComboBox"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
+import { Card, CardContent } from "@/components/ui/card"
 
 export type FsuipcOffsetInputActionPanelProps = {
   variant: "summary" | "details"
@@ -118,175 +119,195 @@ const FsuipcOffsetInputActionPanel = ({
           <Label htmlFor="value">
             {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
           </Label>
-          <CodeValueLabel>
-            {currentConfig.Value}
-          </CodeValueLabel>
+          <CodeValueLabel>{currentConfig.Value}</CodeValueLabel>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-row gap-4">
-        <div className="flex flex-col gap-1">
-          <Label className="text-sm font-medium" htmlFor="type">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.TypeLabel")}
-          </Label>
-          <ComboBox
-            items={FsuipcTypeOptions}
-            selected={selectedTypeOption}
-            getValue={(option) => option.value.toString()}
-            getLabel={(option) => option.label}
-            isSelected={(option, selected) => option.value === selected?.value}
-            setSelected={(option) =>
-              onConfigChange({
-                ...currentConfig,
-                FSUIPC: {
-                  ...currentConfig.FSUIPC,
-                  OffsetType: option?.value ?? FSUIPC_TYPE_INTEGER,
-                  // if switching to string, set size to 255
-                  Size:
-                    option?.value === FSUIPC_TYPE_STRING
-                      ? 255
-                      : currentConfig.FSUIPC.Size,
-                },
-              } as FsuipcOffsetInputAction)
-            }
-            variant="nofilter"
-            widthClass="w-32"
-          />
+    <Card>
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col">
+          <div className="text-lg font-semibold">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
+          </div>
+          <div className="text-muted-foreground text-sm">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description")}
+          </div>
         </div>
-        <div className="flex flex-col gap-1">
-          <Label className="text-sm font-medium" htmlFor="size">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel")}
-          </Label>
-          <ComboBox
-            items={FsuipcSizeOptions}
-            selected={selectedSizeOption}
-            getValue={(option) => option.value.toString()}
-            getLabel={(option) => option.label}
-            isSelected={(option, selected) => option.value === selected?.value}
-            setSelected={(option) =>
-              onConfigChange({
-                ...currentConfig,
-                FSUIPC: {
-                  ...currentConfig.FSUIPC,
-                  Size: option?.value ?? 1,
-                },
-              } as FsuipcOffsetInputAction)
-            }
-            variant="nofilter"
-            widthClass="w-32"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <Label className="text-sm font-medium" htmlFor="offset">
-            {t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel",
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-row gap-4">
+            <div className="flex flex-col gap-1">
+              <Label className="text-sm font-medium" htmlFor="type">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.FsuipcOffset.TypeLabel",
+                )}
+              </Label>
+              <ComboBox
+                items={FsuipcTypeOptions}
+                selected={selectedTypeOption}
+                getValue={(option) => option.value.toString()}
+                getLabel={(option) => option.label}
+                isSelected={(option, selected) =>
+                  option.value === selected?.value
+                }
+                setSelected={(option) =>
+                  onConfigChange({
+                    ...currentConfig,
+                    FSUIPC: {
+                      ...currentConfig.FSUIPC,
+                      OffsetType: option?.value ?? FSUIPC_TYPE_INTEGER,
+                      // if switching to string, set size to 255
+                      Size:
+                        option?.value === FSUIPC_TYPE_STRING
+                          ? 255
+                          : currentConfig.FSUIPC.Size,
+                    },
+                  } as FsuipcOffsetInputAction)
+                }
+                variant="nofilter"
+                widthClass="w-32"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <Label className="text-sm font-medium" htmlFor="size">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.FsuipcOffset.SizeLabel",
+                )}
+              </Label>
+              <ComboBox
+                items={FsuipcSizeOptions}
+                selected={selectedSizeOption}
+                getValue={(option) => option.value.toString()}
+                getLabel={(option) => option.label}
+                isSelected={(option, selected) =>
+                  option.value === selected?.value
+                }
+                setSelected={(option) =>
+                  onConfigChange({
+                    ...currentConfig,
+                    FSUIPC: {
+                      ...currentConfig.FSUIPC,
+                      Size: option?.value ?? 1,
+                    },
+                  } as FsuipcOffsetInputAction)
+                }
+                variant="nofilter"
+                widthClass="w-32"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <Label className="text-sm font-medium" htmlFor="offset">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.FsuipcOffset.OffsetLabel",
+                )}
+              </Label>
+              <Input
+                onKeyDown={filterHexInput}
+                id="offset"
+                value={currentConfig.FSUIPC.Offset.toString(16)
+                  .toUpperCase()
+                  .padStart(4, "0")
+                  .slice(-4)}
+                onChange={(e) =>
+                  onConfigChange({
+                    ...currentConfig,
+                    FSUIPC: {
+                      ...currentConfig.FSUIPC,
+                      Offset: parseInt(e.target.value, 16),
+                    },
+                  } as FsuipcOffsetInputAction)
+                }
+                className="w-32"
+              />
+            </div>
+            {currentConfig.FSUIPC.OffsetType === FSUIPC_TYPE_INTEGER && (
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm font-medium" htmlFor="mask">
+                  {t(
+                    "Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel",
+                  )}
+                </Label>
+                <Input
+                  className="field-sizing-content"
+                  id="mask"
+                  value={mask ?? formattedMask}
+                  onKeyDown={filterHexInput}
+                  onFocus={() => setMask(formattedMask)}
+                  onChange={(e) =>
+                    setMask(
+                      e.target.value
+                        .toUpperCase()
+                        .slice(-currentConfig.FSUIPC.Size * 2),
+                    )
+                  }
+                  onBlur={() => {
+                    const newMask = (mask ?? formattedMask)
+                      .toUpperCase()
+                      .padStart(currentConfig.FSUIPC.Size * 2, "0")
+                      .slice(-(currentConfig.FSUIPC.Size * 2))
+                    setMask(null)
+                    onConfigChange({
+                      ...currentConfig,
+                      FSUIPC: {
+                        ...currentConfig.FSUIPC,
+                        Mask: parseInt(newMask, 16),
+                      },
+                    } as FsuipcOffsetInputAction)
+                  }}
+                />
+              </div>
             )}
-          </Label>
-          <Input
-            onKeyDown={filterHexInput}
-            id="offset"
-            value={currentConfig.FSUIPC.Offset.toString(16)
-              .toUpperCase()
-              .padStart(4, "0")
-              .slice(-4)}
-            onChange={(e) =>
-              onConfigChange({
-                ...currentConfig,
-                FSUIPC: {
-                  ...currentConfig.FSUIPC,
-                  Offset: parseInt(e.target.value, 16),
-                },
-              } as FsuipcOffsetInputAction)
-            }
-            className="w-32"
-          />
-        </div>
-        {currentConfig.FSUIPC.OffsetType === FSUIPC_TYPE_INTEGER && (
-          <div className="flex flex-col gap-1">
-            <Label className="text-sm font-medium" htmlFor="mask">
+            {currentConfig.FSUIPC.OffsetType === FSUIPC_TYPE_INTEGER && (
+              <div className="flex flex-row items-center gap-2 pt-5">
+                <Switch
+                  id="bcdMode"
+                  checked={currentConfig.FSUIPC.BcdMode}
+                  onCheckedChange={(e) =>
+                    onConfigChange({
+                      ...currentConfig,
+                      FSUIPC: { ...currentConfig.FSUIPC, BcdMode: e },
+                    } as FsuipcOffsetInputAction)
+                  }
+                />
+                <Label className="text-sm font-medium" htmlFor="bcdMode">
+                  {t(
+                    "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
+                  )}
+                </Label>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="value">
               {t(
-                "Dialog.InputConfigWizard.InputActions.FsuipcOffset.MaskLabel",
+                "Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel",
               )}
             </Label>
             <Input
-              className="field-sizing-content"
-              id="mask"
-              value={mask ?? formattedMask}
-              onKeyDown={filterHexInput}
-              onFocus={() => setMask(formattedMask)}
+              className="font-mono text-sm whitespace-nowrap"
+              id="value"
+              value={config?.Value ?? ""}
               onChange={(e) =>
-                setMask(
-                  e.target.value
-                    .toUpperCase()
-                    .slice(-currentConfig.FSUIPC.Size * 2),
-                )
-              }
-              onBlur={() => {
-                const newMask = (mask ?? formattedMask)
-                  .toUpperCase()
-                  .padStart(currentConfig.FSUIPC.Size * 2, "0")
-                  .slice(-(currentConfig.FSUIPC.Size * 2))
-                setMask(null)
                 onConfigChange({
-                  ...currentConfig,
-                  FSUIPC: {
-                    ...currentConfig.FSUIPC,
-                    Mask: parseInt(newMask, 16),
-                  },
-                } as FsuipcOffsetInputAction)
-              }}
-            />
-          </div>
-        )}
-        {currentConfig.FSUIPC.OffsetType === FSUIPC_TYPE_INTEGER && (
-          <div className="flex flex-row items-center gap-2 pt-5">
-            <Switch
-              id="bcdMode"
-              checked={currentConfig.FSUIPC.BcdMode}
-              onCheckedChange={(e) =>
-                onConfigChange({
-                  ...currentConfig,
-                  FSUIPC: { ...currentConfig.FSUIPC, BcdMode: e },
-                } as FsuipcOffsetInputAction)
+                  ...(config as FsuipcOffsetInputAction),
+                  Value: e.target.value,
+                })
               }
-            />
-            <Label className="text-sm font-medium" htmlFor="bcdMode">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.FsuipcOffset.BcdModeLabel",
+              placeholder={t(
+                "Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValuePlaceholder",
               )}
-            </Label>
+            />
+            <div className="text-muted-foreground text-sm">
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
+              )}
+            </div>
           </div>
-        )}
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="value">
-          {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
-        </Label>
-        <Input
-          className="font-mono text-sm whitespace-nowrap"
-          id="value"
-          value={config?.Value ?? ""}
-          onChange={(e) =>
-            onConfigChange({
-              ...(config as FsuipcOffsetInputAction),
-              Value: e.target.value,
-            })
-          }
-          placeholder={t(
-            "Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValuePlaceholder",
-          )}
-        />
-        <div className="text-muted-foreground text-sm">
-          {t(
-            "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
-          )}
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 export default FsuipcOffsetInputActionPanel

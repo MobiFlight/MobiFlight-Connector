@@ -290,8 +290,6 @@ namespace MobiFlight.Base
 
         public void DetermineProjectInfos()
         {
-            Features = new ProjectFeatures();
-
             foreach (var item in ConfigFiles)
             {
                 if (string.IsNullOrEmpty(Sim))

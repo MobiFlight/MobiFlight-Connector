@@ -9,13 +9,18 @@ namespace MobiFlight.WebView
     internal class StaticPageWebResourceRequestHandler
     {
         private Dictionary<string, string> MimeTypes;
-        private string BaseUrl;
-        private string RootPath;
+        private readonly string BaseUrl;
+        private readonly string RootPath;
+        private readonly string Name;
+        private readonly string[] Exclusions;
+        public bool IndexFallback { get; set; } = true;
 
-        public StaticPageWebResourceRequestHandler(string baseUrl, string rootPath)
+        public StaticPageWebResourceRequestHandler(string name, string baseUrl, string rootPath, string[] exclusions = null)
         {
             BaseUrl = baseUrl;
             RootPath = rootPath;
+            Name = name;
+            Exclusions = exclusions ?? Array.Empty<string>();
 
             // Initialize MIME types for common web files
             MimeTypes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -41,7 +46,11 @@ namespace MobiFlight.WebView
 
         internal void RegisterWithWebView(WebView2 webView)
         {
-            webView.CoreWebView2.AddWebResourceRequestedFilter($"{BaseUrl}/*", CoreWebView2WebResourceContext.All);
+            webView.CoreWebView2.AddWebResourceRequestedFilter(
+                $"{BaseUrl}/*", 
+                CoreWebView2WebResourceContext.All, 
+                CoreWebView2WebResourceRequestSourceKinds.All
+            );
             webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
         }
 
@@ -61,8 +70,20 @@ namespace MobiFlight.WebView
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error handling web resource request: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"SPWRRHandler:{Name} - Error handling web resource request: {ex.Message}", LogSeverity.Error);
             }
+        }
+
+        internal bool UriIsExcluded(string requestUri)
+        {
+            return (Exclusions != null && 
+                    Exclusions.Length > 0 && 
+                    Array.Exists(Exclusions, exclusion => requestUri.Contains(exclusion)));
+        }
+
+        internal bool UriMatchesBaseUrl(string requestUri)
+        {
+            return (requestUri.StartsWith(BaseUrl));
         }
 
         // Pure business logic - easily testable without WebView2
@@ -70,6 +91,16 @@ namespace MobiFlight.WebView
         {
             var uri = new Uri(requestUri);
             var relativePath = uri.AbsolutePath.TrimStart('/');
+
+            if (!UriMatchesBaseUrl(requestUri))
+            {
+                return FileResponse.Ignore();
+            }
+
+            if (UriIsExcluded(requestUri))
+            {
+                return FileResponse.Ignore();
+            }
 
             // Default to index.html if path is empty
             if (string.IsNullOrEmpty(relativePath))
@@ -83,7 +114,7 @@ namespace MobiFlight.WebView
             var fullPath = Path.GetFullPath(filePath);
             if (!fullPath.StartsWith(RootPath, StringComparison.OrdinalIgnoreCase))
             {
-                Log.Instance.log($"Security: Blocked path traversal attempt - {fullPath}", LogSeverity.Warn);
+                Log.Instance.log($"SPWRRHandler:{Name} - Security: Blocked path traversal attempt - {fullPath}", LogSeverity.Warn);
                 return FileResponse.Blocked();
             }
 
@@ -94,16 +125,22 @@ namespace MobiFlight.WebView
             }
             else
             {
+                if (!IndexFallback)
+                {
+                    Log.Instance.log($"SPWRRHandler:{Name} - Error: {requestUri} not found", LogSeverity.Error);
+                    return FileResponse.NotFound();
+                }
+
                 // File doesn't exist - serve index.html for SPA routing
                 var indexPath = Path.Combine(RootPath, "index.html");
                 if (File.Exists(indexPath))
                 {
-                    Log.Instance.log($"SPA Route: {relativePath} -> serving index.html", LogSeverity.Debug);
+                    Log.Instance.log($"SPWRRHandler:{Name} - SPA Route: {relativePath} -> serving index.html", LogSeverity.Debug);
                     return CreateFileResponse(indexPath, "text/html");
                 }
                 else
                 {
-                    Log.Instance.log($"Error: index.html not found at {indexPath}", LogSeverity.Error);
+                    Log.Instance.log($"SPWRRHandler:{Name} - Error: index.html not found at {indexPath}", LogSeverity.Error);
                     return FileResponse.NotFound();
                 }
             }
@@ -146,6 +183,7 @@ namespace MobiFlight.WebView
             ShouldServe = shouldServe;
         }
 
+        public static FileResponse Ignore() => new FileResponse(false);
         public static FileResponse Blocked() => new FileResponse(false);
         public static FileResponse NotFound() => new FileResponse(false);
     }

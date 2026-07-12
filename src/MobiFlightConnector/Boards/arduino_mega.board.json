@@ -35,7 +35,7 @@
     "CanResetBoard": true,
     "FirmwareBaseName": "mobiflight_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "3.1.1",
+    "LatestFirmwareVersion": "3.1.2",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
