@@ -166,7 +166,7 @@ namespace MobiFlight.UpdateChecker
             return;
         }
 
-        // Installer Fallback in case the update check fails 
+        // Runs the installer to check for available updates
         private static (string output, string error) RunInstallerCheck(string arguments)
         {
             using (var process = new Process())
