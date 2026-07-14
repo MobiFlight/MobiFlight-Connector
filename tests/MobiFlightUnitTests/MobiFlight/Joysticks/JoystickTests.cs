@@ -159,7 +159,7 @@ namespace MobiFlight.Joysticks.Tests
                     new JoystickOutput { Id="2", Label = "LCD01", Type = "LcdDisplay", Cols = 16, Lines = 1 }
                 }
             };
-            var joystick = new TestableJoystick(dxJoystick, definition); // Assuming a constructor exists that takes a definition
+            var joystick = new TestableJoystick(dxJoystick, definition);
             // Connect is required so that devices will be enumerated
             joystick.Connect(IntPtr.Zero);
 
@@ -187,7 +187,7 @@ namespace MobiFlight.Joysticks.Tests
                     new JoystickOutput { Id="2", Label = "LCD01", Type = "LcdDisplay", Cols = 16, Lines = 1 }
                 }
             };
-            var joystick = new TestableJoystick(dxJoystick, definition); // Assuming a constructor exists that takes a definition
+            var joystick = new TestableJoystick(dxJoystick, definition);
             // Connect is required so that devices will be enumerated
             joystick.Connect(IntPtr.Zero);
 

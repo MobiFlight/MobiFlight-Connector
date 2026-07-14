@@ -60,7 +60,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
     return (InputDeviceTypes.includes(device.Type as InputDeviceType))
   }
   
-  const devices: BaseDevice[] = [...(connectedController?.Devices.filter(inputDeviceFilter) ?? [])]
+  const devices: BaseDevice[] = [...(connectedController?.Devices?.filter(inputDeviceFilter) ?? [])]
 
   const configuredDevice: BaseDevice | undefined =
     configItem.Device != null
