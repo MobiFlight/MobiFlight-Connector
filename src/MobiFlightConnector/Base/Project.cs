@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base.Migration;
+using MobiFlight.Base.Serialization.Json.Resolver;
 using MobiFlight.Controllers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -553,8 +554,15 @@ namespace MobiFlight.Base
                 }
             }
 
+            // Use custom contract resolver to control serialization of Project properties correctly
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new PersistedProjectContractResolver(),
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var document = JObject.FromObject(new PersistedProject(this), JsonSerializer.Create(settings));
+
             // Add version when serializing
-            var document = JObject.FromObject(new PersistedProject(this));
             document["_version"] = SchemaVersion.ToString();
 
             // we don't want to serialize the FilePath

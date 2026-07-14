@@ -178,6 +178,51 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
+        public void SaveFileTest_Should_Use_PersistedProjectContractResolver()
+        {
+            var o = new Project();
+            
+            o.ConfigFiles.Add(new ConfigFile() { 
+                EmbedContent = true 
+            });
+
+            o.ConfigFiles[0].ConfigItems.Add(new OutputConfigItem()
+            {
+                Source = new VariableSource()
+                {
+                    MobiFlightVariable = new MobiFlightVariable() { Number = 123.456f, Text = "Don't persist me!" }
+                }
+            });
+
+            string outFile = @"assets\Base\ConfigFile\Json\SaveUse_PersistedProjectContractResolver_Test.mfproj";
+            o.FilePath = outFile;
+            o.SaveFile();
+
+            string fileContent = File.ReadAllText(outFile);
+            Assert.DoesNotContain("\"Number\": 123.456", fileContent);
+            Assert.DoesNotContain("\"Text\": \"Don't persist me!\"", fileContent);
+
+            // to make sure we don't rely only on correct text formatting (whitespaces might break)
+            // we also deserialize the project and expect default values for the variable
+
+            // Arrange & act
+            var o2 = new Project()
+            {
+                FilePath = outFile
+            };
+            o2.OpenFile();
+
+            var configItem = o2.ConfigFiles[0].ConfigItems[0] as OutputConfigItem;
+            var variableSource = configItem.Source as VariableSource;
+            var newVariable = new MobiFlightVariable();
+
+            // Assert
+            Assert.IsNotNull(variableSource);
+            Assert.AreEqual(newVariable.Number, variableSource.MobiFlightVariable.Number);
+            Assert.AreEqual(newVariable.Text, variableSource.MobiFlightVariable.Text);
+        }
+
+        [TestMethod()]
         public void EqualsTest()
         {
             var o = new Project();
