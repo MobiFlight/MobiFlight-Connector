@@ -250,6 +250,7 @@ export class MobiFlightPage {
       payload: testProjectWithProps,
     }
     await this.publishMessage(message)
+    await this.initWithConnectedControllers()
     await this.initWithRecentProjects()
   }
 

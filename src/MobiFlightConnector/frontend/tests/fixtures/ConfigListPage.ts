@@ -102,8 +102,8 @@ export class ConfigListPage {
     const configItems = testdataProject.ConfigFiles[configIndex].ConfigItems
     const templateInputConfig = {
       Active: true,
-      Controller: {},
-      Device: {},
+      Controller: null,
+      Device: undefined,
       GUID: "b2c3d4e5-f6a7-8901-bcde-f12345678902",
       Name: "Empty Input Config Item",
       Type: "InputConfigItem",

@@ -6,8 +6,9 @@ import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import { useControllerStore } from "@/stores/controllerStore"
 import { CommandScanForInput } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { BaseDevice, Controller } from "@/types/controller"
+import { BaseDevice, Controller, InputDeviceType } from "@/types/controller"
 import { ScanForInputResult } from "@/types/messages"
+import { InputDeviceTypes } from "@/types/typesOptions"
 import { IconLoader2, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -55,7 +56,11 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       (!selectedController.Serial &&
         selectedController.Name === configItem.Controller.Name))
 
-  const devices: BaseDevice[] = [...(connectedController?.Devices ?? [])]
+  const inputDeviceFilter = (device: BaseDevice) => {
+    return (InputDeviceTypes.includes(device.Type as InputDeviceType))
+  }
+  
+  const devices: BaseDevice[] = [...(connectedController?.Devices.filter(inputDeviceFilter) ?? [])]
 
   const configuredDevice: BaseDevice | undefined =
     configItem.Device != null
