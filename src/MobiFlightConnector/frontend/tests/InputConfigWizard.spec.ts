@@ -525,7 +525,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
         name: "Apply changes",
       })
 
-      applyChangesButton.click()
+      await applyChangesButton.click()
       await expect(triggerPanel).not.toBeVisible()
 
       const commandsAfterClick =
