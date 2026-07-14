@@ -175,6 +175,8 @@ const ConfigWizard = ({
           onTriggerChange={(trigger) => {
             const updatedConfigItem = {
               ...configItem,
+              encoder: undefined,
+              analog: undefined,
               button: trigger as ButtonTrigger,
             }
             onConfigChange(updatedConfigItem)
@@ -198,6 +200,8 @@ const ConfigWizard = ({
           onTriggerChange={(trigger) => {
             onConfigChange({
               ...configItem,
+              button: undefined,
+              analog: undefined,
               encoder: trigger as EncoderTrigger,
             })
           }}
@@ -220,6 +224,8 @@ const ConfigWizard = ({
           onTriggerChange={(trigger) => {
             onConfigChange({
               ...configItem,
+              button: undefined,
+              encoder: undefined,
               analog: trigger as AnalogTrigger,
             })
           }}
