@@ -55,6 +55,20 @@
         "Name": "Button 21",
         "Label": "Mode - ALT",
         "Type": "Button"
+      },
+      {
+        "Label": "AP Mode - HDG",
+        "Id": "AP.hdg",
+        "Byte": 1,
+        "Bit": 0,
+        "Type": "Output"
+      },
+      {
+        "Label": "AP Display - HDG",
+        "Id": "AP.display.hdg",
+        "Byte": 1,
+        "Bit": 1,
+        "Type": "LcdDisplay"
       }
     ]
   },
