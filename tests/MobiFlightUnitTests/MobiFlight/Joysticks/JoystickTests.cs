@@ -2,11 +2,90 @@
 using System;
 using System.Collections.Generic;
 
-namespace MobiFlight.Tests
+namespace MobiFlight.Joysticks.Tests
 {
     [TestClass()]
     public class JoystickTests
     {
+        class TestableJoystick : Joystick
+        {
+            public bool HasPovButtons { get; set; } = false;
+            public TestableJoystick(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
+            {
+            }
+
+            protected override void EnumerateDevices()
+            {
+                if (HasPovButtons)
+                {
+                    AddPovSwitchWithName("POV Switch");
+                }
+
+                if (Definition?.Inputs == null) return;
+
+                Definition.Inputs.ForEach(d =>
+                {
+                    if (d.Type == JoystickDeviceType.Axis)
+                    {
+                        var OffsetAxisName = GetAxisNameForUsage(d.Id);
+                        var axisName = $"{AxisPrefix} {OffsetAxisName}";
+
+                        Axes.Add(new JoystickDevice()
+                        {
+                            JoystickDeviceType = JoystickDeviceType.Axis,
+                            Name = axisName,
+                            Label = d.Label,
+                            Type = DeviceType.AnalogInput
+                        });
+                        return;
+                    }
+
+                    if (d.Type == JoystickDeviceType.Button)
+                    {
+                        var buttonName = $"{ButtonPrefix} {d.Id}";
+                        Buttons.Add(new JoystickDevice()
+                        {
+                            JoystickDeviceType = JoystickDeviceType.Button,
+                            Name = buttonName,
+                            Label = d.Label,
+                            Type = DeviceType.Button
+                        });
+                    }
+                });
+            }
+
+            protected override void EnumerateOutputDevices()
+            {
+                if (Definition?.Outputs == null) return;
+
+                Definition.Outputs?.ForEach(d =>
+                {
+                    if (d.Type == DeviceType.LcdDisplay.ToString())
+                    {
+
+                        Lights.Add(new JoystickOutputDisplay()
+                        {
+                            Name = d.Id,
+                            Label = d.Label,
+                            Type = DeviceType.LcdDisplay,
+                            Cols = d.Cols,
+                            Lines = d.Lines
+                        });
+                        return;
+                    }
+
+                    Lights.Add(new JoystickOutputDevice()
+                    {
+                        Name = d.Id,
+                        Label = d.Label,
+                        Type = DeviceType.Output,
+                        Byte = d.Byte,
+                        Bit = d.Bit
+                    });
+                });
+            }
+        }
+
         [TestMethod()]
         public void GetAxisNameForUsage_ShouldReturnNamesForValidIds()
         {
@@ -62,6 +141,64 @@ namespace MobiFlight.Tests
             Assert.AreEqual("RotationZ", Joystick.GetAxisNameForUsage(53));
             Assert.AreEqual("Slider1", Joystick.GetAxisNameForUsage(54));
             Assert.AreEqual("Slider2", Joystick.GetAxisNameForUsage(55));
+        }
+
+        [TestMethod()]
+        public void GetAvailableLcdDevices_ReturnsValidDevice()
+        {
+            // Arrange
+            SharpDX.DirectInput.Joystick dxJoystick = null;
+            var definition = new JoystickDefinition
+            {
+                InstanceName = "Test Joystick",
+                ProductId = 0x1234,
+                VendorId = 0x5678,
+                Outputs = new List<JoystickOutput>
+                {
+                    new JoystickOutput { Id="1", Label = "LED01", Type = "Output", Byte = 2, Bit = 0 },
+                    new JoystickOutput { Id="2", Label = "LCD01", Type = "LcdDisplay", Cols = 16, Lines = 1 }
+                }
+            };
+            var joystick = new TestableJoystick(dxJoystick, definition); // Assuming a constructor exists that takes a definition
+            // Connect is required so that devices will be enumerated
+            joystick.Connect(IntPtr.Zero);
+
+            // Act
+            var lcdDevices = joystick.GetAvailableLcdDevices();
+            // Assert
+            Assert.IsNotNull(lcdDevices, "GetAvailableLcdDevices should not return null.");
+            Assert.HasCount(1, lcdDevices, "There should be at least one available LCD device.");
+            Assert.IsInstanceOfType(lcdDevices[0], typeof(Firmware.LcdDisplay), "The available device should be of type JoystickOutputDisplay.");
+        }
+
+        [TestMethod()]
+        public void GetAvailableOutputDevices_ReturnsValidDevices()
+        {
+            // Arrange
+            SharpDX.DirectInput.Joystick dxJoystick = null;
+            var definition = new JoystickDefinition
+            {
+                InstanceName = "Test Joystick",
+                ProductId = 0x1234,
+                VendorId = 0x5678,
+                Outputs = new List<JoystickOutput>
+                {
+                    new JoystickOutput { Id="1", Label = "LED01", Type = "Output", Byte = 2, Bit = 0 },
+                    new JoystickOutput { Id="2", Label = "LCD01", Type = "LcdDisplay", Cols = 16, Lines = 1 }
+                }
+            };
+            var joystick = new TestableJoystick(dxJoystick, definition); // Assuming a constructor exists that takes a definition
+            // Connect is required so that devices will be enumerated
+            joystick.Connect(IntPtr.Zero);
+
+            // Act
+            var outputDevices = joystick.GetAvailableOutputDevices();
+            // Assert
+            Assert.IsNotNull(outputDevices, "GetAvailableOutputDevices should not return null.");
+            Assert.HasCount(2, outputDevices, "There should be at least one available output device.");
+
+            Assert.IsInstanceOfType(outputDevices[0], typeof(JoystickOutputDevice), "The available device should be of type JoystickOutputDevice.");
+            Assert.IsInstanceOfType(outputDevices[1], typeof(JoystickOutputDisplay), "The available device should be of type JoystickOutputDisplay.");
         }
     }
 }
