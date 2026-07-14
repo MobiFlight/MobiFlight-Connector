@@ -32,6 +32,7 @@ import {
   Transformation,
 } from "../src/types/modifier"
 import { Preset } from "../src/types/preset"
+import { IConfigItem } from "../src/types/config"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -442,6 +443,120 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
         .getByRole("combobox")
         .filter({ hasText: "Select device..." }),
     ).toBeDisabled()
+  })
+
+  test("Only save active trigger on closing config dialog", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    
+    const triggerOptions = [
+      { triggerType: "Encoder", actionType: "On Left" },
+      { triggerType: "AnalogInput", actionType: "On Change" },
+    ]
+    
+    for (const triggerOption of triggerOptions) {
+      await configListPage.clickEditButtonForRow(1)
+      await configListPage.mobiFlightPage.clearTrackedCommands()
+      const triggerPanel = page.getByTestId("trigger-panel")
+      const dialog = page.getByRole("dialog")
+      await expect(triggerPanel).toBeVisible()
+
+      const scanForInputButton = triggerPanel.getByRole("button", {
+        name: "Scan for Input",
+      })
+      await expect(scanForInputButton).toBeVisible()
+      await scanForInputButton.click()
+
+      const useAnyInputText = triggerPanel.getByText("Use any input")
+      await expect(useAnyInputText).toBeVisible()
+      await useAnyInputText.click()
+
+      await configListPage.mobiFlightPage.publishMessage({
+        key: "ScanForInputResult",
+        payload: {
+          Controller: {
+            Devices: [],
+            Name: "Bravo Throttle Quadrant",
+            Serial: "JS-87654321",
+          },
+          Device: {
+            Name: triggerOption.triggerType,
+            Label: triggerOption.triggerType,
+            Type: triggerOption.triggerType,
+          },
+        } as ScanForInputResult,
+      })
+
+      const addActionButton = dialog.getByRole("button", {
+        name: triggerOption.actionType,
+        exact: true,
+      })
+
+      await expect(addActionButton).toBeVisible()
+      await addActionButton.scrollIntoViewIfNeeded()
+      await addActionButton.click()
+      const actionEditor = page.getByTestId("action-editor")
+      await expect(actionEditor).toBeVisible()
+
+      const actionTypeComboBox = actionEditor.getByRole("combobox").filter({
+        hasText: "Select...",
+      })
+
+      await expect(actionTypeComboBox).toBeVisible()
+      await actionTypeComboBox.click()
+      const optionsPopup = page.getByRole("listbox")
+      await expect(optionsPopup).toBeVisible()
+      const options = optionsPopup.getByRole("option")
+      await expect(options.first()).toBeVisible()
+      await options.first().click()
+
+      const goBackButton = page.getByRole("button", {
+        name: "Go back",
+      })
+      await expect(goBackButton).toBeVisible()
+      await goBackButton.click()
+      await expect(actionEditor).not.toBeVisible()
+
+      const applyChangesButton = page.getByRole("button", {
+        name: "Apply changes",
+      })
+
+      await applyChangesButton.click()
+      await expect(triggerPanel).not.toBeVisible()
+
+      const commandsAfterClick =
+        await configListPage.mobiFlightPage.getTrackedCommands()
+      expect(commandsAfterClick?.length).toBe(1)
+      expect(commandsAfterClick![0].key).toBe("CommandUpdateConfigItem")
+
+      if (triggerOption.triggerType === "Encoder") {
+        expect(
+          (commandsAfterClick![0].payload.item as IConfigItem).button,
+        ).toBeUndefined()
+        expect(
+          (commandsAfterClick![0].payload.item as IConfigItem).encoder,
+        ).toBeDefined()
+        expect(
+          (commandsAfterClick![0].payload.item as IConfigItem).analog,
+        ).toBeUndefined()
+      }
+
+      if (triggerOption.triggerType === "AnalogInput") {
+        expect(
+          (commandsAfterClick![0].payload.item as IConfigItem).button,
+        ).toBeUndefined()
+        expect(
+          (commandsAfterClick![0].payload.item as IConfigItem).encoder,
+        ).toBeUndefined()
+        expect(
+          (commandsAfterClick![0].payload.item as IConfigItem).analog,
+        ).toBeDefined()
+      }
+    }
   })
 
   test("Updating controller doesn't send Devices back to backend", async ({
