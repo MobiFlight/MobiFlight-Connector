@@ -502,12 +502,12 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
 
     const triggerPanel = page.getByTestId("trigger-panel")
     const controllerComboBox = triggerPanel
-    .getByRole("combobox")
-    .filter({ hasText: "Select controller..." })
+      .getByRole("combobox")
+      .filter({ hasText: "Select controller..." })
     const deviceComboBox = triggerPanel
-    .getByRole("combobox")
-    .filter({ hasText: "Select device..." })
-    
+      .getByRole("combobox")
+      .filter({ hasText: "Select device..." })
+
     await expect(triggerPanel).toBeVisible()
     await expect(controllerComboBox).toBeVisible()
     await expect(deviceComboBox).toBeVisible()
@@ -518,7 +518,9 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await expect(optionsPopup).toBeVisible()
 
     // click on the Bravo Throttle Quadrant option
-    await optionsPopup.getByRole("option", { name: "Bravo Throttle Quadrant" }).click()
+    await optionsPopup
+      .getByRole("option", { name: "Bravo Throttle Quadrant" })
+      .click()
     // options overlay should close after selection
     await expect(optionsPopup).not.toBeVisible()
 
@@ -527,10 +529,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await expect(optionsPopup).toBeVisible()
 
     // verify that we don't see any output devices in the list of options
-    const outputDeviceNames = [
-      "AP Mode - HDG",
-      "AP Display - HDG"
-    ]
+    const outputDeviceNames = ["AP Mode - HDG", "AP Display - HDG"]
 
     for (const outputDeviceName of outputDeviceNames) {
       await expect(
@@ -539,10 +538,7 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     }
 
     // verify that we do see input devices in the list of options
-    const inputDeviceNames = [
-      "Button 1",
-      "Mode - ALT",
-    ]
+    const inputDeviceNames = ["Button 1", "Mode - ALT"]
 
     for (const inputDeviceName of inputDeviceNames) {
       await expect(

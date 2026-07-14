@@ -27,8 +27,8 @@ namespace MobiFlight.Joysticks.Tests
                 {
                     if (d.Type == JoystickDeviceType.Axis)
                     {
-                        var OffsetAxisName = GetAxisNameForUsage(d.Id);
-                        var axisName = $"{AxisPrefix} {OffsetAxisName}";
+                        var offsetAxisName = GetAxisNameForUsage(d.Id);
+                        var axisName = $"{AxisPrefix} {offsetAxisName}";
 
                         Axes.Add(new JoystickDevice()
                         {
@@ -164,11 +164,11 @@ namespace MobiFlight.Joysticks.Tests
             joystick.Connect(IntPtr.Zero);
 
             // Act
-            var lcdDevices = joystick.GetAvailableLcdDevices();
+            var devices = joystick.GetAvailableLcdDevices();
             // Assert
-            Assert.IsNotNull(lcdDevices, "GetAvailableLcdDevices should not return null.");
-            Assert.HasCount(1, lcdDevices, "There should be at least one available LCD device.");
-            Assert.IsInstanceOfType(lcdDevices[0], typeof(Firmware.LcdDisplay), "The available device should be of type JoystickOutputDisplay.");
+            Assert.IsNotNull(devices, "GetAvailableLcdDevices should not return null.");
+            Assert.HasCount(1, devices, "There should be at least one available LCD device.");
+            Assert.IsInstanceOfType(devices[0], typeof(Firmware.LcdDisplay), "The available device should be of type LcdDisplay.");
         }
 
         [TestMethod()]
@@ -192,13 +192,13 @@ namespace MobiFlight.Joysticks.Tests
             joystick.Connect(IntPtr.Zero);
 
             // Act
-            var outputDevices = joystick.GetAvailableOutputDevices();
+            var devices = joystick.GetAvailableOutputDevices();
             // Assert
-            Assert.IsNotNull(outputDevices, "GetAvailableOutputDevices should not return null.");
-            Assert.HasCount(2, outputDevices, "There should be at least one available output device.");
+            Assert.IsNotNull(devices, "GetAvailableOutputDevices should not return null.");
+            Assert.HasCount(2, devices, "There should be at least one available output device.");
 
-            Assert.IsInstanceOfType(outputDevices[0], typeof(JoystickOutputDevice), "The available device should be of type JoystickOutputDevice.");
-            Assert.IsInstanceOfType(outputDevices[1], typeof(JoystickOutputDisplay), "The available device should be of type JoystickOutputDisplay.");
+            Assert.IsInstanceOfType(devices[0], typeof(JoystickOutputDevice), "The available device should be of type JoystickOutputDevice.");
+            Assert.IsInstanceOfType(devices[1], typeof(JoystickOutputDisplay), "The available device should be of type JoystickOutputDisplay.");
         }
     }
 }
