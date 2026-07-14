@@ -181,9 +181,10 @@ namespace MobiFlight.Base.Tests
         public void SaveFileTest_Should_Use_PersistedProjectContractResolver()
         {
             var o = new Project();
-            
-            o.ConfigFiles.Add(new ConfigFile() { 
-                EmbedContent = true 
+
+            o.ConfigFiles.Add(new ConfigFile()
+            {
+                EmbedContent = true
             });
 
             o.ConfigFiles[0].ConfigItems.Add(new OutputConfigItem()
@@ -193,7 +194,10 @@ namespace MobiFlight.Base.Tests
                     MobiFlightVariable = new MobiFlightVariable() { Number = 123.456f, Text = "Don't persist me!" }
                 },
                 RawValue = "Don't persist me!",
-                Value = "Don't persist me!"
+                Value = "Don't persist me!",
+                Status = new System.Collections.Generic.Dictionary<ConfigItemStatusType, string> { {
+                       ConfigItemStatusType.Source, "Don't persist me!"
+                    } }
             });
 
             string outFile = @"assets\Base\ConfigFile\Json\SaveUse_PersistedProjectContractResolver_Test.mfproj";
@@ -205,6 +209,8 @@ namespace MobiFlight.Base.Tests
             Assert.DoesNotContain("\"Text\": \"Don't persist me!\"", fileContent);
             Assert.DoesNotContain("\"RawValue\": \"Don't persist me!\"", fileContent);
             Assert.DoesNotContain("\"Value\": \"Don't persist me!\"", fileContent);
+            Assert.DoesNotContain("\"Status\": {", fileContent);
+            Assert.DoesNotContain("\"Source\": \"Don't persist me!\"", fileContent);
 
             // to make sure we don't rely only on correct text formatting (whitespaces might break)
             // we also deserialize the project and expect default values for the variable
@@ -227,6 +233,7 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(newVariable.Text, variableSource.MobiFlightVariable.Text);
             Assert.AreEqual(newConfigItem.RawValue, configItem.RawValue);
             Assert.AreEqual(newConfigItem.Value, configItem.Value);
+            Assert.IsTrue(newConfigItem.Status.SequenceEqual(configItem.Status));
         }
 
         [TestMethod()]
