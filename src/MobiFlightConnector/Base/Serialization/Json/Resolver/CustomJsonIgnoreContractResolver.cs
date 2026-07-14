@@ -6,7 +6,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class PersistedProjectContractResolver : DefaultContractResolver
+    public class CustomJsonIgnoreContractResolver : DefaultContractResolver
     {
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {

@@ -327,7 +327,7 @@
     <Compile Include="Base\Serialization\Json\ConfigValueOnlyItemConverter.cs" />
     <Compile Include="Base\Serialization\Json\KeyInputActionConverter.cs" />
     <Compile Include="Base\Serialization\Json\PreconditionConverter.cs" />
-    <Compile Include="Base\Serialization\Json\Resolver\PersistedProjectContractResolver.cs" />
+    <Compile Include="Base\Serialization\Json\Resolver\CustomJsonIgnoreContractResolver.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />

@@ -557,7 +557,7 @@ namespace MobiFlight.Base
             // Use custom contract resolver to control serialization of Project properties correctly
             var settings = new JsonSerializerSettings
             {
-                ContractResolver = new PersistedProjectContractResolver(),
+                ContractResolver = new CustomJsonIgnoreContractResolver(),
                 NullValueHandling = NullValueHandling.Ignore
             };
             var document = JObject.FromObject(new PersistedProject(this), JsonSerializer.Create(settings));

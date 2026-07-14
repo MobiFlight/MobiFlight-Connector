@@ -178,7 +178,7 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
-        public void SaveFileTest_Should_Use_PersistedProjectContractResolver()
+        public void SaveFileTest_Should_Use_CustomJsonIgnoreContractResolver()
         {
             var o = new Project();
 
@@ -200,7 +200,7 @@ namespace MobiFlight.Base.Tests
                     } }
             });
 
-            string outFile = @"assets\Base\ConfigFile\Json\SaveUse_PersistedProjectContractResolver_Test.mfproj";
+            string outFile = @"assets\Base\ConfigFile\Json\SaveUse_CustomJsonIgnoreContractResolver_Test.mfproj";
             o.FilePath = outFile;
             o.SaveFile();
 
