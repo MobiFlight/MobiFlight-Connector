@@ -191,7 +191,9 @@ namespace MobiFlight.Base.Tests
                 Source = new VariableSource()
                 {
                     MobiFlightVariable = new MobiFlightVariable() { Number = 123.456f, Text = "Don't persist me!" }
-                }
+                },
+                RawValue = "Don't persist me!",
+                Value = "Don't persist me!"
             });
 
             string outFile = @"assets\Base\ConfigFile\Json\SaveUse_PersistedProjectContractResolver_Test.mfproj";
@@ -201,6 +203,8 @@ namespace MobiFlight.Base.Tests
             string fileContent = File.ReadAllText(outFile);
             Assert.DoesNotContain("\"Number\": 123.456", fileContent);
             Assert.DoesNotContain("\"Text\": \"Don't persist me!\"", fileContent);
+            Assert.DoesNotContain("\"RawValue\": \"Don't persist me!\"", fileContent);
+            Assert.DoesNotContain("\"Value\": \"Don't persist me!\"", fileContent);
 
             // to make sure we don't rely only on correct text formatting (whitespaces might break)
             // we also deserialize the project and expect default values for the variable
@@ -215,11 +219,14 @@ namespace MobiFlight.Base.Tests
             var configItem = o2.ConfigFiles[0].ConfigItems[0] as OutputConfigItem;
             var variableSource = configItem.Source as VariableSource;
             var newVariable = new MobiFlightVariable();
+            var newConfigItem = new OutputConfigItem();
 
             // Assert
             Assert.IsNotNull(variableSource);
             Assert.AreEqual(newVariable.Number, variableSource.MobiFlightVariable.Number);
             Assert.AreEqual(newVariable.Text, variableSource.MobiFlightVariable.Text);
+            Assert.AreEqual(newConfigItem.RawValue, configItem.RawValue);
+            Assert.AreEqual(newConfigItem.Value, configItem.Value);
         }
 
         [TestMethod()]
