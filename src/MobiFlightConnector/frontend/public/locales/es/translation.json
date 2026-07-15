@@ -406,6 +406,7 @@
     },
     "Modifiers": {
       "Title": "Modificadores",
+      "Label": "Modificadores",
       "Description": "Cambia el valor original aplicando una secuencia de modificadores.",
       "EditButton": "Editar modificadores",
       "AddButton": "Agregar modificador",
@@ -627,19 +628,21 @@
       },
       "Preconditions": {
         "Title": "Precondiciones (opcional)",
-        "Description": "Las precondiciones definen las condiciones que deben cumplirse antes de que se pueda ejecutar la acción.",
+        "Label": "Precondiciones",
+        "Description": "Agrega y modifica las condiciones que deben cumplirse para que se ejecute tu disparador.",
         "EditButton": "Precondiciones",
         "AddButton": "Precondiciones"
       },
       "ConfigReferences": {
-        "Title": "Referencias de configuración (opcional)",
-        "Description": "Las referencias de configuración definen las configuraciones de salida cuyos valores pueden usarse en la acción.",
+        "Title": "Referencias (opcional)",
+        "Label": "Referencias",
+        "Description": "Agrega referencias a otras configuraciones y usa sus valores aquí en esta configuración.",
         "EditButton": "Referencias de configuración",
         "AddButton": "Referencias de configuración"
       },
       "PreconditionEditor": {
-        "Title": "Precondiciones",
-        "Description": "Las precondiciones definen las condiciones que deben cumplirse antes de que se pueda ejecutar la acción.",
+        "Title": "Editar precondiciones",
+        "Description": "Agrega y modifica las condiciones que deben cumplirse para que se ejecute la acción.",
         "NoPreconditions": "No hay precondiciones definidas.",
         "AddPrecondition": "Agregar precondición",
         "Active": "Activo",
@@ -652,8 +655,8 @@
         "SelectPin": "Seleccionar pin..."
       },
       "ConfigReferenceEditor": {
-        "Title": "Referencias de configuración",
-        "Description": "Las referencias de configuración definen las configuraciones de salida cuyos valores pueden usarse en la acción.",
+        "Title": "Referencias",
+        "Description": "Agrega y modifica referencias y define un marcador de posición para usar los valores en tu configuración.",
         "NoConfigReferences": "No hay referencias de configuración definidas.",
         "AddConfigReference": "Agregar referencia de configuración",
         "Active": "Activo",

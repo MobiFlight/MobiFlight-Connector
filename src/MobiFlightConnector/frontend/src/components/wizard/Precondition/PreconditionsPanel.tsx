@@ -34,7 +34,7 @@ const PreconditionsPanel = ({
   const hasPreconditions = preconditions.length > 0
 
   return variant === "summary" ? (
-    <Card data-testid="preconditions-panel" className="w-full h-full">
+    <Card data-testid="preconditions-panel" className="h-full w-full">
       <CardContent className="flex flex-col gap-1 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
           <div className="flex flex-col gap-2">
@@ -47,16 +47,29 @@ const PreconditionsPanel = ({
               </div>
             )}
           </div>
-          <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
-            {hasPreconditions ? (
+          {hasPreconditions ? (
+            <Button
+              variant="outline"
+              size={"sm"}
+              onClick={openDetailsPanel}
+              aria-label={t(
+                "Dialog.InputConfigWizard.Preconditions.EditButton",
+              )}
+            >
               <IconEdit className="" />
-            ) : (
+              {t("Dialog.InputConfigWizard.Preconditions.Label")}
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              size={"sm"}
+              onClick={openDetailsPanel}
+              aria-label={t("Dialog.InputConfigWizard.Preconditions.AddButton")}
+            >
               <IconPlus className="" />
-            )}
-            {hasPreconditions
-              ? t("Dialog.InputConfigWizard.Preconditions.EditButton")
-              : t("Dialog.InputConfigWizard.Preconditions.AddButton")}
-          </Button>
+              {t("Dialog.InputConfigWizard.Preconditions.Label")}
+            </Button>
+          )}
         </div>
         {hasPreconditions && (
           <PreconditionSummary

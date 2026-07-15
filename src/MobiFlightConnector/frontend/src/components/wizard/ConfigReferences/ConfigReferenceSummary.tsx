@@ -23,7 +23,7 @@ const ConfigReferenceSummary = ({
       .map((item) => ({ ref: item.GUID, name: item.Name })) || []
 
   return (
-    <div className="text-muted-foreground flex flex-row gap-2 py-2">
+    <div className="text-muted-foreground flex flex-row gap-2 pt-4">
       {configReferences
         .slice(0, maxDisplayCount)
         .map((configReference, index) => {

@@ -44,16 +44,17 @@ const ConfigReferencePanel = ({
               </div>
             )}
           </div>
-          <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
-            {hasConfigReferences ? (
+          {hasConfigReferences ? (
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.InputConfigWizard.ConfigReferences.EditButton")}>
               <IconEdit className="" />
-            ) : (
+              {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+            </Button>
+          ) : (
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}>
               <IconPlus className="" />
-            )}
-            {hasConfigReferences
-              ? t("Dialog.InputConfigWizard.ConfigReferences.EditButton")
-              : t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
-          </Button>
+              {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+            </Button>
+          )}
         </div>
         {hasConfigReferences && (
           <ConfigReferenceSummary

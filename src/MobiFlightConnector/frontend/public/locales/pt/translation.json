@@ -400,6 +400,7 @@
     },
     "Modifiers": {
       "Title": "Modificadores",
+      "Label": "Modificadores",
       "Description": "Altere o valor original aplicando uma sequência de modificadores.",
       "EditButton": "Editar modificadores",
       "AddButton": "Adicionar modificador",
@@ -621,19 +622,21 @@
       },
       "Preconditions": {
         "Title": "Precondições (opcional)",
-        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
-        "EditButton": "Precondições",
-        "AddButton": "Precondições"
+        "Label": "Precondições",
+        "Description": "Adicione e modifique condições que devem ser atendidas para que seu gatilho seja executado.",
+        "EditButton": "Editar precondições",
+        "AddButton": "Adicionar precondições"
       },
       "ConfigReferences": {
-        "Title": "Referências de Configuração (opcional)",
-        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
-        "EditButton": "Referências de Configuração",
-        "AddButton": "Referências de Configuração"
+        "Title": "Referências (opcional)",
+        "Label": "Referências",
+        "Description": "Adicione referências a outras configurações e use seus valores aqui nesta configuração.",
+        "EditButton": "Editar referências",
+        "AddButton": "Adicionar referências"
       },
       "PreconditionEditor": {
-        "Title": "Precondições",
-        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
+        "Title": "Editar precondições",
+        "Description": "Adicione e modifique condições que devem ser atendidas para que a ação possa ser executada.",
         "NoPreconditions": "Nenhuma precondição definida.",
         "AddPrecondition": "Adicionar Precondição",
         "Active": "Ativo",
@@ -646,8 +649,8 @@
         "SelectPin": "Selecionar pino..."
       },
       "ConfigReferenceEditor": {
-        "Title": "Referências de Configuração",
-        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
+        "Title": "Editar referências",
+        "Description": "Adicione e modifique referências e defina um espaço reservado para usar os valores na sua configuração.",
         "NoConfigReferences": "Nenhuma referência de configuração definida.",
         "AddConfigReference": "Adicionar Referência de Configuração",
         "Active": "Ativo",

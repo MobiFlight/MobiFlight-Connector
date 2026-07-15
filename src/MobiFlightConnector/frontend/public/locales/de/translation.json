@@ -406,6 +406,7 @@
     },
     "Modifiers": {
       "Title": "Modifikatoren",
+      "Label": "Modifikatoren",
       "Description": "Ändere den ursprünglichen Wert, indem du eine Reihe von Modifikatoren anwendest.",
       "EditButton": "Modifikatoren bearbeiten",
       "AddButton": "Modifikator hinzufügen",
@@ -627,18 +628,20 @@
       },
       "Preconditions": {
         "Title": "Vorbedingungen (optional)",
-        "Description": "Die Vorbedingungen definieren Bedingungen, die erfüllt sein müssen, bevor die Aktion ausgeführt werden kann.",
+        "Label": "Vorbedingungen",
+        "Description": "Erstelle und bearbeite Bedingungen, die erfüllt sein müssen, damit dein Auslöser ausgeführt wird.",
         "EditButton": "Vorbedingungen",
         "AddButton": "Vorbedingungen"
       },
       "ConfigReferences": {
-        "Title": "Konfig-Referenzen (optional)",
-        "Description": "Die Konfig-Referenzen definieren die Ausgabekonfigurationen, deren Werte in der Aktion verwendet werden können.",
-        "EditButton": "Konfig-Referenzen",
-        "AddButton": "Konfig-Referenzen"
+        "Title": "Referenzen (optional)",
+        "Label": "Referenzen",
+        "Description": "Erstelle Referenzen zu anderen Konfigurationen und verwende deren Werte hier in dieser Konfiguration.",
+        "EditButton": "Referenzen bearbeiten",
+        "AddButton": "Referenzen hinzufügen"
       },
       "PreconditionEditor": {
-        "Title": "Vorbedingungen",
+        "Title": "Vorbedingungen bearbeiten",
         "Description": "Die Vorbedingungen definieren Bedingungen, die erfüllt sein müssen, bevor die Aktion ausgeführt werden kann.",
         "NoPreconditions": "Keine Vorbedingungen definiert.",
         "AddPrecondition": "Vorbedingung hinzufügen",
@@ -652,8 +655,8 @@
         "SelectPin": "Pin auswählen..."
       },
       "ConfigReferenceEditor": {
-        "Title": "Konfig-Referenzen",
-        "Description": "Die Konfig-Referenzen definieren die Ausgabekonfigurationen, deren Werte in der Aktion verwendet werden können.",
+        "Title": "Referenzen bearbeiten",
+        "Description": "Erstelle und bearbeite Referenzen und definiere einen Platzhalter, um die Werte in deiner Konfiguration zu verwenden.",
         "NoConfigReferences": "Keine Konfig-Referenzen definiert.",
         "AddConfigReference": "Konfig-Referenz hinzufügen",
         "Active": "Aktiv",

@@ -400,6 +400,7 @@
     },
     "Modifiers": {
       "Title": "Muuntimet",
+      "Label": "Muuntimet",
       "Description": "Muuta alkuperäistä arvoa soveltamalla sarjaa muuntimia.",
       "EditButton": "Muokkaa muuntimia",
       "AddButton": "Lisää muunnin",
@@ -621,15 +622,17 @@
       },
       "Preconditions": {
         "Title": "Esiehdot (valinnainen)",
-        "Description": "Esiehdot määrittävät ehdot, jotka on täytettävä ennen kuin toiminto voidaan suorittaa.",
-        "EditButton": "Esiehdot",
-        "AddButton": "Esiehdot"
+        "Label": "Esiehdot",
+        "Description": "Lisää ja muokkaa ehtoja, jotka on täytettävä, jotta laukaisimesi suoritetaan.",
+        "EditButton": "Muokkaa esiehtoja",
+        "AddButton": "Lisää esiehtoja"
       },
       "ConfigReferences": {
-        "Title": "Konfiguraatioviittaukset (valinnainen)",
-        "Description": "Konfiguraatioviittaukset määrittävät lähtökonfiguraatiot, joiden arvoja voidaan käyttää toiminnossa.",
-        "EditButton": "Konfiguraatioviittaukset",
-        "AddButton": "Konfiguraatioviittaukset"
+        "Title": "Viittaukset (valinnainen)",
+        "Label": "Viittaukset", 
+        "Description": "Lisää viittauksia muihin konfiguraatioihin ja käytä niiden arvoja tässä konfiguraatiossa.",
+        "EditButton": "Muokkaa viittauksia",
+        "AddButton": "Lisää viittauksia"
       },
       "PreconditionEditor": {
         "Title": "Esiehdot",
@@ -646,8 +649,8 @@
         "SelectPin": "Valitse pinni..."
       },
       "ConfigReferenceEditor": {
-        "Title": "Konfiguraatioviittaukset",
-        "Description": "Konfiguraatioviittaukset määrittävät lähtökonfiguraatiot, joiden arvoja voidaan käyttää toiminnossa.",
+        "Title": "Muokkaa viittauksia",
+        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi arvoja konfiguraatiossasi.",
         "NoConfigReferences": "Ei konfiguraatioviittauksia määritetty.",
         "AddConfigReference": "Lisää konfiguraatioviittaus",
         "Active": "Aktiivinen",

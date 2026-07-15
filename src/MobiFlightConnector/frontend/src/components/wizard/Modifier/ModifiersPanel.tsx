@@ -42,14 +42,14 @@ const ModifiersPanel = ({
             </div>
           </div>
           {modifiers.length === 0 ? (
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.Modifiers.AddButton")}>
               <IconPlus className="" />
-              {t("Dialog.Modifiers.AddButton")}
+                {t("Dialog.Modifiers.Label")}
             </Button>
           ) : (
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.Modifiers.EditButton")}>
               <IconEdit className="" />
-              {t("Dialog.Modifiers.EditButton")}
+              {t("Dialog.Modifiers.Label")}
             </Button>
           )}
         </div>
