@@ -112,6 +112,7 @@ const ProjectForm = ({
       <DialogContent
         className="max-h-[90vh] overflow-x-hidden overflow-y-auto sm:max-w-[600px]"
         onKeyDown={handleFormKeyDown}
+        onInteractOutside={(e) => e.preventDefault()}
         ref={containerRef}
       >
         <DialogHeader>
