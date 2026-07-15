@@ -106,7 +106,7 @@ const PreconditionItemRow = ({
   return (
     <div
       data-testid="precondition-item-row"
-      className={`flex flex-row items-center gap-2 rounded-lg border p-4 py-1 pl-1 ${variantStyle}`}
+      className={`group flex flex-row items-center gap-2 rounded-lg border p-4 py-1 pl-1 ${variantStyle}`}
     >
       <MoveUpDownButtons
         onMoveUp={onMoveUp ?? (() => {})}

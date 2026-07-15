@@ -311,8 +311,8 @@
         "NotExecuting": "Esta configuração não está sendo testada."
       },
       "ConfigRef": {
-        "Missing": "Uma ou mais configurações referenciadas estão ausentes.",
-        "OK": "Todas as configurações referenciadas estão disponíveis."
+        "Missing": "Uma ou mais referências estão ausentes.",
+        "OK": "Todas as referências estão disponíveis."
       }
     },
     "Notification": {
@@ -658,13 +658,13 @@
       "ConfigReferenceEditor": {
         "Title": "Editar referências",
         "Description": "Adicione e modifique referências e defina um espaço reservado para usar os valores na sua configuração.",
-        "NoConfigReferences": "Nenhuma referência de configuração definida.",
-        "AddConfigReference": "Adicionar Referência de Configuração",
+        "NoConfigReferences": "Nenhuma referência definida.",
+        "AddConfigReference": "Adicionar referência",
         "Active": "Ativo",
         "SelectConfig": "Selecionar configuração...",
         "PlaceholderLabel": "Espaço reservado",
         "TestValueLabel": "Valor de teste",
-        "DeleteConfigReference": "Excluir referência de configuração"
+        "DeleteConfigReference": "Excluir referência"
       },
       "InputActions": {
         "Common": {

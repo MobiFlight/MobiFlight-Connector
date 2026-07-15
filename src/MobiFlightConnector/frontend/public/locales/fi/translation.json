@@ -629,7 +629,7 @@
       },
       "ConfigReferences": {
         "Title": "Viittaukset (valinnainen)",
-        "Label": "Viittaukset", 
+        "Label": "Viittaukset",
         "Description": "Lisää viittauksia muihin konfiguraatioihin ja käytä niiden arvoja tässä konfiguraatiossa.",
         "EditButton": "Muokkaa viittauksia",
         "AddButton": "Lisää viittauksia"
@@ -647,7 +647,7 @@
         "DeletePrecondition": "Poista esiehto",
         "SelectPort": "Valitse portti...",
         "SelectPin": "Valitse pinni...",
-        "Types" : {
+        "Types": {
           "config": "Konfiguraatio",
           "variable": "Muuttuja",
           "pin": "Arcaze-pinni"
@@ -658,13 +658,13 @@
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",
         "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi arvoja konfiguraatiossasi.",
-        "NoConfigReferences": "Ei konfiguraatioviittauksia määritetty.",
-        "AddConfigReference": "Lisää konfiguraatioviittaus",
+        "NoConfigReferences": "Ei viittauksia määritetty.",
+        "AddConfigReference": "Lisää viittaus",
         "Active": "Aktiivinen",
         "SelectConfig": "Valitse konfiguraatio...",
         "PlaceholderLabel": "Paikkamerkki",
         "TestValueLabel": "Testiarvo",
-        "DeleteConfigReference": "Poista konfiguraatioviittaus"
+        "DeleteConfigReference": "Poista viittaus"
       },
       "InputActions": {
         "Common": {

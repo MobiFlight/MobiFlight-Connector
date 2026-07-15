@@ -312,7 +312,7 @@
       },
       "ConfigRef": {
         "Missing": "One or more referenced configs are missing.",
-        "OK": "All referenced configs are available."
+        "OK": "All references are available."
       }
     },
     "Notification": {
@@ -625,20 +625,20 @@
         "Label": "Preconditions",
         "Description": "Add and modify conditions that must be met so that your trigger will be executed.",
         "EditButton": "Edit preconditions",
-        "AddButton": "Add preconditions"
+        "AddButton": "Add precondition"
       },
       "ConfigReferences": {
         "Title": "References (optional)",
         "Label": "References", 
         "Description": "Add references to other configs and use their values here in this config.",
         "EditButton": "Edit references",
-        "AddButton": "Add references"
+        "AddButton": "Add reference"
       },
       "PreconditionEditor": {
         "Title": "Edit preconditions",
         "Description": "Add and modify conditions that must be met so that action can be executed.",
         "NoPreconditions": "No preconditions defined.",
-        "AddPrecondition": "Add Precondition",
+        "AddPrecondition": "Add precondition",
         "Active": "Active",
         "TypePlaceholder": "Type",
         "SelectConfig": "Select config...",
@@ -658,13 +658,13 @@
       "ConfigReferenceEditor": {
         "Title": "Edit references",
         "Description": "Add and modify references and define a placeholder to use the values in your config.",
-        "NoConfigReferences": "No config references defined.",
-        "AddConfigReference": "Add Config Reference",
+        "NoConfigReferences": "No references defined.",
+        "AddConfigReference": "Add reference",
         "Active": "Active",
         "SelectConfig": "Select config...",
         "PlaceholderLabel": "Placeholder",
         "TestValueLabel": "Test Value",
-        "DeleteConfigReference": "Delete config reference"
+        "DeleteConfigReference": "Remove reference"
       },
       "InputActions": {
         "Common": {
