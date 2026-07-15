@@ -17,6 +17,7 @@ import {
   LuaMacroInputAction,
   MsfsInputAction,
   PmdgEventIdInputAction,
+  PreconditionType,
   ProSimInputAction,
   VJoyInputAction,
   XplaneInputAction,
@@ -33,6 +34,7 @@ import {
 } from "../src/types/modifier"
 import { Preset } from "../src/types/preset"
 import { IConfigItem } from "../src/types/config"
+import {PreconditionTypes} from "../src/types/typesOptions"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -753,6 +755,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     let index = 0
     for (const expected of expectedValues) {
       const precondition = preconditionItems.nth(index)
+      await expect(precondition.getByText(expected.type, { exact: true })).toBeVisible()
       await expect(comboBoxLocator(precondition, expected.name)).toBeVisible()
       await expect(
         comboBoxLocator(precondition, expected.operand),
@@ -793,25 +796,47 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const preconditionEditor = page.getByTestId("precondition-editor")
     await expect(preconditionEditor).toBeVisible()
 
-    const addPreconditionButton = preconditionEditor.getByRole("button", {
-      name: "Add Precondition",
-    })
-    await expect(addPreconditionButton).toBeVisible()
-    await addPreconditionButton.click()
+    const labels = {
+      variable: "Variable",
+      config: "Config",
+      pin: "Arcaze-Pin"
+    } as Record<PreconditionType, string>
 
-    let preconditionItems = preconditionEditor.getByTestId(
-      "precondition-item-row",
-    )
-    await expect(preconditionItems).toHaveCount(3)
+    for (const preconditionType of PreconditionTypes) {
+      const label = labels[preconditionType as PreconditionType]
 
-    const firstPreconditionDeleteButton = preconditionItems
-      .nth(0)
-      .getByRole("button", { name: "Remove precondition" })
-    await expect(firstPreconditionDeleteButton).toBeVisible()
-    await firstPreconditionDeleteButton.click()
+      const addPreconditionButton = preconditionEditor.getByRole("button", {
+        name: "Add Precondition",
+      })
+      await expect(addPreconditionButton).toBeVisible()
 
-    preconditionItems = preconditionEditor.getByTestId("precondition-item-row")
-    await expect(preconditionItems).toHaveCount(2)
+      // this will open the popup menu with the precondition types
+      await addPreconditionButton.click()
+
+      const preconditionTypeOptionMenu = page.getByRole("menu")
+      await expect(preconditionTypeOptionMenu).toBeVisible()
+
+      const preconditionTypeOptions = preconditionTypeOptionMenu.getByRole(
+        "menuitem",
+      )
+      await expect(preconditionTypeOptions).toHaveCount(3)
+      await preconditionTypeOptions.filter({ hasText: label }).click()
+
+      let preconditionItems = preconditionEditor.getByTestId(
+        "precondition-item-row",
+      )
+      await expect(preconditionItems).toHaveCount(3)
+      await expect(preconditionItems.last().getByText(label, { exact: true })).toBeVisible()
+
+      const firstPreconditionDeleteButton = preconditionItems
+        .nth(0)
+        .getByRole("button", { name: "Remove precondition" })
+      await expect(firstPreconditionDeleteButton).toBeVisible()
+      await firstPreconditionDeleteButton.click()
+
+      preconditionItems = preconditionEditor.getByTestId("precondition-item-row")
+      await expect(preconditionItems).toHaveCount(2)
+    }
   })
 })
 
