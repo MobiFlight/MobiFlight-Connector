@@ -17,7 +17,7 @@ import {
   Precondition,
   PreconditionType,
 } from "@/types/config"
-import { PreconditionTypes } from "@/types/typesOptions"
+import { PRECONDITION_TYPES } from "@/types/typesOptions"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -113,6 +113,7 @@ const PreconditionItemRow = ({
         onMoveDown={onMoveDown ?? (() => {})}
         isFirst={isFirst}
         isLast={isLast}
+        i18nPath="Dialog.InputConfigWizard.PreconditionEditor"
       />
       <Switch
         checked={precondition.Active}
@@ -277,7 +278,7 @@ const PreconditionEditor = ({
     onPreconditionsChange([...preconditions, newPrecondition])
   }
 
-  const preconditionTypes = PreconditionTypes as PreconditionType[]
+  const preconditionTypes = PRECONDITION_TYPES as PreconditionType[]
 
   const onMoveUp = (index: number) => {
     if (index === 0) return

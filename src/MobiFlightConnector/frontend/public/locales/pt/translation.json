@@ -651,7 +651,9 @@
           "config": "Configuração",
           "variable": "Variável",
           "pin": "Pino Arcaze"
-        }
+        },
+        "MoveUp": "Mover precondição para cima",
+        "MoveDown": "Mover precondição para baixo"
       },
       "ConfigReferenceEditor": {
         "Title": "Editar referências",

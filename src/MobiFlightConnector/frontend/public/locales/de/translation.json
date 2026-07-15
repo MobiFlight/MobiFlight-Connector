@@ -657,7 +657,9 @@
           "config": "Konfiguration",
           "variable": "Variable",
           "pin": "Arcaze-Pin"
-        }
+        },
+        "MoveUp": "Vorbedingung nach oben verschieben",
+        "MoveDown": "Vorbedingung nach unten verschieben"
       },
       "ConfigReferenceEditor": {
         "Title": "Referenzen bearbeiten",

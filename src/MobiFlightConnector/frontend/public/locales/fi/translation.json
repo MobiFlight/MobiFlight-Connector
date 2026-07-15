@@ -651,7 +651,9 @@
           "config": "Konfiguraatio",
           "variable": "Muuttuja",
           "pin": "Arcaze-pinni"
-        }
+        },
+        "MoveUp": "Siirrä esiehto ylös",
+        "MoveDown": "Siirrä esiehto alas"
       },
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",

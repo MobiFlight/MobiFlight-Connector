@@ -16,4 +16,4 @@ export const OutputDeviceTypes: OutputDeviceType[] = [
   "CustomDevice",
 ]
 
-export const PreconditionTypes = ["variable", "config", "pin"] as PreconditionType[]
+export const PRECONDITION_TYPES = ["variable", "config", "pin"] as PreconditionType[]

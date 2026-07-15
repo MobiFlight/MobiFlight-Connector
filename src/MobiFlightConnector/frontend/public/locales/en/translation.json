@@ -471,8 +471,8 @@
         "AddModifier": "Add modifier",
         "NoModifiers": "No modifiers defined.",
         "DeleteModifier": "Remove modifier",
-        "MoveUp": "Move modifier up",
-        "MoveDown": "Move modifier down"
+        "MoveUp": "Move up modifier",
+        "MoveDown": "Move down modifier"
       }
     },
     "InputConfigWizard": {
@@ -651,7 +651,9 @@
           "config": "Config",
           "variable": "Variable",
           "pin": "Arcaze-Pin"
-        }
+        },
+        "MoveUp": "Move up precondition",
+        "MoveDown": "Move down precondition"
       },
       "ConfigReferenceEditor": {
         "Title": "Edit references",

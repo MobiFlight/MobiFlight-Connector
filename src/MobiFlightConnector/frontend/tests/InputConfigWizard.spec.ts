@@ -34,7 +34,7 @@ import {
 } from "../src/types/modifier"
 import { Preset } from "../src/types/preset"
 import { IConfigItem } from "../src/types/config"
-import {PreconditionTypes} from "../src/types/typesOptions"
+import {PRECONDITION_TYPES} from "../src/types/typesOptions"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -55,6 +55,12 @@ const actionTypeOptionLabels = {
   JeehellInputAction: "FSUIPC - Jeehell - Events",
   EventIdInputAction: "FSUIPC - EventID",
 } as Record<string, string>
+
+const preconditionTypeLabels = {
+      variable: "Variable",
+      config: "Config",
+      pin: "Arcaze-Pin"
+    } as Record<PreconditionType, string>
 
 // Helper: open the dialog for a given row and return the action-panel locator
 // (onPress tab is active by default for button inputs)
@@ -796,14 +802,10 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const preconditionEditor = page.getByTestId("precondition-editor")
     await expect(preconditionEditor).toBeVisible()
 
-    const labels = {
-      variable: "Variable",
-      config: "Config",
-      pin: "Arcaze-Pin"
-    } as Record<PreconditionType, string>
+    
 
-    for (const preconditionType of PreconditionTypes) {
-      const label = labels[preconditionType as PreconditionType]
+    for (const preconditionType of PRECONDITION_TYPES) {
+      const label = preconditionTypeLabels[preconditionType as PreconditionType]
 
       const addPreconditionButton = preconditionEditor.getByRole("button", {
         name: "Add Precondition",
@@ -837,6 +839,106 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
       preconditionItems = preconditionEditor.getByTestId("precondition-item-row")
       await expect(preconditionItems).toHaveCount(2)
     }
+  })
+
+  test("Preconditions can be moved up and down", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const preconditionsPanel = page.getByTestId("preconditions-panel")
+    await expect(preconditionsPanel).toBeVisible()
+    const addPreconditionButton = preconditionsPanel.getByRole("button", {
+      name: "Add precondition",
+    })
+    await expect(addPreconditionButton).toBeVisible()
+    await addPreconditionButton.click()
+
+    for (const preconditionType of PRECONDITION_TYPES) {
+      const preconditionEditor = page.getByTestId("precondition-editor")
+      await expect(preconditionEditor).toBeVisible()
+
+      const addPreconditionInEditor = preconditionEditor.getByRole("button", {
+        name: "Add precondition",
+      })
+      await expect(addPreconditionInEditor).toBeVisible()
+      await addPreconditionInEditor.click()
+
+      const preconditionLabel = preconditionTypeLabels[preconditionType as PreconditionType]
+
+      const preconditionOption = page.getByRole("menuitem", {
+        name: preconditionLabel,
+      })
+      await expect(preconditionOption).toBeVisible()
+      await preconditionOption.click()
+    }
+
+    const firstPreconditionItem = page.getByTestId("precondition-item-row").nth(0)
+    const secondPreconditionItem = page.getByTestId("precondition-item-row").nth(1)
+    const thirdPreconditionItem = page.getByTestId("precondition-item-row").nth(2)
+
+    const firstLabel = preconditionTypeLabels[PRECONDITION_TYPES[0] as PreconditionType]
+    const secondLabel = preconditionTypeLabels[PRECONDITION_TYPES[1] as PreconditionType]
+    const thirdLabel = preconditionTypeLabels[PRECONDITION_TYPES[2] as PreconditionType]
+    await expect(firstPreconditionItem.getByText(firstLabel, { exact: true })).toBeVisible()
+    await expect(secondPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
+    await expect(thirdPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
+
+    const firstMoveUpButton = firstPreconditionItem.getByRole("button", {
+      name: "Move up precondition",
+    })
+    // first item cannot be moved up, so the button should be disabled
+    await expect(firstMoveUpButton).toBeVisible()
+    await expect(firstMoveUpButton).toBeDisabled()
+
+    const firstMoveDownButton = firstPreconditionItem.getByRole("button", {
+      name: "Move down precondition",
+    })
+    await expect(firstMoveDownButton).toBeVisible()
+    await expect(firstMoveDownButton).toBeEnabled()
+    // move down
+    await firstMoveDownButton.click()
+
+    // Verify that the first and second items have swapped positions
+    await expect(firstPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
+    await expect(secondPreconditionItem.getByText(firstLabel, { exact: true })).toBeVisible()
+    await expect(thirdPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
+
+    const secondMoveUpButton = secondPreconditionItem.getByRole("button", {
+      name: "Move up precondition",
+    })
+    await expect(secondMoveUpButton).toBeVisible()
+    await expect(secondMoveUpButton).toBeEnabled()
+
+    const secondMoveDownButton = secondPreconditionItem.getByRole("button", {
+      name: "Move down precondition",
+    })
+    await expect(secondMoveDownButton).toBeVisible()
+    await expect(secondMoveDownButton).toBeEnabled()
+
+    // move down
+    await secondMoveDownButton.click()
+
+    // Verify that the second and third items have swapped positions
+    await expect(firstPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
+    await expect(secondPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
+    await expect(thirdPreconditionItem.getByText(firstLabel, { exact: true })).toBeVisible()
+    
+    // move up
+    await secondMoveUpButton.click()
+
+    // Verify that the first and second items have swapped positions back
+    await expect(firstPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
+    await expect(secondPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
+
+    // Verify last move down button is disabled
+    const lastPreconditionItem = page.getByTestId("precondition-item-row").last()
+    const lastMoveDownButton = lastPreconditionItem.getByRole("button", {
+      name: "Move down precondition",
+    })
+    await expect(lastMoveDownButton).toBeVisible()
+    await expect(lastMoveDownButton).toBeDisabled()
   })
 })
 
@@ -1089,14 +1191,14 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(secondModifierItem).toHaveText(/Substring/)
 
     const firstMoveUpButton = firstModifierItem.getByRole("button", {
-      name: "Move modifier up",
+      name: "Move up modifier",
     })
     // first item cannot be moved up, so the button should be disabled
     await expect(firstMoveUpButton).toBeVisible()
     await expect(firstMoveUpButton).toBeDisabled()
 
     const firstMoveDownButton = firstModifierItem.getByRole("button", {
-      name: "Move modifier down",
+      name: "Move down modifier",
     })
     await expect(firstMoveDownButton).toBeVisible()
     await expect(firstMoveDownButton).toBeEnabled()
@@ -1108,7 +1210,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(secondModifierItem).toHaveText(/Transformation/)
 
     const secondMoveUpButton = secondModifierItem.getByRole("button", {
-      name: "Move modifier up",
+      name: "Move up modifier",
     })
     await expect(secondMoveUpButton).toBeVisible()
     // move up
@@ -1121,7 +1223,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Verify last move down button is disabled
     const lastModifierItem = page.getByTestId("modifier-item").last()
     const lastMoveDownButton = lastModifierItem.getByRole("button", {
-      name: "Move modifier down",
+      name: "Move down modifier",
     })
     await expect(lastMoveDownButton).toBeVisible()
     await expect(lastMoveDownButton).toBeDisabled()
