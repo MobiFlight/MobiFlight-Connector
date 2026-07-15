@@ -86,7 +86,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
         // prevents focusing on the inactive inline edit label
-       
+        onInteractOutside={(e) => { e.preventDefault() }}
         onEscapeKeyDown={(e) => {
           if ((e.target as HTMLElement).dataset.preventModalCloseOnEscape) {
             e.preventDefault()
