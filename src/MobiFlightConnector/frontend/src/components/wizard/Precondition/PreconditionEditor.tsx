@@ -108,6 +108,14 @@ const PreconditionItemRow = ({
         />
       </div>
 
+      <div
+        className={"w-24 text-center text-sm"}
+      >
+        {t(
+          `Dialog.InputConfigWizard.PreconditionEditor.Types.${precondition.Type}`,
+        )}
+      </div>
+
       {precondition.Type === "config" && (
         <ComboBox
           items={outputConfigs}
