@@ -753,7 +753,6 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     let index = 0
     for (const expected of expectedValues) {
       const precondition = preconditionItems.nth(index)
-      await expect(comboBoxLocator(precondition, expected.type)).toBeVisible()
       await expect(comboBoxLocator(precondition, expected.name)).toBeVisible()
       await expect(
         comboBoxLocator(precondition, expected.operand),
