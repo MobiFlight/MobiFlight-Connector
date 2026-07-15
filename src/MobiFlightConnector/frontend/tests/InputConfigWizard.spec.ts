@@ -807,7 +807,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
 
     const firstPreconditionDeleteButton = preconditionItems
       .nth(0)
-      .getByRole("button", { name: "Delete precondition" })
+      .getByRole("button", { name: "Remove precondition" })
     await expect(firstPreconditionDeleteButton).toBeVisible()
     await firstPreconditionDeleteButton.click()
 
@@ -826,7 +826,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
     const configReferencesPanel = page.getByTestId("config-references-panel")
     const editButton = configReferencesPanel.getByRole("button", {
-      name: "Config References",
+      name: "References",
     })
 
     await configListPage.clickEditButtonForRow(1)
@@ -848,7 +848,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
     const configReferencesPanel = page.getByTestId("config-references-panel")
     const editButton = configReferencesPanel.getByRole("button", {
-      name: "Config References",
+      name: "References",
     })
 
     await configListPage.clickEditButtonForRow(1)
@@ -892,7 +892,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
     const configReferencesPanel = page.getByTestId("config-references-panel")
     const editButton = configReferencesPanel.getByRole("button", {
-      name: "Config References",
+      name: "References",
     })
 
     await configListPage.clickEditButtonForRow(1)
