@@ -28,7 +28,7 @@ function ConfigItemTableStatusCell({
       <div className="flex flex-row gap-1">
         <StatusIcon
           status="Precondition"
-          condition={Precondition}
+          condition={Precondition ?? false}
           title={
             Precondition
               ? t(`ConfigList.Status.Precondition.${Status["Precondition"]}`)
@@ -38,7 +38,7 @@ function ConfigItemTableStatusCell({
         />
         <StatusIcon
           status="Test"
-          condition={Test}
+          condition={Test ?? false}
           title={
             Test
               ? t(`ConfigList.Status.Test.Executing`)
@@ -48,7 +48,7 @@ function ConfigItemTableStatusCell({
         />
         <StatusIcon
           status="ConfigRef"
-          condition={ConfigRef}
+          condition={ConfigRef ?? false}
           title={
             ConfigRef
               ? t(`ConfigList.Status.ConfigRef.Missing`)
