@@ -31,14 +31,27 @@ const ModifiersPanel = ({
 
   return variant === "summary" ? (
     <Card data-testid="modifiers-panel" className="w-full">
-      <CardContent className="flex flex-col gap-6 pt-4">
-        <div className="flex flex-col">
-          <div className="text-lg font-semibold">
-            {t("Dialog.Modifiers.Title")}
+      <CardContent className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-row items-start justify-between gap-4" >
+          <div className="flex flex-col gap-2">
+            <div className="text-lg font-semibold">
+              {t("Dialog.Modifiers.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t("Dialog.Modifiers.Description")}
+            </div>
           </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.Modifiers.Description")}
-          </div>
+          {modifiers.length === 0 ? (
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
+              <IconPlus className="" />
+              {t("Dialog.Modifiers.AddButton")}
+            </Button>
+          ) : (
+            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
+              <IconEdit className="" />
+              {t("Dialog.Modifiers.EditButton")}
+            </Button>
+          )}
         </div>
 
         <ModifierSummary
@@ -47,17 +60,6 @@ const ModifiersPanel = ({
           modifiers={modifiers}
           maxDisplayCount={maxDisplayCount}
         />
-        {modifiers.length === 0 ? (
-          <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
-            <IconPlus className="" />
-            {t("Dialog.Modifiers.AddButton")}
-          </Button>
-        ) : (
-          <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
-            <IconEdit className="" />
-            {t("Dialog.Modifiers.EditButton")}
-          </Button>
-        )}
       </CardContent>
     </Card>
   ) : (

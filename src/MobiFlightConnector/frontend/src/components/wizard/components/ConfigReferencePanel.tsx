@@ -28,34 +28,39 @@ const ConfigReferencePanel = ({
       (item) => item.Type === "OutputConfigItem",
     ) || ([] as IConfigItem[])
 
+  const hasConfigReferences = configReferences.length > 0
+
   return variant === "summary" ? (
-    <Card data-testid="config-references-panel">
+    <Card data-testid="config-references-panel" className="w-full h-full">
       <CardContent className="flex flex-col gap-1 pt-4">
-        <div className="text-lg font-semibold">
-          {t("Dialog.InputConfigWizard.ConfigReferences.Title")}
-        </div>
-        {configReferences.length > 0 ? (
+        <div className="flex flex-row items-start justify-between gap-4">
           <div className="flex flex-col gap-2">
-            <ConfigReferenceSummary
-              configReferences={configReferences}
-              outputConfigs={outputConfigs}
-              maxDisplayCount={maxDisplayCount}
-            />
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
-              <IconEdit className="" />
-              {t("Dialog.InputConfigWizard.ConfigReferences.EditButton")}
-            </Button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-2">
-            <div className="text-muted-foreground text-sm">
-              {t("Dialog.InputConfigWizard.ConfigReferences.Description")}
+            <div className="text-lg font-semibold">
+              {t("Dialog.InputConfigWizard.ConfigReferences.Title")}
             </div>
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
-              <IconPlus className="" />
-              {t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
-            </Button>
+            {!hasConfigReferences && (
+              <div className="text-muted-foreground text-sm">
+                {t("Dialog.InputConfigWizard.ConfigReferences.Description")}
+              </div>
+            )}
           </div>
+          <Button variant="outline" size={"sm"} onClick={openDetailsPanel}>
+            {hasConfigReferences ? (
+              <IconEdit className="" />
+            ) : (
+              <IconPlus className="" />
+            )}
+            {hasConfigReferences
+              ? t("Dialog.InputConfigWizard.ConfigReferences.EditButton")
+              : t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
+          </Button>
+        </div>
+        {hasConfigReferences && (
+          <ConfigReferenceSummary
+            configReferences={configReferences}
+            outputConfigs={outputConfigs}
+            maxDisplayCount={maxDisplayCount}
+          />
         )}
       </CardContent>
     </Card>

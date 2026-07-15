@@ -77,7 +77,7 @@ const ActionBindingPanel = ({
 
   return (
     <Card data-testid="action-panel">
-      <CardContent className="flex flex-col gap-4 pt-4">
+      <CardContent className="flex flex-col gap-2 py-4">
         <div className="flex flex-col gap-1">
           <div className="text-lg font-semibold">
             {t(`Dialog.InputConfigWizard.Action.Title`)}
