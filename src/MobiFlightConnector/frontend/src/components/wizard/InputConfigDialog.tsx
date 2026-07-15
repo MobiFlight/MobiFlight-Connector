@@ -83,7 +83,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   }, [inlineEditRef, configIsDefaultConfig])
 
   return (
-    <Dialog open={true} onOpenChange={closeDialog}>
+    <Dialog open={true} onOpenChange={closeDialog} >
       <DialogContent
         // prevents focusing on the inactive inline edit label
         onInteractOutside={(e) => { e.preventDefault() }}

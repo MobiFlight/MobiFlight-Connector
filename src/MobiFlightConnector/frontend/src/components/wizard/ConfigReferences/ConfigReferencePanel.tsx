@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import ConfigReferenceEditor from "@/components/wizard/ConfigReferences/ConfigReferenceEditor"
 import ConfigReferenceSummary from "@/components/wizard/ConfigReferences/ConfigReferenceSummary"
+import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { ConfigReference, IConfigItem } from "@/types/config"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
@@ -31,7 +32,10 @@ const ConfigReferencePanel = ({
   const hasConfigReferences = configReferences.length > 0
 
   return variant === "summary" ? (
-    <Card data-testid="config-references-panel" className="w-full h-full">
+    <Card
+      data-testid="config-references-panel"
+      className={cn("h-full w-full shadow-none transition-shadow hover:shadow-md", hasConfigReferences && "shadow-sm border-foreground/30")}
+    >
       <CardContent className="flex flex-col gap-1 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
           <div className="flex flex-col gap-2">
@@ -45,12 +49,25 @@ const ConfigReferencePanel = ({
             )}
           </div>
           {hasConfigReferences ? (
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.InputConfigWizard.ConfigReferences.EditButton")}>
-              <IconEdit className="" />
-              {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+            <Button
+              variant="ghost"
+              size={"sm"}
+              onClick={openDetailsPanel}
+              aria-label={t(
+                "Dialog.InputConfigWizard.ConfigReferences.EditButton",
+              )}
+            >
+              <IconEdit />
             </Button>
           ) : (
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}>
+            <Button
+              variant="outline"
+              size={"sm"}
+              onClick={openDetailsPanel}
+              aria-label={t(
+                "Dialog.InputConfigWizard.ConfigReferences.AddButton",
+              )}
+            >
               <IconPlus className="" />
               {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
             </Button>

@@ -2,8 +2,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import ModifierEditor from "@/components/wizard/Modifier/ModifierEditor"
 import ModifierSummary from "@/components/wizard/Modifier/ModifierSummary"
+import { cn } from "@/lib/utils"
 import { IConfigItem } from "@/types"
-import { IconEdit, IconPlus } from "@tabler/icons-react"
+import { IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 type ModifiersPanelProps = {
@@ -28,11 +29,18 @@ const ModifiersPanel = ({
 }: ModifiersPanelProps) => {
   const { t } = useTranslation()
   const modifiers = configItem.Modifiers?.Items || []
+  const hasModifiers = modifiers.length > 0
 
   return variant === "summary" ? (
-    <Card data-testid="modifiers-panel" className="w-full">
+    <Card
+      data-testid="modifiers-panel"
+      className={cn(
+        "w-full shadow-none transition-shadow hover:shadow-md",
+        hasModifiers && "border-foreground/30 shadow-sm",
+      )}
+    >
       <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-row items-start justify-between gap-4" >
+        <div className="flex flex-row items-start justify-between gap-4">
           <div className="flex flex-col gap-2">
             <div className="text-lg font-semibold">
               {t("Dialog.Modifiers.Title")}
@@ -41,15 +49,14 @@ const ModifiersPanel = ({
               {t("Dialog.Modifiers.Description")}
             </div>
           </div>
-          {modifiers.length === 0 ? (
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.Modifiers.AddButton")}>
-              <IconPlus className="" />
-                {t("Dialog.Modifiers.Label")}
-            </Button>
-          ) : (
-            <Button variant="outline" size={"sm"} onClick={openDetailsPanel} aria-label={t("Dialog.Modifiers.EditButton")}>
+          {hasModifiers && (
+            <Button
+              variant="ghost"
+              size={"sm"}
+              onClick={openDetailsPanel}
+              aria-label={t("Dialog.Modifiers.EditButton")}
+            >
               <IconEdit className="" />
-              {t("Dialog.Modifiers.Label")}
             </Button>
           )}
         </div>

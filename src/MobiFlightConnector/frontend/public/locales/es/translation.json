@@ -502,7 +502,8 @@
         "Title": "Acciones",
         "Description": "Define las acciones para cada evento.",
         "Copy": "Copiar acción",
-        "Paste": "Pegar acción"
+        "Paste": "Pegar acción",
+        "NoTriggerDefined": "No se definió ningún disparador. Por favor, selecciona primero tu controlador y dispositivo."
       },
       "ActionType": {
         "Title": "Tipo de acción",
@@ -627,14 +628,14 @@
         }
       },
       "Preconditions": {
-        "Title": "Precondiciones (opcional)",
+        "Title": "Precondiciones",
         "Label": "Precondiciones",
         "Description": "Agrega y modifica las condiciones que deben cumplirse para que se ejecute tu disparador.",
         "EditButton": "Precondiciones",
         "AddButton": "Precondiciones"
       },
       "ConfigReferences": {
-        "Title": "Referencias (opcional)",
+        "Title": "Referencias",
         "Label": "Referencias",
         "Description": "Agrega referencias a otras configuraciones y usa sus valores aquí en esta configuración.",
         "EditButton": "Editar referencias",

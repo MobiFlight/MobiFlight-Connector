@@ -496,7 +496,8 @@
         "Title": "Ações",
         "Description": "Defina as ações para cada evento.",
         "Copy": "Copiar ação",
-        "Paste": "Colar ação"
+        "Paste": "Colar ação",
+        "NoTriggerDefined": "Nenhum gatilho definido. Por favor, selecione seu controlador e dispositivo primeiro."
       },
       "ActionType": {
         "Title": "Tipo de ação",
@@ -621,14 +622,14 @@
         }
       },
       "Preconditions": {
-        "Title": "Precondições (opcional)",
+        "Title": "Precondições",
         "Label": "Precondições",
         "Description": "Adicione e modifique condições que devem ser atendidas para que seu gatilho seja executado.",
         "EditButton": "Editar precondições",
         "AddButton": "Adicionar precondições"
       },
       "ConfigReferences": {
-        "Title": "Referências (opcional)",
+        "Title": "Referências",
         "Label": "Referências",
         "Description": "Adicione referências a outras configurações e use seus valores aqui nesta configuração.",
         "EditButton": "Editar referências",

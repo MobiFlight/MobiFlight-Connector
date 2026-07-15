@@ -486,8 +486,8 @@
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",
       "DrawerTitle": "Einstellungen",
       "ConfigTrigger": {
-        "Title": "Auslöser",
-        "Description": "Der Auslöser definiert die Bedingungen oder Ereignisse, die diese Konfiguration aktivieren.",
+        "Title": "Trigger",
+        "Description": "Der Trigger definiert die Bedingungen oder Ereignisse, die diese Konfiguration aktivieren.",
         "ScanForInput": "Eingabe suchen",
         "UseAnyInput": "Warte auf Eingabe",
         "ClearInput": "Eingabe löschen",
@@ -502,7 +502,8 @@
         "Title": "Aktionen",
         "Description": "Definiere die Aktionen für die verschiedenen Ereignisse.",
         "Copy": "Aktion kopieren",
-        "Paste": "Aktion einfügen"
+        "Paste": "Aktion einfügen",
+        "NoTriggerDefined": "Kein Trigger definiert. Bitte wähle zuerst deinen Controller und dein Gerät aus."
       },
       "ActionType": {
         "Title": "Aktionstyp",
@@ -627,14 +628,14 @@
         }
       },
       "Preconditions": {
-        "Title": "Vorbedingungen (optional)",
+        "Title": "Vorbedingungen",
         "Label": "Vorbedingungen",
         "Description": "Erstelle und bearbeite Bedingungen, die erfüllt sein müssen, damit dein Auslöser ausgeführt wird.",
         "EditButton": "Vorbedingungen",
         "AddButton": "Vorbedingungen"
       },
       "ConfigReferences": {
-        "Title": "Referenzen (optional)",
+        "Title": "Referenzen",
         "Label": "Referenzen",
         "Description": "Erstelle Referenzen zu anderen Konfigurationen und verwende deren Werte hier in dieser Konfiguration.",
         "EditButton": "Referenzen bearbeiten",

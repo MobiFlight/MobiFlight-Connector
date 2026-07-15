@@ -57,10 +57,12 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         selectedController.Name === configItem.Controller.Name))
 
   const inputDeviceFilter = (device: BaseDevice) => {
-    return (InputDeviceTypes.includes(device.Type as InputDeviceType))
+    return InputDeviceTypes.includes(device.Type as InputDeviceType)
   }
-  
-  const devices: BaseDevice[] = [...(connectedController?.Devices?.filter(inputDeviceFilter) ?? [])]
+
+  const devices: BaseDevice[] = [
+    ...(connectedController?.Devices?.filter(inputDeviceFilter) ?? []),
+  ]
 
   const configuredDevice: BaseDevice | undefined =
     configItem.Device != null
@@ -92,8 +94,8 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       Controller: controller
         ? {
             ...controller,
-            // unset Devices 
-            // before sending it back to backend. 
+            // unset Devices
+            // before sending it back to backend.
             Devices: undefined,
           }
         : undefined,
@@ -128,7 +130,10 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   }
 
   return (
-    <Card data-testid="trigger-panel">
+    <Card
+      data-testid="trigger-panel"
+      className="border-primary transition-shadow hover:shadow-md"
+    >
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col gap-2">
           <div className="text-lg font-semibold">

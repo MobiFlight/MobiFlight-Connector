@@ -496,7 +496,8 @@
         "Title": "Toiminnot",
         "Description": "Määritä toiminnot jokaiselle tapahtumalle.",
         "Copy": "Kopioi toiminto",
-        "Paste": "Liitä toiminto"
+        "Paste": "Liitä toiminto",
+        "NoTriggerDefined": "Ei laukaisinta määritelty. Valitse ensin ohjaimesi ja laitteesi."
       },
       "ActionType": {
         "Title": "Toimintotyyppi",
@@ -621,14 +622,14 @@
         }
       },
       "Preconditions": {
-        "Title": "Esiehdot (valinnainen)",
+        "Title": "Esiehdot",
         "Label": "Esiehdot",
         "Description": "Lisää ja muokkaa ehtoja, jotka on täytettävä, jotta laukaisimesi suoritetaan.",
         "EditButton": "Muokkaa esiehtoja",
         "AddButton": "Lisää esiehtoja"
       },
       "ConfigReferences": {
-        "Title": "Viittaukset (valinnainen)",
+        "Title": "Viittaukset",
         "Label": "Viittaukset",
         "Description": "Lisää viittauksia muihin konfiguraatioihin ja käytä niiden arvoja tässä konfiguraatiossa.",
         "EditButton": "Muokkaa viittauksia",

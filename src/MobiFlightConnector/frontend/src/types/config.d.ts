@@ -24,14 +24,14 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   DeviceType?: string | null
   DeviceName?: string | null
   // Tags: string[];
-  Preconditions: Precondition[]
-  Status: IDictionary<string, ConfigItemStatusType>
+  Preconditions?: Precondition[]
+  Status?: IDictionary<string, ConfigItemStatusType>
   button?: ButtonTrigger
   inputMultiplexer?: ButtonTrigger
   inputShiftRegister?: ButtonTrigger
   encoder?: EncoderTrigger
   analog?: AnalogTrigger
-  ConfigRefs: ConfigReference[]
+  ConfigRefs?: ConfigReference[]
   Modifiers?: ModifierList
 }
 
