@@ -156,7 +156,7 @@ const ModifierEditor = ({
                   ) : (
                     <PipelineValue
                       value={liveData.modifierValues?.[index + 1]}
-                      testId="modifier-pipeline-value"
+                      testId={`modifier-pipeline-value-${index + 1}`}
                     />
                   )}
                 </Fragment>

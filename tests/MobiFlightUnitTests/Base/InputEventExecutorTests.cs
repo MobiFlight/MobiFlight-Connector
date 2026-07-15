@@ -2,6 +2,7 @@
 using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.Modifier;
 using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -855,6 +856,91 @@ namespace MobiFlight.Execution.Tests
             Assert.HasCount(1, result, "Only the matching device config should execute");
             Assert.IsTrue(result.ContainsKey(configItem2.GUID), "Should execute Button2Config");
             Assert.IsFalse(result.ContainsKey(configItem1.GUID), "Should not execute Button1Config");
+        }
+
+        #endregion
+
+        #region Modifier Chain Live Values
+
+        private InputConfigItem CreateInputConfigItemWithModifiers(params ModifierBase[] modifiers)
+        {
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("TestModule / SN-mod001"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Button1"),
+                Name = "ModifierConfig",
+            };
+            configItem.Modifiers.Items.AddRange(modifiers);
+            _configItems.Add(configItem);
+            return configItem;
+        }
+
+        private InputEventArgs CreateButtonEventArgs(int value)
+        {
+            return new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "SN-mod001" },
+                Device = new DeviceReference() { Name = "Button1", Type = DeviceType.Button },
+                InputType = DeviceType.Button,
+                Value = value
+            };
+        }
+
+        [TestMethod]
+        public void Execute_ConfigWithModifiers_PopulatesModifierInputValuesForEachModifier()
+        {
+            // Arrange - inactive modifier must still get an entry (pass-through),
+            // so the list stays aligned 1:1 with Modifiers.Items for the frontend.
+            var configItem = CreateInputConfigItemWithModifiers(
+                new Transformation() { Active = true, Expression = "$*2" },
+                new Transformation() { Active = false, Expression = "$+100" },
+                new Transformation() { Active = true, Expression = "$+1" }
+            );
+
+            // Act
+            var result = _executor.Execute(CreateButtonEventArgs(2), isStarted: true);
+
+            // Assert
+            Assert.IsTrue(result.ContainsKey(configItem.GUID));
+            CollectionAssert.AreEqual(
+                new List<string>() { "2", "4", "4" },
+                configItem.ModifierInputValues,
+                "Each modifier should get the value entering it; the inactive one passes it through unchanged"
+            );
+            Assert.AreEqual("5", configItem.Value);
+        }
+
+        [TestMethod]
+        public void Execute_ModifierThrows_ReplacesModifierInputValuesWithPartialChain()
+        {
+            // Arrange
+            var failingModifier = new Transformation() { Active = true, Expression = "$+1" };
+            var configItem = CreateInputConfigItemWithModifiers(
+                new Transformation() { Active = true, Expression = "$*2" },
+                failingModifier,
+                new Transformation() { Active = true, Expression = "$+10" }
+            );
+
+            // First event succeeds and populates all three entries
+            _executor.Execute(CreateButtonEventArgs(2), isStarted: true);
+            CollectionAssert.AreEqual(
+                new List<string>() { "2", "4", "5" },
+                configItem.ModifierInputValues
+            );
+
+            // Act - make the second modifier fail, values from the previous
+            // event must not survive (issue: stale live values after a transform error)
+            failingModifier.Expression = "$ +";
+            _executor.Execute(CreateButtonEventArgs(3), isStarted: true);
+
+            // Assert - the list ends at the failing modifier's input value
+            CollectionAssert.AreEqual(
+                new List<string>() { "3", "6" },
+                configItem.ModifierInputValues,
+                "Error path should publish the partial chain of this event, not stale values from the previous one"
+            );
+            Assert.IsTrue(configItem.Status.ContainsKey(ConfigItemStatusType.Modifier));
         }
 
         #endregion

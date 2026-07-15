@@ -113,20 +113,19 @@ namespace MobiFlight.Execution
                         Float64 = e.Value,
                     };
 
+                    // Capture the value entering each modifier (by Items index) so the
+                    // frontend can show the live value flowing through the chain. Inactive
+                    // modifiers pass the value through unchanged but still get an entry, so
+                    // the list stays aligned 1:1 with Modifiers.Items.
+                    var modifierInputValues = new List<string>();
                     try
                     {
-                        // Capture the value entering each modifier (by Items index) so the
-                        // frontend can show the live value flowing through the chain. Inactive
-                        // modifiers pass the value through unchanged but still get an entry, so
-                        // the list stays aligned 1:1 with Modifiers.Items.
-                        var modifierInputValues = new List<string>();
                         foreach (var modifier in cfg.Modifiers.Items)
                         {
                             modifierInputValues.Add(modifiableValue.ToString());
                             if (modifier.Active)
                                 modifiableValue = modifier.Apply(modifiableValue, references);
                         }
-                        cfg.ModifierInputValues = modifierInputValues;
 
                         cfg.Value = modifiableValue.ToString();
                         e.Value = modifiableValue.Float64;
@@ -136,6 +135,15 @@ namespace MobiFlight.Execution
                     {
                         Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
                         cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
+                    }
+                    finally
+                    {
+                        // Always publish this event's list so a failing modifier can't leave
+                        // stale values from a previous event visible. On error the list ends
+                        // at the failing modifier's input, which shows where the chain broke.
+                        // The list is never mutated after this point: the frontend update
+                        // timer snapshots it from another thread (ConfigValueOnlyItem ctor).
+                        cfg.ModifierInputValues = modifierInputValues;
                     }
 
                     cfg.execute(cacheCollection, e, references);

@@ -1,6 +1,7 @@
 import { Locator, Page } from "@playwright/test"
 import {
   ConfigValueFullUpdate,
+  ConfigValueRawAndFinalUpdate,
   ScanForInputResult,
 } from "../src/types/messages"
 import { test, expect } from "./fixtures"
@@ -8,7 +9,7 @@ import { ConfigListPage } from "./fixtures/ConfigListPage"
 import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" with { type: "json" }
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
 import { ActionTypeOptions } from "../src/lib/configWizard"
-import { Project } from "../src/types"
+import { IConfigItem, Project } from "../src/types"
 import {
   EventIdInputAction,
   FsuipcOffsetInputAction,
@@ -1668,6 +1669,61 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Remove the first mapping row
     await firstRemoveButton.click()
     await expect(firstRemoveButton).toBeDisabled()
+  })
+
+  test("Live pipeline values are shown between modifiers", async ({
+    configListPage,
+    page,
+  }) => {
+    // Create the config with a known GUID so we can target it with a live update
+    const configGuid = "11111111-2222-3333-4444-555555555555"
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page, undefined, {
+      GUID: configGuid,
+      Modifiers: {
+        Items: [
+          { Type: "Transformation", Active: true, Expression: "$*2" } as Transformation,
+          { Type: "Transformation", Active: true, Expression: "$+1" } as Transformation,
+        ],
+      },
+    })
+
+    const modifiersPanel = page.getByTestId("modifiers-panel")
+    await expect(modifiersPanel).toBeVisible()
+    await modifiersPanel
+      .getByRole("button", { name: "Edit modifiers" })
+      .click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    const rawChip = modifierEditor.getByTestId("modifier-pipeline-raw")
+    const betweenChip = modifierEditor.getByTestId("modifier-pipeline-value-1")
+    const finalChip = modifierEditor.getByTestId("modifier-pipeline-final")
+
+    // no live data has arrived yet, all chips show the placeholder
+    await expect(rawChip).toHaveText("?")
+    await expect(betweenChip).toHaveText("?")
+    await expect(finalChip).toHaveText("?")
+
+    // backend publishes live values for this config while the drawer is open
+    await configListPage.mobiFlightPage.publishMessage({
+      key: "ConfigValueRawAndFinalUpdate",
+      payload: {
+        ConfigItems: [
+          {
+            GUID: configGuid,
+            RawValue: "Press",
+            Value: "5",
+            ModifierInputValues: ["2", "4"],
+            Status: {},
+          },
+        ],
+      } as ConfigValueRawAndFinalUpdate,
+    })
+
+    await expect(rawChip).toHaveText("2")
+    await expect(betweenChip).toHaveText("4")
+    await expect(finalChip).toHaveText("5")
   })
 })
 
@@ -5116,6 +5172,7 @@ async function CreateNewInputConfigItemAndWaitForDialog(
   configListPage: ConfigListPage,
   page: Page,
   projectOptions?: Partial<Project>,
+  configItemProps: Partial<IConfigItem> = {},
 ) {
   await configListPage.gotoPage()
   if (projectOptions) {
@@ -5131,7 +5188,12 @@ async function CreateNewInputConfigItemAndWaitForDialog(
     name: "Add Input Config",
   })
   await addInputConfigButton.click()
-  await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
+  await configListPage.addNewConfigItem(
+    "InputConfigItem",
+    0,
+    "inputaction",
+    configItemProps,
+  )
   await expect(page.getByText("Edit Input Configuration")).toBeVisible()
 }
 
