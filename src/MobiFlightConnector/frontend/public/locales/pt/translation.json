@@ -646,7 +646,12 @@
         "ValuePlaceholder": "Valor",
         "DeletePrecondition": "Excluir precondição",
         "SelectPort": "Selecionar porta...",
-        "SelectPin": "Selecionar pino..."
+        "SelectPin": "Selecionar pino...",
+        "Types" : {
+          "config": "Configuração",
+          "variable": "Variável",
+          "pin": "Pino Arcaze"
+        }
       },
       "ConfigReferenceEditor": {
         "Title": "Editar referências",

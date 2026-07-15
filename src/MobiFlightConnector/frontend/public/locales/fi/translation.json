@@ -646,7 +646,12 @@
         "ValuePlaceholder": "Arvo",
         "DeletePrecondition": "Poista esiehto",
         "SelectPort": "Valitse portti...",
-        "SelectPin": "Valitse pinni..."
+        "SelectPin": "Valitse pinni...",
+        "Types" : {
+          "config": "Konfiguraatio",
+          "variable": "Muuttuja",
+          "pin": "Arcaze-pinni"
+        }
       },
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",

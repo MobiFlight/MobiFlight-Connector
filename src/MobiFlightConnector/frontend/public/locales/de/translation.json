@@ -652,7 +652,12 @@
         "ValuePlaceholder": "Wert",
         "DeletePrecondition": "Vorbedingung löschen",
         "SelectPort": "Port auswählen...",
-        "SelectPin": "Pin auswählen..."
+        "SelectPin": "Pin auswählen...",
+        "Types" : {
+          "config": "Konfiguration",
+          "variable": "Variable",
+          "pin": "Arcaze-Pin"
+        }
       },
       "ConfigReferenceEditor": {
         "Title": "Referenzen bearbeiten",
