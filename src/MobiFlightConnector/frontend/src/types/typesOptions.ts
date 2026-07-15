@@ -1,3 +1,4 @@
+import { PreconditionType } from "@/types/config"
 import { InputDeviceType, OutputDeviceType } from "@/types/controller"
 
 export const InputDeviceTypes: InputDeviceType[] = [
@@ -14,3 +15,5 @@ export const OutputDeviceTypes: OutputDeviceType[] = [
   "ShiftRegister",
   "CustomDevice",
 ]
+
+export const PreconditionTypes = ["variable", "config", "pin"] as PreconditionType[]

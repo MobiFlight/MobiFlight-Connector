@@ -1,10 +1,22 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
 import { preconditionVariants } from "@/components/wizard/variants"
-import { IConfigItem, MobiFlightVariable, Precondition } from "@/types/config"
+import {
+  IConfigItem,
+  MobiFlightVariable,
+  Precondition,
+  PreconditionType,
+} from "@/types/config"
+import { PreconditionTypes } from "@/types/typesOptions"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -24,11 +36,6 @@ const OPERAND_OPTIONS: Precondition["Operand"][] = [
   ">=",
 ]
 const LOGIC_OPTIONS: Precondition["Logic"][] = ["and", "or"]
-const TYPE_OPTIONS = [
-  { value: "config", label: "Config" },
-  { value: "variable", label: "Variable" },
-  { value: "pin", label: "Arcaze-Pin" },
-]
 
 const ArcazePortOptions = [
   { value: "A", label: "Port A" },
@@ -100,26 +107,6 @@ const PreconditionItemRow = ({
           }
         />
       </div>
-
-      <ComboBox
-        items={TYPE_OPTIONS}
-        selected={TYPE_OPTIONS.find((t) => t.value === precondition.Type)}
-        getValue={(t) => t.value}
-        getLabel={(t) => t.label}
-        isSelected={(t, s) => t.value === s?.value}
-        setSelected={(t) =>
-          onChange({
-            ...precondition,
-            Type: (t?.value as "config" | "variable" | "pin") ?? "config",
-            Ref: "",
-          })
-        }
-        placeholder={t(
-          "Dialog.InputConfigWizard.PreconditionEditor.TypePlaceholder",
-        )}
-        widthClass="w-32"
-        variant="nofilter"
-      />
 
       {precondition.Type === "config" && (
         <ComboBox
@@ -265,9 +252,13 @@ const PreconditionEditor = ({
     onPreconditionsChange(preconditions.filter((_, i) => i !== index))
   }
 
-  const handleAdd = () => {
-    onPreconditionsChange([...preconditions, { ...EMPTY_PRECONDITION }])
+  const handleAdd = (preconditionType: PreconditionType) => {
+    // create the right precondition type
+    const newPrecondition = { ...EMPTY_PRECONDITION, Type: preconditionType }
+    onPreconditionsChange([...preconditions, newPrecondition])
   }
+
+  const preconditionTypes = PreconditionTypes as PreconditionType[]
 
   return (
     <div className="flex grow flex-col gap-4" data-testid="precondition-editor">
@@ -280,15 +271,26 @@ const PreconditionEditor = ({
             {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
           </div>
         </div>
-        <Button
-          variant="default"
-          size={"sm"}
-          className="self-end"
-          onClick={handleAdd}
-        >
-          <IconPlus className="h-4 w-4" />
-          {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild className="self-end">
+            <Button variant="default" className="w-fit" size={"sm"}>
+              <IconPlus className="h-4 w-4" />
+              {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            {preconditionTypes.map((preconditionType) => (
+              <DropdownMenuItem
+                key={preconditionType}
+                onClick={() => handleAdd(preconditionType)}
+              >
+                {t(
+                  `Dialog.InputConfigWizard.PreconditionEditor.Types.${preconditionType}`,
+                )}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {preconditions.length === 0 ? (

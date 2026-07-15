@@ -190,8 +190,10 @@ export interface FsuipcOffsetInputAction extends Action {
   Modifiers: Modifier[]
 }
 
+export type PreconditionType = "variable" | "pin" | "config"
+
 export type Precondition = {
-  Type: "variable" | "pin" | "config"
+  Type: PreconditionType
   Ref: string
   Pin: string | null
   Operand: "=" | "<>" | "<" | ">" | "<=" | ">="
