@@ -34,7 +34,7 @@ import {
 } from "../src/types/modifier"
 import { Preset } from "../src/types/preset"
 import { IConfigItem } from "../src/types/config"
-import {PRECONDITION_TYPES} from "../src/types/typesOptions"
+import { PRECONDITION_TYPES } from "../src/types/typesOptions"
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -57,10 +57,10 @@ const actionTypeOptionLabels = {
 } as Record<string, string>
 
 const preconditionTypeLabels = {
-      variable: "Variable",
-      config: "Config",
-      pin: "Arcaze-Pin"
-    } as Record<PreconditionType, string>
+  variable: "Variable",
+  config: "Config",
+  pin: "Arcaze-Pin",
+} as Record<PreconditionType, string>
 
 // Helper: open the dialog for a given row and return the action-panel locator
 // (onPress tab is active by default for button inputs)
@@ -460,12 +460,12 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    
+
     const triggerOptions = [
       { triggerType: "Encoder", actionType: "On Left" },
       { triggerType: "AnalogInput", actionType: "On Change" },
     ]
-    
+
     for (const triggerOption of triggerOptions) {
       await configListPage.clickEditButtonForRow(1)
       await configListPage.mobiFlightPage.clearTrackedCommands()
@@ -761,7 +761,9 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     let index = 0
     for (const expected of expectedValues) {
       const precondition = preconditionItems.nth(index)
-      await expect(precondition.getByText(expected.type, { exact: true })).toBeVisible()
+      await expect(
+        precondition.getByText(expected.type, { exact: true }),
+      ).toBeVisible()
       await expect(comboBoxLocator(precondition, expected.name)).toBeVisible()
       await expect(
         comboBoxLocator(precondition, expected.operand),
@@ -802,8 +804,6 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     const preconditionEditor = page.getByTestId("precondition-editor")
     await expect(preconditionEditor).toBeVisible()
 
-    
-
     for (const preconditionType of PRECONDITION_TYPES) {
       const label = preconditionTypeLabels[preconditionType as PreconditionType]
 
@@ -818,9 +818,8 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
       const preconditionTypeOptionMenu = page.getByRole("menu")
       await expect(preconditionTypeOptionMenu).toBeVisible()
 
-      const preconditionTypeOptions = preconditionTypeOptionMenu.getByRole(
-        "menuitem",
-      )
+      const preconditionTypeOptions =
+        preconditionTypeOptionMenu.getByRole("menuitem")
       await expect(preconditionTypeOptions).toHaveCount(3)
       await preconditionTypeOptions.filter({ hasText: label }).click()
 
@@ -828,7 +827,9 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
         "precondition-item-row",
       )
       await expect(preconditionItems).toHaveCount(3)
-      await expect(preconditionItems.last().getByText(label, { exact: true })).toBeVisible()
+      await expect(
+        preconditionItems.last().getByText(label, { exact: true }),
+      ).toBeVisible()
 
       const firstPreconditionDeleteButton = preconditionItems
         .nth(0)
@@ -836,7 +837,9 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
       await expect(firstPreconditionDeleteButton).toBeVisible()
       await firstPreconditionDeleteButton.click()
 
-      preconditionItems = preconditionEditor.getByTestId("precondition-item-row")
+      preconditionItems = preconditionEditor.getByTestId(
+        "precondition-item-row",
+      )
       await expect(preconditionItems).toHaveCount(2)
     }
   })
@@ -847,9 +850,9 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
-    const preconditionsPanel = page.getByTestId("preconditions-panel")
-    await expect(preconditionsPanel).toBeVisible()
-    const addPreconditionButton = preconditionsPanel.getByRole("button", {
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    await expect(dialog).toBeVisible()
+    const addPreconditionButton = dialog.getByRole("button", {
       name: "Add precondition",
     })
     await expect(addPreconditionButton).toBeVisible()
@@ -865,7 +868,8 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
       await expect(addPreconditionInEditor).toBeVisible()
       await addPreconditionInEditor.click()
 
-      const preconditionLabel = preconditionTypeLabels[preconditionType as PreconditionType]
+      const preconditionLabel =
+        preconditionTypeLabels[preconditionType as PreconditionType]
 
       const preconditionOption = page.getByRole("menuitem", {
         name: preconditionLabel,
@@ -874,16 +878,31 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
       await preconditionOption.click()
     }
 
-    const firstPreconditionItem = page.getByTestId("precondition-item-row").nth(0)
-    const secondPreconditionItem = page.getByTestId("precondition-item-row").nth(1)
-    const thirdPreconditionItem = page.getByTestId("precondition-item-row").nth(2)
+    const firstPreconditionItem = page
+      .getByTestId("precondition-item-row")
+      .nth(0)
+    const secondPreconditionItem = page
+      .getByTestId("precondition-item-row")
+      .nth(1)
+    const thirdPreconditionItem = page
+      .getByTestId("precondition-item-row")
+      .nth(2)
 
-    const firstLabel = preconditionTypeLabels[PRECONDITION_TYPES[0] as PreconditionType]
-    const secondLabel = preconditionTypeLabels[PRECONDITION_TYPES[1] as PreconditionType]
-    const thirdLabel = preconditionTypeLabels[PRECONDITION_TYPES[2] as PreconditionType]
-    await expect(firstPreconditionItem.getByText(firstLabel, { exact: true })).toBeVisible()
-    await expect(secondPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
-    await expect(thirdPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
+    const firstLabel =
+      preconditionTypeLabels[PRECONDITION_TYPES[0] as PreconditionType]
+    const secondLabel =
+      preconditionTypeLabels[PRECONDITION_TYPES[1] as PreconditionType]
+    const thirdLabel =
+      preconditionTypeLabels[PRECONDITION_TYPES[2] as PreconditionType]
+    await expect(
+      firstPreconditionItem.getByText(firstLabel, { exact: true }),
+    ).toBeVisible()
+    await expect(
+      secondPreconditionItem.getByText(secondLabel, { exact: true }),
+    ).toBeVisible()
+    await expect(
+      thirdPreconditionItem.getByText(thirdLabel, { exact: true }),
+    ).toBeVisible()
 
     const firstMoveUpButton = firstPreconditionItem.getByRole("button", {
       name: "Move up precondition",
@@ -901,9 +920,15 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await firstMoveDownButton.click()
 
     // Verify that the first and second items have swapped positions
-    await expect(firstPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
-    await expect(secondPreconditionItem.getByText(firstLabel, { exact: true })).toBeVisible()
-    await expect(thirdPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
+    await expect(
+      firstPreconditionItem.getByText(secondLabel, { exact: true }),
+    ).toBeVisible()
+    await expect(
+      secondPreconditionItem.getByText(firstLabel, { exact: true }),
+    ).toBeVisible()
+    await expect(
+      thirdPreconditionItem.getByText(thirdLabel, { exact: true }),
+    ).toBeVisible()
 
     const secondMoveUpButton = secondPreconditionItem.getByRole("button", {
       name: "Move up precondition",
@@ -921,24 +946,80 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await secondMoveDownButton.click()
 
     // Verify that the second and third items have swapped positions
-    await expect(firstPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
-    await expect(secondPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
-    await expect(thirdPreconditionItem.getByText(firstLabel, { exact: true })).toBeVisible()
-    
+    await expect(
+      firstPreconditionItem.getByText(secondLabel, { exact: true }),
+    ).toBeVisible()
+    await expect(
+      secondPreconditionItem.getByText(thirdLabel, { exact: true }),
+    ).toBeVisible()
+    await expect(
+      thirdPreconditionItem.getByText(firstLabel, { exact: true }),
+    ).toBeVisible()
+
     // move up
     await secondMoveUpButton.click()
 
     // Verify that the first and second items have swapped positions back
-    await expect(firstPreconditionItem.getByText(thirdLabel, { exact: true })).toBeVisible()
-    await expect(secondPreconditionItem.getByText(secondLabel, { exact: true })).toBeVisible()
+    await expect(
+      firstPreconditionItem.getByText(thirdLabel, { exact: true }),
+    ).toBeVisible()
+    await expect(
+      secondPreconditionItem.getByText(secondLabel, { exact: true }),
+    ).toBeVisible()
 
     // Verify last move down button is disabled
-    const lastPreconditionItem = page.getByTestId("precondition-item-row").last()
+    const lastPreconditionItem = page
+      .getByTestId("precondition-item-row")
+      .last()
     const lastMoveDownButton = lastPreconditionItem.getByRole("button", {
       name: "Move down precondition",
     })
     await expect(lastMoveDownButton).toBeVisible()
     await expect(lastMoveDownButton).toBeDisabled()
+  })
+
+  test("Preconditions summary only shows when at least one reference is defined", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    // a fresh config won't show the precondition panel
+    // until the user adds a precondition
+    const panel = page.getByTestId("preconditions-panel")
+    await expect(panel).not.toBeVisible()
+
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const editButton = dialog.getByRole("button", {
+      name: "Add precondition",
+    })
+
+    await expect(dialog).toBeVisible()
+    await editButton.click()
+
+    const editor = page.getByTestId("precondition-editor")
+    const addButton = editor.getByRole("button", {
+      name: "Add precondition",
+    })
+    await expect(addButton).toBeVisible()
+    await addButton.click()
+
+    const preconditionTypeOptionMenu = page.getByRole("menu")
+    await expect(preconditionTypeOptionMenu).toBeVisible()
+    const preconditionTypeOptions = preconditionTypeOptionMenu.getByRole("menuitem")
+    await expect(preconditionTypeOptions).toHaveCount(3)
+    await preconditionTypeOptions.filter({ hasText: "Variable" }).click()
+
+    const items = editor.getByTestId(
+      "precondition-item-row",
+    )
+    await expect(items).toHaveCount(1)
+
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+    await expect(editor).not.toBeVisible()
+
+    await expect(panel).toBeVisible()
   })
 })
 
@@ -950,7 +1031,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    const configReferencesPanel = page.getByTestId("config-references-panel")
+    const configReferencesPanel = page.getByTestId("config-reference-panel")
     const editButton = configReferencesPanel.getByRole("button", {
       name: "Edit references",
     })
@@ -972,7 +1053,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    const configReferencesPanel = page.getByTestId("config-references-panel")
+    const configReferencesPanel = page.getByTestId("config-reference-panel")
     const editButton = configReferencesPanel.getByRole("button", {
       name: "Edit references",
     })
@@ -1015,13 +1096,14 @@ test.describe("Input Config Wizard - Config References panel", () => {
   }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
 
-    const configReferencesPanel = page.getByTestId("config-references-panel")
-    const editButton = configReferencesPanel.getByRole("button", {
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const editButton = dialog.getByRole("button", {
       name: "Edit references",
     })
 
-    await configListPage.clickEditButtonForRow(1)
+    await expect(dialog).toBeVisible()
     await editButton.click()
 
     const configReferenceEditor = page.getByTestId("config-reference-editor")
@@ -1031,30 +1113,72 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await expect(referenceItems).toHaveCount(3)
 
     await configReferenceEditor
-      .getByRole("button", { name: "Add Config Reference" })
+      .getByRole("button", { name: "Add reference" })
       .click()
     await expect(referenceItems).toHaveCount(4)
 
     await referenceItems
       .nth(0)
-      .getByRole("button", { name: "Delete config reference" })
+      .getByRole("button", { name: "Remove reference" })
       .click()
     await expect(referenceItems).toHaveCount(3)
+  })
+
+  test("Reference summary only shows when at least one reference is defined", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+    // a fresh config won't show the references panel
+    // until the user adds a reference
+    const panel = page.getByTestId("config-reference-panel")
+    await expect(panel).not.toBeVisible()
+
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const editButton = dialog.getByRole("button", {
+      name: "Add reference",
+    })
+
+    await expect(dialog).toBeVisible()
+    await editButton.click()
+
+    const configReferenceEditor = page.getByTestId("config-reference-editor")
+    const addButton = configReferenceEditor.getByRole("button", {
+      name: "Add reference",
+    })
+    await expect(addButton).toBeVisible()
+    await addButton.click()
+
+    const referenceItems = configReferenceEditor.getByTestId(
+      "config-reference-item-row",
+    )
+    await expect(referenceItems).toHaveCount(1)
+
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await goBackButton.click()
+    await expect(configReferenceEditor).not.toBeVisible()
+
+    await expect(panel).toBeVisible()
   })
 })
 
 test.describe("Input Config Wizard - Modifier Panel", () => {
   test("Summary is displayed correctly", async ({ configListPage, page }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
-
+    // a fresh config won't show the modifiers panel
+    // until the user adds a modifier
     const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
+    await expect(modifiersPanel).not.toBeVisible()
 
-    const addModifierButton = modifiersPanel.getByRole("button", {
+    // The add button is now available on the main dialog,
+    // which opens the modifier editor
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
+    await expect(dialog).toBeVisible()
     await expect(addModifierButton).toBeVisible()
-
     await addModifierButton.click()
 
     const modifierEditor = page.getByTestId("modifier-editor")
@@ -1087,6 +1211,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     await expect(modifierEditor).not.toBeVisible()
 
+    // the modifiers panel should now be visible
+    // with the summary of the added modifiers
+    await expect(modifiersPanel).toBeVisible()
+
     const labels = [
       "Transformation",
       "Substring",
@@ -1106,11 +1234,11 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-    const addModifierButton = modifiersPanel.getByRole("button", {
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
+    await expect(dialog).toBeVisible()
     await expect(addModifierButton).toBeVisible()
     await addModifierButton.click()
 
@@ -1154,11 +1282,11 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
   }) => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
 
-    const modifiersPanel = page.getByTestId("modifiers-panel")
-    await expect(modifiersPanel).toBeVisible()
-    const addModifierButton = modifiersPanel.getByRole("button", {
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const addModifierButton = dialog.getByRole("button", {
       name: "Add modifier",
     })
+    await expect(dialog).toBeVisible()
     await expect(addModifierButton).toBeVisible()
     await addModifierButton.click()
 
@@ -5631,12 +5759,11 @@ async function addModifierItemAndReturnEditor(
   modifierLabel: string,
   page: Page,
 ) {
-  const modifiersPanel = page.getByTestId("modifiers-panel")
-  await expect(modifiersPanel).toBeVisible()
-
-  const addModifierButton = modifiersPanel.getByRole("button", {
+  const dialog = page.getByTestId("inputconfigwizard-dialog")
+  const addModifierButton = dialog.getByRole("button", {
     name: "Add modifier",
   })
+  await expect(dialog).toBeVisible()
   await expect(addModifierButton).toBeVisible()
   await addModifierButton.click()
 

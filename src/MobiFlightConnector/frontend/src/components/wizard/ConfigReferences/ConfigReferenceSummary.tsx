@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 import { configReferenceVariants } from "@/components/wizard/variants"
 import { ConfigReference, IConfigItem } from "@/types/config"
 
@@ -32,15 +33,17 @@ const ConfigReferenceSummary = ({
               (config) => config.ref === configReference.Ref,
             )?.name ?? configReference.Ref
           const variantStyle = configReferenceVariants["default"]
-          
+
           return (
-            <div className="flex flex-row items-center gap-2" key={index}>
+            <div className="flex flex-row items-center" key={index}>
               <Badge
                 variant="outline"
-                className={`px-4 ${variantStyle} flex flex-row items-center justify-center gap-1 rounded min-w-10`}
+                className={`px-3 pr-3 py-1 ${variantStyle} flex flex-row`}
                 title={label}
               >
-                <span className="text-sm">{configReference.Placeholder}</span>
+                <span className="text-md rounded-full font-bold">{configReference.Placeholder}</span>
+                <Separator orientation="vertical" className="mx-2 h-4 bg-gray-400" />
+                <span className="max-w-30 truncate text-sm font-normal">{label}</span>
               </Badge>
             </div>
           )

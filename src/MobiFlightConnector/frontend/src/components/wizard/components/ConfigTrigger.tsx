@@ -144,7 +144,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           </div>
         </div>
         <div className="flex flex-row items-center gap-2">
-          <Button onClick={scanForInput} className="w-50" size="sm">
+          <Button onClick={scanForInput} className="px-5" size="sm">
             {scanning ? (
               <div className="flex flex-row items-center gap-2 text-sm">
                 <IconLoader2 className="animate-spin" />
@@ -225,7 +225,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }}
           >
             <IconTrash className="mr-2" />
-            {t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}
+            <span className="hidden lg:visible">{t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}</span>
           </Button>
         </div>
       </CardContent>

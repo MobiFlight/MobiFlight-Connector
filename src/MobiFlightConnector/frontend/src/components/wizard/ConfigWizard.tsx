@@ -154,7 +154,7 @@ const ConfigWizard = ({
           variant="outline"
           size={"sm"}
           onClick={() => navigateToDetailView("modifier", "small")}
-          aria-label={t("Dialog.InputConfigWizard.Modifiers.AddButton")}
+          aria-label={t("Dialog.Modifiers.AddButton")}
         >
           <IconPlus className="" />
           {t("Dialog.Modifiers.Label")}
@@ -162,9 +162,9 @@ const ConfigWizard = ({
       </div>
 
       {(hasReferences || hasPreconditions) && (
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-col lg:flex-row gap-2">
           {hasReferences && (
-            <div className="w-1/2">
+            <div className="lg:w-1/2">
               <ConfigReferencePanel
                 configReferences={configItem.ConfigRefs ?? []}
                 variant="summary"
@@ -173,7 +173,7 @@ const ConfigWizard = ({
             </div>
           )}
           {hasPreconditions && (
-            <div className="w-1/2">
+            <div className="lg:w-1/2">
               <PreconditionsPanel
                 preconditions={configItem.Preconditions ?? []}
                 variant="summary"

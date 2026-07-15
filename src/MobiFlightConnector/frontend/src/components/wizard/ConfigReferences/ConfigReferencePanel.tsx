@@ -22,8 +22,7 @@ const ConfigReferencePanel = ({
 }: ConfigReferencePanelProps) => {
   const { t } = useTranslation()
   const { project, activeConfigFileIndex } = useProjectStore()
-  const maxDisplayCount = 5
-
+  const maxDisplayCount = 2
   const outputConfigs =
     project?.ConfigFiles[activeConfigFileIndex].ConfigItems.filter(
       (item) => item.Type === "OutputConfigItem",
@@ -33,7 +32,7 @@ const ConfigReferencePanel = ({
 
   return variant === "summary" ? (
     <Card
-      data-testid="config-references-panel"
+      data-testid="config-reference-panel"
       className={cn("h-full w-full shadow-none transition-shadow hover:shadow-md", hasConfigReferences && "shadow-sm border-foreground/30")}
     >
       <CardContent className="flex flex-col gap-1 pt-4">
