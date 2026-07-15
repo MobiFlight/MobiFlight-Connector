@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
 import { preconditionVariants } from "@/components/wizard/variants"
 import {
   IConfigItem,
@@ -55,6 +56,10 @@ type PreconditionItemRowProps = {
   onChange: (updated: Precondition) => void
   onDelete: () => void
   showLogic: boolean
+  onMoveUp: () => void
+  onMoveDown: () => void
+  isFirst: boolean
+  isLast: boolean
 }
 
 const PreconditionItemRow = ({
@@ -64,6 +69,10 @@ const PreconditionItemRow = ({
   onChange,
   onDelete,
   showLogic,
+  onMoveUp,
+  onMoveDown,
+  isFirst,
+  isLast,
 }: PreconditionItemRowProps) => {
   const { t } = useTranslation()
   const selectedConfig =
@@ -97,20 +106,22 @@ const PreconditionItemRow = ({
   return (
     <div
       data-testid="precondition-item-row"
-      className={`flex flex-row items-center gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
+      className={`flex flex-row items-center gap-2 rounded-lg border p-4 py-1 pl-1 ${variantStyle}`}
     >
-      <div className="flex flex-row items-center gap-2">
-        <Switch
-          checked={precondition.Active}
-          onCheckedChange={(checked) =>
-            onChange({ ...precondition, Active: !!checked })
-          }
-        />
-      </div>
+      <MoveUpDownButtons
+        onMoveUp={onMoveUp ?? (() => {})}
+        onMoveDown={onMoveDown ?? (() => {})}
+        isFirst={isFirst}
+        isLast={isLast}
+      />
+      <Switch
+        checked={precondition.Active}
+        onCheckedChange={(checked) =>
+          onChange({ ...precondition, Active: !!checked })
+        }
+      />
 
-      <div
-        className={"w-24 text-center text-sm"}
-      >
+      <div className={"w-24 text-center text-sm"}>
         {t(
           `Dialog.InputConfigWizard.PreconditionEditor.Types.${precondition.Type}`,
         )}
@@ -268,6 +279,26 @@ const PreconditionEditor = ({
 
   const preconditionTypes = PreconditionTypes as PreconditionType[]
 
+  const onMoveUp = (index: number) => {
+    if (index === 0) return
+
+    const newPreconditions = [...preconditions]
+    const temp = newPreconditions[index - 1]
+    newPreconditions[index - 1] = newPreconditions[index]
+    newPreconditions[index] = temp
+    onPreconditionsChange(newPreconditions)
+  }
+
+  const onMoveDown = (index: number) => {
+    if (index === preconditions.length - 1) return
+
+    const newPreconditions = [...preconditions]
+    const temp = newPreconditions[index + 1]
+    newPreconditions[index + 1] = newPreconditions[index]
+    newPreconditions[index] = temp
+    onPreconditionsChange(newPreconditions)
+  }
+
   return (
     <div className="flex grow flex-col gap-4" data-testid="precondition-editor">
       <div className="flex flex-row justify-between gap-4">
@@ -317,6 +348,10 @@ const PreconditionEditor = ({
                 onChange={(updated) => handleChange(index, updated)}
                 onDelete={() => handleDelete(index)}
                 showLogic={index < preconditions.length - 1}
+                isFirst={index === 0}
+                isLast={index === preconditions.length - 1}
+                onMoveUp={() => onMoveUp(index)}
+                onMoveDown={() => onMoveDown(index)}
               />
             ))}
           </div>
