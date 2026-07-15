@@ -138,7 +138,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
           </div>
         </div>
-        <div className="flex flex-row items-end gap-2">
+        <div className="flex flex-row items-center gap-2">
           <Button onClick={scanForInput} className="w-50" size="sm">
             {scanning ? (
               <div className="flex flex-row items-center gap-2 text-sm">
@@ -211,6 +211,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           </div>
           <Button
             variant="ghost"
+            size={"sm"}
             className="gap-1"
             onClick={() => {
               setSelectedController(undefined)
