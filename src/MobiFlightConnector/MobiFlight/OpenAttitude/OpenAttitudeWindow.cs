@@ -59,6 +59,7 @@ namespace MobiFlight.OpenAttitude
 
                 // Add event handler
                 var staticPageHandler = new StaticPageWebResourceRequestHandler(
+                    "openattitude",
                     _frontendBaseUrl,
                     _frontendDistPath
                 );
