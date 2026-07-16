@@ -190,65 +190,15 @@ test.describe("General Input Config Wizard Tests", () => {
     const applyChangesButton = page.getByRole("button", {
       name: "Apply changes",
     })
-
-    // We have no changes yet, so the button should be disabled
-    await expect(applyChangesButton).toBeVisible()
-    await expect(applyChangesButton).toBeDisabled()
-
-    // Make a change to enable the button
-    const clearControllerButton = page.getByRole("button", {
-      name: "Clear input",
-    })
-    await expect(clearControllerButton).toBeVisible()
-    await clearControllerButton.click()
-
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    
     await expect(applyChangesButton).toBeEnabled()
     await applyChangesButton.click()
 
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-    await expect(applyChangesButton).not.toBeEnabled()
-  })
-
-  test("Dialog close button is working as expected", async ({
-    configListPage,
-    page,
-  }) => {
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-
-    await configListPage.clickEditButtonForRow(1)
-
-    const dialog = page.getByTestId("inputconfigwizard-dialog")
-    const closeButton = dialog
-      .getByTestId("inputconfigwizard-dialog-footer")
-      .getByRole("button", { name: "Close" })
-    await expect(closeButton).toBeVisible()
-
-    // Make a change to enable the button
-    const clearControllerButton = page.getByRole("button", {
-      name: "Clear input",
-    })
-    await expect(clearControllerButton).toBeVisible()
-    await clearControllerButton.click()
-
-    // Close button label changed to "Cancel"
-    // because of the pending changes
-    await expect(closeButton).not.toBeVisible()
-
-    const applyChangesButton = page.getByRole("button", {
-      name: "Apply changes",
-    })
-    // We have no changes yet, so the button should be disabled
-    await expect(applyChangesButton).toBeVisible()
-    await expect(applyChangesButton).toBeEnabled()
-    await applyChangesButton.click()
-
-    // Changes are reset, label of the button should be "Close" again
-    // Dialog now closes when clicked
-    await expect(closeButton).toBeVisible()
-    await closeButton.click()
-
+    // After clicking the dialog closes
     await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
   })
 
   test("Dialog cancel button is working as expected", async ({
@@ -260,24 +210,19 @@ test.describe("General Input Config Wizard Tests", () => {
 
     await configListPage.clickEditButtonForRow(1)
 
-    // No pending changes, no cancel button visible
     const cancelButton = page.getByRole("button", { name: "Cancel" })
-    await expect(cancelButton).not.toBeVisible()
-
-    // Make a change to enable the button
-    const clearControllerButton = page.getByRole("button", {
-      name: "Clear input",
-    })
-    await expect(clearControllerButton).toBeVisible()
-    await clearControllerButton.click()
-
-    // Pending changes, cancel button should be visible
     await expect(cancelButton).toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
     // Clicking cancel should discard changes
     // and close the dialog
     await cancelButton.click()
     await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+
+    // No commands should have been sent to the backend
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands?.length).toBe(0)
   })
 
   test("Dialog without pending changes can be closed by hitting ESC", async ({
@@ -288,13 +233,6 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
     await configListPage.clickEditButtonForRow(1)
-
-    // Verify no pending changes
-    const applyChangesButton = page.getByRole("button", {
-      name: "Apply changes",
-    })
-    await expect(applyChangesButton).toBeVisible()
-    await expect(applyChangesButton).toBeDisabled()
 
     // Hit ESC to close the dialog
     await page.keyboard.press("Escape")
@@ -309,17 +247,12 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
     await configListPage.clickEditButtonForRow(1)
-
-    // Verify no pending changes
-    const applyChangesButton = page.getByRole("button", {
-      name: "Apply changes",
-    })
-    await expect(applyChangesButton).toBeVisible()
-    await expect(applyChangesButton).toBeDisabled()
+    const dialog = page.getByTestId('inputconfigwizard-dialog')
+    await expect(dialog).toBeVisible()
 
     // Click outside the dialog to close it
     await page.mouse.click(0, 0)
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(dialog).not.toBeVisible()
   })
 
   test("Dialog with pending changes cannot be closed by hitting ESC", async ({

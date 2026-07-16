@@ -71,6 +71,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         item: finalConfigItem,
       },
     })
+
+    closeDialog()
   }
 
   const containerRef = useRef<HTMLDivElement>(null)
@@ -204,19 +206,11 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           </div>
           <div className="flex flex-row gap-2">
             <Button variant="outline" onClick={closeDialog}>
-              {hasChanged()
-                ? t("Dialog.General.Cancel")
-                : t("Dialog.General.Close")}
+              {t("Dialog.General.Cancel")}
             </Button>
-            {hasChanged() ? (
-              <Button variant="default" onClick={saveChanges}>
-                {t("Dialog.General.ApplyChanges")}
-              </Button>
-            ) : (
-              <Button disabled={true} variant="outline" onClick={closeDialog}>
-                {t("Dialog.General.ApplyChanges")}
-              </Button>
-            )}
+            <Button variant="default" onClick={saveChanges}>
+              {t("Dialog.General.ApplyChanges")}
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>
