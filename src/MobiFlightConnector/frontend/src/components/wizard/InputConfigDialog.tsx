@@ -185,7 +185,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             </div>
           </ScrollArea>
         </div>
-        <DialogFooter className="flex flex-row justify-between">
+        <DialogFooter className="flex flex-row justify-between" data-testid="inputconfigwizard-dialog-footer">
           <div className="flex grow flex-row items-center gap-1">
             {showPendingChangesMessage && (
               <>

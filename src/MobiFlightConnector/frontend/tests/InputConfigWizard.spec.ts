@@ -179,7 +179,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
   })
 
-  test("Dialog closes with apply changes button", async ({
+  test("Apply changes button is working as expected", async ({
     configListPage,
     page,
   }) => {
@@ -190,22 +190,200 @@ test.describe("General Input Config Wizard Tests", () => {
     const applyChangesButton = page.getByRole("button", {
       name: "Apply changes",
     })
+
+    // We have no changes yet, so the button should be disabled
     await expect(applyChangesButton).toBeVisible()
+    await expect(applyChangesButton).toBeDisabled()
+
+    // Make a change to enable the button
+    const clearControllerButton = page.getByRole("button", {
+      name: "Clear input",
+    })
+    await expect(clearControllerButton).toBeVisible()
+    await clearControllerButton.click()
+
+    await expect(applyChangesButton).toBeEnabled()
     await applyChangesButton.click()
 
-    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    await expect(applyChangesButton).not.toBeEnabled()
   })
 
-  test("Dialog closes with cancel button", async ({ configListPage, page }) => {
+  test("Dialog close button is working as expected", async ({
+    configListPage,
+    page,
+  }) => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
     await configListPage.clickEditButtonForRow(1)
-    const cancelButton = page.getByRole("button", { name: "Cancel" })
-    await expect(cancelButton).toBeVisible()
-    await cancelButton.click()
+
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const closeButton = dialog
+      .getByTestId("inputconfigwizard-dialog-footer")
+      .getByRole("button", { name: "Close" })
+    await expect(closeButton).toBeVisible()
+
+    // Make a change to enable the button
+    const clearControllerButton = page.getByRole("button", {
+      name: "Clear input",
+    })
+    await expect(clearControllerButton).toBeVisible()
+    await clearControllerButton.click()
+
+    // Close button label changed to "Cancel"
+    // because of the pending changes
+    await expect(closeButton).not.toBeVisible()
+
+    const applyChangesButton = page.getByRole("button", {
+      name: "Apply changes",
+    })
+    // We have no changes yet, so the button should be disabled
+    await expect(applyChangesButton).toBeVisible()
+    await expect(applyChangesButton).toBeEnabled()
+    await applyChangesButton.click()
+
+    // Changes are reset, label of the button should be "Close" again
+    // Dialog now closes when clicked
+    await expect(closeButton).toBeVisible()
+    await closeButton.click()
 
     await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+  })
+
+  test("Dialog cancel button is working as expected", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    // No pending changes, no cancel button visible
+    const cancelButton = page.getByRole("button", { name: "Cancel" })
+    await expect(cancelButton).not.toBeVisible()
+
+    // Make a change to enable the button
+    const clearControllerButton = page.getByRole("button", {
+      name: "Clear input",
+    })
+    await expect(clearControllerButton).toBeVisible()
+    await clearControllerButton.click()
+
+    // Pending changes, cancel button should be visible
+    await expect(cancelButton).toBeVisible()
+
+    // Clicking cancel should discard changes
+    // and close the dialog
+    await cancelButton.click()
+    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+  })
+
+  test("Dialog without pending changes can be closed by hitting ESC", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    // Verify no pending changes
+    const applyChangesButton = page.getByRole("button", {
+      name: "Apply changes",
+    })
+    await expect(applyChangesButton).toBeVisible()
+    await expect(applyChangesButton).toBeDisabled()
+
+    // Hit ESC to close the dialog
+    await page.keyboard.press("Escape")
+    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+  })
+
+  test("Dialog without pending changes can be closed by clicking outside the dialog", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    // Verify no pending changes
+    const applyChangesButton = page.getByRole("button", {
+      name: "Apply changes",
+    })
+    await expect(applyChangesButton).toBeVisible()
+    await expect(applyChangesButton).toBeDisabled()
+
+    // Click outside the dialog to close it
+    await page.mouse.click(0, 0)
+    await expect(page.getByText("Edit Input Configuration")).not.toBeVisible()
+  })
+
+  test("Dialog with pending changes cannot be closed by hitting ESC", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    // Make a change to enable the button
+    const clearControllerButton = page.getByRole("button", {
+      name: "Clear input",
+    })
+    await expect(clearControllerButton).toBeVisible()
+    await clearControllerButton.click()
+
+    // Verify pending changes
+    const applyChangesButton = page.getByRole("button", {
+      name: "Apply changes",
+    })
+    await expect(applyChangesButton).toBeVisible()
+    await expect(applyChangesButton).toBeEnabled()
+
+    // Hit ESC to close the dialog
+    await page.keyboard.press("Escape")
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    const hint = page.getByText(
+      "You have pending changes. Apply them first, or click Cancel to close this dialog without saving.",
+    )
+    await expect(hint).toBeVisible()
+  })
+
+  test("Dialog with pending changes cannot be closed by clicking outside the dialog", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    // Make a change to enable the button
+    const clearControllerButton = page.getByRole("button", {
+      name: "Clear input",
+    })
+    await expect(clearControllerButton).toBeVisible()
+    await clearControllerButton.click()
+
+    // Verify pending changes
+    const applyChangesButton = page.getByRole("button", {
+      name: "Apply changes",
+    })
+    await expect(applyChangesButton).toBeVisible()
+    await expect(applyChangesButton).toBeEnabled()
+
+    // Click outside the dialog to close it
+    await page.mouse.click(0, 0)
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    const hint = page.getByText(
+      "You have pending changes. Apply them first, or click Cancel to close this dialog without saving.",
+    )
+    await expect(hint).toBeVisible()
   })
 })
 
