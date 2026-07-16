@@ -109,7 +109,7 @@ const ProjectForm = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
-        className="flex h-[85vh] max-h-[675px] flex-col overflow-x-hidden sm:max-w-[675px]"
+        className=" flex h-[85vh] max-h-[675px] flex-col overflow-x-hidden sm:max-w-[675px]"
         onKeyDown={handleFormKeyDown}
         ref={containerRef}
       >
