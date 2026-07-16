@@ -385,7 +385,8 @@
       "Save": "Speichern",
       "SaveChanges": "Änderungen speichern",
       "ApplyChanges": "Änderungen übernehmen",
-      "ResetFilters": "Filter zurücksetzen"
+      "ResetFilters": "Filter zurücksetzen",
+      "PendingChangesMessage": "Du hast Änderungen gemacht. Wende sie zuerst an, oder klicke auf Abbrechen, um diesen Dialog ohne Speichern zu schließen."
     },
     "ControllerBinding": {
       "Title": "Controller Zuordnungen",

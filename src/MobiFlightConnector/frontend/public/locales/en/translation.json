@@ -379,7 +379,8 @@
       "Save": "Save",
       "SaveChanges": "Save changes",
       "ApplyChanges": "Apply changes",
-      "ResetFilters": "Reset filters"
+      "ResetFilters": "Reset filters",
+      "PendingChangesMessage": "You have pending changes. Apply them first, or click Cancel to close this dialog without saving."
     },
     "ControllerBinding": {
       "Title": "Controller Bindings",

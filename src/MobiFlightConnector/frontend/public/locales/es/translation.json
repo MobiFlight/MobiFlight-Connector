@@ -385,7 +385,8 @@
       "Save": "Guardar",
       "SaveChanges": "Guardar cambios",
       "ApplyChanges": "Aplicar cambios",
-      "ResetFilters": "Borrar filtros"
+      "ResetFilters": "Borrar filtros",
+      "PendingChangesMessage": "Tienes cambios pendientes. Aplícalos primero o haz clic en Cancelar para cerrar este diálogo sin guardar."
     },
     "ControllerBinding": {
       "Title": "Vincular controladores",

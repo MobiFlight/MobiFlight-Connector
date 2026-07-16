@@ -379,7 +379,8 @@
       "Save": "Salvar",
       "SaveChanges": "Salvar alterações",
       "ApplyChanges": "Aplicar alterações",
-      "ResetFilters": "Redefinir filtros"
+      "ResetFilters": "Redefinir filtros",
+      "PendingChangesMessage": "Você tem alterações pendentes. Aplique-as primeiro ou clique em Cancelar para fechar este diálogo sem salvar."
     },
     "ControllerBinding": {
       "Title": "Vinculação de controladores",
