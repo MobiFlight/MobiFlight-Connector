@@ -490,3 +490,6 @@ FodyWeavers.xsd
 # Python directory - include only RuntimeAndPackages*.zip files
 Python/*
 !Python/RuntimeAndPackages*.zip
+
+# ignore devcontainer lock file
+devcontainer-lock.json
