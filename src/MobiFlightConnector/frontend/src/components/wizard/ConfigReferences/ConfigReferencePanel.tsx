@@ -33,7 +33,11 @@ const ConfigReferencePanel = ({
   return variant === "summary" ? (
     <Card
       data-testid="config-reference-panel"
-      className={cn("h-full w-full shadow-none transition-shadow hover:shadow-md", hasConfigReferences && "shadow-sm border-foreground/30")}
+      className={cn(
+        "h-full w-full shadow-none transition-shadow hover:shadow-md",
+        hasConfigReferences && "border-foreground/30 shadow-sm",
+      )}
+      onDoubleClick={openDetailsPanel}
     >
       <CardContent className="flex flex-col gap-1 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">

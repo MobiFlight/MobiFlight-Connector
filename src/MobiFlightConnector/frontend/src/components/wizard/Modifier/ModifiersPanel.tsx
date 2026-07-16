@@ -33,11 +33,12 @@ const ModifiersPanel = ({
 
   return variant === "summary" ? (
     <Card
-      data-testid="modifiers-panel"
+      data-testid="modifier-panel"
       className={cn(
         "w-full shadow-none transition-shadow hover:shadow-md",
         hasModifiers && "border-foreground/30 shadow-sm",
       )}
+      onDoubleClick={openDetailsPanel}
     >
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">

@@ -419,7 +419,7 @@ test.describe("Input Config Wizard - Edit name", () => {
     const applyChangesButton = page.getByRole("button", {
       name: "Apply changes",
     })
-    // await turning enabled after the change 
+    // await turning enabled after the change
     await expect(applyChangesButton).toBeEnabled()
     await expect(applyChangesButton).toBeVisible()
     await applyChangesButton.click()
@@ -747,9 +747,11 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
       }
 
       // Close the dialog
-      const closeButton = page.getByTestId("inputconfigwizard-dialog-footer").getByRole("button", {
-        name: "Close",
-      })
+      const closeButton = page
+        .getByTestId("inputconfigwizard-dialog-footer")
+        .getByRole("button", {
+          name: "Close",
+        })
       await expect(closeButton).toBeEnabled()
       await closeButton.click()
     }
@@ -867,7 +869,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    const preconditionsPanel = page.getByTestId("preconditions-panel")
+    const preconditionsPanel = page.getByTestId("precondition-panel")
     const preconditionEditButton = preconditionsPanel.getByRole("button", {
       name: "Preconditions",
     })
@@ -891,7 +893,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    const preconditionsPanel = page.getByTestId("preconditions-panel")
+    const preconditionsPanel = page.getByTestId("precondition-panel")
     const preconditionEditButton = preconditionsPanel.getByRole("button", {
       name: "Preconditions",
     })
@@ -973,6 +975,26 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     }
   })
 
+  test("Double click on preconditions summary opens editor", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const panel = dialog.getByTestId("precondition-panel")
+    const editor = page.getByTestId("precondition-editor")
+
+    await expect(editor).not.toBeVisible()
+
+    await expect(panel).toBeVisible()
+    await panel.dblclick()
+
+    await expect(editor).toBeVisible()
+  })
+
   test("Preconditions can be added and deleted", async ({
     configListPage,
     page,
@@ -980,7 +1002,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    const preconditionsPanel = page.getByTestId("preconditions-panel")
+    const preconditionsPanel = page.getByTestId("precondition-panel")
     const preconditionEditButton = preconditionsPanel.getByRole("button", {
       name: "Preconditions",
     })
@@ -1173,7 +1195,7 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     // a fresh config won't show the precondition panel
     // until the user adds a precondition
-    const panel = page.getByTestId("preconditions-panel")
+    const panel = page.getByTestId("precondition-panel")
     await expect(panel).not.toBeVisible()
 
     const dialog = page.getByTestId("inputconfigwizard-dialog")
@@ -1234,6 +1256,26 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await expect(
       configReferencesPanel.getByText("!", { exact: true }),
     ).toBeVisible()
+  })
+
+  test("Double click on reference summary opens editor", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const panel = dialog.getByTestId("config-reference-panel")
+    const editor = page.getByTestId("config-reference-editor")
+
+    await expect(editor).not.toBeVisible()
+
+    await expect(panel).toBeVisible()
+    await panel.dblclick()
+
+    await expect(editor).toBeVisible()
   })
 
   test("Config References panel editing works correctly", async ({
@@ -1363,7 +1405,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
     // a fresh config won't show the modifiers panel
     // until the user adds a modifier
-    const modifiersPanel = page.getByTestId("modifiers-panel")
+    const modifiersPanel = page.getByTestId("modifier-panel")
     await expect(modifiersPanel).not.toBeVisible()
 
     // The add button is now available on the main dialog,
@@ -1421,6 +1463,51 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     for (const label of labels) {
       await expect(modifiersPanel.getByText(label)).toBeVisible()
     }
+  })
+
+  test("Double click on modifier summary opens editor", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    // Bring up the modifier editor by clicking the "Add modifier" button
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const addModifierButton = dialog.getByRole("button", {
+      name: "Add modifier",
+    })
+    await expect(dialog).toBeVisible()
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const panel = dialog.getByTestId("modifier-panel")
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    // add a new transformation modifier
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+    const modifierLabel = "Transformation"
+    const transformationOption = page.getByRole("menuitem", {
+      name: modifierLabel,
+    })
+    await expect(transformationOption).toBeVisible()
+    await transformationOption.click()
+
+    // close the editor
+    const backButton = page.getByRole("button", { name: "Go back" })
+    await expect(backButton).toBeVisible()
+    await backButton.click()
+    await expect(modifierEditor).not.toBeVisible()
+
+    // double click on the summary panel 
+    // to open the editor again
+    await expect(panel).toBeVisible()
+    await panel.dblclick()
+    await expect(modifierEditor).toBeVisible()
   })
 
   test("All modifiers can be added and removed", async ({

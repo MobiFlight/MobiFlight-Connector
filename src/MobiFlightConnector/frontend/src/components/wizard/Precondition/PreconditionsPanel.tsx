@@ -36,8 +36,12 @@ const PreconditionsPanel = ({
 
   return variant === "summary" ? (
     <Card
-      data-testid="preconditions-panel"
-      className={cn("h-full w-full shadow-none transition-shadow hover:shadow-md", hasPreconditions && "shadow-sm border-foreground/30")}
+      data-testid="precondition-panel"
+      className={cn(
+        "h-full w-full shadow-none transition-shadow hover:shadow-md",
+        hasPreconditions && "border-foreground/30 shadow-sm",
+      )}
+      onDoubleClick={openDetailsPanel}
     >
       <CardContent className="flex flex-col gap-1 pt-4">
         <div className="flex flex-row items-start justify-between gap-4">
