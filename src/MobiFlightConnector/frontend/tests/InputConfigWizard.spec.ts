@@ -412,12 +412,15 @@ test.describe("Input Config Wizard - Edit name", () => {
 
     await expect(nameInput).toBeVisible()
     await nameInput.fill(testLabel)
+    await nameInput.blur()
 
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
 
     const applyChangesButton = page.getByRole("button", {
       name: "Apply changes",
     })
+    // await turning enabled after the change 
+    await expect(applyChangesButton).toBeEnabled()
     await expect(applyChangesButton).toBeVisible()
     await applyChangesButton.click()
 
@@ -711,8 +714,8 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
         name: "Apply changes",
       })
 
+      await expect(applyChangesButton).toBeEnabled()
       await applyChangesButton.click()
-      await expect(triggerPanel).not.toBeVisible()
 
       const commandsAfterClick =
         await configListPage.mobiFlightPage.getTrackedCommands()
@@ -742,6 +745,13 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
           (commandsAfterClick![0].payload.item as IConfigItem).analog,
         ).toBeDefined()
       }
+
+      // Close the dialog
+      const closeButton = page.getByTestId("inputconfigwizard-dialog-footer").getByRole("button", {
+        name: "Close",
+      })
+      await expect(closeButton).toBeEnabled()
+      await closeButton.click()
     }
   })
 
