@@ -60,8 +60,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const saveChanges = () => {
     const { publish } = publishOnMessageExchange()
 
-    const finalConfigItem = resetTriggersBasedOnDeviceType(currentConfigItem)
-    setLastChangesAppliedConfigItem(finalConfigItem)
+    const finalConfigItem = resetTriggersBasedOnDeviceType(draftConfigItem)
+    setCommittedConfigItem(finalConfigItem)
     setCurrentConfigItem(finalConfigItem)
     setShowPendingChangesMessage(false)
 
@@ -76,9 +76,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
-  const [currentConfigItem, setCurrentConfigItem] = useState(configItem)
-  const [lastChangesAppliedConfigItem, setLastChangesAppliedConfigItem] =
-    useState(configItem)
+  // keep track of draft and committed config
+  // so that we can determine if draftConfigItem is dirty
+  const [draftConfigItem, setCurrentConfigItem] = useState(configItem)
+  const [committedConfigItem, setCommittedConfigItem] = useState(configItem)
+
+  // state related to UI feedback for unsaved changes
   const [isWiggling, setIsWiggling] = useState(false)
   const [showPendingChangesMessage, setShowPendingChangesMessage] =
     useState(false)
@@ -92,7 +95,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     configItem?.Controller === null && configItemName === defaultLabel
 
   const hasChanged = () => {
-    return !_.isEqual(lastChangesAppliedConfigItem, currentConfigItem)
+    return !_.isEqual(committedConfigItem, draftConfigItem)
   }
 
   useEffect(() => {
@@ -153,10 +156,10 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             <InlineEditLabel
               labelClassName="text-2xl px-4.5 -ml-5"
               inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
-              value={currentConfigItem?.Name || ""}
+              value={draftConfigItem?.Name || ""}
               onSave={(newName) => {
-                if (currentConfigItem) {
-                  setCurrentConfigItem({ ...currentConfigItem, Name: newName })
+                if (draftConfigItem) {
+                  setCurrentConfigItem({ ...draftConfigItem, Name: newName })
                 }
               }}
               ref={inlineEditRef}
@@ -169,9 +172,9 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         <div className="relative flex grow flex-col gap-2">
           <ScrollArea className="grow">
             <div className="pr-3">
-              {currentConfigItem && (
+              {draftConfigItem && (
                 <ConfigWizard
-                  configItem={currentConfigItem}
+                  configItem={draftConfigItem}
                   onConfigChange={(item) => {
                     setCurrentConfigItem(item)
                   }}
@@ -185,7 +188,10 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             </div>
           </ScrollArea>
         </div>
-        <DialogFooter className="flex flex-row justify-between" data-testid="inputconfigwizard-dialog-footer">
+        <DialogFooter
+          className="flex flex-row justify-between"
+          data-testid="inputconfigwizard-dialog-footer"
+        >
           <div className="flex grow flex-row items-center gap-1">
             {showPendingChangesMessage && (
               <>
