@@ -94,7 +94,7 @@ const ComboBox = <T,>({
                 return (
                   <CommandItem
                     key={itemValue}
-                    value={`${getLabel(item)}`}
+                    value={itemValue}
                     onSelect={() => {
                       if (itemValue === selectedValue) {
                         setSelected(undefined)
