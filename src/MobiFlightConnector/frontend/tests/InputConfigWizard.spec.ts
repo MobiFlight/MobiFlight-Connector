@@ -1086,9 +1086,14 @@ test.describe("Input Config Wizard - Config References panel", () => {
       await expect(row.getByRole("textbox").nth(0)).toHaveValue(
         expected.placeholder,
       )
-      await expect(row.getByRole("textbox").nth(1)).toHaveValue(
-        expected.testValue,
-      )
+
+      // This input is not displayed until we have the proper test feature in place
+      await expect(row.getByRole("textbox").nth(1)).not.toBeVisible()
+
+      // once the test feature is available, we can uncomment this line to verify that the value is correct
+      // await expect(row.getByRole("textbox").nth(1)).toHaveValue(
+      //   expected.testValue,
+      // )
     }
   })
 
