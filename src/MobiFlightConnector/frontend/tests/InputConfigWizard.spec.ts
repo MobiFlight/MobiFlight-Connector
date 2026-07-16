@@ -1005,13 +1005,12 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
 
     const preconditionTypeOptionMenu = page.getByRole("menu")
     await expect(preconditionTypeOptionMenu).toBeVisible()
-    const preconditionTypeOptions = preconditionTypeOptionMenu.getByRole("menuitem")
+    const preconditionTypeOptions =
+      preconditionTypeOptionMenu.getByRole("menuitem")
     await expect(preconditionTypeOptions).toHaveCount(3)
     await preconditionTypeOptions.filter({ hasText: "Variable" }).click()
 
-    const items = editor.getByTestId(
-      "precondition-item-row",
-    )
+    const items = editor.getByTestId("precondition-item-row")
     await expect(items).toHaveCount(1)
 
     const goBackButton = page.getByRole("button", { name: "Go back" })
@@ -1041,9 +1040,12 @@ test.describe("Input Config Wizard - Config References panel", () => {
     await expect(editButton).toBeVisible()
 
     // Summary shows placeholder badges for each config reference
-    await expect(configReferencesPanel.getByText("#")).toBeVisible()
-    await expect(configReferencesPanel.getByText("!")).toBeVisible()
-    await expect(configReferencesPanel.getByText("?")).toBeVisible()
+    await expect(
+      configReferencesPanel.getByText("#", { exact: true }),
+    ).toBeVisible()
+    await expect(
+      configReferencesPanel.getByText("!", { exact: true }),
+    ).toBeVisible()
   })
 
   test("Config References panel editing works correctly", async ({

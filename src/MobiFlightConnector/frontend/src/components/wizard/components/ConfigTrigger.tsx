@@ -225,7 +225,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }}
           >
             <IconTrash className="mr-2" />
-            <span className="hidden lg:visible">{t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}</span>
+            <span className="sr-only lg:not-sr-only text-sm">{t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}</span>
           </Button>
         </div>
       </CardContent>
