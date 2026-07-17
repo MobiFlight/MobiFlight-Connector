@@ -18,9 +18,9 @@ namespace MobiFlight.UI.Dialogs
         public event EventHandler<EventArgs> DisableBetaUpdatesClicked;
 
         public string WebsiteUrl {
-            get { return this.webView.Source.ToString(); }
+            get { return webView.Source.ToString(); }
             set { 
-                this.webView.Source = new System.Uri(value, System.UriKind.Absolute);
+                webView.Source = new System.Uri(value, System.UriKind.Absolute);
             } 
         }
 

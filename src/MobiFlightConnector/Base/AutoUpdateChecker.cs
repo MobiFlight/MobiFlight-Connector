@@ -10,18 +10,17 @@ namespace MobiFlight.UpdateChecker
 {
     static class AutoUpdateChecker
     {
-        private enum UpdatePath
+        internal enum UpdatePath
         {
             StableToStable,
             StableToBeta,
             BetaToBeta,
             BetaToStable
         }
-
         static readonly string mobiFlightInstaller = "MobiFlight-Installer.exe";
         static readonly int UpdateCheckTimeoutInMs = 5000;
 
-        private static bool VersionCheck(string output, out string newVersion, out string betaOrRelease)
+        internal static bool VersionCheck(string output, out string newVersion, out string betaOrRelease)
         {
             newVersion = null;
             betaOrRelease = null;
@@ -39,7 +38,7 @@ namespace MobiFlight.UpdateChecker
             return true;
         }
 
-        private static string ReleaseVersion(string version)
+        internal static string ReleaseVersion(string version)
         {
             if (!Version.TryParse(version, out var parsedVersion))
                 return version;
@@ -49,12 +48,12 @@ namespace MobiFlight.UpdateChecker
                 : parsedVersion.ToString(3);
         }
 
-        private static bool IsBetaVersion(Version version)
+        internal static bool IsBetaVersion(Version version)
         {
             return version.Revision > 0;
         }
 
-        private static UpdatePath GetUpdatePath(bool currentIsBeta, string targetChannel)
+        internal static UpdatePath GetUpdatePath(bool currentIsBeta, string targetChannel)
         {
             var targetIsBeta = targetChannel == "BETA";
 
