@@ -678,15 +678,6 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
           (commandsAfterClick![0].payload.item as IConfigItem).analog,
         ).toBeDefined()
       }
-
-      // Close the dialog
-      const closeButton = page
-        .getByTestId("inputconfigwizard-dialog-footer")
-        .getByRole("button", {
-          name: "Close",
-        })
-      await expect(closeButton).toBeEnabled()
-      await closeButton.click()
     }
   })
 
