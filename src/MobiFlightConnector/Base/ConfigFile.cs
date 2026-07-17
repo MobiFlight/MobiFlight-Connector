@@ -1,4 +1,5 @@
-﻿using MobiFlight.InputConfig;
+﻿using MobiFlight.Base.Serialization.Json.Resolver;
+using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,9 @@ namespace MobiFlight.Base
             }
 
             var json = File.ReadAllText(FileName);
+
             var configFile = JsonConvert.DeserializeObject<ConfigFile>(json);
+            
             FileName = configFile.FileName ?? Path.GetFileName(FileName);
             ReferenceOnly = configFile.ReferenceOnly;
             EmbedContent = configFile.EmbedContent;
@@ -56,8 +59,10 @@ namespace MobiFlight.Base
 
         public string ToJson()
         {
+            // Use custom contract resolver to control serialization of properties correctly
             var settings = new JsonSerializerSettings
             {
+                ContractResolver = new CustomJsonIgnoreContractResolver(),
                 NullValueHandling = NullValueHandling.Ignore
             };
             return JsonConvert.SerializeObject(this, Formatting.Indented, settings);

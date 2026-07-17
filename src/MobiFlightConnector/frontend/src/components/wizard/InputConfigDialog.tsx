@@ -12,6 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import ConfigWizard from "@/components/wizard/ConfigWizard"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
+import { IConfigItem } from "@/types/config"
 import { IconChevronRight } from "@tabler/icons-react"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -19,6 +20,21 @@ import { useNavigate } from "react-router"
 
 export type InputConfigDialogProps = {
   configId: string
+}
+
+const resetTriggersBasedOnDeviceType = (configItem: IConfigItem | undefined) => {
+  if (!configItem?.Device) return configItem
+
+  switch (configItem.Device.Type) {
+    case "Button":
+      return { ...configItem, analog: undefined, encoder: undefined }
+    case "Encoder":
+      return { ...configItem, analog: undefined, button: undefined }
+    case "AnalogInput":
+      return { ...configItem, encoder: undefined, button: undefined }
+    default:
+      return configItem
+  }
 }
 
 const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
@@ -29,7 +45,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const configItem = configFile?.ConfigItems?.find(
     (item) => item.GUID === configId,
   )
-
   
   const closeDialog = () => {
     navigate(-1)
@@ -37,10 +52,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   
   const saveChanges = () => {
     const { publish } = publishOnMessageExchange()
+    
+    const finalConfigItem = resetTriggersBasedOnDeviceType(currentConfigItem)
     publish({
       key: "CommandUpdateConfigItem",
       payload: {
-        item: currentConfigItem,
+        item: finalConfigItem,
       },
     })
     closeDialog()

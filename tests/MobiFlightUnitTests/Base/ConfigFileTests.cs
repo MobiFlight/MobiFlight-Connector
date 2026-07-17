@@ -3,6 +3,7 @@ using MobiFlight.OutputConfig;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MobiFlight.Base.Tests
 {
@@ -143,6 +144,66 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
             Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
             Assert.HasCount(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems);
+        }
+
+        [TestMethod()]
+        public void ConfigFile_SaveFile_Should_Use_CustomJsonIgnoreContractResolver()
+        {
+            var configFile = new ConfigFile
+            {
+                FileName = TestFileName,
+                ReferenceOnly = false,
+                EmbedContent = false,
+                ConfigItems = new List<IConfigItem>()
+            };
+
+            configFile.ConfigItems.Add(new OutputConfigItem()
+            {
+                Source = new VariableSource()
+                {
+                    MobiFlightVariable = new MobiFlightVariable() { Number = 123.456f, Text = "Don't persist me!" }
+                },
+                RawValue = "Don't persist me!",
+                Value = "Don't persist me!",
+                Status = new System.Collections.Generic.Dictionary<ConfigItemStatusType, string> { {
+                       ConfigItemStatusType.Source, "Don't persist me!"
+                    } }
+            });
+
+            string outFile = @"assets\Base\ConfigFile\Json\SaveUse_CustomJsonIgnoreContractResolver_Test.mfproj";
+            configFile.FileName = outFile;
+            configFile.SaveFile();
+
+            string fileContent = File.ReadAllText(outFile);
+            Assert.DoesNotContain("\"Number\": 123.456", fileContent);
+            Assert.DoesNotContain("\"Text\": \"Don't persist me!\"", fileContent);
+            Assert.DoesNotContain("\"RawValue\": \"Don't persist me!\"", fileContent);
+            Assert.DoesNotContain("\"Value\": \"Don't persist me!\"", fileContent);
+            Assert.DoesNotContain("\"Status\": {", fileContent);
+            Assert.DoesNotContain("\"Source\": \"Don't persist me!\"", fileContent);
+
+            // to make sure we don't rely only on correct text formatting (whitespaces might break)
+            // we also deserialize the project and expect default values for the variable
+
+            // Arrange & act
+            var o2 = new ConfigFile()
+            {
+                FileName = outFile
+            };
+            o2.OpenFile();
+
+            var configItem = o2.ConfigItems[0] as OutputConfigItem;
+            var variableSource = configItem.Source as VariableSource;
+            var newVariable = new MobiFlightVariable();
+            var newConfigItem = new OutputConfigItem();
+
+            // Assert
+            Assert.IsNotNull(variableSource);
+            Assert.AreEqual(newVariable.Number, variableSource.MobiFlightVariable.Number);
+            Assert.AreEqual(newVariable.Text, variableSource.MobiFlightVariable.Text);
+            Assert.AreEqual(newConfigItem.RawValue, configItem.RawValue);
+            Assert.AreEqual(newConfigItem.Value, configItem.Value);
+            Assert.IsTrue(newConfigItem.Status.SequenceEqual(configItem.Status));
         }
 
         [TestMethod()]

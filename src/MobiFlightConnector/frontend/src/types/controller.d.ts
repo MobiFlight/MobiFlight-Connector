@@ -1,9 +1,11 @@
 import { ControllerType } from "./config"
 
+export type OutputDeviceType = "Output" | "LedModule" | "LcdDisplay" | "Servo" | "Stepper" | "ShiftRegister" | "CustomDevice"
+export type InputDeviceType = "Button" | "Encoder" | "AnalogInput"
 export type BaseDevice = {
   Name: string
   Label: string
-  Type: string
+  Type: InputDeviceType | OutputDeviceType
 }
 
 export type Controller = {
@@ -29,7 +31,7 @@ export type ControllerBinding = {
 export type DeviceReference = {
   Name: string
   Label: string
-  Type: string
+  Type: InputDeviceType | OutputDeviceType
 }
 
 export type ControllerBindingStatus = "Match" | "AutoBind" | "Missing" | "RequiresManualBind"
