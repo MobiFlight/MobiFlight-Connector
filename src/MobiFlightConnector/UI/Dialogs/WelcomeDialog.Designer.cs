@@ -68,6 +68,7 @@ namespace MobiFlight.UI.Dialogs
             Controls.Add(webView);
             Controls.Add(titleLabel);
             Controls.Add(panel);
+            this.AcceptButton = updateButton;
             this.Name = "WelcomeDialog";
             this.Load += new System.EventHandler(this.WelcomeDialog_Load);
             panel.ResumeLayout(false);
@@ -90,7 +91,7 @@ namespace MobiFlight.UI.Dialogs
             Dock = System.Windows.Forms.DockStyle.Right,
             Name = "updateButton",
             Size = new System.Drawing.Size(125, 35),
-            TabIndex = 4,
+            TabIndex = 0,
             UseVisualStyleBackColor = true
         };
 

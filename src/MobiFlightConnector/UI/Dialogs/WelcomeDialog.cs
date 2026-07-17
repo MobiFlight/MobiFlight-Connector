@@ -37,6 +37,8 @@ namespace MobiFlight.UI.Dialogs
                 updateButton.Visible = value;
                 dontUpdateNowLink.Visible = value;
                 okButton.Visible = !value;
+                if (value)
+                    ActiveControl = updateButton;
             }
         }
 
