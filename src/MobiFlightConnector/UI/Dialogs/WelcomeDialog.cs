@@ -35,7 +35,7 @@ namespace MobiFlight.UI.Dialogs
             set
             {
                 updateButton.Visible = value;
-                notNowLink.Visible = value;
+                dontUpdateNowLink.Visible = value;
                 okButton.Visible = !value;
             }
         }
@@ -53,7 +53,7 @@ namespace MobiFlight.UI.Dialogs
         {
             InitializeComponent();
             updateButton.Text = "Update now";
-            notNowLink.Text = "Not now";
+            dontUpdateNowLink.Text = "Don't update now";
             disableBetaButton.Text = "Disable BETA updates";
             ShowUpdateButtons = false;
             ShowDisableBetaButton = false;
@@ -87,7 +87,7 @@ namespace MobiFlight.UI.Dialogs
             DialogResult = DialogResult.Yes;
         }
 
-        private void notNowLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void dontUpdateNowLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             DialogResult = DialogResult.No;
         }

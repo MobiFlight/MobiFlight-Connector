@@ -33,7 +33,7 @@ namespace MobiFlight.UI.Dialogs
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeDialog));
             this.okButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
-            this.notNowLink = new System.Windows.Forms.LinkLabel();
+            this.dontUpdateNowLink = new System.Windows.Forms.LinkLabel();
             this.disableBetaButton = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
             this.panel = new System.Windows.Forms.Panel();
@@ -52,30 +52,32 @@ namespace MobiFlight.UI.Dialogs
             //
             // updateButton
             //
-            this.updateButton.Location = new System.Drawing.Point(655, 2);
+            this.updateButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(125, 35);
             this.updateButton.TabIndex = 4;
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             //
-            // notNowLink
+            // dontUpdateNowLink
             //
-            this.notNowLink.AutoSize = true;
-            this.notNowLink.ActiveLinkColor = System.Drawing.Color.Black;
-            this.notNowLink.LinkColor = System.Drawing.Color.Black;
-            this.notNowLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.notNowLink.Location = new System.Drawing.Point(270, 13);
-            this.notNowLink.Name = "notNowLink";
-            this.notNowLink.TabIndex = 2;
-            this.notNowLink.TabStop = true;
-            this.notNowLink.Text = "Not now";
-            this.notNowLink.VisitedLinkColor = System.Drawing.Color.Black;
-            this.notNowLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.notNowLink_LinkClicked);
+            this.dontUpdateNowLink.ActiveLinkColor = System.Drawing.Color.Black;
+            this.dontUpdateNowLink.LinkColor = System.Drawing.Color.Black;
+            this.dontUpdateNowLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.dontUpdateNowLink.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dontUpdateNowLink.Name = "dontUpdateNowLink";
+            this.dontUpdateNowLink.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.dontUpdateNowLink.Size = new System.Drawing.Size(180, 35);
+            this.dontUpdateNowLink.TabIndex = 2;
+            this.dontUpdateNowLink.TabStop = true;
+            this.dontUpdateNowLink.Text = "Don't update now";
+            this.dontUpdateNowLink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.dontUpdateNowLink.VisitedLinkColor = System.Drawing.Color.Black;
+            this.dontUpdateNowLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.dontUpdateNowLink_LinkClicked);
             //
             // disableBetaButton
             //
-            this.disableBetaButton.Location = new System.Drawing.Point(458, 2);
+            this.disableBetaButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.disableBetaButton.Name = "disableBetaButton";
             this.disableBetaButton.Size = new System.Drawing.Size(185, 35);
             this.disableBetaButton.TabIndex = 3;
@@ -91,9 +93,9 @@ namespace MobiFlight.UI.Dialogs
             // 
             this.panel.Controls.Add(this.openReleaseNotesLink);
             this.panel.Controls.Add(this.okButton);
-            this.panel.Controls.Add(this.updateButton);
-            this.panel.Controls.Add(this.notNowLink);
+            this.panel.Controls.Add(this.dontUpdateNowLink);
             this.panel.Controls.Add(this.disableBetaButton);
+            this.panel.Controls.Add(this.updateButton);
             resources.ApplyResources(this.panel, "panel");
             this.panel.Name = "panel";
             // 
@@ -139,7 +141,7 @@ namespace MobiFlight.UI.Dialogs
         #endregion
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button updateButton;
-        private System.Windows.Forms.LinkLabel notNowLink;
+        private System.Windows.Forms.LinkLabel dontUpdateNowLink;
         private System.Windows.Forms.Button disableBetaButton;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel panel;
