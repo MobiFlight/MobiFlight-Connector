@@ -33,11 +33,11 @@ namespace MobiFlight.UI.Dialogs
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeDialog));
             this.okButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
-            this.doNotUpdateButton = new System.Windows.Forms.Button();
+            this.notNowLink = new System.Windows.Forms.LinkLabel();
             this.disableBetaButton = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
             this.panel = new System.Windows.Forms.Panel();
-            this.openReleaseNotesButton = new System.Windows.Forms.Button();
+            this.openReleaseNotesLink = new System.Windows.Forms.LinkLabel();
             this.webView = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView)).BeginInit();
@@ -52,28 +52,33 @@ namespace MobiFlight.UI.Dialogs
             //
             // updateButton
             //
-            this.updateButton.Location = new System.Drawing.Point(510, 2);
+            this.updateButton.Location = new System.Drawing.Point(655, 2);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(125, 35);
-            this.updateButton.TabIndex = 3;
+            this.updateButton.TabIndex = 4;
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             //
-            // doNotUpdateButton
+            // notNowLink
             //
-            this.doNotUpdateButton.Location = new System.Drawing.Point(641, 2);
-            this.doNotUpdateButton.Name = "doNotUpdateButton";
-            this.doNotUpdateButton.Size = new System.Drawing.Size(145, 35);
-            this.doNotUpdateButton.TabIndex = 4;
-            this.doNotUpdateButton.UseVisualStyleBackColor = true;
-            this.doNotUpdateButton.Click += new System.EventHandler(this.doNotUpdateButton_Click);
+            this.notNowLink.AutoSize = true;
+            this.notNowLink.ActiveLinkColor = System.Drawing.Color.Black;
+            this.notNowLink.LinkColor = System.Drawing.Color.Black;
+            this.notNowLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.notNowLink.Location = new System.Drawing.Point(270, 13);
+            this.notNowLink.Name = "notNowLink";
+            this.notNowLink.TabIndex = 2;
+            this.notNowLink.TabStop = true;
+            this.notNowLink.Text = "Not now";
+            this.notNowLink.VisitedLinkColor = System.Drawing.Color.Black;
+            this.notNowLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.notNowLink_LinkClicked);
             //
             // disableBetaButton
             //
-            this.disableBetaButton.Location = new System.Drawing.Point(319, 2);
+            this.disableBetaButton.Location = new System.Drawing.Point(458, 2);
             this.disableBetaButton.Name = "disableBetaButton";
             this.disableBetaButton.Size = new System.Drawing.Size(185, 35);
-            this.disableBetaButton.TabIndex = 5;
+            this.disableBetaButton.TabIndex = 3;
             this.disableBetaButton.UseVisualStyleBackColor = true;
             this.disableBetaButton.Click += new System.EventHandler(this.disableBetaButton_Click);
             // 
@@ -84,23 +89,27 @@ namespace MobiFlight.UI.Dialogs
             // 
             // panel
             // 
-            this.panel.Controls.Add(this.openReleaseNotesButton);
+            this.panel.Controls.Add(this.openReleaseNotesLink);
             this.panel.Controls.Add(this.okButton);
             this.panel.Controls.Add(this.updateButton);
-            this.panel.Controls.Add(this.doNotUpdateButton);
+            this.panel.Controls.Add(this.notNowLink);
             this.panel.Controls.Add(this.disableBetaButton);
             resources.ApplyResources(this.panel, "panel");
             this.panel.Name = "panel";
             // 
-            // openReleaseNotesButton
+            // openReleaseNotesLink
             //
-            this.openReleaseNotesButton.Location = new System.Drawing.Point(6, 2);
-            this.openReleaseNotesButton.Name = "openReleaseNotesButton";
-            this.openReleaseNotesButton.Size = new System.Drawing.Size(250, 35);
-            this.openReleaseNotesButton.TabIndex = 2;
-            this.openReleaseNotesButton.Text = "Open Release Notes in browser";
-            this.openReleaseNotesButton.UseVisualStyleBackColor = true;
-            this.openReleaseNotesButton.Click += new System.EventHandler(this.transparentOverlay1_Click);
+            this.openReleaseNotesLink.AutoSize = true;
+            this.openReleaseNotesLink.ActiveLinkColor = System.Drawing.Color.Black;
+            this.openReleaseNotesLink.LinkColor = System.Drawing.Color.Black;
+            this.openReleaseNotesLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.openReleaseNotesLink.Location = new System.Drawing.Point(6, 13);
+            this.openReleaseNotesLink.Name = "openReleaseNotesLink";
+            this.openReleaseNotesLink.TabIndex = 1;
+            this.openReleaseNotesLink.TabStop = true;
+            this.openReleaseNotesLink.Text = "Open Release Notes in browser";
+            this.openReleaseNotesLink.VisitedLinkColor = System.Drawing.Color.Black;
+            this.openReleaseNotesLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.openReleaseNotesLink_LinkClicked);
             // 
             // webView
             // 
@@ -130,11 +139,11 @@ namespace MobiFlight.UI.Dialogs
         #endregion
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button updateButton;
-        private System.Windows.Forms.Button doNotUpdateButton;
+        private System.Windows.Forms.LinkLabel notNowLink;
         private System.Windows.Forms.Button disableBetaButton;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel panel;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView;
-        private System.Windows.Forms.Button openReleaseNotesButton;
+        private System.Windows.Forms.LinkLabel openReleaseNotesLink;
     }
 }
