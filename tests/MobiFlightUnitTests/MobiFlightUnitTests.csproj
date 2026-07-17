@@ -242,6 +242,7 @@
     <Compile Include="Base\Serialization\Json\SourceConverterTests.cs" />
     <Compile Include="Base\SerialNumberTests.cs" />
     <Compile Include="Base\SettingsTest.cs" />
+    <Compile Include="Base\AutoUpdateCheckerTests.cs" />
     <Compile Include="Base\SourceFactoryTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
