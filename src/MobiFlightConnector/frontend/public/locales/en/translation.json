@@ -312,7 +312,7 @@
       },
       "ConfigRef": {
         "Missing": "One or more referenced configs are missing.",
-        "OK": "All referenced configs are available."
+        "OK": "All references are available."
       }
     },
     "Notification": {
@@ -379,7 +379,8 @@
       "Save": "Save",
       "SaveChanges": "Save changes",
       "ApplyChanges": "Apply changes",
-      "ResetFilters": "Reset filters"
+      "ResetFilters": "Reset filters",
+      "PendingChangesMessage": "You have pending changes. Apply them first, or click Cancel to close this dialog without saving."
     },
     "ControllerBinding": {
       "Title": "Controller Bindings",
@@ -400,6 +401,7 @@
     },
     "Modifiers": {
       "Title": "Modifiers",
+      "Label": "Modifiers",
       "Description": "Change the original value by applying a sequence of modifiers.",
       "EditButton": "Edit modifiers",
       "AddButton": "Add modifier",
@@ -470,8 +472,8 @@
         "AddModifier": "Add modifier",
         "NoModifiers": "No modifiers defined.",
         "DeleteModifier": "Remove modifier",
-        "MoveUp": "Move modifier up",
-        "MoveDown": "Move modifier down"
+        "MoveUp": "Move up modifier",
+        "MoveDown": "Move down modifier"
       }
     },
     "InputConfigWizard": {
@@ -495,7 +497,8 @@
         "Title": "Actions",
         "Description": "Define the actions for each event.",
         "Copy": "Copy action",
-        "Paste": "Paste action"
+        "Paste": "Paste action",
+        "NoTriggerDefined": "No trigger defined. Please select your controller and device."
       },
       "ActionType": {
         "Title": "Step 1 - Action Type",
@@ -620,41 +623,50 @@
         }
       },
       "Preconditions": {
-        "Title": "Preconditions (optional)",
-        "Description": "The preconditions define conditions that must be met before the action can be executed.",
-        "EditButton": "Preconditions",
-        "AddButton": "Preconditions"
+        "Title": "Preconditions",
+        "Label": "Preconditions",
+        "Description": "Add and modify conditions that must be met so that your trigger will be executed.",
+        "EditButton": "Edit preconditions",
+        "AddButton": "Add precondition"
       },
       "ConfigReferences": {
-        "Title": "Config References (optional)",
-        "Description": "The config references define the output configs whose values can be used in the action.",
-        "EditButton": "Config References",
-        "AddButton": "Config References"
+        "Title": "References",
+        "Label": "References",
+        "Description": "Add references to other configs and use their values here in this config.",
+        "EditButton": "Edit references",
+        "AddButton": "Add reference"
       },
       "PreconditionEditor": {
-        "Title": "Preconditions",
-        "Description": "The preconditions define conditions that must be met before the action can be executed.",
+        "Title": "Edit preconditions",
+        "Description": "Add and modify conditions that must be met so that action can be executed.",
         "NoPreconditions": "No preconditions defined.",
-        "AddPrecondition": "Add Precondition",
+        "AddPrecondition": "Add precondition",
         "Active": "Active",
         "TypePlaceholder": "Type",
         "SelectConfig": "Select config...",
         "SelectVariable": "Select variable...",
         "ValuePlaceholder": "Value",
-        "DeletePrecondition": "Delete precondition",
+        "DeletePrecondition": "Remove precondition",
         "SelectPort": "Select port...",
-        "SelectPin": "Select pin..."
+        "SelectPin": "Select pin...",
+        "Types": {
+          "config": "Config",
+          "variable": "Variable",
+          "pin": "Arcaze-Pin"
+        },
+        "MoveUp": "Move up precondition",
+        "MoveDown": "Move down precondition"
       },
       "ConfigReferenceEditor": {
-        "Title": "Config References",
-        "Description": "The config references define the output configs whose values can be used in the action.",
-        "NoConfigReferences": "No config references defined.",
-        "AddConfigReference": "Add Config Reference",
+        "Title": "Edit references",
+        "Description": "Add and modify references and define a placeholder to use the values in your config.",
+        "NoConfigReferences": "No references defined.",
+        "AddConfigReference": "Add reference",
         "Active": "Active",
         "SelectConfig": "Select config...",
         "PlaceholderLabel": "Placeholder",
         "TestValueLabel": "Test Value",
-        "DeleteConfigReference": "Delete config reference"
+        "DeleteConfigReference": "Remove reference"
       },
       "InputActions": {
         "Common": {

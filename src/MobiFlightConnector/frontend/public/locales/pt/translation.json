@@ -311,8 +311,8 @@
         "NotExecuting": "Esta configuração não está sendo testada."
       },
       "ConfigRef": {
-        "Missing": "Uma ou mais configurações referenciadas estão ausentes.",
-        "OK": "Todas as configurações referenciadas estão disponíveis."
+        "Missing": "Uma ou mais referências estão ausentes.",
+        "OK": "Todas as referências estão disponíveis."
       }
     },
     "Notification": {
@@ -379,7 +379,8 @@
       "Save": "Salvar",
       "SaveChanges": "Salvar alterações",
       "ApplyChanges": "Aplicar alterações",
-      "ResetFilters": "Redefinir filtros"
+      "ResetFilters": "Redefinir filtros",
+      "PendingChangesMessage": "Você tem alterações pendentes. Aplique-as primeiro ou clique em Cancelar para fechar este diálogo sem salvar."
     },
     "ControllerBinding": {
       "Title": "Vinculação de controladores",
@@ -400,6 +401,7 @@
     },
     "Modifiers": {
       "Title": "Modificadores",
+      "Label": "Modificadores",
       "Description": "Altere o valor original aplicando uma sequência de modificadores.",
       "EditButton": "Editar modificadores",
       "AddButton": "Adicionar modificador",
@@ -495,7 +497,8 @@
         "Title": "Ações",
         "Description": "Defina as ações para cada evento.",
         "Copy": "Copiar ação",
-        "Paste": "Colar ação"
+        "Paste": "Colar ação",
+        "NoTriggerDefined": "Nenhum gatilho definido. Por favor, selecione seu controlador e dispositivo primeiro."
       },
       "ActionType": {
         "Title": "Tipo de ação",
@@ -620,20 +623,22 @@
         }
       },
       "Preconditions": {
-        "Title": "Precondições (opcional)",
-        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
-        "EditButton": "Precondições",
-        "AddButton": "Precondições"
+        "Title": "Precondições",
+        "Label": "Precondições",
+        "Description": "Adicione e modifique condições que devem ser atendidas para que seu gatilho seja executado.",
+        "EditButton": "Editar precondições",
+        "AddButton": "Adicionar precondições"
       },
       "ConfigReferences": {
-        "Title": "Referências de Configuração (opcional)",
-        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
-        "EditButton": "Referências de Configuração",
-        "AddButton": "Referências de Configuração"
+        "Title": "Referências",
+        "Label": "Referências",
+        "Description": "Adicione referências a outras configurações e use seus valores aqui nesta configuração.",
+        "EditButton": "Editar referências",
+        "AddButton": "Adicionar referências"
       },
       "PreconditionEditor": {
-        "Title": "Precondições",
-        "Description": "As precondições definem condições que devem ser atendidas antes que a ação possa ser executada.",
+        "Title": "Editar precondições",
+        "Description": "Adicione e modifique condições que devem ser atendidas para que a ação possa ser executada.",
         "NoPreconditions": "Nenhuma precondição definida.",
         "AddPrecondition": "Adicionar Precondição",
         "Active": "Ativo",
@@ -643,18 +648,25 @@
         "ValuePlaceholder": "Valor",
         "DeletePrecondition": "Excluir precondição",
         "SelectPort": "Selecionar porta...",
-        "SelectPin": "Selecionar pino..."
+        "SelectPin": "Selecionar pino...",
+        "Types" : {
+          "config": "Configuração",
+          "variable": "Variável",
+          "pin": "Pino Arcaze"
+        },
+        "MoveUp": "Mover precondição para cima",
+        "MoveDown": "Mover precondição para baixo"
       },
       "ConfigReferenceEditor": {
-        "Title": "Referências de Configuração",
-        "Description": "As referências de configuração definem as configurações de saída cujos valores podem ser usados na ação.",
-        "NoConfigReferences": "Nenhuma referência de configuração definida.",
-        "AddConfigReference": "Adicionar Referência de Configuração",
+        "Title": "Editar referências",
+        "Description": "Adicione e modifique referências e defina um espaço reservado para usar os valores na sua configuração.",
+        "NoConfigReferences": "Nenhuma referência definida.",
+        "AddConfigReference": "Adicionar referência",
         "Active": "Ativo",
         "SelectConfig": "Selecionar configuração...",
         "PlaceholderLabel": "Espaço reservado",
         "TestValueLabel": "Valor de teste",
-        "DeleteConfigReference": "Excluir referência de configuração"
+        "DeleteConfigReference": "Excluir referência"
       },
       "InputActions": {
         "Common": {

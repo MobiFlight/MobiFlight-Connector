@@ -317,8 +317,8 @@
         "NotExecuting": "Diese Konfiguration wird nicht getestet."
       },
       "ConfigRef": {
-        "Missing": "Eine oder mehrere referenzierte Konfigurationen fehlen.",
-        "OK": "Alle referenzierten Konfigurationen sind verfügbar."
+        "Missing": "Eine oder mehrere Referenzen fehlen.",
+        "OK": "Alle Referenzen sind verfügbar."
       }
     },
     "Notification": {
@@ -385,7 +385,8 @@
       "Save": "Speichern",
       "SaveChanges": "Änderungen speichern",
       "ApplyChanges": "Änderungen übernehmen",
-      "ResetFilters": "Filter zurücksetzen"
+      "ResetFilters": "Filter zurücksetzen",
+      "PendingChangesMessage": "Du hast Änderungen gemacht. Wende sie zuerst an, oder klicke auf Abbrechen, um diesen Dialog ohne Speichern zu schließen."
     },
     "ControllerBinding": {
       "Title": "Controller Zuordnungen",
@@ -406,6 +407,7 @@
     },
     "Modifiers": {
       "Title": "Modifikatoren",
+      "Label": "Modifikatoren",
       "Description": "Ändere den ursprünglichen Wert, indem du eine Reihe von Modifikatoren anwendest.",
       "EditButton": "Modifikatoren bearbeiten",
       "AddButton": "Modifikator hinzufügen",
@@ -485,8 +487,8 @@
       "Description": "Bearbeite alle Einstellungen für diese Eingabekonfiguration in diesem Dialog.",
       "DrawerTitle": "Einstellungen",
       "ConfigTrigger": {
-        "Title": "Auslöser",
-        "Description": "Der Auslöser definiert die Bedingungen oder Ereignisse, die diese Konfiguration aktivieren.",
+        "Title": "Trigger",
+        "Description": "Der Trigger definiert die Bedingungen oder Ereignisse, die diese Konfiguration aktivieren.",
         "ScanForInput": "Eingabe suchen",
         "UseAnyInput": "Warte auf Eingabe",
         "ClearInput": "Eingabe löschen",
@@ -501,7 +503,8 @@
         "Title": "Aktionen",
         "Description": "Definiere die Aktionen für die verschiedenen Ereignisse.",
         "Copy": "Aktion kopieren",
-        "Paste": "Aktion einfügen"
+        "Paste": "Aktion einfügen",
+        "NoTriggerDefined": "Kein Trigger definiert. Bitte wähle zuerst deinen Controller und dein Gerät aus."
       },
       "ActionType": {
         "Title": "Aktionstyp",
@@ -626,19 +629,21 @@
         }
       },
       "Preconditions": {
-        "Title": "Vorbedingungen (optional)",
-        "Description": "Die Vorbedingungen definieren Bedingungen, die erfüllt sein müssen, bevor die Aktion ausgeführt werden kann.",
+        "Title": "Vorbedingungen",
+        "Label": "Vorbedingungen",
+        "Description": "Erstelle und bearbeite Bedingungen, die erfüllt sein müssen, damit dein Auslöser ausgeführt wird.",
         "EditButton": "Vorbedingungen",
         "AddButton": "Vorbedingungen"
       },
       "ConfigReferences": {
-        "Title": "Konfig-Referenzen (optional)",
-        "Description": "Die Konfig-Referenzen definieren die Ausgabekonfigurationen, deren Werte in der Aktion verwendet werden können.",
-        "EditButton": "Konfig-Referenzen",
-        "AddButton": "Konfig-Referenzen"
+        "Title": "Referenzen",
+        "Label": "Referenzen",
+        "Description": "Erstelle Referenzen zu anderen Konfigurationen und verwende deren Werte hier in dieser Konfiguration.",
+        "EditButton": "Referenzen bearbeiten",
+        "AddButton": "Referenzen hinzufügen"
       },
       "PreconditionEditor": {
-        "Title": "Vorbedingungen",
+        "Title": "Vorbedingungen bearbeiten",
         "Description": "Die Vorbedingungen definieren Bedingungen, die erfüllt sein müssen, bevor die Aktion ausgeführt werden kann.",
         "NoPreconditions": "Keine Vorbedingungen definiert.",
         "AddPrecondition": "Vorbedingung hinzufügen",
@@ -649,18 +654,25 @@
         "ValuePlaceholder": "Wert",
         "DeletePrecondition": "Vorbedingung löschen",
         "SelectPort": "Port auswählen...",
-        "SelectPin": "Pin auswählen..."
+        "SelectPin": "Pin auswählen...",
+        "Types" : {
+          "config": "Konfiguration",
+          "variable": "Variable",
+          "pin": "Arcaze-Pin"
+        },
+        "MoveUp": "Vorbedingung nach oben verschieben",
+        "MoveDown": "Vorbedingung nach unten verschieben"
       },
       "ConfigReferenceEditor": {
-        "Title": "Konfig-Referenzen",
-        "Description": "Die Konfig-Referenzen definieren die Ausgabekonfigurationen, deren Werte in der Aktion verwendet werden können.",
-        "NoConfigReferences": "Keine Konfig-Referenzen definiert.",
-        "AddConfigReference": "Konfig-Referenz hinzufügen",
+        "Title": "Referenzen bearbeiten",
+        "Description": "Erstelle und bearbeite Referenzen und definiere einen Platzhalter, um die Werte in deiner Konfiguration zu verwenden.",
+        "NoConfigReferences": "Keine Referenzen definiert.",
+        "AddConfigReference": "Referenz hinzufügen",
         "Active": "Aktiv",
         "SelectConfig": "Konfiguration auswählen...",
         "PlaceholderLabel": "Platzhalter",
         "TestValueLabel": "Testwert",
-        "DeleteConfigReference": "Konfig-Referenz löschen"
+        "DeleteConfigReference": "Referenz löschen"
       },
       "InputActions": {
         "Common": {

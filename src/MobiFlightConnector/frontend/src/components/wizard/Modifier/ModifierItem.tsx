@@ -30,9 +30,10 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { IconChevronDown, IconChevronUp, IconTrash } from "@tabler/icons-react"
+import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
+import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
 
 type ModifierItemProps = {
   modifier: Modifier
@@ -95,30 +96,12 @@ export const ModifierItem = ({
     >
       <Collapsible open={open} onOpenChange={setOpen} className="flex flex-col">
         <div className="group flex flex-row items-center gap-2 px-1">
-          <div className="flex flex-col items-center justify-center">
-            <Button
-              className="group-hover:text-foreground text-muted-foreground h-5 w-5 p-1"
-              variant="ghost"
-              onClick={onMoveUp}
-              disabled={isFirst}
-            >
-              <IconChevronUp />
-              <span className="sr-only">
-                {t("Dialog.Modifiers.Editor.MoveUp")}
-              </span>
-            </Button>
-            <Button
-              className="group-hover:text-foreground text-muted-foreground h-5 w-5 p-1"
-              variant="ghost"
-              onClick={onMoveDown}
-              disabled={isLast}
-            >
-              <IconChevronDown />
-              <span className="sr-only">
-                {t("Dialog.Modifiers.Editor.MoveDown")}
-              </span>
-            </Button>
-          </div>
+          <MoveUpDownButtons
+            onMoveUp={onMoveUp ?? (() => {})}
+            onMoveDown={onMoveDown ?? (() => {})}
+            isFirst={isFirst}
+            isLast={isLast}
+          />
           <Switch
             id="active"
             checked={modifier.Active}

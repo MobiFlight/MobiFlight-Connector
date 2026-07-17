@@ -24,7 +24,7 @@ const PreconditionSummary = ({
       .map((item) => ({ ref: item.GUID, name: item.Name })) || []
 
   return (
-    <div className="text-muted-foreground flex flex-row gap-2 py-2">
+    <div className="text-muted-foreground flex flex-row gap-2 pt-4">
       {preconditions.slice(0, maxDisplayCount).map((precondition, index) => {
         const label =
           preconditionConfigs.find((config) => config.ref === precondition.Ref)
@@ -39,13 +39,13 @@ const PreconditionSummary = ({
           <div className="flex flex-row items-center gap-2" key={index}>
             <Badge
               variant="outline"
-              className={`px-4 ${variantStyle} flex flex-row items-center gap-1 rounded`}
+              className={`px-4 py-1 ${variantStyle} flex flex-row gap-1`}
             >
-              <span className="max-w-30 truncate text-sm whitespace-nowrap">
+              <span className="max-w-30 truncate text-sm font-normal">
                 {label}
               </span>
-              <span className="text-sm">{precondition.Operand}</span>
-              <span className="text-sm">{precondition.Value}</span>
+              <span className="text-sm font-normal">{precondition.Operand}</span>
+              <span className="text-sm font-bold">{precondition.Value}</span>
             </Badge>
             {!isLast && (
               <Badge variant="secondary" className="h-full px-2">

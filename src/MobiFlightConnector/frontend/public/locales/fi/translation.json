@@ -379,7 +379,8 @@
       "Save": "Tallenna",
       "SaveChanges": "Tallenna muutokset",
       "ApplyChanges": "Hyväksy muutokset",
-      "ResetFilters": "Nollaa suodattimet"
+      "ResetFilters": "Nollaa suodattimet",
+      "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy ne ensin tai napsauta Peruuta sulkeaksesi tämän valintaikkunan tallentamatta."
     },
     "ControllerBinding": {
       "Title": "Ohjainten yhdistäminen",
@@ -400,6 +401,7 @@
     },
     "Modifiers": {
       "Title": "Muuntimet",
+      "Label": "Muuntimet",
       "Description": "Muuta alkuperäistä arvoa soveltamalla sarjaa muuntimia.",
       "EditButton": "Muokkaa muuntimia",
       "AddButton": "Lisää muunnin",
@@ -495,7 +497,8 @@
         "Title": "Toiminnot",
         "Description": "Määritä toiminnot jokaiselle tapahtumalle.",
         "Copy": "Kopioi toiminto",
-        "Paste": "Liitä toiminto"
+        "Paste": "Liitä toiminto",
+        "NoTriggerDefined": "Ei laukaisinta määritelty. Valitse ensin ohjaimesi ja laitteesi."
       },
       "ActionType": {
         "Title": "Toimintotyyppi",
@@ -620,16 +623,18 @@
         }
       },
       "Preconditions": {
-        "Title": "Esiehdot (valinnainen)",
-        "Description": "Esiehdot määrittävät ehdot, jotka on täytettävä ennen kuin toiminto voidaan suorittaa.",
-        "EditButton": "Esiehdot",
-        "AddButton": "Esiehdot"
+        "Title": "Esiehdot",
+        "Label": "Esiehdot",
+        "Description": "Lisää ja muokkaa ehtoja, jotka on täytettävä, jotta laukaisimesi suoritetaan.",
+        "EditButton": "Muokkaa esiehtoja",
+        "AddButton": "Lisää esiehtoja"
       },
       "ConfigReferences": {
-        "Title": "Konfiguraatioviittaukset (valinnainen)",
-        "Description": "Konfiguraatioviittaukset määrittävät lähtökonfiguraatiot, joiden arvoja voidaan käyttää toiminnossa.",
-        "EditButton": "Konfiguraatioviittaukset",
-        "AddButton": "Konfiguraatioviittaukset"
+        "Title": "Viittaukset",
+        "Label": "Viittaukset",
+        "Description": "Lisää viittauksia muihin konfiguraatioihin ja käytä niiden arvoja tässä konfiguraatiossa.",
+        "EditButton": "Muokkaa viittauksia",
+        "AddButton": "Lisää viittauksia"
       },
       "PreconditionEditor": {
         "Title": "Esiehdot",
@@ -643,18 +648,25 @@
         "ValuePlaceholder": "Arvo",
         "DeletePrecondition": "Poista esiehto",
         "SelectPort": "Valitse portti...",
-        "SelectPin": "Valitse pinni..."
+        "SelectPin": "Valitse pinni...",
+        "Types": {
+          "config": "Konfiguraatio",
+          "variable": "Muuttuja",
+          "pin": "Arcaze-pinni"
+        },
+        "MoveUp": "Siirrä esiehto ylös",
+        "MoveDown": "Siirrä esiehto alas"
       },
       "ConfigReferenceEditor": {
-        "Title": "Konfiguraatioviittaukset",
-        "Description": "Konfiguraatioviittaukset määrittävät lähtökonfiguraatiot, joiden arvoja voidaan käyttää toiminnossa.",
-        "NoConfigReferences": "Ei konfiguraatioviittauksia määritetty.",
-        "AddConfigReference": "Lisää konfiguraatioviittaus",
+        "Title": "Muokkaa viittauksia",
+        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi arvoja konfiguraatiossasi.",
+        "NoConfigReferences": "Ei viittauksia määritetty.",
+        "AddConfigReference": "Lisää viittaus",
         "Active": "Aktiivinen",
         "SelectConfig": "Valitse konfiguraatio...",
         "PlaceholderLabel": "Paikkamerkki",
         "TestValueLabel": "Testiarvo",
-        "DeleteConfigReference": "Poista konfiguraatioviittaus"
+        "DeleteConfigReference": "Poista viittaus"
       },
       "InputActions": {
         "Common": {

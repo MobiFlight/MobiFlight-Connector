@@ -99,11 +99,13 @@ const ControllerBindingsDialog = ({
 
       return {
         ...b,
-        BoundController: controller ? { 
-          ...controller,
-          // unset Devices before sending it back to backend. 
-          Devices: undefined 
-        } : null,
+        BoundController: controller
+          ? {
+              ...controller,
+              // unset Devices before sending it back to backend.
+              Devices: undefined,
+            }
+          : null,
         Status: controller ? "Match" : "Missing",
       } as ControllerBinding
     })
@@ -126,7 +128,10 @@ const ControllerBindingsDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250">
+      <DialogContent
+        onInteractOutside={(e) => e.preventDefault()}
+        className="vsm:min-h-[75%] vxl:min-h-[60%] flex min-h-[90%] flex-col overflow-y-auto select-none sm:max-w-150 lg:max-w-200 xl:max-w-250"
+      >
         <DialogHeader>
           <DialogTitle className="text-2xl">
             {t("Dialog.ControllerBinding.Title")}
