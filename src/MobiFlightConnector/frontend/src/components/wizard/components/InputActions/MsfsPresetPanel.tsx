@@ -94,9 +94,32 @@ const MsfsPresetPanel = ({
       p.label.toLowerCase().includes(filter.search.toLowerCase()),
   )
 
-  const categories = [...new Set(filteredPresets.map((p) => p.system))].sort()
-  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))].sort()
-  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
+  const filteredCategoryPresets = validPresets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+  )
+
+  const filteredVendorPresets = validPresets.filter(
+    (p) =>
+      (filter.system ? p.system === filter.system : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+  )
+
+  const filteredAircraftPresets = validPresets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.system ? p.system === filter.system : true) &&
+      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+  )
+
+  const categories = [
+    ...new Set(filteredCategoryPresets.map((p) => p.system)),
+  ].sort()
+  const aircraft = [...new Set(filteredAircraftPresets.map((p) => p.aircraft))].sort()
+  const vendors = [...new Set(filteredVendorPresets.map((p) => p.vendor))].sort()
 
   useEffect(() => {
     if (!refActiveElement.current) return
