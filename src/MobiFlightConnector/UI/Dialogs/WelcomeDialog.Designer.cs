@@ -124,7 +124,7 @@ namespace MobiFlight.UI.Dialogs
         private System.Windows.Forms.Panel panel = new System.Windows.Forms.Panel
         {
             Name = "panel",
-            Padding = new System.Windows.Forms.Padding(0, 2, 0, 0)
+            Padding = new System.Windows.Forms.Padding(0, 4, 0, 0)
         };
 
         private Microsoft.Web.WebView2.WinForms.WebView2 webView = new Microsoft.Web.WebView2.WinForms.WebView2
