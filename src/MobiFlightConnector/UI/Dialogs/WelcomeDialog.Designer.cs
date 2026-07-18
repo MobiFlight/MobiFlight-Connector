@@ -97,9 +97,6 @@ namespace MobiFlight.UI.Dialogs
 
         private System.Windows.Forms.LinkLabel dontUpdateNowLink = new System.Windows.Forms.LinkLabel
         {
-            ActiveLinkColor = System.Drawing.Color.Black,
-            LinkColor = System.Drawing.Color.Black,
-            LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline,
             Dock = System.Windows.Forms.DockStyle.Right,
             Name = "dontUpdateNowLink",
             Padding = new System.Windows.Forms.Padding(0, 0, 10, 0),
@@ -107,8 +104,7 @@ namespace MobiFlight.UI.Dialogs
             TabIndex = 2,
             TabStop = true,
             Text = "Don't update now",
-            TextAlign = System.Drawing.ContentAlignment.MiddleRight,
-            VisitedLinkColor = System.Drawing.Color.Black
+            TextAlign = System.Drawing.ContentAlignment.MiddleRight
         };
 
         private System.Windows.Forms.Button disableBetaButton = new System.Windows.Forms.Button
@@ -127,7 +123,8 @@ namespace MobiFlight.UI.Dialogs
 
         private System.Windows.Forms.Panel panel = new System.Windows.Forms.Panel
         {
-            Name = "panel"
+            Name = "panel",
+            Padding = new System.Windows.Forms.Padding(0, 2, 0, 0)
         };
 
         private Microsoft.Web.WebView2.WinForms.WebView2 webView = new Microsoft.Web.WebView2.WinForms.WebView2
@@ -142,15 +139,11 @@ namespace MobiFlight.UI.Dialogs
         private System.Windows.Forms.LinkLabel openReleaseNotesLink = new System.Windows.Forms.LinkLabel
         {
             AutoSize = true,
-            ActiveLinkColor = System.Drawing.Color.Black,
-            LinkColor = System.Drawing.Color.Black,
-            LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline,
             Location = new System.Drawing.Point(6, 13),
             Name = "openReleaseNotesLink",
             TabIndex = 1,
             TabStop = true,
-            Text = "Open Release Notes in browser",
-            VisitedLinkColor = System.Drawing.Color.Black
+            Text = "Open Release Notes in browser"
         };
 
     }
