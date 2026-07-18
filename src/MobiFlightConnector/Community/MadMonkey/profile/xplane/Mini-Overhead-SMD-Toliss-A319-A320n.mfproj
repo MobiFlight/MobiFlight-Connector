@@ -1,0 +1,2143 @@
+{
+  "Name": "Mini_Overhead_SMD_-_Toliss_A319_A320n",
+  "ConfigFiles": [
+    {
+      "Label": "Mini_Overhead_SMD_-_Toliss_A319_A320n",
+      "FileName": "C:\\Users\\The Catling Family\\Downloads\\Mini_Overhead_SMD_-_Toliss_A319_A320n.mcc",
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "ckpt/brt/overhead"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Backlight Brt",
+            "Pin": "Backlight Brt",
+            "Brightness": 255,
+            "PwmMode": true,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Backlight Brt",
+          "GUID": "8290c85f-e9b0-4ab0-b550-e854ec3e6a5d",
+          "Active": true,
+          "Name": "Backlight Brt",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "$ * 255",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "AIFault",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Annunciator Brt",
+            "Pin": "Annunciator Brt",
+            "Brightness": 255,
+            "PwmMode": true,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Annunciator Brt",
+          "GUID": "848e5b07-7bc1-4ed7-94e4-7e5fc7b98144",
+          "Active": true,
+          "Name": "Annunciator Brt",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "220",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "AIFault",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 12",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "40556edf-03fd-41fc-b426-c4164febd7cc",
+          "Active": true,
+          "Name": "Anti Ice Fault",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "? | ! | #",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "eeb27db0-b743-483c-9d41-76cbd72bd438",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "547a820d-4421-4df5-a40e-0c7e811d2af5",
+              "Placeholder": "!",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "28fe79f4-047f-4793-8b3a-cb45558c38fc",
+              "Placeholder": "?",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "AIOn",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 13",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "c3eb7c99-a767-4774-8e94-03c4ffbf8632",
+          "Active": true,
+          "Name": "Anti Ice On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "? | ! | #",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "48751dc2-7d2c-48a0-a984-c8e6beb6cfca",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "643fdf6e-c2b7-4824-83f5-153537afa143",
+              "Placeholder": "!",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "7511f158-e885-4eb9-b2ca-fa120d485bef",
+              "Placeholder": "?",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "BatFault",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 11",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "b09759ad-b2fb-4802-bdce-3f8dfb948ed5",
+          "Active": true,
+          "Name": "Battery Fault",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "! | #",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "9721a4b1-ddab-43dc-b77a-45e88ba79937",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "6f43c594-3112-4bad-a33a-2f87b532e3db",
+              "Placeholder": "!",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "BatOff",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 10",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "8946ac1a-d38d-40db-b2bd-33bc8f414315",
+          "Active": true,
+          "Name": "Battery Off",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "! | #",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "832b32f7-c9fb-45b2-852e-fb9993974363",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "62ef1377-81a5-4e4d-8594-dcb0e730b514",
+              "Placeholder": "!",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA24[7]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 9",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "2f6b129b-3aee-44c1-9e44-c8f7e08a910a",
+          "Active": true,
+          "Name": "Ext Pwr Avail",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA24[6]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 8",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "9904365a-677a-4073-8e66-c1119b63a21f",
+          "Active": true,
+          "Name": "Ext Pwr On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA21[5]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 7",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "6cbd5995-48ed-48da-866e-d83245ec36bd",
+          "Active": true,
+          "Name": "APU Bleed Fault",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA21[4]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 6",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "51e8dcf9-cc1f-4b60-a6ea-431cc2beb9e4",
+          "Active": true,
+          "Name": "APU Bleed On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA49[3]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 5",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "1b08b790-61b7-4d4a-8dd2-5c1bc95f5d88",
+          "Active": true,
+          "Name": "APU Start Avail",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA49[2]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 4",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "82375353-8509-4048-ae99-ff0837994051",
+          "Active": true,
+          "Name": "APU Start On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA49[1]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 3",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "c12b4e95-feb6-4618-b4b0-d89a03f3396d",
+          "Active": true,
+          "Name": "APU Master Fault",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA49[0]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 2",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "5df8bd0a-bf44-4de4-a123-ae2325612a89",
+          "Active": true,
+          "Name": "APU Master On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "FuelFault",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 1",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "a96bd40f-aa59-4f6c-a256-13b067b38356",
+          "Active": true,
+          "Name": "Fuel Pump Fault",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "A | B | @ | ? | ! | #",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "63468c45-63c1-476d-ae50-2f564a3915f6",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "106be582-b5e4-46a9-a7c7-27d1c1c91fa9",
+              "Placeholder": "!",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "2c3bd760-7d77-40bd-a2ec-328fac2bee3c",
+              "Placeholder": "?",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "0b3ed35d-44d8-44ec-932f-b2bbb60efd40",
+              "Placeholder": "@",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "a959c43d-3f1e-4eb7-a3a8-85f8fd1925d4",
+              "Placeholder": "A",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "ee6163a4-d507-4b84-9f84-666257b1fd04",
+              "Placeholder": "B",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "FuelOff",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "ShiftRegister",
+            "Pin": "Output 0",
+            "Address": "ShiftRegister",
+            "Brightness": 255,
+            "PWM": false,
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "DeviceName": "ShiftRegister",
+          "GUID": "92bc32f4-8298-44d6-a810-d9c4db608656",
+          "Active": true,
+          "Name": "Fuel Pump Off",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "A | B | @ | ? | ! | #",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "2921864a-5164-4579-9e11-f0b16f478523",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "c81156df-2526-4e2f-b6c2-01f9986bd208",
+              "Placeholder": "!",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "173cb248-44c9-4865-88c1-120b82d609a1",
+              "Placeholder": "?",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "e3a2d9bc-894f-4447-8ba4-262436bafc8a",
+              "Placeholder": "@",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "9577b9b2-2cd2-4590-a457-537a92327ed9",
+              "Placeholder": "A",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "315c95fb-eb99-42d2-a8bd-11fb20b95cc2",
+              "Placeholder": "B",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "AIFault",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "fd5750bf-5be9-4141-8e28-ac4ade065bd5",
+          "Active": true,
+          "Name": "------------------------------Dataref tracking for multiple switches below------------------------------------------------",
+          "Type": "OutputConfigItem",
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Comparison",
+                "Operand": "=",
+                "Value": "",
+                "IfValue": "1",
+                "ElseValue": "0",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA24[9]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "62ef1377-81a5-4e4d-8594-dcb0e730b514",
+          "Active": true,
+          "Name": "Bat 1 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA24[11]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "832b32f7-c9fb-45b2-852e-fb9993974363",
+          "Active": true,
+          "Name": "Bat 2 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA24[10]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "6f43c594-3112-4bad-a33a-2f87b532e3db",
+          "Active": true,
+          "Name": "Bat 1 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA24[12]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "9721a4b1-ddab-43dc-b77a-45e88ba79937",
+          "Active": true,
+          "Name": "Bat 2 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[0]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "315c95fb-eb99-42d2-a8bd-11fb20b95cc2",
+          "Active": true,
+          "Name": "Fuel Pump 1 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[2]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "9577b9b2-2cd2-4590-a457-537a92327ed9",
+          "Active": true,
+          "Name": "Fuel Pump 2 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[4]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "e3a2d9bc-894f-4447-8ba4-262436bafc8a",
+          "Active": true,
+          "Name": "Fuel Pump 3 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[6]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "173cb248-44c9-4865-88c1-120b82d609a1",
+          "Active": true,
+          "Name": "Fuel Pump 4 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[8]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "c81156df-2526-4e2f-b6c2-01f9986bd208",
+          "Active": true,
+          "Name": "Fuel Pump 5 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[10]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "2921864a-5164-4579-9e11-f0b16f478523",
+          "Active": true,
+          "Name": "Fuel Pump 6 Off",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[1]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "ee6163a4-d507-4b84-9f84-666257b1fd04",
+          "Active": true,
+          "Name": "Fuel Pump 1 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[3]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "a959c43d-3f1e-4eb7-a3a8-85f8fd1925d4",
+          "Active": true,
+          "Name": "Fuel Pump 2 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[5]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "0b3ed35d-44d8-44ec-932f-b2bbb60efd40",
+          "Active": true,
+          "Name": "Fuel Pump 3 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[7]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "2c3bd760-7d77-40bd-a2ec-328fac2bee3c",
+          "Active": true,
+          "Name": "Fuel Pump 4 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[9]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "106be582-b5e4-46a9-a7c7-27d1c1c91fa9",
+          "Active": true,
+          "Name": "Fuel Pump 5 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA28[11]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "63468c45-63c1-476d-ae50-2f564a3915f6",
+          "Active": true,
+          "Name": "Fuel Pump 6 Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA30[0]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "7511f158-e885-4eb9-b2ca-fa120d485bef",
+          "Active": true,
+          "Name": "Wing Anti Ice On",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA30[2]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "643fdf6e-c2b7-4824-83f5-153537afa143",
+          "Active": true,
+          "Name": "Eng 1 Anti Ice On",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA30[4]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "48751dc2-7d2c-48a0-a984-c8e6beb6cfca",
+          "Active": true,
+          "Name": "Eng 2 Anti Ice On",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA30[1]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "28fe79f4-047f-4793-8b3a-cb45558c38fc",
+          "Active": true,
+          "Name": "Wing Anti Ice Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA30[3]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "547a820d-4421-4df5-a40e-0c7e811d2af5",
+          "Active": true,
+          "Name": "Eng 1 Anti Ice Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "XplaneDataRef": {
+              "Path": "AirbusFBW/OHPLightsATA30[5]"
+            },
+            "Type": "XplaneSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "eeb27db0-b743-483c-9d41-76cbd72bd438",
+          "Active": true,
+          "Name": "Eng 2 Anti Ice Fault",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/eleccommands/Bat1Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Battery"
+          },
+          "GUID": "591de15d-7ebf-4260-8e34-c14933bba0bf",
+          "Active": true,
+          "Name": "Battery 1",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/eleccommands/Bat2Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Battery"
+          },
+          "GUID": "bca5cbc0-9852-4e20-b594-1fc27538d3bf",
+          "Active": true,
+          "Name": "Battery 2",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "AirbusFBW/purser/fwd",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Calls"
+          },
+          "GUID": "983ec1b4-ed04-4fd8-a8e5-ade7542de53b",
+          "Active": true,
+          "Name": "Calls Fwd",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "AirbusFBW/purser/aft",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Calls"
+          },
+          "GUID": "6f25d15b-2562-4aff-96ee-41ca99372161",
+          "Active": true,
+          "Name": "Calls Aft",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/apucommands/MasterToggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "APU Master"
+          },
+          "GUID": "58a7eadf-b056-4505-bafe-e6453fc37c57",
+          "Active": true,
+          "Name": "APU Master",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/antiicecommands/WingToggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Anti Ice"
+          },
+          "GUID": "fc38bb7c-d5b6-4c54-a492-f7bc6c64fad7",
+          "Active": true,
+          "Name": "Anti Ice Wing",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/antiicecommands/ENG1Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Anti Ice"
+          },
+          "GUID": "a92c7cc9-b6ff-43c2-a5c2-2319c4073f65",
+          "Active": true,
+          "Name": "Anti Ice Eng1",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/antiicecommands/ENG2Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Anti Ice"
+          },
+          "GUID": "f6ee4599-433c-4f03-93c9-06d22792225f",
+          "Active": true,
+          "Name": "Anti Ice Eng2",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/eleccommands/ExtPowToggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Ext Pwr"
+          },
+          "GUID": "bd786d18-195d-4cf1-a909-e42e0f8c63ed",
+          "Active": true,
+          "Name": "Ext Pwr",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/apucommands/BleedToggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "APU Bleed"
+          },
+          "GUID": "765ef8e7-20e8-4b31-9e23-54985750275f",
+          "Active": true,
+          "Name": "APU Bleed",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/apucommands/StarterToggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "APU Start"
+          },
+          "GUID": "8dc82a43-57a1-42ec-9255-440460e2679b",
+          "Active": true,
+          "Name": "APU Start",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/fuelcommands/PumpLWing1Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Fuel Pump"
+          },
+          "GUID": "78c32ab4-f4f9-403c-becf-bc89dffc84cc",
+          "Active": true,
+          "Name": "Fuel Pump 1",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/fuelcommands/PumpLWing2Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Fuel Pump"
+          },
+          "GUID": "d916c8de-f700-4ac6-b766-88cf5e9db2b9",
+          "Active": true,
+          "Name": "Fuel Pump 2",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/fuelcommands/PumpLCenterToggle",
+              "Expression": "1-$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Fuel Pump"
+          },
+          "GUID": "bcaf5204-0b6f-4882-8ff5-3c0fb9437c42",
+          "Active": true,
+          "Name": "Fuel Pump 3",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/fuelcommands/PumpRCenterToggle",
+              "Expression": "1-$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Fuel Pump"
+          },
+          "GUID": "eb22aa87-7590-48ae-abbf-1ab9bd538f1b",
+          "Active": true,
+          "Name": "Fuel Pump 4",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/fuelcommands/PumpRWing1Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Fuel Pump"
+          },
+          "GUID": "dbe6f626-950f-4b90-a274-565fa9fd1290",
+          "Active": true,
+          "Name": "Fuel Pump 5",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "Command",
+              "Path": "toliss_airbus/fuelcommands/PumpRWing2Toggle",
+              "Expression": "$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Fuel Pump"
+          },
+          "GUID": "5b47e8a4-846d-4e68-a6a9-adf10f262b99",
+          "Active": true,
+          "Name": "Fuel Pump 6",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[7]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[7]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Ext Light On"
+          },
+          "GUID": "aacd8317-76a0-4574-92c9-326ef667f753",
+          "Active": true,
+          "Name": "Strobe",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[0]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[0]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Ext Light Off"
+          },
+          "GUID": "ec436f58-603e-4a7b-ad7e-0e7f4ff45fb4",
+          "Active": true,
+          "Name": "Beacon",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[3]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[3]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Nose TO"
+          },
+          "GUID": "b533cd36-52db-415b-9dfa-dc35ac85092f",
+          "Active": true,
+          "Name": "Nose TO",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[3]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[3]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Nose Off"
+          },
+          "GUID": "c62db97f-4f2e-4c29-a9f3-ec723b6852cf",
+          "Active": true,
+          "Name": "Nose Taxi",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[4]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[4]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Land On"
+          },
+          "GUID": "f54c7e7b-e643-4737-937d-16bdb4e430eb",
+          "Active": true,
+          "Name": "Land Left On",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[5]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[5]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Land On"
+          },
+          "GUID": "cce854ca-05aa-43c4-8399-35a3ef78f6f8",
+          "Active": true,
+          "Name": "Land Right On",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[4]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[4]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Land Retract"
+          },
+          "GUID": "2fef314d-6fff-4a8e-b3ab-57d7222a8d56",
+          "Active": true,
+          "Name": "Land Left Retract",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[5]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[5]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Land Retract"
+          },
+          "GUID": "d4acec8c-1235-4925-a147-68debcb98296",
+          "Active": true,
+          "Name": "Land Right Retract",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[11]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[11]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Seatbelts On"
+          },
+          "GUID": "db0f1b01-a91a-4f96-9f9d-92c96dff3ef3",
+          "Active": true,
+          "Name": "Seatbelts",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[12]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "onRelease": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[12]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Smoking On"
+          },
+          "GUID": "0b0accdf-ce2a-4406-97b0-a7f083a985f8",
+          "Active": true,
+          "Name": "No Smoking",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[0]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS Off"
+          },
+          "GUID": "7212660c-daeb-4aa5-8305-9273b2615657",
+          "Active": true,
+          "Name": "ADIRS 1 Off",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[1]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS Off"
+          },
+          "GUID": "29c4f44d-b04f-4d75-b70d-0a0915df45e6",
+          "Active": true,
+          "Name": "ADIRS 2 Off",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[2]",
+              "Expression": "0",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS Off"
+          },
+          "GUID": "87f80d89-a336-48b7-aa93-a5f56b8b8611",
+          "Active": true,
+          "Name": "ADIRS 3 Off",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[0]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS NAV"
+          },
+          "GUID": "ef3c3abc-aec5-419b-8e19-3d1f6206ec85",
+          "Active": true,
+          "Name": "ADIRS 1 Nav",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[1]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS NAV"
+          },
+          "GUID": "f0d12e18-d139-4ca2-9241-fcf82e233539",
+          "Active": true,
+          "Name": "ADIRS 2 Nav",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[2]",
+              "Expression": "1",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS NAV"
+          },
+          "GUID": "489d07ca-1bfe-419e-8e28-962d4ad5c7af",
+          "Active": true,
+          "Name": "ADIRS 3 Nav",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[0]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS ATT"
+          },
+          "GUID": "a5a6f0c1-f4c0-4cff-aeef-a5d2284ef920",
+          "Active": true,
+          "Name": "ADIRS 1 ATT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[1]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS ATT"
+          },
+          "GUID": "4c29dfe0-64ce-4ad6-a54d-ca9e288c0355",
+          "Active": true,
+          "Name": "ADIRS 2 ATT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/ADIRUSwitchArray[2]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "ADIRS ATT"
+          },
+          "GUID": "7eccfedc-56bc-4d5b-b023-16886c8c11d3",
+          "Active": true,
+          "Name": "ADIRS 3 ATT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/CrewOxySwitch",
+              "Expression": "1-$",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Fuel Pump"
+          },
+          "GUID": "b6264b44-b763-4f08-b00b-e49a1be73f21",
+          "Active": true,
+          "Name": "Crew Oxygen",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "InputType": "DataRef",
+              "Path": "AirbusFBW/OHPLightSwitches[2]",
+              "Expression": "2",
+              "Type": "XplaneInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Battery"
+          },
+          "GUID": "14efa9c9-a432-412f-a3ff-ce000087727f",
+          "Active": true,
+          "Name": "Nav Light",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Mini OverheadSMD",
+            "Serial": "SN-E46534B723383D36"
+          }
+        }
+      ]
+    }
+  ],
+  "Sim": "xplane",
+  "Aircraft": [],
+  "Features": {
+    "FSUIPC": false,
+    "ProSim": false
+  },
+  "_version": "0.10"
+}
