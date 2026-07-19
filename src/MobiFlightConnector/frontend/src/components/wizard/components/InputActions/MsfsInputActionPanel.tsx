@@ -84,7 +84,7 @@ const MsfsInputActionPanel = ({
         }
       />
       <Card>
-        <CardContent className="flex flex-col gap-4 pt-4">
+        <CardContent className="flex flex-col gap-4 pt-4" data-testid="preset-code-panel">
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
               {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title")}

@@ -191,7 +191,7 @@ test.describe("General Input Config Wizard Tests", () => {
       name: "Apply changes",
     })
     await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
-    
+
     await expect(applyChangesButton).toBeEnabled()
     await applyChangesButton.click()
 
@@ -247,7 +247,7 @@ test.describe("General Input Config Wizard Tests", () => {
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
     await configListPage.clickEditButtonForRow(1)
-    const dialog = page.getByTestId('inputconfigwizard-dialog')
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
     await expect(dialog).toBeVisible()
 
     // Click outside the dialog to close it
@@ -1427,7 +1427,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await backButton.click()
     await expect(modifierEditor).not.toBeVisible()
 
-    // double click on the summary panel 
+    // double click on the summary panel
     // to open the editor again
     await expect(panel).toBeVisible()
     await panel.dblclick()
@@ -2531,16 +2531,68 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
         .getByRole("combobox")
         .filter({ hasText: "Microsoft Flight Simulator (all versions)" }),
     ).toBeVisible()
-    // Pre-selected preset label is shown
+
+    // List item shows all the important data
+    // label
     await expect(
       actionEditor
         .getByRole("listitem")
         .getByText("AP_PANEL_HEADING_HOLD_TEST"),
     ).toBeVisible()
+    // description
+    await expect(
+      actionEditor
+        .getByRole("listitem")
+        .getByText("Heading Hold Test Description Text"),
+    ).toBeVisible()
+    // system
+    await expect(
+      actionEditor.getByRole("listitem").getByText("Autopilot"),
+    ).toBeVisible()
+    // aircraft
+    await expect(
+      actionEditor.getByRole("listitem").getByText("Generic"),
+    ).toBeVisible()
+
+    // Preset code panel
+    const presetCodePanel = actionEditor.getByTestId("preset-code-panel")
+    await expect(presetCodePanel).toBeVisible()
+
+    const presetName = presetCodePanel.getByText("AP_PANEL_HEADING_HOLD_TEST")
+    await expect(presetName).toBeVisible()
+
+    const presetVendorAircraftSystem = presetCodePanel.getByText(
+      "Microsoft / Generic / Autopilot",
+    )
+    await expect(presetVendorAircraftSystem).toBeVisible()
+
+    const presetDescription = presetCodePanel.getByText(
+      "Heading Hold Test Description Text",
+    )
+    await expect(presetDescription).toBeVisible()
+
+    const presetAuthorData = presetCodePanel.getByText(
+      "MobiFlight Community / 8/16/2021",
+    )
+    await expect(presetAuthorData).toBeVisible()
+
+    const hubHopButton = presetCodePanel.getByRole("button", {
+      name: "HubHop",
+    })
+    await expect(hubHopButton).toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandOpenLinkInBrowser")
+    await hubHopButton.click()
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.url).toBe(
+      "https://hubhop.mobiflight.com/preset/?simType=msfs2020&id=cf0526c0-da69-404f-a570-9f9d54d2803c",
+    )
 
     // Code field reflects the preset command
     await expect(
-      actionEditor.getByRole("textbox", { name: "Enter RPN code" }),
+      presetCodePanel.getByRole("textbox", { name: "Enter RPN code" }),
     ).toHaveValue("(>K:AP_PANEL_HEADING_HOLD)")
   })
 
@@ -2948,24 +3000,74 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     const actionEditor = page.getByTestId("action-editor")
 
+    // Action type panel shows the correct type
     await expect(
       actionEditor
         .getByRole("combobox")
         .filter({ hasText: "X-Plane (all versions)" }),
     ).toBeVisible()
-    // Input type from test data
+
+    // List item shows all the important data
+    // label
     await expect(
-      actionEditor.getByRole("combobox").filter({ hasText: "Command" }),
+      actionEditor.getByRole("listitem").getByText("land_alt_press_dn"),
     ).toBeVisible()
-    // Pre-selected preset label is shown (code matches the preset in mock data)
+    // description
     await expect(
       actionEditor
         .getByRole("listitem")
-        .filter({ hasText: "land_alt_press_dn" }),
+        .getByText("Landing Altitude Pressure Down"),
     ).toBeVisible()
+    // system
     await expect(
-      actionEditor.getByText("Landing Altitude Pressure Down"),
+      actionEditor.getByRole("listitem").getByText("Autopilot"),
     ).toBeVisible()
+    // aircraft
+    await expect(
+      actionEditor.getByRole("listitem").getByText("Boeing 737-800"),
+    ).toBeVisible()
+
+    // Preset code panel
+    const presetCodePanel = actionEditor.getByTestId("preset-code-panel")
+    await expect(presetCodePanel).toBeVisible()
+
+    const presetName = presetCodePanel.getByText("land_alt_press_dn")
+    await expect(presetName).toBeVisible()
+
+    const presetVendorAircraftSystem = presetCodePanel.getByText(
+      "Laminar Research / Boeing 737-800 / Autopilot",
+    )
+    await expect(presetVendorAircraftSystem).toBeVisible()
+
+    const presetDescription = presetCodePanel.getByText(
+      "Landing Altitude Pressure Down",
+    )
+    await expect(presetDescription).toBeVisible()
+
+        const presetAuthorData = presetCodePanel.getByText(
+      "MobiFlight Community / 8/1/2021",
+    )
+    await expect(presetAuthorData).toBeVisible()
+
+    const hubHopButton = presetCodePanel.getByRole("button", {
+      name: "HubHop",
+    })
+    await expect(hubHopButton).toBeVisible()
+
+    await configListPage.mobiFlightPage.trackCommand("CommandOpenLinkInBrowser")
+    await hubHopButton.click()
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toBeDefined()
+    const payload = commands?.pop()?.payload
+    expect(payload.url).toBe(
+      "https://hubhop.mobiflight.com/preset/?simType=xplane&id=xp-001",
+    )
+
+    // Input codeType from test data
+    await expect(
+      presetCodePanel.getByRole("combobox").filter({ hasText: "Command" }),
+    ).toBeVisible()
+
     // Code field reflects the path
     await expect(
       actionEditor.getByPlaceholder(
