@@ -695,6 +695,8 @@
             "Aircraft": "Aircraft",
             "System": "System",
             "Custom": "Custom Preset",
+            "Author": "Author",
+            "Date": "Date",
             "Code": {
               "Title": "Step 3 - Customize preset (optional)",
               "Description": "This preset code is used with your simulator. You can edit it manually or choose a preset from the list above.",

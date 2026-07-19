@@ -695,6 +695,8 @@
             "Aircraft": "Aeronave",
             "System": "Sistema",
             "Custom": "Predefinição personalizada",
+            "Author": "Autor",
+            "Date": "Data",
             "Code": {
               "Title": "Passo 3 - Refinar código (opcional)",
               "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima.",

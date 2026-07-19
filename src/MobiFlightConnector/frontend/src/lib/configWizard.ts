@@ -77,9 +77,8 @@ export const fetchHubHopPresets = async (sim: "msfs" | "xplane") => {
 }
 
 export const filterPresetByText = (preset: Preset, filter: string) => {
-  return (
-    preset.label.toLowerCase().includes(filter.toLowerCase()) ||
-    preset.code.toLowerCase().includes(filter.toLowerCase()) ||
-    (preset.description?.toLowerCase().includes(filter.toLowerCase()) ?? false)
-  )
+  const terms = filter.toLowerCase().trim().split(/\s+/).filter(Boolean)
+  const haystack =
+    `${preset.label} ${preset.description ?? ""} ${preset.code}`.toLowerCase()
+  return terms.every((t) => haystack.includes(t))
 }

@@ -67,6 +67,8 @@ const XplaneInputActionPanel = ({
     vendor: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Vendor"),
     aircraft: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Aircraft"),
     system: t("Dialog.InputConfigWizard.InputActions.Common.Preset.System"),
+    author: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Author"),
+    date: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Date"),
   }
 
   const openHubHopDetails = () => {

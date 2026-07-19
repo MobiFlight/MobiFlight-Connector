@@ -2572,7 +2572,7 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(presetDescription).toBeVisible()
 
     const presetAuthorData = presetCodePanel.getByText(
-      "MobiFlight Community / 8/16/2021",
+      "Mobiflight Community / 8/16/2021",
     )
     await expect(presetAuthorData).toBeVisible()
 
@@ -3044,8 +3044,8 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     )
     await expect(presetDescription).toBeVisible()
 
-        const presetAuthorData = presetCodePanel.getByText(
-      "MobiFlight Community / 8/1/2021",
+    const presetAuthorData = presetCodePanel.getByText(
+      "Mobiflight Community / 8/1/2021",
     )
     await expect(presetAuthorData).toBeVisible()
 

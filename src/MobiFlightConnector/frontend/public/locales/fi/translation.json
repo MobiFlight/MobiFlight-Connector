@@ -695,6 +695,8 @@
             "Aircraft": "Lentokone",
             "System": "Järjestelmä",
             "Custom": "Mukautettu esiasetus",
+            "Author": "Tekijä",
+            "Date": "Päivämäärä",
             "Code": {
               "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
               "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",

@@ -701,6 +701,8 @@
             "Aircraft": "Flugzeug",
             "System": "System",
             "Custom": "Eigenes Preset",
+            "Author": "Autor",
+            "Date": "Datum",
             "Code": {
               "Title": "Schritt 3 - Code anpassen (optional)",
               "Description": "Dieser Preset-Code wird für den Simulator verwendet. Du kannst den Code manuell bearbeiten oder ein Preset aus der obigen Liste auswählen.",

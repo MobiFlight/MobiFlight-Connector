@@ -52,7 +52,9 @@ const MsfsInputActionPanel = ({
           </Label>
           <CodeValueLabel id="code" className="max-w-50 lg:max-w-100">
             {config?.Command ??
-              t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.None")}
+              t(
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.None",
+              )}
           </CodeValueLabel>
         </div>
       </div>
@@ -63,6 +65,8 @@ const MsfsInputActionPanel = ({
     vendor: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Vendor"),
     aircraft: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Aircraft"),
     system: t("Dialog.InputConfigWizard.InputActions.Common.Preset.System"),
+    author: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Author"),
+    date: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Date"),
   }
 
   const openHubHopDetails = () => {
@@ -84,13 +88,20 @@ const MsfsInputActionPanel = ({
         }
       />
       <Card>
-        <CardContent className="flex flex-col gap-4 pt-4" data-testid="preset-code-panel">
+        <CardContent
+          className="flex flex-col gap-4 pt-4"
+          data-testid="preset-code-panel"
+        >
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title")}
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title",
+              )}
             </div>
             <div className="text-muted-foreground text-sm">
-              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Description")}
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Description",
+              )}
             </div>
           </div>
           <div className="flex flex-col gap-4">
@@ -99,7 +110,9 @@ const MsfsInputActionPanel = ({
                 <div className="flex flex-row gap-4">
                   <div className="flex flex-1 flex-col gap-1">
                     <Label htmlFor="code">
-                      {t("Dialog.InputConfigWizard.InputActions.Common.NameLabel")}
+                      {t(
+                        "Dialog.InputConfigWizard.InputActions.Common.NameLabel",
+                      )}
                     </Label>
                     <div className="text-sm font-semibold">{preset?.label}</div>
                   </div>
@@ -125,7 +138,9 @@ const MsfsInputActionPanel = ({
                   {preset?.author && preset?.createdDate && (
                     <div className="flex flex-1 flex-row items-center gap-1">
                       <div className="flex flex-1 flex-col gap-1">
-                        <Label htmlFor="code">Author / Date</Label>
+                        <Label htmlFor="code">
+                          {labels.author} / {labels.date}
+                        </Label>
                         <div className="text-sm">
                           {preset?.author}
                           {preset?.createdDate && (
@@ -152,7 +167,7 @@ const MsfsInputActionPanel = ({
                 </div>
               </>
             ) : (
-              config?.Command !== "" && (
+              (config?.Command ?? "") !== "" && (
                 <div className="flex flex-row items-center gap-2 rounded-md">
                   <IconExclamationCircle className="text-primary fill-background" />
                   <div className="text-primary text-sm">

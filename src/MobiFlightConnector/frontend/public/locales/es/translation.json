@@ -701,6 +701,8 @@
             "Aircraft": "Aeronave",
             "System": "Sistema",
             "Custom": "Preset personalizado",
+            "Author": "Autor",
+            "Date": "Fecha",
             "Code": {
               "Title": "Paso 3 - Modificar código (opcional)",
               "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
