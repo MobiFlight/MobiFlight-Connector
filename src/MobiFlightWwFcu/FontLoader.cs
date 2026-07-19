@@ -13,8 +13,8 @@ namespace MobiFlightWwFcu
         private Dictionary<string, string> AvailablePfpFonts = new Dictionary<string, string>();
         private Dictionary<string, string> CurrentlyLoadedFontForControllers = new Dictionary<string, string>();
 
-        private const string DefaultMcduFolder = @"Scripts\WinCtrl\Fonts\Default\MCDU\";
-        private const string DefaultPfpFolder = @"Scripts\WinCtrl\Fonts\Default\PFP\";
+        private const string DefaultMcduFolder = @"Scripts\Winwing\Fonts\Default\MCDU\";
+        private const string DefaultPfpFolder = @"Scripts\Winwing\Fonts\Default\PFP\";
 
         public FontLoader()
         {        
