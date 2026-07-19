@@ -14,13 +14,11 @@ import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-
 export type MsfsPresetPanelProps = {
   variant: "input" | "output"
   selectedPresetId: string | null
   setSelectedPreset: (preset: Preset | XplanePreset | null) => void
 }
-
 const MsfsPresetPanel = ({
   variant,
   selectedPresetId,
@@ -29,19 +27,23 @@ const MsfsPresetPanel = ({
   const { t } = useTranslation()
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
-
   const SCROLL_INTO_VIEW_TIMEOUT = 800
   const refActiveElement = useRef<HTMLDivElement | null>(null)
   const scrollTimeoutRef = useRef<number | null>(null)
-
   const cancelScrollIntoView = () => {
     if (scrollTimeoutRef.current !== null) {
       window.clearTimeout(scrollTimeoutRef.current)
       scrollTimeoutRef.current = null
     }
   }
-
-  const scrollActiveProjectIntoView = useCallback(() => {
+  const filterByText = (preset: Preset, filter: string) => {
+    return (
+      preset.label.toLowerCase().includes(filter.toLowerCase()) ||
+      preset.code.toLowerCase().includes(filter.toLowerCase()) ||
+      (preset.description?.toLowerCase().includes(filter.toLowerCase()) ?? false)
+    )
+  }
+  const scrollActivePresetIntoView = useCallback(() => {
     if (refActiveElement.current) {
       cancelScrollIntoView()
       scrollTimeoutRef.current = window.setTimeout(() => {
@@ -53,68 +55,57 @@ const MsfsPresetPanel = ({
       }, SCROLL_INTO_VIEW_TIMEOUT)
     }
   }, [refActiveElement, scrollTimeoutRef])
-
   const validPresetTypes =
     variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
-
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-
   const projectAircraftFilter = (p: Preset) =>
     (project?.Aircraft?.length ?? 0) > 0
       ? project!.Aircraft!.some(
           (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
         )
       : true
-
   const validPresets = presets.filter(
     (p: Preset) =>
       validPresetTypes.includes(p.presetType.toLowerCase()) &&
       (favoritesOnly ? projectAircraftFilter(p) : true),
   )
-
   const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
-
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
     aircraft: selectedPreset?.aircraft || "",
     system: selectedPreset?.system || "",
     search: "",
   })
-
   const filteredPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
       (filter.system ? p.system === filter.system : true) &&
-      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+      filterByText(p, filter.search),
   )
-
   const filteredCategoryPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+      filterByText(p, filter.search),
   )
-
   const filteredVendorPresets = validPresets.filter(
     (p) =>
       (filter.system ? p.system === filter.system : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+      filterByText(p, filter.search),
   )
-
   const filteredAircraftPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.system ? p.system === filter.system : true) &&
-      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+      filterByText(p, filter.search),
   )
-
   const categories = [
     ...new Set(filteredCategoryPresets.map((p) => p.system)),
   ].sort()
@@ -124,12 +115,10 @@ const MsfsPresetPanel = ({
   const vendors = [
     ...new Set(filteredVendorPresets.map((p) => p.vendor)),
   ].sort()
-
   useEffect(() => {
     if (!refActiveElement.current) return
-    scrollActiveProjectIntoView()
-  }, [refActiveElement, scrollActiveProjectIntoView])
-
+    scrollActivePresetIntoView()
+  }, [refActiveElement, scrollActivePresetIntoView])
   return (
     <Card className="grow">
       <CardContent className="flex flex-col gap-4 pt-4">
@@ -257,7 +246,7 @@ const MsfsPresetPanel = ({
           <ScrollArea
             className="h-56"
             onMouseEnter={cancelScrollIntoView}
-            onMouseLeave={scrollActiveProjectIntoView}
+            onMouseLeave={scrollActivePresetIntoView}
           >
             <div className="flex flex-col gap-1" role="list">
               {filteredPresets.map((preset) => (
