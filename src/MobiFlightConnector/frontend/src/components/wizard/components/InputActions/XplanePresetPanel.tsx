@@ -95,9 +95,36 @@ const XplanePresetPanel = ({
       p.label.toLowerCase().includes(filter.search.toLowerCase()),
   )
 
-  const categories = [...new Set(filteredPresets.map((p) => p.system))].sort()
-  const aircraft = [...new Set(filteredPresets.map((p) => p.aircraft))].sort()
-  const vendors = [...new Set(filteredPresets.map((p) => p.vendor))].sort()
+  const filteredCategoryPresets = validPresets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+  )
+
+  const filteredVendorPresets = validPresets.filter(
+    (p) =>
+      (filter.system ? p.system === filter.system : true) &&
+      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+  )
+
+  const filteredAircraftPresets = validPresets.filter(
+    (p) =>
+      (filter.vendor ? p.vendor === filter.vendor : true) &&
+      (filter.system ? p.system === filter.system : true) &&
+      p.label.toLowerCase().includes(filter.search.toLowerCase()),
+  )
+
+  const categories = [
+    ...new Set(filteredCategoryPresets.map((p) => p.system)),
+  ].sort()
+  const aircraft = [
+    ...new Set(filteredAircraftPresets.map((p) => p.aircraft)),
+  ].sort()
+  const vendors = [
+    ...new Set(filteredVendorPresets.map((p) => p.vendor)),
+  ].sort()
 
   useEffect(() => {
     if (!refActiveElement.current) return
@@ -105,7 +132,7 @@ const XplanePresetPanel = ({
   }, [refActiveElement, scrollActiveProjectIntoView])
 
   return (
-    <Card>
+    <Card className="grow">
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-end justify-between">
           <div className="flex flex-col">
@@ -196,8 +223,38 @@ const XplanePresetPanel = ({
               )}
             />
           </div>
+          <div className="flex flex-row items-center justify-between">
+            <div role="status" className="px-2 py-2 text-sm">
+              {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
+                count: filteredPresets.length,
+              })}
+            </div>
+            {(filter.aircraft ||
+              filter.vendor ||
+              filter.system ||
+              filter.search) && (
+              <Button
+                size={"sm"}
+                className="w-fit px-2 py-0"
+                variant="ghost"
+                onClick={() =>
+                  setFilter({
+                    vendor: "",
+                    aircraft: "",
+                    system: "",
+                    search: "",
+                  })
+                }
+              >
+                <IconX />
+                <span className="py-0 text-sm">
+                  {t("Dialog.General.ResetFilters")}
+                </span>
+              </Button>
+            )}
+          </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="-mt-3 flex flex-col gap-2">
           <ScrollArea
             className="h-56"
             onMouseEnter={cancelScrollIntoView}
@@ -215,26 +272,6 @@ const XplanePresetPanel = ({
               ))}
             </div>
           </ScrollArea>
-          <div className="flex flex-row items-center justify-between">
-            <div role="status" className="px-2 text-sm">
-              {t("Dialog.InputConfigWizard.InputActions.Common.PresetsFound", {
-                count: filteredPresets.length,
-              })}
-            </div>
-            <Button
-              size={"sm"}
-              className="w-fit px-2 py-1"
-              variant="ghost"
-              onClick={() =>
-                setFilter({ vendor: "", aircraft: "", system: "", search: "" })
-              }
-            >
-              <IconX />
-              <span className="text-sm">
-                {t("Dialog.General.ResetFilters")}
-              </span>
-            </Button>
-          </div>
         </div>
       </CardContent>
     </Card>
