@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
 import { PresetListItem } from "@/components/wizard/components/PresetListItem"
-import { fetchHubHopPresets } from "@/lib/configWizard"
+import { fetchHubHopPresets, filterPresetByText } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
 import { Preset, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
@@ -36,13 +36,7 @@ const MsfsPresetPanel = ({
       scrollTimeoutRef.current = null
     }
   }
-  const filterByText = (preset: Preset, filter: string) => {
-    return (
-      preset.label.toLowerCase().includes(filter.toLowerCase()) ||
-      preset.code.toLowerCase().includes(filter.toLowerCase()) ||
-      (preset.description?.toLowerCase().includes(filter.toLowerCase()) ?? false)
-    )
-  }
+
   const scrollActivePresetIntoView = useCallback(() => {
     if (refActiveElement.current) {
       cancelScrollIntoView()
@@ -86,25 +80,25 @@ const MsfsPresetPanel = ({
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
       (filter.system ? p.system === filter.system : true) &&
-      filterByText(p, filter.search),
+      filterPresetByText(p, filter.search),
   )
   const filteredCategoryPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterByText(p, filter.search),
+      filterPresetByText(p, filter.search),
   )
   const filteredVendorPresets = validPresets.filter(
     (p) =>
       (filter.system ? p.system === filter.system : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterByText(p, filter.search),
+      filterPresetByText(p, filter.search),
   )
   const filteredAircraftPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.system ? p.system === filter.system : true) &&
-      filterByText(p, filter.search),
+      filterPresetByText(p, filter.search),
   )
   const categories = [
     ...new Set(filteredCategoryPresets.map((p) => p.system)),

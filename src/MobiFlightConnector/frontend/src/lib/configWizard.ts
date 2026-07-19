@@ -75,3 +75,11 @@ export const fetchHubHopPresets = async (sim: "msfs" | "xplane") => {
       : "/presets/xplane_hubhop_presets.json"
   return fetch(presetFile).then((r) => r.json() as Promise<Preset[]>)
 }
+
+export const filterPresetByText = (preset: Preset, filter: string) => {
+  return (
+    preset.label.toLowerCase().includes(filter.toLowerCase()) ||
+    preset.code.toLowerCase().includes(filter.toLowerCase()) ||
+    (preset.description?.toLowerCase().includes(filter.toLowerCase()) ?? false)
+  )
+}
