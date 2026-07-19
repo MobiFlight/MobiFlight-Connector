@@ -684,51 +684,34 @@
           "SearchPresets": "Search presets...",
           "PresetsFound": "{{count}} preset(s) found",
           "SupportedPlaceholders": "Supports input value (@) and placeholders ($, #, etc.)",
-          "PresetLabel": "Preset",
           "ActionLabel": "Action",
-          "NameLabel": "Name"
-        },
-        "Msfs": {
+          "NameLabel": "Name",
           "Preset": {
+            "Label": "Preset",
             "Title": "Step 2 - Select preset",
             "Description": "Choose a preset from our preset library. Use filters to narrow down your search.",
             "ProjectAircraftOnly": "Project aircraft only",
             "Vendor": "Vendor",
             "Aircraft": "Aircraft",
-            "System": "System"
-          },
-          "Code": {
-            "Title": "Step 3 - Customize preset (optional)",
-            "Description": "This preset code is used with your simulator. You can edit it manually or choose a preset from the list above.",
-            "None": "None",
-            "Placeholder": "Enter RPN code",
-            "Customized": "You customized this preset or it is no longer available."
-          },
-          "CustomPreset": "Custom Preset"
+            "System": "System",
+            "Custom": "Custom Preset",
+            "Code": {
+              "Title": "Step 3 - Customize preset (optional)",
+              "Description": "This preset code is used with your simulator. You can edit it manually or choose a preset from the list above.",
+              "None": "None",
+              "Placeholder": "Enter RPN code",
+              "Customized": "You customized this preset or it is no longer available."
+            }
+          }
         },
         "Xplane": {
-          "Preset": {
-            "Title": "Step 2 - Select preset",
-            "Description": "Choose a preset from our preset library. Use filters to narrow down your search.",
-            "ProjectAircraftOnly": "Project aircraft only",
-            "Vendor": "Vendor",
-            "Aircraft": "Aircraft",
-            "System": "System"
-          },
-          "Code": {
-            "Title": "Step 3 - Customize preset (optional)",
-            "Description": "This code is used by the simulator. You can edit it manually or select a preset from the list above.",
-            "None": "None",
-            "Customized": "You customized this preset or it is no longer available."
-          },
           "InputTypeLabel": "Input Type",
           "SelectInputTypePlaceholder": "Select input type",
           "PathLabel": "Path",
           "PathPlaceholder": "Enter path for DataRef or Command, or select a preset above",
           "PathDescription": "Hint: Use index notation for access of Arrays, e.g. sim/cockpit2/annunciators/fuel_pressure_low[0] for 1st engine.",
           "ValueLabel": "Value",
-          "ValuePlaceholder": "Enter value",
-          "CustomPreset": "Custom Preset"
+          "ValuePlaceholder": "Enter value"
         },
         "ProSim": {
           "Preset": {

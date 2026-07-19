@@ -684,51 +684,34 @@
           "SearchPresets": "Pesquisar predefinições...",
           "PresetsFound": "{{count}} predefinição(ões) encontrada(s)",
           "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)",
-          "PresetLabel": "Preset",
           "ActionLabel": "Ação",
-          "NameLabel": "Nome"
-        },
-        "Msfs": {
+          "NameLabel": "Nome",
           "Preset": {
+            "Label": "Preset",
             "Title": "Passo 2 - Selecionar predefinição",
             "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
             "ProjectAircraftOnly": "Apenas aeronaves do projeto",
             "Vendor": "Fornecedor",
             "Aircraft": "Aeronave",
-            "System": "Sistema"
-          },
-          "Code": {
-            "Title": "Passo 3 - Refinar código (opcional)",
-            "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima.",
-            "None": "Nenhum",
-            "Placeholder": "Digite o código RPN",
-            "Customized": "Você personalizou esta predefinição ou ela não está mais disponível."
-          },
-          "CustomPreset": "Predefinição personalizada"
+            "System": "Sistema",
+            "Custom": "Predefinição personalizada",
+            "Code": {
+              "Title": "Passo 3 - Refinar código (opcional)",
+              "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima.",
+              "None": "Nenhum",
+              "Placeholder": "Digite o código RPN",
+              "Customized": "Você personalizou esta predefinição ou ela não está mais disponível."
+            }
+          }
         },
         "Xplane": {
-          "Preset": {
-            "Title": "Passo 2 - Selecionar predefinição",
-            "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
-            "ProjectAircraftOnly": "Apenas aeronaves do projeto",
-            "Vendor": "Fornecedor",
-            "Aircraft": "Aeronave",
-            "System": "Sistema"
-          },
-          "Code": {
-            "Title": "Passo 3 - Refinar código (opcional)",
-            "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima.",
-            "None": "Nenhum",
-            "Customized": "Você personalizou esta predefinição ou ela não está mais disponível."
-          },
           "InputTypeLabel": "Tipo de Entrada",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",
           "PathLabel": "Caminho",
           "PathPlaceholder": "Digite o caminho para DataRef ou Comando, ou selecione uma predefinição acima",
           "PathDescription": "Dica: Use a notação de índice para acessar Arrays, por exemplo, sim/cockpit2/annunciators/fuel_pressure_low[0] para o 1º motor.",
           "ValueLabel": "Valor",
-          "ValuePlaceholder": "Digite o valor",
-          "CustomPreset": "Predefinição personalizada"
+          "ValuePlaceholder": "Digite o valor"
         },
         "ProSim": {
           "Preset": {

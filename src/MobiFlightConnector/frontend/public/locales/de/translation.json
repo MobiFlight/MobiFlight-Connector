@@ -690,51 +690,34 @@
           "SearchPresets": "Presets suchen...",
           "PresetsFound": "{{count}} Preset(s) gefunden",
           "SupportedPlaceholders": "Unterstützt Eingabewert (@) und Platzhalter ($, #, etc.)",
-          "PresetLabel": "Preset",
           "ActionLabel": "Aktion",
-          "NameLabel": "Name"
-        },
-        "Msfs": {
+          "NameLabel": "Name",
           "Preset": {
+            "Label": "Preset",
             "Title": "Schritt 2 - Preset auswählen",
             "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
             "ProjectAircraftOnly": "Nur Projektflugzeuge",
             "Vendor": "Hersteller",
             "Aircraft": "Flugzeug",
-            "System": "System"
-          },
-          "Code": {
-            "Title": "Schritt 3 - Code anpassen (optional)",
-            "Description": "Dieser Preset-Code wird für den Simulator verwendet. Du kannst den Code manuell bearbeiten oder ein Preset aus der obigen Liste auswählen.",
-            "None": "Keiner",
-            "Placeholder": "RPN-Code eingeben",
-            "Customized": "Du hast dieses Preset angepasst oder es ist nicht mehr verfügbar."
-          },
-          "CustomPreset": "Eigenes Preset"
+            "System": "System",
+            "Custom": "Eigenes Preset",
+            "Code": {
+              "Title": "Schritt 3 - Code anpassen (optional)",
+              "Description": "Dieser Preset-Code wird für den Simulator verwendet. Du kannst den Code manuell bearbeiten oder ein Preset aus der obigen Liste auswählen.",
+              "None": "Keiner",
+              "Placeholder": "RPN-Code eingeben",
+              "Customized": "Du hast dieses Preset angepasst oder es ist nicht mehr verfügbar."
+            }
+          }
         },
         "Xplane": {
-          "Preset": {
-            "Title": "Schritt 2 - Preset auswählen",
-            "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
-            "ProjectAircraftOnly": "Nur Projektflugzeuge",
-            "Vendor": "Hersteller",
-            "Aircraft": "Flugzeug",
-            "System": "System"
-          },
-          "Code": {
-            "Title": "Schritt 3 - Code anpassen (optional)",
-            "Description": "Dieser Code wird vom Simulator verwendet. Du kannst ihn manuell bearbeiten oder ein Preset aus der obigen Liste auswählen.",
-            "None": "Keiner",
-            "Customized": "Du hast dieses Preset angepasst oder es ist nicht mehr verfügbar."
-          },
           "InputTypeLabel": "Eingabetyp",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",
           "PathLabel": "Pfad",
           "PathPlaceholder": "Pfad für DataRef oder Befehl eingeben, oder oben ein Preset auswählen",
           "PathDescription": "Hinweis: Verwende die Indexnotation, um auf Arrays zuzugreifen, z. B. sim/cockpit2/annunciators/fuel_pressure_low[0] für das 1. Triebwerk.",
           "ValueLabel": "Wert",
-          "ValuePlaceholder": "Wert eingeben",
-          "CustomPreset": "Eigenes Preset"
+          "ValuePlaceholder": "Wert eingeben"
         },
         "ProSim": {
           "Preset": {

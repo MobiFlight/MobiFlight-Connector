@@ -684,51 +684,34 @@
           "SearchPresets": "Etsi esiasetuksia...",
           "PresetsFound": "{{count}} esiasetus(ta) löytyi",
           "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)",
-          "PresetLabel": "Esiasetus",
           "ActionLabel": "Toiminto",
-          "NameLabel": "Nimi"
-        },
-        "Msfs": {
+          "NameLabel": "Nimi",
           "Preset": {
+            "Label": "Esiasetus",
             "Title": "Vaihe 2 - Valitse esiasetus",
             "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
             "ProjectAircraftOnly": "Vain projektin lentokoneet",
             "Vendor": "Valmistaja",
             "Aircraft": "Lentokone",
-            "System": "Järjestelmä"
-          },
-          "Code": {
-            "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
-            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
-            "None": "Ei mitään",
-            "Placeholder": "Syötä RPN-koodi",
-            "Customized": "Mukautit tämän esiasetuksen tai se ei ole enää saatavilla."
-          },
-          "CustomPreset": "Mukautettu esiasetus"
+            "System": "Järjestelmä",
+            "Custom": "Mukautettu esiasetus",
+            "Code": {
+              "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
+              "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
+              "None": "Ei mitään",
+              "Placeholder": "Syötä RPN-koodi",
+              "Customized": "Mukautit tämän esiasetuksen tai se ei ole enää saatavilla."
+            }
+          }
         },
         "Xplane": {
-          "Preset": {
-            "Title": "Vaihe 2 - Valitse esiasetus",
-            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
-            "ProjectAircraftOnly": "Vain projektin lentokoneet",
-            "Vendor": "Valmistaja",
-            "Aircraft": "Lentokone",
-            "System": "Järjestelmä"
-          },
-          "Code": {
-            "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
-            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
-            "None": "Ei mitään",
-            "Customized": "Mukautit tämän esiasetuksen tai se ei ole enää saatavilla."
-          },
           "InputTypeLabel": "Syötetyyppi",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",
           "PathLabel": "Polku",
           "PathPlaceholder": "Syötä polku DataRefille tai komennolle, tai valitse esiasetus yltä",
           "PathDescription": "Vihje: Käytä indeksi-notaatiota taulukoiden käsittelyyn, esim. sim/cockpit2/annunciators/fuel_pressure_low[0] ensimmäiselle moottorille.",
           "ValueLabel": "Arvo",
-          "ValuePlaceholder": "Syötä arvo",
-          "CustomPreset": "Mukautettu esiasetus"
+          "ValuePlaceholder": "Syötä arvo"
         },
         "ProSim": {
           "Preset": {

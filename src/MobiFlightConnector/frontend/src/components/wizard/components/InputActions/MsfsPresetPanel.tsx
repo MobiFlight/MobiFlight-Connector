@@ -136,11 +136,11 @@ const MsfsPresetPanel = ({
         <div className="flex flex-row items-end justify-between">
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Title")}
+              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
             </div>
             <div className="text-muted-foreground text-sm">
               {t(
-                "Dialog.InputConfigWizard.InputActions.Msfs.Preset.Description",
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
               )}
             </div>
           </div>
@@ -151,7 +151,7 @@ const MsfsPresetPanel = ({
             ></Switch>
             <Label>
               {t(
-                "Dialog.InputConfigWizard.InputActions.Msfs.Preset.ProjectAircraftOnly",
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.ProjectAircraftOnly",
               )}
             </Label>
           </div>

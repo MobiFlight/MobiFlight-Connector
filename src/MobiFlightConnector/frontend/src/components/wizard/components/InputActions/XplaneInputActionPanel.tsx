@@ -43,11 +43,11 @@ const XplaneInputActionPanel = ({
       <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="preset">
-            {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
+            {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Label")}:
           </Label>
           <div className="text-sm">
             {preset?.label ??
-              t("Dialog.InputConfigWizard.InputActions.Xplane.CustomPreset")}
+              t("Dialog.InputConfigWizard.InputActions.Common.Preset.Custom")}
           </div>
         </div>
         <div className="flex grow flex-col gap-1">
@@ -56,7 +56,7 @@ const XplaneInputActionPanel = ({
           </Label>
           <CodeValueLabel id="code" className="max-w-100">
             {config?.Path ??
-              t("Dialog.InputConfigWizard.InputActions.Xplane.Code.None")}
+              t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.None")}
           </CodeValueLabel>
         </div>
       </div>
@@ -64,9 +64,9 @@ const XplaneInputActionPanel = ({
   }
 
   const labels = {
-    vendor: t("Dialog.InputConfigWizard.InputActions.Xplane.Preset.Vendor"),
-    aircraft: t("Dialog.InputConfigWizard.InputActions.Xplane.Preset.Aircraft"),
-    system: t("Dialog.InputConfigWizard.InputActions.Xplane.Preset.System"),
+    vendor: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Vendor"),
+    aircraft: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Aircraft"),
+    system: t("Dialog.InputConfigWizard.InputActions.Common.Preset.System"),
   }
 
   const openHubHopDetails = () => {
@@ -91,11 +91,11 @@ const XplaneInputActionPanel = ({
         <CardContent className="flex flex-col gap-4 pt-4">
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Xplane.Code.Title")}
+              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title")}
             </div>
             <div className="text-muted-foreground text-sm">
               {t(
-                "Dialog.InputConfigWizard.InputActions.Xplane.Code.Description",
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Description",
               )}
             </div>
           </div>
@@ -165,7 +165,7 @@ const XplaneInputActionPanel = ({
                   <IconExclamationCircle className="text-primary fill-background" />
                   <div className="text-primary text-sm">
                     {t(
-                      "Dialog.InputConfigWizard.InputActions.Xplane.Code.Customized",
+                      "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Customized",
                     )}
                   </div>
                 </div>

@@ -137,11 +137,11 @@ const XplanePresetPanel = ({
         <div className="flex flex-row items-end justify-between">
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Xplane.Preset.Title")}
+              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
             </div>
             <div className="text-muted-foreground text-sm">
               {t(
-                "Dialog.InputConfigWizard.InputActions.Xplane.Preset.Description",
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
               )}
             </div>
           </div>
@@ -152,7 +152,7 @@ const XplanePresetPanel = ({
             ></Switch>
             <Label>
               {t(
-                "Dialog.InputConfigWizard.InputActions.Xplane.Preset.ProjectAircraftOnly",
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.ProjectAircraftOnly",
               )}
             </Label>
           </div>

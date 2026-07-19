@@ -39,11 +39,11 @@ const MsfsInputActionPanel = ({
       <div className="flex grow flex-row items-center gap-2">
         <div className="flex w-1/3 flex-col gap-1">
           <Label htmlFor="preset">
-            {t("Dialog.InputConfigWizard.InputActions.Common.PresetLabel")}:
+            {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Label")}:
           </Label>
           <div className="text-sm">
             {preset?.label ??
-              t("Dialog.InputConfigWizard.InputActions.Msfs.CustomPreset")}
+              t("Dialog.InputConfigWizard.InputActions.Common.Preset.Custom")}
           </div>
         </div>
         <div className="flex grow flex-col gap-1">
@@ -52,7 +52,7 @@ const MsfsInputActionPanel = ({
           </Label>
           <CodeValueLabel id="code" className="max-w-50 lg:max-w-100">
             {config?.Command ??
-              t("Dialog.InputConfigWizard.InputActions.Msfs.Code.None")}
+              t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.None")}
           </CodeValueLabel>
         </div>
       </div>
@@ -60,9 +60,9 @@ const MsfsInputActionPanel = ({
   }
 
   const labels = {
-    vendor: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Vendor"),
-    aircraft: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Aircraft"),
-    system: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.System"),
+    vendor: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Vendor"),
+    aircraft: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Aircraft"),
+    system: t("Dialog.InputConfigWizard.InputActions.Common.Preset.System"),
   }
 
   const openHubHopDetails = () => {
@@ -87,10 +87,10 @@ const MsfsInputActionPanel = ({
         <CardContent className="flex flex-col gap-4 pt-4">
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Msfs.Code.Title")}
+              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title")}
             </div>
             <div className="text-muted-foreground text-sm">
-              {t("Dialog.InputConfigWizard.InputActions.Msfs.Code.Description")}
+              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Description")}
             </div>
           </div>
           <div className="flex flex-col gap-4">
@@ -157,7 +157,7 @@ const MsfsInputActionPanel = ({
                   <IconExclamationCircle className="text-primary fill-background" />
                   <div className="text-primary text-sm">
                     {t(
-                      "Dialog.InputConfigWizard.InputActions.Msfs.Code.Customized",
+                      "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Customized",
                     )}
                   </div>
                 </div>
@@ -172,7 +172,7 @@ const MsfsInputActionPanel = ({
                 name="code"
                 className="dark:focus:bg-input/20 font-mono text-sm whitespace-nowrap dark:bg-transparent"
                 placeholder={t(
-                  "Dialog.InputConfigWizard.InputActions.Msfs.Code.Placeholder",
+                  "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Placeholder",
                 )}
                 value={config?.Command ?? ""}
                 onChange={(e) => {
