@@ -9,6 +9,7 @@
     "code": "laminar/B738/knob/land_alt_press_dn",
     "version": 1,
     "status": "Submitted",
+    "author": "Mobiflight Community",
     "createdDate": "2021-08-01T00:00:00.000Z",
     "presetType": "input",
     "codeType": "Command"

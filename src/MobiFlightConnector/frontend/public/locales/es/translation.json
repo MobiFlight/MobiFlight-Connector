@@ -655,7 +655,7 @@
         "DeletePrecondition": "Eliminar precondición",
         "SelectPort": "Seleccionar puerto...",
         "SelectPin": "Seleccionar pin...",
-        "Types" : {
+        "Types": {
           "config": "Configuración",
           "variable": "Variable",
           "pin": "Pin Arcaze"
@@ -676,9 +676,9 @@
       },
       "InputActions": {
         "Common": {
-          "CodeLabel": "Código:",
+          "CodeLabel": "Código",
           "NoDescriptionAvailable": "No hay descripción disponible",
-          "DescriptionLabel": "Descripción:",
+          "DescriptionLabel": "Descripción",
           "FilterPresets": "Filtrar presets",
           "FilterByVendor": "Filtrar por fabricante",
           "SearchVendors": "Buscar fabricantes...",
@@ -690,41 +690,36 @@
           "SearchPresets": "Buscar presets...",
           "PresetsFound": "{{count}} preset(s) encontrado(s)",
           "SupportedPlaceholders": "Admite valor de entrada (@) y marcadores de posición ($, #, etc.)",
-          "PresetLabel": "Preset",
-          "ActionLabel": "Acción"
-        },
-        "Msfs": {
+          "ActionLabel": "Acción",
+          "NameLabel": "Nombre",
           "Preset": {
+            "Label": "Preset",
             "Title": "Paso 2 - Seleccionar preset",
             "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
-            "ProjectAircraftOnly": "Solo aviones del proyecto"
-          },
-          "Code": {
-            "Title": "Paso 3 - Refinar código (opcional)",
-            "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
-            "None": "Ninguno",
-            "Placeholder": "Ingresar código RPN"
-          },
-          "CustomPreset": "Preset personalizado"
+            "ProjectAircraftOnly": "Solo aviones del proyecto",
+            "Vendor": "Fabricante",
+            "Aircraft": "Aeronave",
+            "System": "Sistema",
+            "Custom": "Preset personalizado",
+            "Author": "Autor",
+            "Date": "Fecha",
+            "Code": {
+              "Title": "Paso 3 - Modificar código (opcional)",
+              "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
+              "None": "Ninguno",
+              "Placeholder": "Ingresar código RPN",
+              "Customized": "Personalizaste este preset o ya no está disponible."
+            }
+          }
         },
         "Xplane": {
-          "Preset": {
-            "Title": "Paso 2 - Seleccionar preset",
-            "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
-            "ProjectAircraftOnly": "Solo aviones del proyecto"
-          },
-          "Code": {
-            "Title": "Paso 3 - Refinar código (opcional)",
-            "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior."
-          },
           "InputTypeLabel": "Tipo de entrada",
           "SelectInputTypePlaceholder": "Seleccionar tipo de entrada",
           "PathLabel": "Ruta",
           "PathPlaceholder": "Ingresa la ruta para DataRef o Comando, o selecciona un preset arriba",
           "PathDescription": "Nota: Usa la notación de índice para acceder a los arrays, p. ej., sim/cockpit2/annunciators/fuel_pressure_low[0] para el 1er motor.",
           "ValueLabel": "Valor",
-          "ValuePlaceholder": "Ingresa el valor",
-          "CustomPreset": "Preset personalizado"
+          "ValuePlaceholder": "Ingresa el valor"
         },
         "ProSim": {
           "Preset": {
