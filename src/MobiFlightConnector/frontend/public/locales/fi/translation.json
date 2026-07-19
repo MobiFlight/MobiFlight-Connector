@@ -670,9 +670,9 @@
       },
       "InputActions": {
         "Common": {
-          "CodeLabel": "Koodi:",
+          "CodeLabel": "Koodi",
           "NoDescriptionAvailable": "Ei kuvausta saatavilla",
-          "DescriptionLabel": "Kuvaus:",
+          "DescriptionLabel": "Kuvaus",
           "FilterPresets": "Suodata esiasetuksia",
           "FilterByVendor": "Suodata valmistajan mukaan",
           "SearchVendors": "Etsi valmistajia...",
@@ -685,19 +685,24 @@
           "PresetsFound": "{{count}} esiasetus(ta) löytyi",
           "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)",
           "PresetLabel": "Esiasetus",
-          "ActionLabel": "Toiminto"
+          "ActionLabel": "Toiminto",
+          "NameLabel": "Nimi"
         },
         "Msfs": {
           "Preset": {
             "Title": "Vaihe 2 - Valitse esiasetus",
             "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
-            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+            "ProjectAircraftOnly": "Vain projektin lentokoneet",
+            "Vendor": "Valmistaja",
+            "Aircraft": "Lentokone",
+            "System": "Järjestelmä"
           },
           "Code": {
-            "Title": "Vaihe 3 - Hienosäädä koodi (valinnainen)",
+            "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
             "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
             "None": "Ei mitään",
-            "Placeholder": "Syötä RPN-koodi"
+            "Placeholder": "Syötä RPN-koodi",
+            "Customized": "Mukautit tämän esiasetuksen tai se ei ole enää saatavilla."
           },
           "CustomPreset": "Mukautettu esiasetus"
         },

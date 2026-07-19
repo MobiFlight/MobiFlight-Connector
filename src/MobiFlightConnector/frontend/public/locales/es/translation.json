@@ -676,9 +676,9 @@
       },
       "InputActions": {
         "Common": {
-          "CodeLabel": "Código:",
+          "CodeLabel": "Código",
           "NoDescriptionAvailable": "No hay descripción disponible",
-          "DescriptionLabel": "Descripción:",
+          "DescriptionLabel": "Descripción",
           "FilterPresets": "Filtrar presets",
           "FilterByVendor": "Filtrar por fabricante",
           "SearchVendors": "Buscar fabricantes...",
@@ -691,7 +691,8 @@
           "PresetsFound": "{{count}} preset(s) encontrado(s)",
           "SupportedPlaceholders": "Admite valor de entrada (@) y marcadores de posición ($, #, etc.)",
           "PresetLabel": "Preset",
-          "ActionLabel": "Acción"
+          "ActionLabel": "Acción",
+          "NameLabel": "Name"
         },
         "Msfs": {
           "Preset": {
@@ -700,10 +701,13 @@
             "ProjectAircraftOnly": "Solo aviones del proyecto"
           },
           "Code": {
-            "Title": "Paso 3 - Refinar código (opcional)",
+            "Title": "Paso 3 - Modificar código (opcional)",
             "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
             "None": "Ninguno",
-            "Placeholder": "Ingresar código RPN"
+            "Placeholder": "Ingresar código RPN",
+            "Vendor": "Fabricante",
+            "Aircraft": "Aeronave",
+            "System": "Sistema"
           },
           "CustomPreset": "Preset personalizado"
         },

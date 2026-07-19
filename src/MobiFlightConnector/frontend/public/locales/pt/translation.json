@@ -670,9 +670,9 @@
       },
       "InputActions": {
         "Common": {
-          "CodeLabel": "Código:",
+          "CodeLabel": "Código",
           "NoDescriptionAvailable": "Nenhuma descrição disponível",
-          "DescriptionLabel": "Descrição:",
+          "DescriptionLabel": "Descrição",
           "FilterPresets": "Filtrar predefinições",
           "FilterByVendor": "Filtrar por fornecedor",
           "SearchVendors": "Pesquisar fornecedores...",
@@ -685,19 +685,24 @@
           "PresetsFound": "{{count}} predefinição(ões) encontrada(s)",
           "SupportedPlaceholders": "Suporta valor de entrada (@) e espaços reservados ($, #, etc.)",
           "PresetLabel": "Preset",
-          "ActionLabel": "Ação"
+          "ActionLabel": "Ação",
+          "NameLabel": "Nome"
         },
         "Msfs": {
           "Preset": {
             "Title": "Passo 2 - Selecionar predefinição",
             "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
-            "ProjectAircraftOnly": "Apenas aeronaves do projeto"
+            "ProjectAircraftOnly": "Apenas aeronaves do projeto",
+            "Vendor": "Fornecedor",
+            "Aircraft": "Aeronave",
+            "System": "Sistema"
           },
           "Code": {
             "Title": "Passo 3 - Refinar código (opcional)",
             "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima.",
             "None": "Nenhum",
-            "Placeholder": "Digite o código RPN"
+            "Placeholder": "Digite o código RPN",
+            "Customized": "Você personalizou esta predefinição ou ela não está mais disponível."
           },
           "CustomPreset": "Predefinição personalizada"
         },

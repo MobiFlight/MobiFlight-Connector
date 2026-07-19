@@ -670,9 +670,9 @@
       },
       "InputActions": {
         "Common": {
-          "CodeLabel": "Code:",
+          "CodeLabel": "Code",
           "NoDescriptionAvailable": "No description available",
-          "DescriptionLabel": "Description:",
+          "DescriptionLabel": "Description",
           "FilterPresets": "Filter presets by text",
           "FilterByVendor": "Filter by vendor",
           "SearchVendors": "Search vendors...",
@@ -685,19 +685,24 @@
           "PresetsFound": "{{count}} preset(s) found",
           "SupportedPlaceholders": "Supports input value (@) and placeholders ($, #, etc.)",
           "PresetLabel": "Preset",
-          "ActionLabel": "Action"
+          "ActionLabel": "Action",
+          "NameLabel": "Name"
         },
         "Msfs": {
           "Preset": {
             "Title": "Step 2 - Select preset",
             "Description": "Choose a preset from our preset library. Use filters to narrow down your search.",
-            "ProjectAircraftOnly": "Project aircraft only"
+            "ProjectAircraftOnly": "Project aircraft only",
+            "Vendor": "Vendor",
+            "Aircraft": "Aircraft",
+            "System": "System"
           },
           "Code": {
-            "Title": "Step 3 - Refine code (optional)",
-            "Description": "This code is used by the simulator. You can edit it manually or select a preset from the list above.",
+            "Title": "Step 3 - Customize preset (optional)",
+            "Description": "This preset code is used with your simulator. You can edit it manually or choose a preset from the list above.",
             "None": "None",
-            "Placeholder": "Enter RPN code"
+            "Placeholder": "Enter RPN code",
+            "Customized": "You customized this preset or it is no longer available."
           },
           "CustomPreset": "Custom Preset"
         },

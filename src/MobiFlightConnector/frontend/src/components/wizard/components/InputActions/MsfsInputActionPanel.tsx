@@ -56,6 +56,12 @@ const MsfsInputActionPanel = ({
     )
   }
 
+  const labels = {
+    vendor: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Vendor"),
+    aircraft: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Aircraft"),
+    system: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.System"),
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <MsfsPresetPanel
@@ -84,12 +90,16 @@ const MsfsInputActionPanel = ({
               <>
                 <div className="flex flex-row gap-4">
                   <div className="flex flex-1 flex-col gap-1">
-                    <Label htmlFor="code">Name</Label>
+                    <Label htmlFor="code">
+                      {t("Dialog.InputConfigWizard.InputActions.Common.NameLabel")}
+                    </Label>
                     <div className="text-sm font-semibold">{preset?.label}</div>
                   </div>
 
                   <div className="flex flex-1 flex-col gap-1">
-                    <Label htmlFor="code">Vendor / Aircraft / System</Label>
+                    <Label htmlFor="code">
+                      {labels.vendor} / {labels.aircraft} / {labels.system}
+                    </Label>
                     <div className="text-sm">
                       {preset?.vendor} / {preset?.aircraft} / {preset?.system}
                     </div>
@@ -97,7 +107,11 @@ const MsfsInputActionPanel = ({
                 </div>
                 <div className="flex flex-row gap-4">
                   <div className="flex flex-1 flex-col gap-1">
-                    <Label htmlFor="code">Description</Label>
+                    <Label htmlFor="code">
+                      {t(
+                        "Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel",
+                      )}
+                    </Label>
                     <div className="text-sm">{preset?.description ?? "-"}</div>
                   </div>
                   {preset?.author && preset?.createdDate && (
@@ -107,7 +121,13 @@ const MsfsInputActionPanel = ({
                         <div className="text-sm">
                           {preset?.author}
                           {preset?.createdDate && (
-                            <> / {new Date(preset.createdDate).toLocaleDateString()} </>
+                            <>
+                              {" "}
+                              /{" "}
+                              {new Date(
+                                preset.createdDate,
+                              ).toLocaleDateString()}{" "}
+                            </>
                           )}
                         </div>
                       </div>
@@ -124,12 +144,14 @@ const MsfsInputActionPanel = ({
               </>
             ) : (
               config?.Command !== "" && (
-              <div className="flex flex-row gap-2 items-center rounded-md">
-                <IconExclamationCircle className="text-primary fill-background" />
-                <div className="text-primary text-sm">
-                  You customized this preset or it is no longer available.
+                <div className="flex flex-row items-center gap-2 rounded-md">
+                  <IconExclamationCircle className="text-primary fill-background" />
+                  <div className="text-primary text-sm">
+                    {t(
+                      "Dialog.InputConfigWizard.InputActions.Msfs.Code.Customized",
+                    )}
+                  </div>
                 </div>
-              </div>
               )
             )}
 
