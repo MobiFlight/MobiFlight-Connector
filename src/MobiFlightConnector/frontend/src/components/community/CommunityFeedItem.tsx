@@ -1,6 +1,6 @@
 import { CommunityPost } from "@/types/feed"
 import { Button } from "@/components/ui/button"
-import useMessageExchange from "@/lib/hooks/useMessageExchange"
+import useOpenUrl from "@/lib/hooks/useOpenUrl"
 import { cn } from "@/lib/utils"
 import Markdown, { Components } from "react-markdown"
 
@@ -10,14 +10,7 @@ export type CommunityFeedItemProps = {
 
 const CommunityFeedItem = (props: CommunityFeedItemProps) => {
   const post = props.post
-  const { publish } = useMessageExchange()
-
-  const openUrl = (url: string) => {
-    publish({
-      key: "CommandOpenLinkInBrowser",
-      payload: { url: url },
-    })
-  }
+  const openUrl = useOpenUrl()
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()

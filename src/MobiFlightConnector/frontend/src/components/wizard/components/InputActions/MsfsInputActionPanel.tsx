@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 import { IconExclamationCircle } from "@tabler/icons-react"
+import useOpenUrl from "@/lib/hooks/useOpenUrl"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
@@ -23,6 +24,8 @@ const MsfsInputActionPanel = ({
   onConfigChange,
 }: MsfsInputActionPanelProps) => {
   const { t } = useTranslation()
+  const openUrl = useOpenUrl()
+
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
@@ -60,6 +63,11 @@ const MsfsInputActionPanel = ({
     vendor: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Vendor"),
     aircraft: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.Aircraft"),
     system: t("Dialog.InputConfigWizard.InputActions.Msfs.Preset.System"),
+  }
+
+  const openHubHopDetails = () => {
+    const hubHopUrl = `https://hubhop.mobiflight.com/preset/?simType=msfs2020&id=${preset?.id}`
+    openUrl(hubHopUrl)
   }
 
   return (
@@ -134,6 +142,7 @@ const MsfsInputActionPanel = ({
                       <Button
                         className="h-8 gap-1 rounded-full px-4 py-1 [&_svg]:size-6"
                         variant={"ghost"}
+                        onClick={openHubHopDetails}
                       >
                         <IconBrandHubHopLogo className="fill-orange-400 stroke-orange-400" />
                         HubHop
