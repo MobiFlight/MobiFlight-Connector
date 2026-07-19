@@ -649,7 +649,7 @@
         "DeletePrecondition": "Excluir precondição",
         "SelectPort": "Selecionar porta...",
         "SelectPin": "Selecionar pino...",
-        "Types" : {
+        "Types": {
           "config": "Configuração",
           "variable": "Variável",
           "pin": "Pino Arcaze"
@@ -710,11 +710,16 @@
           "Preset": {
             "Title": "Passo 2 - Selecionar predefinição",
             "Description": "Escolha uma predefinição da nossa biblioteca de predefinições. Use filtros para restringir sua pesquisa.",
-            "ProjectAircraftOnly": "Apenas aeronaves do projeto"
+            "ProjectAircraftOnly": "Apenas aeronaves do projeto",
+            "Vendor": "Fornecedor",
+            "Aircraft": "Aeronave",
+            "System": "Sistema"
           },
           "Code": {
             "Title": "Passo 3 - Refinar código (opcional)",
-            "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima."
+            "Description": "Este código é usado pelo simulador. Você pode editá-lo manualmente ou selecionar uma predefinição da lista acima.",
+            "None": "Nenhum",
+            "Customized": "Você personalizou esta predefinição ou ela não está mais disponível."
           },
           "InputTypeLabel": "Tipo de Entrada",
           "SelectInputTypePlaceholder": "Selecionar tipo de entrada",

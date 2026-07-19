@@ -655,7 +655,7 @@
         "DeletePrecondition": "Vorbedingung löschen",
         "SelectPort": "Port auswählen...",
         "SelectPin": "Pin auswählen...",
-        "Types" : {
+        "Types": {
           "config": "Konfiguration",
           "variable": "Variable",
           "pin": "Arcaze-Pin"
@@ -716,11 +716,16 @@
           "Preset": {
             "Title": "Schritt 2 - Preset auswählen",
             "Description": "Wähle ein Preset aus unserer Preset-Bibliothek. Verwende Filter, um deine Suche einzugrenzen.",
-            "ProjectAircraftOnly": "Nur Projektflugzeuge"
+            "ProjectAircraftOnly": "Nur Projektflugzeuge",
+            "Vendor": "Hersteller",
+            "Aircraft": "Flugzeug",
+            "System": "System"
           },
           "Code": {
             "Title": "Schritt 3 - Code anpassen (optional)",
-            "Description": "Dieser Code wird vom Simulator verwendet. Du kannst ihn manuell bearbeiten oder ein Preset aus der obigen Liste auswählen."
+            "Description": "Dieser Code wird vom Simulator verwendet. Du kannst ihn manuell bearbeiten oder ein Preset aus der obigen Liste auswählen.",
+            "None": "Keiner",
+            "Customized": "Du hast dieses Preset angepasst oder es ist nicht mehr verfügbar."
           },
           "InputTypeLabel": "Eingabetyp",
           "SelectInputTypePlaceholder": "Eingabetyp auswählen",

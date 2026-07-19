@@ -710,11 +710,16 @@
           "Preset": {
             "Title": "Vaihe 2 - Valitse esiasetus",
             "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
-            "ProjectAircraftOnly": "Vain projektin lentokoneet"
+            "ProjectAircraftOnly": "Vain projektin lentokoneet",
+            "Vendor": "Valmistaja",
+            "Aircraft": "Lentokone",
+            "System": "Järjestelmä"
           },
           "Code": {
-            "Title": "Vaihe 3 - Hienosäädä koodi (valinnainen)",
-            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta."
+            "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
+            "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
+            "None": "Ei mitään",
+            "Customized": "Mukautit tämän esiasetuksen tai se ei ole enää saatavilla."
           },
           "InputTypeLabel": "Syötetyyppi",
           "SelectInputTypePlaceholder": "Valitse syötetyyppi",

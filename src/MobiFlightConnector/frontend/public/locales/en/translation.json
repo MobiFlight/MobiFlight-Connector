@@ -710,11 +710,16 @@
           "Preset": {
             "Title": "Step 2 - Select preset",
             "Description": "Choose a preset from our preset library. Use filters to narrow down your search.",
-            "ProjectAircraftOnly": "Project aircraft only"
+            "ProjectAircraftOnly": "Project aircraft only",
+            "Vendor": "Vendor",
+            "Aircraft": "Aircraft",
+            "System": "System"
           },
           "Code": {
-            "Title": "Step 3 - Refine code (optional)",
-            "Description": "This code is used by the simulator. You can edit it manually or select a preset from the list above."
+            "Title": "Step 3 - Customize preset (optional)",
+            "Description": "This code is used by the simulator. You can edit it manually or select a preset from the list above.",
+            "None": "None",
+            "Customized": "You customized this preset or it is no longer available."
           },
           "InputTypeLabel": "Input Type",
           "SelectInputTypePlaceholder": "Select input type",
