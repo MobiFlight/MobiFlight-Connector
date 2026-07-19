@@ -275,7 +275,7 @@
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReportTests.cs" />
-    <Compile Include="MobiFlight\Joysticks\WinwingControllerFactoryTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrlControllerFactoryTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinitionTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCacheTests.cs" />
@@ -782,6 +782,10 @@
     <ProjectReference Include="..\..\src\MobiFlightConnector\MobiFlightConnector.csproj">
       <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
       <Name>MobiFlightConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MobiFlightWwFcu\MobiFlightWwFcu.csproj">
+      <Project>{d79e60df-38e8-9320-4860-595f59365130}</Project>
+      <Name>MobiFlightWwFcu</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
