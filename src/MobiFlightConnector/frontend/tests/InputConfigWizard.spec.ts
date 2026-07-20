@@ -2723,17 +2723,23 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       name: "Reset filters",
     })
 
-    const selectedAircraftOption = actionEditor.getByRole('combobox').filter({ hasText: /^Microsoft$/ })
-    const selectedVendorOption = actionEditor.getByRole('combobox').filter({ hasText: /^Generic$/ })
-    const selectedSystemOption = actionEditor.getByRole('combobox').filter({ hasText: /^Autopilot$/ })
-    
-    await expect(selectedAircraftOption).toBeVisible()
+    const selectedVendorOption = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^Microsoft$/ })
+    const selectedAircraftOption = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^Generic$/ })
+    const selectedSystemOption = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^Autopilot$/ })
+
     await expect(selectedVendorOption).toBeVisible()
+    await expect(selectedAircraftOption).toBeVisible()
     await expect(selectedSystemOption).toBeVisible()
 
     // Only one visible with all filters applied
     await expect(countLabel).toHaveText("1 preset(s) found")
-    
+
     // fill text search filter with bogus text -> 0 presets found
     const filterInput = actionEditor.getByPlaceholder("Filter presets")
     await filterInput.fill("NonExistingPreset")
@@ -2744,11 +2750,10 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(selectedVendorOption).toBeVisible()
     await expect(selectedAircraftOption).toBeVisible()
     await expect(selectedSystemOption).toBeVisible()
-    
+
     // Now reset the filters and verify that all presets are available again
     await resetFiltersButton.click()
     await expect(countLabel).toHaveText("5 preset(s) found")
-    
 
     // Click on the vendor combobox to open the list of options
     await actionEditor
@@ -2764,18 +2769,18 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     })
     const aircraftOption = optionsList.getByRole("option", { name: "Generic" })
     const systemOption = optionsList.getByRole("option", { name: "Avionics" })
-    
+
     await expect(vendorOption).toBeVisible()
     await vendorOption.click()
     await expect(vendorOption).not.toBeVisible()
-    
+
     await expect(countLabel).toHaveText("4 preset(s) found")
-    
+
     // Select an aircraft filter
     await actionEditor
-    .getByRole("combobox")
-    .filter({ hasText: "Filter by aircraft" })
-    .click()
+      .getByRole("combobox")
+      .filter({ hasText: "Filter by aircraft" })
+      .click()
     await expect(aircraftOption).toBeVisible()
     await expect(optionsList).toBeVisible()
     await aircraftOption.click()
@@ -3232,12 +3237,18 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     const actionEditor = page.getByTestId("action-editor")
 
-    const selectedAircraftOption = actionEditor.getByRole('combobox').filter({ hasText: /^Laminar Research$/ })
-    const selectedVendorOption = actionEditor.getByRole('combobox').filter({ hasText: /^Boeing 737-800$/ })
-    const selectedSystemOption = actionEditor.getByRole('combobox').filter({ hasText: /^Autopilot$/ })
-    
-    await expect(selectedAircraftOption).toBeVisible()
+    const selectedVendorOption = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^Laminar Research$/ })
+    const selectedAircraftOption = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^Boeing 737-800$/ })
+    const selectedSystemOption = actionEditor
+      .getByRole("combobox")
+      .filter({ hasText: /^Autopilot$/ })
+
     await expect(selectedVendorOption).toBeVisible()
+    await expect(selectedAircraftOption).toBeVisible()
     await expect(selectedSystemOption).toBeVisible()
 
     const countLabel = actionEditor.getByRole("status")
@@ -3256,8 +3267,8 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     // The filter options are still displayed
     // even though technically there are no presets available
-    await expect(selectedAircraftOption).toBeVisible()
     await expect(selectedVendorOption).toBeVisible()
+    await expect(selectedAircraftOption).toBeVisible()
     await expect(selectedSystemOption).toBeVisible()
 
     // now reset all filters to show all options
