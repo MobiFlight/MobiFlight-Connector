@@ -117,13 +117,22 @@ const XplanePresetPanel = ({
   )
 
   const categories = [
-    ...new Set(filteredCategoryPresets.map((p) => p.system)),
+    ...new Set([
+      ...filteredCategoryPresets.map((p) => p.system),
+      ...(filter.system ? [filter.system] : []),
+    ]),
   ].sort()
   const aircraft = [
-    ...new Set(filteredAircraftPresets.map((p) => p.aircraft)),
+    ...new Set([
+      ...filteredAircraftPresets.map((p) => p.aircraft),
+      ...(filter.aircraft ? [filter.aircraft] : []),
+    ]),
   ].sort()
   const vendors = [
-    ...new Set(filteredVendorPresets.map((p) => p.vendor)),
+    ...new Set([
+      ...filteredVendorPresets.map((p) => p.vendor),
+      ...(filter.vendor ? [filter.vendor] : []),
+    ]),
   ].sort()
 
   useEffect(() => {

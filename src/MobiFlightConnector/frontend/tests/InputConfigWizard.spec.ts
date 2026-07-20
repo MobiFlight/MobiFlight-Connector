@@ -2723,36 +2723,61 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       name: "Reset filters",
     })
 
+    const selectedAircraftOption = actionEditor.getByRole('combobox').filter({ hasText: /^Microsoft$/ })
+    const selectedVendorOption = actionEditor.getByRole('combobox').filter({ hasText: /^Generic$/ })
+    const selectedSystemOption = actionEditor.getByRole('combobox').filter({ hasText: /^Autopilot$/ })
+    
+    await expect(selectedAircraftOption).toBeVisible()
+    await expect(selectedVendorOption).toBeVisible()
+    await expect(selectedSystemOption).toBeVisible()
+
+    // Only one visible with all filters applied
     await expect(countLabel).toHaveText("1 preset(s) found")
+    
+    // fill text search filter with bogus text -> 0 presets found
+    const filterInput = actionEditor.getByPlaceholder("Filter presets")
+    await filterInput.fill("NonExistingPreset")
+    await expect(countLabel).toHaveText("0 preset(s) found")
+
+    // The filter options are still displayed
+    // even though technically there are no presets available
+    await expect(selectedVendorOption).toBeVisible()
+    await expect(selectedAircraftOption).toBeVisible()
+    await expect(selectedSystemOption).toBeVisible()
+    
+    // Now reset the filters and verify that all presets are available again
     await resetFiltersButton.click()
     await expect(countLabel).toHaveText("5 preset(s) found")
+    
 
-    const optionsList = page.getByRole("listbox")
-
-    // Select a vendor filter
+    // Click on the vendor combobox to open the list of options
     await actionEditor
       .getByRole("combobox")
       .filter({ hasText: "Filter by vendor" })
       .click()
+
+    const optionsList = page.getByRole("listbox")
     await expect(optionsList).toBeVisible()
     const vendorOption = optionsList.getByRole("option", {
       name: "Microsoft",
       exact: true,
     })
+    const aircraftOption = optionsList.getByRole("option", { name: "Generic" })
+    const systemOption = optionsList.getByRole("option", { name: "Avionics" })
+    
     await expect(vendorOption).toBeVisible()
     await vendorOption.click()
     await expect(vendorOption).not.toBeVisible()
-
+    
     await expect(countLabel).toHaveText("4 preset(s) found")
-
+    
     // Select an aircraft filter
     await actionEditor
-      .getByRole("combobox")
-      .filter({ hasText: "Filter by aircraft" })
-      .click()
-    await expect(optionsList).toBeVisible()
-    const aircraftOption = optionsList.getByRole("option", { name: "Generic" })
+    .getByRole("combobox")
+    .filter({ hasText: "Filter by aircraft" })
+    .click()
     await expect(aircraftOption).toBeVisible()
+    await expect(optionsList).toBeVisible()
     await aircraftOption.click()
     await expect(aircraftOption).not.toBeVisible() // Should be removed from options since it's already selected as a filter
 
@@ -2764,7 +2789,6 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       .filter({ hasText: "Filter by system" })
       .click()
     await expect(optionsList).toBeVisible()
-    const systemOption = optionsList.getByRole("option", { name: "Avionics" })
     await expect(systemOption).toBeVisible()
     await systemOption.click()
     await expect(systemOption).not.toBeVisible()
@@ -3208,6 +3232,14 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
 
     const actionEditor = page.getByTestId("action-editor")
 
+    const selectedAircraftOption = actionEditor.getByRole('combobox').filter({ hasText: /^Laminar Research$/ })
+    const selectedVendorOption = actionEditor.getByRole('combobox').filter({ hasText: /^Boeing 737-800$/ })
+    const selectedSystemOption = actionEditor.getByRole('combobox').filter({ hasText: /^Autopilot$/ })
+    
+    await expect(selectedAircraftOption).toBeVisible()
+    await expect(selectedVendorOption).toBeVisible()
+    await expect(selectedSystemOption).toBeVisible()
+
     const countLabel = actionEditor.getByRole("status")
     const resetFiltersButton = actionEditor.getByRole("button", {
       name: "Reset filters",
@@ -3216,6 +3248,17 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     // initially only 1 preset is available
     // because of current test data filtering
     await expect(countLabel).toHaveText("1 preset(s) found")
+
+    // fill text search filter with bogus text -> 0 presets found
+    const filterInput = actionEditor.getByPlaceholder("Filter presets")
+    await filterInput.fill("NonExistingPreset")
+    await expect(countLabel).toHaveText("0 preset(s) found")
+
+    // The filter options are still displayed
+    // even though technically there are no presets available
+    await expect(selectedAircraftOption).toBeVisible()
+    await expect(selectedVendorOption).toBeVisible()
+    await expect(selectedSystemOption).toBeVisible()
 
     // now reset all filters to show all options
     await resetFiltersButton.click()
