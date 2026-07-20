@@ -1,17 +1,72 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Reflection;
+﻿using MobiFlight.UI.Dialogs;
+using System;
 using System.Diagnostics;
 using System.IO;
-
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MobiFlight.UpdateChecker
 {
     static class AutoUpdateChecker
     {
+        internal enum UpdatePath
+        {
+            StableToStable,
+            StableToBeta,
+            BetaToBeta,
+            BetaToStable
+        }
         static readonly string mobiFlightInstaller = "MobiFlight-Installer.exe";
         static readonly int UpdateCheckTimeoutInMs = 5000;
-        public static void CheckForUpdate(bool silent = false)
+
+        internal static bool VersionCheck(string output, out string newVersion, out string betaOrRelease)
+        {
+            newVersion = null;
+            betaOrRelease = null;
+
+            if (!output.Contains("##RESULT##|1"))
+                return false;
+            string[] outputArray = output.Split('|'); // Get the version number
+            newVersion = outputArray[2];
+            string[] versionArray = newVersion.Split('.'); // Split the version number to get the last number
+            int versionLastNumber = Int32.Parse(versionArray[3]);
+
+            betaOrRelease = (outputArray.Length == 4) && (versionLastNumber > 0)
+                ? "BETA"
+                : "RELEASE";
+            return true;
+        }
+
+        internal static string ReleaseVersion(string version)
+        {
+            if (!Version.TryParse(version, out var parsedVersion))
+                return version;
+
+            return parsedVersion.Revision > 0
+                ? parsedVersion.ToString(4)
+                : parsedVersion.ToString(3);
+        }
+
+        internal static bool IsBetaVersion(Version version)
+        {
+            return version.Revision > 0;
+        }
+
+        internal static UpdatePath GetUpdatePath(bool currentIsBeta, string targetChannel)
+        {
+            var targetIsBeta = targetChannel == "BETA";
+
+            if (!currentIsBeta && !targetIsBeta)
+                return UpdatePath.StableToStable;
+            if (!currentIsBeta)
+                return UpdatePath.StableToBeta;
+            if (targetIsBeta)
+                return UpdatePath.BetaToBeta;
+            return UpdatePath.BetaToStable;
+        }
+
+        public static async Task CheckForUpdate(bool silent = false)
         {
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
@@ -45,47 +100,62 @@ namespace MobiFlight.UpdateChecker
                 return;
             }
 
-            System.Diagnostics.Process p = new Process();
-            p.StartInfo.FileName = mobiFlightInstaller;
-            p.StartInfo.Arguments = CommandToSend;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.Start();
-            string output = p.StandardOutput.ReadToEnd();
-            string error = p.StandardError.ReadToEnd();
-            p.WaitForExit(UpdateCheckTimeoutInMs);
+            string output;
+            string error;
+            try
+            {
+                (output, error) = await Task.Run(() => RunInstallerCheck(CommandToSend));
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log("Unable to run MobiFlight-Installer.exe: " + ex.Message, LogSeverity.Error);
+                return;
+            }
 
             Console.WriteLine(output + error);
-            if (output.Contains("##RESULT##|1"))
+
+            // Get the new version and the channel (BETA or RELEASE) from the installer output
+            if (VersionCheck(output, out string newVersion, out string betaOrRelease))
             {
-                string[] OutputArray = output.Split('|'); // Get the version number
-                string newVersion = OutputArray[2];
-                string[] VersionArray = newVersion.Split('.'); // Split the version number to get the last number
-                int VersionLastnumber = Int32.Parse(VersionArray[3]);
-                string BetaOrRelease;
-                
-                if ((OutputArray.Length == 4) & (VersionLastnumber > 0)) // If the last number is > 0 is a beta version
-                    BetaOrRelease = "BETA";
-                else
-                    BetaOrRelease = "RELEASE";
+                Log.Instance.log($"Found a new version: {newVersion} {betaOrRelease}.", LogSeverity.Info);
+                var updatePath = GetUpdatePath(IsBetaVersion(CurVersion), betaOrRelease);
+                Log.Instance.log($"Update path: {updatePath}.", LogSeverity.Info);
 
-                Log.Instance.log($"Found a new version: {newVersion} {BetaOrRelease}.", LogSeverity.Info);
-
-                DialogResult dialogResult = MessageBox.Show(
-                    String.Format(i18n._tr("uiMessageNewUpdateAvailablePleaseUpdate"), newVersion),
-                    i18n._tr("uiMessageNewUpdateAvailable"),
-                    MessageBoxButtons.YesNo
-                );
-
-                if (dialogResult == DialogResult.Yes)
+                var releaseVersion = ReleaseVersion(newVersion);
+                var releaseUrl = $"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{releaseVersion}";
+                var releaseLabel = betaOrRelease == "BETA" ? " (BETA)" : string.Empty;
+                using (var dialog = new WelcomeDialog())
                 {
-                    Process.Start(mobiFlightInstaller, "/install " + newVersion);
-                    Environment.Exit(0);
+                    dialog.Mode = WelcomeDialogMode.BeforeUpdate;
+                    dialog.WebsiteUrl = releaseUrl;
+                    dialog.StartPosition = FormStartPosition.CenterParent;
+                    dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta //Show "DisableBetaButton" if update from stable to beta
+                        && Properties.Settings.Default.BetaUpdates;
+                    dialog.Text = $"{i18n._tr("uiMessageNewUpdateAvailable")} - MobiFlight {releaseVersion}{releaseLabel} - Release Notes";
+                    dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
+                    dialog.DisableBetaClicked += (sender, e) =>
+                    {
+                        Properties.Settings.Default.BetaUpdates = false;
+                        Properties.Settings.Default.Save();
+                    };
+
+                    if (dialog.ShowDialog() == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            Process.Start(mobiFlightInstaller, "/install " + newVersion);
+                            Environment.Exit(0);
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Instance.log("Unable to start MobiFlight-Installer.exe: " + ex.Message, LogSeverity.Error);
+                            MessageBox.Show("The installer could not be started. Please update manually.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
                 return;
             }
+
             if (!silent)
                 MessageBox.Show(
                     String.Format(i18n._tr("uiMessageNoUpdateNecessary"), MobiFlight.UI.MainForm.DisplayVersion()),
@@ -93,6 +163,25 @@ namespace MobiFlight.UpdateChecker
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             Log.Instance.log("MobiFlight is up to date.", LogSeverity.Info);
             return;
+        }
+
+        // Runs the installer to check for available updates
+        private static (string output, string error) RunInstallerCheck(string arguments)
+        {
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = mobiFlightInstaller;
+                process.StartInfo.Arguments = arguments;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.Start();
+                var output = process.StandardOutput.ReadToEnd();
+                var error = process.StandardError.ReadToEnd();
+                process.WaitForExit(UpdateCheckTimeoutInMs);
+                return (output, error);
+            }
         }
     }
 }

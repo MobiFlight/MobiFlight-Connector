@@ -1,31 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 
 namespace MobiFlight.UI.Dialogs
 {
+    public enum WelcomeDialogMode
+    {
+        BeforeUpdate,
+        FirstStart
+    }
     public partial class WelcomeDialog : Form
     {
         public event EventHandler<EventArgs> ReleaseNotesClicked;
+        public event EventHandler<EventArgs> DisableBetaClicked;
 
-        public string WebsiteUrl {
+        public string WebsiteUrl
+        {
             get { return this.webView.Source.ToString(); }
-            set { 
+            set
+            {
                 this.webView.Source = new System.Uri(value, System.UriKind.Absolute);
-            } 
+            }
+        }
+
+        private WelcomeDialogMode _mode;
+        public WelcomeDialogMode Mode
+        {
+            get { return _mode; }
+            set
+            {
+                if (_mode == value) return;
+                _mode = value;
+                okButton.Visible = _mode == WelcomeDialogMode.FirstStart;
+                updateButton.Visible = _mode == WelcomeDialogMode.BeforeUpdate;
+                disableBetaButton.Visible = _mode == WelcomeDialogMode.BeforeUpdate;
+                dontUpdateNowLabel.Visible = _mode == WelcomeDialogMode.BeforeUpdate;
+            }
+        }
+
+        public bool ShowDisableBetaButton
+        {
+            get { return disableBetaButton.Visible; }
+            set { disableBetaButton.Visible = value; }
         }
 
         public WelcomeDialog()
         {
             InitializeComponent();
-            WebsiteUrl = "https://www.mobiflight.com/en/release-notes.html";
+
+            // Default Setting
+            Mode = WelcomeDialogMode.FirstStart;
             this.webView.NavigationCompleted += WebView21_NavigationCompleted;
         }
 
@@ -52,6 +75,22 @@ namespace MobiFlight.UI.Dialogs
         private void transparentOverlay1_Click(object sender, EventArgs e)
         {
             ReleaseNotesClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void disableBetaButton_Click(object sender, EventArgs e)
+        {
+            DisableBetaClicked?.Invoke(this, EventArgs.Empty);
+            DialogResult = DialogResult.No;
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Yes;
+        }
+
+        private void dontUpdateNowLabel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace MobiFlight.ProjectMessages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ProjectMessages {
@@ -448,6 +448,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MobiFlight - {0}.
+        /// </summary>
+        internal static string uiLabelTrayTooltipFormat {
+            get {
+                return ResourceManager.GetString("uiLabelTrayTooltipFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application is now running in the background..
         /// </summary>
         internal static string uiMessageApplicationIsRunningInBackgroundMode {
@@ -816,15 +825,6 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The connection to ProSim got lost.
-        /// </summary>
-        internal static string uiMessageProSimConnectionLost {
-            get {
-                return ResourceManager.GetString("uiMessageProSimConnectionLost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Your HubHop presets are older than 7 days.
         ///
         ///Would you like to update?.
@@ -950,7 +950,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MobiFlight Update available!.
+        ///   Looks up a localized string similar to Update available!.
         /// </summary>
         internal static string uiMessageNewUpdateAvailable {
             get {
@@ -1180,6 +1180,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The connection to ProSim got lost.
+        /// </summary>
+        internal static string uiMessageProSimConnectionLost {
+            get {
+                return ResourceManager.GetString("uiMessageProSimConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Python environment not ready.
         /// </summary>
         internal static string uiMessagePythonHint {
@@ -1279,15 +1288,6 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageSimConnectConnectionLost {
             get {
                 return ResourceManager.GetString("uiMessageSimConnectConnectionLost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection to X-Plane got lost.
-        /// </summary>
-        internal static string uiMessageXplaneConnectionLost {
-            get {
-                return ResourceManager.GetString("uiMessageXplaneConnectionLost", resourceCulture);
             }
         }
         
@@ -1518,6 +1518,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageWasmUpdater {
             get {
                 return ResourceManager.GetString("uiMessageWasmUpdater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection to X-Plane got lost.
+        /// </summary>
+        internal static string uiMessageXplaneConnectionLost {
+            get {
+                return ResourceManager.GetString("uiMessageXplaneConnectionLost", resourceCulture);
             }
         }
         
