@@ -863,6 +863,8 @@ namespace MobiFlight
             lastValue[key] = cachedValue;
 
             shiftRegisters[moduleID].Display(outputPin, value);
+
+            Thread.Sleep(20);
             return true;
         }
 
