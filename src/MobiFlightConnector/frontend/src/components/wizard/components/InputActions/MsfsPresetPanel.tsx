@@ -101,14 +101,24 @@ const MsfsPresetPanel = ({
       filterPresetByText(p, filter.search),
   )
   const categories = [
-    ...new Set(filteredCategoryPresets.map((p) => p.system)),
+    ...new Set([
+      ...filteredCategoryPresets.map((p) => p.system),
+      ...(filter.system ? [filter.system] : []),
+    ]),
   ].sort()
   const aircraft = [
-    ...new Set(filteredAircraftPresets.map((p) => p.aircraft)),
+    ...new Set([
+      ...filteredAircraftPresets.map((p) => p.aircraft),
+      ...(filter.aircraft ? [filter.aircraft] : []),
+    ]),
   ].sort()
   const vendors = [
-    ...new Set(filteredVendorPresets.map((p) => p.vendor)),
+    ...new Set([
+      ...filteredVendorPresets.map((p) => p.vendor),
+      ...(filter.vendor ? [filter.vendor] : []),
+    ]),
   ].sort()
+
   useEffect(() => {
     if (!refActiveElement.current) return
     scrollActivePresetIntoView()
@@ -215,28 +225,28 @@ const MsfsPresetPanel = ({
               filter.vendor ||
               filter.system ||
               filter.search) && (
-                <Button
-                  size={"sm"}
-                  className="w-fit px-2 py-0"
-                  variant="ghost"
-                  onClick={() =>
-                    setFilter({
-                      vendor: "",
-                      aircraft: "",
-                      system: "",
-                      search: "",
-                    })
-                  }
-                >
-                  <IconX />
-                  <span className="py-0 text-sm">
-                    {t("Dialog.General.ResetFilters")}
-                  </span>
-                </Button>
-              )}
+              <Button
+                size={"sm"}
+                className="w-fit px-2 py-0"
+                variant="ghost"
+                onClick={() =>
+                  setFilter({
+                    vendor: "",
+                    aircraft: "",
+                    system: "",
+                    search: "",
+                  })
+                }
+              >
+                <IconX />
+                <span className="py-0 text-sm">
+                  {t("Dialog.General.ResetFilters")}
+                </span>
+              </Button>
+            )}
           </div>
         </div>
-        <div className="flex flex-col gap-2 -mt-3">
+        <div className="-mt-3 flex flex-col gap-2">
           <ScrollArea
             className="h-56"
             onMouseEnter={cancelScrollIntoView}
