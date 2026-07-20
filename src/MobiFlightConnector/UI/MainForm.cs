@@ -451,7 +451,12 @@ namespace MobiFlight.UI
         {
             // Check for updates before loading anything else
 #if (!DEBUG)
-            await AutoUpdateChecker.CheckForUpdate(true);
+            try
+            {
+                await AutoUpdateChecker.CheckForUpdate(true);
+            } catch (Exception ex) {
+                Log.Instance.log($"Error checking for updates: {ex.Message}", LogSeverity.Error);
+            }
 #endif
         }
 
@@ -1167,7 +1172,15 @@ namespace MobiFlight.UI
 
         public async void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await AutoUpdateChecker.CheckForUpdate();
+            try
+            {
+
+                await AutoUpdateChecker.CheckForUpdate();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error checking for updates: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)
