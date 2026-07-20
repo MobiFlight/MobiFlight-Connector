@@ -765,7 +765,7 @@ test.describe("Project settings modal features", () => {
     await expect(goBackButton).not.toBeVisible()
     await expect(projectAircraftDialog).not.toBeVisible()
   })
-  test("Is the Create button visible on the small screen without scrolling", async ({
+  test("Create project dialog - Create and Cancel buttons are visible on small screens without scrolling", async ({
     dashboardPage,
     page,
   }) => {
@@ -785,7 +785,7 @@ test.describe("Project settings modal features", () => {
     const projectCancelButton = createProjectDialog.getByRole("button", {
       name: "Cancel",
     })
-    // If overflow works correctly , the two buttons will be visible in the viewport.
+    // If overflow works correctly, the two buttons will be visible in the viewport.
     await expect(projectCreateButton).toBeInViewport()
     await expect(projectCancelButton).toBeInViewport()
   })

@@ -145,7 +145,7 @@ const ProjectForm = ({
                 >
                   {t("Project.Form.Name.Error.Required")}
                 </p>
-              )}{" "}
+              )}{""}
               {/* Show error */}
             </div>
             <ProjectSimAndFeatures
