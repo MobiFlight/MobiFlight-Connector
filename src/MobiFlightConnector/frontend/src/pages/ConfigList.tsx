@@ -78,7 +78,7 @@ const ConfigListPage = () => {
   )
 
   return (
-    <div className="flex flex-col gap-2 overflow-y-auto">
+    <div className="flex flex-col gap-2  grow overflow-y-auto">
       <ConfigItemDragProvider
         initialConfigIndex={activeConfigFileIndex}
         updateConfigItems={setConfigItems}
@@ -88,7 +88,7 @@ const ConfigListPage = () => {
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <ProjectPanel />
         </ErrorBoundary>
-        <div className="flex flex-col gap-4 overflow-y-auto">
+        <div className="flex flex-col gap-4 overflow-y-auto grow">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <ConfigItemTable columns={columns} data={configItems} />
           </ErrorBoundary>

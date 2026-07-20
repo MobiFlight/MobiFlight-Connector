@@ -33,6 +33,7 @@ import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
 import { useDroppable } from "@dnd-kit/core"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { useNavigate } from "react-router"
+import { ConfigItemTableContext } from "./ConfigItemtableContext"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -107,9 +108,14 @@ export function ConfigItemTable<TValue>({
   const tableRef = useRef<HTMLTableElement>(null)
   const tableBodyRef = useRef<HTMLTableSectionElement>(null)
   const prevDataLength = useRef(data.length)
+  const previousData = useRef(data)
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
+  const duplicateItem = useRef(false)
 
+  const handleDuplicate = () => {
+    duplicateItem.current = true
+  }
   const { setTable, setTableContainerRef, dragState } =
     useConfigItemDragContext()
   // Register this table with the drag context
@@ -180,39 +186,62 @@ export function ConfigItemTable<TValue>({
   })
 
   useEffect(() => {
-    if (addedItem.current && data.length === prevDataLength.current + 1) {
+    if (
+      (duplicateItem.current || addedItem.current) &&
+      data.length === prevDataLength.current + 1
+    ) {
       addedItem.current = false
-      const lastItem = data[data.length - 1] as IConfigItem
-      const rowElement = tableRef.current?.querySelector(
-        `[dnd-itemid="${lastItem.GUID}"]`,
+      duplicateItem.current = false
+      const previousGuids = new Set(
+        previousData.current.map((item) => item.GUID),
       )
-      if (rowElement) {
-        rowElement.scrollIntoView({ behavior: "smooth", block: "center" })
-        const row = table.getRowModel().rows.find((r) => r.id === lastItem.GUID)
-        if (row) {
-          table.setRowSelection({ [row.id]: true })
-        }
-      } else {
-        // If the newly added item's row element is not found,
-        // it means the item is not visible due to active filters.
-        // Store its GUID so that when the dialog closes,
-        // we can show a toast notification to inform the user
-        // and offer to reset the filters.
-        showInvisibleToastOnDialogClose.current = lastItem.GUID
-      }
 
-      if (lastItem.Type === "InputConfigItem") {
-        navigate(`/config/${lastItem.GUID}`)
-      } else {
-        publish({
-          key: "CommandConfigContextMenu",
-          payload: { action: "edit", item: lastItem },
-        } as CommandConfigContextMenu)
+      const newItem = data.find((item) => !previousGuids.has(item.GUID))
+
+      if (newItem) {
+        const rowElement = tableRef.current?.querySelector(
+          `[dnd-itemid="${newItem.GUID}"]`,
+        )
+
+        if (rowElement) {
+          rowElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          })
+
+          const row = table
+            .getRowModel()
+            .rows.find((r) => r.id === newItem.GUID)
+
+          if (row) {
+            table.setRowSelection({ [row.id]: true })
+          }
+        } else {
+          // If the newly added item's row element is not found,
+          // it means the item is not visible due to active filters.
+          // Store its GUID so that when the dialog closes,
+          // we can show a toast notification to inform the user
+          // and offer to reset the filters.
+          showInvisibleToastOnDialogClose.current = newItem.GUID
+        }
+
+        if (newItem.Type === "InputConfigItem") {
+          navigate(`/config/${newItem.GUID}`)
+        } else {
+          publish({
+            key: "CommandConfigContextMenu",
+            payload: {
+              action: "edit",
+              item: newItem,
+            },
+          } as CommandConfigContextMenu)
+        }
       }
     }
+
+    previousData.current = data
     prevDataLength.current = data.length
   }, [publish, navigate, table, data])
-
   const { t } = useTranslation()
 
   const handleAddOutputConfig = useCallback(() => {
@@ -289,80 +318,82 @@ export function ConfigItemTable<TValue>({
   ])
 
   return (
-    <div
-      className="flex grow flex-col gap-2 overflow-y-auto px-2"
-      data-testid="config-item-table"
-    >
-      <div className="flex grow flex-col gap-2 overflow-y-auto">
-        <div className="p-1">
-          <DataTableToolbar
-            disabled={!showTable}
-            table={table}
-            items={data as IConfigItem[]}
-            onDeleteSelected={deleteSelected}
-            onToggleSelected={toggleSelected}
-            onClearSelected={() => table.setRowSelection({})}
-          />
-        </div>
-        {showTable ? (
-          table.getRowModel().rows?.length ? (
-            <div className="border-primary flex flex-col overflow-y-auto rounded-lg border">
-              <Table ref={tableRef} className="table-fixed">
-                <ConfigItemTableHeader
-                  ref={setTableHeaderRef}
-                  headerGroups={table.getHeaderGroups()}
-                />
-                <ConfigItemTableBody
-                  ref={handleTableBodyRef}
-                  table={table}
-                  dragItemId={dragItemId}
-                  onDeleteSelected={deleteSelected}
-                  onToggleSelected={toggleSelected}
-                />
-              </Table>
-            </div>
-          ) : (
-            <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">
-              <div className="bg-primary mb-4 h-12"></div>
-              <div className="text-center" role="alert">
-                {t("ConfigList.Table.NoResultsMatchingFilter")}
+    <ConfigItemTableContext.Provider value={{ onDuplicate: handleDuplicate }}>
+      <div
+        className="flex grow flex-col gap-2 overflow-y-auto px-2"
+        data-testid="config-item-table"
+      >
+        <div className="flex grow flex-col gap-2 overflow-y-auto">
+          <div className="p-1">
+            <DataTableToolbar
+              disabled={!showTable}
+              table={table}
+              items={data as IConfigItem[]}
+              onDeleteSelected={deleteSelected}
+              onToggleSelected={toggleSelected}
+              onClearSelected={() => table.setRowSelection({})}
+            />
+          </div>
+          {showTable ? (
+            table.getRowModel().rows?.length ? (
+              <div className="border-primary flex flex-col overflow-y-auto rounded-lg border">
+                <Table ref={tableRef} className="table-fixed">
+                  <ConfigItemTableHeader
+                    ref={setTableHeaderRef}
+                    headerGroups={table.getHeaderGroups()}
+                  />
+                  <ConfigItemTableBody
+                    ref={handleTableBodyRef}
+                    table={table}
+                    dragItemId={dragItemId}
+                    onDeleteSelected={deleteSelected}
+                    onToggleSelected={toggleSelected}
+                  />
+                </Table>
               </div>
-              <div className="flex justify-center">
-                <ToolTip
-                  content={t("ConfigList.Toolbar.Reset")}
-                  className="z-1000 xl:hidden"
-                >
-                  <Button
-                    onClick={() => table.resetColumnFilters()}
-                    variant={"ghost"}
+            ) : (
+              <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">
+                <div className="bg-primary mb-4 h-12"></div>
+                <div className="text-center" role="alert">
+                  {t("ConfigList.Table.NoResultsMatchingFilter")}
+                </div>
+                <div className="flex justify-center">
+                  <ToolTip
+                    content={t("ConfigList.Toolbar.Reset")}
+                    className="z-1000 xl:hidden"
                   >
-                    <span className="flex">
-                      {t("ConfigList.Toolbar.Reset")}
-                    </span>
-                    <IconX className="h-4 w-4 xl:ml-2" />
-                  </Button>
-                </ToolTip>
+                    <Button
+                      onClick={() => table.resetColumnFilters()}
+                      variant={"ghost"}
+                    >
+                      <span className="flex">
+                        {t("ConfigList.Toolbar.Reset")}
+                      </span>
+                      <IconX className="h-4 w-4 xl:ml-2" />
+                    </Button>
+                  </ToolTip>
+                </div>
               </div>
-            </div>
-          )
-        ) : (
-          <ConfigItemNoResultsDroppable />
-        )}
-        <div className="flex justify-start gap-2">
-          <Button
-            className="bg-pink-600 text-white hover:bg-pink-500 dark:bg-pink-900 dark:hover:bg-pink-700"
-            onClick={handleAddOutputConfig}
-          >
-            {t("ConfigList.Actions.OutputConfigItem.Add")}
-          </Button>
-          <Button
-            className="bg-teal-600 text-white hover:bg-teal-500 dark:bg-teal-900 dark:hover:bg-teal-700"
-            onClick={handleAddInputConfig}
-          >
-            {t("ConfigList.Actions.InputConfigItem.Add")}
-          </Button>
+            )
+          ) : (
+            <ConfigItemNoResultsDroppable />
+          )}
+          <div className="flex justify-start gap-2">
+            <Button
+              className="bg-pink-600 text-white hover:bg-pink-500 dark:bg-pink-900 dark:hover:bg-pink-700"
+              onClick={handleAddOutputConfig}
+            >
+              {t("ConfigList.Actions.OutputConfigItem.Add")}
+            </Button>
+            <Button
+              className="bg-teal-600 text-white hover:bg-teal-500 dark:bg-teal-900 dark:hover:bg-teal-700"
+              onClick={handleAddInputConfig}
+            >
+              {t("ConfigList.Actions.InputConfigItem.Add")}
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+    </ConfigItemTableContext.Provider>
   )
 }
