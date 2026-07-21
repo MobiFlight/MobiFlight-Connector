@@ -1,8 +1,6 @@
-﻿using System;
+﻿using CommandMessenger;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommandMessenger;
 
 namespace MobiFlight
 {
@@ -14,7 +12,7 @@ namespace MobiFlight
         public CmdMessenger CmdMessenger { get; set; }
 
         public int NumberOfShifters { get; set; }
-        
+
         public int ModuleNumber { get; set; }
 
         private String _name = "ShiftRegister";
@@ -45,7 +43,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display(String outputPins, String value)
+        public virtual void Display(String outputPins, String value)
         {
             if (!_initialized) Initialize();
 
@@ -69,7 +67,7 @@ namespace MobiFlight
         public void Stop()
         {
             List<String> pins = new List<string>();
-            for (int i = 0; i != NumberOfShifters*8; i++)
+            for (int i = 0; i != NumberOfShifters * 8; i++)
                 pins.Add(i.ToString());
 
             String pinString = string.Join("|", pins);
