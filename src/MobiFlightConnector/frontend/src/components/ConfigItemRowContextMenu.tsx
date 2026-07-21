@@ -23,7 +23,7 @@ import {
 } from "@tabler/icons-react"
 import { useContext } from "react"
 import { useNavigate } from "react-router"
-import { ConfigItemTableContext } from "./tables/config-item-table/ConfigItemtableContext"
+import { ConfigItemTableContext } from "./tables/config-item-table/ConfigItemTableContext"
 
 // Shared items — no Radix Content wrapper, just the items themselves
 function MenuItems({
@@ -121,7 +121,6 @@ function MenuItems({
 export interface ConfigItemRowContextMenuProps {
   item: IConfigItem
   variant?: "dropdown" | "context"
-   onDuplicate?: () => void
 }
 
 const ConfigItemRowContextMenu = ({

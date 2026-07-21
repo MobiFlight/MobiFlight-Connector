@@ -33,7 +33,7 @@ import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
 import { useDroppable } from "@dnd-kit/core"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { useNavigate } from "react-router"
-import { ConfigItemTableContext } from "./ConfigItemtableContext"
+import { ConfigItemTableContext } from "./ConfigItemTableContext"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -107,14 +107,12 @@ export function ConfigItemTable<TValue>({
   const { publish } = publishOnMessageExchange()
   const tableRef = useRef<HTMLTableElement>(null)
   const tableBodyRef = useRef<HTMLTableSectionElement>(null)
-  const prevDataLength = useRef(data.length)
   const previousData = useRef(data)
-  const addedItem = useRef(false)
+  const lastAction = useRef<"add" | "duplicate" | null>(null)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
-  const duplicateItem = useRef(false)
 
   const handleDuplicate = () => {
-    duplicateItem.current = true
+    lastAction.current = "duplicate"
   }
   const { setTable, setTableContainerRef, dragState } =
     useConfigItemDragContext()
@@ -186,66 +184,61 @@ export function ConfigItemTable<TValue>({
   })
 
   useEffect(() => {
-    if (
-      (duplicateItem.current || addedItem.current) &&
-      data.length === prevDataLength.current + 1
-    ) {
-      addedItem.current = false
-      duplicateItem.current = false
-      const previousGuids = new Set(
-        previousData.current.map((item) => item.GUID),
-      )
-
-      const newItem = data.find((item) => !previousGuids.has(item.GUID))
-
-      if (newItem) {
-        const rowElement = tableRef.current?.querySelector(
-          `[dnd-itemid="${newItem.GUID}"]`,
-        )
-
-        if (rowElement) {
-          rowElement.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          })
-
-          const row = table
-            .getRowModel()
-            .rows.find((r) => r.id === newItem.GUID)
-
-          if (row) {
-            table.setRowSelection({ [row.id]: true })
-          }
-        } else {
-          // If the newly added item's row element is not found,
-          // it means the item is not visible due to active filters.
-          // Store its GUID so that when the dialog closes,
-          // we can show a toast notification to inform the user
-          // and offer to reset the filters.
-          showInvisibleToastOnDialogClose.current = newItem.GUID
-        }
-
-        if (newItem.Type === "InputConfigItem") {
-          navigate(`/config/${newItem.GUID}`)
-        } else {
-          publish({
-            key: "CommandConfigContextMenu",
-            payload: {
-              action: "edit",
-              item: newItem,
-            },
-          } as CommandConfigContextMenu)
-        }
-      }
+    const newItemWasCreatedOrDuplicated = lastAction.current !== null
+    const listHasGrownByOneItem =
+      data.length === previousData.current.length + 1
+    const previousGuids = new Set(previousData.current.map((item) => item.GUID))
+    previousData.current = data
+    if (!newItemWasCreatedOrDuplicated || !listHasGrownByOneItem) {
+      return
+    }
+    const newItem = data.find((item) => !previousGuids.has(item.GUID))
+    if (!newItem) {
+      return
     }
 
-    previousData.current = data
-    prevDataLength.current = data.length
+    lastAction.current = null
+
+    const rowElement = tableRef.current?.querySelector(
+      `[dnd-itemid="${newItem.GUID}"]`,
+    )
+
+    if (rowElement) {
+      rowElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      })
+
+      const row = table.getRowModel().rows.find((r) => r.id === newItem.GUID)
+
+      if (row) {
+        table.setRowSelection({ [row.id]: true })
+      }
+    } else {
+      // If the newly added item's row element is not found,
+      // it means the item is not visible due to active filters.
+      // Store its GUID so that when the dialog closes,
+      // we can show a toast notification to inform the user
+      // and offer to reset the filters.
+      showInvisibleToastOnDialogClose.current = newItem.GUID
+    }
+
+    if (newItem.Type === "InputConfigItem") {
+      navigate(`/config/${newItem.GUID}`)
+    } else {
+      publish({
+        key: "CommandConfigContextMenu",
+        payload: {
+          action: "edit",
+          item: newItem,
+        },
+      } as CommandConfigContextMenu)
+    }
   }, [publish, navigate, table, data])
   const { t } = useTranslation()
 
   const handleAddOutputConfig = useCallback(() => {
-    addedItem.current = true
+    lastAction.current = "add"
     publish({
       key: "CommandAddConfigItem",
       payload: {
@@ -256,7 +249,7 @@ export function ConfigItemTable<TValue>({
   }, [publish, t])
 
   const handleAddInputConfig = useCallback(() => {
-    addedItem.current = true
+    lastAction.current = "add"
     publish({
       key: "CommandAddConfigItem",
       payload: {
