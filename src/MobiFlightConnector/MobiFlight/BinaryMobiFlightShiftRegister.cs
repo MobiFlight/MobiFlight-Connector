@@ -14,18 +14,17 @@ namespace MobiFlight
 
             // Let's strip the static label
             String pinsOnly = outputPins.Replace(LABEL_PREFIX + " ", "");
+            var byteMask = ConvertStringToByteArray(pinsOnly, NumberOfShifters);
+            Array.Reverse(byteMask);
 
-            // clamp and reverse the string
-            if (value.Length > 8) value = value.Substring(0, 8);
+            if (value != "0") value = "1";
 
-            var byteMask = ConvertStringToByteArray(pinsOnly, NumberOfShifters).Reverse();
-
-            command.AddArgument(this.ModuleNumber);
+            command.AddArgument(ModuleNumber);
             command.AddArgument(NumberOfShifters);
             command.AddArgument(value);
-            byteMask.ToList().ForEach(b => command.AddBinArgument(b));
+            byteMask.ToList().ForEach(b => command.AddArgument(b));
 
-            Log.Instance.log($"Command: SetShiftRegisterPin <{(int)MobiFlightModule.Command.SetShiftRegisterPins},{this.ModuleNumber},{value},{NumberOfShifters},{string.Join(",", byteMask)} ;>.", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetShiftRegisterPin (Binary) <{(int)MobiFlightModule.Command.SetShiftRegisterPins},{ModuleNumber},{NumberOfShifters},{value},{string.Join(",", byteMask)};>.", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
         }

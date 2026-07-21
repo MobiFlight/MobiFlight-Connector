@@ -70,8 +70,8 @@ namespace MobiFlight.Tests
             var outputPins = "0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15";
             var value = "1";
             mockTransport.Clear();
-            var firstByteValue = "�/\0";
-            var secondByteValue = "�/\0";
+            var firstByteValue = "255";
+            var secondByteValue = "255";
 
             // Act
             module.Display(outputPins, value);
@@ -98,8 +98,8 @@ namespace MobiFlight.Tests
             var outputPins = "4|5|14";
             var value = "1";
             mockTransport.Clear();
-            var firstByteValue = "0/\0";
-            var secondByteValue = "@/\0";
+            var firstByteValue = "64";
+            var secondByteValue = "48";
 
             // Act
             module.Display(outputPins, value);
@@ -127,10 +127,10 @@ namespace MobiFlight.Tests
             var value = "1";
             mockTransport.Clear();
             // the second shifter comes first
-            var firstByteValue = "@/\0";
+            var firstByteValue = "64";
 
             // and the first last
-            var secondByteValue = "A/\0";
+            var secondByteValue = "65";
 
             // Act
             module.Display(outputPins, value);
