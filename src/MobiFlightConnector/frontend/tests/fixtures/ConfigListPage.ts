@@ -132,6 +132,29 @@ export class ConfigListPage {
     }
     await this.mobiFlightPage.publishMessage(message)
   }
+  async duplicateConfigItem(
+    index: number,
+    variant: "default" | "inputaction" = "default",
+  ) {
+    const testdataProject =
+      variant === "default" ? testProject : inputActionTestProject
+    const configItems = [...testdataProject.ConfigFiles[0].ConfigItems]
+
+    const duplicated = {
+      ...configItems[index],
+      GUID: crypto.randomUUID(),
+    }
+
+    configItems.splice(index + 1, 0, duplicated)
+
+    await this.mobiFlightPage.publishMessage({
+      key: "ConfigValueFullUpdate",
+      payload: {
+        ConfigIndex: 0,
+        ConfigItems: configItems,
+      },
+    })
+  }
 
   getConfigItemByIndex(itemIndex: number): IConfigItem {
     return testdata[itemIndex] as IConfigItem

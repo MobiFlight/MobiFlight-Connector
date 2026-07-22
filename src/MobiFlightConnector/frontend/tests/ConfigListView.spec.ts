@@ -272,6 +272,27 @@ test.describe("Confirm content and basic functions are working", () => {
     expect(lastCommand.key).toEqual("CommandAddConfigItem")
     expect(lastCommand.payload.type).toEqual("InputConfig")
   })
+  test("Duplicated input config item is selected", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const originalRow = await configListPage.getConfigItemRow(1)
+    await originalRow.getByRole("button", { name: "Open menu" }).first().click()
+
+    const contextMenu = page.getByTestId("config-item-context-menu")
+    await expect(contextMenu).toBeVisible()
+    await contextMenu.getByRole("menuitem", { name: "Duplicate" }).click()
+
+    // Simulate the backend response after duplicating the item.
+    
+    await configListPage.duplicateConfigItem(0, "inputaction")
+    await page.mouse.move(0, 0)
+    const duplicatedRow = await configListPage.getConfigItemRow(2)
+    await expect(duplicatedRow).toHaveAttribute("data-state", "selected")
+  })
 })
 
 test.describe("Verify Error Boundary", () => {
