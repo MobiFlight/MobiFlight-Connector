@@ -9,6 +9,7 @@ namespace MobiFlight
 {
     public class MobiFlightShiftRegister : IConnectedDevice
     {
+        public const int DEFAULT_AGGREGATION_WINDOW_IN_MS = 20;
         public const string TYPE = "ShiftRegister";
         public const string LABEL_PREFIX = "Output";
 
@@ -28,16 +29,15 @@ namespace MobiFlight
 
         protected bool _initialized = false;
 
-        private double _aggregationWindowInMs = 20;
         public double AggregationWindowInMs
         {
-            get { return _aggregationWindowInMs; }
+            get { return AggregationTimer.Interval; }
             set
             {
-                _aggregationWindowInMs = value;
                 AggregationTimer.Interval = value;
             }
         }
+
         public Timer AggregationTimer { get; set; } = new Timer();
 
         ConcurrentStack<string> AggregationOn = new ConcurrentStack<string>();
@@ -46,6 +46,7 @@ namespace MobiFlight
         public MobiFlightShiftRegister()
         {
             AggregationTimer.AutoReset = false;
+            AggregationTimer.Interval = DEFAULT_AGGREGATION_WINDOW_IN_MS;
             AggregationTimer.Elapsed += ProcessAggregatedPins;
         }
 
