@@ -21,6 +21,7 @@ import { useLocation } from "react-router"
 import { useTranslation } from "react-i18next"
 import ProjectAircraft from "@/components/project/Settings/ProjectAircraft"
 import ProjectSimAndFeatures from "@/components/project/Settings/ProjectSimAndFeatures"
+import { ScrollArea } from "../ui/scroll-area"
 
 type ProjectFormProps = {
   project: ProjectInfo
@@ -41,9 +42,7 @@ const ProjectForm = ({
   onSave,
 }: ProjectFormProps) => {
   const defaultAircraft = {
-    msfs: [
-      { Vendor: "Microsoft", Name: "Generic" },
-    ],
+    msfs: [{ Vendor: "Microsoft", Name: "Generic" }],
     xplane: [{ Vendor: "Laminar Research", Name: "Generic" }],
     p3d: [],
     fsx: [],
@@ -110,8 +109,9 @@ const ProjectForm = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-h-[90vh] overflow-x-hidden overflow-y-auto sm:max-w-[600px]"
+        className=" flex h-[85vh] max-h-[675px] flex-col overflow-x-hidden sm:max-w-[675px]"
         onKeyDown={handleFormKeyDown}
+        onInteractOutside={(e) => e.preventDefault()}
         ref={containerRef}
       >
         <DialogHeader>
@@ -120,68 +120,66 @@ const ProjectForm = ({
               ? t("Project.Form.Title.Edit")
               : t("Project.Form.Title.New")}
           </DialogTitle>
-          <DialogDescription>
-            {t("Project.Form.Description")}
-          </DialogDescription>
+          <DialogDescription>{t("Project.Form.Description")}</DialogDescription>
         </DialogHeader>
-
-        <div className="grid gap-6">
-          {/* Project Name */}
-          <div className="grid gap-2">
-            <Label htmlFor="project-name" className="text-base font-semibold">
-              {t("Project.Form.Name.Label")}
-            </Label>
-            <Input
-              id="project-name"
-              name="name"
-              value={name}
-              className={showErrorMessage ? "border-red-500" : ""}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={t("Project.Form.Name.Placeholder")}
-              aria-invalid={showErrorMessage ? "true" : "false"}
-              required
+        <ScrollArea className="grow">
+          <div className="grid gap-6">
+            {/* Project Name */}
+            <div className="grid gap-2">
+              <Label htmlFor="project-name" className="text-base font-semibold">
+                {t("Project.Form.Name.Label")}
+              </Label>
+              <Input
+                id="project-name"
+                name="name"
+                value={name}
+                className={showErrorMessage ? "border-red-500" : ""}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={t("Project.Form.Name.Placeholder")}
+                aria-invalid={showErrorMessage ? "true" : "false"}
+                required
+              />
+              {showErrorMessage && (
+                <p
+                  className="text-sm text-red-500"
+                  data-testid="form-project-name-error"
+                >
+                  {t("Project.Form.Name.Error.Required")}
+                </p>
+              )}{""}
+              {/* Show error */}
+            </div>
+            <ProjectSimAndFeatures
+              simSettings={
+                {
+                  Sim: simulator,
+                  Features: {
+                    FSUIPC: useFsuipc,
+                    ProSim: useProsim,
+                  },
+                } as Partial<ProjectInfo>
+              }
+              onChange={(values) => {
+                console.log(values)
+                if (values.Sim) {
+                  setSimulator(values.Sim)
+                }
+                if (values.Features) {
+                  setUseFsuipc(values.Features.FSUIPC ?? false)
+                  setUseProsim(values.Features.ProSim ?? false)
+                }
+                // reset to default aircraft on switching simulator type
+                setAircraft(defaultAircraft[values.Sim ?? "none"])
+              }}
             />
-            {showErrorMessage && (
-              <p
-                className="text-sm text-red-500"
-                data-testid="form-project-name-error"
-              >
-                {t("Project.Form.Name.Error.Required")}
-              </p>
-            )}{" "}
-            {/* Show error */}
+            <ProjectAircraft
+              variant={simulator}
+              selectedAircraft={aircraft}
+              setSelectedAircraft={setAircraft}
+              drawerContainer={containerRef}
+            />
           </div>
-          <ProjectSimAndFeatures
-            simSettings={
-              {
-                Sim: simulator,
-                Features: {
-                  FSUIPC: useFsuipc,
-                  ProSim: useProsim,
-                },
-              } as Partial<ProjectInfo>
-            }
-            onChange={(values) => {
-              console.log(values)
-              if (values.Sim) {
-                setSimulator(values.Sim)
-              }
-              if (values.Features) {
-                setUseFsuipc(values.Features.FSUIPC ?? false)
-                setUseProsim(values.Features.ProSim ?? false)
-              }
-              // reset to default aircraft on switching simulator type
-              setAircraft(defaultAircraft[values.Sim ?? "none"])
-            }}
-          />
-          <ProjectAircraft
-            variant={simulator}
-            selectedAircraft={aircraft}
-            setSelectedAircraft={setAircraft}
-            drawerContainer={containerRef}
-          />
-        </div>
-
+        </ScrollArea>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline" type="button">

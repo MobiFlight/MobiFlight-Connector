@@ -24,14 +24,14 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   DeviceType?: string | null
   DeviceName?: string | null
   // Tags: string[];
-  Preconditions: Precondition[]
-  Status: IDictionary<string, ConfigItemStatusType>
+  Preconditions?: Precondition[]
+  Status?: IDictionary<string, ConfigItemStatusType>
   button?: ButtonTrigger
   inputMultiplexer?: ButtonTrigger
   inputShiftRegister?: ButtonTrigger
   encoder?: EncoderTrigger
   analog?: AnalogTrigger
-  ConfigRefs: ConfigReference[]
+  ConfigRefs?: ConfigReference[]
   Modifiers?: ModifierList
 }
 
@@ -52,7 +52,7 @@ export type ControllerType = "MobiFlight" | "Joystick" | "Midi" | "Unknown"
 export type ConfigItemType = "InputConfigItem" | "OutputConfigItem"
 
 export interface IDeviceConfig {
-  Type: string
+  Type: InputDeviceType | OutputDeviceType
   Name: string
 }
 
@@ -190,8 +190,10 @@ export interface FsuipcOffsetInputAction extends Action {
   Modifiers: Modifier[]
 }
 
+export type PreconditionType = "variable" | "pin" | "config"
+
 export type Precondition = {
-  Type: "variable" | "pin" | "config"
+  Type: PreconditionType
   Ref: string
   Pin: string | null
   Operand: "=" | "<>" | "<" | ">" | "<=" | ">="

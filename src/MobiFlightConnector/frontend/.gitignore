@@ -38,3 +38,6 @@ dist-ssr
 
 # Playwright local storage and auth state
 tests/.auth/*
+
+# Ignore copilot & co temp folder
+.claude

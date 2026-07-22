@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base.Serialization.Json.Annotations;
+using System;
 using System.Xml;
 
 namespace MobiFlight
@@ -8,11 +9,16 @@ namespace MobiFlight
         public const string TYPE_NUMBER = "number";
         public const string TYPE_STRING = "string";
 
-        public string TYPE = TYPE_NUMBER;
-        public string Name = "MyVar";
-        public double Number;
-        public string Text = "";
-        public string Expression = "$";
+        public string TYPE { get; set; } = TYPE_NUMBER;
+        public string Name { get; set; } = "MyVar";
+
+        [JsonIgnoreWhenPersistedToFile]
+        public double Number { get; set; }
+
+        [JsonIgnoreWhenPersistedToFile]
+        public string Text { get; set; } = String.Empty;
+
+        public string Expression { get; set; } = "$";
 
         public object Clone()
         {
@@ -26,11 +32,10 @@ namespace MobiFlight
             return clone;
         }
 
-
         public void ReadXml(System.Xml.XmlReader reader)
         {
             TYPE = reader["varType"];
-            Name =  reader["varName"];
+            Name = reader["varName"];
             Expression = reader["varExpression"];
         }
 

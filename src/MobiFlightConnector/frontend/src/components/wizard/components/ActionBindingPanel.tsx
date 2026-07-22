@@ -12,11 +12,11 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
-import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react"
+import { IconEdit, IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
 export type ActionBindingPanelProps = {
-  variant: "button" | "encoder" | "analog"
+  variant: "button" | "encoder" | "analog" | "none"
   trigger?: ActionTrigger
   onActionEdit: (
     event: string,
@@ -33,6 +33,7 @@ const eventActionMap = {
   button: ["onPress", "onRelease", "onHold", "onLongRelease"],
   encoder: ["onLeft", "onRight", "onLeftFast", "onRightFast"],
   analog: ["onChange"],
+  none: [],
 }
 const ActionBindingPanel = ({
   variant,
@@ -76,8 +77,11 @@ const ActionBindingPanel = ({
   }
 
   return (
-    <Card data-testid="action-panel">
-      <CardContent className="flex flex-col gap-4 pt-4">
+    <Card
+      data-testid="action-panel"
+      className="border-primary shadow-md transition-shadow hover:shadow-lg"
+    >
+      <CardContent className="flex flex-col gap-2 py-4">
         <div className="flex flex-col gap-1">
           <div className="text-lg font-semibold">
             {t(`Dialog.InputConfigWizard.Action.Title`)}
@@ -86,6 +90,14 @@ const ActionBindingPanel = ({
             {t(`Dialog.InputConfigWizard.Action.Description`)}
           </div>
         </div>
+        {variant === "none" && (
+          <div className="flex flex-row items-center gap-2 text-muted-foreground justify-center">
+            <IconInfoCircle className="text-primary" />
+            <div className="text-muted-foreground text-sm">
+              {t(`Dialog.InputConfigWizard.Action.NoTriggerDefined`)}
+            </div>
+          </div>
+        )}
         {events.map((event, index) => {
           const action = current[event as keyof ActionTrigger] as
             | Action

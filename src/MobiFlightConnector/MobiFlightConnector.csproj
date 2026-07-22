@@ -322,10 +322,12 @@
     <Compile Include="Base\ObservableObject.cs" />
     <Compile Include="Base\Project.cs" />
     <Compile Include="Base\ProjectListManager.cs" />
+    <Compile Include="Base\Serialization\Json\Annotations\JsonIgnoreWhenPersistedToFile.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
     <Compile Include="Base\Serialization\Json\ConfigValueOnlyItemConverter.cs" />
     <Compile Include="Base\Serialization\Json\KeyInputActionConverter.cs" />
     <Compile Include="Base\Serialization\Json\PreconditionConverter.cs" />
+    <Compile Include="Base\Serialization\Json\Resolver\CustomJsonIgnoreContractResolver.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
@@ -1604,6 +1606,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_tcas.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_tiller_left.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_tiller_right.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">

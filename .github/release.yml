@@ -11,10 +11,12 @@ changelog:
       labels:
         - controller
         - hardware
-    - title: Firmware & Profile Updates 🚀
+    - title: Profile Updates 🚀
+      labels:
+        - profile
+    - title: Firmware Updates ⚙️
       labels:
         - firmware
-        - profile
     - title: New UI Language 🌍  
       labels:
         - i18n

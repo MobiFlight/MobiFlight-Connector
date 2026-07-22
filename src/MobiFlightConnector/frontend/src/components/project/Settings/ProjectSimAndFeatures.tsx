@@ -25,7 +25,7 @@ const ProjectSimAndFeatures = ({
         </p>
       </div>
       {/* Flight Simulator Selection */}
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-4 px-3">
         {["msfs", "xplane", "p3d", "fsx"].map((sim) => (
           <div
             role="radio"

@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base.Serialization.Json;
+using MobiFlight.Base.Serialization.Json.Annotations;
 using MobiFlight.Modifier;
 using Newtonsoft.Json;
 using System;
@@ -19,6 +20,7 @@ namespace MobiFlight.Base
     public class ConfigValueOnlyItem : IConfigValueOnlyItem
     {
         public string GUID { get; set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string RawValue { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -40,7 +42,7 @@ namespace MobiFlight.Base
         bool Active { get; set; }
         string Type { get; }
         string Name { get; set; }
-        Controller Controller{ get; set; }
+        Controller Controller { get; set; }
         PreconditionList Preconditions { get; set; }
         ModifierList Modifiers { get; set; }
         ConfigRefList ConfigRefs { get; set; }
@@ -59,14 +61,17 @@ namespace MobiFlight.Base
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
         public ConfigRefList ConfigRefs { get; set; } = new ConfigRefList();
+        [JsonIgnoreWhenPersistedToFile]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string RawValue { get; set; }
+        [JsonIgnoreWhenPersistedToFile]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { new NotImplementedException(); } }
 
+        [JsonIgnoreWhenPersistedToFile]
         public Dictionary<ConfigItemStatusType, string> Status { get; set; } = new Dictionary<ConfigItemStatusType, string>();
 
         protected abstract IDeviceConfig GetDeviceConfig();
@@ -94,7 +99,7 @@ namespace MobiFlight.Base
             GUID = item.GUID.Clone() as string;
             Active = item.Active;
             Name = item.Name.Clone() as string;
-            Controller= item.Controller?.Clone() as Controller;
+            Controller = item.Controller?.Clone() as Controller;
             Preconditions = item.Preconditions.Clone() as PreconditionList;
             Modifiers = item.Modifiers.Clone() as ModifierList;
             ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;

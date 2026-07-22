@@ -304,9 +304,7 @@ test.describe("Project settings modal features", () => {
         simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: false, use: false },
         prosim: { click: false, use: false },
-        aircraft: [
-          { Vendor: "Microsoft", Name: "Generic" },
-        ],
+        aircraft: [{ Vendor: "Microsoft", Name: "Generic" }],
       },
       {
         name: "MSFS with FSUIPC",
@@ -314,9 +312,7 @@ test.describe("Project settings modal features", () => {
         simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: true, use: true },
         prosim: { click: false, use: false },
-        aircraft: [
-          { Vendor: "Microsoft", Name: "Generic" },
-        ],
+        aircraft: [{ Vendor: "Microsoft", Name: "Generic" }],
       },
       {
         name: "X-Plane",
@@ -348,9 +344,7 @@ test.describe("Project settings modal features", () => {
         simLabel: "Microsoft Flight Simulator",
         fsuipc: { click: false, use: false },
         prosim: { click: true, use: true },
-        aircraft: [
-          { Vendor: "Microsoft", Name: "Generic" },
-        ],
+        aircraft: [{ Vendor: "Microsoft", Name: "Generic" }],
       },
     ]
 
@@ -635,21 +629,24 @@ test.describe("Project settings modal features", () => {
     await selectedAircraftOptions.first().click()
     await expect(selectedAircraftOptions).toHaveCount(1)
     await expect(availableAircraftOptions).toHaveCount(2)
-    
+
     await selectedAircraftOptions.first().click()
     await expect(selectedAircraftOptions).toHaveCount(0)
     await expect(availableAircraftOptions).toHaveCount(3)
     // and a message is displayed
     await expect(
-      projectAircraftDialog.getByText("No aircraft selected. No filter will apply. All presets will be available.", {
-        exact: true,
-      }),
+      projectAircraftDialog.getByText(
+        "No aircraft selected. No filter will apply. All presets will be available.",
+        {
+          exact: true,
+        },
+      ),
     ).toBeVisible()
 
     // Now re-add the first available aircraft
     // so that we can verify that the badge shows correct value
     await availableAircraftOptions.first().click()
-    
+
     // Close drawer
     const goBackButton = page.getByRole("button", {
       name: "Go back",
@@ -767,6 +764,30 @@ test.describe("Project settings modal features", () => {
     await goBackButton.click()
     await expect(goBackButton).not.toBeVisible()
     await expect(projectAircraftDialog).not.toBeVisible()
+  })
+  test("Create project dialog - Create and Cancel buttons are visible on small screens without scrolling", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await page.setViewportSize({ width: 803, height: 533 })
+    await page
+      .getByTestId("project-main-card")
+      .getByRole("button", { name: "Project" })
+      .click()
+    const createProjectDialog = page.getByRole("dialog", {
+      name: "Create New Project",
+    })
+    await expect(createProjectDialog).toBeVisible()
+    const projectCreateButton = createProjectDialog.getByRole("button", {
+      name: "Create",
+    })
+    const projectCancelButton = createProjectDialog.getByRole("button", {
+      name: "Cancel",
+    })
+    // If overflow works correctly, the two buttons will be visible in the viewport.
+    await expect(projectCreateButton).toBeInViewport()
+    await expect(projectCancelButton).toBeInViewport()
   })
 })
 

@@ -161,6 +161,13 @@ namespace MobiFlight
         {
             String name = device.Name;
 
+            AddPovSwitchWithName(name);
+
+            LogInputAdded(device, name);
+        }
+
+        protected virtual void AddPovSwitchWithName(string name)
+        {
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}U", Label = $"{name} (↑)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UR", Label = $"{name} (↗)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}R", Label = $"{name} (→)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
@@ -169,7 +176,6 @@ namespace MobiFlight
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DL", Label = $"{name} (↙)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}L", Label = $"{name} (←)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
             POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-            LogInputAdded(device, name);
         }
 
         protected void LogInputAdded(DeviceObjectInstance device, string label)

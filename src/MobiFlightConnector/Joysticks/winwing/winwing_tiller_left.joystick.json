@@ -1,0 +1,13 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINCTRL 32 NWS L",
+  "VendorId": "0x4098",
+  "ProductId": "0xB961",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Pedal Disconnect"
+    }    
+  ]
+}

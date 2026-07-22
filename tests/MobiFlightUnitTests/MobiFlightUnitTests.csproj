@@ -216,6 +216,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssemblyInitialize.cs" />
+    <Compile Include="Base\AutoUpdateCheckerTests.cs" />
     <Compile Include="Base\BooleanConverterConfigTests.cs" />
     <Compile Include="Base\CmdLineParamsTests.cs" />
     <Compile Include="Base\ComboBoxHelperTests.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="MobiFlight\Joysticks\WingFlex\EfisCubeReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\OvhdCubeReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\RmpCubeReportTests.cs" />
+    <Compile Include="MobiFlight\MobiFlightVariableTest.cs" />
     <Compile Include="MobiFlight\Modifier\ExponentialAverageTests.cs" />
     <Compile Include="MobiFlight\InputEventArgsTests.cs" />
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReportTests.cs" />

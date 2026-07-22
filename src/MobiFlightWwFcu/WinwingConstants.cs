@@ -34,6 +34,9 @@ namespace MobiFlightWwFcu
         // All three RMP variants (L/R/C) share one destination address.
         internal static readonly byte[] DEST_RMP = new byte[] { 0x82, 0xbb };
 
+        // Both NWS variants (L/R) share one destination address
+        internal static readonly byte[] DEST_NWS = new byte[] { 0x60, 0xb9 };
+
 
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
         internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
@@ -79,6 +82,9 @@ namespace MobiFlightWwFcu
         internal const int PRODUCT_ID_RMP_R = 0xBB84;
         internal const int PRODUCT_ID_RMP_C = 0xBB85;
 
+        internal const int PRODUCT_ID_NWS_L = 0xB961;
+        internal const int PRODUCT_ID_NWS_R = 0xB962;
+
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
                                                           PRODUCT_ID_PFP3N_CPT, PRODUCT_ID_PFP3N_OBS, PRODUCT_ID_PFP3N_FO,
@@ -108,6 +114,9 @@ namespace MobiFlightWwFcu
         internal const string RMP_L_NAME = "RMP Left";
         internal const string RMP_R_NAME = "RMP Right";
         internal const string RMP_C_NAME = "RMP Center";
+
+        internal const string NWS_L_NAME = "NWS Left";
+        internal const string NWS_R_NAME = "NWS Right";
 
         internal static Dictionary<string, byte[]> DisplayCmdHeaders = new Dictionary<string, byte[]>()
         {

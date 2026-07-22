@@ -102,8 +102,8 @@ export class ConfigListPage {
     const configItems = testdataProject.ConfigFiles[configIndex].ConfigItems
     const templateInputConfig = {
       Active: true,
-      Controller: {},
-      Device: {},
+      Controller: null,
+      Device: undefined,
       GUID: "b2c3d4e5-f6a7-8901-bcde-f12345678902",
       Name: "Empty Input Config Item",
       Type: "InputConfigItem",
@@ -131,6 +131,29 @@ export class ConfigListPage {
       } as ConfigValueFullUpdate,
     }
     await this.mobiFlightPage.publishMessage(message)
+  }
+  async duplicateConfigItem(
+    index: number,
+    variant: "default" | "inputaction" = "default",
+  ) {
+    const testdataProject =
+      variant === "default" ? testProject : inputActionTestProject
+    const configItems = [...testdataProject.ConfigFiles[0].ConfigItems]
+
+    const duplicated = {
+      ...configItems[index],
+      GUID: crypto.randomUUID(),
+    }
+
+    configItems.splice(index + 1, 0, duplicated)
+
+    await this.mobiFlightPage.publishMessage({
+      key: "ConfigValueFullUpdate",
+      payload: {
+        ConfigIndex: 0,
+        ConfigItems: configItems,
+      },
+    })
   }
 
   getConfigItemByIndex(itemIndex: number): IConfigItem {
