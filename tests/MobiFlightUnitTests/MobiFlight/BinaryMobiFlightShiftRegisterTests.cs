@@ -75,7 +75,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            WaitForQueueUpdate();
+            WaitForQueueUpdate(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -103,7 +103,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            WaitForQueueUpdate();
+            WaitForQueueUpdate(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -134,18 +134,18 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            WaitForQueueUpdate();
+            WaitForQueueUpdate(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brigthness change should always send command.");
         }
 
-        private void WaitForQueueUpdate()
+        private void WaitForQueueUpdate(int timeout = 100)
         {
             var task = Task.Run(() =>
             {
-                Thread.Sleep(100);
+                Thread.Sleep(timeout);
             });
             task.Wait();
         }
