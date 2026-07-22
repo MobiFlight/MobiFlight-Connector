@@ -9,7 +9,7 @@ namespace MobiFlight
 {
     public class MobiFlightShiftRegister : IConnectedDevice
     {
-        public const int DEFAULT_AGGREGATION_WINDOW_IN_MS = 20;
+        public const int DEFAULT_AGGREGATION_WINDOW_IN_MS = 50;
         public const string TYPE = "ShiftRegister";
         public const string LABEL_PREFIX = "Output";
 
@@ -40,8 +40,7 @@ namespace MobiFlight
 
         public Timer AggregationTimer { get; set; } = new Timer();
 
-        ConcurrentStack<string> AggregationOn = new ConcurrentStack<string>();
-        ConcurrentStack<string> AggregationOff = new ConcurrentStack<string>();
+        ConcurrentDictionary<string, string> AggregationSet = new ConcurrentDictionary<string, string>();
 
         public MobiFlightShiftRegister()
         {
@@ -52,26 +51,24 @@ namespace MobiFlight
 
         private void ProcessAggregatedPins(object sender, ElapsedEventArgs e)
         {
-            if (AggregationOn.Count > 0)
+            if (AggregationSet.Count == 0) return;
+
+            var onKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "1").ToList();
+            var offKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "0").ToList();
+
+            AggregationSet.Clear();
+
+            if (onKeys.Count > 0)
             {
-                var onPins = AggregateFinalDisplayProps(AggregationOn);
+                var onPins = string.Join("|", onKeys);
                 InternalDisplay(onPins, "1");
             }
 
-            if (AggregationOff.Count > 0)
+            if (offKeys.Count > 0)
             {
-                var offPins = AggregateFinalDisplayProps(AggregationOff);
+                var offPins = string.Join("|", offKeys);
+                if (onKeys.Count > 10) System.Threading.Thread.Sleep(10);
                 InternalDisplay(offPins, "0");
-            }
-        }
-
-        static public string AggregateFinalDisplayProps(ConcurrentStack<string> aggregation)
-        {
-            lock (aggregation)
-            {
-                var outputPins = string.Join("|", aggregation.Distinct());
-                aggregation.Clear();
-                return outputPins;
             }
         }
 
@@ -92,8 +89,6 @@ namespace MobiFlight
         public void Display(String outputPins, String value)
         {
             var v = value == "0" ? "0" : "1";
-            var aggregation = v == "1" ? AggregationOn : AggregationOff;
-
             var pins = outputPins.Replace(LABEL_PREFIX + " ", "")
                                  .Split('|')
                                  .Select(p => p.Trim())
@@ -101,7 +96,7 @@ namespace MobiFlight
 
             pins.ForEach(p =>
             {
-                aggregation.Push(p);
+                AggregationSet.AddOrUpdate(p, v, (key, oldValue) => v);
             });
 
             if (AggregationTimer.Enabled) return;

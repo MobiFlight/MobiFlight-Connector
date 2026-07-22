@@ -18,7 +18,7 @@ namespace MobiFlight.Tests
             var module = new BinaryMobiFlightShiftRegister();
             Assert.AreEqual(0, module.NumberOfShifters, "Default number of shifters should be 0.");
             Assert.AreEqual(0, module.ModuleNumber, "Default module number should be 0.");
-            Assert.AreEqual(20, module.AggregationWindowInMs, "Default aggregation window should be 20ms.");
+            Assert.AreEqual(50, module.AggregationWindowInMs, "Default aggregation window should be 50ms.");
         }
 
         [TestMethod()]
