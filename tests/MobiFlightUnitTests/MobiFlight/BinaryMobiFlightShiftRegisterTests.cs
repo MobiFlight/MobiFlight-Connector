@@ -12,6 +12,16 @@ namespace MobiFlight.Tests
     public class BinaryMobiFlightShiftRegisterTests
     {
         [TestMethod()]
+        public void BinaryMobiFlightShiftRegister_HasCorrectDefaults()
+        {
+            // Arrange
+            var module = new BinaryMobiFlightShiftRegister();
+            Assert.AreEqual(0, module.NumberOfShifters, "Default number of shifters should be 0.");
+            Assert.AreEqual(0, module.ModuleNumber, "Default module number should be 0.");
+            Assert.AreEqual(20, module.AggregationWindowInMs, "Default aggregation window should be 20ms.");
+        }
+
+        [TestMethod()]
         public void ConvertStringToByteArray_ShouldReturnCorrectByteArray()
         {
             // Arrange
@@ -56,7 +66,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void SetDisplay_SendsCorrectCommand_WithAllPinsSet()
+        public async Task SetDisplay_SendsCorrectCommand_WithAllPinsSet()
         {
             // Arrange
             var module = new BinaryMobiFlightShiftRegister() {
@@ -75,7 +85,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            WaitForQueueUpdate(200);
+            await WaitForQueueUpdate(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -83,7 +93,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void SetDisplay_SendsCorrectCommand_WithSomePinsSet()
+        public async Task SetDisplay_SendsCorrectCommand_WithSomePinsSet()
         {
             // Arrange
             var module = new BinaryMobiFlightShiftRegister()
@@ -103,7 +113,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            WaitForQueueUpdate(200);
+            await WaitForQueueUpdate(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -111,7 +121,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void SetDisplay_SendsCorrectCommand_ByteOrderIsCorrect()
+        public async Task SetDisplay_SendsCorrectCommand_ByteOrderIsCorrect()
         {
             // Arrange
             var module = new BinaryMobiFlightShiftRegister()
@@ -134,20 +144,16 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            WaitForQueueUpdate(200);
+            await WaitForQueueUpdate(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brigthness change should always send command.");
         }
 
-        private void WaitForQueueUpdate(int timeout = 100)
+        private async Task WaitForQueueUpdate(int timeout = 100)
         {
-            var task = Task.Run(() =>
-            {
-                Thread.Sleep(timeout);
-            });
-            task.Wait();
+            await Task.Delay(timeout);
         }
     }
 }
