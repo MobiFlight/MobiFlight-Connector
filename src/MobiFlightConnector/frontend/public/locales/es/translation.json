@@ -385,7 +385,8 @@
       "Save": "Guardar",
       "SaveChanges": "Guardar cambios",
       "ApplyChanges": "Aplicar cambios",
-      "ResetFilters": "Borrar filtros"
+      "ResetFilters": "Borrar filtros",
+      "PendingChangesMessage": "Tienes cambios pendientes. Aplícalos primero o haz clic en Cancelar para cerrar este diálogo sin guardar."
     },
     "ControllerBinding": {
       "Title": "Vincular controladores",
@@ -406,6 +407,7 @@
     },
     "Modifiers": {
       "Title": "Modificadores",
+      "Label": "Modificadores",
       "Description": "Cambia el valor original aplicando una secuencia de modificadores.",
       "EditButton": "Editar modificadores",
       "AddButton": "Agregar modificador",
@@ -501,7 +503,8 @@
         "Title": "Acciones",
         "Description": "Define las acciones para cada evento.",
         "Copy": "Copiar acción",
-        "Paste": "Pegar acción"
+        "Paste": "Pegar acción",
+        "NoTriggerDefined": "No se definió ningún disparador. Por favor, selecciona primero tu controlador y dispositivo."
       },
       "ActionType": {
         "Title": "Tipo de acción",
@@ -626,20 +629,22 @@
         }
       },
       "Preconditions": {
-        "Title": "Precondiciones (opcional)",
-        "Description": "Las precondiciones definen las condiciones que deben cumplirse antes de que se pueda ejecutar la acción.",
+        "Title": "Precondiciones",
+        "Label": "Precondiciones",
+        "Description": "Agrega y modifica las condiciones que deben cumplirse para que se ejecute tu disparador.",
         "EditButton": "Precondiciones",
         "AddButton": "Precondiciones"
       },
       "ConfigReferences": {
-        "Title": "Referencias de configuración (opcional)",
-        "Description": "Las referencias de configuración definen las configuraciones de salida cuyos valores pueden usarse en la acción.",
-        "EditButton": "Referencias de configuración",
-        "AddButton": "Referencias de configuración"
+        "Title": "Referencias",
+        "Label": "Referencias",
+        "Description": "Agrega referencias a otras configuraciones y usa sus valores aquí en esta configuración.",
+        "EditButton": "Editar referencias",
+        "AddButton": "Agregar referencias"
       },
       "PreconditionEditor": {
-        "Title": "Precondiciones",
-        "Description": "Las precondiciones definen las condiciones que deben cumplirse antes de que se pueda ejecutar la acción.",
+        "Title": "Editar precondiciones",
+        "Description": "Agrega y modifica las condiciones que deben cumplirse para que se ejecute la acción.",
         "NoPreconditions": "No hay precondiciones definidas.",
         "AddPrecondition": "Agregar precondición",
         "Active": "Activo",
@@ -649,24 +654,31 @@
         "ValuePlaceholder": "Valor",
         "DeletePrecondition": "Eliminar precondición",
         "SelectPort": "Seleccionar puerto...",
-        "SelectPin": "Seleccionar pin..."
+        "SelectPin": "Seleccionar pin...",
+        "Types": {
+          "config": "Configuración",
+          "variable": "Variable",
+          "pin": "Pin Arcaze"
+        },
+        "MoveUp": "Mover precondición hacia arriba",
+        "MoveDown": "Mover precondición hacia abajo"
       },
       "ConfigReferenceEditor": {
-        "Title": "Referencias de configuración",
-        "Description": "Las referencias de configuración definen las configuraciones de salida cuyos valores pueden usarse en la acción.",
-        "NoConfigReferences": "No hay referencias de configuración definidas.",
-        "AddConfigReference": "Agregar referencia de configuración",
+        "Title": "Referencias",
+        "Description": "Agrega y modifica referencias y define un marcador de posición para usar los valores en tu configuración.",
+        "NoConfigReferences": "No hay referencias definidas.",
+        "AddConfigReference": "Agregar referencia",
         "Active": "Activo",
         "SelectConfig": "Seleccionar configuración...",
         "PlaceholderLabel": "Marcador de posición",
         "TestValueLabel": "Valor de prueba",
-        "DeleteConfigReference": "Eliminar referencia de configuración"
+        "DeleteConfigReference": "Eliminar referencia"
       },
       "InputActions": {
         "Common": {
-          "CodeLabel": "Código:",
+          "CodeLabel": "Código",
           "NoDescriptionAvailable": "No hay descripción disponible",
-          "DescriptionLabel": "Descripción:",
+          "DescriptionLabel": "Descripción",
           "FilterPresets": "Filtrar presets",
           "FilterByVendor": "Filtrar por fabricante",
           "SearchVendors": "Buscar fabricantes...",
@@ -678,41 +690,36 @@
           "SearchPresets": "Buscar presets...",
           "PresetsFound": "{{count}} preset(s) encontrado(s)",
           "SupportedPlaceholders": "Admite valor de entrada (@) y marcadores de posición ($, #, etc.)",
-          "PresetLabel": "Preset",
-          "ActionLabel": "Acción"
-        },
-        "Msfs": {
+          "ActionLabel": "Acción",
+          "NameLabel": "Nombre",
           "Preset": {
+            "Label": "Preset",
             "Title": "Paso 2 - Seleccionar preset",
             "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
-            "ProjectAircraftOnly": "Solo aviones del proyecto"
-          },
-          "Code": {
-            "Title": "Paso 3 - Refinar código (opcional)",
-            "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
-            "None": "Ninguno",
-            "Placeholder": "Ingresar código RPN"
-          },
-          "CustomPreset": "Preset personalizado"
+            "ProjectAircraftOnly": "Solo aviones del proyecto",
+            "Vendor": "Fabricante",
+            "Aircraft": "Aeronave",
+            "System": "Sistema",
+            "Custom": "Preset personalizado",
+            "Author": "Autor",
+            "Date": "Fecha",
+            "Code": {
+              "Title": "Paso 3 - Modificar código (opcional)",
+              "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior.",
+              "None": "Ninguno",
+              "Placeholder": "Ingresar código RPN",
+              "Customized": "Personalizaste este preset o ya no está disponible."
+            }
+          }
         },
         "Xplane": {
-          "Preset": {
-            "Title": "Paso 2 - Seleccionar preset",
-            "Description": "Elige un preset de nuestra biblioteca de presets. Usa los filtros para acotar tu búsqueda.",
-            "ProjectAircraftOnly": "Solo aviones del proyecto"
-          },
-          "Code": {
-            "Title": "Paso 3 - Refinar código (opcional)",
-            "Description": "Este código es utilizado por el simulador. Puedes editarlo manualmente o seleccionar un preset de la lista anterior."
-          },
           "InputTypeLabel": "Tipo de entrada",
           "SelectInputTypePlaceholder": "Seleccionar tipo de entrada",
           "PathLabel": "Ruta",
           "PathPlaceholder": "Ingresa la ruta para DataRef o Comando, o selecciona un preset arriba",
           "PathDescription": "Nota: Usa la notación de índice para acceder a los arrays, p. ej., sim/cockpit2/annunciators/fuel_pressure_low[0] para el 1er motor.",
           "ValueLabel": "Valor",
-          "ValuePlaceholder": "Ingresa el valor",
-          "CustomPreset": "Preset personalizado"
+          "ValuePlaceholder": "Ingresa el valor"
         },
         "ProSim": {
           "Preset": {

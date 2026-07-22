@@ -461,10 +461,6 @@ FodyWeavers.xsd
 
 # VS Code files for those working on multiple tools
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 *.code-workspace
 
 # Local History for Visual Studio Code
@@ -490,3 +486,6 @@ FodyWeavers.xsd
 # Python directory - include only RuntimeAndPackages*.zip files
 Python/*
 !Python/RuntimeAndPackages*.zip
+
+# ignore devcontainer lock file
+devcontainer-lock.json

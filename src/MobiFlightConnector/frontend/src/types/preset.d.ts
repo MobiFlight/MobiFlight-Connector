@@ -12,7 +12,8 @@ export type Preset = {
   updatedBy?: string
   reported?: number
   score?: number
-  presetType: "Input" | "Output" | "Input (Potentiometer)"
+  presetType: "Input" | "Output" | "Input (Potentiometer)",
+  author?: string
 }
 
 export type XplanePreset = Preset & {

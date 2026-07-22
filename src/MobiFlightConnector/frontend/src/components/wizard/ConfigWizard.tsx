@@ -1,7 +1,7 @@
 import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
-import ConfigReferencePanel from "@/components/wizard/components/ConfigReferencePanel"
+import ConfigReferencePanel from "@/components/wizard/ConfigReferences/ConfigReferencePanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
-import PreconditionsPanel from "@/components/wizard/components/PreconditionsPanel"
+import PreconditionsPanel from "@/components/wizard/Precondition/PreconditionsPanel"
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
@@ -20,10 +20,11 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer"
-import { IconArrowBack } from "@tabler/icons-react"
+import { IconArrowBack, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
+import { Button } from "@/components/ui/button"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
@@ -117,6 +118,10 @@ const ConfigWizard = ({
     setTimeout(() => navigate(-1), 500)
   }
 
+  const hasReferences = (configItem.ConfigRefs?.length ?? 0) > 0
+  const hasPreconditions = (configItem.Preconditions?.length ?? 0) > 0
+  const hasModifiers = (configItem.Modifiers?.Items.length ?? 0) > 0
+
   return (
     <div className="flex flex-col gap-4">
       <ConfigTrigger
@@ -126,29 +131,69 @@ const ConfigWizard = ({
           onConfigChange(item)
         }}
       />
-      <div className="flex flex-row gap-2">
-        <div className="w-1/2">
-          <PreconditionsPanel
-            preconditions={configItem.Preconditions ?? []}
-            variant="summary"
-            openDetailsPanel={() => navigateToDetailView("precondition")}
-          />
-        </div>
-        <div className="w-1/2">
-          <ConfigReferencePanel
-            configReferences={configItem.ConfigRefs ?? []}
-            variant="summary"
-            openDetailsPanel={() => navigateToDetailView("configReference")}
-          />
-        </div>
+      <div className="flex flex-row items-center justify-center gap-2 px-6">
+        <Button
+          variant="outline"
+          size={"sm"}
+          onClick={() => navigateToDetailView("precondition")}
+          aria-label={t("Dialog.InputConfigWizard.Preconditions.AddButton")}
+        >
+          <IconPlus className="" />
+          {t("Dialog.InputConfigWizard.Preconditions.Label")}
+        </Button>
+        <Button
+          variant="outline"
+          size={"sm"}
+          onClick={() => navigateToDetailView("configReference")}
+          aria-label={t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
+        >
+          <IconPlus className="" />
+          {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
+        </Button>
+        <Button
+          variant="outline"
+          size={"sm"}
+          onClick={() => navigateToDetailView("modifier", "small")}
+          aria-label={t("Dialog.Modifiers.AddButton")}
+        >
+          <IconPlus className="" />
+          {t("Dialog.Modifiers.Label")}
+        </Button>
       </div>
-      <ModifiersPanel
-        configItem={configItem}
-        variant="summary"
-        onConfigChange={onConfigChange}
-        openDetailsPanel={() => navigateToDetailView("modifier", "small")}
-        liveData={liveData}
-      />
+
+      {(hasReferences || hasPreconditions) && (
+        <div className="flex flex-col lg:flex-row gap-2">
+          {hasReferences && (
+            <div className="lg:w-1/2">
+              <ConfigReferencePanel
+                configReferences={configItem.ConfigRefs ?? []}
+                variant="summary"
+                openDetailsPanel={() => navigateToDetailView("configReference")}
+              />
+            </div>
+          )}
+          {hasPreconditions && (
+            <div className="lg:w-1/2">
+              <PreconditionsPanel
+                preconditions={configItem.Preconditions ?? []}
+                variant="summary"
+                openDetailsPanel={() => navigateToDetailView("precondition")}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {hasModifiers && (
+        <ModifiersPanel
+          configItem={configItem}
+          variant="summary"
+          onConfigChange={onConfigChange}
+          openDetailsPanel={() => navigateToDetailView("modifier", "small")}
+          liveData={liveData}
+        />
+      )}
+
       {currentDeviceType === "Button" && (
         <ActionBindingPanel
           variant="button"
@@ -225,6 +270,13 @@ const ConfigWizard = ({
           }}
         />
       )}
+      {currentDeviceType === null && (
+        <ActionBindingPanel
+          variant="none"
+          onActionEdit={() => {}}
+          onTriggerChange={() => {}}
+        />
+      )}
 
       {detailView && (
         <Drawer
@@ -241,12 +293,13 @@ const ConfigWizard = ({
               </DrawerTitle>
               <DrawerClose
                 onClick={() => closeDetailView(false)}
-                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline">
+                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
+              >
                 <IconArrowBack size={16} />
                 {t("Dialog.General.GoBack")}
               </DrawerClose>
             </DrawerHeader>
-            <div className="flex flex-1 flex-col px-4 pb-4 overflow-y-auto">
+            <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
                 <PreconditionsPanel
                   onPreconditionsChange={(preconditions) => {

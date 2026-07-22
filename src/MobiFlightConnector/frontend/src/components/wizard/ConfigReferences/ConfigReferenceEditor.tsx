@@ -91,14 +91,18 @@ const ConfigReferenceItemRow = ({
         className="w-16"
       />
 
-      <Input
+      {/*
+       * Test value is currently not used, so we won't show it
+       * as soon as we add the test feature, we can uncomment this code and use it again
+       */}
+      {/* <Input
         value={configReference.TestValue}
         onChange={(e) =>
           onChange({ ...configReference, TestValue: e.target.value })
         }
         placeholder="Value"
         className="w-16"
-      />
+      /> */}
 
       <Button
         variant="ghost"

@@ -1,10 +1,23 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
+import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
 import { preconditionVariants } from "@/components/wizard/variants"
-import { IConfigItem, MobiFlightVariable, Precondition } from "@/types/config"
+import {
+  IConfigItem,
+  MobiFlightVariable,
+  Precondition,
+  PreconditionType,
+} from "@/types/config"
+import { PRECONDITION_TYPES } from "@/types/typesOptions"
 import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
@@ -24,11 +37,6 @@ const OPERAND_OPTIONS: Precondition["Operand"][] = [
   ">=",
 ]
 const LOGIC_OPTIONS: Precondition["Logic"][] = ["and", "or"]
-const TYPE_OPTIONS = [
-  { value: "config", label: "Config" },
-  { value: "variable", label: "Variable" },
-  { value: "pin", label: "Arcaze-Pin" },
-]
 
 const ArcazePortOptions = [
   { value: "A", label: "Port A" },
@@ -48,6 +56,10 @@ type PreconditionItemRowProps = {
   onChange: (updated: Precondition) => void
   onDelete: () => void
   showLogic: boolean
+  onMoveUp: () => void
+  onMoveDown: () => void
+  isFirst: boolean
+  isLast: boolean
 }
 
 const PreconditionItemRow = ({
@@ -57,6 +69,10 @@ const PreconditionItemRow = ({
   onChange,
   onDelete,
   showLogic,
+  onMoveUp,
+  onMoveDown,
+  isFirst,
+  isLast,
 }: PreconditionItemRowProps) => {
   const { t } = useTranslation()
   const selectedConfig =
@@ -90,36 +106,27 @@ const PreconditionItemRow = ({
   return (
     <div
       data-testid="precondition-item-row"
-      className={`flex flex-row items-center gap-2 rounded-lg border p-4 py-1 ${variantStyle}`}
+      className={`group flex flex-row items-center gap-2 rounded-lg border p-4 py-1 pl-1 ${variantStyle}`}
     >
-      <div className="flex flex-row items-center gap-2">
-        <Switch
-          checked={precondition.Active}
-          onCheckedChange={(checked) =>
-            onChange({ ...precondition, Active: !!checked })
-          }
-        />
-      </div>
-
-      <ComboBox
-        items={TYPE_OPTIONS}
-        selected={TYPE_OPTIONS.find((t) => t.value === precondition.Type)}
-        getValue={(t) => t.value}
-        getLabel={(t) => t.label}
-        isSelected={(t, s) => t.value === s?.value}
-        setSelected={(t) =>
-          onChange({
-            ...precondition,
-            Type: (t?.value as "config" | "variable" | "pin") ?? "config",
-            Ref: "",
-          })
-        }
-        placeholder={t(
-          "Dialog.InputConfigWizard.PreconditionEditor.TypePlaceholder",
-        )}
-        widthClass="w-32"
-        variant="nofilter"
+      <MoveUpDownButtons
+        onMoveUp={onMoveUp ?? (() => {})}
+        onMoveDown={onMoveDown ?? (() => {})}
+        isFirst={isFirst}
+        isLast={isLast}
+        i18nPath="Dialog.InputConfigWizard.PreconditionEditor"
       />
+      <Switch
+        checked={precondition.Active}
+        onCheckedChange={(checked) =>
+          onChange({ ...precondition, Active: !!checked })
+        }
+      />
+
+      <div className={"w-24 text-center text-sm"}>
+        {t(
+          `Dialog.InputConfigWizard.PreconditionEditor.Types.${precondition.Type}`,
+        )}
+      </div>
 
       {precondition.Type === "config" && (
         <ComboBox
@@ -265,8 +272,32 @@ const PreconditionEditor = ({
     onPreconditionsChange(preconditions.filter((_, i) => i !== index))
   }
 
-  const handleAdd = () => {
-    onPreconditionsChange([...preconditions, { ...EMPTY_PRECONDITION }])
+  const handleAdd = (preconditionType: PreconditionType) => {
+    // create the right precondition type
+    const newPrecondition = { ...EMPTY_PRECONDITION, Type: preconditionType }
+    onPreconditionsChange([...preconditions, newPrecondition])
+  }
+
+  const preconditionTypes = PRECONDITION_TYPES as PreconditionType[]
+
+  const onMoveUp = (index: number) => {
+    if (index === 0) return
+
+    const newPreconditions = [...preconditions]
+    const temp = newPreconditions[index - 1]
+    newPreconditions[index - 1] = newPreconditions[index]
+    newPreconditions[index] = temp
+    onPreconditionsChange(newPreconditions)
+  }
+
+  const onMoveDown = (index: number) => {
+    if (index === preconditions.length - 1) return
+
+    const newPreconditions = [...preconditions]
+    const temp = newPreconditions[index + 1]
+    newPreconditions[index + 1] = newPreconditions[index]
+    newPreconditions[index] = temp
+    onPreconditionsChange(newPreconditions)
   }
 
   return (
@@ -280,15 +311,26 @@ const PreconditionEditor = ({
             {t("Dialog.InputConfigWizard.PreconditionEditor.Description")}
           </div>
         </div>
-        <Button
-          variant="default"
-          size={"sm"}
-          className="self-end"
-          onClick={handleAdd}
-        >
-          <IconPlus className="h-4 w-4" />
-          {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild className="self-end">
+            <Button variant="default" className="w-fit" size={"sm"}>
+              <IconPlus className="h-4 w-4" />
+              {t("Dialog.InputConfigWizard.PreconditionEditor.AddPrecondition")}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            {preconditionTypes.map((preconditionType) => (
+              <DropdownMenuItem
+                key={preconditionType}
+                onClick={() => handleAdd(preconditionType)}
+              >
+                {t(
+                  `Dialog.InputConfigWizard.PreconditionEditor.Types.${preconditionType}`,
+                )}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {preconditions.length === 0 ? (
@@ -307,6 +349,10 @@ const PreconditionEditor = ({
                 onChange={(updated) => handleChange(index, updated)}
                 onDelete={() => handleDelete(index)}
                 showLogic={index < preconditions.length - 1}
+                isFirst={index === 0}
+                isLast={index === preconditions.length - 1}
+                onMoveUp={() => onMoveUp(index)}
+                onMoveDown={() => onMoveDown(index)}
               />
             ))}
           </div>

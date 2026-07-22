@@ -51,6 +51,7 @@
     "system": "Autopilot",
     "code": "(>K:AP_PANEL_HEADING_HOLD)",
     "label": "AP_PANEL_HEADING_HOLD_TEST",
+    "description": "Heading Hold Test Description Text",
     "presetType": "Input",
     "version": 2,
     "status": "Updated",

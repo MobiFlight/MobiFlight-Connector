@@ -15,7 +15,7 @@ export const PresetListItem = forwardRef<HTMLDivElement, PresetListItemProps>(
         ref={ref}
         role="listitem"
         className={cn(
-          "bg-background hover:bg-accent/50 border-background flex cursor-pointer flex-row justify-between gap-2 rounded-md border-2 px-2 pt-0.5 pb-1.5",
+          "bg-accent/25 hover:bg-accent/50 border-background flex cursor-pointer flex-row justify-between gap-2 rounded-md border-2 px-2 pt-0.5 pb-1.5",
           isSelected && "bg-primary/20 border-primary border-2",
         )}
         onClick={() => setSelectedPreset(preset)}

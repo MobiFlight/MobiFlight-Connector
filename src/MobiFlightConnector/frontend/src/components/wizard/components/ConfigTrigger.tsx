@@ -57,10 +57,12 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         selectedController.Name === configItem.Controller.Name))
 
   const inputDeviceFilter = (device: BaseDevice) => {
-    return (InputDeviceTypes.includes(device.Type as InputDeviceType))
+    return InputDeviceTypes.includes(device.Type as InputDeviceType)
   }
-  
-  const devices: BaseDevice[] = [...(connectedController?.Devices?.filter(inputDeviceFilter) ?? [])]
+
+  const devices: BaseDevice[] = [
+    ...(connectedController?.Devices?.filter(inputDeviceFilter) ?? []),
+  ]
 
   const configuredDevice: BaseDevice | undefined =
     configItem.Device != null
@@ -92,8 +94,8 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       Controller: controller
         ? {
             ...controller,
-            // unset Devices 
-            // before sending it back to backend. 
+            // unset Devices
+            // before sending it back to backend.
             Devices: undefined,
           }
         : undefined,
@@ -128,7 +130,10 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   }
 
   return (
-    <Card data-testid="trigger-panel">
+    <Card
+      data-testid="trigger-panel"
+      className="border-primary transition-shadow hover:shadow-md"
+    >
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col gap-2">
           <div className="text-lg font-semibold">
@@ -138,8 +143,8 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
           </div>
         </div>
-        <div className="flex flex-row items-end gap-2">
-          <Button onClick={scanForInput} className="w-50" size="sm">
+        <div className="flex flex-row items-center gap-2">
+          <Button onClick={scanForInput} className="px-5" size="sm">
             {scanning ? (
               <div className="flex flex-row items-center gap-2 text-sm">
                 <IconLoader2 className="animate-spin" />
@@ -211,6 +216,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           </div>
           <Button
             variant="ghost"
+            size={"sm"}
             className="gap-1"
             onClick={() => {
               setSelectedController(undefined)
@@ -219,7 +225,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }}
           >
             <IconTrash className="mr-2" />
-            {t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}
+            <span className="sr-only lg:not-sr-only text-sm">{t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}</span>
           </Button>
         </div>
       </CardContent>
