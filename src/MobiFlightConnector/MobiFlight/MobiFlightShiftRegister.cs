@@ -1,6 +1,9 @@
 ﻿using CommandMessenger;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Timers;
 
 namespace MobiFlight
 {
@@ -25,8 +28,50 @@ namespace MobiFlight
 
         protected bool _initialized = false;
 
+        private double _aggregationWindowInMs = 20;
+        public double AggregationWindowInMs
+        {
+            get { return _aggregationWindowInMs; }
+            set
+            {
+                _aggregationWindowInMs = value;
+                AggregationTimer.Interval = value;
+            }
+        }
+        public Timer AggregationTimer { get; set; } = new Timer();
+
+        ConcurrentStack<string> AggregationOn = new ConcurrentStack<string>();
+        ConcurrentStack<string> AggregationOff = new ConcurrentStack<string>();
+
         public MobiFlightShiftRegister()
         {
+            AggregationTimer.AutoReset = false;
+            AggregationTimer.Elapsed += ProcessAggregatedPins;
+        }
+
+        private void ProcessAggregatedPins(object sender, ElapsedEventArgs e)
+        {
+            if (AggregationOn.Count > 0)
+            {
+                var onPins = AggregateFinalDisplayProps(AggregationOn);
+                InternalDisplay(onPins, "1");
+            }
+
+            if (AggregationOff.Count > 0)
+            {
+                var offPins = AggregateFinalDisplayProps(AggregationOff);
+                InternalDisplay(offPins, "0");
+            }
+        }
+
+        static public string AggregateFinalDisplayProps(ConcurrentStack<string> aggregation)
+        {
+            lock (aggregation)
+            {
+                var outputPins = string.Join("|", aggregation.Distinct());
+                aggregation.Clear();
+                return outputPins;
+            }
         }
 
         private DeviceType _type = DeviceType.ShiftRegister;
@@ -43,7 +88,27 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public virtual void Display(String outputPins, String value)
+        public void Display(String outputPins, String value)
+        {
+            var v = value == "0" ? "0" : "1";
+            var aggregation = v == "1" ? AggregationOn : AggregationOff;
+
+            var pins = outputPins.Replace(LABEL_PREFIX + " ", "")
+                                 .Split('|')
+                                 .Select(p => p.Trim())
+                                 .ToList();
+
+            pins.ForEach(p =>
+            {
+                aggregation.Push(p);
+            });
+
+            if (AggregationTimer.Enabled) return;
+
+            AggregationTimer.Start();
+        }
+
+        public virtual void InternalDisplay(String outputPins, String value)
         {
             if (!_initialized) Initialize();
 

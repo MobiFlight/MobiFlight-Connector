@@ -6,7 +6,7 @@ namespace MobiFlight
 {
     public class BinaryMobiFlightShiftRegister : MobiFlightShiftRegister
     {
-        public override void Display(String outputPins, String value)
+        public override void InternalDisplay(String outputPins, String value)
         {
             if (!_initialized) Initialize();
 
