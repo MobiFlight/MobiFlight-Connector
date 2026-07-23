@@ -101,7 +101,7 @@ namespace MobiFlight.Modifier.Tests
         {
             var value = new ConnectorValue();
             var c = new Comparison();
-            
+
             c.Active = true;
             c.Operand = "=";
             c.Value = "0";
@@ -172,7 +172,100 @@ namespace MobiFlight.Modifier.Tests
 
             Assert.AreEqual(FSUIPCOffsetType.String, c.Apply(value, new List<ConfigRefValue>()).type);
             Assert.AreEqual("Hello world!", c.Apply(value, new List<ConfigRefValue>()).String);
+            c.Active = true;
+            c.Operand = "=";
+            c.Value = "1";
+            c.IfValue = "0";
+            c.ElseValue = "1";
 
+
+            value.type = FSUIPCOffsetType.Integer;
+            value.Float64 = 0;
+            var result = c.Apply(value, new List<ConfigRefValue>());
+
+            Assert.AreEqual(1, result.Float64);
+
+            c.Active = true;
+            c.Operand = "=";
+            c.Value = "1";
+            c.IfValue = "0";
+            c.ElseValue = "1";
+
+
+            value.type = FSUIPCOffsetType.Integer;
+            value.Float64 = 1;
+            var result2 = c.Apply(value, new List<ConfigRefValue>());
+
+            Assert.AreEqual(0, result2.Float64);
+        }
+
+
+        [TestMethod]
+        public void ComparisonFollowedByBlink_ShouldKeepComparisonResult()
+        {
+            var comparison = new Comparison
+            {
+                Active = true,
+                Operand = "=",
+                Value = "1",
+                IfValue = "0",
+                ElseValue = "1"
+            };
+            var blink = new Blink
+            {
+                Active = true,
+                BlinkValue = "0",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+            var value = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 0
+            };
+            var configRefs = new List<ConfigRefValue>();
+            value = comparison.Apply(value, configRefs);
+
+            Assert.AreEqual(1, value.Float64);
+
+
+            value = blink.Apply(value, configRefs);
+
+
+            Assert.AreEqual(1, value.Float64);
+        }
+        [TestMethod]
+        public void Blink_ApplyDontChanegOregenalValue()
+        {
+            var comparison = new Comparison
+            {
+                Active = true,
+                Operand = "=",
+                Value = "1",
+                IfValue = "0",
+                ElseValue = "1"
+            };
+            var blink = new Blink
+            {
+                Active = true,
+                BlinkValue = "0",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+            var value = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 0
+            };
+            var configRefs = new List<ConfigRefValue>();
+            value = comparison.Apply(value, configRefs);
+
+            Assert.AreEqual(1, value.Float64);
+            var original = value.Clone() as ConnectorValue;
+
+            var result = blink.Apply(value, configRefs);
+            Assert.AreEqual(1, result.Float64);
+
+            Assert.AreEqual(original.Float64, value.Float64);
+            Assert.AreEqual(original.type, value.type);
         }
     }
 }
