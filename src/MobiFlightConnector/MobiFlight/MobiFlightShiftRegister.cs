@@ -67,7 +67,6 @@ namespace MobiFlight
             if (offKeys.Count > 0)
             {
                 var offPins = string.Join("|", offKeys);
-                if (onKeys.Count > 10) System.Threading.Thread.Sleep(10);
                 InternalDisplay(offPins, "0");
             }
         }
@@ -110,17 +109,11 @@ namespace MobiFlight
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetShiftRegisterPins);
 
-            // Let's strip the static label
-            String pinsOnly = outputPins.Replace(LABEL_PREFIX + " ", "");
-
-            // clamp and reverse the string
-            if (value.Length > 8) value = value.Substring(0, 8);
-
             command.AddArgument(this.ModuleNumber);
-            command.AddArgument(pinsOnly);
+            command.AddArgument(outputPins);
             command.AddArgument(value);
 
-            Log.Instance.log($"Command: SetShiftRegisterPin <{(int)MobiFlightModule.Command.SetShiftRegisterPins},{this.ModuleNumber},{pinsOnly},{value};>.", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetShiftRegisterPin <{(int)MobiFlightModule.Command.SetShiftRegisterPins},{this.ModuleNumber},{outputPins},{value};>.", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
         }

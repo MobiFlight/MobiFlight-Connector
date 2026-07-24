@@ -1,9 +1,8 @@
 ﻿using CommandMessenger;
+using CommandMessenger.Transport;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlightUnitTests.mock.CommandMessenger;
-using Newtonsoft.Json.Linq;
-using System.ComponentModel.Design;
-using System.Threading;
+using Moq;
 using System.Threading.Tasks;
 
 namespace MobiFlight.Tests
@@ -85,11 +84,11 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForQueueUpdate(200);
+            await WaitForAggregationWindow(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
-            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brigthness change should always send command.");
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write should have all output pins set.");
         }
 
         [TestMethod()]
@@ -113,11 +112,11 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForQueueUpdate(200);
+            await WaitForAggregationWindow(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
-            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brigthness change should always send command.");
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write should have some output pins set.");
         }
 
         [TestMethod()]
@@ -144,14 +143,104 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForQueueUpdate(200);
+            await WaitForAggregationWindow(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
-            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brigthness change should always send command.");
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write should have correct byte order.");
         }
 
-        private async Task WaitForQueueUpdate(int timeout = 100)
+        [TestMethod()]
+        public async Task SetDisplay_Aggregation_WorksCorrectly_ForMultiplePins()
+        {
+            var mockTransport = new Mock<ITransport>();
+
+            // Arrange
+            var module = new BinaryMobiFlightShiftRegister
+            {
+                ModuleNumber = 0,
+                NumberOfShifters = 2,
+                CmdMessenger = new CmdMessenger(mockTransport.Object)
+            };
+
+            module.CmdMessenger.Connect();
+            
+            var commandId = (byte)MobiFlightModule.Command.SetShiftRegisterPins;
+            
+            var outputPins = "0|6|14";
+            var outputPinsOff = "1|7|15";
+
+            var value = "1";
+            var valueOff = "0";
+            // the second shifter comes first
+            var firstByteValue = "64";
+            var firstByteValueOff = "128";
+
+            // and the first last
+            var secondByteValue = "65";
+            var secondByteValueOff = "130";
+
+            // Act
+            module.Display(outputPins, value);
+            module.Display(outputPinsOff, valueOff);
+
+            // We have to wait for the aggregation window to complete
+            await WaitForAggregationWindow(200);
+
+            // Assert
+            var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
+            var DataExpectedOff = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{valueOff},{firstByteValueOff},{secondByteValueOff};";
+
+            mockTransport.Verify(t => t.Write(It.Is<byte[]>(b => System.Text.Encoding.ASCII.GetString(b) == DataExpected)), Times.Once, "The on write should occur once.");
+            mockTransport.Verify(t => t.Write(It.Is<byte[]>(b => System.Text.Encoding.ASCII.GetString(b) == DataExpectedOff)), Times.Once, "The off write should occur once.");
+        }
+
+        [TestMethod()]
+        public async Task SetDisplay_Aggregation_WorksCorrectly_ForSamePins()
+        {
+            var mockTransport = new Mock<ITransport>();
+
+            // Arrange
+            var module = new BinaryMobiFlightShiftRegister
+            {
+                ModuleNumber = 0,
+                NumberOfShifters = 2,
+                CmdMessenger = new CmdMessenger(mockTransport.Object)
+            };
+
+            module.CmdMessenger.Connect();
+
+            var commandId = (byte)MobiFlightModule.Command.SetShiftRegisterPins;
+
+            var outputPins = "0|6|14";
+            var outputPinsOff = "0|6|14";
+
+            var value = "1";
+            var valueOff = "0";
+            // the second shifter comes first
+            var firstByteValue = "64";
+            var firstByteValueOff = "64";
+
+            // and the first last
+            var secondByteValue = "65";
+            var secondByteValueOff = "65";
+
+            // Act
+            module.Display(outputPins, value);
+            module.Display(outputPinsOff, valueOff);
+
+            // We have to wait for the aggregation window to complete
+            await WaitForAggregationWindow(200);
+
+            // Assert
+            var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
+            var DataExpectedOff = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{valueOff},{firstByteValueOff},{secondByteValueOff};";
+
+            mockTransport.Verify(t => t.Write(It.Is<byte[]>(b => System.Text.Encoding.ASCII.GetString(b) == DataExpected)), Times.Never, "The on write should never occur.");
+            mockTransport.Verify(t => t.Write(It.Is<byte[]>(b => System.Text.Encoding.ASCII.GetString(b) == DataExpectedOff)), Times.Once, "The off write should occur once.");
+        }
+
+        private async Task WaitForAggregationWindow(int timeout = 100)
         {
             await Task.Delay(timeout);
         }
