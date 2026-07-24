@@ -50,7 +50,7 @@ namespace MobiFlight
             AggregationTimer.Elapsed += ProcessAggregatedPins;
         }
 
-        private void ProcessAggregatedPins(object sender, ElapsedEventArgs e)
+        protected void ProcessAggregatedPins(object sender, ElapsedEventArgs e)
         {
             if (AggregationSet.Count == 0) return;
 

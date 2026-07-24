@@ -10,6 +10,19 @@ namespace MobiFlight.Tests
     [TestClass()]
     public class BinaryMobiFlightShiftRegisterTests
     {
+        class TestableMobiFlightShiftRegister : BinaryMobiFlightShiftRegister
+        {
+            public void TriggerAggregationInsteadOfTimer()
+            {
+                // Stop the timer to prevent it from firing
+                AggregationTimer.Stop();
+
+                // Manually call the aggregation processing method
+                // this is deterministic for testing in CI pipeline
+                ProcessAggregatedPins(null, null);
+            }
+        }
+
         [TestMethod()]
         public void BinaryMobiFlightShiftRegister_HasCorrectDefaults()
         {
@@ -156,7 +169,7 @@ namespace MobiFlight.Tests
             var mockTransport = new Mock<ITransport>();
 
             // Arrange
-            var module = new BinaryMobiFlightShiftRegister
+            var module = new TestableMobiFlightShiftRegister
             {
                 ModuleNumber = 0,
                 NumberOfShifters = 2,
@@ -184,8 +197,8 @@ namespace MobiFlight.Tests
             module.Display(outputPins, value);
             module.Display(outputPinsOff, valueOff);
 
-            // We have to wait for the aggregation window to complete
-            await WaitForAggregationWindow(200);
+            // We have to trigger the aggregation instead of using a timer
+            module.TriggerAggregationInsteadOfTimer();
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -201,7 +214,7 @@ namespace MobiFlight.Tests
             var mockTransport = new Mock<ITransport>();
 
             // Arrange
-            var module = new BinaryMobiFlightShiftRegister
+            var module = new TestableMobiFlightShiftRegister
             {
                 ModuleNumber = 0,
                 NumberOfShifters = 2,
@@ -229,8 +242,8 @@ namespace MobiFlight.Tests
             module.Display(outputPins, value);
             module.Display(outputPinsOff, valueOff);
 
-            // We have to wait for the aggregation window to complete
-            await WaitForAggregationWindow(200);
+            // We have to trigger the aggregation instead of using a timer
+            module.TriggerAggregationInsteadOfTimer();
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
