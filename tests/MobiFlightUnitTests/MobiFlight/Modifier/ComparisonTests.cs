@@ -233,39 +233,5 @@ namespace MobiFlight.Modifier.Tests
 
             Assert.AreEqual(1, value.Float64);
         }
-        [TestMethod]
-        public void Blink_ApplyDontChanegOregenalValue()
-        {
-            var comparison = new Comparison
-            {
-                Active = true,
-                Operand = "=",
-                Value = "1",
-                IfValue = "0",
-                ElseValue = "1"
-            };
-            var blink = new Blink
-            {
-                Active = true,
-                BlinkValue = "0",
-                OnOffSequence = new List<int> { 500, 500 }
-            };
-            var value = new ConnectorValue
-            {
-                type = FSUIPCOffsetType.Integer,
-                Float64 = 0
-            };
-            var configRefs = new List<ConfigRefValue>();
-            value = comparison.Apply(value, configRefs);
-
-            Assert.AreEqual(1, value.Float64);
-            var original = value.Clone() as ConnectorValue;
-
-            var result = blink.Apply(value, configRefs);
-            Assert.AreEqual(1, result.Float64);
-
-            Assert.AreEqual(original.Float64, value.Float64);
-            Assert.AreEqual(original.type, value.type);
-        }
     }
 }

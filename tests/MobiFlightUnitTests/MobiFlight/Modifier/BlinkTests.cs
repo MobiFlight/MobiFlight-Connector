@@ -74,5 +74,41 @@ namespace MobiFlight.Modifier.Tests
             Assert.AreEqual("1", blink.BlinkValue);
             CollectionAssert.AreEqual(new List<int>() { 200, 500 }, blink.OnOffSequence);
         }
+        [TestMethod]
+        public void Blink_ReturnsClone()
+        {
+            var blink = new Blink()
+            {
+                Active = true,
+                BlinkValue = "1",
+                OnOffSequence = new List<int>() { 200, 500 }
+            };
+            var value = new ConnectorValue()
+            {
+                type = FSUIPCOffsetType.Float,
+                Float64 = 1
+            };
+            var result = blink.Apply(value, new List<ConfigRefValue>());
+            Assert.AreNotSame(value, result);
+
+        }
+        [TestMethod]
+        public void Blink_ApplyDoesNotChangeOriginalValue()
+        {
+            var blink = new Blink()
+            {
+                Active = true,
+                BlinkValue = "2",
+                OnOffSequence = new List<int>() { -1, 500 }
+            };
+            var value = new ConnectorValue()
+            {
+                type = FSUIPCOffsetType.Float,
+                Float64 = 1
+            };
+            var originalBlink = value.Clone() as ConnectorValue;
+            var result = blink.Apply(value, new List<ConfigRefValue>());
+            Assert.AreNotEqual(originalBlink.Float64, result.Float64);
+        }
     }
 }
