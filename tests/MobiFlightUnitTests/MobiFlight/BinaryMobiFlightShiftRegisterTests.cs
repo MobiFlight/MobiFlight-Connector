@@ -99,7 +99,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForCommandMessengerQueueIsProcessed(200);
+            await WaitForCommandMessengerQueueIsProcessed(100);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -127,7 +127,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForCommandMessengerQueueIsProcessed(200);
+            await WaitForCommandMessengerQueueIsProcessed(100);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -158,7 +158,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForCommandMessengerQueueIsProcessed(200);
+            await WaitForCommandMessengerQueueIsProcessed(100);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -179,13 +179,18 @@ namespace MobiFlight.Tests
             {
                 ModuleNumber = 0,
                 NumberOfShifters = 2,
-                CmdMessenger = new CmdMessenger(mockTransport.Object)
+                // CmdMessenger's send queue combines consecutive non-ack commands into a single
+                // Write() call as long as they fit within the send buffer (default 60 chars).
+                // Whether the "on" and "off" commands get combined depends on background-thread
+                // scheduling, which is racy between local runs and CI. Forcing a buffer of 1 char
+                // makes CmdMessenger flush after every single command deterministically.
+                CmdMessenger = new CmdMessenger(mockTransport.Object, 1)
             };
 
             module.CmdMessenger.Connect();
-            
+
             var commandId = (byte)MobiFlightModule.Command.SetShiftRegisterPins;
-            
+
             var outputPins = "0|6|14";
             var outputPinsOff = "1|7|15";
 
@@ -202,10 +207,9 @@ namespace MobiFlight.Tests
             // Act
             module.Display(outputPins, value);
             module.Display(outputPinsOff, valueOff);
-
             // We have to trigger the aggregation instead of using a timer
             module.TriggerAggregationInsteadOfTimer();
-            await WaitForCommandMessengerQueueIsProcessed(500);
+            await WaitForCommandMessengerQueueIsProcessed(100);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -226,7 +230,7 @@ namespace MobiFlight.Tests
             {
                 ModuleNumber = 0,
                 NumberOfShifters = 2,
-                CmdMessenger = new CmdMessenger(mockTransport.Object)
+                CmdMessenger = new CmdMessenger(mockTransport.Object),
             };
 
             module.CmdMessenger.Connect();
@@ -252,7 +256,7 @@ namespace MobiFlight.Tests
 
             // We have to trigger the aggregation instead of using a timer
             module.TriggerAggregationInsteadOfTimer();
-            await WaitForCommandMessengerQueueIsProcessed(500);
+            await WaitForCommandMessengerQueueIsProcessed(100);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
