@@ -7,5 +7,6 @@
         public const string LedModuleTypeTM1637 = "2.4.2";
         public const string CustomDevices = "2.4.2";
         public const string AccessOutputByDeviceIndex = "3.0.0";
+        public const string OutputShiftRegisterSetPinsBinary = "3.1.3";
     }
 }

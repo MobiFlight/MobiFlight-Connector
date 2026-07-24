@@ -445,7 +445,12 @@ namespace MobiFlight
                                     LogSeverity.Error);
                                 break;
                             }
-                            shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count });
+                            var shiftRegister = HasFirmwareFeature(FirmwareFeature.OutputShiftRegisterSetPinsBinary) ? new BinaryMobiFlightShiftRegister() : new MobiFlightShiftRegister();
+                            shiftRegister.CmdMessenger = _cmdMessenger;
+                            shiftRegister.Name = device.Name;
+                            shiftRegister.NumberOfShifters = submodules;
+                            shiftRegister.ModuleNumber = shiftRegisters.Count;
+                            shiftRegisters.Add(device.Name, shiftRegister);
                             break;
 
                         case DeviceType.InputShiftRegister:
@@ -554,7 +559,7 @@ namespace MobiFlight
                 {
                     result = connectedPorts2.Except(connectedPorts).Last();
                 }
-            };
+            }
 
             return result;
         }
@@ -614,7 +619,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Controller() { Serial = this.Serial, Name = this.Name },
-                    Device = new DeviceReference() {Type = DeviceType.Encoder, Name = enc, Label = enc},
+                    Device = new DeviceReference() { Type = DeviceType.Encoder, Name = enc, Label = enc },
                     InputType = DeviceType.Encoder,
                     Value = value
                 });
@@ -666,12 +671,12 @@ namespace MobiFlight
                 Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
                 return;
             }
-            
+
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs()
                 {
                     Controller = new Controller() { Serial = this.Serial, Name = Name },
-                    Device =  new DeviceReference() { Type = DeviceType.Button, Name = $"{deviceId}:{subId}", Label = $"{deviceId}:{subId}" },
+                    Device = new DeviceReference() { Type = DeviceType.Button, Name = $"{deviceId}:{subId}", Label = $"{deviceId}:{subId}" },
                     InputType = DeviceType.Button,
                     Value = state
                 });
@@ -709,7 +714,7 @@ namespace MobiFlight
                 Log.Instance.log($"Unable to convert {strValue} to an integer.", LogSeverity.Error);
                 return;
             }
-            
+
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Controller = new Controller() { Serial = this.Serial, Name = Name },
@@ -863,6 +868,7 @@ namespace MobiFlight
             lastValue[key] = cachedValue;
 
             shiftRegisters[moduleID].Display(outputPin, value);
+
             return true;
         }
 
@@ -1330,7 +1336,7 @@ namespace MobiFlight
                 // and will not be able to process them all
                 // which can lead to random behavior on the arduino side
                 // see #3117
-                Thread.Sleep(StopDelayInMs); 
+                Thread.Sleep(StopDelayInMs);
                 device.Stop();
             });
         }
