@@ -9,6 +9,7 @@ namespace MobiFlight
 {
     public class MobiFlightShiftRegister : IConnectedDevice
     {
+        private object _lock = new object();
         public const int DEFAULT_AGGREGATION_WINDOW_IN_MS = 50;
         public const string TYPE = "ShiftRegister";
         public const string LABEL_PREFIX = "Output";
@@ -53,10 +54,14 @@ namespace MobiFlight
         {
             if (AggregationSet.Count == 0) return;
 
-            var onKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "1").ToList();
-            var offKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "0").ToList();
-
-            AggregationSet.Clear();
+            List<string> onKeys;
+            List<string> offKeys;
+            lock (_lock)
+            {
+                onKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "1").ToList();
+                offKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "0").ToList();
+                AggregationSet.Clear();
+            }
 
             if (onKeys.Count > 0)
             {
@@ -92,15 +97,16 @@ namespace MobiFlight
                                  .Split('|')
                                  .Select(p => p.Trim())
                                  .ToList();
-
-            pins.ForEach(p =>
+            lock (_lock)
             {
-                AggregationSet.AddOrUpdate(p, v, (key, oldValue) => v);
-            });
+                pins.ForEach(p =>
+                {
+                    AggregationSet.AddOrUpdate(p, v, (key, oldValue) => v);
+                });
 
-            if (AggregationTimer.Enabled) return;
-
-            AggregationTimer.Start();
+                if (AggregationTimer.Enabled) return;
+                AggregationTimer.Start();
+            }
         }
 
         public virtual void InternalDisplay(String outputPins, String value)
