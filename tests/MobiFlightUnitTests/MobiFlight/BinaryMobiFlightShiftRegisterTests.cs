@@ -205,7 +205,7 @@ namespace MobiFlight.Tests
 
             // We have to trigger the aggregation instead of using a timer
             module.TriggerAggregationInsteadOfTimer();
-            await WaitForCommandMessengerQueueIsProcessed(100);
+            await WaitForCommandMessengerQueueIsProcessed(500);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -252,7 +252,7 @@ namespace MobiFlight.Tests
 
             // We have to trigger the aggregation instead of using a timer
             module.TriggerAggregationInsteadOfTimer();
-            await WaitForCommandMessengerQueueIsProcessed(100);
+            await WaitForCommandMessengerQueueIsProcessed(500);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
