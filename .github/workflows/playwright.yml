@@ -2,6 +2,9 @@ name: Playwright Tests
 on:
   pull_request:
     branches: [ main, hotfix/* ]
+    paths:
+      # Trigger only when files in frontend folder change
+      - "src/MobiFlightConnector/frontend/**"
   workflow_dispatch:
 jobs:
   test:
