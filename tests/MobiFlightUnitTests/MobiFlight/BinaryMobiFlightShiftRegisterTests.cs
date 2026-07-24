@@ -3,6 +3,8 @@ using CommandMessenger.Transport;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlightUnitTests.mock.CommandMessenger;
 using Moq;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MobiFlight.Tests
@@ -97,7 +99,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForAggregationWindow(200);
+            await WaitForCommandMessengerQueueIsProcessed(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -125,7 +127,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForAggregationWindow(200);
+            await WaitForCommandMessengerQueueIsProcessed(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -156,7 +158,7 @@ namespace MobiFlight.Tests
 
             // Act
             module.Display(outputPins, value);
-            await WaitForAggregationWindow(200);
+            await WaitForCommandMessengerQueueIsProcessed(200);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -166,7 +168,11 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public async Task SetDisplay_Aggregation_WorksCorrectly_ForMultiplePins()
         {
+            var writes = new List<string>();
             var mockTransport = new Mock<ITransport>();
+            mockTransport
+            .Setup(t => t.Write(It.IsAny<byte[]>()))
+            .Callback<byte[]>(b => writes.Add(Encoding.ASCII.GetString(b)));
 
             // Arrange
             var module = new TestableMobiFlightShiftRegister
@@ -199,13 +205,15 @@ namespace MobiFlight.Tests
 
             // We have to trigger the aggregation instead of using a timer
             module.TriggerAggregationInsteadOfTimer();
+            await WaitForCommandMessengerQueueIsProcessed(100);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
             var DataExpectedOff = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{valueOff},{firstByteValueOff},{secondByteValueOff};";
 
-            mockTransport.Verify(t => t.Write(It.Is<byte[]>(b => System.Text.Encoding.ASCII.GetString(b) == DataExpected)), Times.Once, "The on write should occur once.");
-            mockTransport.Verify(t => t.Write(It.Is<byte[]>(b => System.Text.Encoding.ASCII.GetString(b) == DataExpectedOff)), Times.Once, "The off write should occur once.");
+            Assert.HasCount(2, writes, "There should be two writes.");
+            Assert.AreEqual(writes[0], DataExpected, "The on write should occur once.");
+            Assert.AreEqual(writes[1], DataExpectedOff, "The off write should occur once.");
         }
 
         [TestMethod()]
@@ -244,6 +252,7 @@ namespace MobiFlight.Tests
 
             // We have to trigger the aggregation instead of using a timer
             module.TriggerAggregationInsteadOfTimer();
+            await WaitForCommandMessengerQueueIsProcessed(100);
 
             // Assert
             var DataExpected = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{value},{firstByteValue},{secondByteValue};";
@@ -253,7 +262,7 @@ namespace MobiFlight.Tests
             mockTransport.Verify(t => t.Write(It.Is<byte[]>(b => System.Text.Encoding.ASCII.GetString(b) == DataExpectedOff)), Times.Once, "The off write should occur once.");
         }
 
-        private async Task WaitForAggregationWindow(int timeout = 100)
+        private async Task WaitForCommandMessengerQueueIsProcessed(int timeout = 100)
         {
             await Task.Delay(timeout);
         }
