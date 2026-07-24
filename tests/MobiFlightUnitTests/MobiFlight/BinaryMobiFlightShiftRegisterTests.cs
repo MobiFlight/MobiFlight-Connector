@@ -12,7 +12,7 @@ namespace MobiFlight.Tests
     [TestClass()]
     public class BinaryMobiFlightShiftRegisterTests
     {
-        class TestableMobiFlightShiftRegister : BinaryMobiFlightShiftRegister
+        internal class TestableMobiFlightShiftRegister : BinaryMobiFlightShiftRegister
         {
             public void TriggerAggregationInsteadOfTimer()
             {
@@ -83,7 +83,8 @@ namespace MobiFlight.Tests
         public async Task SetDisplay_SendsCorrectCommand_WithAllPinsSet()
         {
             // Arrange
-            var module = new BinaryMobiFlightShiftRegister() {
+            var module = new BinaryMobiFlightShiftRegister()
+            {
                 ModuleNumber = 0,
                 NumberOfShifters = 2
             };
@@ -216,8 +217,8 @@ namespace MobiFlight.Tests
             var DataExpectedOff = $"{commandId},{module.ModuleNumber},{module.NumberOfShifters},{valueOff},{firstByteValueOff},{secondByteValueOff};";
 
             Assert.HasCount(2, writes, "There should be two writes.");
-            Assert.AreEqual(writes[0], DataExpected, "The on write should occur once.");
-            Assert.AreEqual(writes[1], DataExpectedOff, "The off write should occur once.");
+            Assert.AreEqual(DataExpected, writes[0], "The on write should occur once.");
+            Assert.AreEqual(DataExpectedOff, writes[1], "The off write should occur once.");
         }
 
         [TestMethod()]

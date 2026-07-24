@@ -9,7 +9,7 @@ namespace MobiFlight
 {
     public class MobiFlightShiftRegister : IConnectedDevice
     {
-        private object _lock = new object();
+        private readonly object _lock = new object();
         public const int DEFAULT_AGGREGATION_WINDOW_IN_MS = 50;
         public const string TYPE = "ShiftRegister";
         public const string LABEL_PREFIX = "Output";
@@ -41,7 +41,7 @@ namespace MobiFlight
 
         public Timer AggregationTimer { get; set; } = new Timer();
 
-        ConcurrentDictionary<string, string> AggregationSet = new ConcurrentDictionary<string, string>();
+        Dictionary<string, string> AggregationSet = new Dictionary<string, string>();
 
         public MobiFlightShiftRegister()
         {
@@ -52,12 +52,13 @@ namespace MobiFlight
 
         protected void ProcessAggregatedPins(object sender, ElapsedEventArgs e)
         {
-            if (AggregationSet.Count == 0) return;
-
             List<string> onKeys;
             List<string> offKeys;
+
             lock (_lock)
             {
+                if (AggregationSet.Count == 0) return;
+
                 onKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "1").ToList();
                 offKeys = AggregationSet.Keys.Where(k => AggregationSet[k] == "0").ToList();
                 AggregationSet.Clear();
@@ -101,7 +102,7 @@ namespace MobiFlight
             {
                 pins.ForEach(p =>
                 {
-                    AggregationSet.AddOrUpdate(p, v, (key, oldValue) => v);
+                    AggregationSet[p] = v;
                 });
 
                 if (AggregationTimer.Enabled) return;
@@ -126,6 +127,8 @@ namespace MobiFlight
 
         public void Stop()
         {
+            if (NumberOfShifters == 0) return;
+
             List<String> pins = new List<string>();
             for (int i = 0; i != NumberOfShifters * 8; i++)
                 pins.Add(i.ToString());
