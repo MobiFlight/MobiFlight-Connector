@@ -65,7 +65,7 @@ runs:
       shell: pwsh
       run: >
         dotnet build
-        "${{ inputs.project_file }}"
+        "$env:RESTORE_PATH"
         -c "${{ inputs.build_configuration }}"
 
     - name: dotnet test
@@ -74,7 +74,8 @@ runs:
       run: >
         dotnet test
         "${{ inputs.test_projects }}"
-        -c "${{ inputs.build_configuration }}
+        -c "${{ inputs.build_configuration }}"
+        --no-build
 
     - name: dotnet publish
       if: ${{ inputs.use_msbuild != 'true' && inputs.publish_path != '' }}
@@ -94,7 +95,7 @@ runs:
     - name: Restore NuGet packages
       if: ${{ inputs.use_msbuild == 'true' }}
       shell: pwsh
-      run: msbuild /t:restore ${{inputs.project_file}}
+      run: msbuild /t:restore "$env:RESTORE_PATH"
 
     - name: Publish
       if: ${{ inputs.use_msbuild == 'true' }}

@@ -9,6 +9,7 @@ on:
 
 env:
   SOLUTION_FILE_PATH: MobiFlightConnector.sln
+  INSTALLER_SOLUTION_FILE_PATH: MobiFlightInstaller.sln
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x86
   VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number) }}
@@ -48,11 +49,10 @@ jobs:
       - name: Build and publish installer
         uses: ./.github/actions/build
         with:
-          solution_file: ${{ env.SOLUTION_FILE_PATH }}
+          solution_file: ${{ env.INSTALLER_SOLUTION_FILE_PATH }}
           project_file: src/MobiFlight-Installer/MobiFlightInstaller.csproj
           build_configuration: Release
           build_platform: ${{ env.BUILD_PLATFORM }}
-          test_projects: ${{ env.SOLUTION_FILE_PATH }}
           publish_path: dist/MobiFlightInstaller
           use_msbuild: true
 
