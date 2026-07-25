@@ -24,7 +24,7 @@ inputs:
   build_platform:
     description: The build platform
     required: false
-    default: "Any CPU"
+    default: "AnyCPU"
 
   publish_path:
     description: The output publish path
