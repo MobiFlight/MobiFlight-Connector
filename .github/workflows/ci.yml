@@ -13,6 +13,7 @@ env:
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x86
   VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number) }}
+  INSTALLER_OUTPUT: dist/MobiFlightInstaller
 
 jobs:
   build:
@@ -52,11 +53,12 @@ jobs:
           solution_file: ${{ env.INSTALLER_SOLUTION_FILE_PATH }}
           project_file: src/MobiFlight-Installer/MobiFlightInstaller.csproj
           build_configuration: Release
-          publish_path: dist/MobiFlightInstaller
+          publish_path: ${{ env.INSTALLER_OUTPUT }}
           use_msbuild: true
 
       - name: package
         run: |
+          Copy-Item -Path "${{ env.INSTALLER_OUTPUT }}/MobiFlight-Installer.exe" -Destination "dist/MobiFlightConnector-${{ env.VERSION }}"
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ../MobiFlightConnector-${{ env.VERSION }}.zip * -r
 
       - name: store latest setup file
