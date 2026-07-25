@@ -65,9 +65,8 @@ runs:
       shell: pwsh
       run: >
         dotnet build
-        "$env:RESTORE_PATH"
+        "${{ inputs.project_file }}"
         -c "${{ inputs.build_configuration }}"
-        --no-restore
 
     - name: dotnet test
       if: ${{ inputs.use_msbuild != 'true' && inputs.test_projects != '' }}
@@ -75,8 +74,7 @@ runs:
       run: >
         dotnet test
         "${{ inputs.test_projects }}"
-        -c "${{ inputs.build_configuration }}"
-        --no-build
+        -c "${{ inputs.build_configuration }}
 
     - name: dotnet publish
       if: ${{ inputs.use_msbuild != 'true' && inputs.publish_path != '' }}
@@ -85,9 +83,9 @@ runs:
         dotnet publish
         "${{ inputs.project_file }}"
         -c "${{ inputs.build_configuration }}"
-        --no-build
         -p:Version="${{ inputs.publish_version }}"
         -o "${{ inputs.publish_path }}"
+        --self-contained
 
     - name: Setup MSBuild
       if: ${{ inputs.use_msbuild == 'true' }}
