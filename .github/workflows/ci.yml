@@ -36,7 +36,7 @@ jobs:
       - name: Create artifacts
         run: mkdir dist
 
-      - name: Build and publish backend
+      - name: Build and publish connector
         uses: ./.github/actions/build
         with:
           solution_file: ${{ env.SOLUTION_FILE_PATH }}
@@ -44,7 +44,7 @@ jobs:
           build_configuration: Release
           build_platform: ${{ env.BUILD_PLATFORM }}
           test_projects: ${{ env.SOLUTION_FILE_PATH }}
-          publish_path: dist/MobiFlightConnector-${{ env.VERSION }}
+          publish_path: ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}
           publish_version: ${{ env.VERSION }}
 
       - name: Build and publish installer
@@ -53,12 +53,12 @@ jobs:
           solution_file: ${{ env.INSTALLER_SOLUTION_FILE_PATH }}
           project_file: src/MobiFlight-Installer/MobiFlightInstaller.csproj
           build_configuration: Release
-          publish_path: ${{ env.INSTALLER_OUTPUT }}
+          publish_path: ${{ github.workspace }}/${{ env.INSTALLER_OUTPUT }}
           use_msbuild: true
 
       - name: package
         run: |
-          Copy-Item -Path "${{ env.INSTALLER_OUTPUT }}/MobiFlight-Installer.exe" -Destination "dist/MobiFlightConnector-${{ env.VERSION }}"
+          Copy-Item -Path "${{ github.workspace }}/${{ env.INSTALLER_OUTPUT }}/MobiFlight-Installer.exe" -Destination "${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}"
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ../MobiFlightConnector-${{ env.VERSION }}.zip * -r
 
       - name: store latest setup file
