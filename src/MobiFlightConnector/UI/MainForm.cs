@@ -127,7 +127,6 @@ namespace MobiFlight.UI
         private void InitializeLogging()
         {
             Log.Instance.AddAppender(logAppenderFile);
-<<<<<<< HEAD
             Log.Instance.AddAppender(frontendAppender);
 
             ApplyLogSettings(Properties.Settings.Default);
@@ -154,20 +153,6 @@ namespace MobiFlight.UI
                 Log.Instance.Severity = LogSeverity.Info;
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
-=======
-            Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
-            Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
-
-            Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
-            Log.Instance.Severity = Enum.TryParse<LogSeverity>(Properties.Settings.Default.LogLevel, true, out var logLevel)
-                ? logLevel
-                : LogSeverity.Info;
-
-            logPanel1.Visible = Log.Instance.Enabled;
-            logSplitter.Visible = Log.Instance.Enabled;
-            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
-            Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
->>>>>>> 73f72ad0 (Force debug logging for testing purposes)
         }
 
         private static void SetCurrentWorkingDirectory()
@@ -290,7 +275,7 @@ namespace MobiFlight.UI
                     Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
                     return;
                 }
-                ProcessHelpers.OpenUrl(message.Url);
+                Process.Start(message.Url);
             });
 
             MessageExchange.Instance.Subscribe<CommandControllerBindingsUpdate>((message) =>
@@ -806,7 +791,7 @@ namespace MobiFlight.UI
             wd.WebsiteUrl = $"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}";
             wd.ReleaseNotesClicked += (sender, e) =>
             {
-                ProcessHelpers.OpenUrl($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
+                Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
             };
 
             wd.StartPosition = FormStartPosition.CenterParent;
@@ -2511,12 +2496,12 @@ namespace MobiFlight.UI
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProcessHelpers.OpenUrl(i18n._tr("WebsiteUrlHelp"));
+            Process.Start(i18n._tr("WebsiteUrlHelp"));
         }
 
         public void donateToolStripButton_Click(object sender, EventArgs e)
         {
-            ProcessHelpers.OpenUrl("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
         }
 
         /// <summary>
@@ -2702,23 +2687,23 @@ namespace MobiFlight.UI
 
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
             Task.Run(async () =>
+            {
+                if (!updater.AutoDetectCommunityFolder())
                 {
-                    if (!updater.AutoDetectCommunityFolder())
-                    {
-                        Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
-                        return;
-                    }
-
-                    if (await updater.InstallWasmEvents())
-                    {
-                        progressForm.DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        progressForm.DialogResult = DialogResult.No;
-                        Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
-                    }
+                    Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
+                    return;
                 }
+
+                if (await updater.InstallWasmEvents())
+                {
+                    progressForm.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    progressForm.DialogResult = DialogResult.No;
+                    Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
+                }
+            }
             );
 
             if (progressForm.ShowDialog() == DialogResult.OK)
@@ -2786,7 +2771,7 @@ namespace MobiFlight.UI
 
         public void openDiscordServer_Click(object sender, EventArgs e)
         {
-            ProcessHelpers.OpenUrl("https://discord.gg/U28QeEJpBV");
+            Process.Start("https://discord.gg/U28QeEJpBV");
         }
 
         private void StatusBarToolStripButton_Click(object sender, EventArgs e)
@@ -2796,17 +2781,17 @@ namespace MobiFlight.UI
 
         public void YouTubeToolStripButton_Click(object sender, EventArgs e)
         {
-            ProcessHelpers.OpenUrl("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
+            Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
         }
 
         public void HubHopToolStripButton_Click(object sender, EventArgs e)
         {
-            ProcessHelpers.OpenUrl("https://hubhop.mobiflight.com/");
+            Process.Start("https://hubhop.mobiflight.com/");
         }
 
         public void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProcessHelpers.OpenUrl($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
+            Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
         }
 
         public static bool ContainsConfigOfSourceType(List<IConfigItem> configItems, Source type)
