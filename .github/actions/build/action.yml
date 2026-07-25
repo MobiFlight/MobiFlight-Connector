@@ -24,7 +24,7 @@ inputs:
   build_platform:
     description: The build platform
     required: false
-    default: x86
+    default: "Any CPU"
 
   publish_path:
     description: The output publish path
@@ -100,4 +100,4 @@ runs:
     - name: Publish
       if: ${{ inputs.use_msbuild == 'true' }}
       shell: pwsh
-      run: msbuild /m /p:Configuration=${{inputs.build_configuration}} /p:Platform=${{inputs.build_platform}} ${{inputs.project_file}} /t:publish /p:OutDir='${{inputs.publish_path}}'
+      run: msbuild /m /p:Configuration=${{inputs.build_configuration}} /p:Platform="${{inputs.build_platform}}" ${{inputs.project_file}} /t:publish /p:OutDir='${{inputs.publish_path}}'

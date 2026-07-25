@@ -52,7 +52,6 @@ jobs:
           solution_file: ${{ env.INSTALLER_SOLUTION_FILE_PATH }}
           project_file: src/MobiFlight-Installer/MobiFlightInstaller.csproj
           build_configuration: Release
-          build_platform: ${{ env.BUILD_PLATFORM }}
           publish_path: dist/MobiFlightInstaller
           use_msbuild: true
 
