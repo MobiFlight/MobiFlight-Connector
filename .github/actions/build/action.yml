@@ -21,6 +21,11 @@ inputs:
     required: false
     default: Release
 
+  build_platform:
+    description: The build platform
+    required: false
+    default: x86
+
   publish_path:
     description: The output publish path
     required: false
@@ -83,3 +88,15 @@ runs:
         --no-build
         -p:Version="${{ inputs.publish_version }}"
         -o "${{ inputs.publish_path }}"
+
+    - name: Setup MSBuild
+      if: ${{ inputs.use_msbuild == 'true' }}
+      uses: microsoft/setup-msbuild@v3.0.0
+
+    - name: Restore NuGet packages
+      if: ${{ inputs.use_msbuild == 'true' }}
+      run: msbuild /t:restore ${{inputs.project_file}}
+
+    - name: Publish
+      if: ${{ inputs.use_msbuild == 'true' }}
+      run: msbuild /m /p:Configuration=${{inputs.build_configuration}} /p:Platform=${{inputs.build_platform}} ${{inputs.project_file}} /t:publish /p:OutDir='${{inputs.publish_path}}'

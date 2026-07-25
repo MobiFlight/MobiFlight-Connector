@@ -21,14 +21,13 @@ namespace MobiFlightInstaller
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
 
-            LogAppenderFile logAppenderFile = new LogAppenderFile(false);
-            Log.Instance.AddAppender(logAppenderFile);
-            Log.Instance.Enabled = true;
-            Log.Instance.Severity = LogSeverity.Debug;
-
             if (MobiFlightUpdaterModel.VerifyCurrentFolderRight())
             {
                 MobiFlightUpdaterModel.DeleteLogFileIfIsTooBig();
+                LogAppenderFile logAppenderFile = new LogAppenderFile(false);
+                Log.Instance.AddAppender(logAppenderFile);
+                Log.Instance.Enabled = true;
+                Log.Instance.Severity = LogSeverity.Debug;
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Log.Instance.log("Installer start", LogSeverity.Debug);
@@ -50,7 +49,7 @@ namespace MobiFlightInstaller
                     if (cmdParams.Install != null)
                     {
                         Log.Instance.log("ManualUpgradeFromCommandLine START from args -> " + cmdParams.Install, LogSeverity.Debug);
-                        Application.Run(new UI.UpdaterMainForm(cmdParams.CheckBeta));
+                        Application.Run(new UI.UpdaterMainForm());
                     }
                     else if (cmdParams.Check || cmdParams.CheckBeta)
                     {

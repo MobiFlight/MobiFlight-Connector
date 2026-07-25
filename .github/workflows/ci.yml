@@ -40,10 +40,22 @@ jobs:
           solution_file: ${{ env.SOLUTION_FILE_PATH }}
           project_file: src/MobiFlightConnector/MobiFlightConnector.csproj
           build_configuration: Release
+          build_platform: ${{ env.BUILD_PLATFORM }}
           test_projects: ${{ env.SOLUTION_FILE_PATH }}
           publish_path: dist/MobiFlightConnector-${{ env.VERSION }}
           publish_version: ${{ env.VERSION }}
-          
+
+      - name: Build and publish installer
+        uses: ./.github/actions/build
+        with:
+          solution_file: ${{ env.SOLUTION_FILE_PATH }}
+          project_file: src/MobiFlight-Installer/MobiFlightInstaller.csproj
+          build_configuration: Release
+          build_platform: ${{ env.BUILD_PLATFORM }}
+          test_projects: ${{ env.SOLUTION_FILE_PATH }}
+          publish_path: dist/MobiFlightInstaller
+          use_msbuild: true
+
       - name: package
         run: |
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ../MobiFlightConnector-${{ env.VERSION }}.zip * -r
