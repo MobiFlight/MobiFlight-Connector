@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Modifier;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -80,6 +78,7 @@ namespace MobiFlight.Modifier.Tests
         public async Task Blink_Apply()
         {
             //Test if blink is (On)
+
             var blinkOn = new Blink
             {
                 Active = true,
@@ -111,7 +110,9 @@ namespace MobiFlight.Modifier.Tests
 
             valueOff = blinkOff.Apply(valueOff, new List<ConfigRefValue>());
             Assert.AreEqual(0, valueOff.Float64);
+
             //Test string input
+
             var blinkString = new Blink
             {
                 Active = true,
@@ -123,6 +124,7 @@ namespace MobiFlight.Modifier.Tests
                 type = FSUIPCOffsetType.String,
                 String = "0"
             };
+
             valueString = blinkString.Apply(valueString, new List<ConfigRefValue>());
             Assert.AreEqual("1", valueString.String);
 
@@ -134,16 +136,33 @@ namespace MobiFlight.Modifier.Tests
                 BlinkValue = "ABC",
                 OnOffSequence = new List<int> { -1, 500 }
             };
-
             var valueInvalid = new ConnectorValue
             {
                 type = FSUIPCOffsetType.Integer,
                 Float64 = 0
             };
-            valueInvalid = blinkInvalid.Apply(valueInvalid, new List<ConfigRefValue>());
 
+            valueInvalid = blinkInvalid.Apply(valueInvalid, new List<ConfigRefValue>());
             Assert.AreEqual(FSUIPCOffsetType.String, valueInvalid.type);
             Assert.AreEqual("ABC", valueInvalid.String);
+
+            //Test if Active = false
+
+            var blinkActive = new Blink
+            {
+                Active = false,
+                BlinkValue = "1",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+            var valueActive = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 0
+            };
+
+            valueActive = blinkActive.Apply(valueActive, new List<ConfigRefValue>());
+            Assert.AreEqual(0, valueActive.Float64);
+            Assert.AreEqual(FSUIPCOffsetType.Integer, valueActive.type);
         }
         [TestMethod]
         public void Blink_ReturnsClone()
