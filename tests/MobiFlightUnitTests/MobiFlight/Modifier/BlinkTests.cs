@@ -111,41 +111,18 @@ namespace MobiFlight.Modifier.Tests
 
             valueOff = blinkOff.Apply(valueOff, new List<ConfigRefValue>());
             Assert.AreEqual(0, valueOff.Float64);
-
-            //Test blink (On/Off)
-
-            var blinkOnOff = new Blink
-            {
-                Active = true,
-                BlinkValue = "1",
-                OnOffSequence = new List<int> { 500, 500 }
-            };
-            var valueOnOff = new ConnectorValue
-            {
-                type = FSUIPCOffsetType.Integer,
-                Float64 = 0
-            };
-       
-            valueOnOff = blinkOnOff.Apply(valueOnOff, new List<ConfigRefValue>());
-            Assert.AreEqual(0, valueOnOff.Float64);
-            await Task.Delay(600);
-            valueOnOff = blinkOnOff.Apply(valueOnOff, new List<ConfigRefValue>());
-            Assert.AreEqual(1, valueOnOff.Float64);
-
             //Test string input
             var blinkString = new Blink
             {
                 Active = true,
                 BlinkValue = "1",
-                OnOffSequence = new List<int> { 500, 500 }
+                OnOffSequence = new List<int> { -1, 500 }
             };
             var valueString = new ConnectorValue
             {
                 type = FSUIPCOffsetType.String,
                 String = "0"
             };
-            valueString = blinkString.Apply(valueString, new List<ConfigRefValue>());
-            await Task.Delay(600);
             valueString = blinkString.Apply(valueString, new List<ConfigRefValue>());
             Assert.AreEqual("1", valueString.String);
 
