@@ -1,6 +1,8 @@
-﻿using MobiFlight.Modifier;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Modifier;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Modifier.Tests
 {
@@ -73,6 +75,101 @@ namespace MobiFlight.Modifier.Tests
             Assert.IsTrue(blink.Active);
             Assert.AreEqual("1", blink.BlinkValue);
             CollectionAssert.AreEqual(new List<int>() { 200, 500 }, blink.OnOffSequence);
+        }
+        [TestMethod]
+        public async Task Blink_Apply()
+        {
+            //Test if blink is (On)
+            var blinkOn = new Blink
+            {
+                Active = true,
+                BlinkValue = "0",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+            var valueOn = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 1
+            };
+
+            valueOn = blinkOn.Apply(valueOn, new List<ConfigRefValue>());
+            Assert.AreEqual(1, valueOn.Float64);
+
+            //Test if Blink is (Off)
+
+            var blinkOff = new Blink
+            {
+                Active = true,
+                BlinkValue = "1",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+            var valueOff = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 0
+            };
+
+            valueOff = blinkOff.Apply(valueOff, new List<ConfigRefValue>());
+            Assert.AreEqual(0, valueOff.Float64);
+
+            //Test blink (On/Off)
+
+            var blinkOnOff = new Blink
+            {
+                Active = true,
+                BlinkValue = "1",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+            var valueOnOff = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 0
+            };
+       
+            valueOnOff = blinkOnOff.Apply(valueOnOff, new List<ConfigRefValue>());
+            Assert.AreEqual(0, valueOnOff.Float64);
+            await Task.Delay(600);
+            valueOnOff = blinkOnOff.Apply(valueOnOff, new List<ConfigRefValue>());
+            Assert.AreEqual(1, valueOnOff.Float64);
+
+            //Test string input
+            var blinkString = new Blink
+            {
+                Active = true,
+                BlinkValue = "1",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+            var valueString = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.String,
+                String = "0"
+            };
+            valueString = blinkString.Apply(valueString, new List<ConfigRefValue>());
+            await Task.Delay(600);
+            valueString = blinkString.Apply(valueString, new List<ConfigRefValue>());
+            Assert.AreEqual("1", valueString.String);
+
+            // Test invalid BlinkValue (Double.TryParse returns false)
+
+            var blinkInvalid = new Blink
+            {
+                Active = true,
+                BlinkValue = "ABC",
+                OnOffSequence = new List<int> { 500, 500 }
+            };
+
+            var valueInvalid = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 0
+            };
+
+            valueInvalid = blinkInvalid.Apply(valueInvalid, new List<ConfigRefValue>());
+            await Task.Delay(600);
+            valueInvalid = blinkInvalid.Apply(valueInvalid, new List<ConfigRefValue>());
+
+            Assert.AreEqual(FSUIPCOffsetType.String, valueInvalid.type);
+            Assert.AreEqual("ABC", valueInvalid.String);
         }
         [TestMethod]
         public void Blink_ReturnsClone()
