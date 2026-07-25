@@ -34,14 +34,23 @@ on:
         required: false
         type: string
 
+      use_msbuild:
+        description: Whether or not this is a .NET Framework project that should use MSBuild
+        required: false
+        type: boolean
+        default: false
+
 jobs:
   build:
+    if: ${{ !inputs.use_msbuild }}
     runs-on: windows-latest
 
     env:
       RESTORE_PATH: ${{ inputs.solution_file != '' && inputs.solution_file || inputs.project_files }}
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: dotnet restore
         run: dotnet restore
 
