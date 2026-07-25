@@ -93,11 +93,7 @@ namespace MobiFlight.Modifier
                     case FSUIPCOffsetType.Float:
                     case FSUIPCOffsetType.Integer:
                         string tmpValue = BlinkValue;
-                        if (Double.TryParse(tmpValue, out double blinkValue))
-                        {
-                            result.Float64 = blinkValue;
-                        }
-                        else
+                        if (!Double.TryParse(tmpValue, out result.Float64))
                         {
                             // Expression has now made this a string
                             result.type = FSUIPCOffsetType.String;
