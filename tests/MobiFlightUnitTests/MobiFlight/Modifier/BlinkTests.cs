@@ -155,7 +155,7 @@ namespace MobiFlight.Modifier.Tests
             {
                 Active = true,
                 BlinkValue = "ABC",
-                OnOffSequence = new List<int> { 500, 500 }
+                OnOffSequence = new List<int> { -1, 500 }
             };
 
             var valueInvalid = new ConnectorValue
@@ -163,9 +163,6 @@ namespace MobiFlight.Modifier.Tests
                 type = FSUIPCOffsetType.Integer,
                 Float64 = 0
             };
-
-            valueInvalid = blinkInvalid.Apply(valueInvalid, new List<ConfigRefValue>());
-            await Task.Delay(600);
             valueInvalid = blinkInvalid.Apply(valueInvalid, new List<ConfigRefValue>());
 
             Assert.AreEqual(FSUIPCOffsetType.String, valueInvalid.type);
