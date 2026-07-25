@@ -18,27 +18,27 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v5
+      - uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: "10.x"
+          dotnet-version: 10.x
           architecture: "${{ env.BUILD_PLATFORM }}"
 
       - name: Build frontend
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd src/MobiFlightConnector/frontend; npm install; npm run build
+        run: |
+          cd src/MobiFlightConnector/frontend
+          npm install
+          npm run build
 
       - name: Create artifacts
-        run: |
-          mkdir dist
+        run: mkdir dist
 
-      - name: Build and Publish MobiFlight
-        uses: ./.github/workflows/build-project.yml
+      - name: Build and publish backend
+        uses: ./.github/actions/build
         with:
-          project_file: src/MobiFlightConnector/MobiFlightConnector.csproj
           solution_file: ${{ env.SOLUTION_FILE_PATH }}
+          project_file: src/MobiFlightConnector/MobiFlightConnector.csproj
           build_configuration: Release
           test_projects: ${{ env.SOLUTION_FILE_PATH }}
           publish_path: dist/MobiFlightConnector-${{ env.VERSION }}

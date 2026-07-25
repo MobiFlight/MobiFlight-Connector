@@ -1,0 +1,85 @@
+name: Build
+description: Restores, builds, tests and optionally publishes a .NET project
+
+inputs:
+  solution_file:
+    description: The solution to build/restore
+    required: false
+    default: ""
+
+  project_file:
+    description: The project to build
+    required: true
+
+  test_projects:
+    description: The test projects
+    required: false
+    default: ""
+
+  build_configuration:
+    description: The build configuration
+    required: false
+    default: Release
+
+  publish_path:
+    description: The output publish path
+    required: false
+    default: ""
+
+  publish_version:
+    description: The version for publishing
+    required: false
+    default: ""
+
+  use_msbuild:
+    description: Whether to use MSBuild instead of dotnet
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+
+  steps:
+    - name: Determine restore path
+      shell: pwsh
+      run: |
+        if ("${{ inputs.solution_file }}" -ne "") {
+            "RESTORE_PATH=${{ inputs.solution_file }}" >> $env:GITHUB_ENV
+        }
+        else {
+            "RESTORE_PATH=${{ inputs.project_file }}" >> $env:GITHUB_ENV
+        }
+
+    - name: dotnet restore
+      if: ${{ inputs.use_msbuild != 'true' }}
+      shell: pwsh
+      run: dotnet restore "$env:RESTORE_PATH"
+
+    - name: dotnet build
+      if: ${{ inputs.use_msbuild != 'true' }}
+      shell: pwsh
+      run: >
+        dotnet build
+        "$env:RESTORE_PATH"
+        -c "${{ inputs.build_configuration }}"
+        --no-restore
+
+    - name: dotnet test
+      if: ${{ inputs.use_msbuild != 'true' && inputs.test_projects != '' }}
+      shell: pwsh
+      run: >
+        dotnet test
+        "${{ inputs.test_projects }}"
+        -c "${{ inputs.build_configuration }}"
+        --no-build
+
+    - name: dotnet publish
+      if: ${{ inputs.use_msbuild != 'true' && inputs.publish_path != '' }}
+      shell: pwsh
+      run: >
+        dotnet publish
+        "${{ inputs.project_file }}"
+        -c "${{ inputs.build_configuration }}"
+        --no-build
+        -p:Version="${{ inputs.publish_version }}"
+        -o "${{ inputs.publish_path }}"
