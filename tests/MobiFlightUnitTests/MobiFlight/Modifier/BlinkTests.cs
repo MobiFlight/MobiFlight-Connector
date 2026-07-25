@@ -157,11 +157,11 @@ namespace MobiFlight.Modifier.Tests
             var valueActive = new ConnectorValue
             {
                 type = FSUIPCOffsetType.Integer,
-                Float64 = 0
+                Float64 = 1
             };
 
             valueActive = blinkActive.Apply(valueActive, new List<ConfigRefValue>());
-            Assert.AreEqual(0, valueActive.Float64);
+            Assert.AreEqual(1, valueActive.Float64);
             Assert.AreEqual(FSUIPCOffsetType.Integer, valueActive.type);
         }
         [TestMethod]
