@@ -95,8 +95,10 @@ runs:
 
     - name: Restore NuGet packages
       if: ${{ inputs.use_msbuild == 'true' }}
+      shell: pwsh
       run: msbuild /t:restore ${{inputs.project_file}}
 
     - name: Publish
       if: ${{ inputs.use_msbuild == 'true' }}
+      shell: pwsh
       run: msbuild /m /p:Configuration=${{inputs.build_configuration}} /p:Platform=${{inputs.build_platform}} ${{inputs.project_file}} /t:publish /p:OutDir='${{inputs.publish_path}}'
