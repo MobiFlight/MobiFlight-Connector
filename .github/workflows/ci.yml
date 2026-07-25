@@ -34,25 +34,18 @@ jobs:
         run: |
           mkdir dist
 
-      - name: dotnet restore
-        run: dotnet restore
-
-      - name: dotnet build
-        run: dotnet build -c ${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} --no-restore
-
-      - name: dotnet test
-        run: dotnet test -c ${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} --no-build
-
-      - name: publish MobiFlightBundler
-        run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlightBundler/MobiFlightBundler.csproj -o dist/MobiFlightConnector-${{ env.VERSION }} --no-build
-
-      - name: publish MobiFlightInstaller
-        run: dotnet publish -c ${{env.BUILD_CONFIGURATION}} -p:Version="${{ env.VERSION }}" src/MobiFlight-Installer/MobiFlightInstaller.csproj -o dist/MobiFlightInstaller --no-build
-
-      - name: copy installer to dist
+      - name: Build and Publish MobiFlight
+        uses: ./.github/workflows/build-project.yml
+        with:
+          project_file: src/MobiFlightConnector/MobiFlightConnector.csproj
+          solution_file: ${{ env.SOLUTION_FILE_PATH }}
+          build_configuration: Release
+          test_projects: ${{ env.SOLUTION_FILE_PATH }}
+          publish_path: dist/MobiFlightConnector-${{ env.VERSION }}
+          publish_version: ${{ env.VERSION }}
+          
+      - name: package
         run: |
-          cd dist/MobiFlightConnector-${{ env.VERSION }}
-
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ../MobiFlightConnector-${{ env.VERSION }}.zip * -r
 
       - name: store latest setup file
