@@ -148,6 +148,9 @@ namespace MobiFlightInstaller
                         }
                     }
 
+                    // Length if 0 is a directory. This can't be extracted as it's not a file
+                    if (file.Length == 0) continue;
+
                     // ignore the old update file.
                     if (file.Name == OldMobiFlightUpdaterName) continue;
 
