@@ -12,4 +12,4 @@ $env:PATH += ";$NsisPath"
 
 # Write out the version that's now on the path for confirmation of the installed version
 # in GitHub action logs.
-makensis.exe /VERSION
+& makensis.exe /VERSION
