@@ -59,7 +59,7 @@ jobs:
       - name: package
         run: |
           Copy-Item -Path "${{ github.workspace }}/${{ env.INSTALLER_OUTPUT }}/MobiFlight-Installer.exe" -Destination "${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}"
-          & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}.zip ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }} -r
+          & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}.zip ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}/* -r
 
       - name: store latest setup file
         if: github.event_name != 'release'
