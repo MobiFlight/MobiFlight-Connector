@@ -17,7 +17,7 @@ env:
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -70,10 +70,10 @@ jobs:
             dist/MobiFlightConnector-${{ env.VERSION }}.zip
 
       # Only run the following steps if this is a release event
-      - name: Downgrade NSIS
+      - uses: repolevedavaj/install-nsis@v1.2.1
         if: github.event_name == 'release'
-        shell: pwsh
-        run: .\Build\downgrade_nsis.ps1
+        with:
+          nsis-version: '3.10'
 
       - name: Create hash
         if: github.event_name == 'release'
@@ -96,10 +96,4 @@ jobs:
           files: |
             dist/MobiFlightConnector-${{ env.VERSION }}.zip
             dist/MobiFlightConnector-${{ env.VERSION }}.sha1
-
-      - name: Store setup exe artifact
-        if: github.event_name == 'release'
-        uses: actions/upload-artifact@v7
-        with:
-          name: MobiFlight-Setup
-          path: Build/MobiFlight-Setup.exe
+            Build/MobiFlight-Setup.exe
