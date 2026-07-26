@@ -27,7 +27,7 @@ namespace MobiFlightInstaller
 
         static public bool GetMfBetaOptionValue()
         {
-            var processPath = GetMobiFlightApplicationPath);
+            var processPath = GetMobiFlightApplicationPath();
             if (string.IsNullOrWhiteSpace(processPath))
             {
                 Log.Instance.log("MFConnector.exe not found, BETA disable", LogSeverity.Debug);
