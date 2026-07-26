@@ -4,7 +4,7 @@
 ################################################################################
 $NsisVersion = "3.04"
 # Get-Help Install-Binary -Full
-
+Get-Command Install-Binary | Format-List *
 Install-Binary -Url "https://downloads.sourceforge.net/project/nsis/NSIS%203/${NsisVersion}/nsis-${NsisVersion}-setup.exe" -Type EXE -InstallArgs ('/S')
 
 $NsisPath = "${env:ProgramFiles(x86)}\NSIS\"
