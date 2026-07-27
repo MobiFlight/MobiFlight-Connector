@@ -75,7 +75,7 @@ namespace MobiFlight.Modifier.Tests
             CollectionAssert.AreEqual(new List<int>() { 200, 500 }, blink.OnOffSequence);
         }
         [TestMethod]
-        public async Task Blink_Apply()
+        public void Blink_Apply()
         {
             //Test if blink is (On)
 
