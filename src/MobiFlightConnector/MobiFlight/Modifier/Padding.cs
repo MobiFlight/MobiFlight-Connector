@@ -79,20 +79,22 @@ namespace MobiFlight.Modifier
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
-            ConnectorValue result = value;
+            if (!Active) return value;
+
+            var result = value.Clone() as ConnectorValue;
 
             switch (value.type)
             {
                 case FSUIPCOffsetType.Float:
                 case FSUIPCOffsetType.Integer:
-                    string tmpValue = Apply(value.Float64, configRefs);
+                    string tmpValue = Apply(result.Float64, configRefs);
                     // Expression has now made this a string
-                    value.type = FSUIPCOffsetType.String;
-                    value.String = tmpValue;
+                    result.type = FSUIPCOffsetType.String;
+                    result.String = tmpValue;
                     break;
 
                 case FSUIPCOffsetType.String:
-                    value.String = Apply(value.String);
+                    result.String = Apply(result.String);
                     break;
             }
 

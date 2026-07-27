@@ -95,6 +95,8 @@ namespace MobiFlight.Modifier
 
         public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
         {
+            if (!Active) return connectorValue;
+
             ConnectorValue result = connectorValue.Clone() as ConnectorValue;
 
             if (Count == 0) return result;

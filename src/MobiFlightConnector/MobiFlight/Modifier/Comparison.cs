@@ -85,6 +85,8 @@ namespace MobiFlight.Modifier
         }
         public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
         {
+            if (!Active) return connectorValue;
+
             var cacheKey = $"{connectorValue}:{Value}:{Operand}:{IfValue}:{ElseValue}";
             if (evaluationCache.TryGetValue(cacheKey, out ConnectorValue cachedResult))
             {

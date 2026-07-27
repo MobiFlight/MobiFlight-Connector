@@ -220,6 +220,26 @@ namespace MobiFlight.Modifier.Tests
             StringAssert.Contains(label, "16");
         }
 
+        [TestMethod]
+        public void Quantization_Apply_ActiveFalse()
+        {
+            var modifier = new Quantize
+            {
+                Active = false,
+                StepSize = 10
+            };
+
+            var value = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 17
+            };
+
+            var result = modifier.Apply(value, new List<ConfigRefValue>());
+
+            Assert.AreSame(value, result);
+
+        }
         #endregion
     }
 }
