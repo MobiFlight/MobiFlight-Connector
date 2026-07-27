@@ -71,6 +71,7 @@ namespace MobiFlight.Modifier
 
         protected string Apply(string value)
         {
+            if (!Active) return value;
             if (Start > value.Length) return "";
 
             int length = (End - Start);

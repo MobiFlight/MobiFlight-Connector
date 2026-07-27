@@ -79,6 +79,8 @@ namespace MobiFlight.Modifier
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
+            if (!Active) return value;
+
             ConnectorValue result = value;
 
             switch (value.type)

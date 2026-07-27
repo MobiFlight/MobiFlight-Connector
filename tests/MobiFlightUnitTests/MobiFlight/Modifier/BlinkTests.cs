@@ -151,18 +151,17 @@ namespace MobiFlight.Modifier.Tests
             var blinkActive = new Blink
             {
                 Active = false,
-                BlinkValue = "1",
-                OnOffSequence = new List<int> { 500, 500 }
+                BlinkValue = "Abs",
+                OnOffSequence = new List<int> { -1, 500 }
             };
             var valueActive = new ConnectorValue
             {
                 type = FSUIPCOffsetType.Integer,
-                Float64 = 1
+                Float64 = 5
             };
 
-            valueActive = blinkActive.Apply(valueActive, new List<ConfigRefValue>());
-            Assert.AreEqual(1, valueActive.Float64);
-            Assert.AreEqual(FSUIPCOffsetType.Integer, valueActive.type);
+            var result = blinkActive.Apply(valueActive, new List<ConfigRefValue>());
+            Assert.AreSame(result, valueActive);
         }
         [TestMethod]
         public void Blink_ReturnsClone()

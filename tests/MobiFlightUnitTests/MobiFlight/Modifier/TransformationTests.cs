@@ -23,6 +23,7 @@ namespace MobiFlight.Modifier.Tests
             // this is needed for correct conversion
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+            t.Active=true;
 
             // Number type
             var ConnectValue = new ConnectorValue() { Float64 = 1 };
@@ -58,6 +59,22 @@ namespace MobiFlight.Modifier.Tests
             Assert.AreEqual("0.000", step1Result.String);
             t.Expression = "if('$'=1,2,'$')";
             Assert.AreEqual("0.000", t.Apply(step1Result, configRefs).String);
+
+            var transformation = new Transformation
+            {
+                Active = false,
+                Expression = "$ + 10"
+            };
+
+            var value = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 5
+            };
+
+            var result = transformation.Apply(value, new List<ConfigRefValue>());
+
+            Assert.AreSame(value, result);
         }
 
         [TestMethod()]

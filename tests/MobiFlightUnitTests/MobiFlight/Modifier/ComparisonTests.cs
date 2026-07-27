@@ -196,6 +196,19 @@ namespace MobiFlight.Modifier.Tests
 
             var result2 = c.Apply(value, new List<ConfigRefValue>());
             Assert.AreEqual(0, result2.Float64);
+
+            c.Active = false;
+            c.Operand = "=";
+            c.Value = "0";
+            c.IfValue = "1";
+            c.ElseValue = "2";
+
+            value.type = FSUIPCOffsetType.Integer;
+            value.Float64 = 7;
+
+            var resultActive = c.Apply(value, new List<ConfigRefValue>());
+            Assert.AreSame(value, resultActive);
+
         }
 
 

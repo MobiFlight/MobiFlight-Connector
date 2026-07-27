@@ -63,6 +63,7 @@ namespace MobiFlight.Modifier
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
+            if (!Active) return value;
 
             var result = value.Clone() as ConnectorValue;
             if (FirstExecutionTime == 0) FirstExecutionTime = DateTime.Now.Ticks;
