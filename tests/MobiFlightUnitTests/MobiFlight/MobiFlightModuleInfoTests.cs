@@ -36,5 +36,28 @@ namespace MobiFlight.Tests
             info.Board = board;
             Assert.IsTrue(info.FirmwareInstallPossible());
         }
+        [TestMethod()]
+        public void Firmware_AskForUpdate()
+        {
+            var info = new MobiFlightModuleInfo
+            {
+                Board = new Board
+                {
+                    Info = new Info
+                    {
+                        LatestFirmwareVersion = "11.1.0"
+                    }
+                }
+            };
+
+            info.Version = "0.0.1";
+            Assert.IsFalse(info.FirmwareRequiresUpdate());
+
+            info.Version = "0.0.333";
+            Assert.IsFalse(info.FirmwareRequiresUpdate());
+
+            info.Version = "1.0.0";
+            Assert.IsTrue(info.FirmwareRequiresUpdate());
+        }
     }
 }

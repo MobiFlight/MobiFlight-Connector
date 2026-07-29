@@ -40,20 +40,18 @@ namespace MobiFlight
             {
                 currentVersion = new Version("0.0.0");
             }
-            bool isPrFirmware =
+            bool isSpecialFirmware =
                 currentVersion.Major == 0 &&
-                currentVersion.Minor == 0 &&
-                currentVersion.Build > 1;
+                currentVersion.Minor == 0;
             // PR firmware uses version 0.0.<PR_NUMBER>, so don't require an update.
-            if (isPrFirmware)
+            if (isSpecialFirmware)
             {
                 return false;
             }
             return (
-                // ignore the developer board that has 0.0.1
-                currentVersion.CompareTo(new Version("0.0.1")) != 0 &&
                 // and update when version lower than latest
-                currentVersion.CompareTo(latestVersion) < 0);
+                currentVersion.CompareTo(latestVersion) < 0
+                );
         }
 
     }
