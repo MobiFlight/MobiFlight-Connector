@@ -477,13 +477,13 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "Muokkaa syöttömääritystä",
-      "Description": "Muokkaa kaikkia tämän syöttömäärityksen asetuksia tässä dialogissa.",
+      "Title": "Muokkaa sisääntulon määritystä",
+      "Description": "Muokkaa kaikkia tämän sisääntulon asetuksia.",
       "DrawerTitle": "Asetukset",
       "ConfigTrigger": {
-        "Title": "Laukaisin",
-        "Description": "Laukaisin määrittää ehdot tai tapahtumat, jotka aktivoivat tämän määrityksen.",
-        "ScanForInput": "Etsi syötettä",
+        "Title": "Heräte",
+        "Description": "Heräte määrittää ehdot tai tapahtumat, jotka aktivoivat tämän määrityksen.",
+        "ScanForInput": "Tunnista syöte",
         "UseAnyInput": "Skannataan...",
         "ClearInput": "Tyhjennä syöte",
         "SelectController": "Valitse ohjain...",
@@ -498,7 +498,7 @@
         "Description": "Määritä toiminnot jokaiselle tapahtumalle.",
         "Copy": "Kopioi toiminto",
         "Paste": "Liitä toiminto",
-        "NoTriggerDefined": "Ei laukaisinta määritelty. Valitse ensin ohjaimesi ja laitteesi."
+        "NoTriggerDefined": "Herätettä ei ole määritetty. Valitse ensin ohjaimesi ja laitteesi."
       },
       "ActionType": {
         "Title": "Toimintotyyppi",
@@ -556,7 +556,7 @@
       },
       "Event": {
         "Edit": "Muokkaa toimintoa {{eventLabel}}",
-        "Remove": "Poista toimintoa {{eventLabel}}"
+        "Remove": "Poista toiminto {{eventLabel}}"
       },
       "button": {
         "Event": {
@@ -569,15 +569,15 @@
             "description": "Toiminto suoritetaan, kun painike vapautetaan."
           },
           "onHold": {
-            "label": "Pidettäessä",
-            "description": "Toiminto suoritetaan toistuvasti, kun painiketta pidetään painettuna.",
+            "label": "Painettaessa pitkään",
+            "description": "Toiminto suoritetaan, kun painiketta pidetään painettuna.",
             "options": {
               "holdDelay": {
                 "label": "Painalluksen viive",
                 "description": "Kesto millisekunteina, jonka ajan painiketta on pidettävä painettuna ennen kuin toiminto aktivoituu."
               },
               "repeatDelay": {
-                "label": "Toistoviive (ms)",
+                "label": "Toistoviive",
                 "description": "Aikaväli millisekunteina, jonka välein toiminto aktivoituu uudelleen, kun painiketta pidetään painettuna. Aseta 0 poistaaksesi toiston käytöstä."
               }
             }
@@ -664,7 +664,7 @@
         "AddConfigReference": "Lisää viittaus",
         "Active": "Aktiivinen",
         "SelectConfig": "Valitse konfiguraatio...",
-        "PlaceholderLabel": "Korvattava merkki",
+        "PlaceholderLabel": "Paikkamerkki",
         "TestValueLabel": "Testiarvo",
         "DeleteConfigReference": "Poista viittaus"
       },
@@ -702,7 +702,7 @@
               "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
               "None": "Ei mitään",
               "Placeholder": "Syötä RPN-koodi",
-              "Customized": "Mukautit tämän esiasetuksen tai se ei ole enää saatavilla."
+              "Customized": "Olet muokannut tätä esiasetusta tai se ei ole enää saatavilla."
             }
           }
         },
@@ -748,8 +748,8 @@
         "Keyboard": {
           "Title": "Vaihe 2 - Konfiguroi näppäimistön syöte",
           "Description": "Määritä käytettävä näppäinyhdistelmä.",
-          "StopScanning": "Lopeta etsintä",
-          "ScanForKeyboard": "Etsi näppäimistöä",
+          "StopScanning": "Lopeta tunnistus",
+          "ScanForKeyboard": "Tunnista näppäinyhdistelmä",
           "KeyComboLabel": "Näppäinyhdistelmä",
           "None": "Ei mitään",
           "ClearInput": "Tyhjennä syöte"
