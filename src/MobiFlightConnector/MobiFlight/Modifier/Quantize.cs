@@ -55,7 +55,7 @@ namespace MobiFlight.Modifier
 
             var result = connectorValue.Clone() as ConnectorValue;
 
-            double quantized = (connectorValue.Float64 / StepSize) * StepSize;
+            double quantized = Math.Round(connectorValue.Float64 / StepSize) * StepSize;
 
             // Seed on first call
             if (_lastEmitted == double.MinValue)
