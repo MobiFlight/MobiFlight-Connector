@@ -4,12 +4,12 @@
       "OpenMenu": "Avaa valikko"
     },
     "Overlay": {
-      "OpeningWizard": "Avataan opastettua toimintoa...",
+      "OpeningWizard": "Avataan ohjattua toimintoa...",
       "SavingChanges": "Tallennetaan projektia..."
     },
     "HubHopUpdate": {
       "Error": "HubHop-päivitys epäonnistui. Yritä myöhemmin uudelleen.",
-      "Success": "HubHop-päivitys suoritettu onnistuneesti!",
+      "Success": "HubHop-päivitys onnistui!",
       "Title": "HubHop-päivitys on saatavilla",
       "Description": "HubHop-tietokantasi on yli {{days}} päivää vanha. Haluatko päivittää sen nyt?",
       "Title.Downloading": "Ladataan HubHop-päivitystä..."
@@ -19,7 +19,7 @@
       "Unknown": "Tuntematon virhe."
     },
     "ComboBox": {
-      "NoOptions": "Ei kohteita löytynyt.",
+      "NoOptions": "Kohteita ei löytynyt.",
       "Placeholder": "Valitse...",
       "SearchPlaceholder": "Haku..."
     },
@@ -380,7 +380,7 @@
       "SaveChanges": "Tallenna muutokset",
       "ApplyChanges": "Hyväksy muutokset",
       "ResetFilters": "Nollaa suodattimet",
-      "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy ne ensin tai napsauta Peruuta sulkeaksesi tämän valintaikkunan tallentamatta."
+      "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy muutokset, tai valitse Peruuta jos haluat poistua tallentamatta."
     },
     "ControllerBinding": {
       "Title": "Ohjainten yhdistäminen",
@@ -623,11 +623,11 @@
         }
       },
       "Preconditions": {
-        "Title": "Esiehdot",
-        "Label": "Esiehdot",
-        "Description": "Lisää ja muokkaa ehtoja, jotka on täytettävä, jotta laukaisimesi suoritetaan.",
-        "EditButton": "Muokkaa esiehtoja",
-        "AddButton": "Lisää esiehtoja"
+        "Title": "Suoritusehdot",
+        "Label": "Suoritusehdot",
+        "Description": "Lisää ja muokkaa ehtoja, joiden täyttyessä tämä toiminto suoritetaan",
+        "EditButton": "Muokkaa suoritusehtoja",
+        "AddButton": "Lisää uusi suoritusehto"
       },
       "ConfigReferences": {
         "Title": "Viittaukset",
@@ -637,16 +637,16 @@
         "AddButton": "Lisää viittauksia"
       },
       "PreconditionEditor": {
-        "Title": "Esiehdot",
-        "Description": "Esiehdot määrittävät ehdot, jotka on täytettävä ennen kuin toiminto voidaan suorittaa.",
-        "NoPreconditions": "Ei esiehtoja määritetty.",
-        "AddPrecondition": "Lisää esiehto",
+        "Title": "Suoritusehdot",
+        "Description": "Suoritusehdot määrittelevät, missä tilanteissa tämä toiminto suoritetaan",
+        "NoPreconditions": "Ehtoja ei ole määritelty.",
+        "AddPrecondition": "Lisää suoritusehto",
         "Active": "Aktiivinen",
         "TypePlaceholder": "Tyyppi",
         "SelectConfig": "Valitse konfiguraatio...",
         "SelectVariable": "Valitse muuttuja...",
         "ValuePlaceholder": "Arvo",
-        "DeletePrecondition": "Poista esiehto",
+        "DeletePrecondition": "Poista suoritusehto",
         "SelectPort": "Valitse portti...",
         "SelectPin": "Valitse pinni...",
         "Types": {
@@ -654,17 +654,17 @@
           "variable": "Muuttuja",
           "pin": "Arcaze-pinni"
         },
-        "MoveUp": "Siirrä esiehto ylös",
-        "MoveDown": "Siirrä esiehto alas"
+        "MoveUp": "Siirrä ylös",
+        "MoveDown": "Siirrä alas"
       },
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",
-        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi arvoja konfiguraatiossasi.",
-        "NoConfigReferences": "Ei viittauksia määritetty.",
+        "Description": "Lisää ja muokkaa viittauksia ja määritä korvattava merkki käyttääksesi toisten konfiguraatioiden arvoja.",
+        "NoConfigReferences": "Viittauksia ei ole määritelty.",
         "AddConfigReference": "Lisää viittaus",
         "Active": "Aktiivinen",
         "SelectConfig": "Valitse konfiguraatio...",
-        "PlaceholderLabel": "Paikkamerkki",
+        "PlaceholderLabel": "Korvattava merkki",
         "TestValueLabel": "Testiarvo",
         "DeleteConfigReference": "Poista viittaus"
       },
