@@ -105,7 +105,7 @@ namespace MobiFlight.Modifier
             {
                 case FSUIPCOffsetType.Float:
                 case FSUIPCOffsetType.Integer:
-                    result.Float64 = Math.Round(Value(connectorValue.Float64));
+                    result.Float64 = Value(connectorValue.Float64);
                     break;
 
                 case FSUIPCOffsetType.String:
@@ -121,7 +121,7 @@ namespace MobiFlight.Modifier
             string result = strValue;
             if (Count > 0)
             {
-                result = Math.Round(Value(float.Parse(strValue)), 0).ToString();
+                result = Value(float.Parse(strValue)).ToString();
             }
 
             return result;
