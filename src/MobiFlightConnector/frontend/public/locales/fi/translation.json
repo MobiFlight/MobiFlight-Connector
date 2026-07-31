@@ -659,7 +659,7 @@
       },
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",
-        "Description": "Lisää ja muokkaa viittauksia ja määritä korvattava merkki käyttääksesi toisten konfiguraatioiden arvoja.",
+        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi toisten konfiguraatioiden arvoja."
         "NoConfigReferences": "Viittauksia ei ole määritelty.",
         "AddConfigReference": "Lisää viittaus",
         "Active": "Aktiivinen",
