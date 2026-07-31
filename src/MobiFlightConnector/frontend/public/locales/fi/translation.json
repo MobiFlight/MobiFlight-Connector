@@ -477,8 +477,8 @@
       }
     },
     "InputConfigWizard": {
-      "Title": "Muokkaa sisääntulon määritystä",
-      "Description": "Muokkaa kaikkia tämän sisääntulon asetuksia.",
+      "Title": "Muokkaa syöttömääritystä",
+      "Description": "Muokkaa tämän syöttömäärityksen kaikkia asetuksia.",
       "DrawerTitle": "Asetukset",
       "ConfigTrigger": {
         "Title": "Heräte",
