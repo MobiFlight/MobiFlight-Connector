@@ -380,7 +380,7 @@
       "SaveChanges": "Tallenna muutokset",
       "ApplyChanges": "Hyväksy muutokset",
       "ResetFilters": "Nollaa suodattimet",
-      "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy muutokset, tai valitse Peruuta jos haluat poistua tallentamatta."
+      "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy muutokset tai valitse Peruuta, jos haluat poistua tallentamatta."
     },
     "ControllerBinding": {
       "Title": "Ohjainten yhdistäminen",
