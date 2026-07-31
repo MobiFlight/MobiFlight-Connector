@@ -625,7 +625,7 @@
       "Preconditions": {
         "Title": "Suoritusehdot",
         "Label": "Suoritusehdot",
-        "Description": "Lisää ja muokkaa ehtoja, joiden täyttyessä tämä toiminto suoritetaan",
+        "Description": "Lisää ja muokkaa ehtoja, joiden täyttyessä tämä toiminto suoritetaan."
         "EditButton": "Muokkaa suoritusehtoja",
         "AddButton": "Lisää uusi suoritusehto"
       },
