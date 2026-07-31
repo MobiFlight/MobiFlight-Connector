@@ -654,8 +654,8 @@
           "variable": "Muuttuja",
           "pin": "Arcaze-pinni"
         },
-        "MoveUp": "Siirrä ylös",
-        "MoveDown": "Siirrä alas"
+        "MoveUp": "Siirrä suoritusehto ylös",
+        "MoveDown": "Siirrä suoritusehto alas"
       },
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",
