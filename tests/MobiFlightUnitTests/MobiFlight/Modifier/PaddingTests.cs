@@ -162,5 +162,27 @@ namespace MobiFlight.Modifier.Tests
 
             Assert.AreEqual("123456", result.String);
         }
+
+        [TestMethod]
+        public void Padding_Apply_ActiveFalse()
+        {
+            var padding = new Padding
+            {
+                Active = false,
+                Length = 5,
+                Character = '0',
+                Direction = Padding.PaddingDirection.Left
+            };
+
+            var value = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.String,
+                String = "12"
+            };
+
+            var result = padding.Apply(value, new List<ConfigRefValue>());
+
+            Assert.AreSame(value, result);
+        }
     }
 }

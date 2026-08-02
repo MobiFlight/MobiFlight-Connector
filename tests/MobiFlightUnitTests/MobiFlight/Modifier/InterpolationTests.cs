@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -94,6 +95,28 @@ namespace MobiFlight.Modifier.Tests
             // value is between second and third 
             // and interpolation is negative
             Assert.AreEqual(1.5f, i.Value(0.75f), "Interpolation not done correctly");
+        }
+
+        [TestMethod]
+        public void Interpolation_Apply_ActiveFalse()
+        {
+            var interpolation = new Interpolation
+            {
+                Active = false
+            };
+
+            interpolation.Add(0, 0);
+            interpolation.Add(10, 20);
+
+            var value= new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 5
+            };
+
+            var result = interpolation.Apply(value, new List<ConfigRefValue>());
+
+            Assert.AreSame(value, result);
         }
 
         [TestMethod]

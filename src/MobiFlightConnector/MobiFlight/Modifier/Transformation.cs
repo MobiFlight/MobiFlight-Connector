@@ -43,6 +43,8 @@ namespace MobiFlight.Modifier
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
+            if (!Active) return value;
+
             var result = value.Clone() as ConnectorValue;
 
             string exp = Expression.Replace("$", value.Float64.ToString());

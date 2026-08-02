@@ -166,7 +166,12 @@ namespace MobiFlight.UI.Panels.Config
 
         public void LoadPresets(ProjectInfo projectInfo)
         {
-            PresetList.ProjectInfo = projectInfo;
+            // We disable passing in the the project info
+            // because we don't want to filter by project aircraft.
+            // Compared to the new input config wizards,
+            // a user cannot deselect the filter and it might be confusing
+            // if they don't have access to the entire preset list.
+            // PresetList.ProjectInfo = projectInfo;
             _loadPresets();
         }
 

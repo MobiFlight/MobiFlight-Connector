@@ -144,6 +144,18 @@ namespace MobiFlight.Modifier.Tests
             Assert.AreEqual(75.0, result.Float64);
         }
 
+        [TestMethod]
+        public void ExponentialAverage_ApplyTest_ActiveFalse()
+        {
+            var modifier = new ExponentialAverage { Active = false, Alpha =0.5, Threshold = 0 };
+            modifier.Apply(CreateConnectorValue(100.0), new List<ConfigRefValue>());
+
+            var input = CreateConnectorValue(50);
+            var result = modifier.Apply(input, new List<ConfigRefValue>());
+
+            Assert.AreSame(input, result);
+        }
+
         [TestMethod()]
         public void ExponentialAverage_ToSummaryLabelTest()
         {
