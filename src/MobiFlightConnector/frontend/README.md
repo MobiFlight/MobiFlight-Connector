@@ -32,7 +32,7 @@ The easiest way to get started is with the included dev container — dependenci
 
 ![Screenshot of the Reopen in Container dialog from VSCode](docs/images/reopen-in-container.png)
 
-The first time takes a few minutes to configure while the necessary images are downloaded and dependencies install. After the container opens VSCode will prompt with a warning about an auto-configured task to run. Accept the task, and the frontend will start.
+The first time takes a few minutes to configure while the necessary images are downloaded and dependencies install. After the container opens VSCode may warning about an auto-configured task to run. Accept the task, and the frontend will start.
 
 The frontend is served at `http://localhost:5173`.
 
