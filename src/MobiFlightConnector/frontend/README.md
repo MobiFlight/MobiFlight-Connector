@@ -28,7 +28,9 @@ The easiest way to get started is with the included dev container — dependenci
 
 1. [Follow the instructions](https://code.visualstudio.com/docs/devcontainers/tutorial) to install Docker and the Dev Containers extension in Visual Studio Code.
 2. Select **Open Folder..** in VS Code, navigate to `src/MobiFlightConnector/frontend/`
-3. When prompted by VSCode, re-open the folder in a devcontainer
+3. When prompted by VSCode, select **Reopen in Container**
+
+![Screenshot of the Reopen in Container dialog from VSCode](docs/images/reopen-in-container.png)
 
 The first time takes a few minutes to configure while the necessary images are downloaded and dependencies install. After the container opens VSCode will prompt with a warning about an auto-configured task to run. Accept the task, and the frontend will start.
 
