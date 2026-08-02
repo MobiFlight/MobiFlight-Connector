@@ -19,39 +19,28 @@ The main backend subsystems are:
 
 In development you run two things side by side:
 
-- The frontend dev server works conveniently in [VS Code](https://code.visualstudio.com/), in the provided dev container
-- The C# backend in [Visual Studio](https://visualstudio.microsoft.com/vs/community/). When you start the backend with the **Debug** build target it  connects to the frontend dev server at `localhost:5173` and loads it automatically.
+- The frontend dev server works conveniently in [Visual Studio Code](https://code.visualstudio.com/), in the provided dev container
+- The C# backend in [Visual Studio](https://visualstudio.microsoft.com/vs/community/). When you start the backend with the **Debug** build target it connects to the frontend dev server at `localhost:5173` and loads it automatically.
 
 ### Dev container setup
 
 The easiest way to get started is with the included dev container — dependencies and Playwright browsers for unit tests are installed automatically on first startup.
 
-There is an extension called "Dev Containers" in vscode that makes this easy. This extension is published by Microsoft and you can find it in the extensions tab on VS Code.
+1. [Follow the instructions](https://code.visualstudio.com/docs/devcontainers/tutorial) to install Docker and the Dev Containers extension in Visual Studio Code.
+2. Select **Open Folder..** in VS Code, navigate to `src/MobiFlightConnector/frontend/`
+3. When prompted by VSCode, re-open the folder in a devcontainer
 
-You need to have a container runtime on your PC - either **Docker Desktop** or **[Podman Desktop](https://podman-desktop.io/)** (free and open source) installed and running. If you use Podman, configure the Dev Containers extension in VS Code settings with two extra values:
-
-| Setting | Value |
-| --- | --- |
-| Dev › Containers: Docker Path | `podman` |
-| Dev › Containers: Docker Compose Path | `podman-compose` |
-
-You also need to enable *Compose* in Podman Desktop: Navigate to **Settings > Resources** and enable the Compose extension.
-
-After setting up Podman Desktop or other container runtime, do the following:
-
-- Select "Open Folder.." in VS Code, navigate to `src/MobiFlightConnector/frontend/`
-- Click the remote window icon on the bottom toolbar (it looks like two angle
-  brackets in the bottom-left corner of VS Code) and select **Reopen in   Container**. The first time takes a few minutes while dependencies install, and the development server starts up.
-
-All the tests and tasks are also accessible via the `View > Command Palette` in VS Code.
+The first time takes a few minutes to configure while the necessary images are downloaded and dependencies install. After the container opens VSCode will prompt with a warning about an auto-configured task to run. Accept the task, and the frontend will start.
 
 The frontend is served at `http://localhost:5173`.
+
+To manually start the frontend, use the command palette (CTRL+SHIFT+P) to select the **Tasks: Run Task** command, then run **Start frontend**.
 
 ### Backend
 
 The backend is a C# desktop application. and it must be running for full functionality. Once your devcontainer has finished starting up, and you see the localhost url in the devcontainer terminal output, proceed into Visual Studio.
 
- Open `MobiFlightConnector.sln` and use the **Debug** build target to Run the project — this connects to the frontend dev server at `localhost:5173`.
+Open `MobiFlightConnector.sln` and use the **Debug** build target to Run the project — this connects to the frontend dev server at `localhost:5173`.
 
 ## Translations (i18n)
 
