@@ -625,7 +625,7 @@
       "Preconditions": {
         "Title": "Suoritusehdot",
         "Label": "Suoritusehdot",
-        "Description": "Lisää ja muokkaa ehtoja, joiden täyttyessä tämä toiminto suoritetaan."
+        "Description": "Lisää ja muokkaa ehtoja, joiden täyttyessä tämä toiminto suoritetaan.",
         "EditButton": "Muokkaa suoritusehtoja",
         "AddButton": "Lisää uusi suoritusehto"
       },
@@ -659,7 +659,7 @@
       },
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",
-        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi toisten konfiguraatioiden arvoja."
+        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi toisten konfiguraatioiden arvoja.",
         "NoConfigReferences": "Viittauksia ei ole määritelty.",
         "AddConfigReference": "Lisää viittaus",
         "Active": "Aktiivinen",
