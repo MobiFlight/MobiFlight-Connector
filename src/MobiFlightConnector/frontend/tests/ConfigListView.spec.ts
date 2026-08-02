@@ -287,7 +287,7 @@ test.describe("Confirm content and basic functions are working", () => {
     await contextMenu.getByRole("menuitem", { name: "Duplicate" }).click()
 
     // Simulate the backend response after duplicating the item.
-    
+
     await configListPage.duplicateConfigItem(0, "inputaction")
     await page.mouse.move(0, 0)
     const duplicatedRow = await configListPage.getConfigItemRow(2)
@@ -1486,6 +1486,102 @@ test.describe("Confirm context menu actions are working", () => {
         await expect(inlineEdit).toBeVisible()
       }
     }
+  })
+
+  test("Right click on an inline input keeps the row menu closed", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const firstRow = page.getByRole("row").nth(1)
+    const contextMenu = page.getByTestId("config-item-context-menu")
+
+    await firstRow.click({ button: "right" })
+    await contextMenu.getByRole("menuitem", { name: "Rename" }).click()
+
+    const inlineEdit = firstRow.getByRole("textbox")
+    await expect(inlineEdit).toBeVisible()
+    await inlineEdit.click({ button: "right" })
+
+    await expect(contextMenu).not.toBeVisible()
+    await expect(inlineEdit).toBeFocused()
+  })
+
+  test("Native menus remain limited to text editing targets", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData()
+
+    const prevented = await page.evaluate(() => {
+      const container = document.createElement("div")
+      const enabledText = document.createElement("input")
+      const readOnlyText = document.createElement("input")
+      const disabledText = document.createElement("input")
+      const textarea = document.createElement("textarea")
+      const contentEditable = document.createElement("div")
+      const checkbox = document.createElement("input")
+      const nonEditable = document.createElement("div")
+
+      enabledText.value = "selected text"
+      readOnlyText.value = "read-only text"
+      readOnlyText.readOnly = true
+      disabledText.disabled = true
+      textarea.value = "textarea text"
+      contentEditable.contentEditable = "true"
+      checkbox.type = "checkbox"
+
+      container.append(
+        enabledText,
+        readOnlyText,
+        disabledText,
+        textarea,
+        contentEditable,
+        checkbox,
+        nonEditable,
+      )
+      document.body.append(container)
+
+      enabledText.select()
+      readOnlyText.select()
+      textarea.select()
+
+      const dispatch = (target: HTMLElement) => {
+        const event = new MouseEvent("contextmenu", {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+        })
+        target.dispatchEvent(event)
+        return event.defaultPrevented
+      }
+
+      const result = {
+        enabledText: dispatch(enabledText),
+        readOnlyText: dispatch(readOnlyText),
+        disabledText: dispatch(disabledText),
+        textarea: dispatch(textarea),
+        contentEditable: dispatch(contentEditable),
+        checkbox: dispatch(checkbox),
+        nonEditable: dispatch(nonEditable),
+      }
+
+      container.remove()
+      return result
+    })
+
+    expect(prevented).toEqual({
+      enabledText: false,
+      readOnlyText: false,
+      disabledText: true,
+      textarea: false,
+      contentEditable: false,
+      checkbox: true,
+      nonEditable: true,
+    })
   })
 
   test("Confirm context menu shows on button click", async ({

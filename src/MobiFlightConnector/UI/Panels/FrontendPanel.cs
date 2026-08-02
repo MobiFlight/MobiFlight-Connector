@@ -1,7 +1,9 @@
 ﻿using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Publisher;
 using MobiFlight.WebView;
+using Microsoft.Web.WebView2.Core;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -9,6 +11,19 @@ namespace MobiFlight.UI.Panels
 {
     public partial class FrontendPanel : UserControl
     {
+        private static readonly HashSet<string> TextEditingContextMenuItemNames = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "undo",
+            "redo",
+            "cut",
+            "copy",
+            "paste",
+            "pasteAsPlainText",
+            "pasteAndMatchStyle",
+            "delete",
+            "selectAll"
+        };
+
         CompositePublisher compositePublisher = new CompositePublisher();
         private string _frontendBaseUrl = "http://localhost:5173";
         private string _frontendDistPath;
@@ -48,7 +63,7 @@ namespace MobiFlight.UI.Panels
             await FrontendWebView.EnsureCoreWebView2Async(null);
             await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
 
-            InitializeWebView(FrontendWebView, "/start");
+            InitializeWebView(FrontendWebView, "/start", enableDefaultContextMenus: true);
             InitializeWebView(UserAuthenticationWebView);
 
             compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
@@ -57,7 +72,7 @@ namespace MobiFlight.UI.Panels
             MessageExchange.Instance.SetPublisher(compositePublisher);
         }
 
-        private void InitializeWebView(ThreadSafeWebView2 webView, string route = "/")
+        private void InitializeWebView(ThreadSafeWebView2 webView, string route = "/", bool enableDefaultContextMenus = false)
         {
             if (IsRunningInProduction)
             {
@@ -74,8 +89,15 @@ namespace MobiFlight.UI.Panels
 
                 staticPageHandler.RegisterWithWebView(webView);
 
-                webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+                // The frontend filters native menus to text controls. Authentication and other
+                // WebViews keep the existing blanket suppression.
+                webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = enableDefaultContextMenus;
                 webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+            }
+
+            if (enableDefaultContextMenus)
+            {
+                webView.CoreWebView2.ContextMenuRequested += RestrictFrontendContextMenu;
             }
 
             var staticPresetsHandler = new StaticPageWebResourceRequestHandler(
@@ -101,6 +123,34 @@ namespace MobiFlight.UI.Panels
             {
                 webView.ZoomFactor = _desiredZoomFactor;
             }
+        }
+
+        private static void RestrictFrontendContextMenu(object sender, CoreWebView2ContextMenuRequestedEventArgs args)
+        {
+            for (var index = args.MenuItems.Count - 1; index >= 0; index--)
+            {
+                var item = args.MenuItems[index];
+                if (item.Kind != CoreWebView2ContextMenuItemKind.Separator &&
+                    !TextEditingContextMenuItemNames.Contains(item.Name))
+                {
+                    args.MenuItems.RemoveAt(index);
+                }
+            }
+
+            // Preserve separators between native command groups, but remove any left
+            // dangling after browser-only commands were filtered out.
+            for (var index = args.MenuItems.Count - 1; index >= 0; index--)
+            {
+                if (args.MenuItems[index].Kind == CoreWebView2ContextMenuItemKind.Separator &&
+                    (index == 0 ||
+                     index == args.MenuItems.Count - 1 ||
+                     args.MenuItems[index - 1].Kind == CoreWebView2ContextMenuItemKind.Separator))
+                {
+                    args.MenuItems.RemoveAt(index);
+                }
+            }
+
+            args.Handled = args.MenuItems.Count == 0;
         }
 
         public void SetZoomFactor(double zoomFactor)

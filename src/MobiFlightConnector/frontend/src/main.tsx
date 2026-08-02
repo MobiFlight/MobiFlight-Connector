@@ -11,6 +11,7 @@ import { oidcConfig } from "@/lib/auth/config"
 import { BackendStateMessageHandler } from "@/components/BackendStateMessageHandler.tsx"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { UserProfileLoader } from "@/components/UserProfileLoader.tsx"
+import { enforceTextContextMenuPolicy } from "@/lib/contextMenuPolicy"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,8 @@ if (process.env.NODE_ENV !== "development") {
   console.info = () => {}
   console.debug = () => {}
 }
+
+window.addEventListener("contextmenu", enforceTextContextMenuPolicy)
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
