@@ -196,5 +196,17 @@ namespace MobiFlight.Modifier.Tests
             Assert.AreEqual(2, i.Value(0.5f), "Value of interpolation is wrong");
             Assert.AreEqual(1, i.Value(1), "Value of interpolation is wrong");
         }
+
+        [TestMethod]
+        public void Apply_String_WithFloatValue_UsesFloatParsing()
+        {
+            
+            var interpolation = new Interpolation();
+
+            interpolation.Add(0f, 0f);
+            interpolation.Add(10f, 5f);
+
+            Assert.AreEqual("2.75", interpolation.Apply("5.5"));
+        }
     }
 }

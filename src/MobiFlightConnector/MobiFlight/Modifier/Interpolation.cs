@@ -119,9 +119,10 @@ namespace MobiFlight.Modifier
         public string Apply(string strValue)
         {
             string result = strValue;
-            if (Count > 0)
+
+            if (Count > 0 && float.TryParse(strValue, out float value))
             {
-                result = Value(float.Parse(strValue)).ToString();
+                result = Value(value).ToString();
             }
 
             return result;
