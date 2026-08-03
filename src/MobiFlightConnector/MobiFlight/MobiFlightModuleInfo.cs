@@ -49,10 +49,10 @@ namespace MobiFlight
                 return false;
             }
             // and update when version lower than latest
-            return true ;
-                
-                
-               
+            return currentVersion.CompareTo(latestVersion) < 0;
+
+
+
         }
 
     }
