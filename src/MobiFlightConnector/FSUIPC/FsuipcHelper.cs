@@ -81,7 +81,7 @@ namespace MobiFlight.FSUIPC
                                                 );
 
                     result.type = FSUIPCOffsetType.Float;
-                    result.Float64 = (int)(Math.Round(value64, 0));
+                    result.Float64 = value64;
 
                     break;
             }
