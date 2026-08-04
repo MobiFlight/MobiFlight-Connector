@@ -65,7 +65,7 @@ npm run check:hardcoded-strings          # components with hardcoded strings
 npm run check:hardcoded-strings:verbose
 ```
 
-Adding a new locale folder under `public/locales/{lang}/` is enough for the React UI itself — i18next discovers and loads it automatically. However, language switching still happens in the legacy WinForms Settings dialog, not in the React UI. To make a new language selectable, add it to the list in `UI/Panels/Settings/GeneralPanel.cs` (repo root, not under `frontend/`).
+Adding a new locale folder under `public/locales/{lang}/` is enough for the React UI itself — i18next discovers and loads it automatically. However, language switching still happens in the legacy WinForms Settings dialog, not in the React UI. To make a new language selectable, add it to `InitializeLanguageComboBox()` in `src/MobiFlightConnector/UI/Panels/Settings/GeneralPanel.cs` (outside `frontend/`).
 
 ## Testing
 
