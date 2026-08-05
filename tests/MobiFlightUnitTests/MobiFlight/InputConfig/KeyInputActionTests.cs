@@ -165,5 +165,68 @@ namespace MobiFlight.InputConfig.Tests
             Assert.IsFalse(o.Control, "CTRL value differs");
             Assert.IsTrue(o.Shift, "SHIFT value differs");
         }
+
+        [TestMethod]
+        public void JsonDeserialize_WithDigitKeyCodeTest()
+        {
+            var jsonString = @"{
+        ""Type"": ""KeyInputAction"",
+        ""Alt"": true,
+        ""Control"": false,
+        ""Shift"": false,
+        ""Code"": ""Digit1""
+    }";
+
+            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
+
+            Assert.AreEqual("Digit1", action.Code);
+            Assert.IsTrue(action.Alt);
+            Assert.IsFalse(action.Control);
+            Assert.IsFalse(action.Shift);
+
+            Assert.AreEqual(Keys.D1, KeyInputAction.MapCodeToKeys(action.Code));
+        }
+
+        [TestMethod]
+        public void JsonDeserialize_WithIntlBackslashKeyCodeTest()
+        {
+            var jsonString = @"{
+        ""Type"": ""KeyInputAction"",
+        ""Code"": ""IntlBackslash""
+    }";
+
+            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
+
+            Assert.AreEqual("IntlBackslash", action.Code);
+            Assert.AreEqual(Keys.Oem102, KeyInputAction.MapCodeToKeys(action.Code));
+        }
+
+        [TestMethod]
+        public void JsonDeserialize_WithNumpadOperatorKeyCodeTest()
+        {
+            var jsonString = @"{
+        ""Type"": ""KeyInputAction"",
+        ""Code"": ""NumpadAdd""
+    }";
+
+            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
+
+            Assert.AreEqual("NumpadAdd", action.Code);
+            Assert.AreEqual(Keys.Add, KeyInputAction.MapCodeToKeys(action.Code));
+        }
+
+        [TestMethod]
+        public void JsonDeserialize_WithNumpadKeyCodeTest()
+        {
+            var jsonString = @"{
+        ""Type"": ""KeyInputAction"",
+        ""Code"": ""Numpad7""
+    }";
+
+            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
+
+            Assert.AreEqual("Numpad7", action.Code);
+            Assert.AreEqual(Keys.NumPad7, KeyInputAction.MapCodeToKeys(action.Code));
+        }
     }
 }
