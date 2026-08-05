@@ -261,6 +261,29 @@ namespace MobiFlight.Modifier.Tests
             StringAssert.Contains(label, "16");
         }
 
+        [TestMethod]
+        public void SimpleMovingAverage_Apply_ActiveFalse()
+        {
+            var modifier = new SimpleMovingAverage
+            {
+                Active = false,
+                WindowSize = 4,
+                Threshold = 0,
+                JumpResetThreshold = 64
+            };
+
+            var value = new ConnectorValue
+            {
+                type = FSUIPCOffsetType.Integer,
+                Float64 = 100
+            };
+
+            var result = modifier.Apply(value, new List<ConfigRefValue>());
+
+            Assert.AreSame(value, result);
+
+        }
+
         #endregion
     }
 }

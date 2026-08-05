@@ -20,11 +20,11 @@ namespace MobiFlight.Modifier
             // read precondition settings if present
             if (reader["blinkValue"] != null)
                 BlinkValue = reader["blinkValue"] as String;
-            
+
             if (reader["onOffSequence"] != null)
             {
                 OnOffSequence.Clear();
-                foreach(string s in reader["onOffSequence"].Split(','))
+                foreach (string s in reader["onOffSequence"].Split(','))
                 {
                     OnOffSequence.Add(int.Parse(s));
                 }
@@ -34,9 +34,9 @@ namespace MobiFlight.Modifier
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("blink");
-                writer.WriteAttributeString("active", Active.ToString());
-                writer.WriteAttributeString("blinkValue", BlinkValue);
-                writer.WriteAttributeString("onOffSequence", string.Join(",", OnOffSequence));
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("blinkValue", BlinkValue);
+            writer.WriteAttributeString("onOffSequence", string.Join(",", OnOffSequence));
             writer.WriteEndElement();
         }
 
@@ -52,7 +52,7 @@ namespace MobiFlight.Modifier
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Blink)) return false;
-            
+
             var other = obj as Blink;
 
             return
@@ -63,7 +63,9 @@ namespace MobiFlight.Modifier
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
-            ConnectorValue result = value;
+            if (!Active) return value;
+
+            var result = value.Clone() as ConnectorValue;
             if (FirstExecutionTime == 0) FirstExecutionTime = DateTime.Now.Ticks;
 
             var Now = DateTime.Now.Ticks - FirstExecutionTime;
@@ -73,9 +75,10 @@ namespace MobiFlight.Modifier
 
             bool IsOn = true;
 
-            foreach(var time in OnOffSequence)
+            foreach (var time in OnOffSequence)
             {
-                if (Now > time) {
+                if (Now > time)
+                {
                     Now -= time;
                     IsOn = !IsOn;
                     continue;
@@ -91,11 +94,7 @@ namespace MobiFlight.Modifier
                     case FSUIPCOffsetType.Float:
                     case FSUIPCOffsetType.Integer:
                         string tmpValue = BlinkValue;
-                        if (Double.TryParse(tmpValue, out value.Float64))
-                        {
-                            result.Float64 = value.Float64;
-                        }
-                        else
+                        if (!Double.TryParse(tmpValue, out result.Float64))
                         {
                             // Expression has now made this a string
                             result.type = FSUIPCOffsetType.String;
@@ -114,7 +113,7 @@ namespace MobiFlight.Modifier
 
         public override string ToSummaryLabel()
         {
-            return $"Blink value: \"{BlinkValue}\", ON-OFF-Sequence: {String.Join((", "), OnOffSequence.Select(s => s+" ms"))}";
+            return $"Blink value: \"{BlinkValue}\", ON-OFF-Sequence: {String.Join((", "), OnOffSequence.Select(s => s + " ms"))}";
         }
     }
 }
