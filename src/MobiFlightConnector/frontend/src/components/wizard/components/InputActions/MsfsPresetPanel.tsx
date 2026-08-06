@@ -12,13 +12,26 @@ import { Preset, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useVirtualizer } from "@tanstack/react-virtual"
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useTranslation } from "react-i18next"
 export type MsfsPresetPanelProps = {
   variant: "input" | "output"
   selectedPresetId: string | null
   setSelectedPreset: (preset: Preset | XplanePreset | null) => void
 }
+
+// Outside the component so it isn't a fresh value on every render (it is a
+// dependency of scrollActivePresetIntoView below).
+const SCROLL_INTO_VIEW_TIMEOUT = 800
+
 const MsfsPresetPanel = ({
   variant,
   selectedPresetId,
@@ -27,8 +40,7 @@ const MsfsPresetPanel = ({
   const { t } = useTranslation()
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
-  const SCROLL_INTO_VIEW_TIMEOUT = 800
-  const refActiveElement = useRef<HTMLDivElement | null>(null)
+  const viewportRef = useRef<HTMLDivElement | null>(null)
   const scrollTimeoutRef = useRef<number | null>(null)
   const cancelScrollIntoView = () => {
     if (scrollTimeoutRef.current !== null) {
@@ -37,37 +49,44 @@ const MsfsPresetPanel = ({
     }
   }
 
-  const scrollActivePresetIntoView = useCallback(() => {
-    if (refActiveElement.current) {
-      cancelScrollIntoView()
-      scrollTimeoutRef.current = window.setTimeout(() => {
-        refActiveElement.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-        })
-        scrollTimeoutRef.current = null
-      }, SCROLL_INTO_VIEW_TIMEOUT)
-    }
-  }, [refActiveElement, scrollTimeoutRef])
-  const validPresetTypes =
-    variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
+  // Give PresetListItem a stable callback identity so React.memo on it is
+  // actually effective, without requiring callers to memoize setSelectedPreset.
+  const setSelectedPresetRef = useRef(setSelectedPreset)
+  useEffect(() => {
+    setSelectedPresetRef.current = setSelectedPreset
+  })
+  const handleSelectPreset = useCallback(
+    (preset: Preset | XplanePreset | null) =>
+      setSelectedPresetRef.current(preset),
+    [],
+  )
+
+  const validPresetTypes = useMemo(
+    () =>
+      variant === "input" ? ["input", "input (potentiometer)"] : ["output"],
+    [variant],
+  )
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-  const projectAircraftFilter = (p: Preset) =>
-    (project?.Aircraft?.length ?? 0) > 0
-      ? project!.Aircraft!.some(
-          (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
-        )
-      : true
-  const validPresets = presets.filter(
-    (p: Preset) =>
-      validPresetTypes.includes(p.presetType.toLowerCase()) &&
-      (favoritesOnly ? projectAircraftFilter(p) : true),
-  )
+  const validPresets = useMemo(() => {
+    const aircraftList = project?.Aircraft
+    const hasAircraft = (aircraftList?.length ?? 0) > 0
+    const projectAircraftFilter = (p: Preset) =>
+      hasAircraft
+        ? aircraftList!.some(
+            (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
+          )
+        : true
+    return presets.filter(
+      (p: Preset) =>
+        validPresetTypes.includes(p.presetType.toLowerCase()) &&
+        (favoritesOnly ? projectAircraftFilter(p) : true),
+    )
+  }, [presets, validPresetTypes, favoritesOnly, project?.Aircraft])
   const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
@@ -75,54 +94,117 @@ const MsfsPresetPanel = ({
     system: selectedPreset?.system || "",
     search: "",
   })
-  const filteredPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      (filter.system ? p.system === filter.system : true) &&
-      filterPresetByText(p, filter.search),
+  const deferredSearch = useDeferredValue(filter.search)
+  const filteredPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.vendor ? p.vendor === filter.vendor : true) &&
+          (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+          (filter.system ? p.system === filter.system : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.vendor, filter.aircraft, filter.system, deferredSearch],
   )
-  const filteredCategoryPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterPresetByText(p, filter.search),
+  const filteredCategoryPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.vendor ? p.vendor === filter.vendor : true) &&
+          (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.vendor, filter.aircraft, deferredSearch],
   )
-  const filteredVendorPresets = validPresets.filter(
-    (p) =>
-      (filter.system ? p.system === filter.system : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterPresetByText(p, filter.search),
+  const filteredVendorPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.system ? p.system === filter.system : true) &&
+          (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.system, filter.aircraft, deferredSearch],
   )
-  const filteredAircraftPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.system ? p.system === filter.system : true) &&
-      filterPresetByText(p, filter.search),
+  const filteredAircraftPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.vendor ? p.vendor === filter.vendor : true) &&
+          (filter.system ? p.system === filter.system : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.vendor, filter.system, deferredSearch],
   )
-  const categories = [
-    ...new Set([
-      ...filteredCategoryPresets.map((p) => p.system),
-      ...(filter.system ? [filter.system] : []),
-    ]),
-  ].sort()
-  const aircraft = [
-    ...new Set([
-      ...filteredAircraftPresets.map((p) => p.aircraft),
-      ...(filter.aircraft ? [filter.aircraft] : []),
-    ]),
-  ].sort()
-  const vendors = [
-    ...new Set([
-      ...filteredVendorPresets.map((p) => p.vendor),
-      ...(filter.vendor ? [filter.vendor] : []),
-    ]),
-  ].sort()
+  const categories = useMemo(
+    () =>
+      [
+        ...new Set([
+          ...filteredCategoryPresets.map((p) => p.system),
+          ...(filter.system ? [filter.system] : []),
+        ]),
+      ].sort(),
+    [filteredCategoryPresets, filter.system],
+  )
+  const aircraft = useMemo(
+    () =>
+      [
+        ...new Set([
+          ...filteredAircraftPresets.map((p) => p.aircraft),
+          ...(filter.aircraft ? [filter.aircraft] : []),
+        ]),
+      ].sort(),
+    [filteredAircraftPresets, filter.aircraft],
+  )
+  const vendors = useMemo(
+    () =>
+      [
+        ...new Set([
+          ...filteredVendorPresets.map((p) => p.vendor),
+          ...(filter.vendor ? [filter.vendor] : []),
+        ]),
+      ].sort(),
+    [filteredVendorPresets, filter.vendor],
+  )
+
+  const selectedIndex = useMemo(
+    () => filteredPresets.findIndex((p) => p.id === selectedPresetId),
+    [filteredPresets, selectedPresetId],
+  )
+
+  // Must keep a stable identity: the virtualizer's measurement memo compares
+  // getItemKey by reference, and a changed identity makes it notify React
+  // during render. A fresh arrow on every render therefore loops until React
+  // bails out with "Too many re-renders".
+  const getPresetKey = useCallback(
+    (index: number) => filteredPresets[index].id,
+    [filteredPresets],
+  )
+
+  const rowVirtualizer = useVirtualizer({
+    count: filteredPresets.length,
+    getScrollElement: () => viewportRef.current,
+    // Initial estimate only; measureElement refines it once a row mounts.
+    // Matches a single-line row: 20px title, 12px description, 2px borders,
+    // 8px vertical padding and the 4px gap on the wrapper.
+    estimateSize: () => 48,
+    overscan: 8,
+    getItemKey: getPresetKey,
+  })
+
+  const scrollActivePresetIntoView = useCallback(() => {
+    if (selectedIndex < 0) return
+    cancelScrollIntoView()
+    scrollTimeoutRef.current = window.setTimeout(() => {
+      rowVirtualizer.scrollToIndex(selectedIndex, { align: "center" })
+      scrollTimeoutRef.current = null
+    }, SCROLL_INTO_VIEW_TIMEOUT)
+  }, [selectedIndex, rowVirtualizer])
 
   useEffect(() => {
-    if (!refActiveElement.current) return
     scrollActivePresetIntoView()
-  }, [refActiveElement, scrollActivePresetIntoView])
+    return cancelScrollIntoView
+  }, [scrollActivePresetIntoView])
   return (
     <Card className="grow">
       <CardContent className="flex flex-col gap-4 pt-4">
@@ -249,19 +331,33 @@ const MsfsPresetPanel = ({
         <div className="-mt-3 flex flex-col gap-2">
           <ScrollArea
             className="h-56"
+            viewportRef={viewportRef}
             onMouseEnter={cancelScrollIntoView}
             onMouseLeave={scrollActivePresetIntoView}
           >
-            <div className="flex flex-col gap-1" role="list">
-              {filteredPresets.map((preset) => (
-                <PresetListItem
-                  ref={preset.id === selectedPresetId ? refActiveElement : null}
-                  key={preset.id}
-                  preset={preset}
-                  isSelected={preset.id === selectedPresetId}
-                  setSelectedPreset={setSelectedPreset}
-                />
-              ))}
+            <div
+              role="list"
+              className="relative w-full"
+              style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+            >
+              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const preset = filteredPresets[virtualRow.index]
+                return (
+                  <div
+                    key={virtualRow.key}
+                    ref={rowVirtualizer.measureElement}
+                    data-index={virtualRow.index}
+                    className="absolute top-0 left-0 w-full pb-1"
+                    style={{ transform: `translateY(${virtualRow.start}px)` }}
+                  >
+                    <PresetListItem
+                      preset={preset}
+                      isSelected={preset.id === selectedPresetId}
+                      setSelectedPreset={handleSelectPreset}
+                    />
+                  </div>
+                )
+              })}
             </div>
           </ScrollArea>
         </div>
