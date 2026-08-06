@@ -12,7 +12,15 @@ import { Preset, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useVirtualizer } from "@tanstack/react-virtual"
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useTranslation } from "react-i18next"
 
 export type XplanePresetPanelProps = {
@@ -20,6 +28,10 @@ export type XplanePresetPanelProps = {
   selectedPath: string | null
   setSelectedPreset: (preset: XplanePreset | Preset | null) => void
 }
+
+// Outside the component so it isn't a fresh value on every render (it is a
+// dependency of scrollActiveProjectIntoView below).
+const SCROLL_INTO_VIEW_TIMEOUT = 800
 
 const XplanePresetPanel = ({
   variant,
@@ -30,8 +42,7 @@ const XplanePresetPanel = ({
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
 
-  const SCROLL_INTO_VIEW_TIMEOUT = 800
-  const refActiveElement = useRef<HTMLDivElement | null>(null)
+  const viewportRef = useRef<HTMLDivElement | null>(null)
   const scrollTimeoutRef = useRef<number | null>(null)
 
   const cancelScrollIntoView = () => {
@@ -41,23 +52,25 @@ const XplanePresetPanel = ({
     }
   }
 
-  const scrollActiveProjectIntoView = useCallback(() => {
-    if (refActiveElement.current) {
-      cancelScrollIntoView()
-      scrollTimeoutRef.current = window.setTimeout(() => {
-        refActiveElement.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-        })
-        scrollTimeoutRef.current = null
-      }, SCROLL_INTO_VIEW_TIMEOUT)
-    }
-  }, [refActiveElement, scrollTimeoutRef])
+  // Give PresetListItem a stable callback identity so React.memo on it is
+  // actually effective, without requiring callers to memoize setSelectedPreset.
+  const setSelectedPresetRef = useRef(setSelectedPreset)
+  useEffect(() => {
+    setSelectedPresetRef.current = setSelectedPreset
+  })
+  const handleSelectPreset = useCallback(
+    (preset: Preset | XplanePreset | null) =>
+      setSelectedPresetRef.current(preset),
+    [],
+  )
 
-  const validPresetTypes =
-    variant === "input"
-      ? ["input", "inputoutput", "input (potentiometer)"]
-      : ["output", "inputoutput"]
+  const validPresetTypes = useMemo(
+    () =>
+      variant === "input"
+        ? ["input", "inputoutput", "input (potentiometer)"]
+        : ["output", "inputoutput"],
+    [variant],
+  )
 
   const { data: presets = [] } = useQuery({
     queryKey: ["xplane-presets"],
@@ -65,18 +78,21 @@ const XplanePresetPanel = ({
     staleTime: Infinity,
   })
 
-  const projectAircraftFilter = (p: XplanePreset) =>
-    (project?.Aircraft?.length ?? 0) > 0
-      ? project!.Aircraft!.some(
-          (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
-        )
-      : true
-
-  const validPresets = presets.filter(
-    (p: XplanePreset) =>
-      validPresetTypes.includes(p.presetType.toLowerCase()) &&
-      (favoritesOnly ? projectAircraftFilter(p) : true),
-  )
+  const validPresets = useMemo(() => {
+    const aircraftList = project?.Aircraft
+    const hasAircraft = (aircraftList?.length ?? 0) > 0
+    const projectAircraftFilter = (p: XplanePreset) =>
+      hasAircraft
+        ? aircraftList!.some(
+            (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
+          )
+        : true
+    return presets.filter(
+      (p: XplanePreset) =>
+        validPresetTypes.includes(p.presetType.toLowerCase()) &&
+        (favoritesOnly ? projectAircraftFilter(p) : true),
+    )
+  }, [presets, validPresetTypes, favoritesOnly, project?.Aircraft])
 
   const selectedPreset = validPresets.find((p) => p.code === selectedPath)
 
@@ -87,58 +103,118 @@ const XplanePresetPanel = ({
     search: "",
   })
 
-  const filteredPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      (filter.system ? p.system === filter.system : true) &&
-      filterPresetByText(p, filter.search),
+  const deferredSearch = useDeferredValue(filter.search)
+
+  const filteredPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.vendor ? p.vendor === filter.vendor : true) &&
+          (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+          (filter.system ? p.system === filter.system : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.vendor, filter.aircraft, filter.system, deferredSearch],
   )
 
-  const filteredCategoryPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterPresetByText(p, filter.search),
+  const filteredCategoryPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.vendor ? p.vendor === filter.vendor : true) &&
+          (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.vendor, filter.aircraft, deferredSearch],
   )
 
-  const filteredVendorPresets = validPresets.filter(
-    (p) =>
-      (filter.system ? p.system === filter.system : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      filterPresetByText(p, filter.search),
+  const filteredVendorPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.system ? p.system === filter.system : true) &&
+          (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.system, filter.aircraft, deferredSearch],
   )
 
-  const filteredAircraftPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.system ? p.system === filter.system : true) &&
-      filterPresetByText(p, filter.search),
+  const filteredAircraftPresets = useMemo(
+    () =>
+      validPresets.filter(
+        (p) =>
+          (filter.vendor ? p.vendor === filter.vendor : true) &&
+          (filter.system ? p.system === filter.system : true) &&
+          filterPresetByText(p, deferredSearch),
+      ),
+    [validPresets, filter.vendor, filter.system, deferredSearch],
   )
 
-  const categories = [
-    ...new Set([
-      ...filteredCategoryPresets.map((p) => p.system),
-      ...(filter.system ? [filter.system] : []),
-    ]),
-  ].sort()
-  const aircraft = [
-    ...new Set([
-      ...filteredAircraftPresets.map((p) => p.aircraft),
-      ...(filter.aircraft ? [filter.aircraft] : []),
-    ]),
-  ].sort()
-  const vendors = [
-    ...new Set([
-      ...filteredVendorPresets.map((p) => p.vendor),
-      ...(filter.vendor ? [filter.vendor] : []),
-    ]),
-  ].sort()
+  const categories = useMemo(
+    () =>
+      [
+        ...new Set([
+          ...filteredCategoryPresets.map((p) => p.system),
+          ...(filter.system ? [filter.system] : []),
+        ]),
+      ].sort(),
+    [filteredCategoryPresets, filter.system],
+  )
+  const aircraft = useMemo(
+    () =>
+      [
+        ...new Set([
+          ...filteredAircraftPresets.map((p) => p.aircraft),
+          ...(filter.aircraft ? [filter.aircraft] : []),
+        ]),
+      ].sort(),
+    [filteredAircraftPresets, filter.aircraft],
+  )
+  const vendors = useMemo(
+    () =>
+      [
+        ...new Set([
+          ...filteredVendorPresets.map((p) => p.vendor),
+          ...(filter.vendor ? [filter.vendor] : []),
+        ]),
+      ].sort(),
+    [filteredVendorPresets, filter.vendor],
+  )
+
+  const selectedIndex = useMemo(
+    () => filteredPresets.findIndex((p) => p.code === selectedPath),
+    [filteredPresets, selectedPath],
+  )
+
+  const getPresetKey = useCallback(
+    (index: number) => filteredPresets[index].id,
+    [filteredPresets],
+  )
+
+  const rowVirtualizer = useVirtualizer({
+    count: filteredPresets.length,
+    getScrollElement: () => viewportRef.current,
+    // Initial estimate only; measureElement refines it once a row mounts.
+    // Matches a single-line row: 20px title, 12px description, 2px borders,
+    // 8px vertical padding and the 4px gap on the wrapper.
+    estimateSize: () => 48,
+    overscan: 8,
+    getItemKey: getPresetKey,
+  })
+
+  const scrollActiveProjectIntoView = useCallback(() => {
+    if (selectedIndex < 0) return
+    cancelScrollIntoView()
+    scrollTimeoutRef.current = window.setTimeout(() => {
+      rowVirtualizer.scrollToIndex(selectedIndex, { align: "center" })
+      scrollTimeoutRef.current = null
+    }, SCROLL_INTO_VIEW_TIMEOUT)
+  }, [selectedIndex, rowVirtualizer])
 
   useEffect(() => {
-    if (!refActiveElement.current) return
     scrollActiveProjectIntoView()
-  }, [refActiveElement, scrollActiveProjectIntoView])
+    return cancelScrollIntoView
+  }, [scrollActiveProjectIntoView])
 
   return (
     <Card className="grow">
@@ -266,19 +342,33 @@ const XplanePresetPanel = ({
         <div className="-mt-3 flex flex-col gap-2">
           <ScrollArea
             className="h-56"
+            viewportRef={viewportRef}
             onMouseEnter={cancelScrollIntoView}
             onMouseLeave={scrollActiveProjectIntoView}
           >
-            <div className="flex flex-col gap-1" role="list">
-              {filteredPresets.map((preset) => (
-                <PresetListItem
-                  ref={preset.code === selectedPath ? refActiveElement : null}
-                  key={preset.code}
-                  preset={preset}
-                  isSelected={preset.code === selectedPath}
-                  setSelectedPreset={setSelectedPreset}
-                />
-              ))}
+            <div
+              role="list"
+              className="relative w-full"
+              style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+            >
+              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const preset = filteredPresets[virtualRow.index]
+                return (
+                  <div
+                    key={virtualRow.key}
+                    ref={rowVirtualizer.measureElement}
+                    data-index={virtualRow.index}
+                    className="absolute top-0 left-0 w-full pb-1"
+                    style={{ transform: `translateY(${virtualRow.start}px)` }}
+                  >
+                    <PresetListItem
+                      preset={preset}
+                      isSelected={preset.code === selectedPath}
+                      setSelectedPreset={handleSelectPreset}
+                    />
+                  </div>
+                )
+              })}
             </div>
           </ScrollArea>
         </div>
