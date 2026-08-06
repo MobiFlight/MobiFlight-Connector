@@ -93,5 +93,59 @@ namespace MobiFlight.Tests
 
             Assert.IsFalse(info.FirmwareRequiresUpdate());
         }
+
+        [TestMethod]
+        public void FirmwareRequiresUpdate_FalseForNewerVersion()
+        {
+            var info = new MobiFlightModuleInfo
+            {
+                Board = new Board
+                {
+                    Info = new Info
+                    {
+                        LatestFirmwareVersion = "11.1.0"
+                    }
+                },
+                Version = "12.0.0"
+            };
+
+            Assert.IsFalse(info.FirmwareRequiresUpdate());
+        }
+
+        [TestMethod]
+        public void FirmwareRequiresUpdate_FalseForInvalidVersion()
+        {
+            var info = new MobiFlightModuleInfo
+            {
+                Board = new Board
+                {
+                    Info = new Info
+                    {
+                        LatestFirmwareVersion = "11.1.0"
+                    }
+                },
+                Version = null
+            };
+
+            Assert.IsFalse(info.FirmwareRequiresUpdate());
+        }
+
+        [TestMethod]
+        public void FirmwareRequiresUpdate_FalseForMissingVersion()
+        {
+            var info = new MobiFlightModuleInfo
+            {
+                Board = new Board
+                {
+                    Info = new Info
+                    {
+                        LatestFirmwareVersion = "11.1.0"
+                    }
+                }
+            };
+
+            Assert.IsFalse(info.FirmwareRequiresUpdate());
+        }
+
     }
 }
