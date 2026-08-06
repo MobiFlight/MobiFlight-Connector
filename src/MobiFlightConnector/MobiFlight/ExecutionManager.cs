@@ -1483,24 +1483,20 @@ namespace MobiFlight
 
                     var originalCfg = cfgItem.Clone() as InputConfigItem;
 
-                    // if there are preconditions check and skip if necessary
-                    if (cfg.Preconditions.Count > 0)
+                    ConnectorValue currentValue = new ConnectorValue();
+
+                    if (!PreconditionChecker.CheckPrecondition(cfg, currentValue, ConfigItems, arcazeCache, mobiFlightCache))
                     {
-                        ConnectorValue currentValue = new ConnectorValue();
+                        cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
+                    }
+                    else
+                    {
+                        cfg.Status.Remove(ConfigItemStatusType.Precondition);
+                    }
 
-                        if (!PreconditionChecker.CheckPrecondition(cfg, currentValue, ConfigItems, arcazeCache, mobiFlightCache))
-                        {
-                            cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
-                        }
-                        else
-                        {
-                            cfg.Status.Remove(ConfigItemStatusType.Precondition);
-                        }
-
-                        if (!cfg.Status.SequenceEqual(originalCfg.Status))
-                        {
-                            updatedValues[cfg.GUID] = cfg;
-                        }
+                    if (!cfg.Status.SequenceEqual(originalCfg.Status))
+                    {
+                        updatedValues[cfg.GUID] = cfg;
                     }
                 }
                 catch (Exception ex)
