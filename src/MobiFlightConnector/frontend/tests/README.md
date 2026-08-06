@@ -27,8 +27,7 @@ Or, you can use the VSCode extension for Playwright to run the tests.
 
 ### Without the Dev Container
 
-If you want to run the tests outside the dev container, check the required steps in `.devcontainer.json` under `postCreateCommand`.  
-Typically, you need to run:
+If you want to run the tests outside the dev container the Playwright dependencies will need to be installed manually:
 
 ```sh
 npm install
@@ -63,15 +62,15 @@ Tests that require secrets will be **skipped** if the necessary environment vari
 
 ## Useful Commands
 
-- Run all tests:  
+- Run all tests:
   ```sh
   npx playwright test
   ```
-- Run a specific test file:  
+- Run a specific test file:
   ```sh
   npx playwright test tests/example.spec.ts
   ```
-- Open Playwright Test UI:  
+- Open Playwright Test UI:
   ```sh
   npx playwright test --ui
   ```
@@ -79,3 +78,10 @@ Tests that require secrets will be **skipped** if the necessary environment vari
 ---
 
 For more information, see the [Playwright documentation](https://playwright.dev/).
+
+```
+
+---
+
+For more information, see the [Playwright documentation](https://playwright.dev/).
+```
