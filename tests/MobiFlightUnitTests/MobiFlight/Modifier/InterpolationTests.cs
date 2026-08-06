@@ -81,20 +81,20 @@ namespace MobiFlight.Modifier.Tests
             Interpolation i = new Interpolation();
             i.Add(x1, y1);
             i.Add(x2, y2);
-            Assert.AreEqual(0.5f, i.Value(0.5f), "Interpolation not done correctly");
+            Assert.AreEqual(0.5f, i.CalculateInterpolatedValue(0.5f), "Interpolation not done correctly");
 
             // value is on key of a inner item
 
             i.Add(x3, y3);
-            Assert.AreEqual(2.0f, i.Value(0.5f), "Interpolation not done correctly");
+            Assert.AreEqual(2.0f, i.CalculateInterpolatedValue(0.5f), "Interpolation not done correctly");
 
             // value is between firts and second
             // and interpolation is positive
-            Assert.AreEqual(1.0f, i.Value(0.25f), "Interpolation not done correctly");
+            Assert.AreEqual(1.0f, i.CalculateInterpolatedValue(0.25f), "Interpolation not done correctly");
 
             // value is between second and third 
             // and interpolation is negative
-            Assert.AreEqual(1.5f, i.Value(0.75f), "Interpolation not done correctly");
+            Assert.AreEqual(1.5f, i.CalculateInterpolatedValue(0.75f), "Interpolation not done correctly");
         }
 
         [TestMethod]
@@ -192,9 +192,9 @@ namespace MobiFlight.Modifier.Tests
             i.ReadXml(xmlReader);
             Assert.IsTrue(i.Active, "Interpolation is not active");
             Assert.AreEqual(3, i.Count, "Number of items in Interpolation wrong");
-            Assert.AreEqual(0, i.Value(0), "Value of interpolation is wrong");
-            Assert.AreEqual(2, i.Value(0.5f), "Value of interpolation is wrong");
-            Assert.AreEqual(1, i.Value(1), "Value of interpolation is wrong");
+            Assert.AreEqual(0, i.CalculateInterpolatedValue(0), "Value of interpolation is wrong");
+            Assert.AreEqual(2, i.CalculateInterpolatedValue(0.5f), "Value of interpolation is wrong");
+            Assert.AreEqual(1, i.CalculateInterpolatedValue(1), "Value of interpolation is wrong");
         }
 
         [TestMethod]
