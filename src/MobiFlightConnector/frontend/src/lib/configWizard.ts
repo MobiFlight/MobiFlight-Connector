@@ -76,9 +76,25 @@ export const fetchHubHopPresets = async (sim: "msfs" | "xplane") => {
   return fetch(presetFile).then((r) => r.json() as Promise<Preset[]>)
 }
 
+// Preset objects are stable references while their data doesn't change
+// (they're held by the TanStack Query cache with staleTime: Infinity), so a
+// WeakMap actually hits here and saves rebuilding the lowercased haystack
+// string on every filter pass across ~25k presets.
+const haystackCache = new WeakMap<object, string>()
+
+const presetHaystack = (preset: Preset) => {
+  let haystack = haystackCache.get(preset)
+  if (haystack === undefined) {
+    haystack =
+      `${preset.label} ${preset.description ?? ""} ${preset.code}`.toLowerCase()
+    haystackCache.set(preset, haystack)
+  }
+  return haystack
+}
+
 export const filterPresetByText = (preset: Preset, filter: string) => {
   const terms = filter.toLowerCase().trim().split(/\s+/).filter(Boolean)
-  const haystack =
-    `${preset.label} ${preset.description ?? ""} ${preset.code}`.toLowerCase()
+  if (terms.length === 0) return true
+  const haystack = presetHaystack(preset)
   return terms.every((t) => haystack.includes(t))
 }
