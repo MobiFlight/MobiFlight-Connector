@@ -148,7 +148,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.IsTrue(o.Shift, "SHIFT value differs");
         }
 
-         [TestMethod]
+        [TestMethod]
         public void JsonDeserialize_WithNewCodeTest_BackslashKey()
         {
             var jsonString = @"{
@@ -167,66 +167,37 @@ namespace MobiFlight.InputConfig.Tests
         }
 
         [TestMethod]
-        public void JsonDeserialize_WithDigitKeyCodeTest()
+        [DataRow("Digit0", Keys.D0)]
+        [DataRow("Digit1", Keys.D1)]
+        [DataRow("Digit2", Keys.D2)]
+        [DataRow("Digit3", Keys.D3)]
+        [DataRow("Digit4", Keys.D4)]
+        [DataRow("Digit5", Keys.D5)]
+        [DataRow("Digit6", Keys.D6)]
+        [DataRow("Digit7", Keys.D7)]
+        [DataRow("Digit8", Keys.D8)]
+        [DataRow("Digit9", Keys.D9)]
+        public void MapCodeToKeys_WithDigitCodes_ReturnsExpectedKeys(string code, Keys expectedKey)
         {
-            var jsonString = @"{
-        ""Type"": ""KeyInputAction"",
-        ""Alt"": true,
-        ""Control"": false,
-        ""Shift"": false,
-        ""Code"": ""Digit1""
-    }";
-
-            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
-
-            Assert.AreEqual("Digit1", action.Code);
-            Assert.IsTrue(action.Alt);
-            Assert.IsFalse(action.Control);
-            Assert.IsFalse(action.Shift);
-
-            Assert.AreEqual(Keys.D1, KeyInputAction.MapCodeToKeys(action.Code));
+            Assert.AreEqual(expectedKey, KeyInputAction.MapCodeToKeys(code));
         }
 
         [TestMethod]
-        public void JsonDeserialize_WithIntlBackslashKeyCodeTest()
+        public void MapCodeToKeys_WithIntlBackslash_ReturnsOem102()
         {
-            var jsonString = @"{
-        ""Type"": ""KeyInputAction"",
-        ""Code"": ""IntlBackslash""
-    }";
-
-            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
-
-            Assert.AreEqual("IntlBackslash", action.Code);
-            Assert.AreEqual(Keys.Oem102, KeyInputAction.MapCodeToKeys(action.Code));
+            Assert.AreEqual(Keys.Oem102, KeyInputAction.MapCodeToKeys("IntlBackslash"));
         }
 
         [TestMethod]
-        public void JsonDeserialize_WithNumpadOperatorKeyCodeTest()
+        public void MapCodeToKeys_WithNumpadOperator_ReturnsAdd()
         {
-            var jsonString = @"{
-        ""Type"": ""KeyInputAction"",
-        ""Code"": ""NumpadAdd""
-    }";
-
-            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
-
-            Assert.AreEqual("NumpadAdd", action.Code);
-            Assert.AreEqual(Keys.Add, KeyInputAction.MapCodeToKeys(action.Code));
+            Assert.AreEqual(Keys.Add, KeyInputAction.MapCodeToKeys("NumpadAdd"));
         }
 
         [TestMethod]
-        public void JsonDeserialize_WithNumpadKeyCodeTest()
+        public void MapCodeToKeys_WithNumpadDigit_ReturnsNumPad7()
         {
-            var jsonString = @"{
-        ""Type"": ""KeyInputAction"",
-        ""Code"": ""Numpad7""
-    }";
-
-            var action = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInputAction>(jsonString);
-
-            Assert.AreEqual("Numpad7", action.Code);
-            Assert.AreEqual(Keys.NumPad7, KeyInputAction.MapCodeToKeys(action.Code));
+            Assert.AreEqual(Keys.NumPad7, KeyInputAction.MapCodeToKeys("Numpad7"));
         }
     }
 }
