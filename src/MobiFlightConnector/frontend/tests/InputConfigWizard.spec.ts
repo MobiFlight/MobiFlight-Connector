@@ -2979,6 +2979,12 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(actionInputOption).toBeVisible()
     await actionInputOption.click()
 
+    //loading spinner may be visible while the preset list is being fetched
+    const loadingSpinner = page.getByTestId("loading-spinner")
+    if (await loadingSpinner.isVisible().catch(() => false)) {
+      await expect(loadingSpinner).toBeHidden()
+    }
+
     const codeInput = actionEditor.getByPlaceholder("Enter RPN code")
 
     await expect(codeInput).toBeVisible()
@@ -3540,6 +3546,12 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(actionInputOption).toBeVisible()
     await actionInputOption.click()
 
+      //loading spinner may be visible while the preset list is being fetched
+    const loadingSpinner = page.getByTestId("loading-spinner")
+    if (await loadingSpinner.isVisible().catch(() => false)) {
+      await expect(loadingSpinner).toBeHidden()
+    }
+    
     // Open the input type combo box to get access to the options
     const inputTypeComboBox = actionEditor
       .getByRole("combobox")
