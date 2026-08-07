@@ -178,6 +178,13 @@ namespace MobiFlight.InputConfig
             {"NumpadEnter", Keys.Enter},
             {"IntlBackslash", Keys.Oem102},
 
+            {"CapsLock", Keys.CapsLock},
+            {"NumLock", Keys.NumLock},
+            {"ScrollLock", Keys.Scroll},
+            {"PrintScreen", Keys.PrintScreen},
+            {"Pause", Keys.Pause},
+            {"ContextMenu", Keys.Apps},
+
             {"F1", Keys.F1},
             {"F2", Keys.F2},
             {"F3", Keys.F3},
