@@ -27,6 +27,8 @@ jobs:
       run: npx playwright install chromium --with-deps
     - name: Run linter
       run: npm run lint
+    - name: Run unit tests
+      run: npx vitest run
     - name: Run Playwright tests
       env:
         TESTS_MEMBER_EMAIL: ${{ vars.TESTS_MEMBER_EMAIL }}
