@@ -85,7 +85,7 @@
     "InputShiftRegister": "Входной Сдвиговый Регистр",
     "Button": "Кнопка",
     "Encoder": "Энкодер",
-    "AnalogInput": "Аналаговый Ввод",
+    "AnalogInput": "Аналоговый Ввод",
     "-": "не выбрано",
     "OutputConfigItem": "Конфигурация Вывода",
     "InputConfigItem": "Конфигурация Ввода",
