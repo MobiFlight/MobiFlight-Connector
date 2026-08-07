@@ -186,12 +186,6 @@
         "UseProSim": "ProSim - interfaz para aviones ProSim",
         "Feature": "Funciones adicionales"
       },
-      "BindingStatus": {
-        "Match": "Controlador conectado",
-        "AutoBind": "Controlador vinculado automáticamente",
-        "Missing": "Controlador ausente",
-        "RequiresManualBind": "Vinculación manual requerida"
-      },
       "Aircraft": {
         "Label": "Avión",
         "HelpText": "Selecciona el avión para este proyecto.",

@@ -147,7 +147,7 @@
       "Match": "Controller vorhanden",
       "AutoBind": "Automatisch zugeordneter Controller",
       "Missing": "Controller fehlt",
-      "RequiresManualBind": "Manuelle Zurodnung erforderlich"
+      "RequiresManualBind": "Manuelle Zuordnung erforderlich"
     },
     "Card": {
       "Main": {
@@ -185,12 +185,6 @@
         "UseFsuipc": "FSUIPC - alternative alte Schnittstelle, teilweise von Addons verwendet, z.B. PMDG",
         "UseProSim": "ProSim - Schnittstelle für ProSim Flugzeuge",
         "Feature": "Zusätzliche Funktionen"
-      },
-      "BindingStatus": {
-        "Match": "Controller angeschlossen",
-        "AutoBind": "Automatisch zugeordneter Controller",
-        "Missing": "Controller fehlt",
-        "RequiresManualBind": "Manuelle Zuordnung erforderlich"
       },
       "Aircraft": {
         "Label": "Flugzeug",
