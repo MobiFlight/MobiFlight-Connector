@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button"
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 import { IconExclamationCircle } from "@tabler/icons-react"
 import useOpenUrl from "@/lib/hooks/useOpenUrl"
-import LoadingSpinner from "../LoadingSpinner"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
@@ -33,9 +32,7 @@ const MsfsInputActionPanel = ({
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-
-
-
+  
   const preset = presets.find((p) => p.id === config?.PresetId) ?? null
 
   if (variant === "summary") {
@@ -82,6 +79,7 @@ const MsfsInputActionPanel = ({
     <div className="flex flex-col gap-4">
       <MsfsPresetPanel
         variant="input"
+        isLoading={isLoading}
         selectedPresetId={config?.PresetId ?? null}
         setSelectedPreset={(preset) =>
           onConfigChange({
@@ -96,10 +94,7 @@ const MsfsInputActionPanel = ({
           className="flex flex-col gap-4 pt-4"
           data-testid="preset-code-panel"
         >
-          {isLoading ? (
-            <LoadingSpinner />
-          ) : (
-            <>
+        
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
               {t(
@@ -213,8 +208,6 @@ const MsfsInputActionPanel = ({
               </div>
             </div>
           </div>
-        </>
-        )}
         </CardContent>
       </Card>
     </div>

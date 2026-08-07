@@ -13,7 +13,6 @@ import { XplanePreset } from "@/types/preset"
 import { IconExclamationCircle } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import LoadingSpinner from "../LoadingSpinner"
 
 const CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = ["DataRef", "Command"]
 
@@ -31,9 +30,10 @@ const XplaneInputActionPanel = ({
   const { t } = useTranslation()
   const openUrl = useOpenUrl()
 
-  const { data: presets = [],isLoading } = useQuery({
+  const { data: presets = [], isLoading } = useQuery({
     queryKey: ["xplane-presets"],
-    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>,
+    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>, 
+    // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
   const preset = presets.find((p) => p.code === config?.Path) ?? null
@@ -61,6 +61,7 @@ const XplaneInputActionPanel = ({
         </div>
       </div>
     )
+  
   }
 
   const labels = {
@@ -80,6 +81,7 @@ const XplaneInputActionPanel = ({
     <div className="flex flex-col gap-4">
       <XplanePresetPanel
         variant="input"
+        isLoading={isLoading}
         selectedPath={config?.Path ?? null}
         setSelectedPreset={(preset) =>
           onConfigChange({
@@ -90,12 +92,8 @@ const XplaneInputActionPanel = ({
         }
       />
       <Card>
-        
+
         <CardContent className="flex flex-col gap-4 pt-4" data-testid="preset-code-panel">
-          {isLoading ? (
-            <LoadingSpinner />
-          ) : (
-            <>
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
               {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title")}
@@ -259,8 +257,6 @@ const XplaneInputActionPanel = ({
               </div>
             )}
           </div>
-          </>
-          )}
         </CardContent>
       </Card>
     </div>
