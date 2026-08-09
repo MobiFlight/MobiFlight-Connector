@@ -105,7 +105,7 @@ namespace MobiFlight.Modifier
             {
                 case FSUIPCOffsetType.Float:
                 case FSUIPCOffsetType.Integer:
-                    result.Float64 = Math.Round(Value(connectorValue.Float64));
+                    result.Float64 = CalculateInterpolatedValue(connectorValue.Float64);
                     break;
 
                 case FSUIPCOffsetType.String:
@@ -119,15 +119,16 @@ namespace MobiFlight.Modifier
         public string Apply(string strValue)
         {
             string result = strValue;
-            if (Count > 0)
+
+            if (Count > 0 && float.TryParse(strValue, out float value))
             {
-                result = Math.Round(Value(float.Parse(strValue)), 0).ToString();
+                result = CalculateInterpolatedValue(value).ToString();
             }
 
             return result;
         }
 
-        public double Value(double x)
+        public double CalculateInterpolatedValue(double x)
         {
             double first = Values.Keys.First();
             if (x <= first) return Values[first];

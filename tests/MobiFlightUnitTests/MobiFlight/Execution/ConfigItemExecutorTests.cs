@@ -11,6 +11,7 @@ using Moq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace MobiFlight.Tests
 {
@@ -145,7 +146,7 @@ namespace MobiFlight.Tests
 
             // Arrange
             mockXplaneCache.Setup(c => c.IsConnected()).Returns(true);
-            
+
             // Act
             executor.Execute(cfg, updatedValues);
 
@@ -164,7 +165,7 @@ namespace MobiFlight.Tests
                 ProSimDataRef = new ProSimDataRef { Path = "test/dataref" }
             };
             var cfg = new OutputConfigItem { Active = true, Source = proSimSource };
-            
+
             var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockProSimCache.Setup(c => c.IsConnected()).Returns(false);
             mockProSimCache.Setup(c => c.readDataref(It.IsAny<string>())).Returns(0.0);
@@ -226,10 +227,11 @@ namespace MobiFlight.Tests
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsStepper_WithTestValueFromConfig()
         {
             // Arrange
-            var cfg = new OutputConfigItem { 
-                Controller = SerialNumber.CreateController("Test / SN-123"), 
-                DeviceType = MobiFlightStepper.TYPE, 
-                Device = new OutputConfig.Stepper { TestValue = 100 } 
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightStepper.TYPE,
+                Device = new OutputConfig.Stepper { TestValue = 100 }
             };
 
             // Act
@@ -247,10 +249,11 @@ namespace MobiFlight.Tests
             var stepperAddress = "1";
             var rawSerial = "Test / SN-123";
             var serial = SerialNumber.ExtractSerial(rawSerial);
-            var cfg = new OutputConfigItem { 
-                Controller = SerialNumber.CreateController(rawSerial), 
-                DeviceType = MobiFlightStepper.TYPE, 
-                Device = new OutputConfig.Stepper { Address = stepperAddress, Name="Stepper", TestValue = 100 } 
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController(rawSerial),
+                DeviceType = MobiFlightStepper.TYPE,
+                Device = new OutputConfig.Stepper { Address = stepperAddress, Name = "Stepper", TestValue = 100 }
             };
 
             // Act
@@ -283,9 +286,10 @@ namespace MobiFlight.Tests
         {
             var testValue = new ConnectorValue() { type = FSUIPCOffsetType.Integer, Float64 = 100 };
             // Arrange
-            var cfg = new OutputConfigItem { 
-                Controller = SerialNumber.CreateController("Test / SN-123"), 
-                DeviceType = MobiFlightServo.TYPE, 
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController("Test / SN-123"),
+                DeviceType = MobiFlightServo.TYPE,
                 Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" },
             };
 
@@ -348,7 +352,7 @@ namespace MobiFlight.Tests
             var serial = SerialNumber.ExtractSerial(rawSerial);
             var name = "TestCustomDevice";
             var msgType = 1;
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType= msgType } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
             // Act
             executor.ExecuteTestOff(cfg);
             // Assert
@@ -402,7 +406,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType() 
+        public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsLcdDisplayDeprecatedType()
         {
             // Arrange
             var rawSerial = "Test / SN-123";
@@ -410,7 +414,7 @@ namespace MobiFlight.Tests
             var name = "TestOutput";
             var address = "0x27";
             var expectedEmptyLine = new string(' ', 20 * 4);
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address= address } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
             // Act
             executor.ExecuteTestOff(cfg);
             // Assert
@@ -499,7 +503,8 @@ namespace MobiFlight.Tests
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
                 DeviceType = MobiFlightShiftRegister.TYPE,
-                Device = new OutputConfig.ShiftRegister { 
+                Device = new OutputConfig.ShiftRegister
+                {
                     Address = "Shifter01",
                     PWM = false,
                     Pin = "1",
@@ -533,7 +538,7 @@ namespace MobiFlight.Tests
             executor.ExecuteTestOn(cfg, new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 0.15 });
 
             // Assert
-            mockMobiFlightCache.Verify(m => m.SetShiftRegisterOutput("SN-123", "Shifter01", "1" , "0.15"), Times.Once);
+            mockMobiFlightCache.Verify(m => m.SetShiftRegisterOutput("SN-123", "Shifter01", "1", "0.15"), Times.Once);
         }
 
         [TestMethod]
@@ -638,7 +643,7 @@ namespace MobiFlight.Tests
 
             // Mock the variable source to return a value
             mockMobiFlightCache.Setup(m => m.GetMobiFlightVariable(It.IsAny<string>())).Returns(variable);
-            
+
             // Mock an error during SetValue execution
             mockMobiFlightCache
                 .Setup(m => m.SetValue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -646,7 +651,7 @@ namespace MobiFlight.Tests
 
             // Act
             executor.Execute(cfg, updatedValues);
-            
+
             // Assert
             Assert.IsTrue(cfg.Status.ContainsKey(ConfigItemStatusType.Device), "Config item should have device error status");
             Assert.AreEqual("ExecutionError", cfg.Status[ConfigItemStatusType.Device], "Error status should indicate execution error");
@@ -669,7 +674,8 @@ namespace MobiFlight.Tests
                 Controller = null,
                 DeviceType = "InputAction",
                 Source = new VariableSource() { MobiFlightVariable = variable },
-                AnalogInputConfig = new AnalogInputConfig { 
+                AnalogInputConfig = new AnalogInputConfig
+                {
                     onChange = new VariableInputAction { Variable = variable }
                 }
             };
@@ -682,5 +688,74 @@ namespace MobiFlight.Tests
             // Assert
             Assert.HasCount(0, cfg.Status.Keys, "Config should not have any errors");
         }
+
+        [TestMethod]
+        public void Execute_ShouldPassFloatValueToInputAction()
+        {
+            // Arrange
+            var variable = new MobiFlightVariable()
+            {
+                Name = "TestVar",
+                Number = 12.5
+            };
+
+            mockMobiFlightCache
+                .Setup(m => m.GetMobiFlightVariable(It.IsAny<string>()))
+                .Returns(variable);
+
+            var action = new TrackingInputAction();
+
+            var cfg = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Controller = null,
+                DeviceType = "InputAction",
+                Source = new VariableSource()
+                {
+                    MobiFlightVariable = variable
+                },
+                AnalogInputConfig = new AnalogInputConfig()
+                {
+                    onChange = action
+                }
+            };
+
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.IsNotNull(action.LastArgs);
+            Assert.AreEqual(12.5, action.LastArgs.Value);
+            Assert.IsNull(action.LastArgs.StrValue);
+        }
+        private class TrackingInputAction : InputAction
+        {
+            public InputEventArgs LastArgs { get; private set; }
+
+            public override object Clone()
+            {
+                return new TrackingInputAction();
+            }
+
+            public override void ReadXml(XmlReader reader)
+            {
+            }
+
+            public override void WriteXml(XmlWriter writer)
+            {
+            }
+
+            public override void execute(
+                CacheCollection cacheCollection,
+                InputEventArgs e,
+                List<ConfigRefValue> configRefs)
+            {
+                LastArgs = (InputEventArgs)e.Clone();
+            }
+        }
     }
+
 }
