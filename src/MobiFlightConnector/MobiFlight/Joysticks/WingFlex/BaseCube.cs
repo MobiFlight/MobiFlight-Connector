@@ -1,32 +1,16 @@
-﻿using Device.Net;
-using Hid.Net;
-using Hid.Net.Windows;
+﻿using HidSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
     internal class BaseCube : Joystick
     {
         /// <summary>
-        /// Used for reading HID reports in a background thread.
+        /// Reads HID reports on a dedicated background thread.
         /// </summary>
-        bool DoReadHidReports = false;
-
-        /// <summary>
-        /// The thread that reads HID reports.
-        /// </summary>
-        private Thread readThread;
-
-        /// <summary>
-        /// The specific HID device instance.
-        /// This is using the Device.Net library for HID communication.
-        /// It provides improved performance compared to HidSharp
-        /// </summary>
-        protected new IHidDevice Device { get; set; }
+        private readonly HidReportReceiver Receiver = new HidReportReceiver();
 
         /// <summary>
         /// The FCU Cube needs to store the output state of those devices
@@ -49,17 +33,40 @@ namespace MobiFlight.Joysticks.WingFlex
         }
 
         /// <summary>
+        /// The serial number as reported by the HID device, fetched once on connect.
+        /// Cached because Serial is evaluated for every input event and the native
+        /// query is not free - especially when the hardware refuses to report one.
+        /// </summary>
+        private string CachedSerialNumber;
+
+        /// <summary>
         /// Provides Serial including prefix.
-        /// Serial information is provided through Device.Net
+        /// Serial information is provided through the HID device.
         /// </summary>
         public override string Serial
         {
             get
             {
                 return
-                    (Device?.ConnectedDeviceDefinition?.SerialNumber != null) ?
-                    $"{Joystick.SerialPrefix}{Device?.ConnectedDeviceDefinition?.SerialNumber}"
+                    !string.IsNullOrEmpty(CachedSerialNumber) ?
+                    $"{Joystick.SerialPrefix}{CachedSerialNumber}"
                     : $"{Name.ToUpper().Replace(" ", "-")}-1234-ABCD-12345678";
+            }
+        }
+
+        /// <summary>
+        /// Some devices refuse to report a serial number - treat that as "no serial"
+        /// instead of failing.
+        /// </summary>
+        private string GetDeviceSerialNumber()
+        {
+            try
+            {
+                return Device?.GetSerialNumber();
+            }
+            catch
+            {
+                return null;
             }
         }
 
@@ -73,61 +80,64 @@ namespace MobiFlight.Joysticks.WingFlex
         }
 
         /// <summary>
-        /// This creates a connection to the HID device using the Device.Net library.
+        /// This creates a connection to the HID device using the HidSharp library.
         /// </summary>
         /// <returns></returns>
-        protected async Task<bool> Connect()
+        protected bool Connect()
         {
             var VendorId = Definition.VendorId;
             var ProductId = Definition.ProductId;
 
-            var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory();
-            var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
-
-            if (deviceDefinitions.Count == 0)
+            if (Device == null)
             {
-                Log.Instance.log($"no {Name} found with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Info);
-                return false;
+                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+                if (Device == null)
+                {
+                    Log.Instance.log($"no {Name} found with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Info);
+                    return false;
+                }
             }
 
-            Device = (IHidDevice)await hidFactory.GetDeviceAsync(deviceDefinitions.First()).ConfigureAwait(false);
-            await Device.InitializeAsync().ConfigureAwait(false);
-
-            DoReadHidReports = true;
-
-            readThread = new Thread(ReadHidReportsLoop)
-            {
-                IsBackground = true,
-                Name = $"{Name}-HID-Reader"
-            };
-            readThread.Start();
-            Log.Instance.log($"Connected to {Name} with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Debug);
-            Log.Instance.log($"Starting read thread for HID reports. {Name}-HID-Reader", LogSeverity.Debug);
-            return true;
-        }
-
-        /// <summary>
-        /// Method called by read thread
-        /// </summary>
-        private void ReadHidReportsLoop()
-        {
-            while (DoReadHidReports)
+            if (Stream == null)
             {
                 try
                 {
-                    var HidReport = Device.ReadReportAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-                    var data = HidReport.TransferResult.Data;
-                    ProcessInputReportBuffer(HidReport.ReportId, data);
+                    Stream = Device.Open();
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
-                    Log.Instance.log($"Exception during read from {Name} ({ex.GetType().Name}): {ex.Message}", LogSeverity.Error);
-                    Log.Instance.log($"Stopping read thread and shutting down device {Name}.", LogSeverity.Error);
-                    // Exception when disconnecting fcu while mobiflight is running.
-                    Shutdown();
-                    break;
+                    Log.Instance.log($"Failed to open {Name} device: {ex.Message}", LogSeverity.Error);
+                    return false;
                 }
             }
+
+            if (CachedSerialNumber == null)
+            {
+                CachedSerialNumber = GetDeviceSerialNumber() ?? string.Empty;
+            }
+
+            if (!Receiver.IsReceiving)
+            {
+                Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, $"{Name}-HID-Reader");
+            }
+
+            Log.Instance.log($"Connected to {Name} with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Debug);
+            return true;
+        }
+
+        private void OnReportReceived(byte[] rawReport)
+        {
+            // The report classes expect the payload without the leading report ID byte,
+            // as documented in their protocol tables.
+            ProcessInputReportBuffer(rawReport[0], HidReportReceiver.GetPayload(rawReport));
+        }
+
+        private void OnReadError(Exception exception)
+        {
+            Log.Instance.log($"Exception during read from {Name} ({exception.GetType().Name}): {exception.Message}", LogSeverity.Error);
+            Log.Instance.log($"Stopping read thread and shutting down device {Name}.", LogSeverity.Error);
+            // Exception when disconnecting fcu while mobiflight is running.
+            Shutdown();
         }
 
         /// <summary>
@@ -136,9 +146,9 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override void Update()
         {
-            if (Device == null || !Device.IsInitialized)
+            if (Stream == null || !Receiver.IsReceiving)
             {
-                var connected = Connect().GetAwaiter().GetResult();
+                var connected = Connect();
                 if (!connected) return;
             }
         }
@@ -165,19 +175,23 @@ namespace MobiFlight.Joysticks.WingFlex
         /// Sends out the data to the device as correct output report.
         /// </summary>
         /// <param name="data"></param>
-        protected async override void SendData(byte[] data)
+        protected override void SendData(byte[] data)
         {
-            if (Device == null || !Device.IsInitialized || data == null) return;
+            if (Stream == null || data == null) return;
 
             try
             {
-                await Device.WriteReportAsync(data, 0).ConfigureAwait(false);
+                // The report classes produce the payload without the leading report ID
+                // byte (0), which the HID stream expects at index 0.
+                var report = new byte[data.Length + 1];
+                Array.Copy(data, 0, report, 1, data.Length);
+                Stream.Write(report, 0, report.Length);
                 RequiresOutputUpdate = false;
             }
             catch (Exception ex)
             {
-                // Catch-all to prevent unhandled exceptions from WriteReportAsync from crashing the application.
-                // This aligns with the pattern used in ReadHidReportsLoop where all exceptions are caught
+                // Catch-all to prevent unhandled exceptions from the write from crashing the application.
+                // This aligns with the pattern used in OnReadError where all exceptions are caught
                 // to handle device removal and unexpected disconnect scenarios gracefully.
                 Log.Instance.log($"Exception during write to {Name} ({ex.GetType().Name}): {ex.Message}", LogSeverity.Error);
                 OnDeviceRemoved();
@@ -335,9 +349,10 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override void Shutdown()
         {
-            DoReadHidReports = false;
-            readThread?.Join(1000);
-            Device?.Dispose();
+            Receiver.Stop();
+            Stream?.Close();
+            Stream = null;
+            Device = null;
 
             base.Shutdown();
         }

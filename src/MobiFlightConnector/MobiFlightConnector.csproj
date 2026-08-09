@@ -103,9 +103,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ArcazeHid.dll</HintPath>
     </Reference>
-    <Reference Include="Device.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Device.Net.4.2.1\lib\net45\Device.Net.dll</HintPath>
-    </Reference>
     <Reference Include="fsuipcClient, Version=3.3.16.420, Culture=neutral, PublicKeyToken=b8cb6f8a387dcef2">
       <HintPath>..\..\packages\FSUIPCClientDLL.3.3.16\lib\net462\fsuipcClient.dll</HintPath>
       <Private>True</Private>
@@ -124,9 +121,6 @@
     </Reference>
     <Reference Include="GraphQL.Primitives, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\GraphQL.Primitives.6.1.0\lib\netstandard2.0\GraphQL.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Hid.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hid.Net.4.2.1\lib\net45\Hid.Net.dll</HintPath>
     </Reference>
     <Reference Include="HidSharp, Version=2.6.4.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\HidSharp.2.6.4\lib\net35\HidSharp.dll</HintPath>
@@ -432,6 +426,7 @@
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoard.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidReportReceiver.cs" />
     <Compile Include="MobiFlight\Joysticks\IIDB\IIDBDevice.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
     <Compile Include="MobiFlight\ControllerDefinitionMigrator.cs" />
@@ -445,7 +440,6 @@
     <Compile Include="MobiFlight\Joysticks\Octavi\Octavi.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBDevice.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBEncoder.cs" />
-    <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\BaseCube.cs" />

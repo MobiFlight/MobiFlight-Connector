@@ -69,9 +69,6 @@
       <HintPath>..\..\packages\Castle.Core.5.2.1\lib\net462\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Device.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Device.Net.4.2.1\lib\net45\Device.Net.dll</HintPath>
-    </Reference>
     <Reference Include="GraphQL.Client">
       <HintPath>..\..\packages\GraphQL.Client.6.1.0\lib\net461\GraphQL.Client.dll</HintPath>
     </Reference>
@@ -86,9 +83,6 @@
     </Reference>
     <Reference Include="GraphQL.Primitives">
       <HintPath>..\..\packages\GraphQL.Primitives.6.1.0\lib\netstandard2.0\GraphQL.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Hid.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hid.Net.4.2.1\lib\net45\Hid.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
@@ -274,10 +268,13 @@
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactoryTests.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactoryTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidReportReceiverTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionMigratorTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReportTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\WinCtrlControllerFactoryTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinitionTests.cs" />

@@ -1,6 +1,4 @@
-﻿using HidSharp;
-using HidSharp.Reports;
-using HidSharp.Reports.Input;
+using HidSharp;
 
 namespace MobiFlight.Joysticks.Octavi
 {
@@ -9,8 +7,7 @@ namespace MobiFlight.Joysticks.Octavi
         readonly int VendorId = 0x04D8;
         readonly int ProductId = 0xE6D6;
 
-        protected HidDeviceInputReceiver inputReceiver;
-        protected ReportDescriptor reportDescriptor;
+        private readonly HidReportReceiver Receiver = new HidReportReceiver();
         private readonly OctaviHandler octaviHandler;
 
         public Octavi(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
@@ -36,35 +33,38 @@ namespace MobiFlight.Joysticks.Octavi
                 if (Stream == null)
                 {
                     Stream = Device.Open();
-                    Stream.ReadTimeout = System.Threading.Timeout.Infinite;
-                    reportDescriptor = Device.GetReportDescriptor();
                 }
 
-                if (inputReceiver == null)
+                if (!Receiver.IsReceiving)
                 {
-                    inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
-                    inputReceiver.Received += InputReceiver_Received;
-                    inputReceiver.Start(Stream);
+                    Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "Octavi-HID-Reader");
                 }
             }
         }
 
-        private void InputReceiver_Received(object sender, System.EventArgs e)
+        private void OnReportReceived(byte[] inputReport)
         {
-            var inputReceiver = sender as HidDeviceInputReceiver;
-            byte[] inputReportBuffer = new byte[8];
-
-            while (inputReceiver.TryRead(inputReportBuffer, 0, out _))
+            OctaviReport report = new OctaviReport();
+            report.parseReport(inputReport);
+            var buttonEvents = octaviHandler.DetectButtonEvents(report);
+            foreach (var (buttonIndex, inputEvent) in buttonEvents)
             {
-                OctaviReport report = new OctaviReport();
-                report.parseReport(inputReportBuffer);
-                var buttonEvents = octaviHandler.DetectButtonEvents(report);
-                foreach (var (buttonIndex, inputEvent) in buttonEvents)
-                {
-                    TriggerButtonPress(buttonIndex, inputEvent);
-                }
+                TriggerButtonPress(buttonIndex, inputEvent);
+            }
 
-                this.Update();
+            this.Update();
+        }
+
+        private void OnReadError(System.Exception exception)
+        {
+            Log.Instance.log($"Octavi read failed, closing connection: {exception.Message}", LogSeverity.Error);
+
+            // Drop the dead connection so the next Update() can reconnect.
+            lock (this)
+            {
+                Stream?.Close();
+                Stream = null;
+                Device = null;
             }
         }
 
@@ -110,7 +110,7 @@ namespace MobiFlight.Joysticks.Octavi
         {
             // Octavi is not a DirectInput device
             // so we have to connect it here.
-            if (Stream == null || inputReceiver == null)
+            if (Stream == null || !Receiver.IsReceiving)
             {
                 Connect();
             };
@@ -133,16 +133,12 @@ namespace MobiFlight.Joysticks.Octavi
 
         public override void Shutdown()
         {
+            Receiver.Stop();
+
             if (Stream != null)
             {
                 Stream.Close();
                 Stream = null;
-            }
-
-            if (inputReceiver != null)
-            {
-                inputReceiver.Received -= InputReceiver_Received;
-                inputReceiver = null;
             }
         }
     }

@@ -1,22 +1,12 @@
-﻿using Device.Net;
-using Hid.Net;
-using Hid.Net.Windows;
+﻿using HidSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.WinCtrl
 {
-    internal class HidBuffer
-    {
-        public Report HidReport { get; set; }
-    }
-
     internal class WinCtrlFcu : WinCtrlBaseController
     {
-        new IHidDevice Device { get; set; }
 
         private const int SPD_DEC = 10;
         private const int SPD_INC = 11;
@@ -39,43 +29,65 @@ namespace MobiFlight.Joysticks.WinCtrl
   
         private volatile bool DoInitialize = true;
         private volatile bool DoRetrigger = false;
-        private volatile bool DoReadHidReports = false;
+        private readonly HidReportReceiver Receiver = new HidReportReceiver();
         private WinCtrlFcuReport CurrentReport = new WinCtrlFcuReport();
         private WinCtrlFcuReport PreviousReport = new WinCtrlFcuReport();
-        private HidBuffer HidDataBuffer = new HidBuffer();
-       
+
         public WinCtrlFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def, productId, server)
         {
             // ctor logic is in base class
         }
 
-        public async override void Connect(IntPtr handle)
+        public override void Connect(IntPtr handle)
         {
-            base.Connect(handle);          
+            base.Connect(handle);
 
-            var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory();
-            var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
-            Device = (IHidDevice)await hidFactory.GetDeviceAsync(deviceDefinitions.First()).ConfigureAwait(false);
-            await Device.InitializeAsync().ConfigureAwait(false);
-            DoReadHidReports = true;
-            DisplayControl.SendRequestFirmware();
-
-            await Task.Run(async () =>
+            if (Device == null)
             {
-                while (DoReadHidReports)
+                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+                if (Device == null)
                 {
-                    try
-                    {
-                        HidDataBuffer.HidReport = await Device.ReadReportAsync().ConfigureAwait(false);
-                        InputReportReceived(HidDataBuffer);
-                    }
-                    catch 
-                    {
-                        // Exception when disconnecting fcu while mobiflight is running.
-                        Shutdown();
-                    }
+                    Log.Instance.log($"No WINCTRL FCU found with VID:{VendorId:X4} and PID:{ProductId:X4}", LogSeverity.Error);
+                    return;
                 }
-            });
+            }
+
+            if (Stream == null)
+            {
+                try
+                {
+                    Stream = Device.Open();
+                }
+                catch (Exception ex)
+                {
+                    // Connect runs on the joystick scan's thread - an open failure
+                    // (e.g. the device is held exclusively by another tool) must not
+                    // abort the scan.
+                    Log.Instance.log($"Failed to open WINCTRL FCU: {ex.Message}", LogSeverity.Error);
+                    return;
+                }
+            }
+
+            if (!Receiver.IsReceiving)
+            {
+                Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, $"WinCtrlFcu-{ProductId:X4}");
+            }
+
+            DisplayControl.SendRequestFirmware();
+        }
+
+        private void OnReportReceived(byte[] rawReport)
+        {
+            // The report class works on the payload without the leading report ID byte,
+            // as documented in the protocol tables.
+            InputReportReceived(rawReport[0], HidReportReceiver.GetPayload(rawReport));
+        }
+
+        private void OnReadError(Exception exception)
+        {
+            // Exception when disconnecting fcu while mobiflight is running.
+            Log.Instance.log($"WINCTRL FCU read failed, shutting down: {exception.Message}", LogSeverity.Error);
+            Shutdown();
         }
 
         // EnumerateInputDevices
@@ -151,9 +163,9 @@ namespace MobiFlight.Joysticks.WinCtrl
             }
         }
 
-        private void InputReportReceived(HidBuffer hidBuffer)
+        private void InputReportReceived(byte reportId, byte[] data)
         {
-            CurrentReport.ParseReport(hidBuffer);
+            CurrentReport.ParseReport(reportId, data);
             if (CurrentReport.ReportId == BUTTONS_REPORT)
             {
                 if (DoInitialize)
@@ -232,13 +244,15 @@ namespace MobiFlight.Joysticks.WinCtrl
 
         public override void Shutdown()
         {
-            DoReadHidReports = false;
-            base.Shutdown();                      
-            if (Device != null) 
+            Receiver.Stop();
+            base.Shutdown();
+
+            if (Stream != null)
             {
-                Device.Close();
-                Device = null;
+                Stream.Close();
+                Stream = null;
             }
+            Device = null;
         }
     }
 }

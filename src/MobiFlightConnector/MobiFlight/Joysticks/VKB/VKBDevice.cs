@@ -1,6 +1,4 @@
 ﻿using HidSharp;
-using HidSharp.Reports;
-using HidSharp.Reports.Input;
 using System;
 using System.Collections.Generic;
 
@@ -11,8 +9,7 @@ namespace MobiFlight.Joysticks.VKB
         public const int VKB_VENDOR_ID = 0x231D;
         const int ENCODER_MISSED_MESSAGE_THRESHOLD = 5; // How many missed encoder messages are allowed before we need to log them - chosen arbitrarily
         private readonly new VKBLedContainer Lights = new VKBLedContainer();
-        private HidDeviceInputReceiver InputReceiver;
-        private readonly byte[] InputReportBuffer = new byte[64];
+        private readonly HidReportReceiver Receiver = new HidReportReceiver();
         private readonly SortedList<byte, VKBEncoder> Encoders = new SortedList<byte, VKBEncoder>();
         int lastSeqNo = -1;
 
@@ -34,15 +31,15 @@ namespace MobiFlight.Joysticks.VKB
             if (Stream == null)
             {
                 Stream = Device.Open();
-                Stream.ReadTimeout = System.Threading.Timeout.Infinite;
             }
 
-            if (InputReceiver == null)
+            if (!Receiver.IsReceiving)
             {
-                // We use our own descriptor since the one we get from Windows/HIDSharp has been altered and encoder data is missing
-                InputReceiver = new ReportDescriptor(VKBHidReport.Descriptor).CreateHidDeviceInputReceiver();
-                InputReceiver.Received += OnHidReportReceived;
-                InputReceiver.Start(Stream);
+                // The descriptor Windows reconstructs for this device is altered and misses the
+                // encoder monitoring report (0x08, 64 bytes incl. report ID), so don't trust the
+                // reported max input length blindly.
+                int bufferSize = Math.Max(64, Device.GetMaxInputReportLength());
+                Receiver.Start(Stream, bufferSize, OnReportReceived, OnReadError, "VKB-HID-Reader");
             }
         }
 
@@ -141,25 +138,33 @@ namespace MobiFlight.Joysticks.VKB
             }
         }
 
-        private void OnHidReportReceived(object sender, System.EventArgs e)
+        private void OnReportReceived(byte[] report)
         {
-            var inputReceiver = sender as HidDeviceInputReceiver;
-            while (inputReceiver?.TryRead(InputReportBuffer, 0, out _) ?? false)
+            if (report.Length < 4)
             {
-                byte ReportId = InputReportBuffer[0];
-                if (ReportId != 0x08) // 0x08 = Monitoring channel / virtual bus
-                {
-                    continue;
-                }
-
-                byte MessageType = InputReportBuffer[1];
-                if (MessageType != 0x13) // 0x13 = Encoder status
-                {
-                    continue;
-                }
-
-                ParseEncoderReport(InputReportBuffer);
+                return;
             }
+
+            if (report[0] != 0x08) // 0x08 = Monitoring channel / virtual bus
+            {
+                return;
+            }
+
+            if (report[1] != 0x13) // 0x13 = Encoder status
+            {
+                return;
+            }
+
+            ParseEncoderReport(report);
+        }
+
+        private void OnReadError(Exception exception)
+        {
+            // Axes and buttons keep working through DirectInput; only the encoder channel
+            // is lost. Device removal itself is detected by the DirectInput polling.
+            Log.Instance.log($"VKB encoder channel read failed: {exception.Message}", LogSeverity.Error);
+            Stream?.Close();
+            Stream = null;
         }
 
         private void ParseEncoderReport(byte[] Report)
@@ -211,6 +216,17 @@ namespace MobiFlight.Joysticks.VKB
 
                 TriggerButtonPressed(this, e);
             }
+        }
+
+        public override void Shutdown()
+        {
+            Receiver.Stop();
+            if (Stream != null)
+            {
+                Stream.Close();
+                Stream = null;
+            }
+            base.Shutdown();
         }
 
         public static HidDevice GetMatchingHidDevice(SharpDX.DirectInput.Joystick joystick)

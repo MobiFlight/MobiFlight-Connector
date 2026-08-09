@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.BrowserMessages.Incoming.Converter;
 using Moq;
