@@ -1,5 +1,5 @@
-﻿using MobiFlight.Joysticks.Winwing;
-using MobiFlight.SimConnectMSFS;
+﻿using MobiFlight.SimConnectMSFS;
+using MobiFlightWwFcu;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -60,7 +60,7 @@ namespace MobiFlight.Scripts
             }
             else
             {
-                return WinwingConstants.CDU_PRODUCTIDS.Select(p => p.ToString("X")).ToArray();
+                return WinCtrlConstants.CDU_PRODUCTIDS.Select(p => p.ToString("X")).ToArray();
             }
         }
 

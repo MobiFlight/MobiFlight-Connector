@@ -148,7 +148,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.IsTrue(o.Shift, "SHIFT value differs");
         }
 
-         [TestMethod]
+        [TestMethod]
         public void JsonDeserialize_WithNewCodeTest_BackslashKey()
         {
             var jsonString = @"{
@@ -164,6 +164,40 @@ namespace MobiFlight.InputConfig.Tests
             Assert.IsFalse(o.Alt, "ALT value differs");
             Assert.IsFalse(o.Control, "CTRL value differs");
             Assert.IsTrue(o.Shift, "SHIFT value differs");
+        }
+
+        [TestMethod]
+        [DataRow("Digit0", Keys.D0)]
+        [DataRow("Digit1", Keys.D1)]
+        [DataRow("Digit2", Keys.D2)]
+        [DataRow("Digit3", Keys.D3)]
+        [DataRow("Digit4", Keys.D4)]
+        [DataRow("Digit5", Keys.D5)]
+        [DataRow("Digit6", Keys.D6)]
+        [DataRow("Digit7", Keys.D7)]
+        [DataRow("Digit8", Keys.D8)]
+        [DataRow("Digit9", Keys.D9)]
+        public void MapCodeToKeys_WithDigitCodes_ReturnsExpectedKeys(string code, Keys expectedKey)
+        {
+            Assert.AreEqual(expectedKey, KeyInputAction.MapCodeToKeys(code));
+        }
+
+        [TestMethod]
+        public void MapCodeToKeys_WithIntlBackslash_ReturnsOem102()
+        {
+            Assert.AreEqual(Keys.Oem102, KeyInputAction.MapCodeToKeys("IntlBackslash"));
+        }
+
+        [TestMethod]
+        public void MapCodeToKeys_WithNumpadOperator_ReturnsAdd()
+        {
+            Assert.AreEqual(Keys.Add, KeyInputAction.MapCodeToKeys("NumpadAdd"));
+        }
+
+        [TestMethod]
+        public void MapCodeToKeys_WithNumpadDigit_ReturnsNumPad7()
+        {
+            Assert.AreEqual(Keys.NumPad7, KeyInputAction.MapCodeToKeys("Numpad7"));
         }
     }
 }

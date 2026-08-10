@@ -1,5 +1,5 @@
 using MobiFlight.Joysticks.VKB;
-using MobiFlight.Joysticks.Winwing;
+using MobiFlight.Joysticks.WinCtrl;
 using MobiFlight.Joysticks.IIDB;
 using SharpDX.DirectInput;
 using WebSocketSharp.Server;
@@ -24,8 +24,8 @@ namespace MobiFlight.Joysticks
                 return true;
             }
 
-            // Check for Winwing devices
-            if (WinwingControllerFactory.CanCreate(vendorId, productId))
+            // Check for WinCtrl devices
+            if (WinCtrlControllerFactory.CanCreate(vendorId, productId))
             {
                 return true;
             }
@@ -103,10 +103,10 @@ namespace MobiFlight.Joysticks
                 return new Octavi.Octavi(diJoystick, definition);
             }
 
-            // Handle Winwing devices by vendor/product ID
-            if (WinwingControllerFactory.CanCreate(vendorId, productId))
+            // Handle WinCtrl devices by vendor/product ID
+            if (WinCtrlControllerFactory.CanCreate(vendorId, productId))
             {
-                return WinwingControllerFactory.Create(diJoystick, definition, vendorId, productId, wsServer);
+                return WinCtrlControllerFactory.Create(diJoystick, definition, vendorId, productId, wsServer);
             }
 
             // Handle VKB devices by vendor ID

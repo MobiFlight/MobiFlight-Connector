@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -460,16 +460,15 @@
     <Compile Include="MobiFlight\Joysticks\WingFlex\Dap500Report.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReport.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\CubeReport.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingBaseController.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingRmp.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingRmpReport.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3Report.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingCdu.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingConstants.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingControllerFactory.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcu.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcuReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlBaseController.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlRmp.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlPap3.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlRmpReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlPap3Report.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlCdu.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlControllerFactory.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlFcu.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\WinCtrlFcuReport.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
@@ -517,7 +516,7 @@
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\CduChar.cs" />
+    <Compile Include="MobiFlight\Joysticks\WinCtrl\CduChar.cs" />
     <Compile Include="MobiFlight\Scripts\PythonEnvironment.cs" />
     <Compile Include="MobiFlight\Scripts\UserMessageCodes.cs" />
     <Compile Include="MobiFlight\WebView\AddCloseButtonHandlerOnNavigationCompleted.cs" />

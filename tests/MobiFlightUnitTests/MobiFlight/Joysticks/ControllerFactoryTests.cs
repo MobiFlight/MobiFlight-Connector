@@ -7,7 +7,7 @@ namespace MobiFlight.Joysticks.Tests
     [TestClass()]
     public class ControllerFactoryTests
     {
-        private const int WINWING_VENDOR_ID = 0x4098;
+        private const int WINCTRL_VENDOR_ID = 0x4098;
         private const int OTHER_VENDOR_ID = 0x1234;
 
         [TestMethod()]
@@ -79,10 +79,10 @@ namespace MobiFlight.Joysticks.Tests
         }
 
         [TestMethod()]
-        public void CanCreate_WithWinwingDevice_ReturnsTrue()
+        public void CanCreate_WithWinCtrlDevice_ReturnsTrue()
         {
             var deviceInstance = CreateDeviceInstance("Winwing FCU");
-            var result = ControllerFactory.CanCreate(deviceInstance, WINWING_VENDOR_ID, Winwing.WinwingConstants.PRODUCT_ID_FCU_ONLY);
+            var result = ControllerFactory.CanCreate(deviceInstance, WINCTRL_VENDOR_ID, MobiFlightWwFcu.WinCtrlConstants.PRODUCT_ID_FCU_ONLY);
             Assert.IsTrue(result);
         }
 
