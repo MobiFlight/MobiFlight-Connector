@@ -14,6 +14,7 @@ import ProjectPanel from "@/components/project/ProjectPanel"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import ErrorFallback from "@/components/ErrorFallback"
 import { ErrorBoundary } from "react-error-boundary"
+import { useConfigItemStateStore } from "@/stores/configItemStateStore"
 
 const ConfigListPage = () => {
   const {
@@ -22,8 +23,9 @@ const ConfigListPage = () => {
     setActiveConfigFileIndex,
     setConfigItems,
     updateConfigItem,
-    updateConfigItems,
   } = useProjectStore()
+
+  const { updateConfigItemState } = useConfigItemStateStore()
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
     console.log("ConfigValuePartialUpdate", message.payload)
@@ -42,22 +44,9 @@ const ConfigListPage = () => {
       message.payload as ConfigValueRawAndFinalUpdate,
     )
     const update = message.payload as ConfigValueRawAndFinalUpdate
-    // update raw and final values for the store items
-    const newItems = update.ConfigItems.map((newItem) => {
-      const configItems =
-        project?.ConfigFiles[activeConfigFileIndex].ConfigItems ?? []
 
-      const item = configItems.find((i) => i.GUID === newItem.GUID)
-      if (item === undefined) return newItem
-
-      return {
-        ...item,
-        RawValue: newItem.RawValue,
-        Value: newItem.Value,
-        Status: newItem.Status,
-      }
-    }) as IConfigItem[]
-    updateConfigItems(activeConfigFileIndex, newItems)
+    // We only update our special store with runtime values
+    updateConfigItemState(update.ConfigItems)
   })
 
   useAppMessage("ConfigValueFullUpdate", (message) => {

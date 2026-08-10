@@ -1,4 +1,5 @@
 import StatusIcon from "@/components/icons/StatusIcon"
+import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 import { IConfigItem } from "@/types"
 import {
   IconAlertSquareRounded,
@@ -13,51 +14,52 @@ interface ConfigItemTableStatusCellProps {
   row: Row<IConfigItem>
 }
 
-function ConfigItemTableStatusCell({
-  row,
-}: ConfigItemTableStatusCellProps) {
-    const item = row.original as IConfigItem
-    const Status = item.Status
-    const Precondition = Status && !isEmpty(Status["Precondition"])
-    const Test = Status && !isEmpty(Status["Test"])
-    const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
+function ConfigItemTableStatusCell({ row }: ConfigItemTableStatusCellProps) {
+  const item = row.original as IConfigItem
+  // access the runtime state efficiently
+  const runtimeState = useConfigItemStateValue(item.GUID)
 
-    const { t } = useTranslation()
+  const Status = runtimeState?.Status ?? item.Status
+  const Precondition = Status && !isEmpty(Status["Precondition"])
+  const Test = Status && !isEmpty(Status["Test"])
+  const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
 
-    return (
-      <div className="flex flex-row gap-1">
-        <StatusIcon
-          status="Precondition"
-          condition={Precondition ?? false}
-          title={
-            Precondition
-              ? t(`ConfigList.Status.Precondition.${Status["Precondition"]}`)
-              : t(`ConfigList.Status.Precondition.normal`)
-          }
-          IconComponent={IconAlertSquareRounded}
-        />
-        <StatusIcon
-          status="Test"
-          condition={Test ?? false}
-          title={
-            Test
-              ? t(`ConfigList.Status.Test.Executing`)
-              : t(`ConfigList.Status.Test.NotExecuting`)
-          }
-          IconComponent={IconFlask}
-        />
-        <StatusIcon
-          status="ConfigRef"
-          condition={ConfigRef ?? false}
-          title={
-            ConfigRef
-              ? t(`ConfigList.Status.ConfigRef.Missing`)
-              : t(`ConfigList.Status.ConfigRef.OK`)
-          }
-          IconComponent={IconRouteOff}
-        />
-      </div>
-    )
+  const { t } = useTranslation()
+
+  return (
+    <div className="flex flex-row gap-1">
+      <StatusIcon
+        status="Precondition"
+        condition={Precondition ?? false}
+        title={
+          Precondition
+            ? t(`ConfigList.Status.Precondition.${Status["Precondition"]}`)
+            : t(`ConfigList.Status.Precondition.normal`)
+        }
+        IconComponent={IconAlertSquareRounded}
+      />
+      <StatusIcon
+        status="Test"
+        condition={Test ?? false}
+        title={
+          Test
+            ? t(`ConfigList.Status.Test.Executing`)
+            : t(`ConfigList.Status.Test.NotExecuting`)
+        }
+        IconComponent={IconFlask}
+      />
+      <StatusIcon
+        status="ConfigRef"
+        condition={ConfigRef ?? false}
+        title={
+          ConfigRef
+            ? t(`ConfigList.Status.ConfigRef.Missing`)
+            : t(`ConfigList.Status.ConfigRef.OK`)
+        }
+        IconComponent={IconRouteOff}
+      />
+    </div>
+  )
 }
 
 export default ConfigItemTableStatusCell
