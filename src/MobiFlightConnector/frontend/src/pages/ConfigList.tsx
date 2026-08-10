@@ -14,7 +14,10 @@ import ProjectPanel from "@/components/project/ProjectPanel"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import ErrorFallback from "@/components/ErrorFallback"
 import { ErrorBoundary } from "react-error-boundary"
-import { useConfigItemStateStore } from "@/stores/configItemStateStore"
+import {
+  useConfigItemStateSet,
+  useConfigItemStateUpdate,
+} from "@/stores/configItemStateStore"
 
 const ConfigListPage = () => {
   const {
@@ -25,11 +28,14 @@ const ConfigListPage = () => {
     updateConfigItem,
   } = useProjectStore()
 
-  const { updateConfigItemState } = useConfigItemStateStore()
+  const updateConfigItemState = useConfigItemStateUpdate()
+  const setConfigItemState = useConfigItemStateSet()
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
     console.log("ConfigValuePartialUpdate", message.payload)
     const update = message.payload as ConfigValuePartialUpdate
+    // keep our special store in sync with potentially new runtime values
+    updateConfigItemState(update.ConfigItems)
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
       updateConfigItem(activeConfigFileIndex, update.ConfigItems[0], true)
@@ -52,6 +58,8 @@ const ConfigListPage = () => {
   useAppMessage("ConfigValueFullUpdate", (message) => {
     const update = message.payload as ConfigValueFullUpdate
     console.log("ConfigValueFullUpdate", update)
+    // init our special store with potentially new runtime values
+    setConfigItemState(update.ConfigItems)
     setConfigItems(update.ConfigIndex, update.ConfigItems)
   })
 

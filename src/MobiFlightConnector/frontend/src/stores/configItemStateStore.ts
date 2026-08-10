@@ -1,7 +1,6 @@
 import { create } from "zustand"
 import { IConfigValueOnlyItem } from "@/types/config"
 
-
 interface ConfigItemState {
   values: Record<string, IConfigValueOnlyItem>
   updateConfigItemState: (items: IConfigValueOnlyItem[]) => void
@@ -28,3 +27,9 @@ export const useConfigItemStateStore = create<ConfigItemState>((set) => ({
 
 export const useConfigItemStateValue = (guid: string | undefined) =>
   useConfigItemStateStore((s) => (guid ? s.values[guid] : undefined))
+
+export const useConfigItemStateUpdate = () =>
+  useConfigItemStateStore((s) => s.updateConfigItemState)
+
+export const useConfigItemStateSet = () =>
+  useConfigItemStateStore((s) => s.setConfigItemState)
