@@ -566,6 +566,34 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
         .filter({ hasText: "Select device..." }),
     ).toBeDisabled()
   })
+  test("Trigger panel interactions work correctly - Search for controller", async ({
+  configListPage,
+  page,
+}) => {
+   await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+  await configListPage.clickEditButtonForRow(1)
+
+  const triggerPanel = page.getByTestId("trigger-panel")
+  await expect(triggerPanel).toBeVisible()
+
+  const controllerComboBox = triggerPanel.getByRole("combobox").first()
+
+  await expect(controllerComboBox).toBeVisible()
+  await controllerComboBox.click()
+
+  const searchInput = page.getByPlaceholder("Search controller...")
+  await expect(searchInput).toBeVisible()
+
+  await searchInput.fill("Bravo")
+
+  await expect(
+    page.getByRole("option", {
+      name: "Bravo Throttle Quadrant",
+    }),
+  ).toBeVisible()
+})
 
   test("Only save active trigger on closing config dialog", async ({
     configListPage,

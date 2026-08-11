@@ -159,7 +159,6 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               widthClass="w-50"
               getLabel={(controller) => (controller as Controller).Name}
               getValue={(controller) =>
-                (controller as Controller).Serial ??
                 (controller as Controller).Name
               }
               isSelected={(controller, selected) =>
