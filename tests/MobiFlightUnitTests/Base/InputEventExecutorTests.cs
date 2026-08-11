@@ -172,7 +172,18 @@ namespace MobiFlight.Execution.Tests
                 Active = true,
                 Controller = SerialNumber.CreateController("/ 123"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
-                Name = "TestConfig"
+                Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable()
+                        {
+                            Name = "TestVariable",
+                            Number = 100
+                        }
+                    }
+                }
             };
 
             _configItems.Add(activeConfigItem);
@@ -777,7 +788,7 @@ namespace MobiFlight.Execution.Tests
                     Type = DeviceType.InputShiftRegister,
                 },
                 InputType = DeviceType.Button,
-                Value = 0 
+                Value = 0
             };
 
             var configItem = new InputConfigItem
