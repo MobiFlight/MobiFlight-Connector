@@ -449,8 +449,10 @@ namespace MobiFlight.UI
 
         private async void MainForm_Shown(object sender, EventArgs e)
         {
+#if (DEBUG)
+            await Task.CompletedTask; // Avoid compiler errors about an unneeded "async" modifier on the function definition in debug builds
+#else
             // Check for updates before loading anything else
-#if (!DEBUG)
             try
             {
                 await AutoUpdateChecker.CheckForUpdate(true);
