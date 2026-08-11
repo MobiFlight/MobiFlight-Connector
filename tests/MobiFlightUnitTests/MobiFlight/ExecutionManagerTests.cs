@@ -1157,7 +1157,7 @@ namespace MobiFlight.Tests
                 Device = new Button() { Name = Device.Name },
                 button = new InputConfig.ButtonInputConfig()
                 {
-                    onPress = new VariableInputAction()
+                    onRelease = new VariableInputAction()
                     {
                         Variable = new MobiFlightVariable() { Name = "Var1", Number = 100 },
                     }
