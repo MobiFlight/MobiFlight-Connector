@@ -1377,10 +1377,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifiersPanel).toBeVisible()
 
     const labels = [
-      "Transformation",
-      "Substring",
-      "Padding",
+      "Blink",
+      "Comparison",
       "Interpolation",
+      "Padding",
       "+ 2 more",
     ]
 
@@ -1496,8 +1496,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(addModifierButton).toBeVisible()
     await addModifierButton.click()
 
-    // only add first 3 modifiers for this test
-    const modifiers = MODIFIER_TYPES.slice(0, 3)
+    const modifiers = ["Transformation", "Substring", "Padding"]
 
     for (const modifier of modifiers) {
       const modifierEditor = page.getByTestId("modifier-editor")
