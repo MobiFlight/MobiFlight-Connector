@@ -128,8 +128,8 @@ const ProjectAircraftDrawer = ({
         (ac.Name?.toLowerCase().includes(filter.toLowerCase()) ||
           ac.Vendor?.toLowerCase().includes(filter.toLowerCase())),
     )
-    .sort((a, b) => a.Name?.localeCompare(b.Name || "") || 0)
     .sort((a, b) => a.Vendor?.localeCompare(b.Vendor || "") || 0)
+    .sort((a, b) => a.Name?.localeCompare(b.Name || "") || 0)
 
   const addAircraft = (aircraft: AircraftInfo) => {
     const prev = selectedAircraft
