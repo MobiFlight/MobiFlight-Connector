@@ -449,9 +449,7 @@ namespace MobiFlight.UI
 
         private async void MainForm_Shown(object sender, EventArgs e)
         {
-#if (DEBUG)
-            await Task.CompletedTask; // Avoid compiler errors about an unneeded "async" modifier on the function definition in debug builds
-#else
+#if (!DEBUG)
             // Check for updates before loading anything else
             try
             {
@@ -459,6 +457,8 @@ namespace MobiFlight.UI
             } catch (Exception ex) {
                 Log.Instance.log($"Error checking for updates: {ex.Message}", LogSeverity.Error);
             }
+#else
+            await Task.CompletedTask; // Avoid compiler errors about an unneeded "async" modifier on the function definition in debug builds
 #endif
         }
 
