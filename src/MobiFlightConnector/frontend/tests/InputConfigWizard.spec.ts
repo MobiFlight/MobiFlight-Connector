@@ -2979,11 +2979,6 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     await expect(actionInputOption).toBeVisible()
     await actionInputOption.click()
 
-    const loadingSpinner = page.getByTestId("loading-spinner")
-    await expect(loadingSpinner).toBeVisible()
-    await expect(loadingSpinner).toBeHidden()
-
-
     const codeInput = actionEditor.getByPlaceholder("Enter RPN code")
 
     await expect(codeInput).toBeVisible()
@@ -3010,6 +3005,43 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       Command: "Test Code Input",
       PresetId: "",
     } as MsfsInputAction)
+  })
+
+  test("Shows loading spinner while MSFS presets are loading", async ({
+    configListPage,
+    page,
+  }) => {
+    await page.route("**/*", async (route) => {
+      const request = route.request()
+
+      if (request.url().includes("hubhop")) {
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+      }
+
+      await route.continue()
+    })
+
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionEditor(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionInputOption = page.getByRole("option", {
+      name: "Microsoft Flight Simulator (all versions)",
+    })
+
+    await expect(actionInputOption).toBeVisible()
+    await actionInputOption.click()
+
+    const loadingSpinner = page.getByTestId("loading-spinner")
+
+    await expect(loadingSpinner).toBeVisible()
+    await expect(loadingSpinner).toBeHidden()
   })
 })
 
@@ -3545,11 +3577,6 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
     await expect(actionInputOption).toBeVisible()
     await actionInputOption.click()
 
-
-    const loadingSpinner = page.getByTestId("loading-spinner")
-    await expect(loadingSpinner).toBeVisible()
-    await expect(loadingSpinner).toBeHidden()
-
     // Open the input type combo box to get access to the options
     const inputTypeComboBox = actionEditor
       .getByRole("combobox")
@@ -3652,6 +3679,50 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
       Path: "Test Code Input",
       Expression: "Test Value",
     } as XplaneInputAction)
+  })
+
+  test("Shows loading spinner while X-Plane presets are loading", async ({
+    configListPage,
+    page,
+  }) => {
+    let continueLoading!: () => void
+
+    const loadingPromise = new Promise<void>((resolve) => {
+      continueLoading = resolve
+    })
+
+    await page.route("**/presets/xplane_hubhop_presets.json", async (route) => {
+      await loadingPromise
+      await route.continue()
+    })
+
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionEditor(
+      configListPage,
+      page,
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionInputOption = page.getByRole("option", {
+      name: "Microsoft Flight Simulator (all versions)",
+    })
+
+    await expect(actionInputOption).toBeVisible()
+    await actionInputOption.click()
+
+    const loadingSpinner = page.getByTestId("loading-spinner")
+
+    // Verify that the loading state is displayed
+    await expect(loadingSpinner).toBeVisible()
+
+    // Allow the presets request to complete
+    continueLoading()
+
+    // Verify that the loading state disappears
+    await expect(loadingSpinner).toBeHidden()
   })
 })
 
