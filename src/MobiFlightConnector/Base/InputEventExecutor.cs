@@ -98,7 +98,15 @@ namespace MobiFlight.Execution
                         continue;
                     }
 
-                    Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
+                    var action = cfg.GetInputAction(e);
+
+                    if (action != null)
+                    {
+                        Log.Instance.log(
+                            $"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})",
+                            LogSeverity.Info
+                        );
+                    }
 
                     if (cfg.button != null)
                         cfg.button.CanExecute = () => cfg.Active && CheckPreconditions(cfg);

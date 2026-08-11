@@ -348,6 +348,56 @@ namespace MobiFlight.Tests
             Assert.HasCount(3, result);
         }
 
+
+        [TestMethod()]
+        [DataRow((int)MobiFlightButton.InputEvent.PRESS, "onPress")]
+        [DataRow((int)MobiFlightButton.InputEvent.RELEASE, "onRelease")]
+        [DataRow((int)MobiFlightButton.InputEvent.LONG_RELEASE, "onLongRelease")]
+        public void GetInputAction_Button_ReturnsCorrectAction(
+     int inputEvent,
+     string actionName)
+        {
+            var action = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                button = new ButtonInputConfig()
+            };
+
+            config.button.SetInputActionByName(actionName, action);
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = inputEvent
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.AreSame(action, result);
+        }
+
+        [TestMethod()]
+        public void GetInputAction_Button_ReturnsNullWhenActionIsNotConfigured()
+        {
+            var config = new InputConfigItem
+            {
+                button = new ButtonInputConfig
+                {
+                    onPress = new VariableInputAction()
+                }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.RELEASE
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.IsNull(result);
+        }
         #region CreateInputDevice() tests
         [TestMethod()]
         public void CreateInputDevice_Button_ReturnsButtonDevice()

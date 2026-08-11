@@ -385,6 +385,50 @@ namespace MobiFlight
                     Preconditions.Equals(item.Preconditions) &&
                     ConfigRefs.Equals(item.ConfigRefs);
         }
+       public InputAction GetInputAction(InputEventArgs e)
+        {
+            switch (e.InputType)
+            {
+                case DeviceType.Button:
+                    switch ((MobiFlightButton.InputEvent)e.Value)
+                    {
+                        case MobiFlightButton.InputEvent.PRESS:
+                            return button?.onPress;
+
+                        case MobiFlightButton.InputEvent.RELEASE:
+                            return button?.onRelease;
+
+                        case MobiFlightButton.InputEvent.LONG_RELEASE:
+                            return button?.onLongRelease;
+
+                        default:
+                            return null;
+                    }
+                case DeviceType.Encoder:
+                    switch (Convert.ToInt32(e.Value))
+                    {
+                        case 0:
+                            return encoder?.onLeft;
+
+                        case 1:
+                            return encoder?.onLeftFast ?? encoder?.onLeft;
+
+                        case 2:
+                            return encoder?.onRight;
+
+                        case 3:
+                            return encoder?.onRightFast ?? encoder?.onRight;
+
+                        default:
+                            return null;
+                    }
+                case DeviceType.AnalogInput:
+                    return analog?.onChange;
+                default:
+                    return null;
+            }
+        }
+
 
         protected override IDeviceConfig GetDeviceConfig()
         {
