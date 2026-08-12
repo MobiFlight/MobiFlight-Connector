@@ -30,12 +30,12 @@ const XplaneInputActionPanel = ({
   const { t } = useTranslation()
   const openUrl = useOpenUrl()
 
-  const { data: presets = [] } = useQuery({
+  const { data: presets = [], isLoading } = useQuery({
     queryKey: ["xplane-presets"],
-    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>,
+    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>, 
+    // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-
   const preset = presets.find((p) => p.code === config?.Path) ?? null
 
   if (variant === "summary") {
@@ -61,6 +61,7 @@ const XplaneInputActionPanel = ({
         </div>
       </div>
     )
+  
   }
 
   const labels = {
@@ -80,6 +81,7 @@ const XplaneInputActionPanel = ({
     <div className="flex flex-col gap-4">
       <XplanePresetPanel
         variant="input"
+        isLoading={isLoading}
         selectedPath={config?.Path ?? null}
         setSelectedPreset={(preset) =>
           onConfigChange({
@@ -90,6 +92,7 @@ const XplaneInputActionPanel = ({
         }
       />
       <Card>
+
         <CardContent className="flex flex-col gap-4 pt-4" data-testid="preset-code-panel">
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
