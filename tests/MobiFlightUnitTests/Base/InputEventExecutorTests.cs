@@ -788,7 +788,7 @@ namespace MobiFlight.Execution.Tests
                     Type = DeviceType.InputShiftRegister,
                 },
                 InputType = DeviceType.Button,
-                Value = 0
+                Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
             var configItem = new InputConfigItem

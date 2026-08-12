@@ -1176,7 +1176,7 @@ namespace MobiFlight.Tests
                 Controller = Controller,
                 Device = Device,
                 InputType = DeviceType.Button,
-                Value = 1
+                Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
             // Set up logging to verify expected log messages when config item is executed

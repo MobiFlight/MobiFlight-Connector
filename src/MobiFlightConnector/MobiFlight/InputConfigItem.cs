@@ -405,18 +405,18 @@ namespace MobiFlight
                             return null;
                     }
                 case DeviceType.Encoder:
-                    switch (Convert.ToInt32(e.Value))
+                    switch ((MobiFlightEncoder.InputEvent)e.Value)
                     {
-                        case 0:
+                        case MobiFlightEncoder.InputEvent.LEFT:
                             return encoder?.onLeft;
 
-                        case 1:
+                        case MobiFlightEncoder.InputEvent.LEFT_FAST:
                             return encoder?.onLeftFast ?? encoder?.onLeft;
 
-                        case 2:
+                        case MobiFlightEncoder.InputEvent.RIGHT:
                             return encoder?.onRight;
 
-                        case 3:
+                        case MobiFlightEncoder.InputEvent.RIGHT_FAST:
                             return encoder?.onRightFast ?? encoder?.onRight;
 
                         default:

@@ -398,6 +398,155 @@ namespace MobiFlight.Tests
 
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        [DataRow((int)MobiFlightEncoder.InputEvent.LEFT)]
+        [DataRow((int)MobiFlightEncoder.InputEvent.LEFT_FAST)]
+        [DataRow((int)MobiFlightEncoder.InputEvent.RIGHT)]
+        [DataRow((int)MobiFlightEncoder.InputEvent.RIGHT_FAST)]
+        public void GetInputAction_Encoder_ReturnsConfiguredAction(int inputEvent)
+        {
+            var leftAction = new VariableInputAction();
+            var leftFastAction = new VariableInputAction();
+            var rightAction = new VariableInputAction();
+            var rightFastAction = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                encoder = new EncoderInputConfig
+                {
+                    onLeft = leftAction,
+                    onLeftFast = leftFastAction,
+                    onRight = rightAction,
+                    onRightFast = rightFastAction
+                }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Encoder,
+                Value = inputEvent
+            };
+
+            var result = config.GetInputAction(args);
+
+            var expected = inputEvent switch
+            {
+                (int)MobiFlightEncoder.InputEvent.LEFT => leftAction,
+                (int)MobiFlightEncoder.InputEvent.LEFT_FAST => leftFastAction,
+                (int)MobiFlightEncoder.InputEvent.RIGHT => rightAction,
+                (int)MobiFlightEncoder.InputEvent.RIGHT_FAST => rightFastAction,
+                _ => null
+            };
+
+            Assert.AreSame(expected, result);
+        }
+
+        [TestMethod]
+        [DataRow((int)MobiFlightEncoder.InputEvent.LEFT_FAST)]
+        [DataRow((int)MobiFlightEncoder.InputEvent.RIGHT_FAST)]
+        public void GetInputAction_Encoder_FallsBackToNormalActionWhenFastActionIsNotConfigured(
+    int inputEvent)
+        {
+            var leftAction = new VariableInputAction();
+            var rightAction = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                encoder = new EncoderInputConfig
+                {
+                    onLeft = leftAction,
+                    onRight = rightAction
+                }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Encoder,
+                Value = inputEvent
+            };
+
+            var result = config.GetInputAction(args);
+
+            var expected = inputEvent == (int)MobiFlightEncoder.InputEvent.LEFT_FAST
+                ? leftAction
+                : rightAction;
+
+            Assert.AreSame(expected, result);
+        }
+
+        [TestMethod]
+        [DataRow(-1)]
+        [DataRow(999)]
+        public void GetInputAction_Encoder_ReturnsNullForUnknownEvent(int inputEvent)
+        {
+            var config = new InputConfigItem
+            {
+                encoder = new EncoderInputConfig
+                {
+                    onLeft = new VariableInputAction(),
+                    onLeftFast = new VariableInputAction(),
+                    onRight = new VariableInputAction(),
+                    onRightFast = new VariableInputAction()
+                }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Encoder,
+                Value = inputEvent
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(100)]
+        [DataRow(1023)]
+        public void GetInputAction_Analog_ReturnsOnChange(double value)
+        {
+            var action = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                analog = new AnalogInputConfig
+                {
+                    onChange = action
+                }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.AnalogInput,
+                Value = value
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.AreSame(action, result);
+        }
+
+        [TestMethod]
+        public void GetInputAction_Analog_ReturnsNullWhenActionIsNotConfigured()
+        {
+            var config = new InputConfigItem
+            {
+                analog = new AnalogInputConfig()
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.AnalogInput,
+                Value = 100
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.IsNull(result);
+        }
         #region CreateInputDevice() tests
         [TestMethod()]
         public void CreateInputDevice_Button_ReturnsButtonDevice()
