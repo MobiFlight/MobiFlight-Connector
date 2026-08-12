@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\protobuf-net.Core.3.3.8\build\protobuf-net.Core.props" Condition="Exists('..\..\packages\protobuf-net.Core.3.3.8\build\protobuf-net.Core.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -165,11 +166,11 @@
       <HintPath>..\..\packages\Newtonsoft.Json.Schema.4.0.1\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
-      <HintPath>..\..\packages\protobuf-net.3.2.56\lib\net462\protobuf-net.dll</HintPath>
+      <HintPath>..\..\packages\protobuf-net.3.3.8\lib\net462\protobuf-net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
-      <HintPath>..\..\packages\protobuf-net.Core.3.2.56\lib\net462\protobuf-net.Core.dll</HintPath>
+      <HintPath>..\..\packages\protobuf-net.Core.3.3.8\lib\net462\protobuf-net.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
@@ -2351,6 +2352,7 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.4129.50\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.4129.50\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\protobuf-net.Core.3.3.8\build\protobuf-net.Core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\protobuf-net.Core.3.3.8\build\protobuf-net.Core.props'))" />
   </Target>
   <Import Project="..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
