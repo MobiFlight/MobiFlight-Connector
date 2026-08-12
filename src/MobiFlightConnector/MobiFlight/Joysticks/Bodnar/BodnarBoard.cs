@@ -110,8 +110,7 @@ namespace MobiFlight.Joysticks.Bodnar
 
         private void OnReportReceived(byte[] rawReport)
         {
-            // The report parser expects the payload without the leading report ID byte.
-            ProcessInputReportBuffer(rawReport[0], HidReportReceiver.GetPayload(rawReport));
+            ProcessInputReportBuffer(rawReport);
         }
 
         private void OnReadError(Exception exception)
@@ -137,11 +136,11 @@ namespace MobiFlight.Joysticks.Bodnar
         /// <summary>
         /// This processes the input report buffer, triggers button events and stores the state.
         /// </summary>
-        /// <param name="reportId">The HID report ID</param>
-        /// <param name="inputReportBuffer">The report data buffer</param>
-        protected void ProcessInputReportBuffer(byte reportId, byte[] inputReportBuffer)
+        /// <param name="inputReportBuffer">The raw report buffer including the report ID at index 0</param>
+        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
         {
-            var newState = report.Parse(inputReportBuffer).ToJoystickState(Axes);
+            // The report parser expects the payload without the leading report ID byte.
+            var newState = report.Parse(HidReportReceiver.GetPayload(inputReportBuffer)).ToJoystickState(Axes);
             UpdateButtons(newState);
             UpdateAxis(newState);
             // Finally store the new state as last state

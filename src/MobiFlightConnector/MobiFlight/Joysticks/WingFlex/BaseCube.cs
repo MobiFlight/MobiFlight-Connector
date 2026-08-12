@@ -127,9 +127,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         private void OnReportReceived(byte[] rawReport)
         {
-            // The report classes expect the payload without the leading report ID byte,
-            // as documented in their protocol tables.
-            ProcessInputReportBuffer(rawReport[0], HidReportReceiver.GetPayload(rawReport));
+            ProcessInputReportBuffer(rawReport);
         }
 
         private void OnReadError(Exception exception)
@@ -155,16 +153,17 @@ namespace MobiFlight.Joysticks.WingFlex
 
         /// <summary>
         /// This processes the input report buffer, triggers button events and stores the state
-        /// 
+        ///
         /// </summary>
         /// <remarks>
         /// This could be done in the base class.
         /// </remarks>
-        /// <param name="reportId"></param>
-        /// <param name="inputReportBuffer"></param>
-        protected void ProcessInputReportBuffer(byte reportId, byte[] inputReportBuffer)
+        /// <param name="inputReportBuffer">The raw report buffer including the report ID at index 0</param>
+        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
         {
-            var newState = CubeReport.Parse(inputReportBuffer).ToJoystickState();
+            // The report classes expect the payload without the leading report ID byte,
+            // as documented in their protocol tables.
+            var newState = CubeReport.Parse(HidReportReceiver.GetPayload(inputReportBuffer)).ToJoystickState();
             UpdateButtons(newState);
             UpdateAxis(newState);
             // Finally store the new state as last state

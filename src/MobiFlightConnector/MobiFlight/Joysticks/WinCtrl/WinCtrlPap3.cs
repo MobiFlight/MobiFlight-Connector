@@ -78,9 +78,7 @@ namespace MobiFlight.Joysticks.WinCtrl
 
         private void OnReportReceived(byte[] rawReport)
         {
-            // The report class works on the payload without the leading report ID byte,
-            // as documented in the protocol tables.
-            InputReportReceived(rawReport[0], HidReportReceiver.GetPayload(rawReport));
+            ProcessInputReportBuffer(rawReport);
         }
 
         private void OnReadError(Exception exception)
@@ -163,9 +161,11 @@ namespace MobiFlight.Joysticks.WinCtrl
             }
         }
 
-        private void InputReportReceived(byte reportId, byte[] data)
+        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
         {
-            CurrentReport.ParseReport(reportId, data);
+            // The report class works on the payload without the leading report ID byte,
+            // as documented in the protocol tables.
+            CurrentReport.ParseReport(inputReportBuffer[0], HidReportReceiver.GetPayload(inputReportBuffer));
             if (CurrentReport.ReportId == BUTTONS_REPORT)
             {
                 if (DoInitialize)

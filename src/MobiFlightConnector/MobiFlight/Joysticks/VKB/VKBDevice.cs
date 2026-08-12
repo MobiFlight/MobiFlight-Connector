@@ -138,24 +138,29 @@ namespace MobiFlight.Joysticks.VKB
             }
         }
 
-        private void OnReportReceived(byte[] report)
+        private void OnReportReceived(byte[] rawReport)
         {
-            if (report.Length < 4)
+            ProcessInputReportBuffer(rawReport);
+        }
+
+        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        {
+            if (inputReportBuffer.Length < 4)
             {
                 return;
             }
 
-            if (report[0] != 0x08) // 0x08 = Monitoring channel / virtual bus
+            if (inputReportBuffer[0] != 0x08) // 0x08 = Monitoring channel / virtual bus
             {
                 return;
             }
 
-            if (report[1] != 0x13) // 0x13 = Encoder status
+            if (inputReportBuffer[1] != 0x13) // 0x13 = Encoder status
             {
                 return;
             }
 
-            ParseEncoderReport(report);
+            ParseEncoderReport(inputReportBuffer);
         }
 
         private void OnReadError(Exception exception)

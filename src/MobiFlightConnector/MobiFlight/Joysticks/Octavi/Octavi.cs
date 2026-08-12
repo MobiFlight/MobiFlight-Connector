@@ -42,10 +42,15 @@ namespace MobiFlight.Joysticks.Octavi
             }
         }
 
-        private void OnReportReceived(byte[] inputReport)
+        private void OnReportReceived(byte[] rawReport)
+        {
+            ProcessInputReportBuffer(rawReport);
+        }
+
+        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
         {
             OctaviReport report = new OctaviReport();
-            report.parseReport(inputReport);
+            report.parseReport(inputReportBuffer);
             var buttonEvents = octaviHandler.DetectButtonEvents(report);
             foreach (var (buttonIndex, inputEvent) in buttonEvents)
             {

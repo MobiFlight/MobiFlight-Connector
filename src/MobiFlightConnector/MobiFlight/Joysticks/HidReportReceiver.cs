@@ -65,28 +65,13 @@ namespace MobiFlight.Joysticks
         }
 
         /// <summary>
-        /// Starts the background receive loop. Does nothing if it is already running.
-        /// <para>
-        /// Both callbacks run on the receive thread — WinForms callers must marshal to the
-        /// UI thread. <paramref name="onReport"/> gets each raw input report exactly as read
-        /// from the stream, i.e. including the report ID at index 0. After
-        /// <paramref name="onError"/> the loop has stopped; call <see cref="Start"/> again
-        /// to resume once the cause is dealt with. An orderly <see cref="Stop"/> — or the
-        /// stream being closed after <see cref="Stop"/> was requested — does not raise
-        /// <paramref name="onError"/>.
-        /// </para>
+        /// Starts the background receive loop; does nothing if already running.
+        /// Both callbacks run on the receive thread. After <paramref name="onError"/> the
+        /// loop has stopped; an orderly <see cref="Stop"/> does not raise it.
         /// </summary>
-        /// <param name="stream">
-        /// An open HID stream (typically a HidSharp <c>HidStream</c>). The receiver sets its
-        /// <see cref="Stream.ReadTimeout"/> but does not own it: closing the stream remains
-        /// the caller's responsibility.
-        /// </param>
-        /// <param name="bufferSize">
-        /// The read buffer size, typically <c>HidDevice.GetMaxInputReportLength()</c>.
-        /// Passed in by the caller so hardware that cannot report its input length fails
-        /// on the caller's thread instead of via <paramref name="onError"/>.
-        /// </param>
-        /// <param name="onReport">Called for every received report with a copy of the report bytes.</param>
+        /// <param name="stream">Open HID stream. The receiver sets its read timeout but does not own it; closing it remains the caller's responsibility.</param>
+        /// <param name="bufferSize">Read buffer size, typically <c>HidDevice.GetMaxInputReportLength()</c>.</param>
+        /// <param name="onReport">Called per report with a copy of the raw bytes, including the report ID at index 0.</param>
         /// <param name="onError">Called once when the loop dies on a read error; may be null.</param>
         /// <param name="threadName">Optional thread name to identify the device in debugging tools.</param>
         public void Start(Stream stream, int bufferSize, Action<byte[]> onReport, Action<Exception> onError = null, string threadName = null)
