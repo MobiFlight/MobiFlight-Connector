@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next"
 import StackedIcons from "@/components/icons/StackedIcons"
 import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import { mapJoystickDeviceNameToLabel } from "@/types/definitions"
+import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 
 interface ConfigItemTableDeviceCellProps {
   row: Row<IConfigItem>
@@ -21,14 +22,14 @@ interface ConfigItemTableDeviceCellProps {
 function DetermineDeviceName(item: IConfigItem): string[] {
   const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
   const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
-  
+
   if (!deviceName || isEmpty(deviceName)) {
     if (deviceType === "InputAction") {
       return ["Input Action"]
     }
     return ["-"]
   }
-  
+
   const deviceNames = deviceName.split("|").map((name) => name.trim())
   return deviceNames
 }
@@ -57,8 +58,12 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
   const { t } = useTranslation()
   const { JoystickDefinitions, MidiControllerDefinitions } =
     useControllerDefinitionsStore()
+
   const item = row.original as IConfigItem
-  const Status = item.Status
+  // access the runtime state efficiently
+  const runtimeState = useConfigItemStateValue(item.GUID)
+
+  const Status = runtimeState?.Status ?? item.Status
   const Device = Status && !isEmpty(Status["Device"])
 
   const controllerName = item.Controller?.Name ?? ""
@@ -115,10 +120,18 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
     <ToolTip content={tooltipLabel}>
       <div className="flex flex-row items-center gap-2">
         {statusIcon}
-        <div className="hidden flex-col lg:flex truncate">
-          <div className="max-w-full inline-block truncate" data-testid="device-name">{mappedLabel}</div>
+        <div className="hidden flex-col truncate lg:flex">
+          <div
+            className="inline-block max-w-full truncate"
+            data-testid="device-name"
+          >
+            {mappedLabel}
+          </div>
           {subIndices.length > 0 && (
-            <div className="flex flex-row items-center gap-2 truncate text-xs text-slate-400" data-testid="device-sub-index">
+            <div
+              className="flex flex-row items-center gap-2 truncate text-xs text-slate-400"
+              data-testid="device-sub-index"
+            >
               {subIndices.filter((index) => index != null).join(", ")}
             </div>
           )}

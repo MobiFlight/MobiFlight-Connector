@@ -3,12 +3,14 @@
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/typescript-node:latest",
   "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {
+      "theme": "agnoster"
+    },
+    "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
+    "ghcr.io/helpers4/devcontainer/playwright-dev:1": {}
   },
-
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "git config --global --replace-all safe.directory \"$(dirname \"$PWD\")\" && npm install -g npm@11 && npm install && sudo npx playwright install-deps && npx playwright install",
-  "postStartCommand": "npm install && npm run dev",
+  "postStartCommand": "npm install",
   "customizations": {
     "vscode": {
       "extensions": [

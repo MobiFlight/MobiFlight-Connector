@@ -3006,6 +3006,53 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
       PresetId: "",
     } as MsfsInputAction)
   })
+
+  test("Shows loading spinner while MSFS presets are loading", async ({
+    configListPage,
+    page,
+  }) => {
+    let resolvePresetsLoading!: () => void
+
+    const presetsLoadingPromise = new Promise<void>((resolve) => {
+      resolvePresetsLoading = resolve
+    })
+
+    await page.route(
+      "**/presets/msfs2020_hubhop_presets.json",
+      async (route) => {
+        await presetsLoadingPromise
+        await route.continue()
+      },
+    )
+
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionEditor(
+      configListPage,
+      page,
+      "Button",
+      "On Press",
+      { Sim: "msfs" },
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionInputOption = page.getByRole("option", {
+      name: "Microsoft Flight Simulator (all versions)",
+    })
+
+    await expect(actionInputOption).toBeVisible()
+    await actionInputOption.click()
+
+    const loadingSpinner = page.getByTestId("loading-spinner")
+
+    await expect(loadingSpinner).toBeVisible()
+
+    resolvePresetsLoading()
+
+    await expect(loadingSpinner).toBeHidden()
+  })
 })
 
 test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
@@ -3642,6 +3689,50 @@ test.describe("Input Config Wizard - X-Plane Input Action Panel", () => {
       Path: "Test Code Input",
       Expression: "Test Value",
     } as XplaneInputAction)
+  })
+
+  test("Shows loading spinner while X-Plane presets are loading", async ({
+    configListPage,
+    page,
+  }) => {
+    let resolvePresetsLoading!: () => void
+
+    const presetsLoadingPromise = new Promise<void>((resolve) => {
+      resolvePresetsLoading = resolve
+    })
+
+    await page.route("**/presets/xplane_hubhop_presets.json", async (route) => {
+      await presetsLoadingPromise
+      await route.continue()
+    })
+
+    const actionEditor = await CreateNewInputConfigItemAndReturnActionEditor(
+      configListPage,
+      page,
+      "Button",
+      "On Press",
+      { Sim: "xplane" },
+    )
+
+    const actionTypeComboBox = actionEditor.getByTestId("action-type-combobox")
+
+    await expect(actionTypeComboBox).toBeVisible()
+    await actionTypeComboBox.click()
+
+    const actionInputOption = page.getByRole("option", {
+      name: "X-Plane (all versions)",
+    })
+
+    await expect(actionInputOption).toBeVisible()
+    await actionInputOption.click()
+
+    const loadingSpinner = page.getByTestId("loading-spinner")
+
+    await expect(loadingSpinner).toBeVisible()
+
+    resolvePresetsLoading()
+
+    await expect(loadingSpinner).toBeHidden()
   })
 })
 

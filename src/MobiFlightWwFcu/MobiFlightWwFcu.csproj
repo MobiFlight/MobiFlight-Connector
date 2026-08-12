@@ -5,7 +5,7 @@
     <SignAssembly>False</SignAssembly>
     <Copyright>MobiFlight 2024 - CC BY-NC 4.0 License</Copyright>
     <Company>MobiFlight</Company>
-    <Description>Winwing FCU library for MobiFlight</Description>
+    <Description>WinCtrl FCU library for MobiFlight</Description>
   </PropertyGroup>
 
   <ItemGroup>

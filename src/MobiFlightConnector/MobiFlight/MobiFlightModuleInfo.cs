@@ -31,6 +31,7 @@ namespace MobiFlight
         {
             Version latestVersion = new Version(Board.Info.LatestFirmwareVersion);
             Version currentVersion;
+
             try
             {
                 currentVersion = new Version(Version != null ? Version : "0.0.0");
@@ -39,11 +40,19 @@ namespace MobiFlight
             {
                 currentVersion = new Version("0.0.0");
             }
-            return (
-                // ignore the developer board that has 0.0.1
-                currentVersion.CompareTo(new Version("0.0.1")) != 0 &&
-                // and update when version lower than latest
-                currentVersion.CompareTo(latestVersion) < 0);
+            bool isDevOrPrFirmware =
+                currentVersion.Major == 0 &&
+                currentVersion.Minor == 0;
+            // PR firmware uses version 0.0.<PR_NUMBER>, so don't require an update.
+            if (isDevOrPrFirmware)
+            {
+                return false;
+            }
+            // and update when version lower than latest
+            return currentVersion.CompareTo(latestVersion) < 0;
+
+
+
         }
 
     }

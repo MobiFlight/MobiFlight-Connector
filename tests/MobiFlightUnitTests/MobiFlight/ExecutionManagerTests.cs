@@ -707,6 +707,32 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void UpdateInputPreconditions_RemovesStatus_WhenPreconditionsAreEmpty()
+        {
+            var configItem = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "TestInput"
+            };
+            configItem.Status[ConfigItemStatusType.Precondition] = "not satisfied";
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem } });
+            _executionManager.Project = project;
+
+            var updateInputPreconditions = typeof(ExecutionManager).GetMethod("UpdateInputPreconditions",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
+
+            updateInputPreconditions.Invoke(_executionManager, null);
+
+            Assert.IsFalse(configItem.Status.ContainsKey(ConfigItemStatusType.Precondition));
+            Assert.IsTrue(updatedValues.ContainsKey(configItem.GUID));
+        }
+
+        [TestMethod]
         public void FrontendUpdateTimer_Execute_ConcurrentDictionaryModification_ShouldNotThrowInvalidOperationException()
         {
             // Arrange

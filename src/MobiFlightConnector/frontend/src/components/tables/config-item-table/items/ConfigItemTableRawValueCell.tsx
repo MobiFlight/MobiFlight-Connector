@@ -2,6 +2,7 @@ import StatusIcon from "@/components/icons/StatusIcon"
 import ValueIcon from "@/components/icons/ValueIcon"
 import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
+import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 import { IConfigItem } from "@/types"
 import { IconBuildingBroadcastTower } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
@@ -16,12 +17,14 @@ function ConfigItemTableRawValueCell({
   row,
 }: ConfigItemTableRawValueCellProps) {
   const item = row.original as IConfigItem
+  // access the runtime state efficiently
+  const runtimeState = useConfigItemStateValue(item.GUID)
 
-  const Status = item.Status
+  const Status = runtimeState?.Status ?? item.Status
   const Source = Status && !isEmpty(Status["Source"])
 
   const { t } = useTranslation()
-  const label = item.RawValue
+  const label = runtimeState?.RawValue ?? item.RawValue
 
   return (
     <div className="text-md" data-testid="raw-value">

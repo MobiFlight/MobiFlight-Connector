@@ -1,0 +1,7 @@
+{
+  "files.exclude": {
+    "playwright-report/**": true,
+    "test-results/**": true,
+    ".history/**": true
+  }
+}

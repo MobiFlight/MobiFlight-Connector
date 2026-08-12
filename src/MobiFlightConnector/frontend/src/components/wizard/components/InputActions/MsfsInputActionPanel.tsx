@@ -26,12 +26,13 @@ const MsfsInputActionPanel = ({
   const { t } = useTranslation()
   const openUrl = useOpenUrl()
 
-  const { data: presets = [] /*, isLoading */ } = useQuery({
+  const { data: presets = [], isLoading } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
+  
   const preset = presets.find((p) => p.id === config?.PresetId) ?? null
 
   if (variant === "summary") {
@@ -78,6 +79,7 @@ const MsfsInputActionPanel = ({
     <div className="flex flex-col gap-4">
       <MsfsPresetPanel
         variant="input"
+        isLoading={isLoading}
         selectedPresetId={config?.PresetId ?? null}
         setSelectedPreset={(preset) =>
           onConfigChange({
@@ -92,6 +94,7 @@ const MsfsInputActionPanel = ({
           className="flex flex-col gap-4 pt-4"
           data-testid="preset-code-panel"
         >
+        
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
               {t(
