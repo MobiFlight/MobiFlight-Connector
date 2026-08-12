@@ -611,6 +611,7 @@ namespace MobiFlight.Execution.Tests
                 Name = "DeactivatedConfig",
                 button = new ButtonInputConfig
                 {
+                    onPress = new VariableInputAction(),
                     onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
                     HoldDelay = 10000
                 }
@@ -645,6 +646,7 @@ namespace MobiFlight.Execution.Tests
                 Name = "PreconditionConfig",
                 button = new ButtonInputConfig
                 {
+                    onPress = new VariableInputAction(),
                     onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p2" },
                     HoldDelay = 10000
                 },

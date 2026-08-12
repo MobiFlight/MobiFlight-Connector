@@ -430,14 +430,31 @@ namespace MobiFlight.Tests
 
             var result = config.GetInputAction(args);
 
-            var expected = inputEvent switch
+            InputAction expected;
+
+            switch (inputEvent)
             {
-                (int)MobiFlightEncoder.InputEvent.LEFT => leftAction,
-                (int)MobiFlightEncoder.InputEvent.LEFT_FAST => leftFastAction,
-                (int)MobiFlightEncoder.InputEvent.RIGHT => rightAction,
-                (int)MobiFlightEncoder.InputEvent.RIGHT_FAST => rightFastAction,
-                _ => null
-            };
+                case (int)MobiFlightEncoder.InputEvent.LEFT:
+                    expected = leftAction;
+                    break;
+
+                case (int)MobiFlightEncoder.InputEvent.LEFT_FAST:
+                    expected = leftFastAction;
+                    break;
+
+                case (int)MobiFlightEncoder.InputEvent.RIGHT:
+                    expected = rightAction;
+                    break;
+
+                case (int)MobiFlightEncoder.InputEvent.RIGHT_FAST:
+                    expected = rightFastAction;
+                    break;
+
+                default:
+                    expected = null;
+                    break;
+            }
+
 
             Assert.AreSame(expected, result);
         }

@@ -1157,6 +1157,7 @@ namespace MobiFlight.Tests
                 Device = new Button() { Name = Device.Name },
                 button = new InputConfig.ButtonInputConfig()
                 {
+                    
                     onRelease = new VariableInputAction()
                     {
                         Variable = new MobiFlightVariable() { Name = "Var1", Number = 100 },
@@ -1176,7 +1177,7 @@ namespace MobiFlight.Tests
                 Controller = Controller,
                 Device = Device,
                 InputType = DeviceType.Button,
-                Value = (int)MobiFlightButton.InputEvent.PRESS
+                Value = (int)MobiFlightButton.InputEvent.RELEASE
             };
 
             // Set up logging to verify expected log messages when config item is executed
