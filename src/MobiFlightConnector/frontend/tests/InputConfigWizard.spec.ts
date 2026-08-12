@@ -1535,7 +1535,12 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(addModifierButton).toBeVisible()
     await addModifierButton.click()
 
-    const modifiers = ["Transformation", "Substring", "Padding"]
+    const modifiers = MODIFIER_TYPES.slice(0, 3)
+
+    // Create regular expressions for the first two modifiers to use in assertions
+    // later in the unit test.
+    const modifier0RegExp = new RegExp(modifiers[0])
+    const modifier1RegExp = new RegExp(modifiers[1])
 
     for (const modifier of modifiers) {
       const modifierEditor = page.getByTestId("modifier-editor")
@@ -1559,8 +1564,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const firstModifierItem = page.getByTestId("modifier-item").nth(0)
     const secondModifierItem = page.getByTestId("modifier-item").nth(1)
 
-    await expect(firstModifierItem).toHaveText(/Transformation/)
-    await expect(secondModifierItem).toHaveText(/Substring/)
+    await expect(firstModifierItem).toHaveText(modifier0RegExp)
+    await expect(secondModifierItem).toHaveText(modifier1RegExp)
 
     const firstMoveUpButton = firstModifierItem.getByRole("button", {
       name: "Move up modifier",
@@ -1578,8 +1583,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await firstMoveDownButton.click()
 
     // Verify that the first and second items have swapped positions
-    await expect(firstModifierItem).toHaveText(/Substring/)
-    await expect(secondModifierItem).toHaveText(/Transformation/)
+    await expect(firstModifierItem).toHaveText(modifier1RegExp)
+    await expect(secondModifierItem).toHaveText(modifier0RegExp)
 
     const secondMoveUpButton = secondModifierItem.getByRole("button", {
       name: "Move up modifier",
@@ -1589,8 +1594,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await secondMoveUpButton.click()
 
     // Verify that the first and second items have swapped positions back
-    await expect(firstModifierItem).toHaveText(/Transformation/)
-    await expect(secondModifierItem).toHaveText(/Substring/)
+    await expect(firstModifierItem).toHaveText(modifier0RegExp)
+    await expect(secondModifierItem).toHaveText(modifier1RegExp)
 
     // Verify last move down button is disabled
     const lastModifierItem = page.getByTestId("modifier-item").last()
