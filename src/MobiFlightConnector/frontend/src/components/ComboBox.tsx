@@ -29,7 +29,7 @@ export type ComboBoxProps<T> = HTMLAttributes<HTMLElement> & {
   noOptionsPlaceholder?: string | null
   disabled?: boolean
   widthClass?: string
-  variant?: "default" | "nofilter",
+  variant?: "default" | "nofilter"
   align?: "start" | "center" | "end"
 }
 
@@ -51,17 +51,15 @@ const ComboBox = <T,>({
 }: ComboBoxProps<T>) => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  
+
   placeholder ??= t("General.ComboBox.Placeholder")
   searchPlaceholder ??= t("General.ComboBox.SearchPlaceholder")
   noOptionsPlaceholder ??= t("General.ComboBox.NoOptions")
-  
+
   const selectedValue = selected ? getValue(selected) : ""
 
   const selectedInItems = items.find((item) => isSelected(item, selected))
-  const label = selectedInItems
-    ? getLabel(selectedInItems)
-    : placeholder
+  const label = selectedInItems ? getLabel(selectedInItems) : placeholder
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
@@ -71,18 +69,25 @@ const ComboBox = <T,>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn("justify-between h-8", widthClass)}
+          className={cn("h-8 justify-between", widthClass)}
           disabled={disabled}
           {...props}
         >
-          <span className={cn(widthClass, "truncate text-sm text-left")} title={label}>
+          <span
+            className={cn(widthClass, "truncate text-left text-sm")}
+            title={label}
+          >
             {label}
           </span>
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cn(widthClass, "p-0")} align={align}>
-        <Command>
+        <Command
+          filter={(value, search) => {
+            return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0
+          }}
+        >
           {variant === "default" && (
             <CommandInput placeholder={searchPlaceholder} className="h-9" />
           )}
@@ -91,10 +96,11 @@ const ComboBox = <T,>({
             <CommandGroup>
               {items.map((item) => {
                 const itemValue = getValue(item)
+                const itemLabel = getLabel(item)
                 return (
                   <CommandItem
                     key={itemValue}
-                    value={itemValue}
+                    value={itemLabel}
                     onSelect={() => {
                       if (itemValue === selectedValue) {
                         setSelected(undefined)
@@ -104,7 +110,7 @@ const ComboBox = <T,>({
                       setOpen(false)
                     }}
                   >
-                    <span className="truncate text-sm">{getLabel(item)}</span>
+                    <span className="truncate text-sm">{itemLabel}</span>
                     <IconCheck
                       className={cn(
                         "ml-auto",
