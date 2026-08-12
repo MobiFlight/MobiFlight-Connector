@@ -1434,6 +1434,45 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifierEditor).toBeVisible()
   })
 
+  test("Modifiers are sorted alphabetically in the add modifier dropdown", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const addModifierButton = dialog.getByRole("button", {
+      name: "Add modifier",
+    })
+
+    // Open the modifier pane
+    await expect(dialog).toBeVisible()
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    // Get the Add modifier button and click it so the menu opens
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    // Get the modifier names from the menu and sort them in ascending alphabetical order.
+    const modifierMenuItems = page.getByRole("menuitem")
+    const modifierNames = (await modifierMenuItems.allTextContents()).map(
+      (name) => name.trim(),
+    )
+    const sortedModifierNames = [...modifierNames].sort((left, right) =>
+      left.localeCompare(right),
+    )
+
+    // The sorted list should match the original list of modifier names, which means the original list was sorted correctly.
+    expect(modifierNames).toEqual(sortedModifierNames)
+  })
+
   test("All modifiers can be added and removed", async ({
     configListPage,
     page,
