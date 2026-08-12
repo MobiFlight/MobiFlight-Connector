@@ -32,6 +32,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\MobiFlightConnector\MobiFlightConnector.csproj" />
+		<ProjectReference Include="..\..\src\MobiFlightWwFcu\MobiFlightWwFcu.csproj" />
 	</ItemGroup>
 
 	<Target Name="CustomPreBuild" BeforeTargets="Build">

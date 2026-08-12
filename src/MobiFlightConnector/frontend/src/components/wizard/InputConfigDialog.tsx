@@ -16,6 +16,7 @@ import ConfigWizard from "@/components/wizard/ConfigWizard"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
+import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 import { IConfigItem } from "@/types/config"
 import { IconChevronRight, IconExclamationCircle } from "@tabler/icons-react"
 import _ from "lodash"
@@ -52,6 +53,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const configItem = configFile?.ConfigItems?.find(
     (item) => item.GUID === configId,
   )
+  const runtimeState = useConfigItemStateValue(configId)
 
   const closeDialog = () => {
     navigate(-1)
@@ -182,8 +184,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                   }}
                   drawerContainer={containerRef}
                   liveData={{
-                    rawValue: configItem?.RawValue,
-                    finalValue: configItem?.Value,
+                    rawValue: runtimeState?.RawValue ?? configItem?.RawValue,
+                    finalValue: runtimeState?.Value ?? configItem?.Value,
                   }}
                 />
               )}
