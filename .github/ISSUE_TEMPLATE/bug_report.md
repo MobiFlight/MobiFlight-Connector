@@ -24,8 +24,8 @@ A clear and concise description of what you expected to happen.
 A clear and concise description of what you actually happens.
 
 **Details**
- - MobiFlight Version: [e.g. 8.2.0]
- - FlightSim: [e.g. MSFS2020]
+ - MobiFlight Version: [e.g. 11.2.0]
+ - FlightSim: [e.g. MSFS2024]
  - AddOn: [e.g. Default Aircraft]
 
 **Additional context**
