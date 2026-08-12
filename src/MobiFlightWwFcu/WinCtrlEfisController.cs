@@ -23,13 +23,7 @@ namespace MobiFlightWwFcu
         {
             EfisType = efisType;
 
-            DisplayTestCommands = new Dictionary<string, DisplaySegment>()
-            {
-                { "AllOn",   new DisplaySegment(new Bit[] { new Bit(0,0,true),  new Bit(0,1,true),  new Bit(0,2,false), new Bit(0,5,true) }, false) },
-                { "AllOff",  new DisplaySegment(new Bit[] { new Bit(0,0,false), new Bit(0,1,false), new Bit(0,2,true),  new Bit(0,5,true) }, false) },
-                { "Half1On", new DisplaySegment(new Bit[] { new Bit(0,0,true),  new Bit(0,1,false), new Bit(0,2,true),  new Bit(0,5,true) }, false) },
-                { "Half2On", new DisplaySegment(new Bit[] { new Bit(0,0,false), new Bit(0,1,true),  new Bit(0,2,true),  new Bit(0,5,true) }, false) },
-            };
+            DisplayTestCommands = ResolveDisplayTestCommands(efisType);
 
             // Bit positions are byte-numbers in the data section (header offset 17 is added when writing).
             // Iteration order matters: overlapping mode-presets resolve last-writer-wins, so the entry that
@@ -73,6 +67,19 @@ namespace MobiFlightWwFcu
             if (efisType == WinCtrlConstants.EFISL_NAME) return WinCtrlConstants.DEST_EFISL;
             if (efisType == WinCtrlConstants.EFISR_NAME) return WinCtrlConstants.DEST_EFISR;
             return WinCtrlConstants.DEST_EFISL;
+        }
+
+        private static Dictionary<string, DisplaySegment> ResolveDisplayTestCommands(string efisType)
+        {
+            // EFIS-L and EFIS-R use the same mode bits except for the final selector bit.
+            int modeBit = efisType == WinCtrlConstants.EFISR_NAME ? 6 : 5;
+            return new Dictionary<string, DisplaySegment>()
+            {
+                { "AllOn",   new DisplaySegment(new Bit[] { new Bit(0,0,true),  new Bit(0,1,true),  new Bit(0,2,false), new Bit(0, modeBit, true) }, false) },
+                { "AllOff",  new DisplaySegment(new Bit[] { new Bit(0,0,false), new Bit(0,1,false), new Bit(0,2,true),  new Bit(0, modeBit, true) }, false) },
+                { "Half1On", new DisplaySegment(new Bit[] { new Bit(0,0,true),  new Bit(0,1,false), new Bit(0,2,true),  new Bit(0, modeBit, true) }, false) },
+                { "Half2On", new DisplaySegment(new Bit[] { new Bit(0,0,false), new Bit(0,1,true),  new Bit(0,2,true),  new Bit(0, modeBit, true) }, false) },
+            };
         }
 
         // EFIS Baro digit: 7 segments packed into one byte (bits 0..6); bit 7 is the inHg decimal point.
