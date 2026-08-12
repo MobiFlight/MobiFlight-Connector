@@ -14,13 +14,16 @@ import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
+import LoadingSpinner from "../LoadingSpinner"
 export type MsfsPresetPanelProps = {
   variant: "input" | "output"
+  isLoading: boolean
   selectedPresetId: string | null
   setSelectedPreset: (preset: Preset | XplanePreset | null) => void
 }
 const MsfsPresetPanel = ({
   variant,
+  isLoading,
   selectedPresetId,
   setSelectedPreset,
 }: MsfsPresetPanelProps) => {
@@ -149,6 +152,7 @@ const MsfsPresetPanel = ({
             </Label>
           </div>
         </div>
+
         <div className="flex flex-col gap-1">
           <div className="grid grid-cols-4 gap-2">
             <Input
@@ -247,6 +251,7 @@ const MsfsPresetPanel = ({
           </div>
         </div>
         <div className="-mt-3 flex flex-col gap-2">
+          {isLoading ? <LoadingSpinner /> :(
           <ScrollArea
             className="h-56"
             onMouseEnter={cancelScrollIntoView}
@@ -264,6 +269,7 @@ const MsfsPresetPanel = ({
               ))}
             </div>
           </ScrollArea>
+        )}
         </div>
       </CardContent>
     </Card>

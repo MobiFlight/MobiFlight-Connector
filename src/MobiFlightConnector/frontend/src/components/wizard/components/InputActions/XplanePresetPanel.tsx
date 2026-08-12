@@ -14,15 +14,17 @@ import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
+import LoadingSpinner from "../LoadingSpinner"
 
 export type XplanePresetPanelProps = {
   variant: "input" | "output"
+  isLoading: boolean
   selectedPath: string | null
   setSelectedPreset: (preset: XplanePreset | Preset | null) => void
 }
-
 const XplanePresetPanel = ({
   variant,
+  isLoading,
   selectedPath,
   setSelectedPreset,
 }: XplanePresetPanelProps) => {
@@ -264,6 +266,7 @@ const XplanePresetPanel = ({
           </div>
         </div>
         <div className="-mt-3 flex flex-col gap-2">
+          {isLoading ? <LoadingSpinner /> : (
           <ScrollArea
             className="h-56"
             onMouseEnter={cancelScrollIntoView}
@@ -281,6 +284,7 @@ const XplanePresetPanel = ({
               ))}
             </div>
           </ScrollArea>
+        )}
         </div>
       </CardContent>
     </Card>
