@@ -2687,23 +2687,23 @@ namespace MobiFlight.UI
 
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
             Task.Run(async () =>
+            {
+                if (!updater.AutoDetectCommunityFolder())
                 {
-                    if (!updater.AutoDetectCommunityFolder())
-                    {
-                        Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
-                        return;
-                    }
-
-                    if (await updater.InstallWasmEvents())
-                    {
-                        progressForm.DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        progressForm.DialogResult = DialogResult.No;
-                        Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
-                    }
+                    Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
+                    return;
                 }
+
+                if (await updater.InstallWasmEvents())
+                {
+                    progressForm.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    progressForm.DialogResult = DialogResult.No;
+                    Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
+                }
+            }
             );
 
             if (progressForm.ShowDialog() == DialogResult.OK)

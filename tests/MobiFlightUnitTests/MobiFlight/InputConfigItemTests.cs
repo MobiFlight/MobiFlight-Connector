@@ -171,7 +171,7 @@ namespace MobiFlight.Tests
 
             InputConfigItem o = generateTestObject();
             xmlWriter.WriteStartElement("settings");
-            o.WriteXml(xmlWriter, false);
+            o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
@@ -189,7 +189,7 @@ namespace MobiFlight.Tests
             sw = new StringWriter();
             xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
             xmlWriter.WriteStartElement("settings");
-            o.WriteXml(xmlWriter, false);
+            o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             s = sw.ToString();

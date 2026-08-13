@@ -65,7 +65,7 @@ Section "install"
     SetOutPath $INSTDIR
 
     # Add the MobiFlight installer
-    File "..\Release\MobiFlight-Installer.exe"
+    File "..\dist\MobiFlightInstaller\MobiFlight-Installer.exe"
     File "..\mobiflight.ico"
  
     # create the uninstaller

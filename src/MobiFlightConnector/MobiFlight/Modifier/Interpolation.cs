@@ -228,9 +228,5 @@ namespace MobiFlight.Modifier
         public XvalueAlreadyExistsException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
-        protected XvalueAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

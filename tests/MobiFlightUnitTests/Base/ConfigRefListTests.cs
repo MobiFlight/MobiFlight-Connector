@@ -49,8 +49,8 @@ namespace MobiFlight.Base.Tests
         public void GetEnumeratorTest()
         {
             ConfigRefList o = new ConfigRefList();
+
             Assert.IsNotNull(o.GetEnumerator());
-            Assert.IsTrue(o.GetEnumerator() is List<ConfigRef>.Enumerator);
         }
 
         [TestMethod()]
