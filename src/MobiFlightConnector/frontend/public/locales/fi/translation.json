@@ -521,8 +521,8 @@
             "short": "Muuttuja"
           },
           "RetriggerInputAction": {
-            "label": "MobiFlight - Laukaise kytkimet uudelleen",
-            "short": "Laukaise kytkimet uudelleen"
+            "label": "MobiFlight - Synkronoi kytkimet",
+            "short": "Synkronoi kytkimet"
           },
           "KeyInputAction": {
             "label": "MobiFlight - Näppäimistösyöte",
@@ -689,7 +689,7 @@
           "Preset": {
             "Label": "Esiasetus",
             "Title": "Vaihe 2 - Valitse esiasetus",
-            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "Description": "Käytä suodattimia rajataksesi esiasetusten hakua.",
             "ProjectAircraftOnly": "Vain projektin lentokoneet",
             "Vendor": "Valmistaja",
             "Aircraft": "Lentokone",
