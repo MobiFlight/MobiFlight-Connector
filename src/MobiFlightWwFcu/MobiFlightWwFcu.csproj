@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
 		<SignAssembly>False</SignAssembly>
 		<Copyright>MobiFlight 2024 - CC BY-NC 4.0 License</Copyright>
 		<Company>MobiFlight</Company>
 		<Description>WinCtrl FCU library for MobiFlight</Description>
-		<PlatformTarget>x86</PlatformTarget>
-		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<ItemGroup>
