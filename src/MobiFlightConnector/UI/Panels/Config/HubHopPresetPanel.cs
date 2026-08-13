@@ -434,7 +434,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Simulation_Variables.htm");
+            ProcessHelpers.OpenUrl("https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Simulation_Variables.htm");
         }
 
         private void PresetComboBox_SelectedIndexChanged(object sender, EventArgs e)

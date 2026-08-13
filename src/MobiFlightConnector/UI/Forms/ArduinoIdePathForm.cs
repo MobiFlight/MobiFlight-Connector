@@ -54,7 +54,7 @@ namespace MobiFlight.UI.Forms
         private void arduinoDownloadLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.arduinoDownloadLinkLabel.LinkVisited = true;
-            System.Diagnostics.Process.Start("https://www.arduino.cc/en/Main/Software");            
+            ProcessHelpers.OpenUrl("https://www.arduino.cc/en/Main/Software");            
         }
     }
 }

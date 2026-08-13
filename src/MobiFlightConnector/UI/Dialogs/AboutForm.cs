@@ -28,7 +28,7 @@ namespace MobiFlight.UI.Dialogs
             String Link = (sender as LinkLabel).Text;
 
             if ((sender as LinkLabel).Text.Contains("@")) Link = "mailto:" + Link;
-            System.Diagnostics.Process.Start(Link);
+            ProcessHelpers.OpenUrl(Link);
         }
     }
 }

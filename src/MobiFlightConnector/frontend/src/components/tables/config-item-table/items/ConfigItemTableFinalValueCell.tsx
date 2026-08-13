@@ -2,6 +2,7 @@ import StatusIcon from "@/components/icons/StatusIcon"
 import ValueIcon from "@/components/icons/ValueIcon"
 import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
+import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 import { IConfigItem } from "@/types"
 import { IconMathSymbols } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
@@ -16,11 +17,14 @@ function ConfigItemTableFinalValueCell({
   row,
 }: ConfigItemTableFinalValueCellProps) {
   const item = row.original as IConfigItem
-  const Status = item.Status
+  // access the runtime state efficiently
+  const runtimeState = useConfigItemStateValue(item.GUID)
+
+  const Status = runtimeState?.Status ?? item.Status
   const Modifier = Status && !isEmpty(Status["Modifier"])
 
   const { t } = useTranslation()
-  const label = item.Value
+  const label = runtimeState?.Value ?? item.Value
 
   return (
     <div className="text-md" data-testid="final-value">

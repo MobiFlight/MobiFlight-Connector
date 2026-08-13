@@ -117,30 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;preconditionListTreeView.Name" xml:space="preserve">
-    <value>preconditionListTreeView</value>
-  </data>
-  <data name="&gt;&gt;preconditionListTreeView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionListTreeView.Parent" xml:space="preserve">
-    <value>preconditionListgroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>preconditionListgroupBox</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="preconditionListgroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -365,30 +341,6 @@
   <data name="&gt;&gt;preconditionTabTextBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.Name" xml:space="preserve">
-    <value>preConditionTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.Parent" xml:space="preserve">
-    <value>preconditionSelectGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.Name" xml:space="preserve">
-    <value>preconditionTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.Parent" xml:space="preserve">
-    <value>preconditionSelectGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="preconditionSelectGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -487,90 +439,6 @@
   </data>
   <data name="preconditionSettingsGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.Name" xml:space="preserve">
-    <value>preconditionPinValueComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.Name" xml:space="preserve">
-    <value>preconditionPinValueLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.Name" xml:space="preserve">
-    <value>preconditionPinComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.Name" xml:space="preserve">
-    <value>preconditionPortComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.Name" xml:space="preserve">
-    <value>preconditonPinLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.Name" xml:space="preserve">
-    <value>preconditionPinSerialComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.Name" xml:space="preserve">
-    <value>preconditionPinSerialLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
   </data>
   <data name="preconditionPinPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>

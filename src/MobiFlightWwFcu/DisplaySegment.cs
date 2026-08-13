@@ -3,7 +3,7 @@
 namespace MobiFlightWwFcu
 {
     /// <summary>
-    /// Represents a display component on Winwing hardware, 
+    /// Represents a display component on WinCtrl hardware, 
     /// supporting both 7-segment displays and single-bit indicators.
     /// </summary>
     internal class DisplaySegment
@@ -65,7 +65,7 @@ namespace MobiFlightWwFcu
         {
             if (IsSevenSegment)
             {
-                if (WinwingConstants.CharacterDict.TryGetValue(c, out bool[] values))
+                if (WinCtrlConstants.CharacterDict.TryGetValue(c, out bool[] values))
                 {
                     for (int i = 0; i < values.Length; i++)
                     {
