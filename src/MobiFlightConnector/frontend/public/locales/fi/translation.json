@@ -413,11 +413,11 @@
         },
         "Substring": {
           "Label": "Alimerkkijono",
-          "Description": "Valitse osa merkkijonosta aloitus- ja lopetusposition avulla.",
-          "From": "alku",
-          "To": "loppu",
-          "Start": "Ensimmäinen merkki",
-          "End": "Viimeinen merkki",
+          "Description": "Poimi alimerkkijono syötearvosta määritetyn aloitus- ja lopetusposition avulla.",
+          "From": "alkaen",
+          "To": "asti",
+          "Start": "Aloitusposition",
+          "End": "Lopetusposition",
           "Summary": "Alku: <badge>{{start}}</badge> Loppu: <badge>{{end}}</badge>"
         },
         "Padding": {
@@ -689,7 +689,7 @@
           "Preset": {
             "Label": "Esiasetus",
             "Title": "Vaihe 2 - Valitse esiasetus",
-            "Description": "Käytä suodattimia rajataksesi esiasetusten hakua.",
+            "Description": "Käytä suodattimia rajataksesi hakua.",
             "ProjectAircraftOnly": "Vain projektin lentokoneet",
             "Vendor": "Valmistaja",
             "Aircraft": "Lentokone",
@@ -793,8 +793,8 @@
           "Title": "Retrigger",
           "Summary": "Synkronoi kytkimet simulaattorin kanssa.",
           "NoteLabel": "Huomautus",
-          "Description1": "Käytä tätä syötetoimintoa kaikkien kytkinten tilojen synkronointiin.",
-          "Description2": "Tästä voi olla apua jos haluat asettaa simulaattorin ohjaamon kytkimet fyysisten ohjaimien kytkinten mukaisesti."
+          "Description1": "Käytä tätä toimintoa kaikkien vipukytkinten tilojen synkronointiin.",
+          "Description2": "Simulaattorin virtuaaliohjaamon kytkimet asetetaan fyysisten kytkinten mukaisesti."
         },
         "Variable": {
           "Title": "Vaihe 2 - Konfiguroi muuttuja",
