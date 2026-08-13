@@ -1,16 +1,16 @@
-﻿using FSUIPC;
-using MobiFlight.Base;
+﻿using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
-using SharpDX.Multimedia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -63,15 +63,25 @@ namespace MobiFlight.UI.Panels.Config
 
                 try
                 {
-                    presetsDataSet.Clear();
-                    presetsDataSet.ReadXml(PresetFile);
-                    DataRow[] rows = presetDataTable.Select("", "description");
-                    fsuipcPresetComboBox.Items.Clear();
+                    var xmlSerializer = new XmlSerializer(typeof(FsuipcPresetConfig));
+                    var namespaces = new XmlSerializerNamespaces();
+                    var xmlReaderSettings = new XmlReaderSettings { IgnoreWhitespace = true };
+                    var xmlReader = XmlReader.Create(PresetFile, xmlReaderSettings);
+                    var result = (FsuipcPresetConfig)xmlSerializer.Deserialize(xmlReader);
 
-                    foreach (DataRow row in rows)
-                    {
-                        fsuipcPresetComboBox.Items.Add(row["description"]);
-                    }
+                    var rows = result
+                        .outputConfigs
+                        .OrderBy(x => x.description)
+                        .Select(x => new ListItem<OutputConfigItem>
+                        {
+                            Label = x.description,
+                            Value = x.settings,
+                        })
+                        .ToList();
+
+                    fsuipcPresetComboBox.DataSource = rows;
+                    fsuipcPresetComboBox.DisplayMember = "Label";
+                    fsuipcPresetComboBox.ValueMember = "Value";
                 }
                 catch (Exception e)
                 {
@@ -102,21 +112,17 @@ namespace MobiFlight.UI.Panels.Config
         private void fsuipcPresetUseButton_Click(object sender, EventArgs e)
         {
             panelModifierHint.Visible = false;
-            if (fsuipcPresetComboBox.Text != "")
+            if (string.IsNullOrEmpty(fsuipcPresetComboBox.Text))
+                return;
+
+            var config = (OutputConfigItem)fsuipcPresetComboBox.SelectedValue;
+            syncFromConfig(config);
+            panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0) && OutputPanelMode;
+            PresetChanged?.Invoke(this, new FSUIPCConfigItem()
             {
-                DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text + "'");
-                if (rows.Length > 0)
-                {
-                    var config = rows[0]["settings"] as OutputConfigItem;
-                    syncFromConfig(config);
-                    panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0) && OutputPanelMode;
-                    PresetChanged?.Invoke(this, new FSUIPCConfigItem()
-                    {
-                        FSUIPC = (config.Source as FsuipcSource)?.FSUIPC,
-                        Modifiers = config.Modifiers
-                    });
-                }
-            }
+                FSUIPC = (config.Source as FsuipcSource)?.FSUIPC,
+                Modifiers = config.Modifiers
+            });
         }
 
         private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)
@@ -284,17 +290,18 @@ namespace MobiFlight.UI.Panels.Config
         {
             if (conf == null) return;
 
-            foreach (DataRow row in presetDataTable.Rows)
+            foreach (ListItem<OutputConfigItem> listItem in fsuipcPresetComboBox.Items)
             {
-                var preset = row["settings"] as IFsuipcConfigItem;
-                if (preset == null) continue;
+                var outputConfigItem = listItem.Value;
+                var source = outputConfigItem.Source as FsuipcSource;
+                if (source is null) continue;
 
-                if (preset.FSUIPC.Equals(conf.FSUIPC))
+                if (source.FSUIPC.Equals(conf.FSUIPC))
                 {
-                    if (!preset.Modifiers.Items.FindAll(m => m.Active).TrueForAll(m => conf.Modifiers.ContainsModifier(m))) continue;
+                    if (!listItem.Value.Modifiers.Items.FindAll(m => m.Active).TrueForAll(m => conf.Modifiers.ContainsModifier(m))) continue;
                     // we found the preset
-                    fsuipcPresetComboBox.Text = row["description"].ToString();
-                    panelModifierHint.Visible = (row["settings"] as IFsuipcConfigItem).Modifiers.Items.Count > 0;
+                    fsuipcPresetComboBox.Text = listItem.Label.ToString();
+                    panelModifierHint.Visible = outputConfigItem.Modifiers.Items.Count > 0;
                     break;
                 }
             }

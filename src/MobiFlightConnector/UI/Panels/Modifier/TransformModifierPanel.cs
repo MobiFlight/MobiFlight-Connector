@@ -43,7 +43,7 @@ namespace MobiFlight.UI.Panels.Modifier
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Process.Start(i18n._tr("WebsiteHelpNcalc"));
+            ProcessHelpers.OpenUrl(i18n._tr("WebsiteHelpNcalc"));
         }
     }
 }
