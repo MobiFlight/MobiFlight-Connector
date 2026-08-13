@@ -11,8 +11,8 @@
     <PackageVersion Include="GraphQL.Primitives" Version="6.1.0" />
     <PackageVersion Include="Hid.Net" Version="4.2.1" />
     <PackageVersion Include="HidSharp" Version="2.6.4" />
-    <PackageVersion Include="Microsoft.ApplicationInsights" Version="2.21.0" />
-    <PackageVersion Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
+    <PackageVersion Include="Microsoft.ApplicationInsights" Version="2.23.0" />
+    <PackageVersion Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.23.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.5" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
