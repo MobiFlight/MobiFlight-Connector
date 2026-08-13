@@ -10,7 +10,7 @@ namespace MobiFlight.UI.Panels.Config.Tests
     [TestClass()]
     public class FsuipcConfigPanelTests
     {
-        [TestMethod()]
+        [STATestMethod()]
         public void syncFromConfig_InitializeWithIFsuipcConfigItem_Test()
         {
             var panel = new FsuipcConfigPanel();
@@ -43,7 +43,7 @@ namespace MobiFlight.UI.Panels.Config.Tests
             Assert.IsTrue(fsuipcBcdModeCheckBox.Checked);
         }
 
-        [TestMethod()]
+        [STATestMethod()]
         public void syncFromConfig_InitializeWithOutputConfigItem_Test()
         {
             var panel = new FsuipcConfigPanel();

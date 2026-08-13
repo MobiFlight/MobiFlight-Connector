@@ -70,18 +70,22 @@ namespace MobiFlight
             if (reader.ReadToDescendant("source"))
             {
                 // try to read it as FSUIPC Offset
-                if (reader["type"] == "SimConnect") {
+                if (reader["type"] == "SimConnect")
+                {
                     Source = new SimConnectSource();
                     (Source as SimConnectSource).SimConnectValue.ReadXml(reader);
-                } else if (reader["type"] == "Variable")
+                }
+                else if (reader["type"] == "Variable")
                 {
                     Source = new VariableSource();
                     (Source as VariableSource).MobiFlightVariable.ReadXml(reader);
-                } else if (reader["type"] == "XplaneDataRef")
+                }
+                else if (reader["type"] == "XplaneDataRef")
                 {
                     Source = new XplaneSource();
                     (Source as XplaneSource).XplaneDataRef.ReadXml(reader);
-                } else if (reader["type"] == "ProSimDataRef")
+                }
+                else if (reader["type"] == "ProSimDataRef")
                 {
                     Source = new ProSimSource();
                     (Source as ProSimSource).ProSimDataRef.ReadXml(reader);
@@ -90,8 +94,8 @@ namespace MobiFlight
                 {
                     Source = new FsuipcSource();
                     (Source as FsuipcSource).FSUIPC.ReadXml(reader);
-                    
-                    if((Source as FsuipcSource).FSUIPC.OffsetType == FSUIPCOffsetType.String)
+
+                    if ((Source as FsuipcSource).FSUIPC.OffsetType == FSUIPCOffsetType.String)
                     {
                         // this is a special case for backward compatibility
                         // https://github.com/MobiFlight/MobiFlight-Connector/issues/1348
@@ -127,7 +131,7 @@ namespace MobiFlight
                         if (!Double.TryParse(reader["value"], out TestValue.Float64))
                         {
                             Log.Instance.log("Error reading config.", LogSeverity.Error);
-                        };
+                        }
                     }
                 }
                 reader.Read();
@@ -136,7 +140,8 @@ namespace MobiFlight
             if (reader.LocalName == "modifiers")
             {
                 Modifiers.ReadXml(reader);
-            } else if (reader.LocalName == "comparison")
+            }
+            else if (reader.LocalName == "comparison")
             {
                 // backward compatibility when we have comparison
                 // as a single node instead of modifiers
@@ -153,7 +158,7 @@ namespace MobiFlight
                 if (DeviceType == ArcazeLedDigit.OLDTYPE) DeviceType = ArcazeLedDigit.TYPE;
 
                 Controller = SerialNumber.CreateController(reader["serial"]);
-                
+
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
                     Device = new OutputConfig.Output();
@@ -280,24 +285,12 @@ namespace MobiFlight
             }
 
             // read to the end of preconditions-node
-            if (reader.LocalName == "configrefs" && reader.NodeType == XmlNodeType.EndElement)
+            if ((reader.LocalName == "configrefs" || reader.LocalName == "settings" || reader.LocalName == "config") && reader.NodeType == XmlNodeType.EndElement)
                 reader.ReadEndElement();
-
         }
 
-        public virtual void WriteXml(XmlWriter writer)
+        public void WriteXml(XmlWriter writer)
         {
-            WriteXml(writer, true);
-        }
-
-        public void WriteXml(XmlWriter writer, bool writeInstanceData)
-        {
-            if (writeInstanceData)
-            {
-                writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.OutputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
-                writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
-            }
-
             writer.WriteStartElement("source");
                 if (Source is FsuipcSource)
                     (this.Source as FsuipcSource).FSUIPC.WriteXml(writer);

@@ -29,7 +29,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
+            ProcessHelpers.OpenUrl("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
             DialogResult = DialogResult.OK;
         }
 

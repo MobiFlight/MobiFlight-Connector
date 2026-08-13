@@ -1,4 +1,6 @@
-﻿using MobiFlight.UI;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using MobiFlight.UI;
 using System;
 using System.Configuration;
 using System.Globalization;
@@ -23,13 +25,16 @@ namespace MobiFlight
 
                 CheckForCorruptSettings();
 
+                var host = CreateHost();
+                var services = host.Services;
+
                 // this is needed for correct conversion
                 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
                 CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
                 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(true);
-                Application.Run(new MainForm());
+                Application.Run(services.GetRequiredService<MainForm>());
                 mutex.ReleaseMutex();
             }
             else
@@ -91,7 +96,15 @@ namespace MobiFlight
             }
         }
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern bool SetProcessDPIAware();
+        private static IHost CreateHost()
+        {
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices(services =>
+                {
+                    services.AddSingleton<MainForm>();
+                }).Build();
+
+            return host;
+        }
     }
 }

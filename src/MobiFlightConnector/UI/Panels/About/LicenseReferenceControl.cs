@@ -41,8 +41,8 @@ namespace MobiFlight.UI.Panels.About
         public LicenseReferenceControl()
         {
             InitializeComponent();
-            LicenseLinkLabel.Click += (s, e) => { LicenseLinkLabel.LinkVisited = true; System.Diagnostics.Process.Start(LicenseLink); };
-            LibraryLinkLabel.Click += (s, e) => { LibraryLinkLabel.LinkVisited = true; System.Diagnostics.Process.Start(LibraryLink); };
+            LicenseLinkLabel.Click += (s, e) => { LicenseLinkLabel.LinkVisited = true; ProcessHelpers.OpenUrl(LicenseLink); };
+            LibraryLinkLabel.Click += (s, e) => { LibraryLinkLabel.LinkVisited = true; ProcessHelpers.OpenUrl(LibraryLink); };
         }
     }
 }

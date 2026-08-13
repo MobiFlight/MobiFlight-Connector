@@ -476,19 +476,10 @@ namespace MobiFlight
                 }
 
             }
-            catch (ConfigErrorException e)
-            {
-                throw e;
-            }
             catch (FormatException e)
             {
                 // do nothing
                 // maybe log this some time in the future
-            }
-            catch (Exception e)
-            {
-                throw e;
-                //this.ConnectionLost(this, new EventArgs());
             }
         } //setValue()
 
