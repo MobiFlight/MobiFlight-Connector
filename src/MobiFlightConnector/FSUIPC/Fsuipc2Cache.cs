@@ -158,10 +158,10 @@ namespace MobiFlight.FSUIPC
                         __isProcessed = true;
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     ConnectionLost?.Invoke(this, EventArgs.Empty);
-                    throw e;
+                    throw;
                 }
             }
         }
@@ -397,10 +397,10 @@ namespace MobiFlight.FSUIPC
                     FSUIPCConnection.Process("macro");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ConnectionLost?.Invoke(this, EventArgs.Empty);
-                throw e;
+                throw;
             }
         }
 
@@ -413,10 +413,10 @@ namespace MobiFlight.FSUIPC
                     FSUIPCConnection.SendControlToFS(eventID, param);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ConnectionLost?.Invoke(this, EventArgs.Empty);
-                throw e;
+                throw;
             }
         }
 
@@ -433,10 +433,10 @@ namespace MobiFlight.FSUIPC
                 // even if they haven't been read yet (and thus aren't in the cache)
                 _processThreadSafe(true);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ConnectionLost?.Invoke(this, EventArgs.Empty);
-                throw e;
+                throw;
             }
         }
 

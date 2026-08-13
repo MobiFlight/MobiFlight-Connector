@@ -342,30 +342,6 @@
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panelJoysticks" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="groupBoxMidiSettings" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="&gt;&gt;listBoxJoysticks.Name" xml:space="preserve">
-    <value>listBoxJoysticks</value>
-  </data>
-  <data name="&gt;&gt;listBoxJoysticks.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxJoysticks.Parent" xml:space="preserve">
-    <value>groupBoxJoystickSettings</value>
-  </data>
-  <data name="&gt;&gt;listBoxJoysticks.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelJoysticks.Name" xml:space="preserve">
-    <value>labelJoysticks</value>
-  </data>
-  <data name="&gt;&gt;labelJoysticks.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelJoysticks.Parent" xml:space="preserve">
-    <value>groupBoxJoystickSettings</value>
-  </data>
-  <data name="&gt;&gt;labelJoysticks.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="groupBoxJoystickSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -380,18 +356,6 @@
   </data>
   <data name="groupBoxJoystickSettings.Text" xml:space="preserve">
     <value>Joystick settings</value>
-  </data>
-  <data name="&gt;&gt;groupBoxJoystickSettings.Name" xml:space="preserve">
-    <value>groupBoxJoystickSettings</value>
-  </data>
-  <data name="&gt;&gt;groupBoxJoystickSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxJoystickSettings.Parent" xml:space="preserve">
-    <value>panelJoysticks</value>
-  </data>
-  <data name="&gt;&gt;groupBoxJoystickSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="listBoxJoysticks.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>

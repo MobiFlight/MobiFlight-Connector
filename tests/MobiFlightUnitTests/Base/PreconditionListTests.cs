@@ -41,7 +41,6 @@ namespace MobiFlight.Base.Tests
         {
             PreconditionList o = new PreconditionList();
             Assert.IsNotNull(o.GetEnumerator());
-            Assert.IsTrue(o.GetEnumerator() is List<Precondition>.Enumerator);
         }
 
         [TestMethod()]

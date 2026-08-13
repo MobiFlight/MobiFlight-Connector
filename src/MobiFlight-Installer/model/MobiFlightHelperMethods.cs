@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -7,13 +6,17 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlightInstaller
 {
     static public class MobiFlightHelperMethods
     {
+        private static string[] FilePathCandidates = new string[2] {
+            Path.Combine(Directory.GetCurrentDirectory(), $"{ProcessName}.dll"),
+            Path.Combine(Directory.GetCurrentDirectory(), $"{ProcessName}.exe"),
+        };
+
         public static readonly string ProcessName = "MFConnector";
         public static readonly string OptionBetaEnableSearch = "/configuration/userSettings/MobiFlight.Properties.Settings/setting[@name='BetaUpdates']";
         static Char[] s_Base32Char = {
@@ -24,13 +27,14 @@ namespace MobiFlightInstaller
 
         static public bool GetMfBetaOptionValue()
         {
-            if (!File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe"))
+            var processPath = GetMobiFlightApplicationPath();
+            if (string.IsNullOrWhiteSpace(processPath))
             {
                 Log.Instance.log("MFConnector.exe not found, BETA disable", LogSeverity.Debug);
                 return false;
             }
 
-            string PatchConfigFile = MobiFlightHelperMethods.GetExeLocalAppDataUserConfigPath(Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe");
+            string PatchConfigFile = MobiFlightHelperMethods.GetExeLocalAppDataUserConfigPath(processPath);
             Log.Instance.log("Check BETA option in " + PatchConfigFile, LogSeverity.Debug);
 
             if (!File.Exists(PatchConfigFile))
@@ -48,6 +52,8 @@ namespace MobiFlightInstaller
 
             return result;
         }
+
+        public static string GetMobiFlightApplicationPath() => FilePathCandidates.FirstOrDefault(File.Exists);
 
         static public bool ExtractConfigBetaValueFromXML(string PatchConfigFile)
         {

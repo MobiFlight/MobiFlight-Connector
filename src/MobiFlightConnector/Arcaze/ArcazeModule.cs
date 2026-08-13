@@ -303,10 +303,6 @@ namespace MobiFlight
                 int currentValues = lastArcazeGetValue[io.Port.ToString()];
                 result = ((currentValues & (1 << io.Pin)) == (1 << io.Pin)) ? "0" : "1";
             }
-            catch (ConfigErrorException e)
-            {
-                throw e;
-            }
             catch (FormatException e)
             {
                 // do nothing
