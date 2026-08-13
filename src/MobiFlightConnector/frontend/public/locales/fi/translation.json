@@ -84,7 +84,7 @@
     "CustomDevice": "Mukautettu laite",
     "InputShiftRegister": "Syötön siirtorekisteri",
     "Button": "Painike",
-    "Encoder": "Kiertokytkin (Encoder)",
+    "Encoder": "Enkooderi",
     "AnalogInput": "Analoginen syöttö (Potentiometri)",
     "-": "ei asetettu",
     "OutputConfigItem": "Lähdön määritys",
@@ -189,7 +189,7 @@
       "Aircraft": {
         "Label": "Lentokone",
         "HelpText": "Valitse tähän projektiin käytetty lentokone.",
-        "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa. Vaihtoehdot rajoittuvat valittuihin lentokoneisiin.",
+        "Description": "Valitse yksi tai useampi lentokone, ja rajaa oletuksena näytettäviä esiasetuksia ja lentokoneita",
         "Dialog": {
           "Title": "Lentokoneasetukset",
           "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa.",
@@ -267,7 +267,7 @@
       }
     },
     "Table": {
-      "NoResultsFound": "Tämä on uusi konfiguraatio. Lisää kohteita.",
+      "NoResultsFound": "Tässä profiilissa ei ole vielä yhtään määritystä.",
       "DropHereToAdd": "Pudota tähän lisätäksesi uusia kohteita.",
       "NoResultsMatchingFilter": "Suodatinta vastaavia tuloksia ei löytynyt.",
       "Drag": {
@@ -363,7 +363,7 @@
   "Feed": {
     "Title": "Yhteisön uutiset",
     "Description": "Uutisia ja päivityksiä MobiFlight-yhteisöltä.",
-    "NoPosts": "Ei uutisia saatavilla.",
+    "NoPosts": "Uutisia ei ole saatavilla.",
     "Filter": {
       "all": "Kaikki",
       "shop": "Tarjoukset",
@@ -408,46 +408,46 @@
       "Type": {
         "Transformation": {
           "Label": "Transformaatio",
-          "Description": "Sovella muunnosta syötearvoon määritetyn lausekkeen avulla.",
+          "Description": "Muokkaa syötearvoa ncalc-lausekkeen avulla.",
           "Expression": "Lauseke"
         },
         "Substring": {
           "Label": "Alimerkkijono",
-          "Description": "Poimi alimerkkijono syötearvosta määritetyn aloitus- ja lopetusposition avulla.",
-          "From": "alkaen",
-          "To": "asti",
-          "Start": "Aloitusposition",
-          "End": "Lopetusposition",
-          "Summary": "alkaen <badge>{{start}}</badge> asti <badge>{{end}}</badge>"
+          "Description": "Valitse osa merkkijonosta aloitus- ja lopetusposition avulla.",
+          "From": "alku",
+          "To": "loppu",
+          "Start": "Ensimmäinen merkki",
+          "End": "Viimeinen merkki",
+          "Summary": "Alku: <badge>{{start}}</badge> Loppu: <badge>{{end}}</badge>"
         },
         "Padding": {
-          "Label": "Täyttö",
-          "Description": "Säädä syötearvon täyttöä määritetyn pituuden, merkin ja suunnan avulla.",
-          "Length": "Pituus",
+          "Label": "Merkkijonon täyttö",
+          "Description": "Säädä tuloarvon tekstimuotoa määritetyn pituuden, täyttömerkin ja täyttösuunnan avulla.",
+          "Length": "Merkkijonon pituus",
           "Character": "Merkki",
           "Direction": "Suunta",
           "Summary": "Pituus:<badge>{{length}}</badge> Merkki:<badge><kbd>{{character}}</kbd></badge> Suunta:<badge>{{direction}}</badge>"
         },
         "Interpolation": {
           "Label": "Interpolaatio",
-          "Description": "Määritä kartoitukset syöte- ja tulosarvojen välillä. Arvot, jotka ovat alueen ulkopuolella, rajataan.",
-          "From": "Alkaen",
-          "To": "Asti",
+          "Description": "Skaalaa tuloarvo syöte- ja tulosarvojen välillä. Arvot, jotka ovat alueen ulkopuolella, rajataan.",
+          "From": "Tuloarvo",
+          "To": "Lähtöarvo",
           "Action": "Toiminto",
-          "Mappings": "Kartoitukset",
-          "Add": "Lisää kartoitus",
-          "Remove": "Poista kartoitus",
-          "Summary": "Kartoitukset <badge>{{count}}</badge> arvoa, alue <badge>{{min}}</badge> - <badge>{{max}}</badge>"
+          "Mappings": "Määritykset",
+          "Add": "Lisää määritys",
+          "Remove": "Poista määritys",
+          "Summary": "<badge>{{count}}</badge> määritystä, alue <badge>{{min}}</badge> - <badge>{{max}}</badge>"
         },
         "Comparison": {
           "Label": "Vertailu",
-          "Description": "Vertaa nykyistä arvoa toiseen arvoon ja säädä tulosta, jos se vastaa tai ei vastaa.",
+          "Description": "Vertaa tuloarvoa toiseen arvoon ja valitse lähtöarvo sen mukaan",
           "IfCurrentValue": "Jos nykyinen arvo",
           "Operator": "Operaattori",
-          "Value": "Arvo",
-          "Then": "Sitten",
-          "Else": "Muuten",
-          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+          "Value": "Verrattava arvo",
+          "Then": "Niin silloin",
+          "Else": "Tai muuten",
+          "Summary": "<span>jos</span><badge>$ {{operator}} {{value}}</badge><span>niin</span><badge>{{ifValue}}</badge><span>tai muuten</span><badge>{{elseValue}}</badge>"
         },
         "Blink": {
           "Label": "Vilkutus",
@@ -721,7 +721,7 @@
             "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi."
           },
           "PathLabel": "Polku",
-          "NoPresetSelected": "Ei esiasetusta valittuna",
+          "NoPresetSelected": "Esiasetusta ei ole valittu",
           "ParameterLabel": "Parametri (valinnainen)",
           "ParameterPlaceholder": "Aseta parametri (valinnainen)",
           "ParameterNone": "Ei mitään"
@@ -791,10 +791,10 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
-          "Summary": "Synkronoi syöttölaitteet simulaattorin kanssa.",
+          "Summary": "Synkronoi kytkimet simulaattorin kanssa.",
           "NoteLabel": "Huomautus",
-          "Description1": "Käytä tätä syötetoimintoa kaikkien painikkeiden tilojen uudelleenlaukaisemiseen.",
-          "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
+          "Description1": "Käytä tätä syötetoimintoa kaikkien kytkinten tilojen synkronointiin.",
+          "Description2": "Tästä voi olla apua jos haluat asettaa simulaattorin ohjaamon kytkimet fyysisten ohjaimien kytkinten mukaisesti."
         },
         "Variable": {
           "Title": "Vaihe 2 - Konfiguroi muuttuja",
@@ -809,7 +809,7 @@
         },
         "ProSimDataRef": {
           "FilterPresetsPlaceholder": "Suodata esiasetuksia",
-          "NoPresetsAvailable": "Ei esiasetuksia saatavilla",
+          "NoPresetsAvailable": "Esiasetuksia ei ole saatavilla",
           "RefreshPresets": "Päivitä esiasetukset"
         },
         "EventIdPresets": {
