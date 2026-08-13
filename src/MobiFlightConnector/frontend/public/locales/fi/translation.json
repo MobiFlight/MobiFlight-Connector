@@ -617,7 +617,7 @@
       "analog": {
         "Event": {
           "onChange": {
-            "label": "Muutettaessa",
+            "label": "Arvon muuttuessa",
             "description": "Toiminto suoritetaan, kun syötteen arvo muuttuu."
           }
         }
