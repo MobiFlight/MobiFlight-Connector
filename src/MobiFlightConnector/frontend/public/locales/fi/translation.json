@@ -682,7 +682,7 @@
           "SearchSystems": "Etsi järjestelmiä...",
           "SelectPreset": "Valitse esiasetus",
           "SearchPresets": "Etsi esiasetuksia...",
-          "PresetsFound": "{{count}} esiasetus(ta) löytyi",
+          "PresetsFound": "Hakutuloksia löytyi {{count}}",
           "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)",
           "ActionLabel": "Toiminto",
           "NameLabel": "Nimi",
