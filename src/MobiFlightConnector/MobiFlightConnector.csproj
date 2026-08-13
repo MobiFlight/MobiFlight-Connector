@@ -41,28 +41,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Device.Net" Version="4.2.1" />
-		<PackageReference Include="FSUIPCClientDLL" Version="3.3.16" />
-		<PackageReference Include="GraphQL.Client" Version="6.1.0" />
-		<PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.1.0" />
-		<PackageReference Include="GraphQL.Primitives" Version="6.1.0" />
-		<PackageReference Include="Hid.Net" Version="4.2.1" />
-		<PackageReference Include="HidSharp" Version="2.6.4" />
-		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
-		<PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.21.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4129.50" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
-		<PackageReference Include="SharpDX" Version="4.2.0" />
-		<PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
-		<PackageReference Include="System.Management" Version="10.0.5" />
-		<PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
-		<PackageReference Include="XPlaneConnector" Version="1.3.0" />
-		<PackageReference Include="System.IO.Ports" Version="10.0.9" />
-		<PackageReference Include="System.Net.WebSockets.Client.Managed" Version="1.0.22" />
-		<PackageReference Include="System.Reactive" Version="6.1.0" />
+		<PackageReference Include="Device.Net" />
+		<PackageReference Include="FSUIPCClientDLL" />
+		<PackageReference Include="GraphQL.Client" />
+		<PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" />
+		<PackageReference Include="GraphQL.Primitives" />
+		<PackageReference Include="Hid.Net" />
+		<PackageReference Include="HidSharp" />
+		<PackageReference Include="Microsoft.ApplicationInsights" />
+		<PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+		<PackageReference Include="Microsoft.Web.WebView2" />
+		<PackageReference Include="Newtonsoft.Json" />
+		<PackageReference Include="Newtonsoft.Json.Schema" />
+		<PackageReference Include="SharpDX" />
+		<PackageReference Include="SharpDX.DirectInput" />
+		<PackageReference Include="System.Management" />
+		<PackageReference Include="WebSocketSharp-netstandard" />
+		<PackageReference Include="XPlaneConnector" />
+		<PackageReference Include="System.IO.Ports" />
+		<PackageReference Include="System.Net.WebSockets.Client.Managed" />
+		<PackageReference Include="System.Reactive" />
 	</ItemGroup>
 
 	<ItemGroup>

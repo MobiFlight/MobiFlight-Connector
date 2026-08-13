@@ -8,13 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Testing.Extensions.Telemetry" Version="2.1.0" />
-		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" Version="2.1.0" />
-		<PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge" Version="2.1.0" />
-		<PackageReference Include="Microsoft.Testing.Platform.MSBuild" Version="2.1.0" />
-		<PackageReference Include="System.Collections.Immutable" Version="10.0.9" />
-		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.9" />
-		<PackageReference Include="System.Reflection.Metadata" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Testing.Extensions.Telemetry" />
+		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" />
+		<PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge" />
+		<PackageReference Include="Microsoft.Testing.Platform.MSBuild" />
+		<PackageReference Include="System.Collections.Immutable" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" />
+		<PackageReference Include="System.Reflection.Metadata" />
 	</ItemGroup>
 
 	<ItemGroup>
