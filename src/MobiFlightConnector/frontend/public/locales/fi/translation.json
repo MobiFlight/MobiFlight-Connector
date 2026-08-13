@@ -561,29 +561,29 @@
       "button": {
         "Event": {
           "onPress": {
-            "label": "Painettaessa",
+            "label": "Painallus",
             "description": "Toiminto suoritetaan, kun painiketta painetaan."
           },
           "onRelease": {
-            "label": "Vapautettaessa",
+            "label": "Vapautus",
             "description": "Toiminto suoritetaan, kun painike vapautetaan."
           },
           "onHold": {
-            "label": "Painettaessa pitkään",
+            "label": "Pitkä painallus",
             "description": "Toiminto suoritetaan, kun painiketta pidetään painettuna.",
             "options": {
               "holdDelay": {
-                "label": "Painalluksen viive",
+                "label": "Pitkän painalluksen viive",
                 "description": "Kesto millisekunteina, jonka ajan painiketta on pidettävä painettuna ennen kuin toiminto aktivoituu."
               },
               "repeatDelay": {
-                "label": "Toistoviive",
+                "label": "Toiston viive",
                 "description": "Aikaväli millisekunteina, jonka välein toiminto aktivoituu uudelleen, kun painiketta pidetään painettuna. Aseta 0 poistaaksesi toiston käytöstä."
               }
             }
           },
           "onLongRelease": {
-            "label": "Pitkällä vapautuksella",
+            "label": "Pitkä vapautus",
             "description": "Toiminto suoritetaan, kun painike vapautetaan pitkän painalluksen jälkeen.",
             "options": {
               "longReleaseDelay": {
@@ -597,11 +597,11 @@
       "encoder": {
         "Event": {
           "onLeft": {
-            "label": "Vasemmalle",
+            "label": "Kierto vasemmalle",
             "description": "Toiminto suoritetaan, kun enkooderia käännetään vasemmalle."
           },
           "onRight": {
-            "label": "Oikealle",
+            "label": "Kierto oikealle",
             "description": "Toiminto suoritetaan, kun enkooderia käännetään oikealle."
           },
           "onLeftFast": {
@@ -617,7 +617,7 @@
       "analog": {
         "Event": {
           "onChange": {
-            "label": "Arvon muuttuessa",
+            "label": "Arvon muutos",
             "description": "Toiminto suoritetaan, kun syötteen arvo muuttuu."
           }
         }
