@@ -699,7 +699,7 @@
             "Date": "Päivämäärä",
             "Code": {
               "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
-              "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
+              "Description": "Tämä koodi suoritetaan simulaattoriohjelmistossa. Voit valita esiasetuksen yllä olevasta listasta ja tarvittaessa muokata sitä.",
               "None": "Ei mitään",
               "Placeholder": "Syötä RPN-koodi",
               "Customized": "Olet muokannut tätä esiasetusta tai se ei ole enää saatavilla."
