@@ -1377,10 +1377,10 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(modifiersPanel).toBeVisible()
 
     const labels = [
-      "Transformation",
-      "Substring",
-      "Padding",
+      "Blink",
+      "Comparison",
       "Interpolation",
+      "Padding",
       "+ 2 more",
     ]
 
@@ -1432,6 +1432,45 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(panel).toBeVisible()
     await panel.dblclick()
     await expect(modifierEditor).toBeVisible()
+  })
+
+  test("Modifiers are sorted alphabetically in the add modifier dropdown", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const dialog = page.getByTestId("inputconfigwizard-dialog")
+    const addModifierButton = dialog.getByRole("button", {
+      name: "Add modifier",
+    })
+
+    // Open the modifier pane
+    await expect(dialog).toBeVisible()
+    await expect(addModifierButton).toBeVisible()
+    await addModifierButton.click()
+
+    const modifierEditor = page.getByTestId("modifier-editor")
+    await expect(modifierEditor).toBeVisible()
+
+    // Get the Add modifier button and click it so the menu opens
+    const addModifierButtonInEditor = modifierEditor.getByRole("button", {
+      name: "Add modifier",
+    })
+    await expect(addModifierButtonInEditor).toBeVisible()
+    await addModifierButtonInEditor.click()
+
+    // Get the modifier names from the menu and sort them in ascending alphabetical order.
+    const modifierMenuItems = page.getByRole("menuitem")
+    const modifierNames = (await modifierMenuItems.allTextContents()).map(
+      (name) => name.trim(),
+    )
+    const sortedModifierNames = [...modifierNames].sort((left, right) =>
+      left.localeCompare(right),
+    )
+
+    // The sorted list should match the original list of modifier names, which means the original list was sorted correctly.
+    expect(modifierNames).toEqual(sortedModifierNames)
   })
 
   test("All modifiers can be added and removed", async ({
@@ -1496,8 +1535,12 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await expect(addModifierButton).toBeVisible()
     await addModifierButton.click()
 
-    // only add first 3 modifiers for this test
     const modifiers = MODIFIER_TYPES.slice(0, 3)
+
+    // Create regular expressions for the first two modifiers to use in assertions
+    // later in the unit test.
+    const modifier0RegExp = new RegExp(modifiers[0])
+    const modifier1RegExp = new RegExp(modifiers[1])
 
     for (const modifier of modifiers) {
       const modifierEditor = page.getByTestId("modifier-editor")
@@ -1521,8 +1564,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     const firstModifierItem = page.getByTestId("modifier-item").nth(0)
     const secondModifierItem = page.getByTestId("modifier-item").nth(1)
 
-    await expect(firstModifierItem).toHaveText(/Transformation/)
-    await expect(secondModifierItem).toHaveText(/Substring/)
+    await expect(firstModifierItem).toHaveText(modifier0RegExp)
+    await expect(secondModifierItem).toHaveText(modifier1RegExp)
 
     const firstMoveUpButton = firstModifierItem.getByRole("button", {
       name: "Move up modifier",
@@ -1540,8 +1583,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await firstMoveDownButton.click()
 
     // Verify that the first and second items have swapped positions
-    await expect(firstModifierItem).toHaveText(/Substring/)
-    await expect(secondModifierItem).toHaveText(/Transformation/)
+    await expect(firstModifierItem).toHaveText(modifier1RegExp)
+    await expect(secondModifierItem).toHaveText(modifier0RegExp)
 
     const secondMoveUpButton = secondModifierItem.getByRole("button", {
       name: "Move up modifier",
@@ -1551,8 +1594,8 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await secondMoveUpButton.click()
 
     // Verify that the first and second items have swapped positions back
-    await expect(firstModifierItem).toHaveText(/Transformation/)
-    await expect(secondModifierItem).toHaveText(/Substring/)
+    await expect(firstModifierItem).toHaveText(modifier0RegExp)
+    await expect(secondModifierItem).toHaveText(modifier1RegExp)
 
     // Verify last move down button is disabled
     const lastModifierItem = page.getByTestId("modifier-item").last()
