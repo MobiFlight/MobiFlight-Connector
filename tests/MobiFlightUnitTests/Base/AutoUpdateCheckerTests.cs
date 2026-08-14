@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.UpdateChecker;
 using System;
+using MobiFlight.Base.UpdateChecker;
 
 namespace MobiFlight.Base.Tests
 {

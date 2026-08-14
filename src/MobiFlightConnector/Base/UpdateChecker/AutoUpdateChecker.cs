@@ -1,14 +1,14 @@
-﻿using MobiFlight.UI.Dialogs;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MobiFlight.UI.Dialogs;
 
-namespace MobiFlight.UpdateChecker
+namespace MobiFlight.Base.UpdateChecker
 {
-    static class AutoUpdateChecker
+    public sealed class AutoUpdateChecker : IAutoUpdateChecker
     {
         internal enum UpdatePath
         {
@@ -66,7 +66,7 @@ namespace MobiFlight.UpdateChecker
             return UpdatePath.BetaToStable;
         }
 
-        public static async Task CheckForUpdate(bool silent = false)
+        public async Task CheckForUpdateAsync(bool silent = false)
         {
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();

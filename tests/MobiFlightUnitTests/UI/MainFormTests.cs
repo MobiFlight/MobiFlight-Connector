@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using MobiFlight.Base.UpdateChecker;
 
 namespace MobiFlight.UI.Tests
 {
@@ -23,7 +24,7 @@ namespace MobiFlight.UI.Tests
         private string _tempDirectory;
         private bool originalLoggingState;
 
-        public class TestableMainForm : MainForm
+        public class TestableMainForm() : MainForm(new StubbedAutoUpdateChecker())
         {
             public TestMessagePublisher Publisher { get; set; }
             public IMessagePublisher OriginalPublisher { get; private set; }

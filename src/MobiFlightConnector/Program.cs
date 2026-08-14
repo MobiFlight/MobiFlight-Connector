@@ -6,12 +6,20 @@ using System.Configuration;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
+using MobiFlight.Base.UpdateChecker;
 
 namespace MobiFlight
 {
     static class Program
     {
+        private const string EnvironmentName =
+#if DEBUG
+            "Development";
+#else
+            "Production";
+#endif
         static Mutex mutex = new Mutex(true, "{57699317-1D72-4B54-82BC-CF6B38254550}");
+
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
@@ -31,7 +39,7 @@ namespace MobiFlight
                 // this is needed for correct conversion
                 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
                 CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
-                
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(true);
                 Application.Run(services.GetRequiredService<MainForm>());
@@ -85,7 +93,7 @@ namespace MobiFlight
                     {
                         var fileInfo = new System.IO.FileInfo(filename);
                         var watcher
-                             = new System.IO.FileSystemWatcher(fileInfo.Directory.FullName, fileInfo.Name);
+                            = new System.IO.FileSystemWatcher(fileInfo.Directory.FullName, fileInfo.Name);
                         System.IO.File.Delete(filename);
                         if (System.IO.File.Exists(filename))
                         {
@@ -98,13 +106,33 @@ namespace MobiFlight
 
         private static IHost CreateHost()
         {
-            var host = Host.CreateDefaultBuilder()
-                .ConfigureServices(services =>
-                {
-                    services.AddSingleton<MainForm>();
-                }).Build();
+            var hostApplicationBuilderSettings = new HostApplicationBuilderSettings
+            {
+                EnvironmentName = EnvironmentName,
+            };
 
-            return host;
+            var builder = Host.CreateApplicationBuilder(hostApplicationBuilderSettings)
+                .ConfigureServices();
+
+            return builder.Build();
+        }
+
+        private static HostApplicationBuilder ConfigureServices(this HostApplicationBuilder builder)
+        {
+            var environment = builder.Environment;
+
+            if (environment.IsProduction())
+            {
+                builder.Services.AddTransient<IAutoUpdateChecker, AutoUpdateChecker>();
+            }
+            else
+            {
+                builder.Services.AddTransient<IAutoUpdateChecker, StubbedAutoUpdateChecker>();
+            }
+            
+            builder.Services.AddSingleton<MainForm>();
+
+            return builder;
         }
     }
 }

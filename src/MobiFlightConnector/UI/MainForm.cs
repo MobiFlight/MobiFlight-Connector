@@ -4,15 +4,12 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
-#if ARCAZE
-#endif
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;
 using System.Reflection;
 using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.SimConnectMSFS;
-using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using MobiFlight.xplane;
 using MobiFlight.HubHop;
@@ -29,7 +26,7 @@ using System.ComponentModel;
 using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
-using System.Threading;
+using MobiFlight.Base.UpdateChecker;
 
 namespace MobiFlight.UI
 {
@@ -47,6 +44,8 @@ namespace MobiFlight.UI
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
         private static int HUBHOP_UPDATE_DAYS = 7;
+
+        private readonly IAutoUpdateChecker _autoUpdateChecker;
 
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
@@ -189,8 +188,12 @@ namespace MobiFlight.UI
             UpdateAutoLoadMenu();
         }
 
-        public MainForm()
+        public MainForm(IAutoUpdateChecker autoUpdateChecker)
         {
+            ArgumentNullException.ThrowIfNull(autoUpdateChecker);
+            
+            _autoUpdateChecker = autoUpdateChecker;
+            
             // this shall happen before anything else
             InitializeFrontendSubscriptions();
 
@@ -450,14 +453,12 @@ namespace MobiFlight.UI
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
-#if (!DEBUG)
             try
             {
-                await AutoUpdateChecker.CheckForUpdate(true);
+                await _autoUpdateChecker.CheckForUpdateAsync(true);
             } catch (Exception ex) {
                 Log.Instance.log($"Error checking for updates: {ex.Message}", LogSeverity.Error);
             }
-#endif
         }
 
         private async void OnFrontendReady(object sender, EventArgs e)
@@ -1175,7 +1176,7 @@ namespace MobiFlight.UI
             try
             {
 
-                await AutoUpdateChecker.CheckForUpdate();
+                await _autoUpdateChecker.CheckForUpdateAsync();
             }
             catch (Exception ex)
             {
