@@ -557,6 +557,67 @@ test.describe("Project settings modal features", () => {
     await expect(projectNameInput).toHaveValue("Test Project With ")
   })
 
+  test("Verify aircraft list is sorted alphabetically by name then vendor", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await page.route(
+      "*/**/presets/msfs2020_hubhop_presets.json",
+      async (route) => {
+        await route.fulfill({ json: msfsPresetsResponse })
+      },
+    )
+    await page.route(
+      "*/**/presets/xplane_hubhop_presets.json",
+      async (route) => {
+        await route.fulfill({ json: xplanePresetsResponse })
+      },
+    )
+
+    const createProjectButton = page.getByRole("button", { name: "Project" })
+    const createProjectDialog = page.getByRole("dialog", {
+      name: "Create New Project",
+    })
+    const projectNameInput = createProjectDialog.getByLabel("Project Name")
+    await createProjectButton.click()
+    await projectNameInput.fill("Aircraft sort test")
+
+    // verify badges are showing
+    const msGenericBadge = createProjectDialog.getByText("Microsoft - Generic")
+    await expect(msGenericBadge).toBeVisible()
+
+    const editAircraftButton = createProjectDialog.getByRole("button", {
+      name: "Edit aircraft list",
+    })
+    await editAircraftButton.click()
+
+    const projectAircraftDialog = page.getByTestId("project-aircraft-drawer")
+    await expect(projectAircraftDialog).toBeVisible()
+
+    // Find the list of available aircraft on the page
+    const availableAircraftList = page.locator(
+      '[data-testid="available-aircraft-list"] [role="option"]',
+    )
+    await expect(availableAircraftList.first()).toBeVisible()
+
+    // Get the list of every aircraft in the list and pull out the name and vendor.
+    const items = await availableAircraftList.evaluateAll((aircraftEntry) =>
+      aircraftEntry.map((element) => ({
+        name: (element.getAttribute("data-aircraft-name") || "").trim(),
+        vendor: (element.getAttribute("data-aircraft-vendor") || "").trim(),
+      })),
+    )
+
+    // Sort the entries by name and then vendor and compare to the original list to ensure they are sorted correctly.
+    // The [...items] is necessary to create a new array that's sorted, instead of sorting the original items array.
+    const sorted = [...items]
+      .sort((a, b) => a.vendor.localeCompare(b.vendor || "") || 0)
+      .sort((a, b) => a.name.localeCompare(b.name || "") || 0)
+
+    expect(items).toEqual(sorted)
+  })
+
   test("Edit aircraft list selection", async ({ dashboardPage, page }) => {
     await dashboardPage.gotoPage()
     await page.route(
