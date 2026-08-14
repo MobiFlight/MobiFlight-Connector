@@ -1,3 +1,4 @@
+using MobiFlight.Joysticks.FreeJoy;
 using MobiFlight.Joysticks.VKB;
 using MobiFlight.Joysticks.WinCtrl;
 using MobiFlight.Joysticks.IIDB;
@@ -38,6 +39,12 @@ namespace MobiFlight.Joysticks
 
             // Check for IIDB devices
             if (vendorId == IIDBDevice.IIDB_VENDOR_ID)
+            {
+                return true;
+            }
+
+            // Check for FreeJoy boards
+            if (vendorId == FreeJoyController.FREEJOY_VENDOR_ID && productId == FreeJoyController.FREEJOY_PRODUCT_ID)
             {
                 return true;
             }
@@ -119,6 +126,12 @@ namespace MobiFlight.Joysticks
             if (vendorId == IIDBDevice.IIDB_VENDOR_ID)
             {
                 return new IIDBDevice(diJoystick, definition);
+            }
+
+            // Handle FreeJoy boards by vendor/product ID
+            if (vendorId == FreeJoyController.FREEJOY_VENDOR_ID && productId == FreeJoyController.FREEJOY_PRODUCT_ID)
+            {
+                return new FreeJoyController(diJoystick, definition);
             }
 
             // Handle AuthentiKit by instance name
