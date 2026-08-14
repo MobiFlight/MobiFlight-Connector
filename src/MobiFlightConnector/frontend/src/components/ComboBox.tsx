@@ -60,7 +60,11 @@ const ComboBox = <T,>({
 
   const selectedInItems = items.find((item) => isSelected(item, selected))
   const label = selectedInItems ? getLabel(selectedInItems) : placeholder
-
+  // Use substring matching instead of the default fuzzy filtering,
+  // so the complete search string must be present in the item value.
+  const filterByCaseInsensitiveSubstring = (value: string, search: string) => {
+    return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0
+  }
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
@@ -83,11 +87,7 @@ const ComboBox = <T,>({
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cn(widthClass, "p-0")} align={align}>
-        <Command
-          filter={(value, search) => {
-            return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0
-          }}
-        >
+        <Command filter={filterByCaseInsensitiveSubstring}>
           {variant === "default" && (
             <CommandInput placeholder={searchPlaceholder} className="h-9" />
           )}

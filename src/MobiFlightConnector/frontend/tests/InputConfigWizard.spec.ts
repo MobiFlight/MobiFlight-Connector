@@ -318,6 +318,30 @@ test.describe("General Input Config Wizard Tests", () => {
     )
     await expect(hint).toBeVisible()
   })
+  test("Controller search matches the complete search string", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
+    await deviceComboBox.click()
+
+    const searchInput = page.getByPlaceholder("Search device...")
+    await searchInput.fill("Button 1")
+
+    await expect(page.getByRole("option", { name: "Button 1" })).toBeVisible()
+
+    await expect(
+      page.getByRole("option", { name: "Button 2" }),
+    ).not.toBeVisible()
+  })
 })
 
 test.describe("Input Config Wizard - Edit name", () => {
@@ -567,33 +591,33 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
     ).toBeDisabled()
   })
   test("Trigger panel interactions work correctly - Search for controller", async ({
-  configListPage,
-  page,
-}) => {
-   await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-  await configListPage.clickEditButtonForRow(1)
+    await configListPage.clickEditButtonForRow(1)
 
-  const triggerPanel = page.getByTestId("trigger-panel")
-  await expect(triggerPanel).toBeVisible()
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
 
-  const controllerComboBox = triggerPanel.getByRole("combobox").first()
+    const controllerComboBox = triggerPanel.getByRole("combobox").first()
 
-  await expect(controllerComboBox).toBeVisible()
-  await controllerComboBox.click()
+    await expect(controllerComboBox).toBeVisible()
+    await controllerComboBox.click()
 
-  const searchInput = page.getByPlaceholder("Search controller...")
-  await expect(searchInput).toBeVisible()
+    const searchInput = page.getByPlaceholder("Search controller...")
+    await expect(searchInput).toBeVisible()
 
-  await searchInput.fill("Bravo")
+    await searchInput.fill("Bravo")
 
-  await expect(
-    page.getByRole("option", {
-      name: "Bravo Throttle Quadrant",
-    }),
-  ).toBeVisible()
-})
+    await expect(
+      page.getByRole("option", {
+        name: "Bravo Throttle Quadrant",
+      }),
+    ).toBeVisible()
+  })
 
   test("Only save active trigger on closing config dialog", async ({
     configListPage,
