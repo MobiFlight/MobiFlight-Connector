@@ -50,12 +50,12 @@ export interface Blink extends IModifier {
 }
 
 export const MODIFIER_TYPES: string[] = [
-  "Transformation",
-  "Substring",
-  "Padding",
-  "Interpolation",
-  "Comparison",
   "Blink",
+  "Comparison",
+  "Interpolation",
+  "Padding",
+  "Substring",
+  "Transformation",
 ]
 
 export class ModifierFactory {

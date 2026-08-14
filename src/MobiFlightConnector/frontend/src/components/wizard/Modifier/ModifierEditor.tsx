@@ -22,7 +22,7 @@ const ModifierEditor = ({
   onModifierChange,
 }: ModifierEditorProps) => {
   const { t } = useTranslation()
-  const modifierTypes = MODIFIER_TYPES
+  const modifierTypes = MODIFIER_TYPES.sort((a, b) => a.localeCompare(b))
   const [newlyAddedId, setNewlyAddedId] = useState<string | null>(null)
   const [fallbackIds] = useState(() => new WeakMap<Modifier, string>())
 

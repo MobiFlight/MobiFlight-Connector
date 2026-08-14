@@ -4,12 +4,12 @@
       "OpenMenu": "Avaa valikko"
     },
     "Overlay": {
-      "OpeningWizard": "Avataan opastettua toimintoa...",
+      "OpeningWizard": "Avataan ohjattua toimintoa...",
       "SavingChanges": "Tallennetaan projektia..."
     },
     "HubHopUpdate": {
       "Error": "HubHop-päivitys epäonnistui. Yritä myöhemmin uudelleen.",
-      "Success": "HubHop-päivitys suoritettu onnistuneesti!",
+      "Success": "HubHop-päivitys onnistui!",
       "Title": "HubHop-päivitys on saatavilla",
       "Description": "HubHop-tietokantasi on yli {{days}} päivää vanha. Haluatko päivittää sen nyt?",
       "Title.Downloading": "Ladataan HubHop-päivitystä..."
@@ -19,7 +19,7 @@
       "Unknown": "Tuntematon virhe."
     },
     "ComboBox": {
-      "NoOptions": "Ei kohteita löytynyt.",
+      "NoOptions": "Kohteita ei löytynyt.",
       "Placeholder": "Valitse...",
       "SearchPlaceholder": "Haku..."
     },
@@ -84,7 +84,7 @@
     "CustomDevice": "Mukautettu laite",
     "InputShiftRegister": "Syötön siirtorekisteri",
     "Button": "Painike",
-    "Encoder": "Kiertokytkin (Encoder)",
+    "Encoder": "Enkooderi",
     "AnalogInput": "Analoginen syöttö (Potentiometri)",
     "-": "ei asetettu",
     "OutputConfigItem": "Lähdön määritys",
@@ -189,7 +189,7 @@
       "Aircraft": {
         "Label": "Lentokone",
         "HelpText": "Valitse tähän projektiin käytetty lentokone.",
-        "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa. Vaihtoehdot rajoittuvat valittuihin lentokoneisiin.",
+        "Description": "Valitse yksi tai useampi lentokone, ja rajaa oletuksena näytettäviä esiasetuksia ja lentokoneita",
         "Dialog": {
           "Title": "Lentokoneasetukset",
           "Description": "Valitse yksi tai useampi lentokone, jotka haluat ottaa käyttöön tässä projektissa.",
@@ -267,7 +267,7 @@
       }
     },
     "Table": {
-      "NoResultsFound": "Tämä on uusi konfiguraatio. Lisää kohteita.",
+      "NoResultsFound": "Tässä profiilissa ei ole vielä yhtään määritystä.",
       "DropHereToAdd": "Pudota tähän lisätäksesi uusia kohteita.",
       "NoResultsMatchingFilter": "Suodatinta vastaavia tuloksia ei löytynyt.",
       "Drag": {
@@ -363,7 +363,7 @@
   "Feed": {
     "Title": "Yhteisön uutiset",
     "Description": "Uutisia ja päivityksiä MobiFlight-yhteisöltä.",
-    "NoPosts": "Ei uutisia saatavilla.",
+    "NoPosts": "Uutisia ei ole saatavilla.",
     "Filter": {
       "all": "Kaikki",
       "shop": "Tarjoukset",
@@ -380,7 +380,7 @@
       "SaveChanges": "Tallenna muutokset",
       "ApplyChanges": "Hyväksy muutokset",
       "ResetFilters": "Nollaa suodattimet",
-      "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy ne ensin tai napsauta Peruuta sulkeaksesi tämän valintaikkunan tallentamatta."
+      "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy muutokset tai valitse Peruuta, jos haluat poistua tallentamatta."
     },
     "ControllerBinding": {
       "Title": "Ohjainten yhdistäminen",
@@ -408,7 +408,7 @@
       "Type": {
         "Transformation": {
           "Label": "Transformaatio",
-          "Description": "Sovella muunnosta syötearvoon määritetyn lausekkeen avulla.",
+          "Description": "Muokkaa syötearvoa ncalc-lausekkeen avulla.",
           "Expression": "Lauseke"
         },
         "Substring": {
@@ -418,36 +418,36 @@
           "To": "asti",
           "Start": "Aloitusposition",
           "End": "Lopetusposition",
-          "Summary": "alkaen <badge>{{start}}</badge> asti <badge>{{end}}</badge>"
+          "Summary": "Alku: <badge>{{start}}</badge> Loppu: <badge>{{end}}</badge>"
         },
         "Padding": {
-          "Label": "Täyttö",
-          "Description": "Säädä syötearvon täyttöä määritetyn pituuden, merkin ja suunnan avulla.",
-          "Length": "Pituus",
+          "Label": "Merkkijonon täyttö",
+          "Description": "Säädä tuloarvon tekstimuotoa määritetyn pituuden, täyttömerkin ja täyttösuunnan avulla.",
+          "Length": "Merkkijonon pituus",
           "Character": "Merkki",
           "Direction": "Suunta",
           "Summary": "Pituus:<badge>{{length}}</badge> Merkki:<badge><kbd>{{character}}</kbd></badge> Suunta:<badge>{{direction}}</badge>"
         },
         "Interpolation": {
           "Label": "Interpolaatio",
-          "Description": "Määritä kartoitukset syöte- ja tulosarvojen välillä. Arvot, jotka ovat alueen ulkopuolella, rajataan.",
-          "From": "Alkaen",
-          "To": "Asti",
+          "Description": "Skaalaa tuloarvo syöte- ja tulosarvojen välillä. Arvot, jotka ovat alueen ulkopuolella, rajataan.",
+          "From": "Tuloarvo",
+          "To": "Lähtöarvo",
           "Action": "Toiminto",
-          "Mappings": "Kartoitukset",
-          "Add": "Lisää kartoitus",
-          "Remove": "Poista kartoitus",
-          "Summary": "Kartoitukset <badge>{{count}}</badge> arvoa, alue <badge>{{min}}</badge> - <badge>{{max}}</badge>"
+          "Mappings": "Määritykset",
+          "Add": "Lisää määritys",
+          "Remove": "Poista määritys",
+          "Summary": "<badge>{{count}}</badge> määritystä, alue <badge>{{min}}</badge> - <badge>{{max}}</badge>"
         },
         "Comparison": {
           "Label": "Vertailu",
-          "Description": "Vertaa nykyistä arvoa toiseen arvoon ja säädä tulosta, jos se vastaa tai ei vastaa.",
+          "Description": "Vertaa tuloarvoa toiseen arvoon ja valitse lähtöarvo sen mukaan",
           "IfCurrentValue": "Jos nykyinen arvo",
           "Operator": "Operaattori",
-          "Value": "Arvo",
-          "Then": "Sitten",
-          "Else": "Muuten",
-          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+          "Value": "Verrattava arvo",
+          "Then": "Niin silloin",
+          "Else": "Tai muuten",
+          "Summary": "<span>jos</span><badge>$ {{operator}} {{value}}</badge><span>niin</span><badge>{{ifValue}}</badge><span>tai muuten</span><badge>{{elseValue}}</badge>"
         },
         "Blink": {
           "Label": "Vilkutus",
@@ -478,12 +478,12 @@
     },
     "InputConfigWizard": {
       "Title": "Muokkaa syöttömääritystä",
-      "Description": "Muokkaa kaikkia tämän syöttömäärityksen asetuksia tässä dialogissa.",
+      "Description": "Muokkaa tämän syöttömäärityksen kaikkia asetuksia.",
       "DrawerTitle": "Asetukset",
       "ConfigTrigger": {
-        "Title": "Laukaisin",
-        "Description": "Laukaisin määrittää ehdot tai tapahtumat, jotka aktivoivat tämän määrityksen.",
-        "ScanForInput": "Etsi syötettä",
+        "Title": "Heräte",
+        "Description": "Heräte määrittää ehdot tai tapahtumat, jotka aktivoivat tämän määrityksen.",
+        "ScanForInput": "Tunnista syöte",
         "UseAnyInput": "Skannataan...",
         "ClearInput": "Tyhjennä syöte",
         "SelectController": "Valitse ohjain...",
@@ -498,7 +498,7 @@
         "Description": "Määritä toiminnot jokaiselle tapahtumalle.",
         "Copy": "Kopioi toiminto",
         "Paste": "Liitä toiminto",
-        "NoTriggerDefined": "Ei laukaisinta määritelty. Valitse ensin ohjaimesi ja laitteesi."
+        "NoTriggerDefined": "Herätettä ei ole määritetty. Valitse ensin ohjaimesi ja laitteesi."
       },
       "ActionType": {
         "Title": "Toimintotyyppi",
@@ -521,8 +521,8 @@
             "short": "Muuttuja"
           },
           "RetriggerInputAction": {
-            "label": "MobiFlight - Laukaise kytkimet uudelleen",
-            "short": "Laukaise kytkimet uudelleen"
+            "label": "MobiFlight - Synkronoi kytkimet",
+            "short": "Synkronoi kytkimet"
           },
           "KeyInputAction": {
             "label": "MobiFlight - Näppäimistösyöte",
@@ -556,34 +556,34 @@
       },
       "Event": {
         "Edit": "Muokkaa toimintoa {{eventLabel}}",
-        "Remove": "Poista toimintoa {{eventLabel}}"
+        "Remove": "Poista toiminto {{eventLabel}}"
       },
       "button": {
         "Event": {
           "onPress": {
-            "label": "Painettaessa",
+            "label": "Painallus",
             "description": "Toiminto suoritetaan, kun painiketta painetaan."
           },
           "onRelease": {
-            "label": "Vapautettaessa",
+            "label": "Vapautus",
             "description": "Toiminto suoritetaan, kun painike vapautetaan."
           },
           "onHold": {
-            "label": "Pidettäessä",
-            "description": "Toiminto suoritetaan toistuvasti, kun painiketta pidetään painettuna.",
+            "label": "Pitkä painallus",
+            "description": "Toiminto suoritetaan, kun painiketta pidetään painettuna.",
             "options": {
               "holdDelay": {
-                "label": "Painalluksen viive",
+                "label": "Pitkän painalluksen viive",
                 "description": "Kesto millisekunteina, jonka ajan painiketta on pidettävä painettuna ennen kuin toiminto aktivoituu."
               },
               "repeatDelay": {
-                "label": "Toistoviive (ms)",
+                "label": "Toiston viive",
                 "description": "Aikaväli millisekunteina, jonka välein toiminto aktivoituu uudelleen, kun painiketta pidetään painettuna. Aseta 0 poistaaksesi toiston käytöstä."
               }
             }
           },
           "onLongRelease": {
-            "label": "Pitkällä vapautuksella",
+            "label": "Pitkä vapautus",
             "description": "Toiminto suoritetaan, kun painike vapautetaan pitkän painalluksen jälkeen.",
             "options": {
               "longReleaseDelay": {
@@ -597,11 +597,11 @@
       "encoder": {
         "Event": {
           "onLeft": {
-            "label": "Vasemmalle",
+            "label": "Kierto vasemmalle",
             "description": "Toiminto suoritetaan, kun enkooderia käännetään vasemmalle."
           },
           "onRight": {
-            "label": "Oikealle",
+            "label": "Kierto oikealle",
             "description": "Toiminto suoritetaan, kun enkooderia käännetään oikealle."
           },
           "onLeftFast": {
@@ -617,17 +617,17 @@
       "analog": {
         "Event": {
           "onChange": {
-            "label": "Muutettaessa",
+            "label": "Arvon muutos",
             "description": "Toiminto suoritetaan, kun syötteen arvo muuttuu."
           }
         }
       },
       "Preconditions": {
-        "Title": "Esiehdot",
-        "Label": "Esiehdot",
-        "Description": "Lisää ja muokkaa ehtoja, jotka on täytettävä, jotta laukaisimesi suoritetaan.",
-        "EditButton": "Muokkaa esiehtoja",
-        "AddButton": "Lisää esiehtoja"
+        "Title": "Suoritusehdot",
+        "Label": "Suoritusehdot",
+        "Description": "Lisää ja muokkaa ehtoja, joiden täyttyessä tämä toiminto suoritetaan.",
+        "EditButton": "Muokkaa suoritusehtoja",
+        "AddButton": "Lisää uusi suoritusehto"
       },
       "ConfigReferences": {
         "Title": "Viittaukset",
@@ -637,16 +637,16 @@
         "AddButton": "Lisää viittauksia"
       },
       "PreconditionEditor": {
-        "Title": "Esiehdot",
-        "Description": "Esiehdot määrittävät ehdot, jotka on täytettävä ennen kuin toiminto voidaan suorittaa.",
-        "NoPreconditions": "Ei esiehtoja määritetty.",
-        "AddPrecondition": "Lisää esiehto",
+        "Title": "Suoritusehdot",
+        "Description": "Suoritusehdot määrittelevät, missä tilanteissa tämä toiminto suoritetaan",
+        "NoPreconditions": "Ehtoja ei ole määritelty.",
+        "AddPrecondition": "Lisää suoritusehto",
         "Active": "Aktiivinen",
         "TypePlaceholder": "Tyyppi",
         "SelectConfig": "Valitse konfiguraatio...",
         "SelectVariable": "Valitse muuttuja...",
         "ValuePlaceholder": "Arvo",
-        "DeletePrecondition": "Poista esiehto",
+        "DeletePrecondition": "Poista suoritusehto",
         "SelectPort": "Valitse portti...",
         "SelectPin": "Valitse pinni...",
         "Types": {
@@ -654,13 +654,13 @@
           "variable": "Muuttuja",
           "pin": "Arcaze-pinni"
         },
-        "MoveUp": "Siirrä esiehto ylös",
-        "MoveDown": "Siirrä esiehto alas"
+        "MoveUp": "Siirrä suoritusehto ylös",
+        "MoveDown": "Siirrä suoritusehto alas"
       },
       "ConfigReferenceEditor": {
         "Title": "Muokkaa viittauksia",
-        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi arvoja konfiguraatiossasi.",
-        "NoConfigReferences": "Ei viittauksia määritetty.",
+        "Description": "Lisää ja muokkaa viittauksia ja määritä paikkamerkki käyttääksesi toisten konfiguraatioiden arvoja.",
+        "NoConfigReferences": "Viittauksia ei ole määritelty.",
         "AddConfigReference": "Lisää viittaus",
         "Active": "Aktiivinen",
         "SelectConfig": "Valitse konfiguraatio...",
@@ -682,14 +682,14 @@
           "SearchSystems": "Etsi järjestelmiä...",
           "SelectPreset": "Valitse esiasetus",
           "SearchPresets": "Etsi esiasetuksia...",
-          "PresetsFound": "{{count}} esiasetus(ta) löytyi",
+          "PresetsFound": "Hakutuloksia löytyi {{count}}",
           "SupportedPlaceholders": "Tukee syötearvoa (@) ja paikkamerkkejä ($, #, jne.)",
           "ActionLabel": "Toiminto",
           "NameLabel": "Nimi",
           "Preset": {
             "Label": "Esiasetus",
             "Title": "Vaihe 2 - Valitse esiasetus",
-            "Description": "Valitse esiasetus esiasetuskirjastostamme. Käytä suodattimia rajataksesi hakua.",
+            "Description": "Käytä suodattimia rajataksesi hakua.",
             "ProjectAircraftOnly": "Vain projektin lentokoneet",
             "Vendor": "Valmistaja",
             "Aircraft": "Lentokone",
@@ -699,10 +699,10 @@
             "Date": "Päivämäärä",
             "Code": {
               "Title": "Vaihe 3 - Muokkaa koodia tarvittaessa",
-              "Description": "Tätä koodia käyttää simulaattori. Voit muokata sitä manuaalisesti tai valita esiasetuksen yllä olevasta listasta.",
+              "Description": "Tämä koodi suoritetaan simulaattoriohjelmistossa. Voit valita esiasetuksen yllä olevasta listasta ja tarvittaessa muokata sitä.",
               "None": "Ei mitään",
               "Placeholder": "Syötä RPN-koodi",
-              "Customized": "Mukautit tämän esiasetuksen tai se ei ole enää saatavilla."
+              "Customized": "Olet muokannut tätä esiasetusta tai se ei ole enää saatavilla."
             }
           }
         },
@@ -721,7 +721,7 @@
             "Description": "Valitse esiasetus syötetoimintojesi määrittämiseksi."
           },
           "PathLabel": "Polku",
-          "NoPresetSelected": "Ei esiasetusta valittuna",
+          "NoPresetSelected": "Esiasetusta ei ole valittu",
           "ParameterLabel": "Parametri (valinnainen)",
           "ParameterPlaceholder": "Aseta parametri (valinnainen)",
           "ParameterNone": "Ei mitään"
@@ -748,8 +748,8 @@
         "Keyboard": {
           "Title": "Vaihe 2 - Konfiguroi näppäimistön syöte",
           "Description": "Määritä käytettävä näppäinyhdistelmä.",
-          "StopScanning": "Lopeta etsintä",
-          "ScanForKeyboard": "Etsi näppäimistöä",
+          "StopScanning": "Lopeta tunnistus",
+          "ScanForKeyboard": "Tunnista näppäinyhdistelmä",
           "KeyComboLabel": "Näppäinyhdistelmä",
           "None": "Ei mitään",
           "ClearInput": "Tyhjennä syöte"
@@ -791,10 +791,10 @@
         },
         "Retrigger": {
           "Title": "Retrigger",
-          "Summary": "Synkronoi syöttölaitteet simulaattorin kanssa.",
+          "Summary": "Synkronoi kytkimet simulaattorin kanssa.",
           "NoteLabel": "Huomautus",
-          "Description1": "Käytä tätä syötetoimintoa kaikkien painikkeiden tilojen uudelleenlaukaisemiseen.",
-          "Description2": "Tämä on hyödyllistä virtuaalikokpitin synkronoimiseksi fyysisten ohjaimien kytkin- ja painiketiloihin."
+          "Description1": "Käytä tätä toimintoa kaikkien vipukytkinten tilojen synkronointiin.",
+          "Description2": "Simulaattorin virtuaaliohjaamon kytkimet asetetaan fyysisten kytkinten mukaisesti."
         },
         "Variable": {
           "Title": "Vaihe 2 - Konfiguroi muuttuja",
@@ -809,7 +809,7 @@
         },
         "ProSimDataRef": {
           "FilterPresetsPlaceholder": "Suodata esiasetuksia",
-          "NoPresetsAvailable": "Ei esiasetuksia saatavilla",
+          "NoPresetsAvailable": "Esiasetuksia ei ole saatavilla",
           "RefreshPresets": "Päivitä esiasetukset"
         },
         "EventIdPresets": {
