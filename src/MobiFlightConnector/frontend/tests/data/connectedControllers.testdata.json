@@ -57,6 +57,16 @@
         "Type": "Button"
       },
       {
+        "Name": "12",
+        "Label": "Button 12",
+        "Type": "Button"
+      },
+      {
+        "Name": "2",
+        "Label": "Button 2",
+        "Type": "Button"
+      },
+      {
         "Label": "AP Mode - HDG",
         "Id": "AP.hdg",
         "Byte": 1,
@@ -140,29 +150,6 @@
       {
         "Name": "1",
         "Label": "Button 1",
-        "Type": "Button"
-      }
-    ]
-  },
-  {
-    "Name": "Controller B",
-    "Serial": "JS-87654322",
-    "Vendor": "Honeycomb",
-    "ProductId": "",
-    "VendorId": "",
-    "Type": "Controller",
-    "Connected": true,
-    "ImageUrl": null,
-    "certified": false,
-    "Devices": [
-      {
-        "Name": "12",
-        "Label": "Button 12",
-        "Type": "Button"
-      },
-      {
-        "Name": "2",
-        "Label": "Button 2",
         "Type": "Button"
       }
     ]

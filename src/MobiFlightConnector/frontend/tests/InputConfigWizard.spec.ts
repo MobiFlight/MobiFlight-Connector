@@ -322,32 +322,38 @@ test.describe("General Input Config Wizard Tests", () => {
     configListPage,
     page,
   }) => {
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+   await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-    await configListPage.clickEditButtonForRow(1)
+  const addInputConfigButton = page.getByRole("button", {
+    name: "Add Input Config",
+  })
+  await addInputConfigButton.click()
 
-    const triggerPanel = page.getByTestId("trigger-panel")
-    await expect(triggerPanel).toBeVisible()
+  await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+    Name: "Device Search Test",
+    Controller: {
+      Name: "Bravo Throttle Quadrant",
+      Serial: "JS-87654321",
+    },
+  })
 
-    // Controller combobox
-    const controllerComboBox = triggerPanel.getByRole("combobox").nth(0)
-    await controllerComboBox.click()
+  const triggerPanel = page.getByTestId("trigger-panel")
+  await expect(triggerPanel).toBeVisible()
 
-    await page.getByRole("option", { name: "Controller B" }).click()
+  const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
+  await deviceComboBox.click()
 
-    // Device combobox
-    const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
-    await deviceComboBox.click()
+  const searchInput = page.getByPlaceholder("Search device...")
+  await searchInput.fill("Button 12")
 
-    const searchInput = page.getByPlaceholder("Search device...")
-    await searchInput.fill("Button 12")
+  await expect(
+    page.getByRole("option", { name: "Button 12" }),
+  ).toBeVisible()
 
-    await expect(page.getByRole("option", { name: "Button 12" })).toBeVisible()
-
-    await expect(
-      page.getByRole("option", { name: "Button 2" }),
-    ).not.toBeVisible()
+  await expect(
+    page.getByRole("option", { name: "Button 2" }),
+  ).not.toBeVisible()
   })
 })
 
