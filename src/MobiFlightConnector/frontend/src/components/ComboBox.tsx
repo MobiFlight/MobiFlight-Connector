@@ -71,11 +71,11 @@ const ComboBox = <T,>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn("justify-between h-8", widthClass)}
+          className={cn("justify-between h-8", "w-[250px]")}
           disabled={disabled}
           {...props}
         >
-          <span className={cn(widthClass, "truncate text-sm text-left")} title={label}>
+          <span className={cn(widthClass, "text-sm text-left")} title={label}>
             {label}
           </span>
           <IconChevronDown className="opacity-50" />
