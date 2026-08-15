@@ -330,13 +330,20 @@ test.describe("General Input Config Wizard Tests", () => {
     const triggerPanel = page.getByTestId("trigger-panel")
     await expect(triggerPanel).toBeVisible()
 
+    // Controller combobox
+    const controllerComboBox = triggerPanel.getByRole("combobox").nth(0)
+    await controllerComboBox.click()
+
+    await page.getByRole("option", { name: "Controller B" }).click()
+
+    // Device combobox
     const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
     await deviceComboBox.click()
 
     const searchInput = page.getByPlaceholder("Search device...")
-    await searchInput.fill("Button 1")
+    await searchInput.fill("Button 12")
 
-    await expect(page.getByRole("option", { name: "Button 1" })).toBeVisible()
+    await expect(page.getByRole("option", { name: "Button 12" })).toBeVisible()
 
     await expect(
       page.getByRole("option", { name: "Button 2" }),
