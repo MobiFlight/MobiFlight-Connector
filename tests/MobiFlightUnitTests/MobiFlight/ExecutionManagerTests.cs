@@ -1299,6 +1299,7 @@ namespace MobiFlight.Tests
             _executionManager.Start();
 
             // Act
+            // The RELEASE event has no configured action, so it should be skipped without logging execution.
             methodInfo.Invoke(
                 _executionManager,
                 new object[] { _mockXplaneCache.Object, inputEventArgs });
