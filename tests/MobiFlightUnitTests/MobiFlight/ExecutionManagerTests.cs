@@ -1237,5 +1237,83 @@ namespace MobiFlight.Tests
             // Clean up
             _executionManager.Stop();
         }
+        [TestMethod]
+        public void Execute_WhenActionIsNotConfigured_DoesNotLogExecution()
+        {
+            // Arrange
+            var controller = new Controller
+            {
+                Serial = "SN-000-001",
+                Name = "TestController"
+            };
+
+            var device = new DeviceReference
+            {
+                Name = "TestDevice:1",
+                Label = "Test Button",
+                Type = DeviceType.Button
+            };
+
+            var configItem = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Test config without action",
+                Controller = controller,
+                Device = new Button { Name = device.Name },
+
+                // No onRelease action configured
+                button = new InputConfig.ButtonInputConfig()
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile
+            {
+                ConfigItems = { configItem }
+            });
+
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = controller,
+                Device = device,
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.RELEASE
+            };
+
+            var mockLogAppender = new Mock<ILogAppender>();
+
+            Log.Instance.ClearAppenders();
+            Log.Instance.AddAppender(mockLogAppender.Object);
+            Log.Instance.Enabled = true;
+            Log.Instance.Severity = LogSeverity.Info;
+
+            _executionManager.Project = project;
+
+            var methodInfo = typeof(ExecutionManager).GetMethod(
+                "mobiFlightCache_OnButtonPressed",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance);
+
+            Assert.IsNotNull(methodInfo);
+
+            _executionManager.Start();
+
+            // Act
+            methodInfo.Invoke(
+                _executionManager,
+                new object[] { _mockXplaneCache.Object, inputEventArgs });
+
+            // Assert
+            mockLogAppender.Verify(
+                appender => appender.log(
+                    It.Is<string>(msg =>
+                        msg.Contains($"Executing \"{configItem.Name}\"")),
+                    LogSeverity.Info),
+                Times.Never,
+                "No execution log should be written when no action is configured."
+            );
+
+            _executionManager.Stop();
+        }
     }
 }
