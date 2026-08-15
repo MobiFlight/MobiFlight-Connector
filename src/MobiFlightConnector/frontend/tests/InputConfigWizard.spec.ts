@@ -345,12 +345,20 @@ test.describe("General Input Config Wizard Tests", () => {
     await deviceComboBox.click()
 
     const searchInput = page.getByPlaceholder("Search device...")
-    await searchInput.fill("Button 12")
-
-    await expect(page.getByRole("option", { name: "Button 12" })).toBeVisible()
+    await searchInput.fill("Button 2")
 
     await expect(
-      page.getByRole("option", { name: "Button 2" }),
+      page.getByRole("option", {
+        name: "Button 2",
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      page.getByRole("option", {
+        name: "Button 12",
+        exact: true,
+      }),
     ).not.toBeVisible()
   })
 })
