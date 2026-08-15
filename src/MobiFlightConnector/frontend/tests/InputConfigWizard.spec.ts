@@ -322,38 +322,36 @@ test.describe("General Input Config Wizard Tests", () => {
     configListPage,
     page,
   }) => {
-   await configListPage.gotoPage()
-  await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
-  const addInputConfigButton = page.getByRole("button", {
-    name: "Add Input Config",
-  })
-  await addInputConfigButton.click()
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
 
-  await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
-    Name: "Device Search Test",
-    Controller: {
-      Name: "Bravo Throttle Quadrant",
-      Serial: "JS-87654321",
-    },
-  })
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+      Name: "Device Search Test",
+      Controller: {
+        Name: "Bravo Throttle Quadrant",
+        Serial: "JS-87654321",
+      },
+    })
 
-  const triggerPanel = page.getByTestId("trigger-panel")
-  await expect(triggerPanel).toBeVisible()
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
 
-  const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
-  await deviceComboBox.click()
+    const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
+    await deviceComboBox.click()
 
-  const searchInput = page.getByPlaceholder("Search device...")
-  await searchInput.fill("Button 12")
+    const searchInput = page.getByPlaceholder("Search device...")
+    await searchInput.fill("Button 12")
 
-  await expect(
-    page.getByRole("option", { name: "Button 12" }),
-  ).toBeVisible()
+    await expect(page.getByRole("option", { name: "Button 12" })).toBeVisible()
 
-  await expect(
-    page.getByRole("option", { name: "Button 2" }),
-  ).not.toBeVisible()
+    await expect(
+      page.getByRole("option", { name: "Button 2" }),
+    ).not.toBeVisible()
   })
 })
 
@@ -844,7 +842,10 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
 
     for (const inputDeviceName of inputDeviceNames) {
       await expect(
-        optionsPopup.getByRole("option", { name: inputDeviceName }),
+        optionsPopup.getByRole("option", {
+          name: inputDeviceName,
+          exact: true,
+        }),
       ).toBeVisible()
     }
   })
