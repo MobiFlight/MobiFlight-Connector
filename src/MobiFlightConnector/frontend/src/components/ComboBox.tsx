@@ -63,6 +63,7 @@ const ComboBox = <T,>({
     ? getLabel(selectedInItems)
     : placeholder
 
+  const popoverContentMinWidth = widthClass.startsWith("w-") ? `min-${widthClass}` : "min-w-50"
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
@@ -71,17 +72,17 @@ const ComboBox = <T,>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn("justify-between h-8", "w-[250px]")}
+          className={cn("justify-between h-8", widthClass)}
           disabled={disabled}
           {...props}
         >
-          <span className={cn(widthClass, "text-sm text-left")} title={label}>
+          <span className={cn(widthClass, "truncate text-sm text-left")} title={label}>
             {label}
           </span>
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn(widthClass, "p-0")} align={align}>
+      <PopoverContent className={cn(popoverContentMinWidth, " w-auto max-w-100  p-0")} align={align}>
         <Command>
           {variant === "default" && (
             <CommandInput placeholder={searchPlaceholder} className="h-9" />

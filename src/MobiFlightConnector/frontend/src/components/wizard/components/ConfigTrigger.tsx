@@ -156,7 +156,8 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           </Button>
           <div className="flex flex-col gap-2">
             <ComboBox
-              widthClass="w-max"
+              widthClass="w-56"
+              align="start"
               getLabel={(controller) => (controller as Controller).Name}
               getValue={(controller) =>
                 (controller as Controller).Serial ??
@@ -188,7 +189,8 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
 
           <div className="flex flex-col gap-2">
             <ComboBox
-              widthClass="w-max"
+              widthClass="w-56"
+              align="start"
               getLabel={(device) =>
                 (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
               }
