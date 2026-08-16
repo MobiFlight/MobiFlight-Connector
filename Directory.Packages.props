@@ -4,12 +4,10 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Device.Net" Version="4.2.1" />
     <PackageVersion Include="FSUIPCClientDLL" Version="3.3.16" />
     <PackageVersion Include="GraphQL.Client" Version="6.1.0" />
     <PackageVersion Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.1.0" />
     <PackageVersion Include="GraphQL.Primitives" Version="6.1.0" />
-    <PackageVersion Include="Hid.Net" Version="4.2.1" />
     <PackageVersion Include="HidSharp" Version="2.6.4" />
     <PackageVersion Include="Microsoft.ApplicationInsights" Version="2.23.0" />
     <PackageVersion Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.23.0" />

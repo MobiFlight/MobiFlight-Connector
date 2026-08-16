@@ -455,33 +455,6 @@ Copyright 2014-2025 - Sebastian Moebius</value>
   <data name="&gt;&gt;licenseReferenceControl10.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="licenseReferenceControl9.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="licenseReferenceControl9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 233</value>
-  </data>
-  <data name="licenseReferenceControl9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
-  </data>
-  <data name="licenseReferenceControl9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
-  </data>
-  <data name="licenseReferenceControl9.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;licenseReferenceControl9.Name" xml:space="preserve">
-    <value>licenseReferenceControl9</value>
-  </data>
-  <data name="&gt;&gt;licenseReferenceControl9.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;licenseReferenceControl9.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;licenseReferenceControl9.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="licenseReferenceControl8.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>

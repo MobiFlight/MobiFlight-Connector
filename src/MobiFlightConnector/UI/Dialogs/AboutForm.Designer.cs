@@ -40,7 +40,6 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.licenseReferenceControl10 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
-            this.licenseReferenceControl9 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl8 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl6 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl5 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
@@ -120,7 +119,6 @@
             // 
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.licenseReferenceControl10);
-            this.panel2.Controls.Add(this.licenseReferenceControl9);
             this.panel2.Controls.Add(this.licenseReferenceControl8);
             this.panel2.Controls.Add(this.licenseReferenceControl6);
             this.panel2.Controls.Add(this.licenseReferenceControl5);
@@ -140,14 +138,6 @@
             this.licenseReferenceControl10.LibraryLink = "https://github.com/PingmanTools/websocket-sharp/";
             this.licenseReferenceControl10.LicenseLink = "https://github.com/PingmanTools/websocket-sharp/blob/master/LICENSE.txt";
             this.licenseReferenceControl10.Name = "licenseReferenceControl10";
-            // 
-            // licenseReferenceControl9
-            // 
-            resources.ApplyResources(this.licenseReferenceControl9, "licenseReferenceControl9");
-            this.licenseReferenceControl9.Library = "Device.Net";
-            this.licenseReferenceControl9.LibraryLink = "https://www.nuget.org/packages/Device.Net";
-            this.licenseReferenceControl9.LicenseLink = "https://github.com/MelbourneDeveloper/Device.Net/blob/main/LICENSE";
-            this.licenseReferenceControl9.Name = "licenseReferenceControl9";
             // 
             // licenseReferenceControl8
             // 
@@ -269,7 +259,6 @@
         private System.Windows.Forms.Panel panel3;
         private Panels.About.LicenseReferenceControl licenseReferenceControl6;
         private Panels.About.LicenseReferenceControl licenseReferenceControl7;
-        private Panels.About.LicenseReferenceControl licenseReferenceControl9;
         private Panels.About.LicenseReferenceControl licenseReferenceControl8;
         private Panels.About.LicenseReferenceControl licenseReferenceControl10;
         private System.Windows.Forms.Label label6;

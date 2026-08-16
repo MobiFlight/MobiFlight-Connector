@@ -1,5 +1,4 @@
 ﻿using MobiFlight.Base;
-using Hid.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

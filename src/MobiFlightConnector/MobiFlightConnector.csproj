@@ -41,12 +41,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Device.Net" />
 		<PackageReference Include="FSUIPCClientDLL" />
 		<PackageReference Include="GraphQL.Client" />
 		<PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" />
 		<PackageReference Include="GraphQL.Primitives" />
-		<PackageReference Include="Hid.Net" />
 		<PackageReference Include="HidSharp" />
 		<PackageReference Include="Microsoft.ApplicationInsights" />
 		<PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" />
