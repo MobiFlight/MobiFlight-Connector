@@ -25,7 +25,6 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   DeviceName?: string | null
   // Tags: string[];
   Preconditions?: Precondition[]
-  Status?: IDictionary<string, ConfigItemStatusType>
   button?: ButtonTrigger
   inputMultiplexer?: ButtonTrigger
   inputShiftRegister?: ButtonTrigger

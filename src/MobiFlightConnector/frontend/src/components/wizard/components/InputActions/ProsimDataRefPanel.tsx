@@ -53,10 +53,10 @@ const ProSimDataRefPanel = ({
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
         <div className="text-lg font-semibold">
-          {t("Dialog.InputConfigWizard.InputActions.Prosim.Preset.Title")}
+          {t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Title")}
         </div>
         <div className="text-muted-foreground text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.Prosim.Preset.Description")}
+          {t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Description")}
         </div>
       </div>
       {filteredPresets.length > 0 ? (

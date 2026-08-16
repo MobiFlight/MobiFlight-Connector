@@ -4,18 +4,16 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [main, hotfix/*]
+  release:
+    types: [published]
 
 env:
-  # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: MobiFlightConnector.sln
-
-  # Configuration type to build.
-  # You can convert this to a build matrix if you need coverage of multiple configuration types.
-  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  INSTALLER_SOLUTION_FILE_PATH: MobiFlightInstaller.sln
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x86
-  BUILD_PROJECT: MobiFlightUnitTests
-  VERSION: "0.0.${{ github.event.number }}.${{ github.run_number }}"
+  VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number) }}
+  INSTALLER_OUTPUT: dist/MobiFlightInstaller
 
 jobs:
   build:
@@ -24,43 +22,78 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v3.0.0
-
-      - name: Add VSTest to Path
-        uses: darenm/Setup-VSTest@v1.3
-
-      - name: Restore NuGet packages
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: nuget restore ${{env.SOLUTION_FILE_PATH}}
-
-      - name: Replace version in AssemblyInfo.cs
-        run: (Get-Content "src/MobiFlightConnector/Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ env.VERSION }}")' | Out-File "src/MobiFlightConnector/Properties/AssemblyInfo.cs"
-        shell: pwsh
-
-      - name: Dump AssemblyInfo.cs
-        run: "type src/MobiFlightConnector/Properties/AssemblyInfo.cs"
-        shell: pwsh
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.x
+          architecture: "${{ env.BUILD_PLATFORM }}"
 
       - name: Build frontend
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd src/MobiFlightConnector/frontend; npm install; npm run build
+        run: |
+          cd src/MobiFlightConnector/frontend
+          npm install
+          npm run build
 
-      - name: Build core
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        # Add additional options to the MSBuild command line here (like platform or verbosity level).
-        # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-        run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BUILD_PLATFORM}} /t:${{env.BUILD_PROJECT}} ${{env.SOLUTION_FILE_PATH}}
+      - name: Create artifacts
+        run: mkdir dist
 
-      - name: Run Tests
-        run: vstest.console.exe tests/MobiFlightUnitTests/bin/${{env.BUILD_CONFIGURATION}}/MobiFlightUnitTests.dll
+      - name: Build and publish connector
+        uses: ./.github/actions/build
+        with:
+          solution_file: ${{ env.SOLUTION_FILE_PATH }}
+          project_file: src/MobiFlightConnector/MobiFlightConnector.csproj
+          build_configuration: Release
+          build_platform: ${{ env.BUILD_PLATFORM }}
+          test_projects: ${{ env.SOLUTION_FILE_PATH }}
+          publish_path: ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}
+          publish_version: ${{ env.VERSION }}
 
-      - name: Rename release artifact
-        run: mv Release/MobiFlightConnector-release.zip Release/MobiFlightConnector-${{ env.VERSION }}.zip
+      - name: Build and publish installer
+        uses: ./.github/actions/build
+        with:
+          solution_file: ${{ env.INSTALLER_SOLUTION_FILE_PATH }}
+          project_file: src/MobiFlight-Installer/MobiFlightInstaller.csproj
+          build_configuration: Release
+          publish_path: ${{ github.workspace }}/${{ env.INSTALLER_OUTPUT }}
+          use_msbuild: true
+
+      - name: package
+        run: |
+          Copy-Item -Path "${{ github.workspace }}/${{ env.INSTALLER_OUTPUT }}/MobiFlight-Installer.exe" -Destination "${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}"
+          & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}.zip ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}/* -r
 
       - name: store latest setup file
+        if: github.event_name != 'release'
         uses: actions/upload-artifact@v7
         with:
           name: MobiFlightConnector
           path: |
-            Release/MobiFlightConnector-${{ env.VERSION }}.zip
+            dist/MobiFlightConnector-${{ env.VERSION }}.zip
+
+      # Only run the following steps if this is a release event
+      - uses: repolevedavaj/install-nsis@v1.2.1
+        if: github.event_name == 'release'
+        with:
+          nsis-version: '3.10'
+
+      - name: Create hash
+        if: github.event_name == 'release'
+        shell: pwsh
+        run: (Get-FileHash dist/MobiFlightConnector-${{ env.VERSION }}.zip -Algorithm SHA1).Hash | Out-File dist/MobiFlightConnector-${{ env.VERSION }}.sha1
+
+      - name: Create setup exe
+        if: github.event_name == 'release'
+        uses: joncloud/makensis-action@v4
+        with:
+          script-file: ./Build/setup.nsi
+          arguments: "/V3"
+
+      - name: Upload release assets
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            dist/MobiFlightConnector-${{ env.VERSION }}.zip
+            dist/MobiFlightConnector-${{ env.VERSION }}.sha1
+            Build/MobiFlight-Setup.exe

@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <AssemblyTitle>CmdMessenger</AssemblyTitle>
     <Description>A messaging library for the Arduino and .NET/Mono platform</Description>
     <Product>CmdMessenger</Product>
