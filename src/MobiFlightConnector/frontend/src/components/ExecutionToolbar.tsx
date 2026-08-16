@@ -6,7 +6,7 @@ import {
 import { Button } from "./ui/button"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { useSettingsStore } from "@/stores/settingsStore"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandProjectToolbarPayload } from "@/types/commands"
 import IconAutoRun from "./icons/IconAutoRun"
 import TwoStateIcon from "./icons/TwoStateIcon"
@@ -18,7 +18,7 @@ export const ExecutionToolbar = () => {
   const { settings } = useSettingsStore()
   const { isRunning, isTesting } =
     useExecutionStateStore()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
 
   const handleMenuItemClick = (payload: CommandProjectToolbarPayload) => {
     publish({

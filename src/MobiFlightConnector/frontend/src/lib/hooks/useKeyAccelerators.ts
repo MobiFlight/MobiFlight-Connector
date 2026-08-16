@@ -1,12 +1,12 @@
 import { useEffect } from "react"
-import { publishOnMessageExchange } from "./appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { KeyAccelerator } from "@/types/accelerator"
 
 export const useKeyAccelerators = (
   accelerators: KeyAccelerator[],
   enabled: boolean = true,
 ) => {
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
 
   useEffect(() => {
     if (!enabled) return

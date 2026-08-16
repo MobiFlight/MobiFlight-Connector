@@ -3,7 +3,7 @@ import { IconDeviceGamepad2, IconDotsVertical, IconPencil, IconSettings } from "
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandMainMenuPayload, CommandProjectToolbar } from "@/types/commands"
 import {
   DropdownMenu,
@@ -25,7 +25,7 @@ export type ProjectNameLabelProps = {
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
   const { project, hasChanged } = useProjectStore()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const label = project?.Name ?? "Untitled Project"
   const [optimisticLabel, setOptimisticLabel] = useState(label)
   const { showOverlay : showModalOverlay } = useModal()

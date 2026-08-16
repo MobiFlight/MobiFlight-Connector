@@ -1,4 +1,4 @@
-import useMessageExchange from "@/lib/hooks/useMessageExchange"
+import messageExchange from "@/lib/messageExchange"
 import {
   IconCircleCheck,
   IconExclamationCircle,
@@ -16,7 +16,7 @@ export type AuthCallbackProps = {
 export default function AuthCallback({ variant }: AuthCallbackProps) {
   const auth = useAuth()
   const navigate = useNavigate()
-  const { publish } = useMessageExchange()
+  const { publish } = messageExchange
   const { t } = useTranslation()
 
   useEffect(() => {

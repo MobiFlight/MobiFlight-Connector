@@ -17,7 +17,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { useAppMessage } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import {
   CommandAddConfigItem,
   CommandConfigContextMenu,
@@ -104,7 +105,7 @@ export function ConfigItemTable<TValue>({
   //   overscan: 5
   // });
 
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const tableRef = useRef<HTMLTableElement>(null)
   const tableBodyRef = useRef<HTMLTableSectionElement>(null)
   const previousData = useRef(data)

@@ -8,7 +8,7 @@ import { useRef } from "react"
 import { ProjectCreateButton } from "@/components/project/ProjectCreateButton"
 import { cn } from "@/lib/utils"
 import ProjectListFilter from "@/components/project/ProjectListFilter"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 
 export type ProjectListProps = {
   className?: string
@@ -29,7 +29,7 @@ const ProjectList = ({
   const refActiveElement = useRef<HTMLDivElement | null>(null)
   const scrollTimeoutRef = useRef<number | null>(null)
 
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
 
 
   const [searchParams, setSearchParams] = useSearchParams()

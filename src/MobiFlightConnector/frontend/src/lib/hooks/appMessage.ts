@@ -1,13 +1,32 @@
-import { CommandMessage } from "@/types/commands"
 import { AppMessage, AppMessageKey } from "@/types/messages"
 import { useEffect } from "react"
 
-export const publishOnMessageExchange = () => ({
-  publish: (message: CommandMessage) => {
-    console.log(`Publishing FrontendMessage -> ${message.key} : ${message.payload ? JSON.stringify(message.payload) : "no payload"}`)
-    window.chrome?.webview?.postMessage(message)
-  },
-})
+// Use Map for efficient lookup of registered message key handlers
+// Use Set to deduplicate handlers for the same callback function
+const registeredAppMessageKeyHandlers = new Map<
+  AppMessageKey,
+  Set<(message: AppMessage) => void>
+>()
+
+// Flag to ensure we only subscribe to the webview message event once
+let appMessageSubscriptionCreated = false
+
+// Subscribe to all messages from the webview and dispatch to registered handlers
+function subscribeToAppMessageEventsOnce() {
+  if (appMessageSubscriptionCreated) return
+  appMessageSubscriptionCreated = true
+
+  window.chrome?.webview?.addEventListener("message", (event: Event) => {
+    try {
+      const appMessage = (event as MessageEvent).data as AppMessage
+      registeredAppMessageKeyHandlers
+        .get(appMessage.key)
+        ?.forEach((handler) => handler(appMessage))
+    } catch (error) {
+      console.error("Error parsing message", error)
+    }
+  })
+}
 
 // create a useAppMessage hook that listens for messages
 // the paramaters are the AppMessageKey and the onReceiveMessage callback
@@ -17,25 +36,20 @@ export const useAppMessage = (
   onReceiveMessage: (message: AppMessage) => void,
 ) => {
   useEffect(() => {
-    const onReveiveMessageHandler = (event: Event) => {
-      try {
-        const appMessage = (event as MessageEvent).data as AppMessage
-        if (appMessage.key === key) {
-          onReceiveMessage(appMessage)
-        }
-      } catch (error) {
-        console.error("Error parsing message", error)
-      }
-    }
+    // ensure global listener is registered
+    subscribeToAppMessageEventsOnce()
 
-    // add an event listener for the message key
-    window.chrome?.webview?.addEventListener("message", onReveiveMessageHandler)
+    // add additional handler for this key
+    let appMessageKeyHandlers = registeredAppMessageKeyHandlers.get(key)
+    if (!appMessageKeyHandlers) {
+      appMessageKeyHandlers = new Set()
+      registeredAppMessageKeyHandlers.set(key, appMessageKeyHandlers)
+    }
+    appMessageKeyHandlers.add(onReceiveMessage)
+
     return () => {
-      // remove the event listener when the component is unmounted
-      window.chrome?.webview?.removeEventListener(
-        "message",
-        onReveiveMessageHandler,
-      )
+      // simply remove the handler from the set
+      appMessageKeyHandlers?.delete(onReceiveMessage)
     }
   }, [key, onReceiveMessage])
 }

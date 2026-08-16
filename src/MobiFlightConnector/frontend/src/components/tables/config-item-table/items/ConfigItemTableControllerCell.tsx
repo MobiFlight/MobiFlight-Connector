@@ -1,5 +1,5 @@
 import ToolTip from "@/components/ToolTip"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { IConfigItem } from "@/types"
 import { CommandConfigContextMenu } from "@/types/commands"
 import { IconBan, IconExternalLink } from "@tabler/icons-react"
@@ -14,7 +14,7 @@ function ConfigItemTableControllerCell({
   row,
 }: ConfigItemTableControllerCellProps) {
   const { t } = useTranslation()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const item = row.original as IConfigItem
 
   const label = item.Controller?.Name ?? ""
