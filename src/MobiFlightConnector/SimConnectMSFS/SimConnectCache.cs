@@ -486,14 +486,14 @@ namespace MobiFlight.SimConnectMSFS
             );
         }
 
-        public FSUIPCOffsetType GetSimVar(String simVarName, out String stringVal, out double floatVal)
+        public FSUIPCOffsetType GetSimVar(String simVarName, out String stringVal, out double doubleValue)
         {
             FSUIPCOffsetType simVarType = FSUIPCOffsetType.Float;
             bool isFloat = false;
             bool isString = false;
 
             stringVal = "0";
-            floatVal = 0.0F;
+            doubleValue = 0.0D;
 
             if (!IsConnected()) 
                 return simVarType;
@@ -526,7 +526,8 @@ namespace MobiFlight.SimConnectMSFS
 
             if(simVarType == FSUIPCOffsetType.Float)
             {
-                floatVal = SimVars.Find(lvar => lvar.Name == simVarName).Data;
+                // new decimal is important to maintain the precision of the float value, otherwise it will be rounded to 15 digits
+                doubleValue = Convert.ToDouble(new decimal(SimVars.Find(lvar => lvar.Name == simVarName).Data));
             }
             else
             {
