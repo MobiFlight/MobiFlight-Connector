@@ -493,7 +493,7 @@ namespace MobiFlight.SimConnectMSFS
             bool isString = false;
 
             stringVal = "0";
-            doubleValue = 0.0F;
+            doubleValue = 0.0D;
 
             if (!IsConnected()) 
                 return simVarType;
