@@ -43,7 +43,7 @@ namespace MobiFlight.Joysticks
         private volatile Session ActiveSession;
         private Thread ReadThread;
 
-        public bool IsReceiving
+        public bool IsRunning
         {
             get
             {
@@ -53,28 +53,16 @@ namespace MobiFlight.Joysticks
         }
 
         /// <summary>
-        /// Returns the payload of a raw report, i.e. everything after the report ID byte
-        /// at index 0. For report parsers whose offsets are payload-relative, following
-        /// the vendor protocol tables.
-        /// </summary>
-        public static byte[] GetPayload(byte[] rawReport)
-        {
-            byte[] payload = new byte[rawReport.Length - 1];
-            Array.Copy(rawReport, 1, payload, 0, payload.Length);
-            return payload;
-        }
-
-        /// <summary>
         /// Starts the background receive loop; does nothing if already running.
         /// Both callbacks run on the receive thread. After <paramref name="onError"/> the
         /// loop has stopped; an orderly <see cref="Stop"/> does not raise it.
         /// </summary>
         /// <param name="stream">Open HID stream. The receiver sets its read timeout but does not own it; closing it remains the caller's responsibility.</param>
         /// <param name="bufferSize">Read buffer size, typically <c>HidDevice.GetMaxInputReportLength()</c>.</param>
-        /// <param name="onReport">Called per report with a copy of the raw bytes, including the report ID at index 0.</param>
+        /// <param name="onReport">Called per received <see cref="HidReport"/>; each report wraps its own copy of the raw bytes.</param>
         /// <param name="onError">Called once when the loop dies on a read error; may be null.</param>
         /// <param name="threadName">Optional thread name to identify the device in debugging tools.</param>
-        public void Start(Stream stream, int bufferSize, Action<byte[]> onReport, Action<Exception> onError = null, string threadName = null)
+        public void Start(Stream stream, int bufferSize, Action<HidReport> onReport, Action<Exception> onError = null, string threadName = null)
         {
             if (stream == null)
             {
@@ -91,7 +79,7 @@ namespace MobiFlight.Joysticks
 
             lock (StartStopLock)
             {
-                if (IsReceiving) return;
+                if (IsRunning) return;
 
                 byte[] buffer = new byte[bufferSize];
 
@@ -131,7 +119,7 @@ namespace MobiFlight.Joysticks
             }
         }
 
-        private void ReadLoop(Session session, Stream stream, byte[] buffer, Action<byte[]> onReport, Action<Exception> onError)
+        private void ReadLoop(Session session, Stream stream, byte[] buffer, Action<HidReport> onReport, Action<Exception> onError)
         {
             while (session.Active)
             {
@@ -166,7 +154,7 @@ namespace MobiFlight.Joysticks
 
                 try
                 {
-                    onReport(report);
+                    onReport(new HidReport(report));
                 }
                 catch (Exception ex)
                 {

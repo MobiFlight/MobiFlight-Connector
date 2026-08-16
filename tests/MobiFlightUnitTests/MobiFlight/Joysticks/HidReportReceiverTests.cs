@@ -93,21 +93,21 @@ namespace MobiFlight.Joysticks.Tests
         [TestMethod]
         public void Start_DeliversReportTrimmedToReadCount()
         {
-            var received = new BlockingCollection<byte[]>();
+            var received = new BlockingCollection<HidReport>();
             StreamFake.EnqueueReport(0x01, 0xAA, 0xBB);
 
             Receiver.Start(StreamFake, 64, received.Add);
 
-            byte[] report;
+            HidReport report;
             Assert.IsTrue(received.TryTake(out report, WaitMilliseconds), "no report delivered");
-            CollectionAssert.AreEqual(new byte[] { 0x01, 0xAA, 0xBB }, report);
-            Assert.IsTrue(Receiver.IsReceiving);
+            CollectionAssert.AreEqual(new byte[] { 0x01, 0xAA, 0xBB }, report.Buffer);
+            Assert.IsTrue(Receiver.IsRunning);
         }
 
         [TestMethod]
         public void Start_SurvivesReadTimeoutsBetweenReports()
         {
-            var received = new BlockingCollection<byte[]>();
+            var received = new BlockingCollection<HidReport>();
             Receiver.Start(StreamFake, 64, received.Add);
 
             // The empty script forces the loop through several TimeoutException cycles
@@ -115,9 +115,9 @@ namespace MobiFlight.Joysticks.Tests
             Thread.Sleep(500);
             StreamFake.EnqueueReport(0x02, 0x42);
 
-            byte[] report;
+            HidReport report;
             Assert.IsTrue(received.TryTake(out report, WaitMilliseconds), "loop died on read timeout");
-            CollectionAssert.AreEqual(new byte[] { 0x02, 0x42 }, report);
+            CollectionAssert.AreEqual(new byte[] { 0x02, 0x42 }, report.Buffer);
         }
 
         [TestMethod]
@@ -132,7 +132,7 @@ namespace MobiFlight.Joysticks.Tests
             Exception error;
             Assert.IsTrue(errors.TryTake(out error, WaitMilliseconds), "onError not raised");
             Assert.AreSame(cause, error);
-            Assert.IsFalse(Receiver.IsReceiving);
+            Assert.IsFalse(Receiver.IsRunning);
             Assert.IsEmpty(errors, "onError raised more than once");
         }
 
@@ -143,7 +143,7 @@ namespace MobiFlight.Joysticks.Tests
             Receiver.Start(StreamFake, 64, report => { }, errors.Add);
 
             Receiver.Stop();
-            Assert.IsFalse(Receiver.IsReceiving);
+            Assert.IsFalse(Receiver.IsRunning);
 
             // An error surfacing after the orderly stop must be swallowed.
             StreamFake.EnqueueError(new ObjectDisposedException("stream"));
@@ -153,7 +153,7 @@ namespace MobiFlight.Joysticks.Tests
         [TestMethod]
         public void Start_CallbackException_DoesNotKillLoop()
         {
-            var received = new BlockingCollection<byte[]>();
+            var received = new BlockingCollection<HidReport>();
             StreamFake.EnqueueReport(0x01, 0x01);
             StreamFake.EnqueueReport(0x01, 0x02);
 
@@ -163,41 +163,41 @@ namespace MobiFlight.Joysticks.Tests
                 throw new InvalidOperationException("faulty handler");
             });
 
-            byte[] report;
+            HidReport report;
             Assert.IsTrue(received.TryTake(out report, WaitMilliseconds));
             Assert.IsTrue(received.TryTake(out report, WaitMilliseconds), "loop died on callback exception");
-            CollectionAssert.AreEqual(new byte[] { 0x01, 0x02 }, report);
-            Assert.IsTrue(Receiver.IsReceiving);
+            CollectionAssert.AreEqual(new byte[] { 0x01, 0x02 }, report.Buffer);
+            Assert.IsTrue(Receiver.IsRunning);
         }
 
         [TestMethod]
         public void Start_ZeroLengthRead_IsSkipped()
         {
-            var received = new BlockingCollection<byte[]>();
+            var received = new BlockingCollection<HidReport>();
             StreamFake.EnqueueZeroLengthRead();
             StreamFake.EnqueueReport(0x03);
 
             Receiver.Start(StreamFake, 64, received.Add);
 
-            byte[] report;
+            HidReport report;
             Assert.IsTrue(received.TryTake(out report, WaitMilliseconds));
-            CollectionAssert.AreEqual(new byte[] { 0x03 }, report);
+            CollectionAssert.AreEqual(new byte[] { 0x03 }, report.Buffer);
             Assert.IsEmpty(received, "zero-length read must not produce a report");
         }
 
         [TestMethod]
-        public void Start_WhileReceiving_IsIgnored()
+        public void Start_WhileRunning_IsIgnored()
         {
-            var received = new BlockingCollection<byte[]>();
+            var received = new BlockingCollection<HidReport>();
             Receiver.Start(StreamFake, 64, received.Add);
 
             // A second Start must not spawn a second reader feeding a different callback.
             Receiver.Start(StreamFake, 64, ignored => Assert.Fail("second Start must be ignored"));
 
             StreamFake.EnqueueReport(0x04);
-            byte[] report;
+            HidReport report;
             Assert.IsTrue(received.TryTake(out report, WaitMilliseconds));
-            CollectionAssert.AreEqual(new byte[] { 0x04 }, report);
+            CollectionAssert.AreEqual(new byte[] { 0x04 }, report.Buffer);
         }
 
         [TestMethod]
@@ -213,27 +213,27 @@ namespace MobiFlight.Joysticks.Tests
             });
 
             Assert.IsTrue(stopped.Wait(WaitMilliseconds), "Stop() from the receive thread deadlocked");
-            Assert.IsFalse(Receiver.IsReceiving);
+            Assert.IsFalse(Receiver.IsRunning);
         }
 
         [TestMethod]
         public void Stop_AllowsRestartWithNewStream()
         {
-            var firstReports = new BlockingCollection<byte[]>();
+            var firstReports = new BlockingCollection<HidReport>();
             StreamFake.EnqueueReport(0x06);
             Receiver.Start(StreamFake, 64, firstReports.Add);
-            byte[] report;
+            HidReport report;
             Assert.IsTrue(firstReports.TryTake(out report, WaitMilliseconds));
 
             Receiver.Stop();
 
             var secondStream = new ScriptedHidStream();
-            var secondReports = new BlockingCollection<byte[]>();
+            var secondReports = new BlockingCollection<HidReport>();
             secondStream.EnqueueReport(0x07);
             Receiver.Start(secondStream, 64, secondReports.Add);
 
             Assert.IsTrue(secondReports.TryTake(out report, WaitMilliseconds), "receiver did not restart");
-            CollectionAssert.AreEqual(new byte[] { 0x07 }, report);
+            CollectionAssert.AreEqual(new byte[] { 0x07 }, report.Buffer);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace MobiFlight.Joysticks.VKB
                 Stream = Device.Open();
             }
 
-            if (!Receiver.IsReceiving)
+            if (!Receiver.IsRunning)
             {
                 // The descriptor Windows reconstructs for this device is altered and misses the
                 // encoder monitoring report (0x08, 64 bytes incl. report ID), so don't trust the
@@ -138,29 +138,30 @@ namespace MobiFlight.Joysticks.VKB
             }
         }
 
-        private void OnReportReceived(byte[] rawReport)
+        private void OnReportReceived(HidReport inputReport)
         {
-            ProcessInputReportBuffer(rawReport);
+            ProcessInputReport(inputReport);
         }
 
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        protected void ProcessInputReport(HidReport inputReport)
         {
-            if (inputReportBuffer.Length < 4)
+            if (inputReport.Buffer.Length < 4)
             {
                 return;
             }
 
-            if (inputReportBuffer[0] != 0x08) // 0x08 = Monitoring channel / virtual bus
+            if (inputReport.ReportId != 0x08) // 0x08 = Monitoring channel / virtual bus
             {
                 return;
             }
 
-            if (inputReportBuffer[1] != 0x13) // 0x13 = Encoder status
+            if (inputReport.Buffer[1] != 0x13) // 0x13 = Encoder status
             {
                 return;
             }
 
-            ParseEncoderReport(inputReportBuffer);
+            // The encoder parser works on the raw report including the report ID byte.
+            ParseEncoderReport(inputReport.Buffer);
         }
 
         private void OnReadError(Exception exception)

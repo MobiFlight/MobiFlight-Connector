@@ -100,7 +100,7 @@ namespace MobiFlight.Joysticks.Bodnar
                 }
             }
 
-            if (!Receiver.IsReceiving)
+            if (!Receiver.IsRunning)
             {
                 Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, $"{Name}-HID-Reader");
             }
@@ -108,9 +108,9 @@ namespace MobiFlight.Joysticks.Bodnar
             return true;
         }
 
-        private void OnReportReceived(byte[] rawReport)
+        private void OnReportReceived(HidReport inputReport)
         {
-            ProcessInputReportBuffer(rawReport);
+            ProcessInputReport(inputReport);
         }
 
         private void OnReadError(Exception exception)
@@ -126,7 +126,7 @@ namespace MobiFlight.Joysticks.Bodnar
         /// </summary>
         public override void Update()
         {
-            if (Stream == null || !Receiver.IsReceiving)
+            if (Stream == null || !Receiver.IsRunning)
             {
                 var connected = Connect();
                 if (!connected) return;
@@ -134,13 +134,13 @@ namespace MobiFlight.Joysticks.Bodnar
         }
 
         /// <summary>
-        /// This processes the input report buffer, triggers button events and stores the state.
+        /// This processes the input report, triggers button events and stores the state.
         /// </summary>
-        /// <param name="inputReportBuffer">The raw report buffer including the report ID at index 0</param>
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        /// <param name="inputReport">The received HID input report</param>
+        protected void ProcessInputReport(HidReport inputReport)
         {
             // The report parser expects the payload without the leading report ID byte.
-            var newState = report.Parse(HidReportReceiver.GetPayload(inputReportBuffer)).ToJoystickState(Axes);
+            var newState = report.Parse(inputReport.Payload).ToJoystickState(Axes);
             UpdateButtons(newState);
             UpdateAxis(newState);
             // Finally store the new state as last state

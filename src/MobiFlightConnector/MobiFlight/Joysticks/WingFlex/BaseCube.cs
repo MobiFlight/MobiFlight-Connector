@@ -33,9 +33,8 @@ namespace MobiFlight.Joysticks.WingFlex
         }
 
         /// <summary>
-        /// The serial number as reported by the HID device, fetched once on connect.
-        /// Cached because Serial is evaluated for every input event and the native
-        /// query is not free - especially when the hardware refuses to report one.
+        /// Backing field for <see cref="Serial"/>, fetched lazily once the device
+        /// is connected. Empty string means the device reports no serial.
         /// </summary>
         private string CachedSerialNumber;
 
@@ -47,6 +46,11 @@ namespace MobiFlight.Joysticks.WingFlex
         {
             get
             {
+                if (CachedSerialNumber == null && Device != null)
+                {
+                    CachedSerialNumber = GetDeviceSerialNumber() ?? string.Empty;
+                }
+
                 return
                     !string.IsNullOrEmpty(CachedSerialNumber) ?
                     $"{Joystick.SerialPrefix}{CachedSerialNumber}"
@@ -111,12 +115,7 @@ namespace MobiFlight.Joysticks.WingFlex
                 }
             }
 
-            if (CachedSerialNumber == null)
-            {
-                CachedSerialNumber = GetDeviceSerialNumber() ?? string.Empty;
-            }
-
-            if (!Receiver.IsReceiving)
+            if (!Receiver.IsRunning)
             {
                 Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, $"{Name}-HID-Reader");
             }
@@ -125,9 +124,9 @@ namespace MobiFlight.Joysticks.WingFlex
             return true;
         }
 
-        private void OnReportReceived(byte[] rawReport)
+        private void OnReportReceived(HidReport inputReport)
         {
-            ProcessInputReportBuffer(rawReport);
+            ProcessInputReport(inputReport);
         }
 
         private void OnReadError(Exception exception)
@@ -144,7 +143,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override void Update()
         {
-            if (Stream == null || !Receiver.IsReceiving)
+            if (Stream == null || !Receiver.IsRunning)
             {
                 var connected = Connect();
                 if (!connected) return;
@@ -152,18 +151,18 @@ namespace MobiFlight.Joysticks.WingFlex
         }
 
         /// <summary>
-        /// This processes the input report buffer, triggers button events and stores the state
+        /// This processes the input report, triggers button events and stores the state
         ///
         /// </summary>
         /// <remarks>
         /// This could be done in the base class.
         /// </remarks>
-        /// <param name="inputReportBuffer">The raw report buffer including the report ID at index 0</param>
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        /// <param name="inputReport">The received HID input report</param>
+        protected void ProcessInputReport(HidReport inputReport)
         {
             // The report classes expect the payload without the leading report ID byte,
             // as documented in their protocol tables.
-            var newState = CubeReport.Parse(HidReportReceiver.GetPayload(inputReportBuffer)).ToJoystickState();
+            var newState = CubeReport.Parse(inputReport.Payload).ToJoystickState();
             UpdateButtons(newState);
             UpdateAxis(newState);
             // Finally store the new state as last state

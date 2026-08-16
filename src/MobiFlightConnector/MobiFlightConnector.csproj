@@ -426,6 +426,7 @@
     <Compile Include="MobiFlight\Joysticks\Bodnar\BodnarBoard.cs" />
     <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\HidReportReceiver.cs" />
     <Compile Include="MobiFlight\Joysticks\IIDB\IIDBDevice.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />

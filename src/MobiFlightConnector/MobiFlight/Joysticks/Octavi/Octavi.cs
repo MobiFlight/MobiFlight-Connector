@@ -35,22 +35,23 @@ namespace MobiFlight.Joysticks.Octavi
                     Stream = Device.Open();
                 }
 
-                if (!Receiver.IsReceiving)
+                if (!Receiver.IsRunning)
                 {
                     Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "Octavi-HID-Reader");
                 }
             }
         }
 
-        private void OnReportReceived(byte[] rawReport)
+        private void OnReportReceived(HidReport inputReport)
         {
-            ProcessInputReportBuffer(rawReport);
+            ProcessInputReport(inputReport);
         }
 
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        protected void ProcessInputReport(HidReport inputReport)
         {
+            // The report parser works on the raw report including the report ID byte.
             OctaviReport report = new OctaviReport();
-            report.parseReport(inputReportBuffer);
+            report.parseReport(inputReport.Buffer);
             var buttonEvents = octaviHandler.DetectButtonEvents(report);
             foreach (var (buttonIndex, inputEvent) in buttonEvents)
             {
@@ -115,7 +116,7 @@ namespace MobiFlight.Joysticks.Octavi
         {
             // Octavi is not a DirectInput device
             // so we have to connect it here.
-            if (Stream == null || !Receiver.IsReceiving)
+            if (Stream == null || !Receiver.IsRunning)
             {
                 Connect();
             };

@@ -269,6 +269,7 @@
     <Compile Include="MobiFlight\Joysticks\ControllerFactoryTests.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactoryTests.cs" />
     <Compile Include="MobiFlight\Joysticks\HidReportReceiverTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionMigratorTests.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReportTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionTests.cs" />

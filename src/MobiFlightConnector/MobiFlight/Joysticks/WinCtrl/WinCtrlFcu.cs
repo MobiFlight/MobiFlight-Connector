@@ -68,7 +68,7 @@ namespace MobiFlight.Joysticks.WinCtrl
                 }
             }
 
-            if (!Receiver.IsReceiving)
+            if (!Receiver.IsRunning)
             {
                 Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, $"WinCtrlFcu-{ProductId:X4}");
             }
@@ -76,9 +76,9 @@ namespace MobiFlight.Joysticks.WinCtrl
             DisplayControl.SendRequestFirmware();
         }
 
-        private void OnReportReceived(byte[] rawReport)
+        private void OnReportReceived(HidReport inputReport)
         {
-            ProcessInputReportBuffer(rawReport);
+            ProcessInputReport(inputReport);
         }
 
         private void OnReadError(Exception exception)
@@ -161,11 +161,11 @@ namespace MobiFlight.Joysticks.WinCtrl
             }
         }
 
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        protected void ProcessInputReport(HidReport inputReport)
         {
             // The report class works on the payload without the leading report ID byte,
             // as documented in the protocol tables.
-            CurrentReport.ParseReport(inputReportBuffer[0], HidReportReceiver.GetPayload(inputReportBuffer));
+            CurrentReport.ParseReport(inputReport.ReportId, inputReport.Payload);
             if (CurrentReport.ReportId == BUTTONS_REPORT)
             {
                 if (DoInitialize)

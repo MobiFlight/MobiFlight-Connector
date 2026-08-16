@@ -63,7 +63,7 @@ namespace MobiFlight.Joysticks.WingFlex
                     Stream = Device.Open(config);
                 }
 
-                if (!Receiver.IsReceiving)
+                if (!Receiver.IsRunning)
                 {
                     Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "Dap500-HID-Reader");
                 }
@@ -96,9 +96,9 @@ namespace MobiFlight.Joysticks.WingFlex
             SendData(new DapConfig() { }.ToData);
         }
 
-        private void OnReportReceived(byte[] inputReport)
+        private void OnReportReceived(HidReport inputReport)
         {
-            ProcessInputReportBuffer(inputReport);
+            ProcessInputReport(inputReport);
         }
 
         private void OnReadError(Exception exception)
@@ -122,23 +122,24 @@ namespace MobiFlight.Joysticks.WingFlex
         {
             // The Dap500 input is not read via DirectInput
             // so we have to connect it here.
-            if (Stream == null || !Receiver.IsReceiving)
+            if (Stream == null || !Receiver.IsRunning)
             {
                 Connect();
             }
         }
 
         /// <summary>
-        /// This processes the input report buffer, triggers button events and stores the state
-        /// 
+        /// This processes the input report, triggers button events and stores the state
+        ///
         /// </summary>
         /// <remarks>
         /// This could be done in the base class.
         /// </remarks>
-        /// <param name="inputReportBuffer"></param>
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        /// <param name="inputReport">The received HID input report</param>
+        protected void ProcessInputReport(HidReport inputReport)
         {
-            var newState = UsbReport.Parse(inputReportBuffer).ToJoystickState();
+            // The report parser works on the raw report including the report ID byte.
+            var newState = UsbReport.Parse(inputReport.Buffer).ToJoystickState();
 
             UpdateButtons(newState);
             UpdateAxis(newState);
