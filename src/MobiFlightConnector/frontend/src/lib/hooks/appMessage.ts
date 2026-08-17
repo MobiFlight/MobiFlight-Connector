@@ -16,15 +16,23 @@ function subscribeToAppMessageEventsOnce() {
   if (appMessageSubscriptionCreated) return
   appMessageSubscriptionCreated = true
 
-  window.chrome?.webview?.addEventListener("message", (event: Event) => {
-    try {
-      const appMessage = (event as MessageEvent).data as AppMessage
-      registeredAppMessageKeyHandlers
-        .get(appMessage.key)
-        ?.forEach((handler) => handler(appMessage))
-    } catch (error) {
-      console.error("Error parsing message", error)
+  const webview = window.chrome?.webview
+  if (!webview) return
+
+  webview?.addEventListener("message", (event: Event) => {
+    const appMessage = (event as MessageEvent)?.data as AppMessage
+    if (!appMessage) {
+      console.error("Error parsing message")
+      return
     }
+
+    registeredAppMessageKeyHandlers.get(appMessage.key)?.forEach((handler) => {
+      try {
+        handler(appMessage)
+      } catch (error) {
+        console.error("Error processing message", error)
+      }
+    })
   })
 }
 
