@@ -361,6 +361,49 @@ test.describe("General Input Config Wizard Tests", () => {
       }),
     ).not.toBeVisible()
   })
+  test("Controller search returns only exact matches", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+      Name: "Device Search Test",
+      Controller: {
+        Name: "Bravo Throttle Quadrant",
+        Serial: "JS-87654321",
+      },
+    })
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
+    await deviceComboBox.click()
+
+    const searchInput = page.getByPlaceholder("Search device...")
+    await searchInput.fill("Button 11")
+
+    await expect(
+      page.getByRole("option", {
+        name: "Button 11",
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      page.getByRole("option", {
+        name: "Button 1",
+        exact: true,
+      }),
+    ).not.toBeVisible()
+  })
 })
 
 test.describe("Input Config Wizard - Edit name", () => {
