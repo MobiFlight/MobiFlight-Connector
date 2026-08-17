@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
 import { IConfigItem } from "@/types"
 import { CommandConfigContextMenu } from "@/types/commands"
@@ -37,7 +37,7 @@ function MenuItems({
   Label: typeof DropdownMenuLabel | typeof ContextMenuLabel
   Separator: typeof DropdownMenuSeparator | typeof ContextMenuSeparator
 }) {
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const navigate = useNavigate()
   const { startNameEdit } = useRowInteraction()
   const context = useContext(ConfigItemTableContext)

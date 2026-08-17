@@ -3,7 +3,7 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { IconDots, IconEdit } from "@tabler/icons-react"
@@ -19,7 +19,7 @@ function ConfigItemTableActionsCell({
   row,
 }: ConfigItemTableActionsCellProps) {
   const item = row.original
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const navigate = useNavigate()
 
   const isInputConfig = item.Type === "InputConfigItem"

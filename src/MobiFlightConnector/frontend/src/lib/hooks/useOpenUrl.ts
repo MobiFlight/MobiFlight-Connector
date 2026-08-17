@@ -1,7 +1,7 @@
-import useMessageExchange from "@/lib/hooks/useMessageExchange"
+import messageExchange from "@/lib/messageExchange"
 
 const useOpenUrl = () => {
-  const { publish } = useMessageExchange()
+  const { publish } = messageExchange
 
   const openUrl = (url: string) => {
     publish({

@@ -2,13 +2,14 @@ import SplashLogo from "@/components/SplashLogo"
 import { Progress } from "./ui/progress"
 import { StatusBarUpdate } from "@/types/messages"
 import { useEffect, useState } from "react"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { useAppMessage } from "@/lib/hooks/appMessage"
 import { useLocation, useNavigate, useSearchParams } from "react-router"
 import { useTranslation } from "react-i18next"
+import messageExchange from "@/lib/messageExchange"
 
 const StartupProgress = () => {
   const { t } = useTranslation()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const location = useLocation()
 
   // State for startup progress from app messages

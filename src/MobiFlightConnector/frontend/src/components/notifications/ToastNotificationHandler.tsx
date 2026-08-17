@@ -1,4 +1,5 @@
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { useAppMessage } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { Notification } from "@/types/messages"
 import { toast } from "@/components/ui/ToastWrapper"
 import { CommandMainMenu } from "@/types/commands"
@@ -6,7 +7,7 @@ import HubHopUpdateToast from "./HubHopUpdateToast"
 import { useTranslation } from "react-i18next"
 
 export const ToastNotificationHandler = () => {
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const { t } = useTranslation()
 
   useAppMessage("Notification", (message) => {

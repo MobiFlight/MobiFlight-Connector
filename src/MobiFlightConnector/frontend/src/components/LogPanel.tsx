@@ -7,7 +7,7 @@ import {
   IconPlayerPlay,
   IconX,
 } from "@tabler/icons-react"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { LogLevel } from "@/types/log"
 import { useSettingsStore } from "@/stores/settingsStore"
 import { useTranslation } from "react-i18next"
@@ -49,7 +49,7 @@ const SEVERITY_CLASS: Record<LogLevel, string> = {
 
 const LogPanel = () => {
   const { t } = useTranslation()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const { logs } = useLogsStore()
 
   // don't auto scroll, don't append new logs

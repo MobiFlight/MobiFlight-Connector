@@ -12,7 +12,7 @@ import {
   MenubarTrigger,
 } from "./ui/menubar"
 import { CommunityMenu } from "./CommunityMenu"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandMainMenuPayload } from "@/types/commands"
 import DarkModeToggle from "./DarkModeToggle"
 import { useProjectStore } from "@/stores/projectStore"
@@ -25,7 +25,7 @@ export const MainMenu = () => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { hasChanged } = useProjectStore()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
       key: "CommandMainMenu",

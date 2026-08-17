@@ -1,7 +1,8 @@
 import ComboBox from "@/components/ComboBox"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { useAppMessage } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { useVJoyControllerStore } from "@/stores/controllerStore"
 import { VJoyInputAction } from "@/types/config"
 import { VJoyDefinitionsUpdate } from "@/types/messages"
@@ -23,7 +24,7 @@ const VJoyInputActionPanel = ({
   setConfig,
 }: VJoyInputActionPanelProps) => {
   const { t } = useTranslation()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const { vJoyDefinitions, setVJoyDefinitions } = useVJoyControllerStore()
 
   useAppMessage("VJoyDefinitionsUpdate", (message) => {

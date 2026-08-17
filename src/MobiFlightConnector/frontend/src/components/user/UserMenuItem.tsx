@@ -8,8 +8,8 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu"
 import { MenubarSeparator } from "@/components/ui/menubar"
+import messageExchange from "@/lib/messageExchange"
 import toast from "@/components/ui/ToastWrapper"
-import useMessageExchange from "@/lib/hooks/useMessageExchange"
 import { cn } from "@/lib/utils"
 import { useUserProfileStore } from "@/stores/userProfileStore"
 import { CommandOpenLinkInBrowser } from "@/types/commands"
@@ -51,7 +51,7 @@ const CopyToClipboardIcon = ({
 
 const UserMenuItem = () => {
   const auth = useAuth()
-  const { publish } = useMessageExchange()
+  const { publish } = messageExchange
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const { userProfile } = useUserProfileStore()

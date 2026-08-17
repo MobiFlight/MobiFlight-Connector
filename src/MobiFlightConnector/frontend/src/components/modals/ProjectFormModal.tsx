@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import type { ProjectInfo } from "@/types/project"
 import ProjectForm from "@/components/project/ProjectForm"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 
 export default function ProjectFormModal() {
   const navigate = useNavigate()
@@ -10,7 +10,7 @@ export default function ProjectFormModal() {
 
   const project = location.state?.project as ProjectInfo | { Name: "" } as ProjectInfo
   const isEdit = location.state?.mode === "edit"
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
 
   return (
     <ProjectForm

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import ConfigWizard from "@/components/wizard/ConfigWizard"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { useConfigItemStateValue } from "@/stores/configItemStateStore"
@@ -60,7 +60,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   }
 
   const saveChanges = () => {
-    const { publish } = publishOnMessageExchange()
+    const { publish } = messageExchange
 
     const finalConfigItem = resetTriggersBasedOnDeviceType(draftConfigItem)
     setCommittedConfigItem(finalConfigItem)

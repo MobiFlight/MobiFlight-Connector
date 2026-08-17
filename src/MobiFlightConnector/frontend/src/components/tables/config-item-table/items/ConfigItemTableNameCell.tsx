@@ -2,7 +2,7 @@ import {
   InlineEditLabel,
   InlineEditLabelRef,
 } from "@/components/InlineEditLabel"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { Row } from "@tanstack/react-table"
@@ -13,7 +13,7 @@ interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
 }
 function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const { registerNameEdit } = useRowInteraction()
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
 

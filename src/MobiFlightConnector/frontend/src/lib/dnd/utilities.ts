@@ -1,7 +1,7 @@
 import type { DragEndEvent } from "@dnd-kit/core"
 import type { IConfigItem } from "@/types"
 import type { DragState } from "@/components/providers/DragDropProvider"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandResortConfigItem } from "@/types/commands"
 
 /**
@@ -132,7 +132,7 @@ export const executeDrop = (
   )
 
   // Notify backend
-  publishOnMessageExchange().publish({
+  messageExchange.publish({
     key: "CommandResortConfigItem",
     payload: {
       items: dragState.items.draggedItems,
