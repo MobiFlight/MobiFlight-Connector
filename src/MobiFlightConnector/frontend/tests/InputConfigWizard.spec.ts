@@ -318,6 +318,9 @@ test.describe("General Input Config Wizard Tests", () => {
     )
     await expect(hint).toBeVisible()
   })
+  // Verify that searching for an exact button name does not return
+  // other buttons with the same name as a prefix, e.g. "Button 2" should
+  // not match "Button 12".
   test("Controller search matches the complete search string", async ({
     configListPage,
     page,
@@ -361,6 +364,9 @@ test.describe("General Input Config Wizard Tests", () => {
       }),
     ).not.toBeVisible()
   })
+
+  // Verify that searching for "Button 11" returns only the exact match
+  // and does not return "Button 1", which is only a partial match.
   test("Controller search returns only exact matches", async ({
     configListPage,
     page,
