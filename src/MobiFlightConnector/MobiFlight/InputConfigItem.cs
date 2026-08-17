@@ -231,17 +231,6 @@ namespace MobiFlight
 
         public virtual void WriteXml(XmlWriter writer)
         {
-            WriteXml(writer, true);
-        }
-
-        public virtual void WriteXml(XmlWriter writer, bool writeInstanceData)
-        {
-            if (writeInstanceData)
-            {
-                writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.InputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
-                writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
-            }
-
             // the empty string is inconsistent with OutputConfigItem (NOT_SET),
             // but it is they way it was done in old config files
             var fullSerial = SerialNumber.BuildFullSerial(Controller) ?? "";
@@ -385,6 +374,50 @@ namespace MobiFlight
                     Preconditions.Equals(item.Preconditions) &&
                     ConfigRefs.Equals(item.ConfigRefs);
         }
+       public InputAction GetInputAction(InputEventArgs e)
+        {
+            switch (e.InputType)
+            {
+                case DeviceType.Button:
+                    switch ((MobiFlightButton.InputEvent)e.Value)
+                    {
+                        case MobiFlightButton.InputEvent.PRESS:
+                            return button?.onPress;
+
+                        case MobiFlightButton.InputEvent.RELEASE:
+                            return button?.onRelease;
+
+                        case MobiFlightButton.InputEvent.LONG_RELEASE:
+                            return button?.onLongRelease;
+
+                        default:
+                            return null;
+                    }
+                case DeviceType.Encoder:
+                    switch ((MobiFlightEncoder.InputEvent)e.Value)
+                    {
+                        case MobiFlightEncoder.InputEvent.LEFT:
+                            return encoder?.onLeft;
+
+                        case MobiFlightEncoder.InputEvent.LEFT_FAST:
+                            return encoder?.onLeftFast ?? encoder?.onLeft;
+
+                        case MobiFlightEncoder.InputEvent.RIGHT:
+                            return encoder?.onRight;
+
+                        case MobiFlightEncoder.InputEvent.RIGHT_FAST:
+                            return encoder?.onRightFast ?? encoder?.onRight;
+
+                        default:
+                            return null;
+                    }
+                case DeviceType.AnalogInput:
+                    return analog?.onChange;
+                default:
+                    return null;
+            }
+        }
+
 
         protected override IDeviceConfig GetDeviceConfig()
         {

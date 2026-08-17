@@ -5,17 +5,13 @@ using System.Text;
 
 namespace System
 {
-    public class ListItem
-    {
-        public String Value { get; set; }
-        public String Label { get; set; }
-        public override String ToString() { return Value; }
-    }
+    public class ListItem : ListItem<string>
+    { }
 
     public class ListItem<T>
     {
         public T Value { get; set; }
-        public String Label { get; set; }
-        public override String ToString() { return Value?.ToString() ?? String.Empty; }
+        public string Label { get; set; }
+        public override string ToString() { return Value?.ToString() ?? string.Empty; }
     }
 }

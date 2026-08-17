@@ -59,7 +59,7 @@ namespace MobiFlight.Execution
         public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
-            string inputKey = CreateInputKey(e);            
+            string inputKey = CreateInputKey(e);
             var msgEventLabel = e.GetMsgEventLabel();
 
             if (!inputCache.ContainsKey(inputKey))
@@ -68,7 +68,7 @@ namespace MobiFlight.Execution
             }
 
             if (inputCache[inputKey].Count == 0)
-            {                
+            {
                 return updatedValues;
             }
 
@@ -98,8 +98,13 @@ namespace MobiFlight.Execution
                         continue;
                     }
 
-                    Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
+                    var action = cfg.GetInputAction(e);
 
+                    if (action == null)
+                    {
+                        continue;
+                    }
+                    Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
                     if (cfg.button != null)
                         cfg.button.CanExecute = () => cfg.Active && CheckPreconditions(cfg);
 
@@ -184,13 +189,13 @@ namespace MobiFlight.Execution
                 return false;
 
             bool deviceNameMatches = cfg.Device.Name == e.Device.Name;
-            
+
             // For backward compatibility we have to make this check
             // because we used to have the label in the config
             // but now we want to store the internal button identifier
             // so that the label can change any time without breaking the config
             bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.Controller.Serial) && cfg.Device.Name == e.Device.Label;
-            
+
             return deviceNameMatches || isJoystickWithLabelMatch;
         }
 

@@ -60,11 +60,17 @@ const ComboBox = <T,>({
 
   const selectedInItems = items.find((item) => isSelected(item, selected))
   const label = selectedInItems ? getLabel(selectedInItems) : placeholder
+
   // Use substring matching instead of the default fuzzy filtering,
   // so the complete search string must be present in the item value.
   const filterByCaseInsensitiveSubstring = (value: string, search: string) => {
     return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0
   }
+
+  const popoverContentMinWidth = widthClass.startsWith("w-")
+    ? `min-${widthClass}`
+    : "min-w-50"
+
   return (
     <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
@@ -86,17 +92,24 @@ const ComboBox = <T,>({
           <IconChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn(widthClass, "p-0")} align={align}>
+
+      <PopoverContent
+        className={cn(popoverContentMinWidth, "w-auto max-w-100 p-0")}
+        align={align}
+      >
         <Command filter={filterByCaseInsensitiveSubstring}>
           {variant === "default" && (
             <CommandInput placeholder={searchPlaceholder} className="h-9" />
           )}
+
           <CommandList>
             <CommandEmpty>{noOptionsPlaceholder}</CommandEmpty>
+
             <CommandGroup>
               {items.map((item) => {
                 const itemValue = getValue(item)
                 const itemLabel = getLabel(item)
+
                 return (
                   <CommandItem
                     key={itemValue}
@@ -107,10 +120,12 @@ const ComboBox = <T,>({
                       } else {
                         setSelected(item)
                       }
+
                       setOpen(false)
                     }}
                   >
                     <span className="truncate text-sm">{itemLabel}</span>
+
                     <IconCheck
                       className={cn(
                         "ml-auto",
@@ -129,4 +144,5 @@ const ComboBox = <T,>({
     </Popover>
   )
 }
+
 export default ComboBox

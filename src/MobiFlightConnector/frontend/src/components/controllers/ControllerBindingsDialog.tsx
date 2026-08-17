@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import {
   Controller,
   ControllerBinding,
@@ -39,7 +39,7 @@ const ControllerBindingsDialog = ({
     useState<ControllerBinding[]>(bindings)
   const [finalBindings, setFinalBindings] =
     useState<ControllerBinding[]>(bindings)
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
 
   // This test ensures that our binding items
   // will be update if the prop passed into the component updates

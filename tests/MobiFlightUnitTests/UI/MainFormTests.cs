@@ -52,7 +52,7 @@ namespace MobiFlight.UI.Tests
                 var propertyInfo = typeof(MainForm).GetProperty("ProjectListManager", BindingFlags.NonPublic | BindingFlags.Instance);
                 var projectListManager = new ProjectListManager();
 
-                await projectListManager.InitializeFromSettingsAsync(new ControllerBindingService(ExecutionManager));
+                await projectListManager.InitializeFromSettingsAsync(new ControllerBindingService(ExecutionManager)).ConfigureAwait(false);
                 propertyInfo.SetValue(this, projectListManager);
             }
 
@@ -79,6 +79,11 @@ namespace MobiFlight.UI.Tests
             public void RestorePublisher()
             {
                 MessageExchange.Instance.SetPublisher(OriginalPublisher);
+            }
+
+            protected override void SetVisibleCore(bool value)
+            {
+                base.SetVisibleCore(false);
             }
         }
 
@@ -238,7 +243,7 @@ namespace MobiFlight.UI.Tests
         {
             // Arrange
             _mainForm.InitializeExecutionManager();
-            await _mainForm.InitializeProjectListManagerAsync();
+            await _mainForm.InitializeProjectListManagerAsync().ConfigureAwait(false);
 
             var recentFilesCollection = new StringCollection
             {
@@ -254,7 +259,7 @@ namespace MobiFlight.UI.Tests
             Properties.Settings.Default.Save();
 
             // Re-initialize after adding files
-            await _mainForm.InitializeProjectListManagerAsync();
+            await _mainForm.InitializeProjectListManagerAsync().ConfigureAwait(false);
 
             // Create the command message
             var command = new CommandMainMenu

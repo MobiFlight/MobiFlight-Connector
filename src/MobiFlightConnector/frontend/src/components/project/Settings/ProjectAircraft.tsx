@@ -37,6 +37,8 @@ const AircraftItem = ({
     <div
       className={`hover:bg-accent flex cursor-pointer flex-row items-center gap-4 rounded-md border px-4 py-1 ${checked && "border-primary"}`}
       onClick={() => onChecked(aircraft)}
+      data-aircraft-name={aircraft.Name}
+      data-aircraft-vendor={aircraft.Vendor}
       {...props}
     >
       <Checkbox checked={checked}></Checkbox>
@@ -97,24 +99,24 @@ const ProjectAircraftDrawer = ({
     staleTime: Infinity,
   })
 
-  const aircarftStatsMap = new Map<string, AircraftInfoWithStats>()
+  const aircraftStatsMap = new Map<string, AircraftInfoWithStats>()
 
   presets.forEach((p) => {
     const key = `${p.vendor}###${p.aircraft}`
-    const existing = aircarftStatsMap.get(key)
+    const existing = aircraftStatsMap.get(key)
 
     if (existing) {
       existing.Count += 1
       return
     }
-    aircarftStatsMap.set(key, {
+    aircraftStatsMap.set(key, {
       Vendor: p.vendor,
       Name: p.aircraft,
       Count: 1,
     })
   })
 
-  const allAircraftWithStats = [...aircarftStatsMap.values()]
+  const allAircraftWithStats = [...aircraftStatsMap.values()]
   const availableAircraft = allAircraftWithStats
     .map((ac) => ({
       selected: selectedAircraft.some(
@@ -128,8 +130,8 @@ const ProjectAircraftDrawer = ({
         (ac.Name?.toLowerCase().includes(filter.toLowerCase()) ||
           ac.Vendor?.toLowerCase().includes(filter.toLowerCase())),
     )
-    .sort((a, b) => a.Name?.localeCompare(b.Name || "") || 0)
     .sort((a, b) => a.Vendor?.localeCompare(b.Vendor || "") || 0)
+    .sort((a, b) => a.Name?.localeCompare(b.Name || "") || 0)
 
   const addAircraft = (aircraft: AircraftInfo) => {
     const prev = selectedAircraft
@@ -265,6 +267,7 @@ const ProjectAircraftDrawer = ({
                 <div
                   className="flex flex-col gap-2 pb-1"
                   role="listbox"
+                  data-testid="available-aircraft-list"
                   aria-label={t(
                     "Project.Form.Aircraft.Dialog.AvailableAircraft.Title",
                   )}

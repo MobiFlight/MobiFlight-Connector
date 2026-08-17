@@ -3,15 +3,15 @@ import {
   IconBrandYoutubeFilled,
   IconHeartDollar,
 } from "@tabler/icons-react"
+import messageExchange from "@/lib/messageExchange"
 import { Button } from "./ui/button"
 import IconBrandHubHopLogo from "./icons/IconBrandHubHopLogo"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandMainMenuPayload } from "@/types/commands"
 import { useUserProfileStore } from "@/stores/userProfileStore"
 
 export const CommunityMenu = () => {
   const { userProfile } = useUserProfileStore()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
       key: "CommandMainMenu",

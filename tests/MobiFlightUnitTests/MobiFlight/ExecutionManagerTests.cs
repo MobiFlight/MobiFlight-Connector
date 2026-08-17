@@ -1157,6 +1157,7 @@ namespace MobiFlight.Tests
                 Device = new Button() { Name = Device.Name },
                 button = new InputConfig.ButtonInputConfig()
                 {
+                    
                     onPress = new VariableInputAction()
                     {
                         Variable = new MobiFlightVariable() { Name = "Var1", Number = 100 },
@@ -1176,7 +1177,7 @@ namespace MobiFlight.Tests
                 Controller = Controller,
                 Device = Device,
                 InputType = DeviceType.Button,
-                Value = 1
+                Value = (int)MobiFlightButton.InputEvent.PRESS
             };
 
             // Set up logging to verify expected log messages when config item is executed
@@ -1234,6 +1235,85 @@ namespace MobiFlight.Tests
             );
 
             // Clean up
+            _executionManager.Stop();
+        }
+        [TestMethod]
+        public void Execute_WhenActionIsNotConfigured_DoesNotLogExecution()
+        {
+            // Arrange
+            var controller = new Controller
+            {
+                Serial = "SN-000-001",
+                Name = "TestController"
+            };
+
+            var device = new DeviceReference
+            {
+                Name = "TestDevice:1",
+                Label = "Test Button",
+                Type = DeviceType.Button
+            };
+
+            var configItem = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "Test config without action",
+                Controller = controller,
+                Device = new Button { Name = device.Name },
+
+                // No onRelease action configured
+                button = new InputConfig.ButtonInputConfig()
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile
+            {
+                ConfigItems = { configItem }
+            });
+
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = controller,
+                Device = device,
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.RELEASE
+            };
+
+            var mockLogAppender = new Mock<ILogAppender>();
+
+            Log.Instance.ClearAppenders();
+            Log.Instance.AddAppender(mockLogAppender.Object);
+            Log.Instance.Enabled = true;
+            Log.Instance.Severity = LogSeverity.Info;
+
+            _executionManager.Project = project;
+
+            var methodInfo = typeof(ExecutionManager).GetMethod(
+                "mobiFlightCache_OnButtonPressed",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance);
+
+            Assert.IsNotNull(methodInfo);
+
+            _executionManager.Start();
+
+            // Act
+            // The RELEASE event has no configured action, so it should be skipped without logging execution.
+            methodInfo.Invoke(
+                _executionManager,
+                new object[] { _mockXplaneCache.Object, inputEventArgs });
+
+            // Assert
+            mockLogAppender.Verify(
+                appender => appender.log(
+                    It.Is<string>(msg =>
+                        msg.Contains($"Executing \"{configItem.Name}\"")),
+                    LogSeverity.Info),
+                Times.Never,
+                "No execution log should be written when no action is configured."
+            );
+
             _executionManager.Stop();
         }
     }

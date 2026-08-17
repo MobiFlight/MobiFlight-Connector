@@ -2,7 +2,7 @@ import { TableBody, TableCell } from "@/components/ui/table"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { flexRender, Row, Table } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import { useState, useEffect, forwardRef } from "react"
 import { RowInteractionProvider } from "../RowInteractionContext"
@@ -22,7 +22,7 @@ const ConfigItemTableBody = forwardRef<
   ConfigItemTableBodyProps<IConfigItem>
 >(({ table, dragItemId, onDeleteSelected, onToggleSelected }, ref) => {
   const navigate = useNavigate()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const rows = table.getRowModel().rows
   const [lastSelected, setLastSelected] = useState<Row<IConfigItem> | null>(
     null,

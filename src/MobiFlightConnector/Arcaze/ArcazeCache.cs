@@ -245,10 +245,6 @@ namespace MobiFlight
             {
                 Modules[serial].SetPin(io.Port, io.Pin, UInt16.Parse(value));
             }
-            catch (ConfigErrorException e)
-            {
-                throw e;
-            }
             catch (FormatException e)
             {
                 // do nothing

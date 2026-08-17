@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import {
   ProSimDataRefDefinition,
@@ -22,7 +22,7 @@ const ProSimDataRefPanel = ({
 }: ProSimDataRefPanelProps) => {
   const { t } = useTranslation()
   const { dataRefs } = useProSimDataRefStore()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const selectedPreset = selectedPath ? dataRefs[selectedPath] : null
 
   const [filter, setFilter] = useState({
@@ -53,10 +53,10 @@ const ProSimDataRefPanel = ({
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
         <div className="text-lg font-semibold">
-          {t("Dialog.InputConfigWizard.InputActions.Prosim.Preset.Title")}
+          {t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Title")}
         </div>
         <div className="text-muted-foreground text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.Prosim.Preset.Description")}
+          {t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Description")}
         </div>
       </div>
       {filteredPresets.length > 0 ? (

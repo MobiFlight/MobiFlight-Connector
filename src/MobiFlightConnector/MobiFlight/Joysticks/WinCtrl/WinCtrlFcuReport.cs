@@ -33,10 +33,13 @@ namespace MobiFlight.Joysticks.WinCtrl
             targetReport.BaroRightEncoderValue = this.BaroRightEncoderValue;
         }
 
-        public void ParseReport(HidBuffer hidBuffer)
+        /// <summary>
+        /// Parses an input report. <paramref name="data"/> is the payload without the
+        /// leading report ID byte, as documented in the protocol tables.
+        /// </summary>
+        public void ParseReport(byte reportId, byte[] data)
         {
-            byte[] data = hidBuffer.HidReport.TransferResult.Data;
-            ReportId = hidBuffer.HidReport.ReportId;
+            ReportId = reportId;
             if (ReportId == BUTTONS_REPORT)
             {
                 // get 32 bit Button report field - First 4 bytes: uint:  [3][2][1][0]

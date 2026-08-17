@@ -1,5 +1,5 @@
 import { Switch } from "@/components/ui/switch"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { useSortable } from "@dnd-kit/sortable"
@@ -12,7 +12,7 @@ interface ConfigItemTableActiveCellProps {
 }
 
 function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const item = row.original as IConfigItem
   const { attributes, listeners } = useSortable({ id: item.GUID })
 

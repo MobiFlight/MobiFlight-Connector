@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { buttonVariants } from "@/components/ui/variants"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import { ConfigFile } from "@/types"
 import { CommandFileContextMenu } from "@/types/commands"
@@ -32,7 +32,7 @@ const ProfileTabContextMenu = ({
   inlineEditRef,
 }: ProfileTabContextMenuProps) => {
   const { t } = useTranslation()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
 
   return (
     <div className="relative">

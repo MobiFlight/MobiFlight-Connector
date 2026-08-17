@@ -74,13 +74,14 @@ namespace MobiFlightInstaller
 
         public static string GetInstalledVersion()
         {
-            if (!File.Exists(MobiFlightHelperMethods.ProcessName + ".exe"))
+            var applicationPath = MobiFlightHelperMethods.GetMobiFlightApplicationPath();
+            if (string.IsNullOrWhiteSpace(applicationPath))
             {
                 Log.Instance.log("GetInstalledVersion : MFConnector does not exist ! return 0.0.0", LogSeverity.Debug);
                 return "0.0.0";
             }
 
-            string ReturnResult = AssemblyName.GetAssemblyName(MobiFlightHelperMethods.ProcessName + ".exe").Version.ToString();
+            string ReturnResult = AssemblyName.GetAssemblyName(applicationPath).Version.ToString();
             Log.Instance.log("GetInstalledVersion : detected -> " + ReturnResult, LogSeverity.Debug);
             return ReturnResult;
         }
@@ -146,6 +147,9 @@ namespace MobiFlightInstaller
                             MessageBox.Show("Error installation failed -> " + e.Message);
                         }
                     }
+
+                    // Length if 0 is a directory. This can't be extracted as it's not a file
+                    if (file.Length == 0) continue;
 
                     // ignore the old update file.
                     if (file.Name == OldMobiFlightUpdaterName) continue;

@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms.VisualStyles;
 
 namespace MobiFlight
 {
     public class ConnectorValue : ICloneable
     {
         public FSUIPCOffsetType type;
-        public Double           Float64;
+        public double           Float64;
         public String           String;
 
         public override string ToString()

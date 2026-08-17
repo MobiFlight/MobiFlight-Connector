@@ -1,7 +1,5 @@
 ﻿using HidSharp;
-using HidSharp.Reports.Input;
 using System;
-using System.Threading;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
@@ -33,7 +31,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// The report implementation for usb report.
         /// </summary>
         private readonly Dap500Report UsbReport = new Dap500Report();
-        protected HidDeviceInputReceiver inputReceiver;
+        private readonly HidReportReceiver Receiver = new HidReportReceiver();
 
         /// <summary>
         /// The constructor.
@@ -44,38 +42,30 @@ namespace MobiFlight.Joysticks.WingFlex
         }
 
         /// <summary>
-        /// This creates a connection to the HID device using the Device.Net library.
+        /// This creates a connection to the HID device using the HidSharp library.
         /// </summary>
         /// <returns></returns>
         protected bool Connect()
         {
-            var VendorId = Definition.VendorId;
-            var ProductId = Definition.ProductId;
-
             // Prevent reentry and parallel execution by multiple threads
             lock (this)
             {
                 if (Device == null)
                 {
-                    Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+                    Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: Definition.VendorId, productID: Definition.ProductId);
                     if (Device == null) return false;
                 }
-
-                var reportDescriptor = Device.GetReportDescriptor();
 
                 if (Stream == null)
                 {
                     OpenConfiguration config = new OpenConfiguration();
                     config.SetOption(OpenOption.Exclusive, true);
                     Stream = Device.Open(config);
-                    Stream.ReadTimeout = Timeout.Infinite;
                 }
 
-                if (inputReceiver == null)
+                if (!Receiver.IsRunning)
                 {
-                    inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
-                    inputReceiver.Received += InputReceiver_Received;
-                    inputReceiver.Start(Stream);
+                    Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "Dap500-HID-Reader");
                 }
             }
 
@@ -106,15 +96,21 @@ namespace MobiFlight.Joysticks.WingFlex
             SendData(new DapConfig() { }.ToData);
         }
 
-        private void InputReceiver_Received(object sender, System.EventArgs e)
+        private void OnReportReceived(HidReport inputReport)
         {
-            var inputReceiver = sender as HidDeviceInputReceiver;
-            byte[] inputReportBuffer = new byte[8];
+            ProcessInputReport(inputReport);
+        }
 
-            while (inputReceiver.TryRead(inputReportBuffer, 0, out _))
+        private void OnReadError(Exception exception)
+        {
+            Log.Instance.log($"Dap500 read failed, closing connection: {exception.Message}", LogSeverity.Error);
+
+            // Drop the dead connection so the next Update() can reconnect.
+            lock (this)
             {
-                //
-                ProcessInputReportBuffer(inputReportBuffer);
+                Stream?.Close();
+                Stream = null;
+                Device = null;
             }
         }
 
@@ -124,25 +120,26 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         public override void Update()
         {
-            // Octavi is not a DirectInput device
+            // The Dap500 input is not read via DirectInput
             // so we have to connect it here.
-            if (Stream == null || inputReceiver == null)
+            if (Stream == null || !Receiver.IsRunning)
             {
                 Connect();
             }
         }
 
         /// <summary>
-        /// This processes the input report buffer, triggers button events and stores the state
-        /// 
+        /// This processes the input report, triggers button events and stores the state
+        ///
         /// </summary>
         /// <remarks>
         /// This could be done in the base class.
         /// </remarks>
-        /// <param name="inputReportBuffer"></param>
-        protected void ProcessInputReportBuffer(byte[] inputReportBuffer)
+        /// <param name="inputReport">The received HID input report</param>
+        protected void ProcessInputReport(HidReport inputReport)
         {
-            var newState = UsbReport.Parse(inputReportBuffer).ToJoystickState();
+            // The report parser works on the raw report including the report ID byte.
+            var newState = UsbReport.Parse(inputReport.Buffer).ToJoystickState();
 
             UpdateButtons(newState);
             UpdateAxis(newState);
@@ -216,6 +213,14 @@ namespace MobiFlight.Joysticks.WingFlex
         public override void Shutdown()
         {
             RestoreConfig();
+            Receiver.Stop();
+
+            if (Stream != null)
+            {
+                Stream.Close();
+                Stream = null;
+            }
+
             base.Shutdown();
         }
 

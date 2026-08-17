@@ -28,7 +28,7 @@ import {
   useProjectModal,
 } from "@/lib/hooks/useProjectModal"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import {
   CommandProjectToolbarPayload,
 } from "@/types/commands"
@@ -118,7 +118,7 @@ export const ProjectCardStartStopButton = ({
   className,
   ...props
 }: HtmlHTMLAttributes<HTMLButtonElement>) => {
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const { isRunning, isTesting } = useExecutionStateStore()
 
   const handleMenuItemClick = (payload: CommandProjectToolbarPayload) => {

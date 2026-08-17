@@ -10,9 +10,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import messageExchange from "@/lib/messageExchange"
 import { useAsynchronous } from "@/lib/hooks/useAsynchronous"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
-import useMessageExchange from "@/lib/hooks/useMessageExchange"
 import { useProjectStore } from "@/stores/projectStore"
 import { useRecentProjects } from "@/stores/settingsStore"
 import { CommandMainMenu } from "@/types/commands"
@@ -28,7 +28,7 @@ const ProjectMainCard = () => {
   trigger("project-main-card")
 
   const { t } = useTranslation()
-  const { publish } = useMessageExchange()
+  const { publish } = messageExchange
   const { recentProjects } = useRecentProjects()
   const { project, hasChanged, saveStatus, setSaveStatus } = useProjectStore()
   const activeProject = project

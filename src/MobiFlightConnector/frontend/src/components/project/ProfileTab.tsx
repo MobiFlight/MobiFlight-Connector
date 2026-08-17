@@ -1,6 +1,6 @@
 import { ConfigFile } from "@/types"
 import { VariantProps } from "class-variance-authority"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { CommandFileContextMenu } from "@/types/commands"
 import { Button } from "@/components/ui/button"
 import { buttonVariants } from "@/components/ui/variants"
@@ -28,7 +28,7 @@ export const ProfileTab = forwardRef<HTMLDivElement, ProfileTabProps>(
     }: ProfileTabProps,
     ref,
   ) => {
-    const { publish } = publishOnMessageExchange()
+    const { publish } = messageExchange
     const inlineEditRef = useRef<InlineEditLabelRef>(null)
     const buttonRef = useRef<HTMLButtonElement>(null)
 

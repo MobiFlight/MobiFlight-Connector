@@ -1,7 +1,8 @@
 import ComboBox from "@/components/ComboBox"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { useAppMessage } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 
 import { useControllerStore } from "@/stores/controllerStore"
 import { CommandScanForInput } from "@/types/commands"
@@ -119,7 +120,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
   })
 
   const scanForInput = () => {
-    const { publish } = publishOnMessageExchange()
+    const { publish } = messageExchange
     publish({
       key: "CommandScanForInput",
       payload: {
@@ -156,7 +157,8 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
           </Button>
           <div className="flex flex-col gap-2">
             <ComboBox
-              widthClass="w-50"
+              widthClass="w-56"
+              align="start"
               getLabel={(controller) => (controller as Controller).Name}
               getValue={(controller) =>
               (controller as Controller).Serial ??
@@ -188,7 +190,8 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
 
           <div className="flex flex-col gap-2">
             <ComboBox
-              widthClass="w-50"
+              widthClass="w-56"
+              align="start"
               getLabel={(device) =>
                 (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
               }

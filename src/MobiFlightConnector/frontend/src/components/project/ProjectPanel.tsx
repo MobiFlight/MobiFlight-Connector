@@ -6,7 +6,7 @@ import {
   IconChevronRight,
   IconMinusVertical,
 } from "@tabler/icons-react"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import messageExchange from "@/lib/messageExchange"
 import { useProjectStore } from "@/stores/projectStore"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -33,7 +33,7 @@ const ProjectPanel = () => {
   const overflowRef = useRef<HTMLDivElement | null>(null)
 
   const { t } = useTranslation()
-  const { publish } = publishOnMessageExchange()
+  const { publish } = messageExchange
   const navigate = useNavigate()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const { width, height } = useWindowSize()
@@ -72,7 +72,7 @@ const ProjectPanel = () => {
   )
 
   useEffect(() => {
-    publishOnMessageExchange().publish({
+    messageExchange.publish({
       key: "CommandActiveConfigFile",
       payload: {
         index: activeConfigFileIndex,
@@ -147,7 +147,7 @@ const ProjectPanel = () => {
   }, [width, height, scrollActiveProfileTabIntoViewWithDelay])
 
   const addConfigFile = () => {
-    publishOnMessageExchange().publish({
+    messageExchange.publish({
       key: "CommandAddConfigFile",
       payload: {
         type: "create",
@@ -159,7 +159,7 @@ const ProjectPanel = () => {
   }
 
   const mergeConfigFile = () => {
-    publish({
+    messageExchange.publish({
       key: "CommandAddConfigFile",
       payload: {
         type: "merge",
