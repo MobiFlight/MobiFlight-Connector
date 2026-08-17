@@ -70,7 +70,7 @@ jobs:
             dist/MobiFlightConnector-${{ env.VERSION }}.zip
 
       # Only run the following steps if this is a release event
-      - uses: repolevedavaj/install-nsis@v1.2.1
+      - uses: repolevedavaj/install-nsis@v1.3.0
         if: github.event_name == 'release'
         with:
           nsis-version: '3.10'
