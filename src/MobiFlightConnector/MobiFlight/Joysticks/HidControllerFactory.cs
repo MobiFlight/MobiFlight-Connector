@@ -22,8 +22,26 @@ namespace MobiFlight.Joysticks
 
             return false;
         }
-        internal static Joystick Create(JoystickDefinition definition)
+        internal static bool CanCreate(int vendorId, int productId)
         {
+            return Logitech.Pz55SwitchPanel.IsSupported(vendorId, productId);
+        }
+
+        internal static bool CanCreateDefinition(JoystickDefinition definition)
+        {
+            return definition != null &&
+                (CanCreate(definition.InstanceName) || CanCreate(definition.VendorId, definition.ProductId));
+        }
+
+        internal static Joystick Create(JoystickDefinition definition, HidSharp.HidDevice hidDevice = null)
+        {
+            if (definition == null) return null;
+
+            if (Logitech.Pz55SwitchPanel.IsSupported(definition.VendorId, definition.ProductId))
+            {
+                return hidDevice == null ? null : new Logitech.Pz55SwitchPanel(hidDevice, definition);
+            }
+
             Joystick result = null;
             switch (definition.InstanceName)
             {

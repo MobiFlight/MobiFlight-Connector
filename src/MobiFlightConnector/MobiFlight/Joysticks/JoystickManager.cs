@@ -33,10 +33,14 @@ namespace MobiFlight
         public readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
-        private readonly Timer PollTimer = new Timer(); 
+        private readonly Timer PollTimer = new Timer();
         private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
         private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
         private IntPtr Handle;
+        private readonly object HidConnectionLock = new object();
+        private bool HidDeviceWatcherSubscribed;
+        private volatile bool IsShuttingDown;
+        private System.Threading.SynchronizationContext NotificationContext;
 
         // Websocket Server on port 8320, not yet started
         WebSocketServer WSServer = new WebSocketServer(System.Net.IPAddress.Loopback, 8320);
@@ -79,7 +83,7 @@ namespace MobiFlight
             var schemaFilePath = "Joysticks/mfjoystick.schema.json";
 
             var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(
-                jsonFiles, 
+                jsonFiles,
                 schemaFilePath,
                 onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Debug),
                 onError: () => LoadingError = true
@@ -135,11 +139,18 @@ namespace MobiFlight
 
         public void Startup()
         {
+            IsShuttingDown = false;
             PollTimer.Start();
         }
 
         public void Shutdown()
         {
+            IsShuttingDown = true;
+            if (HidDeviceWatcherSubscribed)
+            {
+                DeviceList.Local.Changed -= HidDeviceList_Changed;
+                HidDeviceWatcherSubscribed = false;
+            }
             PollTimer.Stop();
             foreach (var js in Joysticks.Values)
             {
@@ -182,6 +193,8 @@ namespace MobiFlight
 
         public async void Connect()
         {
+            IsShuttingDown = false;
+            NotificationContext = System.Threading.SynchronizationContext.Current;
             var di = new SharpDX.DirectInput.DirectInput();
             Joysticks?.Clear();
             ExcludedJoysticks?.Clear();
@@ -203,10 +216,11 @@ namespace MobiFlight
                 var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
                 var productId = diJoystick.Properties.ProductId;
                 var vendorId = diJoystick.Properties.VendorId;
-                
+
                 // Check if this device should be handled later as an HID controller
-                if (HidControllerFactory.CanCreate(d.InstanceName))
+                if (HidControllerFactory.CanCreate(d.InstanceName) || HidControllerFactory.CanCreate(vendorId, productId))
                 {
+                    diJoystick.Dispose();
                     continue;
                 }
 
@@ -218,7 +232,7 @@ namespace MobiFlight
 
                 // Use factory to create appropriate controller instance
                 var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, WSServer);
-                
+
                 // If factory returns null, create a standard Joystick
                 if (js == null)
                 {
@@ -247,6 +261,7 @@ namespace MobiFlight
                 }
             }
 
+            EnsureHidDeviceWatcher();
             ConnectHidController();
 
             if (JoysticksConnected())
@@ -270,57 +285,149 @@ namespace MobiFlight
             return GetDefinitionByInstanceName(productName) ?? GetDefinitionByProductId(vendorId, productId);
         }
 
-        private void ConnectHidController()
+        /// <summary>
+        /// Subscribes once to HidSharp device changes so supported raw HID controllers
+        /// can be discovered after MobiFlight starts.
+        /// </summary>
+        private void EnsureHidDeviceWatcher()
         {
+            if (HidDeviceWatcherSubscribed) return;
+
+            DeviceList.Local.Changed += HidDeviceList_Changed;
+            HidDeviceWatcherSubscribed = true;
+        }
+
+        /// <summary>
+        /// Rescans only explicitly supported HID definitions when the system HID list changes.
+        /// </summary>
+        private void HidDeviceList_Changed(object sender, DeviceListChangedEventArgs e)
+        {
+            if (IsShuttingDown) return;
+
+            Task.Run(() =>
+            {
+                var added = ConnectHidController();
+                if (added > 0)
+                {
+                    NotifyControllerListChanged();
+                }
+            });
+        }
+
+        /// <summary>
+        /// Connects supported raw HID devices that are not already registered.
+        /// </summary>
+        /// <returns>The number of newly registered controllers.</returns>
+        private int ConnectHidController()
+        {
+            if (IsShuttingDown) return 0;
+
+            var addedCount = 0;
             try
             {
-                var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
-                Log.Instance.log($"Found {allHidDevices.Count} HID devices, checking for supported devices", LogSeverity.Debug);
-
-                allHidDevices.ForEach(hidDevice =>
+                lock (HidConnectionLock)
                 {
-                    try
+                    if (IsShuttingDown) return 0;
+
+                    var supportedDefinitions = Definitions.Where(HidControllerFactory.CanCreateDefinition).ToList();
+                    foreach (var definition in supportedDefinitions)
                     {
-                        var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
-                        if (definition == null) return;
+                        var hidDevices = DeviceList.Local
+                            .GetHidDevices(definition.VendorId, definition.ProductId)
+                            .ToList();
 
-                        if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
+                        foreach (var hidDevice in hidDevices)
                         {
-                            // already loaded as regular DirectInput Joystick
-                            return;
+                            Joystick joystick = null;
+                            try
+                            {
+                                joystick = HidControllerFactory.Create(definition, hidDevice);
+                                if (joystick == null) continue;
+
+                                if (Joysticks.ContainsKey(joystick.Serial))
+                                {
+                                    continue;
+                                }
+
+                                joystick.Connect(IntPtr.Zero);
+                                joystick.OnButtonPressed += Js_OnButtonPressed;
+                                joystick.OnDisconnected += Js_OnDisconnected;
+                                if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                                {
+                                    joystick.Shutdown();
+                                    Log.Instance.log($"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.", LogSeverity.Error);
+                                    continue;
+                                }
+
+                                addedCount++;
+                                Log.Instance.log($"Connected HID device: {definition.InstanceName} / {joystick.Serial}", LogSeverity.Info);
+                            }
+                            catch (Exception ex)
+                            {
+                                joystick?.Shutdown();
+                                Log.Instance.log($"Error connecting HID device {SafeFriendlyName(hidDevice)} VID:{hidDevice.VendorID:X4} PID:{hidDevice.ProductID:X4} Path:{hidDevice.DevicePath}: {ex.Message}", LogSeverity.Error);
+                            }
                         }
-
-                        var joystick = HidControllerFactory.Create(definition);
-
-                        if (joystick == null) return;
-
-                        joystick.Connect(new IntPtr());
-                        joystick.OnButtonPressed += Js_OnButtonPressed;
-                        joystick.OnDisconnected += Js_OnDisconnected;
-                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
-                        {
-                            Log.Instance.log($"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.", LogSeverity.Error);
-                            return;
-                        }
-                        Log.Instance.log($"Connected HID device: {definition.InstanceName} / {joystick.Serial}", LogSeverity.Info);
                     }
-                    catch (Exception ex)
-                    {
-                        Log.Instance.log($"Error connecting HID device {hidDevice.GetFriendlyName()}: {ex.Message}", LogSeverity.Error);
-                    }
-                });
+                }
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"Error enumerating HID devices: {ex.Message}", LogSeverity.Error);
+            }
+
+            return addedCount;
+        }
+
+        /// <summary>
+        /// Reads optional HID metadata without allowing descriptor failures to hide the
+        /// original connection error.
+        /// </summary>
+        private static string SafeFriendlyName(HidDevice device)
+        {
+            try
+            {
+                return device.GetFriendlyName();
+            }
+            catch
+            {
+                return "Unknown HID device";
             }
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)
         {
             var js = sender as Joystick;
+            if (js == null) return;
+
             Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
-            Joysticks.TryRemove(js.Serial, out _);
+            if (Joysticks.TryRemove(js.Serial, out _))
+            {
+                NotifyControllerListChanged();
+            }
+        }
+
+        /// <summary>
+        /// Publishes hot-plug changes on the synchronization context captured by Connect,
+        /// which is normally the WinForms UI context.
+        /// </summary>
+        private void NotifyControllerListChanged()
+        {
+            if (IsShuttingDown) return;
+
+            if (NotificationContext == null)
+            {
+                Connected?.Invoke(this, EventArgs.Empty);
+                return;
+            }
+
+            NotificationContext.Post(_ =>
+            {
+                if (!IsShuttingDown)
+                {
+                    Connected?.Invoke(this, EventArgs.Empty);
+                }
+            }, null);
         }
 
         private bool HasAxisOrButtons(Joystick js)
