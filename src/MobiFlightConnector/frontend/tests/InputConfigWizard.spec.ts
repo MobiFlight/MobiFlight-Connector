@@ -318,10 +318,7 @@ test.describe("General Input Config Wizard Tests", () => {
     )
     await expect(hint).toBeVisible()
   })
-  // Verify that searching for an exact button name does not return
-  // other buttons with the same name as a prefix, e.g. "Button 2" should
-  // not match "Button 12".
-  test("Controller search matches the complete search string", async ({
+  test("Controller search does not do fuzzy search", async ({
     configListPage,
     page,
   }) => {
@@ -350,6 +347,9 @@ test.describe("General Input Config Wizard Tests", () => {
     const searchInput = page.getByPlaceholder("Search device...")
     await searchInput.fill("Button 2")
 
+    // The previous fuzzy search matching method would also match "Button 12"
+    // when searching for "Button 2". The search should now only return
+    // devices matching the complete search term.
     await expect(
       page.getByRole("option", {
         name: "Button 2",
@@ -365,9 +365,7 @@ test.describe("General Input Config Wizard Tests", () => {
     ).not.toBeVisible()
   })
 
-  // Verify that searching for "Button 11" returns only the exact match
-  // and does not return "Button 1", which is only a partial match.
-  test("Controller search returns only exact matches", async ({
+  test("Controller search does not match partial device names", async ({
     configListPage,
     page,
   }) => {
@@ -396,6 +394,9 @@ test.describe("General Input Config Wizard Tests", () => {
     const searchInput = page.getByPlaceholder("Search device...")
     await searchInput.fill("Button 11")
 
+    // The previous fuzzy search matching method would also match "Button 1"
+    // when searching for "Button 11". This test ensures that partial matches
+    // are no longer returned when the complete search term is different.
     await expect(
       page.getByRole("option", {
         name: "Button 11",
