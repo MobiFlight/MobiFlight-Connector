@@ -1,0 +1,152 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "FreeJoy",
+  "VendorId": "0x0483",
+  "ProductId": "0x5757",
+  "Outputs": [
+    {
+      "Label": "LED 0",
+      "Id": "led.0",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "LED 1",
+      "Id": "led.1",
+      "Byte": 0,
+      "Bit": 1
+    },
+    {
+      "Label": "LED 2",
+      "Id": "led.2",
+      "Byte": 0,
+      "Bit": 2
+    },
+    {
+      "Label": "LED 3",
+      "Id": "led.3",
+      "Byte": 0,
+      "Bit": 3
+    },
+    {
+      "Label": "LED 4",
+      "Id": "led.4",
+      "Byte": 0,
+      "Bit": 4
+    },
+    {
+      "Label": "LED 5",
+      "Id": "led.5",
+      "Byte": 0,
+      "Bit": 5
+    },
+    {
+      "Label": "LED 6",
+      "Id": "led.6",
+      "Byte": 0,
+      "Bit": 6
+    },
+    {
+      "Label": "LED 7",
+      "Id": "led.7",
+      "Byte": 0,
+      "Bit": 7
+    },
+    {
+      "Label": "LED 8",
+      "Id": "led.8",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "LED 9",
+      "Id": "led.9",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "LED 10",
+      "Id": "led.10",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "LED 11",
+      "Id": "led.11",
+      "Byte": 1,
+      "Bit": 3
+    },
+    {
+      "Label": "LED 12",
+      "Id": "led.12",
+      "Byte": 1,
+      "Bit": 4
+    },
+    {
+      "Label": "LED 13",
+      "Id": "led.13",
+      "Byte": 1,
+      "Bit": 5
+    },
+    {
+      "Label": "LED 14",
+      "Id": "led.14",
+      "Byte": 1,
+      "Bit": 6
+    },
+    {
+      "Label": "LED 15",
+      "Id": "led.15",
+      "Byte": 1,
+      "Bit": 7
+    },
+    {
+      "Label": "LED 16",
+      "Id": "led.16",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "LED 17",
+      "Id": "led.17",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "LED 18",
+      "Id": "led.18",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "LED 19",
+      "Id": "led.19",
+      "Byte": 2,
+      "Bit": 3
+    },
+    {
+      "Label": "LED 20",
+      "Id": "led.20",
+      "Byte": 2,
+      "Bit": 4
+    },
+    {
+      "Label": "LED 21",
+      "Id": "led.21",
+      "Byte": 2,
+      "Bit": 5
+    },
+    {
+      "Label": "LED 22",
+      "Id": "led.22",
+      "Byte": 2,
+      "Bit": 6
+    },
+    {
+      "Label": "LED 23",
+      "Id": "led.23",
+      "Byte": 2,
+      "Bit": 7
+    }
+  ]
+}
