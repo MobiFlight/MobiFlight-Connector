@@ -1,11 +1,28 @@
 """
-Adds support for the default FMS in X-Plane
+Adds support for the default X-Plane FMS dataref family
+(sim/cockpit2/radios/indicators/fms_cduN_text/style_lineX), used by the stock FMS
+and by aircraft that reuse it, such as the X-Crafts ERJ family.
 
 Many X-Plane aircraft have similar formats for datarefs and the means of retrieving, translating and sending updates is mostly the same.
 
 In order to support multiple CDU devices seamlessly, a dynamic approach is taken whereby an enum class is defined that contains the supported devices.
 A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
 Each enum member is assigned a value that is used to construct the X-Plane dataref identifier. Example: "fms_cdu1" in "sim/cockpit2/radios/indicators/fms_cdu1_text_line0".
+
+DYNAMIC LINE COUNT / SCRATCHPAD HANDLING:
+Not every aircraft on this dataref family publishes the same number of lines. The stock/default
+FMS publishes a full 14 lines (0-13), one per WinWing grid row, mapped 1:1. The X-Crafts ERJ only
+publishes 9 lines (0-8): lines 0-7 are page content, and line 8 is the scratchpad / text entry
+line, which on the real ERJ MCDU is shown on the bottom-most row of the screen rather than
+directly beneath line 7.
+
+Rather than hardcoding a line count and hardcoding this exception for the ERJ specifically, the
+number of lines an aircraft actually publishes is discovered per-device from the datarefs
+fetch_dataref_mapping() returns (build_line_row_map()). If an aircraft publishes a full 14 lines,
+each one maps directly to the matching grid row, same as before. If it publishes fewer, every line
+except the last maps directly to its matching grid row, and the last (the scratchpad) is mirrored
+to the bottom-most grid row (CDU_ROWS - 1). This lets one script serve both the default FMS and
+reduced implementations like the ERJ's without any aircraft-specific branching.
 
 Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
 
@@ -24,6 +41,7 @@ import base64
 import json
 import logging
 import os
+import re
 import urllib.request
 from enum import StrEnum
 
@@ -42,6 +60,11 @@ BASE_WEBSOCKET_URI = f"ws://{WEBSOCKET_HOST}:8086/api/v2"
 WS_CAPTAIN = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-captain"
 WS_CO_PILOT = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-co-pilot"
 WS_OBSERVER = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-observer"
+
+# Matches the trailing line number on either a text or style dataref name, e.g.
+# ..._text_line3 or ..._style_line12, so the published line count can be derived
+# from whatever datarefs actually exist for a given aircraft/device.
+LINE_PATTERN = re.compile(r"_line(\d+)$")
 
 COLOR_MAP = {
   0: "e",  # Grey instead of black, which doesn't exist
@@ -99,6 +122,40 @@ def fetch_dataref_mapping(device: CduDevice):
         )
 
 
+def build_line_row_map(dataref_map: dict[int, str]) -> dict[int, int]:
+    """
+    Determines which WinWing grid row each FMS dataref line should be rendered on,
+    derived dynamically from whichever lines the aircraft actually publishes (per
+    fetch_dataref_mapping()). This lets the same script support both full 14-line
+    FMS implementations, where every dataref line maps 1:1 to a grid row, and
+    reduced implementations like the ERJ's 9-line FMS, where the last published
+    line is a scratchpad that belongs on the bottom-most row of the display
+    instead of directly after the aircraft's other content lines.
+    """
+    line_numbers = set()
+    for name in dataref_map.values():
+        match = LINE_PATTERN.search(name)
+        if match:
+            line_numbers.add(int(match.group(1)))
+
+    if not line_numbers:
+        return {}
+
+    line_count = max(line_numbers) + 1
+
+    if line_count >= CDU_ROWS:
+        # Full-size FMS: every published line maps directly to the matching grid row.
+        return {line: line for line in range(CDU_ROWS)}
+
+    # Reduced FMS (e.g. the ERJ's 9-line implementation): every line except the
+    # last maps directly to its matching grid row, and the last published line
+    # (the scratchpad) is mirrored to the bottom row of the grid.
+    content_line_count = line_count - 1
+    row_map = {line: line for line in range(content_line_count)}
+    row_map[content_line_count] = CDU_ROWS - 1
+    return row_map
+
+
 def color_from_style(style):
     # According to the documentation
     # (https://developer.x-plane.com/article/datarefs-for-the-cdu-screen/)
@@ -116,32 +173,70 @@ def reverse_video_from_style(style):
     return 1 if style & (1 << 6) else 0
 
 
-def generate_display_json(device: CduDevice, values: dict[str, str | bytes]):
+def render_fms_line(
+    device: CduDevice,
+    values: dict[str, str | bytes],
+    fms_line: int,
+    grid_row: int,
+    display_data: list,
+) -> None:
+    """
+    Renders a single FMS dataref line (fms_line) into a specific row of the
+    WinWing's 14-row display grid (grid_row, 0-13). The FMS line and the grid row
+    don't have to match - this is what lets a scratchpad line be placed on the
+    bottom grid row instead of directly under the aircraft's last content line.
+
+    If we haven't yet received both the text and style values for this FMS line
+    (e.g. during the first update after connecting, before X-Plane has pushed
+    every subscribed dataref), the row is simply left blank instead of raising a
+    KeyError.
+    """
+    text_key = device.get_text_dataref(fms_line)
+    style_key = device.get_style_dataref(fms_line)
+
+    if text_key not in values or style_key not in values:
+        return
+
+    # Strings are sometimes shorter than a full line, so pad with spaces to the expected width.
+    text = values[text_key].ljust(CDU_COLUMNS)
+    style = values[style_key]
+
+    # Style bytes can also arrive shorter than the text they describe; guard
+    # against that so a short style buffer doesn't raise an IndexError either.
+    if len(style) < CDU_COLUMNS:
+        return
+
+    for col in range(CDU_COLUMNS):
+        # The dataref and WinWing both use Unicode, so no conversion
+        # of special characters is necessary.
+        char = text[col]
+        if char == " ":
+            continue
+
+        index = grid_row * CDU_COLUMNS + col
+        color = color_from_style(style[col])
+        size = size_from_style(style[col])
+        reverse_video = reverse_video_from_style(style[col])
+
+        display_data[index] = [char, color, size, reverse_video]
+
+
+def generate_display_json(
+    device: CduDevice,
+    values: dict[str, str | bytes],
+    line_row_map: dict[int, int],
+):
     display_data = [[] for _ in range(CDU_CELLS)]
 
-    for row in range(CDU_ROWS):
-        text = values[device.get_text_dataref(row)]
-        style = values[device.get_style_dataref(row)]
-
-        for col in range(CDU_COLUMNS):
-            index = row * CDU_COLUMNS + col
-
-            # The dataref and WinWing both use Unicode, so no conversion
-            # of special characters is necessary.
-            char = text[col]
-            if char == " ":
-                continue
-
-            color = color_from_style(style[col])
-            size = size_from_style(style[col])
-            reverse_video = reverse_video_from_style(style[col])
-
-            display_data[index] = [char, color, size, reverse_video]
+    for fms_line, grid_row in line_row_map.items():
+        render_fms_line(device, values, fms_line, grid_row, display_data)
 
     return json.dumps({"Target": "Display", "Data": display_data})
 
 
-async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
+async def handle_device_update(
+    queue: asyncio.Queue, device: CduDevice, line_row_map: dict[int, int]
+):
     """
     Translates and sends dataref updates to MobiFlight.
     """
@@ -164,7 +259,7 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
                 if elapsed < rate_limit_time:
                     await asyncio.sleep(rate_limit_time - elapsed)
 
-                display_json = generate_display_json(device, values)
+                display_json = generate_display_json(device, values, line_row_map)
                 await websocket.send(display_json)
                 last_run_time = asyncio.get_running_loop().time()
 
@@ -176,10 +271,11 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
                 break
 
 
-async def handle_dataref_updates(queue: asyncio.Queue, device: CduDevice):
+async def handle_dataref_updates(
+    queue: asyncio.Queue, device: CduDevice, dataref_map: dict[int, str]
+):
     last_known_values = {}
 
-    dataref_map = fetch_dataref_mapping(device)
     logging.info("Connecting to X-Plane websocket server")
     async for websocket in websockets.connect(BASE_WEBSOCKET_URI):
         logging.info("Connected successfully to X-Plane websocket server")
@@ -268,10 +364,17 @@ async def main():
     tasks = []
 
     for device in available_devices:
+        dataref_map = fetch_dataref_mapping(device)
+        line_row_map = build_line_row_map(dataref_map)
+
         queue = asyncio.Queue()
 
-        tasks.append(asyncio.create_task(handle_dataref_updates(queue, device)))
-        tasks.append(asyncio.create_task(handle_device_update(queue, device)))
+        tasks.append(
+            asyncio.create_task(handle_dataref_updates(queue, device, dataref_map))
+        )
+        tasks.append(
+            asyncio.create_task(handle_device_update(queue, device, line_row_map))
+        )
 
     logging.info("Started background tasks for %s", available_devices)
 
