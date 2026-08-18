@@ -29,7 +29,7 @@ using System.ComponentModel;
 using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
-using System.Threading;
+using MobiFlight.Base.Legacy;
 
 namespace MobiFlight.UI
 {
@@ -1150,20 +1150,26 @@ namespace MobiFlight.UI
         // when updating to a new MobiFlight Version
         private void UpgradeSettingsFromPreviousInstallation()
         {
+            // Perform upgrade step after version update
             if (Properties.Settings.Default.UpgradeRequired)
             {
                 try
                 {
                     Properties.Settings.Default.Upgrade();
+
+                    // Perform optional one-time migration step coming from NET4.8 to NET10
+                    UserSettingsMigration.MigrateLegacySettingsIfNeeded();
                 }
                 catch
                 {
                     // If the properties file is corrupted for some reason catch the exception and
                     // reset back to a default version.
-
                     Properties.Settings.Default.Reset();
                 }
+
+                // mark the upgrade as complete so that we don't do this again next time
                 Properties.Settings.Default.UpgradeRequired = false;
+
                 Properties.Settings.Default.StartedTotal += Properties.Settings.Default.Started;
                 Properties.Settings.Default.Started = 0;
                 Properties.Settings.Default.Save();
