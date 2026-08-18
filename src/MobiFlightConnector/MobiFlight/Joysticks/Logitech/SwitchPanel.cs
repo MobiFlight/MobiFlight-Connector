@@ -4,7 +4,7 @@ using System;
 namespace MobiFlight.Joysticks.Logitech
 {
     /// <summary>
-    /// Native raw HID controller for the Logitech/Saitek Switch Panel.
+    /// Native raw HID controller for the Logitech Switch Panel.
     /// </summary>
     internal sealed class SwitchPanel : Joystick
     {
@@ -15,7 +15,7 @@ namespace MobiFlight.Joysticks.Logitech
         private bool Disconnected;
         private bool OpenFailureLogged;
 
-        public override string Name => Definition?.InstanceName ?? "Logitech/Saitek Switch Panel";
+        public override string Name => Definition?.InstanceName ?? "Logitech Switch Panel";
 
         public override string Serial
         {
@@ -93,7 +93,7 @@ namespace MobiFlight.Joysticks.Logitech
                 }
             }
 
-            Log.Instance.log($"{Name} detected: VID:{Device.VendorID:X4} PID:{Device.ProductID:X4} Product:{SafeProductName()} Serial:{Serial} Path:{Device.DevicePath} MaxInputReportLength:{Device.GetMaxInputReportLength()} MaxFeatureReportLength:{Device.GetMaxFeatureReportLength()}", LogSeverity.Debug);
+            Log.Instance.log($"{Name} detected: VID:{Device.VendorID:X4} PID:{Device.ProductID:X4} Serial:{Serial} Path:{Device.DevicePath} MaxInputReportLength:{Device.GetMaxInputReportLength()} MaxFeatureReportLength:{Device.GetMaxFeatureReportLength()}", LogSeverity.Debug);
             return true;
         }
 
@@ -211,18 +211,6 @@ namespace MobiFlight.Joysticks.Logitech
             }
 
             OnDeviceRemoved();
-        }
-
-        private string SafeProductName()
-        {
-            try
-            {
-                return Device.GetProductName();
-            }
-            catch
-            {
-                return "Unknown";
-            }
         }
 
         private string GetDeviceSerialNumber()

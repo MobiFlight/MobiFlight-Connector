@@ -26,7 +26,7 @@ namespace MobiFlight.Joysticks.Tests
         [TestMethod]
         public void CanCreate_SwitchPanelInstanceName_ReturnsTrue()
         {
-            Assert.IsTrue(HidControllerFactory.CanCreate("Logitech/Saitek Switch Panel"));
+            Assert.IsTrue(HidControllerFactory.CanCreate("Logitech Switch Panel"));
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace MobiFlight.Joysticks.Tests
         {
             var definition = new JoystickDefinition
             {
-                InstanceName = "Logitech/Saitek Switch Panel"
+                InstanceName = "Logitech Switch Panel"
             };
 
             var controller = HidControllerFactory.Create(definition);
