@@ -1,46 +1,39 @@
 using HidSharp;
 using System;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MobiFlight.Joysticks.Logitech
 {
     /// <summary>
-    /// Native raw HID controller for the Logitech/Saitek PZ55 Switch Panel.
+    /// Native raw HID controller for the Logitech/Saitek Switch Panel.
     /// </summary>
-    internal sealed class Pz55SwitchPanel : Joystick
+    internal sealed class SwitchPanel : Joystick
     {
-        public const int VendorId = 0x06A3;
-        public const int ProductId = 0x0D67;
-
-        private static readonly (int VendorId, int ProductId)[] SupportedDevices =
-        {
-            (VendorId, ProductId)
-        };
-
         private readonly HidReportReceiver Receiver = new HidReportReceiver();
         private readonly object ConnectionLock = new object();
         private readonly object OutputLock = new object();
-        private readonly string StableSerial;
+        private string CachedSerialNumber;
         private bool Disconnected;
         private bool OpenFailureLogged;
 
-        public override string Name => Definition?.InstanceName ?? "Logitech/Saitek Switch Panel PZ55";
-        public override string Serial => StableSerial;
+        public override string Name => Definition?.InstanceName ?? "Logitech/Saitek Switch Panel";
 
-        public Pz55SwitchPanel(HidDevice device, JoystickDefinition definition) : base(null, definition)
+        public override string Serial
         {
-            Device = device ?? throw new ArgumentNullException(nameof(device));
-            StableSerial = BuildStableSerial(device);
+            get
+            {
+                if (CachedSerialNumber == null && Device != null)
+                {
+                    CachedSerialNumber = GetDeviceSerialNumber() ?? string.Empty;
+                }
+
+                return !string.IsNullOrEmpty(CachedSerialNumber)
+                    ? $"{SerialPrefix}{CachedSerialNumber}"
+                    : $"{Name.ToUpper().Replace(" ", "-")}-1234-ABCD-12345678";
+            }
         }
 
-        /// <summary>
-        /// Returns whether a USB identity is handled by this controller implementation.
-        /// </summary>
-        public static bool IsSupported(int vendorId, int productId)
+        public SwitchPanel(JoystickDefinition definition) : base(null, definition)
         {
-            return SupportedDevices.Any(device => device.VendorId == vendorId && device.ProductId == productId);
         }
 
         public override void Connect(IntPtr handle)
@@ -64,6 +57,18 @@ namespace MobiFlight.Joysticks.Logitech
             {
                 if (Disconnected) return false;
 
+                if (Device == null)
+                {
+                    Device = DeviceList.Local.GetHidDeviceOrNull(
+                        vendorID: Definition.VendorId,
+                        productID: Definition.ProductId);
+                    if (Device == null)
+                    {
+                        Log.Instance.log($"No {Name} found with VID:{Definition.VendorId:X4} and PID:{Definition.ProductId:X4}", LogSeverity.Info);
+                        return false;
+                    }
+                }
+
                 if (Stream == null)
                 {
                     try
@@ -76,7 +81,7 @@ namespace MobiFlight.Joysticks.Logitech
                         if (!OpenFailureLogged)
                         {
                             OpenFailureLogged = true;
-                            Log.Instance.log($"Failed to open PZ55 VID:{Device.VendorID:X4} PID:{Device.ProductID:X4} Path:{Device.DevicePath}: {ex.Message}", LogSeverity.Error);
+                            Log.Instance.log($"Failed to open {Name} VID:{Device.VendorID:X4} PID:{Device.ProductID:X4} Path:{Device.DevicePath}: {ex.Message}", LogSeverity.Error);
                         }
                         return false;
                     }
@@ -84,11 +89,11 @@ namespace MobiFlight.Joysticks.Logitech
 
                 if (!Receiver.IsRunning)
                 {
-                    Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "PZ55-HID-Reader");
+                    Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "SwitchPanel-HID-Reader");
                 }
             }
 
-            Log.Instance.log($"PZ55 detected: VID:{Device.VendorID:X4} PID:{Device.ProductID:X4} Product:{SafeProductName()} Serial:{Serial} Path:{Device.DevicePath} MaxInputReportLength:{Device.GetMaxInputReportLength()} MaxFeatureReportLength:{Device.GetMaxFeatureReportLength()}", LogSeverity.Debug);
+            Log.Instance.log($"{Name} detected: VID:{Device.VendorID:X4} PID:{Device.ProductID:X4} Product:{SafeProductName()} Serial:{Serial} Path:{Device.DevicePath} MaxInputReportLength:{Device.GetMaxInputReportLength()} MaxFeatureReportLength:{Device.GetMaxFeatureReportLength()}", LogSeverity.Debug);
             return true;
         }
 
@@ -110,25 +115,24 @@ namespace MobiFlight.Joysticks.Logitech
         }
 
         /// <summary>
-        /// Converts an absolute PZ55 input report into MobiFlight button state.
+        /// Converts an absolute switch-panel input report into MobiFlight button state.
         /// </summary>
         private void OnReportReceived(HidReport inputReport)
         {
             if (inputReport.ReportId != 0)
             {
-                Log.Instance.log($"Ignoring PZ55 input report with unexpected report ID {inputReport.ReportId:X2}.", LogSeverity.Debug);
+                Log.Instance.log($"Ignoring {Name} input report with unexpected report ID {inputReport.ReportId:X2}.", LogSeverity.Debug);
                 return;
             }
 
-            Log.Instance.log($"PZ55 input report: {BitConverter.ToString(inputReport.Buffer)}", LogSeverity.Debug);
-            var newState = Pz55Report.Parse(inputReport.Payload).ToJoystickState();
+            var newState = SwitchPanelReport.Parse(inputReport.Payload).ToJoystickState();
             UpdateButtons(newState);
             State = newState;
         }
 
         private void OnReadError(Exception exception)
         {
-            Log.Instance.log($"PZ55 read failed, disconnecting {Serial}: {exception.Message}", LogSeverity.Error);
+            Log.Instance.log($"{Name} read failed, disconnecting {Serial}: {exception.Message}", LogSeverity.Error);
             Disconnect();
         }
 
@@ -153,7 +157,7 @@ namespace MobiFlight.Joysticks.Logitech
                 if (!RequiresOutputUpdate || Disconnected) return;
                 if (Stream == null && !ConnectHid()) return;
 
-                var ledState = new Pz55LedState();
+                var ledState = new SwitchPanelLedState();
                 foreach (var light in Lights)
                 {
                     ledState.SetChannel(light.Bit, light.State != 0);
@@ -164,11 +168,11 @@ namespace MobiFlight.Joysticks.Logitech
                 {
                     Stream.SetFeature(featureReport, 0, featureReport.Length);
                     RequiresOutputUpdate = false;
-                    Log.Instance.log($"PZ55 LED output: 0x{ledState.Value:X2}", LogSeverity.Debug);
+                    Log.Instance.log($"{Name} LED output: 0x{ledState.Value:X2}", LogSeverity.Debug);
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.log($"PZ55 LED write failed, disconnecting {Serial}: {ex.Message}", LogSeverity.Error);
+                    Log.Instance.log($"{Name} LED write failed, disconnecting {Serial}: {ex.Message}", LogSeverity.Error);
                     Disconnect();
                 }
             }
@@ -221,28 +225,16 @@ namespace MobiFlight.Joysticks.Logitech
             }
         }
 
-        /// <summary>
-        /// Uses the USB serial when available, otherwise hashes the HID path so multiple
-        /// identical panels can retain distinct controller identities.
-        /// </summary>
-        private static string BuildStableSerial(HidDevice device)
+        private string GetDeviceSerialNumber()
         {
             try
             {
-                var hardwareSerial = device.GetSerialNumber();
-                if (!string.IsNullOrWhiteSpace(hardwareSerial))
-                {
-                    return $"{SerialPrefix}PZ55-{hardwareSerial.Trim()}";
-                }
+                return Device?.GetSerialNumber();
             }
             catch
             {
-                // Most PZ55 panels do not expose a USB serial number.
+                return null;
             }
-
-            var pathBytes = Encoding.UTF8.GetBytes(device.DevicePath ?? $"{device.VendorID:X4}:{device.ProductID:X4}");
-            var pathHash = SHA256.HashData(pathBytes);
-            return $"{SerialPrefix}PZ55-{Convert.ToHexString(pathHash, 0, 8)}";
         }
     }
 }

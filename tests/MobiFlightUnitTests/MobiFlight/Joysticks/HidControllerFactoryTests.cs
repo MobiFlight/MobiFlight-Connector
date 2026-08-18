@@ -24,14 +24,22 @@ namespace MobiFlight.Joysticks.Tests
         }
 
         [TestMethod]
-        public void CanCreate_Pz55VendorAndProductId_ReturnsTrue()
+        public void CanCreate_SwitchPanelInstanceName_ReturnsTrue()
         {
-            Assert.IsTrue(HidControllerFactory.CanCreate(
-                Logitech.Pz55SwitchPanel.VendorId,
-                Logitech.Pz55SwitchPanel.ProductId));
-            Assert.IsFalse(HidControllerFactory.CanCreate(
-                Logitech.Pz55SwitchPanel.VendorId,
-                0xFFFF));
+            Assert.IsTrue(HidControllerFactory.CanCreate("Logitech/Saitek Switch Panel"));
+        }
+
+        [TestMethod]
+        public void Create_SwitchPanelDefinition_ReturnsSwitchPanel()
+        {
+            var definition = new JoystickDefinition
+            {
+                InstanceName = "Logitech/Saitek Switch Panel"
+            };
+
+            var controller = HidControllerFactory.Create(definition);
+
+            Assert.IsInstanceOfType(controller, typeof(Logitech.SwitchPanel));
         }
     }
 }

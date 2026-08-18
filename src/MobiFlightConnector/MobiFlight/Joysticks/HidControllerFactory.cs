@@ -17,31 +17,14 @@ namespace MobiFlight.Joysticks
                 case "EFIS Cube":
                 case "FCU Cube":
                 case "OVHD Cube":
+                case "Logitech/Saitek Switch Panel":
                     return true;
             }
 
             return false;
         }
-        internal static bool CanCreate(int vendorId, int productId)
+        internal static Joystick Create(JoystickDefinition definition)
         {
-            return Logitech.Pz55SwitchPanel.IsSupported(vendorId, productId);
-        }
-
-        internal static bool CanCreateDefinition(JoystickDefinition definition)
-        {
-            return definition != null &&
-                (CanCreate(definition.InstanceName) || CanCreate(definition.VendorId, definition.ProductId));
-        }
-
-        internal static Joystick Create(JoystickDefinition definition, HidSharp.HidDevice hidDevice = null)
-        {
-            if (definition == null) return null;
-
-            if (Logitech.Pz55SwitchPanel.IsSupported(definition.VendorId, definition.ProductId))
-            {
-                return hidDevice == null ? null : new Logitech.Pz55SwitchPanel(hidDevice, definition);
-            }
-
             Joystick result = null;
             switch (definition.InstanceName)
             {
@@ -56,6 +39,9 @@ namespace MobiFlight.Joysticks
                     break;
                 case "OVHD Cube":
                     result = new WingFlex.OvhdCube(definition);
+                    break;
+                case "Logitech/Saitek Switch Panel":
+                    result = new Logitech.SwitchPanel(definition);
                     break;
             }
 

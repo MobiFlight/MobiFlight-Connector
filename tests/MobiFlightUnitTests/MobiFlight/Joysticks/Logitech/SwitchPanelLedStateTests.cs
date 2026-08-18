@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MobiFlight.Joysticks.Logitech.Tests
 {
     [TestClass]
-    public class Pz55LedStateTests
+    public class SwitchPanelLedStateTests
     {
         [TestMethod]
         [DataRow(0x00)]
@@ -21,8 +21,8 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         [DataRow(0x3F)]
         public void ToFeatureReport_SerializesIndependentLedChannels(int expectedValue)
         {
-            var state = new Pz55LedState();
-            for (var channel = 0; channel < Pz55LedState.ChannelCount; channel++)
+            var state = new SwitchPanelLedState();
+            for (var channel = 0; channel < SwitchPanelLedState.ChannelCount; channel++)
             {
                 state.SetChannel(channel, (expectedValue & (1 << channel)) != 0);
             }
@@ -33,7 +33,7 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         [TestMethod]
         public void SetChannel_ClearsOnlySelectedChannel()
         {
-            var state = new Pz55LedState();
+            var state = new SwitchPanelLedState();
             state.SetChannel(0, true);
             state.SetChannel(3, true);
             state.SetChannel(0, false);
@@ -43,10 +43,10 @@ namespace MobiFlight.Joysticks.Logitech.Tests
 
         [TestMethod]
         [DataRow(-1)]
-        [DataRow(Pz55LedState.ChannelCount)]
+        [DataRow(SwitchPanelLedState.ChannelCount)]
         public void SetChannel_InvalidChannel_Throws(int channel)
         {
-            var state = new Pz55LedState();
+            var state = new SwitchPanelLedState();
 
             Assert.ThrowsExactly<System.ArgumentOutOfRangeException>(() => state.SetChannel(channel, true));
         }

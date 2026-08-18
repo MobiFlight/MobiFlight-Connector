@@ -4,15 +4,14 @@ using System;
 namespace MobiFlight.Joysticks.Logitech.Tests
 {
     [TestClass]
-    public class Pz55ReportTests
+    public class SwitchPanelReportTests
     {
         [TestMethod]
         public void Parse_EmptyState_HasNoActiveInputs()
         {
-            var state = Pz55Report.Parse(new byte[] { 0x00, 0x00, 0x00 }).ToJoystickState();
+            var state = SwitchPanelReport.Parse(new byte[] { 0x00, 0x00, 0x00 }).ToJoystickState();
 
-            Assert.HasCount(Pz55Report.ButtonCount, state.Buttons);
-            for (var index = 0; index < state.Buttons.Length; index++)
+            for (var index = 0; index < SwitchPanelReport.ButtonCount; index++)
             {
                 Assert.IsFalse(state.Buttons[index], $"Button {index} should be inactive.");
             }
@@ -41,9 +40,9 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         [DataRow(0x00, 0x00, 0x08, 19)]
         public void Parse_MapsReportBitsToStableButtonIds(int byte0, int byte1, int byte2, int expectedButton)
         {
-            var state = Pz55Report.Parse(new[] { (byte)byte0, (byte)byte1, (byte)byte2 }).ToJoystickState();
+            var state = SwitchPanelReport.Parse(new[] { (byte)byte0, (byte)byte1, (byte)byte2 }).ToJoystickState();
 
-            for (var index = 0; index < state.Buttons.Length; index++)
+            for (var index = 0; index < SwitchPanelReport.ButtonCount; index++)
             {
                 Assert.AreEqual(index == expectedButton, state.Buttons[index], $"Unexpected state for button {index}.");
             }
@@ -52,7 +51,7 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         [TestMethod]
         public void Parse_PreservesSimultaneousMaintainedSwitchStates()
         {
-            var state = Pz55Report.Parse(new byte[] { 0x03, 0x11, 0x08 }).ToJoystickState();
+            var state = SwitchPanelReport.Parse(new byte[] { 0x03, 0x11, 0x08 }).ToJoystickState();
 
             Assert.IsTrue(state.Buttons[0]);
             Assert.IsTrue(state.Buttons[1]);
@@ -64,13 +63,13 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         [TestMethod]
         public void Parse_ShortPayload_Throws()
         {
-            Assert.ThrowsExactly<ArgumentException>(() => Pz55Report.Parse(new byte[] { 0x00, 0x00 }));
+            Assert.ThrowsExactly<ArgumentException>(() => SwitchPanelReport.Parse(new byte[] { 0x00, 0x00 }));
         }
 
         [TestMethod]
         public void Parse_PaddedPayload_IgnoresTrailingBytes()
         {
-            var state = Pz55Report.Parse(new byte[] { 0x01, 0x00, 0x00, 0xFF }).ToJoystickState();
+            var state = SwitchPanelReport.Parse(new byte[] { 0x01, 0x00, 0x00, 0xFF }).ToJoystickState();
 
             Assert.IsTrue(state.Buttons[0]);
             Assert.IsFalse(state.Buttons[19]);

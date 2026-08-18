@@ -5,7 +5,7 @@ namespace MobiFlight.Joysticks.Logitech
     /// <summary>
     /// Composes the six independent red/green gear LED channels into report ID zero.
     /// </summary>
-    internal sealed class Pz55LedState
+    internal sealed class SwitchPanelLedState
     {
         public const byte ReportId = 0;
         public const int FeatureReportLength = 2;

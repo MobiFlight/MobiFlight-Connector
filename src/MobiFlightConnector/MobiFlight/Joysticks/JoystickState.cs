@@ -19,13 +19,9 @@ namespace MobiFlight.Joysticks
         public int[] PointOfViewControllers { get; internal set; }
         public BitArray Buttons { get; protected set; }
 
-        public JoystickState() : this(256)
+        public JoystickState()
         {
-        }
-
-        public JoystickState(int buttonCount)
-        {
-            Buttons = new BitArray(buttonCount);
+            Buttons = new BitArray(256);
             Sliders = new int[2];
             PointOfViewControllers = new int[4];
         }

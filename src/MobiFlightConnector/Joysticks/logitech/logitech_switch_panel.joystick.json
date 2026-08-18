@@ -1,6 +1,6 @@
 {
   "$schema": "../mfjoystick.schema.json",
-  "InstanceName": "Logitech/Saitek Switch Panel PZ55",
+  "InstanceName": "Logitech/Saitek Switch Panel",
   "VendorId": "0x06A3",
   "ProductId": "0x0D67",
   "Inputs": [
