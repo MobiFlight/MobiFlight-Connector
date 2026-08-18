@@ -48,7 +48,7 @@ namespace MobiFlight.Joysticks.Logitech
         }
 
         /// <summary>
-        /// Opens the exact HidSharp device selected during enumeration and starts its
+        /// Finds the HidSharp device matching the definition's VID/PID and starts its
         /// dedicated blocking report reader.
         /// </summary>
         private bool ConnectHid()
