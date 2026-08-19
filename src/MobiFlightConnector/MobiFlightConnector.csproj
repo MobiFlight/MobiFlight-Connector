@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<UseWindowsForms>true</UseWindowsForms>
@@ -16,6 +16,7 @@
 		<Description>Open Source Flight Simulator Solution</Description>
 		<Product>MobiFlight Connector</Product>
 		<Copyright>Copyright Sebastian Moebius 2014 - 2026</Copyright>
+        <Company>MobiFlight</Company>
 		<ApplicationIcon>mobiflight.ico</ApplicationIcon>
 	</PropertyGroup>
 
