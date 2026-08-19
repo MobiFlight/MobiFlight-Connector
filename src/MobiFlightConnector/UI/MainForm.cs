@@ -275,7 +275,7 @@ namespace MobiFlight.UI
                     Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
                     return;
                 }
-                Process.Start(message.Url);
+                ProcessHelpers.OpenUrl(message.Url);
             });
 
             MessageExchange.Instance.Subscribe<CommandControllerBindingsUpdate>((message) =>
@@ -791,7 +791,7 @@ namespace MobiFlight.UI
             wd.WebsiteUrl = $"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}";
             wd.ReleaseNotesClicked += (sender, e) =>
             {
-                Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
+                ProcessHelpers.OpenUrl($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
             };
 
             wd.StartPosition = FormStartPosition.CenterParent;
@@ -2502,12 +2502,12 @@ namespace MobiFlight.UI
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(i18n._tr("WebsiteUrlHelp"));
+            ProcessHelpers.OpenUrl(i18n._tr("WebsiteUrlHelp"));
         }
 
         public void donateToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
+            ProcessHelpers.OpenUrl("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
         }
 
         /// <summary>
@@ -2777,7 +2777,7 @@ namespace MobiFlight.UI
 
         public void openDiscordServer_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.gg/U28QeEJpBV");
+            ProcessHelpers.OpenUrl("https://discord.gg/U28QeEJpBV");
         }
 
         private void StatusBarToolStripButton_Click(object sender, EventArgs e)
@@ -2787,17 +2787,17 @@ namespace MobiFlight.UI
 
         public void YouTubeToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
+            ProcessHelpers.OpenUrl("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
         }
 
         public void HubHopToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://hubhop.mobiflight.com/");
+            ProcessHelpers.OpenUrl("https://hubhop.mobiflight.com/");
         }
 
         public void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
+            ProcessHelpers.OpenUrl($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
         }
 
         public static bool ContainsConfigOfSourceType(List<IConfigItem> configItems, Source type)
