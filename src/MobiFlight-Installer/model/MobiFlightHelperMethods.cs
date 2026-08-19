@@ -79,9 +79,7 @@ namespace MobiFlightInstaller
             var companyName = versionInfo.CompanyName;
 
             // The new config path doesn't contain .dll or .exe in the folder name, so we strip these out in the string.
-            var exeName = versionInfo.OriginalFilename
-                .Replace(".dll", string.Empty)
-                .Replace(".exe", string.Empty);
+            var exeName = Path.GetFileNameWithoutExtension(versionInfo.OriginalFilename);
 
             var assemblyName = AssemblyName.GetAssemblyName(fullExePath);
             var version = assemblyName.Version.ToString();
