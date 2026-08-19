@@ -132,7 +132,7 @@ namespace MobiFlight.UpdateChecker
                     dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta //Show "DisableBetaButton" if update from stable to beta
                         && Properties.Settings.Default.BetaUpdates;
                     dialog.Text = $"{i18n._tr("uiMessageNewUpdateAvailable")} - MobiFlight {releaseVersion}{releaseLabel} - Release Notes";
-                    dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
+                    dialog.ReleaseNotesClicked += (sender, e) => ProcessHelpers.OpenUrl(releaseUrl);
                     dialog.DisableBetaClicked += (sender, e) =>
                     {
                         Properties.Settings.Default.BetaUpdates = false;
