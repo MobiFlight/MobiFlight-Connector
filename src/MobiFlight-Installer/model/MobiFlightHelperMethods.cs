@@ -12,12 +12,13 @@ namespace MobiFlightInstaller
 {
     static public class MobiFlightHelperMethods
     {
+        public const string ProcessName = "MFConnector";
+
         private static string[] FilePathCandidates = new string[2] {
             Path.Combine(Directory.GetCurrentDirectory(), $"{ProcessName}.dll"),
             Path.Combine(Directory.GetCurrentDirectory(), $"{ProcessName}.exe"),
         };
 
-        public static readonly string ProcessName = "MFConnector";
         public static readonly string OptionBetaEnableSearch = "/configuration/userSettings/MobiFlight.Properties.Settings/setting[@name='BetaUpdates']";
         static Char[] s_Base32Char = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -76,7 +77,11 @@ namespace MobiFlightInstaller
 
             var versionInfo = FileVersionInfo.GetVersionInfo(fullExePath);
             var companyName = versionInfo.CompanyName;
-            var exeName = versionInfo.OriginalFilename;
+
+            // The new config path doesn't contain .dll or .exe in the folder name, so we strip these out in the string.
+            var exeName = versionInfo.OriginalFilename
+                .Replace(".dll", string.Empty)
+                .Replace(".exe", string.Empty);
 
             var assemblyName = AssemblyName.GetAssemblyName(fullExePath);
             var version = assemblyName.Version.ToString();
