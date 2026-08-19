@@ -37,7 +37,7 @@ namespace MobiFlight.Base.Legacy
                 string legacyConfigPath = FindMostRecentLegacyConfigPath(companyFolder, LegacyFolderPrefix, currentVersion);
                 if (legacyConfigPath == null)
                 {
-                    Log.Instance.log("No legacy user.config files found for migration.", LogSeverity.Debug);
+                    Log.Instance.log("No legacy user.config files found for migration.", LogSeverity.Info);
                 }
 
                 foreach (var setting in ParseLegacySettings(legacyConfigPath))
@@ -51,9 +51,9 @@ namespace MobiFlight.Base.Legacy
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Log.Instance.log($"Exception during user.config migration: {ex}", LogSeverity.Debug);
+                Log.Instance.log($"Exception during user.config migration: {ex}", LogSeverity.Error);
             }
 
             // in all cases mark as migrated so we don't keep scanning for legacy configs on every startup
