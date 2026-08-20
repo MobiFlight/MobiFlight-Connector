@@ -56,12 +56,6 @@ namespace MobiFlightInstaller
                         Log.Instance.log("ExternAskToCheckLastVersion START from args -> Check BETA " + cmdParams.CheckBeta, LogSeverity.Debug);
                         MobiFlightUpdaterModel.ExternAskToCheckLastVersion(cmdParams.CheckBeta);
                     }
-                    // expert mode, start interface to choose version
-                    else if (cmdParams.ExpertMode)
-                    {
-                        Log.Instance.log("EXPERT mode enable", LogSeverity.Debug);
-                        Application.Run(new UI.ExpertMainForm());
-                    }
                     else
                     {
                         Environment.Exit(0);

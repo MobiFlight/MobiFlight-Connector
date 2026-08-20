@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-    Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -75,12 +74,6 @@
     </Compile>
     <Compile Include="model\Log.cs" />
     <Compile Include="model\MobiFlightHelperMethods.cs" />
-    <Compile Include="UI\ExpertMainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ExpertMainForm.Designer.cs">
-      <DependentUpon>ExpertMainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="model\MobiFlightUpdaterModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,9 +94,6 @@
     <EmbeddedResource Include="lang\i18n_Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>i18n_Messages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ExpertMainForm.resx">
-      <DependentUpon>ExpertMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
