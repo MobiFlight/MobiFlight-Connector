@@ -143,7 +143,12 @@ namespace MobiFlight.UpdateChecker
                     {
                         try
                         {
-                            Process.Start(mobiFlightInstaller, "/install " + newVersion);
+                            var argumentToSend = $"/install {newVersion}";
+                            if (Properties.Settings.Default.BetaUpdates)
+                            {
+                                argumentToSend += " /beta";
+                            }
+                            Process.Start(mobiFlightInstaller, argumentToSend);
                             Environment.Exit(0);
                         }
                         catch (Exception ex)

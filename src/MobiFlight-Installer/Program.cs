@@ -49,7 +49,7 @@ namespace MobiFlightInstaller
                     if (cmdParams.Install != null)
                     {
                         Log.Instance.log("ManualUpgradeFromCommandLine START from args -> " + cmdParams.Install, LogSeverity.Debug);
-                        Application.Run(new UI.UpdaterMainForm());
+                        Application.Run(new UI.UpdaterMainForm(cmdParams.CheckBeta));
                     }
                     else if (cmdParams.Check || cmdParams.CheckBeta)
                     {
