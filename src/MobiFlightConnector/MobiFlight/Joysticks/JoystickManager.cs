@@ -39,10 +39,7 @@ namespace MobiFlight
         private IntPtr Handle;
 
         // Websocket Server on port 8320, not yet started
-        WebSocketServer WSServer = new WebSocketServer(System.Net.IPAddress.Loopback, 8320)
-        {
-            WaitTime = TimeSpan.FromSeconds(10)
-        };
+        WebSocketServer WSServer = new WebSocketServer(System.Net.IPAddress.Loopback, 8320);
 
         public JoystickManager()
         {

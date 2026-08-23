@@ -34,6 +34,7 @@
     <PackageVersion Include="System.Net.WebSockets.Client.Managed" Version="1.0.22" />
     <PackageVersion Include="System.Reactive" Version="6.1.0" />
     <PackageVersion Include="System.Reflection.Metadata" Version="10.0.9" />
+    <PackageVersion Include="websocket-sharp.net" Version="1.0.3.3" />
     <PackageVersion Include="WebSocketSharp-netstandard" Version="1.0.1" />
     <PackageVersion Include="XPlaneConnector" Version="1.3.0" />
   </ItemGroup>
