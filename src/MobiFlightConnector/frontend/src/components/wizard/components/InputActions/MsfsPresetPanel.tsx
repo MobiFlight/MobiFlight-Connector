@@ -12,7 +12,8 @@ import { Preset, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useVirtualizer } from "@tanstack/react-virtual"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import LoadingSpinner from "../LoadingSpinner"
 export type MsfsPresetPanelProps = {
@@ -30,6 +31,7 @@ const MsfsPresetPanel = ({
   const { t } = useTranslation()
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
+  const viewportRef = useRef<HTMLDivElement | null>(null)
   const SCROLL_INTO_VIEW_TIMEOUT = 800
   const refActiveElement = useRef<HTMLDivElement | null>(null)
   const scrollTimeoutRef = useRef<number | null>(null)
@@ -52,25 +54,29 @@ const MsfsPresetPanel = ({
       }, SCROLL_INTO_VIEW_TIMEOUT)
     }
   }, [refActiveElement, scrollTimeoutRef])
-  const validPresetTypes =
-    variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
+ 
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-  const projectAircraftFilter = (p: Preset) =>
+
+  const validPresets = useMemo(() => {
+      const projectAircraftFilter = (p: Preset) =>
     (project?.Aircraft?.length ?? 0) > 0
       ? project!.Aircraft!.some(
           (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
         )
       : true
-  const validPresets = presets.filter(
-    (p: Preset) =>
-      validPresetTypes.includes(p.presetType.toLowerCase()) &&
-      (favoritesOnly ? projectAircraftFilter(p) : true),
-  )
+       const validPresetTypes =
+    variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
+    return presets.filter(
+      (p: Preset) =>
+        validPresetTypes.includes(p.presetType.toLowerCase()) &&
+        (favoritesOnly ? projectAircraftFilter(p) : true),
+    )
+  }, [presets, favoritesOnly, project, variant]);
   const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
@@ -78,13 +84,15 @@ const MsfsPresetPanel = ({
     system: selectedPreset?.system || "",
     search: "",
   })
-  const filteredPresets = validPresets.filter(
-    (p) =>
-      (filter.vendor ? p.vendor === filter.vendor : true) &&
-      (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
-      (filter.system ? p.system === filter.system : true) &&
-      filterPresetByText(p, filter.search),
-  )
+  const filteredPresets = useMemo(() => {
+    return validPresets.filter(
+      (p) =>
+        (filter.vendor ? p.vendor === filter.vendor : true) &&
+        (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
+        (filter.system ? p.system === filter.system : true) &&
+        filterPresetByText(p, filter.search),
+    )
+  }, [validPresets, filter])
   const filteredCategoryPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
@@ -121,6 +129,20 @@ const MsfsPresetPanel = ({
       ...(filter.vendor ? [filter.vendor] : []),
     ]),
   ].sort()
+
+  const getPresetKey = useCallback(
+    (index: number) => filteredPresets[index].id ?? index,
+    [filteredPresets],
+  )
+
+  const rowVirtualizer = useVirtualizer({
+    count: filteredPresets.length,
+    getScrollElement: () => viewportRef.current,
+    estimateSize: () => 48,
+    overscan: 8,
+    getItemKey: getPresetKey,
+    enabled: !isLoading,
+  })
 
   useEffect(() => {
     if (!refActiveElement.current) return
@@ -254,19 +276,34 @@ const MsfsPresetPanel = ({
           {isLoading ? <LoadingSpinner /> :(
           <ScrollArea
             className="h-56"
+            viewportRef={viewportRef}
             onMouseEnter={cancelScrollIntoView}
             onMouseLeave={scrollActivePresetIntoView}
           >
-            <div className="flex flex-col gap-1" role="list">
-              {filteredPresets.map((preset) => (
-                <PresetListItem
-                  ref={preset.id === selectedPresetId ? refActiveElement : null}
-                  key={preset.id}
-                  preset={preset}
-                  isSelected={preset.id === selectedPresetId}
-                  setSelectedPreset={setSelectedPreset}
-                />
-              ))}
+        <div
+              role="list"
+              className="relative w-full"
+              style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+            >
+              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const preset = filteredPresets[virtualRow.index]
+                return (
+                  <div
+                    key={virtualRow.key}
+                    ref={rowVirtualizer.measureElement}
+                    data-index={virtualRow.index}
+                    className="absolute top-0 left-0 w-full pb-1"
+                    style={{ transform: `translateY(${virtualRow.start}px)` }}
+                  >
+                    <PresetListItem
+                      ref={preset.id === selectedPresetId ? refActiveElement : null}
+                      preset={preset}
+                      isSelected={preset.id === selectedPresetId}
+                      setSelectedPreset={setSelectedPreset}
+                    />
+                  </div>
+                )
+              })}
             </div>
           </ScrollArea>
         )}
