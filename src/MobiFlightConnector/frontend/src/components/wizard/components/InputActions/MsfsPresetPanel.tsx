@@ -54,7 +54,7 @@ const MsfsPresetPanel = ({
       }, SCROLL_INTO_VIEW_TIMEOUT)
     }
   }, [refActiveElement, scrollTimeoutRef])
- 
+
   const { data: presets = [] /*, isLoading */ } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
@@ -63,20 +63,20 @@ const MsfsPresetPanel = ({
   })
 
   const validPresets = useMemo(() => {
-      const projectAircraftFilter = (p: Preset) =>
-    (project?.Aircraft?.length ?? 0) > 0
-      ? project!.Aircraft!.some(
-          (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
-        )
-      : true
-       const validPresetTypes =
-    variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
+    const projectAircraftFilter = (p: Preset) =>
+      (project?.Aircraft?.length ?? 0) > 0
+        ? project!.Aircraft!.some(
+            (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
+          )
+        : true
+    const validPresetTypes =
+      variant === "input" ? ["input", "input (potentiometer)"] : ["output"]
     return presets.filter(
       (p: Preset) =>
         validPresetTypes.includes(p.presetType.toLowerCase()) &&
         (favoritesOnly ? projectAircraftFilter(p) : true),
     )
-  }, [presets, favoritesOnly, project, variant]);
+  }, [presets, favoritesOnly, project, variant])
   const selectedPreset = validPresets.find((p) => p.id === selectedPresetId)
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
@@ -273,40 +273,46 @@ const MsfsPresetPanel = ({
           </div>
         </div>
         <div className="-mt-3 flex flex-col gap-2">
-          {isLoading ? <LoadingSpinner /> :(
-          <ScrollArea
-            className="h-56"
-            viewportRef={viewportRef}
-            onMouseEnter={cancelScrollIntoView}
-            onMouseLeave={scrollActivePresetIntoView}
-          >
-        <div
-              role="list"
-              className="relative w-full"
-              style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <ScrollArea
+              className="h-56"
+              viewportRef={viewportRef}
+              onMouseEnter={cancelScrollIntoView}
+              onMouseLeave={scrollActivePresetIntoView}
             >
-              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                const preset = filteredPresets[virtualRow.index]
-                return (
-                  <div
-                    key={virtualRow.key}
-                    ref={rowVirtualizer.measureElement}
-                    data-index={virtualRow.index}
-                    className="absolute top-0 left-0 w-full pb-1"
-                    style={{ transform: `translateY(${virtualRow.start}px)` }}
-                  >
-                    <PresetListItem
-                      ref={preset.id === selectedPresetId ? refActiveElement : null}
-                      preset={preset}
-                      isSelected={preset.id === selectedPresetId}
-                      setSelectedPreset={setSelectedPreset}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-          </ScrollArea>
-        )}
+              <div
+                role="list"
+                className="relative w-full"
+                style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+              >
+                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                  const preset = filteredPresets[virtualRow.index]
+                  return (
+                    <div
+                      key={virtualRow.key}
+                      ref={rowVirtualizer.measureElement}
+                      data-index={virtualRow.index}
+                      className="absolute top-0 left-0 w-full pb-1"
+                      style={{ transform: `translateY(${virtualRow.start}px)` }}
+                    >
+                      <PresetListItem
+                        ref={
+                          preset.id === selectedPresetId
+                            ? refActiveElement
+                            : null
+                        }
+                        preset={preset}
+                        isSelected={preset.id === selectedPresetId}
+                        setSelectedPreset={setSelectedPreset}
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            </ScrollArea>
+          )}
         </div>
       </CardContent>
     </Card>
