@@ -1,56 +1,65 @@
 import { cn } from "@/lib/utils"
-import { useSortable } from "@dnd-kit/sortable"
+import { useSortable } from "@dnd-kit/react/sortable"
 import React, { CSSProperties } from "react"
-import { CSS } from "@dnd-kit/utilities"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
+
+import { RowInteractionProvider } from "./RowInteractionContext"
 
 interface DndTableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   "dnd-itemid": string
+  "dnd-index": number
 }
 
 export const DndTableRow: React.FC<DndTableRowProps> = ({
   className,
+  children,
   ...props
 }) => {
   const { dragState } = useConfigItemDragContext()
 
-  const { setNodeRef, transform, transition, active, listeners } = useSortable({
+  const { ref, isDragSource } = useSortable({
     id: props["dnd-itemid"],
+    index: props["dnd-index"],
     data: { type: "row" },
   })
 
   const dndStyle: CSSProperties = {
-    transform: CSS.Transform.toString(transform),
-    transition,
     zIndex: 1000,
   }
 
-  const isDragging =
+  const isSelectedDragging =
     dragState?.items?.draggedItems
       ?.map((item) => item.GUID)
       .includes(props["dnd-itemid"]) ?? false
-  const isActive = active?.id === props["dnd-itemid"]
+
+  const isActive = isDragSource
   const isInTable = dragState?.ui.isInsideTable ?? true
-  const dragStyle = isDragging
+
+  const dragStyle = isSelectedDragging
     ? isActive
       ? "opacity-0"
       : "opacity-0 collapse"
     : ""
-  const outsideTableStyle = !isInTable && isDragging ? "opacity-0 collapse" : ""
+
+  const outsideTableStyle =
+    !isInTable && isSelectedDragging ? "opacity-0 collapse" : ""
 
   return (
-    <tr
-      style={dndStyle}
-      ref={setNodeRef}
-      {...listeners}
-      className={cn(
-        "group/row bg-background hover:bg-selected/45 data-[state=selected]:bg-selected/45 data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected/45 dark:data-[state=selected]:hover:bg-selected border-b transition-colors",
-        dragStyle,
-        outsideTableStyle,
-        className,
-      )}
-      {...props}
-    />
+    <RowInteractionProvider>
+      <tr
+        {...props}
+        style={dndStyle}
+        ref={ref}
+        className={cn(
+          "group/row bg-background hover:bg-selected/45 data-[state=selected]:bg-selected/45 data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected/45 dark:data-[state=selected]:hover:bg-selected border-b transition-colors cursor-grab active:cursor-grabbing",
+          dragStyle,
+          outsideTableStyle,
+          className,
+        )}
+      >
+        {children}
+      </tr>
+    </RowInteractionProvider>
   )
 }
 

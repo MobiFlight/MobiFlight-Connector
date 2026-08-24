@@ -1,13 +1,13 @@
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import { cn } from "@/lib/utils"
-import { useDroppable } from "@dnd-kit/core"
+import { useDroppable } from "@dnd-kit/react"
 import { useTranslation } from "react-i18next"
 
 const ConfigItemNoResultsDroppable = () => {
   const { t } = useTranslation()
   const { dragState } = useConfigItemDragContext()
 
-  const { setNodeRef, isOver } = useDroppable({
+  const { ref, isDropTarget  } = useDroppable({
     id: "no-results-droppable",
     data: {
       type: "placeholder",
@@ -15,7 +15,7 @@ const ConfigItemNoResultsDroppable = () => {
   })
   return (
     <div
-      ref={setNodeRef}
+      ref={ref}
       className="border-primary flex flex-col rounded-lg border-2 border-solid"
     >
       <div className="bg-primary h-12 dark:bg-blue-950"></div>
@@ -28,7 +28,7 @@ const ConfigItemNoResultsDroppable = () => {
           <div
             className={cn(
               "text-md rounded-sm border-2 border-dashed p-1 font-medium",
-              isOver && "bg-accent",
+              isDropTarget  && "bg-accent",
             )}
           >
             {t("ConfigList.Table.DropHereToAdd")}
