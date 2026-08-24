@@ -33,7 +33,7 @@ namespace MobiFlight
         public readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
-        private readonly Timer PollTimer = new Timer(); 
+        private readonly Timer PollTimer = new Timer();
         private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
         private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
         private IntPtr Handle;
@@ -79,7 +79,7 @@ namespace MobiFlight
             var schemaFilePath = "Joysticks/mfjoystick.schema.json";
 
             var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(
-                jsonFiles, 
+                jsonFiles,
                 schemaFilePath,
                 onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Debug),
                 onError: () => LoadingError = true
@@ -203,7 +203,7 @@ namespace MobiFlight
                 var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
                 var productId = diJoystick.Properties.ProductId;
                 var vendorId = diJoystick.Properties.VendorId;
-                
+
                 // Check if this device should be handled later as an HID controller
                 if (HidControllerFactory.CanCreate(d.InstanceName))
                 {
@@ -218,7 +218,7 @@ namespace MobiFlight
 
                 // Use factory to create appropriate controller instance
                 var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, WSServer);
-                
+
                 // If factory returns null, create a standard Joystick
                 if (js == null)
                 {
@@ -269,13 +269,17 @@ namespace MobiFlight
             // Try to get definition by product name first, then by product ID
             return GetDefinitionByInstanceName(productName) ?? GetDefinitionByProductId(vendorId, productId);
         }
-
+        internal static bool ShouldConnectHidJoystick(string joystickName,List<string> excludedJoysticks)
+        {
+            return !excludedJoysticks.Contains(joystickName);
+        }
         private void ConnectHidController()
         {
             try
             {
                 var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
                 Log.Instance.log($"Found {allHidDevices.Count} HID devices, checking for supported devices", LogSeverity.Debug);
+                List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
                 allHidDevices.ForEach(hidDevice =>
                 {
@@ -293,16 +297,21 @@ namespace MobiFlight
                         var joystick = HidControllerFactory.Create(definition);
 
                         if (joystick == null) return;
-
-                        joystick.Connect(new IntPtr());
-                        joystick.OnButtonPressed += Js_OnButtonPressed;
-                        joystick.OnDisconnected += Js_OnDisconnected;
-                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                        // Check against exclusion list
+                        if (ShouldConnectHidJoystick(
+                                               joystick.Name,
+                                            settingsExcludedJoysticks))
                         {
-                            Log.Instance.log($"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.", LogSeverity.Error);
-                            return;
+                            joystick.Connect(new IntPtr());
+                            Joysticks.TryAdd(joystick.Serial, joystick);
                         }
-                        Log.Instance.log($"Connected HID device: {definition.InstanceName} / {joystick.Serial}", LogSeverity.Info);
+                        else
+                        {
+                            Log.Instance.log(
+                                $"Ignore attached joystick device: {joystick.Name}.",
+                                LogSeverity.Info
+                            );
+                        }
                     }
                     catch (Exception ex)
                     {
