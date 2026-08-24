@@ -114,6 +114,7 @@ export const ToastNotificationHandler = () => {
             } as CommandMainMenu)
           },
         },
+        onCancel: () => {},
       })
     }
 
