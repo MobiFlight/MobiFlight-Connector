@@ -115,6 +115,8 @@ export const VariablePanel = ({
                 )}
               </Label>
               <ComboBox
+                widthClass="w-26"
+                align="start"
                 items={variableTypeOptions}
                 getLabel={(item) => item.label}
                 getValue={(item) => item.value}
@@ -143,6 +145,7 @@ export const VariablePanel = ({
                 )}
               </Label>
               <Input
+                className="w-auto"
                 value={variable?.Name ?? ""}
                 onChange={(e) => {
                   onVariableChange({
