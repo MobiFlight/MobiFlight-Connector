@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState, useRef } from "react"
 import { DragDropProvider } from "@dnd-kit/react"
 import { DragOperation, Modifier } from "@dnd-kit/abstract"
 import {
@@ -44,7 +44,7 @@ class DynamicModifier extends Modifier<
         x: 0,
       }
 
-      if (!shape || !target?.shape  || !tableContainerRef) {
+      if (!shape || !target?.shape || !tableContainerRef) {
         return transform
       }
 
@@ -112,6 +112,7 @@ export function ConfigItemDragProvider({
 }: ConfigItemDragProviderProps) {
   // State: Current table instance (set by ConfigItemTable when it mounts)
   const [table, setTable] = useState<Table<IConfigItem> | null>(null)
+  const lastValidOverIdRef = useRef<string | null>(null)
 
   // State: Current drag operation (null when not dragging)
   const [dragState, setDragState] = useState<DragState | null>(null)
@@ -185,6 +186,7 @@ export function ConfigItemDragProvider({
   }
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
+      lastValidOverIdRef.current = null
       const operation = event.operation
       console.log("🚀 Drag start - Initial config:", initialConfigIndex)
       const id = operation.source?.id
@@ -255,23 +257,35 @@ export function ConfigItemDragProvider({
     [table, initialConfigIndex],
   )
 
-  const moveItemsToHoveredTab = useCallback((hoveredTabIndex: number) => {
-    setDragState((prev) =>
-      prev
-        ? {
-            ...prev,
-            configs: {
-              ...prev.configs,
-              current: hoveredTabIndex,
-            },
-            ui: {
-              ...prev.ui,
-              hoveredTabIndex,
-            },
-          }
-        : null,
-    )
-  }, [])
+  const moveItemsToHoveredTab = useCallback(
+    (hoveredTabIndex: number) => {
+      if (!dragState) return
+
+      moveItemsBetweenConfigs(
+        dragState.items.draggedItems,
+        dragState.configs.current,
+        hoveredTabIndex,
+        0,
+      )
+
+      setDragState((prev) =>
+        prev
+          ? {
+              ...prev,
+              configs: {
+                ...prev.configs,
+                current: hoveredTabIndex,
+              },
+              ui: {
+                ...prev.ui,
+                hoveredTabIndex,
+              },
+            }
+          : null,
+      )
+    },
+    [dragState, moveItemsBetweenConfigs],
+  )
 
   /**
    * Simplified drag cancellation - restore items to initial config
@@ -326,22 +340,32 @@ export function ConfigItemDragProvider({
         return
       }
 
-      const active = operation.source
-      const over = operation.target
-      const activeId = active?.id
-      const overId = over?.id
-      console.log("🎯 Drag end:", {
-        activeId: activeId,
-        overId: overId,
-        dragState,
+      const activeId = operation.source?.id
+      const overId = operation.target?.id
+
+      const effectiveOverId =
+  overId === activeId && lastValidOverIdRef.current !== null
+    ? lastValidOverIdRef.current
+    : overId !== undefined
+      ? String(overId)
+      : undefined
+
+      console.log("🎯 Drag end target:", {
+        activeId,
+        overId,
+        lastValidOverId: lastValidOverIdRef.current,
+        effectiveOverId,
       })
 
       // Clean up: Always clear drag state when drag ends
       const currentDragState = dragState
-      setDragState(null)
 
       // Validate the drag operation
-      const validation = validateDragEnd(event, currentDragState)
+      const validation = validateDragEnd(
+        event,
+        currentDragState,
+        effectiveOverId,
+      )
 
       if (!validation.isValid) {
         console.log(`❌ ${validation.reason}`)
@@ -351,13 +375,23 @@ export function ConfigItemDragProvider({
         }
         return
       }
+      setDragState(null)
 
       const { dropContext, sourceConfigIndex, targetConfigIndex } =
-        extractDropContext(event, currentDragState!, getConfigItems)
+        extractDropContext(
+          event,
+          currentDragState!,
+          getConfigItems,
+          effectiveOverId,
+        )
 
       const isCrossConfig = sourceConfigIndex !== targetConfigIndex
 
-      const insertionIndex = calculateInsertionIndex(dropContext, isCrossConfig, activeId)
+      const insertionIndex = calculateInsertionIndex(
+        dropContext,
+        isCrossConfig,
+        activeId,
+      )
       console.log("📍 Insertion calculation:", {
         hoveringOverTab: dropContext.hoveringOverTab,
         dropOnPlaceholder: dropContext.dropOnPlaceholder,
@@ -388,7 +422,13 @@ export function ConfigItemDragProvider({
         getConfigItems(targetConfigIndex).map((item) => item.GUID),
       )
     },
-    [dragState, getConfigItems, handleDragCancel, moveItemsBetweenConfigs, selectActiveFile],
+    [
+      dragState,
+      getConfigItems,
+      handleDragCancel,
+      moveItemsBetweenConfigs,
+      selectActiveFile,
+    ],
   )
   type DragMoveEvent = {
     operation: DragOperation
@@ -503,9 +543,23 @@ export function ConfigItemDragProvider({
 
       if (!collision) return
 
-      console.log("Collision:", collision.id)
+      const collisionId = collision.id
+
+      const draggedIds =
+        dragState?.items.draggedItems.map((item) => item.GUID) ?? []
+
+      console.log("Collision:", collisionId)
+
+      // Ignore the item currently being dragged
+      if (draggedIds.includes(String(collisionId))) {
+        return
+      }
+
+      lastValidOverIdRef.current = String(collisionId)
+
+      console.log("✅ Last valid target:", collisionId)
     },
-    [],
+    [dragState],
   )
   return (
     // Provide context to child components

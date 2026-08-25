@@ -42,14 +42,12 @@ type DragEndEvent = {
 export const validateDragEnd = (
   event: DragEndEvent,
   dragState: DragState | null,
+  effectiveOverId?: string | number,
 ): DragEndValidation => {
-  const { operation, canceled } = event
-   if (canceled) {
-    return { isValid: false, reason: "Drag was canceled" }  
-  }
+  const { operation } = event
 
   const activeId = operation.source?.id
-  const overId = operation.target?.id
+  const overId = effectiveOverId ?? operation.target?.id
 
   if (!dragState?.items || !dragState.configs) {
     return { isValid: false, reason: "Invalid drag state" }
@@ -61,6 +59,13 @@ export const validateDragEnd = (
 
   if (!overId) {
     return { isValid: false, reason: "Dropped outside valid zone" }
+  }
+
+  if (
+    activeId === overId &&
+    dragState.configs.source === dragState.configs.current
+  ) {
+    return { isValid: false, reason: "Item dropped on itself" }
   }
 
   return { isValid: true }
@@ -83,11 +88,16 @@ export const calculateInsertionIndex = (
     draggedItems,
   } = dropContext
 
-  if (hoveringOverTab || dropOnPlaceholder || itemsWithoutDragged.length === 0) {
+  if (
+    hoveringOverTab ||
+    dropOnPlaceholder ||
+    itemsWithoutDragged.length === 0
+  ) {
     return 0
   }
 
   const draggedGuid = (activeId as string) || draggedItems[0]?.GUID
+
   const originalDraggedIndex = currentItems.findIndex(
     (item) => item.GUID === draggedGuid,
   )
@@ -111,16 +121,42 @@ export const calculateInsertionIndex = (
     if (!isCrossConfig && originalDraggedIndex !== -1) {
       return originalDraggedIndex
     }
+
     return itemsWithoutDragged.length
   }
 
-  if (isCrossConfig) return dropTargetIndex + 1
+  if (isCrossConfig) {
+    return dropTargetIndex + 1
+  }
 
   const originalTargetIndex = currentItems.findIndex(
     (item) => item.GUID === dropTargetItemId,
   )
 
   const movingUp = originalDraggedIndex > originalTargetIndex
+  console.log("⬆️ MOVE UP DEBUG", {
+    draggedGuid,
+    dropTargetItemId,
+
+    originalDraggedIndex,
+    originalTargetIndex,
+    dropTargetIndex,
+
+    movingUp: originalDraggedIndex > originalTargetIndex,
+
+    currentItems: currentItems.map((item, index) => ({
+      index,
+      name: item.Name,
+      guid: item.GUID,
+    })),
+
+    itemsWithoutDragged: itemsWithoutDragged.map((item, index) => ({
+      index,
+      name: item.Name,
+      guid: item.GUID,
+    })),
+  })
+
   return movingUp ? dropTargetIndex : dropTargetIndex + 1
 }
 
@@ -171,6 +207,7 @@ export const extractDropContext = (
   event: DragEndEvent,
   dragState: DragState,
   getConfigItems: (configIndex: number) => IConfigItem[],
+  effectiveOverId?: string | number,
 ): {
   dropContext: DropContext
   sourceConfigIndex: number
@@ -181,18 +218,18 @@ export const extractDropContext = (
 
   const hoveringOverTab = target?.data?.type === "tab"
   const dropOnPlaceholder = target?.data?.type === "placeholder"
-  const dropTargetItemId = target?.id as string
+const dropTargetItemId =
+  effectiveOverId ?? (target?.id as string)
 
   const sourceConfigIndex = dragState.configs.source
   const targetConfigIndex = hoveringOverTab
-    ? ((target?.data?.index as number | undefined) ?? dragState.ui.hoveredTabIndex)
+    ? ((target?.data?.index as number | undefined) ??
+      dragState.ui.hoveredTabIndex)
     : dragState.configs.current
 
   const currentItems = getConfigItems(targetConfigIndex)
 
-  const draggedItemIds = dragState.items.draggedItems.map(
-    (item) => item.GUID,
-  )
+  const draggedItemIds = dragState.items.draggedItems.map((item) => item.GUID)
 
   const itemsWithoutDragged = currentItems.filter(
     (item) => !draggedItemIds.includes(item.GUID),

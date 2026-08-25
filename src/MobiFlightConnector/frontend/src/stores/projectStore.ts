@@ -118,7 +118,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
           i === index ? { ...file, ConfigItems: updatedItems } : file,
         ),
       },
-      hasChanged: true, // 👈 الحفاظ على حالة التغيير لتفعيل زر الحفظ
+      hasChanged: true,
     }
   }),
   clearProject: () => set({ project: null }),
@@ -168,6 +168,15 @@ export const useProjectStore = create<ProjectState>((set) => ({
           ...draggedItems,
           ...targetItemsWithoutDragged.slice(dropIndex),
         ]
+        console.log("🔥 ACTUAL STORE MOVE", {
+  dropIndex,
+  draggedItems: draggedItems.map((i) => i.GUID),
+  finalTargetItems: finalTargetItems.map((item, index) => ({
+    index,
+    guid: item.GUID,
+    name: item.Name,
+  })),
+})
 
         // Create completely new Project object with new ConfigFiles array
         const newProject: Project = {
