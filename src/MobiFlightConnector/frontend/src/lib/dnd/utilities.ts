@@ -218,8 +218,10 @@ export const extractDropContext = (
 
   const hoveringOverTab = target?.data?.type === "tab"
   const dropOnPlaceholder = target?.data?.type === "placeholder"
-const dropTargetItemId =
-  effectiveOverId ?? (target?.id as string)
+  const dropTargetItemId =
+    effectiveOverId !== undefined
+      ? String(effectiveOverId)
+      : String(target?.id ?? "")
 
   const sourceConfigIndex = dragState.configs.source
   const targetConfigIndex = hoveringOverTab
