@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MobiFlightInstaller
 {
     public class CmdLineParams
     {
-        
         bool check = false;
         bool checkBeta = false;
-        bool expert = false;
 
         string install = null;
         string configFile = null;
@@ -29,11 +24,6 @@ namespace MobiFlightInstaller
         public bool CheckBeta
         {
             get { return checkBeta; }
-        }
-
-        public bool ExpertMode
-        {
-            get { return expert; }
         }
 
         public bool InstallOnly
@@ -57,7 +47,6 @@ namespace MobiFlightInstaller
             install = _getCfgParamValue("install", args, null);
             check = _hasCfgParam("check", args);
             checkBeta = _hasCfgParam("beta", args);
-            expert = _hasCfgParam("expert", args);
             installOnly = _hasCfgParam("installOnly", args);
 
             configFile = _getCfgParamValue("cfg", args, null);
@@ -66,7 +55,7 @@ namespace MobiFlightInstaller
 
         public bool HasParams()
         {
-            return Check || CheckBeta || ExpertMode || ConfigFile != null || Install != null;
+            return Check || CheckBeta || ConfigFile != null || Install != null;
         }
 
         /// <summary>
