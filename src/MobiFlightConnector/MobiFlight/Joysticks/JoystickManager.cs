@@ -269,9 +269,9 @@ namespace MobiFlight
             // Try to get definition by product name first, then by product ID
             return GetDefinitionByInstanceName(productName) ?? GetDefinitionByProductId(vendorId, productId);
         }
-        internal static bool ShouldConnectHidJoystick(string joystickName,List<string> excludedJoysticks)
+        internal static bool IsExcludedJoystick(string joystickName, List<string> excludedJoysticks)
         {
-            return !excludedJoysticks.Contains(joystickName);
+            return excludedJoysticks.Contains(joystickName);
         }
         private void ConnectHidController()
         {
@@ -297,21 +297,29 @@ namespace MobiFlight
                         var joystick = HidControllerFactory.Create(definition);
 
                         if (joystick == null) return;
-                        // Check against exclusion list
-                        if (ShouldConnectHidJoystick(
-                                               joystick.Name,
-                                            settingsExcludedJoysticks))
-                        {
-                            joystick.Connect(new IntPtr());
-                            Joysticks.TryAdd(joystick.Serial, joystick);
-                        }
-                        else
+
+                        if (IsExcludedJoystick(joystick.Name, settingsExcludedJoysticks))
                         {
                             Log.Instance.log(
                                 $"Ignore attached joystick device: {joystick.Name}.",
                                 LogSeverity.Info
                             );
+                            return;
                         }
+
+                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                        {
+                            Log.Instance.log(
+                                $"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.",
+                                LogSeverity.Error
+                            );
+                            return;
+                        }
+
+                        joystick.Connect(new IntPtr());
+                        joystick.OnButtonPressed += Js_OnButtonPressed;
+                        joystick.OnDisconnected += Js_OnDisconnected;
+
                     }
                     catch (Exception ex)
                     {

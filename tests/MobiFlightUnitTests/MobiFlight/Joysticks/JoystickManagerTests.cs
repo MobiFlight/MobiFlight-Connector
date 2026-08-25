@@ -8,15 +8,32 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks
     public class JoystickManagerTests
     {
         [TestMethod()]
-        public void ShouldConnectHidJoystick_WhenJoystickIsExcluded_ReturnsFalse()
+        public void IsExcludedJoystick_WhenJoystickIsExcluded_ReturnsTrue()
         {
             var excludedJoysticks = new List<string>
-            {
+              {
                 "WingFlex EFIS"
-            };
 
-            var result = JoystickManager.ShouldConnectHidJoystick(
+              };
+
+            var result = JoystickManager.IsExcludedJoystick(
                 "WingFlex EFIS",
+                excludedJoysticks
+            );
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
+        public void IsExcludedJoystick_WhenJoystickIsNotExcluded_ReturnsFalse()
+        {
+            var excludedJoysticks = new List<string>
+             {
+               "WingFlex EFIS"
+             };
+
+            var result = JoystickManager.IsExcludedJoystick(
+                "WingFlex FCU",
                 excludedJoysticks
             );
 
@@ -24,32 +41,16 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks
         }
 
         [TestMethod()]
-        public void ShouldConnectHidJoystick_WhenJoystickIsNotExcluded_ReturnsTrue()
-        {
-            var excludedJoysticks = new List<string>
-            {
-                "WingFlex EFIS"
-            };
-
-            var result = JoystickManager.ShouldConnectHidJoystick(
-                "WingFlex FCU",
-                excludedJoysticks
-            );
-
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod()]
-        public void ShouldConnectHidJoystick_WhenNoJoysticksAreExcluded_ReturnsTrue()
+        public void IsExcludedJoystick_WhenNoJoysticksAreExcluded_ReturnsFalse()
         {
             var excludedJoysticks = new List<string>();
 
-            var result = JoystickManager.ShouldConnectHidJoystick(
+            var result = JoystickManager.IsExcludedJoystick(
                 "WingFlex EFIS",
                 excludedJoysticks
             );
 
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
     }
 }
