@@ -114,6 +114,8 @@ export const ToastNotificationHandler = () => {
             } as CommandMainMenu)
           },
         },
+        // The toast uses onCancel to enable the built-in click-to-dismiss behavior.
+        // No cancellation action is needed here; the toast wrapper handles dismissal.
         onCancel: () => {},
       })
     }
