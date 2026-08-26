@@ -145,7 +145,7 @@ export const VariablePanel = ({
                 )}
               </Label>
               <Input
-                className="w-auto"
+                className="max-w-50"
                 value={variable?.Name ?? ""}
                 onChange={(e) => {
                   onVariableChange({
