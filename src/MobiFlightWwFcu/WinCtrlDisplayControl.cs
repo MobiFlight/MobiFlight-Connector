@@ -352,7 +352,7 @@ namespace MobiFlightWwFcu
                         controller.SetDisplay(name, value);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     ErrorMessageCreated?.Invoke(this, $"Error setting WinCtrl display name='{name}' to value='{value}'. Probably value not in a valid number format.");
                 }
