@@ -145,7 +145,7 @@ export const VariablePanel = ({
                 )}
               </Label>
               <Input
-                className="max-w-50"
+                className="max-w-50 truncate"
                 value={variable?.Name ?? ""}
                 onChange={(e) => {
                   onVariableChange({
