@@ -57,7 +57,7 @@
 		<PackageReference Include="SharpDX" />
 		<PackageReference Include="SharpDX.DirectInput" />
 		<PackageReference Include="System.Management" />
-		<PackageReference Include="WebSocketSharp-netstandard" />
+		<PackageReference Include="websocket-sharp.net" />
 		<PackageReference Include="XPlaneConnector" />
 		<PackageReference Include="System.IO.Ports" />
 		<PackageReference Include="System.Net.WebSockets.Client.Managed" />

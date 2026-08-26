@@ -16,7 +16,7 @@
 	<ItemGroup>
 		<PackageReference Include="HidSharp" />
 		<PackageReference Include="Newtonsoft.Json" />
-		<PackageReference Include="WebSocketSharp-netstandard" />
+		<PackageReference Include="websocket-sharp.net" />
 	</ItemGroup>
 
 </Project>
