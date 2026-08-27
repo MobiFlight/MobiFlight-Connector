@@ -235,6 +235,21 @@ namespace MobiFlight
                 OnMidiBoardConnectedFinished?.Invoke(sender, e);
             };
 
+            // Hold/Repeat/LongRelease delays are per config, not per physical button - collect
+            // every match across all loaded config files.
+            Func<InputEventArgs, List<ButtonBinding>> resolveButtonTimings = e =>
+            {
+                var bindings = new List<ButtonBinding>();
+                foreach (var executor in _inputEventExecutors.Values)
+                {
+                    bindings.AddRange(executor.ResolveButtonTimingsPerConfig(e));
+                }
+                return bindings;
+            };
+            mobiFlightCache.SetButtonTimingsResolver(resolveButtonTimings);
+            joystickManager.SetButtonTimingsResolver(resolveButtonTimings);
+            midiBoardManager.SetButtonTimingsResolver(resolveButtonTimings);
+
             OnProjectChanged += (s, p) =>
             {
                 ActiveConfigIndex = 0;
@@ -637,9 +652,6 @@ namespace MobiFlight
             var configItemIndex = ConfigItems.FindIndex(i => i.GUID == item.GUID);
             if (configItemIndex == -1) return;
 
-            if (ConfigItems[configItemIndex] is InputConfigItem oldInputConfig)
-                oldInputConfig.button?.StopTimers();
-
             ConfigItems[configItemIndex] = item;
             MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
             OnInputConfigSettingsChanged(item, null);
@@ -879,8 +891,6 @@ namespace MobiFlight
             mobiFlightCache.StopKeepAwake();
 
             isExecuting = false;
-            foreach (var executor in _inputEventExecutors.Values)
-                executor.StopAllHoldTimers();
 #if ARCAZE
             arcazeCache.Clear();
 #endif

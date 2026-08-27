@@ -13,6 +13,9 @@ namespace MobiFlight
 
         public String StrValue { get; set; }
 
+        /// <summary>Null (default) broadcasts to every matching config. Non-null restricts Execute() to that one config's GUID - used for HOLD/REPEAT/LONG_RELEASE, timed per-config.</summary>
+        public string TargetConfigGUID { get; set; }
+
         public readonly DateTime Time = DateTime.Now;
 
         public string GetEventActionLabel()
@@ -46,6 +49,7 @@ namespace MobiFlight
             clone.InputType = InputType;
             clone.Value = Value;
             clone.StrValue = StrValue;
+            clone.TargetConfigGUID = TargetConfigGUID;
 
             return clone;
         }

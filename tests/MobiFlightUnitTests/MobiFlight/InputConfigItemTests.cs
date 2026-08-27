@@ -353,6 +353,8 @@ namespace MobiFlight.Tests
         [DataRow((int)MobiFlightButton.InputEvent.PRESS, "onPress")]
         [DataRow((int)MobiFlightButton.InputEvent.RELEASE, "onRelease")]
         [DataRow((int)MobiFlightButton.InputEvent.LONG_RELEASE, "onLongRelease")]
+        [DataRow((int)MobiFlightButton.InputEvent.HOLD, "onHold")]
+        [DataRow((int)MobiFlightButton.InputEvent.REPEAT, "onHold")]
         public void GetInputAction_Button_ReturnsCorrectAction(
      int inputEvent,
      string actionName)

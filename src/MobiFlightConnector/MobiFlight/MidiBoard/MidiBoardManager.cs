@@ -25,12 +25,17 @@ namespace MobiFlight
         private readonly Timer ProcessTimer = new System.Windows.Forms.Timer();
         private int CheckAttachedRemovedCounter = 0;
 
+        /// <summary>Produces HOLD/REPEAT/LONG_RELEASE from MIDI boards' raw PRESS/RELEASE events.</summary>
+        private readonly SyntheticButtonEventGenerator VirtualButtonEvents = new SyntheticButtonEventGenerator();
+
         public MidiBoardManager ()
         {
             MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateMidiControllers();
             Load();
             ProcessTimer.Interval = 50;
             ProcessTimer.Tick += ProcessTimer_Tick;
+
+            VirtualButtonEvents.OnSyntheticEvent += (s, e) => OnButtonPressed?.Invoke(s, e);
         }
 
         private List<string> CollectErrorsInInputDefinition(MidiBoardDefinition def)
@@ -151,7 +156,8 @@ namespace MobiFlight
         }
 
         public void Stop()
-        {           
+        {
+            VirtualButtonEvents.Stop();
             foreach (var mb in MidiBoards)
             {
                 mb.Stop();
@@ -161,6 +167,7 @@ namespace MobiFlight
         public void Shutdown()
         {
             ProcessTimer.Stop();
+            VirtualButtonEvents.Stop();
             foreach (var mb in MidiBoards)
             {
                 mb.Shutdown();
@@ -277,7 +284,16 @@ namespace MobiFlight
 
         private void Mb_OnButtonPressed(object sender, InputEventArgs e)
         {
-            OnButtonPressed?.Invoke(sender, e);
+            foreach (var classified in VirtualButtonEvents.Observe(e))
+            {
+                OnButtonPressed?.Invoke(sender, classified);
+            }
+        }
+
+        /// <summary>See SyntheticButtonEventGenerator.ResolveTimings.</summary>
+        public void SetButtonTimingsResolver(Func<InputEventArgs, List<ButtonBinding>> resolver)
+        {
+            VirtualButtonEvents.ResolveTimings = resolver;
         }
 
         public MidiBoard GetMidiBoardBySerial(string serial)

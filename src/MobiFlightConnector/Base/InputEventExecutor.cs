@@ -50,12 +50,6 @@ namespace MobiFlight.Execution
             inputCache.Clear();
         }
 
-        public void StopAllHoldTimers()
-        {
-            foreach (var cfg in _configItems.OfType<InputConfigItem>())
-                cfg.button?.StopTimers();
-        }
-
         public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
@@ -82,10 +76,15 @@ namespace MobiFlight.Execution
 
             foreach (var cfg in inputCache[inputKey])
             {
+                // targeted event (HOLD/REPEAT/LONG_RELEASE) only triggers its own config
+                if (e.TargetConfigGUID != null && e.TargetConfigGUID != cfg.GUID)
+                {
+                    continue;
+                }
+
                 if (!cfg.Active)
                 {
                     Log.Instance.log($"{msgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
-                    cfg.button?.StopTimers();
                     continue;
                 }
 
@@ -94,7 +93,6 @@ namespace MobiFlight.Execution
                     if (!CheckPreconditions(cfg))
                     {
                         Log.Instance.log($"{msgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
-                        cfg.button?.StopTimers();
                         continue;
                     }
 
@@ -104,8 +102,6 @@ namespace MobiFlight.Execution
                     {
                         Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
                     }
-
-                    cfg.button?.CanExecute = () => cfg.Active && CheckPreconditions(cfg);
 
                     cfg.RawValue = e.GetEventActionLabel();
                     cfg.Value = " ";
@@ -149,6 +145,31 @@ namespace MobiFlight.Execution
         private string CreateInputKey(InputEventArgs e)
         {
             var result = e.Controller.Serial + e.Device.Type + e.Device.Name;
+            return result;
+        }
+
+        /// <summary>Hold/Repeat/LongRelease delays for every active, precondition-satisfied config bound to this button. Empty if none match.</summary>
+        public List<ButtonBinding> ResolveButtonTimingsPerConfig(InputEventArgs e)
+        {
+            string inputKey = CreateInputKey(e);
+            if (!inputCache.ContainsKey(inputKey))
+            {
+                inputCache[inputKey] = GetMatchingInputConfigs(e);
+            }
+
+            var result = new List<ButtonBinding>();
+
+            foreach (var cfg in inputCache[inputKey])
+            {
+                if (!cfg.Active) continue;
+                if (cfg.button == null) continue;
+                if (!CheckPreconditions(cfg)) continue;
+
+                result.Add(new ButtonBinding(
+                    cfg.GUID,
+                    new ButtonTimings(cfg.button.HoldDelay, cfg.button.RepeatDelay, cfg.button.LongReleaseDelay)));
+            }
+
             return result;
         }
 

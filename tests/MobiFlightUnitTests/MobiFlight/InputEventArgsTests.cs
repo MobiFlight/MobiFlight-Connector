@@ -57,6 +57,40 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void GetEventActionLabel_ButtonHoldEvent_ReturnsCorrectString()
+        {
+            // Arrange
+            var inputEvent = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.HOLD
+            };
+
+            // Act
+            var result = inputEvent.GetEventActionLabel();
+
+            // Assert
+            Assert.AreEqual("HOLD", result);
+        }
+
+        [TestMethod]
+        public void GetEventActionLabel_ButtonRepeatEvent_ReturnsCorrectString()
+        {
+            // Arrange
+            var inputEvent = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.REPEAT
+            };
+
+            // Act
+            var result = inputEvent.GetEventActionLabel();
+
+            // Assert
+            Assert.AreEqual("REPEAT", result);
+        }
+
+        [TestMethod]
         public void GetEventActionLabel_ButtonInvalidEvent_ReturnsNA()
         {
             // Arrange
