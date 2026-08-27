@@ -2487,7 +2487,6 @@ namespace MobiFlight.UI
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            execManager.Stop();
             if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
@@ -2495,9 +2494,17 @@ namespace MobiFlight.UI
             {
                 // only cancel closing if not saved before
                 // which is indicated by empty CurrentFilename
-                e.Cancel = (execManager.Project.FilePath == null);
+                e.Cancel = (execManager?.Project.FilePath == null);
                 saveToolStripButton_Click(this, new EventArgs());
             }
+            
+            if (e.Cancel)
+            {
+                return;
+            }
+            
+            frontendPanel1.StopPublishing();
+            execManager?.Stop();
         }
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)

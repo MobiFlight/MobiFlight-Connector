@@ -48,6 +48,11 @@ namespace MobiFlight.UI.Panels
             await FrontendWebView.EnsureCoreWebView2Async(null);
             await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
 
+            if (IsDisposed || Disposing)
+            {
+                return;
+            }
+            
             InitializeWebView(FrontendWebView, "/start");
             InitializeWebView(UserAuthenticationWebView);
 
@@ -55,6 +60,17 @@ namespace MobiFlight.UI.Panels
             compositePublisher.AddPublisher("auth", new PostMessagePublisher(UserAuthenticationWebView));
 
             MessageExchange.Instance.SetPublisher(compositePublisher);
+        }
+        
+        public void StopPublishing()
+        {
+            compositePublisher.RemovePublisher("frontend");
+            compositePublisher.RemovePublisher("auth");
+
+            if (ReferenceEquals(MessageExchange.Instance.GetPublisher(), compositePublisher))
+            {
+                MessageExchange.Instance.SetPublisher(null);
+            }
         }
 
         private void InitializeWebView(ThreadSafeWebView2 webView, string route = "/")

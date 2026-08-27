@@ -9,12 +9,23 @@ namespace MobiFlight.WebView
     {
         public void PostWebMessageAsJsonThreadSafe(string jsonMessage)
         {
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.Invoke(new Action(() => CoreWebView2?.PostWebMessageAsJson(jsonMessage)));
+                Invoke(InternalPostWebMessageAsJsonThreadSafe);
             }
             else
             {
+                InternalPostWebMessageAsJsonThreadSafe();
+            }
+
+            return;
+            void InternalPostWebMessageAsJsonThreadSafe()
+            {
+                if (IsDisposed || Disposing || !IsHandleCreated)
+                {
+                    return;
+                }
+
                 CoreWebView2?.PostWebMessageAsJson(jsonMessage);
             }
         }
@@ -25,11 +36,11 @@ namespace MobiFlight.WebView
         async Task<string> IWebView2Adapter.ExecuteScriptAsync(string script)
         {
             if (CoreWebView2 == null) return null;
-            
-            if (this.InvokeRequired)
+
+            if (InvokeRequired)
             {
-                return await (Task<string>)this.Invoke(new Func<Task<string>>(async () => 
-                    await CoreWebView2.ExecuteScriptAsync(script)));
+                return await Invoke(async () =>
+                    await CoreWebView2.ExecuteScriptAsync(script));
             }
             else
             {

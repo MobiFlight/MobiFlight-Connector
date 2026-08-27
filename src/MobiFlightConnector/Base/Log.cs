@@ -2,8 +2,8 @@
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -83,12 +83,12 @@ namespace MobiFlight
 
         public LogSeverity Severity { get; set; }
 
-        public string GetCallingMethod()
+        public string GetCallingMethod(
+            string memberName,
+            string sourceFile)
         {
-            var stackTrace = new StackTrace();
-            var callingMethod = stackTrace.GetFrame(2).GetMethod();
-            var callingClass = callingMethod.ReflectedType;
-            return $"{callingClass.Name}.{callingMethod.Name}()";
+            var sourceFileName = Path.GetFileNameWithoutExtension(sourceFile);
+            return $"{sourceFileName}.{memberName}()";
 
         }
 
@@ -97,14 +97,19 @@ namespace MobiFlight
             appenderList.Clear();
         }
 
-        public void log(String message, LogSeverity severity)
+        public void log(
+            String message,
+            LogSeverity severity,
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "",
+            [CallerLineNumber] int lineNumber = 0)
         {
             if (!Enabled) return;
             if ((int)severity < (int)Severity) return;
 
             if (Severity == LogSeverity.Debug)
             {
-                message = $"{GetCallingMethod()}: {message}";
+                message = $"{GetCallingMethod(memberName, sourceFilePath)}#{lineNumber}: {message}";
             }
 
             foreach (ILogAppender appender in appenderList)
@@ -112,6 +117,14 @@ namespace MobiFlight
                 appender.log(message, severity);
             }
         }
+        
+        public void log(
+            Exception exception, 
+            string message, 
+            LogSeverity severity,
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "",
+            [CallerLineNumber] int lineNumber = 0) => log($"{message} {exception}", severity, memberName, sourceFilePath, lineNumber);
 
         public void AddAppender(ILogAppender appender)
         {

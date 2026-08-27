@@ -32,7 +32,7 @@ namespace MobiFlight.BrowserMessages.Publisher
                 catch (Exception ex)
                 {
                     // Log but don't fail entire publish chain
-                    Log.Instance.log($"Publish failed: {ex.Message}", LogSeverity.Warn);
+                    Log.Instance.log(ex, $"Publish failed: {ex.Message} for publisher {publisher}", LogSeverity.Warn);
                 }
             });
         }
