@@ -464,12 +464,15 @@ namespace MobiFlight.Tests.ProSim
         [TestMethod()]
         public void ReadDataref_WhenValueArrivesBeforeDefinitions_ShouldReturnNumericValue()
         {
+            // Arrange
             const string datarefPath = "system.numerical.test";
             SetupConnectedCache(_cache, new Mock<IGraphQLWebSocketClient>().Object, new Dictionary<string, DataRefDescription>());
             SetSubscribedDataRefValue(_cache, datarefPath, 123);
 
+            // Act
             var result = _cache.readDataref(datarefPath);
 
+            // Assert
             Assert.AreEqual(123.0, result);
         }
 
