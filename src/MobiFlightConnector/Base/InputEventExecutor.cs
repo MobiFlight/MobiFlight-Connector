@@ -100,13 +100,12 @@ namespace MobiFlight.Execution
 
                     var action = cfg.GetInputAction(e);
 
-                    if (action == null)
+                    if (action != null)
                     {
-                        continue;
+                        Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
                     }
-                    Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
-                    if (cfg.button != null)
-                        cfg.button.CanExecute = () => cfg.Active && CheckPreconditions(cfg);
+
+                    cfg.button?.CanExecute = () => cfg.Active && CheckPreconditions(cfg);
 
                     cfg.RawValue = e.GetEventActionLabel();
                     cfg.Value = " ";
