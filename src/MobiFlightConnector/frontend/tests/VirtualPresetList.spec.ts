@@ -274,14 +274,24 @@ test.describe("Input Config Wizard - Virtual Preset List", () => {
     await expect(actionEditButton).toBeVisible()
 
     // measures the pure render time
-    const renderStart = Date.now()
+    performance.mark("render-start")
     await actionEditButton.click()
 
     const actionEditor = page.getByTestId("action-editor")
     const listItems = actionEditor.getByRole("listitem")
     await expect(listItems.first()).toBeVisible({ timeout: 10000 })
-    const renderDuration = Date.now() - renderStart
+    performance.mark("render-end")
+    const renderDuration = performance.measure(
+      "preset-list-render",
+      "render-start",
+      "render-end",
+    ).duration
 
+    console.log(
+      `Preset list render time for ${presetCount} presets: ${renderDuration.toFixed(
+        2,
+      )} ms`,
+    )
     expect(renderDuration).toBeLessThan(2000)
 
     await expect(actionEditor.getByRole("status")).toHaveText(
