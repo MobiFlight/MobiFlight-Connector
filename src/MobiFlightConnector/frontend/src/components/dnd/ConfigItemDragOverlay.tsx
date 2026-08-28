@@ -18,7 +18,7 @@ export function ConfigItemDragOverlay() {
 
   return (
     isDraggingWithItems && (
-      <DragOverlay className="cursor-grabbing">
+      <DragOverlay dropAnimation={null} className="cursor-grabbing">
         <div>
           {isInsideTable ? (
             <ConfigItemTableDragOverlay 

@@ -45,7 +45,7 @@ export class SnapToCursor extends Modifier {
       return transform
     }
 
-    const currentShape = shape.current
+    const currentShape = shape.initial 
     const { left, top, height } = currentShape.boundingRectangle
 
     const offsetY = activatorCoordinates.y - top

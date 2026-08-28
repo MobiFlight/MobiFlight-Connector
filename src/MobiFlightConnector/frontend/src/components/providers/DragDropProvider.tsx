@@ -36,23 +36,26 @@ class DynamicModifier extends Modifier<
   override apply(operation: DragOperation) {
     const { isInsideTable, tableContainerRef } = this.options ?? {}
     let { transform } = operation
-    const { shape, target } = operation
+    const { shape } = operation
+
     transform = new SnapToCursor(this.manager).apply(operation)
+
     if (isInsideTable) {
       transform = {
         ...transform,
         x: 0,
       }
 
-      if (!shape || !target?.shape || !tableContainerRef) {
+      if (!shape || !tableContainerRef) {
         return transform
       }
 
-      const rect = shape.current.boundingRectangle
+      const rect = shape.initial.boundingRectangle
       const boundingRect = tableContainerRef.getBoundingClientRect()
 
       transform = restrictToBoundingRect(transform, rect, boundingRect)
     }
+
     return transform
   }
 }
@@ -163,7 +166,7 @@ export function ConfigItemDragProvider({
     activationConstraints: [
       new PointerActivationConstraints.Distance({
         // Required distance in pixels
-        value: 10,
+        value: 4,
       }),
     ],
   })

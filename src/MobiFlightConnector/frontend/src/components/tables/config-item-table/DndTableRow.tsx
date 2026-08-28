@@ -37,12 +37,12 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
 
   const dragStyle = isSelectedDragging
     ? isActive
-      ? "opacity-0"
-      : "opacity-0 collapse"
+      ? "opacity-35"
+      : "opacity-35 collapse"
     : ""
 
   const outsideTableStyle =
-    !isInTable && isSelectedDragging ? "opacity-0 collapse" : ""
+    !isInTable && isSelectedDragging ? "opacity-35 collapse" : ""
 
   return (
     <RowInteractionProvider>
