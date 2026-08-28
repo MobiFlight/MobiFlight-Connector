@@ -2,14 +2,16 @@
 using MobiFlight.BrowserMessages.Publisher;
 using MobiFlight.WebView;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
 {
     public partial class FrontendPanel : UserControl
     {
-        CompositePublisher compositePublisher = new CompositePublisher();
+        private readonly CompositePublisher _compositePublisher = new();
         private string _frontendBaseUrl = "http://localhost:5173";
         private string _frontendDistPath;
         private string _presetPath;
@@ -26,7 +28,12 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        double _desiredZoomFactor = 0.0;
+        private double _desiredZoomFactor;
+        private Task _initializationTask;
+        private bool _isStopping;
+        private readonly List<(ThreadSafeWebView2 WebView, StaticPageWebResourceRequestHandler Handler)> _webResourceHandlers = new();
+        private readonly List<AddCloseButtonHandlerOnNavigationCompleted> _navigationHandlers = new();
+        private readonly List<PostMessagePublisher> _messagePublishers = new();
 
         public FrontendPanel()
         {
@@ -39,38 +46,77 @@ namespace MobiFlight.UI.Panels
             _presetPath = Path.Combine(Application.StartupPath);
 
             InitializeComponent();
-            if (!DesignMode)
-                InitializeAsync();
         }
 
-        async void InitializeAsync()
+        protected override void OnLoad(EventArgs e)
         {
-            await FrontendWebView.EnsureCoreWebView2Async(null);
-            await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
+            base.OnLoad(e);
 
-            if (IsDisposed || Disposing)
+            if (!DesignMode && _initializationTask == null)
+            {
+                _initializationTask = InitializeAsync();
+            }
+        }
+
+        private async Task InitializeAsync()
+        {
+            try
+            {
+                if (_isStopping || IsDisposed || Disposing)
+                {
+                    return;
+                }
+
+                await FrontendWebView.EnsureCoreWebView2Async(null);
+
+                if (_isStopping || IsDisposed || Disposing)
+                {
+                    return;
+                }
+
+                await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
+
+                if (_isStopping || IsDisposed || Disposing)
+                {
+                    return;
+                }
+
+                InitializeWebView(FrontendWebView, "/start");
+                InitializeWebView(UserAuthenticationWebView);
+
+                var frontendPublisher = new PostMessagePublisher(FrontendWebView);
+                var authPublisher = new PostMessagePublisher(UserAuthenticationWebView);
+                _messagePublishers.Add(frontendPublisher);
+                _messagePublishers.Add(authPublisher);
+                _compositePublisher.AddPublisher("frontend", frontendPublisher);
+                _compositePublisher.AddPublisher("auth", authPublisher);
+
+                MessageExchange.Instance.SetPublisher(_compositePublisher);
+            }
+            catch (ObjectDisposedException)
             {
                 return;
             }
-            
-            InitializeWebView(FrontendWebView, "/start");
-            InitializeWebView(UserAuthenticationWebView);
-
-            compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
-            compositePublisher.AddPublisher("auth", new PostMessagePublisher(UserAuthenticationWebView));
-
-            MessageExchange.Instance.SetPublisher(compositePublisher);
+            catch (Exception exception)
+            {
+                Log.Instance.log(exception, "Unable to initialize frontend WebView2.", LogSeverity.Error);
+            }
         }
         
         public void StopPublishing()
         {
-            compositePublisher.RemovePublisher("frontend");
-            compositePublisher.RemovePublisher("auth");
+            if (_isStopping) return;
+            _isStopping = true;
 
-            if (ReferenceEquals(MessageExchange.Instance.GetPublisher(), compositePublisher))
+            _compositePublisher.RemovePublisher("frontend");
+            _compositePublisher.RemovePublisher("auth");
+
+            if (ReferenceEquals(MessageExchange.Instance.GetPublisher(), _compositePublisher))
             {
                 MessageExchange.Instance.SetPublisher(null);
             }
+
+            DisposeWebViewCallbacks();
         }
 
         private void InitializeWebView(ThreadSafeWebView2 webView, string route = "/")
@@ -88,7 +134,7 @@ namespace MobiFlight.UI.Panels
                     new string[] { _frontendBaseUrl + "/presets" }
                 );
 
-                staticPageHandler.RegisterWithWebView(webView);
+                RegisterWebResourceHandler(webView, staticPageHandler);
 
                 webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
                 webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
@@ -102,11 +148,11 @@ namespace MobiFlight.UI.Panels
             {
                 IndexFallback = false
             };
-            staticPresetsHandler.RegisterWithWebView(webView);
+            RegisterWebResourceHandler(webView, staticPresetsHandler);
 
             var addButtonHandler = new AddCloseButtonHandlerOnNavigationCompleted();
             addButtonHandler.AddExclusionFilter(_frontendBaseUrl);
-            addButtonHandler.RegisterWithWebView(webView);
+            RegisterNavigationHandler(webView, addButtonHandler);
 
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
@@ -117,6 +163,43 @@ namespace MobiFlight.UI.Panels
             {
                 webView.ZoomFactor = _desiredZoomFactor;
             }
+        }
+
+        private void RegisterWebResourceHandler(
+            ThreadSafeWebView2 webView,
+            StaticPageWebResourceRequestHandler handler)
+        {
+            handler.RegisterWithWebView(webView);
+            _webResourceHandlers.Add((webView, handler));
+        }
+
+        private void RegisterNavigationHandler(
+            ThreadSafeWebView2 webView,
+            AddCloseButtonHandlerOnNavigationCompleted handler)
+        {
+            handler.RegisterWithWebView(webView);
+            _navigationHandlers.Add(handler);
+        }
+
+        private void DisposeWebViewCallbacks()
+        {
+            foreach (var publisher in _messagePublishers)
+            {
+                publisher.Dispose();
+            }
+            _messagePublishers.Clear();
+
+            foreach (var navigationHandler in _navigationHandlers)
+            {
+                navigationHandler.Unregister();
+            }
+            _navigationHandlers.Clear();
+
+            foreach (var (webView, handler) in _webResourceHandlers)
+            {
+                handler.UnregisterFromWebView(webView);
+            }
+            _webResourceHandlers.Clear();
         }
 
         public void SetZoomFactor(double zoomFactor)
@@ -155,6 +238,13 @@ namespace MobiFlight.UI.Panels
         public void BeginAuthProcess(string url)
         {
             Log.Instance.log($"Starting authentication process, navigating to: {url}", LogSeverity.Debug);
+
+            if (UserAuthenticationWebView.CoreWebView2 == null || IsDisposed || Disposing)
+            {
+                Log.Instance.log("Authentication navigation was requested before WebView2 initialization completed.", LogSeverity.Warn);
+                return;
+            }
+
             UserAuthenticationWebView.CoreWebView2.Navigate(url);
             UserAuthenticationWebView.Visible = true;
         }
@@ -166,6 +256,12 @@ namespace MobiFlight.UI.Panels
         public void EndAuthProcess()
         {
             UserAuthenticationWebView.Visible = false;
+
+            if (UserAuthenticationWebView.CoreWebView2 == null || IsDisposed || Disposing)
+            {
+                return;
+            }
+
             UserAuthenticationWebView.CoreWebView2.Navigate($"{_frontendBaseUrl}/auth");
         }
         public bool FrontendWebViewVisible

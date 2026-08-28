@@ -870,7 +870,6 @@ namespace MobiFlight.UI
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             AppTelemetry.Instance.TrackShutdown();
-            execManager.Shutdown();
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             runningStateBadge?.Dispose();
@@ -2505,6 +2504,7 @@ namespace MobiFlight.UI
             
             frontendPanel1.StopPublishing();
             execManager?.Stop();
+            execManager?.Shutdown();
         }
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)

@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
 		<Platforms>AnyCPU;x86</Platforms>
 		<RootNamespace>MobiFlight</RootNamespace>
 		<ProductName>MFConnector</ProductName>

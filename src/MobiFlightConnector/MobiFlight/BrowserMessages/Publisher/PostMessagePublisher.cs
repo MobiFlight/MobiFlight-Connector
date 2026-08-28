@@ -5,7 +5,7 @@ using System;
 
 namespace MobiFlight.BrowserMessages.Publisher
 {
-    public class PostMessagePublisher : IMessagePublisher
+    public class PostMessagePublisher : IMessagePublisher, IDisposable
     {
         private readonly ThreadSafeWebView2 _webView;
         private Action<object> _onMessageReceived;
@@ -39,6 +39,12 @@ namespace MobiFlight.BrowserMessages.Publisher
         {
             var message = args.WebMessageAsJson;
             _onMessageReceived?.Invoke(message);
+        }
+
+        public void Dispose()
+        {
+            _webView.WebMessageReceived -= WebView_WebMessageReceived;
+            _onMessageReceived = null;
         }
     }
 }

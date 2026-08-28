@@ -54,6 +54,16 @@ namespace MobiFlight.WebView
             webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
         }
 
+        internal void UnregisterFromWebView(WebView2 webView)
+        {
+            if (webView.CoreWebView2 == null) return;
+
+            webView.CoreWebView2.WebResourceRequested -= CoreWebView2_WebResourceRequested;
+            webView.CoreWebView2.RemoveWebResourceRequestedFilter(
+                $"{BaseUrl}/*",
+                CoreWebView2WebResourceContext.All);
+        }
+
         public void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
             try

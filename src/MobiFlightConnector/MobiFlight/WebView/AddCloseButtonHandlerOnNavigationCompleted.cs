@@ -24,6 +24,14 @@ namespace MobiFlight.WebView
             webView.NavigationCompleted += NavigationCompleted;
         }
 
+        internal void Unregister()
+        {
+            if (webViewAdapter == null) return;
+
+            webViewAdapter.NavigationCompleted -= NavigationCompleted;
+            webViewAdapter = null;
+        }
+
         private async void NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
             if (webViewAdapter == null) return;
