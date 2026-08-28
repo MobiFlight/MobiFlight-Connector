@@ -57,6 +57,21 @@
         "Type": "Button"
       },
       {
+        "Name": "12",
+        "Label": "Button 12",
+        "Type": "Button"
+      },
+      {
+        "Name": "2",
+        "Label": "Button 2",
+        "Type": "Button"
+      },
+      {
+        "Name": "11",
+        "Label": "Button 11",
+        "Type": "Button"
+      },
+      {
         "Label": "AP Mode - HDG",
         "Id": "AP.hdg",
         "Byte": 1,

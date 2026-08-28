@@ -59,6 +59,33 @@ test("Confirm HubHop update notifications show correctly", async ({
   await expect(hubhopToast).not.toBeVisible({ timeout: 5000 })
 })
 
+test("HubHop update notification can be dismissed by clicking it", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData()
+
+  const hubhopToast = page.getByTestId("toast-hubhop-auto-update")
+  await expect(hubhopToast).not.toBeVisible()
+
+  await configListPage.mobiFlightPage.publishCommand({
+    key: "HubHopState",
+    payload: {
+      ShouldUpdate: true,
+      Result: "Pending",
+      UpdateProgress: 0,
+    } as HubHopState,
+  })
+
+  await expect(hubhopToast).toBeVisible()
+
+  await hubhopToast.click()
+
+  await expect(hubhopToast).not.toBeVisible()
+
+})
+
 test.describe("Generic Notifications tests", () => {
   test("Confirm Auto-Bind Controller Notification shows correctly", async ({
     configListPage,

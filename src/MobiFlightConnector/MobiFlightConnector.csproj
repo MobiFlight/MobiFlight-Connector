@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<UseWindowsForms>true</UseWindowsForms>
@@ -16,6 +16,7 @@
 		<Description>Open Source Flight Simulator Solution</Description>
 		<Product>MobiFlight Connector</Product>
 		<Copyright>Copyright Sebastian Moebius 2014 - 2026</Copyright>
+        <Company>MobiFlight</Company>
 		<ApplicationIcon>mobiflight.ico</ApplicationIcon>
 	</PropertyGroup>
 
@@ -56,7 +57,7 @@
 		<PackageReference Include="SharpDX" />
 		<PackageReference Include="SharpDX.DirectInput" />
 		<PackageReference Include="System.Management" />
-		<PackageReference Include="WebSocketSharp-netstandard" />
+		<PackageReference Include="websocket-sharp.net" />
 		<PackageReference Include="XPlaneConnector" />
 		<PackageReference Include="System.IO.Ports" />
 		<PackageReference Include="System.Net.WebSockets.Client.Managed" />
