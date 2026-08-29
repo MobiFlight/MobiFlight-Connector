@@ -50,7 +50,6 @@ namespace MobiFlight.ProSim
             public object Value { get; set; }
             public DataRef DataRefObject { get; set; }
             public int UpdateInterval { get; set; }
-            public DataRefDescription DataRefDescription { get; set; }
         }
 
         public bool Connect()
@@ -254,7 +253,7 @@ namespace MobiFlight.ProSim
 
         private void UpdateCachedValue(string datarefPath, object value)
         {
-            lock (_cacheLock)
+            lock (_subscribedDataRefs)
             {
                 if (_subscribedDataRefs.TryGetValue(datarefPath, out var cachedRef))
                 {
@@ -269,12 +268,6 @@ namespace MobiFlight.ProSim
                         Path = datarefPath,
                         Value = value,
                     };
-
-                    // Set DataRefDescription if available
-                    if (_dataRefDescriptions.TryGetValue(datarefPath, out var description))
-                    {
-                        newCachedRef.DataRefDescription = description;
-                    }
 
                     _subscribedDataRefs[datarefPath] = newCachedRef;
                 }
@@ -554,28 +547,32 @@ mutation ($name: String!, $value: {graphqlType}) {{
                     return (double)0;
                 }
 
+                object value;
                 lock (_subscribedDataRefs)
                 {
-                    if (!_subscribedDataRefs.ContainsKey(datarefPath))
+                    if (!_subscribedDataRefs.TryGetValue(datarefPath, out var subscribedDataRef))
                     {
                         // Wait for data to be returned by the subscription
                         return (double)0;
                     }
 
-                    // Cache the dictionary value to avoid redundant lookups
-                    var subscribedDataRef = _subscribedDataRefs[datarefPath];
-                    var value = subscribedDataRef.Value;
-
-                    if (subscribedDataRef.DataRefDescription.DataType == "System.String")
-                    {
-                        return value;
-                    }
-
-                    var returnValue = (value == null) ? 0 : Convert.ToDouble(value);
-
-                    return returnValue;
+                    value = subscribedDataRef.Value;
                 }
 
+                DataRefDescription description;
+                lock (_cacheLock)
+                {
+                    _dataRefDescriptions.TryGetValue(datarefPath, out description);
+                }
+
+                // Subscription values can arrive before the asynchronous definition refresh.
+                // Use the runtime value type until the definition becomes available.
+                if (description?.DataType == "System.String" || value is string)
+                {
+                    return value;
+                }
+
+                return (value == null) ? 0 : Convert.ToDouble(value);
             }
             catch (Exception ex)
             {
