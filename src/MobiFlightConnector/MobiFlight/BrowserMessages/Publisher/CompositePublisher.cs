@@ -9,9 +9,15 @@ namespace MobiFlight.BrowserMessages.Publisher
     {
         private readonly ConcurrentDictionary<string, IMessagePublisher> publishers = new ConcurrentDictionary<string, IMessagePublisher>();
         private readonly List<string> pausedPublishers = new List<string>();
+        private bool _isDisposed;
 
         public void AddPublisher(string name, IMessagePublisher publisher)
         {
+            if (_isDisposed)
+            {
+                return;
+            }
+
             publishers.AddOrUpdate(name, publisher, (key, existing) => publisher);
         }
 
@@ -23,6 +29,8 @@ namespace MobiFlight.BrowserMessages.Publisher
 
         public void Publish<TEvent>(TEvent eventToPublish)
         {
+            if (_isDisposed) return;
+
             publishers.Values.ToList().ForEach(publisher =>
             {
                 try
@@ -39,6 +47,8 @@ namespace MobiFlight.BrowserMessages.Publisher
 
         public void OnMessageReceived(Action<string> callback)
         {
+            if (_isDisposed) return;
+
             var activePublishers = publishers
                                     .Where(p => !pausedPublishers.Contains(p.Key))
                                     .Select(p => p.Value)
@@ -68,6 +78,21 @@ namespace MobiFlight.BrowserMessages.Publisher
         internal void ResumePublisher(string publisher)
         {
             pausedPublishers.Remove(publisher);
+        }
+
+        public void Dispose()
+        {
+            if (_isDisposed) return;
+            _isDisposed = true;
+
+            foreach (var publisher in publishers.Values)
+            {
+                publisher?.Dispose();
+            }
+
+            publishers.Clear();
+            pausedPublishers.Clear();
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MobiFlight.WebView;
+﻿using MobiFlight.BrowserMessages;
+using MobiFlight.WebView;
 
 namespace MobiFlight.UI.Panels
 {
@@ -17,6 +18,7 @@ namespace MobiFlight.UI.Panels
         {
             if (disposing)
             {
+                Shutdown();
                 components?.Dispose();
             }
             base.Dispose(disposing);

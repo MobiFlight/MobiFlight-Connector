@@ -563,6 +563,10 @@ namespace MobiFlight.UI.Tests
                 _onMessageReceived?.Invoke(jsonMessage);
                 MessageExchange.Instance.SetSynchronizationContextProvider(null);
             }
+
+            public void Dispose()
+            {
+            }
         }
     }
 }

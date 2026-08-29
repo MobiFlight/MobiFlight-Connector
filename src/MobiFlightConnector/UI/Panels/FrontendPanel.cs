@@ -30,10 +30,9 @@ namespace MobiFlight.UI.Panels
 
         private double _desiredZoomFactor;
         private Task _initializationTask;
-        private bool _isStopping;
+        private bool _isShuttingDown;
         private readonly List<(ThreadSafeWebView2 WebView, StaticPageWebResourceRequestHandler Handler)> _webResourceHandlers = new();
         private readonly List<AddCloseButtonHandlerOnNavigationCompleted> _navigationHandlers = new();
-        private readonly List<PostMessagePublisher> _messagePublishers = new();
 
         public FrontendPanel()
         {
@@ -62,32 +61,20 @@ namespace MobiFlight.UI.Panels
         {
             try
             {
-                if (_isStopping || IsDisposed || Disposing)
+                if (_isShuttingDown || IsDisposed || Disposing)
                 {
                     return;
                 }
 
                 await FrontendWebView.EnsureCoreWebView2Async(null);
-
-                if (_isStopping || IsDisposed || Disposing)
-                {
-                    return;
-                }
-
                 await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
-
-                if (_isStopping || IsDisposed || Disposing)
-                {
-                    return;
-                }
 
                 InitializeWebView(FrontendWebView, "/start");
                 InitializeWebView(UserAuthenticationWebView);
 
                 var frontendPublisher = new PostMessagePublisher(FrontendWebView);
                 var authPublisher = new PostMessagePublisher(UserAuthenticationWebView);
-                _messagePublishers.Add(frontendPublisher);
-                _messagePublishers.Add(authPublisher);
+                
                 _compositePublisher.AddPublisher("frontend", frontendPublisher);
                 _compositePublisher.AddPublisher("auth", authPublisher);
 
@@ -102,14 +89,12 @@ namespace MobiFlight.UI.Panels
                 Log.Instance.log(exception, "Unable to initialize frontend WebView2.", LogSeverity.Error);
             }
         }
-        
-        public void StopPublishing()
-        {
-            if (_isStopping) return;
-            _isStopping = true;
 
-            _compositePublisher.RemovePublisher("frontend");
-            _compositePublisher.RemovePublisher("auth");
+        public void Shutdown()
+        {
+            if (_isShuttingDown) return;
+
+            _isShuttingDown = true;
 
             if (ReferenceEquals(MessageExchange.Instance.GetPublisher(), _compositePublisher))
             {
@@ -117,6 +102,7 @@ namespace MobiFlight.UI.Panels
             }
 
             DisposeWebViewCallbacks();
+            _compositePublisher.Dispose();
         }
 
         private void InitializeWebView(ThreadSafeWebView2 webView, string route = "/")
@@ -183,12 +169,6 @@ namespace MobiFlight.UI.Panels
 
         private void DisposeWebViewCallbacks()
         {
-            foreach (var publisher in _messagePublishers)
-            {
-                publisher.Dispose();
-            }
-            _messagePublishers.Clear();
-
             foreach (var navigationHandler in _navigationHandlers)
             {
                 navigationHandler.Unregister();

@@ -61,5 +61,10 @@ namespace MobiFlight.BrowserMessages.Publisher
                 }
             }
         }
+
+        public void Dispose()
+        {
+            _webSocket?.Dispose();
+        }
     }
 }

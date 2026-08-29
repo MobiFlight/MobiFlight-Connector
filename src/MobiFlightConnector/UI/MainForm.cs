@@ -2502,7 +2502,7 @@ namespace MobiFlight.UI
                 return;
             }
             
-            frontendPanel1.StopPublishing();
+            frontendPanel1.Shutdown();
             execManager?.Stop();
             execManager?.Shutdown();
         }

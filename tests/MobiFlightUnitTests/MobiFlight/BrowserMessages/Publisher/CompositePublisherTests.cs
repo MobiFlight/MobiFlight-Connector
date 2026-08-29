@@ -255,5 +255,20 @@ namespace MobiFlightUnitTests.MobiFlight.BrowserMessages.Publisher
             mockPublisher2.Verify(p => p.OnMessageReceived(callback1), Times.Once);
             mockPublisher2.Verify(p => p.OnMessageReceived(callback2), Times.Once);
         }
+
+        [TestMethod]
+        public void Dispose_ShouldDisposePublishersOnceAndStopFurtherPublishing()
+        {
+            compositePublisher.AddPublisher("test1", mockPublisher1.Object);
+            compositePublisher.AddPublisher("test2", mockPublisher2.Object);
+
+            compositePublisher.Dispose();
+            compositePublisher.Publish("test message");
+
+            mockPublisher1.Verify(p => p.Dispose(), Times.Once);
+            mockPublisher2.Verify(p => p.Dispose(), Times.Once);
+            mockPublisher1.Verify(p => p.Publish(It.IsAny<string>()), Times.Never);
+            mockPublisher2.Verify(p => p.Publish(It.IsAny<string>()), Times.Never);
+        }
     }
 }
