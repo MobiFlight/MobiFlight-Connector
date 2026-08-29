@@ -34,6 +34,9 @@ namespace MobiFlight
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         private readonly Timer PollTimer = new Timer();
+
+        /// <summary>Produces HOLD/REPEAT/LONG_RELEASE from joysticks' raw PRESS/RELEASE events.</summary>
+        private readonly SyntheticButtonEventGenerator VirtualButtonEvents = new SyntheticButtonEventGenerator();
         private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
         private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
         private IntPtr Handle;
@@ -47,6 +50,8 @@ namespace MobiFlight
             PollTimer.Elapsed += PollTimer_Tick;
             MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateJoysticks();
             LoadDefinitions();
+
+            VirtualButtonEvents.OnSyntheticEvent += (s, e) => OnButtonPressed?.Invoke(s, e);
         }
 
         /// <summary>
@@ -141,6 +146,7 @@ namespace MobiFlight
         public void Shutdown()
         {
             PollTimer.Stop();
+            VirtualButtonEvents.Stop();
             foreach (var js in Joysticks.Values)
             {
                 js.Shutdown();
@@ -155,6 +161,7 @@ namespace MobiFlight
 
         public void Stop()
         {
+            VirtualButtonEvents.Stop();
             foreach (var j in Joysticks.Values)
             {
                 j.Stop();
@@ -349,7 +356,16 @@ namespace MobiFlight
 
         private void Js_OnButtonPressed(object sender, InputEventArgs e)
         {
-            OnButtonPressed?.Invoke(sender, e);
+            foreach (var classified in VirtualButtonEvents.Observe(e))
+            {
+                OnButtonPressed?.Invoke(sender, classified);
+            }
+        }
+
+        /// <summary>See SyntheticButtonEventGenerator.ResolveTimings.</summary>
+        public void SetButtonTimingsResolver(Func<InputEventArgs, List<ButtonBinding>> resolver)
+        {
+            VirtualButtonEvents.ResolveTimings = resolver;
         }
 
         internal Joystick GetJoystickBySerial(string serial)

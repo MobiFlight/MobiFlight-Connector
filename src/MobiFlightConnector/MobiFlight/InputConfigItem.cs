@@ -390,6 +390,10 @@ namespace MobiFlight
                         case MobiFlightButton.InputEvent.LONG_RELEASE:
                             return button?.onLongRelease;
 
+                        case MobiFlightButton.InputEvent.HOLD:
+                        case MobiFlightButton.InputEvent.REPEAT:
+                            return button?.onHold;
+
                         default:
                             return null;
                     }

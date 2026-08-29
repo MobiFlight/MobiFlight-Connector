@@ -197,31 +197,66 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(typeof(VariableInputAction), result[2].GetType());
         }
 
-        [TestMethod()]
-        public void StopTimers_WithNoOnHold_DoesNotThrow()
+        // execute() is now pure dispatch to the matching InputAction - see SyntheticButtonEventGeneratorTests for detection.
+
+        private class RecordingInputAction : InputAction
         {
-            ButtonInputConfig o = new ButtonInputConfig();
-            o.onPress = new EventIdInputAction() { EventId = 12345 };
-            o.StopTimers();
+            public int ExecuteCount = 0;
+
+            public override void execute(CacheCollection cacheCollection, InputEventArgs args, List<ConfigRefValue> configRefs)
+            {
+                ExecuteCount++;
+            }
+
+            public override object Clone() => new RecordingInputAction();
+            public override void ReadXml(XmlReader reader) { }
+            public override void WriteXml(XmlWriter writer) { }
         }
 
         [TestMethod()]
-        public void StopTimers_WithRunningHoldTimer_StopsTimer()
+        public void Execute_DispatchesToMatchingActionOnly()
         {
-            ButtonInputConfig o = new ButtonInputConfig();
-            o.onHold = new XplaneInputAction() { Expression = "", InputType = "Command", Path = "sim/test" };
+            var press = new RecordingInputAction();
+            var release = new RecordingInputAction();
+            var longRelease = new RecordingInputAction();
+            var hold = new RecordingInputAction();
 
-            var holdTimer = typeof(ButtonInputConfig)
-                .GetField("HoldTimer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .GetValue(o) as System.Timers.Timer;
+            ButtonInputConfig cfg = new ButtonInputConfig
+            {
+                onPress = press,
+                onRelease = release,
+                onLongRelease = longRelease,
+                onHold = hold
+            };
 
-            holdTimer.Interval = 10000;
-            holdTimer.Start();
-            Assert.IsTrue(holdTimer.Enabled, "HoldTimer should be running before StopTimers()");
+            void ExecuteWith(MobiFlightButton.InputEvent value)
+            {
+                cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)value }, new List<ConfigRefValue>());
+            }
 
-            o.StopTimers();
+            ExecuteWith(MobiFlightButton.InputEvent.PRESS);
+            Assert.AreEqual(1, press.ExecuteCount);
+            Assert.AreEqual(0, release.ExecuteCount + longRelease.ExecuteCount + hold.ExecuteCount);
 
-            Assert.IsFalse(holdTimer.Enabled, "HoldTimer should be stopped after StopTimers()");
+            ExecuteWith(MobiFlightButton.InputEvent.RELEASE);
+            Assert.AreEqual(1, release.ExecuteCount);
+
+            ExecuteWith(MobiFlightButton.InputEvent.LONG_RELEASE);
+            Assert.AreEqual(1, longRelease.ExecuteCount);
+
+            ExecuteWith(MobiFlightButton.InputEvent.HOLD);
+            Assert.AreEqual(1, hold.ExecuteCount);
+
+            // REPEAT has no binding of its own - it dispatches to onHold, same as HOLD.
+            ExecuteWith(MobiFlightButton.InputEvent.REPEAT);
+            Assert.AreEqual(2, hold.ExecuteCount);
+        }
+
+        [TestMethod()]
+        public void Execute_WithNoMatchingAction_DoesNotThrow()
+        {
+            ButtonInputConfig cfg = new ButtonInputConfig();
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD }, new List<ConfigRefValue>());
         }
 
         [TestMethod()]

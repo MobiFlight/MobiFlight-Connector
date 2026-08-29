@@ -8,7 +8,10 @@
             PRESS = 0,
             RELEASE = 1,
             LONG_RELEASE = 2,
-            HOLD = 3
+            HOLD = 3,
+            // Fired instead of HOLD for every repeat tick after the first HOLD, while the button
+            // is still held down
+            REPEAT = 4
         }
 
         public string Name { get; set; }
@@ -29,6 +32,14 @@
 
                 case (int)InputEvent.LONG_RELEASE:
                     eventAction = InputEvent.LONG_RELEASE.ToString();
+                    break;
+
+                case (int)InputEvent.HOLD:
+                    eventAction = InputEvent.HOLD.ToString();
+                    break;
+
+                case (int)InputEvent.REPEAT:
+                    eventAction = InputEvent.REPEAT.ToString();
                     break;
             }
 

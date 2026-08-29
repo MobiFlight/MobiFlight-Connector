@@ -1,12 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Base;
+﻿using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
-using System.Collections.Generic;
 
 namespace MobiFlight.Execution.Tests
 {
@@ -588,55 +586,52 @@ namespace MobiFlight.Execution.Tests
 
         #endregion
 
-        #region Hold Timer Cleanup on Skip
+        #region HOLD events are gated exactly like real events
 
-        private static System.Timers.Timer GetHoldTimer(ButtonInputConfig button)
+        // HOLD is now an ordinary InputEventArgs into Execute() - same Active/precondition gating.
+
+        private static InputEventArgs CreateHoldEventArgs(string serial, string deviceId)
         {
-            return (System.Timers.Timer)typeof(ButtonInputConfig)
-                .GetField("HoldTimer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .GetValue(button);
+            return new InputEventArgs
+            {
+                Controller = new Controller() { Serial = serial },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = deviceId },
+                Value = (int)MobiFlightButton.InputEvent.HOLD
+            };
         }
 
         [TestMethod]
-        public void Execute_ConfigDeactivatedWhileButtonHeld_StopsHoldTimer()
+        public void Execute_HoldEvent_DeactivatedConfig_IsSkipped()
         {
             var serial = "SN-deact001";
             var deviceName = "Button1";
 
             var configItem = new InputConfigItem
             {
-                Active = true,
+                Active = false,
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "DeactivatedConfig",
                 button = new ButtonInputConfig
                 {
-                    onPress = new VariableInputAction(),
-                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
-                    HoldDelay = 10000
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" }
                 }
             };
             _configItems.Add(configItem);
 
-            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: true), isStarted: true);
+            var result = _executor.Execute(CreateHoldEventArgs(serial, deviceName), isStarted: true);
 
-            var holdTimer = GetHoldTimer(configItem.button);
-            Assert.IsTrue(holdTimer.Enabled, "Timer should be running after press.");
-
-            configItem.Active = false;
-
-            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: false), isStarted: true);
-
-            Assert.IsFalse(holdTimer.Enabled, "Timer should be stopped when the config is deactivated.");
+            Assert.IsFalse(result.ContainsKey(configItem.GUID), "A HOLD event for a deactivated config should not execute.");
         }
 
         [TestMethod]
-        public void Execute_PreconditionFailsWhileButtonHeld_StopsHoldTimer()
+        public void Execute_HoldEvent_PreconditionNotSatisfied_IsSkipped()
         {
             var serial = "SN-precond001";
             var deviceName = "Button1";
 
-            _configItems[0].Value = "ExpectedValue";
+            _configItems[0].Value = "DifferentValue";
 
             var configItem = new InputConfigItem
             {
@@ -646,9 +641,7 @@ namespace MobiFlight.Execution.Tests
                 Name = "PreconditionConfig",
                 button = new ButtonInputConfig
                 {
-                    onPress = new VariableInputAction(),
-                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p2" },
-                    HoldDelay = 10000
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p2" }
                 },
                 Preconditions = new PreconditionList
                 {
@@ -657,16 +650,247 @@ namespace MobiFlight.Execution.Tests
             };
             _configItems.Add(configItem);
 
-            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: true), isStarted: true);
+            var result = _executor.Execute(CreateHoldEventArgs(serial, deviceName), isStarted: true);
 
-            var holdTimer = GetHoldTimer(configItem.button);
-            Assert.IsTrue(holdTimer.Enabled, "Timer should be running after press with precondition satisfied.");
+            Assert.IsFalse(result.ContainsKey(configItem.GUID), "A HOLD event should not execute while its precondition is not satisfied.");
+        }
 
-            _configItems[0].Value = "DifferentValue";
+        [TestMethod]
+        public void Execute_HoldEvent_ActiveConfigWithSatisfiedPrecondition_Executes()
+        {
+            var serial = "SN-active001";
+            var deviceName = "Button1";
 
-            _executor.Execute(CreateButtonEventArgs(serial, deviceName, isOnPress: false), isStarted: true);
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ActiveConfig",
+                button = new ButtonInputConfig
+                {
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p3" }
+                }
+            };
+            _configItems.Add(configItem);
 
-            Assert.IsFalse(holdTimer.Enabled, "Timer should be stopped when the precondition is not satisfied.");
+            var result = _executor.Execute(CreateHoldEventArgs(serial, deviceName), isStarted: true);
+
+            Assert.IsTrue(result.ContainsKey(configItem.GUID), "A HOLD event for an active, precondition-satisfied config should execute.");
+        }
+
+        #endregion
+
+        #region ResolveButtonTimingsPerConfig - delay, and which config, are per binding
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_ActiveConfig_ReturnsItsDelaysTargetedAtIt()
+        {
+            var serial = "SN-timings001";
+            var deviceName = "Button1";
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ModeAConfig",
+                button = new ButtonInputConfig
+                {
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
+                    HoldDelay = 123,
+                    RepeatDelay = 45, // below ButtonTimings.MinRepeatDelay - e.g. an old/hand-edited config
+                    LongReleaseDelay = 678
+                }
+            };
+            _configItems.Add(configItem);
+
+            var bindings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+
+            Assert.HasCount(1, bindings);
+            Assert.AreEqual(configItem.GUID, bindings[0].ConfigGuid);
+            Assert.AreEqual(123, bindings[0].Timings.HoldDelay, "HoldDelay is not clamped.");
+            Assert.AreEqual(ButtonTimings.MinRepeatDelay, bindings[0].Timings.RepeatDelay,
+                "The stored 45ms RepeatDelay must be raised to the floor - ButtonTimings' constructor clamps it regardless of where the value came from.");
+            Assert.AreEqual(678, bindings[0].Timings.LongReleaseDelay, "LongReleaseDelay is not clamped.");
+        }
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_NoActiveConfigForButton_ReturnsEmpty()
+        {
+            var result = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs("SN-unbound", "NoSuchButton", isOnPress: true));
+
+            Assert.HasCount(0, result);
+        }
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_InactiveConfig_IsSkipped()
+        {
+            var serial = "SN-timings002";
+            var deviceName = "Button1";
+
+            var configItem = new InputConfigItem
+            {
+                Active = false,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "InactiveConfig",
+                button = new ButtonInputConfig { HoldDelay = 999 }
+            };
+            _configItems.Add(configItem);
+
+            var result = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+
+            Assert.HasCount(0, result, "An inactive config must not govern timings, same as it does not govern execution.");
+        }
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_MultiModePanel_DifferentPreconditionGatedConfigsYieldDifferentDelays()
+        {
+            var serial = "SN-multimode";
+            var deviceName = "Button1";
+
+            var modeSwitch = _configItems[0]; // an existing InputConfigItem used as the mode reference
+            modeSwitch.Value = "ModeA";
+
+            var modeAConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ModeAConfig",
+                button = new ButtonInputConfig { HoldDelay = 200 },
+                Preconditions = new PreconditionList
+                {
+                    new Precondition { Type = "config", Active = true, Ref = modeSwitch.GUID, Value = "ModeA" }
+                }
+            };
+            var modeBConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ModeBConfig",
+                button = new ButtonInputConfig { HoldDelay = 800 },
+                Preconditions = new PreconditionList
+                {
+                    new Precondition { Type = "config", Active = true, Ref = modeSwitch.GUID, Value = "ModeB" }
+                }
+            };
+            _configItems.Add(modeAConfig);
+            _configItems.Add(modeBConfig);
+
+            var bindingsInModeA = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.HasCount(1, bindingsInModeA, "Mode B's precondition is not satisfied, so only Mode A's config should match.");
+            Assert.AreEqual(200, bindingsInModeA[0].Timings.HoldDelay, "Mode A's precondition is satisfied, so its 200ms HoldDelay should apply.");
+
+            modeSwitch.Value = "ModeB"; // re-evaluated fresh each call, no cache invalidation needed
+
+            var bindingsInModeB = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.HasCount(1, bindingsInModeB);
+            Assert.AreEqual(800, bindingsInModeB[0].Timings.HoldDelay, "Switching modes should change which HoldDelay applies to the same physical button.");
+        }
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_TwoSimultaneouslyActiveConfigs_ReturnsBothTargetedIndependently()
+        {
+            var serial = "SN-conflict001";
+            var deviceName = "Button1";
+
+            var firstConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "FirstConfig",
+                button = new ButtonInputConfig { HoldDelay = 100 }
+            };
+            var secondConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "SecondConfig",
+                button = new ButtonInputConfig { HoldDelay = 900 }
+            };
+            _configItems.Add(firstConfig);
+            _configItems.Add(secondConfig);
+
+            var bindings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+
+            Assert.HasCount(2, bindings);
+            Assert.AreEqual(100, bindings.Single(b => b.ConfigGuid == firstConfig.GUID).Timings.HoldDelay);
+            Assert.AreEqual(900, bindings.Single(b => b.ConfigGuid == secondConfig.GUID).Timings.HoldDelay);
+        }
+
+        #endregion
+
+        #region TargetConfigGUID - a HOLD/REPEAT/LONG_RELEASE targeted at one config skips the others
+
+        [TestMethod]
+        public void Execute_TargetedEvent_OnlyExecutesTheTargetedConfig()
+        {
+            var serial = "SN-target001";
+            var deviceName = "Button1";
+
+            var targeted = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "TargetedConfig",
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
+            };
+            var other = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "OtherConfig",
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" } }
+            };
+            _configItems.Add(targeted);
+            _configItems.Add(other);
+
+            var holdEvent = CreateHoldEventArgs(serial, deviceName);
+            holdEvent.TargetConfigGUID = targeted.GUID;
+
+            var result = _executor.Execute(holdEvent, isStarted: true);
+
+            Assert.IsTrue(result.ContainsKey(targeted.GUID), "The targeted config must execute.");
+            Assert.IsFalse(result.ContainsKey(other.GUID), "A targeted event must not execute any other matching config.");
+        }
+
+        [TestMethod]
+        public void Execute_UntargetedEvent_ExecutesEveryMatchingActiveConfig()
+        {
+            var serial = "SN-broadcast001";
+            var deviceName = "Button1";
+
+            var first = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "First",
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
+            };
+            var second = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "Second",
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" } }
+            };
+            _configItems.Add(first);
+            _configItems.Add(second);
+
+            // TargetConfigGUID left null, e.g. a real PRESS/RELEASE - must still broadcast to both.
+            var result = _executor.Execute(CreateHoldEventArgs(serial, deviceName), isStarted: true);
+
+            Assert.IsTrue(result.ContainsKey(first.GUID));
+            Assert.IsTrue(result.ContainsKey(second.GUID));
         }
 
         #endregion

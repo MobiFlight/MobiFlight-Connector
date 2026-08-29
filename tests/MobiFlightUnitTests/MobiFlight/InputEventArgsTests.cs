@@ -57,6 +57,40 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void GetEventActionLabel_ButtonHoldEvent_ReturnsCorrectString()
+        {
+            // Arrange
+            var inputEvent = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.HOLD
+            };
+
+            // Act
+            var result = inputEvent.GetEventActionLabel();
+
+            // Assert
+            Assert.AreEqual("HOLD", result);
+        }
+
+        [TestMethod]
+        public void GetEventActionLabel_ButtonRepeatEvent_ReturnsCorrectString()
+        {
+            // Arrange
+            var inputEvent = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.REPEAT
+            };
+
+            // Act
+            var result = inputEvent.GetEventActionLabel();
+
+            // Assert
+            Assert.AreEqual("REPEAT", result);
+        }
+
+        [TestMethod]
         public void GetEventActionLabel_ButtonInvalidEvent_ReturnsNA()
         {
             // Arrange
@@ -531,6 +565,42 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual("TestModule => ShiftReg1 - 0 => PRESS", result);
+        }
+
+        // Clone()/CloneWithLabel() - Label is dropped by plain Clone() (DeviceReference.Label is a
+        // discovery workaround, not stable state). Missing this the first time is what let the
+        // synthetic RELEASE/HOLD/LONG_RELEASE log lines go blank - see SyntheticButtonEventGeneratorTests.
+
+        [TestMethod]
+        public void Clone_DropsDeviceLabel()
+        {
+            var inputEvent = new InputEventArgs
+            {
+                Controller = new Base.Controller { Name = "TestModule" },
+                Device = new Base.DeviceReference { Name = "Button1", Label = "Button 1" },
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.PRESS
+            };
+
+            var clone = (InputEventArgs)inputEvent.Clone();
+
+            Assert.IsNull(clone.Device.Label, "Plain Clone() must not carry Label - see DeviceReference.Clone().");
+        }
+
+        [TestMethod]
+        public void CloneWithLabel_KeepsDeviceLabel()
+        {
+            var inputEvent = new InputEventArgs
+            {
+                Controller = new Base.Controller { Name = "TestModule" },
+                Device = new Base.DeviceReference { Name = "Button1", Label = "Button 1" },
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.PRESS
+            };
+
+            var clone = inputEvent.CloneWithLabel();
+
+            Assert.AreEqual("Button 1", clone.Device.Label);
         }
     }
 }

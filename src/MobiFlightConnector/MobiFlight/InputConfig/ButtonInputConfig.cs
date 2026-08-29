@@ -1,5 +1,4 @@
-﻿using System;
-using System.Timers;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
@@ -8,35 +7,16 @@ namespace MobiFlight.InputConfig
 {
     public class ButtonInputConfig : IXmlSerializable, ICloneable
     {
-        public InputAction onPress;        
-        public InputAction onRelease;        
+        public InputAction onPress;
+        public InputAction onRelease;
         public InputAction onLongRelease;
         public InputAction onHold;
-
-        private InputEventArgs LastOnPressEvent;
-        private CacheCollection LastOnPressCacheCollection;        
-        private List<ConfigRefValue> LastOnPressConfigRefs;
-        private object LastOnPressLock = new object();
-        
         public int LongReleaseDelay = 350; //ms
         public int HoldDelay = 350;
         public int RepeatDelay = 0;
 
-        private Timer HoldTimer = new Timer();
-        private Timer RepeatTimer = new Timer();
-
-        // Func<bool> rather than bool so the check is deferred — the closure captures cfg
-        // and CheckPreconditions, evaluating current state on each timer fire rather than
-        // at press time.
-        [XmlIgnore]
-        [JsonIgnore]
-        public Func<bool> CanExecute { get; set; }
-
         public ButtonInputConfig()
         {
-            RepeatTimer.AutoReset = true;
-            HoldTimer.Elapsed += HoldTimer_Elapsed;            
-            RepeatTimer.Elapsed += RepeatTimer_Elapsed;
         }
 
         /// <summary>
@@ -69,7 +49,7 @@ namespace MobiFlight.InputConfig
             reader.Read(); // this should be the opening tag "onPress"
             if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onPress")
-            {                
+            {
                 onPress = InputActionFactory.CreateByType(reader["type"]);
                 onPress?.ReadXml(reader);
                 reader.Read(); // Closing onPress
@@ -77,7 +57,7 @@ namespace MobiFlight.InputConfig
 
             if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onRelease")
-            {                
+            {
                 onRelease = InputActionFactory.CreateByType(reader["type"]);
                 onRelease?.ReadXml(reader);
                 reader.Read(); // closing onRelease
@@ -99,7 +79,7 @@ namespace MobiFlight.InputConfig
             if (reader.LocalName == "onHold")
             {
                 HoldDelay = int.Parse(reader["holdDelay"]);
-                RepeatDelay = int.Parse(reader["repeatDelay"]);                
+                RepeatDelay = int.Parse(reader["repeatDelay"]);
                 onHold = InputActionFactory.CreateByType(reader["type"]);
                 onHold?.ReadXml(reader);
                 reader.Read(); // closing onLongRelease
@@ -118,7 +98,7 @@ namespace MobiFlight.InputConfig
                     break;
                 case "onRelease":
                     onRelease = inputAction;
-                    break;                   
+                    break;
                 case "onLongRelease":
                     onLongRelease = inputAction;
                     break;
@@ -142,7 +122,7 @@ namespace MobiFlight.InputConfig
                     return onHold;
                 default:
                     return null;
-            }        
+            }
         }
 
         public List<InputAction> GetInputActionsByType(Type type)
@@ -187,166 +167,34 @@ namespace MobiFlight.InputConfig
             {
                 writer.WriteStartElement("onHold");
                 writer.WriteAttributeString("holdDelay", HoldDelay.ToString());
-                writer.WriteAttributeString("repeatDelay", RepeatDelay.ToString());               
+                writer.WriteAttributeString("repeatDelay", RepeatDelay.ToString());
                 onHold.WriteXml(writer);
                 writer.WriteEndElement();
             }
         }
 
-        private void ExecuteOnHoldAction()
-        {
-            if (CanExecute != null && !CanExecute()) { StopTimers(); return; }
-            lock (LastOnPressLock)
-            {
-                InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
-                args.Value = (int)MobiFlightButton.InputEvent.HOLD;
-                Log.Instance.log($"{args.Controller.Name} => {args.Device.Label}  => Execute HOLD", LogSeverity.Info);
-                onHold.execute(LastOnPressCacheCollection, args, LastOnPressConfigRefs);
-            }            
-        }
-
-        private void RepeatTimer_Elapsed(object sender, EventArgs e)
-        {
-            try
-            {
-                ExecuteOnHoldAction();
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Error executing onHold action: {ex.Message}", LogSeverity.Error);
-            }
-        }
-
-        private void ExecuteRepeatOnHold()
-        {
-            if (RepeatDelay > 0)
-            {
-                RepeatTimer.Interval = RepeatDelay;
-                RepeatTimer.Start();
-            }
-        }
-
-        private void HoldTimer_Elapsed(object sender, EventArgs e)
-        {
-            try
-            {
-                ExecuteOnHoldAction();
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Error executing onHold action: {ex.Message}", LogSeverity.Error);
-            }
-            finally
-            {
-                HoldTimer.Stop();
-                ExecuteRepeatOnHold();
-            }
-        }
-
-        private void ExecuteOnHoldWithTimer()
-        {
-            if (HoldDelay > 0)
-            {                
-                HoldTimer.Interval = HoldDelay;
-                HoldTimer.Start();
-            }
-            else
-            {
-                ExecuteOnHoldAction();
-                ExecuteRepeatOnHold();
-            }
-        }
-
-        private void CheckAndStopTimer()
-        {
-            if (HoldTimer.Enabled)
-                HoldTimer.Stop();
-            if (RepeatTimer.Enabled)
-                RepeatTimer.Stop();
-        }
-
-        public void StopTimers()
-        {
-            CheckAndStopTimer();
-        }
-
-        private void CheckAndAdaptForLongButtonRelease(InputEventArgs current, InputEventArgs previous)
-        {
-            var inputEvent = (MobiFlightButton.InputEvent)current.Value;
-
-            if (inputEvent == MobiFlightButton.InputEvent.RELEASE &&
-                onLongRelease != null &&
-                previous != null)
-            {
-                TimeSpan timeSpanToPreviousInput = current.Time - previous.Time;
-                if (timeSpanToPreviousInput > TimeSpan.FromMilliseconds(LongReleaseDelay))
-                {
-                    current.Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE;
-                    Log.Instance.log($"{current.Controller.Name} => {current.Device.Label}  => Execute as LONG_RELEASE", LogSeverity.Info);
-                }
-            }
-        }
-
-        private void ExecuteOnPressAction(CacheCollection cacheCollection,
-                                          InputEventArgs args,
-                                          List<ConfigRefValue> configRefs)
-        {
-            lock (LastOnPressLock)
-            {
-                LastOnPressEvent = args;
-                LastOnPressCacheCollection = cacheCollection;
-                LastOnPressConfigRefs = configRefs;
-                if (onPress != null)
-                {
-                    onPress.execute(cacheCollection, args, configRefs);
-                }
-            }
-            if (onHold != null)
-            {               
-                ExecuteOnHoldWithTimer();
-            }
-        }
-
-        private void ExecuteOnReleaseAction(CacheCollection cacheCollection,
-                                            InputEventArgs args,
-                                            List<ConfigRefValue> configRefs)
-        {
-            CheckAndStopTimer();
-            if (onRelease != null)
-            {
-                onRelease.execute(cacheCollection, args, configRefs);
-            }
-        }
-
-        private void ExecuteOnLongReleaseAction(CacheCollection cacheCollection,
-                                                InputEventArgs args,
-                                                List<ConfigRefValue> configRefs)
-        {
-            CheckAndStopTimer();
-            if (onLongRelease != null)
-            {
-                onLongRelease.execute(cacheCollection, args, configRefs);
-            }
-        }
-
-        internal void execute(CacheCollection cacheCollection, 
-                              InputEventArgs args, 
+        /// <summary>
+        /// Dispatches one already-classified event to the matching InputAction. REPEAT has no
+        /// binding of its own - it dispatches to onHold, same as HOLD.
+        /// </summary>
+        internal void execute(CacheCollection cacheCollection,
+                              InputEventArgs args,
                               List<ConfigRefValue> configRefs)
         {
-            CheckAndAdaptForLongButtonRelease(args, LastOnPressEvent);
-
             switch ((MobiFlightButton.InputEvent)args.Value)
             {
                 case MobiFlightButton.InputEvent.PRESS:
-                    ExecuteOnPressAction(cacheCollection, args, configRefs);
+                    onPress?.execute(cacheCollection, args, configRefs);
                     break;
                 case MobiFlightButton.InputEvent.RELEASE:
-                    ExecuteOnReleaseAction(cacheCollection, args, configRefs);
+                    onRelease?.execute(cacheCollection, args, configRefs);
                     break;
                 case MobiFlightButton.InputEvent.LONG_RELEASE:
-                    ExecuteOnLongReleaseAction(cacheCollection, args, configRefs);
+                    onLongRelease?.execute(cacheCollection, args, configRefs);
                     break;
-                default:
+                case MobiFlightButton.InputEvent.HOLD:
+                case MobiFlightButton.InputEvent.REPEAT:
+                    onHold?.execute(cacheCollection, args, configRefs);
                     break;
             }
         }
