@@ -17,6 +17,7 @@ namespace MobiFlight.Joysticks
                 case "EFIS Cube":
                 case "FCU Cube":
                 case "OVHD Cube":
+                case "Logitech Switch Panel":
                     return true;
             }
 
@@ -38,6 +39,9 @@ namespace MobiFlight.Joysticks
                     break;
                 case "OVHD Cube":
                     result = new WingFlex.OvhdCube(definition);
+                    break;
+                case "Logitech Switch Panel":
+                    result = new Logitech.SwitchPanel(definition);
                     break;
             }
 

@@ -22,5 +22,24 @@ namespace MobiFlight.Joysticks.Tests
             var canCreateNullString = HidControllerFactory.CanCreate(null);
             Assert.IsFalse(canCreateNullString);
         }
+
+        [TestMethod]
+        public void CanCreate_SwitchPanelInstanceName_ReturnsTrue()
+        {
+            Assert.IsTrue(HidControllerFactory.CanCreate("Logitech Switch Panel"));
+        }
+
+        [TestMethod]
+        public void Create_SwitchPanelDefinition_ReturnsSwitchPanel()
+        {
+            var definition = new JoystickDefinition
+            {
+                InstanceName = "Logitech Switch Panel"
+            };
+
+            var controller = HidControllerFactory.Create(definition);
+
+            Assert.IsInstanceOfType(controller, typeof(Logitech.SwitchPanel));
+        }
     }
 }
