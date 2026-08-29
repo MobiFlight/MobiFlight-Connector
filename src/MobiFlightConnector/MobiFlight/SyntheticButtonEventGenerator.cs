@@ -240,7 +240,7 @@ namespace MobiFlight
     public struct ButtonTimings
     {
         /// <summary>Floor for a positive RepeatDelay - protects the sim API from a too-fast repeat. 0 (disabled) is exempt.</summary>
-        public const int MinRepeatDelay = 200; // ms
+        public const int MinRepeatDelay = 100; // ms
 
         public int HoldDelay;
         public int RepeatDelay;
