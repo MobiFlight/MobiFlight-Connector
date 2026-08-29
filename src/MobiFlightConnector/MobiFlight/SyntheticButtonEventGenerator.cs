@@ -125,7 +125,7 @@ namespace MobiFlight
                 var result = new List<InputEventArgs>(tracked.Bindings.Count);
                 foreach (var binding in tracked.Bindings)
                 {
-                    var classified = (InputEventArgs)e.Clone();
+                    var classified = e.CloneWithLabel();
                     classified.TargetConfigGUID = binding.ConfigGuid;
                     if ((now - tracked.PressedAt) > TimeSpan.FromMilliseconds(binding.Timings.LongReleaseDelay))
                     {
@@ -185,7 +185,7 @@ namespace MobiFlight
 
         private static InputEventArgs Classify(InputEventArgs lastPress, string targetConfigGuid, MobiFlightButton.InputEvent value)
         {
-            var e = (InputEventArgs)lastPress.Clone();
+            var e = lastPress.CloneWithLabel();
             e.Value = (int)value;
             e.TargetConfigGUID = targetConfigGuid;
             return e;

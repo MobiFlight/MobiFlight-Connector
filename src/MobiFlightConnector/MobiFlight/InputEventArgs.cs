@@ -53,5 +53,20 @@ namespace MobiFlight
 
             return clone;
         }
+
+        /// <summary>
+        /// Label is a UI/i18n concern and shouldn't really live on a backend type - that's why plain
+        /// Clone() (and DeviceReference.Clone()) drop it. But backend log formatting still needs a
+        /// display string today, so use this clone where that's the case, e.g. deriving
+        /// RELEASE/HOLD/REPEAT/LONG_RELEASE from a PRESS (same physical button, same label). Once
+        /// logging no longer needs Label, this method should go away rather than get replaced by
+        /// plain Clone().
+        /// </summary>
+        public InputEventArgs CloneWithLabel()
+        {
+            var clone = (InputEventArgs)Clone();
+            if (clone.Device != null) clone.Device.Label = Device.Label;
+            return clone;
+        }
     }
 }

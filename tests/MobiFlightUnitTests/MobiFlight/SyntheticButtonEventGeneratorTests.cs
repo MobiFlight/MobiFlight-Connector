@@ -36,12 +36,12 @@ namespace MobiFlight.Tests
             _generator.Dispose();
         }
 
-        private static InputEventArgs ButtonEvent(string serial, string device, MobiFlightButton.InputEvent value)
+        private static InputEventArgs ButtonEvent(string serial, string device, MobiFlightButton.InputEvent value, string label = null)
         {
             return new InputEventArgs
             {
                 Controller = new Controller { Serial = serial },
-                Device = new DeviceReference { Name = device },
+                Device = new DeviceReference { Name = device, Label = label },
                 InputType = DeviceType.Button,
                 Value = (int)value
             };
@@ -352,6 +352,60 @@ namespace MobiFlight.Tests
             var timings = new ButtonTimings(holdDelay: 300, repeatDelay: configured, longReleaseDelay: 300);
 
             Assert.AreEqual(expected, timings.RepeatDelay);
+        }
+
+        // Device.Label - the value the log line displays. All of these are built by cloning
+        // internally, and DeviceReference.Clone() drops Label - CloneWithLabel() is what's supposed
+        // to prevent it going blank here. This is the exact regression that shipped unnoticed until
+        // manual testing caught it: PRESS kept its label because it's never cloned, everything else
+        // silently lost it.
+
+        [TestMethod]
+        public void Tick_Hold_PreservesDeviceLabelFromPress()
+        {
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
+
+            _now = _now.AddMilliseconds(300);
+            _generator.Tick();
+
+            Assert.AreEqual("Button 1", _synthetic[0].Device.Label);
+        }
+
+        [TestMethod]
+        public void Tick_Repeat_PreservesDeviceLabelFromPress()
+        {
+            _generator.RepeatDelay = ButtonTimings.MinRepeatDelay;
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
+
+            _now = _now.AddMilliseconds(300);
+            _generator.Tick(); // HOLD
+
+            _now = _now.AddMilliseconds(ButtonTimings.MinRepeatDelay);
+            _generator.Tick(); // REPEAT
+
+            Assert.AreEqual("Button 1", _synthetic[1].Device.Label);
+        }
+
+        [TestMethod]
+        public void Observe_Release_PreservesDeviceLabel()
+        {
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
+
+            var released = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE, "Button 1"));
+
+            Assert.AreEqual("Button 1", released.Device.Label);
+        }
+
+        [TestMethod]
+        public void Observe_LongRelease_PreservesDeviceLabel()
+        {
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
+
+            _now = _now.AddMilliseconds(350); // > LongReleaseDelay (300)
+            var result = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE, "Button 1"));
+
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, result.Value);
+            Assert.AreEqual("Button 1", result.Device.Label);
         }
 
         [TestMethod]
