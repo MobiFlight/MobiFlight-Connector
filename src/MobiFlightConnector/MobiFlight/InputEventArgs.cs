@@ -13,8 +13,12 @@ namespace MobiFlight
 
         public String StrValue { get; set; }
 
-        /// <summary>Null (default) broadcasts to every matching config. Non-null restricts Execute() to that one config's GUID - used for HOLD/REPEAT/LONG_RELEASE, timed per-config.</summary>
-        public string TargetConfigGUID { get; set; }
+        /// <summary>
+        /// The HOLD/RepeatDelay/LongReleaseDelay (ms) that classified this event - also how a config
+        /// decides an event is its own (see ButtonInputConfig.MatchesSyntheticDelay), not just how
+        /// it's displayed. Null for PRESS/RELEASE.
+        /// </summary>
+        public int? SyntheticDelayMs { get; set; }
 
         public readonly DateTime Time = DateTime.Now;
 
@@ -27,7 +31,10 @@ namespace MobiFlight
             switch (InputType)
             {
                 case DeviceType.Button:
-                    return MobiFlightButton.InputEventIdToString(v);
+                    var label = MobiFlightButton.InputEventIdToString(v);
+                    // Only annotate when asking for this event's own value - a value normalized down
+                    // to a fallback (e.g. LONG_RELEASE -> RELEASE) has no delay of its own to show.
+                    return (SyntheticDelayMs.HasValue && v == Convert.ToInt32(Value)) ? $"{label} ({SyntheticDelayMs}ms)" : label;
                 case DeviceType.Encoder:
                     return MobiFlightEncoder.InputEventIdToString(v);
                 case DeviceType.AnalogInput:
@@ -52,7 +59,7 @@ namespace MobiFlight
             clone.InputType = InputType;
             clone.Value = Value;
             clone.StrValue = StrValue;
-            clone.TargetConfigGUID = TargetConfigGUID;
+            clone.SyntheticDelayMs = SyntheticDelayMs;
 
             return clone;
         }

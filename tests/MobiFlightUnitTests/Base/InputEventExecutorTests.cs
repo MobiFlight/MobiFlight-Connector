@@ -722,10 +722,10 @@ namespace MobiFlight.Execution.Tests
 
         #endregion
 
-        #region ResolveButtonTimingsPerConfig - delay, and which config, are per binding
+        #region ResolveButtonTimingsPerConfig - distinct delay settings among bound configs
 
         [TestMethod]
-        public void ResolveButtonTimingsPerConfig_ActiveConfig_ReturnsItsDelaysTargetedAtIt()
+        public void ResolveButtonTimingsPerConfig_ActiveConfig_ReturnsItsDelays()
         {
             var serial = "SN-timings001";
             var deviceName = "Button1";
@@ -740,20 +740,18 @@ namespace MobiFlight.Execution.Tests
                 {
                     onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
                     HoldDelay = 123,
-                    RepeatDelay = 45, // below ButtonTimings.MinRepeatDelay - e.g. an old/hand-edited config
+                    RepeatDelay = 45, // below ButtonTimings.MinRepeatDelay - not enforced here, that's a config-authoring-time (UI) concern
                     LongReleaseDelay = 678
                 }
             };
             _configItems.Add(configItem);
 
-            var bindings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            var timings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
 
-            Assert.HasCount(1, bindings);
-            Assert.AreEqual(configItem.GUID, bindings[0].ConfigGuid);
-            Assert.AreEqual(123, bindings[0].Timings.HoldDelay, "HoldDelay is not clamped.");
-            Assert.AreEqual(ButtonTimings.MinRepeatDelay, bindings[0].Timings.RepeatDelay,
-                "The stored 45ms RepeatDelay must be raised to the floor - ButtonTimings' constructor clamps it regardless of where the value came from.");
-            Assert.AreEqual(678, bindings[0].Timings.LongReleaseDelay, "LongReleaseDelay is not clamped.");
+            Assert.HasCount(1, timings);
+            Assert.AreEqual(123, timings[0].HoldDelay);
+            Assert.AreEqual(45, timings[0].RepeatDelay, "No runtime clamping - the config's own value is used as-is.");
+            Assert.AreEqual(678, timings[0].LongReleaseDelay);
         }
 
         [TestMethod]
@@ -786,8 +784,7 @@ namespace MobiFlight.Execution.Tests
             var result = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
 
             Assert.HasCount(1, result, "An inactive config is still bound to the button and must still get a timing binding.");
-            Assert.AreEqual(configItem.GUID, result[0].ConfigGuid);
-            Assert.AreEqual(999, result[0].Timings.HoldDelay);
+            Assert.AreEqual(999, result[0].HoldDelay);
         }
 
         [TestMethod]
@@ -829,19 +826,19 @@ namespace MobiFlight.Execution.Tests
             _configItems.Add(modeAConfig);
             _configItems.Add(modeBConfig);
 
-            var bindingsInModeA = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
-            Assert.HasCount(2, bindingsInModeA, "Both configs are bound to this button regardless of which mode is currently selected.");
-            Assert.AreEqual(200, bindingsInModeA.Single(b => b.ConfigGuid == modeAConfig.GUID).Timings.HoldDelay);
-            Assert.AreEqual(800, bindingsInModeA.Single(b => b.ConfigGuid == modeBConfig.GUID).Timings.HoldDelay);
+            var timingsInModeA = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.HasCount(2, timingsInModeA, "Both configs are bound to this button regardless of which mode is currently selected.");
+            Assert.IsTrue(timingsInModeA.Any(t => t.HoldDelay == 200));
+            Assert.IsTrue(timingsInModeA.Any(t => t.HoldDelay == 800));
 
-            modeSwitch.Value = "ModeB"; // resolving bindings no longer depends on this at all
+            modeSwitch.Value = "ModeB"; // resolving timings no longer depends on this at all
 
-            var bindingsInModeB = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
-            Assert.HasCount(2, bindingsInModeB, "Switching modes doesn't change which configs are bound - only Execute() cares about the current mode.");
+            var timingsInModeB = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.HasCount(2, timingsInModeB, "Switching modes doesn't change which configs are bound - only Execute() cares about the current mode.");
         }
 
         [TestMethod]
-        public void ResolveButtonTimingsPerConfig_TwoSimultaneouslyActiveConfigs_ReturnsBothTargetedIndependently()
+        public void ResolveButtonTimingsPerConfig_TwoSimultaneouslyActiveConfigs_ReturnsBoth()
         {
             var serial = "SN-conflict001";
             var deviceName = "Button1";
@@ -865,30 +862,60 @@ namespace MobiFlight.Execution.Tests
             _configItems.Add(firstConfig);
             _configItems.Add(secondConfig);
 
-            var bindings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            var timings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
 
-            Assert.HasCount(2, bindings);
-            Assert.AreEqual(100, bindings.Single(b => b.ConfigGuid == firstConfig.GUID).Timings.HoldDelay);
-            Assert.AreEqual(900, bindings.Single(b => b.ConfigGuid == secondConfig.GUID).Timings.HoldDelay);
+            Assert.HasCount(2, timings);
+            Assert.IsTrue(timings.Any(t => t.HoldDelay == 100));
+            Assert.IsTrue(timings.Any(t => t.HoldDelay == 900));
         }
 
-        #endregion
-
-        #region TargetConfigGUID - a HOLD/REPEAT/LONG_RELEASE targeted at one config skips the others
-
         [TestMethod]
-        public void Execute_TargetedEvent_OnlyExecutesTheTargetedConfig()
+        public void ResolveButtonTimingsPerConfig_TwoConfigsWithIdenticalSettings_ReturnsOneDistinctEntry()
         {
-            var serial = "SN-target001";
+            var serial = "SN-identical001";
             var deviceName = "Button1";
 
-            var targeted = new InputConfigItem
+            var firstConfig = new InputConfigItem
             {
                 Active = true,
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
-                Name = "TargetedConfig",
-                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
+                Name = "FirstConfig",
+                button = new ButtonInputConfig { HoldDelay = 350, RepeatDelay = 0, LongReleaseDelay = 350 }
+            };
+            var secondConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "SecondConfig",
+                button = new ButtonInputConfig { HoldDelay = 350, RepeatDelay = 0, LongReleaseDelay = 350 }
+            };
+            _configItems.Add(firstConfig);
+            _configItems.Add(secondConfig);
+
+            var timings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+
+            Assert.HasCount(1, timings, "Two configs with identical settings collapse to one distinct entry - no config identity is carried here.");
+        }
+
+        #endregion
+
+        #region MatchesSyntheticDelay - a HOLD/REPEAT/LONG_RELEASE only applies to a config whose own delay produced it
+
+        [TestMethod]
+        public void Execute_HoldEvent_OnlyExecutesTheConfigWhoseOwnDelayMatches()
+        {
+            var serial = "SN-target001";
+            var deviceName = "Button1";
+
+            var matching = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "MatchingConfig",
+                button = new ButtonInputConfig { HoldDelay = 300, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
             };
             var other = new InputConfigItem
             {
@@ -896,22 +923,22 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "OtherConfig",
-                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" } }
+                button = new ButtonInputConfig { HoldDelay = 900, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" } }
             };
-            _configItems.Add(targeted);
+            _configItems.Add(matching);
             _configItems.Add(other);
 
             var holdEvent = CreateHoldEventArgs(serial, deviceName);
-            holdEvent.TargetConfigGUID = targeted.GUID;
+            holdEvent.SyntheticDelayMs = 300; // matches only "matching"'s own HoldDelay
 
             var result = _executor.Execute(holdEvent, isStarted: true);
 
-            Assert.IsTrue(result.ContainsKey(targeted.GUID), "The targeted config must execute.");
-            Assert.IsFalse(result.ContainsKey(other.GUID), "A targeted event must not execute any other matching config.");
+            Assert.IsTrue(result.ContainsKey(matching.GUID), "The config whose own HoldDelay matches must execute.");
+            Assert.IsFalse(result.ContainsKey(other.GUID), "A config whose own HoldDelay doesn't match must not execute.");
         }
 
         [TestMethod]
-        public void Execute_UntargetedEvent_ExecutesEveryMatchingActiveConfig()
+        public void Execute_EventWithNoSyntheticDelay_ExecutesEveryMatchingActiveConfig()
         {
             var serial = "SN-broadcast001";
             var deviceName = "Button1";
@@ -922,7 +949,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "First",
-                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
+                button = new ButtonInputConfig { HoldDelay = 300, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
             };
             var second = new InputConfigItem
             {
@@ -930,12 +957,12 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "Second",
-                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" } }
+                button = new ButtonInputConfig { HoldDelay = 900, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" } }
             };
             _configItems.Add(first);
             _configItems.Add(second);
 
-            // TargetConfigGUID left null, e.g. a real PRESS/RELEASE - must still broadcast to both.
+            // SyntheticDelayMs left null, e.g. a real PRESS/RELEASE - nothing to match, so it broadcasts to both.
             var result = _executor.Execute(CreateHoldEventArgs(serial, deviceName), isStarted: true);
 
             Assert.IsTrue(result.ContainsKey(first.GUID));

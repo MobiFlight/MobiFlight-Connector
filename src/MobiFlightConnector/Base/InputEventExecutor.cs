@@ -76,8 +76,8 @@ namespace MobiFlight.Execution
 
             foreach (var cfg in inputCache[inputKey])
             {
-                // targeted event (HOLD/REPEAT/LONG_RELEASE) only triggers its own config
-                if (e.TargetConfigGUID != null && e.TargetConfigGUID != cfg.GUID)
+                // A HOLD/REPEAT/LONG_RELEASE only applies to a config whose own delay produced it.
+                if (cfg.button != null && !cfg.button.MatchesSyntheticDelay(e))
                 {
                     continue;
                 }
@@ -154,11 +154,13 @@ namespace MobiFlight.Execution
         }
 
         /// <summary>
-        /// Hold/Repeat/LongRelease delays for every config bound to this button. Active/precondition
-        /// gating happens in Execute(), not here - this only decides which delays govern this press.
-        /// Empty if no config is bound at all.
+        /// The distinct Hold/Repeat/LongRelease delay settings among configs bound to this button.
+        /// Active/precondition gating happens in Execute(), not here - this only decides which delays
+        /// govern this press. No config identity is carried (see
+        /// SyntheticButtonEventGenerator.ResolveTimings) - two configs sharing a delay collapse to one
+        /// entry. Empty if no config is bound at all.
         /// </summary>
-        public List<ButtonBinding> ResolveButtonTimingsPerConfig(InputEventArgs e)
+        public List<ButtonTimings> ResolveButtonTimingsPerConfig(InputEventArgs e)
         {
             string inputKey = CreateInputKey(e);
             if (!inputCache.ContainsKey(inputKey))
@@ -166,18 +168,11 @@ namespace MobiFlight.Execution
                 inputCache[inputKey] = GetMatchingInputConfigs(e);
             }
 
-            var result = new List<ButtonBinding>();
-
-            foreach (var cfg in inputCache[inputKey])
-            {
-                if (cfg.button == null) continue;
-
-                result.Add(new ButtonBinding(
-                    cfg.GUID,
-                    new ButtonTimings(cfg.button.HoldDelay, cfg.button.RepeatDelay, cfg.button.LongReleaseDelay)));
-            }
-
-            return result;
+            return inputCache[inputKey]
+                .Where(cfg => cfg.button != null)
+                .Select(cfg => new ButtonTimings(cfg.button.HoldDelay, cfg.button.RepeatDelay, cfg.button.LongReleaseDelay))
+                .Distinct()
+                .ToList();
         }
 
         private List<InputConfigItem> GetMatchingInputConfigs(InputEventArgs e)

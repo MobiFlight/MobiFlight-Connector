@@ -22,7 +22,7 @@ namespace MobiFlight.Tests
             _now = new DateTime(2026, 1, 1, 12, 0, 0);
             _generator = new SyntheticButtonEventGenerator(() => _now, NeverFiresIntervalMs)
             {
-                ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 300) }
+                ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 300) }
             };
             _synthetic = new List<InputEventArgs>();
             _generator.OnSyntheticEvent += (s, e) => _synthetic.Add(e);
@@ -44,10 +44,6 @@ namespace MobiFlight.Tests
                 Value = (int)value
             };
         }
-
-        /// <summary>A binding with no owning config - broadcasts like a real event, same as an unconfigured device would with no generator involved at all.</summary>
-        private static ButtonBinding UntargetedBinding(int holdDelay, int repeatDelay, int longReleaseDelay) =>
-            new ButtonBinding(null, new ButtonTimings(holdDelay, repeatDelay, longReleaseDelay));
 
         /// <summary>Convenience for tests where exactly one config (or none) is expected to match.</summary>
         private InputEventArgs ObserveOne(InputEventArgs e) => _generator.Observe(e).Single();
@@ -75,7 +71,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual((double)MobiFlightButton.InputEvent.HOLD, _synthetic[0].Value);
             Assert.AreEqual("S1", _synthetic[0].Controller.Serial);
             Assert.AreEqual("Btn1", _synthetic[0].Device.Name);
-            Assert.IsNull(_synthetic[0].TargetConfigGUID, "The default test resolver returns an untargeted binding - broadcasts like a real event.");
+            Assert.AreEqual(300, _synthetic[0].SyntheticDelayMs, "Carries the HoldDelay that fired it, for display and for a config to match itself against.");
         }
 
         [TestMethod]
@@ -95,13 +91,13 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_WithRepeatDelayElapsed_FiresRepeatAfterInitialHold()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: ButtonTimings.MinRepeatDelay, longReleaseDelay: 300) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 300) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(300);
             _generator.Tick(); // first HOLD
 
-            _now = _now.AddMilliseconds(ButtonTimings.MinRepeatDelay);
+            _now = _now.AddMilliseconds(100);
             _generator.Tick(); // repeat
 
             Assert.HasCount(2, _synthetic);
@@ -112,16 +108,16 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_WithRepeatDelayElapsedTwice_FiresRepeatEachTime()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: ButtonTimings.MinRepeatDelay, longReleaseDelay: 300) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 300) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(300);
             _generator.Tick(); // HOLD
 
-            _now = _now.AddMilliseconds(ButtonTimings.MinRepeatDelay);
+            _now = _now.AddMilliseconds(100);
             _generator.Tick(); // REPEAT #1
 
-            _now = _now.AddMilliseconds(ButtonTimings.MinRepeatDelay);
+            _now = _now.AddMilliseconds(100);
             _generator.Tick(); // REPEAT #2
 
             Assert.HasCount(3, _synthetic);
@@ -139,6 +135,7 @@ namespace MobiFlight.Tests
             var result = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
 
             Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, result.Value);
+            Assert.IsNull(result.SyntheticDelayMs, "Plain RELEASE has no delay of its own to show.");
         }
 
         [TestMethod]
@@ -150,6 +147,7 @@ namespace MobiFlight.Tests
             var result = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
 
             Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, result.Value);
+            Assert.AreEqual(300, result.SyntheticDelayMs);
         }
 
         [TestMethod]
@@ -220,14 +218,14 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void ResolveTimings_OverridesDefaultHoldDelayForThatPress()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding> { new ButtonBinding("cfgA", new ButtonTimings(50, 0, 300)) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(50, 0, 300) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(50); // well under the generator's own 300ms default
             _generator.Tick();
 
             Assert.HasCount(1, _synthetic, "The resolved 50ms HoldDelay should govern, not the generator's 300ms default.");
-            Assert.AreEqual("cfgA", _synthetic[0].TargetConfigGUID);
+            Assert.AreEqual(50, _synthetic[0].SyntheticDelayMs);
         }
 
         [TestMethod]
@@ -235,7 +233,7 @@ namespace MobiFlight.Tests
         {
             // Resolver ran and found no config bound to this button - never track it, never fire
             // HOLD/REPEAT/LONG_RELEASE for it, no matter how long it's held.
-            _generator.ResolveTimings = e => new List<ButtonBinding>();
+            _generator.ResolveTimings = e => new List<ButtonTimings>();
             var pressResult = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
             Assert.AreEqual((double)MobiFlightButton.InputEvent.PRESS, pressResult.Value, "PRESS must still pass through untouched.");
 
@@ -254,7 +252,7 @@ namespace MobiFlight.Tests
             _generator.ResolveTimings = e =>
             {
                 callCount++;
-                return new List<ButtonBinding> { new ButtonBinding("cfgA", new ButtonTimings(300, 0, 300)) };
+                return new List<ButtonTimings> { new ButtonTimings(300, 0, 300) };
             };
 
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
@@ -273,11 +271,11 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void ResolveTimings_DifferentButtonsCanHaveDifferentDelays()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding>
+            _generator.ResolveTimings = e => new List<ButtonTimings>
             {
                 e.Device.Name == "Btn1"
-                    ? new ButtonBinding("cfgBtn1", new ButtonTimings(50, 0, 300))
-                    : new ButtonBinding("cfgBtn2", new ButtonTimings(500, 0, 300))
+                    ? new ButtonTimings(50, 0, 300)
+                    : new ButtonTimings(500, 0, 300)
             };
 
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
@@ -290,15 +288,15 @@ namespace MobiFlight.Tests
             Assert.AreEqual("Btn1", _synthetic[0].Device.Name);
         }
 
-        // Two configs on the same button - the case that needs targeting, not just resolving.
+        // Two configs sharing a button, different delays - each still gets its own event.
 
         [TestMethod]
-        public void ResolveTimings_TwoConfigsOnSameButton_OnlyTheOneWhoseDelayElapsedFires()
+        public void ResolveTimings_TwoConfigsWithDifferentHoldDelay_OnlyTheOneWhoseDelayElapsedFires()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding>
+            _generator.ResolveTimings = e => new List<ButtonTimings>
             {
-                new ButtonBinding("fastConfig", new ButtonTimings(holdDelay: 50, repeatDelay: 0, longReleaseDelay: 300)),
-                new ButtonBinding("slowConfig", new ButtonTimings(holdDelay: 900, repeatDelay: 0, longReleaseDelay: 300))
+                new ButtonTimings(holdDelay: 50, repeatDelay: 0, longReleaseDelay: 300),
+                new ButtonTimings(holdDelay: 900, repeatDelay: 0, longReleaseDelay: 300)
             };
 
             _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
@@ -306,43 +304,109 @@ namespace MobiFlight.Tests
             _now = _now.AddMilliseconds(50);
             _generator.Tick();
 
-            Assert.HasCount(1, _synthetic, "slowConfig's 900ms HoldDelay has not elapsed - it must not fire yet.");
-            Assert.AreEqual("fastConfig", _synthetic[0].TargetConfigGUID);
+            Assert.HasCount(1, _synthetic, "The 900ms delay has not elapsed - it must not fire yet.");
+            Assert.AreEqual(50, _synthetic[0].SyntheticDelayMs);
             Assert.AreEqual((double)MobiFlightButton.InputEvent.HOLD, _synthetic[0].Value);
 
             _now = _now.AddMilliseconds(850); // total 900ms
             _generator.Tick();
 
-            Assert.HasCount(2, _synthetic, "slowConfig's own HoldDelay has now elapsed.");
-            Assert.AreEqual("slowConfig", _synthetic[1].TargetConfigGUID);
+            Assert.HasCount(2, _synthetic, "The 900ms delay has now elapsed too.");
+            Assert.AreEqual(900, _synthetic[1].SyntheticDelayMs);
         }
 
         [TestMethod]
-        public void ResolveTimings_TwoConfigsOnSameButton_ReleaseFansOutOneEventPerConfig()
+        public void ResolveTimings_TwoConfigsWithDifferentLongReleaseDelay_ReleaseFansOutOneEventPerDelay()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding>
+            _generator.ResolveTimings = e => new List<ButtonTimings>
             {
-                new ButtonBinding("shortLongRelease", new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 200)),
-                new ButtonBinding("longLongRelease", new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 800))
+                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 200),
+                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 800)
             };
 
             _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
-            _now = _now.AddMilliseconds(300); // > shortLongRelease's 200ms, < longLongRelease's 800ms
+            _now = _now.AddMilliseconds(300); // > 200ms, < 800ms
             var released = _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
 
-            Assert.HasCount(2, released, "One release event must be produced per config bound to the button.");
+            Assert.HasCount(2, released, "One release event must be produced per distinct LongReleaseDelay.");
 
-            var forShort = released.Single(e => e.TargetConfigGUID == "shortLongRelease");
-            var forLong = released.Single(e => e.TargetConfigGUID == "longLongRelease");
+            var longRelease = released.Single(e => e.Value == (double)MobiFlightButton.InputEvent.LONG_RELEASE);
+            var plainRelease = released.Single(e => e.Value == (double)MobiFlightButton.InputEvent.RELEASE);
 
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, forShort.Value,
-                "300ms exceeds shortLongRelease's own 200ms threshold - this config must see LONG_RELEASE.");
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, forLong.Value,
-                "300ms is under longLongRelease's own 800ms threshold - this config must see a plain RELEASE, not LONG_RELEASE.");
+            Assert.AreEqual(200, longRelease.SyntheticDelayMs, "300ms exceeds the 200ms threshold - that delay's group must see LONG_RELEASE.");
+            Assert.IsNull(plainRelease.SyntheticDelayMs, "300ms is under the 800ms threshold - that delay's group must see a plain RELEASE.");
         }
 
-        // RepeatDelay floor - protects the sim API from a too-fast repeat.
+        // Two configs sharing the SAME delay - the actual grouping guarantee: one physical HOLD/
+        // REPEAT/LONG_RELEASE must not be logged/raised once per config bound to the button.
+
+        [TestMethod]
+        public void Tick_TwoConfigsWithSameHoldDelay_FireOneGroupedHoldEvent()
+        {
+            _generator.ResolveTimings = e => new List<ButtonTimings>
+            {
+                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 200),
+                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 800) // differs only in LongReleaseDelay
+            };
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+
+            _now = _now.AddMilliseconds(300);
+            _generator.Tick();
+
+            Assert.HasCount(1, _synthetic, "Both configs share HoldDelay=300 - one HOLD, not two.");
+            Assert.AreEqual(300, _synthetic[0].SyntheticDelayMs);
+        }
+
+        [TestMethod]
+        public void Tick_TwoConfigsWithSameRepeatDelay_FireOneGroupedRepeatEvent()
+        {
+            _generator.ResolveTimings = e => new List<ButtonTimings>
+            {
+                new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 200),
+                new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 800) // differs only in LongReleaseDelay
+            };
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+
+            _now = _now.AddMilliseconds(300);
+            _generator.Tick(); // HOLD (grouped - one event)
+
+            _now = _now.AddMilliseconds(100);
+            _generator.Tick(); // REPEAT
+
+            Assert.HasCount(2, _synthetic, "Both configs share RepeatDelay=100 - one REPEAT, not two.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.REPEAT, _synthetic[1].Value);
+            Assert.AreEqual(100, _synthetic[1].SyntheticDelayMs);
+        }
+
+        [TestMethod]
+        public void Observe_TwoConfigsWithSameLongReleaseDelay_FireOneGroupedReleaseEvent()
+        {
+            _generator.ResolveTimings = e => new List<ButtonTimings>
+            {
+                new ButtonTimings(holdDelay: 50, repeatDelay: 0, longReleaseDelay: 300), // differs only in HoldDelay
+                new ButtonTimings(holdDelay: 900, repeatDelay: 0, longReleaseDelay: 300)
+            };
+            _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+
+            _now = _now.AddMilliseconds(350); // > 300ms
+            var released = _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
+
+            Assert.HasCount(1, released, "Both configs share LongReleaseDelay=300 - one LONG_RELEASE, not two.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, released[0].Value);
+            Assert.AreEqual(300, released[0].SyntheticDelayMs);
+        }
+
+        // RepeatDelay is used exactly as configured - no runtime floor. Enforcing a minimum is a
+        // config-authoring-time (UI) concern, not something evaluated on every tick.
+
+        [TestMethod]
+        public void ButtonTimingsConstructor_DoesNotClampRepeatDelay()
+        {
+            var timings = new ButtonTimings(holdDelay: 300, repeatDelay: 10, longReleaseDelay: 300);
+
+            Assert.AreEqual(10, timings.RepeatDelay, "Clamping belongs at config-save time (UI), not runtime evaluation.");
+        }
 
         [TestMethod]
         [DataRow(0, 0, DisplayName = "0 (disabled) is exempt from the floor")]
@@ -350,11 +414,31 @@ namespace MobiFlight.Tests
         [DataRow(ButtonTimings.MinRepeatDelay - 1, ButtonTimings.MinRepeatDelay, DisplayName = "just under the floor is raised to it")]
         [DataRow(ButtonTimings.MinRepeatDelay, ButtonTimings.MinRepeatDelay, DisplayName = "exactly the floor is unchanged")]
         [DataRow(900, 900, DisplayName = "comfortably above the floor is unchanged")]
-        public void ButtonTimings_ClampsRepeatDelayToTheFloor(int configured, int expected)
+        public void ClampRepeatDelay_EnforcesTheFloor(int configured, int expected)
         {
-            var timings = new ButtonTimings(holdDelay: 300, repeatDelay: configured, longReleaseDelay: 300);
+            // The utility itself still exists, ready for config-authoring-time (UI) validation -
+            // just not called automatically anywhere in this runtime evaluation path anymore.
+            Assert.AreEqual(expected, ButtonTimings.ClampRepeatDelay(configured));
+        }
 
-            Assert.AreEqual(expected, timings.RepeatDelay);
+        [TestMethod]
+        public void Tick_RepeatDelayBelowTraditionalFloor_FiresAtTheConfiguredCadenceAsIs()
+        {
+            _generator.ResolveTimings = e => new List<ButtonTimings>
+            {
+                new ButtonTimings(holdDelay: 300, repeatDelay: 10, longReleaseDelay: 300)
+            };
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+
+            _now = _now.AddMilliseconds(300);
+            _generator.Tick(); // HOLD
+
+            _now = _now.AddMilliseconds(10); // the configured 10ms, honored as-is
+            _generator.Tick();
+
+            Assert.HasCount(2, _synthetic, "10ms has elapsed since HOLD - REPEAT fires at the configured cadence, unclamped.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.REPEAT, _synthetic[1].Value);
+            Assert.AreEqual(10, _synthetic[1].SyntheticDelayMs);
         }
 
         // Device.Label - the value the log line displays. All of these are built by cloning
@@ -377,13 +461,13 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_Repeat_PreservesDeviceLabelFromPress()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: ButtonTimings.MinRepeatDelay, longReleaseDelay: 300) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 300) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
 
             _now = _now.AddMilliseconds(300);
             _generator.Tick(); // HOLD
 
-            _now = _now.AddMilliseconds(ButtonTimings.MinRepeatDelay);
+            _now = _now.AddMilliseconds(100);
             _generator.Tick(); // REPEAT
 
             Assert.AreEqual("Button 1", _synthetic[1].Device.Label);
@@ -409,28 +493,6 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, result.Value);
             Assert.AreEqual("Button 1", result.Device.Label);
-        }
-
-        [TestMethod]
-        public void ResolveTimings_RepeatDelayBelowFloor_ActualRepeatCadenceUsesFloorNotConfiguredValue()
-        {
-            _generator.ResolveTimings = e => new List<ButtonBinding>
-            {
-                new ButtonBinding("cfgA", new ButtonTimings(holdDelay: 300, repeatDelay: 10, longReleaseDelay: 300))
-            };
-            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
-
-            _now = _now.AddMilliseconds(300);
-            _generator.Tick(); // HOLD
-
-            _now = _now.AddMilliseconds(10); // the configured (but floored) 10ms
-            _generator.Tick();
-            Assert.HasCount(1, _synthetic, "10ms is below the floor - no repeat yet.");
-
-            _now = _now.AddMilliseconds(ButtonTimings.MinRepeatDelay - 10); // total: the floor
-            _generator.Tick();
-            Assert.HasCount(2, _synthetic, "The floor has now elapsed since the HOLD - repeat fires.");
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.REPEAT, _synthetic[1].Value);
         }
     }
 }

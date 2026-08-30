@@ -426,7 +426,7 @@ namespace MobiFlight
         }
 
         /// <summary>See SyntheticButtonEventGenerator.ResolveTimings.</summary>
-        public void SetButtonTimingsResolver(Func<InputEventArgs, List<ButtonBinding>> resolver)
+        public void SetButtonTimingsResolver(Func<InputEventArgs, List<ButtonTimings>> resolver)
         {
             VirtualButtonEvents.ResolveTimings = resolver;
         }

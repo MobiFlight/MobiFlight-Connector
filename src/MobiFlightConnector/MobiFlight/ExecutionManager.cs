@@ -236,15 +236,15 @@ namespace MobiFlight
             };
 
             // Hold/Repeat/LongRelease delays are per config, not per physical button - collect
-            // every match across all loaded config files.
-            Func<InputEventArgs, List<ButtonBinding>> resolveButtonTimings = e =>
+            // every distinct setting across all loaded config files.
+            Func<InputEventArgs, List<ButtonTimings>> resolveButtonTimings = e =>
             {
-                var bindings = new List<ButtonBinding>();
+                var timings = new List<ButtonTimings>();
                 foreach (var executor in _inputEventExecutors.Values)
                 {
-                    bindings.AddRange(executor.ResolveButtonTimingsPerConfig(e));
+                    timings.AddRange(executor.ResolveButtonTimingsPerConfig(e));
                 }
-                return bindings;
+                return timings.Distinct().ToList();
             };
             mobiFlightCache.SetButtonTimingsResolver(resolveButtonTimings);
             joystickManager.SetButtonTimingsResolver(resolveButtonTimings);

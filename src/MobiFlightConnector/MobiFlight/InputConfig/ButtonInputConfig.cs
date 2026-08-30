@@ -173,6 +173,29 @@ namespace MobiFlight.InputConfig
             }
         }
 
+        /// <summary>
+        /// Does this config's own delay match the setting that produced this synthetic event? Always
+        /// true for PRESS/RELEASE (nothing to match). This is how InputEventExecutor decides which of
+        /// several configs sharing a physical button a HOLD/REPEAT/LONG_RELEASE actually belongs to -
+        /// no ID needed, just compare delays.
+        /// </summary>
+        internal bool MatchesSyntheticDelay(InputEventArgs e)
+        {
+            if (!e.SyntheticDelayMs.HasValue) return true;
+
+            switch ((MobiFlightButton.InputEvent)e.Value)
+            {
+                case MobiFlightButton.InputEvent.HOLD:
+                    return HoldDelay == e.SyntheticDelayMs.Value;
+                case MobiFlightButton.InputEvent.REPEAT:
+                    return RepeatDelay == e.SyntheticDelayMs.Value;
+                case MobiFlightButton.InputEvent.LONG_RELEASE:
+                    return LongReleaseDelay == e.SyntheticDelayMs.Value;
+                default:
+                    return true;
+            }
+        }
+
         /// <summary>LONG_RELEASE without onLongRelease resolves to RELEASE. Shared with GetInputAction/InputEventExecutor.</summary>
         internal MobiFlightButton.InputEvent ResolveDispatchedEvent(MobiFlightButton.InputEvent value) =>
             value == MobiFlightButton.InputEvent.LONG_RELEASE && onLongRelease == null

@@ -255,6 +255,46 @@ namespace MobiFlight.InputConfig.Tests
         }
 
         [TestMethod()]
+        [DataRow((int)MobiFlightButton.InputEvent.PRESS)]
+        [DataRow((int)MobiFlightButton.InputEvent.RELEASE)]
+        public void MatchesSyntheticDelay_NoDelayOnEvent_AlwaysMatches(int rawEvent)
+        {
+            var cfg = new ButtonInputConfig { HoldDelay = 300, RepeatDelay = 100, LongReleaseDelay = 300 };
+
+            var result = cfg.MatchesSyntheticDelay(new InputEventArgs { Value = rawEvent, SyntheticDelayMs = null });
+
+            Assert.IsTrue(result, "PRESS/RELEASE carry no delay to match - always applies.");
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_Hold_ComparesAgainstOwnHoldDelay()
+        {
+            var cfg = new ButtonInputConfig { HoldDelay = 300 };
+
+            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 300 }));
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 900 }),
+                "A different config's HoldDelay must not match this one.");
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_Repeat_ComparesAgainstOwnRepeatDelay()
+        {
+            var cfg = new ButtonInputConfig { RepeatDelay = 10 }; // below the traditional floor - honored as-is, no clamping
+
+            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 10 }));
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 100 }));
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_LongRelease_ComparesAgainstOwnLongReleaseDelay()
+        {
+            var cfg = new ButtonInputConfig { LongReleaseDelay = 200 };
+
+            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE, SyntheticDelayMs = 200 }));
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE, SyntheticDelayMs = 800 }));
+        }
+
+        [TestMethod()]
         public void Execute_LongReleaseWithoutOwnAction_FallsBackToRelease()
         {
             // A latching switch held past LongReleaseDelay is reclassified LONG_RELEASE. A config
