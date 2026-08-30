@@ -1029,7 +1029,7 @@ namespace MobiFlight.Execution.Tests
                 {
                     onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
                     HoldDelay = 123,
-                    RepeatDelay = 45 // below ButtonTimings.MinRepeatDelay - not enforced here, that's a config-authoring-time (UI) concern
+                    RepeatDelay = 45 // a low value, unclamped - that's a config-authoring-time (UI) concern, not this layer's
                 }
             };
             _configItems.Add(configItem);

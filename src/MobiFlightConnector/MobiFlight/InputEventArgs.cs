@@ -56,16 +56,10 @@ namespace MobiFlight
             }
         }
 
-        /// <summary>
-        /// The one place SyntheticDelayMs is shown - "an event was raised" (RawValue and the
-        /// per-config "Executing" line show what actually dispatched instead, deliberately without it).
-        /// </summary>
+        /// <summary>"An event was raised" (stage 1) - only ever called for a physical PRESS/RELEASE, so never needs the synthetic delay (see the per-config "Executing" line for that).</summary>
         public string GetMsgEventLabel()
         {
-            var eventAction = GetEventActionLabel();
-            if (SyntheticDelayMs.HasValue) eventAction += $" ({SyntheticDelayMs}ms)";
-
-            return $"{Controller.Name} => {Device.Label} => {eventAction}";
+            return $"{Controller.Name} => {Device.Label} => {GetEventActionLabel()}";
         }
 
         public object Clone()

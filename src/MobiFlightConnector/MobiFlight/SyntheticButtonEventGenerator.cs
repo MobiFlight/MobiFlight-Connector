@@ -256,9 +256,6 @@ namespace MobiFlight
     /// </summary>
     public struct ButtonTimings
     {
-        /// <summary>Not enforced here - reserved for config-authoring-time (UI) validation.</summary>
-        public const int MinRepeatDelay = 100; // ms
-
         /// <summary>HoldDelay sentinel meaning "never fires HOLD/REPEAT" - use when no onHold is defined, so a config that doesn't want it can't keep it alive for the whole button.</summary>
         public const int NoHold = int.MaxValue;
 
@@ -270,8 +267,5 @@ namespace MobiFlight
             HoldDelay = holdDelay;
             RepeatDelay = repeatDelay;
         }
-
-        public static int ClampRepeatDelay(int repeatDelay) =>
-            repeatDelay > 0 && repeatDelay < MinRepeatDelay ? MinRepeatDelay : repeatDelay;
     }
 }

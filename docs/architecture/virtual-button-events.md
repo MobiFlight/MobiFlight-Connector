@@ -226,9 +226,9 @@ Two different questions worth keeping separate, because they sound related but a
   (`ButtonInputConfig.MatchesSyntheticDelay`, see below) unless clamped identically on both sides;
   and configs already exist in the field with sub-floor values authored before this floor was even a
   concept - silently changing their behavior on migration to this pipeline isn't backward compatible.
-  `ButtonTimings.MinRepeatDelay`/`ClampRepeatDelay` still exist as a ready-to-use utility, intended
-  for config-authoring-time validation (the UI, on save) in a follow-up change - only the UI can tell
-  a user *why* a value is rejected, which a silent runtime rewrite can't.
+  A floor, if one gets added, belongs entirely at config-authoring time (the UI, on save) in a
+  follow-up change - only the UI can tell a user *why* a value is rejected, which a silent runtime
+  rewrite can't. Nothing for it lives in this runtime layer today.
 
 ### Generator's internal state
 
@@ -374,7 +374,10 @@ definition.
   (`ExecutionManager.mobiFlightCache_OnButtonPressed`) answers "was an event raised at all," so it
   only ever logs a real PRESS/RELEASE - `isSyntheticEvent` (`e.SyntheticDelayMs.HasValue`) gates the
   line, meaning HOLD/REPEAT never appear there (LONG_RELEASE already couldn't, since RELEASE is the
-  only thing `Observe()` ever raises for a release). Stage 2
+  only thing `Observe()` ever raises for a release). `InputEventArgs.GetMsgEventLabel()` - stage 1's
+  only caller - has no delay-append branch of its own for exactly this reason: it's only ever asked
+  for a label when `!isSyntheticEvent` is already true, so a delay would never have anything to show.
+  Stage 2
   (`InputEventExecutor.Execute()`'s `"Executing ..."` line) answers "did this config actually fire,"
   so it logs uniformly for every event type, physical or synthetic, whenever a config has a matching
   action - and for a synthetic one it also names the delay that produced it, since stage 1 no longer

@@ -415,27 +415,6 @@ namespace MobiFlight.Tests
         // config-authoring-time (UI) concern, not something evaluated on every tick.
 
         [TestMethod]
-        public void ButtonTimingsConstructor_DoesNotClampRepeatDelay()
-        {
-            var timings = new ButtonTimings(holdDelay: 300, repeatDelay: 10);
-
-            Assert.AreEqual(10, timings.RepeatDelay, "Clamping belongs at config-save time (UI), not runtime evaluation.");
-        }
-
-        [TestMethod]
-        [DataRow(0, 0, DisplayName = "0 (disabled) is exempt from the floor")]
-        [DataRow(1, ButtonTimings.MinRepeatDelay, DisplayName = "a tiny positive value is raised to the floor")]
-        [DataRow(ButtonTimings.MinRepeatDelay - 1, ButtonTimings.MinRepeatDelay, DisplayName = "just under the floor is raised to it")]
-        [DataRow(ButtonTimings.MinRepeatDelay, ButtonTimings.MinRepeatDelay, DisplayName = "exactly the floor is unchanged")]
-        [DataRow(900, 900, DisplayName = "comfortably above the floor is unchanged")]
-        public void ClampRepeatDelay_EnforcesTheFloor(int configured, int expected)
-        {
-            // The utility itself still exists, ready for config-authoring-time (UI) validation -
-            // just not called automatically anywhere in this runtime evaluation path anymore.
-            Assert.AreEqual(expected, ButtonTimings.ClampRepeatDelay(configured));
-        }
-
-        [TestMethod]
         public void Tick_RepeatDelayBelowTraditionalFloor_FiresAtTheConfiguredCadenceAsIs()
         {
             _generator.ResolveTimings = e => new List<ButtonTimings>
