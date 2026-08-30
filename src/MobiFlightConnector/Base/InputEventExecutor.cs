@@ -98,12 +98,17 @@ namespace MobiFlight.Execution
 
                     var action = cfg.GetInputAction(e);
 
+                    // Log/display what this config actually dispatches, not the raw value.
+                    var dispatchedLabel = (e.InputType == DeviceType.Button && cfg.button != null)
+                        ? e.GetEventActionLabel((int)cfg.button.ResolveDispatchedEvent((MobiFlightButton.InputEvent)e.Value))
+                        : e.GetEventActionLabel();
+
                     if (action != null)
                     {
-                        Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
+                        Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({dispatchedLabel})", LogSeverity.Info);
                     }
 
-                    cfg.RawValue = e.GetEventActionLabel();
+                    cfg.RawValue = dispatchedLabel;
                     cfg.Value = " ";
                     updatedValues[cfg.GUID] = cfg;
                     var references = ResolveReferences(cfg.ConfigRefs);
@@ -148,7 +153,11 @@ namespace MobiFlight.Execution
             return result;
         }
 
-        /// <summary>Hold/Repeat/LongRelease delays for every active, precondition-satisfied config bound to this button. Empty if none match.</summary>
+        /// <summary>
+        /// Hold/Repeat/LongRelease delays for every config bound to this button. Active/precondition
+        /// gating happens in Execute(), not here - this only decides which delays govern this press.
+        /// Empty if no config is bound at all.
+        /// </summary>
         public List<ButtonBinding> ResolveButtonTimingsPerConfig(InputEventArgs e)
         {
             string inputKey = CreateInputKey(e);
@@ -161,9 +170,7 @@ namespace MobiFlight.Execution
 
             foreach (var cfg in inputCache[inputKey])
             {
-                if (!cfg.Active) continue;
                 if (cfg.button == null) continue;
-                if (!CheckPreconditions(cfg)) continue;
 
                 result.Add(new ButtonBinding(
                     cfg.GUID,

@@ -173,31 +173,52 @@ namespace MobiFlight.InputConfig
             }
         }
 
-        /// <summary>
-        /// Dispatches one already-classified event to the matching InputAction. REPEAT has no
-        /// binding of its own - it dispatches to onHold, same as HOLD. 
-        /// LONG_RELEASE falls back to onRelease when onLongRelease isn't configured
-        /// </summary>
+        /// <summary>LONG_RELEASE without onLongRelease resolves to RELEASE. Shared with GetInputAction/InputEventExecutor.</summary>
+        internal MobiFlightButton.InputEvent ResolveDispatchedEvent(MobiFlightButton.InputEvent value) =>
+            value == MobiFlightButton.InputEvent.LONG_RELEASE && onLongRelease == null
+                ? MobiFlightButton.InputEvent.RELEASE
+                : value;
+
+        /// <summary>Dispatches to the matching InputAction. REPEAT dispatches to onHold, same as HOLD.</summary>
         internal void execute(CacheCollection cacheCollection,
                               InputEventArgs args,
                               List<ConfigRefValue> configRefs)
         {
-            switch ((MobiFlightButton.InputEvent)args.Value)
+            var value = (MobiFlightButton.InputEvent)args.Value;
+            var dispatchedValue = ResolveDispatchedEvent(value);
+
+            InputAction action;
+            switch (dispatchedValue)
             {
                 case MobiFlightButton.InputEvent.PRESS:
-                    onPress?.execute(cacheCollection, args, configRefs);
+                    action = onPress;
                     break;
                 case MobiFlightButton.InputEvent.RELEASE:
-                    onRelease?.execute(cacheCollection, args, configRefs);
+                    action = onRelease;
                     break;
                 case MobiFlightButton.InputEvent.LONG_RELEASE:
-                    (onLongRelease ?? onRelease)?.execute(cacheCollection, args, configRefs);
+                    action = onLongRelease;
                     break;
                 case MobiFlightButton.InputEvent.HOLD:
                 case MobiFlightButton.InputEvent.REPEAT:
-                    onHold?.execute(cacheCollection, args, configRefs);
+                    action = onHold;
+                    break;
+                default:
+                    action = null;
                     break;
             }
+
+            if (action == null) return;
+
+            if (dispatchedValue == value)
+            {
+                action.execute(cacheCollection, args, configRefs);
+                return;
+            }
+
+            var normalizedArgs = args.CloneWithLabel();
+            normalizedArgs.Value = (int)dispatchedValue;
+            action.execute(cacheCollection, normalizedArgs, configRefs);
         }
 
         public Dictionary<String, int> GetStatistics()

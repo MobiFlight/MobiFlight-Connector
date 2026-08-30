@@ -12,18 +12,10 @@ namespace MobiFlight
     /// </summary>
     public class SyntheticButtonEventGenerator : IDisposable
     {
-        /// <summary>Fallback timing when <see cref="ResolveTimings"/> is unset or has no match.</summary>
-        public int HoldDelay { get; set; } = 350; // ms
-
-        /// <summary>Fallback, see <see cref="HoldDelay"/>.</summary>
-        public int LongReleaseDelay { get; set; } = 350; // ms
-
-        /// <summary>Fallback, see <see cref="HoldDelay"/>. 0 disables repeating.</summary>
-        public int RepeatDelay { get; set; } = 0; // ms
-
         /// <summary>
         /// Resolves every config currently bound to a button and its delays. Resolved once at
-        /// PRESS, held for that press's lifecycle. Empty/null uses the fallback values above.
+        /// PRESS, held for that press's lifecycle. Null or empty means no config is bound - no
+        /// synthetic events for that button at all.
         /// </summary>
         public Func<InputEventArgs, List<ButtonBinding>> ResolveTimings { get; set; }
 
@@ -52,6 +44,7 @@ namespace MobiFlight
 
         /// <param name="now">Clock for timing decisions; tests inject a fake one.</param>
         /// <param name="tickIntervalMs">Poll interval while at least one button is pressed. Idle otherwise.</param>
+        /// <remarks>Wire <see cref="ResolveTimings"/> before feeding events through - without it, nothing is ever bound and no synthetic events fire.</remarks>
         public SyntheticButtonEventGenerator(Func<DateTime> now = null, int tickIntervalMs = 20)
         {
             _now = now ?? (() => DateTime.Now);
@@ -64,7 +57,8 @@ namespace MobiFlight
         /// <summary>
         /// Feed one real PRESS/RELEASE through. Returns the event(s) to forward: one untargeted
         /// event for PRESS; one per bound config for RELEASE, each classified RELEASE/LONG_RELEASE
-        /// against that config's own delay.
+        /// against that config's own delay. A button with no bound config passes PRESS/RELEASE
+        /// through untouched and is never tracked for HOLD/REPEAT/LONG_RELEASE.
         /// </summary>
         public List<InputEventArgs> Observe(InputEventArgs e)
         {
@@ -88,7 +82,8 @@ namespace MobiFlight
                 var bindings = ResolveTimings?.Invoke(e);
                 if (bindings == null || bindings.Count == 0)
                 {
-                    bindings = new List<ButtonBinding> { new ButtonBinding(null, new ButtonTimings(HoldDelay, RepeatDelay, LongReleaseDelay)) };
+                    // No config bound to this button - no synthetic events at all.
+                    return new List<InputEventArgs> { e };
                 }
 
                 lock (_lock)

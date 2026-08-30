@@ -18,17 +18,20 @@ namespace MobiFlight
 
         public readonly DateTime Time = DateTime.Now;
 
-        public string GetEventActionLabel()
+        public string GetEventActionLabel() => GetEventActionLabel(Value);
+
+        /// <summary>Same as GetEventActionLabel(), for a value other than this instance's own.</summary>
+        public string GetEventActionLabel(double value)
         {
-            var value = Convert.ToInt32(Value);
+            var v = Convert.ToInt32(value);
             switch (InputType)
             {
                 case DeviceType.Button:
-                    return MobiFlightButton.InputEventIdToString(value);
+                    return MobiFlightButton.InputEventIdToString(v);
                 case DeviceType.Encoder:
-                    return MobiFlightEncoder.InputEventIdToString(value);
+                    return MobiFlightEncoder.InputEventIdToString(v);
                 case DeviceType.AnalogInput:
-                    return $"{MobiFlightAnalogInput.InputEventIdToString(0)} => {value}";
+                    return $"{MobiFlightAnalogInput.InputEventIdToString(0)} => {v}";
                 default:
                     return "n/a";
             }

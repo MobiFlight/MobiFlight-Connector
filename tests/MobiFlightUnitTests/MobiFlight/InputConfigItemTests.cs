@@ -380,6 +380,27 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
+        public void GetInputAction_Button_LongReleaseFallsBackToReleaseWhenNotConfigured()
+        {
+            var releaseAction = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                button = new ButtonInputConfig { onRelease = releaseAction }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.AreSame(releaseAction, result, "No onLongRelease is configured, so this must fall back to onRelease - same as execute() does.");
+        }
+
+        [TestMethod()]
         public void GetInputAction_Button_ReturnsNullWhenActionIsNotConfigured()
         {
             var config = new InputConfigItem

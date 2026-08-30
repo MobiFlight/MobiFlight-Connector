@@ -200,6 +200,47 @@ namespace MobiFlight.Execution.Tests
         }
 
         [TestMethod]
+        public void Execute_LongReleaseWithoutOwnAction_LogsAndDisplaysAsRelease()
+        {
+            // A config with only onRelease (no onLongRelease) that receives a raw LONG_RELEASE must
+            // log and display RELEASE - what actually ran - not the raw LONG_RELEASE it fell back from.
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
+                Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE
+            };
+
+            var activeConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
+            };
+
+            _configItems.Add(activeConfigItem);
+
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            Assert.HasCount(1, result);
+            Assert.AreEqual("RELEASE", activeConfigItem.RawValue);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}"". (RELEASE)")), LogSeverity.Info),
+                Times.Once
+            );
+        }
+
+        [TestMethod]
         public void Execute_ConfigItemWithConfigReference_ExecutesSuccessfully()
         {
             // Arrange
@@ -724,8 +765,11 @@ namespace MobiFlight.Execution.Tests
         }
 
         [TestMethod]
-        public void ResolveButtonTimingsPerConfig_InactiveConfig_IsSkipped()
+        public void ResolveButtonTimingsPerConfig_InactiveConfig_IsStillReturned_ButExecuteSkipsIt()
         {
+            // Active/Precondition gating happens exclusively in Execute() now (see
+            // Execute_MatchingInactiveConfigItem_SkipsExecution) - resolving a binding only answers
+            // "is a config bound to this button," not "should it currently run."
             var serial = "SN-timings002";
             var deviceName = "Button1";
 
@@ -741,12 +785,17 @@ namespace MobiFlight.Execution.Tests
 
             var result = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
 
-            Assert.HasCount(0, result, "An inactive config must not govern timings, same as it does not govern execution.");
+            Assert.HasCount(1, result, "An inactive config is still bound to the button and must still get a timing binding.");
+            Assert.AreEqual(configItem.GUID, result[0].ConfigGuid);
+            Assert.AreEqual(999, result[0].Timings.HoldDelay);
         }
 
         [TestMethod]
-        public void ResolveButtonTimingsPerConfig_MultiModePanel_DifferentPreconditionGatedConfigsYieldDifferentDelays()
+        public void ResolveButtonTimingsPerConfig_MultiModePanel_BothModesAlwaysReturned_RegardlessOfCurrentMode()
         {
+            // Precondition gating no longer happens at this layer - every mode's config is bound to
+            // the button, always, each with its own HoldDelay. Execute() decides which one (if any)
+            // actually runs, using live precondition state at each fire.
             var serial = "SN-multimode";
             var deviceName = "Button1";
 
@@ -781,14 +830,14 @@ namespace MobiFlight.Execution.Tests
             _configItems.Add(modeBConfig);
 
             var bindingsInModeA = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
-            Assert.HasCount(1, bindingsInModeA, "Mode B's precondition is not satisfied, so only Mode A's config should match.");
-            Assert.AreEqual(200, bindingsInModeA[0].Timings.HoldDelay, "Mode A's precondition is satisfied, so its 200ms HoldDelay should apply.");
+            Assert.HasCount(2, bindingsInModeA, "Both configs are bound to this button regardless of which mode is currently selected.");
+            Assert.AreEqual(200, bindingsInModeA.Single(b => b.ConfigGuid == modeAConfig.GUID).Timings.HoldDelay);
+            Assert.AreEqual(800, bindingsInModeA.Single(b => b.ConfigGuid == modeBConfig.GUID).Timings.HoldDelay);
 
-            modeSwitch.Value = "ModeB"; // re-evaluated fresh each call, no cache invalidation needed
+            modeSwitch.Value = "ModeB"; // resolving bindings no longer depends on this at all
 
             var bindingsInModeB = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
-            Assert.HasCount(1, bindingsInModeB);
-            Assert.AreEqual(800, bindingsInModeB[0].Timings.HoldDelay, "Switching modes should change which HoldDelay applies to the same physical button.");
+            Assert.HasCount(2, bindingsInModeB, "Switching modes doesn't change which configs are bound - only Execute() cares about the current mode.");
         }
 
         [TestMethod]

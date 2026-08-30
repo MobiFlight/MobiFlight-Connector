@@ -22,9 +22,7 @@ namespace MobiFlight.Tests
             _now = new DateTime(2026, 1, 1, 12, 0, 0);
             _generator = new SyntheticButtonEventGenerator(() => _now, NeverFiresIntervalMs)
             {
-                HoldDelay = 300,
-                LongReleaseDelay = 300,
-                RepeatDelay = 0
+                ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 300) }
             };
             _synthetic = new List<InputEventArgs>();
             _generator.OnSyntheticEvent += (s, e) => _synthetic.Add(e);
@@ -46,6 +44,10 @@ namespace MobiFlight.Tests
                 Value = (int)value
             };
         }
+
+        /// <summary>A binding with no owning config - broadcasts like a real event, same as an unconfigured device would with no generator involved at all.</summary>
+        private static ButtonBinding UntargetedBinding(int holdDelay, int repeatDelay, int longReleaseDelay) =>
+            new ButtonBinding(null, new ButtonTimings(holdDelay, repeatDelay, longReleaseDelay));
 
         /// <summary>Convenience for tests where exactly one config (or none) is expected to match.</summary>
         private InputEventArgs ObserveOne(InputEventArgs e) => _generator.Observe(e).Single();
@@ -73,7 +75,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual((double)MobiFlightButton.InputEvent.HOLD, _synthetic[0].Value);
             Assert.AreEqual("S1", _synthetic[0].Controller.Serial);
             Assert.AreEqual("Btn1", _synthetic[0].Device.Name);
-            Assert.IsNull(_synthetic[0].TargetConfigGUID, "No resolver wired, so this is the untargeted fallback - broadcasts like a real event.");
+            Assert.IsNull(_synthetic[0].TargetConfigGUID, "The default test resolver returns an untargeted binding - broadcasts like a real event.");
         }
 
         [TestMethod]
@@ -93,7 +95,7 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_WithRepeatDelayElapsed_FiresRepeatAfterInitialHold()
         {
-            _generator.RepeatDelay = ButtonTimings.MinRepeatDelay;
+            _generator.ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: ButtonTimings.MinRepeatDelay, longReleaseDelay: 300) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(300);
@@ -110,7 +112,7 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_WithRepeatDelayElapsedTwice_FiresRepeatEachTime()
         {
-            _generator.RepeatDelay = ButtonTimings.MinRepeatDelay;
+            _generator.ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: ButtonTimings.MinRepeatDelay, longReleaseDelay: 300) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(300);
@@ -229,19 +231,20 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void ResolveTimings_ReturningEmpty_FallsBackToGeneratorDefaults()
+        public void ResolveTimings_ReturningEmpty_ProducesNoSyntheticEvents()
         {
-            _generator.ResolveTimings = e => new List<ButtonBinding>(); // no active/precondition-satisfied config for this button
-            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+            // Resolver ran and found no config bound to this button - never track it, never fire
+            // HOLD/REPEAT/LONG_RELEASE for it, no matter how long it's held.
+            _generator.ResolveTimings = e => new List<ButtonBinding>();
+            var pressResult = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.PRESS, pressResult.Value, "PRESS must still pass through untouched.");
 
-            _now = _now.AddMilliseconds(100); // < the generator's 300ms default HoldDelay
+            _now = _now.AddMilliseconds(1000); // well past any default HoldDelay
             _generator.Tick();
-            Assert.HasCount(0, _synthetic);
+            Assert.HasCount(0, _synthetic, "No bound config means no HOLD, ever.");
 
-            _now = _now.AddMilliseconds(250); // now past 300ms total
-            _generator.Tick();
-            Assert.HasCount(1, _synthetic);
-            Assert.IsNull(_synthetic[0].TargetConfigGUID);
+            var releaseResult = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, releaseResult.Value, "Never reclassified as LONG_RELEASE - it was never tracked.");
         }
 
         [TestMethod]
@@ -374,7 +377,7 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_Repeat_PreservesDeviceLabelFromPress()
         {
-            _generator.RepeatDelay = ButtonTimings.MinRepeatDelay;
+            _generator.ResolveTimings = e => new List<ButtonBinding> { UntargetedBinding(holdDelay: 300, repeatDelay: ButtonTimings.MinRepeatDelay, longReleaseDelay: 300) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
 
             _now = _now.AddMilliseconds(300);

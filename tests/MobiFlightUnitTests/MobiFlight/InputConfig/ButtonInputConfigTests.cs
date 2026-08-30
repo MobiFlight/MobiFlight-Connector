@@ -202,10 +202,12 @@ namespace MobiFlight.InputConfig.Tests
         private class RecordingInputAction : InputAction
         {
             public int ExecuteCount = 0;
+            public InputEventArgs LastArgs;
 
             public override void execute(CacheCollection cacheCollection, InputEventArgs args, List<ConfigRefValue> configRefs)
             {
                 ExecuteCount++;
+                LastArgs = args;
             }
 
             public override object Clone() => new RecordingInputAction();
@@ -277,6 +279,24 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreEqual(1, longRelease.ExecuteCount);
             Assert.AreEqual(0, release.ExecuteCount, "onLongRelease is configured, so it - not onRelease - must handle this.");
+        }
+
+        [TestMethod()]
+        public void Execute_LongReleaseWithoutOwnAction_NormalizesDispatchedValueToRelease()
+        {
+            // Several InputAction implementations substitute args.Value into their command (the "@"
+            // placeholder) - onRelease must see RELEASE, not the raw LONG_RELEASE it fell back from.
+            var release = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release };
+            var originalArgs = new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE };
+
+            cfg.execute(new CacheCollection(), originalArgs, new List<ConfigRefValue>());
+
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, release.LastArgs.Value,
+                "onRelease must see a normalized RELEASE value, not the raw LONG_RELEASE it fell back from.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, originalArgs.Value,
+                "The caller's own args instance must not be mutated - normalization must happen on a clone.");
+            Assert.AreNotSame(originalArgs, release.LastArgs, "onRelease must receive a clone, not the caller's own args instance.");
         }
 
         [TestMethod()]

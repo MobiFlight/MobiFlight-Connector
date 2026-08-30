@@ -273,25 +273,26 @@ definition.
 ## Consequences / open questions to resolve before implementation
 
 - **Delay ownership — resolved.** Initially assumed delay could become a property of the physical
-  input/controller, shared across every binding on it. That's wrong: a multi-mode panel (a mode
-  switch's precondition determines which config is active for a given physical button) can
-  legitimately want different `HoldDelay`/`RepeatDelay`/`LongReleaseDelay` for what is physically
-  one button, depending on which config currently governs it. Detection still lives on the
+  input/controller, shared across every binding on it. That's wrong: a multi-mode panel (several
+  mutually-exclusive precondition-gated configs on one physical button) can legitimately want
+  different `HoldDelay`/`RepeatDelay`/`LongReleaseDelay` per config. Detection still lives on the
   controller (physical-button-scoped, one canonical timer per button), but the delay *values* it
-  uses are resolved from whichever config is currently active with satisfied preconditions -
-  `InputEventExecutor.ResolveButtonTimingsPerConfig` does this lookup (reusing the same `GetMatchingInputConfigs`/
-  `CheckPreconditions` the normal pipeline already has), `ExecutionManager` composes one resolver
-  across every loaded config file and hands it to each controller manager's generator
-  (`SyntheticButtonEventGenerator.ResolveTimings`). Resolved once at PRESS time and held for that
-  press's lifecycle - not re-resolved every tick, so a mode switch mid-hold doesn't retroactively
-  change an in-progress press's timing. If no config currently claims the button, the generator
-  falls back to its own fixed defaults and still detects - it fires unconditionally either way,
-  same as a real PRESS on an unbound button; the *existing* `Active`/`CheckPreconditions` gating in
-  `Execute()` (unchanged) is what actually decides whether anything executes. This means
-  preconditions get evaluated twice, but for different questions at different times, not
-  redundantly: once at PRESS (which delays govern this press, decided once), and again at every
-  fire (should this execute right now, using live state - deliberately not cached, mirroring how
-  `ButtonInputConfig`'s old `CanExecute` closure worked before this redesign).
+  uses are resolved per config bound to that button -
+  `InputEventExecutor.ResolveButtonTimingsPerConfig` does this lookup (reusing the same
+  `GetMatchingInputConfigs` the normal pipeline already has - not `Active`/`CheckPreconditions`,
+  see below), `ExecutionManager` composes one resolver across every loaded config file and hands it
+  to each controller manager's generator (`SyntheticButtonEventGenerator.ResolveTimings`). Resolved
+  once at PRESS time and held for that press's lifecycle - not re-resolved every tick, so a mode
+  switch mid-hold doesn't retroactively change an in-progress press's timing.
+  If `ResolveTimings` is unwired, or wired but returns an empty list (no config at all is bound to
+  this device/button), the generator doesn't track the press or synthesize anything - PRESS/RELEASE
+  pass through untouched, exactly as without this feature.
+  `Active`/`CheckPreconditions` gating happens exclusively in `Execute()`, not here - resolving a
+  binding only answers "is a config bound to this button and what are its delays," never "should it
+  currently run." A button's press-time binding set is therefore a purely static, device/button-only
+  question: every bound config gets one, active or not, precondition-satisfied or not, and it's
+  `Execute()` - evaluating live state at each actual fire - that decides which one (if any) actually
+  runs.
 
   **Two configs simultaneously active on the same physical button, with different delays, is fully
   supported, not just tolerated.** An earlier version of this resolved to a single "winning" config
