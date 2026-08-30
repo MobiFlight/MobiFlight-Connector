@@ -187,9 +187,9 @@ namespace MobiFlight.InputConfig
             switch ((MobiFlightButton.InputEvent)e.Value)
             {
                 case MobiFlightButton.InputEvent.HOLD:
-                    return HoldDelay == e.SyntheticDelayMs.Value;
+                    return onHold != null && HoldDelay == e.SyntheticDelayMs.Value;
                 case MobiFlightButton.InputEvent.REPEAT:
-                    return RepeatDelay == e.SyntheticDelayMs.Value;
+                    return onHold != null && RepeatDelay == e.SyntheticDelayMs.Value;
                 default:
                     return true;
             }

@@ -88,10 +88,16 @@ namespace MobiFlight.Execution
                     dispatchedLabel = e.GetEventActionLabel();
                     logLabel = dispatchedLabel;
                 }
-                var cfgEventLabel = $"{e.Controller.Name} => {e.Device.Label} => {logLabel}";
 
-                var action = cfg.GetInputAction(e);
-                var hasMatchingAction = action != null;
+                var hasMatchingAction = cfg.GetInputAction(e) != null;
+
+                var isSyntheticEvent = e.SyntheticDelayMs.HasValue;
+                if (!hasMatchingAction && isSyntheticEvent)
+                {
+                    continue;
+                }
+
+                var cfgEventLabel = $"{e.Controller.Name} => {e.Device.Label} => {logLabel}";
 
                 if (!isStarted)
                 {
@@ -122,14 +128,17 @@ namespace MobiFlight.Execution
                         continue;
                     }
 
-                    if (action != null)
-                    {
-                        Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({logLabel})", LogSeverity.Info);
-                    }
-
                     cfg.RawValue = dispatchedLabel;
                     cfg.Value = " ";
                     updatedValues[cfg.GUID] = cfg;
+
+                    if (!hasMatchingAction)
+                    {
+                        continue;
+                    }
+
+                    Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({logLabel})", LogSeverity.Info);
+
                     var references = ResolveReferences(cfg.ConfigRefs);
                     var modifiableValue = new ConnectorValue()
                     {

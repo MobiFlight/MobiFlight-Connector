@@ -310,9 +310,11 @@ definition.
   only ever sees delay *values*, never a config GUID (there is no `ButtonBinding` type; `ResolveTimings`
   is `Func<InputEventArgs, List<ButtonTimings>>`). A produced HOLD/REPEAT just carries the delay
   value that classified it (`InputEventArgs.SyntheticDelayMs`) - `Execute()` asks each bound config
-  directly, "is this delay yours?" (`ButtonInputConfig.MatchesSyntheticDelay`, comparing `HoldDelay`/
-  `RepeatDelay` against `SyntheticDelayMs`), true for anything else (PRESS/RELEASE carry no
-  `SyntheticDelayMs`, so those broadcast to every matching config, same as always). This is simpler
+  directly, "is this delay yours?" (`ButtonInputConfig.MatchesSyntheticDelay`, requiring `onHold` to
+  be defined before comparing `HoldDelay`/`RepeatDelay` against `SyntheticDelayMs` for a HOLD/REPEAT -
+  a config without `onHold` never matches one, regardless of what its unused `HoldDelay`/`RepeatDelay`
+  fields happen to hold), true for anything else (PRESS/RELEASE carry no `SyntheticDelayMs`, so those
+  broadcast to every matching config, same as always). This is simpler
   than ID-based targeting and self-correcting: two configs that happen to share a delay are
   indistinguishable to the generator by construction, so they're naturally treated as one group
   everywhere - including in the log, which would otherwise show the same physical HOLD/REPEAT once
@@ -384,13 +386,29 @@ definition.
 
   **A skip reason only logs for a config that actually has an action bound to the resolved event.**
   All three skip reasons ("MobiFlight not running", "Skipping inactive config", "Preconditions not
-  satisfied") are gated on `cfg.GetInputAction(e) != null`, checked once per config alongside the
-  label resolution above. Without this, e.g. an onPress-only config logged "Skipping ... MobiFlight
-  not running" on every RELEASE too - RELEASE was never going to do anything for that config, so the
-  line was pure noise. This mirrors "Executing," which already only logs `action != null` - a skip
-  and an execute are the same event, just with a different outcome, so they share the same gate. The
-  gate only governs whether a *log line* appears; a config that does have a matching action but
-  fails one of these checks still doesn't get `cfg.RawValue`/`updatedValues` touched, same as before.
+  satisfied") are gated on `hasMatchingAction` (`cfg.GetInputAction(e) != null`), checked once per
+  config alongside the label resolution above. Without this, e.g. an onPress-only config logged
+  "Skipping ... MobiFlight not running" on every RELEASE too - RELEASE was never going to do anything
+  for that config, so the line was pure noise. This mirrors "Executing," which likewise only logs -
+  and only actually dispatches to the config's action - when `hasMatchingAction` is true: a skip and
+  an execute are the same event, just with a different outcome, so they share the same gate.
+
+  **`cfg.RawValue` follows a wider rule than the skip/execute gate above, though: a physical
+  PRESS/RELEASE always updates it, matching action or not - only a synthetic HOLD/REPEAT needs one.**
+  RawValue is the "last event seen" indicator a user reads off the UI, and a real PRESS/RELEASE is
+  genuine hardware state worth showing even on a config with nothing bound to it (e.g. an onPress-only
+  config seeing a RELEASE) - it confirms the physical input was received at all. A synthetic HOLD/
+  REPEAT has no such standing on its own: without `onHold`, `MatchesSyntheticDelay` already excludes
+  the config entirely (above), and even a broadcast that slipped through must not show HOLD on a
+  config that never reacts to it - that was the actual "HOLD shows in RawValue for a config with no
+  onHold" bug this rule fixes. Concretely: `Execute()`'s top-of-loop gate is
+  `if (!hasMatchingAction && isSyntheticEvent) continue;` (skips entirely only for an unmatched
+  synthetic event); `cfg.RawValue`/`cfg.Value`/`updatedValues` are set right after the isStarted/
+  Active/Preconditions checks pass, unconditionally; the "Executing" log and the actual
+  Modifiers/`cfg.execute(...)` dispatch remain gated on `hasMatchingAction` specifically, one level
+  further in. So a physical event with no matching action updates RawValue but logs nothing and
+  executes nothing; a config that fails isStarted/Active/Preconditions still gets neither, same as
+  before this whole rule existed.
 - **Encoder pairing configuration.** Where the button-pair-to-encoder mapping is authored (joystick
   definition file vs. runtime user configuration).
 - **Fast-turn threshold shape.** Rolling window/count vs. some other rate measure; not yet designed

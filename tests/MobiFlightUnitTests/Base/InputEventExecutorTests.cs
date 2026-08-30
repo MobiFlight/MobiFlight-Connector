@@ -549,6 +549,82 @@ namespace MobiFlight.Execution.Tests
         }
 
         [TestMethod]
+        public void Execute_PhysicalReleaseOnConfigWithoutMatchingAction_StillUpdatesRawValue()
+        {
+            // RELEASE is a real physical event - even a config with nothing bound to it (onPress
+            // only, here) should still show it happened, since it's genuine hardware state. No
+            // "Executing" log though, since nothing actually fired.
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
+                Value = (int)MobiFlightButton.InputEvent.RELEASE
+            };
+
+            var pressOnlyConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "PressOnlyConfig",
+                button = new ButtonInputConfig
+                {
+                    onPress = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
+            };
+
+            _configItems.Add(pressOnlyConfigItem);
+
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            Assert.IsTrue(result.ContainsKey(pressOnlyConfigItem.GUID));
+            Assert.AreEqual("RELEASE", pressOnlyConfigItem.RawValue);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains("Executing")), It.IsAny<LogSeverity>()),
+                Times.Never,
+                "Nothing was actually triggered - only RawValue reflects the physical event."
+            );
+        }
+
+        [TestMethod]
+        public void Execute_HoldEvent_ConfigWithoutMatchingAction_DoesNotUpdateRawValue()
+        {
+            // Unlike a physical RELEASE, a synthetic HOLD has no standing of its own - a config with
+            // no onHold must not show HOLD in RawValue just because it received the broadcast.
+            var serial = "SN-holdnomatch001";
+            var deviceName = "Button1";
+
+            var releaseOnlyConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ReleaseOnlyConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
+            };
+            _configItems.Add(releaseOnlyConfigItem);
+
+            var holdEvent = CreateHoldEventArgs(serial, deviceName);
+            holdEvent.SyntheticDelayMs = 350;
+
+            var result = _executor.Execute(holdEvent, isStarted: true);
+
+            Assert.IsFalse(result.ContainsKey(releaseOnlyConfigItem.GUID));
+            Assert.IsNull(releaseOnlyConfigItem.RawValue);
+        }
+
+        [TestMethod]
         public void Execute_NotStarted_LogsPerConfigWithItsOwnResolvedEvent()
         {
             // Two configs on the same button, one bound only to onRelease, one only to onLongRelease -
@@ -1275,6 +1351,52 @@ namespace MobiFlight.Execution.Tests
                 appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (HOLD:300ms)")), LogSeverity.Info),
                 Times.Once
             );
+        }
+
+        [TestMethod]
+        public void Execute_HoldEvent_ConfigWithoutOnHold_NeverExecutesOrUpdatesRawValue()
+        {
+            // A config with no onHold at all still has some HoldDelay field value (its unused
+            // default), which can coincidentally equal another config's real HoldDelay. It must never
+            // execute, and RawValue must never show HOLD for it - only an event that actually
+            // triggered its own action may touch RawValue.
+            var serial = "SN-noonhold001";
+            var deviceName = "Button1";
+
+            var withHold = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "WithHold",
+                button = new ButtonInputConfig { HoldDelay = 350, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
+            };
+            var releaseOnly = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ReleaseOnly",
+                // No onHold - HoldDelay keeps its unused default (350), same as WithHold's real one.
+                button = new ButtonInputConfig
+                {
+                    onRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
+            };
+            _configItems.Add(withHold);
+            _configItems.Add(releaseOnly);
+
+            var holdEvent = CreateHoldEventArgs(serial, deviceName);
+            holdEvent.SyntheticDelayMs = 350;
+
+            var result = _executor.Execute(holdEvent, isStarted: true);
+
+            Assert.IsTrue(result.ContainsKey(withHold.GUID));
+            Assert.IsFalse(result.ContainsKey(releaseOnly.GUID), "ReleaseOnly has no onHold - a HOLD event must never reach it.");
+            Assert.IsNull(releaseOnly.RawValue, "RawValue must stay untouched - HOLD never triggered an action on this config.");
         }
 
         [TestMethod]

@@ -269,7 +269,7 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void MatchesSyntheticDelay_Hold_ComparesAgainstOwnHoldDelay()
         {
-            var cfg = new ButtonInputConfig { HoldDelay = 300 };
+            var cfg = new ButtonInputConfig { onHold = new RecordingInputAction(), HoldDelay = 300 };
 
             Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 300 }));
             Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 900 }),
@@ -279,10 +279,22 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void MatchesSyntheticDelay_Repeat_ComparesAgainstOwnRepeatDelay()
         {
-            var cfg = new ButtonInputConfig { RepeatDelay = 10 }; // below the traditional floor - honored as-is, no clamping
+            var cfg = new ButtonInputConfig { onHold = new RecordingInputAction(), RepeatDelay = 10 }; // below the traditional floor - honored as-is, no clamping
 
             Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 10 }));
             Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 100 }));
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_NoOnHold_NeverMatchesEvenWithCoincidingDelay()
+        {
+            // A config with no onHold at all must never match HOLD/REPEAT, even if its leftover
+            // (unused) HoldDelay/RepeatDelay field values happen to coincide with another config's
+            // real delay - those fields are meaningless without onHold to dispatch to.
+            var cfg = new ButtonInputConfig { HoldDelay = 300, RepeatDelay = 10 };
+
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 300 }));
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 10 }));
         }
 
         [TestMethod()]
