@@ -54,6 +54,8 @@
 		<PackageReference Include="Microsoft.Web.WebView2" />
 		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="Newtonsoft.Json.Schema" />
+		<PackageReference Include="Serilog" />
+		<PackageReference Include="Serilog.Sinks.File" />
 		<PackageReference Include="SharpDX" />
 		<PackageReference Include="SharpDX.DirectInput" />
 		<PackageReference Include="System.Management" />
