@@ -253,6 +253,33 @@ namespace MobiFlight.InputConfig.Tests
         }
 
         [TestMethod()]
+        public void Execute_LongReleaseWithoutOwnAction_FallsBackToRelease()
+        {
+            // A latching switch held past LongReleaseDelay is reclassified LONG_RELEASE. A config
+            // that only defines onRelease (the common case before onLongRelease existed) must still
+            // fire it - it must not go silent just because onLongRelease isn't configured.
+            var release = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release };
+
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE }, new List<ConfigRefValue>());
+
+            Assert.AreEqual(1, release.ExecuteCount);
+        }
+
+        [TestMethod()]
+        public void Execute_LongReleaseWithOwnAction_DoesNotAlsoFireRelease()
+        {
+            var release = new RecordingInputAction();
+            var longRelease = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, onLongRelease = longRelease };
+
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE }, new List<ConfigRefValue>());
+
+            Assert.AreEqual(1, longRelease.ExecuteCount);
+            Assert.AreEqual(0, release.ExecuteCount, "onLongRelease is configured, so it - not onRelease - must handle this.");
+        }
+
+        [TestMethod()]
         public void Execute_WithNoMatchingAction_DoesNotThrow()
         {
             ButtonInputConfig cfg = new ButtonInputConfig();

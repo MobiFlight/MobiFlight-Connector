@@ -175,7 +175,8 @@ namespace MobiFlight.InputConfig
 
         /// <summary>
         /// Dispatches one already-classified event to the matching InputAction. REPEAT has no
-        /// binding of its own - it dispatches to onHold, same as HOLD.
+        /// binding of its own - it dispatches to onHold, same as HOLD. 
+        /// LONG_RELEASE falls back to onRelease when onLongRelease isn't configured
         /// </summary>
         internal void execute(CacheCollection cacheCollection,
                               InputEventArgs args,
@@ -190,7 +191,7 @@ namespace MobiFlight.InputConfig
                     onRelease?.execute(cacheCollection, args, configRefs);
                     break;
                 case MobiFlightButton.InputEvent.LONG_RELEASE:
-                    onLongRelease?.execute(cacheCollection, args, configRefs);
+                    (onLongRelease ?? onRelease)?.execute(cacheCollection, args, configRefs);
                     break;
                 case MobiFlightButton.InputEvent.HOLD:
                 case MobiFlightButton.InputEvent.REPEAT:
