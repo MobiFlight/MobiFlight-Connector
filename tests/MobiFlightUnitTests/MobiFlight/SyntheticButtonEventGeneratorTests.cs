@@ -22,7 +22,7 @@ namespace MobiFlight.Tests
             _now = new DateTime(2026, 1, 1, 12, 0, 0);
             _generator = new SyntheticButtonEventGenerator(() => _now, NeverFiresIntervalMs)
             {
-                ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 300) }
+                ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 0) }
             };
             _synthetic = new List<InputEventArgs>();
             _generator.OnSyntheticEvent += (s, e) => _synthetic.Add(e);
@@ -91,7 +91,7 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_WithRepeatDelayElapsed_FiresRepeatAfterInitialHold()
         {
-            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 300) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(300);
@@ -108,7 +108,7 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_WithRepeatDelayElapsedTwice_FiresRepeatEachTime()
         {
-            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 300) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(300);
@@ -126,28 +126,57 @@ namespace MobiFlight.Tests
             Assert.AreEqual((double)MobiFlightButton.InputEvent.REPEAT, _synthetic[2].Value);
         }
 
+        // RELEASE is always raised exactly once, as plain RELEASE, carrying how long the button was
+        // held - LONG_RELEASE is a per-config dispatch-time decision (ButtonInputConfig.
+        // ResolveDispatchedEvent), never a reclassification of the raw event here. This is what fixes
+        // the double-RELEASE-log bug: with the old per-LongReleaseDelay grouping, a config with a real
+        // onLongRelease delay and a config without one (sentinel) produced two distinct groups even
+        // though, for a quick tap, both resolved to the same "plain RELEASE" outcome.
+
         [TestMethod]
-        public void Observe_ReleaseBeforeLongReleaseDelay_StaysRelease()
+        public void Observe_ReleaseShortlyAfterPress_StaysReleaseWithShortHeldDuration()
         {
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
-            _now = _now.AddMilliseconds(100); // < LongReleaseDelay (300)
+            _now = _now.AddMilliseconds(100);
             var result = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
 
             Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, result.Value);
-            Assert.IsNull(result.SyntheticDelayMs, "Plain RELEASE has no delay of its own to show.");
+            Assert.AreEqual(100, result.HeldDurationMs);
+            Assert.IsNull(result.SyntheticDelayMs, "SyntheticDelayMs is a HOLD/REPEAT concept - RELEASE never carries it.");
         }
 
         [TestMethod]
-        public void Observe_ReleaseAfterLongReleaseDelay_IsReclassifiedAsLongRelease()
+        public void Observe_ReleaseAfterLongHold_StillStaysReleaseAtThisLayer()
         {
+            // Held well past what used to be a LongReleaseDelay threshold - the generator itself never
+            // reclassifies; it just reports how long the hold was and lets each config decide.
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
-            _now = _now.AddMilliseconds(350); // > LongReleaseDelay (300)
+            _now = _now.AddMilliseconds(5000);
             var result = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
 
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, result.Value);
-            Assert.AreEqual(300, result.SyntheticDelayMs);
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, result.Value);
+            Assert.AreEqual(5000, result.HeldDurationMs);
+        }
+
+        [TestMethod]
+        public void Observe_ReleaseWithMultipleDistinctBindings_IsStillExactlyOneEvent()
+        {
+            // However many distinct HOLD/REPEAT settings are bound to this button, RELEASE doesn't
+            // fan out per binding anymore - there's nothing left for it to fan out over.
+            _generator.ResolveTimings = e => new List<ButtonTimings>
+            {
+                new ButtonTimings(holdDelay: 50, repeatDelay: 0),
+                new ButtonTimings(holdDelay: 900, repeatDelay: 100)
+            };
+            _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+
+            _now = _now.AddMilliseconds(1000);
+            var released = _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
+
+            Assert.HasCount(1, released);
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, released[0].Value);
         }
 
         [TestMethod]
@@ -218,7 +247,7 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void ResolveTimings_OverridesDefaultHoldDelayForThatPress()
         {
-            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(50, 0, 300) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(50, 0) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
             _now = _now.AddMilliseconds(50); // well under the generator's own 300ms default
@@ -232,7 +261,7 @@ namespace MobiFlight.Tests
         public void ResolveTimings_ReturningEmpty_ProducesNoSyntheticEvents()
         {
             // Resolver ran and found no config bound to this button - never track it, never fire
-            // HOLD/REPEAT/LONG_RELEASE for it, no matter how long it's held.
+            // HOLD/REPEAT for it, no matter how long it's held.
             _generator.ResolveTimings = e => new List<ButtonTimings>();
             var pressResult = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
             Assert.AreEqual((double)MobiFlightButton.InputEvent.PRESS, pressResult.Value, "PRESS must still pass through untouched.");
@@ -242,7 +271,8 @@ namespace MobiFlight.Tests
             Assert.HasCount(0, _synthetic, "No bound config means no HOLD, ever.");
 
             var releaseResult = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, releaseResult.Value, "Never reclassified as LONG_RELEASE - it was never tracked.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, releaseResult.Value);
+            Assert.IsNull(releaseResult.HeldDurationMs, "It was never tracked - no duration to report.");
         }
 
         [TestMethod]
@@ -252,7 +282,7 @@ namespace MobiFlight.Tests
             _generator.ResolveTimings = e =>
             {
                 callCount++;
-                return new List<ButtonTimings> { new ButtonTimings(300, 0, 300) };
+                return new List<ButtonTimings> { new ButtonTimings(300, 0) };
             };
 
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
@@ -274,8 +304,8 @@ namespace MobiFlight.Tests
             _generator.ResolveTimings = e => new List<ButtonTimings>
             {
                 e.Device.Name == "Btn1"
-                    ? new ButtonTimings(50, 0, 300)
-                    : new ButtonTimings(500, 0, 300)
+                    ? new ButtonTimings(50, 0)
+                    : new ButtonTimings(500, 0)
             };
 
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
@@ -288,15 +318,15 @@ namespace MobiFlight.Tests
             Assert.AreEqual("Btn1", _synthetic[0].Device.Name);
         }
 
-        // Two configs sharing a button, different delays - each still gets its own event.
+        // Two configs sharing a button, different delays - each still gets its own HOLD/REPEAT event.
 
         [TestMethod]
         public void ResolveTimings_TwoConfigsWithDifferentHoldDelay_OnlyTheOneWhoseDelayElapsedFires()
         {
             _generator.ResolveTimings = e => new List<ButtonTimings>
             {
-                new ButtonTimings(holdDelay: 50, repeatDelay: 0, longReleaseDelay: 300),
-                new ButtonTimings(holdDelay: 900, repeatDelay: 0, longReleaseDelay: 300)
+                new ButtonTimings(holdDelay: 50, repeatDelay: 0),
+                new ButtonTimings(holdDelay: 900, repeatDelay: 0)
             };
 
             _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
@@ -315,39 +345,16 @@ namespace MobiFlight.Tests
             Assert.AreEqual(900, _synthetic[1].SyntheticDelayMs);
         }
 
-        [TestMethod]
-        public void ResolveTimings_TwoConfigsWithDifferentLongReleaseDelay_ReleaseFansOutOneEventPerDelay()
-        {
-            _generator.ResolveTimings = e => new List<ButtonTimings>
-            {
-                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 200),
-                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 800)
-            };
-
-            _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
-
-            _now = _now.AddMilliseconds(300); // > 200ms, < 800ms
-            var released = _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
-
-            Assert.HasCount(2, released, "One release event must be produced per distinct LongReleaseDelay.");
-
-            var longRelease = released.Single(e => e.Value == (double)MobiFlightButton.InputEvent.LONG_RELEASE);
-            var plainRelease = released.Single(e => e.Value == (double)MobiFlightButton.InputEvent.RELEASE);
-
-            Assert.AreEqual(200, longRelease.SyntheticDelayMs, "300ms exceeds the 200ms threshold - that delay's group must see LONG_RELEASE.");
-            Assert.IsNull(plainRelease.SyntheticDelayMs, "300ms is under the 800ms threshold - that delay's group must see a plain RELEASE.");
-        }
-
-        // Two configs sharing the SAME delay - the actual grouping guarantee: one physical HOLD/
-        // REPEAT/LONG_RELEASE must not be logged/raised once per config bound to the button.
+        // Two configs sharing the SAME delay - one physical HOLD/REPEAT must not be logged/raised
+        // once per config bound to the button.
 
         [TestMethod]
         public void Tick_TwoConfigsWithSameHoldDelay_FireOneGroupedHoldEvent()
         {
             _generator.ResolveTimings = e => new List<ButtonTimings>
             {
-                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 200),
-                new ButtonTimings(holdDelay: 300, repeatDelay: 0, longReleaseDelay: 800) // differs only in LongReleaseDelay
+                new ButtonTimings(holdDelay: 300, repeatDelay: 0),
+                new ButtonTimings(holdDelay: 300, repeatDelay: 100) // differs only in RepeatDelay
             };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
@@ -363,8 +370,8 @@ namespace MobiFlight.Tests
         {
             _generator.ResolveTimings = e => new List<ButtonTimings>
             {
-                new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 200),
-                new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 800) // differs only in LongReleaseDelay
+                new ButtonTimings(holdDelay: 300, repeatDelay: 100),
+                new ButtonTimings(holdDelay: 300, repeatDelay: 100)
             };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
@@ -379,31 +386,13 @@ namespace MobiFlight.Tests
             Assert.AreEqual(100, _synthetic[1].SyntheticDelayMs);
         }
 
-        [TestMethod]
-        public void Observe_TwoConfigsWithSameLongReleaseDelay_FireOneGroupedReleaseEvent()
-        {
-            _generator.ResolveTimings = e => new List<ButtonTimings>
-            {
-                new ButtonTimings(holdDelay: 50, repeatDelay: 0, longReleaseDelay: 300), // differs only in HoldDelay
-                new ButtonTimings(holdDelay: 900, repeatDelay: 0, longReleaseDelay: 300)
-            };
-            _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
-
-            _now = _now.AddMilliseconds(350); // > 300ms
-            var released = _generator.Observe(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE));
-
-            Assert.HasCount(1, released, "Both configs share LongReleaseDelay=300 - one LONG_RELEASE, not two.");
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, released[0].Value);
-            Assert.AreEqual(300, released[0].SyntheticDelayMs);
-        }
-
         // RepeatDelay is used exactly as configured - no runtime floor. Enforcing a minimum is a
         // config-authoring-time (UI) concern, not something evaluated on every tick.
 
         [TestMethod]
         public void ButtonTimingsConstructor_DoesNotClampRepeatDelay()
         {
-            var timings = new ButtonTimings(holdDelay: 300, repeatDelay: 10, longReleaseDelay: 300);
+            var timings = new ButtonTimings(holdDelay: 300, repeatDelay: 10);
 
             Assert.AreEqual(10, timings.RepeatDelay, "Clamping belongs at config-save time (UI), not runtime evaluation.");
         }
@@ -426,7 +415,7 @@ namespace MobiFlight.Tests
         {
             _generator.ResolveTimings = e => new List<ButtonTimings>
             {
-                new ButtonTimings(holdDelay: 300, repeatDelay: 10, longReleaseDelay: 300)
+                new ButtonTimings(holdDelay: 300, repeatDelay: 10)
             };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
 
@@ -461,7 +450,7 @@ namespace MobiFlight.Tests
         [TestMethod]
         public void Tick_Repeat_PreservesDeviceLabelFromPress()
         {
-            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100, longReleaseDelay: 300) };
+            _generator.ResolveTimings = e => new List<ButtonTimings> { new ButtonTimings(holdDelay: 300, repeatDelay: 100) };
             ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
 
             _now = _now.AddMilliseconds(300);
@@ -481,18 +470,6 @@ namespace MobiFlight.Tests
             var released = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE, "Button 1"));
 
             Assert.AreEqual("Button 1", released.Device.Label);
-        }
-
-        [TestMethod]
-        public void Observe_LongRelease_PreservesDeviceLabel()
-        {
-            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS, "Button 1"));
-
-            _now = _now.AddMilliseconds(350); // > LongReleaseDelay (300)
-            var result = ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.RELEASE, "Button 1"));
-
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, result.Value);
-            Assert.AreEqual("Button 1", result.Device.Label);
         }
     }
 }

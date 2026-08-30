@@ -136,7 +136,14 @@ namespace MobiFlight.Execution.Tests
                 Active = false,
                 Controller = SerialNumber.CreateController("/ 123"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
-                Name = "TestConfig"
+                Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onPress = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
             };
 
             _configItems.Add(inactiveConfigItem);
@@ -200,16 +207,18 @@ namespace MobiFlight.Execution.Tests
         }
 
         [TestMethod]
-        public void Execute_LongReleaseWithoutOwnAction_LogsAndDisplaysAsRelease()
+        public void Execute_ConfigWithoutOnLongRelease_AlwaysDispatchesReleaseRegardlessOfHeldDuration()
         {
-            // A config with only onRelease (no onLongRelease) that receives a raw LONG_RELEASE must
-            // log and display RELEASE - what actually ran - not the raw LONG_RELEASE it fell back from.
+            // The raw event is always RELEASE (never LONG_RELEASE - see SyntheticButtonEventGenerator.
+            // Observe). A config with only onRelease must dispatch/log/display RELEASE no matter how
+            // long HeldDurationMs says the button was held - it has no onLongRelease to switch to.
             var inputEventArgs = new InputEventArgs
             {
                 Controller = new Controller() { Serial = "123" },
                 InputType = DeviceType.Button,
                 Device = new DeviceReference() { Name = "Device1" },
-                Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 5000
             };
 
             var activeConfigItem = new InputConfigItem
@@ -237,6 +246,91 @@ namespace MobiFlight.Execution.Tests
             _mockLogAppender.Verify(
                 appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}"". (RELEASE)")), LogSeverity.Info),
                 Times.Once
+            );
+        }
+
+        [TestMethod]
+        public void Execute_ConfigWithOnLongRelease_DispatchesLongReleaseWhenHeldDurationExceedsItsOwnDelay()
+        {
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 500
+            };
+
+            var activeConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onLongRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    },
+                    LongReleaseDelay = 300
+                }
+            };
+
+            _configItems.Add(activeConfigItem);
+
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            Assert.HasCount(1, result);
+            Assert.AreEqual("LONG_RELEASE", activeConfigItem.RawValue, "RawValue stays the bare event name.");
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}"". (LONG_RELEASE:300ms)")), LogSeverity.Info),
+                Times.Once,
+                "The log shows the configured LongReleaseDelay, not how long the button was actually held."
+            );
+        }
+
+        [TestMethod]
+        public void Execute_ConfigWithOnLongRelease_DispatchesReleaseWhenHeldDurationIsUnderItsOwnDelay()
+        {
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 100
+            };
+
+            var activeConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onLongRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    },
+                    LongReleaseDelay = 300
+                }
+            };
+
+            _configItems.Add(activeConfigItem);
+
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            Assert.HasCount(1, result);
+            Assert.AreEqual("RELEASE", activeConfigItem.RawValue,
+                "Under its own LongReleaseDelay - stays RELEASE, and since onRelease isn't defined here, nothing actually executes.");
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}""")), LogSeverity.Info),
+                Times.Never,
+                "onLongRelease is the only action defined, and it must not fire before its own LongReleaseDelay has elapsed."
             );
         }
 
@@ -340,6 +434,13 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController("/ 123"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
                 Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                },
                 Preconditions = new PreconditionList()
                 {
                     new Precondition
@@ -383,7 +484,14 @@ namespace MobiFlight.Execution.Tests
                 Active = true,
                 Controller = SerialNumber.CreateController("/ 123"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
-                Name = "TestConfig"
+                Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
             };
 
             _configItems.Add(activeConfigItem);
@@ -395,7 +503,110 @@ namespace MobiFlight.Execution.Tests
             Assert.IsEmpty(result);
 
             _mockLogAppender.Verify(
-                appender => appender.log(It.Is<string>(msg => msg.Contains("skipping, MobiFlight not running.")), LogSeverity.Warn),
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Skipping ""{activeConfigItem.Name}"", MobiFlight not running.")), LogSeverity.Warn),
+                Times.Once
+            );
+        }
+
+        [TestMethod]
+        public void Execute_NotStarted_ConfigWithoutMatchingAction_LogsNothing()
+        {
+            // An onPress-only config seeing a RELEASE has nothing bound for it - no skip log should
+            // fire, since nothing was ever going to happen for this event regardless of isStarted.
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
+                Value = (int)MobiFlightButton.InputEvent.RELEASE
+            };
+
+            var pressOnlyConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "PressOnlyConfig",
+                button = new ButtonInputConfig
+                {
+                    onPress = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
+            };
+
+            _configItems.Add(pressOnlyConfigItem);
+
+            var result = _executor.Execute(inputEventArgs, isStarted: false);
+
+            Assert.IsEmpty(result);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.IsAny<string>(), It.IsAny<LogSeverity>()),
+                Times.Never
+            );
+        }
+
+        [TestMethod]
+        public void Execute_NotStarted_LogsPerConfigWithItsOwnResolvedEvent()
+        {
+            // Two configs on the same button, one bound only to onRelease, one only to onLongRelease -
+            // when MobiFlight isn't running, each must still be skipped with its own resolved label
+            // (RELEASE vs LONG_RELEASE), not a single generic message for the whole button.
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 900
+            };
+
+            var releaseConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "ReleaseConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    }
+                }
+            };
+
+            var longReleaseConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "LongReleaseConfig",
+                button = new ButtonInputConfig
+                {
+                    onLongRelease = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Number = 100 }
+                    },
+                    LongReleaseDelay = 300
+                }
+            };
+
+            _configItems.Add(releaseConfig);
+            _configItems.Add(longReleaseConfig);
+
+            var result = _executor.Execute(inputEventArgs, isStarted: false);
+
+            Assert.IsEmpty(result);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Skipping ""{releaseConfig.Name}"", MobiFlight not running.") && msg.Contains("RELEASE") && !msg.Contains("LONG_RELEASE")), LogSeverity.Warn),
+                Times.Once
+            );
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Skipping ""{longReleaseConfig.Name}"", MobiFlight not running.") && msg.Contains("LONG_RELEASE:300ms")), LogSeverity.Warn),
                 Times.Once
             );
         }
@@ -739,10 +950,8 @@ namespace MobiFlight.Execution.Tests
                 button = new ButtonInputConfig
                 {
                     onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
-                    onLongRelease = new MSFS2020CustomInputAction { Command = "(>K:LongReleaseCommand)", PresetId = "p2" },
                     HoldDelay = 123,
-                    RepeatDelay = 45, // below ButtonTimings.MinRepeatDelay - not enforced here, that's a config-authoring-time (UI) concern
-                    LongReleaseDelay = 678
+                    RepeatDelay = 45 // below ButtonTimings.MinRepeatDelay - not enforced here, that's a config-authoring-time (UI) concern
                 }
             };
             _configItems.Add(configItem);
@@ -752,15 +961,14 @@ namespace MobiFlight.Execution.Tests
             Assert.HasCount(1, timings);
             Assert.AreEqual(123, timings[0].HoldDelay);
             Assert.AreEqual(45, timings[0].RepeatDelay, "No runtime clamping - the config's own value is used as-is.");
-            Assert.AreEqual(678, timings[0].LongReleaseDelay);
         }
 
         [TestMethod]
-        public void ResolveButtonTimingsPerConfig_ConfigWithoutOnHoldOrOnLongRelease_ContributesSentinelsNotUnusedDefaults()
+        public void ResolveButtonTimingsPerConfig_ConfigWithoutOnHold_ContributesSentinelNotUnusedDefault()
         {
-            // A config with only onRelease has unused HoldDelay/LongReleaseDelay fields still sitting
-            // at their defaults (350/350). Contributing those would keep HOLD/REPEAT/LONG_RELEASE alive
-            // for the whole button even after every config that actually wanted them is gone.
+            // A config with only onRelease has unused HoldDelay/RepeatDelay fields still sitting at
+            // their defaults (350/0). Contributing those would keep HOLD/REPEAT alive for the whole
+            // button even after every config that actually wanted them is gone.
             var serial = "SN-timings003";
             var deviceName = "Button1";
 
@@ -773,18 +981,14 @@ namespace MobiFlight.Execution.Tests
                 button = new ButtonInputConfig
                 {
                     onRelease = new MSFS2020CustomInputAction { Command = "(>K:ReleaseCommand)", PresetId = "p1" }
-                    // onHold/onLongRelease left null; their delays stay at unused defaults (350/0/350).
+                    // onHold left null; HoldDelay/RepeatDelay stay at unused defaults (350/0).
                 }
             };
             _configItems.Add(configItem);
 
             var timings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
 
-            Assert.HasCount(1, timings);
-            Assert.AreEqual(ButtonTimings.NoHold, timings[0].HoldDelay, "No onHold - HoldDelay must be disabled, not the unused 350 default.");
-            Assert.AreEqual(0, timings[0].RepeatDelay);
-            Assert.AreEqual(ButtonTimings.NoLongRelease, timings[0].LongReleaseDelay,
-                "No onLongRelease - onRelease dispatches identically either way, so LongReleaseDelay must be disabled too, not the unused 350 default.");
+            Assert.HasCount(0, timings, "No onHold anywhere on this button - it isn't bound for HOLD/REPEAT purposes at all.");
         }
 
         [TestMethod]
@@ -826,13 +1030,16 @@ namespace MobiFlight.Execution.Tests
             _executor.ClearCache(); // same invalidation ExecutionManager now performs on delete
 
             var afterDelete = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
-            Assert.IsFalse(afterDelete.Any(t => t.HoldDelay != ButtonTimings.NoHold),
-                "No remaining config defines onHold - nothing should be able to fire HOLD/REPEAT for this button anymore.");
+            Assert.HasCount(0, afterDelete,
+                "No remaining config defines onHold or onLongRelease - this button doesn't need tracking at all anymore.");
         }
 
         [TestMethod]
-        public void ResolveButtonTimingsPerConfig_DeletingTheOnlyOnLongReleaseConfig_LeavesNoLongReleaseBindingForTheButton()
+        public void ResolveButtonTimingsPerConfig_OnLongReleaseOnlyConfig_StillContributesNoHoldSentinel()
         {
+            // No onHold here, but the button still needs to be tracked (for HeldDurationMs on RELEASE -
+            // see ButtonInputConfig.ResolveDispatchedEvent) - so this must not be filtered out entirely,
+            // just contribute nothing usable for HOLD/REPEAT scheduling.
             var serial = "SN-timings005";
             var deviceName = "Button1";
 
@@ -848,29 +1055,12 @@ namespace MobiFlight.Execution.Tests
                     LongReleaseDelay = 300
                 }
             };
-            var releaseConfig = new InputConfigItem
-            {
-                Active = true,
-                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
-                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
-                Name = "ReleaseConfig",
-                button = new ButtonInputConfig
-                {
-                    onRelease = new MSFS2020CustomInputAction { Command = "(>K:ReleaseCommand)", PresetId = "p2" }
-                }
-            };
             _configItems.Add(longReleaseConfig);
-            _configItems.Add(releaseConfig);
 
-            var beforeDelete = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
-            Assert.IsTrue(beforeDelete.Any(t => t.LongReleaseDelay == 300), "LongReleaseConfig's own LongReleaseDelay must be present while it's bound.");
+            var timings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
 
-            _configItems.Remove(longReleaseConfig);
-            _executor.ClearCache();
-
-            var afterDelete = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
-            Assert.IsFalse(afterDelete.Any(t => t.LongReleaseDelay != ButtonTimings.NoLongRelease),
-                "No remaining config defines onLongRelease - nothing should be able to reclassify RELEASE as LONG_RELEASE for this button anymore.");
+            Assert.HasCount(1, timings, "The button must still be tracked, even with nothing to schedule for HOLD/REPEAT.");
+            Assert.AreEqual(ButtonTimings.NoHold, timings[0].HoldDelay);
         }
 
         [TestMethod]
@@ -1000,7 +1190,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "FirstConfig",
-                button = new ButtonInputConfig { HoldDelay = 350, RepeatDelay = 0, LongReleaseDelay = 350 }
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" }, HoldDelay = 350, RepeatDelay = 0 }
             };
             var secondConfig = new InputConfigItem
             {
@@ -1008,7 +1198,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "SecondConfig",
-                button = new ButtonInputConfig { HoldDelay = 350, RepeatDelay = 0, LongReleaseDelay = 350 }
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" }, HoldDelay = 350, RepeatDelay = 0 }
             };
             _configItems.Add(firstConfig);
             _configItems.Add(secondConfig);
@@ -1057,10 +1247,10 @@ namespace MobiFlight.Execution.Tests
         }
 
         [TestMethod]
-        public void Execute_HoldEvent_RawValueAndExecutingLogDoNotShowTheDelay()
+        public void Execute_HoldEvent_RawValueStaysBareButExecutingLogShowsTheDelay()
         {
-            // The delay is shown exactly once, in the raw "an event was raised" log line - not
-            // repeated in RawValue or the per-config "Executing" line.
+            // Stage 1 never shows HOLD at all anymore - this "Executing" line is the only place the
+            // delay that fired it is visible, so it belongs here. RawValue stays the bare event name.
             var serial = "SN-nodelay001";
             var deviceName = "Button1";
 
@@ -1082,7 +1272,7 @@ namespace MobiFlight.Execution.Tests
             Assert.AreEqual("HOLD", configItem.RawValue);
 
             _mockLogAppender.Verify(
-                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (HOLD)")), LogSeverity.Info),
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (HOLD:300ms)")), LogSeverity.Info),
                 Times.Once
             );
         }

@@ -174,10 +174,11 @@ namespace MobiFlight.InputConfig
         }
 
         /// <summary>
-        /// Does this config's own delay match the setting that produced this synthetic event? Always
-        /// true for PRESS/RELEASE (nothing to match). This is how InputEventExecutor decides which of
-        /// several configs sharing a physical button a HOLD/REPEAT/LONG_RELEASE actually belongs to -
-        /// no ID needed, just compare delays.
+        /// Does this config's own delay match the setting that produced this HOLD/REPEAT? Always true
+        /// otherwise (nothing to match - RELEASE's LONG_RELEASE decision is made in
+        /// ResolveDispatchedEvent, not here). This is how InputEventExecutor decides which of several
+        /// configs sharing a physical button a HOLD/REPEAT actually belongs to - no ID needed, just
+        /// compare delays.
         /// </summary>
         internal bool MatchesSyntheticDelay(InputEventArgs e)
         {
@@ -189,18 +190,29 @@ namespace MobiFlight.InputConfig
                     return HoldDelay == e.SyntheticDelayMs.Value;
                 case MobiFlightButton.InputEvent.REPEAT:
                     return RepeatDelay == e.SyntheticDelayMs.Value;
-                case MobiFlightButton.InputEvent.LONG_RELEASE:
-                    return LongReleaseDelay == e.SyntheticDelayMs.Value;
                 default:
                     return true;
             }
         }
 
-        /// <summary>LONG_RELEASE without onLongRelease resolves to RELEASE. Shared with GetInputAction/InputEventExecutor.</summary>
-        internal MobiFlightButton.InputEvent ResolveDispatchedEvent(MobiFlightButton.InputEvent value) =>
-            value == MobiFlightButton.InputEvent.LONG_RELEASE && onLongRelease == null
-                ? MobiFlightButton.InputEvent.RELEASE
-                : value;
+        /// <summary>
+        /// What this config actually dispatches for args.Value. RELEASE becomes LONG_RELEASE only if
+        /// onLongRelease is defined and the held duration exceeded this config's own LongReleaseDelay -
+        /// a per-config decision, since the raw RELEASE carries no pre-made classification (see
+        /// SyntheticButtonEventGenerator.Observe - it always raises plain RELEASE, once).
+        /// </summary>
+        internal MobiFlightButton.InputEvent ResolveDispatchedEvent(InputEventArgs args)
+        {
+            var value = (MobiFlightButton.InputEvent)args.Value;
+            if (value == MobiFlightButton.InputEvent.RELEASE
+                && onLongRelease != null
+                && args.HeldDurationMs.HasValue
+                && args.HeldDurationMs.Value > LongReleaseDelay)
+            {
+                return MobiFlightButton.InputEvent.LONG_RELEASE;
+            }
+            return value;
+        }
 
         /// <summary>Dispatches to the matching InputAction. REPEAT dispatches to onHold, same as HOLD.</summary>
         internal void execute(CacheCollection cacheCollection,
@@ -208,7 +220,7 @@ namespace MobiFlight.InputConfig
                               List<ConfigRefValue> configRefs)
         {
             var value = (MobiFlightButton.InputEvent)args.Value;
-            var dispatchedValue = ResolveDispatchedEvent(value);
+            var dispatchedValue = ResolveDispatchedEvent(args);
 
             InputAction action;
             switch (dispatchedValue)

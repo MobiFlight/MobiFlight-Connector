@@ -54,7 +54,6 @@ namespace MobiFlight.Execution
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
             string inputKey = CreateInputKey(e);
-            var msgEventLabel = e.GetMsgEventLabel();
 
             if (!inputCache.ContainsKey(inputKey))
             {
@@ -68,12 +67,6 @@ namespace MobiFlight.Execution
 
             var cacheCollection = CreateCacheCollection();
 
-            if (!isStarted)
-            {
-                Log.Instance.log($"{msgEventLabel} skipping, MobiFlight not running.", LogSeverity.Warn);
-                return updatedValues;
-            }
-
             foreach (var cfg in inputCache[inputKey])
             {
                 // A HOLD/REPEAT/LONG_RELEASE only applies to a config whose own delay produced it.
@@ -82,9 +75,39 @@ namespace MobiFlight.Execution
                     continue;
                 }
 
+                string dispatchedLabel;
+                string logLabel;
+                if (e.InputType == DeviceType.Button && cfg.button != null)
+                {
+                    var dispatchedValue = cfg.button.ResolveDispatchedEvent(e);
+                    dispatchedLabel = e.GetEventActionLabel((int)dispatchedValue);
+                    logLabel = AppendSyntheticDelay(dispatchedLabel, dispatchedValue, e, cfg.button);
+                }
+                else
+                {
+                    dispatchedLabel = e.GetEventActionLabel();
+                    logLabel = dispatchedLabel;
+                }
+                var cfgEventLabel = $"{e.Controller.Name} => {e.Device.Label} => {logLabel}";
+
+                var action = cfg.GetInputAction(e);
+                var hasMatchingAction = action != null;
+
+                if (!isStarted)
+                {
+                    if (hasMatchingAction)
+                    {
+                        Log.Instance.log($"{cfgEventLabel} => Skipping \"{cfg.Name}\", MobiFlight not running.", LogSeverity.Warn);
+                    }
+                    continue;
+                }
+
                 if (!cfg.Active)
                 {
-                    Log.Instance.log($"{msgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
+                    if (hasMatchingAction)
+                    {
+                        Log.Instance.log($"{cfgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
+                    }
                     continue;
                 }
 
@@ -92,20 +115,16 @@ namespace MobiFlight.Execution
                 {
                     if (!CheckPreconditions(cfg))
                     {
-                        Log.Instance.log($"{msgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
+                        if (hasMatchingAction)
+                        {
+                            Log.Instance.log($"{cfgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
+                        }
                         continue;
                     }
 
-                    var action = cfg.GetInputAction(e);
-
-                    // Log/display what this config actually dispatches, not the raw value.
-                    var dispatchedLabel = (e.InputType == DeviceType.Button && cfg.button != null)
-                        ? e.GetEventActionLabel((int)cfg.button.ResolveDispatchedEvent((MobiFlightButton.InputEvent)e.Value))
-                        : e.GetEventActionLabel();
-
                     if (action != null)
                     {
-                        Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({dispatchedLabel})", LogSeverity.Info);
+                        Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({logLabel})", LogSeverity.Info);
                     }
 
                     cfg.RawValue = dispatchedLabel;
@@ -153,18 +172,33 @@ namespace MobiFlight.Execution
             return result;
         }
 
+        /// <summary>":Nms" suffix for the log only - the configured delay/setting that produced this synthetic event.</summary>
+        private static string AppendSyntheticDelay(string label, MobiFlightButton.InputEvent value, InputEventArgs e, ButtonInputConfig button)
+        {
+            switch (value)
+            {
+                case MobiFlightButton.InputEvent.HOLD:
+                case MobiFlightButton.InputEvent.REPEAT:
+                    return e.SyntheticDelayMs.HasValue ? $"{label}:{e.SyntheticDelayMs}ms" : label;
+                case MobiFlightButton.InputEvent.LONG_RELEASE:
+                    return $"{label}:{button.LongReleaseDelay}ms";
+                default:
+                    return label;
+            }
+        }
+
         /// <summary>
-        /// The distinct Hold/Repeat/LongRelease delay settings among configs bound to this button.
-        /// Active/precondition gating happens in Execute(), not here - this only decides which delays
-        /// govern this press. No config identity is carried (see
+        /// The distinct Hold/Repeat delay settings among configs bound to this button - but also,
+        /// implicitly, "should this button be tracked at all." Empty means the generator won't track
+        /// this press (see SyntheticButtonEventGenerator.Observe) - no HOLD/REPEAT ever, AND no
+        /// HeldDurationMs on RELEASE (needed for LONG_RELEASE - see
+        /// ButtonInputConfig.ResolveDispatchedEvent). So a config bound with only onLongRelease (no
+        /// onHold) still needs an entry here to keep the button tracked, even though it contributes
+        /// nothing real to scheduling - it gets the ButtonTimings.NoHold sentinel instead, same as any
+        /// other config with no onHold. Active/precondition gating happens in Execute(), not here -
+        /// this only decides which delays govern this press. No config identity is carried (see
         /// SyntheticButtonEventGenerator.ResolveTimings) - two configs sharing a delay collapse to one
-        /// entry. Empty if no config is bound at all.
-        /// HoldDelay/RepeatDelay are only contributed when onHold is defined, and LongReleaseDelay only
-        /// when onLongRelease is defined - otherwise a config's own always-present but unused default
-        /// would keep HOLD/REPEAT/LONG_RELEASE alive for the whole button even after every config that
-        /// actually wanted them is gone. Without onLongRelease, onRelease dispatches identically either
-        /// way (see ButtonInputConfig.ResolveDispatchedEvent), so that delay is just as inert as
-        /// HoldDelay is without onHold.
+        /// entry.
         /// </summary>
         public List<ButtonTimings> ResolveButtonTimingsPerConfig(InputEventArgs e)
         {
@@ -175,16 +209,10 @@ namespace MobiFlight.Execution
             }
 
             return inputCache[inputKey]
-                .Where(cfg => cfg.button != null)
-                .Select(cfg =>
-                {
-                    var holdWanted = cfg.button.onHold != null;
-                    var longReleaseWanted = cfg.button.onLongRelease != null;
-                    return new ButtonTimings(
-                        holdWanted ? cfg.button.HoldDelay : ButtonTimings.NoHold,
-                        holdWanted ? cfg.button.RepeatDelay : 0,
-                        longReleaseWanted ? cfg.button.LongReleaseDelay : ButtonTimings.NoLongRelease);
-                })
+                .Where(cfg => cfg.button != null && (cfg.button.onHold != null || cfg.button.onLongRelease != null))
+                .Select(cfg => cfg.button.onHold != null
+                    ? new ButtonTimings(cfg.button.HoldDelay, cfg.button.RepeatDelay)
+                    : new ButtonTimings(ButtonTimings.NoHold, 0))
                 .Distinct()
                 .ToList();
         }

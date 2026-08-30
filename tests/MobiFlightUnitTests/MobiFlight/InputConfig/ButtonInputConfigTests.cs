@@ -286,57 +286,72 @@ namespace MobiFlight.InputConfig.Tests
         }
 
         [TestMethod()]
-        public void MatchesSyntheticDelay_LongRelease_ComparesAgainstOwnLongReleaseDelay()
+        public void MatchesSyntheticDelay_NonHoldRepeatEvent_AlwaysMatches()
         {
+            // MatchesSyntheticDelay only gates HOLD/REPEAT - RELEASE's LONG_RELEASE decision is made
+            // in ResolveDispatchedEvent instead, from HeldDurationMs, not SyntheticDelayMs.
             var cfg = new ButtonInputConfig { LongReleaseDelay = 200 };
 
-            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE, SyntheticDelayMs = 200 }));
-            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE, SyntheticDelayMs = 800 }));
+            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, SyntheticDelayMs = 999 }));
         }
 
         [TestMethod()]
-        public void Execute_LongReleaseWithoutOwnAction_FallsBackToRelease()
+        public void Execute_ConfigWithoutOnLongRelease_AlwaysDispatchesReleaseRegardlessOfHeldDuration()
         {
-            // A latching switch held past LongReleaseDelay is reclassified LONG_RELEASE. A config
-            // that only defines onRelease (the common case before onLongRelease existed) must still
-            // fire it - it must not go silent just because onLongRelease isn't configured.
+            // A latching switch held a long time still arrives as plain RELEASE (see
+            // SyntheticButtonEventGenerator.Observe) - without onLongRelease, it never upgrades to
+            // LONG_RELEASE, however long HeldDurationMs says it was held. A config that only defines
+            // onRelease (the common case before onLongRelease existed) must still fire it.
             var release = new RecordingInputAction();
-            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release };
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, LongReleaseDelay = 300 };
 
-            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE }, new List<ConfigRefValue>());
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 5000 }, new List<ConfigRefValue>());
 
             Assert.AreEqual(1, release.ExecuteCount);
         }
 
         [TestMethod()]
-        public void Execute_LongReleaseWithOwnAction_DoesNotAlsoFireRelease()
+        public void Execute_ConfigWithOnLongRelease_FiresLongReleaseNotReleaseWhenDurationExceedsDelay()
         {
             var release = new RecordingInputAction();
             var longRelease = new RecordingInputAction();
-            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, onLongRelease = longRelease };
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, onLongRelease = longRelease, LongReleaseDelay = 300 };
 
-            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE }, new List<ConfigRefValue>());
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 500 }, new List<ConfigRefValue>());
 
             Assert.AreEqual(1, longRelease.ExecuteCount);
-            Assert.AreEqual(0, release.ExecuteCount, "onLongRelease is configured, so it - not onRelease - must handle this.");
+            Assert.AreEqual(0, release.ExecuteCount, "Held past its own LongReleaseDelay with onLongRelease defined - it, not onRelease, must handle this.");
         }
 
         [TestMethod()]
-        public void Execute_LongReleaseWithoutOwnAction_NormalizesDispatchedValueToRelease()
+        public void Execute_ConfigWithOnLongRelease_DoesNotFireWhenDurationIsUnderDelay()
+        {
+            var release = new RecordingInputAction();
+            var longRelease = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, onLongRelease = longRelease, LongReleaseDelay = 300 };
+
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 100 }, new List<ConfigRefValue>());
+
+            Assert.AreEqual(1, release.ExecuteCount, "Under its own LongReleaseDelay - a plain release, handled by onRelease.");
+            Assert.AreEqual(0, longRelease.ExecuteCount);
+        }
+
+        [TestMethod()]
+        public void Execute_ConfigWithOnLongRelease_NormalizesDispatchedValueToLongReleaseWithoutMutatingCallerArgs()
         {
             // Several InputAction implementations substitute args.Value into their command (the "@"
-            // placeholder) - onRelease must see RELEASE, not the raw LONG_RELEASE it fell back from.
-            var release = new RecordingInputAction();
-            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release };
-            var originalArgs = new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE };
+            // placeholder) - onLongRelease must see LONG_RELEASE, not the raw RELEASE it upgraded from.
+            var longRelease = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onLongRelease = longRelease, LongReleaseDelay = 300 };
+            var originalArgs = new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 500 };
 
             cfg.execute(new CacheCollection(), originalArgs, new List<ConfigRefValue>());
 
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, release.LastArgs.Value,
-                "onRelease must see a normalized RELEASE value, not the raw LONG_RELEASE it fell back from.");
-            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, originalArgs.Value,
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, longRelease.LastArgs.Value,
+                "onLongRelease must see the normalized LONG_RELEASE value.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, originalArgs.Value,
                 "The caller's own args instance must not be mutated - normalization must happen on a clone.");
-            Assert.AreNotSame(originalArgs, release.LastArgs, "onRelease must receive a clone, not the caller's own args instance.");
+            Assert.AreNotSame(originalArgs, longRelease.LastArgs, "onLongRelease must receive a clone, not the caller's own args instance.");
         }
 
         [TestMethod()]

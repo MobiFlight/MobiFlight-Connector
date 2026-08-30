@@ -380,7 +380,7 @@ namespace MobiFlight
             {
                 case DeviceType.Button:
                     if (button == null) return null;
-                    switch (button.ResolveDispatchedEvent((MobiFlightButton.InputEvent)e.Value))
+                    switch (button.ResolveDispatchedEvent(e))
                     {
                         case MobiFlightButton.InputEvent.PRESS:
                             return button.onPress;

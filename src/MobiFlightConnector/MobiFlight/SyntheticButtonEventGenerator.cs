@@ -6,24 +6,24 @@ using System.Timers;
 namespace MobiFlight
 {
     /// <summary>
-    /// Produces HOLD/REPEAT/LONG_RELEASE from a controller's raw PRESS/RELEASE events. Owned by a
-    /// controller manager (MobiFlightCache/JoystickManager/MidiBoardManager) and wired into its
-    /// OnButtonPressed funnel, so downstream code sees virtual events exactly like real ones. See
-    /// docs/architecture/virtual-button-events.md.
+    /// Produces HOLD/REPEAT from a controller's raw PRESS/RELEASE events, and stamps RELEASE with how
+    /// long the button was held. Owned by a controller manager (MobiFlightCache/JoystickManager/
+    /// MidiBoardManager) and wired into its OnButtonPressed funnel, so downstream code sees virtual
+    /// events exactly like real ones. See docs/architecture/virtual-button-events.md.
     /// </summary>
     public class SyntheticButtonEventGenerator : IDisposable
     {
         /// <summary>
-        /// The distinct Hold/Repeat/LongRelease delay settings among configs currently bound to a
-        /// button. Resolved once at PRESS, held for that press's lifecycle. Null or empty means no
-        /// config is bound - no synthetic events for that button at all. No config identity is
-        /// carried - a config later decides an event is its own by matching its own delay (see
+        /// The distinct Hold/Repeat delay settings among configs currently bound to a button. Resolved
+        /// once at PRESS, held for that press's lifecycle. Null or empty means no config is bound - no
+        /// HOLD/REPEAT for that button at all. No config identity is carried - a config later decides
+        /// a HOLD/REPEAT is its own by matching its own delay (see
         /// ButtonInputConfig.MatchesSyntheticDelay), so two configs sharing a delay are
         /// indistinguishable here by design and share one raised event.
         /// </summary>
         public Func<InputEventArgs, List<ButtonTimings>> ResolveTimings { get; set; }
 
-        /// <summary>Raised for HOLD/REPEAT. LONG_RELEASE is classified in-place by <see cref="Observe"/> instead.</summary>
+        /// <summary>Raised for HOLD/REPEAT.</summary>
         public event EventHandler<InputEventArgs> OnSyntheticEvent;
 
         private class BindingState
@@ -58,11 +58,13 @@ namespace MobiFlight
         private static string KeyFor(InputEventArgs e) => $"{e.Controller?.Serial}:{e.Device?.Name}";
 
         /// <summary>
-        /// Feed one real PRESS/RELEASE through. Returns the event(s) to forward: one untargeted
-        /// event for PRESS; for RELEASE, one event per distinct LongReleaseDelay among bound configs
-        /// (configs sharing a delay always agree on RELEASE vs LONG_RELEASE, so they share one event).
-        /// A button with no bound config passes PRESS/RELEASE through untouched and is never tracked
-        /// for HOLD/REPEAT/LONG_RELEASE.
+        /// Feed one real PRESS/RELEASE through. PRESS and RELEASE are each always forwarded exactly
+        /// once, untouched except RELEASE also carries HeldDurationMs - LONG_RELEASE is not decided
+        /// here at all; it's a per-config dispatch-time decision (see
+        /// ButtonInputConfig.ResolveDispatchedEvent) based on that duration, so the raw "an event was
+        /// raised" record for RELEASE can't disagree with itself depending on which configs happen to
+        /// be bound. A button with no bound config passes PRESS/RELEASE through untouched and is never
+        /// tracked for HOLD/REPEAT.
         /// </summary>
         public List<InputEventArgs> Observe(InputEventArgs e)
         {
@@ -86,7 +88,7 @@ namespace MobiFlight
                 var timings = ResolveTimings?.Invoke(e);
                 if (timings == null || timings.Count == 0)
                 {
-                    // No config bound to this button - no synthetic events at all.
+                    // No config bound to this button - no HOLD/REPEAT at all.
                     return new List<InputEventArgs> { e };
                 }
 
@@ -120,21 +122,9 @@ namespace MobiFlight
                     return new List<InputEventArgs> { e };
                 }
 
-                var now = _now();
-                var result = new List<InputEventArgs>();
-                // Grouped by LongReleaseDelay - configs sharing a delay always agree on RELEASE vs
-                // LONG_RELEASE (same elapsed time, same threshold), so they share one raised event.
-                foreach (var longReleaseDelay in tracked.Bindings.Select(b => b.Timings.LongReleaseDelay).Distinct())
-                {
-                    var classified = e.CloneWithLabel();
-                    if ((now - tracked.PressedAt) > TimeSpan.FromMilliseconds(longReleaseDelay))
-                    {
-                        classified.Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE;
-                        classified.SyntheticDelayMs = longReleaseDelay;
-                    }
-                    result.Add(classified);
-                }
-                return result;
+                var classified = e.CloneWithLabel();
+                classified.HeldDurationMs = (int)(_now() - tracked.PressedAt).TotalMilliseconds;
+                return new List<InputEventArgs> { classified };
             }
 
             return new List<InputEventArgs> { e };
@@ -249,9 +239,9 @@ namespace MobiFlight
     }
 
     /// <summary>
-    /// Hold/Repeat/LongRelease delays for one button press, one config. Intentionally unclamped here -
-    /// RepeatDelay validation belongs at config authoring time (UI), not runtime evaluation, so a
-    /// config's own value and what the generator schedules/matches against always agree. See
+    /// Hold/Repeat delays for one button press, one config. Intentionally unclamped here - RepeatDelay
+    /// validation belongs at config authoring time (UI), not runtime evaluation, so a config's own
+    /// value and what the generator schedules/matches against always agree. See
     /// <see cref="SyntheticButtonEventGenerator.ResolveTimings"/>.
     /// </summary>
     public struct ButtonTimings
@@ -262,18 +252,13 @@ namespace MobiFlight
         /// <summary>HoldDelay sentinel meaning "never fires HOLD/REPEAT" - use when no onHold is defined, so a config that doesn't want it can't keep it alive for the whole button.</summary>
         public const int NoHold = int.MaxValue;
 
-        /// <summary>LongReleaseDelay sentinel meaning "never reclassifies as LONG_RELEASE" - use when no onLongRelease is defined, since onRelease dispatches identically either way (see ButtonInputConfig.ResolveDispatchedEvent).</summary>
-        public const int NoLongRelease = int.MaxValue;
-
         public int HoldDelay;
         public int RepeatDelay;
-        public int LongReleaseDelay;
 
-        public ButtonTimings(int holdDelay, int repeatDelay, int longReleaseDelay)
+        public ButtonTimings(int holdDelay, int repeatDelay)
         {
             HoldDelay = holdDelay;
             RepeatDelay = repeatDelay;
-            LongReleaseDelay = longReleaseDelay;
         }
 
         public static int ClampRepeatDelay(int repeatDelay) =>

@@ -14,11 +14,19 @@ namespace MobiFlight
         public String StrValue { get; set; }
 
         /// <summary>
-        /// The HOLD/RepeatDelay/LongReleaseDelay (ms) that classified this event - also how a config
-        /// decides an event is its own (see ButtonInputConfig.MatchesSyntheticDelay), not just how
-        /// it's displayed. Null for PRESS/RELEASE.
+        /// The HoldDelay/RepeatDelay (ms) that classified this event - also how a config decides a
+        /// HOLD/REPEAT is its own (see ButtonInputConfig.MatchesSyntheticDelay), not just how it's
+        /// displayed. Null except on HOLD/REPEAT.
         /// </summary>
         public int? SyntheticDelayMs { get; set; }
+
+        /// <summary>
+        /// How long the button was held (ms) before this RELEASE. RELEASE is always raised once, as
+        /// RELEASE - LONG_RELEASE is a per-config decision made at dispatch time (see
+        /// ButtonInputConfig.ResolveDispatchedEvent), not a reclassification of the raw event. Null
+        /// except on RELEASE.
+        /// </summary>
+        public int? HeldDurationMs { get; set; }
 
         public readonly DateTime Time = DateTime.Now;
 
@@ -62,6 +70,7 @@ namespace MobiFlight
             clone.Value = Value;
             clone.StrValue = StrValue;
             clone.SyntheticDelayMs = SyntheticDelayMs;
+            clone.HeldDurationMs = HeldDurationMs;
 
             return clone;
         }

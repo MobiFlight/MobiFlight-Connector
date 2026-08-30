@@ -380,24 +380,47 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        public void GetInputAction_Button_LongReleaseFallsBackToReleaseWhenNotConfigured()
+        public void GetInputAction_Button_ReleaseHeldPastDelayResolvesToReleaseWhenNoOnLongRelease()
         {
             var releaseAction = new VariableInputAction();
 
             var config = new InputConfigItem
             {
-                button = new ButtonInputConfig { onRelease = releaseAction }
+                button = new ButtonInputConfig { onRelease = releaseAction, LongReleaseDelay = 300 }
             };
 
             var args = new InputEventArgs
             {
                 InputType = DeviceType.Button,
-                Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 5000
             };
 
             var result = config.GetInputAction(args);
 
-            Assert.AreSame(releaseAction, result, "No onLongRelease is configured, so this must fall back to onRelease - same as execute() does.");
+            Assert.AreSame(releaseAction, result, "No onLongRelease is configured, so this never upgrades past RELEASE - same as execute() does.");
+        }
+
+        [TestMethod()]
+        public void GetInputAction_Button_ReleaseHeldPastDelayResolvesToLongReleaseWhenConfigured()
+        {
+            var longReleaseAction = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                button = new ButtonInputConfig { onLongRelease = longReleaseAction, LongReleaseDelay = 300 }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 500
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.AreSame(longReleaseAction, result, "Held past its own LongReleaseDelay with onLongRelease defined - same as execute() does.");
         }
 
         [TestMethod()]

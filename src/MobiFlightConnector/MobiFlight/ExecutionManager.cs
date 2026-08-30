@@ -1460,7 +1460,9 @@ namespace MobiFlight
             var msgEventLabel = e.GetMsgEventLabel();
             var serial = e.Controller.Serial;
 
-            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
+            // Synthetic (HOLD/REPEAT) events don't belong in this "an event was raised" log - see Execute() for those.
+            var isSyntheticEvent = e.SyntheticDelayMs.HasValue;
+            if (!isSyntheticEvent && LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
