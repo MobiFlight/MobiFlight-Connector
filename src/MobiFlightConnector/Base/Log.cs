@@ -89,7 +89,6 @@ namespace MobiFlight
             var callingMethod = stackTrace.GetFrame(2).GetMethod();
             var callingClass = callingMethod.ReflectedType;
             return $"{callingClass.Name}.{callingMethod.Name}()";
-
         }
 
         public void ClearAppenders()
@@ -170,12 +169,10 @@ namespace MobiFlight
         }
     }
 
-    // Writes log lines from a single dedicated background thread instead of spawning a
-    // Task.Run (and opening/closing the file) per log call. That old approach caused
-    // ThreadPool starvation under LogSeverity.Debug, where startup could take minutes.
     public class LogAppenderFile : ILogAppender, IDisposable
     {
         private const int MaxQueueLength = 10000;
+        private static readonly TimeSpan WriterShutdownTimeout = TimeSpan.FromSeconds(2);
 
         private readonly String FileName = "log.txt";
         private readonly BlockingCollection<string> queue = new BlockingCollection<string>(MaxQueueLength);
@@ -183,8 +180,7 @@ namespace MobiFlight
 
         public LogAppenderFile()
         {
-            if (File.Exists(FileName))
-                File.Delete(FileName);
+            TryDeleteExistingLogFile();
 
             writerThread = new Thread(ProcessQueue)
             {
@@ -194,85 +190,106 @@ namespace MobiFlight
             writerThread.Start();
         }
 
+        private void TryDeleteExistingLogFile()
+        {
+            try
+            {
+                if (File.Exists(FileName))
+                    File.Delete(FileName);
+            }
+            catch
+            {
+                // OpenAppendStream()'s FileShare.Delete makes this succeed even while another instance still has the file open.
+            }
+        }
+
         public void CopyToClipboard()
         {
-            if (File.Exists(FileName))
-            {
-                // FileShare.ReadWrite lets us read the file while the writer thread still has it open.
-                string fileContents;
-                using (var fs = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (var sr = new StreamReader(fs))
-                {
-                    fileContents = sr.ReadToEnd();
-                }
-                System.Windows.Forms.Clipboard.SetText(fileContents);
-            }
-            else
-            {
-                // File doesn't exist so throw an exception.
+            if (!File.Exists(FileName))
                 throw new FileLoadException(FileName);
-            }
+
+            System.Windows.Forms.Clipboard.SetText(ReadWhileWriterHoldsFile());
+        }
+
+        private string ReadWhileWriterHoldsFile()
+        {
+            // FileShare.ReadWrite: the writer thread already holds this file open for Write.
+            using var fs = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var sr = new StreamReader(fs);
+            return sr.ReadToEnd();
         }
 
         public void log(string message, LogSeverity severity)
         {
-            String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
+            TryEnqueue($"{DateTime.Now}({DateTime.Now.Millisecond}): {message}");
+        }
+
+        private void TryEnqueue(string msg)
+        {
             try
             {
-                // Never let logging block the caller. If the writer thread can't keep up
-                // (queue full) or has already shut down, just drop the line.
                 queue.TryAdd(msg);
             }
-            catch (InvalidOperationException)
+            catch (Exception ex) when (ex is InvalidOperationException || ex is ObjectDisposedException)
             {
-                // CompleteAdding() has already been called (shutting down).
+                // Shutting down (CompleteAdding/Dispose already ran) - drop the line instead of crashing the caller.
             }
         }
 
         private void ProcessQueue()
         {
-            StreamWriter sw = null;
+            StreamWriter writer;
             try
             {
-                sw = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
-                {
-                    AutoFlush = false
-                };
+                writer = OpenAppendStream();
             }
             catch
             {
-                // Fix for https://github.com/MobiFlight/MobiFlight-Connector/issues/757
-                // If the log file can't even be opened, just drain the queue so callers
-                // never block on a full queue, and give up on writing anything.
-                foreach (var _ in queue.GetConsumingEnumerable()) { }
+                // Can't log to file (see #757) - drain the queue so log() never blocks on it filling up.
+                DrainWithoutWriting();
                 return;
             }
 
-            using (sw)
+            using (writer)
             {
                 foreach (string msg in queue.GetConsumingEnumerable())
-                {
-                    try
-                    {
-                        sw.WriteLine(msg);
-                        // Flush once we've drained the current backlog rather than on every
-                        // line, so a burst of messages doesn't cost a flush each.
-                        if (queue.Count == 0) sw.Flush();
-                    }
-                    catch
-                    {
-                        // Same rationale as above: a broken log line shouldn't crash the app.
-                    }
-                }
-                sw.Flush();
+                    WriteLine(writer, msg);
+
+                writer.Flush();
+            }
+        }
+
+        private StreamWriter OpenAppendStream()
+        {
+            // FileShare.Delete lets a fresh LogAppenderFile instance replace this file while we still hold it open.
+            var stream = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read | FileShare.Delete);
+            return new StreamWriter(stream) { AutoFlush = false };
+        }
+
+        private void DrainWithoutWriting()
+        {
+            foreach (var _ in queue.GetConsumingEnumerable()) { }
+        }
+
+        private void WriteLine(StreamWriter writer, string msg)
+        {
+            try
+            {
+                writer.WriteLine(msg);
+                if (queue.Count == 0)
+                    writer.Flush();
+            }
+            catch
+            {
+                // A broken log line shouldn't crash the app.
             }
         }
 
         public void Dispose()
         {
             queue.CompleteAdding();
-            writerThread.Join(2000);
-            queue.Dispose();
+            if (writerThread.Join(WriterShutdownTimeout))
+                queue.Dispose(); // otherwise the writer thread may still be enumerating it
         }
     }
 }
