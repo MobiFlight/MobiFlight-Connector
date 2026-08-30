@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight
@@ -170,27 +170,41 @@ namespace MobiFlight
         }
     }
 
-    public class LogAppenderFile : ILogAppender
+    // Writes log lines from a single dedicated background thread instead of spawning a
+    // Task.Run (and opening/closing the file) per log call. That old approach caused
+    // ThreadPool starvation under LogSeverity.Debug, where startup could take minutes.
+    public class LogAppenderFile : ILogAppender, IDisposable
     {
-        private String FileName = "log.txt";
-        private StreamWriter writer = null;
-        // This delegate enables asynchronous calls for setting
-        // the text property on a TextBox control.
-        delegate void logCallback(string message, LogSeverity severity);
+        private const int MaxQueueLength = 10000;
 
-        private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
+        private readonly String FileName = "log.txt";
+        private readonly BlockingCollection<string> queue = new BlockingCollection<string>(MaxQueueLength);
+        private readonly Thread writerThread;
 
         public LogAppenderFile()
         {
             if (File.Exists(FileName))
                 File.Delete(FileName);
+
+            writerThread = new Thread(ProcessQueue)
+            {
+                IsBackground = true,
+                Name = "LogAppenderFile"
+            };
+            writerThread.Start();
         }
 
         public void CopyToClipboard()
         {
             if (File.Exists(FileName))
             {
-                string fileContents = File.ReadAllText(FileName);
+                // FileShare.ReadWrite lets us read the file while the writer thread still has it open.
+                string fileContents;
+                using (var fs = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var sr = new StreamReader(fs))
+                {
+                    fileContents = sr.ReadToEnd();
+                }
                 System.Windows.Forms.Clipboard.SetText(fileContents);
             }
             else
@@ -200,34 +214,65 @@ namespace MobiFlight
             }
         }
 
-        public async void log(string message, LogSeverity severity)
+        public void log(string message, LogSeverity severity)
         {
-            await Task.Run(() =>
+            String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
+            try
             {
-                // Set Status to Locked
-                _readWriteLock.EnterWriteLock();
-                try
+                // Never let logging block the caller. If the writer thread can't keep up
+                // (queue full) or has already shut down, just drop the line.
+                queue.TryAdd(msg);
+            }
+            catch (InvalidOperationException)
+            {
+                // CompleteAdding() has already been called (shutting down).
+            }
+        }
+
+        private void ProcessQueue()
+        {
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter(new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
                 {
-                    String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
-                    // Append text to the file
-                    using (StreamWriter sw = File.AppendText(FileName))
+                    AutoFlush = false
+                };
+            }
+            catch
+            {
+                // Fix for https://github.com/MobiFlight/MobiFlight-Connector/issues/757
+                // If the log file can't even be opened, just drain the queue so callers
+                // never block on a full queue, and give up on writing anything.
+                foreach (var _ in queue.GetConsumingEnumerable()) { }
+                return;
+            }
+
+            using (sw)
+            {
+                foreach (string msg in queue.GetConsumingEnumerable())
+                {
+                    try
                     {
                         sw.WriteLine(msg);
-                        sw.Close();
+                        // Flush once we've drained the current backlog rather than on every
+                        // line, so a burst of messages doesn't cost a flush each.
+                        if (queue.Count == 0) sw.Flush();
+                    }
+                    catch
+                    {
+                        // Same rationale as above: a broken log line shouldn't crash the app.
                     }
                 }
-                catch
-                {
-                    // Fix for https://github.com/MobiFlight/MobiFlight-Connector/issues/757
-                    // If something goes wrong writing to the log file it's just the log file, no need to crash
-                    // or do anything special. Just ignore the exception and keep going.
-                }
-                finally
-                {
-                    // Release lock
-                    _readWriteLock.ExitWriteLock();
-                }
-            });
+                sw.Flush();
+            }
+        }
+
+        public void Dispose()
+        {
+            queue.CompleteAdding();
+            writerThread.Join(2000);
+            queue.Dispose();
         }
     }
 }
