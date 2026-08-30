@@ -322,6 +322,18 @@ definition.
   `List<InputEventArgs>` (usually one element - the fan-out is dormant, not extra work, for the
   common single-setting-per-button case, and configs sharing a setting collapse back to one element
   too).
+
+  **A delay is only contributed if some action actually consumes it** -
+  `ResolveButtonTimingsPerConfig` substitutes `ButtonTimings.NoHold`/`NoLongRelease` (both
+  `int.MaxValue`, never elapses) for `HoldDelay`/`RepeatDelay` when `onHold` is null, and for
+  `LongReleaseDelay` when `onLongRelease` is null. Otherwise a config's own always-present but unused
+  default (every `ButtonInputConfig` has *some* value in these fields whether or not the matching
+  action is set) would keep HOLD/REPEAT/LONG_RELEASE alive for the whole button for as long as *any*
+  config remains bound to it - including, confusingly, after the one config that actually wanted them
+  is deleted, as long as some other onRelease/onPress-only config happens to still be there. Without
+  `onLongRelease`, `onRelease` dispatches identically regardless of RELEASE-vs-LONG_RELEASE (see
+  `ButtonInputConfig.ResolveDispatchedEvent`'s fallback above), so that delay is exactly as inert to
+  such a config as `HoldDelay` is to one with no `onHold` at all.
 - **Encoder pairing configuration.** Where the button-pair-to-encoder mapping is authored (joystick
   definition file vs. runtime user configuration).
 - **Fast-turn threshold shape.** Rolling window/count vs. some other rate measure; not yet designed

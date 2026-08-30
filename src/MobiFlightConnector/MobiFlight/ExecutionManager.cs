@@ -388,6 +388,7 @@ namespace MobiFlight
                         var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
                         ConfigItems.Remove(cfg);
                     });
+                    OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                 }
                 else if (message.Action == "toggle")
                 {
@@ -410,6 +411,7 @@ namespace MobiFlight
                 {
                     case "delete":
                         ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
+                        OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                         break;
 
                     case "toggle":

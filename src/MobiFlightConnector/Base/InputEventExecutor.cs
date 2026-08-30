@@ -159,6 +159,12 @@ namespace MobiFlight.Execution
         /// govern this press. No config identity is carried (see
         /// SyntheticButtonEventGenerator.ResolveTimings) - two configs sharing a delay collapse to one
         /// entry. Empty if no config is bound at all.
+        /// HoldDelay/RepeatDelay are only contributed when onHold is defined, and LongReleaseDelay only
+        /// when onLongRelease is defined - otherwise a config's own always-present but unused default
+        /// would keep HOLD/REPEAT/LONG_RELEASE alive for the whole button even after every config that
+        /// actually wanted them is gone. Without onLongRelease, onRelease dispatches identically either
+        /// way (see ButtonInputConfig.ResolveDispatchedEvent), so that delay is just as inert as
+        /// HoldDelay is without onHold.
         /// </summary>
         public List<ButtonTimings> ResolveButtonTimingsPerConfig(InputEventArgs e)
         {
@@ -170,7 +176,15 @@ namespace MobiFlight.Execution
 
             return inputCache[inputKey]
                 .Where(cfg => cfg.button != null)
-                .Select(cfg => new ButtonTimings(cfg.button.HoldDelay, cfg.button.RepeatDelay, cfg.button.LongReleaseDelay))
+                .Select(cfg =>
+                {
+                    var holdWanted = cfg.button.onHold != null;
+                    var longReleaseWanted = cfg.button.onLongRelease != null;
+                    return new ButtonTimings(
+                        holdWanted ? cfg.button.HoldDelay : ButtonTimings.NoHold,
+                        holdWanted ? cfg.button.RepeatDelay : 0,
+                        longReleaseWanted ? cfg.button.LongReleaseDelay : ButtonTimings.NoLongRelease);
+                })
                 .Distinct()
                 .ToList();
         }

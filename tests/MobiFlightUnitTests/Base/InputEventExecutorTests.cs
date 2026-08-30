@@ -739,6 +739,7 @@ namespace MobiFlight.Execution.Tests
                 button = new ButtonInputConfig
                 {
                     onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
+                    onLongRelease = new MSFS2020CustomInputAction { Command = "(>K:LongReleaseCommand)", PresetId = "p2" },
                     HoldDelay = 123,
                     RepeatDelay = 45, // below ButtonTimings.MinRepeatDelay - not enforced here, that's a config-authoring-time (UI) concern
                     LongReleaseDelay = 678
@@ -752,6 +753,124 @@ namespace MobiFlight.Execution.Tests
             Assert.AreEqual(123, timings[0].HoldDelay);
             Assert.AreEqual(45, timings[0].RepeatDelay, "No runtime clamping - the config's own value is used as-is.");
             Assert.AreEqual(678, timings[0].LongReleaseDelay);
+        }
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_ConfigWithoutOnHoldOrOnLongRelease_ContributesSentinelsNotUnusedDefaults()
+        {
+            // A config with only onRelease has unused HoldDelay/LongReleaseDelay fields still sitting
+            // at their defaults (350/350). Contributing those would keep HOLD/REPEAT/LONG_RELEASE alive
+            // for the whole button even after every config that actually wanted them is gone.
+            var serial = "SN-timings003";
+            var deviceName = "Button1";
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ReleaseOnlyConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new MSFS2020CustomInputAction { Command = "(>K:ReleaseCommand)", PresetId = "p1" }
+                    // onHold/onLongRelease left null; their delays stay at unused defaults (350/0/350).
+                }
+            };
+            _configItems.Add(configItem);
+
+            var timings = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+
+            Assert.HasCount(1, timings);
+            Assert.AreEqual(ButtonTimings.NoHold, timings[0].HoldDelay, "No onHold - HoldDelay must be disabled, not the unused 350 default.");
+            Assert.AreEqual(0, timings[0].RepeatDelay);
+            Assert.AreEqual(ButtonTimings.NoLongRelease, timings[0].LongReleaseDelay,
+                "No onLongRelease - onRelease dispatches identically either way, so LongReleaseDelay must be disabled too, not the unused 350 default.");
+        }
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_DeletingTheOnlyOnHoldConfig_LeavesNoHoldBindingForTheButton()
+        {
+            var serial = "SN-timings004";
+            var deviceName = "Button1";
+
+            var holdConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "HoldConfig",
+                button = new ButtonInputConfig
+                {
+                    onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" },
+                    HoldDelay = 300
+                }
+            };
+            var releaseConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ReleaseConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new MSFS2020CustomInputAction { Command = "(>K:ReleaseCommand)", PresetId = "p2" }
+                }
+            };
+            _configItems.Add(holdConfig);
+            _configItems.Add(releaseConfig);
+
+            var beforeDelete = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.IsTrue(beforeDelete.Any(t => t.HoldDelay == 300), "HoldConfig's own HoldDelay must be present while it's bound.");
+
+            _configItems.Remove(holdConfig);
+            _executor.ClearCache(); // same invalidation ExecutionManager now performs on delete
+
+            var afterDelete = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.IsFalse(afterDelete.Any(t => t.HoldDelay != ButtonTimings.NoHold),
+                "No remaining config defines onHold - nothing should be able to fire HOLD/REPEAT for this button anymore.");
+        }
+
+        [TestMethod]
+        public void ResolveButtonTimingsPerConfig_DeletingTheOnlyOnLongReleaseConfig_LeavesNoLongReleaseBindingForTheButton()
+        {
+            var serial = "SN-timings005";
+            var deviceName = "Button1";
+
+            var longReleaseConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "LongReleaseConfig",
+                button = new ButtonInputConfig
+                {
+                    onLongRelease = new MSFS2020CustomInputAction { Command = "(>K:LongReleaseCommand)", PresetId = "p1" },
+                    LongReleaseDelay = 300
+                }
+            };
+            var releaseConfig = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "ReleaseConfig",
+                button = new ButtonInputConfig
+                {
+                    onRelease = new MSFS2020CustomInputAction { Command = "(>K:ReleaseCommand)", PresetId = "p2" }
+                }
+            };
+            _configItems.Add(longReleaseConfig);
+            _configItems.Add(releaseConfig);
+
+            var beforeDelete = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.IsTrue(beforeDelete.Any(t => t.LongReleaseDelay == 300), "LongReleaseConfig's own LongReleaseDelay must be present while it's bound.");
+
+            _configItems.Remove(longReleaseConfig);
+            _executor.ClearCache();
+
+            var afterDelete = _executor.ResolveButtonTimingsPerConfig(CreateButtonEventArgs(serial, deviceName, isOnPress: true));
+            Assert.IsFalse(afterDelete.Any(t => t.LongReleaseDelay != ButtonTimings.NoLongRelease),
+                "No remaining config defines onLongRelease - nothing should be able to reclassify RELEASE as LONG_RELEASE for this button anymore.");
         }
 
         [TestMethod]
@@ -777,7 +896,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "InactiveConfig",
-                button = new ButtonInputConfig { HoldDelay = 999 }
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:HoldCommand)", PresetId = "p1" }, HoldDelay = 999 }
             };
             _configItems.Add(configItem);
 
@@ -805,7 +924,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "ModeAConfig",
-                button = new ButtonInputConfig { HoldDelay = 200 },
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" }, HoldDelay = 200 },
                 Preconditions = new PreconditionList
                 {
                     new Precondition { Type = "config", Active = true, Ref = modeSwitch.GUID, Value = "ModeA" }
@@ -817,7 +936,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "ModeBConfig",
-                button = new ButtonInputConfig { HoldDelay = 800 },
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" }, HoldDelay = 800 },
                 Preconditions = new PreconditionList
                 {
                     new Precondition { Type = "config", Active = true, Ref = modeSwitch.GUID, Value = "ModeB" }
@@ -849,7 +968,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "FirstConfig",
-                button = new ButtonInputConfig { HoldDelay = 100 }
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" }, HoldDelay = 100 }
             };
             var secondConfig = new InputConfigItem
             {
@@ -857,7 +976,7 @@ namespace MobiFlight.Execution.Tests
                 Controller = SerialNumber.CreateController($"TestModule / {serial}"),
                 Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
                 Name = "SecondConfig",
-                button = new ButtonInputConfig { HoldDelay = 900 }
+                button = new ButtonInputConfig { onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" }, HoldDelay = 900 }
             };
             _configItems.Add(firstConfig);
             _configItems.Add(secondConfig);
@@ -935,6 +1054,37 @@ namespace MobiFlight.Execution.Tests
 
             Assert.IsTrue(result.ContainsKey(matching.GUID), "The config whose own HoldDelay matches must execute.");
             Assert.IsFalse(result.ContainsKey(other.GUID), "A config whose own HoldDelay doesn't match must not execute.");
+        }
+
+        [TestMethod]
+        public void Execute_HoldEvent_RawValueAndExecutingLogDoNotShowTheDelay()
+        {
+            // The delay is shown exactly once, in the raw "an event was raised" log line - not
+            // repeated in RawValue or the per-config "Executing" line.
+            var serial = "SN-nodelay001";
+            var deviceName = "Button1";
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "TestConfig",
+                button = new ButtonInputConfig { HoldDelay = 300, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
+            };
+            _configItems.Add(configItem);
+
+            var holdEvent = CreateHoldEventArgs(serial, deviceName);
+            holdEvent.SyntheticDelayMs = 300;
+
+            _executor.Execute(holdEvent, isStarted: true);
+
+            Assert.AreEqual("HOLD", configItem.RawValue);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{configItem.Name}"". (HOLD)")), LogSeverity.Info),
+                Times.Once
+            );
         }
 
         [TestMethod]

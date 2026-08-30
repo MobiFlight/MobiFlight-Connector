@@ -31,10 +31,7 @@ namespace MobiFlight
             switch (InputType)
             {
                 case DeviceType.Button:
-                    var label = MobiFlightButton.InputEventIdToString(v);
-                    // Only annotate when asking for this event's own value - a value normalized down
-                    // to a fallback (e.g. LONG_RELEASE -> RELEASE) has no delay of its own to show.
-                    return (SyntheticDelayMs.HasValue && v == Convert.ToInt32(Value)) ? $"{label} ({SyntheticDelayMs}ms)" : label;
+                    return MobiFlightButton.InputEventIdToString(v);
                 case DeviceType.Encoder:
                     return MobiFlightEncoder.InputEventIdToString(v);
                 case DeviceType.AnalogInput:
@@ -44,9 +41,14 @@ namespace MobiFlight
             }
         }
 
+        /// <summary>
+        /// The one place SyntheticDelayMs is shown - "an event was raised" (RawValue and the
+        /// per-config "Executing" line show what actually dispatched instead, deliberately without it).
+        /// </summary>
         public string GetMsgEventLabel()
         {
             var eventAction = GetEventActionLabel();
+            if (SyntheticDelayMs.HasValue) eventAction += $" ({SyntheticDelayMs}ms)";
 
             return $"{Controller.Name} => {Device.Label} => {eventAction}";
         }

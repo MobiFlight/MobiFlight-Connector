@@ -406,6 +406,43 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void GetMsgEventLabel_SyntheticEvent_AppendsDelay()
+        {
+            var inputEvent = new InputEventArgs
+            {
+                Controller = new Base.Controller() { Name = "TestModule" },
+                Device = new Base.DeviceReference() { Name = "Button1", Label = "Button 1" },
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.HOLD,
+                SyntheticDelayMs = 300
+            };
+
+            var result = inputEvent.GetMsgEventLabel();
+
+            Assert.AreEqual("TestModule => Button 1 => HOLD (300ms)", result);
+        }
+
+        [TestMethod]
+        public void GetEventActionLabel_SyntheticEvent_DoesNotAppendDelay()
+        {
+            // The delay is shown exactly once - in GetMsgEventLabel() (the raw "an event was raised"
+            // line). GetEventActionLabel() feeds RawValue and the per-config "Executing" line, which
+            // must not repeat it.
+            var inputEvent = new InputEventArgs
+            {
+                Controller = new Base.Controller() { Name = "TestModule" },
+                Device = new Base.DeviceReference() { Name = "Button1", Label = "Button 1" },
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.HOLD,
+                SyntheticDelayMs = 300
+            };
+
+            var result = inputEvent.GetEventActionLabel();
+
+            Assert.AreEqual("HOLD", result);
+        }
+
+        [TestMethod]
         public void GetMsgEventLabel_EventWithExtPin_ReturnsCorrectFormat()
         {
             // Arrange

@@ -259,6 +259,12 @@ namespace MobiFlight
         /// <summary>Not enforced here - reserved for config-authoring-time (UI) validation.</summary>
         public const int MinRepeatDelay = 100; // ms
 
+        /// <summary>HoldDelay sentinel meaning "never fires HOLD/REPEAT" - use when no onHold is defined, so a config that doesn't want it can't keep it alive for the whole button.</summary>
+        public const int NoHold = int.MaxValue;
+
+        /// <summary>LongReleaseDelay sentinel meaning "never reclassifies as LONG_RELEASE" - use when no onLongRelease is defined, since onRelease dispatches identically either way (see ButtonInputConfig.ResolveDispatchedEvent).</summary>
+        public const int NoLongRelease = int.MaxValue;
+
         public int HoldDelay;
         public int RepeatDelay;
         public int LongReleaseDelay;
