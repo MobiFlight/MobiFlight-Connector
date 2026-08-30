@@ -1325,6 +1325,44 @@ namespace MobiFlight.Execution.Tests
         }
 
         [TestMethod]
+        public void Execute_RepeatEvent_SameRepeatDelayButDifferentHoldDelay_OnlyExecutesTheOriginatingConfig()
+        {
+            // Config B shares RepeatDelay=200 with config A but has a much longer HoldDelay - a REPEAT
+            // produced by A's binding must not reach B, even though RepeatDelay alone would match.
+            var serial = "SN-repeattarget001";
+            var deviceName = "Button1";
+
+            var fastHold = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "FastHoldConfig",
+                button = new ButtonInputConfig { HoldDelay = 300, RepeatDelay = 200, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd1)", PresetId = "p1" } }
+            };
+            var slowHold = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController($"TestModule / {serial}"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, deviceName),
+                Name = "SlowHoldConfig",
+                button = new ButtonInputConfig { HoldDelay = 1000, RepeatDelay = 200, onHold = new MSFS2020CustomInputAction { Command = "(>K:Cmd2)", PresetId = "p2" } }
+            };
+            _configItems.Add(fastHold);
+            _configItems.Add(slowHold);
+
+            var repeatEvent = CreateHoldEventArgs(serial, deviceName);
+            repeatEvent.Value = (int)MobiFlightButton.InputEvent.REPEAT;
+            repeatEvent.SyntheticDelayMs = 200;
+            repeatEvent.SyntheticHoldDelayMs = 300; // this REPEAT came from FastHoldConfig's binding
+
+            var result = _executor.Execute(repeatEvent, isStarted: true);
+
+            Assert.IsTrue(result.ContainsKey(fastHold.GUID), "The originating binding's config must execute.");
+            Assert.IsFalse(result.ContainsKey(slowHold.GUID), "A config sharing RepeatDelay but not HoldDelay must not execute.");
+        }
+
+        [TestMethod]
         public void Execute_HoldEvent_RawValueStaysBareButExecutingLogShowsTheDelay()
         {
             // Stage 1 never shows HOLD at all anymore - this "Executing" line is the only place the

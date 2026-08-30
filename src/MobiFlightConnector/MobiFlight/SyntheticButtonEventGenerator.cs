@@ -143,7 +143,7 @@ namespace MobiFlight
                 {
                     var tracked = kvp.Value;
                     var dueHoldDelays = new HashSet<int>();
-                    var dueRepeatDelays = new HashSet<int>();
+                    var dueRepeatTimings = new HashSet<ButtonTimings>();
 
                     foreach (var binding in tracked.Bindings)
                     {
@@ -161,7 +161,7 @@ namespace MobiFlight
                             else if (binding.Timings.RepeatDelay > 0 && (now - binding.LastHoldFire) >= TimeSpan.FromMilliseconds(binding.Timings.RepeatDelay))
                             {
                                 binding.LastHoldFire = now;
-                                dueRepeatDelays.Add(binding.Timings.RepeatDelay);
+                                dueRepeatTimings.Add(binding.Timings);
                             }
                         }
                         catch (Exception ex)
@@ -170,13 +170,16 @@ namespace MobiFlight
                         }
                     }
 
-                    // One raised event per distinct delay value, not per binding - bindings sharing a
-                    // delay become due on the same tick (same PressedAt) and share one event.
+                    // One raised event per distinct HoldDelay (HOLD) or (HoldDelay, RepeatDelay) pair
+                    // (REPEAT), not per binding - bindings sharing a key become due on the same tick
+                    // (same PressedAt) and share one event. REPEAT keys on the pair, not RepeatDelay
+                    // alone, so two bindings sharing a RepeatDelay but not a HoldDelay stay distinct -
+                    // otherwise one could start repeating before the other's own HoldDelay elapsed.
                     foreach (var holdDelay in dueHoldDelays)
                         dueHold.Add(Classify(tracked.LastPress, MobiFlightButton.InputEvent.HOLD, holdDelay));
 
-                    foreach (var repeatDelay in dueRepeatDelays)
-                        dueRepeat.Add(Classify(tracked.LastPress, MobiFlightButton.InputEvent.REPEAT, repeatDelay));
+                    foreach (var timings in dueRepeatTimings)
+                        dueRepeat.Add(ClassifyRepeat(tracked.LastPress, timings));
                 }
             }
 
@@ -190,6 +193,13 @@ namespace MobiFlight
             var e = lastPress.CloneWithLabel();
             e.Value = (int)value;
             e.SyntheticDelayMs = delayMs;
+            return e;
+        }
+
+        private static InputEventArgs ClassifyRepeat(InputEventArgs lastPress, ButtonTimings timings)
+        {
+            var e = Classify(lastPress, MobiFlightButton.InputEvent.REPEAT, timings.RepeatDelay);
+            e.SyntheticHoldDelayMs = timings.HoldDelay;
             return e;
         }
 

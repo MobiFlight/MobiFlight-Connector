@@ -178,7 +178,8 @@ namespace MobiFlight.InputConfig
         /// otherwise (nothing to match - RELEASE's LONG_RELEASE decision is made in
         /// ResolveDispatchedEvent, not here). This is how InputEventExecutor decides which of several
         /// configs sharing a physical button a HOLD/REPEAT actually belongs to - no ID needed, just
-        /// compare delays.
+        /// compare delays. REPEAT compares both HoldDelay and RepeatDelay - RepeatDelay alone can't
+        /// tell apart two configs that share it but not HoldDelay.
         /// </summary>
         internal bool MatchesSyntheticDelay(InputEventArgs e)
         {
@@ -189,7 +190,7 @@ namespace MobiFlight.InputConfig
                 case MobiFlightButton.InputEvent.HOLD:
                     return onHold != null && HoldDelay == e.SyntheticDelayMs.Value;
                 case MobiFlightButton.InputEvent.REPEAT:
-                    return onHold != null && RepeatDelay == e.SyntheticDelayMs.Value;
+                    return onHold != null && RepeatDelay == e.SyntheticDelayMs.Value && HoldDelay == e.SyntheticHoldDelayMs;
                 default:
                     return true;
             }

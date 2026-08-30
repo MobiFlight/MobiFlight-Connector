@@ -21,6 +21,13 @@ namespace MobiFlight
         public int? SyntheticDelayMs { get; set; }
 
         /// <summary>
+        /// The HoldDelay of the binding that produced this REPEAT - disambiguates two configs that
+        /// share the same RepeatDelay but not the same HoldDelay (see
+        /// ButtonInputConfig.MatchesSyntheticDelay). Null except on REPEAT.
+        /// </summary>
+        public int? SyntheticHoldDelayMs { get; set; }
+
+        /// <summary>
         /// How long the button was held (ms) before this RELEASE. RELEASE is always raised once, as
         /// RELEASE - LONG_RELEASE is a per-config decision made at dispatch time (see
         /// ButtonInputConfig.ResolveDispatchedEvent), not a reclassification of the raw event. Null
@@ -70,6 +77,7 @@ namespace MobiFlight
             clone.Value = Value;
             clone.StrValue = StrValue;
             clone.SyntheticDelayMs = SyntheticDelayMs;
+            clone.SyntheticHoldDelayMs = SyntheticHoldDelayMs;
             clone.HeldDurationMs = HeldDurationMs;
 
             return clone;

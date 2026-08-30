@@ -386,6 +386,31 @@ namespace MobiFlight.Tests
             Assert.AreEqual(100, _synthetic[1].SyntheticDelayMs);
         }
 
+        [TestMethod]
+        public void Tick_TwoConfigsWithSameRepeatDelayButDifferentHoldDelay_FireSeparateRepeatEvents()
+        {
+            // Same RepeatDelay must not collapse two bindings into one event when their HoldDelay
+            // differs - otherwise the binding that started repeating first would drag the other one's
+            // config along before its own HoldDelay ever elapsed.
+            _generator.ResolveTimings = e => new List<ButtonTimings>
+            {
+                new ButtonTimings(holdDelay: 300, repeatDelay: 200),
+                new ButtonTimings(holdDelay: 1000, repeatDelay: 200)
+            };
+            ObserveOne(ButtonEvent("S1", "Btn1", MobiFlightButton.InputEvent.PRESS));
+
+            _now = _now.AddMilliseconds(300);
+            _generator.Tick(); // HOLD for the 300ms binding only
+
+            _now = _now.AddMilliseconds(200); // total 500ms - the 1000ms binding hasn't fired HOLD yet
+            _generator.Tick();
+
+            Assert.HasCount(2, _synthetic, "Only the 300ms binding has started repeating.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.REPEAT, _synthetic[1].Value);
+            Assert.AreEqual(200, _synthetic[1].SyntheticDelayMs);
+            Assert.AreEqual(300, _synthetic[1].SyntheticHoldDelayMs, "The REPEAT must carry which HoldDelay tier produced it.");
+        }
+
         // RepeatDelay is used exactly as configured - no runtime floor. Enforcing a minimum is a
         // config-authoring-time (UI) concern, not something evaluated on every tick.
 

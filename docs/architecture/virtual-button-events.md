@@ -320,6 +320,17 @@ definition.
   everywhere - including in the log, which would otherwise show the same physical HOLD/REPEAT once
   per bound config instead of once per distinct setting.
 
+  **REPEAT matches on the (HoldDelay, RepeatDelay) pair, not RepeatDelay alone.** Two configs on one
+  button can share a `RepeatDelay` while differing in `HoldDelay` (e.g. a 300ms-hold and a 1000ms-hold
+  binding both repeating every 200ms). `Tick()` tracked due repeats keyed on `RepeatDelay` alone, so
+  once the 300ms binding started repeating, its REPEAT events - stamped only with `RepeatDelay` -
+  would also match the 1000ms config, even though that config's own `HoldDelay` hadn't elapsed yet.
+  Fixed by keying `Tick()`'s due-repeat set on the full `ButtonTimings` pair, and stamping the raised
+  REPEAT with both `RepeatDelay` (`SyntheticDelayMs`, as before) and the originating binding's
+  `HoldDelay` (`InputEventArgs.SyntheticHoldDelayMs`, new) - `MatchesSyntheticDelay`'s REPEAT case now
+  requires both to match. HOLD never had this problem - it already matches on its own unambiguous
+  `HoldDelay` alone.
+
   This does widen `SyntheticButtonEventGenerator`'s internal state: a tracked button now holds one
   `HoldFired`/`LastHoldFire`/timings entry per distinct setting (not one canonical set for the whole
   button).
