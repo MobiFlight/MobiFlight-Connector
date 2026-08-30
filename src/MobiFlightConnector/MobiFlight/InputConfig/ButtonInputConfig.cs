@@ -174,29 +174,87 @@ namespace MobiFlight.InputConfig
         }
 
         /// <summary>
-        /// Dispatches one already-classified event to the matching InputAction. REPEAT has no
-        /// binding of its own - it dispatches to onHold, same as HOLD.
+        /// Does this config's own delay match the setting that produced this HOLD/REPEAT? Always true
+        /// otherwise (nothing to match - RELEASE's LONG_RELEASE decision is made in
+        /// ResolveDispatchedEvent, not here). This is how InputEventExecutor decides which of several
+        /// configs sharing a physical button a HOLD/REPEAT actually belongs to - no ID needed, just
+        /// compare delays. REPEAT compares both HoldDelay and RepeatDelay - RepeatDelay alone can't
+        /// tell apart two configs that share it but not HoldDelay.
         /// </summary>
+        internal bool MatchesSyntheticDelay(InputEventArgs e)
+        {
+            if (!e.SyntheticDelayMs.HasValue) return true;
+
+            switch ((MobiFlightButton.InputEvent)e.Value)
+            {
+                case MobiFlightButton.InputEvent.HOLD:
+                    return onHold != null && HoldDelay == e.SyntheticDelayMs.Value;
+                case MobiFlightButton.InputEvent.REPEAT:
+                    return onHold != null && RepeatDelay == e.SyntheticDelayMs.Value && HoldDelay == e.SyntheticHoldDelayMs;
+                default:
+                    return true;
+            }
+        }
+
+        /// <summary>
+        /// What this config actually dispatches for args.Value. RELEASE becomes LONG_RELEASE only if
+        /// onLongRelease is defined and the held duration exceeded this config's own LongReleaseDelay -
+        /// a per-config decision, since the raw RELEASE carries no pre-made classification (see
+        /// SyntheticButtonEventGenerator.Observe - it always raises plain RELEASE, once).
+        /// </summary>
+        internal MobiFlightButton.InputEvent ResolveDispatchedEvent(InputEventArgs args)
+        {
+            var value = (MobiFlightButton.InputEvent)args.Value;
+            if (value == MobiFlightButton.InputEvent.RELEASE
+                && onLongRelease != null
+                && args.HeldDurationMs.HasValue
+                && args.HeldDurationMs.Value > LongReleaseDelay)
+            {
+                return MobiFlightButton.InputEvent.LONG_RELEASE;
+            }
+            return value;
+        }
+
+        /// <summary>Dispatches to the matching InputAction. REPEAT dispatches to onHold, same as HOLD.</summary>
         internal void execute(CacheCollection cacheCollection,
                               InputEventArgs args,
                               List<ConfigRefValue> configRefs)
         {
-            switch ((MobiFlightButton.InputEvent)args.Value)
+            var value = (MobiFlightButton.InputEvent)args.Value;
+            var dispatchedValue = ResolveDispatchedEvent(args);
+
+            InputAction action;
+            switch (dispatchedValue)
             {
                 case MobiFlightButton.InputEvent.PRESS:
-                    onPress?.execute(cacheCollection, args, configRefs);
+                    action = onPress;
                     break;
                 case MobiFlightButton.InputEvent.RELEASE:
-                    onRelease?.execute(cacheCollection, args, configRefs);
+                    action = onRelease;
                     break;
                 case MobiFlightButton.InputEvent.LONG_RELEASE:
-                    onLongRelease?.execute(cacheCollection, args, configRefs);
+                    action = onLongRelease;
                     break;
                 case MobiFlightButton.InputEvent.HOLD:
                 case MobiFlightButton.InputEvent.REPEAT:
-                    onHold?.execute(cacheCollection, args, configRefs);
+                    action = onHold;
+                    break;
+                default:
+                    action = null;
                     break;
             }
+
+            if (action == null) return;
+
+            if (dispatchedValue == value)
+            {
+                action.execute(cacheCollection, args, configRefs);
+                return;
+            }
+
+            var normalizedArgs = args.CloneWithLabel();
+            normalizedArgs.Value = (int)dispatchedValue;
+            action.execute(cacheCollection, normalizedArgs, configRefs);
         }
 
         public Dictionary<String, int> GetStatistics()

@@ -54,7 +54,6 @@ namespace MobiFlight.Execution
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
             string inputKey = CreateInputKey(e);
-            var msgEventLabel = e.GetMsgEventLabel();
 
             if (!inputCache.ContainsKey(inputKey))
             {
@@ -68,23 +67,55 @@ namespace MobiFlight.Execution
 
             var cacheCollection = CreateCacheCollection();
 
-            if (!isStarted)
-            {
-                Log.Instance.log($"{msgEventLabel} skipping, MobiFlight not running.", LogSeverity.Warn);
-                return updatedValues;
-            }
-
             foreach (var cfg in inputCache[inputKey])
             {
-                // targeted event (HOLD/REPEAT/LONG_RELEASE) only triggers its own config
-                if (e.TargetConfigGUID != null && e.TargetConfigGUID != cfg.GUID)
+                // A HOLD/REPEAT/LONG_RELEASE only applies to a config whose own delay produced it.
+                if (cfg.button != null && !cfg.button.MatchesSyntheticDelay(e))
                 {
+                    continue;
+                }
+
+                string dispatchedLabel;
+                string logLabel;
+                double dispatchedNumericValue = e.Value;
+                if (e.InputType == DeviceType.Button && cfg.button != null)
+                {
+                    var dispatchedValue = cfg.button.ResolveDispatchedEvent(e);
+                    dispatchedLabel = e.GetEventActionLabel((int)dispatchedValue);
+                    logLabel = AppendSyntheticDelay(dispatchedLabel, dispatchedValue, e, cfg.button);
+                    dispatchedNumericValue = (int)dispatchedValue;
+                }
+                else
+                {
+                    dispatchedLabel = e.GetEventActionLabel();
+                    logLabel = dispatchedLabel;
+                }
+
+                var hasMatchingAction = cfg.GetInputAction(e) != null;
+
+                var isSyntheticEvent = e.SyntheticDelayMs.HasValue;
+                if (!hasMatchingAction && isSyntheticEvent)
+                {
+                    continue;
+                }
+
+                var cfgEventLabel = $"{e.Controller.Name} => {e.Device.Label} => {logLabel}";
+
+                if (!isStarted)
+                {
+                    if (hasMatchingAction)
+                    {
+                        Log.Instance.log($"{cfgEventLabel} => Skipping \"{cfg.Name}\", MobiFlight not running.", LogSeverity.Warn);
+                    }
                     continue;
                 }
 
                 if (!cfg.Active)
                 {
-                    Log.Instance.log($"{msgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
+                    if (hasMatchingAction)
+                    {
+                        Log.Instance.log($"{cfgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
+                    }
                     continue;
                 }
 
@@ -92,25 +123,29 @@ namespace MobiFlight.Execution
                 {
                     if (!CheckPreconditions(cfg))
                     {
-                        Log.Instance.log($"{msgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
+                        if (hasMatchingAction)
+                        {
+                            Log.Instance.log($"{cfgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
+                        }
                         continue;
                     }
 
-                    var action = cfg.GetInputAction(e);
+                    cfg.RawValue = dispatchedLabel;
+                    cfg.Value = dispatchedNumericValue.ToString();
+                    updatedValues[cfg.GUID] = cfg;
 
-                    if (action != null)
+                    if (!hasMatchingAction)
                     {
-                        Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
+                        continue;
                     }
 
-                    cfg.RawValue = e.GetEventActionLabel();
-                    cfg.Value = " ";
-                    updatedValues[cfg.GUID] = cfg;
+                    Log.Instance.log($"{e.Controller.Name} => Executing \"{cfg.Name}\". ({logLabel})", LogSeverity.Info);
+
                     var references = ResolveReferences(cfg.ConfigRefs);
                     var modifiableValue = new ConnectorValue()
                     {
                         type = FSUIPCOffsetType.Float,
-                        Float64 = e.Value,
+                        Float64 = dispatchedNumericValue,
                     };
 
                     try
@@ -148,8 +183,35 @@ namespace MobiFlight.Execution
             return result;
         }
 
-        /// <summary>Hold/Repeat/LongRelease delays for every active, precondition-satisfied config bound to this button. Empty if none match.</summary>
-        public List<ButtonBinding> ResolveButtonTimingsPerConfig(InputEventArgs e)
+        /// <summary>":Nms" suffix for the log only - the configured delay/setting that produced this synthetic event.</summary>
+        private static string AppendSyntheticDelay(string label, MobiFlightButton.InputEvent value, InputEventArgs e, ButtonInputConfig button)
+        {
+            switch (value)
+            {
+                case MobiFlightButton.InputEvent.HOLD:
+                case MobiFlightButton.InputEvent.REPEAT:
+                    return e.SyntheticDelayMs.HasValue ? $"{label}:{e.SyntheticDelayMs}ms" : label;
+                case MobiFlightButton.InputEvent.LONG_RELEASE:
+                    return $"{label}:{button.LongReleaseDelay}ms";
+                default:
+                    return label;
+            }
+        }
+
+        /// <summary>
+        /// The distinct Hold/Repeat delay settings among configs bound to this button - but also,
+        /// implicitly, "should this button be tracked at all." Empty means the generator won't track
+        /// this press (see SyntheticButtonEventGenerator.Observe) - no HOLD/REPEAT ever, AND no
+        /// HeldDurationMs on RELEASE (needed for LONG_RELEASE - see
+        /// ButtonInputConfig.ResolveDispatchedEvent). So a config bound with only onLongRelease (no
+        /// onHold) still needs an entry here to keep the button tracked, even though it contributes
+        /// nothing real to scheduling - it gets the ButtonTimings.NoHold sentinel instead, same as any
+        /// other config with no onHold. Active/precondition gating happens in Execute(), not here -
+        /// this only decides which delays govern this press. No config identity is carried (see
+        /// SyntheticButtonEventGenerator.ResolveTimings) - two configs sharing a delay collapse to one
+        /// entry.
+        /// </summary>
+        public List<ButtonTimings> ResolveButtonTimingsPerConfig(InputEventArgs e)
         {
             string inputKey = CreateInputKey(e);
             if (!inputCache.ContainsKey(inputKey))
@@ -157,20 +219,13 @@ namespace MobiFlight.Execution
                 inputCache[inputKey] = GetMatchingInputConfigs(e);
             }
 
-            var result = new List<ButtonBinding>();
-
-            foreach (var cfg in inputCache[inputKey])
-            {
-                if (!cfg.Active) continue;
-                if (cfg.button == null) continue;
-                if (!CheckPreconditions(cfg)) continue;
-
-                result.Add(new ButtonBinding(
-                    cfg.GUID,
-                    new ButtonTimings(cfg.button.HoldDelay, cfg.button.RepeatDelay, cfg.button.LongReleaseDelay)));
-            }
-
-            return result;
+            return inputCache[inputKey]
+                .Where(cfg => cfg.button != null && (cfg.button.onHold != null || cfg.button.onLongRelease != null))
+                .Select(cfg => cfg.button.onHold != null
+                    ? new ButtonTimings(cfg.button.HoldDelay, cfg.button.RepeatDelay)
+                    : new ButtonTimings(ButtonTimings.NoHold, 0))
+                .Distinct()
+                .ToList();
         }
 
         private List<InputConfigItem> GetMatchingInputConfigs(InputEventArgs e)

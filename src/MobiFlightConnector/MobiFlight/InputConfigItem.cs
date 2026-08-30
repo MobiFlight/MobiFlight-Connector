@@ -379,20 +379,21 @@ namespace MobiFlight
             switch (e.InputType)
             {
                 case DeviceType.Button:
-                    switch ((MobiFlightButton.InputEvent)e.Value)
+                    if (button == null) return null;
+                    switch (button.ResolveDispatchedEvent(e))
                     {
                         case MobiFlightButton.InputEvent.PRESS:
-                            return button?.onPress;
+                            return button.onPress;
 
                         case MobiFlightButton.InputEvent.RELEASE:
-                            return button?.onRelease;
+                            return button.onRelease;
 
                         case MobiFlightButton.InputEvent.LONG_RELEASE:
-                            return button?.onLongRelease;
+                            return button.onLongRelease;
 
                         case MobiFlightButton.InputEvent.HOLD:
                         case MobiFlightButton.InputEvent.REPEAT:
-                            return button?.onHold;
+                            return button.onHold;
 
                         default:
                             return null;

@@ -153,7 +153,10 @@ Three distinct shapes of processing sit in the same funnel, composed in a chain:
   actually this shape.
 - **Reclassify** (1-to-1, event-triggered): given one incoming event plus a bit of memory, forward
   it unchanged, forward it relabeled, or drop it — nothing fabricated that didn't correspond to a
-  real input. RELEASE → LONG_RELEASE promotion is this shape.
+  real input. **Revised from the original design:** RELEASE → LONG_RELEASE promotion turned out not
+  to fit this shape at the generator level after all — see "LONG_RELEASE is a dispatch-time decision,
+  not a generator reclassification" below. What *does* still fit here is nothing generator-side for
+  buttons; the encoder fast-turn relabeling further down is the real example of this shape.
 - **Aggregate** (N-to-1, event-triggered): given a raw event belonging to a known group, consume it
   and, once the group resolves, emit a differently-typed event instead. Button-pair-to-Encoder
   (below) is this shape.
@@ -212,23 +215,20 @@ Two different questions worth keeping separate, because they sound related but a
   never early, never skipped) - the same jitter any polling loop checking "has T elapsed" has,
   imperceptible at the 300ms+ scale these delays actually use. No drift accumulates across repeat
   cycles either, since `LastHoldFire` resets to the real timestamp each time, not a stepped counter.
-- **Does `RepeatDelay` need a floor anyway?** Yes, but for a different reason: REPEAT is the only
-  one of the three that can fire indefinitely for as long as a button stays held, and every firing
-  dispatches to `onHold`, which typically calls into the sim API (FSUIPC/SimConnect/XPlane/a custom
-  event). A `RepeatDelay` configured too low - or loaded from an old/hand-edited config predating
-  this floor - risks flooding that API fast enough to cause performance issues or instability. This
-  is a rate limit for the sim API's sake, not a timer-precision requirement, and it's scoped to
-  `RepeatDelay` only: `HoldDelay`/`LongReleaseDelay` each decide at most one classification per
-  press/release gesture, so neither carries the same sustained-flooding risk.
-
-  Enforced in one place - `ButtonTimings`'s constructor (`ButtonTimings.MinRepeatDelay`, 200ms) -
-  so every path that constructs one (the generator's own fallback, and
-  `InputEventExecutor.ResolveButtonTimingsPerConfig`) gets the floor automatically; a positive value
-  below it is raised to it, `0` (repeat disabled) is exempt. Not currently enforced at the UI editing
-  layer (wherever `HoldDelay`/`RepeatDelay`/`LongReleaseDelay` get set on a `ButtonInputConfig`) -
-  someone could still type `10` into the config and it would silently behave as `200` at runtime
-  rather than being rejected or corrected at entry time. Worth adding UI-level validation as a
-  follow-up so the discrepancy is visible where it's authored, not just where it's enforced.
+- **Should `RepeatDelay` have a floor?** Conceptually yes - REPEAT is the only one of the three that
+  can fire indefinitely for as long as a button stays held, and every firing dispatches to `onHold`,
+  which typically calls into the sim API (FSUIPC/SimConnect/XPlane/a custom event); a value
+  configured too low risks flooding that API. But this is **not enforced anywhere in the runtime
+  evaluation path** (`ButtonTimings`'s constructor stores `RepeatDelay` exactly as given - no
+  clamping). Three reasons: the tick interval itself already imposes a real mechanical floor on how
+  fast REPEAT can actually fire, regardless of what's configured; a silent runtime clamp only on the
+  *scheduling* side would silently diverge from the raw value a config matches its own events against
+  (`ButtonInputConfig.MatchesSyntheticDelay`, see below) unless clamped identically on both sides;
+  and configs already exist in the field with sub-floor values authored before this floor was even a
+  concept - silently changing their behavior on migration to this pipeline isn't backward compatible.
+  A floor, if one gets added, belongs entirely at config-authoring time (the UI, on save) in a
+  follow-up change - only the UI can tell a user *why* a value is rejected, which a silent runtime
+  rewrite can't. Nothing for it lives in this runtime layer today.
 
 ### Generator's internal state
 
@@ -273,49 +273,165 @@ definition.
 ## Consequences / open questions to resolve before implementation
 
 - **Delay ownership — resolved.** Initially assumed delay could become a property of the physical
-  input/controller, shared across every binding on it. That's wrong: a multi-mode panel (a mode
-  switch's precondition determines which config is active for a given physical button) can
-  legitimately want different `HoldDelay`/`RepeatDelay`/`LongReleaseDelay` for what is physically
-  one button, depending on which config currently governs it. Detection still lives on the
-  controller (physical-button-scoped, one canonical timer per button), but the delay *values* it
-  uses are resolved from whichever config is currently active with satisfied preconditions -
-  `InputEventExecutor.ResolveButtonTimingsPerConfig` does this lookup (reusing the same `GetMatchingInputConfigs`/
-  `CheckPreconditions` the normal pipeline already has), `ExecutionManager` composes one resolver
-  across every loaded config file and hands it to each controller manager's generator
-  (`SyntheticButtonEventGenerator.ResolveTimings`). Resolved once at PRESS time and held for that
-  press's lifecycle - not re-resolved every tick, so a mode switch mid-hold doesn't retroactively
-  change an in-progress press's timing. If no config currently claims the button, the generator
-  falls back to its own fixed defaults and still detects - it fires unconditionally either way,
-  same as a real PRESS on an unbound button; the *existing* `Active`/`CheckPreconditions` gating in
-  `Execute()` (unchanged) is what actually decides whether anything executes. This means
-  preconditions get evaluated twice, but for different questions at different times, not
-  redundantly: once at PRESS (which delays govern this press, decided once), and again at every
-  fire (should this execute right now, using live state - deliberately not cached, mirroring how
-  `ButtonInputConfig`'s old `CanExecute` closure worked before this redesign).
+  input/controller, shared across every binding on it. That's wrong: a multi-mode panel (several
+  mutually-exclusive precondition-gated configs on one physical button) can legitimately want
+  different `HoldDelay`/`RepeatDelay` per config (`LongReleaseDelay` isn't resolved here at all
+  anymore - see "LONG_RELEASE is a dispatch-time decision" below). Detection still lives on the
+  controller (physical-button-scoped, one canonical timer per button), but the `HoldDelay`/
+  `RepeatDelay` values it uses are resolved per config bound to that button -
+  `InputEventExecutor.ResolveButtonTimingsPerConfig` does this lookup (reusing the same
+  `GetMatchingInputConfigs` the normal pipeline already has - not `Active`/`CheckPreconditions`,
+  see below), `ExecutionManager` composes one resolver across every loaded config file and hands it
+  to each controller manager's generator (`SyntheticButtonEventGenerator.ResolveTimings`). Resolved
+  once at PRESS time and held for that press's lifecycle - not re-resolved every tick, so a mode
+  switch mid-hold doesn't retroactively change an in-progress press's timing.
+  If `ResolveTimings` is unwired, or wired but returns an empty list (no config bound to this
+  device/button wants `onHold` *or* `onLongRelease`), the generator doesn't track the press at all -
+  PRESS/RELEASE pass through untouched, exactly as without this feature, and RELEASE carries no
+  `HeldDurationMs`.
+  `Active`/`CheckPreconditions` gating happens exclusively in `Execute()`, not here - resolving a
+  binding only answers "is a config bound to this button and what are its delays," never "should it
+  currently run." A button's press-time binding set is therefore a purely static, device/button-only
+  question: every bound config gets one, active or not, precondition-satisfied or not, and it's
+  `Execute()` - evaluating live state at each actual fire - that decides which one (if any) actually
+  runs.
 
-  **Two configs simultaneously active on the same physical button, with different delays, is fully
-  supported, not just tolerated.** An earlier version of this resolved to a single "winning" config
-  and broadcast the resulting event to every matching config regardless - which was a real
+  **Two configs simultaneously bound to the same physical button, with different HOLD delays, is
+  fully supported, not just tolerated.** An earlier version of this resolved to a single "winning"
+  config and broadcast the resulting event to every matching config regardless - which was a real
   correctness bug, not just an ambiguity: a config whose own (longer) delay hadn't elapsed yet would
   still get triggered early, by a different config's (shorter) one, the moment that one fired.
-  `InputEventExecutor.ResolveButtonTimingsPerConfig` returns *every* currently active,
-  precondition-satisfied config bound to a button, each with its own delays - `ExecutionManager`'s
-  resolver concatenates these across every loaded config file, no single-winner tie-break. Each
-  synthetic HOLD/REPEAT/LONG_RELEASE `SyntheticButtonEventGenerator` produces is stamped with the
-  specific config's GUID that governs it (`InputEventArgs.TargetConfigGUID`), and `Execute()` only
-  dispatches a targeted event to that one config, skipping every other match - a one-line addition
-  to the existing loop. Real events (PRESS/RELEASE with no reclassification) stay untargeted
-  (`null`) and broadcast to every matching config, same as always - only the events whose *timing*
-  came from one specific config's delay are restricted to that config.
+  `InputEventExecutor.ResolveButtonTimingsPerConfig` returns the *distinct* `HoldDelay`/`RepeatDelay`
+  settings among every config bound to a button (`.Distinct()` on the `ButtonTimings` struct) -
+  `ExecutionManager`'s resolver concatenates these across every loaded config file and dedupes again
+  at that level.
+
+  **No config identity is carried through the generator at all** - `SyntheticButtonEventGenerator`
+  only ever sees delay *values*, never a config GUID (there is no `ButtonBinding` type; `ResolveTimings`
+  is `Func<InputEventArgs, List<ButtonTimings>>`). A produced HOLD/REPEAT just carries the delay
+  value that classified it (`InputEventArgs.SyntheticDelayMs`) - `Execute()` asks each bound config
+  directly, "is this delay yours?" (`ButtonInputConfig.MatchesSyntheticDelay`, requiring `onHold` to
+  be defined before comparing `HoldDelay`/`RepeatDelay` against `SyntheticDelayMs` for a HOLD/REPEAT -
+  a config without `onHold` never matches one, regardless of what its unused `HoldDelay`/`RepeatDelay`
+  fields happen to hold), true for anything else (PRESS/RELEASE carry no `SyntheticDelayMs`, so those
+  broadcast to every matching config, same as always). This is simpler
+  than ID-based targeting and self-correcting: two configs that happen to share a delay are
+  indistinguishable to the generator by construction, so they're naturally treated as one group
+  everywhere - including in the log, which would otherwise show the same physical HOLD/REPEAT once
+  per bound config instead of once per distinct setting.
+
+  **REPEAT matches on the (HoldDelay, RepeatDelay) pair, not RepeatDelay alone.** Two configs on one
+  button can share a `RepeatDelay` while differing in `HoldDelay` (e.g. a 300ms-hold and a 1000ms-hold
+  binding both repeating every 200ms). `Tick()` tracked due repeats keyed on `RepeatDelay` alone, so
+  once the 300ms binding started repeating, its REPEAT events - stamped only with `RepeatDelay` -
+  would also match the 1000ms config, even though that config's own `HoldDelay` hadn't elapsed yet.
+  Fixed by keying `Tick()`'s due-repeat set on the full `ButtonTimings` pair, and stamping the raised
+  REPEAT with both `RepeatDelay` (`SyntheticDelayMs`, as before) and the originating binding's
+  `HoldDelay` (`InputEventArgs.SyntheticHoldDelayMs`, new) - `MatchesSyntheticDelay`'s REPEAT case now
+  requires both to match. HOLD never had this problem - it already matches on its own unambiguous
+  `HoldDelay` alone.
 
   This does widen `SyntheticButtonEventGenerator`'s internal state: a tracked button now holds one
-  `HoldFired`/`LastHoldFire`/delay-set per bound config (not one canonical set for the whole
-  button), and a RELEASE can fan out into multiple events - one per bound config, each
-  independently classified as RELEASE or LONG_RELEASE against *that* config's own
-  `LongReleaseDelay`, so two configs on one button can correctly disagree about whether a given
-  release counts as long. `Observe()`'s signature changed accordingly, from returning one
-  `InputEventArgs` to a `List<InputEventArgs>` (usually one element - the fan-out is dormant, not
-  extra work, for the common single-config-per-button case).
+  `HoldFired`/`LastHoldFire`/timings entry per distinct setting (not one canonical set for the whole
+  button).
+
+  **`onHold`'s HoldDelay/RepeatDelay is only contributed if `onHold` is actually defined** -
+  `ResolveButtonTimingsPerConfig` substitutes `ButtonTimings.NoHold` (`int.MaxValue`, never elapses)
+  when `onHold` is null. Otherwise a config's own always-present but unused default `HoldDelay`
+  (every `ButtonInputConfig` has *some* value in that field whether or not `onHold` is set) would
+  keep HOLD/REPEAT alive for the whole button for as long as *any* config remains bound to it -
+  including, confusingly, after the one config that actually wanted them is deleted, as long as some
+  other onRelease/onPress-only config happens to still be there. A config with only `onLongRelease`
+  (no `onHold`) still needs an entry here despite contributing nothing real to HOLD/REPEAT scheduling
+  - it's what keeps the button *tracked at all*, which is what makes `HeldDurationMs` available on
+  RELEASE (below). Filtering such a config out entirely, rather than including it with the `NoHold`
+  sentinel, was tried and was a real bug: it silently broke LONG_RELEASE for buttons with an
+  `onLongRelease`-only config and no `onHold` anywhere.
+
+  **LONG_RELEASE is a dispatch-time decision, not a generator reclassification.** The original design
+  for this feature (and an intermediate revision of it) had `SyntheticButtonEventGenerator` decide
+  RELEASE-vs-LONG_RELEASE itself, grouping by distinct `LongReleaseDelay` among bound configs the same
+  way HOLD groups by `HoldDelay`. That shipped a real, if subtle, log-duplication bug: a button bound
+  to one config with a real `LongReleaseDelay` (has `onLongRelease`) and another without one (gets a
+  disabling sentinel, since without `onLongRelease` a config's `LongReleaseDelay` is exactly as inert
+  as `HoldDelay` is to a config without `onHold`) produces *two distinct* delay values - so a quick
+  tap, even though it resolves to the same "plain RELEASE" outcome for both, got logged twice, because
+  the generator was reasoning about *settings*, not *outcomes*. RELEASE isn't like HOLD/REPEAT: it's a
+  real, physical hardware transition (a press actually ended), not something manufactured out of
+  elapsed time with no wire-level counterpart. `SyntheticButtonEventGenerator.Observe()` now always
+  raises RELEASE exactly once, as plain `RELEASE`, carrying how long the press lasted
+  (`InputEventArgs.HeldDurationMs`) - full stop, no grouping, no per-binding fan-out. Each config
+  independently decides, at dispatch time, whether *its own* `LongReleaseDelay` was exceeded and it
+  has an `onLongRelease` to hand off to (`ButtonInputConfig.ResolveDispatchedEvent`); if not, `RELEASE`
+  dispatches to `onRelease` exactly as it always has, regardless of how long the button was held. Two
+  configs on one button can still correctly disagree about whether a given release counts as long -
+  that disagreement just lives entirely in `ResolveDispatchedEvent`, not in what gets raised or logged
+  at the device level. `Observe()`'s signature is still `List<InputEventArgs>` (from the earlier HOLD/
+  REPEAT grouping work), but for RELEASE it's now always exactly one element.
+
+  **Stage 1 shows only physical events; stage 2 always logs, with the delay that produced a
+  synthetic one.** The two log stages settled on different jobs: stage 1
+  (`ExecutionManager.mobiFlightCache_OnButtonPressed`) answers "was an event raised at all," so it
+  only ever logs a real PRESS/RELEASE - `isSyntheticEvent` (`e.SyntheticDelayMs.HasValue`) gates the
+  line, meaning HOLD/REPEAT never appear there (LONG_RELEASE already couldn't, since RELEASE is the
+  only thing `Observe()` ever raises for a release). `InputEventArgs.GetMsgEventLabel()` - stage 1's
+  only caller - has no delay-append branch of its own for exactly this reason: it's only ever asked
+  for a label when `!isSyntheticEvent` is already true, so a delay would never have anything to show.
+  Stage 2
+  (`InputEventExecutor.Execute()`'s `"Executing ..."` line) answers "did this config actually fire,"
+  so it logs uniformly for every event type, physical or synthetic, whenever a config has a matching
+  action - and for a synthetic one it also names the delay that produced it, since stage 1 no longer
+  will: `AppendSyntheticDelay` appends `:{ms}ms` to the label - `SyntheticDelayMs` (the configured
+  HoldDelay/RepeatDelay that fired) for HOLD/REPEAT, and the config's own `LongReleaseDelay` for
+  LONG_RELEASE. Both are the *configured setting*, not `HeldDurationMs` (the actual time held) - the
+  log answers "what threshold triggered this," and showing the exact elapsed duration for LONG_RELEASE
+  (a first attempt did) is misleading there, since it varies release to release and isn't what the
+  config is checked against for repeatability. `cfg.RawValue` stays the bare event name in both cases -
+  the delay suffix is a log-only detail, not part of the value shown/stored elsewhere.
+
+  This resolved-per-config label is computed once per config, at the top of `Execute()`'s loop, and
+  reused for every skip reason below it too ("MobiFlight not running", "Skipping inactive config",
+  "Preconditions not satisfied") as well as the final "Executing" line - not just one generic label
+  for the whole physical event. Two configs bound to the same button and RELEASE can otherwise
+  disagree (one resolves to RELEASE, one to LONG_RELEASE, per "LONG_RELEASE is a dispatch-time
+  decision" above), so a single shared label computed before the loop would silently show one
+  config's outcome on the other's log line - the "MobiFlight not running" skip originally worked this
+  way (computed once, before the loop, from the raw event only) and had exactly that bug.
+
+  **A skip reason only logs for a config that actually has an action bound to the resolved event.**
+  All three skip reasons ("MobiFlight not running", "Skipping inactive config", "Preconditions not
+  satisfied") are gated on `hasMatchingAction` (`cfg.GetInputAction(e) != null`), checked once per
+  config alongside the label resolution above. Without this, e.g. an onPress-only config logged
+  "Skipping ... MobiFlight not running" on every RELEASE too - RELEASE was never going to do anything
+  for that config, so the line was pure noise. This mirrors "Executing," which likewise only logs -
+  and only actually dispatches to the config's action - when `hasMatchingAction` is true: a skip and
+  an execute are the same event, just with a different outcome, so they share the same gate.
+
+  **`cfg.RawValue` follows a wider rule than the skip/execute gate above, though: a physical
+  PRESS/RELEASE always updates it, matching action or not - only a synthetic HOLD/REPEAT needs one.**
+  RawValue is the "last event seen" indicator a user reads off the UI, and a real PRESS/RELEASE is
+  genuine hardware state worth showing even on a config with nothing bound to it (e.g. an onPress-only
+  config seeing a RELEASE) - it confirms the physical input was received at all. A synthetic HOLD/
+  REPEAT has no such standing on its own: without `onHold`, `MatchesSyntheticDelay` already excludes
+  the config entirely (above), and even a broadcast that slipped through must not show HOLD on a
+  config that never reacts to it - that was the actual "HOLD shows in RawValue for a config with no
+  onHold" bug this rule fixes. Concretely: `Execute()`'s top-of-loop gate is
+  `if (!hasMatchingAction && isSyntheticEvent) continue;` (skips entirely only for an unmatched
+  synthetic event); `cfg.RawValue`/`cfg.Value`/`updatedValues` are set right after the isStarted/
+  Active/Preconditions checks pass, unconditionally; the "Executing" log and the actual
+  Modifiers/`cfg.execute(...)` dispatch remain gated on `hasMatchingAction` specifically, one level
+  further in. So a physical event with no matching action updates RawValue but logs nothing and
+  executes nothing; a config that fails isStarted/Active/Preconditions still gets neither, same as
+  before this whole rule existed.
+
+  **Modifiers and the action see the dispatched value, not the raw one.** The Modifiers
+  pipeline used to seed itself from `e.Value` directly - correct when `dispatchedValue == value`, but
+  wrong for a config that resolved to LONG_RELEASE, which fed the pipeline the raw RELEASE(1) instead
+  of LONG_RELEASE(2). `Execute()` now resolves `dispatchedNumericValue` alongside the label (the cast
+  `dispatchedValue` for a button, `e.Value` unchanged for encoder/analog) and seeds Modifiers from
+  that instead. `e.Value` is written back with the Modifiers result afterward as before, so
+  `cfg.execute(...)`/`ButtonInputConfig.execute()`'s own dispatch re-check sees the already-resolved
+  value too.
 - **Encoder pairing configuration.** Where the button-pair-to-encoder mapping is authored (joystick
   definition file vs. runtime user configuration).
 - **Fast-turn threshold shape.** Rolling window/count vs. some other rate measure; not yet designed

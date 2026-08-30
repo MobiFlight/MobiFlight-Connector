@@ -236,15 +236,15 @@ namespace MobiFlight
             };
 
             // Hold/Repeat/LongRelease delays are per config, not per physical button - collect
-            // every match across all loaded config files.
-            Func<InputEventArgs, List<ButtonBinding>> resolveButtonTimings = e =>
+            // every distinct setting across all loaded config files.
+            Func<InputEventArgs, List<ButtonTimings>> resolveButtonTimings = e =>
             {
-                var bindings = new List<ButtonBinding>();
+                var timings = new List<ButtonTimings>();
                 foreach (var executor in _inputEventExecutors.Values)
                 {
-                    bindings.AddRange(executor.ResolveButtonTimingsPerConfig(e));
+                    timings.AddRange(executor.ResolveButtonTimingsPerConfig(e));
                 }
-                return bindings;
+                return timings.Distinct().ToList();
             };
             mobiFlightCache.SetButtonTimingsResolver(resolveButtonTimings);
             joystickManager.SetButtonTimingsResolver(resolveButtonTimings);
@@ -388,6 +388,7 @@ namespace MobiFlight
                         var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
                         ConfigItems.Remove(cfg);
                     });
+                    OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                 }
                 else if (message.Action == "toggle")
                 {
@@ -410,6 +411,7 @@ namespace MobiFlight
                 {
                     case "delete":
                         ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
+                        OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                         break;
 
                     case "toggle":
@@ -1458,7 +1460,9 @@ namespace MobiFlight
             var msgEventLabel = e.GetMsgEventLabel();
             var serial = e.Controller.Serial;
 
-            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
+            // Synthetic (HOLD/REPEAT) events don't belong in this "an event was raised" log - see Execute() for those.
+            var isSyntheticEvent = e.SyntheticDelayMs.HasValue;
+            if (!isSyntheticEvent && LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }

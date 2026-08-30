@@ -1,38 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
 
 namespace MobiFlight
 {
     /// <summary>
-    /// Produces HOLD/REPEAT/LONG_RELEASE from a controller's raw PRESS/RELEASE events. Owned by a
-    /// controller manager (MobiFlightCache/JoystickManager/MidiBoardManager) and wired into its
-    /// OnButtonPressed funnel, so downstream code sees virtual events exactly like real ones. See
-    /// docs/architecture/virtual-button-events.md.
+    /// Produces HOLD/REPEAT from a controller's raw PRESS/RELEASE events, and stamps RELEASE with how
+    /// long the button was held. Owned by a controller manager (MobiFlightCache/JoystickManager/
+    /// MidiBoardManager) and wired into its OnButtonPressed funnel, so downstream code sees virtual
+    /// events exactly like real ones. See docs/architecture/virtual-button-events.md.
     /// </summary>
     public class SyntheticButtonEventGenerator : IDisposable
     {
-        /// <summary>Fallback timing when <see cref="ResolveTimings"/> is unset or has no match.</summary>
-        public int HoldDelay { get; set; } = 350; // ms
-
-        /// <summary>Fallback, see <see cref="HoldDelay"/>.</summary>
-        public int LongReleaseDelay { get; set; } = 350; // ms
-
-        /// <summary>Fallback, see <see cref="HoldDelay"/>. 0 disables repeating.</summary>
-        public int RepeatDelay { get; set; } = 0; // ms
-
         /// <summary>
-        /// Resolves every config currently bound to a button and its delays. Resolved once at
-        /// PRESS, held for that press's lifecycle. Empty/null uses the fallback values above.
+        /// The distinct Hold/Repeat delay settings among configs currently bound to a button. Resolved
+        /// once at PRESS, held for that press's lifecycle. Null or empty means no config is bound - no
+        /// HOLD/REPEAT for that button at all. No config identity is carried - a config later decides
+        /// a HOLD/REPEAT is its own by matching its own delay (see
+        /// ButtonInputConfig.MatchesSyntheticDelay), so two configs sharing a delay are
+        /// indistinguishable here by design and share one raised event.
         /// </summary>
-        public Func<InputEventArgs, List<ButtonBinding>> ResolveTimings { get; set; }
+        public Func<InputEventArgs, List<ButtonTimings>> ResolveTimings { get; set; }
 
-        /// <summary>Raised for HOLD/REPEAT. LONG_RELEASE is classified in-place by <see cref="Observe"/> instead.</summary>
+        /// <summary>Raised for HOLD/REPEAT.</summary>
         public event EventHandler<InputEventArgs> OnSyntheticEvent;
 
         private class BindingState
         {
-            public string ConfigGuid;
             public ButtonTimings Timings;
             public bool HoldFired;
             public DateTime LastHoldFire;
@@ -52,6 +47,7 @@ namespace MobiFlight
 
         /// <param name="now">Clock for timing decisions; tests inject a fake one.</param>
         /// <param name="tickIntervalMs">Poll interval while at least one button is pressed. Idle otherwise.</param>
+        /// <remarks>Wire <see cref="ResolveTimings"/> before feeding events through - without it, nothing is ever bound and no synthetic events fire.</remarks>
         public SyntheticButtonEventGenerator(Func<DateTime> now = null, int tickIntervalMs = 20)
         {
             _now = now ?? (() => DateTime.Now);
@@ -62,9 +58,13 @@ namespace MobiFlight
         private static string KeyFor(InputEventArgs e) => $"{e.Controller?.Serial}:{e.Device?.Name}";
 
         /// <summary>
-        /// Feed one real PRESS/RELEASE through. Returns the event(s) to forward: one untargeted
-        /// event for PRESS; one per bound config for RELEASE, each classified RELEASE/LONG_RELEASE
-        /// against that config's own delay.
+        /// Feed one real PRESS/RELEASE through. PRESS and RELEASE are each always forwarded exactly
+        /// once, untouched except RELEASE also carries HeldDurationMs - LONG_RELEASE is not decided
+        /// here at all; it's a per-config dispatch-time decision (see
+        /// ButtonInputConfig.ResolveDispatchedEvent) based on that duration, so the raw "an event was
+        /// raised" record for RELEASE can't disagree with itself depending on which configs happen to
+        /// be bound. A button with no bound config passes PRESS/RELEASE through untouched and is never
+        /// tracked for HOLD/REPEAT.
         /// </summary>
         public List<InputEventArgs> Observe(InputEventArgs e)
         {
@@ -85,10 +85,11 @@ namespace MobiFlight
             if (value == MobiFlightButton.InputEvent.PRESS)
             {
                 // Resolved once here, held for the whole press - not re-resolved per tick.
-                var bindings = ResolveTimings?.Invoke(e);
-                if (bindings == null || bindings.Count == 0)
+                var timings = ResolveTimings?.Invoke(e);
+                if (timings == null || timings.Count == 0)
                 {
-                    bindings = new List<ButtonBinding> { new ButtonBinding(null, new ButtonTimings(HoldDelay, RepeatDelay, LongReleaseDelay)) };
+                    // No config bound to this button - no HOLD/REPEAT at all.
+                    return new List<InputEventArgs> { e };
                 }
 
                 lock (_lock)
@@ -97,7 +98,7 @@ namespace MobiFlight
                     {
                         LastPress = e,
                         PressedAt = _now(),
-                        Bindings = bindings.ConvertAll(b => new BindingState { ConfigGuid = b.ConfigGuid, Timings = b.Timings })
+                        Bindings = timings.ConvertAll(t => new BindingState { Timings = t })
                     };
                 }
                 EnsureTimerRunning();
@@ -121,19 +122,9 @@ namespace MobiFlight
                     return new List<InputEventArgs> { e };
                 }
 
-                var now = _now();
-                var result = new List<InputEventArgs>(tracked.Bindings.Count);
-                foreach (var binding in tracked.Bindings)
-                {
-                    var classified = e.CloneWithLabel();
-                    classified.TargetConfigGUID = binding.ConfigGuid;
-                    if ((now - tracked.PressedAt) > TimeSpan.FromMilliseconds(binding.Timings.LongReleaseDelay))
-                    {
-                        classified.Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE;
-                    }
-                    result.Add(classified);
-                }
-                return result;
+                var classified = e.CloneWithLabel();
+                classified.HeldDurationMs = (int)(_now() - tracked.PressedAt).TotalMilliseconds;
+                return new List<InputEventArgs> { classified };
             }
 
             return new List<InputEventArgs> { e };
@@ -151,6 +142,9 @@ namespace MobiFlight
                 foreach (var kvp in _pressed)
                 {
                     var tracked = kvp.Value;
+                    var dueHoldDelays = new HashSet<int>();
+                    var dueRepeatTimings = new HashSet<ButtonTimings>();
+
                     foreach (var binding in tracked.Bindings)
                     {
                         try
@@ -161,20 +155,31 @@ namespace MobiFlight
                                 {
                                     binding.HoldFired = true;
                                     binding.LastHoldFire = now;
-                                    dueHold.Add(Classify(tracked.LastPress, binding.ConfigGuid, MobiFlightButton.InputEvent.HOLD));
+                                    dueHoldDelays.Add(binding.Timings.HoldDelay);
                                 }
                             }
                             else if (binding.Timings.RepeatDelay > 0 && (now - binding.LastHoldFire) >= TimeSpan.FromMilliseconds(binding.Timings.RepeatDelay))
                             {
                                 binding.LastHoldFire = now;
-                                dueRepeat.Add(Classify(tracked.LastPress, binding.ConfigGuid, MobiFlightButton.InputEvent.REPEAT));
+                                dueRepeatTimings.Add(binding.Timings);
                             }
                         }
                         catch (Exception ex)
                         {
-                            Log.Instance.log($"Error checking hold state for {kvp.Key} ({binding.ConfigGuid}): {ex.Message}", LogSeverity.Error);
+                            Log.Instance.log($"Error checking hold state for {kvp.Key}: {ex.Message}", LogSeverity.Error);
                         }
                     }
+
+                    // One raised event per distinct HoldDelay (HOLD) or (HoldDelay, RepeatDelay) pair
+                    // (REPEAT), not per binding - bindings sharing a key become due on the same tick
+                    // (same PressedAt) and share one event. REPEAT keys on the pair, not RepeatDelay
+                    // alone, so two bindings sharing a RepeatDelay but not a HoldDelay stay distinct -
+                    // otherwise one could start repeating before the other's own HoldDelay elapsed.
+                    foreach (var holdDelay in dueHoldDelays)
+                        dueHold.Add(Classify(tracked.LastPress, MobiFlightButton.InputEvent.HOLD, holdDelay));
+
+                    foreach (var timings in dueRepeatTimings)
+                        dueRepeat.Add(ClassifyRepeat(tracked.LastPress, timings));
                 }
             }
 
@@ -183,11 +188,18 @@ namespace MobiFlight
             foreach (var due in dueRepeat) RaiseSynthetic(due);
         }
 
-        private static InputEventArgs Classify(InputEventArgs lastPress, string targetConfigGuid, MobiFlightButton.InputEvent value)
+        private static InputEventArgs Classify(InputEventArgs lastPress, MobiFlightButton.InputEvent value, int delayMs)
         {
             var e = lastPress.CloneWithLabel();
             e.Value = (int)value;
-            e.TargetConfigGUID = targetConfigGuid;
+            e.SyntheticDelayMs = delayMs;
+            return e;
+        }
+
+        private static InputEventArgs ClassifyRepeat(InputEventArgs lastPress, ButtonTimings timings)
+        {
+            var e = Classify(lastPress, MobiFlightButton.InputEvent.REPEAT, timings.RepeatDelay);
+            e.SyntheticHoldDelayMs = timings.HoldDelay;
             return e;
         }
 
@@ -236,37 +248,24 @@ namespace MobiFlight
         }
     }
 
-    /// <summary>Hold/Repeat/LongRelease delays for one button press, one config. See <see cref="SyntheticButtonEventGenerator.ResolveTimings"/>.</summary>
+    /// <summary>
+    /// Hold/Repeat delays for one button press, one config. Intentionally unclamped here - RepeatDelay
+    /// validation belongs at config authoring time (UI), not runtime evaluation, so a config's own
+    /// value and what the generator schedules/matches against always agree. See
+    /// <see cref="SyntheticButtonEventGenerator.ResolveTimings"/>.
+    /// </summary>
     public struct ButtonTimings
     {
-        /// <summary>Floor for a positive RepeatDelay - protects the sim API from a too-fast repeat. 0 (disabled) is exempt.</summary>
-        public const int MinRepeatDelay = 100; // ms
+        /// <summary>HoldDelay sentinel meaning "never fires HOLD/REPEAT" - use when no onHold is defined, so a config that doesn't want it can't keep it alive for the whole button.</summary>
+        public const int NoHold = int.MaxValue;
 
         public int HoldDelay;
         public int RepeatDelay;
-        public int LongReleaseDelay;
 
-        public ButtonTimings(int holdDelay, int repeatDelay, int longReleaseDelay)
+        public ButtonTimings(int holdDelay, int repeatDelay)
         {
             HoldDelay = holdDelay;
-            RepeatDelay = ClampRepeatDelay(repeatDelay);
-            LongReleaseDelay = longReleaseDelay;
-        }
-
-        public static int ClampRepeatDelay(int repeatDelay) =>
-            repeatDelay > 0 && repeatDelay < MinRepeatDelay ? MinRepeatDelay : repeatDelay;
-    }
-
-    /// <summary>One config's claim on a button: its GUID and requested delays.</summary>
-    public struct ButtonBinding
-    {
-        public string ConfigGuid;
-        public ButtonTimings Timings;
-
-        public ButtonBinding(string configGuid, ButtonTimings timings)
-        {
-            ConfigGuid = configGuid;
-            Timings = timings;
+            RepeatDelay = repeatDelay;
         }
     }
 }
