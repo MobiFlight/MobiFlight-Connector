@@ -5,6 +5,7 @@ using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
+using System.Xml;
 
 namespace MobiFlight.Execution.Tests
 {
@@ -583,6 +584,7 @@ namespace MobiFlight.Execution.Tests
 
             Assert.IsTrue(result.ContainsKey(pressOnlyConfigItem.GUID));
             Assert.AreEqual("RELEASE", pressOnlyConfigItem.RawValue);
+            Assert.AreEqual("1", pressOnlyConfigItem.Value, "Value should reflect the dispatched numeric event even without a matching action.");
 
             _mockLogAppender.Verify(
                 appender => appender.log(It.Is<string>(msg => msg.Contains("Executing")), It.IsAny<LogSeverity>()),
@@ -1633,5 +1635,57 @@ namespace MobiFlight.Execution.Tests
         }
 
         #endregion
+
+        private class RecordingInputAction : InputAction
+        {
+            public InputEventArgs LastArgs;
+
+            public override void execute(CacheCollection cacheCollection, InputEventArgs args, List<ConfigRefValue> configRefs)
+            {
+                LastArgs = args;
+            }
+
+            public override object Clone() => new RecordingInputAction();
+            public override void ReadXml(XmlReader reader) { }
+            public override void WriteXml(XmlWriter writer) { }
+        }
+
+        [TestMethod]
+        public void Execute_LongReleaseEvent_ActionAndValueReflectTheDispatchedEventNotTheRawOne()
+        {
+            // The action must see Value == LONG_RELEASE, not the raw RELEASE - modifiers, and
+            // anything reading e.Value afterwards, must work off the resolved event too.
+            var longRelease = new RecordingInputAction();
+
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.Button,
+                Device = new DeviceReference() { Name = "Device1" },
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 900
+            };
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig
+                {
+                    onLongRelease = longRelease,
+                    LongReleaseDelay = 300
+                }
+            };
+
+            _configItems.Add(configItem);
+
+            _executor.Execute(inputEventArgs, isStarted: true);
+
+            Assert.IsNotNull(longRelease.LastArgs, "onLongRelease must have executed.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, longRelease.LastArgs.Value);
+            Assert.AreEqual("2", configItem.Value, "cfg.Value must reflect the dispatched LONG_RELEASE, not the raw RELEASE.");
+        }
     }
 }

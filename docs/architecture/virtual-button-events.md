@@ -409,6 +409,15 @@ definition.
   further in. So a physical event with no matching action updates RawValue but logs nothing and
   executes nothing; a config that fails isStarted/Active/Preconditions still gets neither, same as
   before this whole rule existed.
+
+  **Modifiers and the action see the dispatched value, not the raw one.** The Modifiers
+  pipeline used to seed itself from `e.Value` directly - correct when `dispatchedValue == value`, but
+  wrong for a config that resolved to LONG_RELEASE, which fed the pipeline the raw RELEASE(1) instead
+  of LONG_RELEASE(2). `Execute()` now resolves `dispatchedNumericValue` alongside the label (the cast
+  `dispatchedValue` for a button, `e.Value` unchanged for encoder/analog) and seeds Modifiers from
+  that instead. `e.Value` is written back with the Modifiers result afterward as before, so
+  `cfg.execute(...)`/`ButtonInputConfig.execute()`'s own dispatch re-check sees the already-resolved
+  value too.
 - **Encoder pairing configuration.** Where the button-pair-to-encoder mapping is authored (joystick
   definition file vs. runtime user configuration).
 - **Fast-turn threshold shape.** Rolling window/count vs. some other rate measure; not yet designed

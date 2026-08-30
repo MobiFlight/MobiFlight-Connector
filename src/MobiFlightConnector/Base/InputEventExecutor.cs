@@ -77,11 +77,13 @@ namespace MobiFlight.Execution
 
                 string dispatchedLabel;
                 string logLabel;
+                double dispatchedNumericValue = e.Value;
                 if (e.InputType == DeviceType.Button && cfg.button != null)
                 {
                     var dispatchedValue = cfg.button.ResolveDispatchedEvent(e);
                     dispatchedLabel = e.GetEventActionLabel((int)dispatchedValue);
                     logLabel = AppendSyntheticDelay(dispatchedLabel, dispatchedValue, e, cfg.button);
+                    dispatchedNumericValue = (int)dispatchedValue;
                 }
                 else
                 {
@@ -129,7 +131,7 @@ namespace MobiFlight.Execution
                     }
 
                     cfg.RawValue = dispatchedLabel;
-                    cfg.Value = " ";
+                    cfg.Value = dispatchedNumericValue.ToString();
                     updatedValues[cfg.GUID] = cfg;
 
                     if (!hasMatchingAction)
@@ -143,7 +145,7 @@ namespace MobiFlight.Execution
                     var modifiableValue = new ConnectorValue()
                     {
                         type = FSUIPCOffsetType.Float,
-                        Float64 = e.Value,
+                        Float64 = dispatchedNumericValue,
                     };
 
                     try
