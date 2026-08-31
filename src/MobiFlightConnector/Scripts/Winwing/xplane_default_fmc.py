@@ -124,35 +124,48 @@ def fetch_dataref_mapping(device: CduDevice):
 
 def build_line_row_map(dataref_map: dict[int, str]) -> dict[int, int]:
     """
-    Determines which WinWing grid row each FMS dataref line should be rendered on,
-    derived dynamically from whichever lines the aircraft actually publishes (per
-    fetch_dataref_mapping()). This lets the same script support both full 14-line
-    FMS implementations, where every dataref line maps 1:1 to a grid row, and
-    reduced implementations like the ERJ's 9-line FMS, where the last published
-    line is a scratchpad that belongs on the bottom-most row of the display
-    instead of directly after the aircraft's other content lines.
+    Determines which WinWing grid row each FMS dataref line should be rendered on.
+
+    A line is considered available only when both its text and style datarefs
+    exist. Lines must be contiguous starting from line 0.
+
+    Full 14-line FMS implementations map directly to the 14-row display.
+    Reduced implementations, such as the X-Crafts ERJ, map the final published
+    line to the bottom row as the scratchpad.
     """
-    line_numbers = set()
+    text_lines = set()
+    style_lines = set()
+
     for name in dataref_map.values():
         match = LINE_PATTERN.search(name)
-        if match:
-            line_numbers.add(int(match.group(1)))
+        if not match:
+            continue
 
-    if not line_numbers:
+        line = int(match.group(1))
+
+        if "_text_line" in name:
+            text_lines.add(line)
+        elif "_style_line" in name:
+            style_lines.add(line)
+
+    complete_lines = text_lines & style_lines
+
+    line_count = 0
+    while line_count in complete_lines:
+        line_count += 1
+
+    if line_count == 0:
         return {}
 
-    line_count = max(line_numbers) + 1
+    logging.info("Discovered %d FMS lines", line_count)
 
     if line_count >= CDU_ROWS:
-        # Full-size FMS: every published line maps directly to the matching grid row.
         return {line: line for line in range(CDU_ROWS)}
 
-    # Reduced FMS (e.g. the ERJ's 9-line implementation): every line except the
-    # last maps directly to its matching grid row, and the last published line
-    # (the scratchpad) is mirrored to the bottom row of the grid.
     content_line_count = line_count - 1
     row_map = {line: line for line in range(content_line_count)}
     row_map[content_line_count] = CDU_ROWS - 1
+
     return row_map
 
 
@@ -203,13 +216,9 @@ def render_fms_line(
 
     # Style bytes can also arrive shorter than the text they describe; guard
     # against that so a short style buffer doesn't raise an IndexError either.
-    if len(style) < CDU_COLUMNS:
-        return
-
-    for col in range(CDU_COLUMNS):
-        # The dataref and WinWing both use Unicode, so no conversion
-        # of special characters is necessary.
+    for col in range(min(CDU_COLUMNS, len(style))):
         char = text[col]
+
         if char == " ":
             continue
 
@@ -366,6 +375,9 @@ async def main():
     for device in available_devices:
         dataref_map = fetch_dataref_mapping(device)
         line_row_map = build_line_row_map(dataref_map)
+
+        if not line_row_map:
+            logging.warning("No FMS lines discovered for device %s", device)
 
         queue = asyncio.Queue()
 
