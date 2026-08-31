@@ -128,7 +128,7 @@ namespace MobiFlight.UI.Forms
                 return UpdateResult;
             });
             
-            if (await Task.WhenAny(task, Task.Delay(module.Board.Connection.TimeoutForFirmwareUpdate)) == task)
+            if (await Task.WhenAny(task, Task.Delay(module.Board.Connection.TimeoutForFirmwareUpdate)).ConfigureAwait(false) == task)
             {
                 NumberOfModulesForFirmwareUpdate--;
 

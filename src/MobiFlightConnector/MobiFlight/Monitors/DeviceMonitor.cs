@@ -35,7 +35,7 @@ namespace MobiFlight.Monitors
             EventWatcher.Start();
 
             // Currently thread change necessary, otherwise exception in board reset process.
-            await Task.Delay(50).ContinueWith(_ => Scan());                
+            await Task.Delay(50).ContinueWith(_ => Scan()).ConfigureAwait(false);                
         }
 
         public void Stop()

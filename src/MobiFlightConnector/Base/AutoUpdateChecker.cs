@@ -104,7 +104,7 @@ namespace MobiFlight.UpdateChecker
             string error;
             try
             {
-                (output, error) = await Task.Run(() => RunInstallerCheck(CommandToSend));
+                (output, error) = await Task.Run(() => RunInstallerCheck(CommandToSend)).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
