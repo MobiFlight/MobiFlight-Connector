@@ -195,7 +195,8 @@ namespace MobiFlight
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
             // make this next call async so that it doesn't block the UI
-            var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
+            var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList())
+                .ConfigureAwait(false);
 
             foreach (var d in devices)
             {
