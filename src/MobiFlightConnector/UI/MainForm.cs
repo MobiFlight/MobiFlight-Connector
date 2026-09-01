@@ -654,6 +654,14 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnJoystickConnectedFinished(object sender, EventArgs e)
         {
+            // Joystick discovery continues on a background thread so that DirectInput
+            // enumeration and initialization do not block the UI.
+            if (InvokeRequired)
+            {
+                BeginInvoke(new EventHandler(ExecManager_OnJoystickConnectedFinished), sender, e);
+                return;
+            }
+
             joysticksToolStripMenuItem.DropDownItems.Clear();
 
             var joysticks = execManager.GetJoystickManager().GetJoysticks();
