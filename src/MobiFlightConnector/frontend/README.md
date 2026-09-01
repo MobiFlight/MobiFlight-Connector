@@ -20,7 +20,7 @@ The main backend subsystems are:
 In development you run two things side by side:
 
 - The frontend dev server works conveniently in [Visual Studio Code](https://code.visualstudio.com/), in the provided dev container
-- The C# backend in [Visual Studio](https://visualstudio.microsoft.com/vs/community/). When you start the backend with the **Debug** build target it connects to the frontend dev server at `localhost:5173` and loads it automatically.
+- The C# backend in [Visual Studio 2026](https://visualstudio.microsoft.com/vs/community/). When you start the backend with the **Debug** build target it connects to the frontend dev server at `localhost:5173` and loads it automatically.
 
 ### Dev container setup
 
@@ -38,11 +38,24 @@ The frontend is served at `http://localhost:5173`.
 
 To manually start the frontend, use the command palette (CTRL+SHIFT+P) to select the **Tasks: Run Task** command, then run **Start frontend**.
 
-### Backend
+### C#.NET Dev Environment (Backend)
 
-The backend is a C# desktop application. and it must be running for full functionality. Once your devcontainer has finished starting up, and you see the localhost url in the devcontainer terminal output, proceed into Visual Studio.
+The backend is a C#/.NET desktop application. and it must be running for full functionality. Once your devcontainer has finished starting up, and the frontend is available at `localhost:5173`, open the backend solution in Visual Studio 2026: `MobiFlightConnector.sln`.
 
-Open `MobiFlightConnector.sln` and use the **Debug** build target to Run the project — this connects to the frontend dev server at `localhost:5173`.
+Make sure that the correct project is selected as the startup project inside the solution. The backend project to run is **MobiFlightConnector**.
+
+Before running or publishing the backend, install the .NET 10 SDK separately.
+Installing Visual Studio 2026 including .NET installation inside its workload tab may not be sufficient. If the .NET 10 SDK is missing, the application may build or start incorrectly and runtime errors can occur, for example errors related to loading `SimConnect.dll`.
+
+After the correct startup project is selected, run the project with the **Debug** build target.
+The backend will connect to the frontend dev server at `localhost:5173` and load it automatically.
+
+#### Publishing the backend
+
+To publish the MobiFlight Connector backend, run the following command from the repository root on the terminal:
+```sh
+dotnet publish "src/MobiFlightConnector/MobiFlightConnector.csproj" -c "Release" -p:Version="0.0.0.1" -o "dist/MobiFlightConnector-0.0.0.1" --self-contained
+```
 
 ## Translations (i18n)
 
