@@ -44,3 +44,27 @@ test("Test that frontend sends ready message", async ({ startupPage }) => {
   expect(lastCommand.payload.route).toEqual("/start")
   expect(lastCommand.payload.state).toEqual("ready")
 })
+
+test("Test that gold sponsors are shown on startup page", async ({
+  startupPage,
+  page,
+}) => {
+  await startupPage.gotoStartupPage()
+
+  await expect(page.getByText("Supported by our Gold Sponsors")).toBeVisible()
+
+  await expect(
+    page.getByText("Thank you for helping keep MobiFlight alive!"),
+  ).toBeVisible()
+
+  const sponsorLogos = [
+    "Flitesim logo",
+    "Moza logo",
+    "VKB logo",
+    "WingFlex logo",
+  ]
+
+  for (const logoName of sponsorLogos) {
+    await expect(page.getByRole("img", { name: logoName })).toBeVisible()
+  }
+})

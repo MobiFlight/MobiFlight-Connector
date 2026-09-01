@@ -358,6 +358,11 @@
     "Finished": "Finished.",
     "Test": {
       "Loading": "Loading..."
+    },
+    "GoldSponsors": {
+      "Title": "Supported by our Gold Sponsors",
+      "Description": "Thank you for helping keep MobiFlight alive!",
+      "LogoAlt": "{{sponsorName}} logo"
     }
   },
   "Feed": {

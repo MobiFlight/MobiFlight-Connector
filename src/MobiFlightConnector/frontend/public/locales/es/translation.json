@@ -364,6 +364,11 @@
     "Finished": "Finalizado.",
     "Test": {
       "Loading": "Cargando..."
+    },
+    "GoldSponsors": {
+      "Title": "Con el apoyo de nuestros patrocinadores de oro",
+      "Description": "¡Gracias por ayudar a mantener vivo MobiFlight!",
+      "LogoAlt": "Logo de {{sponsorName}}"
     }
   },
   "Feed": {

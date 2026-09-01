@@ -358,6 +358,11 @@
     "Finished": "Valmis.",
     "Test": {
       "Loading": "Ladataan..."
+    },
+    "GoldSponsors": {
+      "Title": "Kultasponsoreidemme tukemana",
+      "Description": "Kiitos, että autatte pitämään MobiFlightin elossa!",
+      "LogoAlt": "{{sponsorName}}-logo"
     }
   },
   "Feed": {
