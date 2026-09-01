@@ -40,12 +40,13 @@ To manually start the frontend, use the command palette (CTRL+SHIFT+P) to select
 
 ### C#.NET Dev Environment (Backend)
 
-The backend is a C#/.NET desktop application. and it must be running for full functionality. Once your devcontainer has finished starting up, and the frontend is available at `localhost:5173`, open the backend solution in Visual Studio 2026: `MobiFlightConnector.sln`.
+The backend is a C#/.NET desktop application and it must be running for full functionality. Once your devcontainer has finished starting up, and the frontend is available at `localhost:5173`, open the backend solution in Visual Studio 2026: `MobiFlightConnector.sln`.
 
 Make sure that the correct project is selected as the startup project inside the solution. The backend project to run is **MobiFlightConnector**.
 
-Before running or publishing the backend, install the .NET 10 SDK separately.
-Installing Visual Studio 2026 including .NET installation inside its workload tab may not be sufficient. If the .NET 10 SDK is missing, the application may build or start incorrectly and runtime errors can occur, for example errors related to loading `SimConnect.dll`.
+> [!WARNING]
+> Before running or publishing the backend, install the .NET 10 SDK separately.
+> Installing Visual Studio 2026 and selecting the .NET workload in the installer may not be sufficient. If the .NET 10 SDK is missing, the application may build or start incorrectly and runtime errors can occur, for example errors related to loading `SimConnect.dll`.
 
 After the correct startup project is selected, run the project with the **Debug** build target.
 The backend will connect to the frontend dev server at `localhost:5173` and load it automatically.
@@ -56,6 +57,9 @@ To publish the MobiFlight Connector backend, run the following command from the 
 ```sh
 dotnet publish "src/MobiFlightConnector/MobiFlightConnector.csproj" -c "Release" -p:Version="0.0.0.1" -o "dist/MobiFlightConnector-0.0.0.1" --self-contained
 ```
+[^1]
+
+[^1]: You can choose any version number starting with 0.0., but some features will be disabled, for example checking for a version update.
 
 ## Translations (i18n)
 
