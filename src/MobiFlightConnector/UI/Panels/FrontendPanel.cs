@@ -1,15 +1,15 @@
 ﻿using MobiFlight.BrowserMessages;
-using MobiFlight.BrowserMessages.Publisher;
+using MobiFlight.BrowserMessages.Transport;
 using MobiFlight.WebView;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
 {
     public partial class FrontendPanel : UserControl
     {
-        CompositePublisher compositePublisher = new CompositePublisher();
         private string _frontendBaseUrl = "http://localhost:5173";
         private string _frontendDistPath;
         private string _presetPath;
@@ -48,16 +48,16 @@ namespace MobiFlight.UI.Panels
             await FrontendWebView.EnsureCoreWebView2Async(null);
             await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
 
-            InitializeWebView(FrontendWebView, "/start");
-            InitializeWebView(UserAuthenticationWebView);
+            // MainForm's constructor already set the WebSocket publisher on MessageExchange.
+            await InitializeWebView(FrontendWebView, "/start", injectWsUrl: true);
 
-            compositePublisher.AddPublisher("frontend", new PostMessagePublisher(FrontendWebView));
-            compositePublisher.AddPublisher("auth", new PostMessagePublisher(UserAuthenticationWebView));
-
-            MessageExchange.Instance.SetPublisher(compositePublisher);
+            // Auth WebView stays on postMessage - see docs/architecture/frontend-backend-messaging.md.
+            await InitializeWebView(UserAuthenticationWebView, "/", injectWsUrl: false);
+            new WebViewMessageReceiver(UserAuthenticationWebView).MessageReceived
+                += MessageExchange.Instance.PublishReceivedMessage;
         }
 
-        private void InitializeWebView(ThreadSafeWebView2 webView, string route = "/")
+        private async Task InitializeWebView(ThreadSafeWebView2 webView, string route, bool injectWsUrl)
         {
             if (IsRunningInProduction)
             {
@@ -94,6 +94,14 @@ namespace MobiFlight.UI.Panels
 
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+
+            // Inject the actual bound URL before any page script runs.
+            if (injectWsUrl && MessageServer.Current != null)
+            {
+                await webView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(
+                    $"window.__MOBIFLIGHT__ = {{ wsUrl: '{MessageServer.Current.Url}' }};");
+            }
+
             // Navigate to start the app
             webView.CoreWebView2.Navigate($"{_frontendBaseUrl}{route}");
 

@@ -29,6 +29,15 @@ namespace MobiFlight.UI.Tests
             public IMessagePublisher OriginalPublisher { get; private set; }
             protected override bool LogIsEnabled => false;
 
+            // Skip capturing a UI SynchronizationContext and starting a real WebSocket server:
+            // this constructor typically runs on a test worker thread with no message loop, so
+            // capturing "the UI context" here would bind MessageExchange.Instance's global
+            // fallback context to a thread that never pumps messages - silently breaking message
+            // delivery for every later test that shares the singleton, regardless of test class.
+            // SetTestPublisher()/RestorePublisher() below already provide test isolation for the
+            // publisher itself.
+            protected override void InitializeMessaging() { }
+
             // Expose protected/private members for testing if needed
             public new Dictionary<string, string> AutoLoadConfigs
             {
