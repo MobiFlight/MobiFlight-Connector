@@ -367,7 +367,8 @@
     },
     "GoldSponsors": {
       "Description": "Gracias a nuestros <gold>patrocinadores Gold</gold> por impulsar el desarrollo de MobiFlight.",
-      "LogoAlt": "Logotipo de {{sponsorName}}"
+      "LogoAlt": "Logotipo de {{sponsorName}}",
+      "OpenSponsorLink": "Abrir el sitio web de {{sponsorName}}"
     }
   },
   "Feed": {

@@ -68,3 +68,49 @@ test("Test that gold sponsors are shown on startup page", async ({
     await expect(page.getByRole("img", { name: logoName })).toBeVisible()
   }
 })
+
+test("Test that gold sponsor links open in external browser", async ({
+  startupPage,
+  page,
+}) => {
+  await startupPage.mobiFlightPage.trackCommand("CommandOpenLinkInBrowser")
+
+  await startupPage.gotoStartupPage()
+
+  const sponsors = [
+    {
+      buttonName: "Open Flitesim website",
+      url: "https://flitesim.com/?ref=mobiflight",
+    },
+    {
+      buttonName: "Open Moza website",
+      url: "https://mozaracing.com/mobiflight",
+    },
+    {
+      buttonName: "Open VKB website",
+      url: "https://vkb-sim.pro/?utm_source=mobiflight",
+    },
+    {
+      buttonName: "Open WingFlex website",
+      url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
+    },
+  ]
+
+  for (const sponsor of sponsors) {
+    await startupPage.mobiFlightPage.clearTrackedCommands()
+
+    await page.getByRole("button", { name: sponsor.buttonName }).click()
+
+    const trackedCommands =
+      await startupPage.mobiFlightPage.getTrackedCommands()
+
+    expect(trackedCommands).toBeDefined()
+    expect(trackedCommands).toHaveLength(1)
+    expect(trackedCommands![0]).toEqual({
+      key: "CommandOpenLinkInBrowser",
+      payload: {
+        url: sponsor.url,
+      },
+    })
+  }
+})

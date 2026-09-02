@@ -361,7 +361,8 @@
     },
     "GoldSponsors": {
       "Description": "Kiitos <gold>kultasponsoreillemme</gold> MobiFlightin kehityksen tukemisesta.",
-      "LogoAlt": "{{sponsorName}}-logo"
+      "LogoAlt": "{{sponsorName}}-logo",
+      "OpenSponsorLink": "Avaa {{sponsorName}}-verkkosivusto"
     }
   },
   "Feed": {
