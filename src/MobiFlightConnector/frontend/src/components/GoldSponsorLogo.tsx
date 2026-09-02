@@ -9,25 +9,21 @@ const goldSponsors = [
     name: "Flitesim",
     logo: flitesim,
     delay: "0ms",
-    offsetY: "7px",
   },
   {
     name: "Moza",
     logo: moza,
     delay: "180ms",
-    offsetY: "6px",
   },
   {
     name: "VKB",
     logo: vkb,
     delay: "360ms",
-    offsetY: "0px",
   },
   {
     name: "WingFlex",
     logo: wingflex,
     delay: "540ms",
-    offsetY: "15px",
   },
 ]
 
