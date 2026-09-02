@@ -469,10 +469,8 @@
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="XplaneDataRef" path="" />
         <test type="Float" value="255" />
-        <modifiers>
-          <transformation active="True" expression="$ + 200" />
-        </modifiers>
-        <display type="Output" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" pin="Output" pinBrightness="255" />
+        <modifiers />
+        <display type="Output" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" pin="Output" pinBrightness="255" pinPwm="True" />
         <preconditions />
         <configrefs />
       </settings>
