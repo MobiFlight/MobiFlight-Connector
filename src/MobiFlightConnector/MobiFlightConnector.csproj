@@ -36,6 +36,8 @@
 		<CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
 		<CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
 		<NoWarn>$(NoWarn);WFO1000</NoWarn>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>portable</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="mobiflight.ico" />
