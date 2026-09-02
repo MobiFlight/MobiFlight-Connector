@@ -73,6 +73,37 @@ const makeUrlAbsolute = (
   }
 }
 
+export const fetchRemoteCommunityFeedWithFallback = async ({
+  baseUrl,
+  language,
+  timeoutMs = 3000,
+}: FetchRemoteFeedOptions): Promise<CommunityPost[]> => {
+  const primaryLanguage = resolveLanguage(language)
+  const fallbackLanguage = "en"
+
+  const languagesToTry = Array.from(
+    new Set([primaryLanguage, fallbackLanguage]),
+  )
+
+  let lastError: unknown
+
+  for (const languageToTry of languagesToTry) {
+    try {
+      return await fetchRemoteCommunityFeed({
+        baseUrl,
+        language: languageToTry,
+        timeoutMs,
+      })
+    } catch (error) {
+      lastError = error
+    }
+  }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error("Failed to load remote community feed")
+}
+
 export const fetchRemoteCommunityFeed = async ({
   baseUrl,
   language,
