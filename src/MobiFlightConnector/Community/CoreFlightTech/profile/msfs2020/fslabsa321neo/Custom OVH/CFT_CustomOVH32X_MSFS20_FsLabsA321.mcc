@@ -1,0 +1,1963 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="0e12b1de-5c39-49ff-9f51-fc7f5557fc2c">
+      <active>true</active>
+      <description>ADIRS_OnBat</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ADIRU_ONBAT_LT, number)" UUID="2cb89643-712c-4c3d-ab42-cdb6a8ee79f0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2f251466-4f31-4544-9ac8-dc83f92c9646">
+      <active>true</active>
+      <description>IR1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_IR_1_Button_TOP, number)" UUID="213a2852-585d-4513-b9e4-72bf0dc04d80" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d10dcf06-88d4-4202-b905-01a0b98a9674">
+      <active>true</active>
+      <description>IR1_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ADIRS_1_Knob, number) 10 == s0&#xA;l0 0 == if{ 0 (&gt;L:CFT_IR1_AlignStart, number) }&#xA;l0 (L:CFT_IR1_AlignStart, number) 0 == and (A:PLANE LATITUDE, degrees) abs 0.1 &gt; and if{ (E:ZULU TIME, seconds) (&gt;L:CFT_IR1_AlignStart, number) 306 (A:PLANE LATITUDE, degrees) abs 0.017453 * cos / 1020 min (&gt;L:CFT_IR1_AlignStop, number) }&#xA;(E:ZULU TIME, seconds) (L:CFT_IR1_AlignStart, number) - s1&#xA;l1 0 &lt; if{ l1 86400 + s1 }&#xA;l0 (L:CFT_IR1_AlignStart, number) 0 != and l1 (L:CFT_IR1_AlignStop, number) &lt; and" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if (# = 20, 1, $)" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="0e96d250-d4c0-46b1-b3de-9ffc827ad241" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="f66a72a2-886b-42ea-8468-69662314772c">
+      <active>true</active>
+      <description>IR3_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_IR_3_Button_TOP, number)" UUID="ab953230-e02b-4d32-a486-849a593da24a" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4bb87cbd-f536-468c-8a69-cdaef3855909">
+      <active>true</active>
+      <description>IR3_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ADIRS_3_Knob, number) 10 == s0&#xA;l0 0 == if{ 0 (&gt;L:CFT_IR3_AlignStart, number) }&#xA;l0 (L:CFT_IR3_AlignStart, number) 0 == and (A:PLANE LATITUDE, degrees) abs 0.1 &gt; and if{ (E:ZULU TIME, seconds) (&gt;L:CFT_IR3_AlignStart, number) 306 (A:PLANE LATITUDE, degrees) abs 0.017453 * cos / 1020 min (&gt;L:CFT_IR3_AlignStop, number) }&#xA;(E:ZULU TIME, seconds) (L:CFT_IR3_AlignStart, number) - s1&#xA;l1 0 &lt; if{ l1 86400 + s1 }&#xA;l0 (L:CFT_IR3_AlignStart, number) 0 != and l1 (L:CFT_IR3_AlignStop, number) &lt; and" UUID="0ce50bb3-5b2d-4dcc-89a7-4d9d811162fc" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if (# = 20, 1, $)" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="0e96d250-d4c0-46b1-b3de-9ffc827ad241" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="fc5ac50f-a120-4bf0-8132-7b0d1958483b">
+      <active>true</active>
+      <description>IR2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_IR_2_Button_TOP, number)" UUID="f4c5b637-0b3f-43c2-9c84-0a76ac9128d8" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7035f93f-2c4e-4114-88dc-47e5a6c8afe9">
+      <active>true</active>
+      <description>IR2_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ADIRS_2_Knob, number) 10 == s0&#xA;l0 0 == if{ 0 (&gt;L:CFT_IR2_AlignStart, number) }&#xA;l0 (L:CFT_IR2_AlignStart, number) 0 == and (A:PLANE LATITUDE, degrees) abs 0.1 &gt; and if{ (E:ZULU TIME, seconds) (&gt;L:CFT_IR2_AlignStart, number) 306 (A:PLANE LATITUDE, degrees) abs 0.017453 * cos / 1020 min (&gt;L:CFT_IR2_AlignStop, number) }&#xA;(E:ZULU TIME, seconds) (L:CFT_IR2_AlignStart, number) - s1&#xA;l1 0 &lt; if{ l1 86400 + s1 }&#xA;l0 (L:CFT_IR2_AlignStart, number) 0 != and l1 (L:CFT_IR2_AlignStop, number) &lt; and" UUID="078aa215-e108-4f14-aef7-39725069dc6a" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if (# = 20, 1, $)" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="0e96d250-d4c0-46b1-b3de-9ffc827ad241" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="d8576e97-3a50-4084-8436-7e60ec49ed58">
+      <active>true</active>
+      <description>FIRE_ENG2_FIRE_PUSH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FIRE_ENG2_Lt, number) 100 &gt;" UUID="c7688092-99dc-4bda-96b2-c37727b5d155" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="Output" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="ENG2_FIRE" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9b3b45fa-1781-4d6d-b23b-679377b68c96">
+      <active>true</active>
+      <description>FIRE_APU_FIRE_PUSH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FIRE_APU_Lt, number) 100 &gt;" UUID="20d6ba29-4a00-48c5-a6f5-907fc015b874" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="Output" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="APU_FIRE" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2b7163c5-acb6-4536-b0b8-fb22ed794387">
+      <active>true</active>
+      <description>FIRE_ENG1_FIRE_PUSH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FIRE_ENG1_Lt, number) 100 &gt;" UUID="217585a1-1979-4beb-a981-f1f74f238760" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="Output" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="ENG1_FIRE" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="68a835ac-0918-4815-9306-fa88fac9fe77">
+      <active>true</active>
+      <description>HYD_GREEN_ENG1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_ENG_1_PUMP_Button_TOP, number)" UUID="a2cf4854-d555-474f-bc0b-a5a5800dc9be" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3cc1816a-1f1f-4074-89f9-e359f1b6fe14">
+      <active>true</active>
+      <description>HYD_GREEN_ENG1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_ENG_1_PUMP_Button_BOT, number)" UUID="809aa5dc-bb3b-40ee-ab57-089106a446c0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03cd9533-bfb0-4a7f-9e9d-7d014c503659">
+      <active>true</active>
+      <description>HYD_BLUE_ELEC_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_BLUE_ELEC_PUMP_Button_TOP, number)" UUID="82c081ed-d753-4d70-9961-981145f163fc" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e298809a-1d12-48ac-a497-a740e36f71b4">
+      <active>true</active>
+      <description>HYD_BLUE_ELEC_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_BLUE_ELEC_PUMP_Button_BOT, number)" UUID="d151a036-4c1b-461d-9b81-1c46c9958eaa" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="30b250ec-a836-4f1c-b78e-1d73f2462fde">
+      <active>true</active>
+      <description>HYD_PTU_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_PTU_Button_TOP, number)" UUID="2d09ceb5-46a5-4ae5-99d6-1ae9ab563012" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5bd7b887-f0b8-4190-85a0-7513eccc996c">
+      <active>true</active>
+      <description>HYD_PTU_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_PTU_Button_BOT, number)" UUID="c4863b2a-bd53-45ea-9514-f8c2971d9ee1" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b4d993ac-9a2e-4133-b70b-86590c76322d">
+      <active>true</active>
+      <description>HYD_YELLOW_ENG2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_ENG_2_PUMP_Button_TOP, number)" UUID="878cdbee-df60-411e-9c2a-ca78ca3d30ec" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c80c81ad-0fbc-46a2-8438-cb6211d1b394">
+      <active>true</active>
+      <description>HYD_YELLOW_ENG2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_ENG_2_PUMP_Button_BOT, number)" UUID="341b7436-ef75-4a28-8bea-0a592970b33f" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1016498a-6770-4ee1-b89d-0a74b1f1c33e">
+      <active>true</active>
+      <description>HYD_YELLOW_ELEC_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_YELLOW_ELEC_PUMP_Button_TOP, number)" UUID="0b071170-e41d-4f5c-b9de-06fbf6619667" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4b6818a3-c916-43d4-93b1-7f188634c7b0">
+      <active>true</active>
+      <description>HYD_YELLOW_ELEC_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_HYD_YELLOW_ELEC_PUMP_Button_BOT, number)" UUID="e6901c59-65cd-4591-b7a0-cf7fb34a38e2" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="80b73d30-4467-487c-bacf-dbfdec480714">
+      <active>false</active>
+      <description>DEFAULT1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b1aa4c09-6e82-4806-9e61-dcbb88328b0e">
+      <active>false</active>
+      <description>DEFAULT1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6ca8d219-982b-4759-a0dc-e4db7cfebb1b">
+      <active>false</active>
+      <description>DEFAULT2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="794fb033-0671-4195-8a32-fbe8d80183f1">
+      <active>false</active>
+      <description>DEFAULT2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="22d03394-c7fc-4789-b4d5-002bafd667a0">
+      <active>false</active>
+      <description>DEFAULT3_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2b05a255-8bff-43bc-b2fb-80fbcd4d3a31">
+      <active>false</active>
+      <description>DEFAULT3_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="80ebdace-95b2-4891-a425-129fc1f83398">
+      <active>false</active>
+      <description>DEFAULT4_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b18bcb4b-e372-45d1-b764-103a6553fbd2">
+      <active>false</active>
+      <description>DEFAULT4_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d1bba4b6-1708-4d8a-bc56-73c2a0b30215">
+      <active>true</active>
+      <description>FUEL_L1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_L_TK_1_PUMP_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c1b742bd-871f-4f95-85ba-84b7a8e1be95">
+      <active>true</active>
+      <description>FUEL_L1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_L_TK_1_PUMP_Button_BOT, number)" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="de4be1c1-1aac-439e-8b63-b56ebdd2a036">
+      <active>true</active>
+      <description>FUEL_L2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_L_TK_2_PUMP_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f83f3f4d-2ba2-4841-968b-7168d1ff4f5f">
+      <active>true</active>
+      <description>FUEL_L2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_L_TK_2_PUMP_Button_BOT, number)" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="486b0d8e-4f1d-49ca-93dd-13fec6d24930">
+      <active>true</active>
+      <description>FUEL_CTR1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_CTR_TK_1_VALVE_Button_TOP, number)" UUID="a647ccbf-adb2-4bbe-9a7a-dc0bb9cbb1ad" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="71947093-a1a1-4ce4-99ab-142921c55b4d">
+      <active>true</active>
+      <description>FUEL_CTR1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_CTR_TK_1_VALVE_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="71650f0c-50f2-4537-8702-2e7d9f94ebf4">
+      <active>true</active>
+      <description>FUEL_XFEED_OPEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_XFEED_Button_TOP, number)" UUID="fb413d2d-2884-46cc-a98b-fc2314f4d371" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="95a0d0b0-88f6-4909-9b47-d2856c589230">
+      <active>true</active>
+      <description>FUEL_XFEED_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_XFEED_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="79e21150-75c9-4860-aeb8-07c286d83fdf">
+      <active>true</active>
+      <description>FUEL_CTR2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_CTR_TK_2_VALVE_Button_TOP, number)" UUID="b9f90929-5e27-4d0e-ac9c-35134326c675" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9427ba1b-4310-438e-8704-5785422c5b9d">
+      <active>true</active>
+      <description>FUEL_CTR2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_CTR_TK_2_VALVE_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2ad29f67-5406-4433-a3e9-288911610c0c">
+      <active>true</active>
+      <description>FUEL_R1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_R_TK_1_PUMP_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="174f5630-4dbc-4974-8a97-067d1663822a">
+      <active>true</active>
+      <description>FUEL_R1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_R_TK_1_PUMP_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 23" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="163af461-5f50-4c30-a297-640a550f707a">
+      <active>true</active>
+      <description>FUEL_R2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_R_TK_2_PUMP_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="da0f343d-85a9-4b99-9534-9825266ee73e">
+      <active>true</active>
+      <description>FUEL_R2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_FUEL_R_TK_2_PUMP_Button_BOT, number)" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b69c2cc0-3515-4322-998c-d83ec248bd1f">
+      <active>true</active>
+      <description>TERR_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_TERR_Button_TOP, number)" UUID="415619c0-9d4f-4f8b-8fca-2871309f6c6b" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cf1e5473-0565-4454-9f20-a36c2a19c9c6">
+      <active>true</active>
+      <description>TERR_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_TERR_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 23" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1dc334cd-5bde-4b8c-80e2-be2530caf7bf">
+      <active>true</active>
+      <description>SYS_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_SYS_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a6494ee2-394f-492b-9582-02b92ec5c179">
+      <active>true</active>
+      <description>SYS_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_SYS_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="930d44d3-baf2-43fd-899a-3034a1223abd">
+      <active>true</active>
+      <description>GS_MODE_UPPER</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_GS_MODE_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 30" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="21a627c5-4888-45d5-8e2f-5afffff53e36">
+      <active>true</active>
+      <description>GS_MODE_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_GS_MODE_Button_BOT, number)" UUID="2dfd8132-68d3-4807-95a7-d7538088e890" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 31" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b5e7c8bf-ff21-4be0-a89d-e6f8e5c314db">
+      <active>true</active>
+      <description>FLAP3_UPPER</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_LDG_FLAP_3_Button_TOP, number)" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 24" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="efa2c66f-80b9-4c2c-aa9f-ddc57e30ecda">
+      <active>true</active>
+      <description>FLAP3_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_GPWS_LDG_FLAP_3_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 25" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a50d4dca-7702-4ca4-aea0-eec78da45386">
+      <active>true</active>
+      <description>BAT1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ELEC_BAT_1_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="27080809-1b97-484f-920d-4d0baa9832fd">
+      <active>true</active>
+      <description>BAT1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ELEC_BAT_1_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7844966f-083e-4af9-8f43-594410d856cb">
+      <active>true</active>
+      <description>BAT2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ELEC_BAT_2_Button_TOP, number)" UUID="a95d241e-cfac-42ba-b1b9-705159086fc5" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0daf9fe7-0e61-454c-8245-a723494b0760">
+      <active>true</active>
+      <description>BAT2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ELEC_BAT_2_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1284a70a-0bdd-432f-b43e-7520aef15141">
+      <active>true</active>
+      <description>EXT_PWR_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ELEC_EXT_PWR_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 19" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c0c4e69f-2b9c-439d-831d-80d502be769e">
+      <active>true</active>
+      <description>EXT_PWR_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_ELEC_EXT_PWR_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="169424a3-48fc-447c-ab39-0a43682f9b30">
+      <active>true</active>
+      <description>ANTI_ICE_WING_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AI_Wing_Anti_Ice_Button_TOP, number)" UUID="5c9457fb-1d58-418b-afe2-332e3d03a0bf" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03186ebf-e330-4bb3-bf06-0839ccfd7aa1">
+      <active>true</active>
+      <description>ANTI_ICE_WING_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AI_Wing_Anti_Ice_Button_BOT, number)" UUID="930ad9db-7be9-4a74-b51d-ef6e27a14e76" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a3cb2861-6676-45f1-ad95-a98b32bcf6c2">
+      <active>true</active>
+      <description>ANTI_ICE_ENG1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AI_Eng_1_Anti_Ice_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="295e5209-5461-40ab-a09e-7342388ac9d3">
+      <active>true</active>
+      <description>ANTI_ICE_ENG1_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AI_Eng_1_Anti_Ice_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 19" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1d4b5951-a3cc-449e-a70e-aba213efd3f2">
+      <active>true</active>
+      <description>ANTI_ICE_ENG2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AI_Eng_2_Anti_Ice_Button_TOP, number)" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 29" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1368e4cc-e081-412f-901f-9f6313f10776">
+      <active>true</active>
+      <description>ANTI_ICE_ENG2_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AI_Eng_2_Anti_Ice_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 28" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4e55b925-f54a-4f46-aa4e-10213641d2a3">
+      <active>true</active>
+      <description>OXYGEN_UPPER</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_OXY_CREW_SUPPLY_Button_TOP, number)" UUID="d5cb23ac-f73b-4e1c-92c0-06048f62f4f4" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 27" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5ba2d8a0-212c-451f-b65b-7cb8c214efc8">
+      <active>true</active>
+      <description>OXYGEN_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_OXY_CREW_SUPPLY_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 26" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ba38e058-0057-4acc-99fd-485546e66c24">
+      <active>true</active>
+      <description>PACK1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AC_Pack_1_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="39afc1ea-e3b0-41d5-8719-95837fe5e983">
+      <active>true</active>
+      <description>PACK1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AC_Pack_1_Button_BOT, number)" UUID="45bb0cb2-1e86-4104-81e9-c0908992a66c" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="55ec0d42-1778-45b7-88ba-7dc90ed151ba">
+      <active>true</active>
+      <description>APUBLEED_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AC_Eng_APU_Bleed_Button_TOP, Number)" UUID="ba72c638-2534-40f1-a1df-dc0b72d6bdb5" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="159defef-0df8-4dd4-9bc5-00901ee5fb6e">
+      <active>true</active>
+      <description>APU_BLEED_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AC_Eng_APU_Bleed_Button_BOT, Number)" UUID="ff122459-81a3-4d9b-b400-e0311703060a" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3f14d216-65ff-43a9-aa9d-7df850a1eddf">
+      <active>true</active>
+      <description>PACK2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AC_Pack_2_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="adf336e2-45d1-49bd-90d5-3e2e05a78aa0">
+      <active>true</active>
+      <description>PACK2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_AC_Pack_2_Button_BOT, number)" UUID="a924b6b5-2e05-4aec-bf43-bf57bfe3a362" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="18475f7a-e58d-4ff2-aa0c-838c4c946f9e">
+      <active>true</active>
+      <description>APU_MASTER_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_APU_Master_Button_TOP, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 23" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7a65cb30-2266-4a0e-bfc1-24ad57c4d640">
+      <active>true</active>
+      <description>APU_MASTER_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_APU_Master_Button_BOT, number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3352cf8a-0b33-491e-8a12-c08ff29c33f7">
+      <active>true</active>
+      <description>APU_START_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_APU_START_BUTTON_TOP, Number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bdf558d8-68bd-4621-a4d0-2351b4535b29">
+      <active>true</active>
+      <description>APU_START_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_APU_START_BUTTON_BOT, Number)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="097b6149-f4a4-414c-8838-6e021b0a6603">
+      <active>true</active>
+      <description>EMER_EXIT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_SIGNS_EMER_EXIT_LT_BOT, Number)" UUID="7a9bb354-36e8-4a8b-af24-78f7bcacbbaa" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b8d02d07-de46-4853-84ce-aeee40523998">
+      <active>true</active>
+      <description>BAT2_DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:FSL_OVHD_BAT2, Number)" UUID="bde5d497-107f-4e7e-b14c-9acc2d7be333" />
+        <test type="Float" value="888" />
+        <modifiers />
+        <display type="Display Module" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" ledAddress="BAT1_BAT2" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bc4bbddc-ffbe-4cce-bb5c-ae21f7fc4060">
+      <active>true</active>
+      <description>BAT1_DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:FSL_OVHD_BAT1, Number)" UUID="8dbded6c-d3be-4bbe-a64d-797dd82be063" />
+        <test type="Float" value="888" />
+        <modifiers />
+        <display type="Display Module" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" ledAddress="BAT1_BAT2" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="3,4,5" ledDecimalPoints="4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0e96d250-d4c0-46b1-b3de-9ffc827ad241">
+      <active>true</active>
+      <description>check_ann_lt</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VC_OVHD_INTLT_AnnLt_Switch)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a49ef0c7-eb33-4a3d-9bd5-39dfe0765d3d">
+      <active>true</active>
+      <description>time</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(E:ZULU TIME,second)" UUID="b406ff1f-7d3f-4b7e-872a-a2e2a2a2b760" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7e6232bb-7400-4ff9-bf9d-712825735ec0">
+      <active>true</active>
+      <description>deg</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:PLANE LATITUDE, degrees)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f82700a6-a722-47e2-a4a0-70cf8ae7bd31">
+      <active>true</active>
+      <description>gyro</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:PLANE HEADING DEGREES GYRO, degrees)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="2967605a-92bd-4474-8fe9-f0cdc041fa1e">
+      <active>true</active>
+      <description>IR1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_KS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.IR1.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.IR1.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4f4b4a16-43d0-4135-afe2-1facff473a7c">
+      <active>true</active>
+      <description>IR3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_KS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.IR3.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.IR3.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="bc4bbddc-ffbe-4cce-bb5c-ae21f7fc4060" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="e170ad8b-347e-45bc-a535-f61af6fe8749">
+      <active>true</active>
+      <description>IR2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_KS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.IR2.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.IR2.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="803e3718-0567-4b80-8997-c3f75adcef1e">
+      <active>true</active>
+      <description>IR1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_RTS_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU1.OFF)" presetId="b26c3972-dee2-431b-9b32-9a9f9cefa097" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f5d3c4c9-628c-400b-8a03-c8cce667ed7a">
+      <active>true</active>
+      <description>IR1_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_RTS_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU1.NAV)" presetId="1a7fd9c7-4d07-41fe-94c2-d187678ae028" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0e8a4b07-f1fd-4d2e-a406-8f85500184cf">
+      <active>true</active>
+      <description>IR1_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_RTS_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU1.ATT)" presetId="ab5a5b89-4034-4a5f-8075-902f7cdb9f29" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f95540ac-f890-4886-9b31-129afaf5028e">
+      <active>true</active>
+      <description>IR3_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_RTS_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU3.OFF)" presetId="bc99ffaa-d1b3-4fcc-9d3b-fbe0f1b1dc58" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9ba231da-fb67-4706-88fc-d20c68c6f83f">
+      <active>true</active>
+      <description>IR3_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_RTS_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU3.NAV)" presetId="7df41b7b-f4cb-4543-a3a7-5eb510d6a0af" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="418ba679-48c1-4c26-8f18-000d0ef985f0">
+      <active>true</active>
+      <description>IR3_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_RTS_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU3.ATT)" presetId="d1db7741-208d-409d-8142-c65bab99beba" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="487a339f-1970-49b2-8c2f-248d7987ab72">
+      <active>true</active>
+      <description>IR2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_RTS_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU2.OFF)" presetId="e9f3a2c2-e5a5-449b-884b-825e43aa45cf" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3d2d2ef3-2be7-4dfb-b8e5-86c1ac4d0be8">
+      <active>true</active>
+      <description>IR2_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_RTS_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU2.NAV)" presetId="df7ad9cb-c92c-4bc3-8fe9-f8aebb1dc4ff" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="179859ee-24f1-45b8-a7aa-39ff92a94708">
+      <active>true</active>
+      <description>IR2_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_RTS_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ADIRS.ADIRU2.ATT)" presetId="0fff39f8-053f-4410-900b-4f90f5f790e4" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3a28cb8c-356c-4433-859e-04f2f9c0c1ea">
+      <active>false</active>
+      <description>DEFAULT1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c8017e3c-55ac-4143-a36e-c438885c9d79">
+      <active>false</active>
+      <description>DEFAULT2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a0f4816a-dbe8-444f-8e0a-42a5309bdc06">
+      <active>false</active>
+      <description>DEFAULT3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9c0bc7f6-0291-4ee1-a28c-4a18c2678725">
+      <active>false</active>
+      <description>DEFAULT4</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="30f5aa1b-1cc2-46a5-933e-4ec01e7153a9">
+      <active>true</active>
+      <description>GPWS_TERR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_TERR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.TERR.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.TERR.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="727a44e9-7ef1-407d-8ac1-21c8db6ef690">
+      <active>true</active>
+      <description>GPWS_SYS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_SYS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.SYS.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.SYS.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4251bd01-e951-43d7-87a7-6be0aec45e32">
+      <active>true</active>
+      <description>GPWS_GS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_GS_MODE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.GS.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.GS.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="563717c1-1ad7-46db-bc55-3cc9ebd2662f">
+      <active>true</active>
+      <description>GPWS_FLAP3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_LDG_FLAPS3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.FLAP3.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.GPWS.FLAP3.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5061f8b7-84f1-4de6-9a18-54f8f84dc905">
+      <active>true</active>
+      <description>ANTI_ICE_WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ANTI ICE_WING" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="a 0 == if{ 72431 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="a 10 &gt; if{ 72431 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="03186ebf-e330-4bb3-bf06-0839ccfd7aa1" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="b57cce0c-e990-4f29-abda-195097d1e11f">
+      <active>true</active>
+      <description>ANTI_ICE_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ANTI ICE_ENG1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="a 0 == if{ 72435 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="a 10 &gt; if{ 72435 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="295e5209-5461-40ab-a09e-7342388ac9d3" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="4b204e4b-0333-46ae-9ca8-c94e103edb91">
+      <active>true</active>
+      <description>ANTI_ICE_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ANTI ICE_ENG2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="a 0 == if{ 72439 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="a 10 &gt; if{ 72439 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="1368e4cc-e081-412f-901f-9f6313f10776" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="7e31c764-b8a8-488c-9610-01aae6c405d1">
+      <active>true</active>
+      <description>OXYGEN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="OXYGEN_CREW_SPLY" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.OXY.CREW.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.OXY.CREW.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="5ba2d8a0-212c-451f-b65b-7cb8c214efc8" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="4a1ac0cd-349e-46c9-9aeb-bd7c6dd8dc89">
+      <active>true</active>
+      <description>CALLS_ALL</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="CALLS_ALL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.CALL.ALL.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.CALL.ALL.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onHold holdDelay="1" repeatDelay="0" type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.CALL.ALL.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="199aa027-eb54-4de1-b3f5-85170ae64911">
+      <active>true</active>
+      <description>STROBE_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="STROBE_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.STROBE.ON)" presetId="b16d3396-e6a2-4d00-a193-81068b7240fa" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.STROBE.AUTO)" presetId="19f524cc-75b6-464f-b69c-9b328e701bf9" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="613c8fb3-2f98-4eb9-9248-80120f16844f">
+      <active>true</active>
+      <description>STROBE_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="STROBE_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.STROBE.OFF)" presetId="909a1e70-5ea4-4d9c-b043-7ed97e60c364" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.STROBE.AUTO)" presetId="19f524cc-75b6-464f-b69c-9b328e701bf9" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="62aff4d5-5bd5-48da-b7aa-fd9c87fd4ff6">
+      <active>true</active>
+      <description>BEACON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="BEACON_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.BCN.ON)" presetId="259347a1-5984-4e21-8bc4-dfe3a7f6be7a" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.BCN.OFF)" presetId="5651145c-d1ec-48bb-8d78-f738939d9c28" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c9cc8c0a-0be9-48bb-9ca5-8d5955310e23">
+      <active>true</active>
+      <description>WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="WING_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.WING.ON)" presetId="0cadbb97-6db0-465c-8b81-78234b53c877" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.WING.OFF)" presetId="b90378b1-c025-4846-98fb-40a5ed651f98" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ddb3e3b6-f453-4df3-ba8c-387fd8726c8f">
+      <active>true</active>
+      <description>NAVLOGO2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NAV.SYS2)" presetId="ee063cb3-b642-4f59-9f83-ff0317addd76" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NAV.SYS1)" presetId="ee063cb3-b642-4f59-9f83-ff0317addd76" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d480578e-779b-4b29-a5e8-e483d6770e2d">
+      <active>true</active>
+      <description>NAVLOGO_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="2">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NAV.OFF)" presetId="440a71e7-f87d-4085-869f-a62ff2a8be09" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NAV.SYS1)" presetId="ee063cb3-b642-4f59-9f83-ff0317addd76" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1eb971ea-efe1-4f3e-830c-0fdbcdf33d16">
+      <active>true</active>
+      <description>RWYTURN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="RWY_TURN_OFF_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.TURN.ON)" presetId="2a5508bf-890b-4cae-9685-20d890a1509e" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.TURN.OFF)" presetId="24053dbe-1af5-44de-b9cf-f03d6ebbfb48" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="04801c22-d455-4881-9e12-e4ff940574ab">
+      <active>true</active>
+      <description>LAND_L_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_L_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDLEFT.ON)" presetId="852a4fa8-02a5-451c-abb6-1a001f154b7d" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDLEFT.OFF)" presetId="3fd1c0e8-0261-4cbc-b4d0-341d0e4e8aa2" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dcc6b8c5-939b-4bc2-a5c3-c72da4bc90e6">
+      <active>true</active>
+      <description>LAND_L_RETRACT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_L_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDLEFT.RETRACT)" presetId="cf942ad7-9231-4024-b653-78716c61384b" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDLEFT.OFF)" presetId="3fd1c0e8-0261-4cbc-b4d0-341d0e4e8aa2" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f86bf1fc-3cc6-4979-8cfd-6475aaeafba6">
+      <active>true</active>
+      <description>LAND_R_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_R_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDRIGHT.ON)" presetId="abfe3fe0-f18c-4352-abea-17fbfdcb141d" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDRIGHT.OFF)" presetId="ae2c7e4c-9778-41f2-8198-cd7529dae092" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f666e43b-53c8-48f9-bf6e-fbeedbbaf4eb">
+      <active>true</active>
+      <description>LAND_R_RETRACT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_R_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDRIGHT.RETRACT)" presetId="96181372-4acf-4c03-8c54-69c9ad85f05d" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.LANDRIGHT.OFF)" presetId="ae2c7e4c-9778-41f2-8198-cd7529dae092" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d4b617ad-4eeb-46db-b682-186e0d92b9d2">
+      <active>true</active>
+      <description>NOSE_T.O</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="NOSE_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NOSE.TO)" presetId="b214b197-fb87-4222-a373-91bffd60158b" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NOSE.TAXI)" presetId="76696abc-dcce-4148-be15-663bb3493f21" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5606ac47-8c61-4d21-aae5-741ca57faca9">
+      <active>true</active>
+      <description>NOSE_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="NOSE_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NOSE.OFF)" presetId="2f8c9856-b323-4174-b707-01f5b6e07bc3" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.NOSE.TAXI)" presetId="76696abc-dcce-4148-be15-663bb3493f21" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6f06246e-a019-4c66-a18f-ad2b11d88fc1">
+      <active>true</active>
+      <description>APU_MASTER_SW</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="MSFS2020CustomInputAction" command="a 0 == if{ (&gt;K:FSL.EVENT.OVHD.APU.MASTER.PUSH) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="a 10 &gt; if{ (&gt;K:FSL.EVENT.OVHD.APU.MASTER.PUSH) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="7a65cb30-2266-4a0e-bfc1-24ad57c4d640" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="69e9a973-0f74-489c-8f1f-82886cfe6a27">
+      <active>true</active>
+      <description>APU_START</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.APU.START.PUSH)" presetId="8ed639e8-e1cd-4832-be14-8402211dfca5" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="848f342e-a316-4ec4-89b5-5c44974fe455">
+      <active>true</active>
+      <description>FIRE_ENG1_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="FIRE_ENG1_TEST" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="72236 (&gt;K:ROTOR_BRAKE)" presetId="281832c4-075d-454d-9345-0b11c3fd2235" />
+          <onRelease type="MSFS2020CustomInputAction" command="72238 (&gt;K:ROTOR_BRAKE)" presetId="281832c4-075d-454d-9345-0b11c3fd2235" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="87dc0d21-e12d-44b2-bef5-4ce8dd3e1e40">
+      <active>true</active>
+      <description>FIRE_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="FIRE_ENG1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FIRE.ENG1.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FIRE.ENG1.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d61a4f6f-a046-449f-a8e0-78c000bcc777">
+      <active>true</active>
+      <description>FIRE_APU_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="MSFS2020CustomInputAction" command="72244 (&gt;K:ROTOR_BRAKE)" presetId="281832c4-075d-454d-9345-0b11c3fd2235" />
+          <onRelease type="MSFS2020CustomInputAction" command="72246 (&gt;K:ROTOR_BRAKE)" presetId="281832c4-075d-454d-9345-0b11c3fd2235" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="972e3dc4-1a1e-47d0-be92-f936f6062653">
+      <active>true</active>
+      <description>FIRE_APU</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FIRE.APU.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FIRE.APU.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9b651767-7013-4216-abc8-e71ae3d1c3f8">
+      <active>true</active>
+      <description>FIRE_ENG2_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="MSFS2020CustomInputAction" command="72240 (&gt;K:ROTOR_BRAKE)" presetId="281832c4-075d-454d-9345-0b11c3fd2235" />
+          <onRelease type="MSFS2020CustomInputAction" command="72242 (&gt;K:ROTOR_BRAKE)" presetId="281832c4-075d-454d-9345-0b11c3fd2235" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="807b5733-2827-4d0d-8ca1-9ad36ecff3c0">
+      <active>true</active>
+      <description>FIRE_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FIRE.ENG2.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FIRE.ENG2.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a7198dc0-85a5-46ca-b2a1-4d9c9753aed6">
+      <active>true</active>
+      <description>HYD_GREEN_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GREEN_ENG1_PUMP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.ENG1PUMP.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.ENG1PUMP.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="99c6814c-0c30-40e1-8bff-c7ac139ef4f2">
+      <active>true</active>
+      <description>HYD_BLUE_ELEC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="BLUE_ELEC_PUMP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="a 10 &gt; if{ 72266 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="a 0 == if{ 72266 (&gt;K:ROTOR_BRAKE) }" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </button>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="e298809a-1d12-48ac-a497-a740e36f71b4" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="0e1b9ae1-6db0-4bf7-b97c-7abbb5a4921d">
+      <active>true</active>
+      <description>HYD_BLUE_ELEC_Cover</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="BLUE_ELEC_PUMP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="72261 (&gt;K:ROTOR_BRAKE)" presetId="ee063cb3-b642-4f59-9f83-ff0317addd76" />
+          <onRelease type="MSFS2020CustomInputAction" command="72261 (&gt;K:ROTOR_BRAKE)" presetId="ee063cb3-b642-4f59-9f83-ff0317addd76" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f275efca-9315-41da-afe6-2c45225cc600">
+      <active>true</active>
+      <description>HYD_PTU</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="23">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.PTU.ON)" presetId="c0cb2e63-64c9-4afc-a16d-83745e0d09ab" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.PTU.OFF)" presetId="c0cb2e63-64c9-4afc-a16d-83745e0d09ab" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="5bd7b887-f0b8-4190-85a0-7513eccc996c" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="437c4598-d5a4-46a5-bca5-6056531369ae">
+      <active>true</active>
+      <description>HYD_YELLOW_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.ENG2PUMP.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.ENG2PUMP.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="172d7fb8-26dc-4d93-a693-235948029df2">
+      <active>true</active>
+      <description>HYD_YELLOW_ELEC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.YELLOWELECPUMP.PB)" presetId="ee063cb3-b642-4f59-9f83-ff0317addd76" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.HYD.YELLOWELECPUMP.PB)" presetId="ee063cb3-b642-4f59-9f83-ff0317addd76" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6e387d8f-d0f3-4d72-8a29-6f73b94fa5c3">
+      <active>true</active>
+      <description>FUEL_L_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.LTKPUMP1.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.LTKPUMP1.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="08e1b358-2798-49a2-bd35-c7f679d15ca0">
+      <active>true</active>
+      <description>FUEL_L_2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.LTKPUMP2.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.LTKPUMP2.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0d8cf6a1-55d6-4ab4-9b42-531e90a9d582">
+      <active>true</active>
+      <description>FUEL_CTR1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.CTRTKLXFER.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.CTRTKLXFER.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ff6713ed-3f4a-42e8-b53c-e8978e11a8a4">
+      <active>true</active>
+      <description>FUEL_XFEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.XFEED.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.XFEED.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="915cd8a9-8fce-4baf-a18a-5a413e373bec">
+      <active>true</active>
+      <description>FUEL_CTR2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.CTRTKRXFER.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.CTRTKRXFER.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="30be10c1-0268-474b-8d1d-48f9e2d1625c">
+      <active>true</active>
+      <description>FUEL_R_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="10">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.RTKPUMP1.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.RTKPUMP1.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="81a38c63-4f1c-4504-8394-22defc31f9c8">
+      <active>true</active>
+      <description>FUEL_R_2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.RTKPUMP2.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.FUEL.RTKPUMP2.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3516d785-6c90-445f-af36-4bcea2d9a238">
+      <active>true</active>
+      <description>ELEC_BAT1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ELEC.BAT1.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ELEC.BAT1.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="27080809-1b97-484f-920d-4d0baa9832fd" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="3cb6b80e-45e2-4cc4-9fbf-6d8f94a3574b">
+      <active>true</active>
+      <description>ELEC_BAT2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ELEC.BAT2.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ELEC.BAT2.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="0daf9fe7-0e61-454c-8245-a723494b0760" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="8001b493-7264-40bc-949c-183e32f8fd0a">
+      <active>true</active>
+      <description>ELEC_EXTPWR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ELEC.EXTPWR.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.ELEC.EXTPWR.PB)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e146db5e-3243-4fa2-a4b3-58f03a521fe3">
+      <active>true</active>
+      <description>AIRCOND_PACK1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.AIRCOND.PACK1.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.AIRCOND.PACK1.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="39afc1ea-e3b0-41d5-8719-95837fe5e983" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="85510917-4944-4068-990b-0824a5819476">
+      <active>true</active>
+      <description>AIRCOND_APUBLEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.AIRCOND.APUBLEED.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.AIRCOND.APUBLEED.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7da01736-f6ea-4a8b-93c2-0836626dacb1">
+      <active>true</active>
+      <description>AIRCOND_PACK2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="7">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.AIRCOND.PACK2.ON)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.AIRCOND.PACK2.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="adf336e2-45d1-49bd-90d5-3e2e05a78aa0" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="8e4c4bb0-28be-4d71-b21b-003f3f0537bb">
+      <active>true</active>
+      <description>WIPER_OFF_Capt</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="MSFS2020CustomInputAction" command="72187 (&gt;K:ROTOR_BRAKE)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="72188 (&gt;K:ROTOR_BRAKE)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3ad25eb7-d65c-4e82-bb03-1f0d0c88f1e0">
+      <active>true</active>
+      <description>WIPER_FAST_Capt</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="72188 (&gt;K:ROTOR_BRAKE)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="72187 (&gt;K:ROTOR_BRAKE)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="86165e47-5c38-40f0-9996-be0a74097d72">
+      <active>true</active>
+      <description>WIPER_OFF_FO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.WIPER.FO.OFF)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e18af791-6f2e-407a-98b9-46434f9ee2b8">
+      <active>true</active>
+      <description>WIPER_SLOW_FO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.WIPER.FO.SLOW)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7ee27995-a318-4be6-a03d-fb7c7d3779d3">
+      <active>true</active>
+      <description>WIPER_FAST_FO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.WIPER.FO.FAST)" presetId="0446eb65-780c-4694-bea4-6982dedd05de" />
+          <onRelease type="MSFS2020CustomInputAction" command="72946 (&gt;K:ROTOR_BRAKE)" presetId="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7d20f77b-a657-426a-8a0b-dbb1e87e99b5">
+      <active>true</active>
+      <description>COMPASS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.COMPASS.ON)&#xA;" presetId="dae1eeaf-6717-408c-99bc-ade12a1eb2e0" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.COMPASS.OFF)" presetId="dae1eeaf-6717-408c-99bc-ade12a1eb2e0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="29a98189-2db4-4590-9565-58796f9bc7c1">
+      <active>true</active>
+      <description>DOME_BRT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.DOME.BRT)" presetId="30331fc3-b194-46b6-bdc6-47cc97a0a063" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.DOME.DIM)" presetId="e3d1d2bc-724f-46cb-8723-cca50e1fcb06" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2eb3d73f-c84e-4efe-b962-c455c9d10709">
+      <active>true</active>
+      <description>DOME_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="10">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.DOME.OFF)" presetId="c86a634e-df76-49bc-b921-5b655097c9bf" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.DOME.DIM)" presetId="e3d1d2bc-724f-46cb-8723-cca50e1fcb06" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f7257041-8bc8-40e1-b463-e864ff17d80c">
+      <active>true</active>
+      <description>ANN_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.ANNTEST.TEST)" presetId="c71ee409-fc4e-4046-b586-bfdd5503de47" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.ANNTEST.BRT)" presetId="57cf2c91-cd12-43a3-bed7-ed3c30afff90" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2c3f9eab-0c8e-4209-b0f8-a1f76a575e2e">
+      <active>true</active>
+      <description>ANN_DIM</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.ANNTEST.DIM)" presetId="4978e5ef-c609-4cdc-9811-f28424aa3c93" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.LIGHT.ANNTEST.BRT)" presetId="57cf2c91-cd12-43a3-bed7-ed3c30afff90" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a0c0b4b8-2279-4cb4-a9e2-daf267f33ef3">
+      <active>true</active>
+      <description>SEAT_BELTS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.PAX.ON)" presetId="5d5196d4-b5a5-4fc9-9fd1-2d7d030f9e15" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.PAX.OFF)" presetId="5d5196d4-b5a5-4fc9-9fd1-2d7d030f9e15" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f529a48f-4a09-46dd-a9cc-5aac56c6324a">
+      <active>true</active>
+      <description>NO_PORTABLE_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.SMOKING.ON)" presetId="c0cb2e63-64c9-4afc-a16d-83745e0d09ab" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.SMOKING.AUTO)" presetId="c0cb2e63-64c9-4afc-a16d-83745e0d09ab" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="496ddc9d-1207-43e5-81f4-4fc26c579de5">
+      <active>true</active>
+      <description>NO_PORTABLE_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.SMOKING.OFF)" presetId="c0cb2e63-64c9-4afc-a16d-83745e0d09ab" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.SMOKING.AUTO)" presetId="c0cb2e63-64c9-4afc-a16d-83745e0d09ab" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dbbe08e3-6c30-4985-bed2-7f6354b7b1f0">
+      <active>true</active>
+      <description>EMER_EXIT_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.EMERG.ON)" presetId="c9ca5083-09ff-4e74-966b-22be81c762cf" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.EMERG.ARM)" presetId="087662fc-12c8-4f18-bf72-2998e28d0a69" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6232af10-27b2-496e-b0c5-e8950f2b1e96">
+      <active>true</active>
+      <description>EMER_EXIT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.EMERG.OFF)" presetId="7a766850-6c62-4e59-95b7-3f470ee46aba" />
+          <onRelease type="MSFS2020CustomInputAction" command="(&gt;K:FSL.EVENT.OVHD.SIGNS.EMERG.ARM)" presetId="087662fc-12c8-4f18-bf72-2998e28d0a69" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ff8236ea-901c-43f9-919b-4f1385625f3d">
+      <active>true</active>
+      <description>OVERHEAD_SUBPANEL_BRIGHTNESS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="Int_Lt_Knob" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 130 &lt; if{ 0 } els{ @ 160 &lt; if{ @ 130 - 1.667 * } els{ @ 185 &lt; if{ @ 160 - 50 + } els{ @ 230 &lt; if{ @ 185 - 0.556 * 75 + } els{ 100 } } } } 0 max 100 min (&gt;L:VC_OVHD_INTLT_Integ_Lt_Knob)" presetId="56e4b33d-1fdf-4023-9679-0f670e1f946e" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>
