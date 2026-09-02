@@ -64,7 +64,7 @@ const StartupProgress = () => {
   }, [publish, location.pathname])
 
   return (
-    <div className="relative flex min-h-screen min-w-lg flex-col items-center justify-center gap-8 p-10 lg:min-w-xl">
+    <div className="relative flex min-h-screen w-screen flex-col items-center justify-center gap-8 p-10">
       <div className="flex w-full max-w-xl flex-col items-center justify-center gap-8">
         <SplashLogo />
         <div className="w-full max-w-xl rounded-full p-0.5 dark:h-10 dark:bg-linear-to-br dark:from-indigo-500 dark:from-10% dark:via-sky-500 dark:via-30% dark:to-emerald-500 dark:to-90%">
@@ -75,7 +75,7 @@ const StartupProgress = () => {
         </div>
         <p className="text-white">{t(startupProgress.Text)}</p>
       </div>
-      <div className="absolute inset-x-0 bottom-10 flex px-16">
+      <div className="absolute right-0 bottom-8 left-0 px-24">
         <GoldSponsorLogo />
       </div>
     </div>

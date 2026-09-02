@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import flitesim from "../assets/sponsors/flitesim-logo.png"
 import moza from "../assets/sponsors/moza-logo.png"
 import vkb from "../assets/sponsors/vkb-logo.png"
@@ -8,18 +8,26 @@ const goldSponsors = [
   {
     name: "Flitesim",
     logo: flitesim,
+    delay: "0ms",
+    offsetY: "7px",
   },
   {
     name: "Moza",
     logo: moza,
+    delay: "180ms",
+    offsetY: "6px",
   },
   {
     name: "VKB",
     logo: vkb,
+    delay: "360ms",
+    offsetY: "0px",
   },
   {
     name: "WingFlex",
     logo: wingflex,
+    delay: "540ms",
+    offsetY: "15px",
   },
 ]
 
@@ -27,28 +35,34 @@ const GoldSponsorLogo = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-4 text-center">
-      <div className="space-y-1">
-        <p className="text-xs font-semibold text-slate-300 uppercase">
-          {t("Startup.GoldSponsors.Title")}
-        </p>
-        <p className="text-xs text-slate-300">
-          {t("Startup.GoldSponsors.Description")}
-        </p>
-      </div>
-
-      <div className="flex w-full flex-wrap items-center justify-center gap-12">
+    <div className="flex w-full flex-col items-center gap-1 text-center">
+      <div className="grid w-full grid-cols-4 items-center gap-12">
         {goldSponsors.map((sponsor) => (
-          <img
+          <div
             key={sponsor.name}
-            src={sponsor.logo}
-            alt={t("Startup.GoldSponsors.LogoAlt", {
-              sponsorName: sponsor.name,
-            })}
-            className="max-h-16 max-w-56 object-contain opacity-90"
-          />
+            className="animate-sponsor-fade-in flex h-16 min-w-0 items-center justify-center"
+            style={{ animationDelay: sponsor.delay }}
+          >
+            <img
+              src={sponsor.logo}
+              alt={t("Startup.GoldSponsors.LogoAlt", {
+                sponsorName: sponsor.name,
+              })}
+              className="max-h-16 w-full max-w-56 object-contain opacity-90 brightness-0 invert"
+            />
+          </div>
         ))}
       </div>
+      <p className="text-xs leading-tight text-slate-300">
+        <Trans
+          i18nKey="Startup.GoldSponsors.Description"
+          components={{
+            gold: (
+              <span className="bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] bg-size-[250%_100%] bg-clip-text bg-position-[-100%_0] text-sm font-semibold tracking-wide text-transparent uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] transition-[background-position] duration-1000 ease-out hover:bg-position-[200%_0]" />
+            ),
+          }}
+        />
+      </p>
     </div>
   )
 }

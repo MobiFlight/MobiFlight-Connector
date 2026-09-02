@@ -51,10 +51,10 @@ test("Test that gold sponsors are shown on startup page", async ({
 }) => {
   await startupPage.gotoStartupPage()
 
-  await expect(page.getByText("Supported by our Gold Sponsors")).toBeVisible()
-
   await expect(
-    page.getByText("Thank you for helping keep MobiFlight alive!"),
+    page.getByText(
+      "Thanks to our Gold Sponsors for fueling the development of MobiFlight.",
+    ),
   ).toBeVisible()
 
   const sponsorLogos = [

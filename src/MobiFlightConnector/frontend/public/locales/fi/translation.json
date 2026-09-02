@@ -360,8 +360,7 @@
       "Loading": "Ladataan..."
     },
     "GoldSponsors": {
-      "Title": "Kultasponsoreidemme tukemana",
-      "Description": "Kiitos, että autatte pitämään MobiFlightin elossa!",
+      "Description": "Kiitos <gold>kultasponsoreillemme</gold> MobiFlightin kehityksen tukemisesta.",
       "LogoAlt": "{{sponsorName}}-logo"
     }
   },

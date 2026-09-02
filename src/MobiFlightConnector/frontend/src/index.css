@@ -58,6 +58,7 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-low-bounce: low-bounce 800ms ease-in-out infinite;
   --animate-highlight: highlight 2s ease-out;
+  --animate-sponsor-fade-in: sponsor-fade-in 500ms ease-out both;
 
   @keyframes accordion-down {
     from {
@@ -116,6 +117,17 @@
     }
     50% {
       transform: translateX(5px);
+    }
+  }
+
+  @keyframes sponsor-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 0.8;
+      transform: scale(1);
     }
   }
 
@@ -239,8 +251,8 @@
   }
 }
 
-/* 
-  Add pointer cursor to all buttons and elements with role="button" 
+/*
+  Add pointer cursor to all buttons and elements with role="button"
   The default cursor had changed with tailwindcss v4.
 */
 @layer base {

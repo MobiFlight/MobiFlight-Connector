@@ -360,8 +360,7 @@
       "Loading": "Loading..."
     },
     "GoldSponsors": {
-      "Title": "Supported by our Gold Sponsors",
-      "Description": "Thank you for helping keep MobiFlight alive!",
+      "Description": "Thanks to our <gold>Gold Sponsors</gold> for fueling the development of MobiFlight.",
       "LogoAlt": "{{sponsorName}} logo"
     }
   },

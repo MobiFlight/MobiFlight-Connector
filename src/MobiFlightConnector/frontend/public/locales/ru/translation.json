@@ -360,8 +360,7 @@
       "Loading": "Загрузка..."
     },
     "GoldSponsors": {
-      "Title": "При поддержке наших золотых спонсоров",
-      "Description": "Спасибо, что помогаете MobiFlight оставаться активным!",
+      "Description": "Спасибо нашим <gold>золотым спонсорам</gold> за поддержку разработки MobiFlight.",
       "LogoAlt": "Логотип {{sponsorName}}"
     }
   },
