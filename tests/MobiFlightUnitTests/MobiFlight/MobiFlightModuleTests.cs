@@ -1,10 +1,12 @@
 using CommandMessenger;
+using CommandMessenger.Transport;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace MobiFlight.Tests
 {
@@ -629,6 +631,91 @@ namespace MobiFlight.Tests
 
         #endregion
 
+        #region GetInfo Tests
+
+        // Reply the firmware sends for GetInfo: type, name, serial, version, core version.
+        private static readonly string InfoReply =
+            $"{(int)MobiFlightModule.Command.Info},MobiFlight Mega,Nano,SN-G5E-45E,3.1.4,3.1.4;";
+
+        [TestMethod()]
+        public void GetInfo_ShouldIdentifyBoard_WhenFirstInfoCommandTimesOut()
+        {
+            // Arrange
+            // The board stays silent on the first GetInfo, then answers the retry and the follow-up read.
+            var transport = new ScriptedTransport(null, InfoReply, InfoReply);
+            var module = CreateModuleWithTransport(transport);
+
+            // Act
+            var info = module.GetInfo() as MobiFlightModuleInfo;
+
+            // Assert
+            Assert.AreEqual(3, transport.WriteCount, "The timed out command should be sent again before the follow-up read.");
+            Assert.AreEqual("3.1.4", info.Version, "Version should come from the retried reply.");
+            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the retried reply.");
+            Assert.AreEqual("Nano", info.Name, "Name should come from the retried reply.");
+            Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
+        }
+
+        [TestMethod()]
+        public void GetInfo_ShouldKeepFirstReply_WhenFollowUpReadTimesOut()
+        {
+            // Arrange
+            // The board answers the first GetInfo but stays silent on the follow-up read.
+            var transport = new ScriptedTransport(InfoReply, null);
+            var module = CreateModuleWithTransport(transport);
+
+            // Act
+            var info = module.GetInfo() as MobiFlightModuleInfo;
+
+            // Assert
+            Assert.AreEqual(2, transport.WriteCount, "The answered command should not be retried.");
+            Assert.AreEqual("3.1.4", info.Version, "Version should come from the first reply.");
+            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the first reply.");
+            Assert.AreEqual("Nano", info.Name, "Name should come from the first reply.");
+            Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
+        }
+
+        [TestMethod()]
+        public void GetInfo_ShouldReportNoFirmware_WhenBoardNeverAnswers()
+        {
+            // Arrange
+            // A port that matches a board by VID/PID but has no MobiFlight firmware never answers.
+            var transport = new ScriptedTransport();
+            var module = CreateModuleWithTransport(transport);
+
+            // Act
+            var info = module.GetInfo() as MobiFlightModuleInfo;
+
+            // Assert
+            Assert.AreEqual(2, transport.WriteCount, "The command should be sent twice and then given up on.");
+            Assert.IsNull(info.Version, "No version should be reported without a reply.");
+            Assert.IsFalse(module.HasMfFirmware(), "Module should not be identified as running MobiFlight firmware.");
+        }
+
+        // Builds a module whose CmdMessenger talks to the given transport instead of a serial port.
+        private static MobiFlightModule CreateModuleWithTransport(ITransport transport)
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            Assert.IsNotNull(board, "Board not found.");
+
+            var module = new MobiFlightModule("COM1", board);
+
+            var cmdMessenger = new CmdMessenger(transport, BoardType.Bit16, ',', ';', '\\', board.Connection.MessageSize);
+            cmdMessenger.Connect();
+
+            var messengerField = typeof(MobiFlightModule).GetField(
+                "_cmdMessenger",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(messengerField, "_cmdMessenger field should exist.");
+            messengerField.SetValue(module, cmdMessenger);
+
+            return module;
+        }
+
+        #endregion
+
         /// <summary>
         /// Test double that records when Stop() reaches it without sending commands.
         /// </summary>
@@ -639,6 +726,63 @@ namespace MobiFlight.Tests
             public override void Set(int value)
             {
                 OnSet?.Invoke(value);
+            }
+        }
+
+        /// <summary>
+        /// Test double for the serial port. Each command written to it is answered with the next
+        /// scripted reply; a null reply keeps the board silent so the command runs into its timeout.
+        /// </summary>
+        private class ScriptedTransport : ITransport
+        {
+            private readonly Queue<string> _replies;
+            private string _pending = string.Empty;
+
+            public int WriteCount { get; private set; }
+
+            public event EventHandler DataReceived;
+
+            public ScriptedTransport(params string[] replies)
+            {
+                _replies = new Queue<string>(replies);
+            }
+
+            public bool Connect()
+            {
+                return true;
+            }
+
+            public bool Disconnect()
+            {
+                return true;
+            }
+
+            public bool IsConnected()
+            {
+                return true;
+            }
+
+            public void Dispose()
+            {
+            }
+
+            public byte[] Read()
+            {
+                var data = Encoding.UTF8.GetBytes(_pending);
+                _pending = string.Empty;
+                return data;
+            }
+
+            public void Write(byte[] buffer)
+            {
+                WriteCount++;
+
+                var reply = _replies.Count > 0 ? _replies.Dequeue() : null;
+                if (reply == null) return;
+
+                _pending = reply;
+                // Deliver on another thread, the way the serial port does.
+                Task.Run(() => DataReceived?.Invoke(this, EventArgs.Empty));
             }
         }
     }
