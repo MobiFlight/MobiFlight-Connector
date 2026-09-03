@@ -1482,7 +1482,7 @@ namespace MobiFlight.UI
                     break;
 
                 case FlightSimType.UNKNOWN:
-                    SimProcessDetectedToolStripMenuItem.Text = "Unkown Detected";
+                    SimProcessDetectedToolStripMenuItem.Text = "Unknown Detected";
                     SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.module_unknown;
                     break;
 
@@ -2104,7 +2104,7 @@ namespace MobiFlight.UI
                 ProjectListManager.OpenProject(execManager.Project.ToProjectInfo());
 
                 // set the button back to "disabled"
-                // since due to initiliazing the dataSet
+                // since due to initializing the dataSet
                 // it will automatically gets enabled
                 ResetProjectAndConfigChanges();
             }

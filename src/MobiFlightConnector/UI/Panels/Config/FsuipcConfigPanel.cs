@@ -233,7 +233,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             var conf = config as IFsuipcConfigItem;
 
-            // this part is for backward compatibilty
+            // this part is for backward compatibility
             // we want to refactor this as soon as possible
             if (conf == null && config is OutputConfigItem)
             {

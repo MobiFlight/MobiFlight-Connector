@@ -84,7 +84,7 @@
         </member>
         <member name="M:FSUIPC.Offset`1.Reconnect">
             <summary>
-            Permenently reconnects this Offset to FSUIPC.  The value of this Offset will be read/written during subsequent Process() calls.        
+            Permanently reconnects this Offset to FSUIPC.  The value of this Offset will be read/written during subsequent Process() calls.        
             </summary>
         </member>
         <member name="M:FSUIPC.Offset`1.Reconnect(System.Boolean)">
@@ -363,7 +363,7 @@
         </member>
         <member name="F:FSUIPC.AITrafficStatus.StatusNotAvilable">
             <summary>
-            State not avilable.  State of AI aircraft is only avilable in FS2004 and above.
+            State not available.  State of AI aircraft is only available in FS2004 and above.
             </summary>
         </member>
         <member name="F:FSUIPC.AITrafficStatus.Initialising">
@@ -643,7 +643,7 @@
         </member>
         <member name="M:FSUIPC.FsLatitude.ToString(System.Boolean,System.String,System.Int16)">
             <summary>
-            The lattitude represented as a string in the specified format
+            The latitude represented as a string in the specified format
             </summary>
             <param name="HemisphereAsText">Denote hemisphere using N or S.  If false, south is marked as -</param>
             <param name="DetailLevel">Specifies the detail level.  "d" for degrees only, "m" for degrees and minutes, "s" for degrees, minutes and seconds</param>
@@ -652,14 +652,14 @@
         </member>
         <member name="M:FSUIPC.FsLatitude.Add(FSUIPC.FsLatitudeSpan)">
             <summary>
-            Create a new latitude by adding a latitude span to the current lattitude
+            Create a new latitude by adding a latitude span to the current latitude
             </summary>
             <param name="Distance">The latitude span to add</param>
             <returns>The resulting latitude after the addition</returns>
         </member>
         <member name="M:FSUIPC.FsLatitude.Subtract(FSUIPC.FsLatitudeSpan)">
             <summary>
-            Create a new latitude by subtracting a latitude span from the current lattitude
+            Create a new latitude by subtracting a latitude span from the current latitude
             </summary>
             <param name="Distance">The latitude span to subtract</param>
             <returns>The resulting latitude after the subtraction</returns>
@@ -805,14 +805,14 @@
             <summary>
             Create a new longitude by adding a number of minutes to the current longitude
             </summary>
-            <param name="Minutes">The nunber of minutes to add</param>
+            <param name="Minutes">The number of minutes to add</param>
             <returns>The resulting longitude after the addition</returns>
         </member>
         <member name="M:FSUIPC.FsLongitude.AddSeconds(System.Double)">
             <summary>
             Create a new longitude by adding a number of seconds to the current longitude
             </summary>
-            <param name="Seconds">The nunber of seconds to add</param>
+            <param name="Seconds">The number of seconds to add</param>
             <returns>The resulting longitude after the addition</returns>
         </member>
         <member name="P:FSUIPC.FsLongitude.Degree">
@@ -985,7 +985,7 @@
             <param name="AltitudeFeet">The Altitude of the plane in Feet</param>
             <param name="HeadingDegreesTrue">The True heading (not magnetic) of the plane in degrees.</param>
             <param name="GroundSpeedKnots">The ground speed of the plane in knots</param>
-            <param name="VerticalSpeedFeet">The virtical speed of the plane in Feet per Second</param>
+            <param name="VerticalSpeedFeet">The vertical speed of the plane in Feet per Second</param>
             <param name="Com1">COM1 frequency, 4 digits in BCD format. A frequency of 123.45 is represented by 0x2345. The leading 1 is assumed</param>
         </member>
         <member name="M:FSUIPC.AITrafficServices.SendTCASTargets">
@@ -1039,7 +1039,7 @@
             <summary>
             Create a new longitude span that represents a given distance in Feet at a given latitude
             </summary>
-            <param name="Feet">The number of Feet to convert to a logitude span</param>
+            <param name="Feet">The number of Feet to convert to a longitude span</param>
             <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
             <returns>A new FsLongitudeSpan representing the specified distance in degrees Longitude at a given latitude</returns>
         </member>
@@ -1047,7 +1047,7 @@
             <summary>
             Create a new longitude span that represents a given distance in Nautical Miles at a given latitude
             </summary>
-            <param name="NauticalMiles">The number of Nautical Miles to convert to a logitude span</param>
+            <param name="NauticalMiles">The number of Nautical Miles to convert to a longitude span</param>
             <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
             <returns>A new FsLongitudeSpan representing the specified distance in degrees Longitude at a given latitude</returns>
         </member>
@@ -1055,7 +1055,7 @@
             <summary>
             Create a new longitude span that represents a given distance in Metres at a given latitude
             </summary>
-            <param name="Metres">The number of Metres to convert to a logitude span</param>
+            <param name="Metres">The number of Metres to convert to a longitude span</param>
             <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
             <returns>A new FsLongitudeSpan representing the specified distance in degrees Longitude at a given latitude</returns>
         </member>
@@ -1291,7 +1291,7 @@
         </member>
         <member name="M:FSUIPC.FSRunway.ToString">
             <summary>
-            A string representing the runway as text.  If the runway numnber is 0 then this returns a zero-lenth string.
+            A string representing the runway as text.  If the runway number is 0 then this returns a zero-length string.
             </summary>
         </member>
         <member name="T:FSUIPC.AIPlaneInfo">
@@ -1425,17 +1425,17 @@
         </member>
         <member name="P:FSUIPC.AIPlaneInfo.VirticalSpeedFeet">
             <summary>
-            The virtical speed of this plane in Feet per Minute
+            The vertical speed of this plane in Feet per Minute
             </summary>
         </member>
         <member name="P:FSUIPC.AIPlaneInfo.VirticalSpeedMetres">
             <summary>
-            The virtical speed of this plane in Metres per Minute
+            The vertical speed of this plane in Metres per Minute
             </summary>
         </member>
         <member name="P:FSUIPC.AIPlaneInfo.ATCIdentifier">
             <summary>
-            ATC identifer for this plane.  By default this is Airline + Flight Number or Tail number.<para> For Tail number, if more than 14 chars you get the *LAST* 14.  Airline name is truncated to allow whole flight number to be included</para><para>This can be changed by an option in the FSUIPC.ini file.  See the FSUIPC programmers guide for details.</para>
+            ATC identifier for this plane.  By default this is Airline + Flight Number or Tail number.<para> For Tail number, if more than 14 chars you get the *LAST* 14.  Airline name is truncated to allow whole flight number to be included</para><para>This can be changed by an option in the FSUIPC.ini file.  See the FSUIPC programmers guide for details.</para>
             </summary>
         </member>
         <member name="P:FSUIPC.AIPlaneInfo.State">

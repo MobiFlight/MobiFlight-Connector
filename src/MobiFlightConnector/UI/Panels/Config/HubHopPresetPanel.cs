@@ -528,10 +528,10 @@ namespace MobiFlight.UI.Panels.Config
             FilterPresetListDelayedByMs(300);
         }
 
-        private void FilterPresetListDelayedByMs(int miliseconds)
+        private void FilterPresetListDelayedByMs(int milliseconds)
         {
             searchDebounceTimer?.Dispose();
-            searchDebounceTimer = new Timer { Interval = miliseconds };
+            searchDebounceTimer = new Timer { Interval = milliseconds };
             searchDebounceTimer.Tick += (s, _) =>
             {
                 searchDebounceTimer.Stop();
@@ -576,7 +576,7 @@ namespace MobiFlight.UI.Panels.Config
                     )
             );
             
-            // Substract 1 because of the static "select preset"-label
+            // Subtract 1 because of the static "select preset"-label
             int MatchesFound = FilteredPresetList.Items.Count - 1;
             MatchLabel.Text = String.Format(
                                     i18n._tr("uiMessagesSimConnectPanelMatchesFound"),

@@ -366,7 +366,7 @@ namespace MobiFlight.SimConnectMSFS
 
 #if DEBUG
                     // this only for debug compilation
-                    // it slows down the client immensly.
+                    // it slows down the client immensely.
                     Log.Instance.log($"Received {simData.Data}.", LogSeverity.Debug);
 #endif
 

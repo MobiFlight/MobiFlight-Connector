@@ -94,7 +94,7 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// Loads all board definintions from disk.
+        /// Loads all board definitions from disk.
         /// </summary>
         public static void LoadDefinitions()
         {

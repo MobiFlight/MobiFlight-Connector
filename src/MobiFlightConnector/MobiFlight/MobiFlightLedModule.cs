@@ -152,7 +152,7 @@ namespace MobiFlight
             // then we allocate a digit for it correctly
             var lastCharacter = '.';
 
-            // out inital length is 0, because we start on the left
+            // out initial length is 0, because we start on the left
             var length = 0;
 
             for (byte i = 0; i != value.Length; i++)
@@ -277,7 +277,7 @@ namespace MobiFlight
     {
         char[] Displays = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         byte Points = 0;
-        String Brigthness = "";
+        String Brightness = "";
 
         public bool DisplayRequiresUpdate(String value, byte points, byte mask)
         {
@@ -325,10 +325,10 @@ namespace MobiFlight
 
         public bool SetBrightnessRequiresUpdate(String value)
         {
-            if (Brigthness == value)
+            if (Brightness == value)
                 return false;
 
-            Brigthness = value;
+            Brightness = value;
             return true;
         }
 
@@ -336,7 +336,7 @@ namespace MobiFlight
         {
             Displays = new[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
             Points = 0;
-            Brigthness = "";
+            Brightness = "";
         }
     }
 }
