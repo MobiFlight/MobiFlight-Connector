@@ -61,6 +61,7 @@
       "MSFS.ReinstallWASMModule": "Re-install WASM Module",
       "CopyLogs": "Copy logs to clipboard",
       "ControllerBindings": "Controller Bindings",
+      "ManageControllers": "Manage controllers",
       "Settings": "Settings"
     },
     "Help": {
@@ -861,5 +862,76 @@
     "Resume": "Resume scrolling",
     "Pause": "Pause scrolling",
     "Close": "Close log panel"
+  },
+  "Settings": {
+    "General": {
+      "Title": "General",
+      "RecentFiles": {
+        "Title": "Recent files",
+        "Description": "Set the number of files shown in the list to"
+      },
+      "Logging": {
+        "Title": "Logging",
+        "Enabled": "enabled",
+        "LogLevel": "Log Level",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Log Joystick Axis"
+      },
+      "BetaVersions": {
+        "Title": "Beta Versions",
+        "Description": "Yes, I would like to receive beta version updates."
+      },
+      "CommunityFeedback": {
+        "Title": "Community Feedback Program",
+        "Description": "Yes, I want to participate in Community Feedback Program and help to improve MobiFlight."
+      },
+      "RunOptions": {
+        "Title": "Run options",
+        "AutoRetrigger": "Automatically perform retrigger-action with \"run\"-mode",
+        "MinimizeOnAutoRun": "Minimize on AutoRun"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Check HubHop presets on application start."
+      },
+      "Language": {
+        "Title": "Language",
+        "Description": "Change the language of the UI:",
+        "RestartRequired": "It requires a restart of MobiFlight if you change the language."
+      },
+      "ExecutionSpeed": {
+        "Title": "Config Execution Speed",
+        "Description": "You can control the execution speed, e.g., if you experience some lag in your input. Very fast settings might impact performance.",
+        "Slow": "Slow",
+        "Fast": "Very Fast"
+      },
+      "TestModeSpeed": {
+        "Title": "Test mode speed",
+        "Slow": "Slow",
+        "Fast": "Very Fast"
+      }
+    },
+    "Simulator": {
+      "Title": "Simulator",
+      "ProSim": {
+        "Title": "ProSim Settings",
+        "Host": "Host",
+        "Port": "Port",
+        "AutoConnect": "Enable automatic ProSim connection",
+        "MaxRetryAttempts": "Max retry attempts:"
+      }
+    },
+    "Discard": {
+      "Title": "Discard changes?",
+      "Description": "You have unsaved changes. Are you sure you want to discard them?",
+      "KeepEditing": "Keep editing",
+      "DiscardChanges": "Discard changes"
+    }
   }
 }
+

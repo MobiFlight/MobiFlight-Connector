@@ -61,6 +61,7 @@
       "MSFS.ReinstallWASMModule": "WASM-Modul neu installieren",
       "CopyLogs": "Logs in die Zwischenablage kopieren",
       "ControllerBindings": "Controller-Zuordnungen",
+      "ManageControllers": "Controller verwalten",
       "Settings": "Einstellungen"
     },
     "Help": {
@@ -867,5 +868,76 @@
     "Resume": "Scrolling fortsetzen",
     "Pause": "Scrolling pausieren",
     "Close": "Log-Panel schließen"
+  },
+  "Settings": {
+    "General": {
+      "Title": "Allgemein",
+      "RecentFiles": {
+        "Title": "Zuletzt verwendete Dateien",
+        "Description": "Anzahl der in der Liste angezeigten Dateien festlegen auf"
+      },
+      "Logging": {
+        "Title": "Protokollierung",
+        "Enabled": "aktiviert",
+        "LogLevel": "Log-Level",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Joystick-Achsen protokollieren"
+      },
+      "BetaVersions": {
+        "Title": "Beta-Versionen",
+        "Description": "Ja, ich möchte Beta-Versionsupdates erhalten."
+      },
+      "CommunityFeedback": {
+        "Title": "Community-Feedback-Programm",
+        "Description": "Ja, ich möchte am Community-Feedback-Programm teilnehmen und helfen, MobiFlight zu verbessern."
+      },
+      "RunOptions": {
+        "Title": "Ausführungsoptionen",
+        "AutoRetrigger": "Automatisches Nachdrücken im \"Run\"-Modus ausführen",
+        "MinimizeOnAutoRun": "Bei AutoRun minimieren"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Beim Anwendungsstart nach HubHop-Presets suchen."
+      },
+      "Language": {
+        "Title": "Sprache",
+        "Description": "Sprache der Benutzeroberfläche ändern:",
+        "RestartRequired": "Ein Neustart von MobiFlight ist erforderlich, wenn Sie die Sprache ändern."
+      },
+      "ExecutionSpeed": {
+        "Title": "Konfigurationsausführungsgeschwindigkeit",
+        "Description": "Sie können die Ausführungsgeschwindigkeit steuern, z. B. wenn bei der Eingabe Verzögerungen auftreten. Sehr schnelle Einstellungen können die Leistung beeinträchtigen.",
+        "Slow": "Langsam",
+        "Fast": "Sehr schnell"
+      },
+      "TestModeSpeed": {
+        "Title": "Testmodus-Geschwindigkeit",
+        "Slow": "Langsam",
+        "Fast": "Sehr schnell"
+      }
+    },
+    "Simulator": {
+      "Title": "Simulator",
+      "ProSim": {
+        "Title": "ProSim-Einstellungen",
+        "Host": "Host",
+        "Port": "Port",
+        "AutoConnect": "Automatische ProSim-Verbindung aktivieren",
+        "MaxRetryAttempts": "Maximale Wiederholungsversuche:"
+      }
+    },
+    "Discard": {
+      "Title": "Änderungen verwerfen?",
+      "Description": "Sie haben nicht gespeicherte Änderungen. Möchten Sie diese wirklich verwerfen?",
+      "KeepEditing": "Weiter bearbeiten",
+      "DiscardChanges": "Änderungen verwerfen"
+    }
   }
 }
+

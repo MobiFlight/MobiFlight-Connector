@@ -61,6 +61,7 @@
       "MSFS.ReinstallWASMModule": "Asenna WASM-moduuli uudelleen",
       "CopyLogs": "Kopioi loki leikepöydälle",
       "ControllerBindings": "Ohjainten yhdistäminen",
+      "ManageControllers": "Hallitse ohjaimia",
       "Settings": "Asetukset"
     },
     "Help": {
@@ -861,5 +862,76 @@
     "Resume": "Jatka vieritystä",
     "Pause": "Pysäytä vieritys",
     "Close": "Sulje lokipaneeli"
+  },
+  "Settings": {
+    "General": {
+      "Title": "Yleiset",
+      "RecentFiles": {
+        "Title": "Viimeisimmät tiedostot",
+        "Description": "Aseta luettelossa näytettävien tiedostojen määräksi"
+      },
+      "Logging": {
+        "Title": "Loki",
+        "Enabled": "käytössä",
+        "LogLevel": "Lokitaso",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Kirjaa ohjaussauvan akselit lokiin"
+      },
+      "BetaVersions": {
+        "Title": "Beta-versiot",
+        "Description": "Kyllä, haluan vastaanottaa beta-versiopäivityksiä."
+      },
+      "CommunityFeedback": {
+        "Title": "Yhteisön palauteohjelma",
+        "Description": "Kyllä, haluan osallistua yhteisön palauteohjelmaan ja auttaa parantamaan MobiFlightia."
+      },
+      "RunOptions": {
+        "Title": "Suoritusasetukset",
+        "AutoRetrigger": "Suorita uudelleenlaukaisutoiminto automaattisesti \"run\"-tilassa",
+        "MinimizeOnAutoRun": "Pienennä automaattisen suorituksen yhteydessä"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Tarkista HubHop-esiasetukset sovelluksen käynnistyessä."
+      },
+      "Language": {
+        "Title": "Kieli",
+        "Description": "Vaihda käyttöliittymän kieli:",
+        "RestartRequired": "Kielen vaihtaminen vaatii MobiFlightin uudelleenkäynnistyksen."
+      },
+      "ExecutionSpeed": {
+        "Title": "Määrityksen suoritusnopeus",
+        "Description": "Voit säätää suoritusnopeutta esimerkiksi, jos syötteessä esiintyy viivettä. Erittäin nopeat asetukset voivat vaikuttaa suorituskykyyn.",
+        "Slow": "Hidas",
+        "Fast": "Erittäin nopea"
+      },
+      "TestModeSpeed": {
+        "Title": "Testitilan nopeus",
+        "Slow": "Hidas",
+        "Fast": "Erittäin nopea"
+      }
+    },
+    "Simulator": {
+      "Title": "Simulaattori",
+      "ProSim": {
+        "Title": "ProSim-asetukset",
+        "Host": "Palvelin",
+        "Port": "Portti",
+        "AutoConnect": "Ota automaattinen ProSim-yhteys käyttöön",
+        "MaxRetryAttempts": "Uudelleenyritysten enimmäismäärä:"
+      }
+    },
+    "Discard": {
+      "Title": "Hylätäänkö muutokset?",
+      "Description": "Sinulla on tallentamattomia muutoksia. Haluatko varmasti hylätä ne?",
+      "KeepEditing": "Jatka muokkausta",
+      "DiscardChanges": "Hylkää muutokset"
+    }
   }
 }
+
