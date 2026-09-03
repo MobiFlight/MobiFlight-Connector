@@ -209,7 +209,12 @@ const LogPanel = () => {
                 >
                   {entry.Severity}
                 </div>
-                <div className="truncate">{entry.Message}</div>
+                <div
+                  data-testid="log-entry-message"
+                  className="min-w-0 overflow-hidden text-ellipsis whitespace-pre"
+                >
+                  {entry.Message}
+                </div>
               </div>
             ))
           )}
