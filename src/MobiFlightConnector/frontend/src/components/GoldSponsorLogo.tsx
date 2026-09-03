@@ -4,31 +4,28 @@ import flitesim from "../assets/sponsors/flitesim-logo.png"
 import moza from "../assets/sponsors/moza-logo.png"
 import vkb from "../assets/sponsors/vkb-logo.png"
 import wingflex from "../assets/sponsors/wingflex-logo.png"
+import { CSSProperties } from "react"
 
 const goldSponsors = [
   {
     name: "Flitesim",
     logo: flitesim,
     url: "https://flitesim.com/?ref=mobiflight",
-    delay: "0ms",
   },
   {
     name: "Moza",
     logo: moza,
     url: "https://mozaracing.com/mobiflight",
-    delay: "180ms",
   },
   {
     name: "VKB",
     logo: vkb,
     url: "https://vkb-sim.pro/?utm_source=mobiflight",
-    delay: "360ms",
   },
   {
     name: "WingFlex",
     logo: wingflex,
     url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
-    delay: "540ms",
   },
 ]
 
@@ -37,17 +34,17 @@ const GoldSponsorLogo = () => {
   const openUrl = useOpenUrl()
 
   return (
-    <div className="flex w-full flex-col items-center gap-1 text-center">
-      <div className="grid w-full grid-cols-4 items-center gap-12">
-        {goldSponsors.map((sponsor) => (
+    <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center select-none">
+      <div className="grid w-full grid-cols-4 items-center gap-8 md:gap-12">
+        {goldSponsors.map((sponsor, index) => (
           <button
             key={sponsor.name}
             type="button"
             aria-label={t("Startup.GoldSponsors.OpenSponsorLink", {
               sponsorName: sponsor.name,
             })}
-            className="animate-sponsor-fade-in flex h-16 min-w-0 items-center justify-center"
-            style={{ animationDelay: sponsor.delay }}
+            className="animate-sponsor-fade-in group/logo relative flex h-16 w-full min-w-0 cursor-pointer items-center justify-center opacity-0 focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:outline-none"
+            style={{ animationDelay: `${index * 180}ms` }}
             onClick={() => openUrl(sponsor.url)}
           >
             <img
@@ -55,12 +52,21 @@ const GoldSponsorLogo = () => {
               alt={t("Startup.GoldSponsors.LogoAlt", {
                 sponsorName: sponsor.name,
               })}
-              className="max-h-16 w-full max-w-56 object-contain opacity-90 brightness-0 invert"
+              className="max-h-16 w-full max-w-56 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0"
+            />
+            <span
+              aria-hidden="true"
+              className="[mask-(--sponsor-logo)] [mask-contain] [mask-center] [mask-no-repeat] pointer-events-none absolute inset-0 m-auto h-16 w-full max-w-56 bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] bg-size-[250%_100%] bg-position-[-100%_0] opacity-0 transition-[background-position,opacity,filter] duration-1000 ease-out [-webkit-mask-image:var(--sponsor-logo)] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] group-hover/logo:bg-position-[200%_0] group-hover/logo:opacity-100 group-hover/logo:drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"
+              style={
+                {
+                  "--sponsor-logo": `url(${sponsor.logo})`,
+                } as CSSProperties
+              }
             />
           </button>
         ))}
       </div>
-      <p className="text-xs leading-tight text-slate-300">
+      <p className="animate-sponsor-fade-in text-xs leading-tight text-slate-300 opacity-0">
         <Trans
           i18nKey="Startup.GoldSponsors.Description"
           components={{
