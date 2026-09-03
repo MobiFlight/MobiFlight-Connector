@@ -36,6 +36,8 @@
 		<CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
 		<CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
 		<NoWarn>$(NoWarn);WFO1000</NoWarn>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>portable</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="mobiflight.ico" />
@@ -54,6 +56,8 @@
 		<PackageReference Include="Microsoft.Web.WebView2" />
 		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="Newtonsoft.Json.Schema" />
+		<PackageReference Include="Serilog" />
+		<PackageReference Include="Serilog.Sinks.File" />
 		<PackageReference Include="SharpDX" />
 		<PackageReference Include="SharpDX.DirectInput" />
 		<PackageReference Include="System.Management" />

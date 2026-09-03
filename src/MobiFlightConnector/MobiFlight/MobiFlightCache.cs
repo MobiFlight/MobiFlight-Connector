@@ -147,7 +147,7 @@ namespace MobiFlight
                 return;
             }
 
-            Task<MobiFlightModule> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board);
                 module.Connect();
@@ -161,7 +161,7 @@ namespace MobiFlight
                     module.Disconnect();
 
                 return module;
-            });
+            }).ConfigureAwait(false);
 
             var result = await task;
 
@@ -180,7 +180,8 @@ namespace MobiFlight
         {
             var currentModuleCount = AvailableComModules.Count;
             var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(3000))
-                      .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; });
+                      .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; })
+                      .ConfigureAwait(false);
 
             if (!allModulesDetected || !isFirstTimeLookup) return false;
             
