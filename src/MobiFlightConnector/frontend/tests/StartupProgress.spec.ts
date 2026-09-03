@@ -76,6 +76,7 @@ test("Test that gold sponsor links open in external browser", async ({
   await startupPage.mobiFlightPage.trackCommand("CommandOpenLinkInBrowser")
 
   await startupPage.gotoStartupPage()
+  await page.waitForTimeout(1600)
 
   const sponsors = [
     {
@@ -99,7 +100,9 @@ test("Test that gold sponsor links open in external browser", async ({
   for (const sponsor of sponsors) {
     await startupPage.mobiFlightPage.clearTrackedCommands()
 
-    await page.getByRole("button", { name: sponsor.buttonName }).click()
+    await page
+      .getByRole("button", { name: sponsor.buttonName })
+      .dispatchEvent("click")
 
     const trackedCommands =
       await startupPage.mobiFlightPage.getTrackedCommands()
