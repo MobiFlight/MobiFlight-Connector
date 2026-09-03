@@ -18,6 +18,7 @@ export type CommandMessageKey =
   | "CommandFrontendState"
   | "CommandScanForInput"
   | "CommandRefreshPresets"
+  | "CommandShutdown"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -37,7 +38,7 @@ export type CommandMessage =
   | CommandFrontendState
   | CommandScanForInput
   | CommandRefreshPresets
-  
+  | CommandShutdown
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -125,6 +126,13 @@ export interface CommandFileContextMenu extends CommandMessageBase {
   }
 }
 
+export interface CommandShutdown extends CommandMessageBase {
+  key: "CommandShutdown"
+  payload: {
+    action: "discardChanges"
+  }
+}
+
 export type CommandMainMenuPayload = {
   action:
     | "file.new"
@@ -166,12 +174,7 @@ export interface CommandMainMenu extends CommandMessageBase {
 }
 
 export type CommandProjectToolbarPayload = {
-  action:
-    | "run"
-    | "test"
-    | "stop"
-    | "toggleAutoRun"
-    | "rename"
+  action: "run" | "test" | "stop" | "toggleAutoRun" | "rename"
   value?: string
 }
 
@@ -205,7 +208,7 @@ export interface CommandUserAuthentication extends CommandMessageBase {
   key: "CommandUserAuthentication"
   payload: {
     flow: "login" | "logout"
-    state: "started" | "success" | "cancelled" | "error",
+    state: "started" | "success" | "cancelled" | "error"
     url?: string
   }
 }
