@@ -909,13 +909,28 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
             var InfoCommand = _cmdMessenger.SendCommand(command);
 
+            // Sometimes first attempt times out, same as for the Config getter.
+            // Seen on the first launch after a Windows cold boot (#3321).
+            if (!InfoCommand.Ok)
+            {
+                Log.Instance.log($"GetInfo timed out on {_comPort}. Retrying...", LogSeverity.Debug);
+                InfoCommand = _cmdMessenger.SendCommand(command);
+            }
+
             if (InfoCommand.Ok)
             {
                 // Workaround
-                // the following two lines shall get removed
+                // the following read shall get removed
                 // but at the moment something with the timing during startup is wrong.
                 command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
-                InfoCommand = _cmdMessenger.SendCommand(command);
+                var secondInfoCommand = _cmdMessenger.SendCommand(command);
+
+                // Only use the second reply if it actually arrived,
+                // otherwise the first one is still the valid reply.
+                if (secondInfoCommand.Ok)
+                {
+                    InfoCommand = secondInfoCommand;
+                }
 
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
