@@ -781,8 +781,9 @@ namespace MobiFlight.Tests
                 if (reply == null) return;
 
                 _pending = reply;
-                // Deliver on another thread, the way the serial port does.
-                Task.Run(() => DataReceived?.Invoke(this, EventArgs.Empty));
+                // Deliver right away. CmdMessenger has already registered which reply it is
+                // waiting for before it writes, so the test does not depend on thread scheduling.
+                DataReceived?.Invoke(this, EventArgs.Empty);
             }
         }
     }
