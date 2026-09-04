@@ -687,7 +687,7 @@ namespace MobiFlight.Tests
             var info = module.GetInfo() as MobiFlightModuleInfo;
 
             // Assert
-            Assert.AreEqual(2, transport.WriteCount, "The command should be sent twice and then given up on.");
+            Assert.AreEqual(MobiFlightModule.GetInfoMaxAttempts, transport.WriteCount, "The command should be sent GetInfoMaxAttempts times and then given up on.");
             Assert.IsNull(info.Version, "No version should be reported without a reply.");
             Assert.IsFalse(module.HasMfFirmware(), "Module should not be identified as running MobiFlight firmware.");
         }
