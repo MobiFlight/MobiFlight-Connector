@@ -61,7 +61,7 @@ const GoldSponsorLogos = () => {
             />
             <span
               aria-hidden="true"
-              className={`sponsor-logo-shimmer ${sponsor.mask}`}
+              className={`gold-shimmer sponsor-logo-shimmer ${sponsor.mask}`}
             />
           </Button>
         ))}
@@ -70,7 +70,7 @@ const GoldSponsorLogos = () => {
         <Trans
           i18nKey="Startup.GoldSponsors.Description"
           components={{
-            gold: <span className="gold-text-shimmer" />,
+            gold: <span className="gold-shimmer text-shimmer" />,
           }}
         />
       </p>
