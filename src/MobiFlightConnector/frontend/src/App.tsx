@@ -92,7 +92,7 @@ function App() {
         toastOptions={{ duration: 10000 }}
         position="bottom-right"
         theme={theme}
-        className="flex w-full justify-center ![--width:540px]"
+        className="flex w-full justify-center [--width:540px]!"
       />
     </>
   )

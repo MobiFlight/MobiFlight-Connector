@@ -219,6 +219,12 @@
       "Description": "Você possui alterações não salvas no projeto. O que deseja fazer?",
       "Save": "Salvar alterações",
       "Discard": "Descartar alterações"
+    },
+    "Shutdown": {
+      "Title": "Sair",
+      "Description": "Tem a certeza de que pretende sair do MobiFlight? Existem alterações não guardadas no projeto.",
+      "Discard": "Descartar alterações",
+      "Cancel": "Cancelar"
     }
   },
   "ConfigList": {
