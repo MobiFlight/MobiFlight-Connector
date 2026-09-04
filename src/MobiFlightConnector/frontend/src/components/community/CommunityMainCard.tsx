@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { fetchRemoteCommunityFeedWithFallback } from "@/lib/feed"
-// import { fetchRemoteCommunityFeed } from "@/lib/feed"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { CommunityPost } from "@/types/feed"
 import { useQuery } from "@tanstack/react-query"
