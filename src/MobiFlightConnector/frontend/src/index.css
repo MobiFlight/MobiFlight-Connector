@@ -296,38 +296,6 @@
   .gold-shimmer {
     @apply bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] bg-size-[250%_100%] bg-position-[-100%_0] transition-[background-position] duration-1000 ease-out;
   }
-
-  .sponsor-logo-shimmer {
-    @apply pointer-events-none absolute inset-0 m-auto h-16 w-full max-w-56 mask-(--sponsor-logo) mask-contain mask-center mask-no-repeat opacity-0 transition-[background-position,opacity,filter] duration-1000 ease-out [-webkit-mask-image:var(--sponsor-logo)] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain];
-  }
-
-  .group\/logo:hover .sponsor-logo-shimmer {
-    @apply bg-position-[200%_0] opacity-100 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)];
-  }
-
-  .text-shimmer {
-    @apply bg-clip-text text-sm font-semibold tracking-wide text-transparent uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)];
-  }
-
-  .text-shimmer:hover {
-    @apply bg-position-[200%_0];
-  }
-
-  .sponsor-logo-mask-flitesim {
-    --sponsor-logo: url("./assets/sponsors/flitesim-logo.png");
-  }
-
-  .sponsor-logo-mask-moza {
-    --sponsor-logo: url("./assets/sponsors/moza-logo.png");
-  }
-
-  .sponsor-logo-mask-vkb {
-    --sponsor-logo: url("./assets/sponsors/vkb-logo.png");
-  }
-
-  .sponsor-logo-mask-wingflex {
-    --sponsor-logo: url("./assets/sponsors/wingflex-logo.png");
-  }
 }
 
 @custom-variant vxs (@media (min-height: 500px));

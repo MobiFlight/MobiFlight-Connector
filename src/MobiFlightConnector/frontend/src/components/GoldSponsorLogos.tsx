@@ -5,31 +5,28 @@ import moza from "../assets/sponsors/moza-logo.png"
 import vkb from "../assets/sponsors/vkb-logo.png"
 import wingflex from "../assets/sponsors/wingflex-logo.png"
 import { Button } from "./ui/button"
+import { CSSProperties } from "react"
 
 const goldSponsors = [
   {
     name: "Flitesim",
     logo: flitesim,
     url: "https://flitesim.com/?ref=mobiflight",
-    mask: "sponsor-logo-mask-flitesim",
   },
   {
     name: "Moza",
     logo: moza,
     url: "https://mozaracing.com/mobiflight",
-    mask: "sponsor-logo-mask-moza",
   },
   {
     name: "VKB",
     logo: vkb,
     url: "https://vkb-sim.pro/?utm_source=mobiflight",
-    mask: "sponsor-logo-mask-vkb",
   },
   {
     name: "WingFlex",
     logo: wingflex,
     url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
-    mask: "sponsor-logo-mask-wingflex",
   },
 ]
 
@@ -61,7 +58,12 @@ const GoldSponsorLogos = () => {
             />
             <span
               aria-hidden="true"
-              className={`gold-shimmer sponsor-logo-shimmer ${sponsor.mask}`}
+              className="gold-shimmer pointer-events-none absolute inset-0 m-auto h-16 w-full max-w-56 mask-(--sponsor-logo) mask-contain mask-center mask-no-repeat opacity-0 transition-[background-position,opacity,filter] duration-1000 ease-out [-webkit-mask-image:var(--sponsor-logo)] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] group-hover/logo:bg-position-[200%_0] group-hover/logo:opacity-100 group-hover/logo:drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"
+              style={
+                {
+                  "--sponsor-logo": `url(${sponsor.logo})`,
+                } as CSSProperties
+              }
             />
           </Button>
         ))}
@@ -70,7 +72,9 @@ const GoldSponsorLogos = () => {
         <Trans
           i18nKey="Startup.GoldSponsors.Description"
           components={{
-            gold: <span className="gold-shimmer text-shimmer" />,
+            gold: (
+              <span className="gold-shimmer bg-clip-text text-sm font-semibold tracking-wide text-transparent uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] hover:bg-position-[200%_0]" />
+            ),
           }}
         />
       </p>
