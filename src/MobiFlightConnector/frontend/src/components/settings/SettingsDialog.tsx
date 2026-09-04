@@ -9,7 +9,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import SimulatorSettingsCard from "./components/SimulatorSettingsCard"
 import GeneralSettingsCard from "./components/GeneralSettingsCard"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Button } from "@/components/ui/button"
 import { useSettingsStore } from "@/stores/settingsStore"
 import { useState } from "react"
@@ -107,24 +106,16 @@ export default function SettingsDialog({
               </TabsTrigger>
             </TabsList>
             <TabsContent value="general">
-              <ScrollArea className="h-[calc(100vh-250px)] w-full pr-4">
-                <div className="space-y-6">
-                  <GeneralSettingsCard
-                    values={draftSettings}
-                    onChange={updateSetting}
-                  />
-                </div>
-              </ScrollArea>
+              <GeneralSettingsCard
+                values={draftSettings}
+                onChange={updateSetting}
+              />
             </TabsContent>
             <TabsContent value="simulator">
-              <ScrollArea className="h-[calc(100vh-250px)] w-full pr-4">
-                <div className="space-y-6">
-                  <SimulatorSettingsCard
-                    values={draftSettings}
-                    onChange={updateSetting}
-                  />
-                </div>
-              </ScrollArea>
+              <SimulatorSettingsCard
+                values={draftSettings}
+                onChange={updateSetting}
+              />
             </TabsContent>
           </Tabs>
 

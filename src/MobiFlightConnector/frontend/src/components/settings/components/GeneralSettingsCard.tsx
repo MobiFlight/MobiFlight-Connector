@@ -1,12 +1,13 @@
 import { useTranslation } from "react-i18next"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import ComboBox from "@/components/ComboBox"
 import { LogLevel } from "@/types/log"
 import Settings from "@/types/settings"
+import { Switch } from "@/components/ui/switch"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface GeneralSettingsCardProps {
   values: Partial<Settings>
@@ -42,14 +43,9 @@ export default function GeneralSettingsCard({
 
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">
-          {t("Settings.General.Title")}
-        </CardTitle>
-      </CardHeader>
-
-      <CardContent className="space-y-6">
-        {/* Recent Files */}
+      <ScrollArea className="h-[calc(100vh-250px)] w-full">
+        <CardContent className="space-y-6 p-6">
+          {/* Recent Files */}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold">
             {t("Settings.General.RecentFiles.Title")}
@@ -57,7 +53,7 @@ export default function GeneralSettingsCard({
           <div className="flex items-center gap-4">
             <Label
               htmlFor="recent-files"
-              className="text-sm text-muted-foreground"
+              className="text-sm text-muted-foreground font-normal"
             >
               {t("Settings.General.RecentFiles.Description")}
             </Label>
@@ -84,12 +80,12 @@ export default function GeneralSettingsCard({
           </h3>
           <div className="flex flex-wrap items-center gap-6">
             <div className="flex items-center space-x-2">
-              <Checkbox
+              <Switch
                 id="logging-enable"
                 checked={logEnabled}
                 onCheckedChange={(checked) => onChange("LogEnabled", !!checked)}
               />
-              <Label htmlFor="logging-enable" className="cursor-pointer">
+              <Label htmlFor="logging-enable" className="cursor-pointer font-normal">
                 {t("Settings.General.Logging.Enabled")}
               </Label>
             </div>
@@ -97,7 +93,7 @@ export default function GeneralSettingsCard({
             <div className="flex items-center gap-2">
               <Label
                 htmlFor="log-level"
-                className={`text-sm ${
+                className={`text-sm font-normal ${
                   !logEnabled ? "text-muted-foreground" : ""
                 }`}
               >
@@ -122,7 +118,7 @@ export default function GeneralSettingsCard({
             </div>
 
             <div className="flex items-center space-x-2">
-              <Checkbox
+              <Switch
                 id="logging-joystick-axis"
                 checked={values.LogJoystickAxis ?? false}
                 disabled={!logEnabled}
@@ -132,7 +128,7 @@ export default function GeneralSettingsCard({
               />
               <Label
                 htmlFor="logging-joystick-axis"
-                className={`cursor-pointer ${
+                className={`cursor-pointer font-normal ${
                   !logEnabled ? "text-muted-foreground" : ""
                 }`}
               >
@@ -150,12 +146,12 @@ export default function GeneralSettingsCard({
             {t("Settings.General.BetaVersions.Title")}
           </h3>
           <div className="flex items-center space-x-2">
-            <Checkbox
+            <Switch
               id="beta-updates"
               checked={values.BetaUpdates ?? false}
               onCheckedChange={(checked) => onChange("BetaUpdates", !!checked)}
             />
-            <Label htmlFor="beta-updates" className="cursor-pointer text-sm">
+            <Label htmlFor="beta-updates" className="cursor-pointer text-sm font-normal">
               {t("Settings.General.BetaVersions.Description")}
             </Label>
           </div>
@@ -169,7 +165,7 @@ export default function GeneralSettingsCard({
             {t("Settings.General.CommunityFeedback.Title")}
           </h3>
           <div className="flex items-center space-x-2">
-            <Checkbox
+            <Switch
               id="community-feedback"
               checked={values.CommunityFeedback ?? false}
               onCheckedChange={(checked) =>
@@ -178,7 +174,7 @@ export default function GeneralSettingsCard({
             />
             <Label
               htmlFor="community-feedback"
-              className="cursor-pointer text-sm"
+              className="cursor-pointer text-sm font-normal"
             >
               {t("Settings.General.CommunityFeedback.Description")}
             </Label>
@@ -194,19 +190,19 @@ export default function GeneralSettingsCard({
           </h3>
           <div className="space-y-2">
             <div className="flex items-center space-x-2">
-              <Checkbox
+              <Switch
                 id="auto-retrigger"
                 checked={values.AutoRetrigger ?? false}
                 onCheckedChange={(checked) =>
                   onChange("AutoRetrigger", !!checked)
                 }
               />
-              <Label htmlFor="auto-retrigger" className="cursor-pointer text-sm">
+              <Label htmlFor="auto-retrigger" className="cursor-pointer text-sm font-normal">
                 {t("Settings.General.RunOptions.AutoRetrigger")}
               </Label>
             </div>
             <div className="flex items-center space-x-2">
-              <Checkbox
+              <Switch
                 id="minimize-on-autorun"
                 checked={values.MinimizeOnAutoRun ?? false}
                 onCheckedChange={(checked) =>
@@ -215,7 +211,7 @@ export default function GeneralSettingsCard({
               />
               <Label
                 htmlFor="minimize-on-autorun"
-                className="cursor-pointer text-sm"
+                className="cursor-pointer text-sm font-normal"
               >
                 {t("Settings.General.RunOptions.MinimizeOnAutoRun")}
               </Label>
@@ -231,7 +227,7 @@ export default function GeneralSettingsCard({
             {t("Settings.General.HubHop.Title")}
           </h3>
           <div className="flex items-center space-x-2">
-            <Checkbox
+            <Switch
               id="hubhop-auto-check"
               checked={values.HubHopAutoCheck ?? false}
               onCheckedChange={(checked) =>
@@ -240,7 +236,7 @@ export default function GeneralSettingsCard({
             />
             <Label
               htmlFor="hubhop-auto-check"
-              className="cursor-pointer text-sm"
+              className="cursor-pointer text-sm font-normal"
             >
               {t("Settings.General.HubHop.AutoCheck")}
             </Label>
@@ -325,6 +321,7 @@ export default function GeneralSettingsCard({
           </div>
         </div>
       </CardContent>
+      </ScrollArea>
     </Card>
   )
 }

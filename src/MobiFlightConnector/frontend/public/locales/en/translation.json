@@ -917,9 +917,9 @@
       }
     },
     "Simulator": {
-      "Title": "Simulator",
+      "Title": "Simulators",
       "ProSim": {
-        "Title": "ProSim Settings",
+        "Title": "ProSim / HomeSim",
         "Host": "Host",
         "Port": "Port",
         "AutoConnect": "Enable automatic ProSim connection",

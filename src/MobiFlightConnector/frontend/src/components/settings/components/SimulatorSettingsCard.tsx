@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Card, CardContent } from "@/components/ui/card"
+import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import Settings from "@/types/settings"
 
 interface SimulatorSettingsCardProps {
@@ -23,22 +24,17 @@ export default function SimulatorSettingsCard({
 
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">
-          {t("Settings.Simulator.Title")}
-        </CardTitle>
-      </CardHeader>
-
-      <CardContent className="space-y-6">
-        <div className="space-y-4">
-          <h3 className="text-sm font-semibold">
-            {t("Settings.Simulator.ProSim.Title")}
-          </h3>
+      <ScrollArea className="h-[calc(100vh-250px)] w-full">
+        <CardContent className="space-y-6 p-6">
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold">
+              {t("Settings.Simulator.ProSim.Title")}
+            </h3>
 
           {/* Host & Port */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="prosim-host">
+              <Label htmlFor="prosim-host" className="font-normal">
                 {t("Settings.Simulator.ProSim.Host")}
               </Label>
               <Input
@@ -51,7 +47,7 @@ export default function SimulatorSettingsCard({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="prosim-port">
+              <Label htmlFor="prosim-port" className="font-normal">
                 {t("Settings.Simulator.ProSim.Port")}
               </Label>
               <Input
@@ -68,7 +64,7 @@ export default function SimulatorSettingsCard({
 
           {/* Auto Connect */}
           <div className="flex items-center space-x-2 pt-2">
-            <Checkbox
+            <Switch
               id="prosim-auto-connect"
               checked={proSimAutoConnect}
               onCheckedChange={(checked) =>
@@ -77,7 +73,7 @@ export default function SimulatorSettingsCard({
             />
             <Label
               htmlFor="prosim-auto-connect"
-              className="cursor-pointer text-sm"
+              className="cursor-pointer text-sm font-normal"
             >
               {t("Settings.Simulator.ProSim.AutoConnect")}
             </Label>
@@ -105,6 +101,7 @@ export default function SimulatorSettingsCard({
           </div>
         </div>
       </CardContent>
+      </ScrollArea>
     </Card>
   )
 }
