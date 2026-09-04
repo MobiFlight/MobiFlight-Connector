@@ -211,7 +211,7 @@ const LogPanel = () => {
                 </div>
                 <div
                   data-testid="log-entry-message"
-                  className="min-w-0 overflow-hidden text-ellipsis whitespace-pre"
+                  className="truncate whitespace-pre"
                 >
                   {entry.Message}
                 </div>
