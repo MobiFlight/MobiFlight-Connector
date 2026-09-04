@@ -19,7 +19,7 @@ namespace MobiFlight.BrowserMessages.Transport
     /// third-party dependency; only the HTTP Upgrade handshake is ours. Loopback-only.
     /// See docs/architecture/frontend-backend-messaging.md.
     /// </summary>
-    public class MessageServer : IDisposable
+    public sealed class MessageServer : IDisposable
     {
         private const string WebSocketGuid = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
@@ -236,8 +236,12 @@ namespace MobiFlight.BrowserMessages.Transport
             IsRunning = false;
             if (Current == this) Current = null;
         }
-
-        public void Dispose() => Stop();
+        public void Dispose()
+        {
+            Stop();
+            _cts?.Dispose();
+            _listener?.Dispose();
+        }
 
         /// <summary>One WebSocket connection. Send channel + writer task, since WebSocket.SendAsync allows only one outstanding call at a time.</summary>
         private class Connection : IDisposable
