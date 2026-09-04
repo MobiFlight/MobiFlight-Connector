@@ -48,7 +48,7 @@ const GoldSponsorLogos = () => {
             aria-label={t("Startup.GoldSponsors.OpenSponsorLink", {
               sponsorName: sponsor.name,
             })}
-            className="animate-sponsor-fade-in group/logo relative h-16 w-full min-w-0 cursor-pointer border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
+            className="animate-sponsor-fade-in group/logo relative h-16 w-full min-w-0 border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
             style={{ animationDelay: `${index * 180}ms` }}
             onClick={() => openUrl(sponsor.url)}
           >
@@ -70,9 +70,7 @@ const GoldSponsorLogos = () => {
         <Trans
           i18nKey="Startup.GoldSponsors.Description"
           components={{
-            gold: (
-              <span className="gold-text-shimmer text-sm font-semibold tracking-wide uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]" />
-            ),
+            gold: <span className="gold-text-shimmer" />,
           }}
         />
       </p>

@@ -294,66 +294,19 @@
 
 @layer utilities {
   .sponsor-logo-shimmer {
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    height: 4rem;
-    width: 100%;
-    max-width: 14rem;
-
-    background-image: linear-gradient(
-      90deg,
-      #fbbf24 0%,
-      #fde68a 35%,
-      #ffffff 50%,
-      #fde68a 65%,
-      #fbbf24 100%
-    );
-    background-size: 250% 100%;
-    background-position: -100% 0;
-
-    opacity: 0;
-    transition:
-      background-position 1s ease-out,
-      opacity 1s ease-out,
-      filter 1s ease-out;
-
-    mask-image: var(--sponsor-logo);
-    mask-size: contain;
-    mask-position: center;
-    mask-repeat: no-repeat;
-
-    -webkit-mask-image: var(--sponsor-logo);
-    -webkit-mask-size: contain;
-    -webkit-mask-position: center;
-    -webkit-mask-repeat: no-repeat;
+    @apply pointer-events-none absolute inset-0 m-auto h-16 w-full max-w-56 bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] mask-(--sponsor-logo) bg-size-[250%_100%] bg-position-[-100%_0] mask-contain mask-center mask-no-repeat opacity-0 transition-[background-position,opacity,filter] duration-1000 ease-out [-webkit-mask-image:var(--sponsor-logo)] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain];
   }
 
   .group\/logo:hover .sponsor-logo-shimmer {
-    background-position: 200% 0;
-    opacity: 1;
-    filter: drop-shadow(0px 0px 10px rgb(251 191 36 / 0.8));
+    @apply bg-position-[200%_0] opacity-100 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)];
   }
 
   .gold-text-shimmer {
-    background-image: linear-gradient(
-      90deg,
-      #fbbf24 0%,
-      #fde68a 35%,
-      #ffffff 50%,
-      #fde68a 65%,
-      #fbbf24 100%
-    );
-    background-size: 250% 100%;
-    background-position: -100% 0;
-    background-clip: text;
-    color: transparent;
-    transition: background-position 1s ease-out;
+    @apply bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] bg-size-[250%_100%] bg-clip-text bg-position-[-100%_0] text-sm font-semibold tracking-wide text-transparent uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] transition-[background-position] duration-1000 ease-out;
   }
 
   .gold-text-shimmer:hover {
-    background-position: 200% 0;
+    @apply bg-position-[200%_0];
   }
 
   .sponsor-logo-mask-flitesim {
