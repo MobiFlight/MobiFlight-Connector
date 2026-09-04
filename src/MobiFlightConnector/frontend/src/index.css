@@ -58,6 +58,8 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-low-bounce: low-bounce 800ms ease-in-out infinite;
   --animate-highlight: highlight 2s ease-out;
+  --animate-sponsor-fade-in: sponsor-fade-in 500ms ease-out both;
+  --animate-sponsor-tagline-fade-in: sponsor-tagline-fade-in 2s ease-out both;
 
   @keyframes accordion-down {
     from {
@@ -116,6 +118,26 @@
     }
     50% {
       transform: translateX(5px);
+    }
+  }
+
+  @keyframes sponsor-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes sponsor-tagline-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 
@@ -239,8 +261,8 @@
   }
 }
 
-/* 
-  Add pointer cursor to all buttons and elements with role="button" 
+/*
+  Add pointer cursor to all buttons and elements with role="button"
   The default cursor had changed with tailwindcss v4.
 */
 @layer base {
@@ -267,6 +289,12 @@
       var(--tw-inset-shadow), var(--tw-inset-ring-shadow),
       var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     clip-path: inset(0px 0px 0px 2px);
+  }
+}
+
+@layer utilities {
+  .gold-shimmer {
+    @apply bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] bg-size-[250%_100%] bg-position-[-100%_0] transition-[background-position] duration-1000 ease-out;
   }
 }
 
