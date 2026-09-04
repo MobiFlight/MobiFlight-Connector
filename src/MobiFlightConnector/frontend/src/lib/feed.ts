@@ -81,9 +81,7 @@ export const fetchRemoteCommunityFeedWithFallback = async ({
   const primaryLanguage = resolveLanguage(language)
   const fallbackLanguage = "en"
 
-  const languagesToTry = Array.from(
-    new Set([primaryLanguage, fallbackLanguage]),
-  )
+  const languagesToTry = [...new Set([primaryLanguage, fallbackLanguage])]
 
   let lastError: unknown
 

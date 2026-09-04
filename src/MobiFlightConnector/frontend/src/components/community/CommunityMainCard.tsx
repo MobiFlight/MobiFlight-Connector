@@ -39,8 +39,7 @@ const CommunityMainCard = () => {
     import.meta.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
   ).trim()
 
-  const language =
-    i18n.languages?.[0] || i18n.language || i18n.resolvedLanguage || "en"
+  const language = i18n.language || i18n.resolvedLanguage || "en"
 
   const remoteFeedQuery = useQuery({
     queryKey: ["community-feed", language, remoteFeedBaseUrl],
