@@ -192,7 +192,7 @@ namespace MobiFlight.UI.Panels.Input
                 panel.Padding = new Padding(2, 0, 2, 0);
                 panel.Dock = DockStyle.Top;
 
-                // Add config panel to ownwer panel
+                // Add config panel to owner panel
                 owner.Controls.Add(panel);
                 owner.Dock = DockStyle.Top;
                 OnPanelChanged?.Invoke(panel, EventArgs.Empty);

@@ -299,7 +299,7 @@ namespace MobiFlight.Tests
             module.SetBrightness(0, brightness);
             WaitForQueueUpdate();
             DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{brightness};";
-            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brigthness change should always send command.");
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brightness change should always send command.");
 
             mockTransport.Clear();
             module.ClearState();

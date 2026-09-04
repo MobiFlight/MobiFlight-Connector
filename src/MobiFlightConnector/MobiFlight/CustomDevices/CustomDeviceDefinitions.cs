@@ -34,7 +34,7 @@ namespace MobiFlight.CustomDevices
         }
 
         /// <summary>
-        /// Loads all device definintions from disk.
+        /// Loads all device definitions from disk.
         /// </summary>
         public static void LoadDefinitions()
         {

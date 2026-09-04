@@ -2031,7 +2031,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Length input field is visible
     const mappingRows = modifierEditor.getByRole("row")
 
-    // intially there are 3 rows for the header
+    // initially there are 3 rows for the header
     // and the two default mappings
     await expect(mappingRows).toHaveCount(3)
 
@@ -2140,7 +2140,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Length input field is visible
     const mappingRows = modifierEditor.getByRole("row")
 
-    // intially there are 3 rows for the header
+    // initially there are 3 rows for the header
     // and the two default mappings
     await expect(mappingRows).toHaveCount(3)
 
@@ -2234,7 +2234,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     // Length input field is visible
     const mappingRows = modifierEditor.getByRole("row")
 
-    // intially there are 3 rows for the header
+    // initially there are 3 rows for the header
     // and the two default mappings
     await expect(mappingRows).toHaveCount(3)
 
@@ -2402,7 +2402,7 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
 
     const sequenceRows = modifierEditor.getByRole("row")
 
-    // intially there are 2 rows
+    // initially there are 2 rows
     // one for the header
     // and one for default sequence
     await expect(sequenceRows).toHaveCount(2)

@@ -1,7 +1,7 @@
 # MobiFlight Config Files
 
 These config files have been written to allow you to use the Kav Simulations LCD displays.
-There are various versions within each directory, but the general structure is that there is a 'All-In-One' config which encompases the entire cockpit.
+There are various versions within each directory, but the general structure is that there is a 'All-In-One' config which encompasses the entire cockpit.
 I.e., it contains 1x FCU, 2X EFIS, 6x RMP, 2x Battery Voltage, 1x TCAS and 1x Rudder Trim.
 Then there are configs split up to each section of the cockpit (Glareshield, Overhead & Pedestal).
 

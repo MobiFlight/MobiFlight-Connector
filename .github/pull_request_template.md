@@ -37,4 +37,4 @@ fixes #ISSUE_NUMBER
 <!-- mention what is not covered by this PR -->
 
 ### Notes
-<!-- provide furhter information that might be of interest -->
+<!-- provide further information that might be of interest -->

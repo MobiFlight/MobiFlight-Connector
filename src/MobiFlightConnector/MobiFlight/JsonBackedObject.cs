@@ -79,7 +79,7 @@ namespace MobiFlight
         /// <returns>The created object, or null if the object creation failed (due to schema validation failure or other error).</returns>
         private static T LoadFromFile<T>(string path, JSchema schema) where T : IMigrateable
         {
-            // Load the inital, un-migrated, file, then migrate it. Migration has to
+            // Load the initial, un-migrated, file, then migrate it. Migration has to
             // happen before schema validation to ensure old files that have an upgrade
             // flow won't fail validation.
             var definition = JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
