@@ -292,6 +292,87 @@
   }
 }
 
+@layer utilities {
+  .sponsor-logo-shimmer {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: 4rem;
+    width: 100%;
+    max-width: 14rem;
+
+    background-image: linear-gradient(
+      90deg,
+      #fbbf24 0%,
+      #fde68a 35%,
+      #ffffff 50%,
+      #fde68a 65%,
+      #fbbf24 100%
+    );
+    background-size: 250% 100%;
+    background-position: -100% 0;
+
+    opacity: 0;
+    transition:
+      background-position 1s ease-out,
+      opacity 1s ease-out,
+      filter 1s ease-out;
+
+    mask-image: var(--sponsor-logo);
+    mask-size: contain;
+    mask-position: center;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-image: var(--sponsor-logo);
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  .group\/logo:hover .sponsor-logo-shimmer {
+    background-position: 200% 0;
+    opacity: 1;
+    filter: drop-shadow(0px 0px 10px rgb(251 191 36 / 0.8));
+  }
+
+  .gold-text-shimmer {
+    background-image: linear-gradient(
+      90deg,
+      #fbbf24 0%,
+      #fde68a 35%,
+      #ffffff 50%,
+      #fde68a 65%,
+      #fbbf24 100%
+    );
+    background-size: 250% 100%;
+    background-position: -100% 0;
+    background-clip: text;
+    color: transparent;
+    transition: background-position 1s ease-out;
+  }
+
+  .gold-text-shimmer:hover {
+    background-position: 200% 0;
+  }
+
+  .sponsor-logo-mask-flitesim {
+    --sponsor-logo: url("./assets/sponsors/flitesim-logo.png");
+  }
+
+  .sponsor-logo-mask-moza {
+    --sponsor-logo: url("./assets/sponsors/moza-logo.png");
+  }
+
+  .sponsor-logo-mask-vkb {
+    --sponsor-logo: url("./assets/sponsors/vkb-logo.png");
+  }
+
+  .sponsor-logo-mask-wingflex {
+    --sponsor-logo: url("./assets/sponsors/wingflex-logo.png");
+  }
+}
+
 @custom-variant vxs (@media (min-height: 500px));
 @custom-variant vsm (@media (min-height: 650px));
 @custom-variant vlg (@media (min-height: 900px));

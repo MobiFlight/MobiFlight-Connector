@@ -1,5 +1,5 @@
 import SplashLogo from "@/components/SplashLogo"
-import GoldSponsorLogo from "@/components/GoldSponsorLogo"
+import GoldSponsorLogos from "@/components/GoldSponsorLogos"
 import { Progress } from "./ui/progress"
 import { StatusBarUpdate } from "@/types/messages"
 import { useEffect, useState } from "react"
@@ -76,7 +76,7 @@ const StartupProgress = () => {
         <p className="text-white select-none">{t(startupProgress.Text)}</p>
       </div>
       <div className="absolute right-0 bottom-8 left-0 px-24">
-        <GoldSponsorLogo />
+        <GoldSponsorLogos />
       </div>
     </div>
   )

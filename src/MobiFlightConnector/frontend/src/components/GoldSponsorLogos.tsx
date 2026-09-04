@@ -4,32 +4,36 @@ import flitesim from "../assets/sponsors/flitesim-logo.png"
 import moza from "../assets/sponsors/moza-logo.png"
 import vkb from "../assets/sponsors/vkb-logo.png"
 import wingflex from "../assets/sponsors/wingflex-logo.png"
-import { CSSProperties } from "react"
+import { Button } from "./ui/button"
 
 const goldSponsors = [
   {
     name: "Flitesim",
     logo: flitesim,
     url: "https://flitesim.com/?ref=mobiflight",
+    mask: "sponsor-logo-mask-flitesim",
   },
   {
     name: "Moza",
     logo: moza,
     url: "https://mozaracing.com/mobiflight",
+    mask: "sponsor-logo-mask-moza",
   },
   {
     name: "VKB",
     logo: vkb,
     url: "https://vkb-sim.pro/?utm_source=mobiflight",
+    mask: "sponsor-logo-mask-vkb",
   },
   {
     name: "WingFlex",
     logo: wingflex,
     url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
+    mask: "sponsor-logo-mask-wingflex",
   },
 ]
 
-const GoldSponsorLogo = () => {
+const GoldSponsorLogos = () => {
   const { t } = useTranslation()
   const openUrl = useOpenUrl()
 
@@ -37,13 +41,14 @@ const GoldSponsorLogo = () => {
     <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center select-none">
       <div className="grid w-full grid-cols-4 items-center gap-8 md:gap-12">
         {goldSponsors.map((sponsor, index) => (
-          <button
+          <Button
             key={sponsor.name}
             type="button"
+            variant="ghost"
             aria-label={t("Startup.GoldSponsors.OpenSponsorLink", {
               sponsorName: sponsor.name,
             })}
-            className="animate-sponsor-fade-in group/logo relative flex h-16 w-full min-w-0 cursor-pointer items-center justify-center opacity-0 focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:outline-none"
+            className="animate-sponsor-fade-in group/logo relative h-16 w-full min-w-0 cursor-pointer border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
             style={{ animationDelay: `${index * 180}ms` }}
             onClick={() => openUrl(sponsor.url)}
           >
@@ -56,14 +61,9 @@ const GoldSponsorLogo = () => {
             />
             <span
               aria-hidden="true"
-              className="[mask-(--sponsor-logo)] [mask-contain] [mask-center] [mask-no-repeat] pointer-events-none absolute inset-0 m-auto h-16 w-full max-w-56 bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] bg-size-[250%_100%] bg-position-[-100%_0] opacity-0 transition-[background-position,opacity,filter] duration-1000 ease-out [-webkit-mask-image:var(--sponsor-logo)] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] group-hover/logo:bg-position-[200%_0] group-hover/logo:opacity-100 group-hover/logo:drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"
-              style={
-                {
-                  "--sponsor-logo": `url(${sponsor.logo})`,
-                } as CSSProperties
-              }
+              className={`sponsor-logo-shimmer ${sponsor.mask}`}
             />
-          </button>
+          </Button>
         ))}
       </div>
       <p className="animate-sponsor-tagline-fade-in text-xs leading-tight text-slate-300 opacity-0">
@@ -71,7 +71,7 @@ const GoldSponsorLogo = () => {
           i18nKey="Startup.GoldSponsors.Description"
           components={{
             gold: (
-              <span className="bg-[linear-gradient(90deg,#fbbf24_0%,#fde68a_35%,#ffffff_50%,#fde68a_65%,#fbbf24_100%)] bg-size-[250%_100%] bg-clip-text bg-position-[-100%_0] text-sm font-semibold tracking-wide text-transparent uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] transition-[background-position] duration-1000 ease-out hover:bg-position-[200%_0]" />
+              <span className="gold-text-shimmer text-sm font-semibold tracking-wide uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]" />
             ),
           }}
         />
@@ -80,4 +80,4 @@ const GoldSponsorLogo = () => {
   )
 }
 
-export default GoldSponsorLogo
+export default GoldSponsorLogos
