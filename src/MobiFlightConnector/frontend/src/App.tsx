@@ -11,6 +11,7 @@ import LoaderOverlay from "./components/tables/config-item-table/LoaderOverlay"
 import { Toaster } from "./components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { ToastNotificationHandler } from "./components/notifications/ToastNotificationHandler"
+import ConfirmationDialogShutdownHandler from "@/components/ConfirmationDialogShutdownHandler"
 
 import DebugInfo from "@/components/DebugInfo"
 import LogPanel from "@/components/LogPanel"
@@ -56,7 +57,7 @@ function App() {
           <ResizablePanelGroup orientation="vertical">
             <ResizablePanel className="flex grow flex-col overflow-hidden">
               <div className="flex grow flex-col overflow-hidden">
-                <MainMenu/>
+                <MainMenu />
                 {/* Uncomment the Navbar if needed */}
                 {/* <Navbar /> */}
                 <div className="flex grow flex-col overflow-hidden">
@@ -83,6 +84,7 @@ function App() {
           <DebugInfo />
         </div>
       )}
+      <ConfirmationDialogShutdownHandler />
       <ToastNotificationHandler />
       <Toaster
         expand
@@ -90,7 +92,7 @@ function App() {
         toastOptions={{ duration: 10000 }}
         position="bottom-right"
         theme={theme}
-        className="flex w-full justify-center ![--width:540px]"
+        className="flex w-full justify-center [--width:540px]!"
       />
     </>
   )

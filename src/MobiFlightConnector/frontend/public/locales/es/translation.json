@@ -225,6 +225,12 @@
       "Description": "Tienes cambios pendientes en tu proyecto. ¿Qué te gustaría hacer?",
       "Save": "Guardar cambios",
       "Discard": "Descartar cambios"
+    },
+    "Shutdown": {
+      "Title": "Cerrar",
+      "Description": "¿Seguro que quieres salir de MobiFlight? Hay cambios sin guardar en el proyecto.",
+      "Discard": "Descartar cambios",
+      "Cancel": "Cancelar"
     }
   },
   "ConfigList": {

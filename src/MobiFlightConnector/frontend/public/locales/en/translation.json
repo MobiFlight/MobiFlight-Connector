@@ -219,6 +219,12 @@
       "Description": "You have unsaved changes in your project. What would you like to do?",
       "Save": "Save changes",
       "Discard": "Discard changes"
+    },
+    "Shutdown": {
+      "Title": "Shutdown",
+      "Description": "Are you sure you want to exit MobiFlight? You have unsaved changes in your project.",
+      "Discard": "Discard changes",
+      "Cancel": "Cancel"
     }
   },
   "ConfigList": {

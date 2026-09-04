@@ -2,7 +2,11 @@ import { Settings } from "http2"
 import { IConfigItem, IConfigValueOnlyItem, MobiFlightVariable } from "./config"
 import { JoystickDefinition, MidiControllerDefinition } from "./definitions"
 import { ProjectInfo } from "@/types/project"
-import { Controller, ControllerBinding, DeviceReference } from "@/types/controller"
+import {
+  Controller,
+  ControllerBinding,
+  DeviceReference,
+} from "@/types/controller"
 import { vJoyDefinition } from "@/types/controller"
 
 export type AppMessageKey =
@@ -30,6 +34,7 @@ export type AppMessageKey =
   | "ProSimDataRefDefinitionUpdate"
   | "VJoyDefinitionsUpdate"
   | "LogEntry"
+  | "ShutdownConfirmationRequested"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -53,6 +58,7 @@ export type AppMessagePayload =
   | ProSimDataRefDefinitionUpdate
   | VJoyDefinitionsUpdate
   | LogEntry
+  | ShutdownConfirmationRequested
 
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -151,6 +157,8 @@ export interface ConnectedControllers {
 export interface AuthenticationStatus {
   Authenticated: boolean
 }
+
+export type ShutdownConfirmationRequested = Record<string, never>
 
 export type ControllerBindingsUpdate = {
   Bindings: ControllerBinding[]

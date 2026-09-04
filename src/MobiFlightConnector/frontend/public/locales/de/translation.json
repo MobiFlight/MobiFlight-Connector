@@ -225,6 +225,12 @@
       "Description": "Du hast ungespeicherte Änderungen in deinem Projekt. Was möchtest du tun?",
       "Save": "Jetzt speichern",
       "Discard": "Änderungen verwerfen"
+    },
+    "Shutdown": {
+      "Title": "Beenden",
+      "Description": "Möchten Sie MobiFlight wirklich beenden? Es gibt ungespeicherte Änderungen im Projekt.",
+      "Discard": "Änderungen verwerfen",
+      "Cancel": "Abbrechen"
     }
   },
   "ConfigList": {

@@ -219,6 +219,12 @@
       "Description": "Projektissasi on tallentamattomia muutoksia. Mitä haluat tehdä?",
       "Save": "Tallenna muutokset",
       "Discard": "Hylkää muutokset"
+    },
+    "Shutdown": {
+      "Title": "Sulkeminen",
+      "Description": "Haluatko varmasti sulkea MobiFlightin? Projektissa on tallentamattomia muutoksia.",
+      "Discard": "Hylkää muutokset",
+      "Cancel": "Peruuta"
     }
   },
   "ConfigList": {
