@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
+using System.Threading;
 
 namespace MobiFlight.BrowserMessages.Tests
 {
@@ -38,8 +40,47 @@ namespace MobiFlight.BrowserMessages.Tests
         [TestCleanup]
         public void TestCleanup()
         {
-            // Clear the singleton state between tests
+            // Clear the singleton state between tests. SetSynchronizationContext(null) matters
+            // beyond this test class - MessageExchange is a process-wide singleton, so a leaked
+            // UI context here would silently break message delivery in every other test class
+            // that shares it, without anything in that other class looking wrong.
             messageExchange.ClearSubscriptions();
+            messageExchange.SetSynchronizationContext(null);
+            messageExchange.SetSynchronizationContextProvider(null);
+        }
+
+        /// <summary>
+        /// A SynchronizationContext backed by one dedicated pump thread, so a test can assert
+        /// that Post() actually ran a callback on a different, identifiable thread - not just
+        /// that some delegate got invoked.
+        /// </summary>
+        private class SingleThreadSyncContext : SynchronizationContext, IDisposable
+        {
+            private readonly BlockingCollection<Action> _queue = new BlockingCollection<Action>();
+            public int ThreadId { get; }
+
+            public SingleThreadSyncContext()
+            {
+                var ready = new ManualResetEventSlim();
+                var threadId = -1;
+                var thread = new Thread(() =>
+                {
+                    threadId = Thread.CurrentThread.ManagedThreadId;
+                    ready.Set();
+                    foreach (var action in _queue.GetConsumingEnumerable())
+                    {
+                        action();
+                    }
+                })
+                { IsBackground = true };
+                thread.Start();
+                ready.Wait();
+                ThreadId = threadId;
+            }
+
+            public override void Post(SendOrPostCallback d, object state) => _queue.Add(() => d(state));
+
+            public void Dispose() => _queue.CompleteAdding();
         }
 
         [TestMethod()]
@@ -90,6 +131,81 @@ namespace MobiFlight.BrowserMessages.Tests
 
             // Assert
             Assert.IsTrue(isSubscriberInvoked, "Subscriber should have been invoked.");
+        }
+
+        [TestMethod()]
+        public void SubscribeTest_RunsInline_EvenWhenUiContextIsSet()
+        {
+            // A UI context is set, as production code does via MainForm.InitializeMessaging -
+            // but a plain Subscribe handler must never use it. This is the property that makes
+            // it safe to invert the old blanket-marshal default (see MessageExchange.Subscribe).
+            using var uiContext = new SingleThreadSyncContext();
+            messageExchange.SetSynchronizationContext(uiContext);
+
+            var testEvent = new Test { Property1 = "TestValue" };
+            var messageJson = JsonConvert.SerializeObject(new Message<object>("Test", testEvent));
+
+            var callingThreadId = Thread.CurrentThread.ManagedThreadId;
+            int observedThreadId = -1;
+            messageExchange.Subscribe<Test>(receivedEvent =>
+            {
+                observedThreadId = Thread.CurrentThread.ManagedThreadId;
+            });
+
+            capturedCallback(messageJson);
+
+            // No Post() involved, so this is safe to assert synchronously right after the call.
+            Assert.AreEqual(callingThreadId, observedThreadId, "Subscribe should run inline on the publishing thread, not the UI context.");
+        }
+
+        [TestMethod()]
+        public void SubscribeOnUiThreadTest_MarshalsOntoCapturedUiContext()
+        {
+            using var uiContext = new SingleThreadSyncContext();
+            messageExchange.SetSynchronizationContext(uiContext);
+
+            var testEvent = new Test { Property1 = "TestValue" };
+            var messageJson = JsonConvert.SerializeObject(new Message<object>("Test", testEvent));
+
+            var callingThreadId = Thread.CurrentThread.ManagedThreadId;
+            var invoked = new ManualResetEventSlim();
+            int observedThreadId = -1;
+            messageExchange.SubscribeOnUiThread<Test>(receivedEvent =>
+            {
+                observedThreadId = Thread.CurrentThread.ManagedThreadId;
+                invoked.Set();
+            });
+
+            capturedCallback(messageJson);
+
+            Assert.IsTrue(invoked.Wait(1000), "SubscribeOnUiThread handler should have run.");
+            Assert.AreEqual(uiContext.ThreadId, observedThreadId, "Handler should run on the captured UI thread.");
+            Assert.AreNotEqual(callingThreadId, observedThreadId, "Handler must not run inline on the publishing thread.");
+        }
+
+        [TestMethod()]
+        public void SubscribeOnUiThreadTest_SyncContextProviderWinsOverCapturedContext()
+        {
+            // Mirrors MainFormTests.TestMessagePublisher.SimulateIncomingMessage, which relies on
+            // SetSynchronizationContextProvider(() => null) forcing inline dispatch regardless of
+            // whatever UI context is captured.
+            using var uiContext = new SingleThreadSyncContext();
+            messageExchange.SetSynchronizationContext(uiContext);
+            messageExchange.SetSynchronizationContextProvider(() => null);
+
+            var testEvent = new Test { Property1 = "TestValue" };
+            var messageJson = JsonConvert.SerializeObject(new Message<object>("Test", testEvent));
+
+            var callingThreadId = Thread.CurrentThread.ManagedThreadId;
+            int observedThreadId = -1;
+            messageExchange.SubscribeOnUiThread<Test>(receivedEvent =>
+            {
+                observedThreadId = Thread.CurrentThread.ManagedThreadId;
+            });
+
+            capturedCallback(messageJson);
+
+            Assert.AreEqual(callingThreadId, observedThreadId, "SetSynchronizationContextProvider(() => null) should win over the captured UI context.");
         }
 
         [TestMethod()]

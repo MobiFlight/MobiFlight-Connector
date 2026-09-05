@@ -7,18 +7,6 @@ namespace MobiFlight.WebView
 {
     public class ThreadSafeWebView2 : WebView2, IWebView2Adapter
     {
-        public void PostWebMessageAsJsonThreadSafe(string jsonMessage)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action(() => CoreWebView2?.PostWebMessageAsJson(jsonMessage)));
-            }
-            else
-            {
-                CoreWebView2?.PostWebMessageAsJson(jsonMessage);
-            }
-        }
-
         // IWebView2Adapter implementation
         string IWebView2Adapter.Source => CoreWebView2?.Source ?? string.Empty;
 

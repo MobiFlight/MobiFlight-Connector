@@ -23,6 +23,8 @@ using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
+using MobiFlight.BrowserMessages.Publisher;
+using MobiFlight.BrowserMessages.Transport;
 using System.Drawing;
 using MobiFlight.BrowserMessages.Incoming.Handler;
 using System.ComponentModel;
@@ -50,6 +52,7 @@ namespace MobiFlight.UI
 
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
+        private MessageServer messageServer;
 
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
@@ -194,6 +197,9 @@ namespace MobiFlight.UI
             // this shall happen before anything else
             InitializeFrontendSubscriptions();
 
+            // Start messaging before InitializeComponent() creates FrontendPanel/WebViews below.
+            InitializeMessaging();
+
             // set up the old winforms UI
             InitializeUILanguage();
 
@@ -216,17 +222,63 @@ namespace MobiFlight.UI
             InitializeTracking();
         }
 
+        /// <summary>Captures the UI SynchronizationContext and starts the message server. Overridden as a no-op in tests - see MainFormTests.TestableMainForm.</summary>
+        protected virtual void InitializeMessaging()
+        {
+            if (System.Threading.SynchronizationContext.Current == null)
+                System.Threading.SynchronizationContext.SetSynchronizationContext(new System.Windows.Forms.WindowsFormsSynchronizationContext());
+            MessageExchange.Instance.SetSynchronizationContext(System.Threading.SynchronizationContext.Current);
+
+            InitializeMessageServer();
+        }
+
+        private void InitializeMessageServer()
+        {
+            var port = Properties.Settings.Default.FrontendWebSocketPort;
+
+#if DEBUG
+            var allowedOrigin = "http://localhost:5173";
+#else
+            var allowedOrigin = "https://mobiflight.app";
+#endif
+
+            messageServer = new MessageServer(port, allowedOrigin);
+
+            try
+            {
+                messageServer.Start();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Failed to start frontend WebSocket server on port {port}: {ex.Message}", LogSeverity.Error);
+                return;
+            }
+
+            MessageExchange.Instance.SetPublisher(new WebSocketServerPublisher(messageServer));
+        }
+
         private void InitializeFrontendSubscriptions()
         {
-            MessageExchange.Instance.Subscribe<CommandFrontendState>((message) =>
+            // OnUiThread: drives the whole OnFrontendReady boot sequence, which touches WinForms
+            // controls throughout. Remove as that boot sequence moves to React.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandFrontendState>((message) =>
             {
-                if (message.Route == "/start" && message.State == CommandFrontendState.RouteState.Ready && !frontendReady)
+                if (message.Route != "/start" || message.State != CommandFrontendState.RouteState.Ready) return;
+
+                if (!frontendReady)
                 {
                     frontendReady = true;
                     OnFrontendReady(null, EventArgs.Empty);
                 }
+                else
+                {
+                    // Reconnect: re-push state without repeating the one-time boot.
+                    PublishFullState();
+                }
             });
 
+            // Not marked OnUiThread: OpenOutputConfigWizardForId marshals onto the UI thread
+            // itself (InvokeRequired/Invoke) before touching WinForms controls.
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
             {
                 var msg = message;
@@ -237,7 +289,8 @@ namespace MobiFlight.UI
                 }
             });
 
-            MessageExchange.Instance.Subscribe<CommandAddConfigFile>((message) =>
+            // OnUiThread: AddNewFileToProject / mergeToolStripMenuItem_Click touch WinForms state.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigFile>((message) =>
             {
                 if (message.Type == CommandAddConfigFileType.create)
                 {
@@ -251,23 +304,27 @@ namespace MobiFlight.UI
 
             var commandMainMenuHandler = new CommandMainMenuHandler(this);
 
-            MessageExchange.Instance.Subscribe<CommandMainMenu>((message) =>
+            // OnUiThread: opens dialogs / menu actions.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandMainMenu>((message) =>
             {
                 commandMainMenuHandler.Handle(message);
             });
 
             var commandProjectToolbarHandler = new CommandProjectToolbarHandler(this);
-            MessageExchange.Instance.Subscribe<CommandProjectToolbar>((message) =>
+            // OnUiThread: toolbar actions touch WinForms state.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandProjectToolbar>((message) =>
             {
                 commandProjectToolbarHandler.Handle(message);
             });
 
-            MessageExchange.Instance.Subscribe<CommandDiscardChanges>((message) =>
+            // OnUiThread: SetTitle touches Form.Text.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandDiscardChanges>((message) =>
             {
                 ProjectHasUnsavedChanges = false;
                 SetTitle("");
             });
 
+            // Not OnUiThread: no WinForms/shared state, just URL validation + Process.Start.
             MessageExchange.Instance.Subscribe<CommandOpenLinkInBrowser>((message) =>
             {
                 if (!message.Url.IsValidUrl())
@@ -278,14 +335,16 @@ namespace MobiFlight.UI
                 ProcessHelpers.OpenUrl(message.Url);
             });
 
-            MessageExchange.Instance.Subscribe<CommandControllerBindingsUpdate>((message) =>
+            // OnUiThread: ProjectOrConfigFileHasChanged touches WinForms state.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandControllerBindingsUpdate>((message) =>
             {
                 ControllerBindingService.UpdateControllerBindings(execManager.Project, message.Bindings);
                 MessageExchange.Instance.Publish(execManager.Project);
                 ProjectOrConfigFileHasChanged();
             });
 
-            MessageExchange.Instance.Subscribe<CommandUserAuthentication>((message) =>
+            // OnUiThread: BeginAuthProcess/EndAuthProcess navigate and toggle Visible on the auth WebView.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUserAuthentication>((message) =>
             {
 
                 if (message.State == CommandUserAuthenticationState.started)
@@ -462,10 +521,6 @@ namespace MobiFlight.UI
 
         private async void OnFrontendReady(object sender, EventArgs e)
         {
-            // Let the frontend appender know that frontend is ready
-            // so that we can dequeue available log messages
-            frontendAppender.FrontendAvailable = true;
-
             // Initialize the board configurations
             BoardDefinitions.LoadDefinitions();
 
@@ -501,6 +556,22 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
+#if ARCAZE
+            _initializeArcazeModuleSettings();
+#endif
+            Update();
+            Refresh();
+
+            await PublishStartupState();
+        }
+
+        /// <summary>One-time boot tail - only ever called once, from OnFrontendReady.</summary>
+        private async Task PublishStartupState()
+        {
+            // Let the frontend appender know that frontend is ready
+            // so that we can dequeue available log messages
+            frontendAppender.FrontendAvailable = true;
+
             updateNotifyContextMenu(false);
 
             // Reset the Title of the Main Window so that it displays the Version too.
@@ -509,14 +580,29 @@ namespace MobiFlight.UI
             StartupProgressValue = 0;
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Starting" });
 
-#if ARCAZE
-            _initializeArcazeModuleSettings();
-#endif
-            Update();
-            Refresh();
-
             PublishSettings();
             await InitializeRecentProjectsListAsync();
+            MessageExchange.Instance.Publish(execManager.Project);
+        }
+
+        /// <summary>
+        /// Re-sends a snapshot of the app's current live state on a reconnect (backend restart,
+        /// dev HMR, sleep/wake, network blip) - NOT the startup sequence. Excludes transient
+        /// one-off events (Notification, OverlayState, AuthenticationStatus) and anything the
+        /// 200ms tick already keeps current (ConfigValueRawAndFinalUpdate).
+        /// </summary>
+        private void PublishFullState()
+        {
+            PublishSettings();
+            PublishProjectList();
+            MessageExchange.Instance.Publish(execManager.Project);
+            MessageExchange.Instance.Publish(new ProjectStatus { HasChanged = ProjectHasUnsavedChanges });
+            UpdateExecutionState();
+            execManager.PublishConnectedDevices();
+            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate
+            {
+                Variables = execManager.GetAvailableVariables().Values.ToList()
+            });
         }
 
         private async Task InitializeRecentProjectsListAsync()
@@ -882,6 +968,7 @@ namespace MobiFlight.UI
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             runningStateBadge?.Dispose();
+            messageServer?.Stop();
         } //Form1_FormClosed
 
         private void SaveWindowPositionAndZoomLevel()

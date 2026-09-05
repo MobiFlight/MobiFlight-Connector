@@ -64,7 +64,6 @@
 		<PackageReference Include="websocket-sharp.net" />
 		<PackageReference Include="XPlaneConnector" />
 		<PackageReference Include="System.IO.Ports" />
-		<PackageReference Include="System.Net.WebSockets.Client.Managed" />
 		<PackageReference Include="System.Reactive" />
 	</ItemGroup>
 
