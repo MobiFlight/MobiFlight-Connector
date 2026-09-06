@@ -968,7 +968,7 @@ namespace MobiFlight.UI
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             runningStateBadge?.Dispose();
-            messageServer?.Stop();
+            messageServer?.Dispose();
         } //Form1_FormClosed
 
         private void SaveWindowPositionAndZoomLevel()

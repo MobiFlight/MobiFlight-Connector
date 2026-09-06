@@ -52,9 +52,9 @@ namespace MobiFlight.UI.Panels
             await InitializeWebView(FrontendWebView, "/start", injectWsUrl: true);
 
             // Auth WebView stays on postMessage - see docs/architecture/frontend-backend-messaging.md.
-            await InitializeWebView(UserAuthenticationWebView, "/", injectWsUrl: false);
             new WebViewMessageReceiver(UserAuthenticationWebView).MessageReceived
                 += MessageExchange.Instance.PublishReceivedMessage;
+            await InitializeWebView(UserAuthenticationWebView, "/", injectWsUrl: false);
         }
 
         private async Task InitializeWebView(ThreadSafeWebView2 webView, string route, bool injectWsUrl)

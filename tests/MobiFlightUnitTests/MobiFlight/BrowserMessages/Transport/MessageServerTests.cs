@@ -26,7 +26,7 @@ namespace MobiFlight.BrowserMessages.Transport.Tests
         [TestCleanup]
         public void Cleanup()
         {
-            _server.Stop();
+            _server.Dispose();
         }
 
         private async Task<bool> WaitForConnectionCountAsync(int expected, int timeoutMs = 2000)
