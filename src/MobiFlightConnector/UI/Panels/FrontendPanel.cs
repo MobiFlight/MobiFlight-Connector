@@ -69,6 +69,11 @@ namespace MobiFlight.UI.Panels
                 await FrontendWebView.EnsureCoreWebView2Async(null);
                 await UserAuthenticationWebView.EnsureCoreWebView2Async(null);
 
+                if (_isShuttingDown || IsDisposed || Disposing)
+                {
+                    return;
+                }
+
                 InitializeWebView(FrontendWebView, "/start");
                 InitializeWebView(UserAuthenticationWebView);
 
