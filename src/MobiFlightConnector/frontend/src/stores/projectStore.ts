@@ -96,41 +96,31 @@ export const useProjectStore = create<ProjectState>((set) => ({
     }),
 
   updateConfigItem: (index: number, updatedItem: IConfigItem, upsert = false) =>
-    set((state) => {
-      if (!state.project?.ConfigFiles[index]) return state
+  set((state) => {
+    if (!state.project?.ConfigFiles[index]) return state
 
-      const currentItems: IConfigItem[] =
-        state.project.ConfigFiles[index].ConfigItems ?? []
-      const itemIndex: number = currentItems.findIndex(
-        (existingItem) => existingItem.GUID === updatedItem.GUID,
-      )
+    const currentItems = state.project.ConfigFiles[index].ConfigItems ?? []
+    const itemIndex = currentItems.findIndex(
+      (existingItem) => existingItem.GUID === updatedItem.GUID,
+    )
 
-      let updatedItems = [] as IConfigItem[]
+    let updatedItems = [...currentItems]
+    if (itemIndex !== -1) {
+      updatedItems[itemIndex] = updatedItem
+    } else if (upsert) {
+      updatedItems = [...currentItems, updatedItem]
+    }
 
-      if (itemIndex === -1 && !upsert) {
-        return state
-      }
-
-      if (itemIndex !== -1) {
-        // Update existing item
-        updatedItems = [...currentItems]
-        updatedItems[itemIndex] = updatedItem
-      } else if (upsert) {
-        // Insert new item if upsert is true
-        updatedItems = [...currentItems, updatedItem]
-      }
-
-      // Create completely new Project object
-      const newProject: Project = {
+    return {
+      project: {
         ...state.project,
         ConfigFiles: state.project.ConfigFiles.map((file, i) =>
-          i === index
-            ? { ...file, ConfigItems: [...updatedItems] } // New array reference
-            : file,
+          i === index ? { ...file, ConfigItems: updatedItems } : file,
         ),
-      }
-      return { project: newProject }
-    }),
+      },
+      hasChanged: true,
+    }
+  }),
   clearProject: () => set({ project: null }),
   setControllerBindings: (bindings: ControllerBinding[]) => {
     set((state) => {
@@ -178,6 +168,15 @@ export const useProjectStore = create<ProjectState>((set) => ({
           ...draggedItems,
           ...targetItemsWithoutDragged.slice(dropIndex),
         ]
+        console.log("🔥 ACTUAL STORE MOVE", {
+  dropIndex,
+  draggedItems: draggedItems.map((i) => i.GUID),
+  finalTargetItems: finalTargetItems.map((item, index) => ({
+    index,
+    guid: item.GUID,
+    name: item.Name,
+  })),
+})
 
         // Create completely new Project object with new ConfigFiles array
         const newProject: Project = {
@@ -193,7 +192,10 @@ export const useProjectStore = create<ProjectState>((set) => ({
           }),
         }
 
-        return { project: newProject }
+        return {
+          project: newProject,
+          hasChanged: true,
+        }
       }),
     // In projectStore.ts, add this action
     restoreItemsToOriginalPositions: (

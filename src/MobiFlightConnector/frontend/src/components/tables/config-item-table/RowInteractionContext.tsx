@@ -3,9 +3,13 @@ import { RowInteractionContext, RowInteractionContextValue } from "./RowInteract
 
 interface RowInteractionProviderProps {
   children: ReactNode
+  handleRef?: (element: Element | null) => void
 }
 
-export const RowInteractionProvider = ({ children }: RowInteractionProviderProps) => {
+export const RowInteractionProvider = ({
+  children,
+  handleRef,
+}: RowInteractionProviderProps) => {
   const nameEditRef = useRef<(() => void) | undefined>(undefined)
 
   const registerNameEdit = (editFn: () => void) => {
@@ -19,6 +23,7 @@ export const RowInteractionProvider = ({ children }: RowInteractionProviderProps
   const value: RowInteractionContextValue = {
     startNameEdit,
     registerNameEdit,
+    handleRef,
   }
 
   return (
