@@ -21,14 +21,7 @@ namespace MobiFlight.BrowserMessages
         private static MessageExchange _instance;
         private IMessagePublisher _messagePublisher;
 
-        /// <summary>
-        /// Setting a contextProvider is only required for integration tests
-        /// Provide a () => null provider so that the synchronization context is not used during unit tests,
-        /// Outside of unit tests, a working synchronization context will automatically be available
-        /// </summary>
-        private Func<System.Threading.SynchronizationContext> _syncContextProvider;
-
-        /// <summary>UI thread context, captured via SetSynchronizationContext; used only by SubscribeOnUiThread.</summary>
+        /// <summary>UI thread context, set via SetSynchronizationContext; used only by SubscribeOnUiThread. Null forces inline dispatch (e.g. in tests).</summary>
         private System.Threading.SynchronizationContext _uiSynchronizationContext;
 
         public static MessageExchange Instance
@@ -118,23 +111,14 @@ namespace MobiFlight.BrowserMessages
                         subscription.Callback.GetType().GetMethod("Invoke")?.Invoke(subscription.Callback, new[] { deserializedPayload });
                     };
 
-                    if (!subscription.OnUiThread)
+                    var isInvokedOnUiThread = subscription.OnUiThread && _uiSynchronizationContext != null;
+
+                    if (isInvokedOnUiThread)
                     {
-                        invokeSubscriber();
+                        _uiSynchronizationContext.Post((_) => invokeSubscriber(), null);
                         continue;
                     }
-
-                    var synchronizationContext = _syncContextProvider != null
-                        ? _syncContextProvider.Invoke()
-                        : (_uiSynchronizationContext ?? System.Threading.SynchronizationContext.Current);
-
-                    if (synchronizationContext == null)
-                    {
-                        invokeSubscriber();
-                        continue;
-                    }
-
-                    synchronizationContext.Post((_) => invokeSubscriber(), null);
+                    invokeSubscriber();
                 }
             }
             catch (Exception e)
@@ -188,12 +172,7 @@ namespace MobiFlight.BrowserMessages
                 }
             }
         }
-        public void SetSynchronizationContextProvider(Func<System.Threading.SynchronizationContext> provider)
-        {
-            _syncContextProvider = provider;
-        }
-
-        /// <summary>Call once from the UI thread during startup, before any publisher is set.</summary>
+        /// <summary>Call once from the UI thread during startup, before any publisher is set. Pass null to force inline dispatch (tests).</summary>
         public void SetSynchronizationContext(System.Threading.SynchronizationContext context)
         {
             _uiSynchronizationContext = context;

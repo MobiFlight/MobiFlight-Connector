@@ -46,7 +46,6 @@ namespace MobiFlight.BrowserMessages.Tests
             // that shares it, without anything in that other class looking wrong.
             messageExchange.ClearSubscriptions();
             messageExchange.SetSynchronizationContext(null);
-            messageExchange.SetSynchronizationContextProvider(null);
         }
 
         /// <summary>
@@ -184,14 +183,13 @@ namespace MobiFlight.BrowserMessages.Tests
         }
 
         [TestMethod()]
-        public void SubscribeOnUiThreadTest_SyncContextProviderWinsOverCapturedContext()
+        public void SubscribeOnUiThreadTest_ClearingContextForcesInlineDispatch()
         {
             // Mirrors MainFormTests.TestMessagePublisher.SimulateIncomingMessage, which relies on
-            // SetSynchronizationContextProvider(() => null) forcing inline dispatch regardless of
-            // whatever UI context is captured.
+            // SetSynchronizationContext(null) forcing inline dispatch after a UI context was captured.
             using var uiContext = new SingleThreadSyncContext();
             messageExchange.SetSynchronizationContext(uiContext);
-            messageExchange.SetSynchronizationContextProvider(() => null);
+            messageExchange.SetSynchronizationContext(null);
 
             var testEvent = new Test { Property1 = "TestValue" };
             var messageJson = JsonConvert.SerializeObject(new Message<object>("Test", testEvent));
@@ -205,7 +203,7 @@ namespace MobiFlight.BrowserMessages.Tests
 
             capturedCallback(messageJson);
 
-            Assert.AreEqual(callingThreadId, observedThreadId, "SetSynchronizationContextProvider(() => null) should win over the captured UI context.");
+            Assert.AreEqual(callingThreadId, observedThreadId, "SetSynchronizationContext(null) should force inline dispatch.");
         }
 
         [TestMethod()]

@@ -568,9 +568,10 @@ namespace MobiFlight.UI.Tests
 
             public void SimulateIncomingMessage(string jsonMessage)
             {
-                MessageExchange.Instance.SetSynchronizationContextProvider(() => null);
+                // Force inline dispatch - this test's MainForm never calls SetSynchronizationContext,
+                // but the singleton could carry a leftover context from another test class.
+                MessageExchange.Instance.SetSynchronizationContext(null);
                 _onMessageReceived?.Invoke(jsonMessage);
-                MessageExchange.Instance.SetSynchronizationContextProvider(null);
             }
         }
     }
