@@ -57,7 +57,7 @@ namespace MobiFlight.UI.Panels
             await InitializeWebView(UserAuthenticationWebView, "/", injectWsUrl: false);
         }
 
-        private async Task InitializeWebView(ThreadSafeWebView2 webView, string route, bool injectWsUrl)
+        private async Task InitializeWebView(WebView2Adapter webView, string route, bool injectWsUrl)
         {
             if (IsRunningInProduction)
             {

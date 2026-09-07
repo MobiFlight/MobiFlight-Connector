@@ -8,7 +8,7 @@ namespace MobiFlight.BrowserMessages.Transport
     {
         public event Action<string> MessageReceived;
 
-        public WebViewMessageReceiver(ThreadSafeWebView2 webView)
+        public WebViewMessageReceiver(WebView2Adapter webView)
         {
             webView.WebMessageReceived += (sender, args) => MessageReceived?.Invoke(args.WebMessageAsJson);
         }
