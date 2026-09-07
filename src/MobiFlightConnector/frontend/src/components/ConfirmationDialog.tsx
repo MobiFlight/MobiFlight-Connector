@@ -12,6 +12,7 @@ export type ConfirmationDialogProps = {
   onOpenChange: (open: boolean) => void
   saveChanges: () => void
   discardChanges: () => void
+  cancel: () => void
 }
 
 const ConfirmationDialog = ({
@@ -19,6 +20,7 @@ const ConfirmationDialog = ({
   onOpenChange,
   saveChanges,
   discardChanges,
+  cancel,
 }: ConfirmationDialogProps) => {
   const { t } = useTranslation()
 
@@ -30,11 +32,14 @@ const ConfirmationDialog = ({
         </DialogHeader>
         <div>{t("Project.UnsavedChanges.Description")}</div>
         <div className="flex flex-row justify-end gap-4">
+          <Button onClick={saveChanges}>
+            {t("Project.UnsavedChanges.Save")}
+          </Button>
           <Button variant="ghost" onClick={discardChanges}>
             {t("Project.UnsavedChanges.Discard")}
           </Button>
-          <Button onClick={saveChanges}>
-            {t("Project.UnsavedChanges.Save")}
+          <Button variant="ghost" onClick={cancel}>
+            {t("Project.UnsavedChanges.Cancel")}
           </Button>
         </div>
       </DialogContent>

@@ -52,7 +52,7 @@ const ProjectPanel = () => {
 
   const configFiles = project?.ConfigFiles ?? []
   const { configId } = useParams() as { configId?: string }
-  
+
   useEffect(() => {
     if (project === null) return
 
@@ -209,6 +209,10 @@ const ProjectPanel = () => {
       })
     }
     navigate("/home")
+  }
+
+  const handleCancel = () => {
+    setIsDialogOpen(false)
   }
 
   // Hover timer ref
@@ -391,10 +395,10 @@ const ProjectPanel = () => {
         onOpenChange={setIsDialogOpen}
         saveChanges={saveChanges}
         discardChanges={discardChanges}
+        cancel={handleCancel}
       />
       {configId && <InputConfigDialog configId={configId} />}
     </div>
   )
 }
-
 export default ProjectPanel

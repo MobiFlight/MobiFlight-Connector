@@ -16,9 +16,14 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
 
         public void Handle(CommandShutdown command)
         {
-            if (command.Action == CommandShutdownAction.discardChanges)
+            switch (command.Action)
             {
-                _mainForm.confirmShutdownDiscardingChanges();
+                case CommandShutdownAction.saveChanges:
+                    _mainForm.confirmShutdownSavingChanges();
+                    break;
+                case CommandShutdownAction.discardChanges:
+                    _mainForm.confirmShutdownDiscardingChanges();
+                    break;
             }
         }
     }

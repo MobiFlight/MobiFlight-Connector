@@ -129,7 +129,7 @@ export interface CommandFileContextMenu extends CommandMessageBase {
 export interface CommandShutdown extends CommandMessageBase {
   key: "CommandShutdown"
   payload: {
-    action: "discardChanges"
+    action: "discardChanges" | "saveChanges"
   }
 }
 

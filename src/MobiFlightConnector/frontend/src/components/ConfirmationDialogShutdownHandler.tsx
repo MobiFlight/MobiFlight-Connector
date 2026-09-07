@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import messageExchange from "@/lib/messageExchange"
-import ConfirmationDialogShutdown from "@/components/ConfirmationDialogShutdown"
+import ConfirmationDialog from "@/components/ConfirmationDialog"
 
 const ConfirmationDialogShutdownHandler = () => {
   const [open, setOpen] = useState(false)
@@ -10,6 +10,17 @@ const ConfirmationDialogShutdownHandler = () => {
   useAppMessage("ShutdownConfirmationRequested", () => {
     setOpen(true)
   })
+
+  const handleSaveChanges = () => {
+    setOpen(false)
+
+    publish({
+      key: "CommandShutdown",
+      payload: {
+        action: "saveChanges",
+      },
+    })
+  }
 
   const handleDiscardChanges = () => {
     setOpen(false)
@@ -22,16 +33,17 @@ const ConfirmationDialogShutdownHandler = () => {
     })
   }
 
-  const handleCancelShutdown = () => {
+  const handleCancel = () => {
     setOpen(false)
   }
 
   return (
-    <ConfirmationDialogShutdown
+    <ConfirmationDialog
       open={open}
-      onOpenShutdown={setOpen}
+      onOpenChange={setOpen}
+      saveChanges={handleSaveChanges}
       discardChanges={handleDiscardChanges}
-      cancel={handleCancelShutdown}
+      cancel={handleCancel}
     />
   )
 }

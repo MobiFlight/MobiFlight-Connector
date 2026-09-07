@@ -215,14 +215,9 @@
       }
     },
     "UnsavedChanges": {
-      "Title": "Unsaved changes",
-      "Description": "You have unsaved changes in your project. What would you like to do?",
+      "Title": "Save your changes",
+      "Description": "Would you like to save your pending changes?",
       "Save": "Save changes",
-      "Discard": "Discard changes"
-    },
-    "Shutdown": {
-      "Title": "Shutdown",
-      "Description": "Are you sure you want to exit MobiFlight? You have unsaved changes in your project.",
       "Discard": "Discard changes",
       "Cancel": "Cancel"
     }

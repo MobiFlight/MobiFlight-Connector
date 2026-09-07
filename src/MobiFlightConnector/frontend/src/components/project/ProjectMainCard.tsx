@@ -94,6 +94,10 @@ const ProjectMainCard = () => {
     }
   }
 
+  const handleCancel = () => {
+    setIsDialogOpen(false)
+  }
+
   const confirmLoadProject = (project: ProjectInfo) => {
     if (hasChanged) {
       // display confirmation dialog
@@ -193,6 +197,7 @@ const ProjectMainCard = () => {
           onOpenChange={setIsDialogOpen}
           saveChanges={handleSaveChanges}
           discardChanges={handleDiscardChanges}
+          cancel={handleCancel}
         />
         <LoaderOverlay
           message={t("General.Overlay.SavingChanges")}

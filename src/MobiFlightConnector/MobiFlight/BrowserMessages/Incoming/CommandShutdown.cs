@@ -9,6 +9,9 @@ namespace MobiFlight.BrowserMessages.Incoming
 {
     public enum CommandShutdownAction
     {
+        [EnumMember(Value = "saveChanges")]
+        saveChanges,
+
         [EnumMember(Value = "discardChanges")]
         discardChanges
     }
