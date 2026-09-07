@@ -251,6 +251,8 @@ namespace MobiFlight.UI
             catch (Exception ex)
             {
                 Log.Instance.log($"Failed to start frontend WebSocket server on port {port}: {ex.Message}", LogSeverity.Error);
+                _showError("MobiFlight won't work correctly because the frontend WebSocket server failed to start. Please check that port " + port + " is not blocked by a firewall or already in use by another application.");
+
                 return;
             }
 
