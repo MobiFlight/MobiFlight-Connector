@@ -482,14 +482,16 @@ namespace MobiFlight
 
         public virtual void SetOutputDeviceState(string name, byte state)
         {
+            var names = name.Split('|');
+
             foreach (var light in Lights)
             {
-                if (light.Label != name) continue;
+                if (names.All(n => light.Label != n)) continue;
+
                 if (light.State == state) continue;
 
                 light.State = state;
                 RequiresOutputUpdate = true;
-                return;
             }
         }
 
