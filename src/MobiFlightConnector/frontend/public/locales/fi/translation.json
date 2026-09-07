@@ -215,7 +215,7 @@
       }
     },
     "UnsavedChanges": {
-      "Title": "Tallenna muutokset",
+      "Title": "Tallenna muutokset?",
       "Description": "Haluatko tallentaa odottavat muutokset?",
       "Save": "Tallenna muutokset",
       "Discard": "Hylkää muutokset",

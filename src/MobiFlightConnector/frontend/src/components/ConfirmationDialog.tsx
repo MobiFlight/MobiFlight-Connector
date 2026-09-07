@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
@@ -27,10 +28,12 @@ const ConfirmationDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
-        <DialogHeader className="sr-only">
+        <DialogHeader className="">
           <DialogTitle>{t("Project.UnsavedChanges.Title")}</DialogTitle>
+          <DialogDescription>
+            {t("Project.UnsavedChanges.Description")}
+          </DialogDescription>
         </DialogHeader>
-        <div>{t("Project.UnsavedChanges.Description")}</div>
         <div className="flex flex-row justify-end gap-4">
           <Button variant="ghost" onClick={discardChanges}>
             {t("Project.UnsavedChanges.Discard")}

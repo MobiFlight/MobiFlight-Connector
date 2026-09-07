@@ -215,7 +215,7 @@
       }
     },
     "UnsavedChanges": {
-      "Title": "Guardar alterações",
+      "Title": "Guardar alterações?",
       "Description": "Pretende guardar as alterações pendentes?",
       "Save": "Guardar alterações",
       "Discard": "Descartar alterações",

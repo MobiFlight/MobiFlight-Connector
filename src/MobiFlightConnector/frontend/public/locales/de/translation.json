@@ -221,7 +221,7 @@
       }
     },
     "UnsavedChanges": {
-      "Title": "Änderungen speichern",
+      "Title": "Änderungen speichern?",
       "Description": "Möchten Sie Ihre ausstehenden Änderungen speichern?",
       "Save": "Änderungen speichern",
       "Discard": "Änderungen verwerfen",
