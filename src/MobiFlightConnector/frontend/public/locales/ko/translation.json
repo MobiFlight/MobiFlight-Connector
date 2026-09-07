@@ -1,0 +1,865 @@
+{
+  "General": {
+    "Action": {
+      "OpenMenu": "메뉴 열기"
+    },
+    "Overlay": {
+      "OpeningWizard": "설치 마법사를 여는 중...",
+      "SavingChanges": "프로젝트를 저장하는 중..."
+    },
+    "HubHopUpdate": {
+      "Error": "HubHop 업데이트에 실패했습니다. 나중에 다시 시도해 주세요.",
+      "Success": "HubHop 업데이트가 성공적으로 완료되었습니다!",
+      "Title": "HubHop 업데이트 사용 가능",
+      "Description": "HubHop 데이터베이스가 {{days}}일 이상 오래되었습니다. 지금 업데이트하시겠습니까?",
+      "Title.Downloading": "HubHop 업데이트를 다운로드하는 중..."
+    },
+    "Error": {
+      "FallbackTitle": "앗... 문제가 발생했습니다!",
+      "Unknown": "알 수 없는 오류가 발생했습니다."
+    },
+    "ComboBox": {
+      "NoOptions": "옵션이 없습니다.",
+      "Placeholder": "선택...",
+      "SearchPlaceholder": "검색..."
+    },
+    "Copy": "복사",
+    "Paste": "붙여넣기",
+    "NewFeature": "신규"
+  },
+  "MainMenu": {
+    "File": {
+      "Label": "파일",
+      "New": "새로 만들기",
+      "Open": "열기...",
+      "Save": "저장",
+      "SaveAs": "다른 이름으로 저장...",
+      "RecentProjects": "최근 프로젝트",
+      "RecentProjects.None": "프로젝트가 존재하지 않습니다",
+      "Exit": "종료"
+    },
+    "View": {
+      "Label": "보기",
+      "Zoom": {
+        "Reset": "확대/축소 초기화",
+        "In": "확대",
+        "Out": "축소",
+        "Shortcut": {
+          "Reset": "Ctrl+0",
+          "In": "Ctrl++",
+          "Out": "Ctrl+-"
+        }
+      },
+      "Log": {
+        "Show": "로그 패널 표시",
+        "Hide": "로그 패널 숨기기"
+      }
+    },
+    "Extras": {
+      "Label": "추가 기능",
+      "HubHop.DownloadLatestPresets": "최신 프리셋 다운로드",
+      "MSFS.ReinstallWASMModule": "WASM 모듈 다시 설치",
+      "CopyLogs": "로그를 클립보드에 복사",
+      "ControllerBindings": "컨트롤러 연결",
+      "Settings": "설정"
+    },
+    "Help": {
+      "Label": "도움말",
+      "Documentation": "문서",
+      "CheckForUpdates": "업데이트 확인",
+      "VisitDiscord": "Discord 서버",
+      "VisitHubHop": "HubHop 웹사이트",
+      "VisitYouTube": "YouTube 채널",
+      "About": "정보",
+      "ReleaseNotes": "릴리스 노트"
+    }
+  },
+  "Types": {
+    "Output": "출력",
+    "LedModule": "7세그먼트 디스플레이",
+    "Stepper": "스테퍼",
+    "Servo": "서보",
+    "LcdDisplay": "LCD 디스플레이",
+    "ShiftRegister": "출력 시프트 레지스터",
+    "CustomDevice": "사용자 지정 장치",
+    "InputShiftRegister": "입력 시프트 레지스터",
+    "Button": "버튼",
+    "Encoder": "인코더",
+    "AnalogInput": "아날로그 입력",
+    "-": "설정 안 됨",
+    "OutputConfigItem": "출력 설정",
+    "InputConfigItem": "입력 설정",
+    "InputAction": "입력 동작"
+  },
+  "Project": {
+    "Label": "프로젝트",
+    "File.Action": {
+      "Add": "프로필 추가",
+      "New": "새 프로필 추가",
+      "Label": "새 프로필",
+      "Merge": "기존 프로젝트에서 가져오기",
+      "Rename": "이름 변경",
+      "Remove": "제거",
+      "Export": "내보내기"
+    },
+    "Toolbar": {
+      "Save": {
+        "HasChanges": "변경 사항 저장",
+        "NoChanges": "변경 사항 없음",
+        "Success": "저장 성공"
+      },
+      "Settings": "설정"
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "자동",
+        "Enable": "자동 실행 활성화",
+        "Disable": "자동 실행 비활성화"
+      },
+      "Run": {
+        "Label": "실행",
+        "Stop": "중지",
+        "Start": "실행 모드를 시작하고 모든 설정 처리",
+        "StopMode": "실행 모드 중지",
+        "BlockedByTest": "테스트 모드가 활성화되어 있습니다. 먼저 중지하세요."
+      },
+      "Test": {
+        "Label": "테스트",
+        "Stop": "중지",
+        "Start": "테스트 모드를 시작하고 모든 설정 테스트",
+        "StopMode": "테스트 모드 실행 중지",
+        "BlockedByRun": "실행 모드가 활성화되어 있습니다. 먼저 중지하세요."
+      }
+    },
+    "Tabs": {
+      "ScrollLeft": "왼쪽으로 스크롤",
+      "ScrollRight": "오른쪽으로 스크롤"
+    },
+    "Simulator": {
+      "msfs": "Microsoft Flight Simulator",
+      "xplane": "X-Plane",
+      "p3d": "Prepar3D",
+      "fsx": "FSX / FS2004",
+      "prosim": "ProSim",
+      "none": "시뮬레이터 없음"
+    },
+    "BindingStatus": {
+      "Match": "컨트롤러 연결됨",
+      "AutoBind": "자동 연결된 컨트롤러",
+      "Missing": "컨트롤러 없음",
+      "RequiresManualBind": "수동 연결 필요"
+    },
+    "Card": {
+      "Main": {
+        "Title": "내 프로젝트",
+        "Description": "내 프로젝트에 퀵 액세스.",
+        "AllProjects": "모든 프로젝트",
+        "CurrentProject": "현재 프로젝트",
+        "NoActiveProject": "현재 로드된 프로젝트가 없습니다.",
+        "CreateFirstProject": "첫 프로젝트를 만들어 시작하세요!",
+        "BindingIssuesTooltip": "클릭하여 컨트롤러 연결 문제 보기"
+      },
+      "Filter": {
+        "Search": {
+          "Placeholder": "프로젝트 필터..."
+        }
+      },
+      "NoActiveProjectHint": "오른쪽에서 최근 프로젝트 중 하나를 열거나 새 프로젝트를 만들어 시작하세요."
+    },
+    "Form": {
+      "Title": {
+        "New": "새 프로젝트 만들기",
+        "Edit": "프로젝트 편집"
+      },
+      "Description": "이름, 시뮬레이터, 항공기 등의 프로젝트 설정을 구성합니다.",
+      "Name": {
+        "Label": "프로젝트 이름",
+        "Placeholder": "예: Boeing 737 홈 콕핏",
+        "Error": {
+          "Required": "프로젝트 이름을 입력해 주세요. 필수 항목입니다."
+        }
+      },
+      "Simulator": {
+        "Label": "비행 시뮬레이터",
+        "HelpText": "이 프로젝트의 주 시뮬레이터를 선택하세요.",
+        "UseFsuipc": "FSUIPC - PMDG와 같은 애드온에서 가끔 사용되는 대체 레거시 인터페이스",
+        "UseProSim": "ProSim - ProSim 항공기용 인터페이스",
+        "Feature": "추가 기능"
+      },
+      "Aircraft": {
+        "Label": "항공기",
+        "HelpText": "이 프로젝트의 항공기를 선택하세요.",
+        "Description": "이 프로젝트에서 활성화할 항공기를 하나 이상 선택하세요. 프리셋은 선택된 항공기로 제한됩니다.",
+        "Dialog": {
+          "Title": "항공기 설정",
+          "Description": "이 프로젝트에서 활성화할 항공기를 하나 이상 선택하세요.",
+          "SelectedAircraft": {
+            "Title": "선택된 항공기",
+            "Count": "{{count}}개 선택됨",
+            "None": "선택된 항공기가 없습니다. 필터가 적용되지 않으며 모든 프리셋을 사용할 수 있습니다."
+          },
+          "AvailableAircraft": {
+            "Title": "사용 가능한 항공기",
+            "Count": "{{count}}개 사용 가능",
+            "None": "사용 가능한 항공기가 없습니다."
+          },
+          "SearchPlaceholder": "항공기 검색...",
+          "NoAircraftFound": "사용 가능한 추가 항공기가 없습니다."
+        },
+        "EditList": "항공기 목록 편집",
+        "NotSupported": "이 시뮬레이터에서는 해당 항공기가 지원되지 않습니다."
+      },
+      "Buttons": {
+        "Create": "프로젝트 만들기",
+        "Update": "프로젝트 갱신"
+      }
+    },
+    "UnsavedChanges": {
+      "Title": "저장되지 않은 변경 사항",
+      "Description": "프로젝트에 저장되지 않은 변경 사항이 있습니다. 어떻게 하시겠습니까?",
+      "Save": "변경 사항 저장",
+      "Discard": "변경 취소"
+    }
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "항목 필터..."
+      },
+      "Filter": {
+        "ConfigType": "설정 유형",
+        "Device": "컨트롤러",
+        "Type": "장치",
+        "Name": "이름",
+        "Selected": "{{items}}개 선택됨",
+        "Clear": "필터 지우기",
+        "NoResultsFound": "결과가 없습니다."
+      },
+      "NotSet": "설정 안 됨",
+      "Reset": "필터 초기화",
+      "SelectedRows": {
+        "Commands": {
+          "Label": "{{count}}개 행 선택됨",
+          "Delete": "선택 항목 삭제",
+          "Toggle": "선택 항목 전환",
+          "Clear": "선택 해제"
+        }
+      }
+    },
+    "Header": {
+      "Active": "활성",
+      "Name": "이름 / 설명",
+      "Device": "컨트롤러",
+      "Component": "장치",
+      "Status": "상태",
+      "RawValue": "원시 값",
+      "FinalValue": "최종 값",
+      "Actions": "동작"
+    },
+    "Cell": {
+      "Waiting": "대기 중",
+      "Controller": {
+        "openInSettings": "컨트롤러 설정 열기",
+        "not set": "이 설정에서 사용 중인 컨트롤러가 없습니다."
+      },
+      "Device": {
+        "not set": "이 설정에서 사용 중인 장치가 없습니다."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "새 설정입니다. 항목을 추가해 주세요.",
+      "DropHereToAdd": "새 항목을 추가하려면 여기에 놓으세요.",
+      "NoResultsMatchingFilter": "필터와 일치하는 결과가 없습니다.",
+      "Drag": {
+        "MovingItems": "항목 이동 중"
+      }
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "출력 설정 추가",
+        "DefaultName": "새 출력 설정"
+      },
+      "InputConfigItem": {
+        "Add": "입력 설정 추가",
+        "DefaultName": "새 입력 설정"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "정상",
+        "not satisfied": "전제 조건이 충족되지 않았습니다.",
+        "Error": "전제 조건 평가 중 오류가 발생했습니다. 자세한 내용은 로그를 확인하세요."
+      },
+      "Source": {
+        "available": "소스를 사용할 수 있습니다.",
+        "SIMCONNECT_NOT_AVAILABLE": "이 설정은 SimConnect를 사용하지만 연결이 없습니다.",
+        "FSUIPC_NOT_AVAILABLE": "이 설정은 FSUIPC를 사용하지만 연결이 없습니다.",
+        "XPLANE_NOT_AVAILABLE": "이 설정은 X-Plane을 사용하지만 연결이 없습니다.",
+        "PROSIM_NOT_AVAILABLE": "이 설정은 ProSim을 사용하지만 연결이 없습니다.",
+        "ReadError": "읽는 중 오류가 발생했습니다. 자세한 내용은 로그를 확인하세요."
+      },
+      "Modifier": {
+        "Error": "오류가 있는 수정자가 적용되었습니다.",
+        "OK": "수정자가 적용되었습니다."
+      },
+      "Device": {
+        "NotConnected": "이 설정에서 사용 중인 장치가 연결되어 있지 않습니다.",
+        "Connected": "이 설정에서 사용 중인 장치가 연결되어 있습니다."
+      },
+      "Test": {
+        "Executing": "이 설정은 현재 테스트 중입니다.",
+        "NotExecuting": "이 설정은 현재 테스트 중이 아닙니다."
+      },
+      "ConfigRef": {
+        "Missing": "참조된 설정 중 하나 이상이 없습니다.",
+        "OK": "모든 참조를 사용할 수 있습니다."
+      }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "새 설정이 생성되었지만 표시되지 않습니다.",
+        "Description": "현재 필터 설정과 일치하지 않아 설정이 목록에 표시되지 않습니다.",
+        "Action": "필터 초기화"
+      }
+    }
+  },
+  "Notifications": {
+    "ControllerAutoBindSuccessful": {
+      "Title": "좋은 소식입니다!",
+      "Description": "프로젝트가 ‘{{controllerName}}’와 함께 작동하도록 업데이트되었습니다. 모든 준비가 끝났습니다!"
+    },
+    "ControllerManualBindRequired": {
+      "Title": "입력이 필요합니다!",
+      "Description": "이 프로필에서 사용되는 {{controllerName}}에는 프로젝트가 올바르게 작동하도록 수동 바인딩이 필요합니다.",
+      "Action": "컨트롤러 바인딩"
+    },
+    "SimConnectionLost": {
+      "Title": "연결 끊김",
+      "Description": "{{simType}}와의 연결이 끊어졌습니다."
+    },
+    "SimStopped": {
+      "Title": "비행 시뮬레이터 종료됨",
+      "Description": "비행 시뮬레이터가 종료되었습니다. 설정 실행이 중지되었습니다. 설정 실행을 다시 시작하려면 비행 시뮬레이터를 다시 시작하세요."
+    },
+    "TestModeException": {
+      "Title": "테스트 모드 오류",
+      "Description": "{{errorMessage}}"
+    },
+    "ProjectFileLoadError": {
+      "Title": "프로젝트를 로드할 수 없습니다",
+      "Description": "{{fileName}}을(를) 로드하는 중 오류가 발생했습니다 - {{errorMessage}}"
+    }
+  },
+  "Startup": {
+    "Starting": "MobiFlight 시작 중...",
+    "CheckingFirmwareUpdates": "펌웨어 업데이트 확인 중...",
+    "ScanningControllers": "연결된 컨트롤러 검색 중...",
+    "LoadingLastConfig": "마지막 설정 로드 중...",
+    "Finished": "완료.",
+    "Test": {
+      "Loading": "로드 중..."
+    }
+  },
+  "Feed": {
+    "Title": "커뮤니티 피드",
+    "Description": "MobiFlight 커뮤니티의 뉴스와 업데이트입니다.",
+    "NoPosts": "사용 가능한 게시물이 없습니다.",
+    "Filter": {
+      "all": "전체",
+      "shop": "혜택",
+      "events": "이벤트",
+      "community": "커뮤니티"
+    }
+  },
+  "Dialog": {
+    "General": {
+      "GoBack": "뒤로 가기",
+      "Cancel": "취소",
+      "Close": "닫기",
+      "Save": "저장",
+      "SaveChanges": "변경 사항 저장",
+      "ApplyChanges": "변경 사항 적용",
+      "ResetFilters": "필터 초기화",
+      "PendingChangesMessage": "보류 중인 변경 사항이 있습니다. 먼저 적용하거나, 저장하지 않고 이 대화상자를 닫으려면 취소를 클릭하세요."
+    },
+    "ControllerBinding": {
+      "Title": "컨트롤러 바인딩",
+      "Description": "이 프로젝트에서 사용되는 컨트롤러를 컴퓨터에 연결된 물리 컨트롤러에 바인딩합니다.",
+      "Filter": {
+        "all": "전체",
+        "manual": "수동 바인딩",
+        "autobind": "자동 바인딩",
+        "missing": "없음",
+        "match": "일치"
+      },
+      "ControllersInProject": "프로젝트에서 사용 중인 컨트롤러 {{count}}개",
+      "ConnectedControllers": "PC에 연결된 컨트롤러 {{count}}개",
+      "AllSet": "모두 설정되었습니다! 프로젝트 구성이 완료되었습니다.",
+      "SelectController": "컨트롤러 선택",
+      "SearchController": "컨트롤러 검색...",
+      "NoControllerFound": "컨트롤러를 찾을 수 없습니다."
+    },
+    "Modifiers": {
+      "Title": "수정자",
+      "Label": "수정자",
+      "Description": "수정자 시퀀스를 적용하여 원래 값을 변경합니다.",
+      "EditButton": "수정자 편집",
+      "AddButton": "수정자 추가",
+      "Type": {
+        "Transformation": {
+          "Label": "변환",
+          "Description": "지정한 식을 사용하여 입력 값에 변환을 적용합니다.",
+          "Expression": "식"
+        },
+        "Substring": {
+          "Label": "부분 문자열",
+          "Description": "지정한 시작 위치와 끝 위치를 사용하여 입력 값에서 부분 문자열을 추출합니다.",
+          "From": "시작",
+          "To": "끝",
+          "Start": "시작 위치",
+          "End": "끝 위치",
+          "Summary": "<badge>{{start}}</badge>부터 <badge>{{end}}</badge>까지"
+        },
+        "Padding": {
+          "Label": "패딩",
+          "Description": "지정한 길이, 문자, 방향을 사용하여 입력 값의 패딩을 조정합니다.",
+          "Length": "길이",
+          "Character": "문자",
+          "Direction": "방향",
+          "Summary": "길이:<badge>{{length}}</badge> 문자:<badge><kbd>{{character}}</kbd></badge> 방향:<badge>{{direction}}</badge>"
+        },
+        "Interpolation": {
+          "Label": "보간",
+          "Description": "입력 값과 출력 값 사이의 매핑을 정의합니다. 범위를 벗어난 값은 제한됩니다.",
+          "From": "시작",
+          "To": "끝",
+          "Action": "동작",
+          "Mappings": "매핑",
+          "Add": "매핑 추가",
+          "Remove": "매핑 제거",
+          "Summary": "<badge>{{count}}</badge>개의 값 매핑, 범위: <badge>{{min}}</badge>부터 <badge>{{max}}</badge>까지"
+        },
+        "Comparison": {
+          "Label": "비교",
+          "Description": "현재 값을 다른 값과 비교하고 일치 여부에 따라 출력을 조정합니다.",
+          "IfCurrentValue": "현재 값이",
+          "Operator": "연산자",
+          "Value": "값",
+          "Then": "그러면",
+          "Else": "아니면",
+          "Summary": "<span>if</span><badge>$ {{operator}} {{value}}</badge><span>then</span><badge>{{ifValue}}</badge><span>else</span><badge>{{elseValue}}</badge>"
+        },
+        "Blink": {
+          "Label": "깜박임",
+          "Description": "아래 시퀀스를 사용하여 원래 입력 값과 Off 값을 번갈아 표시합니다.",
+          "AlternateValue": "대체 값 (Off)",
+          "BlinkSequence": "깜박임 시퀀스",
+          "On": "On (ms)",
+          "Off": "Off (ms)",
+          "Action": "동작",
+          "Add": "깜박임 간격 추가",
+          "Remove": "깜박임 간격 제거",
+          "Summary": "값 <badge>{{blinkValue}}</badge> 시퀀스 <badge>{{on}}</badge> / <badge>{{off}}</badge>"
+        }
+      },
+      "Summary": {
+        "None": "없음",
+        "More": "+ {{count}}개 더"
+      },
+      "Editor": {
+        "Title": "수정자 편집",
+        "Description": "원래 입력 값을 변경하기 위해 수정자를 추가, 구성, 재정렬, 제거합니다.",
+        "AddModifier": "수정자 추가",
+        "NoModifiers": "정의된 수정자가 없습니다.",
+        "DeleteModifier": "수정자 제거",
+        "MoveUp": "수정자를 위로 이동",
+        "MoveDown": "수정자를 아래로 이동"
+      }
+    },
+    "InputConfigWizard": {
+      "Title": "입력 설정 편집",
+      "Description": "이 대화상자에서 입력 설정의 모든 항목을 편집합니다.",
+      "DrawerTitle": "설정",
+      "ConfigTrigger": {
+        "Title": "트리거",
+        "Description": "트리거는 이 설정을 활성화할 조건이나 이벤트를 정의합니다.",
+        "ScanForInput": "입력 검색",
+        "UseAnyInput": "아무 입력이나 사용",
+        "ClearInput": "입력 지우기",
+        "SelectController": "컨트롤러 선택...",
+        "SearchController": "컨트롤러 검색...",
+        "NoControllerFound": "컨트롤러를 찾을 수 없습니다.",
+        "SelectDevice": "장치 선택...",
+        "SearchDevice": "장치 검색...",
+        "NoDeviceFound": "장치를 찾을 수 없습니다."
+      },
+      "Action": {
+        "Title": "동작",
+        "Description": "각 이벤트에 대한 동작을 정의합니다.",
+        "Copy": "동작 복사",
+        "Paste": "동작 붙여넣기",
+        "NoTriggerDefined": "정의된 트리거가 없습니다. 컨트롤러와 장치를 선택하세요."
+      },
+      "ActionType": {
+        "Title": "1단계 - 동작 유형",
+        "Description": "수행하려는 동작 유형을 선택하세요",
+        "Options": {
+          "MSFS2020CustomInputAction": {
+            "label": "Microsoft Flight Simulator (모든 버전)",
+            "short": "MSFS 프리셋"
+          },
+          "XplaneInputAction": {
+            "label": "X-Plane (모든 버전)",
+            "short": "X-Plane 프리셋"
+          },
+          "ProSimInputAction": {
+            "label": "ProSim",
+            "short": "ProSim 프리셋"
+          },
+          "VariableInputAction": {
+            "label": "MobiFlight - 변수",
+            "short": "변수"
+          },
+          "RetriggerInputAction": {
+            "label": "MobiFlight - 스위치 재트리거",
+            "short": "재트리거"
+          },
+          "KeyInputAction": {
+            "label": "MobiFlight - 키보드 입력",
+            "short": "키보드"
+          },
+          "VJoyInputAction": {
+            "label": "MobiFlight - 가상 조이스틱 입력 (vJoy)",
+            "short": "vJoy"
+          },
+          "FsuipcOffsetInputAction": {
+            "label": "FSUIPC - 오프셋",
+            "short": "FSUIPC 오프셋"
+          },
+          "PmdgEventIdInputAction": {
+            "label": "FSUIPC - PMDG - 이벤트 ID",
+            "short": "PMDG 이벤트 ID"
+          },
+          "LuaMacroInputAction": {
+            "label": "FSUIPC - Lua 매크로",
+            "short": "Lua 매크로"
+          },
+          "JeehellInputAction": {
+            "label": "FSUIPC - Jeehell - 이벤트",
+            "short": "Jeehell 이벤트"
+          },
+          "EventIdInputAction": {
+            "label": "FSUIPC - 이벤트 ID",
+            "short": "이벤트 ID"
+          }
+        }
+      },
+      "Event": {
+        "Edit": "{{eventLabel}} 동작 편집",
+        "Remove": "{{eventLabel}} 동작 제거"
+      },
+      "button": {
+        "Event": {
+          "onPress": {
+            "label": "누를 때",
+            "description": "버튼을 누를 때 동작이 한 번 실행됩니다."
+          },
+          "onRelease": {
+            "label": "놓을 때",
+            "description": "버튼을 놓을 때 동작이 한 번 실행됩니다."
+          },
+          "onHold": {
+            "label": "누르고 있는 동안",
+            "description": "버튼을 일정 시간 동안 누르고 있으면 이 동작이 트리거되며, 지정한 간격으로 반복될 수 있습니다.",
+            "options": {
+              "holdDelay": {
+                "label": "홀드 지연 시간 (ms)",
+                "description": "동작이 트리거되기 전에 버튼을 눌러야 하는 시간(밀리초)입니다."
+              },
+              "repeatDelay": {
+                "label": "반복 지연 시간 (ms)",
+                "description": "버튼을 누르고 있는 동안 동작이 다시 트리거되는 간격(밀리초)입니다. 반복을 비활성화하려면 0으로 설정하세요."
+              }
+            }
+          },
+          "onLongRelease": {
+            "label": "길게 누른 뒤 놓을 때",
+            "description": "지정한 시간 동안 누른 뒤 버튼을 놓으면 동작이 한 번 실행됩니다.",
+            "options": {
+              "longReleaseDelay": {
+                "label": "긴 릴리스 지연 시간 (ms)",
+                "description": "릴리스가 이 동작을 트리거하기 전에 버튼을 눌러야 하는 시간(밀리초)입니다."
+              }
+            }
+          }
+        }
+      },
+      "encoder": {
+        "Event": {
+          "onLeft": {
+            "label": "왼쪽으로",
+            "description": "인코더를 왼쪽으로 돌리면 동작이 한 번 실행됩니다."
+          },
+          "onRight": {
+            "label": "오른쪽으로",
+            "description": "인코더를 오른쪽으로 돌리면 동작이 한 번 실행됩니다."
+          },
+          "onLeftFast": {
+            "label": "왼쪽 빠르게",
+            "description": "인코더를 왼쪽으로 빠르게 돌리면 동작이 한 번 실행됩니다."
+          },
+          "onRightFast": {
+            "label": "오른쪽 빠르게",
+            "description": "인코더를 오른쪽으로 빠르게 돌리면 동작이 한 번 실행됩니다."
+          }
+        }
+      },
+      "analog": {
+        "Event": {
+          "onChange": {
+            "label": "변경 시",
+            "description": "입력 값이 변경되면 동작이 한 번 실행됩니다."
+          }
+        }
+      },
+      "Preconditions": {
+        "Title": "전제 조건",
+        "Label": "전제 조건",
+        "Description": "트리거가 실행되기 위해 충족되어야 하는 조건을 추가하고 수정합니다.",
+        "EditButton": "전제 조건 편집",
+        "AddButton": "전제 조건 추가"
+      },
+      "ConfigReferences": {
+        "Title": "참조",
+        "Label": "참조",
+        "Description": "다른 설정에 대한 참조를 추가하고 이 설정에서 해당 값을 사용합니다.",
+        "EditButton": "참조 편집",
+        "AddButton": "참조 추가"
+      },
+      "PreconditionEditor": {
+        "Title": "전제 조건 편집",
+        "Description": "동작이 실행되기 위해 충족되어야 하는 조건을 추가하고 수정합니다.",
+        "NoPreconditions": "정의된 전제 조건이 없습니다.",
+        "AddPrecondition": "전제 조건 추가",
+        "Active": "활성",
+        "TypePlaceholder": "유형",
+        "SelectConfig": "설정 선택...",
+        "SelectVariable": "변수 선택...",
+        "ValuePlaceholder": "값",
+        "DeletePrecondition": "전제 조건 제거",
+        "SelectPort": "포트 선택...",
+        "SelectPin": "핀 선택...",
+        "Types": {
+          "config": "설정",
+          "variable": "변수",
+          "pin": "Arcaze 핀"
+        },
+        "MoveUp": "전제 조건을 위로 이동",
+        "MoveDown": "전제 조건을 아래로 이동"
+      },
+      "ConfigReferenceEditor": {
+        "Title": "참조 편집",
+        "Description": "참조를 추가 및 수정하고 설정에서 값을 사용할 자리 표시자를 정의합니다.",
+        "NoConfigReferences": "정의된 참조가 없습니다.",
+        "AddConfigReference": "참조 추가",
+        "Active": "활성",
+        "SelectConfig": "설정 선택...",
+        "PlaceholderLabel": "자리 표시자",
+        "TestValueLabel": "테스트 값",
+        "DeleteConfigReference": "참조 제거"
+      },
+      "InputActions": {
+        "Common": {
+          "CodeLabel": "코드",
+          "NoDescriptionAvailable": "사용 가능한 설명 없음",
+          "DescriptionLabel": "설명",
+          "FilterPresets": "텍스트로 프리셋 필터",
+          "FilterByVendor": "벤더로 필터",
+          "SearchVendors": "벤더 검색...",
+          "FilterByAircraft": "항공기로 필터",
+          "SearchAircraft": "항공기 검색...",
+          "FilterBySystem": "시스템으로 필터",
+          "SearchSystems": "시스템 검색...",
+          "SelectPreset": "프리셋 선택",
+          "SearchPresets": "프리셋 검색...",
+          "PresetsFound": "{{count}}개의 프리셋을 찾았습니다",
+          "SupportedPlaceholders": "입력 값(@)과 자리 표시자($, # 등)를 지원합니다",
+          "ActionLabel": "동작",
+          "NameLabel": "이름",
+          "Preset": {
+            "Label": "프리셋",
+            "Title": "2단계 - 프리셋 선택",
+            "Description": "프리셋 라이브러리에서 프리셋을 선택하세요. 검색 범위를 좁히려면 필터를 사용하세요.",
+            "ProjectAircraftOnly": "프로젝트 항공기만",
+            "Vendor": "벤더",
+            "Aircraft": "항공기",
+            "System": "시스템",
+            "Custom": "사용자 지정 프리셋",
+            "Author": "작성자",
+            "Date": "날짜",
+            "Code": {
+              "Title": "3단계 - 프리셋 사용자 지정 (선택 사항)",
+              "Description": "이 프리셋 코드는 시뮬레이터에서 사용됩니다. 직접 편집하거나 위 목록에서 프리셋을 선택할 수 있습니다.",
+              "None": "없음",
+              "Placeholder": "RPN 코드 입력",
+              "Customized": "이 프리셋을 사용자 지정했거나 더 이상 사용할 수 없습니다."
+            }
+          }
+        },
+        "Xplane": {
+          "InputTypeLabel": "입력 유형",
+          "SelectInputTypePlaceholder": "입력 유형 선택",
+          "PathLabel": "경로",
+          "PathPlaceholder": "DataRef 또는 Command 경로를 입력하거나 위에서 프리셋을 선택하세요",
+          "PathDescription": "힌트: 배열에 접근하려면 인덱스 표기법을 사용하세요. 예: 첫 번째 엔진은 sim/cockpit2/annunciators/fuel_pressure_low[0]",
+          "ValueLabel": "값",
+          "ValuePlaceholder": "값 입력"
+        },
+        "ProSim": {
+          "Preset": {
+            "Title": "2단계 - ProSim 입력 동작",
+            "Description": "입력 동작을 구성할 프리셋을 선택하세요."
+          },
+          "PathLabel": "경로",
+          "NoPresetSelected": "선택된 프리셋 없음",
+          "ParameterLabel": "파라미터 (선택 사항)",
+          "ParameterPlaceholder": "파라미터 설정 (선택 사항)",
+          "ParameterNone": "없음"
+        },
+        "VJoy": {
+          "Title": "2단계 - vJoy 구성",
+          "Description": "사용하려는 vJoy 버튼 또는 축을 정의합니다.",
+          "Controller": "컨트롤러",
+          "Device": "장치",
+          "SelectDeviceLabel": "vJoy 장치 선택",
+          "SelectDevicePlaceholder": "vJoy 장치 선택...",
+          "ButtonTab": "버튼",
+          "AxisTab": "축",
+          "ButtonNumberLabel": "버튼 번호",
+          "SelectButtonPlaceholder": "버튼 선택...",
+          "ButtonStateLabel": "버튼 상태",
+          "Pressed": "누름",
+          "Released": "놓음",
+          "SelectAxisPlaceholder": "축 선택...",
+          "AxisValueLabel": "축 값",
+          "ControllerLabel": "vJoy 조이스틱 {{index}}",
+          "None": "없음"
+        },
+        "Keyboard": {
+          "Title": "2단계 - 키보드 입력 구성",
+          "Description": "사용하려는 키보드 키 조합을 정의합니다.",
+          "StopScanning": "검색 중지",
+          "ScanForKeyboard": "키보드 검색",
+          "KeyComboLabel": "키 조합",
+          "None": "없음",
+          "ClearInput": "입력 지우기"
+        },
+        "FsuipcOffset": {
+          "Title": "2단계 - FSUIPC 오프셋 구성",
+          "Description": "사용하려는 FSUIPC 오프셋을 정의합니다.",
+          "TypeLabel": "유형",
+          "SizeLabel": "크기",
+          "OffsetLabel": "오프셋",
+          "MaskLabel": "마스크",
+          "BcdModeLabel": "BCD 모드",
+          "ValueLabel": "값",
+          "ValuePlaceholder": "값 입력"
+        },
+        "LuaMacro": {
+          "Title": "2단계 - Lua 매크로 입력 동작",
+          "Description": "선택적 파라미터와 함께 Lua 매크로를 호출합니다. FSUIPC에 기존 Lua 매크로가 필요합니다.",
+          "MacroNameLabel": "매크로 이름",
+          "MacroNamePlaceholder": "매크로 이름 설정",
+          "MacroValueLabel": "매크로 값",
+          "MacroValuePlaceholder": "매크로 값 설정"
+        },
+        "Jeehell": {
+          "Title": "2단계 - Jeehell 구성",
+          "Description": "사용하려는 Jeehell 함수를 정의합니다. 새로 만들거나 기존 함수를 사용할 수 있습니다.",
+          "FunctionLabel": "Jeehell 함수",
+          "SelectFunctionPlaceholder": "Jeehell 함수 선택...",
+          "ValueLabel": "값"
+        },
+        "EventId": {
+          "Title": "2단계 - 이벤트 ID 정의",
+          "Description": "사용하려는 이벤트 ID를 정의합니다. 새로 만들거나 기존 이벤트 ID를 사용할 수 있습니다.",
+          "PmdgAircraftLabel": "PMDG 항공기",
+          "MouseParamLabel": "마우스 파라미터",
+          "SelectMouseParamPlaceholder": "마우스 파라미터 선택",
+          "EventIdLabel": "이벤트 ID",
+          "CustomParamLabel": "사용자 지정 파라미터"
+        },
+        "Retrigger": {
+          "Title": "재트리거",
+          "Summary": "입력 장치를 시뮬레이터와 동기화합니다.",
+          "NoteLabel": "참고",
+          "Description1": "이 입력 동작을 사용하여 모든 버튼 상태를 다시 트리거합니다.",
+          "Description2": "물리 컨트롤러의 스위치 및 버튼 상태에 가상 콕핏을 동기화하는 데 유용합니다."
+        },
+        "Variable": {
+          "Title": "2단계 - 변수 구성",
+          "Description": "사용하려는 변수를 정의합니다. 새로 만들거나 기존 변수를 사용할 수 있습니다.",
+          "ExistingVariable": "기존 변수 사용",
+          "VariableTypeLabel": "유형",
+          "VariableNameLabel": "이름",
+          "VariableNamePlaceholder": "변수 이름 입력...",
+          "ExpressionLabel": "식",
+          "ExpressionPlaceholder": "식 입력...",
+          "ExpressionHelp": "식에서 변수 값을 나타내려면 <1>$</1>를 사용하세요. 예: 숫자 변수를 두 배로 만들려면 <3>$ * 2</3>"
+        },
+        "ProSimDataRef": {
+          "FilterPresetsPlaceholder": "프리셋 필터",
+          "NoPresetsAvailable": "사용 가능한 프리셋 없음",
+          "RefreshPresets": "프리셋 새로 고침"
+        },
+        "EventIdPresets": {
+          "SelectPresetLabel": "프리셋 선택",
+          "SelectPresetPlaceholder": "프리셋 선택..."
+        }
+      }
+    }
+  },
+  "Auth": {
+    "User": {
+      "SignIn": "로그인",
+      "SignOut": "로그아웃",
+      "Profile": "회원 프로필",
+      "ProfileFeatureComingSoon": "곧 제공 예정"
+    },
+    "Redirect": {
+      "SignIn": "로그인으로 리디렉션 중...",
+      "SignOut": "로그아웃으로 리디렉션 중...",
+      "CompletingFlow": "처리를 완료하는 중...",
+      "FlowSuccessful": "성공!"
+    },
+    "Notification": {
+      "Error": {
+        "Title": "인증 오류",
+        "Description": "인증 중 오류가 발생했습니다.",
+        "ActionCopyToClipboard": "메시지 복사"
+      }
+    }
+  },
+  "Membership": {
+    "Club": "MobiFlight Club",
+    "Status": {
+      "Member": "Club 회원",
+      "Basic": "기본 계정"
+    },
+    "Action": {
+      "Upgrade": "업그레이드"
+    }
+  },
+  "LogPanel": {
+    "Title": "로그",
+    "Empty": "로그 항목 대기 중",
+    "Filter": {
+      "Placeholder": "로그 항목 필터...",
+      "NoResults": "필터와 일치하는 항목이 없습니다.",
+      "Clear": "필터 지우기"
+    },
+    "Resume": "스크롤 재개",
+    "Pause": "스크롤 일시 중지",
+    "Close": "로그 패널 닫기"
+  }
+}
