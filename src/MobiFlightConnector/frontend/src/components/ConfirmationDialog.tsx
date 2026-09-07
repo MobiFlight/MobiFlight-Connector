@@ -32,14 +32,14 @@ const ConfirmationDialog = ({
         </DialogHeader>
         <div>{t("Project.UnsavedChanges.Description")}</div>
         <div className="flex flex-row justify-end gap-4">
-          <Button onClick={saveChanges}>
-            {t("Project.UnsavedChanges.Save")}
-          </Button>
           <Button variant="ghost" onClick={discardChanges}>
             {t("Project.UnsavedChanges.Discard")}
           </Button>
-          <Button variant="ghost" onClick={cancel}>
+          <Button variant="secondary" onClick={cancel}>
             {t("Project.UnsavedChanges.Cancel")}
+          </Button>
+          <Button onClick={saveChanges}>
+            {t("Project.UnsavedChanges.Save")}
           </Button>
         </div>
       </DialogContent>
