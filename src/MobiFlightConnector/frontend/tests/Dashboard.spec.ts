@@ -1048,7 +1048,7 @@ test.describe("Asynchronous save tests", () => {
     const projectItems = recentProjectsList.getByTestId("project-list-item")
     const secondProject = projectItems.nth(1)
     const confirmDialog = page.getByRole("dialog", {
-      name: "Unsaved Changes",
+      name: "Save your changes",
     })
     const saveButton = confirmDialog.getByRole("button", {
       name: "Save changes",
@@ -1107,7 +1107,7 @@ test.describe("Asynchronous save tests", () => {
     const projectItems = recentProjectsList.getByTestId("project-list-item")
     const secondProject = projectItems.nth(1)
     const confirmDialog = page.getByRole("dialog", {
-      name: "Unsaved Changes",
+      name: "Save your changes",
     })
     const saveButton = confirmDialog.getByRole("button", {
       name: "Save changes",
@@ -1146,6 +1146,91 @@ test.describe("Asynchronous save tests", () => {
 
     // we are not loading a new project since the save was cancelled
     expect(lastCommand).toBeUndefined()
+  })
+
+  test("Confirm correct handling when changes are discarded", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+    const secondProject = projectItems.nth(1)
+
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Save your changes",
+    })
+
+    const discardButton = confirmDialog.getByRole("button", {
+      name: "Discard changes",
+    })
+
+    await mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await mobiFlightPage.clearTrackedCommands()
+
+    await secondProject.click()
+    await expect(confirmDialog).toBeVisible()
+
+    await discardButton.click()
+    await expect(confirmDialog).not.toBeVisible()
+
+    const postedCommands = await mobiFlightPage.getTrackedCommands()
+    expect(postedCommands).toHaveLength(1)
+
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandMainMenu")
+    expect(lastCommand.payload.action).toEqual("file.recent")
+    expect(lastCommand.payload.options.project).toEqual(
+      mobiFlightPage.getRecentProjects()[1],
+    )
+  })
+
+  test("Confirm correct handling when navigation is cancelled", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+    const recentProjectsList = page.getByTestId("recent-projects-list")
+    const projectItems = recentProjectsList.getByTestId("project-list-item")
+    const secondProject = projectItems.nth(1)
+
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Save your changes",
+    })
+
+    const cancelButton = confirmDialog.getByRole("button", {
+      name: "Cancel",
+    })
+
+    await mobiFlightPage.updateProjectState({
+      HasChanged: true,
+      SaveStatus: "idle",
+    })
+
+    await mobiFlightPage.clearTrackedCommands()
+
+    await secondProject.click()
+    await expect(confirmDialog).toBeVisible()
+
+    await cancelButton.click()
+    await expect(confirmDialog).not.toBeVisible()
+
+    const postedCommands = await mobiFlightPage.getTrackedCommands()
+    expect(postedCommands).toHaveLength(0)
+
+    await expect(page).toHaveURL(/.*\/home((\/|\?).*)?/)
   })
 })
 

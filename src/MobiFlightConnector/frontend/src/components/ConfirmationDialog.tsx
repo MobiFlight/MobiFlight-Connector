@@ -35,7 +35,7 @@ const ConfirmationDialog = ({
           <Button variant="ghost" onClick={discardChanges}>
             {t("Project.UnsavedChanges.Discard")}
           </Button>
-          <Button variant="secondary" onClick={cancel}>
+          <Button variant="outline" onClick={cancel}>
             {t("Project.UnsavedChanges.Cancel")}
           </Button>
           <Button onClick={saveChanges}>
