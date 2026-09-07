@@ -270,7 +270,7 @@ export function ConfigItemDragProvider({
         hoveredTabIndex,
         0,
       )
-
+      selectActiveFile(hoveredTabIndex)
       setDragState((prev) =>
         prev
           ? {
@@ -287,7 +287,7 @@ export function ConfigItemDragProvider({
           : null,
       )
     },
-    [dragState, moveItemsBetweenConfigs],
+    [dragState, moveItemsBetweenConfigs, selectActiveFile],
   )
 
   /**
@@ -347,11 +347,11 @@ export function ConfigItemDragProvider({
       const overId = operation.target?.id
 
       const effectiveOverId =
-  overId === activeId && lastValidOverIdRef.current !== null
-    ? lastValidOverIdRef.current
-    : overId !== undefined
-      ? String(overId)
-      : undefined
+        overId === activeId && lastValidOverIdRef.current !== null
+          ? lastValidOverIdRef.current
+          : overId !== undefined
+            ? String(overId)
+            : undefined
 
       console.log("🎯 Drag end target:", {
         activeId,
@@ -441,13 +441,31 @@ export function ConfigItemDragProvider({
     (event: DragMoveEvent) => {
       if (!dragState) return
 
-      // Collect all state changes first
       const stateUpdates: Partial<DragState> = {}
-      const { target } = event.operation
+      const { target, position } = event.operation
+
+      let isInsideTable = dragState.ui.isInsideTable
+      if (tableContainerRef && position.current) {
+        const tableRect = tableContainerRef.getBoundingClientRect()
+        const pointerY = position.current.y
+        const pointerX = position.current.x
+        isInsideTable =
+          pointerY >= tableRect.top &&
+          pointerY <= tableRect.bottom &&
+          pointerX >= tableRect.left &&
+          pointerX <= tableRect.right
+      }
+
+      if (isInsideTable !== dragState.ui.isInsideTable) {
+        stateUpdates.ui = {
+          ...dragState.ui,
+          isInsideTable,
+        }
+      }
 
       const hoveringOverTab = target?.data?.type === "tab"
       const hoveredTabIndex = target?.data?.index
-      // Move items if hovering over a different tab
+
       if (
         hoveringOverTab &&
         hoveredTabIndex !== undefined &&
@@ -456,66 +474,37 @@ export function ConfigItemDragProvider({
         moveItemsToHoveredTab(hoveredTabIndex)
         return
       }
-      const previousY = event.operation.position.previous?.y
 
-      if (previousY === undefined) {
-        return
-      }
-      const defaultType =
-        target?.data?.type ?? (Math.abs(previousY) < 15 && "row")
-      const hoveringOverTable = ["table", "row"].includes(
-        target?.data?.type ?? defaultType,
-      )
-
-      if (hoveringOverTable && !dragState.ui.isInsideTable) {
-        console.log("➡️ Entered table area")
-        stateUpdates.ui = {
-          ...dragState.ui,
-          isInsideTable: true,
-        }
-      } else if (!hoveringOverTable && dragState.ui.isInsideTable) {
-        console.log("⬅️ Left table area")
-        stateUpdates.ui = {
-          ...dragState.ui,
-          isInsideTable: false,
-        }
-      }
-
-      // Only update UI state - no store operations here
-      if (hoveringOverTab) {
-        const hoveredTabIndex = target?.data?.index
-
+      if (hoveringOverTab && hoveredTabIndex !== undefined) {
         if (hoveredTabIndex !== dragState.ui.hoveredTabIndex) {
-          console.log("🎯 Tab hover detected:", hoveredTabIndex)
           stateUpdates.ui = {
-            ...dragState.ui,
+            ...(stateUpdates.ui ?? dragState.ui),
             hoveredTabIndex,
           }
         }
-      } else {
-        // Left tab area
-        if (dragState.ui.hoveredTabIndex !== -1) {
-          console.log("⬅️ Left tab area")
-          stateUpdates.ui = {
-            ...dragState.ui,
-            hoveredTabIndex: -1,
-          }
+      } else if (dragState.ui.hoveredTabIndex !== -1) {
+        stateUpdates.ui = {
+          ...(stateUpdates.ui ?? dragState.ui),
+          hoveredTabIndex: -1,
         }
       }
 
-      // Single state update at the end
       if (Object.keys(stateUpdates).length > 0) {
         setDragState((prev) =>
           prev
             ? {
                 ...prev,
                 ...stateUpdates,
+                ui: {
+                  ...prev.ui,
+                  ...(stateUpdates.ui ?? {}),
+                },
               }
             : null,
         )
       }
     },
-    [dragState, moveItemsToHoveredTab],
+    [dragState, tableContainerRef, moveItemsToHoveredTab],
   )
 
   // Context value that child components can access
@@ -546,23 +535,29 @@ export function ConfigItemDragProvider({
 
       if (!collision) return
 
-      const collisionId = collision.id
+      const collisionId = String(collision.id)
 
       const draggedIds =
         dragState?.items.draggedItems.map((item) => item.GUID) ?? []
 
-      console.log("Collision:", collisionId)
-
-      // Ignore the item currently being dragged
-      if (draggedIds.includes(String(collisionId))) {
+      if (draggedIds.includes(collisionId)) {
         return
       }
 
-      lastValidOverIdRef.current = String(collisionId)
+      lastValidOverIdRef.current = collisionId
 
-      console.log("✅ Last valid target:", collisionId)
+      if (collisionId.startsWith("file-button-")) {
+        const tabIndex = parseInt(collisionId.replace("file-button-", ""), 10)
+        if (
+          !isNaN(tabIndex) &&
+          dragState &&
+          tabIndex !== dragState.configs.current
+        ) {
+          moveItemsToHoveredTab(tabIndex)
+        }
+      }
     },
-    [dragState],
+    [dragState, moveItemsToHoveredTab],
   )
   return (
     // Provide context to child components

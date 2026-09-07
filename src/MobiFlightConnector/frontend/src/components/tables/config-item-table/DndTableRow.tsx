@@ -21,6 +21,7 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
     id: props["dnd-itemid"],
     index: props["dnd-index"],
     data: { type: "row" },
+    plugins: [],
   })
 
   const dndStyle: CSSProperties = {
@@ -49,6 +50,7 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
       <tr
         {...props}
         style={dndStyle}
+         role="row"
         ref={ref}
         className={cn(
           "group/row bg-background hover:bg-selected/45 data-[state=selected]:bg-selected/45 data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected/45 dark:data-[state=selected]:hover:bg-selected border-b transition-colors cursor-grab active:cursor-grabbing",

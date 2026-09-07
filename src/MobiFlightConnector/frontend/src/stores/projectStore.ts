@@ -104,6 +104,10 @@ export const useProjectStore = create<ProjectState>((set) => ({
       (existingItem) => existingItem.GUID === updatedItem.GUID,
     )
 
+    if (itemIndex === -1 && !upsert) {
+      return state
+    }
+
     let updatedItems = [...currentItems]
     if (itemIndex !== -1) {
       updatedItems[itemIndex] = updatedItem

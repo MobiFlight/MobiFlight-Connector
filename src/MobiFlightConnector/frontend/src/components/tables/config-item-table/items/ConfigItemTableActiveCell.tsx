@@ -15,7 +15,11 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
   const item = row.original as IConfigItem
   return (
     <div className="flex flex-row py-2">
-      <div className="cursor-move px-1 text-gray-500 opacity-10 transition-opacity delay-100 ease-in group-hover/row:opacity-100 group-hover/row:delay-100 group-hover/row:ease-out dark:text-gray-300">
+      <div
+        role="button"
+        aria-label="Drag handle"
+        className="cursor-move px-1 text-gray-500 opacity-10 transition-opacity delay-100 ease-in group-hover/row:opacity-100 group-hover/row:delay-100 group-hover/row:ease-out dark:text-gray-300"
+      >
         <IconGripVertical className="stroke-2" />
       </div>
       <div className="flex flex-row items-center">

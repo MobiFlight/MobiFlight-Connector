@@ -118,15 +118,13 @@ export const calculateInsertionIndex = (
 
   // If target item not found in filtered list
   if (dropTargetIndex === -1) {
-    if (!isCrossConfig && originalDraggedIndex !== -1) {
-      return originalDraggedIndex
-    }
 
-    return itemsWithoutDragged.length
+
+    return 0
   }
 
   if (isCrossConfig) {
-    return dropTargetIndex + 1
+    return dropTargetIndex 
   }
 
   const originalTargetIndex = currentItems.findIndex(
@@ -173,12 +171,12 @@ export const executeDrop = (
     insertionIndex: number,
   ) => void,
 ): void => {
-  const { sourceConfigIndex, targetConfigIndex, insertionIndex } = dropConfig
+  const { targetConfigIndex, insertionIndex } = dropConfig
 
   // Move items in store
   moveItemsBetweenConfigs(
     dragState.items.draggedItems,
-    sourceConfigIndex,
+    dragState.configs.current,
     targetConfigIndex,
     insertionIndex,
   )
@@ -189,7 +187,7 @@ export const executeDrop = (
     payload: {
       items: dragState.items.draggedItems,
       newIndex: insertionIndex,
-      sourceFileIndex: sourceConfigIndex,
+      sourceFileIndex: dragState.configs.source,
       targetFileIndex: targetConfigIndex,
     },
   } as CommandResortConfigItem)
