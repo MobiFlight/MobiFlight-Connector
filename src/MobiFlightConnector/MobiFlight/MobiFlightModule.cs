@@ -995,7 +995,7 @@ namespace MobiFlight
         {
             bool isOk = SaveName();
             var command = new SendCommand((int)MobiFlightModule.Command.ResetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
-            Log.Instance.log("Reseting config.", LogSeverity.Debug);
+            Log.Instance.log("Resetting config.", LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
             foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize - MessageSizeReductionValue))

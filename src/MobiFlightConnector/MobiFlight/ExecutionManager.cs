@@ -81,7 +81,7 @@ namespace MobiFlight
         private readonly Timer frontendUpdateTimer = new Timer();
 
         /// <summary>
-        /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
+        /// This list contains preparsed information and cached values for the supervised FSUIPC offsets
         /// </summary>
         readonly FSUIPCCacheInterface fsuipcCache;
 
@@ -1061,7 +1061,7 @@ namespace MobiFlight
         /// </summary>
         private void ExecuteConfig()
         {
-            // this is kind of sempahore to prevent multiple execution
+            // this is kind of semaphore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
             if (isExecuting)
             {
