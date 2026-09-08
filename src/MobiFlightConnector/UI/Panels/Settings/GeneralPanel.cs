@@ -29,7 +29,7 @@ namespace MobiFlight.UI.Panels.Settings
             languageOptions.Add(new ListItem() { Value = "fi-FI", Label = "Suomi" });
             languageOptions.Add(new ListItem() { Value = "pt-PT", Label = "Português" });
             languageOptions.Add(new ListItem() { Value = "ru-RU", Label = "Русский" });
-            languageOptions.Add(new ListItem() { Value = "jp-JP", Label = "日本語" });
+            languageOptions.Add(new ListItem() { Value = "ja-JP", Label = "日本語" });
 
             languageComboBox.DataSource = languageOptions;
             languageComboBox.DisplayMember = "Label";
