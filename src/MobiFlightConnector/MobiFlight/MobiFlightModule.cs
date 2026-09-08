@@ -5,6 +5,7 @@ using MobiFlight.Firmware;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -150,14 +151,18 @@ namespace MobiFlight
                 {
                     if (!Connected) return null;
 
+                    var stopwatch = Stopwatch.StartNew();
+
                     var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
                     var InfoCommand = _cmdMessenger.SendCommand(command);
+                    Log.Instance.log($"Config: attempt 1 Ok={InfoCommand.Ok} elapsed={stopwatch.ElapsedMilliseconds}ms raw=[{InfoCommand.RawString}]", LogSeverity.Debug);
 
                     // Sometimes first attempt times out.
                     if (!InfoCommand.Ok)
                     {
                         Log.Instance.log("Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
                         InfoCommand = _cmdMessenger.SendCommand(command);
+                        Log.Instance.log($"Config: attempt 2 Ok={InfoCommand.Ok} elapsed={stopwatch.ElapsedMilliseconds}ms raw=[{InfoCommand.RawString}]", LogSeverity.Debug);
                     }
 
                     // Some boards, like the Arduino Uno, require several attempts
@@ -165,9 +170,15 @@ namespace MobiFlight
                     if (Board.Connection.ExtraConnectionRetry)
                     {
                         if (!InfoCommand.Ok)
+                        {
                             InfoCommand = _cmdMessenger.SendCommand(command);
+                            Log.Instance.log($"Config: extra attempt 3 Ok={InfoCommand.Ok} elapsed={stopwatch.ElapsedMilliseconds}ms raw=[{InfoCommand.RawString}]", LogSeverity.Debug);
+                        }
                         if (!InfoCommand.Ok)
+                        {
                             InfoCommand = _cmdMessenger.SendCommand(command);
+                            Log.Instance.log($"Config: extra attempt 4 Ok={InfoCommand.Ok} elapsed={stopwatch.ElapsedMilliseconds}ms raw=[{InfoCommand.RawString}]", LogSeverity.Debug);
+                        }
                     }
 
                     if (InfoCommand.Ok)
@@ -175,6 +186,7 @@ namespace MobiFlight
                         // This is where the whole config in string form read from the Arduino is loaded
                         // to the internal objects (Config.Config.Items)
                         _config = new Firmware.Config(InfoCommand.ReadStringArg());
+                        Log.Instance.log($"Config: parsed {_config.Items.Count} item(s) from raw=[{InfoCommand.RawString}]", LogSeverity.Debug);
                     }
                     else
                     {
@@ -906,38 +918,54 @@ namespace MobiFlight
                 Port = _comPort,
             };
 
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
             var InfoCommand = _cmdMessenger.SendCommand(command);
 
             if (InfoCommand.Ok)
             {
+                Log.Instance.log($"InfoCommand: 1st call - Retrieved info from {Name} at {_comPort}. Elapsed={stopwatch.ElapsedMilliseconds}ms", LogSeverity.Debug);
                 // Workaround
                 // the following two lines shall get removed
                 // but at the moment something with the timing during startup is wrong.
                 command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
                 InfoCommand = _cmdMessenger.SendCommand(command);
 
-                devInfo.Type = InfoCommand.ReadStringArg();
-                devInfo.Name = InfoCommand.ReadStringArg();
-                devInfo.Serial = InfoCommand.ReadStringArg();
-                String v = InfoCommand.ReadStringArg();
-                if (v.IndexOf(":") == -1)
-                    devInfo.Version = v;
+                if (InfoCommand.Ok)
+                {
+                    Log.Instance.log($"InfoCommand: 2nd call - Retrieved info from {Name} at {_comPort}. Elapsed={stopwatch.ElapsedMilliseconds}ms", LogSeverity.Debug);
+                    devInfo.Type = InfoCommand.ReadStringArg();
+                    devInfo.Name = InfoCommand.ReadStringArg();
+                    devInfo.Serial = InfoCommand.ReadStringArg();
+                    String v = InfoCommand.ReadStringArg();
+                    if (v.IndexOf(":") == -1)
+                        devInfo.Version = v;
+                    else
+                    {
+                        devInfo.Version = "1.0.0";
+                    }
+
+                    // With the support of Custom Devices
+                    // we also introduced CoreVersion
+                    if (InfoCommand.Arguments.Length > 4)
+                    {
+                        CoreVersion = InfoCommand.ReadStringArg();
+                    }
+
+                    Name = devInfo.Name;
+                    Version = devInfo.Version;
+                    Serial = devInfo.Serial;
+                }
                 else
                 {
-                    devInfo.Version = "1.0.0";
+                    Log.Instance.log($"InfoCommand: 2nd call - Unable to retrieve info from {Name} at {_comPort}.", LogSeverity.Error);
                 }
-
-                // With the support of Custom Devices
-                // we also introduced CoreVersion
-                if (InfoCommand.Arguments.Length > 4)
-                {
-                    CoreVersion = InfoCommand.ReadStringArg();
-                }
-
-                Name = devInfo.Name;
-                Version = devInfo.Version;
-                Serial = devInfo.Serial;
+            }
+            else
+            {
+                Log.Instance.log($"InfoCommand: 1st call - Unable to retrieve info from {Name} at {_comPort}.", LogSeverity.Debug);
             }
 
             // Get the board specifics based on the MobiFlight type returned by the firmware. If there's no match,

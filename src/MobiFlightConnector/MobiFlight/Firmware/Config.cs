@@ -195,6 +195,8 @@ namespace MobiFlight.Firmware
                 }
                 catch (ArgumentException ex)
                 {
+                    Log.Instance.log($"Config not valid. Type not valid: {ex.Message}", LogSeverity.Debug);
+                    Log.Instance.log(value, LogSeverity.Debug);
                     if (throwException)
                         throw new FormatException("Config not valid. Type not valid", ex);
                     else
@@ -202,6 +204,8 @@ namespace MobiFlight.Firmware
                 }
                 catch (FormatException ex)
                 {
+                    Log.Instance.log($"Config not valid. Type not valid: {ex.Message}", LogSeverity.Debug);
+                    Log.Instance.log(value, LogSeverity.Debug);
                     if (throwException)
                         throw new FormatException("Config not valid. Type not valid", ex);
                     else
@@ -209,6 +213,8 @@ namespace MobiFlight.Firmware
                 }
                 catch (Exception ex)
                 {
+                    Log.Instance.log($"Config not valid.: {ex.Message}", LogSeverity.Debug);
+                    Log.Instance.log(value, LogSeverity.Debug);
                     if (throwException)
                         throw new Exception("Config not valid.", ex);
                     else
