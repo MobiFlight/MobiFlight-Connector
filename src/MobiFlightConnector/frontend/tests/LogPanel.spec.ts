@@ -47,7 +47,7 @@ test("Log entry messages appear in the panel", async ({
   await configListPage.mobiFlightPage.sendLogEntry(
     "info",
     "Hello from the test",
-    "2026-07-05T12:34:56.789Z"
+    "2026-07-05T12:34:56.789Z",
   )
 
   await configListPage.mobiFlightPage.openLogPanel()
@@ -57,7 +57,7 @@ test("Log entry messages appear in the panel", async ({
   await configListPage.mobiFlightPage.sendLogEntry(
     "info",
     "Single digit time components",
-    "2026-07-05T01:02:03.300Z"
+    "2026-07-05T01:02:03.300Z",
   )
 
   await expect(page.getByText("Single digit time components")).toBeVisible()
@@ -279,5 +279,30 @@ test.describe("Log panel - Toolbar tests", () => {
     await resetFilterButton.click()
     await expect(visibleEntry).toBeVisible()
     await expect(hiddenEntry).toBeVisible()
+  })
+
+  test("Log panel preserves consecutive spaces in log messages", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+
+    await configListPage.mobiFlightPage.sendLogEntry(
+      "info",
+      "Clear display: '        '",
+      "2026-07-05T12:34:56.789Z",
+    )
+
+    await configListPage.mobiFlightPage.openLogPanel()
+
+    const logEntry = page
+      .getByTestId("log-panel-content")
+      .locator('[data-severity="info"]')
+      .filter({ hasText: "Clear display" })
+
+    const message = logEntry.getByTestId("log-entry-message")
+
+    await expect(message).toHaveText("Clear display: '        '")
+    await expect(message).toHaveCSS("white-space", "pre")
   })
 })
