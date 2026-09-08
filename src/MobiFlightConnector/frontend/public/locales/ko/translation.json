@@ -360,7 +360,7 @@
       "Loading": "불러오는 중..."
     },
     "GoldSponsors": {
-      "Description": "<gold>골드 티어 스폰서</gold>분들 덕분에 저희 MobiFlight의 개발에 활력이 넘칩니다!",
+      "Description": "<gold>골드 티어 스폰서</gold> 분들의 지원은 저희 MobiFlight의 힘이 됩니다.",
       "LogoAlt": "{{sponsorName}} 로고",
       "OpenSponsorLink": "{{sponsorName}} 웹사이트 열기"
     }
