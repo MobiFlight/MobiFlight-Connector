@@ -1034,120 +1034,7 @@ test.describe("Project list view tests", () => {
   })
 })
 
-test.describe("Asynchronous save tests", () => {
-  test("Confirm correct handling when saving is successful", async ({
-    dashboardPage,
-    page,
-  }) => {
-    await dashboardPage.gotoPage()
-    await dashboardPage.mobiFlightPage.initWithTestData()
-    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
-
-    const mobiFlightPage = dashboardPage.mobiFlightPage
-    const recentProjectsList = page.getByTestId("recent-projects-list")
-    const projectItems = recentProjectsList.getByTestId("project-list-item")
-    const secondProject = projectItems.nth(1)
-    const confirmDialog = page.getByRole("dialog", {
-      name: "Save your changes",
-    })
-    const saveButton = confirmDialog.getByRole("button", {
-      name: "Save changes",
-    })
-    const overlay = page.getByTestId("loader-overlay")
-
-    // Simulate unsaved changes
-    await mobiFlightPage.updateProjectState({
-      HasChanged: true,
-      SaveStatus: "idle",
-    })
-
-    // Click on second project to trigger loading it
-    await secondProject.click()
-    await expect(confirmDialog).toBeVisible()
-
-    await saveButton.click()
-    await expect(confirmDialog).not.toBeVisible()
-
-    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
-    let lastCommand = postedCommands!.pop()
-    expect(lastCommand.key).toEqual("CommandMainMenu")
-    expect(lastCommand.payload.action).toEqual("file.save")
-
-    // Simulate save started
-    await mobiFlightPage.updateProjectState({ SaveStatus: "saving" })
-    await expect(overlay).toBeVisible()
-
-    // Simulate save completed
-    await mobiFlightPage.updateProjectState({
-      SaveStatus: "success",
-      HasChanged: false,
-    })
-    await expect(overlay).not.toBeVisible()
-
-    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
-    lastCommand = postedCommands!.pop()
-
-    expect(lastCommand.key).toEqual("CommandMainMenu")
-    expect(lastCommand.payload.action).toEqual("file.recent")
-    expect(lastCommand.payload.options.project).toEqual(
-      dashboardPage.mobiFlightPage.getRecentProjects()[1],
-    )
-  })
-
-  test("Confirm correct handling when saving is cancelled", async ({
-    dashboardPage,
-    page,
-  }) => {
-    await dashboardPage.gotoPage()
-    await dashboardPage.mobiFlightPage.initWithTestData()
-    await dashboardPage.mobiFlightPage.trackCommand("CommandMainMenu")
-
-    const mobiFlightPage = dashboardPage.mobiFlightPage
-    const recentProjectsList = page.getByTestId("recent-projects-list")
-    const projectItems = recentProjectsList.getByTestId("project-list-item")
-    const secondProject = projectItems.nth(1)
-    const confirmDialog = page.getByRole("dialog", {
-      name: "Save your changes",
-    })
-    const saveButton = confirmDialog.getByRole("button", {
-      name: "Save changes",
-    })
-    const overlay = page.getByTestId("loader-overlay")
-
-    // Simulate unsaved changes
-    await mobiFlightPage.updateProjectState({ HasChanged: true })
-
-    // Click on second project to trigger loading it
-    await secondProject.click()
-    await expect(confirmDialog).toBeVisible()
-
-    await saveButton.click()
-    await expect(confirmDialog).not.toBeVisible()
-
-    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
-    let lastCommand = postedCommands!.pop()
-    expect(lastCommand.key).toEqual("CommandMainMenu")
-    expect(lastCommand.payload.action).toEqual("file.save")
-    await mobiFlightPage.clearTrackedCommands()
-
-    // Simulate save started
-    await mobiFlightPage.updateProjectState({ SaveStatus: "saving" })
-    await expect(overlay).toBeVisible()
-
-    // Simulate save completed
-    await mobiFlightPage.updateProjectState({
-      SaveStatus: "cancelled",
-      HasChanged: true,
-    })
-    await expect(overlay).not.toBeVisible()
-
-    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
-    lastCommand = postedCommands!.pop()
-
-    // we are not loading a new project since the save was cancelled
-    expect(lastCommand).toBeUndefined()
-  })
-
+test.describe("Pending changes dialog tests", () => {
   test("Confirm correct handling when changes are discarded", async ({
     dashboardPage,
     page,
@@ -1162,7 +1049,7 @@ test.describe("Asynchronous save tests", () => {
     const secondProject = projectItems.nth(1)
 
     const confirmDialog = page.getByRole("dialog", {
-      name: "Save your changes",
+      name: "Discard changes?",
     })
 
     const discardButton = confirmDialog.getByRole("button", {
@@ -1207,11 +1094,11 @@ test.describe("Asynchronous save tests", () => {
     const secondProject = projectItems.nth(1)
 
     const confirmDialog = page.getByRole("dialog", {
-      name: "Save your changes",
+      name: "Discard changes",
     })
 
     const cancelButton = confirmDialog.getByRole("button", {
-      name: "Cancel",
+      name: "Keep editing",
     })
 
     await mobiFlightPage.updateProjectState({

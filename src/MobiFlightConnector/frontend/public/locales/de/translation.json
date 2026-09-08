@@ -219,13 +219,6 @@
         "Create": "Projekt erstellen",
         "Update": "Projekt aktualisieren"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Änderungen speichern?",
-      "Description": "Möchten Sie Ihre ausstehenden Änderungen speichern?",
-      "Save": "Änderungen speichern",
-      "Discard": "Änderungen verwerfen",
-      "Cancel": "Abbrechen"
     }
   },
   "ConfigList": {
@@ -386,6 +379,7 @@
       "Save": "Speichern",
       "SaveChanges": "Änderungen speichern",
       "ApplyChanges": "Änderungen übernehmen",
+      "DiscardChanges": "Änderungen verwerfen",
       "ResetFilters": "Filter zurücksetzen",
       "PendingChangesMessage": "Du hast Änderungen gemacht. Wende sie zuerst an, oder klicke auf Abbrechen, um diesen Dialog ohne Speichern zu schließen."
     },
@@ -824,6 +818,11 @@
           "SelectPresetPlaceholder": "Preset auswählen..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "Änderungen verwerfen?",
+      "Description": "Sie haben ungespeicherte Änderungen. Möchten Sie diese wirklich verwerfen?",
+      "Cancel": "Weiter bearbeiten"
     }
   },
   "Auth": {

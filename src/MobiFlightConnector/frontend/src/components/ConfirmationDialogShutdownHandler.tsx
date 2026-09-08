@@ -11,17 +11,6 @@ const ConfirmationDialogShutdownHandler = () => {
     setOpen(true)
   })
 
-  const handleSaveChanges = () => {
-    setOpen(false)
-
-    publish({
-      key: "CommandShutdown",
-      payload: {
-        action: "saveChanges",
-      },
-    })
-  }
-
   const handleDiscardChanges = () => {
     setOpen(false)
 
@@ -41,7 +30,6 @@ const ConfirmationDialogShutdownHandler = () => {
     <ConfirmationDialog
       open={open}
       onOpenChange={setOpen}
-      saveChanges={handleSaveChanges}
       discardChanges={handleDiscardChanges}
       cancel={handleCancel}
     />

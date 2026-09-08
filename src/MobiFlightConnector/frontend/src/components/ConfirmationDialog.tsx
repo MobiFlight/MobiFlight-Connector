@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next"
 export type ConfirmationDialogProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
-  saveChanges: () => void
   discardChanges: () => void
   cancel: () => void
 }
@@ -19,7 +18,6 @@ export type ConfirmationDialogProps = {
 const ConfirmationDialog = ({
   open,
   onOpenChange,
-  saveChanges,
   discardChanges,
   cancel,
 }: ConfirmationDialogProps) => {
@@ -29,20 +27,17 @@ const ConfirmationDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader className="">
-          <DialogTitle>{t("Project.UnsavedChanges.Title")}</DialogTitle>
+          <DialogTitle>{t("Dialog.UnsavedChanges.Title")}</DialogTitle>
           <DialogDescription>
-            {t("Project.UnsavedChanges.Description")}
+            {t("Dialog.UnsavedChanges.Description")}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-row justify-end gap-4">
-          <Button variant="ghost" onClick={discardChanges}>
-            {t("Project.UnsavedChanges.Discard")}
-          </Button>
           <Button variant="outline" onClick={cancel}>
-            {t("Project.UnsavedChanges.Cancel")}
+            {t("Dialog.UnsavedChanges.Cancel")}
           </Button>
-          <Button onClick={saveChanges}>
-            {t("Project.UnsavedChanges.Save")}
+          <Button variant="destructive" onClick={discardChanges}>
+            {t("Dialog.General.DiscardChanges")}
           </Button>
         </div>
       </DialogContent>
