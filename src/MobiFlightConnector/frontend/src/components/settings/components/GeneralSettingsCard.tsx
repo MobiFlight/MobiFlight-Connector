@@ -49,8 +49,8 @@ export default function GeneralSettingsCard({
             {t("Settings.General.Application.Title")}
           </h3>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-4 py-1">
+          <div className="space-y-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <div className="space-y-0.5">
                 <Label className="text-sm font-normal">
                   {t("Settings.General.Language.Title")}
@@ -67,7 +67,7 @@ export default function GeneralSettingsCard({
               />
             </div>
 
-            <div className="flex items-center justify-between gap-4 py-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="beta-updates"
                 className="cursor-pointer text-sm font-normal"
@@ -83,7 +83,7 @@ export default function GeneralSettingsCard({
               />
             </div>
 
-            <div className="flex items-center justify-between gap-4 py-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="community-feedback"
                 className="cursor-pointer text-sm font-normal"
@@ -109,8 +109,8 @@ export default function GeneralSettingsCard({
             {t("Settings.General.Logging.Title")}
           </h3>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-4 py-1">
+          <div className="space-y-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="logging-enable"
                 className="cursor-pointer text-sm font-normal"
@@ -124,7 +124,7 @@ export default function GeneralSettingsCard({
               />
             </div>
 
-            <div className="flex items-center justify-between gap-4 py-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="log-level"
                 className={`text-sm font-normal ${
@@ -151,7 +151,7 @@ export default function GeneralSettingsCard({
               />
             </div>
 
-            <div className="flex items-center justify-between gap-4 py-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="logging-joystick-axis"
                 className={`cursor-pointer text-sm font-normal ${
@@ -180,8 +180,8 @@ export default function GeneralSettingsCard({
             {t("Settings.General.StartupAndRunOptions.Title")}
           </h3>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-4 py-1">
+          <div className="space-y-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="hubhop-auto-check"
                 className="cursor-pointer text-sm font-normal"
@@ -197,7 +197,7 @@ export default function GeneralSettingsCard({
               />
             </div>
 
-            <div className="flex items-center justify-between gap-4 py-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="auto-retrigger"
                 className="cursor-pointer text-sm font-normal"
@@ -213,7 +213,7 @@ export default function GeneralSettingsCard({
               />
             </div>
 
-            <div className="flex items-center justify-between gap-4 py-1">
+            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label
                 htmlFor="minimize-on-autorun"
                 className="cursor-pointer text-sm font-normal"
@@ -229,19 +229,19 @@ export default function GeneralSettingsCard({
               />
             </div>
 
-            <div className="flex items-center justify-between gap-6 py-2">
+            <div className="flex items-center justify-between gap-6 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <div className="flex-1 space-y-0.5">
-                <Label className="text-sm font-medium ">
+                <Label className="text-sm font-medium">
                   {t("Settings.General.ExecutionSpeed.Title")}
                 </Label>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   {t("Settings.General.ExecutionSpeed.Description")}
                 </p>
               </div>
-              <div className="w-60 space-y-1">
-                <div className="flex justify-between text-xs text-muted-foreground whitespace-nowrap">
-                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Slow")}</span>
-                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Fast")}</span>
+              <div className="w-60 shrink-0 space-y-1">
+                <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
+                  <span>{t("Settings.General.ExecutionSpeed.Slow")}</span>
+                  <span>{t("Settings.General.ExecutionSpeed.Fast")}</span>
                 </div>
                 <Input
                   type="range"
@@ -257,14 +257,14 @@ export default function GeneralSettingsCard({
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-6 py-2">
+            <div className="flex items-center justify-between gap-6 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <Label className="text-sm font-medium">
                 {t("Settings.General.TestModeSpeed.Title")}
               </Label>
-              <div className="w-60 space-y-1">
-                <div className="flex justify-between text-xs text-muted-foreground whitespace-nowrap">
-                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Slow")}</span>
-                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Fast")}</span>
+              <div className="w-60 shrink-0 space-y-1">
+                <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
+                  <span>{t("Settings.General.TestModeSpeed.Slow")}</span>
+                  <span>{t("Settings.General.TestModeSpeed.Fast")}</span>
                 </div>
                 <Input
                   type="range"

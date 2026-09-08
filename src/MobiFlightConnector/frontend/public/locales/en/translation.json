@@ -932,10 +932,11 @@
       "Title": "Simulators",
       "ProSim": {
         "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Connection settings",
         "Host": "Host",
         "Port": "Port",
-        "AutoConnect": "Enable automatic ProSim connection",
-        "MaxRetryAttempts": "Max retry attempts:"
+        "AutoConnect": "Automatic ProSim connection",
+        "MaxRetryAttempts": "Max. retry attempts"
       }
     },
     "Discard": {

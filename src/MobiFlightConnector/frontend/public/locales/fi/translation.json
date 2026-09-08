@@ -932,10 +932,11 @@
       "Title": "Simulaattorit",
       "ProSim": {
         "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Yhteysasetukset",
         "Host": "Palvelin",
         "Port": "Portti",
-        "AutoConnect": "Ota automaattinen ProSim-yhteys käyttöön",
-        "MaxRetryAttempts": "Uudelleenyritysten enimmäismäärä:"
+        "AutoConnect": "Automaattinen ProSim-yhteys",
+        "MaxRetryAttempts": "Uudelleenyritysten enimmäismäärä"
       }
     },
     "Discard": {

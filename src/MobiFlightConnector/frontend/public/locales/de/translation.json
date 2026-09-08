@@ -938,10 +938,11 @@
       "Title": "Simulatoren",
       "ProSim": {
         "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Verbindungseinstellungen",
         "Host": "Host",
         "Port": "Port",
-        "AutoConnect": "Automatische ProSim-Verbindung aktivieren",
-        "MaxRetryAttempts": "Maximale Wiederholungsversuche:"
+        "AutoConnect": "Automatische ProSim-Verbindung",
+        "MaxRetryAttempts": "Max. Wiederholungsversuche"
       }
     },
     "Discard": {

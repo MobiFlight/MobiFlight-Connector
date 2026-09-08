@@ -932,10 +932,11 @@
       "Title": "Симуляторы",
       "ProSim": {
         "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Параметры подключения",
         "Host": "Хост",
         "Port": "Порт",
-        "AutoConnect": "Включить автоматическое подключение к ProSim",
-        "MaxRetryAttempts": "Максимальное количество попыток:"
+        "AutoConnect": "Автоматическое подключение к ProSim",
+        "MaxRetryAttempts": "Макс. попыток"
       }
     },
     "Discard": {

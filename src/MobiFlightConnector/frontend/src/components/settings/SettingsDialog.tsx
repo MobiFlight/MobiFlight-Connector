@@ -79,7 +79,7 @@ export default function SettingsDialog({
         }}
       >
         <DialogContent
-          className="w-full max-w-3xl"
+          className="flex max-h-[90vh] w-full max-w-3xl flex-col"
           onPointerDownOutside={(e) => {
             if (hasUnsavedChanges()) {
               e.preventDefault()
@@ -96,8 +96,8 @@ export default function SettingsDialog({
           <DialogHeader>
             <DialogTitle>{t("MainMenu.Extras.Settings")}</DialogTitle>
           </DialogHeader>
-          <Tabs defaultValue="general" className="w-full">
-            <TabsList className="w-full">
+          <Tabs defaultValue="general" className="flex min-h-0 flex-1 flex-col">
+            <TabsList className="w-full shrink-0">
               <TabsTrigger value="general" className="w-1/2">
                 {t("Settings.General.Title")}
               </TabsTrigger>
@@ -105,21 +105,23 @@ export default function SettingsDialog({
                 {t("Settings.Simulator.Title")}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="general">
-              <GeneralSettingsCard
-                values={draftSettings}
-                onChange={updateSetting}
-              />
-            </TabsContent>
-            <TabsContent value="simulator">
-              <SimulatorSettingsCard
-                values={draftSettings}
-                onChange={updateSetting}
-              />
-            </TabsContent>
+            <div className="mt-3 max-h-[calc(90vh-140px)] overflow-y-auto pr-1">
+              <TabsContent value="general" className="mt-0">
+                <GeneralSettingsCard
+                  values={draftSettings}
+                  onChange={updateSetting}
+                />
+              </TabsContent>
+              <TabsContent value="simulator" className="mt-0">
+                <SimulatorSettingsCard
+                  values={draftSettings}
+                  onChange={updateSetting}
+                />
+              </TabsContent>
+            </div>
           </Tabs>
 
-          <DialogFooter className="gap-2 sm:gap-0">
+          <DialogFooter className="shrink-0 gap-2 sm:gap-0">
             <Button variant="secondary" onClick={handleRequestClose}>
               {t("General.Action.Cancel", "Cancel")}
             </Button>
