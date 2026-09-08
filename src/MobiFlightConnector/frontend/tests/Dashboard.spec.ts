@@ -1307,6 +1307,47 @@ test.describe("Community Feed tests", () => {
     await expect(img4).toHaveAttribute("src", absoluteFeedImageUrl4)
   })
 
+  test.describe("Community Feed remote fallback tests", () => {
+    // For testing fallback behavior, we need to set the locale to Finnish, which is a non-core language
+    // By testing we can confirm that the community feed would fallback to online English feed first if the localized feed is unavailable
+    test.use({ locale: "fi-FI" })
+
+    test("Uses English online feed if localized online feed is unavailable", async ({
+      dashboardPage,
+      page,
+    }) => {
+      const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
+      const remoteFeedBaseUrl = (
+        process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
+      ).trim()
+      // Mock the English online feed with a single post
+      const englishFallbackPosts = [
+        {
+          title: "English Online Fallback Post",
+          date: "2026-09-03",
+          content: ["This was loaded from the English online feed."],
+          tags: ["community"],
+        },
+      ]
+
+      await dashboardPage.disableDynamicFeed(remoteFeedBaseUrl, "fi")
+      await dashboardPage.mockDynamicFeed(
+        remoteFeedBaseUrl,
+        englishFallbackPosts,
+        "en",
+      )
+
+      await dashboardPage.gotoPage()
+      // Check that the English online fallback post is visible in the feed
+      await expect(page.getByText("English Online Fallback Post")).toBeVisible()
+
+      const feedItems = page.getByTestId("community-feed-item")
+      await expect(feedItems.first()).toContainText(
+        "English Online Fallback Post",
+      )
+    })
+  })
+
   test("Confirm button links are working correctly", async ({
     dashboardPage,
     page,

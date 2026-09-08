@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -128,11 +128,15 @@
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
   <data name="label1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 0, 0</value>
+    <value>4, 3, 0, 0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 88</value>
+    <value>404, 102</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
@@ -150,7 +154,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>label1</value>
   </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -165,10 +169,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 3</value>
+    <value>313, 3</value>
+  </data>
+  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>88, 27</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -180,13 +187,112 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>button1</value>
   </data>
   <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button1.Parent" xml:space="preserve">
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;linkLabel3.Name" xml:space="preserve">
+    <value>linkLabel3</value>
+  </data>
+  <data name="&gt;&gt;linkLabel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel3.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Name" xml:space="preserve">
+    <value>linkLabel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
+    <value>linkLabel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 102</value>
+  </data>
+  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 87</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="linkLabel3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -195,10 +301,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="linkLabel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 47</value>
+    <value>84, 54</value>
+  </data>
+  <data name="linkLabel3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="linkLabel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 13</value>
+    <value>122, 15</value>
   </data>
   <data name="linkLabel3.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -213,7 +322,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>linkLabel3</value>
   </data>
   <data name="&gt;&gt;linkLabel3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;linkLabel3.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -225,10 +334,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 43</value>
+    <value>6, 50</value>
+  </data>
+  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 22</value>
+    <value>71, 25</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -243,7 +355,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>label4</value>
   </data>
   <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label4.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -258,10 +370,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="linkLabel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 26</value>
+    <value>84, 30</value>
+  </data>
+  <data name="linkLabel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="linkLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 13</value>
+    <value>130, 15</value>
   </data>
   <data name="linkLabel2.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -276,7 +391,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>linkLabel2</value>
   </data>
   <data name="&gt;&gt;linkLabel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;linkLabel2.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -288,10 +403,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 22</value>
+    <value>6, 25</value>
+  </data>
+  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 22</value>
+    <value>74, 25</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -306,7 +424,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>label3</value>
   </data>
   <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -318,10 +436,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 2</value>
+    <value>6, 2</value>
+  </data>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 23</value>
+    <value>71, 27</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -336,7 +457,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>label2</value>
   </data>
   <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -351,10 +472,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 6</value>
+    <value>84, 7</value>
+  </data>
+  <data name="linkLabel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 13</value>
+    <value>172, 15</value>
   </data>
   <data name="linkLabel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -369,7 +493,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>linkLabel1</value>
   </data>
   <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -377,44 +501,26 @@ Copyright 2014-2025 - Sebastian Moebius</value>
   <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 88</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 75</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label6.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 281</value>
+    <value>4, 327</value>
+  </data>
+  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>306, 13</value>
+    <value>339, 15</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Thanks to Gijs de Rooij for providing the BoeingCDULarge font.</value>
@@ -423,7 +529,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>label6</value>
   </data>
   <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -431,14 +537,44 @@ Copyright 2014-2025 - Sebastian Moebius</value>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="licenseReferenceControl9.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="licenseReferenceControl9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 299</value>
+  </data>
+  <data name="licenseReferenceControl9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 3, 5, 3</value>
+  </data>
+  <data name="licenseReferenceControl9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>396, 28</value>
+  </data>
+  <data name="licenseReferenceControl9.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl9.Name" xml:space="preserve">
+    <value>licenseReferenceControl9</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl9.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl9.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="licenseReferenceControl10.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 257</value>
+    <value>4, 271</value>
+  </data>
+  <data name="licenseReferenceControl10.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 3, 5, 3</value>
   </data>
   <data name="licenseReferenceControl10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl10.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -447,25 +583,25 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl10</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl10.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl10.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl10.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="licenseReferenceControl8.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 209</value>
+    <value>4, 243</value>
   </data>
   <data name="licenseReferenceControl8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl8.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -474,7 +610,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl8</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl8.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl8.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -486,13 +622,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 185</value>
+    <value>4, 215</value>
   </data>
   <data name="licenseReferenceControl6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl6.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -501,7 +637,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl6</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl6.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl6.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -513,13 +649,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 161</value>
+    <value>4, 187</value>
   </data>
   <data name="licenseReferenceControl5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl5.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -528,7 +664,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl5</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl5.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl5.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -540,13 +676,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 137</value>
+    <value>4, 159</value>
   </data>
   <data name="licenseReferenceControl2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl2.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -555,7 +691,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl2.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl2.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -567,13 +703,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 113</value>
+    <value>4, 131</value>
   </data>
   <data name="licenseReferenceControl7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl7.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -582,7 +718,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl7</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl7.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl7.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -594,13 +730,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 89</value>
+    <value>4, 103</value>
   </data>
   <data name="licenseReferenceControl4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl4.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -609,7 +745,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl4</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl4.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl4.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -621,13 +757,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 65</value>
+    <value>4, 75</value>
   </data>
   <data name="licenseReferenceControl3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl3.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -636,7 +772,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl3</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl3.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl3.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -648,13 +784,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Top</value>
   </data>
   <data name="licenseReferenceControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 41</value>
+    <value>4, 47</value>
   </data>
   <data name="licenseReferenceControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 10, 3</value>
+    <value>4, 3, 12, 3</value>
   </data>
   <data name="licenseReferenceControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 24</value>
+    <value>396, 28</value>
   </data>
   <data name="licenseReferenceControl1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -663,7 +799,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>licenseReferenceControl1</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl1.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -678,10 +814,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
+    <value>4, 0</value>
+  </data>
+  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 41</value>
+    <value>396, 47</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -696,7 +835,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>label5</value>
   </data>
   <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label5.Parent" xml:space="preserve">
     <value>panel2</value>
@@ -708,13 +847,16 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Fill</value>
   </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 163</value>
+    <value>0, 189</value>
+  </data>
+  <data name="panel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="panel2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 0, 3, 0</value>
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 332</value>
+    <value>404, 382</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -723,7 +865,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
     <value>$this</value>
@@ -735,10 +877,13 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>Bottom</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 466</value>
+    <value>0, 538</value>
+  </data>
+  <data name="panel3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 29</value>
+    <value>404, 33</value>
   </data>
   <data name="panel3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -747,7 +892,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel3</value>
   </data>
   <data name="&gt;&gt;panel3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
     <value>$this</value>
@@ -759,10 +904,10 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>346, 495</value>
+    <value>404, 571</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -908,6 +1053,9 @@ Copyright 2014-2025 - Sebastian Moebius</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
   </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>About MF Connector</value>
   </data>
@@ -915,6 +1063,6 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>AboutForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

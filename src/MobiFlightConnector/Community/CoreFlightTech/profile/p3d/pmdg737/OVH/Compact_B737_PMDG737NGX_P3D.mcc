@@ -1,0 +1,1753 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="8f16c4fe-e36d-46a5-b131-38a362f4c6d8">
+      <active>false</active>
+      <description>----- Backlight: Enable only One option below -----</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cd427d41-b776-49c2-bbb7-2e0f31cb2380">
+      <active>true</active>
+      <description>[Option A]  Backlight Increase-&gt;Press&amp;Hold = LandALT  Decrease-&gt;Press&amp;Hold FltALT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6497" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="20" />
+        <modifiers>
+          <transformation active="True" expression="$ * 1.7" />
+        </modifiers>
+        <display type="Output" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" pin="Backlight_PWM" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ecbbcf13-9bac-4ca9-8ce2-49ee8986f11c">
+      <active>false</active>
+      <description>[Option B]  Backlight always on (full brightness, independent from sim)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:BL_Overhead, number)" UUID="b6d82fcc-ae10-4853-bd1e-2b5423f9148b" />
+        <test type="Float" value="20" />
+        <modifiers>
+          <comparison active="True" value="-1" operand="!=" ifValue="1" elseValue="1" />
+          <interpolation active="False">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" pin="Backlight_PWM" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4b0f66f9-1d88-4661-b3c0-b810d611aa71">
+      <active>false</active>
+      <description>--- --- --- --- --- ---</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5925d56e-8ff4-49b9-80be-303ea67d073c">
+      <active>false</active>
+      <description>---- EGT no aligned? Visit coreflighttech.com/egt-calibration ----</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="285da327-0ac5-465d-89b3-3fd41adff60b">
+      <active>true</active>
+      <description>EGT GAUGE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x648C" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+        <test type="Float" value="100" />
+        <modifiers>
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1100" y="1500" />
+          </interpolation>
+          <transformation active="True" expression="$ + 10" />
+        </modifiers>
+        <display type="Stepper" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" stepperAddress="EGT_Gauge" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="500" stepperCompassMode="False" stepperAcceleration="800" stepperSpeed="467" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d9e7db67-f5db-4068-a414-1dc2c36f79d3">
+      <active>true</active>
+      <description>AFT_L_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x646C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="10e87223-c0b2-41c2-8690-32842d986e82">
+      <active>true</active>
+      <description>FWD_L_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x646A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="74c6eead-59f5-4907-be3f-87ca4bff8a20">
+      <active>true</active>
+      <description>FWD_R_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x646B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="24d9cf51-2998-4dbc-8cf5-6fb404e413df">
+      <active>true</active>
+      <description>AFT_R_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x646D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="767ecece-36eb-4ec2-b38e-9196305ce368">
+      <active>true</active>
+      <description>FUEL_PUMPS_R </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x646F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="67be859b-8d0b-421e-811b-7aac37e5878d">
+      <active>true</active>
+      <description>FUEL_PUMPS_L </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x646E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="50e75e69-566a-4b5e-ab69-d5a8e13f1430">
+      <active>true</active>
+      <description>GRD_PWR_AVAIL </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x647E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="01dfca56-4f4f-4c40-89cb-3f37551492a3">
+      <active>true</active>
+      <description>YAW_DAMPER </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6449" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ac13167c-8b86-4fa7-9f9b-434a3054785a">
+      <active>true</active>
+      <description>APU_MAINT </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6490" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="754aaa47-a32d-408b-860c-a0fc5e89e565">
+      <active>true</active>
+      <description>APU_LOW_OIL </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6491" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8fd43095-5aae-4537-8341-5aea96efa89c">
+      <active>true</active>
+      <description>APU_FAULT </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6492" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1974645f-b069-4f3a-8e67-6c6e65a9744a">
+      <active>true</active>
+      <description>APU_OVERSPEED </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6493" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="15b26a40-ce7a-4b34-b5db-50277d672e57">
+      <active>true</active>
+      <description>GEN2_GEN_OFF_BUS </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x648A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ffac105b-8f69-447e-966e-1c9300ea7f17">
+      <active>true</active>
+      <description>GEN2_TRANSFER_BUS_OFF </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6486" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 19" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="abe8c5c2-b521-43be-82d7-eaeb07df9d40">
+      <active>true</active>
+      <description>APU_GEN_OFF_BUS </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x648B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="72170d65-baa0-44ea-bf14-daf5cbc827cf">
+      <active>true</active>
+      <description>GEN1_GEN_OFF_BUS </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6489" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d6bae249-77b2-4f20-896d-42625eb39817">
+      <active>true</active>
+      <description>GEN1_TRANSFER_BUS_OFF </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6485" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1698471e-c840-48b5-842d-36d5af70f275">
+      <active>true</active>
+      <description>GEN1_SOURCE_OFF </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6487" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b0222df6-207e-46fc-a51e-3bf8caf6fbf8">
+      <active>true</active>
+      <description>GEN2_SOURCE_OFF </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6488" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="de734265-903d-4b59-b361-7e61333f1804">
+      <active>true</active>
+      <description>ALIGN_L_ALIGN </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6423" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 23" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="79debb66-2b01-4b95-aba2-833fcef10c31">
+      <active>true</active>
+      <description>ALIGN_R_ALIGN </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6424" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1e627904-b916-4c53-8cf8-f40440ec2ee8">
+      <active>true</active>
+      <description>ALIGN_GPS </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6422" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f23f5248-10af-43c7-978d-4e94738b6a54">
+      <active>true</active>
+      <description>ALIGN_L_FAULT </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6427" offsetType="Integer" size="2" mask="0x0001" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="606e3be9-7ca5-4385-9ff0-6954d87ae009">
+      <active>true</active>
+      <description>ALIGN_R_FAULT </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6428" offsetType="Integer" size="2" mask="0x0001" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2262f368-9f5a-4501-8725-170326a7b24a">
+      <active>true</active>
+      <description>ELEC2_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64C4" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="84ad62c6-e512-446b-9013-202a9ef58bb0">
+      <active>true</active>
+      <description>ELEC2_OVERHEAT </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64C6" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dd00b507-c6a5-4bb6-b0a6-db12b54630f3">
+      <active>true</active>
+      <description>ELEC1_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64C3" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cd031f43-9454-4624-9998-bcd967ed8512">
+      <active>true</active>
+      <description>ELEC1_OVERHEAT </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64C5" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="45a3546a-8128-424b-be86-db9c4be46471">
+      <active>true</active>
+      <description>ENG2_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64C2" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3e9e91a6-b6dd-4fd3-8eb4-646563209f7f">
+      <active>true</active>
+      <description>ENG1_LOW_PRESSURE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64C1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_1" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d052ec85-e7a2-4752-936e-f724be25596e">
+      <active>true</active>
+      <description>ANTI_ICE_L_VALVE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64B8" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f84fdf1a-8285-470f-9ab8-2dc4d7a105e2">
+      <active>true</active>
+      <description>ANTI_ICE_R_VALVE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64B9" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="af3a813f-b96d-47c4-98ba-c382d05188e6">
+      <active>true</active>
+      <description>ANTI_ICE_L_COWL </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64BA" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8e03cda1-bd94-4907-b920-b69288c249b8">
+      <active>true</active>
+      <description>ANTI_ICE_R_COWL </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64BB" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="08f4f9f2-b2a0-4dc9-b2e5-a01e3c82de39">
+      <active>true</active>
+      <description>ANTI_ICE_L_COWL_VALVE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64BC" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0df2baed-de9e-4506-9d46-5d4ef7002085">
+      <active>true</active>
+      <description>ANTI_ICE_R_COWL_VALVE </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64BD" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b2dd293b-adf8-439a-a6fb-7ab06bca5037">
+      <active>true</active>
+      <description>WINDOW_HEAT_ON1 </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64A6" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4def8ec6-4290-4716-bdf0-c90f3389e898">
+      <active>true</active>
+      <description>WINDOW_HEAT_ON2 </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64A7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="84cef18b-d4b2-442e-b180-5990a70c6bae">
+      <active>true</active>
+      <description>WINDOW_HEAT_ON3 </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64A8" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a3b73fa0-8576-4747-863c-c285f8e9f99d">
+      <active>true</active>
+      <description>WINDOW_HEAT_ON4 </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64A9" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ce728111-bfaa-4cda-97a5-0569a0586cbf">
+      <active>true</active>
+      <description>ISOLATION_PACK_L </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64DB" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="85a03c92-3e54-4113-b2ae-fd016bb4d595">
+      <active>true</active>
+      <description>ISOLATION_WING-BODY_L </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64DD" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="58eca5bf-2751-4729-a6c8-47ffeddb6557">
+      <active>true</active>
+      <description>ISOLATION_BLEED_TRIP_L </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64DF" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a04c5b7d-4c59-4592-8edc-854bf94e590e">
+      <active>true</active>
+      <description>ISOLATION_BLEED_TRIP_R </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64E0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="993d7432-16a7-4d74-b332-41d40c31681e">
+      <active>true</active>
+      <description>ISOLATION_WING-BODY_R </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64DE" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="42d4e231-d561-44ed-be1a-d2efdd7f9e8f">
+      <active>true</active>
+      <description>ISOLATION_PACK_R </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64DC" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" shiftRegister="OUT_SR_2" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7b555f7e-a0a5-4279-b98d-499486eeb620">
+      <active>true</active>
+      <description>FLT ALT DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64E4" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+        <test type="Float" value="11111" />
+        <modifiers />
+        <display type="Display Module" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" ledAddress="FLT_A_Display" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="127304aa-4b95-44cf-8da5-21cb854ca5fd">
+      <active>true</active>
+      <description>LAND ALT DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x64E8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+        <test type="String" value="53548" />
+        <modifiers />
+        <display type="Display Module" serial="CFT_B737_C_OVH/ SN-D8F-39D" trigger="normal" ledAddress="LAND_A_Display" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="0bb93fc1-fafd-417c-99a2-1bdecda761d1">
+      <active>true</active>
+      <description>BAT_GUARD</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="28">
+          <onPress type="PmdgEventIdInputAction" eventId="69634" param="1" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69634" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="56a6d4b2-72d0-4b6e-8172-ac6091c9ea03">
+      <active>true</active>
+      <description>BAT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="28">
+          <onPress type="PmdgEventIdInputAction" eventId="69633" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69633" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d832616f-9959-43b2-b9b4-b66104304843">
+      <active>true</active>
+      <description>YAW_DAMPER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="29">
+          <onPress type="PmdgEventIdInputAction" eventId="69695" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69695" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="02e71c46-cfcd-4bfb-b035-78f1f84472bb">
+      <active>true</active>
+      <description>GRD_PWR_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="31">
+          <onPress type="PmdgEventIdInputAction" eventId="69649" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69649" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="64e9d56a-5c9f-42bb-ba4a-cdeb2f300530">
+      <active>true</active>
+      <description>GRD_PWR_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="30">
+          <onPress type="PmdgEventIdInputAction" eventId="69649" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69649" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ab25d7d5-2e23-4b07-b44b-917f23ca3bac">
+      <active>true</active>
+      <description>CROSS_FEED_VRT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="PmdgEventIdInputAction" eventId="69681" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="46d82d7f-f5ad-4cdb-a1a6-990a03fa6808">
+      <active>true</active>
+      <description>CROSS_FEED_HRZ</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="PmdgEventIdInputAction" eventId="69681" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2700b216-66e3-46b4-a59e-7cdb00bee298">
+      <active>true</active>
+      <description>FUEL_PUMPS_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="PmdgEventIdInputAction" eventId="69677" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69677" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a0ee3743-69ed-4b10-8b0c-114cc6547251">
+      <active>true</active>
+      <description>FUEL_PUMPS_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="PmdgEventIdInputAction" eventId="69678" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69678" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fc6588ba-7908-4e40-a5a4-624c884a8a62">
+      <active>true</active>
+      <description>AFT_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="PmdgEventIdInputAction" eventId="69669" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69669" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="76bb7a50-62ce-4fd2-9fda-18f098de70d8">
+      <active>true</active>
+      <description>FWD_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="23">
+          <onPress type="PmdgEventIdInputAction" eventId="69670" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69670" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="700700c1-c599-42f3-8120-8f63d3532be8">
+      <active>true</active>
+      <description>FWD_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="PmdgEventIdInputAction" eventId="69671" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69671" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dcf3bc9d-8c8f-4653-a9dc-2b4146528d8a">
+      <active>true</active>
+      <description>AFT_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="PmdgEventIdInputAction" eventId="69672" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69672" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3940956b-e676-454b-b568-2416dd554942">
+      <active>true</active>
+      <description>LANDING_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="PmdgEventIdInputAction" eventId="69743" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69743" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="95108074-418f-4c10-bd03-19401aebcd5a">
+      <active>true</active>
+      <description>LANDING_L Copy</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="PmdgEventIdInputAction" eventId="69745" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69745" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dac84bed-750d-40e1-9891-e913504ad941">
+      <active>true</active>
+      <description>LANDING_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="PmdgEventIdInputAction" eventId="69744" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69744" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="48e3e4d1-6ce7-4d35-8947-22b957b62240">
+      <active>true</active>
+      <description>LANDING_R Copy</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="PmdgEventIdInputAction" eventId="69746" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69746" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="79c758db-7c68-422a-90ff-447b3bcbb8db">
+      <active>true</active>
+      <description>RUNWAY_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="PmdgEventIdInputAction" eventId="69747" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69747" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b8dfbe42-8a9d-4ee5-87d9-1bad7b254fda">
+      <active>true</active>
+      <description>RUNWAY_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="PmdgEventIdInputAction" eventId="69748" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69748" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="51e4a572-8ab1-4636-add5-cd1151dab0cd">
+      <active>true</active>
+      <description>TAXI</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="PmdgEventIdInputAction" eventId="69749" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69749" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="56f3dbd2-e8da-4d45-9246-f87e6e540795">
+      <active>true</active>
+      <description>APU_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="PmdgEventIdInputAction" eventId="69750" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69750" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90a01fca-21f3-4166-a9cd-f78e09314ad2">
+      <active>true</active>
+      <description>APU_START</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="10">
+          <onPress type="PmdgEventIdInputAction" eventId="69750" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69750" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4928cca3-7115-4082-9a29-fc6ac1acabca">
+      <active>true</active>
+      <description>ALIGN_L_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="24">
+          <onPress type="PmdgEventIdInputAction" eventId="69887" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="45d91967-d4cd-45ef-b42b-3c72758d58cc">
+      <active>true</active>
+      <description>ALIGN_L_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="25">
+          <onPress type="PmdgEventIdInputAction" eventId="69887" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ff4cec22-54bb-4805-955a-5aac853a0bbf">
+      <active>true</active>
+      <description>ALIGN_L_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="26">
+          <onPress type="PmdgEventIdInputAction" eventId="69887" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4ecf9d29-e2cd-4ed0-a891-7aa9ecd11110">
+      <active>true</active>
+      <description>ALIGN_L_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="27">
+          <onPress type="PmdgEventIdInputAction" eventId="69887" param="3" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bab4a4a3-0bd5-4dab-afc0-ba02ad686236">
+      <active>true</active>
+      <description>ALIGN_R_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="PmdgEventIdInputAction" eventId="69888" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b08e3fe3-ce66-455c-9031-1f3e49c7cc74">
+      <active>true</active>
+      <description>ALIGN_R_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="PmdgEventIdInputAction" eventId="69888" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6d1fdcbb-4f4d-4ef5-812c-5639fa841d8c">
+      <active>true</active>
+      <description>ALIGN_R_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="PmdgEventIdInputAction" eventId="69888" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9f64f879-179a-449c-a23b-122200984446">
+      <active>true</active>
+      <description>ALIGN_R_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="PmdgEventIdInputAction" eventId="69888" param="3" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="28bb2776-ea08-4213-9b8a-112daad8d8d5">
+      <active>true</active>
+      <description>BUS_TRANS_GUARD</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="PmdgEventIdInputAction" eventId="69651" param="1" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69651" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e66d8e3c-b1f7-4dcd-b3fe-f343c2b1c487">
+      <active>true</active>
+      <description>BUS_TRANS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="PmdgEventIdInputAction" eventId="69650" param="1" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69650" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0410df37-0cbe-42bc-b0a9-e5b0e3044d2c">
+      <active>true</active>
+      <description>GEN1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="7">
+          <onPress type="PmdgEventIdInputAction" eventId="69659" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69659" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a1b23acb-0fcd-44f6-b037-598bbd807f5a">
+      <active>true</active>
+      <description>GEN1_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="PmdgEventIdInputAction" eventId="69659" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69659" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3836ded2-ada9-40b3-a99e-4c31cde4cd4f">
+      <active>true</active>
+      <description>APU_GEN1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="PmdgEventIdInputAction" eventId="69660" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69660" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fc497afd-6d9b-434b-902e-734003d8c02f">
+      <active>true</active>
+      <description>APU_GEN1_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="PmdgEventIdInputAction" eventId="69660" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69660" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d7fe7456-5a59-4fb2-8549-91feb3a7dee4">
+      <active>true</active>
+      <description>APU_GEN2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="PmdgEventIdInputAction" eventId="69661" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69661" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1225fbb6-b9a3-4e49-8b4f-2f03e0249919">
+      <active>true</active>
+      <description>APU_GEN2_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="PmdgEventIdInputAction" eventId="69661" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69661" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b5df8eba-9a43-492b-90d4-6dbd4877250e">
+      <active>true</active>
+      <description>GEN2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="PmdgEventIdInputAction" eventId="69662" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69662" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8ecfbc65-8f22-4507-b2dd-9751b6d1fdf4">
+      <active>true</active>
+      <description>GEN2_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="2">
+          <onPress type="PmdgEventIdInputAction" eventId="69662" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69662" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1c9e081b-fafc-4ff3-8dc1-a4824b5981a8">
+      <active>true</active>
+      <description>WIPER_PARK_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="PmdgEventIdInputAction" eventId="69668" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e5099770-4e6f-4706-a0e8-b2a6e67a78ba">
+      <active>true</active>
+      <description>WIPER_PARK_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="PmdgEventIdInputAction" eventId="69741" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="56da7d93-40ac-4b5c-92a2-ae18eecacc40">
+      <active>true</active>
+      <description>WIPER_INT_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="PmdgEventIdInputAction" eventId="69668" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="24bd2f15-785d-4af1-a9d2-1a7cda562407">
+      <active>true</active>
+      <description>WIPER_INT_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="PmdgEventIdInputAction" eventId="69741" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="affae299-1bc1-4a50-9c6b-cf7123515569">
+      <active>true</active>
+      <description>WIPER_LOW_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="PmdgEventIdInputAction" eventId="69668" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e2f9db73-058c-4d82-9b5d-63dcf5e44239">
+      <active>true</active>
+      <description>WIPER_LOW_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="PmdgEventIdInputAction" eventId="69741" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d8c68d26-dcdb-4d4d-935c-cb3e65138574">
+      <active>true</active>
+      <description>WIPER_HIGH_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="PmdgEventIdInputAction" eventId="69668" param="3" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0dd36778-1027-454b-b024-18fa4498544c">
+      <active>true</active>
+      <description>WIPER_HIGH_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="PmdgEventIdInputAction" eventId="69741" param="3" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="45234976-91f8-4c01-b325-e742c3a593c3">
+      <active>true</active>
+      <description>ENGINE_START_L_GRD</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="PmdgEventIdInputAction" eventId="69751" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6f4a1899-2b20-47fb-9659-341d7333b307">
+      <active>true</active>
+      <description>ENGINE_START_L_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="PmdgEventIdInputAction" eventId="69751" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2690be5f-6483-4166-bf4c-7594ea30cb8d">
+      <active>true</active>
+      <description>ENGINE_START_L_CONT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="PmdgEventIdInputAction" eventId="69751" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2a930223-b433-45b8-a39c-62b0e5a33b26">
+      <active>true</active>
+      <description>ENGINE_START_L_FLT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="PmdgEventIdInputAction" eventId="69751" param="3" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="72432cbe-a434-439a-bd8d-f634bf2fb85f">
+      <active>true</active>
+      <description>ENGINE_START_BOTH_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="PmdgEventIdInputAction" eventId="69752" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69752" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d2f64a15-f830-4117-8092-6f0b8b1ab790">
+      <active>true</active>
+      <description>ENGINE_START_BOTH_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="23">
+          <onPress type="PmdgEventIdInputAction" eventId="69752" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69752" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f79a00c1-6d4f-4010-b1ad-b14fe9698365">
+      <active>true</active>
+      <description>ENGINE_START_R_GRD</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="PmdgEventIdInputAction" eventId="69753" param="0" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="55b6cf13-20d1-4800-bf2a-ec8475fb1620">
+      <active>true</active>
+      <description>ENGINE_START_R_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="7">
+          <onPress type="PmdgEventIdInputAction" eventId="69753" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="035561fe-55e7-4c73-99c0-b5415fa31001">
+      <active>true</active>
+      <description>ENGINE_START_R_CONT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="PmdgEventIdInputAction" eventId="69753" param="2" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="47132fec-9ee7-47b1-b8a5-0f1fe1b009ee">
+      <active>true</active>
+      <description>ENGINE_START_R_FLT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="PmdgEventIdInputAction" eventId="69753" param="3" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="82259f4d-cdc4-4bb2-9858-3a5b67079153">
+      <active>true</active>
+      <description>WING_ANTI_ICE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="10">
+          <onPress type="PmdgEventIdInputAction" eventId="69788" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69788" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1c79c995-d8b5-4878-97af-9c7ec8ceba28">
+      <active>true</active>
+      <description>ENG_ANTI_ICE_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="PmdgEventIdInputAction" eventId="69789" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69789" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="00480f01-413b-4a92-bc6a-ca592a841179">
+      <active>true</active>
+      <description>ENG_ANTI_ICE_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="PmdgEventIdInputAction" eventId="69790" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69790" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7f4a42b0-7082-4b51-a3d2-c56a6e450050">
+      <active>true</active>
+      <description>ENG_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="23">
+          <onPress type="PmdgEventIdInputAction" eventId="69797" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69797" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="859bb016-cfc8-4b53-8936-f10fe9bb285e">
+      <active>true</active>
+      <description>ELEC_2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="PmdgEventIdInputAction" eventId="69799" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69799" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f2b2a058-43f8-4b90-8dfa-a7a7ef63f59b">
+      <active>true</active>
+      <description>ELEC_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="PmdgEventIdInputAction" eventId="69800" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69800" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="28e4aa90-8690-4b0f-a4af-b0dbfd364e82">
+      <active>true</active>
+      <description>ENG_2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="PmdgEventIdInputAction" eventId="69798" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69798" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="88ba3c1a-ddb5-4867-84fc-8218ab532073">
+      <active>true</active>
+      <description>WINDOW_HEAT_SIDE_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="PmdgEventIdInputAction" eventId="69767" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69767" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3d6ed768-9767-4cdc-ac02-74b7706e783f">
+      <active>true</active>
+      <description>WINDOW_HEAT_FWD_L</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="PmdgEventIdInputAction" eventId="69768" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69768" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f5cc682c-d3c1-4133-bf82-213e91239d3b">
+      <active>true</active>
+      <description>WINDOW_HEAT_OVHT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="PmdgEventIdInputAction" eventId="69769" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69769" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0ff74870-618d-42df-9680-56870723f2c0">
+      <active>true</active>
+      <description>WINDOW_HEAT_PWR_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="PmdgEventIdInputAction" eventId="69769" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69769" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8fc75f14-809e-4434-91c7-6b64c79340fe">
+      <active>true</active>
+      <description>WINDOW_HEAT_FWD_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="PmdgEventIdInputAction" eventId="69770" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69770" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="31366f9c-a751-4665-9648-f10da0c460ef">
+      <active>true</active>
+      <description>WINDOW_HEAT_SIDE_R</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="PmdgEventIdInputAction" eventId="69771" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69771" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b9e8a99f-e92e-4319-bebf-0030ed479619">
+      <active>true</active>
+      <description>HEAT_A</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="PmdgEventIdInputAction" eventId="69772" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69772" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cfe9663c-8535-46cc-956e-a0bc23d30b66">
+      <active>true</active>
+      <description>HEAT_B</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="10">
+          <onPress type="PmdgEventIdInputAction" eventId="69773" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69773" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="27f8ccd9-a4a4-4e75-83df-bde50bb352e0">
+      <active>true</active>
+      <description>L_PACK_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="PmdgEventIdInputAction" eventId="69832" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69832" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="af575bac-bebe-4712-83b4-cebf06c7b3d1">
+      <active>true</active>
+      <description>L_PACK_HIGH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="PmdgEventIdInputAction" eventId="69832" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69832" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9ceda896-fd0b-4c75-934f-0d14d7c0fe2f">
+      <active>true</active>
+      <description>VALVE_CLOSE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="PmdgEventIdInputAction" eventId="69834" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69834" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="12fa500c-6a6d-495f-bdfc-b8e98ee9eba5">
+      <active>true</active>
+      <description>VALVE_OPEN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="PmdgEventIdInputAction" eventId="69834" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69834" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fe738e7c-1bd9-44c0-b46d-999eca0f164d">
+      <active>true</active>
+      <description>R_PACK_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="2">
+          <onPress type="PmdgEventIdInputAction" eventId="69833" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69833" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c37e820c-2172-4d74-ac19-39d25f322541">
+      <active>true</active>
+      <description>R_PACK_HIGH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="PmdgEventIdInputAction" eventId="69833" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69833" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6c4050f7-c4fa-4fdd-8e31-bf45a818c254">
+      <active>true</active>
+      <description>APU_BLEED_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="PmdgEventIdInputAction" eventId="69842" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69842" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1e71e48c-d92f-47ed-ac6f-56686940bf74">
+      <active>true</active>
+      <description>APU_BLEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="PmdgEventIdInputAction" eventId="69843" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69843" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="35245204-0373-4d90-912a-ca4728aa28f5">
+      <active>true</active>
+      <description>APU_BLEED_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="PmdgEventIdInputAction" eventId="69844" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69844" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f4c138b5-d935-4b3d-80c9-7fa358eb4947">
+      <active>true</active>
+      <description>LOGO_LIGHTS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="PmdgEventIdInputAction" eventId="69754" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69754" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e55843cd-4703-4e31-91eb-c9aa7c03117a">
+      <active>true</active>
+      <description>POSITION_STROBE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_3" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="PmdgEventIdInputAction" eventId="69755" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69755" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ccd4ccee-c629-4aea-b8a8-4bfb2a48512a">
+      <active>true</active>
+      <description>POSITION_STEADY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="Pos-&gt;Steady" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="69755" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69755" param="1" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="96eb7f99-4c7d-4d91-ae19-69df48e93b50">
+      <active>true</active>
+      <description>ANTI_COLLISION</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="PmdgEventIdInputAction" eventId="69756" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69756" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="56b3cf83-3227-4d2d-8c8b-f82e7114b34e">
+      <active>true</active>
+      <description>WING_LIGHTS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="7">
+          <onPress type="PmdgEventIdInputAction" eventId="69757" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69757" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c09702ae-f27e-4171-8ff0-5b86ce9753c3">
+      <active>true</active>
+      <description>WHEEL_LIGHTS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="INPUT_SR_2" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="PmdgEventIdInputAction" eventId="69758" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69758" param="1" aircraft="B737" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90b3004f-dafd-4751-b0bd-2968bcebcd54">
+      <active>true</active>
+      <description>FLT_ALT_ENCODER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="FLT_ALT" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="PmdgEventIdInputAction" eventId="69850" param="8192" aircraft="B737" />
+          <onLeftFast type="PmdgEventIdInputAction" eventId="69850" param="8192" aircraft="B737" />
+          <onRight type="PmdgEventIdInputAction" eventId="69850" param="16384" aircraft="B737" />
+          <onRightFast type="PmdgEventIdInputAction" eventId="69850" param="16384" aircraft="B737" />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1aeefbc6-3373-48bc-826f-8031a2c91aa8">
+      <active>true</active>
+      <description>LAND_ALT_ENCODER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="LAND_ALT" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="PmdgEventIdInputAction" eventId="69852" param="8192" aircraft="B737" />
+          <onLeftFast type="PmdgEventIdInputAction" eventId="69852" param="8192" aircraft="B737" />
+          <onRight type="PmdgEventIdInputAction" eventId="69852" param="16384" aircraft="B737" />
+          <onRightFast type="PmdgEventIdInputAction" eventId="69852" param="16384" aircraft="B737" />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="059aaeeb-236f-4f9b-9eae-44b7a32f8531">
+      <active>true</active>
+      <description>Backlight up</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="LAND_ALT_S1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onHold holdDelay="10" repeatDelay="10" type="PmdgEventIdInputAction" eventId="69727" param="16384" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="32e93207-1c91-4cca-a2d2-31cac0d491a5">
+      <active>true</active>
+      <description>Backlight down</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_B737_C_OVH/ SN-D8F-39D" name="FLAT_ALT_S1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onHold holdDelay="10" repeatDelay="10" type="PmdgEventIdInputAction" eventId="69727" param="8192" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

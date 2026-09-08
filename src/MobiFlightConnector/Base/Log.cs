@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Serilog;
+using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight
@@ -62,6 +62,23 @@ namespace MobiFlight
                 default:
                     severity = LogSeverity.Info;
                     return false;
+            }
+        }
+
+        public static LogEventLevel ToSerilogLevel(this LogSeverity severity)
+        {
+            switch (severity)
+            {
+                case LogSeverity.Debug:
+                    return LogEventLevel.Debug;
+                case LogSeverity.Info:
+                    return LogEventLevel.Information;
+                case LogSeverity.Warn:
+                    return LogEventLevel.Warning;
+                case LogSeverity.Error:
+                    return LogEventLevel.Error;
+                default:
+                    return LogEventLevel.Warning;
             }
         }
     }
@@ -172,18 +189,25 @@ namespace MobiFlight
 
     public class LogAppenderFile : ILogAppender
     {
-        private String FileName = "log.txt";
-        private StreamWriter writer = null;
-        // This delegate enables asynchronous calls for setting
-        // the text property on a TextBox control.
-        delegate void logCallback(string message, LogSeverity severity);
-
-        private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
+        private const string FileName = "log.txt";
+        private static readonly ILogger logger = CreateLogger();
 
         public LogAppenderFile()
         {
+        }
+
+        private static ILogger CreateLogger()
+        {
             if (File.Exists(FileName))
                 File.Delete(FileName);
+
+            return new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.File(
+                    FileName,
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+                    shared: true)
+                .CreateLogger();
         }
 
         public void CopyToClipboard()
@@ -200,34 +224,9 @@ namespace MobiFlight
             }
         }
 
-        public async void log(string message, LogSeverity severity)
+        public void log(string message, LogSeverity severity)
         {
-            await Task.Run(() =>
-            {
-                // Set Status to Locked
-                _readWriteLock.EnterWriteLock();
-                try
-                {
-                    String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
-                    // Append text to the file
-                    using (StreamWriter sw = File.AppendText(FileName))
-                    {
-                        sw.WriteLine(msg);
-                        sw.Close();
-                    }
-                }
-                catch
-                {
-                    // Fix for https://github.com/MobiFlight/MobiFlight-Connector/issues/757
-                    // If something goes wrong writing to the log file it's just the log file, no need to crash
-                    // or do anything special. Just ignore the exception and keep going.
-                }
-                finally
-                {
-                    // Release lock
-                    _readWriteLock.ExitWriteLock();
-                }
-            });
+            logger.Write(severity.ToSerilogLevel(), "{LogMessage}", message);
         }
     }
 }

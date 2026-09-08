@@ -429,7 +429,7 @@ namespace MobiFlight.SimConnectMSFS
                 }
 
                 if (attempt < maxAttempts)
-                    await Task.Delay(2000);
+                    await Task.Delay(2000).ConfigureAwait(false);
             }
 
             return false;

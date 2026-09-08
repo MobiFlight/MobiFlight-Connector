@@ -623,7 +623,19 @@ namespace MobiFlight.Properties {
                 this["ProSimPort"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8321")]
+        public int FrontendWebSocketPort {
+            get {
+                return ((int)(this["FrontendWebSocketPort"]));
+            }
+            set {
+                this["FrontendWebSocketPort"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]

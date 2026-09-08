@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="cb9878cc-2b09-4566-bbba-0d4a0a985f34">
+      <active>true</active>
+      <description>FNX_APU_START_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_APU_START_L)" UUID="2660d45c-7fc9-467a-8919-feab3ea5d390" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="824bedda-a878-41a9-979d-a4022b611822">
+      <active>true</active>
+      <description>FNX_APU_START_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_APU_START_U)" UUID="846723a2-7a11-4dd6-8aa2-68d3857e43ec" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="322c7d21-5eef-478a-96fb-8e657d9ca1af">
+      <active>true</active>
+      <description>FNX_APU_MASTER_SW_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_APU_MASTER_L)" UUID="42d9ba90-397f-4304-aae2-400d3fa763db" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ac97d6af-1461-4e85-a05d-df4a17f98f27">
+      <active>true</active>
+      <description>FNX_APU_MASTER_SW_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_APU_MASTER_U)" UUID="3380ca44-06ad-4aa0-b9b6-7c0bcc539179" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 19" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="42dbc1f1-94e6-4849-b684-8c0eff91ba30">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_ENG2_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_ENG2_ANTI_ICE_L)" UUID="26b51a19-d631-4405-b687-4f66df7707cf" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bbcbb130-68e5-4421-aa94-ac5ff8483fc7">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_ENG2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_ENG2_ANTI_ICE_U)" UUID="816c55b4-f1e2-491d-97cc-96a249a8fa9c" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c134c35d-9979-4164-953d-fd5a17ef7b99">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_ENG1_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_ENG1_ANTI_ICE_L)" UUID="8fa3596a-1700-4ab5-917c-d21219badc82" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="605be714-2135-419e-aaa9-f4fb76fdef8a">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_ENG1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_ENG1_ANTI_ICE_U)" UUID="da868a85-7bce-4e82-a743-5d99438077c5" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="58c158b2-9eb9-4c4b-97c0-1fbc9b9cc78a">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_WING_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_WING_ANTI_ICE_L)" UUID="dc011c6e-8783-4393-b726-2c2dffe4a7aa" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6112d78e-d9e5-4b5c-b48a-9aa608f010d8">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_WING_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_WING_ANTI_ICE_U)" UUID="d3b247c5-3007-4cd2-b991-79badd7fed22" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="591aeab0-94e4-4e0a-a4ca-5cf5e60fc025">
+      <active>true</active>
+      <description>FNX_GPWS_FLAP3_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_GPWS_LDG_FLAP3_L)" UUID="5f2ae60c-eea9-403a-b1ef-b83528a48bc2" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ebfdbae6-adeb-4ee7-8623-9d2a7133b78c">
+      <active>true</active>
+      <description>FNX_GPWS_FLAP3_QQ</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bd5ff6be-4d9e-46c0-b7fe-64d7382a7a04">
+      <active>true</active>
+      <description>FNX_ELEC_EXT_PWR_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_EXT_PWR_U)" UUID="2492c18e-ec7a-41de-a0fd-c4c153ec98fb" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6ef2ccaf-609f-4257-ac34-40467c43e4f4">
+      <active>true</active>
+      <description>FNX_ELEC_EXT_PWR_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_EXT_PWR_L)" UUID="0fdd1453-7f4e-4c05-845e-70b83de69e4e" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="051144a9-c8aa-45bd-b2e2-f980df95075c">
+      <active>true</active>
+      <description>FNX_FUEL_LTK_PUMPS2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_FUEL_LEFT_2_L)" UUID="20ea8848-3c91-442c-a6d5-c5d7e323857d" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d4d42dc0-dfd5-4465-bd9f-fcbce660e65a">
+      <active>true</active>
+      <description>FNX_FUEL_LTK_PUMPS2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_FUEL_LEFT_2_U)" UUID="38d9c867-fb87-43dc-80c1-9e9555103178" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="325ad9ce-11b3-4698-9fe1-5dc431dcb743">
+      <active>true</active>
+      <description>FNX_ELEC_BAT1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_BAT1_L)" UUID="d64730b4-4148-47ab-a810-655bba9c1524" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03ecd380-9bed-4205-b96d-c449cb061d20">
+      <active>true</active>
+      <description>FNX_ELEC_BAT1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_BAT1_U)" UUID="be47ee3d-4100-4085-838d-be0362aae413" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="07451864-47f9-4996-92f7-e6c7309650bd">
+      <active>true</active>
+      <description>FNX_ELEC_BAT2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_BAT2_L)" UUID="a93519c1-3af6-4098-8434-a5a8f3d1b2a9" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d2d11a46-4fa2-4d4f-adac-41983922a4b7">
+      <active>true</active>
+      <description>FNX_ELEC_BAT2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_ELEC_BAT2_U)" UUID="a95d241e-cfac-42ba-b1b9-705159086fc5" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a79ad997-a4a7-4d36-8beb-c42c46ce45a8">
+      <active>true</active>
+      <description>FNX_AIR_COND_PACK1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_PACK_1_L)" UUID="0a4b7bdc-a742-4a76-bdde-c83ca922673a" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cfcd641d-2152-4394-8005-8ba7e2092bbb">
+      <active>true</active>
+      <description>FNX_AIR_COND_PACK1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_PACK_1_U)" UUID="07035e90-6cbd-47d3-b589-1038e7bb4c4e" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9b5ec768-54b2-42bb-8d25-ac94e6a9b97e">
+      <active>true</active>
+      <description>FNX_AIR_COND_PACK2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_PACK_2_L)" UUID="37014451-b704-427e-81fd-da64ec10c5a8" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5b50619e-f899-4fa4-a99e-a7a1cef739cc">
+      <active>true</active>
+      <description>FNX_AIR_COND_PACK2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_PACK_2_U)" UUID="a44760b4-ccb9-427c-8e69-7e6fa86be910" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0ccd8c72-d91e-457d-b508-870c68cd632b">
+      <active>true</active>
+      <description>FNX_AIR_COND_APUBLEED_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_APU_BLEED_L)" UUID="a679f495-dab9-47f8-9151-a99018676132" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="40e4cf47-e9cf-4040-b5b9-18cbb3335b93">
+      <active>true</active>
+      <description>FNX_AIR_COND_APUBLEED_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_OH_PNEUMATIC_APU_BLEED_U)" UUID="28fb4a69-ea47-4561-9d46-29dcad72b096" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5c0e227b-fd6c-4244-98a4-9fdf9ea445bf">
+      <active>true</active>
+      <description>Backlight</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$ + 200" />
+        </modifiers>
+        <display type="Output" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" pin="Output" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="d81aac35-6010-4da5-b744-79b351cf5595">
+      <active>true</active>
+      <description>FNX_ADIRS_IR1_KNOB_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_NAV_IR1_MODE)" presetId="f0c19f77-dd59-4ca1-adee-cf941576d9d6" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_NAV_IR1_MODE)" presetId="5b1fdde0-6712-4e0d-8777-a323411c7805" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="34503676-4405-4c18-ac08-f3d0aaf06112">
+      <active>true</active>
+      <description>FNX_ADIRS_IR1_KNOB_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_NAV_IR1_MODE)" presetId="c318f767-40b3-48e4-b642-17b7dadc7784" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_NAV_IR1_MODE)" presetId="5b1fdde0-6712-4e0d-8777-a323411c7805" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dd373e7e-edf0-4dca-a609-e7992e008d81">
+      <active>true</active>
+      <description>FNX_ADIRS_IR2_KNOB_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_NAV_IR2_MODE)" presetId="4b3374e3-1c6a-4c5a-963c-da63b422a1df" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_NAV_IR2_MODE)" presetId="916a50fa-7f54-4cf3-b7e7-99deab98a1ab" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dffb5c2a-f959-4323-9f8c-c3cb61966703">
+      <active>true</active>
+      <description>FNX_ADIRS_IR2_KNOB_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_NAV_IR2_MODE)" presetId="76f42b03-7758-48c8-b254-ac3421f98b09" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_NAV_IR2_MODE)" presetId="916a50fa-7f54-4cf3-b7e7-99deab98a1ab" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="346aaef1-fec3-4704-9a99-c9e2f24b5918">
+      <active>true</active>
+      <description>FNX_ADIRS_IR3_KNOB_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_NAV_IR3_MODE)" presetId="961b18a2-8935-40d3-b0e3-0cc088bfb7a4" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_NAV_IR3_MODE)" presetId="c098dc60-4fb6-44be-bc91-4369f4100dbd" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="06ff0684-15c9-4b0c-b7ee-a1daeb130f0a">
+      <active>true</active>
+      <description>FNX_ADIRS_IR3_KNOB_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_NAV_IR3_MODE)" presetId="28455db7-4e3c-464c-8b31-be447c85b4ec" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_NAV_IR3_MODE)" presetId="c098dc60-4fb6-44be-bc91-4369f4100dbd" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8119c2e4-41f4-4d5e-9b3a-541825ef2f81">
+      <active>true</active>
+      <description>FNX_GPWS_LDG_FLAP3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_GPWS_LDG_FLAP3) ! (&gt;L:S_OH_GPWS_LDG_FLAP3) " presetId="29eae598-a9f2-4875-9068-eb5bb45ff153" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_GPWS_LDG_FLAP3) ! (&gt;L:S_OH_GPWS_LDG_FLAP3) " presetId="29eae598-a9f2-4875-9068-eb5bb45ff153" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1c5c4a56-5c98-4b3f-9e2a-64db03b701de">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="MSFS2020CustomInputAction" command=" 1 (&gt;L:S_OH_PNEUMATIC_WING_ANTI_ICE)" presetId="2efa2b52-5654-43f9-9c70-fe1d30849d4d" />
+          <onRelease type="MSFS2020CustomInputAction" command=" 0 (&gt;L:S_OH_PNEUMATIC_WING_ANTI_ICE)" presetId="937e3e2d-ddec-4290-aa2e-d06bf83e2f9b" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2b1310b0-0e61-483a-873a-7092fd37c94b">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE) ! (&gt;L:S_OH_PNEUMATIC_ENG1_ANTI_ICE) " presetId="37d789d0-a5b9-414a-96bd-e4236fe92ffc" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE) ! (&gt;L:S_OH_PNEUMATIC_ENG1_ANTI_ICE) " presetId="37d789d0-a5b9-414a-96bd-e4236fe92ffc" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1da376b3-a28c-48cd-a70e-383b1b4e580a">
+      <active>true</active>
+      <description>FNX_ANTI_ICE_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE) ! (&gt;L:S_OH_PNEUMATIC_ENG2_ANTI_ICE) " presetId="250f1abb-2435-45a0-905b-1d269e671538" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE) ! (&gt;L:S_OH_PNEUMATIC_ENG2_ANTI_ICE) " presetId="250f1abb-2435-45a0-905b-1d269e671538" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4f39bca2-2842-48d0-b148-f05af15aeaaf">
+      <active>true</active>
+      <description>FNX_FUEL_L_TK_PUMPS1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_LEFT_1) ! (&gt;L:S_OH_FUEL_LEFT_1) " presetId="a4e8e9d8-71e2-4670-8d01-f3fe9f59eb65" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_LEFT_1) ! (&gt;L:S_OH_FUEL_LEFT_1) " presetId="a4e8e9d8-71e2-4670-8d01-f3fe9f59eb65" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="55480e92-825a-4526-a647-fe158430c728">
+      <active>true</active>
+      <description>FNX_FUEL_L_TK_PUMPS2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_LEFT_2) ! (&gt;L:S_OH_FUEL_LEFT_2)" presetId="e1a21b5a-e462-49c6-a9fd-a631af0be99d" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_LEFT_2) ! (&gt;L:S_OH_FUEL_LEFT_2)" presetId="e1a21b5a-e462-49c6-a9fd-a631af0be99d" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d1a5c041-f94f-44a7-8c0a-6023e734c3d0">
+      <active>true</active>
+      <description>FNX_FUEL_R_TK_PUMPS1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_RIGHT_1) ! (&gt;L:S_OH_FUEL_RIGHT_1)&#xA;" presetId="f3946fdb-1f1e-4429-986b-5b3b0ec662de" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_RIGHT_1) ! (&gt;L:S_OH_FUEL_RIGHT_1)&#xA;" presetId="f3946fdb-1f1e-4429-986b-5b3b0ec662de" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fecd2b05-852d-4562-bc64-116e22967469">
+      <active>true</active>
+      <description>FNX_FUEL_R_TK_PUMPS2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_RIGHT_2) ! (&gt;L:S_OH_FUEL_RIGHT_2) &#xA;" presetId="bc113f9a-6255-4407-a34c-0087f9831012" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_RIGHT_2) ! (&gt;L:S_OH_FUEL_RIGHT_2) &#xA;" presetId="bc113f9a-6255-4407-a34c-0087f9831012" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a1b61200-dacc-48b2-b568-5e3c2f98f49c">
+      <active>false</active>
+      <description>FNX_FUEL_XFEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter 1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_XFEED) ! (&gt;L:S_OH_FUEL_XFEED)&#xA;" presetId="8987eb02-c1ab-4d16-806f-ceabf487c35a" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_XFEED) ! (&gt;L:S_OH_FUEL_XFEED)&#xA;" presetId="8987eb02-c1ab-4d16-806f-ceabf487c35a" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3b868010-a03d-4710-8c71-254d6a732b3c">
+      <active>true</active>
+      <description>FNX_FUEL_XFR1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_CENTER_1) ! (&gt;L:S_OH_FUEL_CENTER_1)&#xA;" presetId="edce2430-d69d-47d6-9ce5-d1cdb0c872b7" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_CENTER_1) ! (&gt;L:S_OH_FUEL_CENTER_1)&#xA;" presetId="edce2430-d69d-47d6-9ce5-d1cdb0c872b7" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="005581f9-606f-4d96-968d-16f5142fdbaa">
+      <active>true</active>
+      <description>FNX_FUEL_XFR2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_CENTER_2) ! (&gt;L:S_OH_FUEL_CENTER_2) &#xA;" presetId="a2ee4bfd-ab5f-4bd0-b369-afd85dc56bdd" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_FUEL_CENTER_2) ! (&gt;L:S_OH_FUEL_CENTER_2) &#xA;" presetId="a2ee4bfd-ab5f-4bd0-b369-afd85dc56bdd" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a782b78d-3877-47ef-9c57-de50146996a5">
+      <active>true</active>
+      <description>FNX_ELEC_BAT1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_BAT1) ! (&gt;L:S_OH_ELEC_BAT1) " presetId="45ca696f-c20d-47a3-8375-c90b574fdcc2" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_BAT1) ! (&gt;L:S_OH_ELEC_BAT1) " presetId="45ca696f-c20d-47a3-8375-c90b574fdcc2" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="783962bd-8ba4-40ca-a948-fbb07c3bc26e">
+      <active>true</active>
+      <description>FNX_ELEC_BAT2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_BAT2) ! (&gt;L:S_OH_ELEC_BAT2) " presetId="3fbc60b2-f414-4b3c-9fe5-57dff4411b31" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_BAT2) ! (&gt;L:S_OH_ELEC_BAT2) " presetId="3fbc60b2-f414-4b3c-9fe5-57dff4411b31" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cf32e1ba-1b4e-40b5-a0ad-d62f82877029">
+      <active>true</active>
+      <description>FNX_ELEC_EXT_PWR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_EXT_PWR) ++ (&gt;L:S_OH_ELEC_EXT_PWR)" presetId="1a14af76-1444-424f-aec9-8a12cf049c2b" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_EXT_PWR) s0 2 % 0 != if{ l0 ++ (&gt;L:S_OH_ELEC_EXT_PWR) }" presetId="49408969-319d-451b-84c8-04981ea6a5dc" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="41dd59c0-5e77-4a25-8008-70b70fa31a63">
+      <active>true</active>
+      <description>FNX_AIR_COND_PACK1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_PACK_1) ! (&gt;L:S_OH_PNEUMATIC_PACK_1) " presetId="e12ba779-fb66-4c63-be76-de0968f44a2a" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_PACK_1) ! (&gt;L:S_OH_PNEUMATIC_PACK_1) " presetId="e12ba779-fb66-4c63-be76-de0968f44a2a" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ce05d0ad-8d67-4fdb-ae77-6d9c9d75babe">
+      <active>true</active>
+      <description>FNX_AIR_COND_PACK2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_PACK_2) ! (&gt;L:S_OH_PNEUMATIC_PACK_2)" presetId="cd3fe5d0-6a22-45ed-b05a-e2dcb1f1017e" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_PACK_2) ! (&gt;L:S_OH_PNEUMATIC_PACK_2)" presetId="cd3fe5d0-6a22-45ed-b05a-e2dcb1f1017e" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7bd266c4-856a-47b0-8f83-4cc9c085fa42">
+      <active>true</active>
+      <description>FNX_AIR_COND_APU_BLEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_APU_BLEED) ! (&gt;L:S_OH_PNEUMATIC_APU_BLEED) " presetId="98cdc6a7-d80b-4104-bc81-b2d96f728976" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_APU_BLEED) ! (&gt;L:S_OH_PNEUMATIC_APU_BLEED) " presetId="98cdc6a7-d80b-4104-bc81-b2d96f728976" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d3162ed0-eded-40bd-b06d-d11657663419">
+      <active>true</active>
+      <description>FNX_APU_MASTER_SW</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="7">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_APU_MASTER) ! (&gt;L:S_OH_ELEC_APU_MASTER)" presetId="555fadb9-8466-4995-bef8-4587dc16bb7b" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_ELEC_APU_MASTER) ! (&gt;L:S_OH_ELEC_APU_MASTER)" presetId="555fadb9-8466-4995-bef8-4587dc16bb7b" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b73fe495-d9d1-4306-8102-4e01a4175ff9">
+      <active>true</active>
+      <description>FNX_APU_START</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="MSFS2020CustomInputAction" command="1 (L:S_OH_ELEC_APU_START) ++ (&gt;L:S_OH_ELEC_APU_START)" presetId="b7247d15-9776-4180-9d2b-61b88e0b1817" />
+          <onRelease type="MSFS2020CustomInputAction" command="0 (L:S_OH_ELEC_APU_START) ++ (&gt;L:S_OH_ELEC_APU_START)" presetId="42d5774b-46ef-49ee-ade2-95ebe7932428" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="84525db6-0b0c-445e-801b-cc2ed8d8ebaf">
+      <active>true</active>
+      <description>FNX_EXT_LT_STROBE_ON_AUTO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_EXT_LT_STROBE)" presetId="4ea54556-bb64-47d8-9b51-1884d7cd4783" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_STROBE)" presetId="31574bf9-01f9-4542-8cb2-b16354d19b49" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8c48d82f-e3ad-4c35-961e-0dac01bf223f">
+      <active>true</active>
+      <description>FNX_EXT_LT_STROBE_OFF_AUTO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="23">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_STROBE)" presetId="bfc64c4c-784b-4976-82a8-4e3f807554e7" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_STROBE)" presetId="31574bf9-01f9-4542-8cb2-b16354d19b49" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e16e0469-9716-4468-aec2-114c5363ceb9">
+      <active>true</active>
+      <description>FNX_EXT_LT_BEACON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="29">
+          <onPress type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_BEACON)" presetId="4c259695-d621-4f01-88b0-7fdafae54887" />
+          <onRelease type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_BEACON)" presetId="f4796173-875c-494b-b9d1-9effe46ac7f6" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1b1ec78b-9b9d-4626-9f10-3ef5a3494b42">
+      <active>true</active>
+      <description>FNX_EXT_LT_WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="28">
+          <onPress type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_WING)" presetId="62f0eac1-f0f8-40db-a335-d77c8a532c49" />
+          <onRelease type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_WING)" presetId="2d9b3720-c32d-437e-a782-3038827bdeba" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ddab5cd3-4c83-4fd2-8549-9a29e661a6fb">
+      <active>true</active>
+      <description>FNX_EXT_LT_LOGO_2_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="26">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_EXT_LT_NAV_LOGO)" presetId="790ae7a4-c0d5-4f82-ae86-f3d99efbd89e" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_NAV_LOGO)" presetId="0eaa2b40-027f-438f-88b8-57d5d22dc2c3" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="713d2b7e-4a67-4ff0-bc93-34dc770ca105">
+      <active>true</active>
+      <description>FNX_EXT_LT_LOGO_OFF_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="27">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_NAV_LOGO)" presetId="93fe44ff-2a36-4845-8d3f-234505161bbf" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_NAV_LOGO)" presetId="0eaa2b40-027f-438f-88b8-57d5d22dc2c3" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="351d989d-8bcc-4e4e-bab8-0354a00bf205">
+      <active>true</active>
+      <description>FNX_EXT_LT_RWY_TURN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_RWY_TURNOFF)" presetId="941cf706-1d15-49b7-a07f-89ce8851ebc3" />
+          <onRelease type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_RWY_TURNOFF)" presetId="a5f393b9-28e7-477b-862f-44a96e4c78e5" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2f49ecac-7938-4eec-ad9f-a54fbd7acf79">
+      <active>true</active>
+      <description>FNX_EXT_LT_LAND_L_ON_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_EXT_LT_LANDING_L)" presetId="cb777bee-ece3-44bd-809c-6b31deb95507" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_LANDING_L)" presetId="279bd737-b267-47a5-89f6-45ff4ab829d9" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f5f85b74-a6ff-462e-88e7-7c76fc457897">
+      <active>true</active>
+      <description>FNX_EXT_LT_LAND_L_RETRACT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_LANDING_L)" presetId="a32bd321-3d40-4fda-a6a4-7a747469fd47" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_LANDING_L)" presetId="279bd737-b267-47a5-89f6-45ff4ab829d9" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f782ea4a-9de7-460d-b51e-868484585934">
+      <active>true</active>
+      <description>FNX_EXT_LT_LAND_R_ON_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="31">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_EXT_LT_LANDING_R)" presetId="b805ce16-fddd-4ed8-b79d-f637492d55b8" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_LANDING_R)" presetId="d73294a9-600c-4356-91cb-749159820a9b" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f9a1d619-2527-4a25-838f-f4047da43d43">
+      <active>true</active>
+      <description>FNX_EXT_LT_LAND_R_RETRACT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="30">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_LANDING_R)" presetId="6c6cf33b-f101-4cf7-a2c5-86273d81b452" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_LANDING_R)" presetId="d73294a9-600c-4356-91cb-749159820a9b" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f06e6976-d1be-4620-9a6e-70ae57995622">
+      <active>true</active>
+      <description>FNX_EXT_LT_NOSE_T.0_TAXI</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="24">
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:S_OH_EXT_LT_NOSE)" presetId="23b4c2f1-08b2-4daf-8f18-9e10941aeeaa" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_NOSE)" presetId="f6544070-23c5-43f0-bd78-e47fdb09fb11" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="106940d7-6db8-4528-9d65-bf7d153d025a">
+      <active>true</active>
+      <description>FNX_EXT_LT_NOSE_OFF_TAXI</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="25">
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_EXT_LT_NOSE)" presetId="a61f63e6-72ea-441e-aef3-e37e0eeba284" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_EXT_LT_NOSE)" presetId="f6544070-23c5-43f0-bd78-e47fdb09fb11" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0f92462f-24f9-43c7-a02b-0598ab136fc2">
+      <active>true</active>
+      <description>FNX_SIGNS_SEAT_BELTS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="MSFS2020CustomInputAction" command="1 (&gt;L:S_OH_SIGNS)" presetId="d0d6a561-ac95-48a5-ab85-76f2350f46e0" />
+          <onRelease type="MSFS2020CustomInputAction" command="0 (&gt;L:S_OH_SIGNS)" presetId="a0d0cbcf-752a-4182-9cd5-75c4c3633890" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a09b4f4d-824b-4dc4-96ad-3b26fdaa22f8">
+      <active>true</active>
+      <description>FNX_CALLS_ALL</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_OH_CALLS_ALL) ++ (&gt;L:S_OH_CALLS_ALL)" presetId="f6ea7bd3-0777-406c-bbb1-1625919607a6" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_CALLS_ALL) ++ (&gt;L:S_OH_CALLS_ALL)" presetId="f6ea7bd3-0777-406c-bbb1-1625919607a6" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

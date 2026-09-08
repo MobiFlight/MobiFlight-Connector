@@ -1,0 +1,1006 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="cb9878cc-2b09-4566-bbba-0d4a0a985f34">
+      <active>true</active>
+      <description>Toliss_APU_START_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="824bedda-a878-41a9-979d-a4022b611822">
+      <active>true</active>
+      <description>Toliss_APU_START_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="322c7d21-5eef-478a-96fb-8e657d9ca1af">
+      <active>true</active>
+      <description>Toliss_APU_MASTER_SW_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ac97d6af-1461-4e85-a05d-df4a17f98f27">
+      <active>true</active>
+      <description>Toliss_APU_MASTER_SW_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 19" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="42dbc1f1-94e6-4849-b684-8c0eff91ba30">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_ENG2_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[4]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bbcbb130-68e5-4421-aa94-ac5ff8483fc7">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_ENG2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[5]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c134c35d-9979-4164-953d-fd5a17ef7b99">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_ENG1_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="605be714-2135-419e-aaa9-f4fb76fdef8a">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_ENG1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="58c158b2-9eb9-4c4b-97c0-1fbc9b9cc78a">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_WING_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6112d78e-d9e5-4b5c-b48a-9aa608f010d8">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_WING_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="591aeab0-94e4-4e0a-a4ca-5cf5e60fc025">
+      <active>true</active>
+      <description>Toliss_GPWS_FLAP3_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[17]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ebfdbae6-adeb-4ee7-8623-9d2a7133b78c">
+      <active>false</active>
+      <description>Toliss_GPWS_FLAP3_QQ</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bd5ff6be-4d9e-46c0-b7fe-64d7382a7a04">
+      <active>true</active>
+      <description>Toliss_ELEC_EXT_PWR_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[7]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6ef2ccaf-609f-4257-ac34-40467c43e4f4">
+      <active>true</active>
+      <description>Toliss_ELEC_EXT_PWR_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[6]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="051144a9-c8aa-45bd-b2e2-f980df95075c">
+      <active>true</active>
+      <description>Toliss_FUEL_LTK_PUMPS2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d4d42dc0-dfd5-4465-bd9f-fcbce660e65a">
+      <active>true</active>
+      <description>Toliss_FUEL_LTK_PUMPS2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="49ea70c4-6021-4f53-a934-dc0ce41d025a">
+      <active>true</active>
+      <description>Toliss_FUEL_RTK_PUMPS1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[8]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3ea908b2-2e8a-480e-86bd-c84b7022ccd8">
+      <active>true</active>
+      <description>Toliss_FUEL_RTK_PUMPS1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="15f10e83-3335-43b5-91bc-961faa200eee">
+      <active>true</active>
+      <description>Toliss_FUEL_RTK_PUMPS2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[10]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8da3e793-6988-4863-add8-cc5c8bb29866">
+      <active>true</active>
+      <description>Toliss_FUEL_RTK_PUMPS2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[11]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c7239d8b-0696-4bd2-8481-00693efcd647">
+      <active>true</active>
+      <description>Toliss_FUEL_LTK_PUMPS1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="507a4cc5-23f5-430a-9cb2-465beba87212">
+      <active>true</active>
+      <description>Toliss_FUEL_LTK_PUMPS1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="73d2e4eb-f417-4985-8686-e00dfa84b4b8">
+      <active>true</active>
+      <description>Toliss_FUEL_XFR1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[4]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d72cb721-4513-454b-b369-0b4556ddb38a">
+      <active>true</active>
+      <description>Toliss_FUEL_XFR1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[5]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0d8660c8-3846-41fe-837d-edb5b22dd91c">
+      <active>true</active>
+      <description>Toliss_FUEL_XFR2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[6]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="20545d5a-3115-4272-aec0-2ff2994903b9">
+      <active>true</active>
+      <description>Toliss_FUEL_XFR2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[7]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="325ad9ce-11b3-4698-9fe1-5dc431dcb743">
+      <active>true</active>
+      <description>Toliss_ELEC_BAT1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03ecd380-9bed-4205-b96d-c449cb061d20">
+      <active>true</active>
+      <description>Toliss_ELEC_BAT1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[10]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="07451864-47f9-4996-92f7-e6c7309650bd">
+      <active>true</active>
+      <description>Toliss_ELEC_BAT2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[11]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d2d11a46-4fa2-4d4f-adac-41983922a4b7">
+      <active>true</active>
+      <description>Toliss_ELEC_BAT2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[12]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a79ad997-a4a7-4d36-8beb-c42c46ce45a8">
+      <active>true</active>
+      <description>Toliss_AIR_COND_PACK1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[6]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cfcd641d-2152-4394-8005-8ba7e2092bbb">
+      <active>true</active>
+      <description>Toliss_AIR_COND_PACK1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[7]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9b5ec768-54b2-42bb-8d25-ac94e6a9b97e">
+      <active>true</active>
+      <description>Toliss_AIR_COND_PACK2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[8]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5b50619e-f899-4fa4-a99e-a7a1cef739cc">
+      <active>true</active>
+      <description>Toliss_AIR_COND_PACK2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="37d20720-f9a7-4076-979e-e1cce50c2d9f">
+      <active>false</active>
+      <description>Toliss_FUEL_XFEED_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[14]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister 1" registerOutputPin="Output 24" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="682372bf-ed16-4eb3-b811-6fb55ed83726">
+      <active>false</active>
+      <description>Toliss_FUEL_XFEED_OPEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[15]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister 1" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0ccd8c72-d91e-457d-b508-870c68cd632b">
+      <active>true</active>
+      <description>Toliss_AIR_COND_APUBLEED_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[4]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="40e4cf47-e9cf-4040-b5b9-18cbb3335b93">
+      <active>true</active>
+      <description>Toliss_AIR_COND_APUBLEED_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[5]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6ecbd1d7-a915-4f1b-a698-a7d2e9ad355e">
+      <active>true</active>
+      <description>Toliss_Backlight</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="255" />
+        <modifiers />
+        <display type="Output" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" trigger="normal" pin="Output" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="d81aac35-6010-4da5-b744-79b351cf5595">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR1_KNOB_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b2bbdaf6-21c5-42b4-ac36-8ce5cf0e4c2d">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR1_KNOB_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="34503676-4405-4c18-ac08-f3d0aaf06112">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR1_KNOB_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dd373e7e-edf0-4dca-a609-e7992e008d81">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR3_KNOB_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="161c7615-bef1-4335-8fe8-c1cc8cfb4fd0">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR3_KNOB_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dffb5c2a-f959-4323-9f8c-c3cb61966703">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR3_KNOB_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="346aaef1-fec3-4704-9a99-c9e2f24b5918">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR2_KNOB_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b8c6fabd-b336-4474-bd14-402d940c469e">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR2_KNOB_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="06ff0684-15c9-4b0c-b7ee-a1daeb130f0a">
+      <active>true</active>
+      <description>Toliss_ADIRS_IR2_KNOB_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8119c2e4-41f4-4d5e-9b3a-541825ef2f81">
+      <active>true</active>
+      <description>Toliss_GPWS_LDG_FLAP3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[3]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[3]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1c5c4a56-5c98-4b3f-9e2a-64db03b701de">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/WAISwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/WAISwitch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2b1310b0-0e61-483a-873a-7092fd37c94b">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG1AISwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG1AISwitch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1da376b3-a28c-48cd-a70e-383b1b4e580a">
+      <active>true</active>
+      <description>Toliss_ANTI_ICE_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG2AISwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG2AISwitch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4f39bca2-2842-48d0-b148-f05af15aeaaf">
+      <active>true</active>
+      <description>Toliss_FUEL_L_TK_PUMPS1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[0]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[0]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="55480e92-825a-4526-a647-fe158430c728">
+      <active>true</active>
+      <description>Toliss_FUEL_L_TK_PUMPS2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[1]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[1]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d1a5c041-f94f-44a7-8c0a-6023e734c3d0">
+      <active>true</active>
+      <description>Toliss_FUEL_R_TK_PUMPS1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[4]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[4]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fecd2b05-852d-4562-bc64-116e22967469">
+      <active>true</active>
+      <description>Toliss_FUEL_R_TK_PUMPS2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[5]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[5]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a1b61200-dacc-48b2-b568-5e3c2f98f49c">
+      <active>true</active>
+      <description>Toliss_FUEL_XFEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[7]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[7]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3b868010-a03d-4710-8c71-254d6a732b3c">
+      <active>true</active>
+      <description>Toliss_FUEL_XFR1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[2]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[2]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="005581f9-606f-4d96-968d-16f5142fdbaa">
+      <active>true</active>
+      <description>Toliss_FUEL_XFR2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[3]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[3]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a782b78d-3877-47ef-9c57-de50146996a5">
+      <active>true</active>
+      <description>Toliss_ELEC_BAT1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat1Toggle" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat1Toggle" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="783962bd-8ba4-40ca-a948-fbb07c3bc26e">
+      <active>true</active>
+      <description>Toliss_ELEC_BAT2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat2Toggle" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat2Toggle" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cf32e1ba-1b4e-40b5-a0ad-d62f82877029">
+      <active>true</active>
+      <description>Toliss_ELEC_EXT_PWR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/EnableExternalPower" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/EnableExternalPower" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="41dd59c0-5e77-4a25-8008-70b70fa31a63">
+      <active>true</active>
+      <description>Toliss_AIR_COND_PACK1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack1Switch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack1Switch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ce05d0ad-8d67-4fdb-ae77-6d9c9d75babe">
+      <active>true</active>
+      <description>Toliss_AIR_COND_PACK2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack2Switch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack2Switch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7bd266c4-856a-47b0-8f83-4cc9c085fa42">
+      <active>true</active>
+      <description>Toliss_AIR_COND_APU_BLEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/APUBleedSwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/APUBleedSwitch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d3162ed0-eded-40bd-b06d-d11657663419">
+      <active>true</active>
+      <description>Toliss_APU_MASTER_SW</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="7">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/apucommands/MasterToggle" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/apucommands/MasterToggle" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b73fe495-d9d1-4306-8102-4e01a4175ff9">
+      <active>true</active>
+      <description>Toliss_APU_START</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/apucommands/StarterToggle" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="84525db6-0b0c-445e-801b-cc2ed8d8ebaf">
+      <active>true</active>
+      <description>Toliss_EXT_LT_STROBE_ON_AUTO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8c48d82f-e3ad-4c35-961e-0dac01bf223f">
+      <active>true</active>
+      <description>Toliss_EXT_LT_STROBE_OFF_AUTO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="23">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e16e0469-9716-4468-aec2-114c5363ceb9">
+      <active>true</active>
+      <description>Toliss_EXT_LT_BEACON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="29">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[0]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[0]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1b1ec78b-9b9d-4626-9f10-3ef5a3494b42">
+      <active>true</active>
+      <description>Toliss_EXT_LT_WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="28">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[1]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[1]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ddab5cd3-4c83-4fd2-8549-9a29e661a6fb">
+      <active>true</active>
+      <description>Toliss_EXT_LT_LOGO_2_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="26">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="713d2b7e-4a67-4ff0-bc93-34dc770ca105">
+      <active>true</active>
+      <description>Toliss_EXT_LT_LOGO_OFF_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="27">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="351d989d-8bcc-4e4e-bab8-0354a00bf205">
+      <active>true</active>
+      <description>Toliss_EXT_LT_RWY_TURN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[6]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[6]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2f49ecac-7938-4eec-ad9f-a54fbd7acf79">
+      <active>true</active>
+      <description>Toliss_EXT_LT_LAND_L_ON_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f5f85b74-a6ff-462e-88e7-7c76fc457897">
+      <active>true</active>
+      <description>Toliss_EXT_LT_LAND_L_RETRACT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f782ea4a-9de7-460d-b51e-868484585934">
+      <active>true</active>
+      <description>Toliss_EXT_LT_LAND_R_ON_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="31">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f9a1d619-2527-4a25-838f-f4047da43d43">
+      <active>true</active>
+      <description>Toliss_EXT_LT_LAND_R_RETRACT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="30">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f06e6976-d1be-4620-9a6e-70ae57995622">
+      <active>true</active>
+      <description>Toliss_EXT_LT_NOSE_T.0_TAXI</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="24">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="106940d7-6db8-4528-9d65-bf7d153d025a">
+      <active>true</active>
+      <description>Toliss_EXT_LT_NOSE_OFF_TAXI</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="25">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0f92462f-24f9-43c7-a02b-0598ab136fc2">
+      <active>true</active>
+      <description>Toliss_SIGNS_SEAT_BELTS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[11]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[11]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="234e3333-67e4-4d8c-8b53-ecdc83d53a25">
+      <active>true</active>
+      <description>Toliss_CALLS_ALL</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="XplaneInputAction" inputType="Command" path="AirbusFBW/purser/aft" expression="2" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_CALLS_ALL) ++ (&gt;L:S_OH_CALLS_ALL)" presetId="f6ea7bd3-0777-406c-bbb1-1625919607a6" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fb5a0161-0a62-4342-8556-6aad6797ad21">
+      <active>true</active>
+      <description>Toliss_CALLS_ALL Copy</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_Ultra_C_OVH/ SN-E09-C3B" name="InputShifter" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="XplaneInputAction" inputType="Command" path="AirbusFBW/purser/fwd" expression="2" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_CALLS_ALL) ++ (&gt;L:S_OH_CALLS_ALL)" presetId="f6ea7bd3-0777-406c-bbb1-1625919607a6" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>
