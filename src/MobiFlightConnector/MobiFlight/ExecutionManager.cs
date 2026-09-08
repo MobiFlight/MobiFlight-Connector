@@ -354,12 +354,14 @@ namespace MobiFlight
 
         private void InitializeFrontendSubscriptions()
         {
-            MessageExchange.Instance.Subscribe<CommandUpdateConfigItem>((message) =>
+            // All OnUiThread below: they mutate ConfigItems, which UpdateInputPreconditions() (UI
+            // thread, every 200ms) enumerates bare. Don't unmark without synchronizing ConfigItems first.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUpdateConfigItem>((message) =>
             {
                 HandleCommandUpdateConfigItem(message.Item);
             });
 
-            MessageExchange.Instance.Subscribe<CommandAddConfigItem>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
             {
                 IConfigItem item = new OutputConfigItem()
                 {
@@ -379,7 +381,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandConfigBulkAction>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandConfigBulkAction>((message) =>
             {
                 if (message.Action == "delete")
                 {
@@ -404,7 +406,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandConfigContextMenu>((message) =>
             {
                 IConfigItem cfg;
                 switch (message.Action)
@@ -491,7 +493,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandResortConfigItem>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandResortConfigItem>((message) =>
             {
                 // find all items
                 var resortedItems = new List<IConfigItem>();
@@ -521,13 +523,13 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandActiveConfigFile>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandActiveConfigFile>((message) =>
             {
                 ActiveConfigIndex = message.index;
                 ClearConfigItemStatus();
             });
 
-            MessageExchange.Instance.Subscribe<CommandFileContextMenu>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandFileContextMenu>((message) =>
             {
                 if (message.Index >= Project.ConfigFiles.Count)
                 {
@@ -563,7 +565,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(this, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandScanForInput>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandScanForInput>((message) =>
             {
                 if (message.IsScanning)
                 {
@@ -575,7 +577,7 @@ namespace MobiFlight
                 }
             });
 
-            MessageExchange.Instance.Subscribe<CommandRefreshPresets>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandRefreshPresets>((message) =>
             {
                 if (message.type == PresetType.PROSIM)
                 {
