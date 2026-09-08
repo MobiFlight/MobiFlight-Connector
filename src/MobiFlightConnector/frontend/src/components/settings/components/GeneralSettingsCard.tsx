@@ -7,7 +7,6 @@ import ComboBox from "@/components/ComboBox"
 import { LogLevel } from "@/types/log"
 import Settings from "@/types/settings"
 import { Switch } from "@/components/ui/switch"
-import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface GeneralSettingsCardProps {
   values: Partial<Settings>
@@ -20,7 +19,7 @@ export default function GeneralSettingsCard({
 }: GeneralSettingsCardProps) {
   const { t } = useTranslation()
 
-  const logEnabled = values.LogEnabled ?? false
+  const logEnabled = values.LogEnabled ?? true
   const logLevel = values.LogLevel ?? "info"
   const language = values.Language ?? ""
 
@@ -43,31 +42,62 @@ export default function GeneralSettingsCard({
 
   return (
     <Card className="w-full">
-      <ScrollArea className="h-[calc(100vh-250px)] w-full">
-        <CardContent className="space-y-6 p-6">
-          {/* Recent Files */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold">
-            {t("Settings.General.RecentFiles.Title")}
+      <CardContent className="space-y-6 p-6">
+        {/* Application */}
+        <div className="space-y-3">
+          <h3 className="text-base font-bold">
+            {t("Settings.General.Application.Title")}
           </h3>
-          <div className="flex items-center gap-4">
-            <Label
-              htmlFor="recent-files"
-              className="text-sm text-muted-foreground font-normal"
-            >
-              {t("Settings.General.RecentFiles.Description")}
-            </Label>
-            <Input
-              id="recent-files"
-              type="number"
-              min={0}
-              max={20}
-              className="w-24"
-              value={values.RecentFilesMaxCount ?? 5}
-              onChange={(e) =>
-                onChange("RecentFilesMaxCount", parseInt(e.target.value) || 0)
-              }
-            />
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4 py-1">
+              <div className="space-y-0.5">
+                <Label className="text-sm font-normal">
+                  {t("Settings.General.Language.Title")}
+                </Label>
+              </div>
+              <ComboBox
+                items={languageOptions}
+                selected={languageOptions.find((opt) => opt.value === language)}
+                getValue={(item) => item.value}
+                getLabel={(item) => item.label}
+                isSelected={(item, selected) => item.value === selected?.value}
+                setSelected={(item) => item && onChange("Language", item.value)}
+                widthClass="w-56"
+              />
+            </div>
+
+            <div className="flex items-center justify-between gap-4 py-1">
+              <Label
+                htmlFor="beta-updates"
+                className="cursor-pointer text-sm font-normal"
+              >
+                {t("Settings.General.BetaVersions.Description")}
+              </Label>
+              <Switch
+                id="beta-updates"
+                checked={values.BetaUpdates ?? false}
+                onCheckedChange={(checked) =>
+                  onChange("BetaUpdates", !!checked)
+                }
+              />
+            </div>
+
+            <div className="flex items-center justify-between gap-4 py-1">
+              <Label
+                htmlFor="community-feedback"
+                className="cursor-pointer text-sm font-normal"
+              >
+                {t("Settings.General.CommunityFeedback.Description")}
+              </Label>
+              <Switch
+                id="community-feedback"
+                checked={values.CommunityFeedback ?? false}
+                onCheckedChange={(checked) =>
+                  onChange("CommunityFeedback", !!checked)
+                }
+              />
+            </div>
           </div>
         </div>
 
@@ -75,29 +105,33 @@ export default function GeneralSettingsCard({
 
         {/* Logging */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold">
+          <h3 className="text-base font-bold">
             {t("Settings.General.Logging.Title")}
           </h3>
-          <div className="flex flex-wrap items-center gap-6">
-            <div className="flex items-center space-x-2">
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4 py-1">
+              <Label
+                htmlFor="logging-enable"
+                className="cursor-pointer text-sm font-normal"
+              >
+                {t("Settings.General.Logging.ShowLogPanel")}
+              </Label>
               <Switch
                 id="logging-enable"
                 checked={logEnabled}
                 onCheckedChange={(checked) => onChange("LogEnabled", !!checked)}
               />
-              <Label htmlFor="logging-enable" className="cursor-pointer font-normal">
-                {t("Settings.General.Logging.Enabled")}
-              </Label>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between gap-4 py-1">
               <Label
                 htmlFor="log-level"
                 className={`text-sm font-normal ${
                   !logEnabled ? "text-muted-foreground" : ""
                 }`}
               >
-                {t("Settings.General.Logging.LogLevel")}:
+                {t("Settings.General.Logging.LogLevel")}
               </Label>
               <ComboBox
                 items={logOptions}
@@ -113,11 +147,19 @@ export default function GeneralSettingsCard({
                   item && onChange("LogLevel", item.value as LogLevel)
                 }
                 disabled={!logEnabled}
-                widthClass="w-32"
+                widthClass="w-56"
               />
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-between gap-4 py-1">
+              <Label
+                htmlFor="logging-joystick-axis"
+                className={`cursor-pointer text-sm font-normal ${
+                  !logEnabled ? "text-muted-foreground" : ""
+                }`}
+              >
+                {t("Settings.General.Logging.LogJoystickAxis")}
+              </Label>
               <Switch
                 id="logging-joystick-axis"
                 checked={values.LogJoystickAxis ?? false}
@@ -126,70 +168,42 @@ export default function GeneralSettingsCard({
                   onChange("LogJoystickAxis", !!checked)
                 }
               />
-              <Label
-                htmlFor="logging-joystick-axis"
-                className={`cursor-pointer font-normal ${
-                  !logEnabled ? "text-muted-foreground" : ""
-                }`}
-              >
-                {t("Settings.General.Logging.LogJoystickAxis")}
-              </Label>
             </div>
           </div>
         </div>
 
         <Separator />
 
-        {/* Beta Versions */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold">
-            {t("Settings.General.BetaVersions.Title")}
-          </h3>
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="beta-updates"
-              checked={values.BetaUpdates ?? false}
-              onCheckedChange={(checked) => onChange("BetaUpdates", !!checked)}
-            />
-            <Label htmlFor="beta-updates" className="cursor-pointer text-sm font-normal">
-              {t("Settings.General.BetaVersions.Description")}
-            </Label>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Community Feedback Program */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold">
-            {t("Settings.General.CommunityFeedback.Title")}
-          </h3>
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="community-feedback"
-              checked={values.CommunityFeedback ?? false}
-              onCheckedChange={(checked) =>
-                onChange("CommunityFeedback", !!checked)
-              }
-            />
-            <Label
-              htmlFor="community-feedback"
-              className="cursor-pointer text-sm font-normal"
-            >
-              {t("Settings.General.CommunityFeedback.Description")}
-            </Label>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Run options */}
+        {/* Startup and Run options */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold">
-            {t("Settings.General.RunOptions.Title")}
+          <h3 className="text-base font-bold">
+            {t("Settings.General.StartupAndRunOptions.Title")}
           </h3>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4 py-1">
+              <Label
+                htmlFor="hubhop-auto-check"
+                className="cursor-pointer text-sm font-normal"
+              >
+                {t("Settings.General.HubHop.AutoCheck")}
+              </Label>
+              <Switch
+                id="hubhop-auto-check"
+                checked={values.HubHopAutoCheck ?? false}
+                onCheckedChange={(checked) =>
+                  onChange("HubHopAutoCheck", !!checked)
+                }
+              />
+            </div>
+
+            <div className="flex items-center justify-between gap-4 py-1">
+              <Label
+                htmlFor="auto-retrigger"
+                className="cursor-pointer text-sm font-normal"
+              >
+                {t("Settings.General.RunOptions.AutoRetrigger")}
+              </Label>
               <Switch
                 id="auto-retrigger"
                 checked={values.AutoRetrigger ?? false}
@@ -197,11 +211,15 @@ export default function GeneralSettingsCard({
                   onChange("AutoRetrigger", !!checked)
                 }
               />
-              <Label htmlFor="auto-retrigger" className="cursor-pointer text-sm font-normal">
-                {t("Settings.General.RunOptions.AutoRetrigger")}
-              </Label>
             </div>
-            <div className="flex items-center space-x-2">
+
+            <div className="flex items-center justify-between gap-4 py-1">
+              <Label
+                htmlFor="minimize-on-autorun"
+                className="cursor-pointer text-sm font-normal"
+              >
+                {t("Settings.General.RunOptions.MinimizeOnAutoRun")}
+              </Label>
               <Switch
                 id="minimize-on-autorun"
                 checked={values.MinimizeOnAutoRun ?? false}
@@ -209,119 +227,61 @@ export default function GeneralSettingsCard({
                   onChange("MinimizeOnAutoRun", !!checked)
                 }
               />
-              <Label
-                htmlFor="minimize-on-autorun"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.General.RunOptions.MinimizeOnAutoRun")}
+            </div>
+
+            <div className="flex items-center justify-between gap-6 py-2">
+              <div className="flex-1 space-y-0.5">
+                <Label className="text-sm font-medium ">
+                  {t("Settings.General.ExecutionSpeed.Title")}
+                </Label>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {t("Settings.General.ExecutionSpeed.Description")}
+                </p>
+              </div>
+              <div className="w-60 space-y-1">
+                <div className="flex justify-between text-xs text-muted-foreground whitespace-nowrap">
+                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Slow")}</span>
+                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Fast")}</span>
+                </div>
+                <Input
+                  type="range"
+                  min="25"
+                  max="250"
+                  step="25"
+                  value={values.PollInterval ?? 50}
+                  onChange={(e) =>
+                    onChange("PollInterval", Number(e.target.value))
+                  }
+                  className="w-full cursor-pointer accent-primary"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-6 py-2">
+              <Label className="text-sm font-medium">
+                {t("Settings.General.TestModeSpeed.Title")}
               </Label>
+              <div className="w-60 space-y-1">
+                <div className="flex justify-between text-xs text-muted-foreground whitespace-nowrap">
+                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Slow")}</span>
+                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Fast")}</span>
+                </div>
+                <Input
+                  type="range"
+                  min="50"
+                  max="1000"
+                  step="50"
+                  value={values.TestTimerInterval ?? 50}
+                  onChange={(e) =>
+                    onChange("TestTimerInterval", Number(e.target.value))
+                  }
+                  className="w-full cursor-pointer accent-primary"
+                />
+              </div>
             </div>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* HubHop */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold">
-            {t("Settings.General.HubHop.Title")}
-          </h3>
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="hubhop-auto-check"
-              checked={values.HubHopAutoCheck ?? false}
-              onCheckedChange={(checked) =>
-                onChange("HubHopAutoCheck", !!checked)
-              }
-            />
-            <Label
-              htmlFor="hubhop-auto-check"
-              className="cursor-pointer text-sm font-normal"
-            >
-              {t("Settings.General.HubHop.AutoCheck")}
-            </Label>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Language */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold">
-            {t("Settings.General.Language.Title")}
-          </h3>
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-3">
-              <Label className="text-sm text-muted-foreground">
-                {t("Settings.General.Language.Description")}
-              </Label>
-              <ComboBox
-                items={languageOptions}
-                selected={languageOptions.find((opt) => opt.value === language)}
-                getValue={(item) => item.value}
-                getLabel={(item) => item.label}
-                isSelected={(item, selected) => item.value === selected?.value}
-                setSelected={(item) => item && onChange("Language", item.value)}
-                widthClass="w-56"
-              />
-            </div>
-            <p className="text-xs text-muted-foreground">
-              {t("Settings.General.Language.RestartRequired")}
-            </p>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Speed Controls */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Config Execution Speed */}
-          <div className="space-y-2 p-3 rounded-md border bg-muted/20">
-            <h3 className="text-sm font-semibold">
-              {t("Settings.General.ExecutionSpeed.Title")}
-            </h3>
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{t("Settings.General.ExecutionSpeed.Slow")}</span>
-              <span>{t("Settings.General.ExecutionSpeed.Fast")}</span>
-            </div>
-            <input
-              type="range"
-              min="25"
-              max="250"
-              step="25"
-              value={values.PollInterval ?? 50}
-              onChange={(e) => onChange("PollInterval", Number(e.target.value))}
-              className="w-full accent-primary cursor-pointer"
-            />
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {t("Settings.General.ExecutionSpeed.Description")}
-            </p>
-          </div>
-
-          {/* Test Mode Speed */}
-          <div className="space-y-2 p-3 rounded-md border bg-muted/20">
-            <h3 className="text-sm font-semibold">
-              {t("Settings.General.TestModeSpeed.Title")}
-            </h3>
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{t("Settings.General.TestModeSpeed.Slow")}</span>
-              <span>{t("Settings.General.TestModeSpeed.Fast")}</span>
-            </div>
-            <input
-              type="range"
-              min="50"
-              max="1000"
-              step="50"
-              value={values.TestTimerInterval ?? 50}
-              onChange={(e) =>
-                onChange("TestTimerInterval", Number(e.target.value))
-              }
-              className="w-full accent-primary cursor-pointer"
-            />
           </div>
         </div>
       </CardContent>
-      </ScrollArea>
     </Card>
   )
 }

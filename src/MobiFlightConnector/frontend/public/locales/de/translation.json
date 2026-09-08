@@ -872,13 +872,13 @@
   "Settings": {
     "General": {
       "Title": "Allgemein",
-      "RecentFiles": {
-        "Title": "Zuletzt verwendete Dateien",
-        "Description": "Anzahl der in der Liste angezeigten Dateien festlegen auf"
+      "Application": {
+        "Title": "Anwendung"
       },
       "Logging": {
         "Title": "Protokollierung",
         "Enabled": "aktiviert",
+        "ShowLogPanel": "Log-Panel anzeigen",
         "LogLevel": "Log-Level",
         "Levels": {
           "Debug": "Debug",
@@ -888,16 +888,23 @@
         },
         "LogJoystickAxis": "Joystick-Achsen protokollieren"
       },
+      "StartupAndRunOptions": {
+        "Title": "Start- und Ausführungsoptionen"
+      },
+      "RecentFiles": {
+        "Title": "Zuletzt verwendete Dateien",
+        "Description": "Anzahl der in der Liste angezeigten Dateien festlegen auf"
+      },
       "BetaVersions": {
         "Title": "Beta-Versionen",
-        "Description": "Ja, ich möchte Beta-Versionsupdates erhalten."
+        "Description": "Beta-Versionen-Updates erhalten."
       },
       "CommunityFeedback": {
         "Title": "Community-Feedback-Programm",
-        "Description": "Ja, ich möchte am Community-Feedback-Programm teilnehmen und helfen, MobiFlight zu verbessern."
+        "Description": "Am Community-Feedback-Programm teilnehmen und helfen, MobiFlight zu verbessern."
       },
       "RunOptions": {
-        "Title": "Ausführungsoptionen",
+        "Title": "Start- und Ausführungsoptionen",
         "AutoRetrigger": "Automatisches Nachdrücken im \"Run\"-Modus ausführen",
         "MinimizeOnAutoRun": "Bei AutoRun minimieren"
       },
@@ -913,13 +920,13 @@
       "ExecutionSpeed": {
         "Title": "Konfigurationsausführungsgeschwindigkeit",
         "Description": "Sie können die Ausführungsgeschwindigkeit steuern, z. B. wenn bei der Eingabe Verzögerungen auftreten. Sehr schnelle Einstellungen können die Leistung beeinträchtigen.",
-        "Slow": "Langsam",
-        "Fast": "Sehr schnell"
+        "Slow": "langsam",
+        "Fast": "sehr schnell"
       },
       "TestModeSpeed": {
         "Title": "Testmodus-Geschwindigkeit",
-        "Slow": "Langsam",
-        "Fast": "Sehr schnell"
+        "Slow": "langsam",
+        "Fast": "sehr schnell"
       }
     },
     "Simulator": {

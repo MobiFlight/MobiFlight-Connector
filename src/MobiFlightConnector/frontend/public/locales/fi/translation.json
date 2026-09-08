@@ -866,13 +866,13 @@
   "Settings": {
     "General": {
       "Title": "Yleiset",
-      "RecentFiles": {
-        "Title": "Viimeisimmät tiedostot",
-        "Description": "Aseta luettelossa näytettävien tiedostojen määräksi"
+      "Application": {
+        "Title": "Sovellus"
       },
       "Logging": {
         "Title": "Loki",
         "Enabled": "käytössä",
+        "ShowLogPanel": "Näytä lokipaneeli",
         "LogLevel": "Lokitaso",
         "Levels": {
           "Debug": "Debug",
@@ -882,16 +882,23 @@
         },
         "LogJoystickAxis": "Kirjaa ohjaussauvan akselit lokiin"
       },
+      "StartupAndRunOptions": {
+        "Title": "Käynnistys- ja suoritusasetukset"
+      },
+      "RecentFiles": {
+        "Title": "Viimeisimmät tiedostot",
+        "Description": "Aseta luettelossa näytettävien tiedostojen määräksi"
+      },
       "BetaVersions": {
         "Title": "Beta-versiot",
-        "Description": "Kyllä, haluan vastaanottaa beta-versiopäivityksiä."
+        "Description": "Vastaanota beta-versiopäivityksiä."
       },
       "CommunityFeedback": {
         "Title": "Yhteisön palauteohjelma",
-        "Description": "Kyllä, haluan osallistua yhteisön palauteohjelmaan ja auttaa parantamaan MobiFlightia."
+        "Description": "Osallistu yhteisön palauteohjelmaan ja auta parantamaan MobiFlightia."
       },
       "RunOptions": {
-        "Title": "Suoritusasetukset",
+        "Title": "Käynnistys- ja suoritusasetukset",
         "AutoRetrigger": "Suorita uudelleenlaukaisutoiminto automaattisesti \"run\"-tilassa",
         "MinimizeOnAutoRun": "Pienennä automaattisen suorituksen yhteydessä"
       },
@@ -907,19 +914,19 @@
       "ExecutionSpeed": {
         "Title": "Määrityksen suoritusnopeus",
         "Description": "Voit säätää suoritusnopeutta esimerkiksi, jos syötteessä esiintyy viivettä. Erittäin nopeat asetukset voivat vaikuttaa suorituskykyyn.",
-        "Slow": "Hidas",
-        "Fast": "Erittäin nopea"
+        "Slow": "hidas",
+        "Fast": "erittäin nopea"
       },
       "TestModeSpeed": {
         "Title": "Testitilan nopeus",
-        "Slow": "Hidas",
-        "Fast": "Erittäin nopea"
+        "Slow": "hidas",
+        "Fast": "erittäin nopea"
       }
     },
     "Simulator": {
-      "Title": "Simulaattori",
+      "Title": "Simulaattorit",
       "ProSim": {
-        "Title": "ProSim-asetukset",
+        "Title": "ProSim / HomeSim",
         "Host": "Palvelin",
         "Port": "Portti",
         "AutoConnect": "Ota automaattinen ProSim-yhteys käyttöön",

@@ -872,13 +872,13 @@
   "Settings": {
     "General": {
       "Title": "General",
-      "RecentFiles": {
-        "Title": "Archivos recientes",
-        "Description": "Establecer el número de archivos mostrados en la lista a"
+      "Application": {
+        "Title": "Aplicación"
       },
       "Logging": {
         "Title": "Registro",
         "Enabled": "habilitado",
+        "ShowLogPanel": "Mostrar panel de registro",
         "LogLevel": "Nivel de registro",
         "Levels": {
           "Debug": "Debug",
@@ -888,16 +888,23 @@
         },
         "LogJoystickAxis": "Registrar eje de joystick"
       },
+      "StartupAndRunOptions": {
+        "Title": "Opciones de inicio y ejecución"
+      },
+      "RecentFiles": {
+        "Title": "Archivos recientes",
+        "Description": "Establecer el número de archivos mostrados en la lista a"
+      },
       "BetaVersions": {
         "Title": "Versiones beta",
-        "Description": "Sí, me gustaría recibir actualizaciones de versiones beta."
+        "Description": "Recibir actualizaciones de versiones beta."
       },
       "CommunityFeedback": {
         "Title": "Programa de comentarios de la comunidad",
-        "Description": "Sí, quiero participar en el programa de comentarios de la comunidad y ayudar a mejorar MobiFlight."
+        "Description": "Participar en el programa de comentarios de la comunidad y ayudar a mejorar MobiFlight."
       },
       "RunOptions": {
-        "Title": "Opciones de ejecución",
+        "Title": "Opciones de inicio y ejecución",
         "AutoRetrigger": "Realizar automáticamente la acción de reactivación con el modo \"run\"",
         "MinimizeOnAutoRun": "Minimizar en AutoRun"
       },
@@ -913,19 +920,19 @@
       "ExecutionSpeed": {
         "Title": "Velocidad de ejecución de configuración",
         "Description": "Puede controlar la velocidad de ejecución, por ejemplo, si experimenta algún retraso en su entrada. Los ajustes muy rápidos pueden afectar el rendimiento.",
-        "Slow": "Lento",
-        "Fast": "Muy rápido"
+        "Slow": "lento",
+        "Fast": "muy rápido"
       },
       "TestModeSpeed": {
         "Title": "Velocidad del modo de prueba",
-        "Slow": "Lento",
-        "Fast": "Muy rápido"
+        "Slow": "lento",
+        "Fast": "muy rápido"
       }
     },
     "Simulator": {
-      "Title": "Simulador",
+      "Title": "Simuladores",
       "ProSim": {
-        "Title": "Configuración de ProSim",
+        "Title": "ProSim / HomeSim",
         "Host": "Host",
         "Port": "Puerto",
         "AutoConnect": "Habilitar conexión automática a ProSim",

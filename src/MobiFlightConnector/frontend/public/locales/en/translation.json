@@ -866,13 +866,13 @@
   "Settings": {
     "General": {
       "Title": "General",
-      "RecentFiles": {
-        "Title": "Recent files",
-        "Description": "Set the number of files shown in the list to"
+      "Application": {
+        "Title": "Application"
       },
       "Logging": {
         "Title": "Logging",
         "Enabled": "enabled",
+        "ShowLogPanel": "Show Log Panel",
         "LogLevel": "Log Level",
         "Levels": {
           "Debug": "Debug",
@@ -882,16 +882,23 @@
         },
         "LogJoystickAxis": "Log Joystick Axis"
       },
+      "StartupAndRunOptions": {
+        "Title": "Startup and Run options"
+      },
+      "RecentFiles": {
+        "Title": "Recent files",
+        "Description": "Set the number of files shown in the list to"
+      },
       "BetaVersions": {
         "Title": "Beta Versions",
-        "Description": "Yes, I would like to receive beta version updates."
+        "Description": "Receive beta version updates."
       },
       "CommunityFeedback": {
         "Title": "Community Feedback Program",
-        "Description": "Yes, I want to participate in Community Feedback Program and help to improve MobiFlight."
+        "Description": "Participate in Community Feedback Program and help to improve MobiFlight."
       },
       "RunOptions": {
-        "Title": "Run options",
+        "Title": "Startup and Run options",
         "AutoRetrigger": "Automatically perform retrigger-action with \"run\"-mode",
         "MinimizeOnAutoRun": "Minimize on AutoRun"
       },
@@ -907,13 +914,13 @@
       "ExecutionSpeed": {
         "Title": "Config Execution Speed",
         "Description": "You can control the execution speed, e.g., if you experience some lag in your input. Very fast settings might impact performance.",
-        "Slow": "Slow",
-        "Fast": "Very Fast"
+        "Slow": "slow",
+        "Fast": "very fast"
       },
       "TestModeSpeed": {
         "Title": "Test mode speed",
-        "Slow": "Slow",
-        "Fast": "Very Fast"
+        "Slow": "slow",
+        "Fast": "very fast"
       }
     },
     "Simulator": {

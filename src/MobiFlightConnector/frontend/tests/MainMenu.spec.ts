@@ -212,8 +212,8 @@ test.describe("Settings menu item tests", () => {
     await expect(dialog).toBeVisible()
 
     // Modify a setting value
-    const recentFilesInput = dialog.locator("#recent-files")
-    await recentFilesInput.fill("10")
+    const betaUpdatesSwitch = dialog.locator("#beta-updates")
+    await betaUpdatesSwitch.click()
 
     // Click Save button
     const saveButton = dialog.getByRole("button", { name: "Save" })
@@ -232,7 +232,7 @@ test.describe("Settings menu item tests", () => {
     expect(trackedCommands.length).toBeGreaterThan(0)
     const lastCommand = trackedCommands.pop()
     expect(lastCommand?.key).toBe("CommandUpdateSettings")
-    expect(lastCommand?.payload.RecentFilesMaxCount).toBe(10)
+    expect(lastCommand?.payload.BetaUpdates).toBe(true)
   })
 
   test("Confirm `Extras > Settings` cancels changes without publishing command", async ({
@@ -255,12 +255,20 @@ test.describe("Settings menu item tests", () => {
     await expect(dialog).toBeVisible()
 
     // Modify a setting value
-    const recentFilesInput = dialog.locator("#recent-files")
-    await recentFilesInput.fill("15")
+    const betaUpdatesSwitch = dialog.locator("#beta-updates")
+    await betaUpdatesSwitch.click()
 
     // Click Cancel button
     const cancelButton = dialog.getByRole("button", { name: "Cancel" })
     await cancelButton.click()
+
+    // Discard confirmation appears
+    const discardDialog = page.getByRole("dialog", { name: "Discard changes?" })
+    await expect(discardDialog).toBeVisible()
+    const discardChangesButton = discardDialog.getByRole("button", {
+      name: "Discard changes",
+    })
+    await discardChangesButton.click()
 
     // Verify dialog is closed
     await expect(dialog).not.toBeVisible()
@@ -293,7 +301,7 @@ test.describe("Settings menu item tests", () => {
     await expect(dialog).toBeVisible()
 
     // Verify General tab content is visible by default
-    await expect(dialog.getByText("Recent files")).toBeVisible()
+    await expect(dialog.locator("#beta-updates")).toBeVisible()
 
     // Switch to Simulator tab
     const simulatorTab = dialog.getByRole("tab", { name: "Simulator" })
@@ -304,7 +312,7 @@ test.describe("Settings menu item tests", () => {
     // Switch back to General tab
     const generalTab = dialog.getByRole("tab", { name: "General" })
     await generalTab.click()
-    await expect(dialog.getByText("Recent files")).toBeVisible()
+    await expect(dialog.locator("#beta-updates")).toBeVisible()
   })
 
   test("Confirm discard changes confirmation dialog appears when closing with unsaved changes", async ({
@@ -326,8 +334,8 @@ test.describe("Settings menu item tests", () => {
     await expect(dialog).toBeVisible()
 
     // Modify a setting value
-    const recentFilesInput = dialog.locator("#recent-files")
-    await recentFilesInput.fill("15")
+    const betaUpdatesSwitch = dialog.locator("#beta-updates")
+    await betaUpdatesSwitch.click()
 
     // Click Cancel button
     const cancelButton = dialog.getByRole("button", { name: "Cancel" })
