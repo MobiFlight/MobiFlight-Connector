@@ -108,7 +108,7 @@ namespace MobiFlight.Joysticks.Octavi
 
         private void UpdateShiftModeLed()
         {
-            /* this will set nothing if the Ouput device label is not found - disable auto blinking by renaming the output in joystick.json */
+            /* this will set nothing if the Output device label is not found - disable auto blinking by renaming the output in joystick.json */
             this.SetOutputDeviceState("Auto Blink Context", (byte)(octaviHandler.IsInShiftMode ? 1 : 0));
         }
 

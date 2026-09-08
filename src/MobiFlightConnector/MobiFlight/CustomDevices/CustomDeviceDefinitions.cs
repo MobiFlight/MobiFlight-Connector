@@ -27,14 +27,14 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// Get all device definitions.
         /// </summary>
-        /// <returns>Return all device defintions.</returns>
+        /// <returns>Return all device definitions.</returns>
         public static List<CustomDevice> GetAll()
         {
             return devices;
         }
 
         /// <summary>
-        /// Loads all device definintions from disk.
+        /// Loads all device definitions from disk.
         /// </summary>
         public static void LoadDefinitions()
         {

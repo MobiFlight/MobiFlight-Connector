@@ -814,7 +814,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
         {
             // TODO: remove this sync to config
-            // to prevent overriding accidentaly something
+            // to prevent overriding accidentally something
             syncToConfig();
 
             string serial = config.Controller.Serial;

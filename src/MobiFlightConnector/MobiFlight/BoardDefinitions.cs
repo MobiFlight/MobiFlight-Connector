@@ -94,7 +94,7 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// Loads all board definintions from disk.
+        /// Loads all board definitions from disk.
         /// </summary>
         public static void LoadDefinitions()
         {
@@ -114,7 +114,7 @@ namespace MobiFlight
                         board.Info.BoardPicture = Image.FromFile(logoPath);
                     }
 
-                    // check if we have a more board specifc picture
+                    // check if we have a more board specific picture
                     logoPath = $@"{boardPath}\{board.Info.FirmwareBaseName}.png";
                     if (File.Exists(logoPath))
                     {
