@@ -528,19 +528,6 @@ namespace MobiFlight.UI
 
             // Initialize the custom device configurations
             CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
-
-            if (Properties.Settings.Default.Started == 0)
-            {
-                OnFirstStart();
-            }
-
-            if (Properties.Settings.Default.Started > 0 && (Properties.Settings.Default.Started % 30 == 0))
-            {
-                OnRepeatedStart();
-            }
-
-            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
-
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
             InitializeExecutionManager();
 
@@ -565,6 +552,22 @@ namespace MobiFlight.UI
             Refresh();
 
             await PublishStartupState();
+            OnStartupCompleted();
+        }
+
+        private void OnStartupCompleted()
+        {
+            if (Properties.Settings.Default.Started == 0)
+            {
+                OnFirstStart();
+            }
+
+            if (Properties.Settings.Default.Started > 0 && (Properties.Settings.Default.Started % 30 == 0))
+            {
+                OnRepeatedStart();
+            }
+
+            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
         }
 
         /// <summary>One-time boot tail - only ever called once, from OnFrontendReady.</summary>
@@ -597,6 +600,10 @@ namespace MobiFlight.UI
         {
             PublishSettings();
             PublishProjectList();
+
+            // Following messages all depend on an existing execManager instance.
+            if (execManager == null) return;
+
             MessageExchange.Instance.Publish(execManager.Project);
             MessageExchange.Instance.Publish(new ProjectStatus { HasChanged = ProjectHasUnsavedChanges });
             UpdateExecutionState();
@@ -966,7 +973,7 @@ namespace MobiFlight.UI
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             AppTelemetry.Instance.TrackShutdown();
-            execManager.Shutdown();
+            execManager?.Shutdown();
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             runningStateBadge?.Dispose();
@@ -2584,7 +2591,7 @@ namespace MobiFlight.UI
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            execManager.Stop();
+            execManager?.Stop();
             if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
