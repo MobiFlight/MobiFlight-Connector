@@ -587,6 +587,8 @@ namespace MobiFlight.UI
 
             PublishSettings();
             await InitializeRecentProjectsListAsync();
+
+            if (execManager == null) return;
             MessageExchange.Instance.Publish(execManager.Project);
         }
 
@@ -2591,7 +2593,11 @@ namespace MobiFlight.UI
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            execManager?.Stop();
+            // Closing the form before the execManager
+            // means there is nothing we could ever save, so we just return here.
+            if (execManager == null) return;
+
+            execManager.Stop();
             if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
