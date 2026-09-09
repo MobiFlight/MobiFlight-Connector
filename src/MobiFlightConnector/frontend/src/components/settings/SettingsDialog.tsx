@@ -109,7 +109,7 @@ export default function SettingsDialog({
 
             <TabsContent
               value="general"
-              className="mt-0 flex min-h-0 flex-1 flex-col"
+              className="mt-4 flex min-h-0 flex-1 flex-col"
             >
               <div className="flex flex-row grow">
                 <ScrollArea className="grow">
@@ -125,7 +125,7 @@ export default function SettingsDialog({
 
             <TabsContent
               value="simulator"
-              className="mt-0 flex min-h-0 flex-1 flex-col"
+              className="mt-4 flex min-h-0 flex-1 flex-col"
             >
               <div className="flex flex-row grow">
                 <ScrollArea className="grow">
