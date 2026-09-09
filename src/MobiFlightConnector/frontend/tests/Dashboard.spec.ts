@@ -2,7 +2,6 @@ import { ExecutionState } from "../src/types/messages"
 import { test, expect } from "./fixtures"
 import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" with { type: "json" }
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
-import { ConfigListPage } from "./fixtures/ConfigListPage"
 
 test.describe("Project view tests", () => {
   test("Confirm empty project view content and actions", async ({
