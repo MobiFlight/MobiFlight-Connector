@@ -544,6 +544,39 @@ namespace MobiFlight.UI.Tests
             Assert.AreEqual(!initialAutoRun, settingsMessage.AutoRun,
                 "AutoRun should be toggled in published settings");
         }
+
+        [TestMethod]
+
+        public void CommandShutdown_DiscardChanges_ISHandled() { 
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+            _mainForm.ProjectHasUnsavedChanges = true;
+
+            var formClosed = false;
+            _mainForm.FormClosed += (sender, args) => formClosed = true;
+
+            var jsonMessage = JsonConvert.SerializeObject(
+                new BrowserMessages.Message<CommandShutdown>(
+                    new CommandShutdown() {
+                        Action = CommandShutdownAction.discardChanges   
+                    }
+                 )
+             );
+
+            _mainForm.Publisher.Reset();
+
+            // Act (simulate CommandShutdown coming from frontent)
+            _mainForm.Publisher.SimulateIncomingMessage(jsonMessage);
+
+            //Assert
+            Assert.IsTrue( formClosed, "MainForm should close after receiving discardChanges shutdown command." );
+
+            Assert.IsFalse(
+                _mainForm.Publisher.PublishedMessages
+                    .Any(message => message is ShutdownConfirmationRequested),
+                "Shutdown confirmation should not be requested again."
+             );
+        }
         #endregion
 
         public class TestMessagePublisher : IMessagePublisher

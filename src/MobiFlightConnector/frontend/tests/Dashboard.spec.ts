@@ -2,6 +2,7 @@ import { ExecutionState } from "../src/types/messages"
 import { test, expect } from "./fixtures"
 import msfsPresetsResponse from "./data/inputaction/msfspresets.testdata.json" with { type: "json" }
 import xplanePresetsResponse from "./data/inputaction/xplanepresets.testdata.json" with { type: "json" }
+import { ConfigListPage } from "./fixtures/ConfigListPage"
 
 test.describe("Project view tests", () => {
   test("Confirm empty project view content and actions", async ({
@@ -1094,7 +1095,7 @@ test.describe("Pending changes dialog tests", () => {
     const secondProject = projectItems.nth(1)
 
     const confirmDialog = page.getByRole("dialog", {
-      name: "Discard changes",
+      name: "Discard changes?",
     })
 
     const cancelButton = confirmDialog.getByRole("button", {
@@ -1118,6 +1119,84 @@ test.describe("Pending changes dialog tests", () => {
     expect(postedCommands).toHaveLength(0)
 
     await expect(page).toHaveURL(/.*\/home((\/|\?).*)?/)
+  })
+
+  test("Confirm shutdown command is sent when changes are discarded", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+
+    await mobiFlightPage.trackCommand("CommandShutdown")
+    await mobiFlightPage.clearTrackedCommands()
+
+    await mobiFlightPage.publishMessage({
+      key: "ShutdownConfirmationRequested",
+      payload: {},
+    })
+
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Discard changes?",
+    })
+
+    const discardButton = confirmDialog.getByRole("button", {
+      name: "Discard changes",
+    })
+
+    await expect(confirmDialog).toBeVisible()
+
+    await discardButton.click()
+
+    await expect(confirmDialog).not.toBeVisible()
+
+    const postedCommands = await mobiFlightPage.getTrackedCommands()
+
+    expect(postedCommands).toHaveLength(1)
+
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand).toEqual({
+      key: "CommandShutdown",
+      payload: {
+        action: "discardChanges",
+      },
+    })
+  })
+
+  test("Confirm shutdown is cancelled when user keeps editing", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+
+    const mobiFlightPage = dashboardPage.mobiFlightPage
+
+    await mobiFlightPage.trackCommand("CommandShutdown")
+    await mobiFlightPage.clearTrackedCommands()
+
+    await mobiFlightPage.publishMessage({
+      key: "ShutdownConfirmationRequested",
+      payload: {},
+    })
+
+    const confirmDialog = page.getByRole("dialog", {
+      name: "Discard changes?",
+    })
+
+    const keepEditingButton = confirmDialog.getByRole("button", {
+      name: "Keep editing",
+    })
+
+    await expect(confirmDialog).toBeVisible()
+
+    await keepEditingButton.click()
+
+    await expect(confirmDialog).not.toBeVisible()
+
+    const postedCommands = await mobiFlightPage.getTrackedCommands()
+
+    expect(postedCommands).toHaveLength(0)
   })
 })
 
