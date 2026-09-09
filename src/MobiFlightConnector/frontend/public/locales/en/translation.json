@@ -896,11 +896,11 @@
       },
       "BetaVersions": {
         "Title": "Beta Versions",
-        "Description": "Receive beta version updates."
+        "Description": "Receive beta version updates"
       },
       "CommunityFeedback": {
         "Title": "Community Feedback Program",
-        "Description": "Participate in Community Feedback Program and help to improve MobiFlight."
+        "Description": "Participate in Community Feedback Program and help to improve MobiFlight"
       },
       "RunOptions": {
         "Title": "Startup and Run options",
@@ -909,16 +909,16 @@
       },
       "HubHop": {
         "Title": "HubHop",
-        "AutoCheck": "Check HubHop presets on application start."
+        "AutoCheck": "Check HubHop presets on application start"
       },
       "Language": {
         "Title": "Language",
         "Description": "Change the language of the UI:",
-        "RestartRequired": "It requires a restart of MobiFlight if you change the language."
+        "RestartRequired": "It requires a restart of MobiFlight if you change the language"
       },
       "ExecutionSpeed": {
         "Title": "Config Execution Speed",
-        "Description": "You can control the execution speed, e.g., if you experience some lag in your input. Very fast settings might impact performance.",
+        "Description": "You can control the execution speed, e.g., if you experience some lag in your input. Very fast settings might impact performance",
         "Slow": "slow",
         "Fast": "very fast"
       },
