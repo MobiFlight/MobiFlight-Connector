@@ -164,12 +164,12 @@ class Overlay:
         Number of rows to offset the overlay from the top of the display.
     """
 
-    text: [str]
+    text: list[str]
     _: KW_ONLY
     style: int
     row_offset: int
 
-    def draw_onto(self, text: [str], style: [bytes]):
+    def draw_onto(self, text: list[str], style: list[bytes]):
         for i in range(len(self.text)):
             text[i + self.row_offset] = [
                 bg if fg == " " else fg
@@ -267,7 +267,7 @@ class AircraftCduDevice:
     def get_style_dataref(self, line) -> str:
         return f"{self.prefix}/{self.cdu}/style_line_{line}"
 
-    def get_dataref_prefixes(self) -> str:
+    def get_dataref_prefixes(self) -> list[str]:
         return [
             f"{self.prefix}/{self.cdu}/text_line_",
             f"{self.prefix}/{self.cdu}/style_line_",
@@ -305,14 +305,20 @@ def reverse_video_from_style(style):
 def generate_display_json(device: AircraftCduDevice, values: dict[str, str | bytes]):
     display_data = [[] for _ in range(CDU_CELLS)]
 
-    text = [values[device.get_text_dataref(row)] for row in range(CDU_ROWS)]
-    style = [values[device.get_style_dataref(row)] for row in range(CDU_ROWS)]
+    text = [
+        values.get(device.get_text_dataref(row), "").ljust(CDU_COLUMNS)
+        for row in range(CDU_ROWS)
+    ]
+    style = [
+        values.get(device.get_style_dataref(row), "").ljust(CDU_COLUMNS)
+        for row in range(CDU_ROWS)
+    ]
 
-    color_set = values[device.get_color_set_dataref()]
+    color_set = values.get(device.get_color_set_dataref(), 0)
     color_map = COLOR_SETS.get(color_set, COLOR_MAP_3)
 
-    hold_dir = values[device.get_hold_dir_dataref()]
-    hold_graphics = values[device.get_hold_graphics_dataref()]
+    hold_dir = values.get(device.get_hold_dir_dataref(), 0)
+    hold_graphics = values.get(device.get_hold_graphics_dataref(), 0)
 
     if hold_dir == HOLD_DIR_RIGHT:
         HOLD_R_OVERLAY.draw_onto(text, style)
@@ -458,6 +464,7 @@ async def get_available_devices() -> list[CduDevice]:
     device_candidates = [device for device in CduDevice]
 
     available_devices = []
+    q4xp = is_q4xp()
 
     logging.info("Checking MobiFlight for available CDU devices")
     for device in device_candidates:
@@ -467,7 +474,7 @@ async def get_available_devices() -> list[CduDevice]:
                 logging.info(
                     "Discovered CDU device %s at endpoint %s", device, device_endpoint
                 )
-                available_devices.append(AircraftCduDevice(device, is_q4xp()))
+                available_devices.append(AircraftCduDevice(device, q4xp))
                 await socket.send(FONT_REQUEST)
                 await asyncio.sleep(1) # wait a second for font to be set
         except websockets.WebSocketException:
