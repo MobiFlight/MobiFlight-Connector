@@ -15,6 +15,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import messageExchange from "@/lib/messageExchange"
 import Settings from "@/types/settings"
+import { ScrollArea } from "../ui/scroll-area"
 
 export type SettingsDialogProps = {
   isOpen: boolean
@@ -79,7 +80,7 @@ export default function SettingsDialog({
         }}
       >
         <DialogContent
-          className="flex max-h-[90vh] w-full max-w-3xl flex-col"
+          className="flex h-[90vh] max-h-[860px] w-full max-w-3xl flex-col overflow-x-hidden"
           onPointerDownOutside={(e) => {
             if (hasUnsavedChanges()) {
               e.preventDefault()
@@ -105,20 +106,38 @@ export default function SettingsDialog({
                 {t("Settings.Simulator.Title")}
               </TabsTrigger>
             </TabsList>
-            <div className="mt-3 max-h-[calc(90vh-140px)] overflow-y-auto pr-1">
-              <TabsContent value="general" className="mt-0">
-                <GeneralSettingsCard
-                  values={draftSettings}
-                  onChange={updateSetting}
-                />
-              </TabsContent>
-              <TabsContent value="simulator" className="mt-0">
-                <SimulatorSettingsCard
-                  values={draftSettings}
-                  onChange={updateSetting}
-                />
-              </TabsContent>
-            </div>
+
+            <TabsContent
+              value="general"
+              className="mt-0 flex min-h-0 flex-1 flex-col"
+            >
+              <div className="flex flex-row grow">
+                <ScrollArea className="grow">
+                  <div className="pr-3">
+                    <GeneralSettingsCard
+                      values={draftSettings}
+                      onChange={updateSetting}
+                    />
+                  </div>
+                </ScrollArea>
+              </div>
+            </TabsContent>
+
+            <TabsContent
+              value="simulator"
+              className="mt-0 flex min-h-0 flex-1 flex-col"
+            >
+              <div className="flex flex-row grow">
+                <ScrollArea className="grow">
+                  <div className="pr-3">
+                    <SimulatorSettingsCard
+                      values={draftSettings}
+                      onChange={updateSetting}
+                    />
+                  </div>
+                </ScrollArea>
+              </div>
+            </TabsContent>
           </Tabs>
 
           <DialogFooter className="shrink-0 gap-2 sm:gap-0">
