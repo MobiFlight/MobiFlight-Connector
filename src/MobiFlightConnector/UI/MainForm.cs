@@ -319,7 +319,7 @@ namespace MobiFlight.UI
 
             var commandShutdownHandler = new CommandShutdownHandler(this);
 
-            MessageExchange.Instance.Subscribe<CommandShutdown>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandShutdown>((message) =>
             {
                 commandShutdownHandler.Handle(message);
             });
