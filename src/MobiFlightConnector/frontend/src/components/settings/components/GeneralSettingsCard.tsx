@@ -240,8 +240,8 @@ export default function GeneralSettingsCard({
               </div>
               <div className="w-60 shrink-0 space-y-1">
                 <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
-                  <span>{t("Settings.General.ExecutionSpeed.Slow")}</span>
-                  <span>{t("Settings.General.ExecutionSpeed.Fast")}</span>
+                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Slow")}</span>
+                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Fast")}</span>
                 </div>
                 <Input
                   type="range"
@@ -263,8 +263,8 @@ export default function GeneralSettingsCard({
               </Label>
               <div className="w-60 shrink-0 space-y-1">
                 <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
-                  <span>{t("Settings.General.TestModeSpeed.Slow")}</span>
-                  <span>{t("Settings.General.TestModeSpeed.Fast")}</span>
+                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Slow")}</span>
+                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Fast")}</span>
                 </div>
                 <Input
                   type="range"
