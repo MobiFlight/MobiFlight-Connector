@@ -56,7 +56,7 @@ namespace MobiFlightWwFcuUnitTests
         }
 
         [TestMethod]
-        public void IgnoredfMcdu_DoesNotBlockPfp3nWebSocketRegistration(){
+        public void IgnoredMcdu_DoesNotBlockPfp3nWebSocketRegistration(){
             // Arrange
             _ = new WinCtrlDisplayControl(
                 WinCtrlConstants.PRODUCT_ID_MCDU_CPT,
