@@ -312,6 +312,7 @@ namespace MobiFlight
                                 $"Ignore attached joystick device: {joystick.Name}.",
                                 LogSeverity.Info
                             );
+                            ExcludedJoysticks.Add(joystick);
                             return;
                         }
 
