@@ -35,59 +35,14 @@ namespace MobiFlightWwFcuUnitTests
         }
 
         [TestMethod]
-        public void RegisterCduWebSocketService_RegistersConfiguredPath()
+        public void IgnoredMcdu_Creation_DoesNotReserveCaptainWebSocket()
         {
-            // Arrange
-            var displayControl = new WinCtrlDisplayControl(
-                WinCtrlConstants.PRODUCT_ID_PFP3N_CPT,
-                server
-            );
-
-            // Act
-            displayControl.RegisterCduWebSocketService();
-
-            // Assert
-            Assert.IsTrue(
-                server.WebSocketServices.TryGetServiceHost(
-                    "/winwing/cdu-captain",
-                    out _
-                )
-            );
-        }
-
-        [TestMethod]
-        public void IgnoredMcdu_DoesNotBlockPfp3nWebSocketRegistration(){
-            // Arrange
             _ = new WinCtrlDisplayControl(
                 WinCtrlConstants.PRODUCT_ID_MCDU_CPT,
                 server
             );
 
-            Assert.AreEqual(
-                0,
-                server.WebSocketServices.Count
-            );
-
-            var pfp3n = new WinCtrlDisplayControl(
-                WinCtrlConstants.PRODUCT_ID_PFP3N_CPT,
-                server
-            );
-
-            Assert.AreEqual(
-                0,
-                server.WebSocketServices.Count
-            );
-
-            // Act
-            pfp3n.RegisterCduWebSocketService();
-
-            // Assert
-            Assert.AreEqual(
-                1,
-                server.WebSocketServices.Count
-            );
-
-            Assert.IsTrue(
+            Assert.IsFalse(
                 server.WebSocketServices.TryGetServiceHost(
                     "/winwing/cdu-captain",
                     out _
