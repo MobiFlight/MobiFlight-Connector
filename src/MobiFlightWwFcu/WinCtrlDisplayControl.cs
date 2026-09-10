@@ -219,7 +219,6 @@ namespace MobiFlightWwFcu
                 controller.Connect();
             }
 
-            //RegisterCduWebSocketService();
 
             StartHeartbeat();
 
