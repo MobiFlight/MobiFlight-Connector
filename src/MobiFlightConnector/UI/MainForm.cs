@@ -511,14 +511,6 @@ namespace MobiFlight.UI
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
-            var skipAutoUpdateCheck = false;
-#if DEBUG
-            skipAutoUpdateCheck = true;
-#endif
-
-            if (skipAutoUpdateCheck)
-                return;
-
             try
             {
                 await AutoUpdateChecker.CheckForUpdate(true);
