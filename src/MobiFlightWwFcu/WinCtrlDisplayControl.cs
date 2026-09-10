@@ -25,6 +25,9 @@ namespace MobiFlightWwFcu
         private WebSocketServer Server;
         private string WebSocketPath = string.Empty;
 
+        private string CduWebSocketPath = string.Empty;
+        private IWinCtrlController CduWebSocketController = null;
+
         public WinCtrlDisplayControl(int productId, WebSocketServer server)
         {
             Init(productId, server);
@@ -70,19 +73,38 @@ namespace MobiFlightWwFcu
         // die sonst ins Leere verbinden wuerden.
         private void AddCduController(string path, WinCtrlCduType type)
         {
-            WebSocketServiceHost host;
             var controller = new WinCtrlCduController(MessageSender, type);
-            if (!Server.WebSocketServices.TryGetServiceHost(path, out host))
-            {
-                Server.AddWebSocketService<WinCtrlCduWebsocketBehavior>(path, s =>
-                {
-                    s.Controller = controller;
-                    s.ErrorMessageHandler = this.ErrorMessageHandler;
-                    s.Loader = new FontLoader();
-                });
-                WebSocketPath = path;
-            }
+
+            CduWebSocketPath = path;
+            CduWebSocketController = controller;
+
             AddToCoupledControllers(controller);
+        }
+
+        internal void RegisterCduWebSocketService() 
+        {
+            if (string.IsNullOrEmpty(CduWebSocketPath) ||
+                CduWebSocketController == null)
+            {
+                return;
+            }
+
+            if (Server.WebSocketServices.TryGetServiceHost(CduWebSocketPath, out _))
+            {
+                return;
+            }
+
+            Server.AddWebSocketService<WinCtrlCduWebsocketBehavior>(
+                CduWebSocketPath,
+                s =>
+                {
+                    s.Controller = CduWebSocketController;
+                    s.ErrorMessageHandler = ErrorMessageHandler;
+                    s.Loader = new FontLoader();
+                }
+             );
+
+            WebSocketPath = CduWebSocketPath;
         }
 
         private void Init(int productId, WebSocketServer server)
@@ -214,6 +236,9 @@ namespace MobiFlightWwFcu
             {
                 controller.Connect();
             }
+
+            RegisterCduWebSocketService();
+
             StartHeartbeat();
 
             // Start websocket server if necessary and not already running
