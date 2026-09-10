@@ -111,7 +111,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private bool shutdownConfirmed = false;
+        private CommandShutdownHandler commandShutdownHandler;
 
         private HubHopState hubHopState = new HubHopState();
         public HubHopState HubHopState
@@ -317,7 +317,7 @@ namespace MobiFlight.UI
                 commandMainMenuHandler.Handle(message);
             });
 
-            var commandShutdownHandler = new CommandShutdownHandler(this);
+            commandShutdownHandler = new CommandShutdownHandler(this);
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandShutdown>((message) =>
             {
@@ -2039,17 +2039,12 @@ namespace MobiFlight.UI
         /// </summary>
         public void confirmShutdownSavingChanges()
         {
-            shutdownConfirmed = true;
-            
             saveToolStripButton_Click(this, EventArgs.Empty);
 
             if (!ProjectHasUnsavedChanges) 
             { 
                 Close();
-                return;
             }
-
-            shutdownConfirmed = false;
         }
 
         /// <summary>
@@ -2057,7 +2052,6 @@ namespace MobiFlight.UI
         /// </summary>
         public void confirmShutdownDiscardingChanges()
         {
-            shutdownConfirmed = true;
             Close();
         }
 
@@ -2623,7 +2617,12 @@ namespace MobiFlight.UI
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (ProjectHasUnsavedChanges && !shutdownConfirmed)
+            var shouldConfirmShutdown =
+                e.CloseReason == CloseReason.UserClosing &&
+                ProjectHasUnsavedChanges &&
+                !commandShutdownHandler.IsShutdownConfirmed;
+            
+            if (shouldConfirmShutdown)
             {
                 e.Cancel = true;
                 MessageExchange.Instance.Publish(new ShutdownConfirmationRequested());

@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using MobiFlight.BrowserMessages.Incoming.Handler;
 
 namespace MobiFlight.BrowserMessages.Tests
 {

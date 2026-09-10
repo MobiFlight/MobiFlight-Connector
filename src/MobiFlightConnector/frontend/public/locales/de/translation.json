@@ -827,7 +827,7 @@
     "UnsavedChanges": {
       "Title": "Änderungen verwerfen?",
       "Description": "Sie haben ungespeicherte Änderungen. Möchten Sie diese wirklich verwerfen?",
-      "Cancel": "Weiter bearbeiten"
+      "KeepEditing": "Weiter bearbeiten"
     }
   },
   "Auth": {

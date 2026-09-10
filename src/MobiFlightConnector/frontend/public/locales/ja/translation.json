@@ -213,12 +213,6 @@
         "Create": "プロジェクトを作成",
         "Update": "プロジェクトを更新"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "未保存の変更",
-      "Description": "プロジェクトに未保存の変更があります。どうしますか？",
-      "Save": "変更を保存",
-      "Discard": "変更を破棄"
     }
   },
   "ConfigList": {
@@ -384,6 +378,7 @@
       "Save": "保存",
       "SaveChanges": "変更を保存",
       "ApplyChanges": "変更を適用",
+      "DiscardChanges": "変更を削除",
       "ResetFilters": "フィルターリセット",
       "PendingChangesMessage": "保留中の変更があります。先に適用するか、保存せずにこの会話を閉じるにはキャンセルをクリックしてください。"
     },
@@ -822,6 +817,11 @@
           "SelectPresetPlaceholder": "プリセットを選択..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "変更事項を削除しますか?",
+      "Description": "適用されてない変更があります。本当に削除しますか?",
+      "KeepEditing": "編集を続く"
     }
   },
   "Auth": {

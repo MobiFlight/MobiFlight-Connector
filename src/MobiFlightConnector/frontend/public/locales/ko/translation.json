@@ -213,12 +213,6 @@
         "Create": "프로젝트 만들기",
         "Update": "프로젝트 갱신"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "저장되지 않은 변경 사항",
-      "Description": "프로젝트에 저장되지 않은 변경 사항이 있습니다. 어떻게 하시겠습니까?",
-      "Save": "변경 사항 저장",
-      "Discard": "변경 취소"
     }
   },
   "ConfigList": {
@@ -827,7 +821,7 @@
     "UnsavedChanges": {
       "Title": "변경 사항을 취소하시겠습니까?",
       "Description": "저장되지 않은 변경 사항이 있습니다. 정말로 취소하시겠습니까?",
-      "Cancel": "계속 편집"
+      "KeepEditing": "계속 편집"
     }
   },
   "Auth": {

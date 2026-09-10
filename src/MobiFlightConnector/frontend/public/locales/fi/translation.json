@@ -821,7 +821,7 @@
     "UnsavedChanges": {
       "Title": "Hylätäänkö muutokset?",
       "Description": "Sinulla on tallentamattomia muutoksia. Haluatko varmasti hylätä ne?",
-      "Cancel": "Jatka muokkaamista"
+      "KeepEditing": "Jatka muokkaamista"
     }
   },
   "Auth": {

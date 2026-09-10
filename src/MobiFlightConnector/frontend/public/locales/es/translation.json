@@ -827,7 +827,7 @@
     "UnsavedChanges": {
       "Title": "¿Descartar cambios?",
       "Description": "Tienes cambios sin guardar. ¿Seguro que quieres descartarlos?",
-      "Cancel": "Seguir editando"
+      "KeepEditing": "Seguir editando"
     }
   },
   "Auth": {

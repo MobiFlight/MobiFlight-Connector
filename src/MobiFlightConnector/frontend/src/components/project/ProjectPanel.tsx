@@ -382,7 +382,7 @@ const ProjectPanel = () => {
         open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
         discardChanges={discardChanges}
-        cancel={handleCancel}
+        keepEditing={handleCancel}
       />
       {configId && <InputConfigDialog configId={configId} />}
     </div>

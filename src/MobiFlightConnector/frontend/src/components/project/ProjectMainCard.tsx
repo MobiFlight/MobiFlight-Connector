@@ -163,7 +163,7 @@ const ProjectMainCard = () => {
           open={isDialogOpen}
           onOpenChange={setIsDialogOpen}
           discardChanges={handleDiscardChanges}
-          cancel={handleCancel}
+          keepEditing={handleCancel}
         />
         <LoaderOverlay
           message={t("General.Overlay.SavingChanges")}

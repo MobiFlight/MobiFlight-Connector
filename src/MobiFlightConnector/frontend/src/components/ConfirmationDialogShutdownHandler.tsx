@@ -22,7 +22,7 @@ const ConfirmationDialogShutdownHandler = () => {
     })
   }
 
-  const handleCancel = () => {
+  const handleKeepEditing = () => {
     setOpen(false)
   }
 
@@ -31,7 +31,7 @@ const ConfirmationDialogShutdownHandler = () => {
       open={open}
       onOpenChange={setOpen}
       discardChanges={handleDiscardChanges}
-      cancel={handleCancel}
+      keepEditing={handleKeepEditing}
     />
   )
 }
