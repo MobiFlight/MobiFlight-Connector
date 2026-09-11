@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -69,6 +69,8 @@ namespace MobiFlight.UI
 
         // we need this property to control global logging during unit tests
         protected virtual bool LogIsEnabled { get => true; }
+
+
 
         public ExecutionManager ExecutionManager
         {
@@ -317,6 +319,12 @@ namespace MobiFlight.UI
             MessageExchange.Instance.SubscribeOnUiThread<CommandProjectToolbar>((message) =>
             {
                 commandProjectToolbarHandler.Handle(message);
+            });
+
+            var commandUpdateSettingsHandler = new CommandUpdateSettingsHandler();
+            MessageExchange.Instance.Subscribe<CommandUpdateSettings>((message) =>
+            {
+                commandUpdateSettingsHandler.Handle(message);
             });
 
             // OnUiThread: SetTitle touches Form.Text.
@@ -1211,7 +1219,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
+        public DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
@@ -2589,6 +2597,11 @@ namespace MobiFlight.UI
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
             }
+        }
+
+        public void ShowControllersSettingsDialog()
+        {
+            ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

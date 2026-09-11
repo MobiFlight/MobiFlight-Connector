@@ -23,4 +23,9 @@ export default interface Settings {
   RecentFiles: string[]
   RecentFilesMaxCount: number
   TestTimerInterval: number
-}
+  PollInterval?: number
+  ProSimHost?: string
+  ProSimPort?: number
+  ProSimAutoConnectEnabled?: boolean
+  ProSimMaxRetryAttempts?: number
+}
