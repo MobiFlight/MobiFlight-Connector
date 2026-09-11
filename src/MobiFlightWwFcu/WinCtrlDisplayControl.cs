@@ -25,9 +25,11 @@ namespace MobiFlightWwFcu
         private WebSocketServer Server;
         private string WebSocketPath = string.Empty;
 
+
         public WinCtrlDisplayControl(int productId, WebSocketServer server)
         {
-            Init(productId, server);
+            ProductId = productId;
+            Server = server;
         }
 
         private void AddToCoupledControllers(IWinCtrlController controller)
@@ -70,25 +72,25 @@ namespace MobiFlightWwFcu
         // die sonst ins Leere verbinden wuerden.
         private void AddCduController(string path, WinCtrlCduType type)
         {
-            WebSocketServiceHost host;
             var controller = new WinCtrlCduController(MessageSender, type);
-            if (!Server.WebSocketServices.TryGetServiceHost(path, out host))
+
+            if (!Server.WebSocketServices.TryGetServiceHost(path, out _))
             {
                 Server.AddWebSocketService<WinCtrlCduWebsocketBehavior>(path, s =>
                 {
                     s.Controller = controller;
-                    s.ErrorMessageHandler = this.ErrorMessageHandler;
+                    s.ErrorMessageHandler = ErrorMessageHandler;
                     s.Loader = new FontLoader();
                 });
+
                 WebSocketPath = path;
             }
+
             AddToCoupledControllers(controller);
         }
 
-        private void Init(int productId, WebSocketServer server)
+        private void Init()
         {
-            Server = server;
-            ProductId = productId;
             LedNameToControllerMapping = new Dictionary<string, IWinCtrlController>();
             DisplayNameToControllerMapping = new Dictionary<string, List<IWinCtrlController>>();
             MessageSender = new WinCtrlMessageSender(ProductId);
@@ -209,11 +211,15 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {
+            Init();
+
             MessageSender.Connect();
             foreach (var controller in CoupledControllers)
             {
                 controller.Connect();
             }
+
+
             StartHeartbeat();
 
             // Start websocket server if necessary and not already running
