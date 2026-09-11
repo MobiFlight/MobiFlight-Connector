@@ -219,12 +219,6 @@
         "Create": "Crear proyecto",
         "Update": "Actualizar proyecto"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Cambios pendientes",
-      "Description": "Tienes cambios pendientes en tu proyecto. ¿Qué te gustaría hacer?",
-      "Save": "Guardar cambios",
-      "Discard": "Descartar cambios"
     }
   },
   "ConfigList": {
@@ -390,6 +384,7 @@
       "Save": "Guardar",
       "SaveChanges": "Guardar cambios",
       "ApplyChanges": "Aplicar cambios",
+      "DiscardChanges": "Descartar cambios",
       "ResetFilters": "Borrar filtros",
       "PendingChangesMessage": "Tienes cambios pendientes. Aplícalos primero o haz clic en Cancelar para cerrar este diálogo sin guardar."
     },
@@ -828,6 +823,11 @@
           "SelectPresetPlaceholder": "Seleccionar preset..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "¿Descartar cambios?",
+      "Description": "Tienes cambios sin guardar. ¿Seguro que quieres descartarlos?",
+      "KeepEditing": "Seguir editando"
     }
   },
   "Auth": {
