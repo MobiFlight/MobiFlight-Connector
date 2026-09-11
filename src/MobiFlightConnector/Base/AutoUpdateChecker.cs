@@ -68,7 +68,6 @@ namespace MobiFlight.UpdateChecker
 
         public static async Task CheckForUpdate(bool silent = false)
         {
-            var skipAutoUpdateCheck = false;
 #if DEBUG
             return;
 #endif
