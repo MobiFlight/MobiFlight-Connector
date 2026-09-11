@@ -240,19 +240,24 @@ namespace MobiFlight
                 }
 
                 // Check against exclusion list
-                if (settingsExcludedJoysticks.Contains(js.Name))
+                if (TryExcludeJoystick(js, settingsExcludedJoysticks))
                 {
-                    Log.Instance.log($"Ignore attached joystick device: {js.Name}.", LogSeverity.Info);
-                    ExcludedJoysticks.Add(js);
+                    continue;
                 }
-                else
+
+                if (!Joysticks.TryAdd(js.Serial, js))
                 {
-                    Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
-                    js.Connect(Handle);
-                    Joysticks.TryAdd(js.Serial, js);
-                    js.OnButtonPressed += Js_OnButtonPressed;
-                    js.OnDisconnected += Js_OnDisconnected;
+                    Log.Instance.log(
+                        $"Error adding DirectInput controller: {d.InstanceName} / {js.Serial}. Likely Joystick Serial conflict.",
+                        LogSeverity.Error
+                    );
+                    continue;
                 }
+
+                Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
+                js.Connect(Handle);
+                js.OnButtonPressed += Js_OnButtonPressed;
+                js.OnDisconnected += Js_OnDisconnected;
             }
 
             ConnectHidController();
@@ -281,6 +286,17 @@ namespace MobiFlight
         {
             return excludedJoysticks.Contains(joystickName);
         }
+
+        /// <summary>Adds the joystick to the exclusion list if the user excluded it. Returns true when excluded.</summary>
+        internal bool TryExcludeJoystick(Joystick joystick, List<string> settingsExcludedJoysticks)
+        {
+            if (!IsExcludedJoystick(joystick.Name, settingsExcludedJoysticks)) return false;
+
+            Log.Instance.log($"Ignore attached joystick device: {joystick.Name}.", LogSeverity.Info);
+            ExcludedJoysticks.Add(joystick);
+            return true;
+        }
+
         private void ConnectHidController()
         {
             try
@@ -306,13 +322,8 @@ namespace MobiFlight
 
                         if (joystick == null) return;
 
-                        if (IsExcludedJoystick(joystick.Name, settingsExcludedJoysticks))
+                        if (TryExcludeJoystick(joystick, settingsExcludedJoysticks))
                         {
-                            Log.Instance.log(
-                                $"Ignore attached joystick device: {joystick.Name}.",
-                                LogSeverity.Info
-                            );
-                            ExcludedJoysticks.Add(joystick);
                             return;
                         }
 
@@ -325,6 +336,7 @@ namespace MobiFlight
                             return;
                         }
 
+                        Log.Instance.log($"Adding attached HID controller: {definition.InstanceName}", LogSeverity.Info);
                         joystick.Connect(new IntPtr());
                         joystick.OnButtonPressed += Js_OnButtonPressed;
                         joystick.OnDisconnected += Js_OnDisconnected;
