@@ -1,0 +1,326 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINGFLEX GMP",
+  "VendorId": "0xC687",
+  "ProductId": "0xB217",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Brake Fan Key"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "AutoBrake Low Key"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "AutoBrake Medium Key"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "AutoBrake Max Key"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Terrain On ND Key"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Anti Skid Switch"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "RST Encoder Left"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "RST Encoder Right"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "RST Encoder Press"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "CHR Encoder Left"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "CHR Encoder Right"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "CHR Encoder Press"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "SET Encoder Left"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "SET Encoder Right"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "SET Encoder Press"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Power On"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "GPS1"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "GPS2"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "GPS3"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "RUN1"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "RUN2"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "RUN3"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "Landing Gear Handle UP"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "Landing Gear Handle DOWN"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "Landing Gear Axis"
+    },
+    {
+      "Id": 49,
+      "Type": "Axis",
+      "Label": "Light Sensor"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "LDG Gear 1 UNLK",
+      "Id": "ldg.gear1.unlk",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "LDG Gear 1 Arrow",
+      "Id": "ldg.gear1.arrow",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "LDG Gear 2 UNLK",
+      "Id": "ldg.gear2.unlk",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "LDG Gear 2 Arrow",
+      "Id": "ldg.gear2.arrow",
+      "Byte": 1,
+      "Bit": 3
+    },
+    {
+      "Label": "LDG Gear 3 UNLK",
+      "Id": "ldg.gear3.unlk",
+      "Byte": 1,
+      "Bit": 4
+    },
+    {
+      "Label": "LDG Gear 3 Arrow",
+      "Id": "ldg.gear3.arrow",
+      "Byte": 1,
+      "Bit": 5
+    },
+    {
+      "Label": "Brake Fan HOT",
+      "Id": "brakefan.hot",
+      "Byte": 1,
+      "Bit": 6
+    },
+    {
+      "Label": "Brake Fan ON",
+      "Id": "brakefan.on",
+      "Byte": 1,
+      "Bit": 7
+    },
+    {
+      "Label": "AutoBrk Low DECEL",
+      "Id": "autobrk.low.decel",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "AutoBrk Low ON",
+      "Id": "autobrk.low.on",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "AutoBrk Med DECEL",
+      "Id": "autobrk.med.decel",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "AutoBrk Med ON",
+      "Id": "autobrk.med.on",
+      "Byte": 2,
+      "Bit": 3
+    },
+    {
+      "Label": "AutoBrk Max DECEL",
+      "Id": "autobrk.max.decel",
+      "Byte": 2,
+      "Bit": 4
+    },
+    {
+      "Label": "AutoBrk Max ON",
+      "Id": "autobrk.max.on",
+      "Byte": 2,
+      "Bit": 5
+    },
+    {
+      "Label": "TERR ON ND ON",
+      "Id": "terr.on.nd",
+      "Byte": 2,
+      "Bit": 6
+    },
+    {
+      "Label": "Gear Red Arrow",
+      "Id": "gear.red.arrow",
+      "Byte": 2,
+      "Bit": 7
+    },
+    {
+      "Label": "Backlight Brightness",
+      "Id": "backlight.brightness",
+      "Byte": 3,
+      "Bit": 0
+    },
+    {
+      "Label": "Key Light Brightness",
+      "Id": "keylight.brightness",
+      "Byte": 4,
+      "Bit": 0
+    },
+    {
+      "Label": "Screen Brightness",
+      "Id": "screen.brightness",
+      "Byte": 5,
+      "Bit": 0
+    },
+    {
+      "Label": "Cold And Dark",
+      "Id": "cold.and.dark",
+      "Byte": 6,
+      "Bit": 0
+    },
+    {
+      "Label": "ANN LT Test",
+      "Id": "ann.lt.test",
+      "Byte": 6,
+      "Bit": 1
+    },
+    {
+      "Label": "Clock Mode",
+      "Id": "clock.mode",
+      "Byte": 6,
+      "Bit": 2
+    },
+    {
+      "Label": "CHR Colon",
+      "Id": "chr.colon",
+      "Byte": 6,
+      "Bit": 3
+    },
+    {
+      "Label": "UTC Colon Left",
+      "Id": "utc.colon.left",
+      "Byte": 6,
+      "Bit": 4
+    },
+    {
+      "Label": "UTC Colon Right",
+      "Id": "utc.colon.right",
+      "Byte": 6,
+      "Bit": 5
+    },
+    {
+      "Label": "ET Colon",
+      "Id": "et.colon",
+      "Byte": 6,
+      "Bit": 6
+    },
+    {
+      "Label": "Clock brightness",
+      "Id": "clock.brightness",
+      "Byte": 7,
+      "Bit": 0
+    },
+    {
+      "Label": "Chrono",
+      "Id": "chrono.lcd",
+      "Type": "LcdDisplay",
+      "Byte": 8,
+      "Cols": 4,
+      "Lines": 1
+    },
+    {
+      "Label": "UTC",
+      "Id": "utc.lcd",
+      "Type": "LcdDisplay",
+      "Byte": 12,
+      "Cols": 6,
+      "Lines": 1
+    },
+    {
+      "Label": "ET",
+      "Id": "et.lcd",
+      "Type": "LcdDisplay",
+      "Byte": 18,
+      "Cols": 4,
+      "Lines": 1
+    }
+  ]
+}
