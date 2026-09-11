@@ -68,6 +68,10 @@ namespace MobiFlight.UpdateChecker
 
         public static async Task CheckForUpdate(bool silent = false)
         {
+#if DEBUG
+            return;
+#endif
+
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
             var trackingParams = $"{hash}-{Properties.Settings.Default.CacheId}-{Properties.Settings.Default.Started}";

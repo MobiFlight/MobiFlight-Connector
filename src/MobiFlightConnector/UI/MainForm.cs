@@ -523,14 +523,12 @@ namespace MobiFlight.UI
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
-#if (!DEBUG)
             try
             {
                 await AutoUpdateChecker.CheckForUpdate(true);
             } catch (Exception ex) {
                 Log.Instance.log($"Error checking for updates: {ex.Message}", LogSeverity.Error);
             }
-#endif
         }
 
         private async void OnFrontendReady(object sender, EventArgs e)
