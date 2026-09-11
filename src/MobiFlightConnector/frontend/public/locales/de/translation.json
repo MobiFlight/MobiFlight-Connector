@@ -219,12 +219,6 @@
         "Create": "Projekt erstellen",
         "Update": "Projekt aktualisieren"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Ungespeicherte Änderungen",
-      "Description": "Du hast ungespeicherte Änderungen in deinem Projekt. Was möchtest du tun?",
-      "Save": "Jetzt speichern",
-      "Discard": "Änderungen verwerfen"
     }
   },
   "ConfigList": {
@@ -390,6 +384,7 @@
       "Save": "Speichern",
       "SaveChanges": "Änderungen speichern",
       "ApplyChanges": "Änderungen übernehmen",
+      "DiscardChanges": "Änderungen verwerfen",
       "ResetFilters": "Filter zurücksetzen",
       "PendingChangesMessage": "Du hast Änderungen gemacht. Wende sie zuerst an, oder klicke auf Abbrechen, um diesen Dialog ohne Speichern zu schließen."
     },
@@ -828,6 +823,11 @@
           "SelectPresetPlaceholder": "Preset auswählen..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "Änderungen verwerfen?",
+      "Description": "Sie haben ungespeicherte Änderungen. Möchten Sie diese wirklich verwerfen?",
+      "KeepEditing": "Weiter bearbeiten"
     }
   },
   "Auth": {

@@ -213,12 +213,6 @@
         "Create": "Luo projekti",
         "Update": "Päivitä projekti"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Tallentamattomia muutoksia",
-      "Description": "Projektissasi on tallentamattomia muutoksia. Mitä haluat tehdä?",
-      "Save": "Tallenna muutokset",
-      "Discard": "Hylkää muutokset"
     }
   },
   "ConfigList": {
@@ -384,6 +378,7 @@
       "Save": "Tallenna",
       "SaveChanges": "Tallenna muutokset",
       "ApplyChanges": "Hyväksy muutokset",
+      "DiscardChanges": "Hylkää muutokset",
       "ResetFilters": "Nollaa suodattimet",
       "PendingChangesMessage": "Sinulla on keskeneräisiä muutoksia. Hyväksy muutokset tai valitse Peruuta, jos haluat poistua tallentamatta."
     },
@@ -822,6 +817,11 @@
           "SelectPresetPlaceholder": "Valitse esiasetus..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "Hylätäänkö muutokset?",
+      "Description": "Sinulla on tallentamattomia muutoksia. Haluatko varmasti hylätä ne?",
+      "KeepEditing": "Jatka muokkaamista"
     }
   },
   "Auth": {

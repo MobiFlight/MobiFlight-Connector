@@ -32,6 +32,9 @@ using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
 using MobiFlight.Base.Legacy;
+using MobiFlight.BrowserMessages.Incoming.Handler;
+using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 
 namespace MobiFlight.UI
 {
@@ -107,6 +110,8 @@ namespace MobiFlight.UI
                 );
             }
         }
+
+        private CommandShutdownHandler commandShutdownHandler;
 
         private HubHopState hubHopState = new HubHopState();
         public HubHopState HubHopState
@@ -310,6 +315,13 @@ namespace MobiFlight.UI
             MessageExchange.Instance.SubscribeOnUiThread<CommandMainMenu>((message) =>
             {
                 commandMainMenuHandler.Handle(message);
+            });
+
+            commandShutdownHandler = new CommandShutdownHandler(this);
+
+            MessageExchange.Instance.SubscribeOnUiThread<CommandShutdown>((message) =>
+            {
+                commandShutdownHandler.Handle(message);
             });
 
             var commandProjectToolbarHandler = new CommandProjectToolbarHandler(this);
@@ -2030,6 +2042,27 @@ namespace MobiFlight.UI
         } //exitToolStripMenuItem_Click()
 
         /// <summary>
+        /// shuts down the application when user selects save changes
+        /// </summary>
+        public void confirmShutdownSavingChanges()
+        {
+            saveToolStripButton_Click(this, EventArgs.Empty);
+
+            if (!ProjectHasUnsavedChanges) 
+            { 
+                Close();
+            }
+        }
+
+        /// <summary>
+        /// shuts down the application when user selects discard changes
+        /// </summary>
+        public void confirmShutdownDiscardingChanges()
+        {
+            Close();
+        }
+
+        /// <summary>
         /// opens file dialog when clicking on according button
         /// </summary>
         public void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2594,18 +2627,20 @@ namespace MobiFlight.UI
             // Closing the form before the execManager
             // means there is nothing we could ever save, so we just return here.
             if (execManager == null) return;
+            
+            var shouldConfirmShutdown =
+                e.CloseReason == CloseReason.UserClosing &&
+                ProjectHasUnsavedChanges &&
+                !commandShutdownHandler.IsShutdownConfirmed;
+
+            if (shouldConfirmShutdown)
+            {
+                e.Cancel = true;
+                MessageExchange.Instance.Publish(new ShutdownConfirmationRequested());
+                return;
+            }
 
             execManager.Stop();
-            if (ProjectHasUnsavedChanges && MessageBox.Show(
-                       i18n._tr("uiMessageConfirmDiscardUnsaved"),
-                       i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
-                       MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                // only cancel closing if not saved before
-                // which is indicated by empty CurrentFilename
-                e.Cancel = (execManager.Project.FilePath == null);
-                saveToolStripButton_Click(this, new EventArgs());
-            }
         }
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
