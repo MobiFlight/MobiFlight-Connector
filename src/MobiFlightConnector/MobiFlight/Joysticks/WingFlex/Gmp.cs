@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using System;
 using System.Collections.Generic;
+using System.Windows.Media.Media3D;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
@@ -146,6 +147,23 @@ namespace MobiFlight.Joysticks.WingFlex
             State = newState;
         }
 
+        static public bool IsBrakePressureLcd(byte byteIndex)
+        {
+            return new byte[] { 22, 24, 26 }.Contains(byteIndex);
+        }
+
+        protected byte[] ProcessBrakePressureDisplay(string clampedText, byte[] data, JoystickOutputDisplay light)
+        {
+            if (!ushort.TryParse(clampedText, out ushort parsedValue))
+            {
+                parsedValue = 0;
+            }
+
+            data[light.Byte + 1] = (byte)(parsedValue >> 8 & 0xFF);
+            data[light.Byte] = (byte)(parsedValue & 0xFF);
+            return data;
+        }
+
         /// <summary>
         /// Updates the state of the output device by sending the current output data.
         /// </summary>
@@ -173,7 +191,6 @@ namespace MobiFlight.Joysticks.WingFlex
                     try
                     {
                         data[light.Byte] |= (byte)(light.State << light.Bit);
-
                     }
                     catch (Exception e)
                     {
@@ -188,8 +205,14 @@ namespace MobiFlight.Joysticks.WingFlex
                     if (display.Text != null)
                     {
                         var clampedText = display.Text[0..Math.Min(display.Text.Length, display.Cols)];
-                        var textBytes = clampedText.StringToGmpDisplayBytes();
-                        Array.Copy(textBytes, 0, data, display.Byte, textBytes.Length);
+
+                        if (IsBrakePressureLcd(light.Byte))
+                        {
+                            data = ProcessBrakePressureDisplay(clampedText, data, display);
+                            continue;
+                        }
+
+                        data = ProcessClockDisplay(clampedText, data, display);
                     }
                     continue;
                 }
@@ -204,6 +227,13 @@ namespace MobiFlight.Joysticks.WingFlex
                 // this happens when the device is removed.
                 OnDeviceRemoved();
             }
+        }
+
+        public static byte[] ProcessClockDisplay(string clampedText, byte[] data, JoystickOutputDisplay display)
+        {
+            var textBytes = clampedText.StringToGmpDisplayBytes();
+            Array.Copy(textBytes, 0, data, display.Byte, textBytes.Length);
+            return data;
         }
 
         /// <summary>

@@ -321,6 +321,30 @@
       "Byte": 18,
       "Cols": 4,
       "Lines": 1
+    },
+    {
+      "Label": "Left brake pressure",
+      "Id": "brake.press.left",
+      "Type": "LcdDisplay",
+      "Byte": 22,
+      "Cols": 4,
+      "Lines": 1
+    },
+    {
+      "Label": "Right brake pressure",
+      "Id": "brake.press.right",
+      "Type": "LcdDisplay",
+      "Byte": 24,
+      "Cols": 4,
+      "Lines": 1
+    },
+    {
+      "Label": "Brake accumulator pressure",
+      "Id": "brake.press.accu",
+      "Type": "LcdDisplay",
+      "Byte": 26,
+      "Cols": 4,
+      "Lines": 1
     }
   ]
 }
