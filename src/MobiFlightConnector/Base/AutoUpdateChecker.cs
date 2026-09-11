@@ -70,11 +70,8 @@ namespace MobiFlight.UpdateChecker
         {
             var skipAutoUpdateCheck = false;
 #if DEBUG
-            skipAutoUpdateCheck = true;
+            return;
 #endif
-
-            if (skipAutoUpdateCheck)
-                return;
 
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
