@@ -181,9 +181,9 @@ Therefore, this interaction is closer to a compound state change than to a singl
 
 | View | Interaction | State Scope | Mutation Type | State Owner | Persistence | Restore Data | Undo Candidate | Source | Notes |
 |---|---|---|---|---|---|---|---|---|---|
-| Config List | Toggle Active | Config Item | Update | TBD | Project | Previous value | Yes | ConfigItemTableActiveCell.tsx |
-| Config List | Rename | Config Item | Update | TBD | Project | Previous name | Yes | ConfigItemTableNameCell.tsx |
-| Config List | Delete | Config Item | Delete | TBD | Project | Item + index | Yes | ConfigItemRowContextMenu.tsx |
+| Config List | Toggle Active | Config Item | Update | Backend + frontend synchronization | Project-persisted | GUID + previous Active value | Yes | ConfigItemTableActiveCell.tsx → CommandUpdateConfigItem → ExecutionManager.HandleCommandUpdateConfigItem |
+| Config List | Rename | Config Item | Update | Backend + frontend synchronization | Project-persisted | GUID + Previous name / previous item snapshot | Yes | ConfigItemTableNameCell.tsx → CommandUpdateConfigItem → ExecutionManager.HandleCommandUpdateConfigItem |
+| Config List | Delete | Config Item | Delete | Backend + frontend synchronization | Project - persisted | Deleted item + original config + original index | Yes | ConfigItemRowContextMenu.tsx → CommandConfigContextMenu → ExecutionManager |
 | Config List | Duplicate | Config Item | Create | TBD | Project | Created item | Yes |
 | Config List | Reorder | Config Item | Move | TBD | Project | Original index | Yes | DragDropProvider.tsx | Original position are already tracked during dragging |
 | Profile Bar | Select Profile | UI | Selection | Frontend | Transient | - | No |
