@@ -65,6 +65,11 @@ namespace MobiFlight.Joysticks
                 return true;
             }
 
+            if (instanceName == "WINGFLEX GMP")
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -148,6 +153,11 @@ namespace MobiFlight.Joysticks
             if (instanceName == "WINGFLEX DAP500")
             {
                 return new WingFlex.Dap500(diJoystick, definition);
+            }
+
+            if (instanceName == "WINGFLEX GMP")
+            {
+                return new WingFlex.Gmp(diJoystick, definition);
             }
 
             // Return null to indicate this should be handled as a standard Joystick

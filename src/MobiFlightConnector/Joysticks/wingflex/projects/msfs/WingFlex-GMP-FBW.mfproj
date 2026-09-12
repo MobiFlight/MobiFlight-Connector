@@ -1,0 +1,1779 @@
+{
+  "Name": "WingFlex GMP - FBW",
+  "ConfigFiles": [
+    {
+      "Label": "New file",
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 1"
+          },
+          "GUID": "d66a82c0-95af-4990-8b52-80d5804f7a95",
+          "Active": true,
+          "Name": "Brk Fan",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_OVHD_AUTOBRK_LOW_ON_IS_PRESSED, bool)",
+              "PresetId": "362c60bf-e9b1-48db-a0bf-6b55480e2c3d",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 2"
+          },
+          "GUID": "30ddf34a-3b9d-49fa-9ba8-c3b87a844bdb",
+          "Active": true,
+          "Name": "Auto Brk - LO",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_OVHD_AUTOBRK_MED_ON_IS_PRESSED, bool)",
+              "PresetId": "52893cd8-e157-4927-8c39-cfb04f962c50",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 3"
+          },
+          "GUID": "43a3845f-484f-41f2-889b-075f4baf2556",
+          "Active": true,
+          "Name": "Auto Brk - MED",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_OVHD_AUTOBRK_MAX_ON_IS_PRESSED, bool)",
+              "PresetId": "e269809b-7bf7-4223-911a-7a8412491ab1",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 4"
+          },
+          "GUID": "251ceb58-e3f9-4acb-a6b1-40bc32193a70",
+          "Active": true,
+          "Name": "Auto Brk- MAX",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 6"
+          },
+          "GUID": "a9d87a1b-f830-40db-b661-71e163ff7362",
+          "Active": true,
+          "Name": "A/SKID & N/W STRG - ON-OFF",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>H:A32NX_CHRONO_RST)",
+              "PresetId": "065d9872-4a12-4db3-a3f7-3d2ed9922cf2",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 9"
+          },
+          "GUID": "4d648f93-d24c-4252-8f18-5b2c48317dfc",
+          "Active": true,
+          "Name": "Clock - RST",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>H:A32NX_CHRONO_TOGGLE)",
+              "PresetId": "64a49d72-6186-4ab5-b12b-d9740e490703",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 12"
+          },
+          "GUID": "13ce7269-4fd5-4221-ada3-ab82e680dd75",
+          "Active": true,
+          "Name": "Clock - CHR",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Chrono-SetTime",
+                "Expression": "#"
+              },
+              "Type": "VariableInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 12"
+          },
+          "GUID": "4c3a9d80-c443-4e4a-8348-e4efccf26449",
+          "Active": true,
+          "Name": "Clock - CHR -> Set Chrono Variable",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "5464b68a-d20d-457a-8a7d-ed6cdb56294c",
+              "Placeholder": "#",
+              "TestValue": ""
+            }
+          ]
+        },
+        {
+          "button": {
+            "onPress": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Chrono-SetDate",
+                "Expression": "1"
+              },
+              "Type": "VariableInputAction"
+            },
+            "onRelease": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Chrono-SetDate",
+                "Expression": "0"
+              },
+              "Type": "VariableInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 15"
+          },
+          "GUID": "aa180f5b-794d-407d-ac36-45c701cc0ed8",
+          "Active": true,
+          "Name": "Clock - DATE - Set",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 17"
+          },
+          "GUID": "86290fb0-6983-4498-a4a8-e02a8e4305ad",
+          "Active": true,
+          "Name": "GPS - (INOP)",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 18"
+          },
+          "GUID": "a1d813f6-0582-4e47-934b-05f227b59032",
+          "Active": true,
+          "Name": "GPS - INT (INOP)",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 19"
+          },
+          "GUID": "26b13690-37a6-49b4-8e9f-c858c08b1db4",
+          "Active": true,
+          "Name": "GPS - SET (INOP)",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 5"
+          },
+          "GUID": "f4ea62ff-c70a-441f-8412-cb553bfc5eb4",
+          "Active": true,
+          "Name": "TERR ON ND",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:GEAR_UP)",
+              "PresetId": "fe68cf20-2c27-4532-8ab3-bd5c605a197c",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 23"
+          },
+          "GUID": "709ad9f0-19cd-43c2-88ab-9fd3f50290a3",
+          "Active": true,
+          "Name": "Landing Gear - UP",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:GEAR_DOWN)",
+              "PresetId": "c713f67d-03cb-48c9-a3d5-0665a509837b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 24"
+          },
+          "GUID": "a128a1fc-38de-4ce5-a46b-867d9849a32d",
+          "Active": true,
+          "Name": "Landing Gear - DOWN",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "4257bd03-4086-4247-a2fe-e2241c9d5fe3",
+              "Value": "(L:A32NX_LGCIU_1_LEFT_GEAR_UNLOCKED, Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "LDG Gear 1 UNLK",
+            "Pin": "LDG Gear 1 UNLK",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "LDG Gear 1 UNLK",
+          "GUID": "103d1d69-b768-4591-aa9d-51b364105fc3",
+          "Active": true,
+          "Name": "Ldg Gear 1  - UNLK",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "48153102-87cf-46f3-8ebc-74fa58958f70",
+              "Value": "(L:A32NX_LGCIU_1_LEFT_GEAR_DOWNLOCKED, Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "LDG Gear 1 Arrow",
+            "Pin": "LDG Gear 1 Arrow",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "LDG Gear 1 Arrow",
+          "GUID": "8b4b58f3-3e2b-46a7-8b21-e04d845674b9",
+          "Active": true,
+          "Name": "Ldg Gear 1 - Arrow",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "aa93ec40-b747-4df7-bb73-a1a9b50deed8",
+              "Value": "(L:A32NX_LGCIU_1_NOSE_GEAR_UNLOCKED, Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "LDG Gear 2 UNLK",
+            "Pin": "LDG Gear 2 UNLK",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "LDG Gear 2 UNLK",
+          "GUID": "9568857a-9497-49ef-9845-9888ed5ead92",
+          "Active": true,
+          "Name": "Ldg Gear 2 - UNLK",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "218cbd38-1778-4ca0-b229-c824a164db2b",
+              "Value": "(L:A32NX_LGCIU_1_NOSE_GEAR_DOWNLOCKED, Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "LDG Gear 2 Arrow",
+            "Pin": "LDG Gear 2 Arrow",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "LDG Gear 2 Arrow",
+          "GUID": "0c3d2059-4689-4a57-a722-91970838c9e4",
+          "Active": true,
+          "Name": "Ldg Gear 2 - Arrow",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "5b2d1d6d-0558-4a2c-912a-50e71d39fa21",
+              "Value": "(L:A32NX_LGCIU_1_RIGHT_GEAR_UNLOCKED, Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "LDG Gear 3 UNLK",
+            "Pin": "LDG Gear 3 UNLK",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "LDG Gear 3 UNLK",
+          "GUID": "8eabe5be-f869-4040-b02f-60d887d9dec0",
+          "Active": true,
+          "Name": "Ldg Gear 3 - UNLK",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "9d647e25-c807-406d-8f67-3e6c4bf34b6f",
+              "Value": "(L:A32NX_LGCIU_1_RIGHT_GEAR_DOWNLOCKED, Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "LDG Gear 3 Arrow",
+            "Pin": "LDG Gear 3 Arrow",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "LDG Gear 3 Arrow",
+          "GUID": "2860b409-94bc-49ea-9a84-8914976c9f26",
+          "Active": true,
+          "Name": "Ldg Gear 3 - Arrow",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Brake Fan HOT",
+            "Pin": "Brake Fan HOT",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Brake Fan HOT",
+          "GUID": "1e96b493-f84a-4056-8603-234073a930b7",
+          "Active": true,
+          "Name": "Brk Fan - HOT",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Brake Fan ON",
+            "Pin": "Brake Fan ON",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Brake Fan ON",
+          "GUID": "995d3be7-9c33-4e7b-a637-7c144b0fc7d6",
+          "Active": true,
+          "Name": "Brk Fan - ON",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "bb01be3a-6a5f-4f8e-87d0-8b4c731868fb",
+              "Value": "(L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 1 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "AutoBrk Low ON",
+            "Pin": "AutoBrk Low ON",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AutoBrk Low ON",
+          "GUID": "4d28fd96-0abd-41c5-b9e7-49ed7192895b",
+          "Active": true,
+          "Name": "Auto Brk - LO - On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "ec950251-0aef-419a-a1bc-54def985ffda",
+              "Value": "(L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 2 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "AutoBrk Med ON",
+            "Pin": "AutoBrk Med ON",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AutoBrk Med ON",
+          "GUID": "c99da906-acd1-4d71-a81c-85b4314355d5",
+          "Active": true,
+          "Name": "Auto Brk - MED - On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "295acf6b-4a1b-459e-9798-f57065fa6311",
+              "Value": "(L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 3 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "AutoBrk Max ON",
+            "Pin": "AutoBrk Max ON",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AutoBrk Max ON",
+          "GUID": "84799bd5-26c9-4593-af77-9b677aa443d6",
+          "Active": true,
+          "Name": "Auto Brk - MAX - On",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "a1935ecd-6326-4e7e-bb95-65aa8ac83fcc",
+              "Value": "(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 1 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "AutoBrk Low DECEL",
+            "Pin": "AutoBrk Low DECEL",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AutoBrk Low DECEL",
+          "GUID": "7281616d-0b90-4daa-9e50-c7ea784ed24a",
+          "Active": true,
+          "Name": "Auto Brk - LO - Decel",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "a1935ecd-6326-4e7e-bb95-65aa8ac83fcc",
+              "Value": "(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 1 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "AutoBrk Med DECEL",
+            "Pin": "AutoBrk Med DECEL",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AutoBrk Med DECEL",
+          "GUID": "92ace88a-a8c6-4967-bfe8-5b2811e78f94",
+          "Active": true,
+          "Name": "Auto Brk - MED - Decel",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "2755ddbb-07fb-4950-a503-9a4197e14eb7",
+              "Value": "(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 2 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "AutoBrk Max DECEL",
+            "Pin": "AutoBrk Max DECEL",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "AutoBrk Max DECEL",
+          "GUID": "9dc666d5-f745-4082-8f9b-c1e482fb4891",
+          "Active": true,
+          "Name": "Auto Brk - MED - Decel",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Backlight Brightness",
+            "Pin": "Backlight Brightness",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Backlight Brightness",
+          "GUID": "1ddde7ff-1eda-4266-aa55-269f416d402e",
+          "Active": true,
+          "Name": "Backlight Brightness (128)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "128",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Key Light Brightness",
+            "Pin": "Key Light Brightness",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Key Light Brightness",
+          "GUID": "3b0081f6-416f-4535-a39c-e40fd83ce557",
+          "Active": true,
+          "Name": "Key Light Brightness (128)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "128",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 8.0
+          },
+          "Device": {
+            "Name": "Clock brightness",
+            "Pin": "Clock brightness",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Clock brightness",
+          "GUID": "f962871f-2d07-4d4f-98e5-469af054142b",
+          "Active": true,
+          "Name": "Clock Brightness (0-8)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "8",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "9295f464-5c3f-45ad-9521-c94779279f5a",
+              "Value": "(L:A32NX_CHRONO_ELAPSED_TIME)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 10.0
+          },
+          "Device": {
+            "Name": "chrono.lcd",
+            "Address": "chrono.lcd",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "chrono.lcd",
+          "GUID": "5464b68a-d20d-457a-8a7d-ed6cdb56294c",
+          "Active": true,
+          "Name": "Chrono Display (Original)",
+          "Type": "OutputConfigItem"
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "9295f464-5c3f-45ad-9521-c94779279f5a",
+              "Value": "(L:A32NX_CHRONO_ELAPSED_TIME)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 10.0
+          },
+          "Device": {
+            "Name": "chrono.lcd",
+            "Address": "chrono.lcd",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "chrono.lcd",
+          "GUID": "f6534ca7-f31a-4e75-8a9e-0b8b349608fe",
+          "Active": true,
+          "Name": "Chrono Display (Active)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Preconditions": [
+            {
+              "Type": "config",
+              "Ref": "5464b68a-d20d-457a-8a7d-ed6cdb56294c",
+              "Operand": ">=",
+              "Value": "0",
+              "Logic": "and",
+              "Active": true
+            }
+          ],
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "((Floor($/60))*100)+(Floor($)%60)",
+                "Active": true
+              },
+              {
+                "Type": "Padding",
+                "Character": "0",
+                "Length": 4,
+                "Direction": "Left",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "9295f464-5c3f-45ad-9521-c94779279f5a",
+              "Value": "(L:A32NX_CHRONO_ELAPSED_TIME)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 10.0
+          },
+          "Device": {
+            "Name": "chrono.lcd",
+            "Address": "chrono.lcd",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "chrono.lcd",
+          "GUID": "bfc329ab-7c66-46c5-a242-de1af181ed6b",
+          "Active": true,
+          "Name": "Chrono Display (Reset)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Preconditions": [
+            {
+              "Type": "config",
+              "Ref": "5464b68a-d20d-457a-8a7d-ed6cdb56294c",
+              "Operand": "<",
+              "Value": "0",
+              "Logic": "and",
+              "Active": true
+            }
+          ],
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "'BLANK'",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "9295f464-5c3f-45ad-9521-c94779279f5a",
+              "Value": "(L:A32NX_CHRONO_ELAPSED_TIME)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "CHR Colon",
+            "Pin": "CHR Colon",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "CHR Colon",
+          "GUID": "0dab622c-6a63-46ac-807d-296f3d2b6064",
+          "Active": true,
+          "Name": "Chrono Display - Colon (On/Off)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "if(!-#>0,1,0)",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "2739e06f-1988-4611-acf0-745386d0acd5",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "5464b68a-d20d-457a-8a7d-ed6cdb56294c",
+              "Placeholder": "!",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "b406ff1f-7d3f-4b7e-872a-a2e2a2a2b760",
+              "Value": "(E:ZULU TIME,second)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 10.0
+          },
+          "Device": {
+            "Name": "utc.lcd",
+            "Address": "utc.lcd",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "utc.lcd",
+          "GUID": "e0305df3-ef5d-40a9-a10a-82dcf879bc41",
+          "Active": true,
+          "Name": "UTC Display (Time)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Preconditions": [
+            {
+              "Type": "variable",
+              "Ref": "Chrono-SetDate",
+              "Operand": "=",
+              "Value": "0",
+              "Logic": "and",
+              "Active": true
+            }
+          ],
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "Floor($/3600)*10000+(Floor($/60)%60)*100+$%60",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "b406ff1f-7d3f-4b7e-872a-a2e2a2a2b760",
+              "Value": "(E:ZULU TIME,second)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 10.0
+          },
+          "Device": {
+            "Name": "utc.lcd",
+            "Address": "utc.lcd",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "utc.lcd",
+          "GUID": "94bae682-d8d7-43e1-9302-74804c90e3e9",
+          "Active": true,
+          "Name": "UTC Display (Date)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Preconditions": [
+            {
+              "Type": "variable",
+              "Ref": "Chrono-SetDate",
+              "Operand": "=",
+              "Value": "1",
+              "Logic": "and",
+              "Active": true
+            }
+          ],
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "'!#?'",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "aba35796-836f-46ec-ac22-fb7d21333d05",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "33f66bac-4428-4e1f-b50f-e2edb55634cd",
+              "Placeholder": "!",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "5b01bf29-0933-48f2-868c-63329270fcd1",
+              "Placeholder": "?",
+              "TestValue": "1"
+            }
+          ]
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "UTC Colon Left",
+            "Pin": "UTC Colon Left",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "UTC Colon Left",
+          "GUID": "754985f9-a34d-4844-9d79-2050d6a128f5",
+          "Active": true,
+          "Name": "UTC Display - Colon Left",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "UTC Colon Right",
+            "Pin": "UTC Colon Right",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "UTC Colon Right",
+          "GUID": "3a7ccfc7-69e9-4b07-ac51-bf7d9ecbeccb",
+          "Active": true,
+          "Name": "UTC Display - Colon Right - INOP",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "9a90f1b2-8469-4bc2-b5d5-e434171831c7",
+              "Value": "(L:A32NX_CHRONO_ET_ELAPSED_TIME)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 10.0
+          },
+          "Device": {
+            "Name": "et.lcd",
+            "Address": "et.lcd",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "et.lcd",
+          "GUID": "81a53c66-fe88-4a53-831d-532d44da0938",
+          "Active": true,
+          "Name": "ET Display",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "12*3600+34*60+56",
+                "Active": true
+              },
+              {
+                "Type": "Transformation",
+                "Expression": "Floor($/60)",
+                "Active": true
+              },
+              {
+                "Type": "Transformation",
+                "Expression": "(Floor($/60)*100)+$%60",
+                "Active": true
+              },
+              {
+                "Type": "Padding",
+                "Character": "0",
+                "Length": 4,
+                "Direction": "Left",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Screen Brightness",
+            "Pin": "Screen Brightness",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Screen Brightness",
+          "GUID": "36c099e2-59c0-4e91-8512-73c169bca142",
+          "Active": true,
+          "Name": "Screen Brightness (128)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "128",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "2923890b-7b3e-4317-9168-62172bb996d4",
+              "Value": "(L:A32NX_HYD_BRAKE_ALTN_LEFT_PRESS)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1500.0
+          },
+          "Device": {
+            "Name": "brake.press.left",
+            "Address": "brake.press.left",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "brake.press.left",
+          "GUID": "af7e2079-0141-44bf-adad-e2ce9eec89a4",
+          "Active": true,
+          "Name": "Brakes Pressure - Left",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "$",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "a4ab030b-78a2-4a6f-8daa-be99af21d7b3",
+              "Value": "(L:A32NX_HYD_BRAKE_ALTN_RIGHT_PRESS)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1500.0
+          },
+          "Device": {
+            "Name": "brake.press.right",
+            "Address": "brake.press.right",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "brake.press.right",
+          "GUID": "744a99b9-df2c-4746-ba52-8535504bf032",
+          "Active": true,
+          "Name": "Brakes Pressure - Right",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "992c8747-fdf9-47e1-8bab-8ccc1641bd29",
+              "Value": "(L:A32NX_HYD_BRAKE_ALTN_ACC_PRESS)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 4000.0
+          },
+          "Device": {
+            "Name": "brake.press.accu",
+            "Address": "brake.press.accu",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "brake.press.accu",
+          "GUID": "9e4ee53d-69fc-4377-9555-7656342c32b4",
+          "Active": true,
+          "Name": "Brakes Pressure - Accu",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "Chrono-SetTime",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "2739e06f-1988-4611-acf0-745386d0acd5",
+          "Active": true,
+          "Name": "Variable - Chrono SetTime",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "90eecc93-5f66-4225-905e-e50df3d57f8b",
+              "Value": "(E:ZULU DAY OF MONTH,number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "aba35796-836f-46ec-ac22-fb7d21333d05",
+          "Active": true,
+          "Name": "Date - Zulu Day ",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Padding",
+                "Character": "0",
+                "Length": 2,
+                "Direction": "Left",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "9457f8c6-ca48-4c76-b513-35843d33b950",
+              "Value": "(E:ZULU MONTH OF YEAR,number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "33f66bac-4428-4e1f-b50f-e2edb55634cd",
+          "Active": true,
+          "Name": "Date - Zulu Month",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Padding",
+                "Character": "0",
+                "Length": 2,
+                "Direction": "Left",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "945470a5-bf23-40be-bc31-b393fc07c535",
+              "Value": "(E:ZULU YEAR,number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "5b01bf29-0933-48f2-868c-63329270fcd1",
+          "Active": true,
+          "Name": "Date - Zulu Year",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "$%100",
+                "Active": true
+              },
+              {
+                "Type": "Padding",
+                "Character": "0",
+                "Length": 2,
+                "Direction": "Left",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "5edbd2f3-d385-480d-8b18-578a35229901",
+              "Value": "(A:PLANE ALT ABOVE GROUND,Feet)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "8e250bf2-b9fa-4a39-924d-a3d5d6420e48",
+          "Active": true,
+          "Name": "Plane AGL - Below 700ft -  (for landing gear - red arrow)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Comparison",
+                "Operand": "<",
+                "Value": "700",
+                "IfValue": "1",
+                "ElseValue": "0",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "3358c830-b02a-4787-8e7d-b66bdb43889f",
+              "Value": "(A:FLAPS HANDLE INDEX,Number)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "fccbe2cf-b183-4577-910d-3cc621b4a20a",
+          "Active": true,
+          "Name": "Flaps position - IsExtended - (for landing gear - red arrow)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Comparison",
+                "Operand": ">=",
+                "Value": "0",
+                "IfValue": "1",
+                "ElseValue": "0",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "0b686a65-eea5-4055-ae49-b6e553391c5c",
+              "Value": "(A:GENERAL ENG THROTTLE LEVER POSITION:1,Percent)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "DeviceType": "-",
+          "GUID": "bb1df10f-47e0-4355-b8bd-72f186c3b5d2",
+          "Active": true,
+          "Name": "Throttle 1 - IsIdle - (for landing gear - red arrow)",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Comparison",
+                "Operand": "=",
+                "Value": "0",
+                "IfValue": "1",
+                "ElseValue": "0",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "2fcbb65e-ac51-41e8-86b7-a0acfce2f30a",
+              "Value": "(A:GEAR CENTER POSITION,Percent)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Gear Red Arrow",
+            "Pin": "Gear Red Arrow",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "Gear Red Arrow",
+          "GUID": "085e7b15-a97a-4a76-ac7a-59a3d0a0bb68",
+          "Active": true,
+          "Name": "Landing Gear - RED ARROW",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "WINGFLEX GMP",
+            "Serial": "JS-ae411cc0-add8-11f1-8001-444553540000"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Comparison",
+                "Operand": "=",
+                "Value": "0",
+                "IfValue": "1",
+                "ElseValue": "0",
+                "Active": true
+              },
+              {
+                "Type": "Transformation",
+                "Expression": "$*?*!*#",
+                "Active": true
+              }
+            ]
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "8e250bf2-b9fa-4a39-924d-a3d5d6420e48",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "fccbe2cf-b183-4577-910d-3cc621b4a20a",
+              "Placeholder": "!",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "bb1df10f-47e0-4355-b8bd-72f186c3b5d2",
+              "Placeholder": "?",
+              "TestValue": "1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Sim": "msfs",
+  "Aircraft": [
+    {
+      "Name": "Generic",
+      "Vendor": "Microsoft"
+    },
+    {
+      "Name": "A320-Dev",
+      "Vendor": "Fly By Wire"
+    },
+    {
+      "Name": "A320",
+      "Vendor": "Fly By Wire"
+    }
+  ],
+  "Features": {
+    "FSUIPC": false,
+    "ProSim": false
+  },
+  "_version": "0.10"
+}
