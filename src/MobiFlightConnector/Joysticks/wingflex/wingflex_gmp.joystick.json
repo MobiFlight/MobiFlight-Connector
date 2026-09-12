@@ -85,42 +85,42 @@
       "Label": "Power On"
     },
     {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "GPS"
+    },
+    {
       "Id": 18,
       "Type": "Button",
-      "Label": "GPS1"
+      "Label": "GPS - INT"
     },
     {
       "Id": 19,
       "Type": "Button",
-      "Label": "GPS2"
+      "Label": "GPS - SET"
     },
     {
       "Id": 20,
       "Type": "Button",
-      "Label": "GPS3"
+      "Label": "RUN"
     },
     {
       "Id": 21,
       "Type": "Button",
-      "Label": "RUN1"
+      "Label": "RUN - STP"
     },
     {
       "Id": 22,
       "Type": "Button",
-      "Label": "RUN2"
+      "Label": "RUN - RST"
     },
     {
       "Id": 23,
       "Type": "Button",
-      "Label": "RUN3"
-    },
-    {
-      "Id": 24,
-      "Type": "Button",
       "Label": "Landing Gear Handle UP"
     },
     {
-      "Id": 25,
+      "Id": 24,
       "Type": "Button",
       "Label": "Landing Gear Handle DOWN"
     },
