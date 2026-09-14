@@ -69,7 +69,7 @@ namespace MobiFlightWwFcuUnitTests
         }
 
         [TestMethod]
-        public void CduConstructor_DoesNotRegisterWebSocketService()
+        public void CreatingMcdInstance_DoesNotCreateCaptainWebsocketSubscription()
         {
             // Act
             _ = new WinCtrlDisplayControl(
@@ -85,7 +85,7 @@ namespace MobiFlightWwFcuUnitTests
         }
 
         [TestMethod]
-        public void Pfp3nConnect_RegistersCaptainWebSocket()
+        public void CreatingAndConnectingMcdInstance_CreatesCaptainWebsocketSubscription()
         {
             // Ignored MCDU is constructed but never connected.
             _ = new WinCtrlDisplayControl(
