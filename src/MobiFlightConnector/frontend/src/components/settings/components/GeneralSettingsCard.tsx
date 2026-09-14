@@ -7,6 +7,7 @@ import ComboBox from "@/components/ComboBox"
 import { LogLevel } from "@/types/log"
 import Settings from "@/types/settings"
 import { Switch } from "@/components/ui/switch"
+import SettingsRow from "./SettingsRow"
 
 interface GeneralSettingsCardProps {
   values: Partial<Settings>
@@ -42,20 +43,15 @@ export default function GeneralSettingsCard({
 
   return (
     <Card className="w-full">
-      <CardContent className="space-y-6 p-6">
+      <CardContent className="flex flex-col gap-6 p-6">
         {/* Application */}
-        <div className="space-y-3">
+        <div className="flex flex-col gap-3">
           <h3 className="text-base font-bold">
             {t("Settings.General.Application.Title")}
           </h3>
 
-          <div className="space-y-1">
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <div className="space-y-0.5">
-                <Label className="text-sm font-normal">
-                  {t("Settings.General.Language.Title")}
-                </Label>
-              </div>
+          <div className="flex flex-col gap-1">
+            <SettingsRow label={t("Settings.General.Language.Title")}>
               <ComboBox
                 items={languageOptions}
                 selected={languageOptions.find((opt) => opt.value === language)}
@@ -65,15 +61,12 @@ export default function GeneralSettingsCard({
                 setSelected={(item) => item && onChange("Language", item.value)}
                 widthClass="w-56"
               />
-            </div>
+            </SettingsRow>
 
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="beta-updates"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.General.BetaVersions.Description")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.General.BetaVersions.Description")}
+              htmlFor="beta-updates"
+            >
               <Switch
                 id="beta-updates"
                 checked={values.BetaUpdates ?? false}
@@ -81,15 +74,12 @@ export default function GeneralSettingsCard({
                   onChange("BetaUpdates", !!checked)
                 }
               />
-            </div>
+            </SettingsRow>
 
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="community-feedback"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.General.CommunityFeedback.Description")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.General.CommunityFeedback.Description")}
+              htmlFor="community-feedback"
+            >
               <Switch
                 id="community-feedback"
                 checked={values.CommunityFeedback ?? false}
@@ -97,42 +87,35 @@ export default function GeneralSettingsCard({
                   onChange("CommunityFeedback", !!checked)
                 }
               />
-            </div>
+            </SettingsRow>
           </div>
         </div>
 
         <Separator />
 
         {/* Logging */}
-        <div className="space-y-3">
+        <div className="flex flex-col gap-3">
           <h3 className="text-base font-bold">
             {t("Settings.General.Logging.Title")}
           </h3>
 
-          <div className="space-y-1">
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="logging-enable"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.General.Logging.ShowLogPanel")}
-              </Label>
+          <div className="flex flex-col gap-1">
+            <SettingsRow
+              label={t("Settings.General.Logging.ShowLogPanel")}
+              htmlFor="logging-enable"
+            >
               <Switch
                 id="logging-enable"
                 checked={logEnabled}
                 onCheckedChange={(checked) => onChange("LogEnabled", !!checked)}
               />
-            </div>
+            </SettingsRow>
 
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="log-level"
-                className={`text-sm font-normal ${
-                  !logEnabled ? "text-muted-foreground" : ""
-                }`}
-              >
-                {t("Settings.General.Logging.LogLevel")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.General.Logging.LogLevel")}
+              htmlFor="log-level"
+              disabled={!logEnabled}
+            >
               <ComboBox
                 items={logOptions}
                 selected={logOptions.find(
@@ -149,17 +132,13 @@ export default function GeneralSettingsCard({
                 disabled={!logEnabled}
                 widthClass="w-56"
               />
-            </div>
+            </SettingsRow>
 
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="logging-joystick-axis"
-                className={`cursor-pointer text-sm font-normal ${
-                  !logEnabled ? "text-muted-foreground" : ""
-                }`}
-              >
-                {t("Settings.General.Logging.LogJoystickAxis")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.General.Logging.LogJoystickAxis")}
+              htmlFor="logging-joystick-axis"
+              disabled={!logEnabled}
+            >
               <Switch
                 id="logging-joystick-axis"
                 checked={values.LogJoystickAxis ?? false}
@@ -168,26 +147,23 @@ export default function GeneralSettingsCard({
                   onChange("LogJoystickAxis", !!checked)
                 }
               />
-            </div>
+            </SettingsRow>
           </div>
         </div>
 
         <Separator />
 
         {/* Startup and Run options */}
-        <div className="space-y-3">
+        <div className="flex flex-col gap-3">
           <h3 className="text-base font-bold">
             {t("Settings.General.StartupAndRunOptions.Title")}
           </h3>
 
-          <div className="space-y-1">
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="hubhop-auto-check"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.General.HubHop.AutoCheck")}
-              </Label>
+          <div className="flex flex-col gap-1">
+            <SettingsRow
+              label={t("Settings.General.HubHop.AutoCheck")}
+              htmlFor="hubhop-auto-check"
+            >
               <Switch
                 id="hubhop-auto-check"
                 checked={values.HubHopAutoCheck ?? false}
@@ -195,15 +171,12 @@ export default function GeneralSettingsCard({
                   onChange("HubHopAutoCheck", !!checked)
                 }
               />
-            </div>
+            </SettingsRow>
 
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="auto-retrigger"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.General.RunOptions.AutoRetrigger")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.General.RunOptions.AutoRetrigger")}
+              htmlFor="auto-retrigger"
+            >
               <Switch
                 id="auto-retrigger"
                 checked={values.AutoRetrigger ?? false}
@@ -211,15 +184,12 @@ export default function GeneralSettingsCard({
                   onChange("AutoRetrigger", !!checked)
                 }
               />
-            </div>
+            </SettingsRow>
 
-            <div className="flex items-center justify-between gap-4 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <Label
-                htmlFor="minimize-on-autorun"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.General.RunOptions.MinimizeOnAutoRun")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.General.RunOptions.MinimizeOnAutoRun")}
+              htmlFor="minimize-on-autorun"
+            >
               <Switch
                 id="minimize-on-autorun"
                 checked={values.MinimizeOnAutoRun ?? false}
@@ -227,10 +197,10 @@ export default function GeneralSettingsCard({
                   onChange("MinimizeOnAutoRun", !!checked)
                 }
               />
-            </div>
+            </SettingsRow>
 
             <div className="flex items-center justify-between gap-6 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <div className="flex-1 space-y-0.5">
+              <div className="flex-1 flex flex-col gap-0.5">
                 <Label className="text-sm font-medium">
                   {t("Settings.General.ExecutionSpeed.Title")}
                 </Label>
@@ -238,7 +208,7 @@ export default function GeneralSettingsCard({
                   {t("Settings.General.ExecutionSpeed.Description")}
                 </p>
               </div>
-              <div className="w-60 shrink-0 space-y-1">
+              <div className="w-60 shrink-0 flex flex-col gap-1">
                 <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
                   <span className="text-xs">{t("Settings.General.ExecutionSpeed.Slow")}</span>
                   <span className="text-xs">{t("Settings.General.ExecutionSpeed.Fast")}</span>
@@ -261,7 +231,7 @@ export default function GeneralSettingsCard({
               <Label className="text-sm font-medium">
                 {t("Settings.General.TestModeSpeed.Title")}
               </Label>
-              <div className="w-60 shrink-0 space-y-1">
+              <div className="w-60 shrink-0 flex flex-col gap-1">
                 <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
                   <span className="text-xs">{t("Settings.General.TestModeSpeed.Slow")}</span>
                   <span className="text-xs">{t("Settings.General.TestModeSpeed.Fast")}</span>
@@ -285,4 +255,3 @@ export default function GeneralSettingsCard({
     </Card>
   )
 }
-

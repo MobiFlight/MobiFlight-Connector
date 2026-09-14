@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next"
 import { Card, CardContent } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
 import Input from "@/components/Input"
 import Settings from "@/types/settings"
+import SettingsRow from "./SettingsRow"
 
 interface SimulatorSettingsCardProps {
   values: Partial<Settings>
@@ -23,21 +23,18 @@ export default function SimulatorSettingsCard({
 
   return (
     <Card className="w-full">
-      <CardContent className="space-y-6 p-6">
-        <div className="space-y-3">
+      <CardContent className="flex flex-col gap-6 p-6">
+        <div className="flex flex-col gap-3">
           <h3 className="text-base font-bold">
             {t("Settings.Simulator.ProSim.Title")}
           </h3>
 
-          <div className="space-y-1">
+          <div className="flex flex-col gap-1">
             {/* Auto Connect */}
-            <div className="hover:bg-muted/40 -mx-2 flex items-center justify-between gap-4 rounded-md p-2 transition-colors">
-              <Label
-                htmlFor="prosim-auto-connect"
-                className="cursor-pointer text-sm font-normal"
-              >
-                {t("Settings.Simulator.ProSim.AutoConnect")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.Simulator.ProSim.AutoConnect")}
+              htmlFor="prosim-auto-connect"
+            >
               <Switch
                 id="prosim-auto-connect"
                 checked={proSimAutoConnect}
@@ -45,13 +42,13 @@ export default function SimulatorSettingsCard({
                   onChange("ProSimAutoConnectEnabled", !!checked)
                 }
               />
-            </div>
+            </SettingsRow>
 
             {/* Connection Settings: Host & Port */}
-            <div className="hover:bg-muted/40 -mx-2 flex items-center justify-between gap-4 rounded-md p-2 transition-colors">
-              <Label htmlFor="prosim-host" className="text-sm font-normal">
-                {t("Settings.Simulator.ProSim.ConnectionSettings")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.Simulator.ProSim.ConnectionSettings")}
+              htmlFor="prosim-host"
+            >
               <div className="flex items-center gap-2">
                 <Input
                   id="prosim-host"
@@ -73,13 +70,13 @@ export default function SimulatorSettingsCard({
                   className="w-20"
                 />
               </div>
-            </div>
+            </SettingsRow>
 
             {/* Max Retry Attempts */}
-            <div className="hover:bg-muted/40 -mx-2 flex items-center justify-between gap-4 rounded-md p-2 transition-colors">
-              <Label htmlFor="prosim-max-retry" className="text-sm font-normal">
-                {t("Settings.Simulator.ProSim.MaxRetryAttempts")}
-              </Label>
+            <SettingsRow
+              label={t("Settings.Simulator.ProSim.MaxRetryAttempts")}
+              htmlFor="prosim-max-retry"
+            >
               <Input
                 id="prosim-max-retry"
                 type="number"
@@ -94,7 +91,7 @@ export default function SimulatorSettingsCard({
                   )
                 }
               />
-            </div>
+            </SettingsRow>
           </div>
         </div>
       </CardContent>
