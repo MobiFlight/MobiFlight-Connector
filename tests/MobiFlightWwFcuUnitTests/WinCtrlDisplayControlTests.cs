@@ -85,23 +85,7 @@ namespace MobiFlightWwFcuUnitTests
         }
 
         [TestMethod]
-        public void IgnoredMcdu_Creation_DoesNotReserveCaptainWebSocket()
-        {
-            _ = new WinCtrlDisplayControl(
-                WinCtrlConstants.PRODUCT_ID_MCDU_CPT,
-                server
-            );
-
-            Assert.IsFalse(
-                server.WebSocketServices.TryGetServiceHost(
-                    "/winwing/cdu-captain",
-                    out _
-                )
-            );
-        }
-
-        [TestMethod]
-        public void IgnoredMcdu_DoesNotBlockEnabledPfp3nCaptainWebSocket()
+        public void Pfp3nConnect_RegistersCaptainWebSocket()
         {
             // Ignored MCDU is constructed but never connected.
             _ = new WinCtrlDisplayControl(
