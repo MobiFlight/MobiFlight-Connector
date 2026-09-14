@@ -377,7 +377,7 @@ namespace MobiFlight.Execution
 
             if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")
             {
-                Joystick joystick = joystickManager.GetJoystickBySerial(serial);
+                var joystick = joystickManager.GetJoystickBySerial(serial);
                 if (joystick != null)
                 {
                     switch (cfg.DeviceType)
