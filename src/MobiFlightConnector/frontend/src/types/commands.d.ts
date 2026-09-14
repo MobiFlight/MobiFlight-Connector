@@ -242,5 +242,7 @@ export interface CommandRefreshPresets extends CommandMessageBase {
 
 export interface CommandUpdateSettings extends CommandMessageBase {
   key: "CommandUpdateSettings"
-  payload: Partial<Settings>
+  payload: {
+    Settings: Partial<Settings>
+  }
 }

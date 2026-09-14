@@ -49,7 +49,9 @@ export default function SettingsDialog({
       setSettings(draftSettings as Settings)
       messageExchange.publish({
         key: "CommandUpdateSettings",
-        payload: draftSettings,
+        payload: {
+          Settings: draftSettings,
+        },
       })
     }
     onOpenChange(false)

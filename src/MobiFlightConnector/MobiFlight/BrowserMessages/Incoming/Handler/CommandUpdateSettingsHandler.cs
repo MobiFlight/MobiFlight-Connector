@@ -1,47 +1,36 @@
 using System;
+using MobiFlight.Base;
 using MobiFlight.BrowserMessages.Incoming;
 
 namespace MobiFlight.BrowserMessages.Incoming.Handler
 {
     public class CommandUpdateSettingsHandler
     {
+        private readonly ExecutionManager _execManager;
+
+        public CommandUpdateSettingsHandler(ExecutionManager execManager = null)
+        {
+            _execManager = execManager;
+        }
+
         public void Handle(CommandUpdateSettings message)
         {
-            if (message == null) return;
+            if (message?.Settings == null) return;
 
-            // General Settings
-            Properties.Settings.Default.RecentFilesMaxCount = message.RecentFilesMaxCount;
-            Properties.Settings.Default.LogEnabled = message.LogEnabled;
-            Properties.Settings.Default.LogLevel = message.LogLevel;
-            Properties.Settings.Default.LogJoystickAxis = message.LogJoystickAxis;
-            Properties.Settings.Default.BetaUpdates = message.BetaUpdates;
-            Properties.Settings.Default.CommunityFeedback = message.CommunityFeedback;
-            Properties.Settings.Default.AutoRetrigger = message.AutoRetrigger;
-            Properties.Settings.Default.MinimizeOnAutoRun = message.MinimizeOnAutoRun;
-            Properties.Settings.Default.HubHopAutoCheck = message.HubHopAutoCheck;
-            Properties.Settings.Default.Language = message.Language;
-            if (message.PollInterval > 0)
-            {
-                Properties.Settings.Default.PollInterval = Math.Max(25, message.PollInterval);
-            }
-            if (message.TestTimerInterval > 0)
-            {
-                Properties.Settings.Default.TestTimerInterval = Math.Max(50, message.TestTimerInterval);
-            }
+            var oldProSimHost = Properties.Settings.Default.ProSimHost;
+            var oldProSimPort = Properties.Settings.Default.ProSimPort;
+            var oldProSimAutoConnect = Properties.Settings.Default.ProSimAutoConnectEnabled;
 
-            // ProSim Settings
-            Properties.Settings.Default.ProSimHost = message.ProSimHost;
-            Properties.Settings.Default.ProSimPort = message.ProSimPort;
-            Properties.Settings.Default.ProSimAutoConnectEnabled = message.ProSimAutoConnectEnabled;
-            Properties.Settings.Default.ProSimMaxRetryAttempts = message.ProSimMaxRetryAttempts;
+            // Apply all settings to Properties.Settings.Default
+            message.Settings.ApplyTo(Properties.Settings.Default);
 
             // Apply live log settings immediately
-            Log.Instance.LogJoystickAxis = message.LogJoystickAxis;
-            if (!string.IsNullOrEmpty(message.LogLevel))
+            Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.LogLevel))
             {
                 try
                 {
-                    Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), message.LogLevel, true);
+                    Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel, true);
                 }
                 catch
                 {
@@ -52,8 +41,16 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
             // Save to user.config
             Properties.Settings.Default.Save();
 
+            // Reset ProSim connection state if ProSim connection settings changed
+            if (_execManager != null &&
+                (oldProSimHost != Properties.Settings.Default.ProSimHost ||
+                 oldProSimPort != Properties.Settings.Default.ProSimPort ||
+                 oldProSimAutoConnect != Properties.Settings.Default.ProSimAutoConnectEnabled))
+            {
+                _execManager.ResetProSimConnectionState();
+            }
+
             Log.Instance.log("Settings updated and saved successfully.", LogSeverity.Info);
         }
     }
 }
-

@@ -232,7 +232,7 @@ test.describe("Settings menu item tests", () => {
     expect(trackedCommands.length).toBeGreaterThan(0)
     const lastCommand = trackedCommands.pop()
     expect(lastCommand?.key).toBe("CommandUpdateSettings")
-    expect(lastCommand?.payload.BetaUpdates).toBe(true)
+    expect(lastCommand?.payload.Settings.BetaUpdates).toBe(true)
   })
 
   test("Confirm `Extras > Settings` cancels changes without publishing command", async ({
