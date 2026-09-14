@@ -1,11 +1,11 @@
 # Path Inspection
 
-This Markdown file tracks selected configuration-item interactions through the
+This document tracks selected configuration-item interactions through the
 application code structure.
 
 The goal is to identify where each interaction starts, how the state is
-modified, how the change is synchronized between backend and frontend, and
-which information would be required to undo the action.
+modified, how the change is synchronized between backend and frontend,
+which information would be required to undo the action, and which additinal information may be required for Redo
 
 ## Toggle Active
 
@@ -298,6 +298,17 @@ Therefore, an exact Redo may need to preserve:
 
 This would allow Redo to restore the same duplicated item at the same position instead of executing a new duplication operation.
 
+There is also action-boundary question.
+
+After Duplicate completes, the application automatically opens the newly created config item for editing.
+
+For the Undo/Redo history model it must be decided whether:
+
+- Duplicate is one history entry and the following edit is another entry
+- or Duplicate and the following edit should be grouped into one user action
+
+A first implementation should preferably treat Duplicate and the subsequent Edit as seperate history actions unless there is a strong reason to group them.
+
 ## Reorder Config Item
 
 ### Flow
@@ -355,8 +366,11 @@ The change is therefore marked as an unsaved project change. It is written to di
 
 ### State owner
 
-- Backend project state
-- The frontend project store is updated during the drag operation and then synchronized with the backend through `ConfigValueFullUpdate`
+- Hybrid
+
+The frontend project store is already modified during the DnD interaction.
+
+The backend project store is updated through `CommandResortConfigItem`, after which `ConfigValueFullUpdate` messages synchronize the final state back to the frontend.
 
 ### Persistence
 
@@ -413,3 +427,28 @@ Redo requires the new position:
 - Index: 1
 
 The same principle also applies when an item is moved between different config files.
+
+For multiple selected items, the original position of each item may have to be stored separately.
+
+### Existing DnD Restore Data
+
+The current frontend DnD implementation already records:
+
+```
+draggedItems
+source config
+originalPositions
+current config
+target config
+target insertion index
+```
+
+This makes Reorder particularly interesting for an Undo/Redo prototype because some inverse-operation data already exists during the user interaction.
+
+However, the current `originalPositions` map is derived from the table's current row model.
+
+Because the table supports sorting and filtering, these row indices may not always be identical to the indices in the underlying project's `ConfigItems` collection.
+
+Before this data is reused as persistent Undo history, this relationship must be verified.
+
+If the row-model positions do not always correspond to the project collection positions, the original project indices should instead be captured directly from the underlying `ConfigItems` list.
