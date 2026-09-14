@@ -11,7 +11,7 @@ import SimulatorSettingsCard from "./components/SimulatorSettingsCard"
 import GeneralSettingsCard from "./components/GeneralSettingsCard"
 import { Button } from "@/components/ui/button"
 import { useSettingsStore } from "@/stores/settingsStore"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import messageExchange from "@/lib/messageExchange"
 import Settings from "@/types/settings"
@@ -30,15 +30,16 @@ export default function SettingsDialog({
   const originalSettings = useSettingsStore((state) => state.settings)
   const setSettings = useSettingsStore((state) => state.setSettings)
 
+  const [prevOriginalSettings, setPrevOriginalSettings] =
+    useState(originalSettings)
   const [draftSettings, setDraftSettings] = useState<Partial<Settings>>(
     originalSettings || {},
   )
 
-  useEffect(() => {
-    if (isOpen && originalSettings) {
-      setDraftSettings(originalSettings)
-    }
-  }, [isOpen, originalSettings])
+  if (originalSettings !== prevOriginalSettings) {
+    setPrevOriginalSettings(originalSettings)
+    setDraftSettings(originalSettings || {})
+  }
 
   const updateSetting = <K extends keyof Settings>(
     key: K,

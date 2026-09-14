@@ -7,6 +7,7 @@ import { LogLevel } from "@/types/log"
 import Settings from "@/types/settings"
 import { Switch } from "@/components/ui/switch"
 import SettingsRow from "./SettingsRow"
+import { Slider } from "@/components/ui/slider"
 
 interface GeneralSettingsCardProps {
   values: Partial<Settings>
@@ -226,57 +227,61 @@ export default function GeneralSettingsCard({
 
             <Separator className="my-2" />
 
-            <div className="flex items-center justify-between gap-6 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
-              <div className="flex-1 flex flex-col gap-0.5">
+            <div className="hover:bg-muted/70 -mx-2 flex items-center justify-between gap-6 rounded-md p-2 transition-colors">
+              <div className="flex flex-1 flex-col gap-0.5">
                 <Label className="text-sm font-medium">
                   {t("Settings.General.ExecutionSpeed.Title")}
                 </Label>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground text-xs leading-relaxed">
                   {t("Settings.General.ExecutionSpeed.Description")}
                 </p>
               </div>
-              <div className="w-60 shrink-0 flex flex-col gap-1">
-                <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
-                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Slow")}</span>
-                  <span className="text-xs">{t("Settings.General.ExecutionSpeed.Fast")}</span>
+              <div className="flex w-60 shrink-0 flex-col gap-1">
+                <div className="text-muted-foreground flex justify-between text-[10px] whitespace-nowrap lowercase">
+                  <span className="text-xs">
+                    {t("Settings.General.ExecutionSpeed.Slow")}
+                  </span>
+                  <span className="text-xs">
+                    {t("Settings.General.ExecutionSpeed.Fast")}
+                  </span>
                 </div>
-                <input
-                  type="range"
-                  min="1"
-                  max="10"
-                  step="1"
-                  value={executionSpeedSliderValue}
-                  onChange={(e) => {
-                    const sliderVal = Number(e.target.value)
+                <Slider
+                  min={1}
+                  max={10}
+                  step={1}
+                  value={[executionSpeedSliderValue]}
+                  onValueChange={([sliderVal]) => {
                     const pollIntervalMs = (11 - sliderVal) * 25
                     onChange("PollInterval", pollIntervalMs)
                   }}
-                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
+                  className="w-full"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-6 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
+            <div className="hover:bg-muted/70 -mx-2 flex items-center justify-between gap-6 rounded-md p-2 transition-colors">
               <Label className="text-sm font-medium">
                 {t("Settings.General.TestModeSpeed.Title")}
               </Label>
-              <div className="w-60 shrink-0 flex flex-col gap-1">
-                <div className="flex justify-between text-[10px] text-muted-foreground lowercase whitespace-nowrap">
-                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Slow")}</span>
-                  <span className="text-xs">{t("Settings.General.TestModeSpeed.Fast")}</span>
+              <div className="flex w-60 shrink-0 flex-col gap-1">
+                <div className="text-muted-foreground flex justify-between text-[10px] whitespace-nowrap lowercase">
+                  <span className="text-xs">
+                    {t("Settings.General.TestModeSpeed.Slow")}
+                  </span>
+                  <span className="text-xs">
+                    {t("Settings.General.TestModeSpeed.Fast")}
+                  </span>
                 </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="4"
-                  step="1"
-                  value={testSpeedSliderValue}
-                  onChange={(e) => {
-                    const idx = Number(e.target.value)
+                <Slider
+                  min={0}
+                  max={4}
+                  step={1}
+                  value={[testSpeedSliderValue]}
+                  onValueChange={([idx]) => {
                     const testIntervalMs = TEST_SPEED_INTERVALS[idx] ?? 50
                     onChange("TestTimerInterval", testIntervalMs)
                   }}
-                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
+                  className="w-full"
                 />
               </div>
             </div>
