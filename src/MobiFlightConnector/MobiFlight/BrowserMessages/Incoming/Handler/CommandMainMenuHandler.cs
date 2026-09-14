@@ -1,4 +1,4 @@
-﻿using MobiFlight.UI;
+using MobiFlight.UI;
 
 namespace MobiFlight.BrowserMessages.Incoming.Handler
 {
@@ -95,7 +95,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     break;
 
                 case CommandMainMenuAction.help_about:
-                    _mainForm.AboutToolStripMenuItem_Click(null, null);
+                    // Handled natively in frontend /about modal route
                     break;
 
                 case CommandMainMenuAction.help_releasenotes:

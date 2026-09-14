@@ -25,7 +25,8 @@
     },
     "Copy": "コピー",
     "Paste": "ペースト",
-    "NewFeature": "新規"
+    "NewFeature": "新規",
+    "Close": "閉じる"
   },
   "MainMenu": {
     "File": {
@@ -866,5 +867,33 @@
     "Resume": "スクロールを再開",
     "Pause": "スクロールを一時停止",
     "Close": "ログパネルを閉じる"
+  },
+  "About": {
+    "Tabs": {
+      "About": "情報",
+      "Licenses": "ライセンス"
+    },
+    "Contact": {
+      "Title": "お問い合わせ",
+      "Discord": {
+        "Title": "Discord",
+        "Description": "コミュニティサーバーに参加"
+      },
+      "Email": {
+        "Title": "メール",
+        "Description": "info@mobiflight.com"
+      }
+    },
+    "Ecosystem": {
+      "Title": "MobiFlight エコシステム"
+    },
+    "Licenses": {
+      "Title": "ライブラリと依存関係",
+      "Description": "MobiFlight Connector で使用されているライブラリ - 作成者に感謝いたします！"
+    },
+    "Credits": {
+      "Font": "\"BoeingCDULarge font\" by Gijs de Rooij",
+      "ThankYou": "ありがとう！"
+    }
   }
 }

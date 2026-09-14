@@ -25,7 +25,8 @@
     },
     "Copy": "Copiar",
     "Paste": "Pegar",
-    "NewFeature": "Nuevo"
+    "NewFeature": "Nuevo",
+    "Close": "Cerrar"
   },
   "MainMenu": {
     "File": {
@@ -872,5 +873,33 @@
     "Resume": "Reanudar desplazamiento",
     "Pause": "Pausar desplazamiento",
     "Close": "Cerrar panel de registro"
+  },
+  "About": {
+    "Tabs": {
+      "About": "Acerca de",
+      "Licenses": "Licencias"
+    },
+    "Contact": {
+      "Title": "Cómo contactarnos",
+      "Discord": {
+        "Title": "Discord",
+        "Description": "Únete a nuestro servidor de la comunidad"
+      },
+      "Email": {
+        "Title": "Correo electrónico",
+        "Description": "info@mobiflight.com"
+      }
+    },
+    "Ecosystem": {
+      "Title": "Ecosistema de MobiFlight"
+    },
+    "Licenses": {
+      "Title": "Bibliotecas y dependencias",
+      "Description": "Bibliotecas utilizadas por MobiFlight Connector. ¡Gracias a los autores por ponerlas a disposición!"
+    },
+    "Credits": {
+      "Font": "\"BoeingCDULarge font\" por Gijs de Rooij",
+      "ThankYou": "¡Gracias!"
+    }
   }
 }

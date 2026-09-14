@@ -225,7 +225,7 @@ export const MainMenu = () => {
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
-              onSelect={() => handleMenuItemClick({ action: "help.about" })}
+               onSelect={() => showModalOverlay({ route: "/about" })}
             >
               { t("MainMenu.Help.About") }
             </MenubarItem>

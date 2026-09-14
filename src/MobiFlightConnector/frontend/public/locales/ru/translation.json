@@ -25,7 +25,8 @@
     },
     "Copy": "Копировать",
     "Paste": "Вставить",
-    "NewFeature": "Новый"
+    "NewFeature": "Новый",
+    "Close": "Закрыть"
   },
   "MainMenu": {
     "File": {
@@ -866,5 +867,33 @@
     "Resume": "Возобновить прокрутку",
     "Pause": "Приостановить прокрутку",
     "Close": "Закрыть панель журнала"
+  },
+  "About": {
+    "Tabs": {
+      "About": "О программе",
+      "Licenses": "Лицензии"
+    },
+    "Contact": {
+      "Title": "Как с нами связаться",
+      "Discord": {
+        "Title": "Discord",
+        "Description": "Присоединяйтесь к серверу нашего сообщества"
+      },
+      "Email": {
+        "Title": "Электронная почта",
+        "Description": "info@mobiflight.com"
+      }
+    },
+    "Ecosystem": {
+      "Title": "Экосистема MobiFlight"
+    },
+    "Licenses": {
+      "Title": "Библиотеки и зависимости",
+      "Description": "Библиотеки, используемые MobiFlight Connector. Спасибо авторам за их создание!"
+    },
+    "Credits": {
+      "Font": "\"BoeingCDULarge font\" от Gijs de Rooij",
+      "ThankYou": "Спасибо!"
+    }
   }
 }

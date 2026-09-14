@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -2430,15 +2430,6 @@ namespace MobiFlight.UI
             }
         }
 
-        /// <summary>
-        /// shows the about form
-        /// </summary>
-        public void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutForm ab = new AboutForm();
-            ab.StartPosition = FormStartPosition.CenterParent;
-            ab.ShowDialog();
-        } //aboutToolStripMenuItem_Click()
 
         /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
