@@ -84,7 +84,7 @@ namespace MobiFlightMoza.Protocol.Tests
             var raw = TestHex.Parse("7e 01 43 12 00 e1");
 
             // Act
-            SerialLinkMessage message = null;
+            SerialLinkMessage? message = null;
             foreach (byte b in raw)
             {
                 var chunk = decoder.Feed([b], 1);

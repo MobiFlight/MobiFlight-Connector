@@ -6,7 +6,7 @@ namespace MobiFlightMoza.Protocol.Tests
     [TestClass]
     public class MozaSettingsFrameTests
     {
-        #region Golden vectors (known-good frames captured from a real device session)
+        #region Golden vectors (literal worked examples from the protocol documentation)
 
         [TestMethod]
         public void PackSettingFrame_DisplayMode1_MatchesKnownGoodBytes()
