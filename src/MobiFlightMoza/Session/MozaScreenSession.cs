@@ -19,7 +19,7 @@ namespace MobiFlightMoza.Session
     /// I/O beyond <see cref="IMozaFrameSink"/> - <see cref="MozaSessionPump"/> is the only
     /// thing that reads bytes off a real port and drives this with the real clock.
     /// </summary>
-    internal sealed class MozaScreenSession
+    internal sealed class MozaScreenSession : IMozaSessionDriver
     {
         private static readonly ushort[] AcceptedServicePorts =
         [
@@ -34,13 +34,22 @@ namespace MobiFlightMoza.Session
         private readonly MozaSettingsChannel SettingsChannel;
         private readonly MozaMcduChannel McduChannel;
 
+        private const double ShutdownGracePeriodSeconds = 3.0;
+
         private bool McduStarted;
         private bool SettingsReady;
         private bool DisplayModeWritten;
         private bool CabinPositionResolvedFired;
         private byte? CachedDisplayMode;
-        private bool ShuttingDown;
+        private bool RestoreWriteIssued;
         private bool CloseBegun;
+        private DateTime? ShutdownDeadline;
+
+        // Written last by BeginShutdown, which may run on a different thread than the one
+        // driving Tick/OnBytesReceived (the pump owns that one exclusively otherwise).
+        // volatile write/read is what makes ShutdownDeadline - an ordinary field, written
+        // just before this one - reliably visible once Tick observes ShuttingDown == true.
+        private volatile bool ShuttingDown;
 
         // The `now` from the call currently in progress - set at the top of every public
         // entry point that receives one, so event handlers triggered synchronously during
@@ -90,20 +99,44 @@ namespace MobiFlightMoza.Session
         {
             CurrentNow = now;
             if (State != MozaSessionState.Running) return;
+
+            // The restore write is queued here, from Tick, rather than from BeginShutdown
+            // itself - BeginShutdown may run on a different thread than the one calling
+            // Tick (the pump owns that one exclusively otherwise), so every actual mutation
+            // of session/multiplexer state has to happen from here to stay single-threaded.
+            // Queuing it before Multiplexer.Tick below (rather than after) lets that same
+            // call dequeue and send it immediately, instead of leaving it for the next tick.
+            if (ShuttingDown && !RestoreWriteIssued)
+            {
+                RestoreWriteIssued = true;
+                if (CachedDisplayMode.HasValue)
+                {
+                    SettingsChannel.RequestSetting(0x18, [CachedDisplayMode.Value], now);
+                }
+            }
+
             Multiplexer.Tick(now);
             SettingsChannel.Tick(now);
 
-            // BeginClose is deliberately not called synchronously from BeginShutdown: it
-            // sends a FIN immediately and claims the settings connection's one "pending"
-            // slot, which would strand a just-queued restore write behind it forever (the
-            // connection stops being Established once its FIN is acked). Waiting here for
-            // the settings connection to have nothing pending means the restore write has
-            // had its turn - either it went out, or there was never one to send.
-            if (ShuttingDown && !CloseBegun
-                && (!Multiplexer.TryGetConnection(MozaConstants.ServicePortSettings, out var settingsConnection) || !settingsConnection.HasPending))
+            if (!ShuttingDown) return;
+
+            // BeginClose is deliberately not called as soon as shutdown starts: it sends a
+            // FIN immediately and claims the settings connection's one "pending" slot, which
+            // would strand the restore write above behind it forever (the connection stops
+            // being Established once its FIN is acked). Waiting for the settings connection
+            // to have nothing pending means the restore write has had its turn - either it
+            // went out, or there was never one to send. Giving up once ShutdownDeadline
+            // passes regardless (matching the guide's own bounded-wait guidance for a
+            // graceful close) means a stuck connection can never block shutdown forever.
+            if (!CloseBegun)
             {
-                CloseBegun = true;
-                Multiplexer.BeginClose(now);
+                bool settingsFree = !Multiplexer.TryGetConnection(MozaConstants.ServicePortSettings, out var settingsConnection) || !settingsConnection.HasPending;
+                bool deadlinePassed = ShutdownDeadline.HasValue && now >= ShutdownDeadline.Value;
+                if (settingsFree || deadlinePassed)
+                {
+                    CloseBegun = true;
+                    Multiplexer.BeginClose(now);
+                }
             }
         }
 
@@ -115,16 +148,24 @@ namespace MobiFlightMoza.Session
             }
         }
 
+        // Callable from any thread: only sets these two fields, never mutates the
+        // session/multiplexer directly - Tick (always on the pump thread) does the actual
+        // work once it observes ShuttingDown, keeping every real mutation single-threaded.
         public void BeginShutdown(DateTime now)
         {
-            ShuttingDown = true;
-            if (CachedDisplayMode.HasValue)
-            {
-                SettingsChannel.RequestSetting(0x18, [CachedDisplayMode.Value], now);
-            }
+            ShutdownDeadline = now.AddSeconds(ShutdownGracePeriodSeconds);
+            ShuttingDown = true; // written last: the volatile write publishes ShutdownDeadline too
         }
 
-        public bool IsShutdownComplete => CloseBegun && Multiplexer.IsCloseComplete;
+        public bool IsShutdownComplete
+        {
+            get
+            {
+                if (!CloseBegun) return false;
+                if (Multiplexer.IsCloseComplete) return true;
+                return ShutdownDeadline.HasValue && CurrentNow >= ShutdownDeadline.Value;
+            }
+        }
 
         private void Dispatch(SerialLinkMessage message, DateTime now)
         {

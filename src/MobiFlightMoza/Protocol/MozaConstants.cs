@@ -33,6 +33,10 @@ namespace MobiFlightMoza.Protocol
         public const int McduRows = 14;
         public const int McduColumns = 24;
 
+        // CDC serial port configuration.
+        public const int BaudRate = 2_000_000;
+        public const int ReadBufferSize = 512;
+
         // Fixed startup frames (guide §2.2), sent as-is - never re-derived at runtime.
         public static readonly byte[] RootHandshakeRequest = [0x7E, 0x00, 0x00, 0x12, 0x9D];
         public static readonly byte[] RootHandshakeResponse = [0x7E, 0x00, 0x80, 0x21, 0x2C];
