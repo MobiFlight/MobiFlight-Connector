@@ -297,3 +297,119 @@ Therefore, an exact Redo may need to preserve:
 - Its insertion index
 
 This would allow Redo to restore the same duplicated item at the same position instead of executing a new duplication operation.
+
+## Reorder Config Item
+
+### Flow
+
+When the user drags a config item using the drag handle, `ConfigItemTableActiveCell` registers the item as sortable using its GUID.
+
+During the drag operation, the frontend keeps track of the dragged config items and calculates the target position when the item is dropped.
+
+When the drop is completed, the frontend first moves the dragged item or items inside the frontend project store.
+
+It then publishes a `CommandResortConfigItem` message containing:
+
+- the moved `IConfigItem` items
+- the new insertion index
+- the source config file index
+- the target config file index
+
+`ExecutionManager` receives the command through `MessageExchange` and handles it inside the `CommandResortConfigItem` subscription.
+
+The backend retrieves the `ConfigItems` collection of the source config file.
+
+For each moved item, it searches the corresponding backend config item by GUID.
+
+The matching items are collected and removed from the source `ConfigItems` collection.
+
+The backend then retrieves the target config file and inserts the same config items into its `ConfigItems` collection starting at the requested new index.
+
+The config items themselves are not duplicated and their GUIDs do not change. Only their location in the project structure changes.
+
+After the move has been applied, `ExecutionManager` publishes a `ConfigValueFullUpdate` for the source config file and another `ConfigValueFullUpdate` for the target config file.
+
+The frontend receives these updates and synchronizes the corresponding config item lists with the backend state.
+
+Finally, `ExecutionManager` invokes `OnConfigHasChanged`.
+
+The change is therefore marked as an unsaved project change. It is written to disk only when the user explicitly saves the project.
+
+### State before
+
+- The moved config item or items exist in a specific source config file
+- Each moved item has a specific GUID
+- Each moved item has a specific position in the source collection
+
+### State after
+
+- The same config item or items still exist with the same GUIDs
+- The item or items are located at a new position
+- The target config file may be the same as or different from the source config file
+
+### Required for Undo
+
+- Moved config item GUID(s)
+- Original config file
+- Original index / indices
+
+### State owner
+
+- Backend project state
+- The frontend project store is updated during the drag operation and then synchronized with the backend through `ConfigValueFullUpdate`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Move / Reorder
+
+### Observation
+
+Reorder differs from property updates and create/delete actions because the config item itself is not modified or recreated.
+
+Instead, the action changes the location of an existing item.
+
+Undo therefore has to restore the original location of each moved item rather than restore a previous property value or object.
+
+For Redo, the target location also has to be known:
+
+- Target config file
+- Target insertion index
+
+This means that a Reorder action needs to preserve both the before-location and the after-location of the moved item or items.
+
+For example:
+
+Before:
+
+Config 0:
+
+A
+B
+C
+D
+
+Move C to index 1.
+
+After:
+
+A
+C
+B
+D
+
+Undo requires the original position of C:
+
+- Config file: 0
+- Index: 2
+
+Redo requires the new position:
+
+- Config file: 0
+- Index: 1
+
+The same principle also applies when an item is moved between different config files.
