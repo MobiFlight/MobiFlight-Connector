@@ -1,22 +1,43 @@
-﻿using MobiFlightWwFcu;
+﻿using MobiFlight.Joysticks.Cdu;
+using MobiFlightWwFcu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.WinCtrl
 {
-    internal class WinCtrlCdu : WinCtrlBaseController
+    internal class WinCtrlCdu : WinCtrlBaseController, ICduDataConsumer
     {
         private const int COLUMNS = 24;
         private const int ROWS = 14;
         private const int CELLS = COLUMNS * ROWS;
 
-        public WinCtrlCdu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def, productId, server)
+        public WinCtrlCdu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, ICduWebsocketHub hub) : base(joystick, def, productId, hub)
         {
             // ctor logic is in base class
         }
+
+        public override void Connect(IntPtr handle)
+        {
+            base.Connect(handle);
+            if (!string.IsNullOrEmpty(DisplayControl.CduWebsocketPath))
+            {
+                Hub.Register(DisplayControl.CduWebsocketPath, this);
+            }
+        }
+
+        public override void Shutdown()
+        {
+            if (!string.IsNullOrEmpty(DisplayControl.CduWebsocketPath))
+            {
+                Hub.Unregister(DisplayControl.CduWebsocketPath, this);
+            }
+            base.Shutdown();
+        }
+
+        public void OnCduData(string json) => DisplayControl.HandleCduData(json);
+        public void OnCduFont(string json) => DisplayControl.HandleCduFont(json);
 
         /// <summary>
         /// Displays a formatted user message on the screen based on the specified message code and parameters.

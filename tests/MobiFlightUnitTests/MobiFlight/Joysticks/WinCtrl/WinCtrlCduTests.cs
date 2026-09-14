@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using MobiFlight.Joysticks.Cdu;
+using MobiFlight.Joysticks.Cdu.Tests.Mocks;
 using MobiFlightWwFcu;
 using Newtonsoft.Json.Linq;
-using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.WinCtrl.Tests
 {
@@ -13,8 +14,8 @@ namespace MobiFlight.Joysticks.WinCtrl.Tests
         {
             public List<string> CapturedLcdValues = new List<string>();
 
-            public TestableWinCtrlCdu(JoystickDefinition def, WebSocketServer server)
-                : base(null, def, WinCtrlConstants.PRODUCT_ID_MCDU_CPT, server) { }
+            public TestableWinCtrlCdu(JoystickDefinition def, ICduWebsocketHub hub)
+                : base(null, def, WinCtrlConstants.PRODUCT_ID_MCDU_CPT, hub) { }
 
             public override void SetLcdDisplay(string address, string value)
             {
@@ -24,10 +25,8 @@ namespace MobiFlight.Joysticks.WinCtrl.Tests
 
         private static TestableWinCtrlCdu CreateDevice()
         {
-            // Never started, so the port number is never actually bound.
-            var server = new WebSocketServer(System.Net.IPAddress.Loopback, 8320);
             var definition = new JoystickDefinition();
-            return new TestableWinCtrlCdu(definition, server);
+            return new TestableWinCtrlCdu(definition, new FakeCduWebsocketHub());
         }
 
         #region Payload structure

@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
+using MobiFlight.Joysticks.Cdu;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -44,8 +45,13 @@ namespace MobiFlight
         // Websocket Server on port 8320, not yet started
         WebSocketServer WSServer = new WebSocketServer(System.Net.IPAddress.Loopback, 8320);
 
+        // Fans the CDU websocket paths this server hosts out to every device registered
+        // on each one (e.g. a Winwing CDU and a MOZA MCDU sharing the same seat path).
+        readonly ICduWebsocketHub CduHub;
+
         public JoystickManager()
         {
+            CduHub = new CduWebsocketHub(WSServer);
             PollTimer.Interval = 20;
             PollTimer.Elapsed += PollTimer_Tick;
             MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateJoysticks();
@@ -225,7 +231,7 @@ namespace MobiFlight
                 JoystickDefinition definition = GetJoystickDefinition(d.InstanceName, productName, vendorId, productId);
 
                 // Use factory to create appropriate controller instance
-                var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, WSServer);
+                var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, CduHub);
 
                 // If factory returns null, create a standard Joystick
                 if (js == null)
