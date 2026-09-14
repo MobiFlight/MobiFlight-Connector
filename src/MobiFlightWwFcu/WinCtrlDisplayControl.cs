@@ -11,7 +11,7 @@ namespace MobiFlightWwFcu
     {
         private int ProductId = 0xBB10;
 
-        private WinCtrlMessageSender MessageSender = null;
+        private IWinCtrlMessageSender MessageSender = null;
         private List<IWinCtrlController> CoupledControllers = new List<IWinCtrlController>();
 
         private Dictionary<string, IWinCtrlController> LedNameToControllerMapping;
@@ -30,6 +30,16 @@ namespace MobiFlightWwFcu
         {
             ProductId = productId;
             Server = server;
+        }
+
+        internal WinCtrlDisplayControl(
+            int productId,
+            WebSocketServer server,
+            IWinCtrlMessageSender messageSender)
+        {
+            ProductId = productId;
+            Server = server;
+            MessageSender = messageSender;
         }
 
         private void AddToCoupledControllers(IWinCtrlController controller)
@@ -93,7 +103,7 @@ namespace MobiFlightWwFcu
         {
             LedNameToControllerMapping = new Dictionary<string, IWinCtrlController>();
             DisplayNameToControllerMapping = new Dictionary<string, List<IWinCtrlController>>();
-            MessageSender = new WinCtrlMessageSender(ProductId);
+            MessageSender ??= new WinCtrlMessageSender(ProductId);
 
             switch (ProductId)
             {
