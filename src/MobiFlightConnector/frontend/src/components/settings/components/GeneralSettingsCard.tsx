@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import ComboBox from "@/components/ComboBox"
 import { LogLevel } from "@/types/log"
@@ -14,6 +13,9 @@ interface GeneralSettingsCardProps {
   onChange: <K extends keyof Settings>(key: K, value: Settings[K]) => void
 }
 
+// TestMode interval steps matching WinForms: index 0 (1000ms/slow) to index 4 (50ms/fast)
+const TEST_SPEED_INTERVALS = [1000, 500, 250, 125, 50]
+
 export default function GeneralSettingsCard({
   values,
   onChange,
@@ -23,6 +25,29 @@ export default function GeneralSettingsCard({
   const logEnabled = values.LogEnabled ?? true
   const logLevel = values.LogLevel ?? "info"
   const language = values.Language ?? ""
+
+  // Execution Speed: 25ms (Fast / right) to 250ms (Slow / left)
+  // Slider position (1 to 10): 1 = 250ms (Slow), 10 = 25ms (Fast)
+  const currentPollInterval = values.PollInterval ?? 50
+  const executionSpeedSliderValue = Math.max(
+    1,
+    Math.min(10, 11 - Math.round(currentPollInterval / 25)),
+  )
+
+  // Test Mode Speed: index 0 (1000ms / Slow) to index 4 (50ms / Fast)
+  const currentTestInterval = values.TestTimerInterval ?? 50
+  const testSpeedSliderValue = (() => {
+    let closestIndex = 4
+    let minDiff = Infinity
+    TEST_SPEED_INTERVALS.forEach((val, idx) => {
+      const diff = Math.abs(val - currentTestInterval)
+      if (diff < minDiff) {
+        minDiff = diff
+        closestIndex = idx
+      }
+    })
+    return closestIndex
+  })()
 
   const logOptions: { value: LogLevel; label: string }[] = [
     { value: "debug", label: "Debug" },
@@ -199,6 +224,8 @@ export default function GeneralSettingsCard({
               />
             </SettingsRow>
 
+            <Separator className="my-2" />
+
             <div className="flex items-center justify-between gap-6 -mx-2 rounded-md p-2 transition-colors hover:bg-muted/70">
               <div className="flex-1 flex flex-col gap-0.5">
                 <Label className="text-sm font-medium">
@@ -213,16 +240,18 @@ export default function GeneralSettingsCard({
                   <span className="text-xs">{t("Settings.General.ExecutionSpeed.Slow")}</span>
                   <span className="text-xs">{t("Settings.General.ExecutionSpeed.Fast")}</span>
                 </div>
-                <Input
+                <input
                   type="range"
-                  min="25"
-                  max="250"
-                  step="25"
-                  value={values.PollInterval ?? 50}
-                  onChange={(e) =>
-                    onChange("PollInterval", Number(e.target.value))
-                  }
-                  className="w-full cursor-pointer accent-primary"
+                  min="1"
+                  max="10"
+                  step="1"
+                  value={executionSpeedSliderValue}
+                  onChange={(e) => {
+                    const sliderVal = Number(e.target.value)
+                    const pollIntervalMs = (11 - sliderVal) * 25
+                    onChange("PollInterval", pollIntervalMs)
+                  }}
+                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
                 />
               </div>
             </div>
@@ -236,16 +265,18 @@ export default function GeneralSettingsCard({
                   <span className="text-xs">{t("Settings.General.TestModeSpeed.Slow")}</span>
                   <span className="text-xs">{t("Settings.General.TestModeSpeed.Fast")}</span>
                 </div>
-                <Input
+                <input
                   type="range"
-                  min="50"
-                  max="1000"
-                  step="50"
-                  value={values.TestTimerInterval ?? 50}
-                  onChange={(e) =>
-                    onChange("TestTimerInterval", Number(e.target.value))
-                  }
-                  className="w-full cursor-pointer accent-primary"
+                  min="0"
+                  max="4"
+                  step="1"
+                  value={testSpeedSliderValue}
+                  onChange={(e) => {
+                    const idx = Number(e.target.value)
+                    const testIntervalMs = TEST_SPEED_INTERVALS[idx] ?? 50
+                    onChange("TestTimerInterval", testIntervalMs)
+                  }}
+                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
                 />
               </div>
             </div>

@@ -333,7 +333,7 @@ namespace MobiFlight.UI
                 commandProjectToolbarHandler.Handle(message);
             });
 
-            var commandUpdateSettingsHandler = new CommandUpdateSettingsHandler(execManager);
+            var commandUpdateSettingsHandler = new CommandUpdateSettingsHandler(() => execManager);
             MessageExchange.Instance.Subscribe<CommandUpdateSettings>((message) =>
             {
                 commandUpdateSettingsHandler.Handle(message);

@@ -6,11 +6,19 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
 {
     public class CommandUpdateSettingsHandler
     {
-        private readonly ExecutionManager _execManager;
+        private readonly Func<ExecutionManager> _getExecManager;
 
-        public CommandUpdateSettingsHandler(ExecutionManager execManager = null)
+        public CommandUpdateSettingsHandler(Func<ExecutionManager> getExecManager = null)
         {
-            _execManager = execManager;
+            _getExecManager = getExecManager;
+        }
+
+        public CommandUpdateSettingsHandler(ExecutionManager execManager)
+        {
+            if (execManager != null)
+            {
+                _getExecManager = () => execManager;
+            }
         }
 
         public void Handle(CommandUpdateSettings message)
@@ -42,12 +50,20 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
             Properties.Settings.Default.Save();
 
             // Reset ProSim connection state if ProSim connection settings changed
-            if (_execManager != null &&
+            var execManager = _getExecManager?.Invoke();
+            if (execManager != null &&
                 (oldProSimHost != Properties.Settings.Default.ProSimHost ||
                  oldProSimPort != Properties.Settings.Default.ProSimPort ||
                  oldProSimAutoConnect != Properties.Settings.Default.ProSimAutoConnectEnabled))
             {
-                _execManager.ResetProSimConnectionState();
+                try
+                {
+                    execManager.ResetProSimConnectionState();
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"Failed to reset ProSim connection state: {ex.Message}", LogSeverity.Warn);
+                }
             }
 
             Log.Instance.log("Settings updated and saved successfully.", LogSeverity.Info);
