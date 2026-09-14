@@ -4,7 +4,7 @@
     {
         /// <summary>
         /// Provide same instance name as defined in the definition file.
-        /// Also works if Defintion file is not set yet.
+        /// Also works if Definition file is not set yet.
         /// </summary>
         public override string Name
         {

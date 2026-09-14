@@ -12,7 +12,7 @@ namespace MobiFlight.UI.Panels.About
 {
     public partial class LicenseReferenceControl : UserControl
     {
-        [Description("The name of the Libary"), Category("Data")]
+        [Description("The name of the Library"), Category("Data")]
         public string Library
         {
             get => LibraryLabel.Text;

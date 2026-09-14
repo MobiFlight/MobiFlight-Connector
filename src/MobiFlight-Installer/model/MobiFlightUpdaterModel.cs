@@ -64,7 +64,7 @@ namespace MobiFlightInstaller
 
             if (ShaOne != FileChecksum)
             {
-                Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Checksum missmatch", LogSeverity.Debug);
+                Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Checksum mismatch", LogSeverity.Debug);
                 return false;
             }
             
@@ -394,7 +394,7 @@ namespace MobiFlightInstaller
                 String _downloadChecksum = resultList[Version]["checksum"];
                 String CurrentFileName = Directory.GetCurrentDirectory() + "\\" + MobiFlightUpdaterModel.GetFileName(_downloadURL);
 
-                if (!MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download the file is needeed
+                if (!MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download the file is needed
                 {
                     WebClient _webClient = new WebClient();
                     var uri = new Uri(_downloadURL);
