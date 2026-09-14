@@ -452,3 +452,180 @@ Because the table supports sorting and filtering, these row indices may not alwa
 Before this data is reused as persistent Undo history, this relationship must be verified.
 
 If the row-model positions do not always correspond to the project collection positions, the original project indices should instead be captured directly from the underlying `ConfigItems` list.
+
+## Bulk Toggle Config Items
+
+### Flow
+
+When the user triggers Bulk Toggle, `ConfigItemTable` collects all currently
+selected rows and extracts their underlying `IConfigItem` objects.
+
+If no config items are selected, the operation stops without publishing a
+command.
+
+If one or more items are selected, the frontend publishes a
+`CommandConfigBulkAction` message containing:
+
+- the action `"toggle"`
+- the selected config items
+
+`ExecutionManager` receives the command through `MessageExchange` and handles
+it inside the `CommandConfigBulkAction` subscription.
+
+For a `"toggle"` action, the backend first determines the target Active state
+from the first selected item:
+
+```
+toggleValue = !firstSelectedItem.Active
+```
+
+The backend then iterates over all selected items.
+
+For each item, it searches the current backend `ConfigItems` collection for
+the corresponding config item by GUID.
+
+If a matching config item exists, its `Active` property is set to the same
+`toggleValue`.
+
+This means that Bulk Toggle does not independently invert the Active value
+of every selected item.
+
+Instead, all selected items receive the same final Active state determined by
+the first selected item.
+
+For example:
+
+```
+State before:
+
+A = true
+B = false
+C = true
+```
+
+If `A` is the first selected item:
+
+```
+toggleValue = false
+```
+
+The resulting state is:
+
+```
+A = false
+B = false
+C = false
+```
+
+After all matching config items have been updated, `ExecutionManager`
+publishes a `ConfigValueFullUpdate`.
+
+The message contains:
+
+- the current `ActiveConfigIndex`
+- the complete current `ConfigItems` collection
+
+The frontend receives the full update and synchronizes the corresponding
+config item list with the backend state.
+
+Finally, `ExecutionManager` invokes `OnConfigHasChanged`.
+
+The project is therefore marked as containing unsaved changes and is written
+to disk only when the user explicitly saves it.
+
+### State before
+
+- Multiple selected config items exist in the current config file
+- Each selected item has its own GUID
+- Each selected item may have its own `Active` value
+
+For example:
+
+```
+A = true
+B = false
+C = true
+```
+
+### State after
+
+- The same config items still exist
+- Their GUIDs remain unchanged
+- All selected items have the same `Active` value
+- The final value is the inverse of the first selected item's previous `Active` value
+
+For example:
+
+```
+A = false
+B = false
+C = false
+```
+
+### Required for Undo
+
+Undo has to restore the previous `Active` value of each affected config item.
+
+Therefore, the required restore data is not only one previous Active value.
+
+It has to preserve the previous value for every affected item, for example:
+
+```
+[
+    { GUID: A, Active: true },
+    { GUID: B, Active: false },
+    { GUID: C, Active: true }
+]
+```
+
+### State owner
+
+- Backend project state
+- Synchronized to the frontend through `ConfigValueFullUpdate`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Simple Property Update
+- Multiple-item mutation
+
+### Observation
+
+Bulk Toggle is structurally similar to Toggle Active because it changes the
+same `Active` property on existing config items.
+
+However, its cardinality is different:
+
+```
+Toggle Active
+Mutation Type: Update
+Cardinality: Single
+
+Bulk Toggle
+Mutation Type: Update
+Cardinality: Multiple
+```
+
+This supports treating `Cardinality` as a separate classification dimension
+instead of using `Batch` as a mutation type.
+
+Bulk Toggle also introduces an important Undo requirement.
+
+Because selected items may have different Active states before the operation,
+Undo cannot restore the previous state using only one Boolean value.
+
+The previous `Active` value has to be recorded separately for every affected
+item.
+
+For Redo, the final target value can be stored directly, or the resulting
+after-state of each affected item can be preserved.
+
+Another implementation detail is that Bulk Toggle does not call
+`OnInputConfigSettingsChanged`, while Bulk Delete does.
+
+This difference should be kept in mind when comparing the side effects of the
+two bulk actions.
