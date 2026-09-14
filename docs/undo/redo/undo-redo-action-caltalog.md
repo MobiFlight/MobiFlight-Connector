@@ -184,7 +184,7 @@ Therefore, this interaction is closer to a compound state change than to a singl
 | Config List | Toggle Active | Config Item | Update | Backend + frontend synchronization | Project-persisted | GUID + previous Active value | Yes | ConfigItemTableActiveCell.tsx → CommandUpdateConfigItem → ExecutionManager.HandleCommandUpdateConfigItem |
 | Config List | Rename | Config Item | Update | Backend + frontend synchronization | Project-persisted | GUID + Previous name / previous item snapshot | Yes | ConfigItemTableNameCell.tsx → CommandUpdateConfigItem → ExecutionManager.HandleCommandUpdateConfigItem |
 | Config List | Delete | Config Item | Delete | Backend + frontend synchronization | Project - persisted | Deleted item + original config + original index | Yes | ConfigItemRowContextMenu.tsx → CommandConfigContextMenu → ExecutionManager |
-| Config List | Duplicate | Config Item | Create | TBD | Project | Created item | Yes |
+| Config List | Duplicate | Config Item | Create | Backend + frontend synchronization | Project - persisted | Created duplicate GUID; for exact Redo: duplicated item + original config + insertion index | Yes | ConfigItemRowContextMenu.tsx → CommandConfigContextMenu → ExecutionManager  |
 | Config List | Reorder | Config Item | Move | TBD | Project | Original index | Yes | DragDropProvider.tsx | Original position are already tracked during dragging |
 | Profile Bar | Select Profile | UI | Selection | Frontend | Transient | - | No |
 | Execution | Run / Stop | Runtime | Runtime | Backend | Runtime | - | No |

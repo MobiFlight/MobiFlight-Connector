@@ -216,3 +216,84 @@ location.
 
 Simply adding the item back to the end of the collection would not restore
 the exact previous state.
+
+## Duplicate Config Item
+
+### Flow
+
+When the user selects Duplicate from the config item context menu, `ConfigItemRowContextMenu` publishes a `CommandConfigContextMenu` message with the action `duplicate` and the current config item as its payload.
+
+`ExecutionManager` receives the command through `MessageExchange` and handles the `duplicate` action inside the `CommandConfigContextMenu` subscription.
+
+The backend searches the current `ConfigItems` collection for the original config item by comparing its GUID with `message.Item.GUID`.
+
+If no matching item is found, the operation stops.
+
+If the item exists, `ExecutionManager` calls `Duplicate()` on the original config item.
+
+`Duplicate()` creates a copy of the config item and assigns a new GUID to the duplicated item.
+
+The duplicated item is then inserted directly after the original item using the original item's index plus one.
+
+At this point, the backend project state contains both the original config item and the newly created duplicate.
+
+After the collection has been modified, `ExecutionManager` publishes a `ConfigValueFullUpdate` containing the complete updated `ConfigItems` list.
+
+`ConfigListPage` receives the full update and replaces the corresponding config item list in the frontend project store.
+
+Finally, `ExecutionManager` invokes `OnConfigHasChanged`.
+
+The change is therefore marked as an unsaved project change. It is written to disk only when the user explicitly saves the project.
+
+### State before
+
+- The original config item exists in `ConfigItems`
+- The original config item has a specific GUID
+- The original config item has a specific position in the collection
+
+### State after
+
+- The original config item remains unchanged
+- A duplicated config item exists directly after the original item
+- The duplicated item contains copied configuration data
+- The duplicated item has a newly generated GUID
+
+### Required for Undo
+
+- GUID of the created duplicate
+- Config file / container containing the duplicate
+
+Undo can remove the newly created item by identifying it through its generated GUID.
+
+### State owner
+
+- Backend project state
+- Synchronized to the frontend through `ConfigValueFullUpdate`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Create / Delete
+
+### Observation
+
+Duplicate differs from Toggle Active and Rename because it creates a new object instead of modifying an existing object.
+
+For Undo only, removing the newly created config item is sufficient.
+
+However, Redo introduces an additional consideration.
+
+Calling `Duplicate()` again during Redo would create another new GUID and may duplicate the current state of the source item rather than restoring the exact resul of the original Duplicate action.
+
+Therefore, an exact Redo may need to preserve:
+
+- The duplicated `IConfigItem`
+- Its generated GUID
+- Its original config file / container
+- Its insertion index
+
+This would allow Redo to restore the same duplicated item at the same position instead of executing a new duplication operation.
