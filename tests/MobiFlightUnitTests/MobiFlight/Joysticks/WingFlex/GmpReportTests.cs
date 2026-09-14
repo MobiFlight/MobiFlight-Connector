@@ -19,7 +19,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         public void CopyFromInputBuffer_MinimumLength_DoesNotThrow()
         {
             var report = new GmpReport();
-            report.CopyFromInputBuffer(new byte[] { 1, 2, 3, 4, 5 });
+            report.CopyFromInputBuffer(new byte[] { 1, 2, 3, 4, 5, 6 , 7 });
         }
         [TestMethod()]
         public void ToJoystickState_ParsesButtonBitsAcrossBytes()
