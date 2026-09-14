@@ -32,6 +32,9 @@ using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
 using MobiFlight.Base.Legacy;
+using MobiFlight.BrowserMessages.Incoming.Handler;
+using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 
 namespace MobiFlight.UI
 {
@@ -109,6 +112,8 @@ namespace MobiFlight.UI
                 );
             }
         }
+
+        private CommandShutdownHandler commandShutdownHandler;
 
         private HubHopState hubHopState = new HubHopState();
         public HubHopState HubHopState
@@ -312,6 +317,13 @@ namespace MobiFlight.UI
             MessageExchange.Instance.SubscribeOnUiThread<CommandMainMenu>((message) =>
             {
                 commandMainMenuHandler.Handle(message);
+            });
+
+            commandShutdownHandler = new CommandShutdownHandler(this);
+
+            MessageExchange.Instance.SubscribeOnUiThread<CommandShutdown>((message) =>
+            {
+                commandShutdownHandler.Handle(message);
             });
 
             var commandProjectToolbarHandler = new CommandProjectToolbarHandler(this);
@@ -536,19 +548,6 @@ namespace MobiFlight.UI
 
             // Initialize the custom device configurations
             CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
-
-            if (Properties.Settings.Default.Started == 0)
-            {
-                OnFirstStart();
-            }
-
-            if (Properties.Settings.Default.Started > 0 && (Properties.Settings.Default.Started % 30 == 0))
-            {
-                OnRepeatedStart();
-            }
-
-            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
-
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
             InitializeExecutionManager();
 
@@ -573,6 +572,22 @@ namespace MobiFlight.UI
             Refresh();
 
             await PublishStartupState();
+            OnStartupCompleted();
+        }
+
+        private void OnStartupCompleted()
+        {
+            if (Properties.Settings.Default.Started == 0)
+            {
+                OnFirstStart();
+            }
+
+            if (Properties.Settings.Default.Started > 0 && (Properties.Settings.Default.Started % 30 == 0))
+            {
+                OnRepeatedStart();
+            }
+
+            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
         }
 
         /// <summary>One-time boot tail - only ever called once, from OnFrontendReady.</summary>
@@ -592,6 +607,8 @@ namespace MobiFlight.UI
 
             PublishSettings();
             await InitializeRecentProjectsListAsync();
+
+            if (execManager == null) return;
             MessageExchange.Instance.Publish(execManager.Project);
         }
 
@@ -605,6 +622,10 @@ namespace MobiFlight.UI
         {
             PublishSettings();
             PublishProjectList();
+
+            // Following messages all depend on an existing execManager instance.
+            if (execManager == null) return;
+
             MessageExchange.Instance.Publish(execManager.Project);
             MessageExchange.Instance.Publish(new ProjectStatus { HasChanged = ProjectHasUnsavedChanges });
             UpdateExecutionState();
@@ -974,7 +995,7 @@ namespace MobiFlight.UI
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             AppTelemetry.Instance.TrackShutdown();
-            execManager.Shutdown();
+            execManager?.Shutdown();
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             runningStateBadge?.Dispose();
@@ -2031,6 +2052,27 @@ namespace MobiFlight.UI
         } //exitToolStripMenuItem_Click()
 
         /// <summary>
+        /// shuts down the application when user selects save changes
+        /// </summary>
+        public void confirmShutdownSavingChanges()
+        {
+            saveToolStripButton_Click(this, EventArgs.Empty);
+
+            if (!ProjectHasUnsavedChanges) 
+            { 
+                Close();
+            }
+        }
+
+        /// <summary>
+        /// shuts down the application when user selects discard changes
+        /// </summary>
+        public void confirmShutdownDiscardingChanges()
+        {
+            Close();
+        }
+
+        /// <summary>
         /// opens file dialog when clicking on according button
         /// </summary>
         public void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2597,17 +2639,23 @@ namespace MobiFlight.UI
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            execManager.Stop();
-            if (ProjectHasUnsavedChanges && MessageBox.Show(
-                       i18n._tr("uiMessageConfirmDiscardUnsaved"),
-                       i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
-                       MessageBoxButtons.YesNo) == DialogResult.Yes)
+            // Closing the form before the execManager
+            // means there is nothing we could ever save, so we just return here.
+            if (execManager == null) return;
+            
+            var shouldConfirmShutdown =
+                e.CloseReason == CloseReason.UserClosing &&
+                ProjectHasUnsavedChanges &&
+                !commandShutdownHandler.IsShutdownConfirmed;
+
+            if (shouldConfirmShutdown)
             {
-                // only cancel closing if not saved before
-                // which is indicated by empty CurrentFilename
-                e.Cancel = (execManager.Project.FilePath == null);
-                saveToolStripButton_Click(this, new EventArgs());
+                e.Cancel = true;
+                MessageExchange.Instance.Publish(new ShutdownConfirmationRequested());
+                return;
             }
+
+            execManager.Stop();
         }
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)

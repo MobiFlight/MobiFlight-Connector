@@ -295,6 +295,38 @@ namespace MobiFlight.BrowserMessages.Tests
             Assert.IsNotNull(receivedMessage, "The refresh command payload should deserialize successfully.");
             Assert.AreEqual(PresetType.PROSIM, receivedMessage.type, "The EnumMember value 'prosim' should deserialize to PresetType.PROSIM.");
         }
+
+        [TestMethod()]
+        public void CommandShutdown_DiscardChanges_IsHandled()
+        {
+            // Arrange
+            CommandShutdown receivedCommand = null;
+
+            messageExchange.Subscribe<CommandShutdown>(command =>
+            {
+                receivedCommand = command;
+            });
+
+            var messageJson = JsonConvert.SerializeObject(
+                new Message<CommandShutdown>(
+                    new CommandShutdown
+                    {
+                        Action = CommandShutdownAction.discardChanges
+                    }
+                )
+            );
+
+            // Act
+            capturedCallback(messageJson);
+
+            // Assert
+            Assert.IsNotNull(receivedCommand);
+
+            Assert.AreEqual(
+                CommandShutdownAction.discardChanges,
+                receivedCommand.Action
+            );
+        }
     }
 
     public class Test

@@ -1,0 +1,22 @@
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
+
+namespace MobiFlight.BrowserMessages.Incoming
+{
+    public enum CommandShutdownAction
+    {
+        [EnumMember(Value = "saveChanges")]
+        saveChanges,
+
+        [EnumMember(Value = "discardChanges")]
+        discardChanges
+    }
+
+    public class CommandShutdown
+    {
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("action")]
+        public CommandShutdownAction Action { get; set; }
+    }
+}

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
@@ -10,31 +11,33 @@ import { useTranslation } from "react-i18next"
 export type ConfirmationDialogProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
-  saveChanges: () => void
   discardChanges: () => void
+  keepEditing: () => void
 }
 
 const ConfirmationDialog = ({
   open,
   onOpenChange,
-  saveChanges,
   discardChanges,
+  keepEditing,
 }: ConfirmationDialogProps) => {
   const { t } = useTranslation()
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
-        <DialogHeader className="sr-only">
-          <DialogTitle>{t("Project.UnsavedChanges.Title")}</DialogTitle>
+        <DialogHeader className="">
+          <DialogTitle>{t("Dialog.UnsavedChanges.Title")}</DialogTitle>
+          <DialogDescription>
+            {t("Dialog.UnsavedChanges.Description")}
+          </DialogDescription>
         </DialogHeader>
-        <div>{t("Project.UnsavedChanges.Description")}</div>
         <div className="flex flex-row justify-end gap-4">
-          <Button variant="ghost" onClick={discardChanges}>
-            {t("Project.UnsavedChanges.Discard")}
+          <Button variant="outline" onClick={keepEditing}>
+            {t("Dialog.UnsavedChanges.KeepEditing")}
           </Button>
-          <Button onClick={saveChanges}>
-            {t("Project.UnsavedChanges.Save")}
+          <Button variant="destructive" onClick={discardChanges}>
+            {t("Dialog.General.DiscardChanges")}
           </Button>
         </div>
       </DialogContent>

@@ -37,18 +37,23 @@ npx playwright install
 
 ## Environment Variables
 
-Create a `.env` file in the project root (see `.env.template` for required variables):
+Create a `.env` file in the frontend project root (`src/MobiFlightConnector/frontend/`, next to `.env.template`) with the credentials for the accounts the tests sign in with:
 
 ```
-TESTS_USER_EMAIL=your-test-email@example.com
-TESTS_USER_PASSWORD=your-password
-TESTS_USER_NAME=Your Name
+# Club member account
+TESTS_MEMBER_EMAIL=your-member-test-email@example.com
+TESTS_MEMBER_PASSWORD=your-member-password
+TESTS_MEMBER_NAME=Your Member Name
+
+# Basic account
+TESTS_BASIC_EMAIL=your-basic-test-email@example.com
+TESTS_BASIC_PASSWORD=your-basic-password
+TESTS_BASIC_NAME=Your Basic Name
 ```
 
 > [!NOTE] Never commit your real `.env` file to version control.
 
-Tests that require secrets will be **skipped** if the necessary environment variables are not set.
-
+Each account type is optional. If its variables are missing, the corresponding authentication setup and the tests that depend on it are **skipped**.
 ## CI and Secrets
 
 - In CI, secrets are injected as environment variables.

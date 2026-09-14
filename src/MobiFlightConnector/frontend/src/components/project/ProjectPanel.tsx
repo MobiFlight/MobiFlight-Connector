@@ -52,7 +52,7 @@ const ProjectPanel = () => {
 
   const configFiles = project?.ConfigFiles ?? []
   const { configId } = useParams() as { configId?: string }
-  
+
   useEffect(() => {
     if (project === null) return
 
@@ -171,18 +171,6 @@ const ProjectPanel = () => {
 
   const { dragState } = useConfigItemDragContext()
 
-  const saveChanges = () => {
-    // Implement save logic here
-    setIsDialogOpen(false)
-    publish({
-      key: "CommandMainMenu",
-      payload: {
-        action: "file.save",
-      },
-    })
-    navigate("/home")
-  }
-
   const discardChanges = () => {
     // Implement discard logic here
     setIsDialogOpen(false)
@@ -209,6 +197,10 @@ const ProjectPanel = () => {
       })
     }
     navigate("/home")
+  }
+
+  const handleCancel = () => {
+    setIsDialogOpen(false)
   }
 
   // Hover timer ref
@@ -389,12 +381,11 @@ const ProjectPanel = () => {
       <ConfirmationDialog
         open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
-        saveChanges={saveChanges}
         discardChanges={discardChanges}
+        keepEditing={handleCancel}
       />
       {configId && <InputConfigDialog configId={configId} />}
     </div>
   )
 }
-
 export default ProjectPanel

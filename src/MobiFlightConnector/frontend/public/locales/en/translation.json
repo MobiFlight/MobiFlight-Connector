@@ -214,12 +214,6 @@
         "Create": "Create project",
         "Update": "Update project"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Unsaved changes",
-      "Description": "You have unsaved changes in your project. What would you like to do?",
-      "Save": "Save changes",
-      "Discard": "Discard changes"
     }
   },
   "ConfigList": {
@@ -385,6 +379,7 @@
       "Save": "Save",
       "SaveChanges": "Save changes",
       "ApplyChanges": "Apply changes",
+      "DiscardChanges": "Discard changes",
       "ResetFilters": "Reset filters",
       "PendingChangesMessage": "You have pending changes. Apply them first, or click Cancel to close this dialog without saving."
     },
@@ -823,6 +818,11 @@
           "SelectPresetPlaceholder": "Select preset..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "Discard changes?",
+      "Description": "You have unsaved changes. Are you sure you want to discard them?",
+      "KeepEditing": "Keep editing"
     }
   },
   "Auth": {

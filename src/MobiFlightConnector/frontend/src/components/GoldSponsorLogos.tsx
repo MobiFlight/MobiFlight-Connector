@@ -70,6 +70,7 @@ const GoldSponsorLogos = () => {
       </div>
       <p className="animate-sponsor-tagline-fade-in text-xs leading-tight text-slate-300 opacity-0">
         <Trans
+          t={t}
           i18nKey="Startup.GoldSponsors.Description"
           components={{
             gold: (

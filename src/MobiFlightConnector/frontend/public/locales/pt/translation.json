@@ -214,12 +214,6 @@
         "Create": "Criar projeto",
         "Update": "Atualizar projeto"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Alterações não salvas",
-      "Description": "Você possui alterações não salvas no projeto. O que deseja fazer?",
-      "Save": "Salvar alterações",
-      "Discard": "Descartar alterações"
     }
   },
   "ConfigList": {
@@ -385,6 +379,7 @@
       "Save": "Salvar",
       "SaveChanges": "Salvar alterações",
       "ApplyChanges": "Aplicar alterações",
+      "DiscardChanges": "Descartar alterações",
       "ResetFilters": "Redefinir filtros",
       "PendingChangesMessage": "Você tem alterações pendentes. Aplique-as primeiro ou clique em Cancelar para fechar este diálogo sem salvar."
     },
@@ -823,6 +818,11 @@
           "SelectPresetPlaceholder": "Selecionar predefinição..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "Descartar alterações?",
+      "Description": "Tem alterações não guardadas. Tem a certeza de que pretende descartá-las?",
+      "KeepEditing": "Continuar a editar"
     }
   },
   "Auth": {

@@ -11,7 +11,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import messageExchange from "@/lib/messageExchange"
-import { useAsynchronous } from "@/lib/hooks/useAsynchronous"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { useProjectStore } from "@/stores/projectStore"
 import { useRecentProjects } from "@/stores/settingsStore"
@@ -30,13 +29,12 @@ const ProjectMainCard = () => {
   const { t } = useTranslation()
   const { publish } = messageExchange
   const { recentProjects } = useRecentProjects()
-  const { project, hasChanged, saveStatus, setSaveStatus } = useProjectStore()
+  const { project, hasChanged, saveStatus } = useProjectStore()
   const activeProject = project
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [pendingProject, setPendingProject] = useState<ProjectInfo | null>(null)
 
-  const { waitForSaveStatus } = useAsynchronous()
   const navigate = useNavigate()
 
   const loadProject = useCallback(
@@ -54,37 +52,6 @@ const ProjectMainCard = () => {
     [publish],
   )
 
-  const handleSaveChanges = async () => {
-    // set frontend to saving state
-    // this will block the UI from further interactions
-    // until the save is complete in the backend,
-    // which is indicated by the saveStatus changing
-    setSaveStatus("saving")
-
-    // close the dialog
-    setIsDialogOpen(false)
-
-    // trigger save command in backend
-    publish({
-      key: "CommandMainMenu",
-      payload: {
-        action: "file.save",
-      },
-    } as CommandMainMenu)
-
-    // wait for save to complete
-    waitForSaveStatus().then((result) => {
-      // if save was successful,
-      // only then go on and load the pending project
-      if (result === "success" && pendingProject) {
-        loadProject(pendingProject)
-      }
-
-      // always clear pending project
-      setPendingProject(null)
-    })
-  }
-
   const handleDiscardChanges = () => {
     setIsDialogOpen(false)
 
@@ -92,6 +59,10 @@ const ProjectMainCard = () => {
       loadProject(pendingProject)
       setPendingProject(null)
     }
+  }
+
+  const handleCancel = () => {
+    setIsDialogOpen(false)
   }
 
   const confirmLoadProject = (project: ProjectInfo) => {
@@ -191,8 +162,8 @@ const ProjectMainCard = () => {
         <ConfirmationDialog
           open={isDialogOpen}
           onOpenChange={setIsDialogOpen}
-          saveChanges={handleSaveChanges}
           discardChanges={handleDiscardChanges}
+          keepEditing={handleCancel}
         />
         <LoaderOverlay
           message={t("General.Overlay.SavingChanges")}
