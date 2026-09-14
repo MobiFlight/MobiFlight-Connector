@@ -4,7 +4,7 @@ namespace MobiFlight.Joysticks.WingFlex
 {
     internal class GmpReport
     {
-        private byte[] LastInputBufferState = new byte[5];
+        private byte[] LastInputBufferState = new byte[7];
         
         public GmpReport() {}
 

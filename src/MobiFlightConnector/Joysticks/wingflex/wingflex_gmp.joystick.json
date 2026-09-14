@@ -227,7 +227,7 @@
       "Bit": 6
     },
     {
-      "Label": "Gear Red Arrow",
+      "Label": "LDG Gear Red Arrow",
       "Id": "gear.red.arrow",
       "Byte": 2,
       "Bit": 7

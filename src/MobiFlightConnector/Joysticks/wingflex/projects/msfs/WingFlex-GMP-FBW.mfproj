@@ -2,7 +2,7 @@
   "Name": "WingFlex GMP - FBW",
   "ConfigFiles": [
     {
-      "Label": "New file",
+      "Label": "GMP",
       "ReferenceOnly": false,
       "EmbedContent": true,
       "ConfigItems": [
@@ -711,8 +711,8 @@
         {
           "Source": {
             "SimConnectValue": {
-              "UUID": "a1935ecd-6326-4e7e-bb95-65aa8ac83fcc",
-              "Value": "(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 1 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "UUID": "2755ddbb-07fb-4950-a503-9a4197e14eb7",
+              "Value": "(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 2 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
               "VarType": 2
             },
             "Type": "SimConnectSource"
@@ -742,8 +742,8 @@
         {
           "Source": {
             "SimConnectValue": {
-              "UUID": "2755ddbb-07fb-4950-a503-9a4197e14eb7",
-              "Value": "(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 2 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *",
+              "UUID": "95f179f5-2098-4151-a763-3b7ced102335",
+              "Value": "(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 3 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and",
               "VarType": 2
             },
             "Type": "SimConnectSource"
@@ -763,7 +763,7 @@
           "DeviceName": "AutoBrk Max DECEL",
           "GUID": "9dc666d5-f745-4082-8f9b-c1e482fb4891",
           "Active": true,
-          "Name": "Auto Brk - MED - Decel",
+          "Name": "Auto Brk - MAX - Decel",
           "Type": "OutputConfigItem",
           "Controller": {
             "Name": "WINGFLEX GMP",
