@@ -629,3 +629,149 @@ Another implementation detail is that Bulk Toggle does not call
 
 This difference should be kept in mind when comparing the side effects of the
 two bulk actions.
+
+## Bulk Delete Config Items
+
+### Flow
+
+When the user triggers Bulk Delete, `ConfigItemTable` collects all currently selected rows and extracts their underlying `IConfigItem` objects.
+
+If no config items are selected, the operation stops without publishing a command.
+
+If one ore more items are selected, the frontend publishes a `CommandConfigBulkAction` message containing:
+
+- the action `"delete"`
+- the selected config items
+
+After publishing the command, the frontend clears the current row selection.
+
+`ExecutionManager` receives the command through `MessageExchange` and handles it inside the `CommandConfigBulkAction` subscription.
+
+For a `"delete"` action, the backend iterates over all items contained in `message.Items`.
+
+For each item, it searches the current backend `ConfigItems` collection for the corresponding config item by GUID.
+
+If a matching config item is found, that item is removed from the `ConfigItems` collection.
+
+After all selected items have been removed, `ExecutionManager` calls `OnInputConfigSettingsChanged`.
+
+This updates the input configuration state and clears cached input-event bindings so that deleted config items are no longer referenced by the input execution logic.
+
+After the collection has been modified, `ExecutionManager` publishes a `ConfigValueFullUpdate` containing:
+
+- the current `ActiveConfigIndex`
+- the complete remaining `ConfigItems` collection
+
+The frontend receives the full update and synchronizes the corresponding config item list with the backend state.
+
+Finally, `ExecutionManager` invokes `OnConfigHasChanged`.
+
+The project is therefore marked as containing unsaved changes and is written to disk only when the user explicitly saves it.
+
+### State before
+
+- Multiple selected config items exist in the current config file
+- Each selected item has its own GUID
+- Each selected item has a specific position in the underlying `ConfigItems` collection
+
+For example:
+
+```
+index 0: A
+index 1: B
+index 2: C
+index 3: D
+index 4: E
+```
+
+If `B` and `D` are selected for deletion, both items still exist before the operation.
+
+### State after
+
+- All selected config items have been removed from `ConfigItmes`
+- Non-selected items remain in the collection
+- The remaining items shift to file the removed positions
+
+For example:
+
+```
+A
+C
+E
+```
+
+### Required for Undo
+
+Undo has to restore every deleted config item and return it to its original position in the collection.
+
+Therefore, the restore data has to preserve the full deleted item together with its original collection index.
+
+For example:
+
+```
+[
+    {
+        item: B,
+        originalIndex: 1
+    },
+    {
+        item: D,
+        originalIndex: 3
+    }
+]
+```
+
+The original config file / container also has to be known.
+
+### State owner
+
+- Backend project state
+- Synchronized to the frontend through `ConfigValueFullUpdate`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Create / Delete
+- Multiple-item mutation
+
+### Observation
+
+Bulk Delete is structurally similar to Delete Config Item because both remove existing objects from the same backend collection.
+
+The main difference is cardinality:
+
+```
+Delete Config Item
+Mutation Type: Delete
+Cardinality: Single
+
+Bulk Delete
+Mutation Type: Delete
+Cardianlity: Multiple
+```
+
+This further supports treating `Cardinality` as a separate classification dimension instead of using `Batch` as a mutation type.
+
+Bulk Delete also requires more restore data than Bulk Toggle.
+
+Bulk Toggle can restore the previous property values of existing objects.
+
+Bulk Delete has to reconstruct removed objects and restore their original positions in the collection.
+
+The selected items are collected in the frontend from the table's selected row model.
+
+However, the row order in the current table may be affected by sorting or filtering.
+
+Therefore, the frontend table position should not automatically be treated as the authoritative project collection index.
+
+For Undo history, the original index of each deleted item should preferably be captured from the backend `ConfigItems` collection by GUID before the items are removed.
+
+Another difference from Bulk Toggle is that Bulk Delete calls `OnInputConfigSettingsChanged` after the removal.
+
+This is required so that cached input-event bindings no longer reference the deleted config items.
+
+The actual project change notification still happens through `OnConfigHasChanged` after the full update is published.
