@@ -46,7 +46,7 @@ namespace MobiFlight.Joysticks.Tests
         [TestMethod]
         public void CanCreate_MozaFcdDisplayInstanceName_ReturnsTrue()
         {
-            Assert.IsTrue(HidControllerFactory.CanCreate("MOZA FCD Display"));
+            Assert.IsTrue(HidControllerFactory.CanCreate("MOZA MA3F MFCD Display"));
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace MobiFlight.Joysticks.Tests
         {
             var definition = new JoystickDefinition
             {
-                InstanceName = "MOZA FCD Display"
+                InstanceName = "MOZA MA3F MFCD Display"
             };
 
             var controller = HidControllerFactory.Create(definition, new FakeCduWebsocketHub());

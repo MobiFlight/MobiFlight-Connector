@@ -14,7 +14,7 @@ namespace MobiFlight.Joysticks.Moza
         private string CachedSerialNumber;
         private bool Disconnected;
         private bool OpenFailureLogged;
-        public override string Name => Definition?.InstanceName ?? "MOZA FCD Display";
+        public override string Name => Definition?.InstanceName ?? "MOZA MA3F MFCD Display";
         public override string Serial
         {
             get

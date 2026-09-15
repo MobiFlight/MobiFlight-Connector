@@ -1,4 +1,5 @@
 ﻿using MobiFlight.SimConnectMSFS;
+using MobiFlightMoza.Protocol;
 using MobiFlightWwFcu;
 using Newtonsoft.Json;
 using System;
@@ -17,6 +18,7 @@ namespace MobiFlight.Scripts
     {
         private string PythonExecutable;
         private const string WINWING_CDUS_KEYWORD = "WinwingCDUs";
+        private const string MOZA_CDUS_KEYWORD = "MozaCDUs";
         private const string CONFIG_FILE_PATH = @"Scripts\ScriptMappings.json";
         private const string SCRIPTS_DIRECTORY = "Scripts";
         private const string SCRIPT_EXTENSION = "*.py";
@@ -52,16 +54,24 @@ namespace MobiFlight.Scripts
             GetAvailableScripts();
         }
 
+        // Keyword -> expansion to the connected product IDs it stands for. Every CDU that
+        // fans out over the shared /winwing/cdu-* websocket paths (see CduWebsocketHub) adds
+        // its own keyword here so ScriptMappings.json entries can target it without listing
+        // raw product IDs.
+        private static readonly Dictionary<string, Func<int[]>> ProductIdKeywords = new()
+        {
+            [WINWING_CDUS_KEYWORD] = () => WinCtrlConstants.CDU_PRODUCTIDS,
+            [MOZA_CDUS_KEYWORD] = () => MozaHardwareIds.McduProductIds,
+        };
+
         private string[] SubstituteKeywords(string[] productIds)
         {
-            if (productIds[0] != WINWING_CDUS_KEYWORD)
+            if (!ProductIdKeywords.TryGetValue(productIds[0], out var expand))
             {
                 return productIds;
             }
-            else
-            {
-                return WinCtrlConstants.CDU_PRODUCTIDS.Select(p => p.ToString("X")).ToArray();
-            }
+
+            return expand().Select(p => p.ToString("X")).ToArray();
         }
 
 

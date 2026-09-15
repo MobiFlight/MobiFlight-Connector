@@ -19,7 +19,7 @@ namespace MobiFlight.Joysticks
                 case "FCU Cube":
                 case "OVHD Cube":
                 case "Logitech Switch Panel":
-                case "MOZA FCD Display":
+                case "MOZA MA3F MFCD Display":
                     return true;
             }
 
@@ -45,7 +45,7 @@ namespace MobiFlight.Joysticks
                 case "Logitech Switch Panel":
                     result = new Logitech.SwitchPanel(definition);
                     break;
-                case "MOZA FCD Display":
+                case "MOZA MA3F MFCD Display":
                     result = new Moza.MozaMcdu(definition, hub);
                     break;
             }

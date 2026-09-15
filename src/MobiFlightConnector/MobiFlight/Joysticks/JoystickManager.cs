@@ -260,7 +260,8 @@ namespace MobiFlight
                     continue;
                 }
 
-                Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
+                Log.Instance.log($"Adding attached controller: {d.InstanceName}", LogSeverity.Info);
+                Log.Instance.log($"Controller info: {d.InstanceName} / {js.Serial} (VID: {vendorId:X4} PID: {productId:X4}) - #Buttons: {js.Capabilities.ButtonCount} #Axis: {js.Capabilities.AxeCount}", LogSeverity.Debug);
                 js.Connect(Handle);
                 js.OnButtonPressed += Js_OnButtonPressed;
                 js.OnDisconnected += Js_OnDisconnected;
@@ -315,7 +316,9 @@ namespace MobiFlight
                 {
                     try
                     {
-                        var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
+                        var vendorId = hidDevice.VendorID;
+                        var productId = hidDevice.ProductID;
+                        var definition = GetDefinitionByProductId(vendorId, productId);
                         if (definition == null) return;
 
                         if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
@@ -343,6 +346,8 @@ namespace MobiFlight
                         }
 
                         Log.Instance.log($"Adding attached HID controller: {definition.InstanceName}", LogSeverity.Info);
+                        Log.Instance.log($"Controller info: {definition.InstanceName} / {joystick.Serial} (VID: {vendorId:X4} PID: {productId:X4})", LogSeverity.Debug);
+
                         joystick.Connect(new IntPtr());
                         joystick.OnButtonPressed += Js_OnButtonPressed;
                         joystick.OnDisconnected += Js_OnDisconnected;
