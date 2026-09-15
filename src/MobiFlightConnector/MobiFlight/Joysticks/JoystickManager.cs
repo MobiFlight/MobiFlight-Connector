@@ -38,7 +38,7 @@ namespace MobiFlight
         /// <summary>Produces HOLD/REPEAT/LONG_RELEASE from joysticks' raw PRESS/RELEASE events.</summary>
         private readonly SyntheticButtonEventGenerator VirtualButtonEvents = new SyntheticButtonEventGenerator();
         private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
-        private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
+        private readonly List<string> ExcludedJoystickNames = new List<string>();
         private IntPtr Handle;
 
         // Websocket Server on port 8320, not yet started
@@ -152,7 +152,7 @@ namespace MobiFlight
                 js.Shutdown();
             }
             Joysticks.Clear();
-            ExcludedJoysticks.Clear();
+            ExcludedJoystickNames.Clear();
             if (WSServer.IsListening)
             {
                 WSServer.Stop();
@@ -177,9 +177,9 @@ namespace MobiFlight
             return Joysticks.Values.OrderBy(j => j.Name).ToList();
         }
 
-        public List<Joystick> GetExcludedJoysticks()
+        public List<string> GetExcludedJoystickNames()
         {
-            return ExcludedJoysticks;
+            return ExcludedJoystickNames;
         }
 
         public void SetHandle(IntPtr handle)
@@ -191,7 +191,7 @@ namespace MobiFlight
         {
             var di = new SharpDX.DirectInput.DirectInput();
             Joysticks?.Clear();
-            ExcludedJoysticks?.Clear();
+            ExcludedJoystickNames?.Clear();
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
             // make this next call async so that it doesn't block the UI
@@ -218,6 +218,20 @@ namespace MobiFlight
                     continue;
                 }
 
+                if (!HasAxisOrButtons(diJoystick))
+                {
+                    Log.Instance.log($"Skipping device with no buttons or axis: {d.InstanceName}.", LogSeverity.Debug);
+                    continue;
+                }
+
+                string joystickName = GetJoystickNameForExclusion(d, diJoystick);
+
+                // Check against exclusion list
+                if (TryExcludeJoystick(joystickName, settingsExcludedJoysticks))
+                {
+                    continue;
+                }
+
                 // Get the product name (handles special cases like VKB)
                 string productName = ControllerFactory.GetProductName(d, diJoystick, vendorId);
 
@@ -231,18 +245,6 @@ namespace MobiFlight
                 if (js == null)
                 {
                     js = new Joystick(diJoystick, definition);
-                }
-
-                if (!HasAxisOrButtons(js))
-                {
-                    Log.Instance.log($"Skipping device with no buttons or axis: {d.InstanceName}.", LogSeverity.Debug);
-                    continue;
-                }
-
-                // Check against exclusion list
-                if (TryExcludeJoystick(js, settingsExcludedJoysticks))
-                {
-                    continue;
                 }
 
                 if (!Joysticks.TryAdd(js.Serial, js))
@@ -282,18 +284,33 @@ namespace MobiFlight
             // Try to get definition by product name first, then by product ID
             return GetDefinitionByInstanceName(productName) ?? GetDefinitionByProductId(vendorId, productId);
         }
+
+        private static string GetJoystickNameForExclusion(
+            DeviceInstance deviceInstance,
+            SharpDX.DirectInput.Joystick diJoystick)
+        {
+            var name = diJoystick.Information.InstanceName
+                ?? deviceInstance.InstanceName;
+
+            if (deviceInstance.InstanceName.Trim().Contains("AuthentiKit"))
+            {
+                return name.Trim();
+            }
+            return name;
+        }
+
         internal static bool IsExcludedJoystick(string joystickName, List<string> excludedJoysticks)
         {
             return excludedJoysticks.Contains(joystickName);
         }
 
         /// <summary>Adds the joystick to the exclusion list if the user excluded it. Returns true when excluded.</summary>
-        internal bool TryExcludeJoystick(Joystick joystick, List<string> settingsExcludedJoysticks)
+        internal bool TryExcludeJoystick(string joystickName, List<string> settingsExcludedJoysticks)
         {
-            if (!IsExcludedJoystick(joystick.Name, settingsExcludedJoysticks)) return false;
+            if (!IsExcludedJoystick(joystickName, settingsExcludedJoysticks)) return false;
 
-            Log.Instance.log($"Ignore attached joystick device: {joystick.Name}.", LogSeverity.Info);
-            ExcludedJoysticks.Add(joystick);
+            Log.Instance.log($"Ignore attached joystick device: {joystickName}.", LogSeverity.Info);
+            ExcludedJoystickNames.Add(joystickName);
             return true;
         }
 
@@ -318,14 +335,20 @@ namespace MobiFlight
                             return;
                         }
 
-                        var joystick = HidControllerFactory.Create(definition);
-
-                        if (joystick == null) return;
-
-                        if (TryExcludeJoystick(joystick, settingsExcludedJoysticks))
+                        if (!HidControllerFactory.CanCreate(definition.InstanceName))
                         {
                             return;
                         }
+
+                        if (TryExcludeJoystick(definition.InstanceName,
+                            settingsExcludedJoysticks))
+                        {
+                            return;
+                        }    
+
+                        var joystick = HidControllerFactory.Create(definition);
+
+                        if (joystick == null) return;
 
                         if (!Joysticks.TryAdd(joystick.Serial, joystick))
                         {
@@ -361,11 +384,11 @@ namespace MobiFlight
             Joysticks.TryRemove(js.Serial, out _);
         }
 
-        private bool HasAxisOrButtons(Joystick js)
+        private bool HasAxisOrButtons(SharpDX.DirectInput.Joystick joystick)
         {
             return
-                js.Capabilities.AxeCount > 0 ||
-                js.Capabilities.ButtonCount > 0;
+                joystick.Capabilities.AxeCount > 0 ||
+                joystick.Capabilities.ButtonCount > 0;
         }
 
         private void Js_OnButtonPressed(object sender, InputEventArgs e)
