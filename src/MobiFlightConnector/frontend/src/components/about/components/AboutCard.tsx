@@ -92,7 +92,7 @@ export default function AboutCard() {
                   {item.title}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-primary group-hover:underline leading-none">
+              <div className="flex items-center gap-1.5 text-xs text-primary group-hover:underline leading-none">
                 <span className="leading-none">{item.display}</span>
                 <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100 shrink-0" />
               </div>
@@ -124,7 +124,7 @@ export default function AboutCard() {
                   {item.title}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-primary group-hover:underline leading-none">
+              <div className="flex items-center gap-1.5 text-xs text-primary group-hover:underline leading-none">
                 <span className="leading-none">{item.display}</span>
                 <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100 shrink-0" />
               </div>
