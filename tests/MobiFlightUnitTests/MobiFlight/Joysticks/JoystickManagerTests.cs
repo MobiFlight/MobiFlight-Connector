@@ -8,6 +8,18 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks
     [TestClass()]
     public class JoystickManagerTests
     {
+        /// <summary>Stands in for a joystick without requiring a DirectInput device.</summary>
+        class NamedJoystick : Joystick
+        {
+            private readonly string name;
+
+            public NamedJoystick(string name) : base(null, new JoystickDefinition { InstanceName = name })
+            {
+                this.name = name;
+            }
+
+            public override string Name => name;
+        }
 
         [TestMethod()]
         public void IsExcludedJoystick_WhenJoystickIsExcluded_ReturnsTrue()
@@ -59,26 +71,26 @@ namespace MobiFlightUnitTests.MobiFlight.Joysticks
         public void TryExcludeJoystick_WhenJoystickIsExcluded_AddsItToExcludedJoysticks()
         {
             var manager = new JoystickManager();
-
+            var joystick = new NamedJoystick("EFIS Cube");
             var settingsExcludedJoysticks = new List<string> { "EFIS Cube" };
 
-            var result = manager.TryExcludeJoystick("EFIS Cube", settingsExcludedJoysticks);
+            var result = manager.TryExcludeJoystick(joystick, settingsExcludedJoysticks);
 
             Assert.IsTrue(result);
-            CollectionAssert.Contains(manager.GetExcludedJoystickNames(), "EFIS Cube");
+            CollectionAssert.Contains(manager.GetExcludedJoysticks(), joystick);
         }
 
         [TestMethod()]
         public void TryExcludeJoystick_WhenJoystickIsNotExcluded_DoesNotAddIt()
         {
             var manager = new JoystickManager();
-
+            var joystick = new NamedJoystick("FCU Cube");
             var settingsExcludedJoysticks = new List<string> { "EFIS Cube" };
 
-            var result = manager.TryExcludeJoystick("FCU Cube", settingsExcludedJoysticks);
+            var result = manager.TryExcludeJoystick(joystick, settingsExcludedJoysticks);
 
             Assert.IsFalse(result);
-            CollectionAssert.DoesNotContain(manager.GetExcludedJoystickNames(), "FCU Cube");
+            CollectionAssert.DoesNotContain(manager.GetExcludedJoysticks(), joystick);
         }
     }
 }

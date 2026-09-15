@@ -29,7 +29,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             // Joysticks
             JoystickMgr.GetJoysticks().ForEach(js => { listBoxJoysticks.Items.Add(js.Name, true); });
-            JoystickMgr.GetExcludedJoystickNames().ForEach(name => { listBoxJoysticks.Items.Add(name, false); });
+            JoystickMgr.GetExcludedJoysticks().ForEach(js => { listBoxJoysticks.Items.Add(js.Name, false); });
 
             // MidiBoards
             MidiMgr.GetMidiBoards().ForEach(mb => { listBoxMidiBoards.Items.Add(mb.Name, true); });
