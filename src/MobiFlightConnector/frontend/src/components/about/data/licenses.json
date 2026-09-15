@@ -1,47 +1,68 @@
 [
   {
     "name": "CmdMessenger",
-    "libraryLink": "https://github.com/MobiFlight/Arduino-CmdMessenger/",
-    "licenseLink": "https://github.com/MobiFlight/Arduino-CmdMessenger/blob/master/LICENSE.md"
+    "link": {
+      "project": "https://github.com/MobiFlight/Arduino-CmdMessenger/",
+      "license": "https://github.com/MobiFlight/Arduino-CmdMessenger/blob/master/LICENSE.md"
+    }
   },
   {
     "name": "FSUIPC Client DLL",
-    "libraryLink": "https://www.nuget.org/packages/FSUIPCClientDLL/3.2.19",
-    "licenseLink": "https://www.nuget.org/packages/FSUIPCClientDLL/3.2.19/license"
+    "link": {
+      "project": "https://www.nuget.org/packages/FSUIPCClientDLL/3.2.19",
+      "license": "https://www.nuget.org/packages/FSUIPCClientDLL/3.2.19/license"
+    }
   },
   {
     "name": "Newtonsoft JSON",
-    "libraryLink": "https://www.nuget.org/packages/Newtonsoft.Json/",
-    "licenseLink": "https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md"
+    "link": {
+      "project": "https://www.nuget.org/packages/Newtonsoft.Json/",
+      "license": "https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md"
+    }
   },
   {
     "name": "Newtonsoft JSON.NET Schema",
-    "libraryLink": "https://www.nuget.org/packages/Newtonsoft.Json.Schema",
-    "licenseLink": "https://www.nuget.org/packages/Newtonsoft.Json.Schema/3.0.15/License"
+    "link": {
+      "project": "https://www.nuget.org/packages/Newtonsoft.Json.Schema",
+      "license": "https://www.nuget.org/packages/Newtonsoft.Json.Schema/3.0.15/License"
+    }
   },
   {
     "name": "SharpDX",
-    "libraryLink": "https://www.nuget.org/packages/SharpDX/",
-    "licenseLink": "https://github.com/sharpdx/SharpDX/blob/master/LICENSE"
+    "link": {
+      "project": "https://www.nuget.org/packages/SharpDX/",
+      "license": "https://github.com/sharpdx/SharpDX/blob/master/LICENSE"
+    }
   },
   {
     "name": "X-Plane Connector",
-    "libraryLink": "https://www.nuget.org/packages/XPlaneConnector/1.3.0",
-    "licenseLink": "https://www.nuget.org/packages/XPlaneConnector/1.3.0/license"
+    "link": {
+      "project": "https://www.nuget.org/packages/XPlaneConnector/1.3.0",
+      "license": "https://www.nuget.org/packages/XPlaneConnector/1.3.0/license"
+    }
   },
   {
     "name": "MidiSlicer",
-    "libraryLink": "https://github.com/codewitch-honey-crisis/MidiSlicer",
-    "licenseLink": "https://www.codeproject.com/Articles/5272315/Midi-A-Windows-MIDI-Library-in-Csharp"
+    "link": {
+      "project": "https://github.com/codewitch-honey-crisis/MidiSlicer",
+      "license": "https://www.codeproject.com/Articles/5272315/Midi-A-Windows-MIDI-Library-in-Csharp"
+    }
   },
   {
     "name": "HidSharp",
-    "libraryLink": "https://www.nuget.org/packages/HidSharp",
-    "licenseLink": "https://www.zer7.com/files/oss/hidsharp/LICENSE.txt"
+    "link": {
+      "project": "https://www.nuget.org/packages/HidSharp",
+      "license": "https://www.zer7.com/files/oss/hidsharp/LICENSE.txt"
+    }
   },
   {
     "name": "websocket-sharp",
-    "libraryLink": "https://github.com/PingmanTools/websocket-sharp/",
-    "licenseLink": "https://github.com/PingmanTools/websocket-sharp/blob/master/LICENSE.txt"
+    "link": {
+      "project": "https://github.com/PingmanTools/websocket-sharp/",
+      "license": "https://github.com/PingmanTools/websocket-sharp/blob/master/LICENSE.txt"
+    }
+  },
+  {
+    "name": "\"BoeingCDULarge font\" by Gijs de Rooij"
   }
 ]

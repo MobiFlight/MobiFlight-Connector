@@ -341,7 +341,7 @@ namespace MobiFlight.UI
             // Not OnUiThread: no WinForms/shared state, just URL validation + Process.Start.
             MessageExchange.Instance.Subscribe<CommandOpenLinkInBrowser>((message) =>
             {
-                if (!message.Url.IsValidUrl())
+                if (!message.Url.IsValidUrl() && !message.Url.IsValidEmailLink())
                 {
                     Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
                     return;

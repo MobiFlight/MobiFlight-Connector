@@ -82,7 +82,7 @@ export default function AboutDialog({
 
         {/* Standard App Tabs */}
         <Tabs defaultValue="about" className="w-full flex-1 flex flex-col min-h-0">
-          <div className="px-5 pt-3">
+          <div className="px-4 pt-4">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="about">
                 {t("About.Tabs.About", "About")}
@@ -107,9 +107,9 @@ export default function AboutDialog({
         </Tabs>
 
         {/* Footer */}
-        <DialogFooter className="p-3 px-5 border-t bg-muted/10 flex flex-row items-center justify-between sm:justify-between">
+        <DialogFooter className="p-3 px-4 border-t bg-muted/10 flex flex-row items-center justify-between sm:justify-between">
           <span className="text-[11px] text-muted-foreground select-none">
-            © 2014-2025 Sebastian Moebius
+            © 2014-{new Date().getFullYear()} Sebastian Moebius
           </span>
           <Button
             variant="outline"

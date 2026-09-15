@@ -19,8 +19,8 @@ export default function AboutCard() {
   const contactItems = [
     {
       title: t("About.Contact.Discord.Title", "Discord"),
-      display: "discord.gg/mobiflight",
-      url: "https://discord.gg/mobiflight",
+      display: "https://mobiflight.com/discord",
+      url: "https://mobiflight.com/discord",
       icon: <IconBrandDiscordFilled className="size-4 fill-[#5865F2]" />,
     },
     {
@@ -78,9 +78,10 @@ export default function AboutCard() {
         {/* Contact Rows */}
         <div className="divide-y divide-border/50">
           {contactItems.map((item) => (
-            <div
+            <button
+              type="button"
               key={item.title}
-              className="group flex items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/40 cursor-pointer"
+              className="group flex w-full items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/40 cursor-pointer text-left"
               onClick={() => openUrl(item.url)}
             >
               <div className="flex items-center gap-2.5">
@@ -95,7 +96,7 @@ export default function AboutCard() {
                 <span>{item.display}</span>
                 <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100" />
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
@@ -109,9 +110,10 @@ export default function AboutCard() {
         {/* Ecosystem Rows */}
         <div className="divide-y divide-border/50">
           {ecosystemItems.map((item) => (
-            <div
+            <button
+              type="button"
               key={item.title}
-              className="group flex items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/40 cursor-pointer"
+              className="group flex w-full items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/40 cursor-pointer text-left"
               onClick={() => openUrl(item.url)}
             >
               <div className="flex items-center gap-2.5">
@@ -126,7 +128,7 @@ export default function AboutCard() {
                 <span>{item.display}</span>
                 <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100" />
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </Card>

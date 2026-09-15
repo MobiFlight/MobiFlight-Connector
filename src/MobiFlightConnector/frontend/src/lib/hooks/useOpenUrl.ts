@@ -8,6 +8,12 @@ const useOpenUrl = () => {
       key: "CommandOpenLinkInBrowser",
       payload: { url: url },
     })
+
+    if (url.startsWith("mailto:")) {
+      window.location.href = url
+    } else if (!window.__MOBIFLIGHT__?.wsUrl) {
+      window.open(url, "_blank", "noopener,noreferrer")
+    }
   }
 
   return openUrl
