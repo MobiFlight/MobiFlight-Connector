@@ -61,6 +61,9 @@ namespace MobiFlightMoza.Session
 
         public event Action<byte> CabinPositionResolved;
         public event Action<string> ErrorMessageCreated;
+        // Milestone tracing through the settings/MCDU bring-up - genuinely useful for
+        // partner hardware bring-up, not just a one-off debugging aid.
+        public event Action<string> TraceCreated;
 
         public MozaScreenSession(IMozaFrameSink sink)
         {
@@ -74,9 +77,15 @@ namespace MobiFlightMoza.Session
 
             SettingsChannel = new MozaSettingsChannel(Multiplexer);
             SettingsChannel.Ready += OnSettingsReady;
+            SettingsChannel.SettingEchoed += (settingId, data) =>
+                TraceCreated?.Invoke($"Setting 0x{settingId:X2} echoed by device: [{string.Join(",", data)}].");
 
             McduChannel = new MozaMcduChannel(Multiplexer);
-            McduChannel.CapabilityReceived += _ => TryEnterMcduMode();
+            McduChannel.CapabilityReceived += _ =>
+            {
+                TraceCreated?.Invoke("MCDU ClientCapability received.");
+                TryEnterMcduMode();
+            };
         }
 
         public void Start()
@@ -140,12 +149,12 @@ namespace MobiFlightMoza.Session
             }
         }
 
+        // Forwards unconditionally - MozaMcduChannel already holds a page submitted before
+        // its capability negotiation completes and sends it as soon as it does, so a page
+        // submitted before the MCDU connection even exists isn't lost either.
         public void SubmitPage(CduPage page)
         {
-            if (State == MozaSessionState.Running && McduStarted)
-            {
-                McduChannel.SubmitPage(page);
-            }
+            McduChannel.SubmitPage(page);
         }
 
         // Callable from any thread: only sets these two fields, never mutates the
@@ -179,7 +188,7 @@ namespace MobiFlightMoza.Session
                     }
                     else
                     {
-                        Fault("Unexpected reply to the root handshake.");
+                        Fault($"Unexpected reply to the root handshake (got Command=0x{message.Command:X2} DevicePair=0x{message.DevicePair:X2}, expected Command=0x80 DevicePair=0x{MozaConstants.DevicePairFromDevice:X2}).");
                     }
                     return;
 
@@ -210,6 +219,7 @@ namespace MobiFlightMoza.Session
             {
                 McduStarted = true;
                 McduChannel.Start();
+                TraceCreated?.Invoke("MCDU (9050) connection established, InitConfig sent.");
             }
 
             if (Multiplexer.TryGetConnection(MozaConstants.ServicePortSettings, out var settingsConnection))
@@ -240,6 +250,7 @@ namespace MobiFlightMoza.Session
         {
             CachedDisplayMode = SettingsChannel.DisplayMode;
             SettingsReady = true;
+            TraceCreated?.Invoke($"Settings channel ready. Cached displayMode={CachedDisplayMode?.ToString() ?? "(none reported)"}, cabinPosition={SettingsChannel.CabinPosition?.ToString() ?? "(none reported)"}.");
             TryEnterMcduMode();
         }
 
@@ -249,8 +260,14 @@ namespace MobiFlightMoza.Session
         // simplification, at the cost of a possible one-time blank flash at connect.
         private void TryEnterMcduMode()
         {
-            if (DisplayModeWritten || !SettingsReady || !McduChannel.Capability.HasValue) return;
+            if (DisplayModeWritten) return;
+            if (!SettingsReady || !McduChannel.Capability.HasValue)
+            {
+                TraceCreated?.Invoke($"Not entering MCDU mode yet: SettingsReady={SettingsReady} McduCapabilityReceived={McduChannel.Capability.HasValue}.");
+                return;
+            }
             DisplayModeWritten = true;
+            TraceCreated?.Invoke("Writing displayMode=1 (MCDU) to device.");
             SettingsChannel.RequestSetting(0x18, [0x01], CurrentNow);
         }
 

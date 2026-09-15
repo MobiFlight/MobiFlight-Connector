@@ -11,6 +11,7 @@ namespace MobiFlightMoza
     {
         event Action<byte> CabinPositionResolved;
         event Action<string> ErrorMessageCreated;
+        event Action<string> TraceCreated;
 
         bool Connect();
         void SubmitScreenData(string json);

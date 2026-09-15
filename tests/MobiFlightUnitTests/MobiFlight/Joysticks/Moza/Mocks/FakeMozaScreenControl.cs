@@ -9,6 +9,7 @@ namespace MobiFlight.Joysticks.Moza.Tests.Mocks
     {
         public event Action<byte> CabinPositionResolved;
         public event Action<string> ErrorMessageCreated;
+        public event Action<string> TraceCreated;
 
         public bool ConnectCalled { get; private set; }
         public bool StopCalled { get; private set; }

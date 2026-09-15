@@ -1,5 +1,6 @@
 using MobiFlight.Joysticks.Cdu;
 using MobiFlightMoza;
+using MobiFlightWwFcu;
 using System;
 
 namespace MobiFlight.Joysticks.Moza
@@ -12,9 +13,13 @@ namespace MobiFlight.Joysticks.Moza
     /// </summary>
     internal class MozaMcdu : MozaBaseController, ICduDataConsumer
     {
+        private static readonly TimeSpan ScreenConnectRetryInterval = TimeSpan.FromSeconds(2);
+
         private readonly IMozaScreenControl ScreenControl;
         private readonly ICduWebsocketHub Hub;
         private string RegisteredPath;
+        private bool ScreenConnected;
+        private DateTime NextScreenConnectAttempt = DateTime.MinValue;
 
         public MozaMcdu(JoystickDefinition definition, ICduWebsocketHub hub)
             : this(definition, hub, new MozaScreenControl())
@@ -29,12 +34,39 @@ namespace MobiFlight.Joysticks.Moza
             ScreenControl = screenControl;
             ScreenControl.CabinPositionResolved += OnCabinPositionResolved;
             ScreenControl.ErrorMessageCreated += message => Log.Instance.log(message, LogSeverity.Error);
+            ScreenControl.TraceCreated += message => Log.Instance.log(message, LogSeverity.Debug);
         }
 
         public override void Connect(IntPtr handle)
         {
             base.Connect(handle);
-            ScreenControl.Connect();
+            TryConnectScreen();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            if (!ScreenConnected) TryConnectScreen();
+        }
+
+        // The CDC display interface can still be mid-enumeration by Windows when the base
+        // unit's HID interface is already usable (e.g. right after a power cycle), so a
+        // single attempt at Connect() time isn't reliable - retried here, throttled so a
+        // missing device doesn't repeat the WMI port lookup on every 20ms poll tick.
+        private void TryConnectScreen()
+        {
+            if (ScreenConnected || DateTime.Now < NextScreenConnectAttempt) return;
+
+            if (ScreenControl.Connect())
+            {
+                ScreenConnected = true;
+                ScreenControl.SubmitScreenData(WinCtrlConstants.InitialDisplayJson);
+            }
+            else
+            {
+                Log.Instance.log($"{Name} - CDC display port not found yet, will retry.", LogSeverity.Debug);
+                NextScreenConnectAttempt = DateTime.Now + ScreenConnectRetryInterval;
+            }
         }
 
         private void OnCabinPositionResolved(byte cabinPosition)

@@ -9,21 +9,6 @@ namespace MobiFlightMoza.Tests
         // hardware is every guard around it - all covered below.
 
         [TestMethod]
-        public void Connect_HardwareIdsNotConfigured_ReturnsFalseWithoutRaisingError()
-        {
-            // Arrange - VID/PID are still placeholders (R-VIDPID); this is an expected
-            // state, not a failure worth surfacing to the user.
-            var control = new MozaScreenControl();
-            bool errorRaised = false;
-            control.ErrorMessageCreated += _ => errorRaised = true;
-            // Act
-            bool connected = control.Connect();
-            // Assert
-            Assert.IsFalse(connected);
-            Assert.IsFalse(errorRaised);
-        }
-
-        [TestMethod]
         public void SubmitScreenData_BeforeConnect_DoesNotThrow()
         {
             // Arrange

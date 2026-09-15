@@ -23,6 +23,7 @@ namespace MobiFlightMoza
 
         public event Action<byte> CabinPositionResolved;
         public event Action<string> ErrorMessageCreated;
+        public event Action<string> TraceCreated;
 
         /// <summary>
         /// Locates and opens MOZA's CDC display port and starts driving it. Returns false
@@ -51,10 +52,16 @@ namespace MobiFlightMoza
                 return false;
             }
 
+            // Bytes left over in the OS's receive buffer from a previous session (the
+            // device keeps transmitting even with nobody listening) would otherwise be
+            // mistaken for the reply to our own root handshake request below.
+            port.DiscardInBuffer();
+
             Port = port;
             Session = new MozaScreenSession(new SerialStreamFrameSink(port));
             Session.CabinPositionResolved += value => CabinPositionResolved?.Invoke(value);
             Session.ErrorMessageCreated += message => ErrorMessageCreated?.Invoke(message);
+            Session.TraceCreated += message => TraceCreated?.Invoke(message);
 
             Pump.Start(port.BaseStream, Session, MozaConstants.ReadBufferSize, OnPumpError, "MozaSessionPump");
             return true;

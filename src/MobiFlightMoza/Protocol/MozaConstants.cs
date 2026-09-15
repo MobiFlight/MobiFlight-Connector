@@ -17,10 +17,14 @@ namespace MobiFlightMoza.Protocol
         public const byte DevicePairFromDevice = 0x21;
         public const int MaxTunnelInnerPayloadLength = 62; // 63 - 1 byte for the inner command
 
-        // Reliable Stream (guide §4).
+        // Reliable Stream (guide §4). A TRANS frame's own framing (2-byte port + 1-byte
+        // type + 2-byte ISN + 4-byte CRC trailer = 9 bytes) has to fit inside the tunnel's
+        // MaxTunnelInnerPayloadLength alongside the application chunk, so the real ceiling
+        // here is 62 - 9, not 62 itself - discovered when a maxed-out 54-byte chunk (63
+        // bytes on the wire) tripped the tunnel's own bounds check against real hardware.
         public const byte StreamInnerCommand = 0x7C;
         public const byte StreamAckInnerCommand = 0xFC;
-        public const int MaxApplicationChunkLength = 54;
+        public const int MaxApplicationChunkLength = 53;
 
         // Logical service ports (guide §2.1).
         public const ushort ServicePortTelemetry = 9010;
