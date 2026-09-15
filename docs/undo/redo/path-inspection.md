@@ -775,3 +775,167 @@ Another difference from Bulk Toggle is that Bulk Delete calls `OnInputConfigSett
 This is required so that cached input-event bindings no longer reference the deleted config items.
 
 The actual project change notification still happens through `OnConfigHasChanged` after the full update is published.
+
+## Add Config Item
+
+### Flow
+
+The user can add either an Output Config Item or an Input Config Item from the Config Item Table.
+
+The frontend uses on of two handlers:
+
+- `handleAddOutputConfig`
+- `handleAddInputConfig`
+
+Both handlers set:
+
+```
+lastAction.current = "add"
+```
+
+and publish a `CommandAddConfigItem` message.
+
+The payload contains:
+
+- a default name for the new config item
+- the config type
+
+For an Output Config Item:
+
+```
+type = "OutputConfig"
+```
+
+For an Input Config Item:
+
+```
+type = "InputConfig"
+```
+
+`ExecutionManager` receives the message through the `CommandAddConfigItem` subscription.
+
+A new config item instance is then created.
+
+For an Output Config Item, an `OutputConfigItem` is created and its `Source` is initialized according to the current project's simulator.
+
+For an Input Config Item, an `InputConfigItem` is created.
+
+The backend then initializes the common properties of the new item:
+
+```
+GUID = newly generated GUID
+Name = name from the message
+Active = true
+```
+
+The new item is appended to the current backend `ConfigItems` collection.
+
+After the item has been added, `ExecutionManager` publishes a `ConfigValueFullUpdate` containing:
+
+- the current `ActiveConfigIndex`
+- the complete current `ConfigItems` collection
+
+The frontend receives the full update and synchronizes its config item list with the backend state.
+
+Finally, `ExecutionManager` invokes `OnConfigHasChanged`.
+
+This causes the project to be marked as containing unsaved changes.
+
+After the frontend receives the updated config item list, it detects the newly created item by comparing the new GUIDs with the previous list.
+
+The new item is then selected and its editor is opened.
+
+For an Input Config Item, the frontend navigates to:
+
+```
+/config/{newItem.GUID}
+```
+
+For an Output Config Item, the frontend publishes a `CommandConfigContextMenu` message with:
+
+```
+action = "edit"
+```
+
+which opens the correspondinng Output Config editor.
+
+### State before
+
+- The current config file contains an existing `ConfigItems` collection
+- The new config item does not yet exist
+- No GUID has been assigned to the new item
+
+For example:
+
+```
+A
+B
+C
+```
+
+### State after
+
+- One new config item has been appended to `ConfigItems`
+- The new item has its own generated GUID
+- The new item has the default name supplied by the frontend
+- The new item is active
+- An Output Config Item also contains an initialized `Source`
+
+For example:
+
+```
+A
+B
+C
+NewItem
+```
+
+### Required for Undo
+
+Undo has to remove the config item that was created by the Add operation.
+
+The most important restore information is:
+
+```
+created item GUID
+config file / container
+```
+
+Because the item is appended to the current `ConfigItems` collection, Undo can identify and remove the created item by GUID.
+
+For Redo, recreating the exact previous state may require preserving the created item itself, including its generated GUID and initialized properties, instead of creating a completely new item with a different GUID.
+
+### State owner
+
+- Backend project state
+- Synchronized to the frontend through `ConfigValueFullUpdate`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Create / Delete
+- Single-item mutation
+
+### Observation
+
+Add Config Item is tthe inverse structural case of Delete Config Item.
+
+Delete removes an existing object from the backend collection, while Add creates a new object and appends it to the collection.
+
+The generated GUID is especially important for Undo/Redo.
+
+For Undo, the GUID can identify the exact object that has to be removed.
+
+For exact Redo, generating a completely new config item would also generate a new GUID.
+
+Therefore, an Undo/Redo implementation may need to preserve the originally created object if the exact previous state should be restored.
+
+The Add operation also has a frontend follow-up step that is separate from the backend state mutation.
+
+After the new item has been synchronized back to the frontend, the frontend automatically selects the item and opens the corresponding editor.
+
+This editor-opening behavior is UI/navigation state, while the creation of the config item itself is project state.
