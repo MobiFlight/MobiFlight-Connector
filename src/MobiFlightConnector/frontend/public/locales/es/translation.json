@@ -61,6 +61,7 @@
       "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
       "CopyLogs": "Copiar registros al portapapeles",
       "ControllerBindings": "Vincular controladores",
+      "ManageControllers": "Administrar controladores",
       "Settings": "Configuración"
     },
     "Help": {
@@ -872,5 +873,84 @@
     "Resume": "Reanudar desplazamiento",
     "Pause": "Pausar desplazamiento",
     "Close": "Cerrar panel de registro"
+  },
+  "Settings": {
+    "General": {
+      "Title": "General",
+      "Application": {
+        "Title": "Aplicación"
+      },
+      "Logging": {
+        "Title": "Registro",
+        "Enabled": "habilitado",
+        "ShowLogPanel": "Mostrar panel de registro",
+        "LogLevel": "Nivel de registro",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Registrar eje de joystick"
+      },
+      "StartupAndRunOptions": {
+        "Title": "Opciones de inicio y ejecución"
+      },
+      "RecentFiles": {
+        "Title": "Archivos recientes",
+        "Description": "Establecer el número de archivos mostrados en la lista a"
+      },
+      "BetaVersions": {
+        "Title": "Versiones beta",
+        "Description": "Recibir actualizaciones de versiones beta."
+      },
+      "CommunityFeedback": {
+        "Title": "Programa de comentarios de la comunidad",
+        "Description": "Participar en el programa de comentarios de la comunidad y ayudar a mejorar MobiFlight."
+      },
+      "RunOptions": {
+        "Title": "Opciones de inicio y ejecución",
+        "AutoRetrigger": "Realizar automáticamente la acción de reactivación con el modo \"run\"",
+        "MinimizeOnAutoRun": "Minimizar en AutoRun"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Comprobar presets de HubHop al iniciar la aplicación."
+      },
+      "Language": {
+        "Title": "Idioma",
+        "Description": "Cambiar el idioma de la interfaz:",
+        "RestartRequired": "Requiere reiniciar MobiFlight si cambia el idioma."
+      },
+      "ExecutionSpeed": {
+        "Title": "Velocidad de ejecución de configuración",
+        "Description": "Puede controlar la velocidad de ejecución, por ejemplo, si experimenta algún retraso en su entrada. Los ajustes muy rápidos pueden afectar el rendimiento.",
+        "Slow": "lento",
+        "Fast": "muy rápido"
+      },
+      "TestModeSpeed": {
+        "Title": "Velocidad del modo de prueba",
+        "Slow": "lento",
+        "Fast": "muy rápido"
+      }
+    },
+    "Simulator": {
+      "Title": "Simuladores",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Configuración de conexión",
+        "Host": "Host",
+        "Port": "Puerto",
+        "AutoConnect": "Conexión automática a ProSim",
+        "MaxRetryAttempts": "Máx. intentos de reintento"
+      }
+    },
+    "Discard": {
+      "Title": "¿Descartar cambios?",
+      "Description": "Tiene cambios no guardados. ¿Está seguro de que desea descartarlos?",
+      "KeepEditing": "Seguir editando",
+      "DiscardChanges": "Descartar cambios"
+    }
   }
 }
+

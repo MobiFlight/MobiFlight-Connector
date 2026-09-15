@@ -61,6 +61,7 @@
       "MSFS.ReinstallWASMModule": "Asenna WASM-moduuli uudelleen",
       "CopyLogs": "Kopioi loki leikepöydälle",
       "ControllerBindings": "Ohjainten yhdistäminen",
+      "ManageControllers": "Hallitse ohjaimia",
       "Settings": "Asetukset"
     },
     "Help": {
@@ -866,5 +867,84 @@
     "Resume": "Jatka vieritystä",
     "Pause": "Pysäytä vieritys",
     "Close": "Sulje lokipaneeli"
+  },
+  "Settings": {
+    "General": {
+      "Title": "Yleiset",
+      "Application": {
+        "Title": "Sovellus"
+      },
+      "Logging": {
+        "Title": "Loki",
+        "Enabled": "käytössä",
+        "ShowLogPanel": "Näytä lokipaneeli",
+        "LogLevel": "Lokitaso",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Kirjaa ohjaussauvan akselit lokiin"
+      },
+      "StartupAndRunOptions": {
+        "Title": "Käynnistys- ja suoritusasetukset"
+      },
+      "RecentFiles": {
+        "Title": "Viimeisimmät tiedostot",
+        "Description": "Aseta luettelossa näytettävien tiedostojen määräksi"
+      },
+      "BetaVersions": {
+        "Title": "Beta-versiot",
+        "Description": "Vastaanota beta-versiopäivityksiä."
+      },
+      "CommunityFeedback": {
+        "Title": "Yhteisön palauteohjelma",
+        "Description": "Osallistu yhteisön palauteohjelmaan ja auta parantamaan MobiFlightia."
+      },
+      "RunOptions": {
+        "Title": "Käynnistys- ja suoritusasetukset",
+        "AutoRetrigger": "Suorita uudelleenlaukaisutoiminto automaattisesti \"run\"-tilassa",
+        "MinimizeOnAutoRun": "Pienennä automaattisen suorituksen yhteydessä"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Tarkista HubHop-esiasetukset sovelluksen käynnistyessä."
+      },
+      "Language": {
+        "Title": "Kieli",
+        "Description": "Vaihda käyttöliittymän kieli:",
+        "RestartRequired": "Kielen vaihtaminen vaatii MobiFlightin uudelleenkäynnistyksen."
+      },
+      "ExecutionSpeed": {
+        "Title": "Määrityksen suoritusnopeus",
+        "Description": "Voit säätää suoritusnopeutta esimerkiksi, jos syötteessä esiintyy viivettä. Erittäin nopeat asetukset voivat vaikuttaa suorituskykyyn.",
+        "Slow": "hidas",
+        "Fast": "erittäin nopea"
+      },
+      "TestModeSpeed": {
+        "Title": "Testitilan nopeus",
+        "Slow": "hidas",
+        "Fast": "erittäin nopea"
+      }
+    },
+    "Simulator": {
+      "Title": "Simulaattorit",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Yhteysasetukset",
+        "Host": "Palvelin",
+        "Port": "Portti",
+        "AutoConnect": "Automaattinen ProSim-yhteys",
+        "MaxRetryAttempts": "Uudelleenyritysten enimmäismäärä"
+      }
+    },
+    "Discard": {
+      "Title": "Hylätäänkö muutokset?",
+      "Description": "Sinulla on tallentamattomia muutoksia. Haluatko varmasti hylätä ne?",
+      "KeepEditing": "Jatka muokkausta",
+      "DiscardChanges": "Hylkää muutokset"
+    }
   }
 }
+

@@ -61,6 +61,7 @@
       "MSFS.ReinstallWASMModule": "WASM 모듈 다시 설치",
       "CopyLogs": "로그를 클립보드에 복사",
       "ControllerBindings": "컨트롤러 연결",
+      "ManageControllers": "컨트롤러 관리",
       "Settings": "설정"
     },
     "Help": {
@@ -866,5 +867,83 @@
     "Resume": "스크롤 재개",
     "Pause": "스크롤 일시 중지",
     "Close": "로그 패널 닫기"
+  },
+  "Settings": {
+    "General": {
+      "Title": "일반",
+      "Application": {
+        "Title": "애플리케이션"
+      },
+      "Logging": {
+        "Title": "로그 기록",
+        "Enabled": "활성화됨",
+        "ShowLogPanel": "로그 패널 표시",
+        "LogLevel": "로그 레벨",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "조이스틱 축 로그 기록"
+      },
+      "StartupAndRunOptions": {
+        "Title": "시작 및 실행 옵션"
+      },
+      "RecentFiles": {
+        "Title": "최근 파일",
+        "Description": "목록에 표시할 파일 수 설정"
+      },
+      "BetaVersions": {
+        "Title": "베타 버전",
+        "Description": "베타 버전 업데이트를 받습니다."
+      },
+      "CommunityFeedback": {
+        "Title": "커뮤니티 피드백 프로그램",
+        "Description": "커뮤니티 피드백 프로그램에 참여하여 MobiFlight 개선을 돕습니다."
+      },
+      "RunOptions": {
+        "Title": "시작 및 실행 옵션",
+        "AutoRetrigger": "\"실행\" 모드에서 자동으로 재작동(retrigger) 작업 수행",
+        "MinimizeOnAutoRun": "자동 실행 시 최소화"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "애플리케이션 시작 시 HubHop 프리셋 확인"
+      },
+      "Language": {
+        "Title": "언어",
+        "Description": "UI 언어 변경:",
+        "RestartRequired": "언어를 변경하면 MobiFlight를 다시 시작해야 합니다."
+      },
+      "ExecutionSpeed": {
+        "Title": "설정 실행 속도",
+        "Description": "입력에 지연이 발생하는 경우 실행 속도를 조절할 수 있습니다. 매우 빠름 설정은 성능에 영향을 줄 수 있습니다.",
+        "Slow": "느림",
+        "Fast": "매우 빠름"
+      },
+      "TestModeSpeed": {
+        "Title": "테스트 모드 속도",
+        "Slow": "느림",
+        "Fast": "매우 빠름"
+      }
+    },
+    "Simulator": {
+      "Title": "시뮬레이터",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "연결 설정",
+        "Host": "호스트",
+        "Port": "포트",
+        "AutoConnect": "자동 ProSim 연결",
+        "MaxRetryAttempts": "최대 재시도 횟수"
+      }
+    },
+    "Discard": {
+      "Title": "변경 사항을 삭제하시겠습니까?",
+      "Description": "저장되지 않은 변경 사항이 있습니다. 삭제하시겠습니까?",
+      "KeepEditing": "계속 편집",
+      "DiscardChanges": "변경 사항 삭제"
+    }
   }
 }

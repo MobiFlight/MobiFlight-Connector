@@ -1,3 +1,5 @@
+import Settings from "./settings"
+
 // FrontendMessages are messages
 // that are sent from the frontend to the backend
 export type CommandMessageKey =
@@ -19,6 +21,7 @@ export type CommandMessageKey =
   | "CommandScanForInput"
   | "CommandRefreshPresets"
   | "CommandShutdown"
+  | "CommandUpdateSettings"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -39,6 +42,7 @@ export type CommandMessage =
   | CommandScanForInput
   | CommandRefreshPresets
   | CommandShutdown
+  | CommandUpdateSettings
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -233,5 +237,12 @@ export interface CommandRefreshPresets extends CommandMessageBase {
   key: "CommandRefreshPresets"
   payload: {
     type: "prosim" | "vjoy"
+  }
+}
+
+export interface CommandUpdateSettings extends CommandMessageBase {
+  key: "CommandUpdateSettings"
+  payload: {
+    Settings: Partial<Settings>
   }
 }

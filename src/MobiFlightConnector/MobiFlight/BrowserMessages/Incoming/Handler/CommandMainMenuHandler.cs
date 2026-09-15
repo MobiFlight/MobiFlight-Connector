@@ -1,4 +1,4 @@
-﻿using MobiFlight.UI;
+using MobiFlight.UI;
 
 namespace MobiFlight.BrowserMessages.Incoming.Handler
 {
@@ -51,6 +51,10 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
 
                 case CommandMainMenuAction.extras_copylogs:
                     _mainForm.copyLogsToClipboardToolStripMenuItem_Click(null, null);
+                    break;
+
+                case CommandMainMenuAction.extras_serials:
+                    _mainForm.ShowControllersSettingsDialog();
                     break;
 
                 case CommandMainMenuAction.extras_settings:
