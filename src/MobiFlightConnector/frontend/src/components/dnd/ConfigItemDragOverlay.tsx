@@ -1,4 +1,4 @@
-import { DragOverlay } from "@dnd-kit/core"
+import { DragOverlay } from "@dnd-kit/react"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemTabDragOverlay from "./ConfigItemTabDragOverlay"
 import { cn } from "@/lib/utils"
@@ -18,7 +18,7 @@ export function ConfigItemDragOverlay() {
 
   return (
     isDraggingWithItems && (
-      <DragOverlay className="cursor-grabbing">
+      <DragOverlay dropAnimation={null} className="cursor-grabbing">
         <div>
           {isInsideTable ? (
             <ConfigItemTableDragOverlay 

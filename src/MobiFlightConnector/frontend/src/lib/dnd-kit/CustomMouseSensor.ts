@@ -1,9 +1,8 @@
-import { MouseSensor, MouseSensorOptions } from "@dnd-kit/core"
-
+import { PointerSensor, PointerActivationConstraints } from "@dnd-kit/dom"
 const preventDragWhileEditing = (element: Element | null): boolean => {
   let currentElement = element
 
-  // Traverse up the DOM tree 
+  // Traverse up the DOM tree
   // to check if any parent element is an input, textarea, or contenteditable
   while (currentElement) {
     if (
@@ -17,36 +16,26 @@ const preventDragWhileEditing = (element: Element | null): boolean => {
   }
   return false
 }
+const CustomMouseSensor = PointerSensor.configure({
+  preventActivation(event) {
+    // Only allow primary mouse button (left click)
+    if (event.button !== 0) return true
 
-class CustomMouseSensor extends MouseSensor {
-  static activators = [
-    {
-      eventName: "onMouseDown" as const,
-      handler: (
-        { nativeEvent: event }: { nativeEvent: MouseEvent },
-        { onActivation }: MouseSensorOptions,
-      ) => {
-        // Only activate on primary mouse button (left click)
-        if (event.button !== 0) {
-          return false
-        }
+    // Block modifier keys
+    if (event.ctrlKey || event.shiftKey || event.metaKey) return true
 
-        // Don't start drag if modifier keys are pressed
-        if (event.ctrlKey || event.shiftKey || event.metaKey) {
-          return false
-        }
+    if (preventDragWhileEditing(event.target as Element | null))
+      // Prevent drag while editing
+      return true
 
-        // Prevent drag if clicking inside an editable element
-        if (preventDragWhileEditing(event.target as Element)) {
-          return false
-        }
-
-        onActivation?.({ event })
-
-        return true
-      },
-    },
-  ]
-}
+    return false
+  },
+  activationConstraints(event) {
+    if (event.pointerType === "mouse") {
+      return [new PointerActivationConstraints.Distance({ value: 5 })]
+    }
+    return []
+  },
+})
 
 export { CustomMouseSensor }
