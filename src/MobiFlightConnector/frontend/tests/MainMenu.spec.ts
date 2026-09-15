@@ -196,6 +196,91 @@ test("Confirm `Help` menu items are displayed and trigger correct command", asyn
   }
 })
 
+test.describe("Confirm `About` menu item opens the About modal", () => {
+  test("Confirm `About` modal opens and closes correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+
+    const menuItemHelp = page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "Help" })
+    const menuItemAbout = page.getByRole("menuitem", { name: "About" })
+    const dialog = page.getByRole("dialog")
+    await expect(dialog).not.toBeVisible()
+
+    // Open About dialog from MainMenu > Help > About
+    await menuItemHelp.click()
+    await menuItemAbout.click()
+    await expect(dialog).toBeVisible()
+
+    // Close the dialog using the footer Close button
+    const closeButton = dialog.getByRole("button", { name: "Close" }).first()
+    await closeButton.click()
+    await expect(dialog).not.toBeVisible()
+  })
+
+  test("Confirm `Copy Version` button works correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+
+    const menuItemHelp = page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "Help" })
+    const menuItemAbout = page.getByRole("menuitem", { name: "About" })
+    const dialog = page.getByRole("dialog")
+    await expect(dialog).not.toBeVisible()
+
+    // Open About dialog
+    await menuItemHelp.click()
+    await menuItemAbout.click()
+    await expect(dialog).toBeVisible()
+
+    // Click copy button and verify feedback tooltip/title changes to 'Copied!'
+    const copyButton = dialog.getByTitle("Copy version info")
+    await expect(copyButton).toBeVisible()
+    await copyButton.click()
+    await expect(dialog.getByTitle("Copied!")).toBeVisible()
+  })
+
+  test("Confirm tab switching works between About and Licenses", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+
+    const menuItemHelp = page
+      .getByRole("menubar")
+      .getByRole("menuitem", { name: "Help" })
+    const menuItemAbout = page.getByRole("menuitem", { name: "About" })
+    const dialog = page.getByRole("dialog")
+    await expect(dialog).not.toBeVisible()
+
+    // Open About dialog
+    await menuItemHelp.click()
+    await menuItemAbout.click()
+    await expect(dialog).toBeVisible()
+
+    // Verify About tab content is visible by default
+    await expect(dialog.getByText("How to contact us")).toBeVisible()
+    await expect(dialog.getByText("MobiFlight Ecosystem")).toBeVisible()
+
+    // Switch to Licenses tab and verify library content
+    const licensesTab = dialog.getByRole("tab", { name: "Licenses" })
+    await licensesTab.click()
+    await expect(dialog.getByText("Libraries & Dependencies")).toBeVisible()
+    await expect(dialog.getByText("CmdMessenger")).toBeVisible()
+
+    // Switch back to About tab
+    const aboutTab = dialog.getByRole("tab", { name: "About" })
+    await aboutTab.click()
+    await expect(dialog.getByText("How to contact us")).toBeVisible()
+  })
+})
+
 test("Confirm save menu item behaves as expected", async ({
   configListPage,
   page,
@@ -277,7 +362,10 @@ test("Confirm zoom menu items are present in View menu", async ({
   await expect(ZoomOutItem).toBeVisible()
 })
 
-test("Confirm View menu contains opens and closes Log Panel item", async ({ configListPage, page }) => {
+test("Confirm View menu contains opens and closes Log Panel item", async ({
+  configListPage,
+  page,
+}) => {
   await configListPage.gotoPage()
   await configListPage.mobiFlightPage.openLogPanel()
 
