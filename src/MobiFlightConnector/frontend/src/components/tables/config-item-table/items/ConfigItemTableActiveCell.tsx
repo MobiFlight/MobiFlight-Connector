@@ -18,7 +18,7 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
       <div
         role="button"
         aria-label="Drag handle"
-        className="cursor-move px-1 text-gray-500 opacity-10 transition-opacity delay-100 ease-in group-hover/row:opacity-100 group-hover/row:delay-100 group-hover/row:ease-out dark:text-gray-300"
+        className="cursor-move px-1 text-gray-500 opacity-10 group-hover/row:opacity-100 dark:text-gray-300"
       >
         <IconGripVertical className="stroke-2" />
       </div>

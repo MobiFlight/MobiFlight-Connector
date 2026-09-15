@@ -1,10 +1,12 @@
 import React, { useCallback, useMemo, useState, useRef } from "react"
+import { flushSync } from "react-dom"
 import { DragDropProvider } from "@dnd-kit/react"
 import { DragOperation, Modifier } from "@dnd-kit/abstract"
 import {
   PointerSensor,
   PointerActivationConstraints,
   DragDropManager,
+  Feedback,
 } from "@dnd-kit/dom"
 import { SnapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 import { IConfigItem } from "@/types"
@@ -27,6 +29,7 @@ import {
 interface DynamicModifierOptions {
   isInsideTable: boolean
   tableContainerRef: Element | null
+  getCachedRect?: () => DOMRect | null
 }
 
 class DynamicModifier extends Modifier<
@@ -34,7 +37,8 @@ class DynamicModifier extends Modifier<
   DynamicModifierOptions
 > {
   override apply(operation: DragOperation) {
-    const { isInsideTable, tableContainerRef } = this.options ?? {}
+    const { isInsideTable, tableContainerRef, getCachedRect } =
+      this.options ?? {}
     let { transform } = operation
     const { shape } = operation
 
@@ -51,7 +55,10 @@ class DynamicModifier extends Modifier<
       }
 
       const rect = shape.initial.boundingRectangle
-      const boundingRect = tableContainerRef.getBoundingClientRect()
+      const tableElement =
+        tableContainerRef.closest("table") ?? tableContainerRef
+      const boundingRect =
+        getCachedRect?.() ?? tableElement.getBoundingClientRect()
 
       transform = restrictToBoundingRect(transform, rect, boundingRect)
     }
@@ -116,6 +123,7 @@ export function ConfigItemDragProvider({
   // State: Current table instance (set by ConfigItemTable when it mounts)
   const [table, setTable] = useState<Table<IConfigItem> | null>(null)
   const lastValidOverIdRef = useRef<string | null>(null)
+  const cachedTableRectRef = useRef<DOMRect | null>(null)
 
   // State: Current drag operation (null when not dragging)
   const [dragState, setDragState] = useState<DragState | null>(null)
@@ -190,6 +198,10 @@ export function ConfigItemDragProvider({
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
       lastValidOverIdRef.current = null
+      const tableElement =
+        tableContainerRef?.closest("table") ?? tableContainerRef
+      cachedTableRectRef.current =
+        tableElement?.getBoundingClientRect() ?? null
       const operation = event.operation
       console.log("🚀 Drag start - Initial config:", initialConfigIndex)
       const id = operation.source?.id
@@ -257,7 +269,7 @@ export function ConfigItemDragProvider({
         sourceConfig: newDragState.configs.source,
       })
     },
-    [table, initialConfigIndex],
+    [tableContainerRef, initialConfigIndex, table],
   )
 
   const moveItemsToHoveredTab = useCallback(
@@ -297,26 +309,29 @@ export function ConfigItemDragProvider({
     const currentDragState = dragState
 
     console.log("❌ Drag cancelled")
-    setDragState(null)
 
-    if (!currentDragState) return
+    flushSync(() => {
+      if (currentDragState) {
+        console.log("🔄 Restoring items to original positions:", {
+          from: currentDragState.configs.current,
+          to: currentDragState.configs.source,
+          itemCount: currentDragState.items.draggedItems.length,
+        })
 
-    console.log("🔄 Restoring items to original positions:", {
-      from: currentDragState.configs.current,
-      to: currentDragState.configs.source,
-      itemCount: currentDragState.items.draggedItems.length,
+        // Single store operation that handles everything
+        restoreItemsToOriginalPositions(
+          currentDragState.items.draggedItems,
+          currentDragState.configs.current,
+          currentDragState.configs.source,
+          currentDragState.items.originalPositions,
+        )
+
+        // Switch back to original tab first
+        selectActiveFile(currentDragState.configs.source)
+      }
+      cachedTableRectRef.current = null
+      setDragState(null)
     })
-
-    // Single store operation that handles everything
-    restoreItemsToOriginalPositions(
-      currentDragState.items.draggedItems,
-      currentDragState.configs.current,
-      currentDragState.configs.source,
-      currentDragState.items.originalPositions,
-    )
-
-    // Switch back to original tab first
-    selectActiveFile(currentDragState.configs.source)
   }, [dragState, restoreItemsToOriginalPositions, selectActiveFile])
 
   /**
@@ -347,7 +362,8 @@ export function ConfigItemDragProvider({
       const overId = operation.target?.id
 
       const effectiveOverId =
-        overId === activeId && lastValidOverIdRef.current !== null
+        (overId === activeId || overId === undefined) &&
+        lastValidOverIdRef.current !== null
           ? lastValidOverIdRef.current
           : overId !== undefined
             ? String(overId)
@@ -375,10 +391,13 @@ export function ConfigItemDragProvider({
         // No need to check reason — canceled is already handled in validateDragEnd
         if (event.canceled) {
           handleDragCancel()
+        } else {
+          flushSync(() => {
+            setDragState(null)
+          })
         }
         return
       }
-      setDragState(null)
 
       const { dropContext, sourceConfigIndex, targetConfigIndex } =
         extractDropContext(
@@ -394,6 +413,7 @@ export function ConfigItemDragProvider({
         dropContext,
         isCrossConfig,
         activeId,
+        tableContainerRef,
       )
       console.log("📍 Insertion calculation:", {
         hoveringOverTab: dropContext.hoveringOverTab,
@@ -412,26 +432,28 @@ export function ConfigItemDragProvider({
         ),
         targetItems: dropContext.currentItems.map((item) => item.GUID),
       })
-      executeDrop(
-        currentDragState!,
-        { sourceConfigIndex, targetConfigIndex, insertionIndex },
-        moveItemsBetweenConfigs,
-      )
-      if (isCrossConfig) {
-        selectActiveFile(targetConfigIndex)
-      }
-      console.log(
-        "🔥 STORE AFTER DROP",
-        getConfigItems(targetConfigIndex).map((item) => item.GUID),
-      )
+      // Execute the drop operation and flush React DOM updates synchronously to eliminate any dropped-row flicker
+      flushSync(() => {
+        executeDrop(
+          currentDragState!,
+          { sourceConfigIndex, targetConfigIndex, insertionIndex },
+          moveItemsBetweenConfigs,
+        )
+        if (isCrossConfig) {
+          selectActiveFile(targetConfigIndex)
+        }
+        if (table && currentDragState?.items.draggedItems) {
+          const newSelection: Record<string, boolean> = {}
+          for (const item of currentDragState.items.draggedItems) {
+            newSelection[item.GUID] = true
+          }
+          table.setRowSelection(newSelection)
+        }
+        cachedTableRectRef.current = null
+        setDragState(null)
+      })
     },
-    [
-      dragState,
-      getConfigItems,
-      handleDragCancel,
-      moveItemsBetweenConfigs,
-      selectActiveFile,
-    ],
+    [dragState, getConfigItems, handleDragCancel, moveItemsBetweenConfigs, selectActiveFile, table, tableContainerRef],
   )
   type DragMoveEvent = {
     operation: DragOperation
@@ -445,8 +467,13 @@ export function ConfigItemDragProvider({
       const { target, position } = event.operation
 
       let isInsideTable = dragState.ui.isInsideTable
-      if (tableContainerRef && position.current) {
-        const tableRect = tableContainerRef.getBoundingClientRect()
+      const tableElement =
+        tableContainerRef?.closest("table") ?? tableContainerRef
+      const tableRect =
+        cachedTableRectRef.current ??
+        tableElement?.getBoundingClientRect() ??
+        null
+      if (tableRect && position.current) {
         const pointerY = position.current.y
         const pointerX = position.current.x
         isInsideTable =
@@ -463,7 +490,7 @@ export function ConfigItemDragProvider({
         }
       }
 
-      const hoveringOverTab = target?.data?.type === "tab"
+      const hoveringOverTab = !isInsideTable && target?.data?.type === "tab"
       const hoveredTabIndex = target?.data?.index
 
       if (
@@ -517,9 +544,11 @@ export function ConfigItemDragProvider({
 
   const modifiers = useMemo(
     () =>
+      // eslint-disable-next-line react-hooks/refs
       DynamicModifier.configure({
         isInsideTable: dragState?.ui.isInsideTable ?? false,
         tableContainerRef,
+        getCachedRect: () => cachedTableRectRef.current,
       }),
     [dragState?.ui.isInsideTable, tableContainerRef],
   )
@@ -551,6 +580,7 @@ export function ConfigItemDragProvider({
         if (
           !isNaN(tabIndex) &&
           dragState &&
+          !dragState.ui.isInsideTable &&
           tabIndex !== dragState.configs.current
         ) {
           moveItemsToHoveredTab(tabIndex)
@@ -567,6 +597,13 @@ export function ConfigItemDragProvider({
         sensors={(defaults) => [
           ...defaults.filter((sensor) => sensor !== PointerSensor),
           configuredPointerSensor,
+        ]}
+        plugins={(defaults) => [
+          ...defaults.map((plugin) =>
+            plugin === Feedback
+              ? Feedback.configure({ dropAnimation: null })
+              : plugin
+          ),
         ]}
         onCollision={handleCollision}
         modifiers={[modifiers]}
