@@ -43,21 +43,11 @@ export default function LicensesCard() {
                 key={lib.name}
                 className="flex items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/40"
               >
-                <span
-                  className="text-sm font-medium text-foreground truncate"
-                  style={
-                    lib.name.includes("BoeingCDULarge")
-                      ? {
-                          fontFamily:
-                            "'BoeingCDULarge', 'Consolas', 'Courier New', monospace",
-                        }
-                      : undefined
-                  }
-                >
+                <span className="text-sm font-medium text-foreground truncate">
                   {lib.name}
                 </span>
                 {lib.link ? (
-                  <div className="flex items-center gap-3 text-xs shrink-0">
+                  <div className="flex w-36 items-center justify-end gap-3 text-xs shrink-0">
                     <button
                       type="button"
                       className="text-primary hover:underline flex items-center gap-1 cursor-pointer font-medium"
@@ -77,7 +67,7 @@ export default function LicensesCard() {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-1.5 text-xs text-pink-500 font-medium shrink-0">
+                  <div className="flex w-36 items-center justify-center gap-1.5 text-xs text-pink-500 font-medium shrink-0">
                     <IconHeart className="size-3.5 fill-pink-500 shrink-0" />
                     <span>{t("About.Credits.ThankYou", "Thank You!")}</span>
                   </div>

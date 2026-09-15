@@ -1,5 +1,8 @@
 [
   {
+    "name": "\"BoeingCDULarge font\" by Gijs de Rooij"
+  },
+  {
     "name": "CmdMessenger",
     "link": {
       "project": "https://github.com/MobiFlight/Arduino-CmdMessenger/",
@@ -61,8 +64,5 @@
       "project": "https://github.com/PingmanTools/websocket-sharp/",
       "license": "https://github.com/PingmanTools/websocket-sharp/blob/master/LICENSE.txt"
     }
-  },
-  {
-    "name": "\"BoeingCDULarge font\" by Gijs de Rooij"
   }
 ]
