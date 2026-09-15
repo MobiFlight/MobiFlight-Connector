@@ -8,10 +8,10 @@ namespace MobiFlightWwFcuUnitTests
     public class WinCtrlDisplayControlTests
     {
         private WebSocketServer server = null!;
-        private string mcduFontDirectory = null!;
-        private string pfpFontDirectory = null!;
-        private bool mcduFontDirectoryCreatedByTest;
-        private bool pfpFontDirectoryCreatedByTest;
+        private static string mcduFontDirectory = null!;
+        private static string pfpFontDirectory = null!;
+        private static bool mcduFontDirectoryCreatedByTest;
+        private static bool pfpFontDirectoryCreatedByTest;
 
         private class FakeWinCtrlMessageSender : IWinCtrlMessageSender
         {
@@ -39,6 +39,40 @@ namespace MobiFlightWwFcuUnitTests
             public void SendRequestFirmwareMessage() { }
         }
 
+        [ClassInitialize]
+        public static void ClassSetup(TestContext _)
+        {
+            var defaultFontDirectory = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Scripts",
+                "Winwing",
+                "Fonts",
+                "Default"
+            );
+
+            mcduFontDirectory = Path.Combine(
+                defaultFontDirectory,
+                "MCDU"
+            );
+
+            pfpFontDirectory = Path.Combine(
+                defaultFontDirectory,
+                "PFP"
+            );
+
+            if (!Directory.Exists(mcduFontDirectory))
+            {
+                Directory.CreateDirectory(mcduFontDirectory);
+                mcduFontDirectoryCreatedByTest = true;
+            }
+
+            if (!Directory.Exists(pfpFontDirectory))
+            {
+                Directory.CreateDirectory(pfpFontDirectory);
+                pfpFontDirectoryCreatedByTest = true;
+            }
+        }
+
 
         [TestInitialize]
         public void Setup()
@@ -47,33 +81,6 @@ namespace MobiFlightWwFcuUnitTests
                 IPAddress.Loopback,
                 8320
             );
-
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            mcduFontDirectory = Path.Combine(
-                baseDirectory,
-                "Scripts",
-                "Winwing",
-                "Fonts",
-                "Default",
-                "MCDU"
-                
-            );
-
-            pfpFontDirectory = Path.Combine(
-                baseDirectory,
-                "Scripts",
-                "Winwing",
-                "Fonts",
-                "Default",
-                "PFP"
-            );
-
-            mcduFontDirectoryCreatedByTest = !Directory.Exists(mcduFontDirectory);
-            pfpFontDirectoryCreatedByTest = !Directory.Exists(pfpFontDirectory);
-
-            Directory.CreateDirectory(mcduFontDirectory);
-            Directory.CreateDirectory(pfpFontDirectory);
         }
 
         [TestMethod]
@@ -133,8 +140,13 @@ namespace MobiFlightWwFcuUnitTests
             {
                 server.Stop();
             }
+        }
 
-            if (mcduFontDirectoryCreatedByTest && Directory.Exists(mcduFontDirectory)) {
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            if (mcduFontDirectoryCreatedByTest && Directory.Exists(mcduFontDirectory))
+            {
                 Directory.Delete(mcduFontDirectory, true);
             }
 
