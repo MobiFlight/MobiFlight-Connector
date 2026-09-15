@@ -8,6 +8,10 @@ namespace MobiFlightWwFcuUnitTests
     public class WinCtrlDisplayControlTests
     {
         private WebSocketServer server = null!;
+        private string mcduFontDirectory = null!;
+        private string pfpFontDirectory = null!;
+        private bool mcduFontDirectoryCreatedByTest;
+        private bool pfpFontDirectoryCreatedByTest;
 
         private class FakeWinCtrlMessageSender : IWinCtrlMessageSender
         {
@@ -35,6 +39,7 @@ namespace MobiFlightWwFcuUnitTests
             public void SendRequestFirmwareMessage() { }
         }
 
+
         [TestInitialize]
         public void Setup()
         {
@@ -45,27 +50,30 @@ namespace MobiFlightWwFcuUnitTests
 
             var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            Directory.CreateDirectory(
-                Path.Combine(
-                    baseDirectory,
-                    "Scripts",
-                    "Winwing",
-                    "Fonts",
-                    "Default",
-                    "MCDU"
-                )
+            mcduFontDirectory = Path.Combine(
+                baseDirectory,
+                "Scripts",
+                "Winwing",
+                "Fonts",
+                "Default",
+                "MCDU"
+                
             );
 
-            Directory.CreateDirectory(
-                Path.Combine(
-                    baseDirectory,
-                    "Scripts",
-                    "Winwing",
-                    "Fonts",
-                    "Default",
-                    "PFP"
-                )
+            pfpFontDirectory = Path.Combine(
+                baseDirectory,
+                "Scripts",
+                "Winwing",
+                "Fonts",
+                "Default",
+                "PFP"
             );
+
+            mcduFontDirectoryCreatedByTest = !Directory.Exists(mcduFontDirectory);
+            pfpFontDirectoryCreatedByTest = !Directory.Exists(pfpFontDirectory);
+
+            Directory.CreateDirectory(mcduFontDirectory);
+            Directory.CreateDirectory(pfpFontDirectory);
         }
 
         [TestMethod]
@@ -124,6 +132,15 @@ namespace MobiFlightWwFcuUnitTests
             if (server.IsListening)
             {
                 server.Stop();
+            }
+
+            if (mcduFontDirectoryCreatedByTest && Directory.Exists(mcduFontDirectory)) {
+                Directory.Delete(mcduFontDirectory, true);
+            }
+
+            if (pfpFontDirectoryCreatedByTest && Directory.Exists(pfpFontDirectory))
+            {
+                Directory.Delete(pfpFontDirectory, true);
             }
         }
     }
