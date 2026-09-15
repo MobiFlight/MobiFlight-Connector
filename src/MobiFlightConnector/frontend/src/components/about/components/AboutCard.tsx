@@ -21,13 +21,13 @@ export default function AboutCard() {
       title: t("About.Contact.Discord.Title", "Discord"),
       display: "https://mobiflight.com/discord",
       url: "https://mobiflight.com/discord",
-      icon: <IconBrandDiscordFilled className="size-5 fill-[#5865F2]" />,
+      icon: <IconBrandDiscordFilled className="size-6 fill-[#5865F2]" />,
     },
     {
       title: t("About.Contact.Email.Title", "Email"),
       display: "info@mobiflight.com",
       url: "mailto:info@mobiflight.com",
-      icon: <IconMail className="size-5 text-sky-500" />,
+      icon: <IconMail className="size-6 text-sky-500" />,
     },
   ]
 
@@ -36,31 +36,31 @@ export default function AboutCard() {
       title: "Website",
       display: "mobiflight.com",
       url: "https://www.mobiflight.com",
-      icon: <IconWorld className="size-5 text-blue-500" />,
+      icon: <IconWorld className="size-6 text-blue-500" />,
     },
     {
       title: "GitHub",
       display: "github.com/MobiFlight",
       url: "https://github.com/MobiFlight",
-      icon: <IconBrandGithubFilled className="size-5" />,
+      icon: <IconBrandGithubFilled className="size-6" />,
     },
     {
       title: "Shop",
       display: "shop.mobiflight.com",
       url: "https://shop.mobiflight.com",
-      icon: <IconBuildingStore className="size-5 text-emerald-500" />,
+      icon: <IconBuildingStore className="size-6 text-emerald-500" />,
     },
     {
       title: "YouTube",
       display: "youtube.com/@MobiFlight",
       url: "https://www.youtube.com/c/MobiFlight",
-      icon: <IconBrandYoutubeFilled className="size-5 fill-red-500" />,
+      icon: <IconBrandYoutubeFilled className="size-6 fill-red-500" />,
     },
     {
       title: "HubHop",
       display: "hubhop.mobiflight.com",
       url: "https://hubhop.mobiflight.com",
-      icon: <IconBrandHubHopLogo className="size-5 fill-orange-500" />,
+      icon: <IconBrandHubHopLogo className="size-6 fill-orange-500" />,
     },
   ]
 
@@ -84,8 +84,8 @@ export default function AboutCard() {
               className="group flex w-full items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/40 cursor-pointer text-left"
               onClick={() => openUrl(item.url)}
             >
-              <div className="flex items-center gap-2.5">
-                <div className="flex size-6 items-center justify-center">
+              <div className="flex items-center gap-3">
+                <div className="flex size-7 items-center justify-center">
                   {item.icon}
                 </div>
                 <span className="text-sm font-medium text-foreground">
@@ -116,8 +116,8 @@ export default function AboutCard() {
               className="group flex w-full items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/40 cursor-pointer text-left"
               onClick={() => openUrl(item.url)}
             >
-              <div className="flex items-center gap-2.5">
-                <div className="flex size-6 items-center justify-center">
+              <div className="flex items-center gap-3">
+                <div className="flex size-7 items-center justify-center">
                   {item.icon}
                 </div>
                 <span className="text-sm font-medium text-foreground">
