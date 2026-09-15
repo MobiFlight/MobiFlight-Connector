@@ -85,16 +85,16 @@ export default function AboutCard() {
               onClick={() => openUrl(item.url)}
             >
               <div className="flex items-center gap-3">
-                <div className="flex size-7 items-center justify-center">
+                <div className="flex size-6 items-center justify-center shrink-0">
                   {item.icon}
                 </div>
-                <span className="text-sm font-medium text-foreground">
+                <span className="text-sm font-medium text-foreground leading-none flex items-center">
                   {item.title}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-primary group-hover:underline">
-                <span>{item.display}</span>
-                <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100" />
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-primary group-hover:underline leading-none">
+                <span className="leading-none">{item.display}</span>
+                <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100 shrink-0" />
               </div>
             </button>
           ))}
@@ -117,16 +117,16 @@ export default function AboutCard() {
               onClick={() => openUrl(item.url)}
             >
               <div className="flex items-center gap-3">
-                <div className="flex size-7 items-center justify-center">
+                <div className="flex size-6 items-center justify-center shrink-0">
                   {item.icon}
                 </div>
-                <span className="text-sm font-medium text-foreground">
+                <span className="text-sm font-medium text-foreground leading-none flex items-center">
                   {item.title}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-primary group-hover:underline">
-                <span>{item.display}</span>
-                <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100" />
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-primary group-hover:underline leading-none">
+                <span className="leading-none">{item.display}</span>
+                <IconExternalLink className="size-3.5 opacity-60 transition-opacity group-hover:opacity-100 shrink-0" />
               </div>
             </button>
           ))}
