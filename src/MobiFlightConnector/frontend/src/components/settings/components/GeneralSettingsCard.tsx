@@ -140,7 +140,6 @@ export default function GeneralSettingsCard({
             <SettingsRow
               label={t("Settings.General.Logging.LogLevel")}
               htmlFor="log-level"
-              disabled={!logEnabled}
             >
               <ComboBox
                 items={logOptions}
@@ -155,7 +154,6 @@ export default function GeneralSettingsCard({
                 setSelected={(item) =>
                   item && onChange("LogLevel", item.value as LogLevel)
                 }
-                disabled={!logEnabled}
                 widthClass="w-56"
               />
             </SettingsRow>
@@ -163,12 +161,10 @@ export default function GeneralSettingsCard({
             <SettingsRow
               label={t("Settings.General.Logging.LogJoystickAxis")}
               htmlFor="logging-joystick-axis"
-              disabled={!logEnabled}
             >
               <Switch
                 id="logging-joystick-axis"
                 checked={values.LogJoystickAxis ?? false}
-                disabled={!logEnabled}
                 onCheckedChange={(checked) =>
                   onChange("LogJoystickAxis", !!checked)
                 }
