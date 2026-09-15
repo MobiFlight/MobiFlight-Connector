@@ -157,7 +157,8 @@ test("Confirm `Help` menu items are displayed and trigger correct command", asyn
     { name: "Visit Discord server", action: "help.discord" },
     { name: "Visit HubHop website", action: "help.hubhop" },
     { name: "Visit YouTube channel", action: "help.youtube" },
-    { name: "About", action: "help.about" },
+    // covered by AboutDialog.spec.ts, so we just check for presence and skip command check
+    { name: "About", action: null },
     { name: "Release notes", action: "help.releasenotes" },
   ]
 
@@ -278,7 +279,10 @@ test("Confirm zoom menu items are present in View menu", async ({
   await expect(ZoomOutItem).toBeVisible()
 })
 
-test("Confirm View menu contains opens and closes Log Panel item", async ({ configListPage, page }) => {
+test("Confirm View menu contains opens and closes Log Panel item", async ({
+  configListPage,
+  page,
+}) => {
   await configListPage.gotoPage()
   await configListPage.mobiFlightPage.openLogPanel()
 

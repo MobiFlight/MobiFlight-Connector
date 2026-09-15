@@ -25,7 +25,8 @@
     },
     "Copy": "복사",
     "Paste": "붙여넣기",
-    "NewFeature": "신규"
+    "NewFeature": "신규",
+    "Close": "닫기"
   },
   "MainMenu": {
     "File": {
@@ -867,6 +868,34 @@
     "Resume": "스크롤 재개",
     "Pause": "스크롤 일시 중지",
     "Close": "로그 패널 닫기"
+  },
+  "About": {
+    "Tabs": {
+      "About": "정보",
+      "Licenses": "라이선스"
+    },
+    "Contact": {
+      "Title": "문의하기",
+      "Discord": {
+        "Title": "Discord",
+        "Description": "커뮤니티 서버 참여"
+      },
+      "Email": {
+        "Title": "이메일",
+        "Description": "info@mobiflight.com"
+      }
+    },
+    "Ecosystem": {
+      "Title": "MobiFlight 생태계"
+    },
+    "Licenses": {
+      "Title": "라이브러리 및 종속성",
+      "Description": "MobiFlight Connector에서 사용하는 라이브러리 - 개발자분들께 감사드립니다!"
+    },
+    "Credits": {
+      "Font": "\"BoeingCDULarge font\" by Gijs de Rooij",
+      "ThankYou": "감사합니다!"
+    }
   },
   "Settings": {
     "General": {

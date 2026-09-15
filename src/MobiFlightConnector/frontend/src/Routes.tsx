@@ -10,6 +10,7 @@ import Dashboard from "@/pages/Dashboard"
 import Plain from "@/pages/Plain"
 import { Route, Routes, useLocation } from "react-router"
 import StartupProgress from "@/components/StartupProgress"
+import AboutModal from "./components/modals/Aboutmodal"
 import SettingsModal from "./components/modals/SettingsModal"
 
 export function AppRoutes() {
@@ -56,6 +57,7 @@ export function AppRoutes() {
           <Route path="/project/new" element={<ProjectFormModal />} />
           <Route path="/project/edit" element={<ProjectFormModal />} />
           <Route path="/bindings" element={<ControllerBindingsModal />} />
+          <Route path="/about" element={<AboutModal />} />
           <Route path="/settings" element={<SettingsModal />} />
         </Routes>
       )}

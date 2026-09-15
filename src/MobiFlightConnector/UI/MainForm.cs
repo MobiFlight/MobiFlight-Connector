@@ -349,7 +349,7 @@ namespace MobiFlight.UI
             // Not OnUiThread: no WinForms/shared state, just URL validation + Process.Start.
             MessageExchange.Instance.Subscribe<CommandOpenLinkInBrowser>((message) =>
             {
-                if (!message.Url.IsValidUrl())
+                if (!message.Url.IsValidUrl() && !message.Url.IsValidEmailLink())
                 {
                     Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
                     return;
@@ -2436,15 +2436,6 @@ namespace MobiFlight.UI
             }
         }
 
-        /// <summary>
-        /// shows the about form
-        /// </summary>
-        public void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutForm ab = new AboutForm();
-            ab.StartPosition = FormStartPosition.CenterParent;
-            ab.ShowDialog();
-        } //aboutToolStripMenuItem_Click()
 
         /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
