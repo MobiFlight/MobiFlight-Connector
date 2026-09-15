@@ -192,8 +192,9 @@ namespace MobiFlight
             }
         }
 
-        public const int CommandTimeout = 2500;
-        public const int GetInfoMaxAttempts = 3;
+        // Not const so that tests can shorten the wait instead of running into the real timeout.
+        public int CommandTimeout = 2500;
+        public int GetInfoMaxAttempts = 3;
         public const int MessageSizeReductionValue = 10;
         internal int StopDelayInMs = 20;
 
@@ -922,19 +923,6 @@ namespace MobiFlight
 
             if (InfoCommand.Ok)
             {
-                // Workaround
-                // the following read shall get removed
-                // but at the moment something with the timing during startup is wrong.
-                command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
-                var secondInfoCommand = _cmdMessenger.SendCommand(command);
-
-                // Only use the second reply if it actually arrived,
-                // otherwise the first one is still the valid reply.
-                if (secondInfoCommand.Ok)
-                {
-                    InfoCommand = secondInfoCommand;
-                }
-
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
                 devInfo.Serial = InfoCommand.ReadStringArg();

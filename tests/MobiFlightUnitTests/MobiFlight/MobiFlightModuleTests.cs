@@ -638,40 +638,39 @@ namespace MobiFlight.Tests
             $"{(int)MobiFlightModule.Command.Info},MobiFlight Mega,Nano,SN-G5E-45E,3.1.4,3.1.4;";
 
         [TestMethod()]
-        public void GetInfo_ShouldIdentifyBoard_WhenFirstInfoCommandTimesOut()
+        public void GetInfo_ShouldSendOneCommand_WhenBoardAnswersImmediately()
         {
             // Arrange
-            // The board stays silent on the first GetInfo, then answers the retry and the follow-up read.
-            var transport = new ScriptedTransport(null, InfoReply, InfoReply);
+            var transport = new ScriptedTransport(InfoReply);
             var module = CreateModuleWithTransport(transport);
 
             // Act
             var info = module.GetInfo() as MobiFlightModuleInfo;
 
             // Assert
-            Assert.AreEqual(3, transport.WriteCount, "The timed out command should be sent again before the follow-up read.");
-            Assert.AreEqual("3.1.4", info.Version, "Version should come from the retried reply.");
-            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the retried reply.");
-            Assert.AreEqual("Nano", info.Name, "Name should come from the retried reply.");
+            Assert.AreEqual(1, transport.WriteCount, "An answered command should not be sent a second time.");
+            Assert.AreEqual("3.1.4", info.Version, "Version should come from the reply.");
+            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the reply.");
+            Assert.AreEqual("Nano", info.Name, "Name should come from the reply.");
             Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
         }
 
         [TestMethod()]
-        public void GetInfo_ShouldKeepFirstReply_WhenFollowUpReadTimesOut()
+        public void GetInfo_ShouldIdentifyBoard_WhenFirstInfoCommandTimesOut()
         {
             // Arrange
-            // The board answers the first GetInfo but stays silent on the follow-up read.
-            var transport = new ScriptedTransport(InfoReply, null);
+            // The board stays silent on the first GetInfo and answers the retry.
+            var transport = new ScriptedTransport(null, InfoReply);
             var module = CreateModuleWithTransport(transport);
 
             // Act
             var info = module.GetInfo() as MobiFlightModuleInfo;
 
             // Assert
-            Assert.AreEqual(2, transport.WriteCount, "The answered command should not be retried.");
-            Assert.AreEqual("3.1.4", info.Version, "Version should come from the first reply.");
-            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the first reply.");
-            Assert.AreEqual("Nano", info.Name, "Name should come from the first reply.");
+            Assert.AreEqual(2, transport.WriteCount, "The timed out command should be sent again.");
+            Assert.AreEqual("3.1.4", info.Version, "Version should come from the retried reply.");
+            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the retried reply.");
+            Assert.AreEqual("Nano", info.Name, "Name should come from the retried reply.");
             Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
         }
 
@@ -687,7 +686,7 @@ namespace MobiFlight.Tests
             var info = module.GetInfo() as MobiFlightModuleInfo;
 
             // Assert
-            Assert.AreEqual(MobiFlightModule.GetInfoMaxAttempts, transport.WriteCount, "The command should be sent GetInfoMaxAttempts times and then given up on.");
+            Assert.AreEqual(module.GetInfoMaxAttempts, transport.WriteCount, "The command should be sent GetInfoMaxAttempts times and then given up on.");
             Assert.IsNull(info.Version, "No version should be reported without a reply.");
             Assert.IsFalse(module.HasMfFirmware(), "Module should not be identified as running MobiFlight firmware.");
         }
@@ -700,7 +699,11 @@ namespace MobiFlight.Tests
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
             Assert.IsNotNull(board, "Board not found.");
 
-            var module = new MobiFlightModule("COM1", board);
+            var module = new MobiFlightModule("COM1", board)
+            {
+                // A silent board would otherwise cost the full 2.5 s per attempt.
+                CommandTimeout = 50
+            };
 
             var cmdMessenger = new CmdMessenger(transport, BoardType.Bit16, ',', ';', '\\', board.Connection.MessageSize);
             cmdMessenger.Connect();
