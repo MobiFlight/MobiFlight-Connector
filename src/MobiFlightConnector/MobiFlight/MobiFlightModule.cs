@@ -192,7 +192,9 @@ namespace MobiFlight
             }
         }
 
-        public const int CommandTimeout = 2500;
+        // Not const so that tests can shorten the wait instead of running into the real timeout.
+        public int CommandTimeout = 2500;
+        public int GetInfoMaxAttempts = 3;
         public const int MessageSizeReductionValue = 10;
         internal int StopDelayInMs = 20;
 
@@ -907,16 +909,20 @@ namespace MobiFlight
             };
 
             var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
-            var InfoCommand = _cmdMessenger.SendCommand(command);
+
+            // Sometimes first attempt times out, same as for the Config getter.
+            // Seen on the first launch after a Windows cold boot (#3321).
+            ReceivedCommand InfoCommand = null;
+            for (var attempt = 1; attempt <= GetInfoMaxAttempts; attempt++)
+            {
+                InfoCommand = _cmdMessenger.SendCommand(command);
+                if (InfoCommand.Ok) break;
+
+                Log.Instance.log($"GetInfo timed out on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}.", LogSeverity.Debug);
+            }
 
             if (InfoCommand.Ok)
             {
-                // Workaround
-                // the following two lines shall get removed
-                // but at the moment something with the timing during startup is wrong.
-                command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
-                InfoCommand = _cmdMessenger.SendCommand(command);
-
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
                 devInfo.Serial = InfoCommand.ReadStringArg();
