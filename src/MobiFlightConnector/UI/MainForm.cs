@@ -73,6 +73,8 @@ namespace MobiFlight.UI
         // we need this property to control global logging during unit tests
         protected virtual bool LogIsEnabled { get => true; }
 
+
+
         public ExecutionManager ExecutionManager
         {
             get { return execManager; }
@@ -331,6 +333,12 @@ namespace MobiFlight.UI
                 commandProjectToolbarHandler.Handle(message);
             });
 
+            var commandUpdateSettingsHandler = new CommandUpdateSettingsHandler(() => execManager);
+            MessageExchange.Instance.Subscribe<CommandUpdateSettings>((message) =>
+            {
+                commandUpdateSettingsHandler.Handle(message);
+            });
+
             // OnUiThread: SetTitle touches Form.Text.
             MessageExchange.Instance.SubscribeOnUiThread<CommandDiscardChanges>((message) =>
             {
@@ -523,14 +531,12 @@ namespace MobiFlight.UI
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
-#if (!DEBUG)
             try
             {
                 await AutoUpdateChecker.CheckForUpdate(true);
             } catch (Exception ex) {
                 Log.Instance.log($"Error checking for updates: {ex.Message}", LogSeverity.Error);
             }
-#endif
         }
 
         private async void OnFrontendReady(object sender, EventArgs e)
@@ -1223,7 +1229,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
+        public DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
@@ -2613,6 +2619,11 @@ namespace MobiFlight.UI
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
             }
+        }
+
+        public void ShowControllersSettingsDialog()
+        {
+            ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
