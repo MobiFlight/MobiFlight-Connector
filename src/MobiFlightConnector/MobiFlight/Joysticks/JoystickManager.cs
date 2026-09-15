@@ -324,7 +324,7 @@ namespace MobiFlight
                             return;
                         }
 
-                        var joystick = HidControllerFactory.Create(definition);
+                        var joystick = HidControllerFactory.Create(definition, CduHub);
 
                         if (joystick == null) return;
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Joysticks.Cdu.Tests.Mocks;
 
 namespace MobiFlight.Joysticks.Tests
 {
@@ -37,9 +38,28 @@ namespace MobiFlight.Joysticks.Tests
                 InstanceName = "Logitech Switch Panel"
             };
 
-            var controller = HidControllerFactory.Create(definition);
+            var controller = HidControllerFactory.Create(definition, new FakeCduWebsocketHub());
 
             Assert.IsInstanceOfType(controller, typeof(Logitech.SwitchPanel));
+        }
+
+        [TestMethod]
+        public void CanCreate_MozaFcdDisplayInstanceName_ReturnsTrue()
+        {
+            Assert.IsTrue(HidControllerFactory.CanCreate("MOZA FCD Display"));
+        }
+
+        [TestMethod]
+        public void Create_MozaFcdDisplayDefinition_ReturnsMozaMcdu()
+        {
+            var definition = new JoystickDefinition
+            {
+                InstanceName = "MOZA FCD Display"
+            };
+
+            var controller = HidControllerFactory.Create(definition, new FakeCduWebsocketHub());
+
+            Assert.IsInstanceOfType(controller, typeof(Moza.MozaMcdu));
         }
     }
 }
