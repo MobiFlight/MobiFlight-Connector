@@ -60,7 +60,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display(int subModule, String value, byte points, byte mask, bool reverse = false)
+        public void Display(int subModule, String value, byte points, byte mask, bool reverse = false, string controller = null)
         {
             try
             {
@@ -103,14 +103,14 @@ namespace MobiFlight
             command.AddArgument(points);
             command.AddArgument(mask);
 
-            Log.Instance.log($"Command: SetModule <{(int)MobiFlightModule.Command.SetModule},{this.ModuleNumber},{subModule},{value},{points},{mask};>.", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetModule <{(int)MobiFlightModule.Command.SetModule},{this.ModuleNumber},{subModule},{value},{points},{mask};>. Controller={controller}, display={Name}, reverse={reverse}", LogSeverity.Debug);
 
             // Send command
             System.Threading.Thread.Sleep(1);
             CmdMessenger.SendCommand(command);
             }
             catch(Exception ex) {
-                Log.Instance.log($"Exception {ex.Message}", LogSeverity.Debug);
+                Log.Instance.log($"Display failed: controller={controller}, display={Name}, subModule={subModule}: {ex}", LogSeverity.Debug);
             }
         }
 
