@@ -78,6 +78,7 @@ export const calculateInsertionIndex = (
   dropContext: DropContext,
   isCrossConfig: boolean,
   activeId?: string | number,
+  tableContainer?: Element | null,
 ): number => {
   const {
     hoveringOverTab,
@@ -88,24 +89,50 @@ export const calculateInsertionIndex = (
     draggedItems,
   } = dropContext
 
+  // Dropping on tab, placeholder, or table header always inserts at index 0 (top of table)
   if (
     hoveringOverTab ||
     dropOnPlaceholder ||
+    dropTargetItemId === "config-item-table-header" ||
     itemsWithoutDragged.length === 0
   ) {
     return 0
   }
 
+  // Dropping on the table body container below rows inserts at the end of the table
+  if (dropTargetItemId === "config-item-table-body") {
+    return itemsWithoutDragged.length
+  }
+
   const draggedGuid = (activeId as string) || draggedItems[0]?.GUID
+
+  // 1. If we have the table container and this is a same-config drop inside the table,
+  // the DOM order of rows in tbody (reordered dynamically by OptimisticSortingPlugin)
+  // is the exact visual ground truth of where the user positioned the row.
+  if (!isCrossConfig && tableContainer) {
+    const domRows = Array.from(tableContainer.querySelectorAll("tr[dnd-itemid]"))
+    const draggedGuids = new Set(
+      draggedItems.map((item) => item.GUID).concat(draggedGuid ? [draggedGuid] : []),
+    )
+    const firstDraggedDomIndex = domRows.findIndex((row) =>
+      draggedGuids.has(row.getAttribute("dnd-itemid") || ""),
+    )
+
+    if (firstDraggedDomIndex !== -1) {
+      let nonDraggedBefore = 0
+      for (let i = 0; i < firstDraggedDomIndex; i++) {
+        const id = domRows[i].getAttribute("dnd-itemid")
+        if (id && !draggedGuids.has(id)) {
+          nonDraggedBefore++
+        }
+      }
+      return nonDraggedBefore
+    }
+  }
 
   const originalDraggedIndex = currentItems.findIndex(
     (item) => item.GUID === draggedGuid,
   )
-
-  // If dropped on the table body container below rows
-  if (dropTargetItemId === "config-item-table-body") {
-    return itemsWithoutDragged.length
-  }
 
   // If dropped on itself, retain original position
   if (dropTargetItemId === draggedGuid) {
@@ -118,8 +145,6 @@ export const calculateInsertionIndex = (
 
   // If target item not found in filtered list
   if (dropTargetIndex === -1) {
-
-
     return 0
   }
 
@@ -132,29 +157,6 @@ export const calculateInsertionIndex = (
   )
 
   const movingUp = originalDraggedIndex > originalTargetIndex
-  console.log("⬆️ MOVE UP DEBUG", {
-    draggedGuid,
-    dropTargetItemId,
-
-    originalDraggedIndex,
-    originalTargetIndex,
-    dropTargetIndex,
-
-    movingUp: originalDraggedIndex > originalTargetIndex,
-
-    currentItems: currentItems.map((item, index) => ({
-      index,
-      name: item.Name,
-      guid: item.GUID,
-    })),
-
-    itemsWithoutDragged: itemsWithoutDragged.map((item, index) => ({
-      index,
-      name: item.Name,
-      guid: item.GUID,
-    })),
-  })
-
   return movingUp ? dropTargetIndex : dropTargetIndex + 1
 }
 

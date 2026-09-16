@@ -12,13 +12,9 @@ export function ConfigItemDragOverlay() {
     dragState?.ui.isDragging && (dragState?.items.draggedItems?.length ?? 0) > 0
   const isInsideTable = dragState?.ui.isInsideTable ?? true
 
-  if (!isDraggingWithItems) {
-    return null
-  }
-
   return (
-    isDraggingWithItems && (
-      <DragOverlay dropAnimation={null} className="cursor-grabbing">
+    <DragOverlay dropAnimation={null} className="cursor-grabbing">
+      {isDraggingWithItems ? (
         <div>
           {isInsideTable ? (
             <ConfigItemTableDragOverlay 
@@ -36,7 +32,7 @@ export function ConfigItemDragOverlay() {
             />
           )}
         </div>
-      </DragOverlay>
-    )
+      ) : null}
+    </DragOverlay>
   )
 }
