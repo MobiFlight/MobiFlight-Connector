@@ -87,7 +87,7 @@ jobs:
       - uses: repolevedavaj/install-nsis@v1.2.1
         if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         with:
-          nsis-version: '3.03'
+          nsis-version: '3.12'
 
       - name: Create hash
         if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
