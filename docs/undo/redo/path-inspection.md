@@ -1440,3 +1440,438 @@ This distinction should be decided consistently when the Undo/Redo history model
 For Redo, removing only by the previously stored numeric index may not always be sufficient if the profile collection has changed since the original action.
 
 In a standard linear Undo/Redo model this risk is reduced because performing a new action after Undo normally clears the Redo history, but the assumption should still be documented.
+
+## Add Profile
+
+### Flow
+
+When the user selects Add new profile from `AddProfileTabMenu`, `ProjectPanel` executes `addConfigFile`.
+
+`addConfigFile` publishes a `CommandAddConfigFile` message containing:
+
+- the type `"create"`
+- the default profile label
+
+The frontend does not create the `ConfigFile` itself.
+
+`MainForm` receives `CommandAddConfigFile` through `MessageExchange`.
+
+For the `create` type, `MainForm` calls `AddNewFileToProject`.
+
+`AddNewFileToProject` first stops the current execution through `execManager.Stop`.
+
+It then creates a new profile using `CreateDefaultConfigFile`.
+
+The default profile is created as a new `ConfigFile` with:
+
+```
+Label = "New file"
+EmbedContent = true
+```
+
+If a label was provided by the frontend, the default label is replaced with the supplied value.
+
+The new `ConfigFile` is then appended to the end of `Project.ConfigFile`s.
+
+`Project.ConfigFiles `is an `ObservableCollection<ConfigFile>`.
+
+Adding the new profile therefore raises the collection change event in `Project`, which invokes `OnProjectChanged`.
+
+`ExecutionManager` forwards the project change and its project-change handler:
+
+- resets `ActiveConfigIndex` to `0`
+- rebuilds the input event executors through `InitInputEventExecutor`
+- publishes the updated `Project`
+
+After the new profile has been added, `AddNewFileToProject` calls `ProjectOrConfigFileHasChanged`, which marks the project as containing unsaved changes.
+
+It also invokes `ProjectLoaded`.
+
+The existing `ProjectLoaded` handler stops execution and publishes the project to the frontend.
+
+The frontend receives the updated `Project` and replaces the current project state in the frontend project store.
+
+After sending the create command, `ProjectPanel` also schedules the newly created profile to become the active profile.
+
+Because the profile is appended to the collection, the previous `ConfigFiles.length` corresponds to the index of the new profile.
+
+The frontend therefore updates `activeConfigFileIndex` to that index.
+
+The active profile change is then sent back to the backend through `CommandActiveConfigFile`.
+
+The project state is persisted to disk only when the user explicitly saves the project.
+
+### State before
+
+- The project contains an existing `Project.ConfigFiles` collection
+- The collection contains a specific number of profiles
+- A specific profile is currently active
+
+### State after
+
+- A new `ConfigFile` exists at the end of `Project.ConfigFiles`
+- The new profile has the supplied default label
+- `EmbedContent` is enabled on the new profile
+- The new profile initially contains no config items
+- The project contains one additional profile
+- The newly created profile becomes the active profile
+- The project is marked as containing unsaved changes
+
+### Required for Undo
+
+Undo has to remove the profile created by the Add Profile action.
+
+The required restore data should therefore include:
+
+- Crated `ConfigFile`
+- Insertion index
+
+Because the current implementation always appends the new profile, the insertion index is the previous size of `Project.ConfigFiles`.
+
+The previous active profile/index may also need to be preserved if Undo is expected to restore the exact user-visible state.
+
+### State owner
+
+- The created profile is owned by the backend project state
+- The frontend receives the updated complete `Project`
+- The active profile state exists in both frontend and backend and is synchronized through `CommandActiveConfigFile`
+
+### Persistence
+
+- Par of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Create / Delete
+
+### Observation
+
+Add Profile changes the structure of `Project.ConfigFiles` by creating and appending a new `ConfigFile`.
+
+For example:
+
+```
+Before:
+[A, B] 
+
+Add Profile
+
+After:
+[A, B, C]
+```
+
+The inverse operation is therefore structurally similar to Remove Profile.
+
+Undo can remove the `ConfigFile` that was created by the original action.
+
+Unlike Config Items, `ConfigFile` currently has no dedicated GUID or other stable profile identifier.
+
+This means that an Undo implementation should not assume that a numeric index alone is always sufficient to identify the originally created profile.
+
+Preserving the created `ConfigFile` together with its insertion index provides a clearer representation of the original action.
+
+For an exact Redo, recreating the action by calling `AddNewFileToProject` again is not necessarily equivalent to restoring the original result.
+
+Calling the create path again constructs a new `ConfigFile`.
+
+A more deterministic Redo can instead preserve the created profile state and restore the same state at the original insertion position.
+
+Add Profile also has side effects beyond the collection mutation.
+
+Because `Project.ConfigFiles` is observable, adding the profile triggers the project change path.
+
+This resets the backend `ActiveConfigIndex`, rebuilds the input event executors, and publishes the project.
+
+The frontend then explicitly selects the newly created profile and sends that selection back through `CommandActiveConfigFile`.
+
+Execution is also stopped as part of the Add Profile path.
+
+These runtime and selection effects are separate from the persisted structural change but should be considered when implementing the inverse operation.
+
+The active profile raises the same Undo policy question as Remove Profile.
+
+For example:
+
+```
+Before:
+A <- active
+B
+
+Add C
+
+After:
+A
+B
+C <- active
+```
+
+Undo could either:
+
+- remove C while leaving the currently selected profile unchanged where possible
+- or remove C and restore the profile that was active before the Add action
+
+The first option restores only the persisted project structure.
+
+The second option restores the complete user-visible state.
+
+The same policy should be applied consistently to both Add Profile and Remove Profile.
+
+## Project Settings
+
+### Flow
+
+Project Settings can be opened from either the project card on the dashboard or the project menu in the config view.
+
+Both entry points use `useProjectModal` with `mode`: `"edit"` and navigate to the `/project/edit` modal route.
+
+`ProjectFormModal` opens `ProjectForm` using the current `ProjectInfo`.
+
+The form initializes local frontend state for:
+
+- Project name
+- Simulator
+- FSUIPC feature
+- ProSim feature
+- Aircraft selection
+- 
+Changes made inside the form modify only this temporary React state.
+
+The backend project is not modified while the user is editing the form.
+
+Changing the simulator also resets related temporary state.
+
+The selected simulator can reset the FSUIPC and ProSim options and replaces the current aircraft selection with the default aircraft list for the newly selected simulator.
+
+Aircraft selection is also maintained only as local form state until the form is submitted.
+
+If the user presses Cancel, the dialog closes without publishing a backend mutation command.
+
+The change is committed when the user presses Update or submits the form using Enter.
+
+Before submitting, `ProjectForm` validates and trims the project name and normalizes the feature settings based on the selected simulator.
+
+The final submitted settings contain:
+
+```
+Name
+Sim
+Features
+    FSUIPC
+    ProSim
+Aircraft
+```
+
+`ProjectFormModal` then publishes a `CommandMainMenu` message with:
+
+```
+action = "project.edit"
+options.project = submitted settings
+```
+
+`CommandMainMenuHandler` receives the command and forwards it to `MainForm.updateProjectSettings`.
+
+The backend does not replace the complete `Project` object.
+
+Instead, it updates the existing project properties individually:
+
+```
+execManager.Project.Name = project.Name;
+execManager.Project.Sim = project.Sim;
+execManager.Project.Features = project.Features;
+execManager.Project.Aircraft = project.Aircraft;
+```
+
+These property changes can trigger the project-change path.
+
+`ExecutionManager` reacts to project changes by resetting the active config index, rebuilding the input event executors, and publishing the updated project.
+
+`MainForm` also reacts to project changes through `ExecManager_OnProjectChanged`, which calls `ProjectOrConfigFileHasChanged`.
+
+This temporarily marks the project as containing unsaved changes and refreshes related project-dependent state.
+
+After all project settings have been assigned, `updateProjectSettings` immediately calls `saveToolStripButton_Click`.
+
+For an already saved project, this writes the updated project to disk through `SaveConfig`.
+
+After the save completes, the project is published again and the unsaved project state is reset.
+
+If the project does not yet have a file path, the normal Save As flow is triggered instead.
+
+### State before
+
+The project contains a previous Project Settings state:
+
+```
+Name = previous name
+Sim = previous simulator
+Features.FSUIPC = previous value
+Features.ProSim = previous value
+Aircraft = previous aircraft list
+```
+
+Other project state such as:
+
+```
+ConfigFiles
+ControllerBindings
+FilePath
+```
+
+is not directly modified by this form submission.
+
+### State after
+
+The same backend `Project` object still exists.
+
+The following properties contain the submitted values:
+
+```
+Name = new name
+Sim = new simulator
+Features.FSUIPC = new value
+Features.ProSim = new value
+Aircraft = new aircraft list
+```
+
+The project's config files remain unchanged.
+
+For an already persisted project, the updated settings are also written to disk immediately as part of the same user interaction.
+
+### Required for Undo
+
+Undo should restore the complete previous Project Settings state.
+
+The required restore data is:
+
+- Previous `Name`
+- Previous `Sim`
+- Previous `Features`
+  + `FSUIPC`
+  + `ProSim`
+- Previous `Aircraft`
+
+For Redo, the resulting settings should also be preserved:
+
+- New `Name`
+- New `Sim`
+- New `Features`
+- New `Aircraft`
+
+The complete `Project` does not necessarily need to be stored because the
+action modifies only the Project Settings subset.
+
+A conceptual history entry could therefore preserve:
+
+```
+Before Project Settings
+After Project Settings
+```
+
+rather than a complete project snapshot.
+
+### State owner
+
+- Temporary form state is owned by the React frontend
+- The committed Project Settings state is owned by the backend `Project`
+- The frontend is synchronized by publishing the updated `Project`
+- Disk persistence is handled by the backend save path
+
+### Persistence
+
+- Project-persisted
+- For an existing saved project, the form submit normally triggers an immediate project save
+- For a project without a file path, the Save As flow is triggered
+- If Save As is cancelled, the settings can remain changed in memory while the project remains unsaved
+
+### Cluster
+
+- Compound / Form Edit
+
+### Observation
+
+Project Settings is a compound edit rather than a simple property update.
+
+A single user-confirmed action can modify several related project properties:
+
+```
+Name
+Simulator
+FSUIPC
+ProSim
+Aircraft
+```
+
+The semantic operation is therefore closer to:
+
+```
+Before Project Settings
+↓
+Multiple temporary edits
+↓
+Update
+↓
+After Project Settings
+
+```
+
+than to several independent property changes.
+
+For Undo history purposes, one successful form submission should therefore be treated as one history entry.
+
+Individual changes made while the form is open should not create separate history entries.
+
+Cancel should not create an Undo entry because no backend mutation has occurred.
+
+Changing the simulator has additional compound effects inside the form.
+
+Selecting another simulator resets feature options and also replaces the temporary aircraft selection with simulator-specific defaults.
+
+The final submitted feature state is also normalized before the backend command is sent.
+
+This means Undo should restore the actual committed previous settings rather than attempting to reverse individual UI interactions that occurred inside the form.
+
+Project Settings also differs from most previously inspected configuration actions because submitting the form immediately triggers the project save path.
+
+The effective flow for an existing saved project is:
+
+```
+Edit Settings
+↓
+Commit backend state
+↓
+Project becomes dirty
+↓
+Save project immediately
+↓
+Project becomes clean again
+
+```
+
+This creates an important Undo design question.
+
+If Undo restores only the previous settings in memory, the disk state may still contain the settings produced by the original Project Settings action.
+
+An implementation must therefore decide whether Undo should:
+
+```
+A. Restore the previous settings and immediately persist them
+
+or
+
+B. Restore the previous settings in memory and leave the project dirty until the user saves manually
+```
+
+The first option mirrors the current Project Settings persistence behavior.
+
+The second option is closer to the behavior of other configuration Undo operations.
+
+This policy should be decided at the architecture level rather than inside the individual Project Settings action.
+
+The current form also does not appear to perform a semantic comparison between the original settings and the submitted settings before publishing `project.edit`.
+
+Therefore, pressing Update without making a meaningful change can still follow the backend update and save path.
+
+Undo history should preferably create an entry only if the resulting committed Project Settings state differs from the previous state.
+
+Project Settings is therefore a useful example for evaluating a snapshot-style restore model, because multiple related properties can be captured and restored as one contained settings state.

@@ -268,6 +268,7 @@ Add Config Item
 Edit Config Item
 Rename Profile
 Remove Profile
+Add Profile
 Project Settings
 Application Settings
 ```
