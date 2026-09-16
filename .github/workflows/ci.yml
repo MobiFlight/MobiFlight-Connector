@@ -2,6 +2,17 @@ name: CI Pipeline
 
 on:
   workflow_dispatch:
+    inputs:
+      event_type_override:
+        type: string
+        description: 'Allows to override the event type that is used for the workflow'
+        required: false
+        default: 'NOT_SET'
+      version_override:
+        type: string
+        description: 'Allows to override the version that is used for the workflow'
+        required: false
+        default: ''
   pull_request:
     branches: [main, hotfix/*]
   release:
@@ -12,8 +23,11 @@ env:
   INSTALLER_SOLUTION_FILE_PATH: MobiFlightInstaller.sln
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x86
-  VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number) }}
   INSTALLER_OUTPUT: dist/MobiFlightInstaller
+  VERSION: ${{ github.event.inputs.version_override || (github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number)) }}
+
+  # Map the CLI input to a standard environment variable
+  EVENT_TYPE_OVERRIDE: ${{ github.event.inputs.event_type_override }}
 
 jobs:
   build:
@@ -62,7 +76,7 @@ jobs:
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}.zip ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}/*.* -r
 
       - name: store latest setup file
-        if: github.event_name != 'release'
+        if: github.event_name != 'release' && env.EVENT_TYPE_OVERRIDE != 'release'
         uses: actions/upload-artifact@v7
         with:
           name: MobiFlightConnector
@@ -71,17 +85,17 @@ jobs:
 
       # Only run the following steps if this is a release event
       - uses: repolevedavaj/install-nsis@v1.2.1
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         with:
           nsis-version: '3.04'
 
       - name: Create hash
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         shell: pwsh
         run: (Get-FileHash dist/MobiFlightConnector-${{ env.VERSION }}.zip -Algorithm SHA1).Hash | Out-File dist/MobiFlightConnector-${{ env.VERSION }}.sha1
 
       - name: Create setup exe
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         uses: joncloud/makensis-action@v4
         with:
           script-file: ./Build/setup.nsi
