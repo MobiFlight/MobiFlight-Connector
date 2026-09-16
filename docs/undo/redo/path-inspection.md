@@ -1159,3 +1159,118 @@ Redo restores `After`.
 The implementation must still preserve the action-specific side effects and synchronization behavior of the original edit path.
 
 Cancel, or confirming the Output Config Wizard without an actual change, does not modify project state and should therefore not create an Undo/Redo history entry.
+
+## Rename Profile
+
+### Flow
+
+When the user renames a profile, the interaction starts from the `InlineEditLabel` inside `ProfileTab`.
+
+Rename mode can be entered either by double-clicking the profile label or by selecting Rename from `ProfileTabContextMenu`.
+
+The context menu itself does not modify the profile. It only calls `startEditing()` on the `InlineEditLabel`.
+
+While the user is editing the name, the new value is stored only in the local `tempValue` state of `InlineEditLabel`.
+
+The project state is therefore not modified while the user is typing.
+
+If the user presses Escape, the temporary value is reset to the current label and no command is published.
+
+The rename is confirmed when the input loses focus or the user presses Enter.
+
+`InlineEditLabel` only calls its `onSave` callback if the entered value differs from teh current value.
+
+`ProfileTab.onSave` first updates `optimisticLabel` so that the new name is immediately visible in the frontend.
+
+It then publishes a `CommandFileContextMenu` message containing:
+
+- the action `"rename"`
+- the profile index
+- a copy of the `ConfigFile` with the new `Label`
+
+`ExexutionManager` receives the command through `MessageExchange`.
+
+The handler retrieves the corresponding `ConfigFile` from `Project.ConfigFiles` using the supplied index.
+
+For the rename action, the backend changes only the `Label` property:
+
+```
+file.Label = message. File.Label;
+```
+
+The `ConfigFile` remains in the same collection and its contained config items are not modified.
+
+After the backend state has been updated, `ExecutionManager` publishes the complete `Project`.
+
+The frontend receives the `Project` message through `useBackendStateAppMessages` and replaces the current project state in the project store.
+
+`ExecutionManager` then invokes `OnConfigHasChanged`.
+
+The change is therefore marked as an unsaved project change. It is written to disk only when the user explicitly saves the project.
+
+### State before
+
+- The profile exists in `Project.ConfigFiles`
+- The profile has a specific position in the collection
+- `ConfigFile.Label = old label`
+
+### State after
+
+- The same profile still exists in `Project.ConfigFiles`
+- Its position in the collection remains unchanged
+- Its contained config items remain unchanged
+- `ConfigFile.Label = new label`
+
+### Required for Undo
+
+- Profile identification
+- Previous `Label`
+
+With the current implementation, the profile is addressed by its index in `Project.ConfigFiles`.
+
+For Redo, the new `Label` also has to be preserved.
+
+### State owner
+
+- Temporary edit state is owned by `InlineEditLabel` in the frontend
+- `ProfileTab` temporarily displays the committed name through `optimisticLabel`
+- The committed project state is owned by the backend
+- The frontend is synchronized by publishing the complete `Project`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Simple Property Update
+
+### Observation
+
+Rename Profile has the same general mutation pattern as Rename Config Item:
+
+```
+Before: Label = old value
+After: Label = new value
+```
+
+Only one property of an existing object changes.
+
+The profile itself remains in the same `Project.ConfigFiles` collection and its contained configuration is not modified.
+
+The editing phase is temporary frontend state and should not create Undo history entries.
+
+A history entry should only be created when the rename is successfully committed with a value different from the current label.
+
+Pressing Escape or confirming the unchanged label does not modify project state and should therefore not create an Undo/Redo history entry.
+
+The current command identifies the profile using its collection index.
+
+This is sufficient for the immediate rename operation, but using only the stored index for a later Undo may require additional consideration.
+
+If profiles can be added, removed, or reordered between the original action and its reversal, the same index may no longer refer to the same profile.
+
+Before using the index as persistent Undo restore data, the profile identity model should therefore be inspected together with Add Profile and Remove Profile.
+
+For an exact Redo, the resulting new label should be preserved in addition to the previous label.
