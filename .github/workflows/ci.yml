@@ -76,7 +76,7 @@ jobs:
           & "${{ github.workspace }}\Build\utils\7z\7z.exe" a ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}.zip ${{ github.workspace }}/dist/MobiFlightConnector-${{ env.VERSION }}/*.* -r
 
       - name: store latest setup file
-        if: github.event_name != 'release' && env.EVENT_TYPE_OVERRIDE != 'release'
+        if: github.event_name != 'release'
         uses: actions/upload-artifact@v7
         with:
           name: MobiFlightConnector
@@ -100,6 +100,14 @@ jobs:
         with:
           script-file: ./Build/setup.nsi
           arguments: "/V3"
+
+      - name: store latest NSIS setup file
+        if: env.EVENT_TYPE_OVERRIDE == 'release'
+        uses: actions/upload-artifact@v7
+        with:
+          name: MobiFlight-Setup
+          path: |
+            Build/MobiFlight-Setup.exe
 
       - name: Upload release assets
         if: github.event_name == 'release'
