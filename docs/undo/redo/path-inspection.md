@@ -939,3 +939,108 @@ The Add operation also has a frontend follow-up step that is separate from the b
 After the new item has been synchronized back to the frontend, the frontend automatically selects the item and opens the corresponding editor.
 
 This editor-opening behavior is UI/navigation state, while the creation of the config item itself is project state.
+
+## Edit Input Config Item
+
+### Flow
+
+When the user opens an Input Config Item for editing, `ConfigItemTableActionsCell` navigates to `/config/{GUID}`.
+
+`InputConfigDialog` retrieves the corresponding config item from the frontend project stroe by its GUID.
+
+The dialog keeps two local veersions of the config item:
+
+- `draftConfigItem`
+- `committtedConfigItem`
+
+Changes made through `ConfigWizard` or the inline name editor modify only the draft config item.
+
+While the user is editing the dialog, the backend project state is not modified.
+
+If the user cancels the dialog, the dialog is closed without publishing an update command and the draft changes are discarded.
+
+When the user applies the changes, `InputConfigDialog` first calls `resetTriggersBasedOnDeviceType`.
+
+Depending on the selected input device type, trigger configurations that are not applicable to the selected device are removed from the final config item.
+
+The complete resulting config item is then sent to the backend through `CommandUpdateConfigItem`.
+
+`ExecutionManager` receives the command through `MessageExchange` and passes the item to `HandleCommandUpdateConfigItem`.
+
+The handler searches the current `ConfigItems` collection for the existing item by GUID and replaces the complete item at the same index.
+
+After the backend state has been updated, `ExecutionManager` publishes a `ConfigValuePartialUpdate` containing the modified config item.
+
+The frontend receives the partial update and synchronizes the corresponding item in the project store.
+
+`ExecutionManager` then calls `OnInputConfigSettingsChanged`, which rebuilds the input-event related state, and invokes `OnConfigHasChanged`.
+
+The change is therefore marked as an unsaved project change. It is written to disk only when the user explicitly saves the project.
+
+### State before
+
+- The Input Config Item exists in `ConfigItems`
+- The item has a specific GUID
+- The item contains the previously committed input configuration
+- The item has a specific position in the collection
+
+### State after
+
+- The same Input Config Item still exists
+- The GUID remains unchanged
+- The position in the collection remains unchanged
+- One or more properties of the complete config item may have changed
+- Trigger configurations incompatible with the selected device type may have been removed
+
+### Required for Undo
+
+Because several properties and nested configuration objects can be changed in one editing session, restoring only individual property values would not be sufficient in the general case.
+
+Undo should therefore preserce:
+
+- Config item GUID
+- Previous complete `InputConfigItem`
+
+The previous item can then replace the edited item at the same position.
+
+### State owner
+
+- Temporary edit state is owned by `InputConfigDialog` in the frontend
+- The committed project state is owned by the backend
+- The committed state is synchronized back to the frontend through `ConfigValuePartialUpdate`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Compound Edit / Replace Config Item
+
+### Observation
+
+Edit Input Config Item differs from Toggle Active and Rename because on user action may modify several properties and nested configuration objects at once.
+
+The dialog acts as a transaction boundary.
+
+Changes made while the dialog is open are only temporary draft state. The project state changes only when the user presses Apply Changes.
+
+Therefore, one successful Apply operation should normally correspond to one Undo/Redo history entry, regardless of how many individual fields were modified inside the dialog.
+
+From the Undo perspective, storing the complete previous `InputConfigItem` is safer than trying to reconstruct every changed property individually.
+
+Undo and Redo also have to reproduce the same input configuration side effect as the original operation.
+
+In particular, restoring or reapplying an Input Config Item must ensure that the input-event state is refreshed in the same way as `OnInputConfigSettingsChanged`.
+
+For Redo, the complete resulting `InputConfigItem` after the original Apply operation can be preserved together with the previous item.
+
+This produces a natural before/after representation:
+
+```
+Before: previous InputConfigItem
+After: edited InputConfigItem
+```
+
+Cancel does not modify project state and should therefore not create an Undo/Redo history entry.
