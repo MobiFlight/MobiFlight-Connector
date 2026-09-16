@@ -1479,6 +1479,7 @@ namespace MobiFlight
                 catch (Exception ex)
                 {
                     Log.Instance.log($"Error during input event execution: {ex.Message} - {msgEventLabel}", LogSeverity.Error);
+                    Log.Instance.log($"Input event exception - {msgEventLabel}: {ex}", LogSeverity.Debug);
                 }
             }
 

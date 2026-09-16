@@ -180,6 +180,12 @@ namespace MobiFlight.Execution
                     try
                     {
                         ExecuteDisplay(processedValue.ToString(), cfg);
+                        if (Log.Instance.Severity == LogSeverity.Debug && cfg.Source is ProSimSource source &&
+                            cfg.Device is LedModule display &&
+                            (originalCfg.RawValue != cfg.RawValue || originalCfg.Value != cfg.Value))
+                        {
+                            Log.Instance.log($"ProSim display output: config={cfg.Name} ({cfg.GUID}), path={source.ProSimDataRef.Path}, raw=[{cfg.RawValue}], transformed=[{cfg.Value}], output=[{processedValue}], controller={cfg.Controller?.Name} ({cfg.Controller?.Serial}), display={display.DisplayLedAddress}, connector={display.DisplayLedConnector}", LogSeverity.Debug);
+                        }
                     }
                     catch (JoystickNotConnectedException jEx)
                     {
