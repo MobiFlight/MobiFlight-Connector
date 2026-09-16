@@ -1044,3 +1044,118 @@ After: edited InputConfigItem
 ```
 
 Cancel does not modify project state and should therefore not create an Undo/Redo history entry.
+
+## Edit Output Config Item
+
+### Flow
+
+When the user opens an Output Config Item for editing, `ConfigItemTableActionsCell` publishes a `CommandConfigContextMenu` message with the action `"edit"` and the selected config item.
+
+`MainForm` receives the command through `MessageExchange`.
+
+For an Output Config Item, `MainForm` calls `OpenOutputConfigWizardForId` with the item's GUID.
+
+The method retrieves the corresponding item from `ExecutionManager.ConfigItems` and opens the existing WinForms `ConfigWizard`.
+
+When the wiard is initialized, it creates a clone of the original `OutputConfigItem`.
+
+The user therefore edits the cloned config item instead of directly modifying the item stored in the backend project state.
+
+The original config item is retained so that `ConfigWizard` can determine whether the configuration has changed.
+
+If the user cancels the wizard, the cloned configuration is discarded and the backend project state remains unchanged.
+
+If the user confirms the wizard with OK, the wizard synchronizes the current form values into the cloned config item.
+
+`MainForm` then checks `ConfigHasChanged`.
+
+If the config has changed, it searches `ExecutionManager.ConfigItems` for the original item by GUID.
+
+The existing item is replaced at the same index with the edited `wizard.Config`.
+
+`MainForm` then publishes a `ConfigValuePartialUpdate` containing the modified Output Config Item.
+
+The frontend receives the partial update and synchronizes the corresponding item in the project store.
+
+Finally, `MainForm` calls `OnConfigItemHasChanged`, which marks the project as containing unsaved changes.
+
+The change is written to disk only when the user explicitly saves the project.
+
+### State before
+
+- The Output Config Item exists in `ConfigItems`
+- The item has a specific GUID
+- The item contains the previously committed output configuration
+- The item has a specific position in the collection
+
+### State after
+
+- The same Output Config Item still exists
+- The GUID remains unchanged
+- The position in the collection remains unchanged
+- One or more properties or nested configuration objects may have changed
+- The original item has been replaced by the edited clone
+
+### Required for Undo
+
+Because the Output Config Wizard can modify several properties and nested configuration objects in a single editing session, Undo should preserve:
+
+- Config item GUID
+- Previous complete `OutputConfigItem`
+
+The previous item can then replace the edited item at the same position.
+
+### State owner
+
+- The committed project state is owned by the backend
+- Temporary edit state is held by the cloned `OutputConfigItem` inside the WinForms `ConfigWizard`
+- The resulting committed state is synchronized to the frontend through `ConfigValuePartialUpdate`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Compound Edit / Replace Config Item
+
+### Observation
+
+Edit Output Config Item has the same high-level state transition as Edit Input Config Item:
+
+```
+Before: previous ConfigItem
+After: edited ConfigItem
+```
+
+In both cases, the existing config item keeps its GUID and collection position but its complete configuration may be replaced.
+
+However, the two actions currently use different editing and commit paths.
+
+Input Config Items are edited in the React frontend and committed through `CommandUpdateConfigItem`.
+
+Output Config Items are edited through the WinForms `ConfigWizard`, and `MainForm` directly replaces the item in `ExecutionManager.ConfigItems`.
+
+The temporary edit models are also different.
+
+For Input Config Items, the dialog maintains a frontend draft.
+
+For Out Config Items, `ConfigWizard` creates and modifies a cloned `OutputConfigItem`.
+
+Despite these implementation differences, both actions can potentially use the same Undo/Redo concept: replacing one complete config item state with another.
+
+A history entry could therefore preserve both versions:
+
+```
+Before: previous ConfigItem
+After: edited ConfigItem
+```
+
+Undo restores `Before`.
+
+Redo restores `After`.
+
+The implementation must still preserve the action-specific side effects and synchronization behavior of the original edit path.
+
+Cancel, or confirming the Output Config Wizard without an actual change, does not modify project state and should therefore not create an Undo/Redo history entry.
