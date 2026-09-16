@@ -1274,3 +1274,169 @@ If profiles can be added, removed, or reordered between the original action and 
 Before using the index as persistent Undo restore data, the profile identity model should therefore be inspected together with Add Profile and Remove Profile.
 
 For an exact Redo, the resulting new label should be preserved in addition to the previous label.
+
+## Remove Profile
+
+### Flow
+
+When the user selects Remove from the profile tab context menu, `ProfileTabContextMenu` publishes a `CommandFileContextMenu` message containing:
+
+- the action `"remove"`
+- the profile index
+- the corresponding `ConfigFile`
+
+Unlike Rename Profile, there is no temporary editing phase before the command is published.
+
+`ExecutionManager` receives the command through `MessageExchange`.
+
+The handler first validates the supplied profile index and retrieves the corresponding `ConfigFile` from `Project.ConfigFiles`.
+
+For the remove action, the profile is removed from the project collection using:
+
+```
+Project.ConfigFiles.RemoveAt(message.Index);
+```
+
+This removes the complete `ConfigFile`, including all config items contained inside it.
+
+`Project.ConfigFiles` is an `ObservableCollection<ConfigFile>`.
+
+Removing the profile therefore raises the collection change event in `Project`, which invokes `OnProjectChanged`.
+
+`ExecutionManager` forwards this event through its `OnProjectChanged` event.
+
+Its project-change handler then:
+
+- resets `ActiveConfigIndex` to `0`
+- rebuilds the input event executors through `InitInputEventExecutor`
+- publishes the updated `Project`
+
+After the remove branch completes, the `CommandFileContextMenu` handler also publishes the current `Project` and invokes `OnConfigHasChanged`.
+
+The frontend receives the project update through `useBackendStateAppMessages` and replaces the project stored in the frontend project store.
+
+`ProjectPanel` then checks whether the current frontend `activeConfigFileIndex` is still valid.
+
+If the previous active index is outside the bounds of the remaining profile collection, it is changed to the last available profile index.
+
+Changes to the frontend active profile index are subsequently sent back to the backend through `CommandActiveConfigFile`.
+
+The project is marked as containing unsaved changes and is persisted to disk only when the user explicitly saves the project.
+
+### State before
+
+- The profile exists in `Project.ConfigFiles`
+- The profile has a specific position in the collection
+- The profile contains a complete `ConfigFile`
+- The `ConfigFile` may contain multiple Input and Output Config Items
+- A profile is currently selected through the active profile index
+
+### State after
+
+- The removed `ConfigFile` no longer exists in `Project.ConfigFiles`
+- All config items belonging to the removed profile disappear with it
+- Profiles after the removed profile shift to a lower collection index
+- The backend active config index is reset as part of the project-change path
+- The frontend active profile index may also be adjusted if its previous value is no longer valid
+
+### Rquired for Undo
+
+Undo has to restore the complete removed profile and its original position.
+
+Therefore, the minimum restore data is:
+
+- Removed `ConfigFile`
+- Original index in `Project.ConfigFiles`.
+
+Conceptually, Undo can restore the profile by inserting the stored `ConfigFile` at its previous index.
+
+The previous active profile state may also need to be preserved if Undo is expected to restore the exact user-visible state in addition to the persisted project structure.
+
+### State owner
+
+- The profile collection is owned by the backend project state
+- The frontend receives the updated complete `Project`
+- The active profile state exists in both frontend and backend and is synchronized through `CommandActiveConfigFile`
+
+### Persistence
+
+- Part of the project state
+- Persisted to disk after an explicit save
+
+### Cluster
+
+- Create / Delete
+
+### Observation
+
+Remove Profile changes the structure of `Project.ConfigFiles` rather than a property of an existing profile.
+
+The action therefore has the same general inverse pattern as deleting a config item:
+
+```
+Before:
+[A, B, C]
+
+Remove B
+
+After:
+[A, C]
+```
+
+Undo must restore both the removed object and its original position:
+
+```
+Removed object: B
+Original index: 1
+```
+
+Restoring only the profile context without restoring its original index would not reproduce the exact previous project structure.
+
+The removed `ConfigFile` itself contains all of its config items, so preserving the complete `ConfigFile` also preserves the configuration contained in the profile.
+
+`ConfigFile` currently has no dedicated GUID or other stable profile identity. Profiles are primarily addressd by their position in `Project.ConfigFiles`.
+
+For Delete Undo this is less problematic because the complete removed object can be stored together with its original index.
+
+However, profile identity and index stability should still be considered when designing Redo or when combining profile actions with other structural project changes.
+
+Remove Profile also has important side effects beyond the collection removal.
+
+Because `Project.ConfigFiles` is observable, `RemoveAt` triggers the project change path.
+
+This currently causes `ExecutionManager` to reset `ActiveConfigIndex`, reinitialize the input event executors, and publish the project.
+
+The `CommandFileContextMenu` handler then also publishes the project after the remove action.
+
+An Undo implementation should therefore not treat profile restoration as only as isolated collection insertion.
+
+It should also ensure that the same project-related runtime state is refreshed appropriately after the profile is restored.
+
+The active profile introduces an additional question for the Undo model.
+
+For example:
+
+```
+Before:
+
+Profile A
+Profile B <- active
+Profile C
+
+Remove Profile B
+```
+
+Undoing the removal could either:
+
+- restore Profile B without changing the currently active profile
+- or restore Profile B and also restore the previously active profile state
+
+The first option restores only persisted project data.
+
+The second option restores the complete user-visible state of the action.
+
+This distinction should be decided consistently when the Undo/Redo history model is designed.
+
+For Redo, removing only by the previously stored numeric index may not always be sufficient if the profile collection has changed since the original action.
+
+In a standard linear Undo/Redo model this risk is reduced because performing a new action after Undo normally clears the Redo history, but the assumption should still be documented.
