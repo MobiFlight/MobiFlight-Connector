@@ -400,6 +400,15 @@ test.describe("Log panel - Toolbar tests", () => {
     await expect(item("Info")).toHaveAttribute("data-disabled")
     await expect(item("Warn")).not.toHaveAttribute("data-disabled")
     await expect(item("Error")).not.toHaveAttribute("data-disabled")
+
+    // disabled levels explain why and offer no "Only" shortcut
+    await expect(item("Debug")).toHaveAttribute(
+      "title",
+      "Hidden by the log level in settings",
+    )
+    await expect(
+      item("Debug").getByRole("button", { name: "Only" }),
+    ).toHaveCount(0)
   })
 
   test("Log panel preserves consecutive spaces in log messages", async ({

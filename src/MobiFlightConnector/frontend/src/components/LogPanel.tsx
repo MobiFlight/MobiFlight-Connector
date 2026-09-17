@@ -245,23 +245,30 @@ const LogPanel = () => {
                       // keep the menu open so several levels can be toggled
                       onSelect={(e) => e.preventDefault()}
                       onCheckedChange={() => toggleLevel(level)}
-                      className="group cursor-pointer"
+                      className={cn(
+                        "group cursor-pointer",
+                        // keep pointer events so the tooltip shows; Radix
+                        // still ignores selection on disabled items
+                        "data-disabled:pointer-events-auto data-disabled:cursor-not-allowed",
+                      )}
                     >
                       <span className={cn("grow", SEVERITY_CLASS[level])}>
                         {levelLabel(level)}
                       </span>
-                      <button
-                        type="button"
-                        className="text-muted-foreground hover:text-foreground ml-4 cursor-pointer text-xs opacity-0 group-hover:opacity-100 group-focus:opacity-100"
-                        onClick={(e) => {
-                          // don't let the row toggle its own checkbox
-                          e.preventDefault()
-                          e.stopPropagation()
-                          setVisibleLevels([level])
-                        }}
-                      >
-                        {t("LogPanel.Filter.Only")}
-                      </button>
+                      {!blockedBySettings && (
+                        <button
+                          type="button"
+                          className="text-muted-foreground hover:text-foreground ml-4 cursor-pointer text-xs opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+                          onClick={(e) => {
+                            // don't let the row toggle its own checkbox
+                            e.preventDefault()
+                            e.stopPropagation()
+                            setVisibleLevels([level])
+                          }}
+                        >
+                          {t("LogPanel.Filter.Only")}
+                        </button>
+                      )}
                     </DropdownMenuCheckboxItem>
                   )
                 })}
