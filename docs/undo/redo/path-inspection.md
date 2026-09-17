@@ -1875,3 +1875,333 @@ Therefore, pressing Update without making a meaningful change can still follow t
 Undo history should preferably create an entry only if the resulting committed Project Settings state differs from the previous state.
 
 Project Settings is therefore a useful example for evaluating a snapshot-style restore model, because multiple related properties can be captured and restored as one contained settings state.
+
+## Application(Global) Settings
+
+### Flow
+
+Application Settings can be opened from the React main menu through:
+
+```
+Extras
+↓
+Settings
+```
+
+The frontend publishes a `CommandMainMenu` message containing:
+
+```
+action = "extras.settings"
+```
+
+`CommandMainMenuHandler` forwards the command to `MainForm.settingsToolStripMenuItem_Click`.
+
+`MainForm` then opens the native WinForms `SettingsDialog`.
+
+The settings dialog loads the current application settings into its individual settings panels.
+
+The relevant settings panels include:
+
+```
+Generla
+MobiFlight
+Joystick / MIDI
+ProSim
+```
+
+The settings are primarily loaded from:
+
+```
+Properties.Settings.Default
+```
+
+The values displayed in the WinForms controls therefore represent temporary dialog state while the user is editing the settings.
+
+Changing controls inside the dialog does not normally persist the corresponding application settings immediately.
+
+The General panel contains application-wide preferences such as:
+
+```
+RecentFilesMaxCound
+TestTimerInterval
+PollInterval
+LogEnabled
+LogLevel
+LogJoystickAxis
+Language
+BetaUpdates
+CommunityFeedback
+AutoRetrigger
+MinimizeOnAutoRun
+HupHopAutoCheck
+```
+
+The MobiFlight panel also contains application-level preferences such as:
+
+```
+FwAutoUpdateCheck
+IgnoreComPorts
+IgnoredComPortsList
+```
+
+The Joystick / MIDI panel contains settings such as:
+
+```
+EnableJoystickSupport
+EnableMidiSupport
+ExcludedJoysticks
+ExcludedMidiBoards
+```
+
+The ProSim panel contains:
+
+```
+ProSimHost
+ProSimPort
+ProSimAutoConnectEnabled
+ProSimMaxRetryAttempts
+```
+
+If the user pressess Cancel, the dialog closes without calling the common `saveSettings` path.
+
+If the user presses OK, `SettingsDialog.okButton_Click` validates the dialog and calls `saveSettings`.
+
+`SettingsDialog.saveSettings` then delegates the save operation to the individual panels:
+
+```
+generalPanel.saveSettings();
+mobiFlightPanel.SaveSettings();
+peripheralsPanel.SaveSettings();
+proSimPanel.SaveSettings();
+```
+
+Each panel updates its corresponding values in:
+
+```
+Properties.Settings.Default
+```
+
+The dialog then performs additional runtime updates.
+
+For example, the Joystick / MIDI settings can restart the corresponding device managers when support or exclusion settings change.
+
+The ProSim connection state is also reset after the settings are saved.
+
+Finally, the dialog persists the complete updated application settings using:
+
+```
+Properties.Settings.Default.Save();
+```
+
+`MainForm` listens to the application settings save event.
+
+When the settings are saved, it reapplies logging-related configuration and publishes the updated application settings to the frontend.
+
+The settings are therefore application-wide and are not stored as part of the current project file.
+
+### State before
+
+The application contains a previous global settings state stored through `Properties.Settings.Default`.
+
+The relevant state can include values such as:
+
+```
+General preferences
+Logging preferences
+Language
+Update preferences
+Runtime preferences
+MobiFlight communication preferences
+Joystick / MIDI preferences
+ProsSim connection preferences
+```
+
+The current project configuration does not own these values.
+
+### State after
+
+The selected application settings contain the values confirmed by the user in the Settings dialog.
+
+The updated values are stored in `Properties.Settings.Default`.
+
+They are also persisted through:
+
+```
+Properties.Settings.Default.Save();
+```
+
+Some settings can additionally change live runtime state.
+
+For example:
+
+```
+Joystick manager may restart
+MIDI manager may restart
+ProSim connection state is reset
+Logging settings are reapplied
+Frontend application settings are republished
+```
+
+The current project's persisted configuration remains unchanged.
+
+### Required for Undo
+
+Undo would have to restore the previous values of the application settings modified by the dialog.
+
+A useful restore representation would therefore contain:
+
+```
+Before Application Settings
+After Application Settings
+```
+
+The required state my include:
+
+- General settings values
+- MobiFlight application preference values
+- Joystick / MIDI support and exclusion values
+- ProSim connection settings
+
+The complete application settings object does not necessarily need to be stored if the history entry records only the subset that can be modified by the Settings dialog.
+
+Restoring only persisted property values may not be sufficient ofr all settings.
+
+Settings that have runtime effects may also require their corresponding runtime state to be refreshed.
+
+For example, restoring Joystick or MIDI settings may require reconnection or shutting down the respective managers.
+
+### State owner
+
+- Temporary settings state is owned by the WinForms Settings dialog controls
+- Committed settings are owned by `Properties.Settings.Default`
+- Runtime managers consume some of the committed settings
+- The React frontend receives synchronized application settings from the backend
+
+### Persistence
+
+- Application-persisted
+- Not part of the current project file
+- Persisted when the user confirms the dialog with OK
+- `Properties.Settings.Default.Save()` writes the settings immediately
+- Cancel does not use the common application settings save path
+
+### Cluster
+
+- Compound / Form Edit
+
+### Observation
+
+Application Settings represents global application state rather than project configuration state.
+
+For the Action Catalog, Application Settings and Global Settings therefore describe the same state scope.
+
+A single Settings dialog confirmation can modify many unrelated application properties across several tabs.
+
+The semantic action is therefore:
+
+```
+Before Application Settings
+↓
+Multiple temporary edits
+↓
+OK
+↓
+After Application Settings
+```
+
+rather than a collection of independent property updates.
+
+For Undo history purposes, one successful OK confirmation would therefore be the natural action boundary.
+
+Individual control changes inside the dialog should not create separate Undo entries.
+
+Cancel should not create an Undo entry because the common settings persistence path has not been executed.
+
+Application Settings differs from Project Settings because the state is stored outside the project.
+
+The state belongs to:
+
+```
+Properties.Settings.Default
+```
+
+and affects the application independently of which project is currently open.
+
+The settings are also immediately persisted when the user confirms the dialog.
+
+The effective flow is:
+
+```
+Edit Application Settings
+↓
+Commit Properties.Settings values
+↓
+Apply runtime side effects
+↓
+Save application settings
+↓
+Publish updated settings
+```
+
+This creates an important boundary question for Undo/Redo.
+
+Application Settings may not belong in the same history stack as project configuration actions.
+
+For example:
+
+```
+Rename Config Item
+Delete Config Item
+Change Application Language
+Toggle Config Item
+```
+
+If all actions shared one history stack, Undo could eventually attempt to retore an application preference while the user is primarily undoing project configuration changes.
+
+This behavior may not match user expectations.
+
+Application Settings should therefore remain in the Action Catalog because it is a state-changing user interaction, but whether it belongs in the same Undo history as project configuration actions should be decided separately.
+
+Application Settings also has runtime side effects.
+
+Restoring only a previous persisted value can leave runtime managers in a state that no longer matches the restored preference.
+
+For example:
+
+```
+EnableJoystickSupport = true
+↓
+user disables support
+↓
+JoystickMgr.Shutdown()
+```
+
+An Undo that restores only:
+
+```
+EnableJoystickSupport = true
+```
+
+without reconnecting the joystick manage would not restore the actual previous application state.
+
+The inverse operation must therefore consider both:
+
+```
+Persisted setting state
++
+Runtime effect
+```
+
+for settings that directly affect runtime services.
+
+The MobiFlight tab also contains hardware and module operations such as firmware updates, serial regeneration, device configuration, and uploads.
+
+These operations should not automatically be considered part of the Application Settings Undo action.
+
+They are better classified separately as runtime, hardware, or external operations.
+
+The Application Settings action should therefore refer only to the global preferences that are loaded from and saved to `Properties.Settings.Default`.
+
+Because one dialog can modify many unrelated global properties at once, this action is another useful example of a snapshot-style restore model.
+
+However, compared with Project Settings, it is a weaker candidate for the initial project Undo MVP because it belongs to global application state and can also produce runtime side effects outside the project configuration model.

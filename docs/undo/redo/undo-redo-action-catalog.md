@@ -2,7 +2,15 @@
 
 This document provides an initial inventory and classification of user interactions that may be relevant for Undo/Redo support.
 
-The purpose is to identify which application state is affected by each interaction, how that state is modified, where the mutation happens, and what information would be required to reverse the operation.
+The purpose is to identify:
+- which application state is affected by each interaction
+- how that state is modified
+- where the mutation happens
+- what information would be required to reverse the operation
+- how the change is persisted
+- which actions are suitable for the initial Undo MVP
+
+Detailed execution paths for selected actions are documented separately in `path-inspection.md`.
 
 ## Analysis Dimensions
 
@@ -43,12 +51,13 @@ The initial inventory starts with the views exposed by the current React routing
 
 | Interaction | State-Changing | Initial Classification |
 |---|---|---|
-| Create project | Creates new project state | Project mutation |
-| Load / select recent project | Replaces working context | File / project lifecycle |
+| Create project | Creates new project state | Project lifecycle |
+| Load / select recent project | Replaces working context | Project lifecycle |
 | Double-click project -> Config view | None | Navigation |
 | Save before switching project | Persists current project state | File lifecycle |
-| Discard changes before switching | Replaces current unsaved state | State replacement |
+| Discard changes before switching | Replaces current unsaved state | Project lifecycle |
 | Remove item from Recent Projects | Changes application preference | Application preference |
+| Edit Project Settings | Changes project metadata/settings | Compound project update |
 
 #### Project / Profile Bar Interactions
 
@@ -69,21 +78,44 @@ The initial inventory starts with the views exposed by the current React routing
 
 | Interaction | Cluster Candidate | Undo relevance |
 |---|---|---|
-| Search / filter | UI state | No |
-| Sort | UI state | No |
-| Select row(s) | UI state | No |
-| Add Output Config | Create | High |
-| Add Input Config | Create | High |
-| Edit config | Update / compound edit | High |
-| Rename config | Update field | High |
-| Tooggle Active | Update field | High |
-| Delete | Delete | Very high |
-| Duplicate | Create from existing | Very high |
+| Search / filter | View / Navigation | No |
+| Sort | View / Navigation | No |
+| Select row(s) | View / Navigation | No |
+| Add Output Config | Create / Delete | High |
+| Add Input Config | Create / Delete | High |
+| Edit Output Config | Compound / Replace | High |
+| Edit Input Config | Compound / Replace | High |
+| Rename config | Simple Property Update | High |
+| Tooggle Active | Simple Property Update | High |
+| Delete | Create / Delete | Very high |
+| Duplicate | Create / Delete | Very high |
 | Test | Runtime | No |
-| Bulk Delete | Multiple delete | High |
-| Bulk Toggle | Multiple update | High |
-| Drag reorder | Move / order mutation | Very high |
-| Drag between profiles | Move + container change | Very high |
+| Bulk Delete | Multiple Create / Delete | High |
+| Bulk Toggle | Multiple Property Update | High |
+| Drag reorder | Move / Reorder | Very high |
+| Drag between profiles | Move / Reorder | Very high |
+
+
+### Application Settings
+
+Application Settings represent global state rather than the current project.
+
+Examples include:
+
+```
+Language
+Logging settings
+Execution intervals
+Update preferences
+Joystcik / MIDI preferences
+MobiFlight communication preferences
+ProSim connection settings
+```
+These settings are persisted through `Propterties.Settings.Default`.
+
+The native Settings dialog also exposes hardware-related operations such as firmware updates and module configuration.
+
+Those operations should not automatically be treated as part of the Application Settings Undo action because they affect hardware or external runtime state.
 
 ## Classification and Prioritization Criteria
 
@@ -98,6 +130,32 @@ Based on the current code structure, the following dimensions seem useful for cl
 | Persistence | Transient / Project - persisted / Application - persisted / Runtime | Determines whether the change belongs in Undo history |
 | Required restore data | old value / full object / object + index / multiple objects / snapshot | Helps evaluate Command vs Snapshot approaches |
 | Interaction risk | Immediate / shortcut / drag / dialog - confirmed | Helps prioritize actions for the MVP |
+
+`Cardinality` is kept separate from `Mutation Type`.
+
+For example:
+
+```
+Toggle Active
+Mutation Type: Update
+Cardinality: Single
+
+Bulk Toggle
+Mutation Type: Update
+Cardinality: Multiple
+
+and:
+
+Delete Config Item
+Mutation Type: Delete
+Cardinality: Single
+
+Bulk Delete
+Mutation Type: Delete
+Cardinality: Multiple
+```
+
+The inspeciton of the bulk actions confirms that these are independent dimenions.
 
 ## Action Clusters
 
@@ -132,6 +190,7 @@ Download presets
 Reinstall WASM
 Open website
 Copy logs
+Firmware update
 ```
 
 These actions affect runtime state or trigger external operations rather than editing project configuration.
@@ -149,8 +208,6 @@ Rename profile
 Rename project
 ```
 
-This could be a useful clusterfor evaluating command-based Undo.
-
 A typical state transition is:
 
 ```
@@ -159,7 +216,13 @@ Action : property = B
 Undo : property = A
 ```
 
-The object continues to exist in the same container. Undo mainly needs the previous value, or alternatively a previous object snapshot.
+The object continues to exist in the same container. Undo mainly needs the previous value and stable object identification.
+
+This cluster maps naturally to a command-style inverse operation when stable identity is available.
+
+Config Items have GUIDs, which makes them particularly suitable for this pattern.
+
+Profiles currently do not have a dedicated GUID and are primarily addressed by their position in Project.ConfigFiles.
 
 ### Cluster 4 - Create / Delete
 
@@ -169,6 +232,7 @@ Examples:
 Add config
 Duplicate config
 Delete config
+Bulk Delete
 Add profile
 Remove profile
 ```
@@ -178,14 +242,32 @@ Create and Delete operations change the structure of a collection.
 For a Delete action, Undo may required:
 
 ```
-Full deleted object
+Deleted object
 Original container
 Original index
 ```
 
+For multiple deletion:
+
+```
+[
+    object + original index,
+    object + original index,
+    ...
+]
+```
+
 For a Create operation, Undo may only need to identify the newly created object.
 
-Redo can require additional information if recreating the action would produce a different identify or state.
+Redo can require additional information if recreating the action would produce a new GUID or different generated state.
+
+This is particularly relevant for:
+
+```
+Duplicate Config Item
+Add Config Item
+Add Profile
+```
 
 ### Cluster 5 - Move / Reorder
 
@@ -197,80 +279,460 @@ Move config item between profiles
 Multi-item drag
 ```
 
+Move operations keep the same objects and identities but change their location.
+
+Undo requires the previous location:
+
+```
+Item GUID(s)
+Source container
+Original index / indices
+```
+
+Redo additinally requires the resulting location:
+
+```
+Target container
+Target insertion index
+```
+
 The current DnD implementation already has access during a drag operation to:
 
 ```
 Dragged items
 Source config
-Original positions in the current table row model
+Original positions
 Target config
-Calculated insertion index
+Target insertion index
 ```
 
-The frontend also already contains logic for restoring dragged items to their original positions when a drag operation is cancelled.
+However, `originalPositions` are derived from the current table row model.
 
-However, these values are currently transient drag state and are not stored as Undo history.
+Because filtering and sorting can change table row positions, those positions must not automatically be assumed to equal the underlying `ConfigItems` collection indices.
 
-Additionally, the stored `originalPositions` are derived from the current table row model. Before they can be reused directly for Undo, it must be verified that these indices always correspond to the underlying `ConfigItems` collection indicies, especially when filtering or sorting is active.
+Authoritative collection positions should be captured from project state.
 
 ### Cluster 6 - Compound / Form Edit
 
-Project Settings is a good example of a compound state change.
-
-A single form submission can modify several properties:
+Examples:
 
 ```
-Project Name
+Edit Input Config Item
+Edit Output Config Item
+Project Settings
+Application Settings
+```
+
+These interactions use a temporary editing state and commit several changes together.
+
+A typical transition is:
+
+```
+Before state
+↓
+Temporary edits
+↓
+Apply / OK / Update
+↓
+After state
+```
+
+The natural Undo boundary is the form submission rather than each individual control change.
+
+### Config Item Editors
+
+Input and Output Config Items use different implementation paths, but both have the same semantic pattern:
+
+```
+Before: preivous ConfigItem
+After: edited ConfigItem
+```
+
+A complete before/after Config Item representation is safer than trying to store every nested property change independently.
+
+### Project Settings
+
+One submission can modify:
+
+```
+Name
 Simulator
 FSUIPC
 ProSim
 Aircraft
 ```
 
-The resulting operation is closer to:
+The relevant state can therefore be represented as:
 
 ```
-Before ProjectInfo
-↓
-Multiple Edits
-↓
-Submit
-↓
-After ProjectInfo
+Before Project Settings
+After Project Settings
 ```
 
-than to a single-property update.
+rather than a complete Project snapshot.
 
-This may make compound form edits a useful candidate for comparing snapshot-based and command-based approaches.
+Project Settings also trigger the project save path immediatley after the settings are committed.
+
+### Application Settings
+
+Application Settings can modify many global properties in one dialog submission.
+
+They are persisted through:
+
+```
+Properties.Settings.Default
+```
+
+and some values have additional runtime effects, such as restarting Joystick or MIDI managers or resetting ProSim connection state.
+
+Application Settings therefore raise an additional design question:
+
+```
+Whether global application state should participate in the same history as project configuration actions at all.
+```
 
 ## Inspected Actions
 
 The following actions have already been traced through the current frontend and backend implementation.
 
-| View | Interaction | State Scope | Mutation Type | Cardinality | State Owner | Persistence | Restore Data | Undo Candidate | Source | Notes |
-|---|---|---|---|---|---|---|---|---|---|---|
-| Config List | Toggle Active | Config Item | Update | Single | Backend (frontend synchronized) | Project-persisted | GUID + previous Active value | Yes | ConfigItemTableActiveCell.tsx → CommandUpdateConfigItem → ExecutionManager.HandleCommandUpdateConfigItem | Uses ConfigValuePartialUpdate |
-| Config List | Rename | Config Item | Update | Single | Backend (frontend synchronized) | Project-persisted | GUID + Previous name / previous item snapshot | Yes | ConfigItemTableNameCell.tsx → CommandUpdateConfigItem → ExecutionManager.HandleCommandUpdateConfigItem | Same backend update path as Toggle Active |
-| Config List | Delete | Config Item | Delete | Single | Backend (frontend synchronized) | Project - persisted | Deleted item + original config + original index | Yes | ConfigItemRowContextMenu.tsx → CommandConfigContextMenu → ExecutionManager | Uses ConfigValueFullUpdate |
-| Config List | Duplicate | Config Item | Create | Single | Backend (frontend synchronized) | Project - persisted | Created duplicate GUID + containing config | Yes | ConfigItemRowContextMenu.tsx → CommandConfigContextMenu → ExecutionManager | Exact Redo my additionally require duplicated item + insertion position |
-| Config List | Reorder / Drag & Drop | Config Item(s) | Move | Single / Multiple | Hybrid | Project-persisted | Item GUID(s) + original config + original index/indices | Yes | ConfigItemTableActiveCell.tsx / DnD row → DragDropProvider → DnD utilities → CommandResortConfigItem → ExecutionManager | Target config/index also needed for Redo; existing drag positions must be validated against underlying collection indices |
-| Profile Bar | Select Profile | UI | Selection | Single | Frontend | Transient | - | No | - | View-state only |
-| Execution | Run / Stop | Runtime | Runtime | - | Backend | Runtime | - | No | - | Not a project configuration mutation |
+### Config Item Actions
 
-## Next Inspection Candidates
+| Interaction | State Scope | Mutation | Cardinality | State Owner | Persistence | Required Restore Data | Interaction Risk | Undo Candidate | MVP |
+|---|---|---|---|---|---|---|---|---|---|
+| Toggle Active | Config Item | Update | Single | Backend, frontend synchronized | Project-persisted | GUID + previous `Active` | Immediate | Yes | Selected |
+| Rename Config Item | Config Item | Update | Single | Backend, frontend synchronized | Project-persisted | GUID + previous `Name` | Inline-confirmed | Yes | No |
+| Delete Config Item | Config Item | Delete | Single | Backend | Project-persisted | Deleted item + container + original index | Immediate | Yes | Selected |
+| Duplicate Config Item | Config Item | Create | Single | Backend | Project-persisted | Created GUID + container; exact Redo also needs created item + index | Immediate + editor follow-up | Yes | Selected |
+| Reorder / Drag & Drop | Config Item(s) | Move | Single / Multiple | Hybrid | Project-persisted | GUID(s) + source + original indices; target + new index for Redo | Drag | Yes | Selected |
+| Bulk Toggle | Config Item(s) | Update | Multiple | Backend | Project-persisted | GUID + previous `Active` for every affected item | Immediate | Yes | No |
+| Bulk Delete | Config Item(s) | Delete | Multiple | Backend | Project-persisted | Deleted items + original indices + container | Immediate | Yes | No |
+| Add Config Item | Config Item | Create | Single | Backend | Project-persisted | Created GUID + container; created item for exact Redo | Immediate + editor follow-up | Yes | No |
+| Edit Input Config Item | Config Item | Compound / Replace | Single | Frontend draft, backend commit | Project-persisted | GUID + complete previous item; resulting item for Redo | Dialog-confirmed | Yes | No |
+| Edit Output Config Item | Config Item | Compound / Replace | Single | WinForms draft, backend commit | Project-persisted | GUID + complete previous item; resulting item for Redo | Dialog-confirmed | Yes | No |
 
-The next useful interations to inspect are:
+### Config Item Findings
+
+Toggle Active and Rename Config Item use the same general backend replacement pattern.
+
+Delete and Bulk Delete require object restoration rather than property restoration.
+
+Duplicate and Add generate new objects, making exact Redo different from simply executing the original Create operation again.
+
+Reorder is the main inspected Hybrid action because frontend project state is modified during DnD before the backend receives the final move command.
+
+Input and Output editors use different frontend/native implementations but can share the same conceptual Undo model based on complete before/after Config Item state.
+
+### Profile Actions
+
+| Interaction | State Scope | Mutation | Cardinality | State Owner | Persistence | Required Restore Data | Interaction Risk | Undo Candidate | MVP |
+|---|---|---|---|---|---|---|---|---|---|
+| Select Profile | UI | Selection | Single | Frontend | Transient | - | Navigation | No | No |
+| Rename Profile | Profile | Update | Single | Frontend draft, backend commit | Project-persisted | Profile identification + previous label | Inline-confirmed | Yes | Extension |
+| Remove Profile | Profile / Project | Delete | Single | Backend | Project-persisted | Removed `ConfigFile` + original index | Immediate | Yes | Extension |
+| Add Profile | Profile / Project | Create | Single | Backend | Project-persisted | Created `ConfigFile` + insertion index | Immediate | Yes | Extension |
+
+### Profile Findings
+
+Profile Add and Remove form the same structural Create/Delete pair as Config Item Add and Delete.
+
+However, `ConfigFile` currently has no dedicated GUID or equivalent stable profile identifier.
+
+Current profile operations mainly use numeric collection indices.
+
+This is an important difference from Config Items and should be considered if profile actions are added to Undo/Redo later.
+
+Add and Remove Profile also interact with active-profile state.
+
+It must be decided whether Undo should restore only persisted project structure or also restore the previous user-visible active profile.
+
+## Project and Global Settings
+
+| Interaction | State Scope | Mutation | Cardinality | State Owner | Persistence | Required Restore Data | Interaction Risk | Undo Candidate | MVP |
+|---|---|---|---|---|---|---|---|---|---|
+| Project Settings | Project | Compound Update | Multiple properties | Frontend draft, backend commit | Project-persisted, normally saved immediately | Before / after Project Settings subset | Dialog-confirmed | Yes | Extension |
+| Application Settings | Global / Application | Compound Update | Multiple properties | WinForms draft, backend settings | Application-persisted | Before / after settings subset + required runtime refresh | Dialog-confirmed | Separate history question | Extension |
+
+### Project Settings Findings
+
+Project Settings update the existing backend Project rather than replacing the complete Project object.
+
+The relevant settings subset is:
 
 ```
-Bulk Toggle
-Bulk Delete
-Add Config Item
-Edit Config Item
-Rename Profile
-Remove Profile
-Add Profile
+Name
+Sim
+Features
+Aircraft
+```
+
+For an existing saved project, submitting Project Settings also immediately invokes the normal project save path.
+
+This creates a policy question for Undo:
+
+```
+Restore and save immediately
+```
+
+or:
+
+```
+Restore in memory and mark the project dirty
+```
+
+That decision should be made by the Undo architecture rather than by the individual Project Settings action.
+
+### Application Settings Findings
+
+Application Settings are global and are independent of the currently loaded project.
+
+They are persisted immediately through application user settings.
+
+Some settings also have runtime side effects.
+
+For example:
+
+```
+Joystick settings
+    → manager shutdown / reconnect
+
+MIDI settings
+    → manager shutdown / reconnect
+
+ProSim settings
+    → connection state reset
+
+Logging settings
+    → live logging configuration refreshed
+```
+
+Restoring only the persisted property values would therefore not necessarily restore the complete previous runtime state.
+
+Global settings may also be confusing if mixed into the normal project Undo history.
+
+For example:
+
+```
+Delete Config Item
+Change application language
+Toggle Config Item
+```
+
+A project-oriented Ctrl+Z workflow would eventually reach the global language change if both used the same stack.
+
+Whether global state requires a separate history or no Undo support should be decided separately from the project Undo mechanism.
+
+# Inventory-Only / Not Deeply Inspected Actions
+
+The following interactions remain part of the catalog but are not required to be deeply inspected for the current MVP:
+
+| Interaction | Scope | Classification | Current Treatment |
+|---|---|---|---|
+| Create Project | Project lifecycle | Create / lifecycle | Outside project edit history |
+| Load Project | Project lifecycle | Context replacement | Not normal Undo |
+| Save / Save As | File lifecycle | Persistence | Not normal Undo |
+| Discard Changes | Project lifecycle | State replacement | Separate lifecycle behavior |
+| Merge Config File | Profile / Project | Import / Compound | Future extension |
+| Rename Project | Project | Simple Property Update | Future extension |
+| Toggle AutoRun | Global / Runtime | Preference update | Separate from project Undo |
+| Controller Bindings | Project | Compound update | Future extension |
+| Remove Recent Project | Application | Preference update | Separate from project Undo |
+| Run / Stop / Test | Runtime | Runtime action | Not Undo candidate |
+| Hardware / Firmware actions | Hardware / External | External operation | Not project Undo candidate |
+
+The presence of an interaction in this section does not mean that it can never support Undo.
+
+It means that deep inspection or implementation is not necessary for the current project MVP.
+
+# Cross-Action Findings
+
+## 1. User Action Boundary Matters
+
+Undo history should represent semantic user actions rather than every internal property mutation.
+
+Examples:
+
+```
+Rename
+→ commit on Enter / blur
+
+Input Config Edit
+→ commit on Apply
+
+Output Config Edit
+→ commit on OK with actual changes
+
 Project Settings
+→ commit on Update
+
 Application Settings
+→ commit on OK
 ```
 
-Bulk Toggle and Bulk Delete are especially useful next because they can verify whether `Cardinality` shoud remain a separate classification dimension from `Mutation Type`.
+Temporary draft changes and cancelled dialogs should not create history entries.
+
+No-op submissions should preferably not create history entries either.
+
+## 2. Identity Is Important
+
+Config Items have GUIDs and can be identified reliably across many operations.
+
+Profiles do not currently have a dedicated stable identifier.
+
+This makes Config Item actions easier to represent in persistent Undo history than profile actions.
+
+## 3. Restore Data Depends on Mutation Type
+
+The inspection produced recurring restore patterns:
+
+```
+Simple Update
+→ object identity + previous value
+
+Create
+→ identity of created object
+→ full created object may be required for exact Redo
+
+Delete
+→ deleted object + original container + original index
+
+Move
+→ object identity + before location + after location
+
+Compound Edit
+→ complete before / after state of the edited unit
+```
+
+These patterns can serve as the basis for reusable Undo action representations.
+
+## 4. Side Effects Must Be Reproduced
+
+Restoring serialized values alone is not always sufficient.
+
+Examples include:
+
+```
+Input Config changes
+→ input event state refresh
+
+Profile structural changes
+→ ProjectChanged path and active profile handling
+
+Application Settings
+→ Joystick / MIDI / ProSim runtime refresh
+```
+
+An Undo implementation must reproduce the relevant synchronization and runtime side effects of the original mutation.
+
+## 5. Persistence Is Not Uniform
+
+Most Config Item and Profile actions behave as:
+
+```
+Change state
+↓
+Mark project dirty
+↓
+User saves later
+```
+
+Project Settings normally behave as:
+
+```
+Change state
+↓
+Mark project dirty
+↓
+Save immediately
+```
+
+Application Settings behave as:
+
+```
+Change global state
+↓
+Save application settings immediately
+```
+
+Undo architecture therefore cannot assume that every reversible action uses the same persistence lifecycle.
+
+## 6. Redo Is Not Always Re-execution
+
+For actions such as Duplicate or Add, simply executing the original command again can produce different object identity or generated state.
+
+Exact Redo may therefore need to restore the original resulting object rather than recreate the operation.
+
+# MVP Boundary
+
+The catalog is intentionally broader than the initial implementation scope.
+
+The current MVP focuses on four Config Item actions:
+
+```
+Toggle Active
+Delete Config Item
+Duplicate Config Item
+Reorder / Drag & Drop
+```
+
+These actions provide representative coverage of several important mutation patterns:
+
+```
+Toggle
+→ Simple Property Update
+
+Delete
+→ Delete
+
+Duplicate
+→ Create
+
+Reorder
+→ Move
+```
+
+This allows the Undo architecture to be evaluated against different state transition types without requiring complete application-wide coverage.
+
+The following remain extensions rather than requirements of the initial MVP:
+
+```
+Redo
+Bulk actions
+Add Config Item
+Input / Output compound editing
+Profile actions
+Project Settings
+Application / Global Settings
+Further action clusters
+```
+
+Inspection of these extension actions is still useful because it verifies that the chosen architecture can potentially be extended beyond the first four supported actions.
+
+# Result
+
+The action catalog shows that MobiFlight does not have one single type of configuration mutation.
+
+The inspected interactions fall into several recurring patterns:
+
+```
+View / Navigation
+Runtime / External
+Simple Property Update
+Create / Delete
+Move / Reorder
+Compound / Form Edit
+```
+
+The main architectural requirement is therefore not simply to add an Undo button.
+
+The Undo mechanism must provide:
+
+```
+clear action boundaries
+stable object identification
+appropriate restore data
+correct frontend/backend synchronization
+required runtime side effects
+consistent persistence behavior
+```
+
+The selected MVP actions provide a contained set of real application cases with which these requirements can be implemented and evaluated.
