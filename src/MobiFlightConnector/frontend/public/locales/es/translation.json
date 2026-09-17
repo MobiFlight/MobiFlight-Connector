@@ -869,6 +869,7 @@
     "Filter": {
       "Placeholder": "Filtrar entradas de registro...",
       "Level": "Filtrar por nivel de registro",
+      "LevelWithSelection": "Filtrar por nivel de registro: {{selection}}",
       "LevelDisabled": "Oculto por el nivel de registro de la configuración",
       "AllLevels": "Todos los niveles",
       "LevelOnly": "Solo {{level}}",

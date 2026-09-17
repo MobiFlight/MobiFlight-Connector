@@ -286,11 +286,13 @@ test.describe("Log panel - Toolbar tests", () => {
     page,
   }) => {
     await configListPage.gotoPage()
+    // open the panel first: openLogPanel() sends its own settings, which
+    // would reset the log level to the fixture default
+    await configListPage.mobiFlightPage.openLogPanel()
     await configListPage.mobiFlightPage.sendSettings({
       LogEnabled: true,
       LogLevel: "debug",
     } as Partial<Settings>)
-    await configListPage.mobiFlightPage.openLogPanel()
 
     const logPanel = page.getByTestId("log-panel")
     const logContent = logPanel.getByTestId("log-panel-content")
@@ -320,6 +322,9 @@ test.describe("Log panel - Toolbar tests", () => {
     await page.keyboard.press("Escape")
 
     await expect(levelMenuButton).toHaveText("Warn, Error")
+    await expect(levelMenuButton).toHaveAccessibleName(
+      "Filter by log level: Warn, Error",
+    )
     await expect(debugEntry).not.toBeVisible()
     await expect(infoEntry).not.toBeVisible()
     await expect(warnEntry).toBeVisible()
@@ -379,16 +384,52 @@ test.describe("Log panel - Toolbar tests", () => {
     await expect(levelMenuButton).toHaveText("All levels")
   })
 
+  test("Unchecking every level shows the no-results message", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+
+    const logPanel = page.getByTestId("log-panel")
+    const logContent = logPanel.getByTestId("log-panel-content")
+
+    await configListPage.mobiFlightPage.sendLogEntry("info", "info entry")
+    await configListPage.mobiFlightPage.sendLogEntry("error", "error entry")
+    await expect(logContent.getByText("info entry")).toBeVisible()
+
+    const levelMenuButton = logPanel.getByRole("button", {
+      name: "Filter by log level",
+    })
+
+    // with the default "info" setting, Debug is disabled and the rest are on
+    await levelMenuButton.click()
+    for (const name of ["Info", "Warn", "Error"]) {
+      await page.getByRole("menuitemcheckbox", { name }).click()
+    }
+    await page.keyboard.press("Escape")
+
+    await expect(levelMenuButton).toHaveText("No levels")
+    await expect(logContent.getByText("info entry")).not.toBeVisible()
+    await expect(logContent.getByText("error entry")).not.toBeVisible()
+    await expect(
+      logContent.getByText("No entries matching filter."),
+    ).toBeVisible()
+    await expect(
+      logPanel.getByRole("button", { name: "Clear filters" }),
+    ).toBeVisible()
+  })
+
   test("Levels below the settings log level are disabled", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
     await configListPage.mobiFlightPage.sendSettings({
       LogEnabled: true,
       LogLevel: "warn",
     } as Partial<Settings>)
-    await configListPage.mobiFlightPage.openLogPanel()
 
     await page
       .getByTestId("log-panel")

@@ -863,6 +863,7 @@
     "Filter": {
       "Placeholder": "Filter log entries...",
       "Level": "Filter by log level",
+      "LevelWithSelection": "Filter by log level: {{selection}}",
       "LevelDisabled": "Hidden by the log level in settings",
       "AllLevels": "All levels",
       "LevelOnly": "{{level}} only",

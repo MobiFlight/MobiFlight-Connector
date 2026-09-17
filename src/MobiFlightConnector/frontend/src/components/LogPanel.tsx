@@ -123,6 +123,17 @@ const LogPanel = () => {
   }
   const levelLabel = (level: FilterLevel) => levelLabels[level]
 
+  // plain text of the current selection, used for the accessible name
+  const levelFilterText = (() => {
+    if (!isLevelFiltering) return t("LogPanel.Filter.AllLevels")
+    if (selectedLevels.length === 0) return t("LogPanel.Filter.NoLevels")
+    if (selectedLevels.length === 1)
+      return t("LogPanel.Filter.LevelOnly", {
+        level: levelLabel(selectedLevels[0]),
+      })
+    return selectedLevels.map(levelLabel).join(", ")
+  })()
+
   // the selected levels are shown in their severity colour
   const levelFilterLabel = (() => {
     if (!isLevelFiltering) return t("LogPanel.Filter.AllLevels")
@@ -220,7 +231,9 @@ const LogPanel = () => {
                   size="sm"
                   variant="outline"
                   className="h-8 cursor-pointer"
-                  aria-label={t("LogPanel.Filter.Level")}
+                  aria-label={t("LogPanel.Filter.LevelWithSelection", {
+                    selection: levelFilterText,
+                  })}
                   title={t("LogPanel.Filter.Level")}
                 >
                   <span className="text-sm">{levelFilterLabel}</span>

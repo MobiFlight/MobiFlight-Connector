@@ -869,6 +869,7 @@
     "Filter": {
       "Placeholder": "Log-Einträge filtern...",
       "Level": "Nach Log-Level filtern",
+      "LevelWithSelection": "Nach Log-Level filtern: {{selection}}",
       "LevelDisabled": "Durch das Log-Level in den Einstellungen ausgeblendet",
       "AllLevels": "Alle Level",
       "LevelOnly": "Nur {{level}}",
