@@ -325,6 +325,13 @@ test.describe("Log panel - Toolbar tests", () => {
     await expect(levelMenuButton).toHaveAccessibleName(
       "Filter by log level: Warn, Error",
     )
+    // each selected level is shown in its severity colour
+    await expect(
+      levelMenuButton.getByText("Warn", { exact: true }),
+    ).toHaveClass(/text-yellow-500/)
+    await expect(
+      levelMenuButton.getByText("Error", { exact: true }),
+    ).toHaveClass(/text-red-500/)
     await expect(debugEntry).not.toBeVisible()
     await expect(infoEntry).not.toBeVisible()
     await expect(warnEntry).toBeVisible()
