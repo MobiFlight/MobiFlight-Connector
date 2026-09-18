@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import {
-  IconChevronDown,
   IconClipboardCopy,
   IconFilter,
   IconLogs,
@@ -18,14 +17,7 @@ import { useLogsStore } from "@/stores/logsStore"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DataTableFacetedFilter } from "@/components/tables/config-item-table/data-table-faceted-filter"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   debug: 0,
@@ -48,6 +40,13 @@ type FilterLevel = Exclude<LogLevel, "off">
 
 const FILTER_LEVELS: FilterLevel[] = ["debug", "info", "warn", "error"]
 
+const LEVEL_LABEL_KEY: Record<FilterLevel, string> = {
+  debug: "Debug",
+  info: "Info",
+  warn: "Warn",
+  error: "Error",
+}
+
 const formatTimestamp = (timestamp: string): string => {
   return `[${timestamp.slice(11, 19)}]`
 }
@@ -68,9 +67,8 @@ const LogPanel = () => {
   // don't auto scroll, don't append new logs
   const [pauseLog, setPauseLog] = useState(false)
   const [filterText, setFilterText] = useState("")
-  // severities checked in the level filter menu; all on by default
-  const [visibleLevels, setVisibleLevels] =
-    useState<FilterLevel[]>(FILTER_LEVELS)
+  // severities picked in the level filter; empty means every level is shown
+  const [levelFilter, setLevelFilter] = useState<string[]>([])
 
   const logLevel = useSettingsStore((s) => s.settings?.LogLevel)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -89,74 +87,49 @@ const LogPanel = () => {
     }
   }, [logs, pauseLog])
 
-  const filtered = logs.filter(
+  // entries the log level from the settings lets through; the panel filters
+  // this list further, and the level counts come from it
+  const received = logs.filter((e) => shouldShow(e.Severity, logLevel))
+
+  // only offer levels that actually arrived, and show how many of each
+  const availableLevels = FILTER_LEVELS.filter((level) =>
+    received.some((e) => e.Severity === level),
+  )
+
+  // a picked level can stop arriving, for example when the log level in the
+  // settings changes; ignore it instead of hiding everything
+  const activeLevels = levelFilter.filter((level) =>
+    availableLevels.includes(level as FilterLevel),
+  )
+
+  const filtered = received.filter(
     (e) =>
-      shouldShow(e.Severity, logLevel) &&
-      (!FILTER_LEVELS.includes(e.Severity as FilterLevel) ||
-        visibleLevels.includes(e.Severity as FilterLevel)) &&
+      (activeLevels.length === 0 || activeLevels.includes(e.Severity)) &&
       (filterText === "" ||
         e.Message.toLowerCase().includes(filterText.toLowerCase())),
   )
 
-  // levels below the log level from the settings never arrive
-  const availableLevels = FILTER_LEVELS.filter((l) => shouldShow(l, logLevel))
-  const selectedLevels = availableLevels.filter((l) =>
-    visibleLevels.includes(l),
-  )
-  const isLevelFiltering = selectedLevels.length !== availableLevels.length
+  const isFiltering = filterText !== "" || activeLevels.length > 0
 
-  const isFiltering = filterText !== "" || isLevelFiltering
-
-  const toggleLevel = (level: FilterLevel) => {
-    setVisibleLevels((levels) =>
-      levels.includes(level)
-        ? levels.filter((l) => l !== level)
-        : [...levels, level],
-    )
-  }
-
-  const levelLabels: Record<FilterLevel, string> = {
-    debug: t("Settings.General.Logging.Levels.Debug"),
-    info: t("Settings.General.Logging.Levels.Info"),
-    warn: t("Settings.General.Logging.Levels.Warn"),
-    error: t("Settings.General.Logging.Levels.Error"),
-  }
-  const levelLabel = (level: FilterLevel) => levelLabels[level]
-
-  // plain text of the current selection, used for the accessible name
-  const levelFilterText = (() => {
-    if (!isLevelFiltering) return t("LogPanel.Filter.AllLevels")
-    if (selectedLevels.length === 0) return t("LogPanel.Filter.NoLevels")
-    if (selectedLevels.length === 1)
-      return t("LogPanel.Filter.LevelOnly", {
-        level: levelLabel(selectedLevels[0]),
-      })
-    return selectedLevels.map(levelLabel).join(", ")
-  })()
-
-  // the selected levels are shown in their severity colour
-  const levelFilterLabel = (() => {
-    if (!isLevelFiltering) return t("LogPanel.Filter.AllLevels")
-    if (selectedLevels.length === 0) return t("LogPanel.Filter.NoLevels")
-    if (selectedLevels.length === 1) {
-      const level = selectedLevels[0]
-      return (
-        <span className={SEVERITY_CLASS[level]}>
-          {t("LogPanel.Filter.LevelOnly", { level: levelLabel(level) })}
-        </span>
-      )
-    }
-    return selectedLevels.map((level, index) => (
-      <span key={level}>
-        {index > 0 && ", "}
-        <span className={SEVERITY_CLASS[level]}>{levelLabel(level)}</span>
+  const levelOptions = availableLevels.map((level) => ({
+    value: level,
+    label: (
+      <span className={SEVERITY_CLASS[level]}>
+        {t(`Settings.General.Logging.Levels.${LEVEL_LABEL_KEY[level]}`)}
       </span>
-    ))
-  })()
+    ),
+  }))
+
+  const levelFacets = new Map<string, number>(
+    FILTER_LEVELS.map((level) => [
+      level,
+      received.filter((e) => e.Severity === level).length,
+    ]),
+  )
 
   const clearFilters = () => {
     setFilterText("")
-    setVisibleLevels(FILTER_LEVELS)
+    setLevelFilter([])
   }
 
   const toggleLog = () => {
@@ -225,74 +198,14 @@ const LogPanel = () => {
             onKeyDown={handleKeyDown}
           >
             <IconFilter className="shrink-0" />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-8 cursor-pointer"
-                  aria-label={t("LogPanel.Filter.LevelWithSelection", {
-                    selection: levelFilterText,
-                  })}
-                  title={t("LogPanel.Filter.Level")}
-                >
-                  <span className="text-sm">{levelFilterLabel}</span>
-                  <IconChevronDown className="opacity-50" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="min-w-48">
-                {FILTER_LEVELS.map((level) => {
-                  const blockedBySettings = !availableLevels.includes(level)
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={level}
-                      checked={
-                        !blockedBySettings && visibleLevels.includes(level)
-                      }
-                      disabled={blockedBySettings}
-                      title={
-                        blockedBySettings
-                          ? t("LogPanel.Filter.LevelDisabled")
-                          : undefined
-                      }
-                      // keep the menu open so several levels can be toggled
-                      onSelect={(e) => e.preventDefault()}
-                      onCheckedChange={() => toggleLevel(level)}
-                      className={cn(
-                        "group cursor-pointer",
-                        // keep pointer events so the tooltip shows; Radix
-                        // still ignores selection on disabled items
-                        "data-disabled:pointer-events-auto data-disabled:cursor-not-allowed",
-                      )}
-                    >
-                      <span className={cn("grow", SEVERITY_CLASS[level])}>
-                        {levelLabel(level)}
-                      </span>
-                      {!blockedBySettings && (
-                        <button
-                          type="button"
-                          className="text-muted-foreground hover:text-foreground ml-4 cursor-pointer text-xs opacity-0 group-hover:opacity-100 group-focus:opacity-100"
-                          onClick={(e) => {
-                            // don't let the row toggle its own checkbox
-                            e.preventDefault()
-                            e.stopPropagation()
-                            setVisibleLevels([level])
-                          }}
-                        >
-                          {t("LogPanel.Filter.Only")}
-                        </button>
-                      )}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onSelect={() => setVisibleLevels(FILTER_LEVELS)}
-                >
-                  {t("LogPanel.Filter.ShowAll")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <DataTableFacetedFilter
+              title={t("Settings.General.Logging.LogLevel")}
+              options={levelOptions}
+              values={activeLevels}
+              onValuesChange={setLevelFilter}
+              facets={levelFacets}
+              keepClearVisible
+            />
             <Input
               placeholder={t("LogPanel.Filter.Placeholder")}
               value={filterText}

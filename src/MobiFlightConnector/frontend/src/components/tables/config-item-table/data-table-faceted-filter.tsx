@@ -24,13 +24,22 @@ import { useTranslation } from "react-i18next"
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   disabled?: boolean
+  /** Table column to filter. Leave out when `values` drives the filter. */
   column?: Column<TData, TValue>
   title?: string
   options: {
-    label: string
+    /** Shown in the menu and on the trigger; a node allows coloured text. */
+    label: React.ReactNode
     value: string
     icon?: React.ComponentType<{ className?: string }>
   }[]
+  /** Controlled selection, for callers that do not filter a table column. */
+  values?: string[]
+  onValuesChange?: (values: string[]) => void
+  /** How many items each option matches, shown on the right of each row. */
+  facets?: Map<string, number>
+  /** Keep the clear row in place, disabled, while nothing is selected. */
+  keepClearVisible?: boolean
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
@@ -38,12 +47,26 @@ export function DataTableFacetedFilter<TData, TValue>({
   column,
   title,
   options,
+  values,
+  onValuesChange,
+  facets: facetsProp,
+  keepClearVisible = false,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   // TODO: Fix this to work with React Compiler, changes done to table columns does not trigger a re-render
   "use no memo"
 
-  const facets = column?.getFacetedUniqueValues()
-  const selectedValues = new Set(column?.getFilterValue() as string[])
+  const facets = facetsProp ?? column?.getFacetedUniqueValues()
+  const selectedValues = new Set(
+    values ?? (column?.getFilterValue() as string[]),
+  )
+
+  const setSelectedValues = (next: string[]) => {
+    if (onValuesChange) {
+      onValuesChange(next)
+      return
+    }
+    column?.setFilterValue(next.length ? next : undefined)
+  }
 
   const { t } = useTranslation()
 
@@ -110,10 +133,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                       } else {
                         selectedValues.add(option.value)
                       }
-                      const filterValues = Array.from(selectedValues)
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined,
-                      )
+                      setSelectedValues(Array.from(selectedValues))
                     }}
                   >
                     <div
@@ -141,12 +161,13 @@ export function DataTableFacetedFilter<TData, TValue>({
                 )
               })}
             </CommandGroup>
-            {selectedValues.size > 0 && (
+            {(selectedValues.size > 0 || keepClearVisible) && (
               <>
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    disabled={selectedValues.size === 0}
+                    onSelect={() => setSelectedValues([])}
                     className="justify-center text-center"
                   >
                     {t("ConfigList.Toolbar.Filter.Clear")}

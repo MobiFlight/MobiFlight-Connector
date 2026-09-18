@@ -868,14 +868,6 @@
     "Empty": "Warte auf Log-Einträge",
     "Filter": {
       "Placeholder": "Log-Einträge filtern...",
-      "Level": "Nach Log-Level filtern",
-      "LevelWithSelection": "Nach Log-Level filtern: {{selection}}",
-      "LevelDisabled": "Durch das Log-Level in den Einstellungen ausgeblendet",
-      "AllLevels": "Alle Level",
-      "LevelOnly": "Nur {{level}}",
-      "NoLevels": "Keine Level",
-      "Only": "Nur",
-      "ShowAll": "Alle Level anzeigen",
       "NoResults": "Keine Einträge entsprechen dem Filter.",
       "Clear": "Filter löschen"
     },

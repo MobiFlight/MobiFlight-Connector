@@ -301,71 +301,53 @@ test.describe("Log panel - Toolbar tests", () => {
     await configListPage.mobiFlightPage.sendLogEntry("info", "info entry")
     await configListPage.mobiFlightPage.sendLogEntry("warn", "warn entry")
     await configListPage.mobiFlightPage.sendLogEntry("error", "error entry")
+    await configListPage.mobiFlightPage.sendLogEntry("error", "second error")
 
     const debugEntry = logContent.getByText("debug entry")
     const infoEntry = logContent.getByText("info entry")
     const warnEntry = logContent.getByText("warn entry")
     const errorEntry = logContent.getByText("error entry")
 
-    const levelMenuButton = logPanel.getByRole("button", {
-      name: "Filter by log level",
-    })
-    await expect(levelMenuButton).toHaveText("All levels")
+    await expect(debugEntry).toBeVisible()
+    await expect(errorEntry).toBeVisible()
 
-    // Unchecking levels hides them, and the menu stays open meanwhile
-    await levelMenuButton.click()
-    await page.getByRole("menuitemcheckbox", { name: "Debug" }).click()
-    await page.getByRole("menuitemcheckbox", { name: "Info" }).click()
-    await expect(
-      page.getByRole("menuitemcheckbox", { name: "Info" }),
-    ).toHaveAttribute("aria-checked", "false")
+    const levelFilter = logPanel.getByRole("button", { name: "Log Level" })
+    await levelFilter.click()
+
+    // every level that arrived is offered, with the number of entries
+    const errorOption = page.getByRole("option", { name: "Error" })
+    await expect(errorOption).toContainText("2")
+    await expect(page.getByRole("option", { name: "Debug" })).toContainText("1")
+
+    // picking levels keeps only those entries, and the menu stays open
+    await page.getByRole("option", { name: "Warn" }).click()
+    await errorOption.click()
     await page.keyboard.press("Escape")
 
-    await expect(levelMenuButton).toHaveText("Warn, Error")
-    await expect(levelMenuButton).toHaveAccessibleName(
-      "Filter by log level: Warn, Error",
-    )
-    // each selected level is shown in its severity colour
-    await expect(
-      levelMenuButton.getByText("Warn", { exact: true }),
-    ).toHaveClass(/text-yellow-500/)
-    await expect(
-      levelMenuButton.getByText("Error", { exact: true }),
-    ).toHaveClass(/text-red-500/)
     await expect(debugEntry).not.toBeVisible()
     await expect(infoEntry).not.toBeVisible()
     await expect(warnEntry).toBeVisible()
     await expect(errorEntry).toBeVisible()
 
-    // "Only" keeps just that level
-    await levelMenuButton.click()
-    await page
-      .getByRole("menuitemcheckbox", { name: "Info" })
-      .getByRole("button", { name: "Only" })
-      .click()
-    await page.keyboard.press("Escape")
+    // the selection is shown on the filter button
+    await expect(levelFilter).toContainText("Warn")
+    await expect(levelFilter).toContainText("Error")
 
-    await expect(levelMenuButton).toHaveText("Info only")
-    await expect(infoEntry).toBeVisible()
-    await expect(warnEntry).not.toBeVisible()
-    await expect(errorEntry).not.toBeVisible()
-
-    // The level filter combines with the text filter
+    // the level filter combines with the text filter
     const filterInput = logPanel.getByPlaceholder("Filter log entries...")
-    await filterInput.fill("error")
+    await filterInput.fill("debug entry")
     await expect(
       logContent.getByText("No entries matching filter."),
     ).toBeVisible()
 
-    // Clearing resets both filters
+    // the clear button resets both filters
     await logPanel.getByRole("button", { name: "Clear filters" }).click()
     await expect(filterInput).toHaveValue("")
-    await expect(levelMenuButton).toHaveText("All levels")
     await expect(debugEntry).toBeVisible()
-    await expect(errorEntry).toBeVisible()
+    await expect(warnEntry).toBeVisible()
   })
 
-  test("Show all levels turns every level back on", async ({
+  test("Level filter only offers levels that arrived", async ({
     configListPage,
     page,
   }) => {
@@ -373,25 +355,52 @@ test.describe("Log panel - Toolbar tests", () => {
     await configListPage.mobiFlightPage.openLogPanel()
 
     const logPanel = page.getByTestId("log-panel")
-    const levelMenuButton = logPanel.getByRole("button", {
-      name: "Filter by log level",
-    })
+    await configListPage.mobiFlightPage.sendLogEntry("info", "info entry")
+    await expect(logPanel.getByText("info entry")).toBeVisible()
 
-    await levelMenuButton.click()
-    await page
-      .getByRole("menuitemcheckbox", { name: "Error" })
-      .getByRole("button", { name: "Only" })
-      .click()
-    // while the menu is open the rest of the page is hidden from assistive tech
-    await page.keyboard.press("Escape")
-    await expect(levelMenuButton).toHaveText("Error only")
-
-    await levelMenuButton.click()
-    await page.getByRole("menuitem", { name: "Show all levels" }).click()
-    await expect(levelMenuButton).toHaveText("All levels")
+    await logPanel.getByRole("button", { name: "Log Level" }).click()
+    await expect(page.getByRole("option", { name: "Info" })).toBeVisible()
+    await expect(page.getByRole("option", { name: "Error" })).toHaveCount(0)
+    // the default log level is "info", so debug entries never arrive
+    await expect(page.getByRole("option", { name: "Debug" })).toHaveCount(0)
   })
 
-  test("Unchecking every level shows the no-results message", async ({
+  test("A picked level that stops arriving is ignored", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+    await configListPage.mobiFlightPage.sendSettings({
+      LogEnabled: true,
+      LogLevel: "debug",
+    } as Partial<Settings>)
+
+    const logPanel = page.getByTestId("log-panel")
+    const logContent = logPanel.getByTestId("log-panel-content")
+
+    await configListPage.mobiFlightPage.sendLogEntry("debug", "debug entry")
+    await configListPage.mobiFlightPage.sendLogEntry("warn", "warn entry")
+
+    await logPanel.getByRole("button", { name: "Log Level" }).click()
+    await page.getByRole("option", { name: "Debug" }).click()
+    await page.keyboard.press("Escape")
+    await expect(logContent.getByText("warn entry")).not.toBeVisible()
+
+    // raising the log level in the settings stops debug entries from arriving,
+    // so the filter would otherwise leave the panel empty with no way back
+    await configListPage.mobiFlightPage.sendSettings({
+      LogEnabled: true,
+      LogLevel: "warn",
+    } as Partial<Settings>)
+
+    await expect(logContent.getByText("warn entry")).toBeVisible()
+    await expect(
+      logContent.getByText("No entries matching filter."),
+    ).not.toBeVisible()
+  })
+
+  test("Clearing the level filter from the menu shows every level again", async ({
     configListPage,
     page,
   }) => {
@@ -400,63 +409,22 @@ test.describe("Log panel - Toolbar tests", () => {
 
     const logPanel = page.getByTestId("log-panel")
     const logContent = logPanel.getByTestId("log-panel-content")
-
     await configListPage.mobiFlightPage.sendLogEntry("info", "info entry")
     await configListPage.mobiFlightPage.sendLogEntry("error", "error entry")
-    await expect(logContent.getByText("info entry")).toBeVisible()
 
-    const levelMenuButton = logPanel.getByRole("button", {
-      name: "Filter by log level",
-    })
-
-    // with the default "info" setting, Debug is disabled and the rest are on
-    await levelMenuButton.click()
-    for (const name of ["Info", "Warn", "Error"]) {
-      await page.getByRole("menuitemcheckbox", { name }).click()
-    }
+    const levelFilter = logPanel.getByRole("button", { name: "Log Level" })
+    await levelFilter.click()
+    await page.getByRole("option", { name: "Error" }).click()
     await page.keyboard.press("Escape")
 
-    await expect(levelMenuButton).toHaveText("No levels")
     await expect(logContent.getByText("info entry")).not.toBeVisible()
-    await expect(logContent.getByText("error entry")).not.toBeVisible()
-    await expect(
-      logContent.getByText("No entries matching filter."),
-    ).toBeVisible()
-    await expect(
-      logPanel.getByRole("button", { name: "Clear filters" }),
-    ).toBeVisible()
-  })
 
-  test("Levels below the settings log level are disabled", async ({
-    configListPage,
-    page,
-  }) => {
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.openLogPanel()
-    await configListPage.mobiFlightPage.sendSettings({
-      LogEnabled: true,
-      LogLevel: "warn",
-    } as Partial<Settings>)
+    await levelFilter.click()
+    await page.getByRole("option", { name: "Clear filters" }).click()
+    await page.keyboard.press("Escape")
 
-    await page
-      .getByTestId("log-panel")
-      .getByRole("button", { name: "Filter by log level" })
-      .click()
-
-    const item = (name: string) => page.getByRole("menuitemcheckbox", { name })
-    await expect(item("Debug")).toHaveAttribute("data-disabled")
-    await expect(item("Info")).toHaveAttribute("data-disabled")
-    await expect(item("Warn")).not.toHaveAttribute("data-disabled")
-    await expect(item("Error")).not.toHaveAttribute("data-disabled")
-
-    // disabled levels explain why and offer no "Only" shortcut
-    await expect(item("Debug")).toHaveAttribute(
-      "title",
-      "Hidden by the log level in settings",
-    )
-    await expect(
-      item("Debug").getByRole("button", { name: "Only" }),
-    ).toHaveCount(0)
+    await expect(logContent.getByText("info entry")).toBeVisible()
+    await expect(logContent.getByText("error entry")).toBeVisible()
   })
 
   test("Log panel preserves consecutive spaces in log messages", async ({

@@ -868,14 +868,6 @@
     "Empty": "Esperando entradas de registro",
     "Filter": {
       "Placeholder": "Filtrar entradas de registro...",
-      "Level": "Filtrar por nivel de registro",
-      "LevelWithSelection": "Filtrar por nivel de registro: {{selection}}",
-      "LevelDisabled": "Oculto por el nivel de registro de la configuración",
-      "AllLevels": "Todos los niveles",
-      "LevelOnly": "Solo {{level}}",
-      "NoLevels": "Ningún nivel",
-      "Only": "Solo",
-      "ShowAll": "Mostrar todos los niveles",
       "NoResults": "No hay entradas que coincidan con el filtro.",
       "Clear": "Borrar filtros"
     },
