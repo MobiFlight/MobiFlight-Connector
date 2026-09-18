@@ -17,6 +17,7 @@ import { useLogsStore } from "@/stores/logsStore"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import FacetedFilterOptions from "@/components/FacetedFilterOptions"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   debug: 0,
@@ -33,6 +34,17 @@ const shouldShow = (severity: string, setting: string | undefined): boolean => {
   const entryLevel = LEVEL_ORDER[severity as LogLevel] ?? 2
   const filterLevel = LEVEL_ORDER[effectiveLevel as LogLevel] ?? 2
   return entryLevel >= filterLevel
+}
+
+type FilterLevel = Exclude<LogLevel, "off">
+
+const FILTER_LEVELS: FilterLevel[] = ["debug", "info", "warn", "error"]
+
+const LEVEL_LABEL_KEY: Record<FilterLevel, string> = {
+  debug: "Debug",
+  info: "Info",
+  warn: "Warn",
+  error: "Error",
 }
 
 const formatTimestamp = (timestamp: string): string => {
@@ -55,6 +67,8 @@ const LogPanel = () => {
   // don't auto scroll, don't append new logs
   const [pauseLog, setPauseLog] = useState(false)
   const [filterText, setFilterText] = useState("")
+  // severities picked in the level filter; empty means every level is shown
+  const [levelFilter, setLevelFilter] = useState<string[]>([])
 
   const logLevel = useSettingsStore((s) => s.settings?.LogLevel)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -73,12 +87,50 @@ const LogPanel = () => {
     }
   }, [logs, pauseLog])
 
-  const filtered = logs.filter(
+  // entries the log level from the settings lets through; the panel filters
+  // this list further, and the level counts come from it
+  const received = logs.filter((e) => shouldShow(e.Severity, logLevel))
+
+  // only offer levels that actually arrived, and show how many of each
+  const availableLevels = FILTER_LEVELS.filter((level) =>
+    received.some((e) => e.Severity === level),
+  )
+
+  // a picked level can stop arriving, for example when the log level in the
+  // settings changes; ignore it instead of hiding everything
+  const activeLevels = levelFilter.filter((level) =>
+    availableLevels.includes(level as FilterLevel),
+  )
+
+  const filtered = received.filter(
     (e) =>
-      shouldShow(e.Severity, logLevel) &&
+      (activeLevels.length === 0 || activeLevels.includes(e.Severity)) &&
       (filterText === "" ||
         e.Message.toLowerCase().includes(filterText.toLowerCase())),
   )
+
+  const isFiltering = filterText !== "" || activeLevels.length > 0
+
+  const levelOptions = availableLevels.map((level) => ({
+    value: level,
+    label: (
+      <span className={SEVERITY_CLASS[level]}>
+        {t(`Settings.General.Logging.Levels.${LEVEL_LABEL_KEY[level]}`)}
+      </span>
+    ),
+  }))
+
+  const levelFacets = new Map<string, number>(
+    FILTER_LEVELS.map((level) => [
+      level,
+      received.filter((e) => e.Severity === level).length,
+    ]),
+  )
+
+  const clearFilters = () => {
+    setFilterText("")
+    setLevelFilter([])
+  }
 
   const toggleLog = () => {
     publish({
@@ -145,15 +197,23 @@ const LogPanel = () => {
             className="flex flex-row items-center gap-2"
             onKeyDown={handleKeyDown}
           >
-            <IconFilter />
+            <IconFilter className="shrink-0" />
+            <FacetedFilterOptions
+              title={t("Settings.General.Logging.LogLevel")}
+              options={levelOptions}
+              values={activeLevels}
+              onValuesChange={setLevelFilter}
+              facets={levelFacets}
+              keepClearVisible
+            />
             <Input
               placeholder={t("LogPanel.Filter.Placeholder")}
               value={filterText}
               onChange={(e) => setFilterText(e.target.value)}
             />
-            {filterText !== "" && (
+            {isFiltering && (
               <Button
-                onClick={() => setFilterText("")}
+                onClick={clearFilters}
                 size="sm"
                 variant="ghost"
                 className="px-2 [&_svg]:size-5"
@@ -184,7 +244,7 @@ const LogPanel = () => {
           className="flex grow flex-col p-2 font-mono select-text"
         >
           {filtered.length === 0 ? (
-            filterText !== "" ? (
+            isFiltering ? (
               <div className="text-muted-foreground">
                 {t("LogPanel.Filter.NoResults")}
               </div>

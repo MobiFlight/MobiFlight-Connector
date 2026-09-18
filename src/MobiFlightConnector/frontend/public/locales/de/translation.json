@@ -26,7 +26,11 @@
     "Copy": "Kopieren",
     "Paste": "Einfügen",
     "NewFeature": "Neu",
-    "Close": "Schließen"
+    "Close": "Schließen",
+    "FacetedFilter": {
+      "Clear": "Filter zurücksetzen",
+      "NoResultsFound": "Keine Ergebnisse gefunden."
+    }
   },
   "MainMenu": {
     "File": {
@@ -232,10 +236,7 @@
         "ConfigType": "Konfiguration-Typ",
         "Device": "Steuerung",
         "Type": "Gerät",
-        "Name": "Namen",
-        "Selected": "{{items}} ausgewählt",
-        "Clear": "Filter zurücksetzen",
-        "NoResultsFound": "Keine Ergebnisse gefunden."
+        "Name": "Namen"
       },
       "NotSet": "Nicht verwendet",
       "Reset": "Filter zurücksetzen",
@@ -982,4 +983,3 @@
     }
   }
 }
-

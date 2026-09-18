@@ -26,7 +26,11 @@
     "Copy": "Copy",
     "Paste": "Paste",
     "NewFeature": "New",
-    "Close": "Close"
+    "Close": "Close",
+    "FacetedFilter": {
+      "Clear": "Clear filters",
+      "NoResultsFound": "No results found."
+    }
   },
   "MainMenu": {
     "File": {
@@ -226,10 +230,7 @@
         "ConfigType": "Config Type",
         "Device": "Controller",
         "Type": "Devices",
-        "Name": "Names",
-        "Selected": "{{items}} selected",
-        "Clear": "Clear filters",
-        "NoResultsFound": "No results found."
+        "Name": "Names"
       },
       "NotSet": "not set",
       "Reset": "Reset filters",
@@ -976,4 +977,3 @@
     }
   }
 }
-
