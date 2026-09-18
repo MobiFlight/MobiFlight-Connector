@@ -44,6 +44,16 @@ namespace MobiFlightMoza.Cdu
             return MozaMcduFrame.PackDelta(NextSequence++, textRows, styleRows);
         }
 
+        // A forced resend of the current page (e.g. a keep-alive) must still be a real
+        // Keyframe - the guide only accepts strictly increasing Sequence, so this advances
+        // NextSequence like any other frame rather than resetting it back to 1.
+        public byte[] ForceKeyframe(CduPage page)
+        {
+            byte[] keyframe = BuildKeyframe(page);
+            LastSentPage = page;
+            return keyframe;
+        }
+
         private byte[] BuildKeyframe(CduPage page)
         {
             List<McduTextRow> textRows = [];

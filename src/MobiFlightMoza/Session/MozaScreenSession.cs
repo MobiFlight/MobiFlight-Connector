@@ -157,6 +157,8 @@ namespace MobiFlightMoza.Session
             McduChannel.SubmitPage(page);
         }
 
+        public void ForceResend() => McduChannel.ForceResend();
+
         // Callable from any thread: only sets these two fields, never mutates the
         // session/multiplexer directly - Tick (always on the pump thread) does the actual
         // work once it observes ShuttingDown, keeping every real mutation single-threaded.
@@ -254,10 +256,11 @@ namespace MobiFlightMoza.Session
             TryEnterMcduMode();
         }
 
-        // Pins the display to the MCDU page once both the settings collection window has
-        // closed and the MCDU channel is ready to accept a page - whichever finishes last
-        // triggers it. Not gated on the first Keyframe's ACK specifically: a deliberate
-        // simplification, at the cost of a possible one-time blank flash at connect.
+        // The guide's own order is InitConfig -> ClientCapability -> Keyframe -> displayMode=1,
+        // only after the page has already gone out - not gated on the Keyframe send directly
+        // (SubmitPage already forwards a pending page as soon as Capability arrives), but
+        // SettingsReady only fires ~4s later, well after that first Keyframe has had time to
+        // go out, so this ordering still holds in practice.
         private void TryEnterMcduMode()
         {
             if (DisplayModeWritten) return;

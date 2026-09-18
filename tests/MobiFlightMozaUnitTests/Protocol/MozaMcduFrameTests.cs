@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using MobiFlightMoza.Protocol;
 using MobiFlightMoza.Tests;
 
@@ -133,6 +135,43 @@ namespace MobiFlightMoza.Protocol.Tests
             // Assert
             Assert.AreEqual(0x01, flags & 0x01); // text present
             Assert.AreEqual(0x00, flags & 0x02); // no styles
+        }
+
+        [TestMethod]
+        public void PackKeyframe_LargeRepetitiveBody_IsCompressed()
+        {
+            // Arrange - a full 14x24 keyframe of blank cells, the same shape as a real
+            // startup page: large and highly repetitive, so it should shrink under zlib
+            // rather than grow from the format's own overhead (unlike the tiny single-
+            // character golden vector above, which stays uncompressed).
+            List<McduTextRow> textRows = [];
+            List<McduStyleRow> styleRows = [];
+            for (byte row = 0; row < 14; row++)
+            {
+                textRows.Add(new McduTextRow(row, [new McduTextSegment(0, new string(' ', 24))]));
+                styleRows.Add(new McduStyleRow(row, [new McduStyleSegment(0, new byte[24])]));
+            }
+
+            // Act
+            byte[] payload = MozaMcduFrame.PackKeyframe(1, textRows, styleRows);
+
+            // Flags byte is at offset 10; a 4-byte big-endian uncompressed length and the
+            // zlib stream follow immediately when compression is used.
+            byte flags = payload[10];
+            uint uncompressedLength = (uint)((payload[11] << 24) | (payload[12] << 16) | (payload[13] << 8) | payload[14]);
+            byte[] compressed = payload[15..];
+
+            using var input = new MemoryStream(compressed);
+            using var zlib = new ZLibStream(input, CompressionMode.Decompress);
+            using var decompressed = new MemoryStream();
+            zlib.CopyTo(decompressed);
+            byte[] rowsBody = decompressed.ToArray();
+
+            // Assert
+            Assert.AreEqual(0x08, flags & 0x08); // compressed
+            Assert.AreEqual((uint)rowsBody.Length, uncompressedLength);
+            Assert.IsLessThan(uncompressedLength, (uint)compressed.Length);
+            Assert.AreEqual((byte)14, rowsBody[0]); // textRowCount: the decompressed body starts where the uncompressed layout would
         }
 
         #endregion

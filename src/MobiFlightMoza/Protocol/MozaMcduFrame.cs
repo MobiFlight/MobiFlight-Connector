@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Text;
 
 namespace MobiFlightMoza.Protocol
@@ -146,10 +148,30 @@ namespace MobiFlightMoza.Protocol
             if (textRows.Count > 255) throw new ArgumentException("More than 255 text rows.", nameof(textRows));
             if (styleRows.Count > 255) throw new ArgumentException("More than 255 style rows.", nameof(styleRows));
 
+            List<byte> rowsBody = [(byte)textRows.Count];
+            foreach (var row in textRows)
+            {
+                AppendTextRow(rowsBody, row);
+            }
+            rowsBody.Add((byte)styleRows.Count);
+            foreach (var row in styleRows)
+            {
+                AppendStyleRow(rowsBody, row);
+            }
+
             byte flags = 0;
             if (textRows.Count > 0) flags |= 0x01;
             if (styleRows.Count > 0) flags |= 0x02;
             if (baseSequence.HasValue) flags |= 0x04;
+
+            // Zlib-compressed only when it actually shrinks the body - a big, repetitive
+            // full keyframe compresses well (matches MOZA's own client on the wire, flag
+            // 0x08 + a big-endian uncompressed length ahead of the deflate stream), but a
+            // tiny single-character delta would only grow from zlib's own overhead, and the
+            // guide's own worked example for that case is uncompressed.
+            byte[] compressed = ZlibCompress([.. rowsBody]);
+            bool useCompression = compressed.Length < rowsBody.Count;
+            if (useCompression) flags |= 0x08;
 
             List<byte> payload =
             [
@@ -163,19 +185,32 @@ namespace MobiFlightMoza.Protocol
                 payload.AddRange((byte[])[(byte)b, (byte)(b >> 8), (byte)(b >> 16), (byte)(b >> 24)]);
             }
 
-            payload.Add((byte)textRows.Count);
-            foreach (var row in textRows)
+            if (useCompression)
             {
-                AppendTextRow(payload, row);
+                uint uncompressedLength = (uint)rowsBody.Count;
+                payload.AddRange((byte[])
+                [
+                    (byte)(uncompressedLength >> 24), (byte)(uncompressedLength >> 16),
+                    (byte)(uncompressedLength >> 8), (byte)uncompressedLength,
+                ]);
+                payload.AddRange(compressed);
             }
-
-            payload.Add((byte)styleRows.Count);
-            foreach (var row in styleRows)
+            else
             {
-                AppendStyleRow(payload, row);
+                payload.AddRange(rowsBody);
             }
 
             return [.. payload];
+        }
+
+        private static byte[] ZlibCompress(byte[] data)
+        {
+            using var output = new MemoryStream();
+            using (var zlib = new ZLibStream(output, CompressionLevel.Optimal, leaveOpen: true))
+            {
+                zlib.Write(data, 0, data.Length);
+            }
+            return output.ToArray();
         }
 
         private static void AppendTextRow(List<byte> payload, McduTextRow row)

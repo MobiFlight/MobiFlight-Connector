@@ -78,14 +78,16 @@ namespace MobiFlightMoza
             Session.SubmitPage(page);
         }
 
+        public void ForceResend() => Session?.ForceResend();
+
         // Deliberately a no-op for v1: the panel simply keeps showing whatever it was last
         // told to show. Revisit if that turns out to be the wrong UX (R-STOP).
         public void Stop() { }
 
         /// <summary>
-        /// Signals the session to restore the device's own display mode and close every
-        /// open channel, waits (bounded) for that to finish, then closes the port. Safe to
-        /// call even if <see cref="Connect"/> never succeeded.
+        /// Signals the session to close every open channel, waits (bounded) for that to
+        /// finish, then closes the port. Safe to call even if <see cref="Connect"/> never
+        /// succeeded.
         /// </summary>
         public void Shutdown()
         {

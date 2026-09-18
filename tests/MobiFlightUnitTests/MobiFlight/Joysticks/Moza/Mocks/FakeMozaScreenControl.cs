@@ -14,6 +14,7 @@ namespace MobiFlight.Joysticks.Moza.Tests.Mocks
         public bool ConnectCalled { get; private set; }
         public bool StopCalled { get; private set; }
         public bool ShutdownCalled { get; private set; }
+        public int ForceResendCallCount { get; private set; }
         public List<string> SubmittedPages { get; } = new();
 
         public bool Connect()
@@ -23,6 +24,8 @@ namespace MobiFlight.Joysticks.Moza.Tests.Mocks
         }
 
         public void SubmitScreenData(string json) => SubmittedPages.Add(json);
+
+        public void ForceResend() => ForceResendCallCount++;
 
         public void Stop() => StopCalled = true;
 

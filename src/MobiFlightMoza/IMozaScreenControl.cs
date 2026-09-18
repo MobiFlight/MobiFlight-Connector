@@ -15,6 +15,7 @@ namespace MobiFlightMoza
 
         bool Connect();
         void SubmitScreenData(string json);
+        void ForceResend();
         void Stop();
         void Shutdown();
     }

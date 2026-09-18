@@ -14,12 +14,20 @@ namespace MobiFlight.Joysticks.Moza
     internal class MozaMcdu : MozaBaseController, ICduDataConsumer
     {
         private static readonly TimeSpan ScreenConnectRetryInterval = TimeSpan.FromSeconds(2);
+        // Experiment: MOZA's own app kept pushing keyframes continuously while the screen
+        // was actually rendering content, rather than sending one page and stopping - a
+        // single static page never got past the firmware's own HOMEPAGE. Resending
+        // whatever page is current on an interval tests whether that sustained traffic is
+        // what the firmware is waiting for.
+        private static readonly TimeSpan ScreenRefreshInterval = TimeSpan.FromSeconds(1);
 
         private readonly IMozaScreenControl ScreenControl;
         private readonly ICduWebsocketHub Hub;
         private string RegisteredPath;
         private bool ScreenConnected;
         private DateTime NextScreenConnectAttempt = DateTime.MinValue;
+        private string LastSubmittedJson;
+        private DateTime NextScreenRefresh = DateTime.MaxValue;
 
         public MozaMcdu(JoystickDefinition definition, ICduWebsocketHub hub)
             : this(definition, hub, new MozaScreenControl())
@@ -46,7 +54,19 @@ namespace MobiFlight.Joysticks.Moza
         public override void Update()
         {
             base.Update();
-            if (!ScreenConnected) TryConnectScreen();
+            if (!ScreenConnected)
+            {
+                TryConnectScreen();
+                return;
+            }
+            if (LastSubmittedJson != null && DateTime.Now >= NextScreenRefresh)
+            {
+                // ForceResend, not SubmitScreenData - resubmitting identical JSON would just
+                // get silently deduped by McduFrameBuilder's own unchanged-page check and
+                // never actually touch the wire.
+                ScreenControl.ForceResend();
+                NextScreenRefresh = DateTime.Now + ScreenRefreshInterval;
+            }
         }
 
         // The CDC display interface can still be mid-enumeration by Windows when the base
@@ -60,7 +80,7 @@ namespace MobiFlight.Joysticks.Moza
             if (ScreenControl.Connect())
             {
                 ScreenConnected = true;
-                ScreenControl.SubmitScreenData(WinCtrlConstants.InitialDisplayJson);
+                SubmitScreenData(WinCtrlConstants.InitialDisplayJson);
             }
             else
             {
@@ -77,7 +97,7 @@ namespace MobiFlight.Joysticks.Moza
             Hub.Register(RegisteredPath, this);
         }
 
-        public void OnCduData(string json) => ScreenControl.SubmitScreenData(json);
+        public void OnCduData(string json) => SubmitScreenData(json);
 
         // MOZA v1 has no font upload (guide's 9030 channel, deferred).
         public void OnCduFont(string json) { }
@@ -85,19 +105,26 @@ namespace MobiFlight.Joysticks.Moza
         public override void SetLcdDisplay(string address, string value)
         {
             if (address != MozaConstants.ScreenAddress) return;
-            ScreenControl.SubmitScreenData(value);
+            SubmitScreenData(value);
         }
 
         public override void ShowUserMessage(int messageCode, params string[] parameters)
         {
             try
             {
-                ScreenControl.SubmitScreenData(CduUserMessageFormatter.Format(messageCode, parameters));
+                SubmitScreenData(CduUserMessageFormatter.Format(messageCode, parameters));
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"MozaMcdu - Error on show user message: {ex.Message}", LogSeverity.Error);
             }
+        }
+
+        private void SubmitScreenData(string json)
+        {
+            ScreenControl.SubmitScreenData(json);
+            LastSubmittedJson = json;
+            NextScreenRefresh = DateTime.Now + ScreenRefreshInterval;
         }
 
         public override void Stop()
