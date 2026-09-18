@@ -693,3 +693,450 @@ When one or more filters are active, a Reset control becomes available.
 If active filters produce zero visible Config Items, a separate Reset button is displayed in the empty-results view.
 
 This is a second GUI entry point to the same overall filter-reset behavior.
+
+# Sorting
+
+The Config Item table internally maintains sorting state, but the current Project View does not expose an active sorting control in the table headers.
+
+A previous Name-column sorting control exists in source code only as commented code.
+
+Therefore column sorting is currently **not** cataloged as an available user interaction.
+
+# Config Item Table
+
+The Config Item table displays the Config Items belonging to the active Profile.
+
+Visible columns can include:
+
+- Active
+- Name
+- Controller
+- Device
+- Status
+- Raw Value
+- Final Value
+- Actions
+
+Some columns are hidden depending on window size.
+
+# Config Item Selection
+
+Rows support single selection, additive selection, and range selection.
+
+## Single Selection
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Config Item row | Click | Selects only that row | Selection / View State | Normally not project Undo |
+
+## Additive Selection
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Config Item row | Ctrl+Click / Meta+Click | Adds or removes row from current selection | Selection / View State | Normally not project Undo |
+
+## Range Selection
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Config Item row | Shift+Click | Selects range between previous and current row | Selection / View State | Normally not project Undo |
+
+# Row Right-Click
+
+Right-clicking a Config Item row performs two user-visible actions:
+
+```
+Select clicked row
+→ Open Config Item context menu
+```
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Config Item row | Right-click | Selects row and opens context menu | Selection / Menu | Selection itself is not project Undo |
+
+# Selected Rows Menu
+
+When one or more rows are selected, the toolbar displays a button showing the number of selected rows.
+
+Clicking this button exposes bulk actions.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| `N rows selected` | Click | Opens selected-row actions | Menu | No Undo, but possible |
+| Delete selected | Click | Deletes all selected Config Items | Project State | Strong Undo candidate |
+| Toggle selected | Click | Toggles Active state of selected items | Project State | Strong Undo candidate |
+| Clear selection | Click | Clears current row selection | Selection / View State | Normally not project Undo |
+
+# Config Item Selection Keyboard Actions
+
+When focus is not captured by another control, selected rows can also be manipulated through keyboard shortcuts.
+
+| Key | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|
+| Delete | Deletes selected Config Items | Project State | Same semantic action as Bulk Delete |
+| Backspace | Deletes selected Config Items | Project State | Same semantic action as Bulk Delete |
+| Space | Toggles Active state of selected Config Items | Project State | Same semantic action as Bulk Toggle |
+| Escape | Clears current row selection | Selection / View State | No project Undo |
+
+`Enter` is currently included in the table's recognized-key list but has no corresponding action implemented.
+
+It should therefore not currently be treated as a functional user action.
+
+# Drag and Drop
+
+Each Config Item row exposes a drag handle when the row is hovered.
+
+Drag and Drop supports both reordering within a Profile and moving Config Items between Profiles.
+
+## Single Config Item Reorder
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Row drag handle | Drag and drop within table | Moves Config Item to a different position | Project State | Strong project Undo candidate |
+
+## Drag Unselected Item
+
+If the user starts dragging a row that was not previously selected, that row becomes the only dragged item.
+
+| User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|
+| Drag unselected row | Row becomes selected and is dragged alone | Selection + Project State | Selection is UI state; completed move is Undo candidate |
+
+## Multi-Item Drag
+
+If multiple rows are selected, dragging one of the selected rows moves the selected Config Items together.
+
+| User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|
+| Drag selected group | Selected Config Items move as a group | Project State | Strong Undo candidate |
+
+# Cross-Profile Drag and Drop
+
+Config Items can be dragged from one Profile to another.
+
+The user interaction can consist of:
+
+```
+Select item(s)
+→ start drag
+→ hover another Profile tab
+→ target Profile becomes active
+→ choose target location
+→ drop
+```
+
+| User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|
+| Drag item(s) over another Profile | Target Profile becomes active after hover delay | Navigation + Temporary Drag State | Intermediate drag state, not yet committed Undo |
+| Drop item(s) in another Profile | Config Items move to target Profile and target position | Project State | Strong Undo candidate |
+
+The current implementation automatically switches to a hovered Profile after a short delay.
+
+# Drag Into Empty Profile
+
+If the target Profile contains no Config Items, a temporary drop target is shown.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Empty Profile drop target | Drop item(s) | Adds moved Config Items to empty Profile | Project State | Strong Undo candidate |
+
+# Cancel Drag
+
+An active drag operation can be cancelled.
+
+| User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|
+| Escape during drag | Cancels drag and restores item(s) to original position/Profile | Local Interaction Cancellation | Should not create a project Undo entry |
+
+This is an important distinction:
+
+```
+Drag + Escape
+= cancel uncommitted interaction
+
+Drag + Drop + Ctrl+Z
+= Undo committed project mutation
+```
+
+# Active Toggle
+
+Each Config Item row contains an Active switch.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Active switch | Click | Toggles Config Item Active state | Project State | Strong project Undo candidate |
+
+This is one of the simplest direct Project-state changes in the view.
+
+# Config Item Name
+
+The Name cell supports inline editing.
+
+## Rename Config Item
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Config Item name | Double-click | Opens inline name editor | Text Editing | Starts local editing |
+| Name input | Type | Changes temporary name | Native Text Edit | Ctrl+Z should affect local text edit |
+| Name input | Enter | Commits Config Item rename | Project State | Candidate for project Undo |
+| Name input | Blur | Commits Config Item rename | Project State | Candidate for project Undo |
+| Name input | Escape | Cancels rename | Local Edit Cancellation | No Undo entry |
+| Row menu → Rename | Click | Starts same inline editor | Text Editing | Alternative entry point |
+
+# Controller Cell
+
+A Config Item with an assigned controller displays its controller name.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Controller name | Hover | Shows controller name and serial tooltip | Information | No Undo |
+| Controller Settings icon | Click | Opens controller settings | Project / Hardware Configuration | Separate interaction flow |
+
+The Controller Settings icon becomes visible when the row is hovered.
+
+The Controller column can be hidden at smaller window sizes.
+
+# Device Cell
+
+The Device cell displays the configured device and status information.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Device information | Hover | Shows device/status tooltip | Information | No Undo |
+
+There is currently no direct edit action attached to the Device cell itself.
+
+# Status Cell
+
+The Status column can display indicators for:
+
+- Precondition
+- Test
+- Config Reference
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Status indicator | Hover | Shows detailed status tooltip | Information | No Undo |
+
+These indicators are informational and do not currently provide click actions.
+
+# Raw and Final Value Cells
+
+Raw and Final Value cells display runtime values and runtime error/status indicators.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Raw Value | Hover | Shows complete value or source-status tooltip | Runtime Information | No Undo |
+| Final Value | Hover | Shows complete value or modifier-status tooltip | Runtime Information | No Undo |
+
+These values can update automatically while the project is running.
+
+# Config Item Edit
+
+Each Config Item row exposes a dedicated Edit button.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Edit button on Input Config | Click | Opens Input Config editor | Project Configuration | Editor interactions cataloged separately |
+| Edit button on Output Config | Click | Opens Output Config wizard | Project Configuration | Wizard interactions cataloged separately |
+| Config Item row | Double-click | Opens corresponding Config Item editor | Project Configuration | Alternative entry point |
+
+Input and Output Config Items use different editing interfaces.
+
+# Config Item Actions Menu
+
+Each row contains an `...` button.
+
+Opening it displays:
+
+```
+Edit
+Rename
+Delete
+Duplicate
+Test
+```
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Row `...` button | Click | Opens Config Item menu | Menu | No Undo |
+| Edit | Click | Opens corresponding Config Item editor | Project Configuration | Detailed editor action |
+| Rename | Click | Starts inline rename | Project State / Text Editing | Commit is Undo candidate |
+| Delete | Click | Removes Config Item | Project State | Strong Undo candidate |
+| Duplicate | Click | Creates duplicated Config Item | Project State | Strong Undo candidate |
+| Test | Click | Tests this Config Item | Runtime | Not normal project Undo |
+
+# Config Item Right-Click Context Menu
+
+Right-clicking a row exposes the same semantic actions as the `...` menu:
+
+```
+Edit
+Rename
+Delete
+Duplicate
+Test
+```
+
+The context menu is therefore a separate GUI entry point to the same Config Item actions.
+
+# Delete Config Item
+
+Deleting a Config Item removes the row from the active Profile.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Delete | Click | Config Item disappears from table | Project State | Strong Undo candidate |
+
+Delete can be triggered through the Config Item menu or right-click context menu.
+
+Bulk deletion is a separate interaction described under Selected Rows.
+
+# Duplicate Config Item
+
+Duplicating a Config Item creates a new Config Item based on the selected source item.
+
+The user-visible flow includes additional behavior after creation:
+
+```
+Duplicate
+→ new row appears
+→ duplicated row is selected
+→ corresponding editor opens
+```
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Duplicate | Click | Creates and selects duplicated Config Item | Project State | Strong Undo candidate |
+
+The automatic editor opening should be considered separately from the actual Duplicate mutation when defining an Undo action boundary.
+
+# Test Individual Config Item
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Test | Click | Starts test action for selected Config Item | Runtime | Not normal project Undo  |
+
+This is separate from the Project-level Test control in the Execution Toolbar.
+
+# Add Config Item
+
+Two creation buttons are displayed below the Config Item table.
+
+## Add Output Config
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Add Output Config | Click | Creates new Output Config and opens Output editor | Project State | Creation is an Undo candidate |
+
+## Add Input Config
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Add Input Config | Click | Creates new Input Config and opens Input editor | Project State | Creation is an Undo candidate |
+
+After creation, the new Config Item is automatically selected.
+
+# Newly Created Item Hidden by Filters
+
+A newly created or duplicated Config Item can be invisible because of the currently active filters.
+
+In this case, after the editor closes, the application can display a notification with an action to reset the filters.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Reset Filter notification action | Click | Clears filters, scrolls new item into view, and selects it | UI / Filter State | Not the Config creation Undo itself |
+
+# Empty Profile State
+
+When the active Profile contains no Config Items, the table displays an empty state.
+
+The user can still use:
+
+```
+Add Output Config
+Add Input Config
+```
+
+The Config Item filter controls are disabled while there are no Config Items.
+
+# Responsive Behavior
+
+Some Project View interactions depend on available screen width.
+
+For example, the Controller column is hidden at smaller window sizes.
+
+As a result, controls located inside responsive columns, such as the Controller Settings shortcut, may not always be visible.
+
+This should be considered when cataloging GUI entry points.
+
+# Project View Keyboard Context
+
+The Project View contains several text-editing controls:
+
+```
+Project Name editor
+Profile Name editor
+Config Item Name editor
+Config Item Search
+Faceted Filter search fields
+```
+
+When one of these inputs has focus, normal text-editing behavior should be distinguished from application-level Undo/Redo.
+
+The Project View also defines Config Item selection shortcuts:
+
+```
+Delete / Backspace → Delete selected Config Items
+Space              → Toggle selected Config Items
+Escape             → Clear selection
+```
+
+and Escape also has local meanings in other contexts:
+
+```
+Inline edit + Escape → cancel edit
+Drag operation + Escape → cancel drag
+```
+
+Therefore keyboard handling must consider the current interaction context before applying global Undo/Redo shortcuts.
+
+# Project View Summary
+
+The Project View contains several fundamentally different classes of user
+interaction:
+
+- local text editing
+- Profile navigation
+- Project metadata editing
+- Project persistence
+- Config Item filtering
+- Config Item selection
+- Config Item creation
+- Config Item property updates
+- Config Item deletion
+- bulk mutation
+- drag and drop
+- cross-Profile movement
+- runtime execution and testing
+- informational hover interactions
+
+From an Undo/Redo perspective, the Project View also demonstrates an important difference between **cancelling an interaction that has not yet been committed** and **undoing a committed Project mutation**.
+
+Examples:
+
+```
+Rename + Escape
+→ local cancellation
+
+Drag + Escape
+→ local cancellation
+
+Rename + Enter + Ctrl+Z
+→ potential Project Undo
+
+Drag + Drop + Ctrl+Z
+→ potential Project Undo
+```
+
+The Project View is therefore the central area for defining how global Undo/Redo should coexist with local text editing, selection, filtering, navigation, and interaction-specific cancellation.
