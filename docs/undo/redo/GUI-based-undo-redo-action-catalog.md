@@ -31,7 +31,7 @@ But it is still thinkable, that the Undo/Redo mechanism could be used when the a
 | Project area scrollable content | Scroll | Changes visible content | View State | No application Undo expected |
 | Community feed | Scroll | Changes visible feed content | View State | No application Undo expected |
 
-The Project / Community navigation buttons are only visible on smallerw indow sizes.
+The Project / Community navigation buttons are only visible on smaller window sizes.
 
 On larger window sizes both areas can be visible at the same time: Project navigation on left side and Community navigation on right side.
 
@@ -408,3 +408,288 @@ A user can interact with:
 Many of these interactions do not modify project configuration, but they still matter when defining the expected behavior of a global `Ctrl+Z` shortcut.
 
 In particular, Dashboard text inputs and filters reveal a distinction between local UI Undo and project-level Undo that would not be visible from project mutation paths alone.
+
+# Project View
+
+The Project View is the main configuration workspace of an opened project.
+
+It is available under the `/config` route and contains project-level controls, profile tabs, configuration-item filters, the configuration-item table, and configuration-item creation and editing actions.
+
+The common Main Menu Toolbar described in the Dashboard section is also available in this view.
+
+This section focuses on the controls and interactions specific to the Project View.
+
+# Project Panel
+
+The upper part of the Project View contains:
+
+- navigation back to the Dashboard
+- project name
+- project save control
+- project options
+- execution controls
+- profile tabs
+- profile creation and merge controls
+
+## Back to Dashboard
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Back button | Click | Returns to Dashboard if there are no unsaved changes | Navigation | Not project Undo |
+| Back button with unsaved changes | Click | Opens Unsaved Changes confirmation dialog | Navigation / Project Lifecycle | Dialog determines whether changes are saved or discarded |
+
+## Unsaved Changes Confirmation
+
+When the user attempts to return to the Dashboard while the project contains unsaved changes, a confirmation dialog is shown.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Save changes | Click | Saves the current project and returns to Dashboard | Persistence / Navigation | Not normal editing Undo |
+| Discard changes | Click | Discards current unsaved project changes and returns to Dashboard | Project Lifecycle | Destructive action; normally not an Undo entry |
+| Close / dismiss | Dismiss | Cancels navigation and keeps the Project View open | Modal / Navigation | No Undo |
+
+# Project Name
+
+The current project name is displayed directly in the Project Panel and can be edited inline.
+
+## Project Name Inline Editing
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Project name | Double-click | Replaces label with text input | Text Editing / Project State | Starts a local edit session |
+| Project name input | Type | Changes temporary project name | Native Text Edit | `Ctrl+Z` should normally affect the focused text input |
+| Project name input | Enter | Commits new project name | Project State | Candidate for project Undo |
+| Project name input | Blur | Commits new project name | Project State | Candidate for project Undo |
+| Project name input | Escape | Cancels current edit and restores previous name | Local Edit Cancellation | Should not create an Undo entry |
+
+The project name can also be put into edit mode through the Project Options menu.
+
+The distinction between editing text and committing the rename is important:
+
+```
+Double-click
+→ edit locally
+→ type text
+→ Enter / Blur
+→ project rename committed
+```
+
+Only the committed rename represents a project-state change.
+
+# Save Project
+
+A save button is displayed next to the project name.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Save button | Click | Saves current project changes | Persistence | Not normally part of Undo history |
+| Save button without changes | Click | Control is disabled | Persistence | No action |
+| Save button after successful save | View | Brief success indication is displayed | Information | No Undo |
+
+# Project Options Menu
+
+The `...` button next to the project name opens project-level actions.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Project `...` button | Click | Opens project options menu | Menu / Navigation | No Undo |
+| Rename | Click | Starts project-name inline editing | Text Editing / Project State | Commit behavior described above |
+| Settings | Click | Opens Edit Project dialog | Project Configuration | Dialog interactions cataloged separately |
+| Controller Bindings | Click | Opens Controller Bindings dialog | Project Configuration | Dialog interactions cataloged separately |
+
+# Execution Toolbar
+
+The Project View contains controls for AutoRun, normal execution, and test execution.
+
+## AutoRun
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| AutoRun button | Click | Enables or disables AutoRun | Application / Runtime Preference | Should be evaluated separately from project Undo |
+
+The button changes appearance according to the current AutoRun state.
+
+## Run / Stop
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Run | Click | Starts project execution | Runtime | Not normal project Undo |
+| Stop | Click | Stops project execution | Runtime | Not normal project Undo |
+
+The same button changes between Run and Stop according to execution state.
+
+Run is disabled while Test mode is active.
+
+## Test / Stop Test
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Test | Click | Starts project test mode | Runtime | Not normal project Undo |
+| Stop Test | Click | Stops test mode | Runtime | Not normal project Undo |
+
+Test is disabled while normal project execution is active.
+
+# Profile Tabs
+
+Each configuration file in the project is represented as a Profile tab.
+
+A user can select, rename, remove, create, merge, scroll, and use profiles as drop targets for Config Items.
+
+## Select Profile
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Profile tab | Click | Makes selected Profile active and displays its Config Items | Navigation / View State | Usually not expected in project Undo history |
+
+Selecting a Profile changes which Config Item list is currently visible.
+
+# Rename Profile
+
+The active Profile label supports inline editing.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Active Profile name | Double-click | Opens inline text editor | Text Editing | Starts local edit session |
+| Profile name input | Type | Changes temporary Profile label | Native Text Edit | `Ctrl+Z` should normally affect the text field |
+| Profile name input | Enter | Commits Profile rename | Project State | Candidate for project Undo |
+| Profile name input | Blur | Commits Profile rename | Project State | Candidate for project Undo |
+| Profile name input | Escape | Cancels edit | Local Edit Cancellation | No Undo entry expected |
+| Profile menu → Rename | Click | Starts inline rename mode | Text Editing | Alternative entry point |
+
+The current implementation only enables the inline editor for the active Profile.
+
+The Rename menu is still visually present on Profile menus, so inactive Profile behavior should also be manually verified in the running application.
+
+# Profile Options Menu
+
+Each Profile tab contains a `...` menu.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Profile `...` | Click | Opens Profile menu | Menu / Navigation | No Undo |
+| Rename | Click | Starts Profile inline rename | Project State / Text Editing | Candidate once committed |
+| Remove | Click | Removes Profile from project | Project State | Strong project Undo candidate |
+
+# Add / Merge Profile
+
+A `+` control is available next to the Profile tabs.
+
+Opening it exposes two actions.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| `+` Profile button | Click | Opens add-profile menu | Menu / Navigation | No Undo |
+| New | Click | Creates a new Profile | Project State | Candidate for project Undo |
+| Merge | Click | Starts merge-config-file flow | Project State / Import | Requires separate investigation |
+
+# Profile Tab Scrolling
+
+If the Profile tabs exceed the available horizontal space, additional navigation controls become available.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Scroll Profiles Left  | Click | Scrolls Profile tab strip left | View State | No project Undo |
+| Scroll Profiles Right | Click | Scrolls Profile tab strip right | View State | No project Undo |
+| Profile tab strip | Mouse wheel | Scrolls Profile tabs horizontally | View State | No project Undo |
+
+# Config Item Filter Toolbar
+
+The Config Item table includes a filter toolbar.
+
+The toolbar can contain:
+
+```
+Filter items...
+Config Type
+Controller
+Type
+Name
+Reset
+Selected Rows
+```
+
+The toolbar is disabled when the active Profile contains no Config Items.
+
+# Config Item Search Field
+
+The `Filter items...` text field filters Config Items by name.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Filter items field | Focus | Enters local text-editing context | Text Editing | Important for Ctrl+Z routing |
+| Filter items field | Type | Filters Config Items by name | Native Text Edit / UI State | Native text Undo should remain available |
+| Filter items field | Backspace / Delete | Changes filter text and table result | Native Text Edit / UI State | Native text Undo expected |
+| Filter items field | Replace selected text | Changes filter result | Native Text Edit / UI State | Native text Undo expected |
+
+The field stops keyboard events from propagating to Config Item table keyboard actions.
+
+This is important because keys such as Delete and Space have table-level meanings when focus is outside text controls.
+
+# Faceted Filters
+
+The Config Item table provides multiple multi-select filters.
+
+## Config Type Filter
+
+Filters by Config Item type, for example Input or Output configuration.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Config Type filter button | Click | Opens filter popover | UI / Filter State | No project-state change |
+| Filter option | Click | Selects or deselects Config Type | UI / Filter State | Previous filter could conceptually be restored |
+| Clear filter | Click | Clears Config Type filter | UI / Filter State | Could conceptually restore previous filter |
+
+## Controller Filter
+
+Filters Config Items according to the assigned controller.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Controller filter | Click | Opens controller filter | UI / Filter State | No project-state change |
+| Controller option | Click | Adds/removes controller from filter | UI / Filter State | View-level state |
+| Not Set option | Click | Filters items without controller | UI / Filter State | View-level state |
+| Clear filter | Click | Removes Controller filter | UI / Filter State | View-level state |
+
+## Device Type Filter
+
+The `Type` filter selects Config Items according to their configured device type.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Type filter | Click | Opens Device Type filter | UI / Filter State  | No project-state change |
+| Device Type option | Click | Adds/removes type from filter | UI / Filter State | View-level state |
+| Clear filter | Click | Removes Type filter | UI / Filter State  | View-level state |
+
+## Device Name Filter
+
+The `Name` filter selects Config Items according to configured device name.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Name filter | Click | Opens Device Name filter | UI / Filter State | No project-state change |
+| Device Name option | Click | Adds/removes name from filter | UI / Filter State | View-level state |
+| Clear filter | Click | Removes Device Name filter | UI / Filter State | View-level state |
+
+# Filter Popover Search
+
+Each faceted-filter popover also contains its own text search field.
+
+This means that opening a filter introduces an additional text-editing context.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Filter-option search | Focus | Starts local text-editing context | Text Editing | Ctrl+Z should remain local |
+| Filter-option search | Type | Filters available filter options | Native Text Edit / UI State | Native Undo expected |
+| Filter-option search | Delete / replace text | Changes visible filter options | Native Text Edit / UI State | Native Undo expected |
+
+# Reset All Filters
+
+When one or more filters are active, a Reset control becomes available.
+
+| GUI Element | User Interaction | Visible Result | Interaction Domain | Undo Expectation / Notes |
+|---|---|---|---|---|
+| Reset filters | Click | Clears all Config Item column filters | UI / Filter State | Previous complete filter state could conceptually be restored |
+
+If active filters produce zero visible Config Items, a separate Reset button is displayed in the empty-results view.
+
+This is a second GUI entry point to the same overall filter-reset behavior.
