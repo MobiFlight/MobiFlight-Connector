@@ -329,7 +329,7 @@ test.describe("Log panel - Toolbar tests", () => {
     await expect(warnEntry).toBeVisible()
     await expect(errorEntry).toBeVisible()
 
-    // the selection is shown on the filter button
+    // the picked levels are named on the filter button
     await expect(levelFilter).toContainText("Warn")
     await expect(levelFilter).toContainText("Error")
 

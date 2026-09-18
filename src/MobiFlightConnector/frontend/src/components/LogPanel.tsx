@@ -17,7 +17,7 @@ import { useLogsStore } from "@/stores/logsStore"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { DataTableFacetedFilter } from "@/components/tables/config-item-table/data-table-faceted-filter"
+import FacetedFilterOptions from "@/components/FacetedFilterOptions"
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   debug: 0,
@@ -198,7 +198,7 @@ const LogPanel = () => {
             onKeyDown={handleKeyDown}
           >
             <IconFilter className="shrink-0" />
-            <DataTableFacetedFilter
+            <FacetedFilterOptions
               title={t("Settings.General.Logging.LogLevel")}
               options={levelOptions}
               values={activeLevels}
