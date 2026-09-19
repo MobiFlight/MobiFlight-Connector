@@ -238,35 +238,11 @@ namespace MobiFlightMoza.Session.Tests
         #endregion
         #region Shutdown
         [TestMethod]
-        public void BeginShutdown_WithCachedDisplayMode_QueuesRestoreWrite()
+        public void BeginShutdown_SendsFinImmediatelyWithoutAnySettingsWrite()
         {
-            // Arrange
-            var (session, sink) = StartAndInit();
-            EstablishSettingsConnection(session);
-            Feed(session, ScriptedMozaDevice.Trans(SettingsLocalPort, 2, MinimalPreamble));
-            DrainSettingsQueue(session, sink, Now); // flush + ACK the time-sync and version sends
-            Feed(session, ScriptedMozaDevice.Trans(SettingsLocalPort, 3, MozaSettingsFrame.PackSettingFrame(0x18, [5])));
-            // Closes the collection window and caches DisplayMode=5. The 4-second jump is
-            // also past the 3-second heartbeat threshold, so this legitimately sends one -
-            // draining (not a plain Tick) so that heartbeat gets ACKed too, instead of
-            // blocking the restore write below the same way an un-ACKed send always would.
-            DrainSettingsQueue(session, sink, Now.AddSeconds(4.0));
-            sink.SentWires.Clear();
-            // Act
-            session.BeginShutdown(Now.AddSeconds(4.0));
-            session.Tick(Now.AddSeconds(4.0)); // sends the queued restore write (nothing else is pending)
-            // Assert
-            Assert.HasCount(1, sink.SentWires);
-            Assert.IsTrue(TryDecodeStreamRequest(sink.SentWires[0], out var request));
-            byte[] body = request.ApplicationData;
-            int settingId = body[9] | (body[10] << 8) | (body[11] << 16) | (body[12] << 24);
-            Assert.AreEqual(0x18, settingId);
-            Assert.AreEqual((byte)5, body[13]);
-        }
-        [TestMethod]
-        public void BeginShutdown_NoCachedDisplayMode_DoesNotWriteIt()
-        {
-            // Arrange - settings channel never reached Ready, so nothing was cached.
+            // Arrange - displayMode reset no longer happens at shutdown (moved to the
+            // startup 0-then-1 write in TryEnterMcduMode), so BeginShutdown's only job now
+            // is to start the guide's documented FIN close, with nothing to wait on first.
             var (session, sink) = StartAndInit();
             EstablishSettingsConnection(session);
             sink.SentWires.Clear();

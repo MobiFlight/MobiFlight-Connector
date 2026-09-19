@@ -42,7 +42,6 @@ namespace MobiFlightMoza.Session
         private bool DisplayModeWritten;
         private bool CabinPositionResolvedFired;
         private byte? CachedDisplayMode;
-        private bool RestoreWriteIssued;
         private bool CloseBegun;
         private DateTime? ShutdownDeadline;
 
@@ -112,43 +111,15 @@ namespace MobiFlightMoza.Session
             CurrentNow = now;
             if (State != MozaSessionState.Running) return;
 
-            // The restore write is queued here, from Tick, rather than from BeginShutdown
-            // itself - BeginShutdown may run on a different thread than the one calling
-            // Tick (the pump owns that one exclusively otherwise), so every actual mutation
-            // of session/multiplexer state has to happen from here to stay single-threaded.
-            // Queuing it before Multiplexer.Tick below (rather than after) lets that same
-            // call dequeue and send it immediately, instead of leaving it for the next tick.
-            if (ShuttingDown && !RestoreWriteIssued)
-            {
-                RestoreWriteIssued = true;
-                if (CachedDisplayMode.HasValue)
-                {
-                    SettingsChannel.RequestSetting(0x18, [CachedDisplayMode.Value], now);
-                }
-            }
-
             Multiplexer.Tick(now);
             SettingsChannel.Tick(now);
 
             if (!ShuttingDown) return;
 
-            // BeginClose is deliberately not called as soon as shutdown starts: it sends a
-            // FIN immediately and claims the settings connection's one "pending" slot, which
-            // would strand the restore write above behind it forever (the connection stops
-            // being Established once its FIN is acked). Waiting for the settings connection
-            // to have nothing pending means the restore write has had its turn - either it
-            // went out, or there was never one to send. Giving up once ShutdownDeadline
-            // passes regardless (matching the guide's own bounded-wait guidance for a
-            // graceful close) means a stuck connection can never block shutdown forever.
             if (!CloseBegun)
             {
-                bool settingsFree = !Multiplexer.TryGetConnection(MozaConstants.ServicePortSettings, out var settingsConnection) || !settingsConnection.HasPending;
-                bool deadlinePassed = ShutdownDeadline.HasValue && now >= ShutdownDeadline.Value;
-                if (settingsFree || deadlinePassed)
-                {
-                    CloseBegun = true;
-                    Multiplexer.BeginClose(now);
-                }
+                CloseBegun = true;
+                Multiplexer.BeginClose(now);
             }
         }
 

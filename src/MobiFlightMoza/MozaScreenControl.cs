@@ -1,5 +1,6 @@
 using System;
 using System.IO.Ports;
+using System.Threading;
 using MobiFlightMoza.Cdu;
 using MobiFlightMoza.Protocol;
 using MobiFlightMoza.Session;
@@ -13,6 +14,9 @@ namespace MobiFlightMoza
     /// </summary>
     public sealed class MozaScreenControl : IMozaScreenControl
     {
+        private const int ShutdownWaitMilliseconds = 5000;
+        private const int ShutdownPollMilliseconds = 50;
+
         private SerialPort Port;
         private MozaScreenSession Session;
         private readonly MozaSessionPump Pump = new();
@@ -90,29 +94,21 @@ namespace MobiFlightMoza
         public void Stop() { }
 
         /// <summary>
-        /// Closes the port without a Reliable Stream FIN handshake. Safe to call even if
-        /// <see cref="Connect"/> never succeeded.
+        /// Signals the session to close every open Reliable Stream connection with FIN (the
+        /// guide's documented graceful close), waits (bounded) for that to finish, then
+        /// closes the port. Safe to call even if <see cref="Connect"/> never succeeded.
         /// </summary>
-        /// <remarks>
-        /// Deliberately does NOT send FIN on the open connections first, even though a clean
-        /// FIN/ACK close is otherwise the documented way to end a session: a USB capture of
-        /// MOZA's own Cockpit app closing and reopening (no replug) showed it never sends FIN
-        /// either - it just stops using the port, and the device notices via its own
-        /// multi-second connection timeout instead. That reconnects reliably; our own FIN-based
-        /// close - byte-correct and confirmed to complete both ways - left the device unable to
-        /// hand off MCDU rendering to the next session without a physical replug. Matching what
-        /// the real client does, not what the written procedure says, is what's proven to work.
-        /// <para>
-        /// Does not attempt to restore displayMode here either, for the same reason: that
-        /// depends on Shutdown() actually running to completion, which a crash or force-quit
-        /// skips entirely. Session.TryEnterMcduMode() forces a fresh 0-then-1 transition on
-        /// every connect instead, so the next session doesn't depend on this one having
-        /// cleaned up after itself.
-        /// </para>
-        /// </remarks>
         public void Shutdown()
         {
             if (Port == null) return;
+
+            Session.BeginShutdown(DateTime.Now);
+
+            int deadline = Environment.TickCount + ShutdownWaitMilliseconds;
+            while (Pump.IsRunning && !Session.IsShutdownComplete && Environment.TickCount < deadline)
+            {
+                Thread.Sleep(ShutdownPollMilliseconds);
+            }
 
             Pump.Stop();
 
