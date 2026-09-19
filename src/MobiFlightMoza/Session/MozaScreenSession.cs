@@ -33,6 +33,7 @@ namespace MobiFlightMoza.Session
         private readonly ReliableStreamMultiplexer Multiplexer;
         private readonly MozaSettingsChannel SettingsChannel;
         private readonly MozaMcduChannel McduChannel;
+        private readonly MozaTelemetryChannel TelemetryChannel;
 
         private const double ShutdownGracePeriodSeconds = 3.0;
 
@@ -79,6 +80,8 @@ namespace MobiFlightMoza.Session
             SettingsChannel.Ready += OnSettingsReady;
             SettingsChannel.SettingEchoed += (settingId, data) =>
                 TraceCreated?.Invoke($"Setting 0x{settingId:X2} echoed by device: [{string.Join(",", data)}].");
+
+            TelemetryChannel = new MozaTelemetryChannel(Multiplexer);
 
             McduChannel = new MozaMcduChannel(Multiplexer);
             McduChannel.CapabilityReceived += _ =>
@@ -200,6 +203,7 @@ namespace MobiFlightMoza.Session
                     // without) a separate reply to the init command.
                     if (message.DevicePair != MozaConstants.DevicePairFromDevice) return;
                     State = MozaSessionState.Running;
+                    SendDeviceInfoQueryBurst();
                     DispatchRunning(message, now);
                     return;
 
@@ -234,10 +238,25 @@ namespace MobiFlightMoza.Session
                 }
             }
 
+            if (Multiplexer.TryGetConnection(MozaConstants.ServicePortTelemetry, out var telemetryConnection))
+            {
+                byte[] telemetryBytes = telemetryConnection.ReadApplicationBytes();
+                if (telemetryBytes.Length > 0) TelemetryChannel.OnApplicationData(telemetryBytes);
+            }
+
             if (McduStarted && Multiplexer.TryGetConnection(MozaConstants.ServicePortMcduTcp, out var mcduData))
             {
                 byte[] mcduBytes = mcduData.ReadApplicationBytes();
                 if (mcduBytes.Length > 0) McduChannel.OnApplicationData(mcduBytes);
+            }
+        }
+
+        // See MozaConstants.DeviceInfoQueryBurst - experimental, not in the guide.
+        private void SendDeviceInfoQueryBurst()
+        {
+            foreach (byte[] frame in MozaConstants.DeviceInfoQueryBurst)
+            {
+                Sink.Send(frame);
             }
         }
 
@@ -270,7 +289,15 @@ namespace MobiFlightMoza.Session
                 return;
             }
             DisplayModeWritten = true;
-            TraceCreated?.Invoke("Writing displayMode=1 (MCDU) to device.");
+            // Forces a genuine transition on every connect instead of depending on a clean
+            // shutdown from the previous session to have left displayMode reset: a same-value
+            // write gets no device echo (guide, confirmed for brightness) and no repaint
+            // either, so if a prior session's exit was ever skipped (crash, force-quit, not
+            // enough time before the port closed), displayMode could already be sitting at 1
+            // and this write alone would be a silent no-op. Writing 0 first guarantees the
+            // change is real every time, without relying on shutdown logic ever having run.
+            TraceCreated?.Invoke("Forcing displayMode 0 then 1 (MCDU) to guarantee a genuine transition.");
+            SettingsChannel.RequestSetting(0x18, [0x00], CurrentNow);
             SettingsChannel.RequestSetting(0x18, [0x01], CurrentNow);
         }
 
@@ -291,7 +318,7 @@ namespace MobiFlightMoza.Session
                 Inner = inner;
             }
 
-            public void Send(byte[] wire) => Inner.Send(MozaTunnel.Wrap(MozaConstants.StreamInnerCommand, wire));
+            public void Send(byte[] wire, bool isReply = false) => Inner.Send(MozaTunnel.Wrap(MozaConstants.StreamInnerCommand, wire, isReply));
         }
     }
 }

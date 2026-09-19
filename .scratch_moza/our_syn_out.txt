@@ -1,0 +1,988 @@
+[cyc1] t=  49.404 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  49.407 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  49.409 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc1] t=  49.411 OUT SYN2 dport=1 isn=1 announced=1
+[cyc1] t=  49.412 OUT SYN2 dport=2 isn=2 announced=2
+[cyc1] t=  49.412 OUT SYN2 dport=3 isn=3 announced=3
+[cyc1] t=  49.424 IN  ACK(inner reply bit set) body=00010100
+[cyc1] t=  49.424 IN  ACK(inner reply bit set) body=00020200
+[cyc1] t=  49.424 IN  ACK(inner reply bit set) body=00030300
+[cyc1] t=  49.426 OUT UNPARSEABLE (len=4) body=00010500  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.426 OUT UNPARSEABLE (len=4) body=00010600  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.428 OUT UNPARSEABLE (len=4) body=00010700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.428 OUT UNPARSEABLE (len=4) body=00010800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.429 OUT UNPARSEABLE (len=4) body=00010900  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.433 OUT UNPARSEABLE (len=4) body=00010a00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.436 OUT UNPARSEABLE (len=4) body=00020600  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.438 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.505 OUT UNPARSEABLE (len=4) body=00010b00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.505 OUT UNPARSEABLE (len=4) body=00020700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.508 OUT UNPARSEABLE (len=4) body=00010c00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.510 OUT UNPARSEABLE (len=4) body=00020800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.511 OUT UNPARSEABLE (len=4) body=00010d00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.512 OUT UNPARSEABLE (len=4) body=00020900  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.513 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.514 OUT UNPARSEABLE (len=4) body=00020a00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.521 IN  ACK(inner reply bit set) body=00020300
+[cyc1] t=  49.521 IN  ACK(inner reply bit set) body=00030400
+[cyc1] t=  49.533 IN  ACK(inner reply bit set) body=00020400
+[cyc1] t=  49.533 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  49.533 IN  ACK(inner reply bit set) body=00030500
+[cyc1] t=  49.533 OUT UNPARSEABLE (len=4) body=00020b00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.533 OUT UNPARSEABLE (len=4) body=00020c00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.534 OUT UNPARSEABLE (len=4) body=00020d00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.602 OUT UNPARSEABLE (len=4) body=00020e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.605 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  49.615 IN  ACK(inner reply bit set) body=00020500
+[cyc1] t=  49.615 IN  ACK(inner reply bit set) body=00030600
+[cyc1] t=  49.625 IN  ACK(inner reply bit set) body=00020600
+[cyc1] t=  49.626 IN  ACK(inner reply bit set) body=00030700
+[cyc1] t=  49.636 IN  ACK(inner reply bit set) body=00030800
+[cyc1] t=  49.645 IN  ACK(inner reply bit set) body=00030900
+[cyc1] t=  50.299 IN  ACK(inner reply bit set) body=00030a00
+[cyc1] t=  50.309 IN  ACK(inner reply bit set) body=00030b00
+[cyc1] t=  50.318 IN  ACK(inner reply bit set) body=00030c00
+[cyc1] t=  50.419 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.419 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.420 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.422 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.423 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  50.533 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  51.202 IN  ACK(inner reply bit set) body=00030d00
+[cyc1] t=  51.212 IN  ACK(inner reply bit set) body=00030e00
+[cyc1] t=  51.221 IN  ACK(inner reply bit set) body=00030f00
+[cyc1] t=  51.420 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.420 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.421 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.422 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.423 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.425 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.425 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.428 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.432 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.434 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.435 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.437 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.438 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.439 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.440 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  51.532 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  51.978 IN  ACK(inner reply bit set) body=00031000
+[cyc1] t=  51.988 IN  ACK(inner reply bit set) body=00031100
+[cyc1] t=  51.997 IN  ACK(inner reply bit set) body=00031200
+[cyc1] t=  52.420 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.420 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.421 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.423 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.424 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.428 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.428 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.430 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.432 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.435 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.437 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.439 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.441 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.441 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.442 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  52.533 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  52.541 IN  ACK(inner reply bit set) body=00010200
+[cyc1] t=  52.770 IN  ACK(inner reply bit set) body=00020700
+[cyc1] t=  52.772 IN  ACK(inner reply bit set) body=00031300
+[cyc1] t=  52.781 IN  ACK(inner reply bit set) body=00031400
+[cyc1] t=  52.789 IN  ACK(inner reply bit set) body=00031500
+[cyc1] t=  53.421 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.421 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.422 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.423 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.431 IN  ACK(inner reply bit set) body=00031600
+[cyc1] t=  53.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.443 IN  ACK(inner reply bit set) body=00031700
+[cyc1] t=  53.457 IN  ACK(inner reply bit set) body=00020800
+[cyc1] t=  53.457 IN  ACK(inner reply bit set) body=00031800
+[cyc1] t=  53.457 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.457 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.458 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.459 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.460 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  53.533 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  54.184 IN  ACK(inner reply bit set) body=00031900
+[cyc1] t=  54.193 IN  ACK(inner reply bit set) body=00031a00
+[cyc1] t=  54.201 IN  ACK(inner reply bit set) body=00031b00
+[cyc1] t=  54.420 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.420 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.427 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  54.533 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  54.976 IN  ACK(inner reply bit set) body=00031c00
+[cyc1] t=  54.985 IN  ACK(inner reply bit set) body=00031d00
+[cyc1] t=  54.993 IN  ACK(inner reply bit set) body=00031e00
+[cyc1] t=  55.421 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.421 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.422 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.424 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.424 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.426 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.428 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.432 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.435 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.436 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.438 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.442 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  55.534 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  55.754 IN  ACK(inner reply bit set) body=00010300
+[cyc1] t=  55.755 IN  ACK(inner reply bit set) body=00031f00
+[cyc1] t=  55.765 IN  ACK(inner reply bit set) body=00032000
+[cyc1] t=  55.774 IN  ACK(inner reply bit set) body=00032100
+[cyc1] t=  56.423 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.424 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.428 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.428 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.430 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.432 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.433 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.434 IN  ACK(inner reply bit set) body=00032200
+[cyc1] t=  56.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.435 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.441 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  56.448 IN  ACK(inner reply bit set) body=00032300
+[cyc1] t=  56.459 IN  ACK(inner reply bit set) body=00032400
+[cyc1] t=  56.466 IN  ACK(inner reply bit set) body=00020900
+[cyc1] t=  56.534 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  57.188 IN  ACK(inner reply bit set) body=00032500
+[cyc1] t=  57.198 IN  ACK(inner reply bit set) body=00032600
+[cyc1] t=  57.207 IN  ACK(inner reply bit set) body=00032700
+[cyc1] t=  57.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.430 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.430 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.432 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.434 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.436 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.438 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.440 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.442 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  57.534 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  57.977 IN  ACK(inner reply bit set) body=00032800
+[cyc1] t=  57.987 IN  ACK(inner reply bit set) body=00032900
+[cyc1] t=  57.996 IN  ACK(inner reply bit set) body=00032a00
+[cyc1] t=  58.423 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.423 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.428 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.429 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.431 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.433 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.435 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.437 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.439 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.440 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.442 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  58.535 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  58.756 IN  ACK(inner reply bit set) body=00032b00
+[cyc1] t=  58.766 IN  ACK(inner reply bit set) body=00010400
+[cyc1] t=  58.768 IN  ACK(inner reply bit set) body=00032c00
+[cyc1] t=  58.776 IN  ACK(inner reply bit set) body=00032d00
+[cyc1] t=  59.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.430 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.431 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.433 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.435 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.437 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.439 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.440 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.442 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  59.536 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  59.546 IN  ACK(inner reply bit set) body=00020a00
+[cyc1] t=  59.547 IN  ACK(inner reply bit set) body=00032e00
+[cyc1] t=  59.556 IN  ACK(inner reply bit set) body=00032f00
+[cyc1] t=  59.565 IN  ACK(inner reply bit set) body=00033000
+[cyc1] t=  60.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.426 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.427 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.428 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.430 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.432 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.434 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.436 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.439 IN  ACK(inner reply bit set) body=00033100
+[cyc1] t=  60.439 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.442 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc1] t=  60.453 IN  ACK(inner reply bit set) body=00033200
+[cyc1] t=  60.462 IN  ACK(inner reply bit set) body=00033300
+[cyc1] t=  60.536 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc1] t=  78.032 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc1] t=  78.032 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc1] t=  78.032 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc1] t=  78.032 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t=  78.409 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t=  78.416 OUT SYN2 dport=1 isn=1 announced=1
+[cyc2] t=  78.424 IN  ACK(inner reply bit set) body=00010100
+[cyc2] t=  78.427 OUT UNPARSEABLE (len=4) body=00010500  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.427 OUT UNPARSEABLE (len=4) body=00010600  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.430 OUT UNPARSEABLE (len=4) body=00010700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.430 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t=  78.430 OUT UNPARSEABLE (len=4) body=00010800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.430 OUT UNPARSEABLE (len=4) body=00010900  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.431 OUT UNPARSEABLE (len=4) body=00010a00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.432 OUT SYN2 dport=2 isn=2 announced=2
+[cyc2] t=  78.433 OUT UNPARSEABLE (len=4) body=00010b00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.434 OUT UNPARSEABLE (len=4) body=00010c00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.435 OUT UNPARSEABLE (len=4) body=00010d00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.444 IN  ACK(inner reply bit set) body=00020200
+[cyc2] t=  78.444 OUT UNPARSEABLE (len=4) body=00020600  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.446 OUT UNPARSEABLE (len=4) body=00020700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.448 OUT UNPARSEABLE (len=4) body=00020800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.448 OUT UNPARSEABLE (len=4) body=00020900  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.449 OUT UNPARSEABLE (len=4) body=00020a00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.457 IN  ACK(inner reply bit set) body=00020300
+[cyc2] t=  78.466 IN  ACK(inner reply bit set) body=00020400
+[cyc2] t=  78.466 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  78.466 OUT UNPARSEABLE (len=4) body=00020b00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.467 OUT UNPARSEABLE (len=4) body=00020c00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.469 OUT UNPARSEABLE (len=4) body=00020d00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.478 IN  ACK(inner reply bit set) body=00020500
+[cyc2] t=  78.486 OUT UNPARSEABLE (len=4) body=00020e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.486 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.496 IN  ACK(inner reply bit set) body=00020600
+[cyc2] t=  78.542 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t=  78.621 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t=  78.621 OUT SYN2 dport=3 isn=3 announced=3
+[cyc2] t=  78.629 IN  ACK(inner reply bit set) body=00030300
+[cyc2] t=  78.630 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  78.655 IN  ACK(inner reply bit set) body=00030400
+[cyc2] t=  78.665 IN  ACK(inner reply bit set) body=00030500
+[cyc2] t=  78.675 IN  ACK(inner reply bit set) body=00030600
+[cyc2] t=  78.684 IN  ACK(inner reply bit set) body=00030700
+[cyc2] t=  78.907 IN  ACK(inner reply bit set) body=00030800
+[cyc2] t=  78.917 IN  ACK(inner reply bit set) body=00030900
+[cyc2] t=  78.926 IN  ACK(inner reply bit set) body=00030a00
+[cyc2] t=  79.424 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.424 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.466 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  79.630 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  79.640 IN  ACK(inner reply bit set) body=00030b00
+[cyc2] t=  79.650 IN  ACK(inner reply bit set) body=00030c00
+[cyc2] t=  79.659 IN  ACK(inner reply bit set) body=00030d00
+[cyc2] t=  80.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.436 IN  ACK(inner reply bit set) body=00030e00
+[cyc2] t=  80.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.449 IN  ACK(inner reply bit set) body=00030f00
+[cyc2] t=  80.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  80.463 IN  ACK(inner reply bit set) body=00031000
+[cyc2] t=  80.467 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  80.631 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.286 IN  ACK(inner reply bit set) body=00031100
+[cyc2] t=  81.294 IN  ACK(inner reply bit set) body=00031200
+[cyc2] t=  81.303 IN  ACK(inner reply bit set) body=00031300
+[cyc2] t=  81.423 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.453 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.454 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.455 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.457 IN  ACK(inner reply bit set) body=00010200
+[cyc2] t=  81.467 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  81.630 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  81.637 IN  ACK(inner reply bit set) body=00020700
+[cyc2] t=  82.078 IN  ACK(inner reply bit set) body=00031400
+[cyc2] t=  82.087 IN  ACK(inner reply bit set) body=00031500
+[cyc2] t=  82.095 IN  ACK(inner reply bit set) body=00031600
+[cyc2] t=  82.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.466 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  82.475 IN  ACK(inner reply bit set) body=00020800
+[cyc2] t=  82.630 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  82.855 IN  ACK(inner reply bit set) body=00031700
+[cyc2] t=  82.864 IN  ACK(inner reply bit set) body=00031800
+[cyc2] t=  82.872 IN  ACK(inner reply bit set) body=00031900
+[cyc2] t=  83.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.445 IN  ACK(inner reply bit set) body=00031a00
+[cyc2] t=  83.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.453 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.454 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  83.461 IN  ACK(inner reply bit set) body=00031b00
+[cyc2] t=  83.468 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  83.470 IN  ACK(inner reply bit set) body=00031c00
+[cyc2] t=  83.631 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.283 IN  ACK(inner reply bit set) body=00031d00
+[cyc2] t=  84.292 IN  ACK(inner reply bit set) body=00031e00
+[cyc2] t=  84.301 IN  ACK(inner reply bit set) body=00031f00
+[cyc2] t=  84.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.426 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  84.468 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  84.477 IN  ACK(inner reply bit set) body=00010300
+[cyc2] t=  84.630 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.077 IN  ACK(inner reply bit set) body=00032000
+[cyc2] t=  85.086 IN  ACK(inner reply bit set) body=00032100
+[cyc2] t=  85.095 IN  ACK(inner reply bit set) body=00032200
+[cyc2] t=  85.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.425 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.445 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.468 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  85.631 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  85.641 IN  ACK(inner reply bit set) body=00020900
+[cyc2] t=  85.869 IN  ACK(inner reply bit set) body=00032300
+[cyc2] t=  85.879 IN  ACK(inner reply bit set) body=00032400
+[cyc2] t=  85.888 IN  ACK(inner reply bit set) body=00032500
+[cyc2] t=  86.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.442 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.468 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  86.632 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  86.642 IN  ACK(inner reply bit set) body=00032600
+[cyc2] t=  86.652 IN  ACK(inner reply bit set) body=00032700
+[cyc2] t=  86.661 IN  ACK(inner reply bit set) body=00032800
+[cyc2] t=  87.312 IN  ACK(inner reply bit set) body=00032900
+[cyc2] t=  87.322 IN  ACK(inner reply bit set) body=00032a00
+[cyc2] t=  87.331 IN  ACK(inner reply bit set) body=00032b00
+[cyc2] t=  87.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.469 IN  SYN1 dport=9040 isn=8 announced=5
+[cyc2] t=  87.631 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  87.638 IN  ACK(inner reply bit set) body=00010400
+[cyc2] t=  88.077 IN  ACK(inner reply bit set) body=00032c00
+[cyc2] t=  88.087 IN  ACK(inner reply bit set) body=00032d00
+[cyc2] t=  88.096 IN  ACK(inner reply bit set) body=00032e00
+[cyc2] t=  88.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.427 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.443 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.446 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.447 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.448 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.469 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t=  88.631 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  88.852 IN  ACK(inner reply bit set) body=00020a00
+[cyc2] t=  88.854 IN  ACK(inner reply bit set) body=00032f00
+[cyc2] t=  88.864 IN  ACK(inner reply bit set) body=00033000
+[cyc2] t=  88.873 IN  ACK(inner reply bit set) body=00033100
+[cyc2] t=  89.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.428 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.429 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.430 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.444 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.449 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.450 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.451 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.452 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.453 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.454 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.469 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t=  89.633 OUT UNPARSEABLE (len=4) body=00030700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc2] t=  89.642 IN  ACK(inner reply bit set) body=00033200
+[cyc2] t=  89.651 IN  ACK(inner reply bit set) body=00033300
+[cyc2] t=  89.660 IN  ACK(inner reply bit set) body=00033400
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9040 isn=7 announced=4
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9050 isn=6 announced=3
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc2] t= 112.788 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc2] t= 112.788 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc3] t= 113.419 IN  SYN1 dport=9010 isn=4 announced=1
+[cyc3] t= 113.425 OUT SYN2 dport=1 isn=1 announced=1
+[cyc3] t= 113.434 IN  ACK(inner reply bit set) body=00010100
+[cyc3] t= 113.436 OUT UNPARSEABLE (len=4) body=00010500  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.436 OUT UNPARSEABLE (len=4) body=00010600  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.438 OUT UNPARSEABLE (len=4) body=00010700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.438 OUT UNPARSEABLE (len=4) body=00010800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.438 OUT UNPARSEABLE (len=4) body=00010900  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.439 OUT UNPARSEABLE (len=4) body=00010a00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.444 OUT UNPARSEABLE (len=4) body=00010b00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.444 OUT UNPARSEABLE (len=4) body=00010c00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.446 OUT UNPARSEABLE (len=4) body=00010d00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.447 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.451 IN  SYN1 dport=9020 isn=5 announced=2
+[cyc3] t= 113.451 OUT SYN2 dport=2 isn=2 announced=2
+[cyc3] t= 113.459 IN  ACK(inner reply bit set) body=00020200
+[cyc3] t= 113.461 OUT UNPARSEABLE (len=4) body=00020600  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.463 OUT UNPARSEABLE (len=4) body=00020700  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.465 OUT UNPARSEABLE (len=4) body=00020800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.465 OUT UNPARSEABLE (len=4) body=00020900  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.466 OUT UNPARSEABLE (len=4) body=00020a00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.474 IN  ACK(inner reply bit set) body=00020300
+[cyc3] t= 113.486 IN  ACK(inner reply bit set) body=00020400
+[cyc3] t= 113.486 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 113.486 OUT UNPARSEABLE (len=4) body=00020b00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.487 OUT UNPARSEABLE (len=4) body=00020c00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.487 OUT UNPARSEABLE (len=4) body=00020d00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.510 OUT UNPARSEABLE (len=4) body=00020e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.511 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.522 IN  ACK(inner reply bit set) body=00020500
+[cyc3] t= 113.531 IN  ACK(inner reply bit set) body=00020600
+[cyc3] t= 113.839 IN  SYN1 dport=9050 isn=7 announced=4
+[cyc3] t= 113.839 OUT SYN2 dport=4 isn=4 announced=4
+[cyc3] t= 113.848 IN  ACK(inner reply bit set) body=00040400
+[cyc3] t= 113.848 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 113.870 IN  ACK(inner reply bit set) body=00040500
+[cyc3] t= 113.879 IN  ACK(inner reply bit set) body=00040600
+[cyc3] t= 113.889 IN  ACK(inner reply bit set) body=00040700
+[cyc3] t= 113.898 IN  ACK(inner reply bit set) body=00040800
+[cyc3] t= 114.342 IN  ACK(inner reply bit set) body=00040900
+[cyc3] t= 114.352 IN  ACK(inner reply bit set) body=00040a00
+[cyc3] t= 114.361 IN  ACK(inner reply bit set) body=00040b00
+[cyc3] t= 114.432 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 114.483 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 114.848 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.288 IN  ACK(inner reply bit set) body=00040c00
+[cyc3] t= 115.298 IN  ACK(inner reply bit set) body=00040d00
+[cyc3] t= 115.307 IN  ACK(inner reply bit set) body=00040e00
+[cyc3] t= 115.431 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.447 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.460 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.460 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.460 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.467 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.467 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.468 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 115.484 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 115.847 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.064 IN  ACK(inner reply bit set) body=00040f00
+[cyc3] t= 116.074 IN  ACK(inner reply bit set) body=00041000
+[cyc3] t= 116.083 IN  ACK(inner reply bit set) body=00041100
+[cyc3] t= 116.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.447 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.465 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.468 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 116.483 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 116.701 IN  ACK(inner reply bit set) body=00020700
+[cyc3] t= 116.702 IN  ACK(inner reply bit set) body=00041200
+[cyc3] t= 116.712 IN  ACK(inner reply bit set) body=00041300
+[cyc3] t= 116.720 IN  ACK(inner reply bit set) body=00041400
+[cyc3] t= 116.849 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.073 IN  ACK(inner reply bit set) body=00010200
+[cyc3] t= 117.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.438 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.445 IN  ACK(inner reply bit set) body=00041500
+[cyc3] t= 117.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.457 IN  ACK(inner reply bit set) body=00041600
+[cyc3] t= 117.460 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.465 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.466 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.468 IN  ACK(inner reply bit set) body=00041700
+[cyc3] t= 117.468 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 117.476 IN  ACK(inner reply bit set) body=00020800
+[cyc3] t= 117.484 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 117.847 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.284 IN  ACK(inner reply bit set) body=00041800
+[cyc3] t= 118.294 IN  ACK(inner reply bit set) body=00041900
+[cyc3] t= 118.303 IN  ACK(inner reply bit set) body=00041a00
+[cyc3] t= 118.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.465 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.465 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.466 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.467 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.468 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.470 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.470 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 118.484 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 118.847 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.076 IN  ACK(inner reply bit set) body=00041b00
+[cyc3] t= 119.086 IN  ACK(inner reply bit set) body=00041c00
+[cyc3] t= 119.095 IN  ACK(inner reply bit set) body=00041d00
+[cyc3] t= 119.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.465 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.466 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.470 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.470 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.470 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 119.483 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 119.715 IN  ACK(inner reply bit set) body=00041e00
+[cyc3] t= 119.725 IN  ACK(inner reply bit set) body=00041f00
+[cyc3] t= 119.734 IN  ACK(inner reply bit set) body=00042000
+[cyc3] t= 119.848 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.287 IN  ACK(inner reply bit set) body=00010300
+[cyc3] t= 120.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.443 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.445 IN  ACK(inner reply bit set) body=00042100
+[cyc3] t= 120.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.458 IN  ACK(inner reply bit set) body=00042200
+[cyc3] t= 120.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.466 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.467 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.469 IN  ACK(inner reply bit set) body=00042300
+[cyc3] t= 120.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.470 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.470 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 120.484 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 120.492 IN  ACK(inner reply bit set) body=00020900
+[cyc3] t= 120.849 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.295 IN  ACK(inner reply bit set) body=00042400
+[cyc3] t= 121.305 IN  ACK(inner reply bit set) body=00042500
+[cyc3] t= 121.313 IN  ACK(inner reply bit set) body=00042600
+[cyc3] t= 121.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.435 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.465 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.465 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.467 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.467 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 121.484 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 121.849 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.068 IN  ACK(inner reply bit set) body=00042700
+[cyc3] t= 122.077 IN  ACK(inner reply bit set) body=00042800
+[cyc3] t= 122.085 IN  ACK(inner reply bit set) body=00042900
+[cyc3] t= 122.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.433 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.434 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.436 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.437 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.461 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.468 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.485 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 122.858 OUT UNPARSEABLE (len=4) body=00040800  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 122.860 IN  ACK(inner reply bit set) body=00042a00
+[cyc3] t= 122.870 IN  ACK(inner reply bit set) body=00042b00
+[cyc3] t= 122.879 IN  ACK(inner reply bit set) body=00042c00
+[cyc3] t= 123.322 IN  ACK(inner reply bit set) body=00010400
+[cyc3] t= 123.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.439 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.440 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.441 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.442 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.444 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.445 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.446 OUT UNPARSEABLE (len=4) body=00010e00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.462 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.463 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.464 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.466 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.466 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.468 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.469 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.471 OUT UNPARSEABLE (len=4) body=00020f00  <-- too short to be SYN/TRANS/FIN, likely a mis-tunneled ACK
+[cyc3] t= 123.471 IN  ACK(inner reply bit set) body=00042d00
+[cyc3] t= 123.482 IN  ACK(inner reply bit set) body=00042e00
+[cyc3] t= 123.484 IN  SYN1 dport=9040 isn=6 announced=3
+[cyc3] t= 123.491 IN  ACK(inner reply bit set) body=00042f00

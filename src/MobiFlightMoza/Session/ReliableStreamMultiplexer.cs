@@ -118,7 +118,7 @@ namespace MobiFlightMoza.Session
 
             bool peerWasClosed = connection.PeerClosed;
             ushort acknowledgedIsn = connection.AcceptRequest(request, now);
-            Sink.Send(ReliableStreamFrame.PackAck(connection.PeerPort, acknowledgedIsn));
+            Sink.Send(ReliableStreamFrame.PackAck(connection.PeerPort, acknowledgedIsn), isReply: true);
 
             bool peerJustClosed = request.MessageType == StreamMessageType.Fin && !peerWasClosed && connection.PeerClosed;
             if (!peerJustClosed) return;

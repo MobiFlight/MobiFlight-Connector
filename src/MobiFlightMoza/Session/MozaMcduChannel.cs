@@ -16,6 +16,7 @@ namespace MobiFlightMoza.Session
         private readonly McduFrameBuilder FrameBuilder = new();
 
         private CduPage PendingPage;
+        private bool PlaceholderSent;
 
         public McduClientCapability? Capability { get; private set; }
 
@@ -29,6 +30,7 @@ namespace MobiFlightMoza.Session
         public void Start()
         {
             Capability = null;
+            PlaceholderSent = false;
             FrameBuilder.Reset();
             Multiplexer.TrySend(MozaConstants.ServicePortMcduTcp, MozaMcduFrame.PackInitConfig(McduInitConfig.Default));
         }
@@ -67,6 +69,23 @@ namespace MobiFlightMoza.Session
         private void TrySendPendingPage()
         {
             if (!Capability.HasValue || PendingPage == null) return;
+
+            // EXPERIMENTAL - not in the guide. A USB capture of MOZA's own Cockpit app
+            // showed it never sends the same static content twice on connect: with no sim
+            // running it still alternates between its own placeholder screens ("WAITING FOR
+            // GAME DATA" / its MCDU menu) rather than resending one unchanged page. Testing
+            // whether the device needs a genuine content change to repaint after falling
+            // back to its own HOMEPAGE idle state - MobiFlight has always sent the exact
+            // same bytes on every connect, cold or warm, and only the cold one ever renders.
+            if (!PlaceholderSent)
+            {
+                PlaceholderSent = true;
+                byte[] placeholder = FrameBuilder.BuildNext(CduPage.CreateBlank());
+                if (placeholder != null)
+                {
+                    Multiplexer.TrySend(MozaConstants.ServicePortMcduTcp, placeholder);
+                }
+            }
 
             byte[] frame = FrameBuilder.BuildNext(PendingPage);
             if (frame != null)

@@ -14,12 +14,10 @@ namespace MobiFlight.Joysticks.Moza
     internal class MozaMcdu : MozaBaseController, ICduDataConsumer
     {
         private static readonly TimeSpan ScreenConnectRetryInterval = TimeSpan.FromSeconds(2);
-        // Experiment: MOZA's own app kept pushing keyframes continuously while the screen
-        // was actually rendering content, rather than sending one page and stopping - a
-        // single static page never got past the firmware's own HOMEPAGE. Resending
-        // whatever page is current on an interval tests whether that sustained traffic is
-        // what the firmware is waiting for.
-        private static readonly TimeSpan ScreenRefreshInterval = TimeSpan.FromSeconds(1);
+        // Matches McduInitConfig's TcpKeyframeIntervalMs (750) - that field is what we tell
+        // the device our own resync cadence will be, so the actual resend interval has to
+        // honor it, not just be close to it.
+        private static readonly TimeSpan ScreenRefreshInterval = TimeSpan.FromMilliseconds(750);
 
         private readonly IMozaScreenControl ScreenControl;
         private readonly ICduWebsocketHub Hub;

@@ -1,5 +1,6 @@
 using MobiFlightMoza.Protocol;
 using MobiFlightMoza.Tests.Mocks;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 namespace MobiFlightMoza.Session.Tests
 {
@@ -103,6 +104,24 @@ namespace MobiFlightMoza.Session.Tests
             Assert.AreEqual(MozaSessionState.Running, session.State);
         }
         [TestMethod]
+        public void OnBytesReceived_DeviceInitResponse_SendsDeviceInfoQueryBurst()
+        {
+            // Arrange
+            var sink = new RecordingFrameSink();
+            var session = new MozaScreenSession(sink);
+            session.Start();
+            Feed(session, MozaConstants.RootHandshakeResponse);
+            // Act
+            Feed(session, MozaConstants.DeviceInitResponse);
+            // Assert - root handshake request + device init request + the burst, in order.
+            int expected = 2 + MozaConstants.DeviceInfoQueryBurst.Length;
+            Assert.HasCount(expected, sink.SentWires);
+            for (int i = 0; i < MozaConstants.DeviceInfoQueryBurst.Length; i++)
+            {
+                CollectionAssert.AreEqual(MozaConstants.DeviceInfoQueryBurst[i], sink.SentWires[2 + i]);
+            }
+        }
+        [TestMethod]
         public void OnBytesReceived_DeviceSyn1InsteadOfInitReply_AlsoReachesRunning()
         {
             // Arrange - the guide allows the device to skip a separate init reply and go
@@ -115,6 +134,33 @@ namespace MobiFlightMoza.Session.Tests
             Feed(session, ScriptedMozaDevice.Syn1(MozaConstants.ServicePortSettings, 1, SettingsLocalPort, 3));
             // Assert
             Assert.AreEqual(MozaSessionState.Running, session.State);
+        }
+        #endregion
+        #region Acknowledgement
+        [TestMethod]
+        public void OnBytesReceived_DeviceTrans_SendsAckWithTunnelReplyBitSet()
+        {
+            // Arrange - a sink that forgets to flag its ACK send produces a wire the device
+            // can't tell apart from a fresh request (both share inner command 0x7C), so it
+            // never recognizes the ACK and keeps retransmitting forever.
+            var (session, sink) = StartAndInit();
+            EstablishSettingsConnection(session);
+            sink.SentWires.Clear();
+            // Act
+            Feed(session, ScriptedMozaDevice.Trans(SettingsLocalPort, 2, MinimalPreamble));
+            // Assert
+            bool foundReplyAck = false;
+            var decoder = new SerialLinkDecoder();
+            foreach (byte[] wire in sink.SentWires)
+            {
+                var messages = decoder.Feed(wire, wire.Length);
+                if (messages.Count != 1) continue;
+                if (!MozaTunnel.TryUnwrap(messages[0], out var tunnel)) continue;
+                if (!tunnel.IsReply) continue;
+                if (!ReliableStreamFrame.TryParseAck(tunnel.InnerPayload, out _)) continue;
+                foundReplyAck = true;
+            }
+            Assert.IsTrue(foundReplyAck);
         }
         #endregion
         #region Settings bring-up
@@ -135,6 +181,59 @@ namespace MobiFlightMoza.Session.Tests
             // Assert
             Assert.AreEqual(1, resolvedCount);
             Assert.AreEqual((byte)1, resolvedValue);
+        }
+        #endregion
+        #region MCDU mode entry
+        [TestMethod]
+        public void SettingsReadyAndCapabilityReceived_WritesDisplayMode0ThenDisplayMode1()
+        {
+            // Arrange
+            const ushort McduLocalPort = 0x3001;
+            var (session, sink) = StartAndInit();
+            EstablishSettingsConnection(session);
+            Feed(session, ScriptedMozaDevice.Trans(SettingsLocalPort, 2, MinimalPreamble));
+            DrainSettingsQueue(session, sink, Now);
+            DrainSettingsQueue(session, sink, Now.AddSeconds(4.0)); // closes the collection window - SettingsReady, no capability yet
+            sink.SentWires.Clear();
+            Feed(session, ScriptedMozaDevice.Syn1(MozaConstants.ServicePortMcduTcp, 1, McduLocalPort, 3), Now.AddSeconds(4.0));
+            Feed(session, ScriptedMozaDevice.Ack(McduLocalPort, McduLocalPort), Now.AddSeconds(4.0));
+            sink.SentWires.Clear(); // drop the SYN2 handshake and InitConfig - only care about what follows Capability
+            // Act
+            byte[] capability = NetworkPackage.Pack(0x33, [2, 0, 0, 0, 0]); // version=2, pageIndex=0
+            Feed(session, ScriptedMozaDevice.Trans(McduLocalPort, 2, capability), Now.AddSeconds(4.0));
+            // McduChannel.Start() (queuing InitConfig) fires on this same call, so the MCDU
+            // connection also has a pending send now - drain generically (ACKing whichever
+            // port each TRANS actually targets) rather than assuming settings-only traffic.
+            for (int i = 0; i < 10; i++)
+            {
+                int before = sink.SentWires.Count;
+                session.Tick(Now.AddSeconds(4.0));
+                if (sink.SentWires.Count == before) break;
+                for (int j = before; j < sink.SentWires.Count; j++)
+                {
+                    if (!TryDecodeStreamRequest(sink.SentWires[j], out var pending)) continue;
+                    if (pending.MessageType != StreamMessageType.Trans) continue;
+                    Feed(session, ScriptedMozaDevice.Ack(pending.DestinationPort, pending.Isn), Now.AddSeconds(4.0));
+                }
+            }
+            // Assert - two settings TRANS go out on the settings connection: displayMode=0, then displayMode=1.
+            var settingsWrites = new List<StreamRequest>();
+            foreach (byte[] wire in sink.SentWires)
+            {
+                if (!TryDecodeStreamRequest(wire, out var request)) continue;
+                if (request.DestinationPort != SettingsLocalPort || request.MessageType != StreamMessageType.Trans) continue;
+                settingsWrites.Add(request);
+            }
+            Assert.HasCount(2, settingsWrites);
+            static byte DisplayModeValue(StreamRequest request)
+            {
+                byte[] body = request.ApplicationData;
+                int settingId = body[9] | (body[10] << 8) | (body[11] << 16) | (body[12] << 24);
+                Assert.AreEqual(0x18, settingId);
+                return body[13];
+            }
+            Assert.AreEqual((byte)0, DisplayModeValue(settingsWrites[0]));
+            Assert.AreEqual((byte)1, DisplayModeValue(settingsWrites[1]));
         }
         #endregion
         #region Shutdown

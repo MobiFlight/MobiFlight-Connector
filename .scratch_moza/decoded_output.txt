@@ -1,0 +1,800 @@
+
+========== CYCLE 1 : MCDU (port 3) ==========
+IN bytes=120 OUT bytes=2267
+-- OUT packages (host->device) --
+  [OK] InitConfig(0x32) size=12: Version=2 Rows=14 Cols=24 CellBytes=2 ServerCapabilities=0 UdpPort=9051 KeyframeIntervalMs=750
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=2 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=3 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=4 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=5 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=6 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=7 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=8 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=9 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=10 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=11 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=12 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=13 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=14 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=15 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=16 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+-- IN packages (device->host) --
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+
+========== CYCLE 2 : MCDU (port 3) ==========
+IN bytes=130 OUT bytes=2417
+-- OUT packages (host->device) --
+  [OK] InitConfig(0x32) size=12: Version=2 Rows=14 Cols=24 CellBytes=2 ServerCapabilities=0 UdpPort=9051 KeyframeIntervalMs=750
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=1 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=2 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=3 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=4 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=5 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=6 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=7 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=8 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=9 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=10 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=11 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=12 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=13 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=14 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=15 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=16 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+-- IN packages (device->host) --
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+
+========== CYCLE 3 : MCDU (port 4) ==========
+IN bytes=100 OUT bytes=2117
+-- OUT packages (host->device) --
+  [OK] InitConfig(0x32) size=12: Version=2 Rows=14 Cols=24 CellBytes=2 ServerCapabilities=0 UdpPort=9051 KeyframeIntervalMs=750
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=1 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=2 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=3 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=4 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=5 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=6 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=7 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=8 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=9 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=10 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=11 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=12 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=13 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+  [OK] Keyframe(0x30) size=145: Version=2 Seq=14 Flags=0x0b BaseSeq=None
+      content:
+      row0: col0:'                        '
+      row1: col0:'                        '
+      row2: col0:'                        '
+      row3: col0:'                        '
+      row4: col0:'                        '
+      row5: col0:'                        '
+      row6: col0:'      →MOBIFLIGHT←      '
+      row7: col0:'                        '
+      row8: col0:'                        '
+      row9: col0:'                        '
+      row10: col0:'                        '
+      row11: col0:'                        '
+      row12: col0:'                        '
+      row13: col0:'                        '
+-- IN packages (device->host) --
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+  [OK] ClientCapability(0x33) size=5: Version=2 ClientCapabilities=1 UdpListenPort=9051 PageIndex=0
+
+
+========== SETTINGS per cycle ==========
+
+-- cycle 1 settings OUT (host->device), 94 bytes --
+  write settingId=0x-41e1b59 (-69081945) data=020000009094ad6a00000000
+  write settingId=0x-7e3dd7fd (-2117982205) data=0700000003000000
+  write settingId=0x-49383b24 (-1228421924) data=08000000
+  write settingId=0x3848c33f (944292671) data=0b000000
+  write settingId=0x-1e4ae438 (-508224568) data=18
+-- cycle 1 settings IN (device->host), 1585 bytes, scanning for 0x18/0x13/0x01 --
+
+-- cycle 2 settings OUT (host->device), 94 bytes --
+  write settingId=0x7167d34d (1902629709) data=02000000ad94ad6a00000000
+  write settingId=0x-7e3dd7fd (-2117982205) data=0700000003000000
+  write settingId=0x-49383b24 (-1228421924) data=08000000
+  write settingId=0x3848c33f (944292671) data=0b000000
+  write settingId=0x-1e4ae438 (-508224568) data=18
+-- cycle 2 settings IN (device->host), 1492 bytes, scanning for 0x18/0x13/0x01 --
+
+-- cycle 3 settings OUT (host->device), 94 bytes --
+  write settingId=0x-347daca9 (-880651433) data=02000000d094ad6a00000000
+  write settingId=0x-7e3dd7fd (-2117982205) data=0700000003000000
+  write settingId=0x-49383b24 (-1228421924) data=08000000
+  write settingId=0x3848c33f (944292671) data=0b000000
+  write settingId=0x-1e4ae438 (-508224568) data=18
+-- cycle 3 settings IN (device->host), 1440 bytes, scanning for 0x18/0x13/0x01 --

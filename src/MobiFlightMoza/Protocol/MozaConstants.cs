@@ -46,5 +46,30 @@ namespace MobiFlightMoza.Protocol
         public static readonly byte[] RootHandshakeResponse = [0x7E, 0x00, 0x80, 0x21, 0x2C];
         public static readonly byte[] DeviceInitRequest = [0x7E, 0x01, 0x43, 0x12, 0x00, 0xE1];
         public static readonly byte[] DeviceInitResponse = [0x7E, 0x01, 0xC3, 0x21, 0x80, 0xF0];
+
+        // EXPERIMENTAL - not in the guide at all. A USB capture of MOZA's own Cockpit app
+        // showed this exact 14-command raw sequence (outside the 0x43 tunnel, DevicePair
+        // 0x12) sent right after device init and before opening any Reliable Stream
+        // connection - byte-for-byte identical across a cold boot and two post-timeout
+        // reconnects. MobiFlight has never sent any of this and only ever renders correctly
+        // immediately after a physical replug; testing whether replaying it is what the
+        // device actually needs to hand MCDU rendering back to a new session otherwise.
+        public static readonly byte[][] DeviceInfoQueryBurst =
+        [
+            SerialLinkFrame.EncodeRaw(0x06, DevicePairToDevice, []),
+            SerialLinkFrame.EncodeRaw(0x04, DevicePairToDevice, [0x00, 0x00, 0x00, 0x00]),
+            SerialLinkFrame.EncodeRaw(0x05, DevicePairToDevice, [0x00, 0x00, 0x00, 0x00]),
+            SerialLinkFrame.EncodeRaw(0x02, DevicePairToDevice, [0x00]),
+            SerialLinkFrame.EncodeRaw(0x09, DevicePairToDevice, []),
+            SerialLinkFrame.EncodeRaw(0x07, DevicePairToDevice, [0x01]),
+            SerialLinkFrame.EncodeRaw(0x08, DevicePairToDevice, [0x01]),
+            SerialLinkFrame.EncodeRaw(0x0F, DevicePairToDevice, [0x01]),
+            SerialLinkFrame.EncodeRaw(0x10, DevicePairToDevice, [0x00]),
+            SerialLinkFrame.EncodeRaw(0x10, DevicePairToDevice, [0x01]),
+            SerialLinkFrame.EncodeRaw(0x11, DevicePairToDevice, [0x00]),
+            SerialLinkFrame.EncodeRaw(0x11, DevicePairToDevice, [0x01]),
+            SerialLinkFrame.EncodeRaw(0x11, DevicePairToDevice, [0x04]),
+            SerialLinkFrame.EncodeRaw(0x08, DevicePairToDevice, [0x02]),
+        ];
     }
 }

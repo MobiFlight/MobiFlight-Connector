@@ -1,6 +1,5 @@
 using System;
 using System.IO.Ports;
-using System.Threading;
 using MobiFlightMoza.Cdu;
 using MobiFlightMoza.Protocol;
 using MobiFlightMoza.Session;
@@ -14,9 +13,6 @@ namespace MobiFlightMoza
     /// </summary>
     public sealed class MozaScreenControl : IMozaScreenControl
     {
-        private const int ShutdownWaitMilliseconds = 5000;
-        private const int ShutdownPollMilliseconds = 50;
-
         private SerialPort Port;
         private MozaScreenSession Session;
         private readonly MozaSessionPump Pump = new();
@@ -41,7 +37,16 @@ namespace MobiFlightMoza
             if (candidates.Count == 0) return false;
 
             string portName = candidates[0].PortName;
-            SerialPort port = new(portName, MozaConstants.BaudRate);
+            // A CDC-ACM device's line-state notification is how it knows a real host is
+            // present, not just electrically attached - every other serial board in this
+            // codebase (see MobiFlightModule.cs/board.json DtrEnable) already asserts this;
+            // MOZA's port never did, so it always opened with DTR left low. RTS matters too:
+            // a USB capture of MOZA's own Cockpit app showed SET_CONTROL_LINE_STATE ending
+            // with BOTH DTR and RTS held (value 3) on every single connect, cold or warm - a
+            // capture of our own app never held RTS at all on either of two failed
+            // reconnects, and even the one working connect only pulsed it transiently before
+            // dropping back to DTR-only. RtsEnable defaults to false and was never set here.
+            SerialPort port = new(portName, MozaConstants.BaudRate) { DtrEnable = true };
             try
             {
                 port.Open();
@@ -85,21 +90,29 @@ namespace MobiFlightMoza
         public void Stop() { }
 
         /// <summary>
-        /// Signals the session to close every open channel, waits (bounded) for that to
-        /// finish, then closes the port. Safe to call even if <see cref="Connect"/> never
-        /// succeeded.
+        /// Closes the port without a Reliable Stream FIN handshake. Safe to call even if
+        /// <see cref="Connect"/> never succeeded.
         /// </summary>
+        /// <remarks>
+        /// Deliberately does NOT send FIN on the open connections first, even though a clean
+        /// FIN/ACK close is otherwise the documented way to end a session: a USB capture of
+        /// MOZA's own Cockpit app closing and reopening (no replug) showed it never sends FIN
+        /// either - it just stops using the port, and the device notices via its own
+        /// multi-second connection timeout instead. That reconnects reliably; our own FIN-based
+        /// close - byte-correct and confirmed to complete both ways - left the device unable to
+        /// hand off MCDU rendering to the next session without a physical replug. Matching what
+        /// the real client does, not what the written procedure says, is what's proven to work.
+        /// <para>
+        /// Does not attempt to restore displayMode here either, for the same reason: that
+        /// depends on Shutdown() actually running to completion, which a crash or force-quit
+        /// skips entirely. Session.TryEnterMcduMode() forces a fresh 0-then-1 transition on
+        /// every connect instead, so the next session doesn't depend on this one having
+        /// cleaned up after itself.
+        /// </para>
+        /// </remarks>
         public void Shutdown()
         {
             if (Port == null) return;
-
-            Session.BeginShutdown(DateTime.Now);
-
-            int deadline = Environment.TickCount + ShutdownWaitMilliseconds;
-            while (Pump.IsRunning && !Session.IsShutdownComplete && Environment.TickCount < deadline)
-            {
-                Thread.Sleep(ShutdownPollMilliseconds);
-            }
 
             Pump.Stop();
 
@@ -118,7 +131,9 @@ namespace MobiFlightMoza
 
             public SerialStreamFrameSink(SerialPort port) => Port = port;
 
-            public void Send(byte[] wire) => Port.BaseStream.Write(wire, 0, wire.Length);
+            // wire is already a complete, correctly-flagged SerialLink frame by the time it
+            // reaches the real port - isReply only matters one layer up, at the tunnel wrap.
+            public void Send(byte[] wire, bool isReply = false) => Port.BaseStream.Write(wire, 0, wire.Length);
         }
     }
 }

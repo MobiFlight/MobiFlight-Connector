@@ -7,6 +7,9 @@ namespace MobiFlightMoza.Session
     /// </summary>
     internal interface IMozaFrameSink
     {
-        void Send(byte[] wire);
+        // isReply distinguishes an ACK from every other Reliable Stream message (SYN1/SYN2/
+        // TRANS/FIN all share the request inner command and carry their own Magic byte) -
+        // a tunnel-wrapping sink needs it to set the tunnel's inner reply bit correctly.
+        void Send(byte[] wire, bool isReply = false);
     }
 }

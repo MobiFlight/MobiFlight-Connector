@@ -1,0 +1,2004 @@
+[cyc1] t=  23.984 frame=  31035 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc1] t=  23.984 frame=  31035 IN  SYN1 mcdu(9050) isn=5 announced=2 ver=3 body=0200fc03
+[cyc1] t=  23.988 frame=  31045 IN  SYN1 settings(9020) isn=6 announced=3 ver=3 body=0300fc03
+[cyc1] t=  24.984 frame=  33091 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc1] t=  24.984 frame=  33091 IN  SYN1 mcdu(9050) isn=5 announced=2 ver=3 body=0200fc03
+[cyc1] t=  24.989 frame=  33103 IN  SYN1 settings(9020) isn=6 announced=3 ver=3 body=0300fc03
+[cyc1] t=  25.984 frame=  35123 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc1] t=  25.984 frame=  35123 IN  SYN1 mcdu(9050) isn=5 announced=2 ver=3 body=0200fc03
+[cyc1] t=  25.989 frame=  35135 IN  SYN1 settings(9020) isn=6 announced=3 ver=3 body=0300fc03
+[cyc1] t=  25.990 frame=  35139 OUT SYN2 port1 isn=1 announced=1 ver=2 body=0100fd02
+[cyc1] t=  25.991 frame=  35143 OUT SYN2 port2 isn=2 announced=2 ver=2 body=0200fd02
+[cyc1] t=  25.993 frame=  35149 OUT SYN2 port3 isn=3 announced=3 ver=2 body=0300fd02
+[cyc1] t=  26.002 frame=  35169 IN  ACK port1 ackIsn=1
+[cyc1] t=  26.002 frame=  35169 IN  TRANS port1 isn=5 len=1 crc=000000ff
+[cyc1] t=  26.002 frame=  35169 IN  TRANS port1 isn=6 len=9 crc=f44172e3
+[cyc1] t=  26.002 frame=  35169 IN  TRANS port1 isn=7 len=28 crc=fed0eafb
+[cyc1] t=  26.002 frame=  35169 IN  ACK port2 ackIsn=2
+[cyc1] t=  26.002 frame=  35169 IN  ACK port3 ackIsn=3
+[cyc1] t=  26.002 frame=  35169 IN  TRANS port2 isn=6 len=10 crc=3796e536
+[cyc1] t=  26.003 frame=  35173 IN  TRANS port3 isn=7 len=24 crc=1a6c8cef
+[cyc1] t=  26.003 frame=  35173 IN  TRANS port3 isn=8 len=5 crc=f9be064f
+[cyc1] t=  26.005 frame=  35179 IN  TRANS port3 isn=9 len=2 crc=bae6ae3c
+[cyc1] t=  26.005 frame=  35179 IN  TRANS port3 isn=10 len=9 crc=a245e5bb
+[cyc1] t=  26.005 frame=  35179 IN  TRANS port3 isn=11 len=2 crc=79b58317
+[cyc1] t=  26.007 frame=  35185 OUT ACK port3 ackIsn=7
+[cyc1] t=  26.009 frame=  35191 OUT ACK port3 ackIsn=8
+[cyc1] t=  26.011 frame=  35197 OUT ACK port3 ackIsn=9
+[cyc1] t=  26.011 frame=  35197 OUT ACK port3 ackIsn=10
+[cyc1] t=  26.014 frame=  35207 OUT ACK port3 ackIsn=11
+[cyc1] t=  26.040 frame=  35265 OUT TRANS port2 isn=3 len=17 crc=08bb5d88
+[cyc1] t=  26.041 frame=  35269 OUT TRANS port3 isn=4 len=25 crc=2d9b83a1
+[cyc1] t=  26.042 frame=  35273 OUT TRANS port3 isn=5 len=21 crc=8318920e
+[cyc1] t=  26.044 frame=  35279 OUT TRANS port3 isn=6 len=17 crc=59c87898
+[cyc1] t=  26.045 frame=  35283 OUT TRANS port3 isn=7 len=17 crc=70825eb9
+[cyc1] t=  26.047 frame=  35289 OUT TRANS port3 isn=8 len=17 crc=62d5aee4
+[cyc1] t=  26.048 frame=  35293 OUT TRANS port2 isn=4 len=54 crc=db561496
+[cyc1] t=  26.050 frame=  35299 IN  ACK port2 ackIsn=3
+[cyc1] t=  26.050 frame=  35301 OUT TRANS port2 isn=5 len=54 crc=118a1be1
+[cyc1] t=  26.051 frame=  35305 OUT TRANS port2 isn=6 len=22 crc=1e27f206
+[cyc1] t=  26.054 frame=  35313 IN  ACK port3 ackIsn=5
+[cyc1] t=  26.054 frame=  35313 IN  TRANS port3 isn=12 len=21 crc=50a13a47
+[cyc1] t=  26.054 frame=  35313 IN  TRANS port3 isn=13 len=29 crc=94501341
+[cyc1] t=  26.056 frame=  35319 IN  ACK port3 ackIsn=7
+[cyc1] t=  26.059 frame=  35327 IN  ACK port3 ackIsn=8
+[cyc1] t=  26.059 frame=  35327 IN  ACK port2 ackIsn=4
+[cyc1] t=  26.060 frame=  35331 OUT ACK port3 ackIsn=12
+[cyc1] t=  26.061 frame=  35335 IN  ACK port2 ackIsn=6
+[cyc1] t=  26.062 frame=  35337 OUT ACK port3 ackIsn=13
+[cyc1] t=  26.085 frame=  35387 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  26.085 frame=  35387 IN  TRANS port3 isn=14 len=14 crc=09bb3df9
+[cyc1] t=  26.085 frame=  35387 IN  TRANS port3 isn=15 len=17 crc=243403db
+[cyc1] t=  26.085 frame=  35387 IN  TRANS port3 isn=16 len=21 crc=ca490593
+[cyc1] t=  26.085 frame=  35387 IN  TRANS port3 isn=17 len=21 crc=33940a23
+[cyc1] t=  26.085 frame=  35387 IN  TRANS port3 isn=18 len=21 crc=a931d302
+[cyc1] t=  26.086 frame=  35391 IN  TRANS port3 isn=19 len=21 crc=add699dd
+[cyc1] t=  26.087 frame=  35395 IN  TRANS port3 isn=20 len=21 crc=8375c10e
+[cyc1] t=  26.088 frame=  35399 IN  TRANS port3 isn=21 len=21 crc=49eb168e
+[cyc1] t=  26.089 frame=  35403 IN  TRANS port3 isn=22 len=21 crc=22958797
+[cyc1] t=  26.090 frame=  35407 OUT ACK port3 ackIsn=14
+[cyc1] t=  26.092 frame=  35413 OUT ACK port3 ackIsn=15
+[cyc1] t=  26.093 frame=  35417 IN  TRANS port3 isn=23 len=21 crc=ced930f2
+[cyc1] t=  26.093 frame=  35419 OUT ACK port3 ackIsn=16
+[cyc1] t=  26.095 frame=  35425 OUT ACK port3 ackIsn=17
+[cyc1] t=  26.096 frame=  35429 OUT ACK port3 ackIsn=18
+[cyc1] t=  26.098 frame=  35435 OUT ACK port3 ackIsn=19
+[cyc1] t=  26.099 frame=  35439 OUT ACK port3 ackIsn=20
+[cyc1] t=  26.101 frame=  35445 IN  TRANS port3 isn=24 len=54 crc=ead1651c
+[cyc1] t=  26.101 frame=  35447 OUT ACK port3 ackIsn=21
+[cyc1] t=  26.102 frame=  35451 OUT ACK port3 ackIsn=22
+[cyc1] t=  26.104 frame=  35457 OUT ACK port3 ackIsn=23
+[cyc1] t=  26.105 frame=  35461 IN  TRANS port3 isn=25 len=54 crc=7edab2d4
+[cyc1] t=  26.105 frame=  35461 IN  TRANS port3 isn=26 len=54 crc=db17500b
+[cyc1] t=  26.105 frame=  35463 OUT TRANS port3 isn=9 len=21 crc=ced930f2
+[cyc1] t=  26.106 frame=  35467 IN  TRANS port3 isn=27 len=48 crc=fa3ab1ea
+[cyc1] t=  26.107 frame=  35471 OUT ACK port3 ackIsn=24
+[cyc1] t=  26.110 frame=  35479 OUT ACK port3 ackIsn=25
+[cyc1] t=  26.112 frame=  35485 OUT ACK port3 ackIsn=26
+[cyc1] t=  26.113 frame=  35489 OUT ACK port3 ackIsn=27
+[cyc1] t=  26.115 frame=  35495 IN  ACK port3 ackIsn=9
+[cyc1] t=  26.238 frame=  35759 IN  TRANS port3 isn=28 len=17 crc=62d5aee4
+[cyc1] t=  26.244 frame=  35773 OUT ACK port3 ackIsn=28
+[cyc1] t=  26.381 frame=  36057 IN  TRANS port3 isn=29 len=21 crc=ced930f2
+[cyc1] t=  26.387 frame=  36071 OUT ACK port3 ackIsn=29
+[cyc1] t=  26.892 frame=  37109 OUT TRANS port2 isn=7 len=54 crc=8e61d7c7
+[cyc1] t=  26.894 frame=  37117 OUT TRANS port2 isn=8 len=54 crc=bb1c546e
+[cyc1] t=  26.896 frame=  37123 OUT TRANS port2 isn=9 len=54 crc=08855d40
+[cyc1] t=  26.897 frame=  37127 OUT TRANS port2 isn=10 len=14 crc=363ccd6d
+[cyc1] t=  26.903 frame=  37141 IN  ACK port2 ackIsn=7
+[cyc1] t=  26.906 frame=  37149 IN  ACK port2 ackIsn=8
+[cyc1] t=  26.908 frame=  37155 IN  ACK port2 ackIsn=10
+[cyc1] t=  26.984 frame=  37309 IN  TRANS port1 isn=8 len=9 crc=bb04e5a9
+[cyc1] t=  26.988 frame=  37319 OUT ACK port1 ackIsn=4
+[cyc1] t=  26.999 frame=  37351 IN  TRANS port1 isn=5 len=1 crc=000000ff
+[cyc1] t=  26.999 frame=  37351 IN  TRANS port1 isn=6 len=9 crc=f44172e3
+[cyc1] t=  27.000 frame=  37355 IN  TRANS port1 isn=7 len=28 crc=fed0eafb
+[cyc1] t=  27.005 frame=  37367 OUT ACK port1 ackIsn=5
+[cyc1] t=  27.007 frame=  37373 OUT ACK port1 ackIsn=6
+[cyc1] t=  27.007 frame=  37373 OUT ACK port1 ackIsn=7
+[cyc1] t=  27.009 frame=  37379 OUT TRANS port1 isn=2 len=9 crc=16bf2bac
+[cyc1] t=  27.010 frame=  37383 OUT TRANS port1 isn=3 len=5 crc=cd8d8281
+[cyc1] t=  27.020 frame=  37405 IN  ACK port1 ackIsn=3
+[cyc1] t=  27.020 frame=  37405 IN  TRANS port1 isn=9 len=9 crc=1aeec7f1
+[cyc1] t=  27.021 frame=  37409 OUT TRANS port1 isn=4 len=22 crc=5dd5fd09
+[cyc1] t=  27.021 frame=  37409 OUT TRANS port1 isn=5 len=9 crc=de635911
+[cyc1] t=  27.029 frame=  37427 OUT ACK port1 ackIsn=7
+[cyc1] t=  27.030 frame=  37431 IN  ACK port1 ackIsn=5
+[cyc1] t=  27.082 frame=  37537 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  27.828 frame=  39093 OUT TRANS port3 isn=10 len=17 crc=5ffd0083
+[cyc1] t=  27.837 frame=  39113 IN  ACK port3 ackIsn=10
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=30 len=54 crc=fddbadb2
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=31 len=54 crc=916b21d4
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=32 len=54 crc=56c468ba
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=33 len=54 crc=1b015885
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=34 len=54 crc=7a7b20d3
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=35 len=54 crc=cdcb77f7
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=36 len=54 crc=0a38eb4d
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=37 len=54 crc=4ea3f764
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=38 len=54 crc=78ba1ddd
+[cyc1] t=  27.927 frame=  39303 IN  TRANS port3 isn=39 len=54 crc=910c3ddc
+[cyc1] t=  27.934 frame=  39319 OUT ACK port3 ackIsn=30
+[cyc1] t=  27.935 frame=  39323 OUT ACK port3 ackIsn=31
+[cyc1] t=  27.936 frame=  39327 OUT ACK port3 ackIsn=32
+[cyc1] t=  27.938 frame=  39333 OUT ACK port3 ackIsn=33
+[cyc1] t=  27.940 frame=  39338 OUT ACK port3 ackIsn=34
+[cyc1] t=  27.941 frame=  39343 OUT ACK port3 ackIsn=35
+[cyc1] t=  27.943 frame=  39347 OUT ACK port3 ackIsn=36
+[cyc1] t=  27.944 frame=  39353 OUT ACK port3 ackIsn=37
+[cyc1] t=  27.945 frame=  39357 IN  TRANS port3 isn=40 len=54 crc=fb4414f6
+[cyc1] t=  27.945 frame=  39359 OUT ACK port3 ackIsn=38
+[cyc1] t=  27.947 frame=  39365 OUT ACK port3 ackIsn=39
+[cyc1] t=  27.949 frame=  39371 IN  TRANS port3 isn=41 len=54 crc=d5e61d94
+[cyc1] t=  27.949 frame=  39371 IN  TRANS port3 isn=42 len=54 crc=143394eb
+[cyc1] t=  27.951 frame=  39377 OUT ACK port3 ackIsn=40
+[cyc1] t=  27.952 frame=  39381 IN  TRANS port3 isn=43 len=54 crc=3deb56e9
+[cyc1] t=  27.952 frame=  39381 IN  TRANS port3 isn=44 len=54 crc=c96e15ed
+[cyc1] t=  27.955 frame=  39389 OUT ACK port3 ackIsn=41
+[cyc1] t=  27.955 frame=  39390 IN  TRANS port3 isn=45 len=54 crc=20d46c52
+[cyc1] t=  27.955 frame=  39390 IN  TRANS port3 isn=46 len=54 crc=b1c34476
+[cyc1] t=  27.956 frame=  39395 OUT ACK port3 ackIsn=42
+[cyc1] t=  27.958 frame=  39401 OUT ACK port3 ackIsn=43
+[cyc1] t=  27.958 frame=  39403 IN  TRANS port3 isn=47 len=54 crc=5cd973fb
+[cyc1] t=  27.958 frame=  39403 IN  TRANS port3 isn=48 len=54 crc=5fbd99f8
+[cyc1] t=  27.959 frame=  39407 OUT ACK port3 ackIsn=44
+[cyc1] t=  27.960 frame=  39411 IN  TRANS port3 isn=49 len=54 crc=7ae51976
+[cyc1] t=  27.961 frame=  39415 OUT ACK port3 ackIsn=45
+[cyc1] t=  27.962 frame=  39419 IN  TRANS port3 isn=50 len=34 crc=22148887
+[cyc1] t=  27.962 frame=  39421 OUT ACK port3 ackIsn=46
+[cyc1] t=  27.964 frame=  39427 OUT ACK port3 ackIsn=47
+[cyc1] t=  27.965 frame=  39431 OUT ACK port3 ackIsn=48
+[cyc1] t=  27.968 frame=  39437 OUT ACK port3 ackIsn=49
+[cyc1] t=  27.969 frame=  39443 OUT ACK port3 ackIsn=50
+[cyc1] t=  27.970 frame=  39447 OUT TRANS port3 isn=11 len=17 crc=87c6cd2a
+[cyc1] t=  27.979 frame=  39467 IN  ACK port3 ackIsn=11
+[cyc1] t=  27.984 frame=  39479 IN  TRANS port1 isn=8 len=9 crc=bb04e5a9
+[cyc1] t=  27.984 frame=  39479 IN  TRANS port1 isn=10 len=9 crc=bb04e5a9
+[cyc1] t=  27.992 frame=  39501 OUT ACK port1 ackIsn=8
+[cyc1] t=  27.993 frame=  39505 OUT ACK port1 ackIsn=8
+[cyc1] t=  28.002 frame=  39527 IN  TRANS port2 isn=6 len=10 crc=3796e536
+[cyc1] t=  28.008 frame=  39541 OUT ACK port2 ackIsn=6
+[cyc1] t=  28.022 frame=  39571 OUT TRANS port1 isn=6 len=6 crc=1388a28c
+[cyc1] t=  28.023 frame=  39575 OUT TRANS port1 isn=7 len=22 crc=1e1e5b8e
+[cyc1] t=  28.026 frame=  39583 OUT TRANS port1 isn=8 len=9 crc=bb04e5a9
+[cyc1] t=  28.035 frame=  39603 IN  ACK port1 ackIsn=6
+[cyc1] t=  28.035 frame=  39603 IN  ACK port1 ackIsn=7
+[cyc1] t=  28.039 frame=  39613 IN  ACK port1 ackIsn=8
+[cyc1] t=  28.082 frame=  39701 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  28.151 frame=  39841 OUT TRANS port2 isn=11 len=54 crc=8e61d7c7
+[cyc1] t=  28.153 frame=  39847 OUT TRANS port2 isn=12 len=54 crc=bb1c546e
+[cyc1] t=  28.155 frame=  39853 OUT TRANS port2 isn=13 len=54 crc=08855d40
+[cyc1] t=  28.156 frame=  39857 OUT TRANS port2 isn=14 len=14 crc=363ccd6d
+[cyc1] t=  28.162 frame=  39873 IN  ACK port2 ackIsn=11
+[cyc1] t=  28.165 frame=  39881 IN  ACK port2 ackIsn=12
+[cyc1] t=  28.168 frame=  39889 IN  ACK port2 ackIsn=14
+[cyc1] t=  29.000 frame=  41595 IN  TRANS port1 isn=9 len=9 crc=1aeec7f1
+[cyc1] t=  29.000 frame=  41595 IN  TRANS port1 isn=10 len=9 crc=bb04e5a9
+[cyc1] t=  29.006 frame=  41609 OUT ACK port1 ackIsn=9
+[cyc1] t=  29.008 frame=  41615 OUT ACK port1 ackIsn=10
+[cyc1] t=  29.082 frame=  41773 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  29.131 frame=  41881 OUT TRANS port1 isn=9 len=6 crc=85b8a5fb
+[cyc1] t=  29.132 frame=  41885 OUT TRANS port1 isn=10 len=22 crc=9a45c1dd
+[cyc1] t=  29.133 frame=  41889 OUT TRANS port1 isn=11 len=9 crc=bb04e5a9
+[cyc1] t=  29.140 frame=  41905 IN  ACK port1 ackIsn=9
+[cyc1] t=  29.142 frame=  41911 IN  ACK port1 ackIsn=11
+[cyc1] t=  29.259 frame=  42149 IN  TRANS port1 isn=11 len=28 crc=89bd29a5
+[cyc1] t=  29.261 frame=  42155 IN  TRANS port1 isn=12 len=28 crc=cb675d49
+[cyc1] t=  29.265 frame=  42165 IN  TRANS port1 isn=13 len=28 crc=dfaeeda6
+[cyc1] t=  29.265 frame=  42165 IN  TRANS port1 isn=14 len=28 crc=9d74994a
+[cyc1] t=  29.265 frame=  42165 IN  TRANS port1 isn=15 len=28 crc=03d818a2
+[cyc1] t=  29.265 frame=  42165 IN  TRANS port1 isn=16 len=28 crc=41026c4e
+[cyc1] t=  29.266 frame=  42169 OUT ACK port1 ackIsn=11
+[cyc1] t=  29.266 frame=  42170 IN  TRANS port1 isn=17 len=28 crc=738865a1
+[cyc1] t=  29.267 frame=  42175 IN  TRANS port1 isn=18 len=28 crc=3152114d
+[cyc1] t=  29.268 frame=  42179 IN  TRANS port1 isn=19 len=28 crc=9d764bab
+[cyc1] t=  29.269 frame=  42183 OUT ACK port1 ackIsn=12
+[cyc1] t=  29.270 frame=  42187 IN  TRANS port1 isn=20 len=28 crc=dfac3f47
+[cyc1] t=  29.275 frame=  42199 OUT ACK port1 ackIsn=13
+[cyc1] t=  29.275 frame=  42199 OUT ACK port1 ackIsn=14
+[cyc1] t=  29.275 frame=  42199 OUT ACK port1 ackIsn=15
+[cyc1] t=  29.275 frame=  42199 OUT ACK port1 ackIsn=16
+[cyc1] t=  29.276 frame=  42203 OUT ACK port1 ackIsn=17
+[cyc1] t=  29.278 frame=  42209 IN  TRANS port1 isn=21 len=54 crc=923c4bcf
+[cyc1] t=  29.278 frame=  42209 IN  TRANS port1 isn=22 len=54 crc=9d118cb3
+[cyc1] t=  29.278 frame=  42211 OUT ACK port1 ackIsn=18
+[cyc1] t=  29.279 frame=  42215 OUT ACK port1 ackIsn=19
+[cyc1] t=  29.281 frame=  42221 OUT ACK port1 ackIsn=20
+[cyc1] t=  29.284 frame=  42229 OUT ACK port1 ackIsn=21
+[cyc1] t=  29.285 frame=  42233 OUT ACK port1 ackIsn=22
+[cyc1] t=  29.286 frame=  42237 IN  TRANS port1 isn=23 len=54 crc=b6d245d4
+[cyc1] t=  29.292 frame=  42251 OUT ACK port1 ackIsn=23
+[cyc1] t=  29.293 frame=  42255 IN  TRANS port1 isn=24 len=54 crc=11c1b016
+[cyc1] t=  29.293 frame=  42255 IN  TRANS port1 isn=25 len=54 crc=42da721d
+[cyc1] t=  29.293 frame=  42255 IN  TRANS port1 isn=26 len=54 crc=ccfb00dd
+[cyc1] t=  29.293 frame=  42255 IN  TRANS port1 isn=27 len=54 crc=f4c422f3
+[cyc1] t=  29.293 frame=  42255 IN  TRANS port1 isn=28 len=54 crc=01508446
+[cyc1] t=  29.295 frame=  42261 IN  TRANS port1 isn=29 len=54 crc=e795ce07
+[cyc1] t=  29.299 frame=  42271 OUT ACK port1 ackIsn=24
+[cyc1] t=  29.300 frame=  42275 OUT ACK port1 ackIsn=25
+[cyc1] t=  29.302 frame=  42281 OUT ACK port1 ackIsn=26
+[cyc1] t=  29.304 frame=  42287 OUT ACK port1 ackIsn=27
+[cyc1] t=  29.305 frame=  42291 OUT ACK port1 ackIsn=28
+[cyc1] t=  29.308 frame=  42299 OUT ACK port1 ackIsn=29
+[cyc1] t=  29.313 frame=  42311 IN  TRANS port1 isn=30 len=54 crc=e7831e55
+[cyc1] t=  29.319 frame=  42329 IN  TRANS port1 isn=31 len=54 crc=7d4ef091
+[cyc1] t=  29.319 frame=  42329 IN  TRANS port1 isn=32 len=54 crc=cc1bf562
+[cyc1] t=  29.319 frame=  42329 IN  TRANS port1 isn=33 len=54 crc=d9d45063
+[cyc1] t=  29.319 frame=  42329 IN  TRANS port1 isn=34 len=54 crc=bae6014a
+[cyc1] t=  29.320 frame=  42331 OUT ACK port1 ackIsn=30
+[cyc1] t=  29.325 frame=  42347 OUT ACK port1 ackIsn=31
+[cyc1] t=  29.328 frame=  42355 OUT ACK port1 ackIsn=32
+[cyc1] t=  29.329 frame=  42359 IN  TRANS port1 isn=35 len=54 crc=acf97fea
+[cyc1] t=  29.329 frame=  42361 OUT ACK port1 ackIsn=33
+[cyc1] t=  29.331 frame=  42367 OUT ACK port1 ackIsn=34
+[cyc1] t=  29.336 frame=  42379 IN  TRANS port1 isn=36 len=54 crc=7136021d
+[cyc1] t=  29.338 frame=  42383 OUT ACK port1 ackIsn=35
+[cyc1] t=  29.339 frame=  42389 IN  TRANS port1 isn=37 len=54 crc=29b7bc8b
+[cyc1] t=  29.342 frame=  42397 IN  TRANS port1 isn=38 len=54 crc=90b50b6b
+[cyc1] t=  29.342 frame=  42397 IN  TRANS port1 isn=39 len=54 crc=022dd926
+[cyc1] t=  29.344 frame=  42401 OUT ACK port1 ackIsn=36
+[cyc1] t=  29.346 frame=  42409 OUT ACK port1 ackIsn=37
+[cyc1] t=  29.347 frame=  42413 IN  TRANS port1 isn=40 len=54 crc=addc5487
+[cyc1] t=  29.349 frame=  42419 OUT ACK port1 ackIsn=38
+[cyc1] t=  29.350 frame=  42423 OUT ACK port1 ackIsn=39
+[cyc1] t=  29.353 frame=  42431 OUT ACK port1 ackIsn=40
+[cyc1] t=  29.355 frame=  42437 IN  TRANS port1 isn=41 len=54 crc=c3740c56
+[cyc1] t=  29.355 frame=  42437 IN  TRANS port1 isn=42 len=54 crc=931b58de
+[cyc1] t=  29.358 frame=  42445 IN  TRANS port1 isn=43 len=54 crc=35d34451
+[cyc1] t=  29.358 frame=  42445 IN  TRANS port1 isn=44 len=54 crc=b1c05383
+[cyc1] t=  29.360 frame=  42451 IN  TRANS port1 isn=45 len=54 crc=6c17a28e
+[cyc1] t=  29.361 frame=  42453 OUT ACK port1 ackIsn=41
+[cyc1] t=  29.362 frame=  42459 OUT ACK port1 ackIsn=42
+[cyc1] t=  29.363 frame=  42463 IN  TRANS port1 isn=46 len=54 crc=161b7d6e
+[cyc1] t=  29.363 frame=  42463 IN  TRANS port1 isn=47 len=54 crc=a8c53588
+[cyc1] t=  29.365 frame=  42469 OUT ACK port1 ackIsn=43
+[cyc1] t=  29.366 frame=  42473 OUT ACK port1 ackIsn=44
+[cyc1] t=  29.368 frame=  42479 OUT ACK port1 ackIsn=45
+[cyc1] t=  29.369 frame=  42483 OUT ACK port1 ackIsn=46
+[cyc1] t=  29.371 frame=  42489 OUT ACK port1 ackIsn=47
+[cyc1] t=  29.371 frame=  42491 IN  TRANS port1 isn=48 len=54 crc=bd1c9612
+[cyc1] t=  29.374 frame=  42499 IN  TRANS port1 isn=49 len=54 crc=1d0d8391
+[cyc1] t=  29.375 frame=  42503 OUT ACK port1 ackIsn=48
+[cyc1] t=  29.377 frame=  42509 IN  TRANS port1 isn=50 len=54 crc=7affb320
+[cyc1] t=  29.378 frame=  42513 OUT ACK port1 ackIsn=49
+[cyc1] t=  29.381 frame=  42521 IN  TRANS port1 isn=51 len=54 crc=0fecde7c
+[cyc1] t=  29.381 frame=  42521 IN  TRANS port1 isn=52 len=54 crc=e6c5e268
+[cyc1] t=  29.382 frame=  42524 OUT ACK port1 ackIsn=50
+[cyc1] t=  29.384 frame=  42531 IN  TRANS port1 isn=53 len=54 crc=cad50f7b
+[cyc1] t=  29.384 frame=  42531 IN  TRANS port1 isn=54 len=54 crc=f544c632
+[cyc1] t=  29.386 frame=  42537 IN  TRANS port1 isn=55 len=54 crc=6d2dcbcb
+[cyc1] t=  29.386 frame=  42539 OUT ACK port1 ackIsn=51
+[cyc1] t=  29.387 frame=  42543 OUT ACK port1 ackIsn=52
+[cyc1] t=  29.389 frame=  42549 OUT ACK port1 ackIsn=53
+[cyc1] t=  29.390 frame=  42553 IN  TRANS port1 isn=56 len=54 crc=d247fddf
+[cyc1] t=  29.390 frame=  42553 IN  TRANS port1 isn=57 len=54 crc=5a54aa2d
+[cyc1] t=  29.390 frame=  42555 OUT ACK port1 ackIsn=54
+[cyc1] t=  29.392 frame=  42561 OUT ACK port1 ackIsn=55
+[cyc1] t=  29.396 frame=  42571 OUT ACK port1 ackIsn=56
+[cyc1] t=  29.397 frame=  42575 IN  TRANS port1 isn=58 len=54 crc=fc11beb6
+[cyc1] t=  29.399 frame=  42579 OUT ACK port1 ackIsn=57
+[cyc1] t=  29.403 frame=  42591 OUT ACK port1 ackIsn=58
+[cyc1] t=  29.404 frame=  42595 IN  TRANS port1 isn=59 len=54 crc=1f07b2c4
+[cyc1] t=  29.404 frame=  42595 IN  TRANS port1 isn=60 len=54 crc=97417713
+[cyc1] t=  29.404 frame=  42595 IN  TRANS port1 isn=61 len=54 crc=82f6632d
+[cyc1] t=  29.404 frame=  42595 IN  TRANS port1 isn=62 len=54 crc=70101d0a
+[cyc1] t=  29.404 frame=  42595 IN  TRANS port1 isn=63 len=54 crc=8afadcba
+[cyc1] t=  29.408 frame=  42605 IN  TRANS port1 isn=64 len=54 crc=96f3a73a
+[cyc1] t=  29.408 frame=  42605 IN  TRANS port1 isn=65 len=54 crc=888016f5
+[cyc1] t=  29.408 frame=  42605 IN  TRANS port1 isn=66 len=54 crc=6b9748ad
+[cyc1] t=  29.409 frame=  42609 OUT ACK port1 ackIsn=59
+[cyc1] t=  29.411 frame=  42615 OUT ACK port1 ackIsn=60
+[cyc1] t=  29.412 frame=  42619 IN  TRANS port1 isn=67 len=10 crc=a89a9e9c
+[cyc1] t=  29.414 frame=  42625 OUT ACK port1 ackIsn=61
+[cyc1] t=  29.415 frame=  42629 OUT ACK port1 ackIsn=62
+[cyc1] t=  29.416 frame=  42633 OUT ACK port1 ackIsn=63
+[cyc1] t=  29.419 frame=  42643 OUT ACK port1 ackIsn=64
+[cyc1] t=  29.421 frame=  42649 OUT ACK port1 ackIsn=65
+[cyc1] t=  29.422 frame=  42657 OUT ACK port1 ackIsn=66
+[cyc1] t=  29.424 frame=  42661 OUT ACK port1 ackIsn=67
+[cyc1] t=  29.983 frame=  43827 IN  TRANS port1 isn=68 len=9 crc=b8f3c392
+[cyc1] t=  29.989 frame=  43841 OUT ACK port1 ackIsn=68
+[cyc1] t=  30.083 frame=  44039 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  30.135 frame=  44145 OUT TRANS port1 isn=12 len=6 crc=3fe9ac62
+[cyc1] t=  30.137 frame=  44149 OUT TRANS port1 isn=13 len=54 crc=c0b2a4e1
+[cyc1] t=  30.139 frame=  44157 OUT TRANS port1 isn=14 len=54 crc=122b03bb
+[cyc1] t=  30.141 frame=  44163 OUT TRANS port1 isn=15 len=54 crc=0bca1d21
+[cyc1] t=  30.142 frame=  44167 OUT TRANS port1 isn=16 len=54 crc=351fc1fc
+[cyc1] t=  30.144 frame=  44173 OUT TRANS port1 isn=17 len=54 crc=20151317
+[cyc1] t=  30.145 frame=  44176 IN  ACK port1 ackIsn=12
+[cyc1] t=  30.147 frame=  44183 OUT TRANS port1 isn=18 len=54 crc=e38611da
+[cyc1] t=  30.148 frame=  44186 IN  ACK port1 ackIsn=13
+[cyc1] t=  30.148 frame=  44189 OUT TRANS port1 isn=19 len=54 crc=1cd9a3e6
+[cyc1] t=  30.150 frame=  44195 OUT TRANS port1 isn=20 len=54 crc=50e75f04
+[cyc1] t=  30.151 frame=  44198 IN  ACK port1 ackIsn=15
+[cyc1] t=  30.152 frame=  44203 OUT TRANS port1 isn=21 len=54 crc=a8235147
+[cyc1] t=  30.154 frame=  44209 OUT TRANS port1 isn=22 len=54 crc=3306fef5
+[cyc1] t=  30.155 frame=  44212 IN  ACK port1 ackIsn=17
+[cyc1] t=  30.156 frame=  44217 OUT TRANS port1 isn=23 len=54 crc=25c63606
+[cyc1] t=  30.158 frame=  44222 IN  ACK port1 ackIsn=18
+[cyc1] t=  30.158 frame=  44225 OUT TRANS port1 isn=24 len=54 crc=c4307cee
+[cyc1] t=  30.160 frame=  44231 OUT TRANS port1 isn=25 len=54 crc=abb48b2d
+[cyc1] t=  30.161 frame=  44234 IN  ACK port1 ackIsn=19
+[cyc1] t=  30.162 frame=  44239 OUT TRANS port1 isn=26 len=54 crc=2994a642
+[cyc1] t=  30.164 frame=  44244 IN  ACK port1 ackIsn=21
+[cyc1] t=  30.164 frame=  44247 OUT TRANS port1 isn=27 len=54 crc=63f821c1
+[cyc1] t=  30.166 frame=  44253 OUT TRANS port1 isn=28 len=54 crc=8c5ffab7
+[cyc1] t=  30.167 frame=  44256 IN  ACK port1 ackIsn=22
+[cyc1] t=  30.168 frame=  44261 OUT TRANS port1 isn=29 len=54 crc=ff16665c
+[cyc1] t=  30.170 frame=  44266 IN  ACK port1 ackIsn=24
+[cyc1] t=  30.170 frame=  44269 OUT TRANS port1 isn=30 len=54 crc=a09a953d
+[cyc1] t=  30.172 frame=  44275 OUT TRANS port1 isn=31 len=54 crc=50c6a59d
+[cyc1] t=  30.173 frame=  44278 IN  ACK port1 ackIsn=25
+[cyc1] t=  30.174 frame=  44283 OUT TRANS port1 isn=32 len=54 crc=8ce63a72
+[cyc1] t=  30.176 frame=  44288 IN  ACK port1 ackIsn=27
+[cyc1] t=  30.176 frame=  44291 OUT TRANS port1 isn=33 len=54 crc=6f199440
+[cyc1] t=  30.178 frame=  44297 OUT TRANS port1 isn=34 len=54 crc=6f4878f5
+[cyc1] t=  30.179 frame=  44300 IN  ACK port1 ackIsn=28
+[cyc1] t=  30.180 frame=  44305 OUT TRANS port1 isn=35 len=54 crc=9e6096c9
+[cyc1] t=  30.182 frame=  44310 IN  ACK port1 ackIsn=30
+[cyc1] t=  30.182 frame=  44313 OUT TRANS port1 isn=36 len=54 crc=04da0d60
+[cyc1] t=  30.184 frame=  44319 OUT TRANS port1 isn=37 len=54 crc=79b7723b
+[cyc1] t=  30.185 frame=  44322 IN  ACK port1 ackIsn=31
+[cyc1] t=  30.186 frame=  44327 OUT TRANS port1 isn=38 len=54 crc=cb282174
+[cyc1] t=  30.188 frame=  44332 IN  ACK port1 ackIsn=33
+[cyc1] t=  30.188 frame=  44335 OUT TRANS port1 isn=39 len=54 crc=6fc2d787
+[cyc1] t=  30.190 frame=  44343 OUT TRANS port1 isn=40 len=54 crc=c07284c7
+[cyc1] t=  30.191 frame=  44346 IN  ACK port1 ackIsn=34
+[cyc1] t=  30.192 frame=  44351 OUT TRANS port1 isn=41 len=46 crc=75854a39
+[cyc1] t=  30.192 frame=  44351 OUT TRANS port1 isn=42 len=9 crc=b8f3c392
+[cyc1] t=  30.194 frame=  44356 IN  ACK port1 ackIsn=36
+[cyc1] t=  30.197 frame=  44365 IN  ACK port1 ackIsn=37
+[cyc1] t=  30.200 frame=  44373 IN  ACK port1 ackIsn=39
+[cyc1] t=  30.203 frame=  44381 IN  ACK port1 ackIsn=41
+[cyc1] t=  30.204 frame=  44385 IN  ACK port1 ackIsn=42
+[cyc1] t=  31.082 frame=  46211 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  31.781 frame=  47665 IN  TRANS port3 isn=51 len=0 crc=00000000
+[cyc1] t=  31.788 frame=  47681 OUT ACK port3 ackIsn=51
+[cyc1] t=  31.993 frame=  48109 OUT TRANS port2 isn=15 len=0 crc=00000000
+[cyc1] t=  32.001 frame=  48127 IN  ACK port2 ackIsn=15
+[cyc1] t=  32.082 frame=  48299 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  32.823 frame=  49843 OUT TRANS port3 isn=12 len=17 crc=5ffd0083
+[cyc1] t=  32.832 frame=  49863 IN  ACK port3 ackIsn=12
+[cyc1] t=  32.881 frame=  49963 IN  TRANS port3 isn=52 len=54 crc=e5a40cc4
+[cyc1] t=  32.887 frame=  49977 OUT ACK port3 ackIsn=52
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=53 len=54 crc=1449c514
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=54 len=54 crc=54e8a11f
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=55 len=54 crc=6100646d
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=56 len=54 crc=f857ee02
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=57 len=54 crc=49c8631d
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=58 len=54 crc=7471271a
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=59 len=54 crc=db60d682
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=60 len=54 crc=986f2a1a
+[cyc1] t=  32.891 frame=  49987 IN  TRANS port3 isn=61 len=54 crc=c0130c4f
+[cyc1] t=  32.896 frame=  49999 IN  TRANS port3 isn=62 len=54 crc=a8b70d94
+[cyc1] t=  32.898 frame=  50005 OUT ACK port3 ackIsn=53
+[cyc1] t=  32.899 frame=  50009 OUT ACK port3 ackIsn=54
+[cyc1] t=  32.901 frame=  50015 OUT ACK port3 ackIsn=55
+[cyc1] t=  32.902 frame=  50019 OUT ACK port3 ackIsn=56
+[cyc1] t=  32.904 frame=  50025 OUT ACK port3 ackIsn=57
+[cyc1] t=  32.907 frame=  50035 OUT ACK port3 ackIsn=58
+[cyc1] t=  32.907 frame=  50035 OUT ACK port3 ackIsn=59
+[cyc1] t=  32.908 frame=  50039 IN  TRANS port3 isn=63 len=54 crc=374d3093
+[cyc1] t=  32.908 frame=  50041 OUT ACK port3 ackIsn=60
+[cyc1] t=  32.910 frame=  50047 OUT ACK port3 ackIsn=61
+[cyc1] t=  32.912 frame=  50053 IN  TRANS port3 isn=64 len=54 crc=59a11a38
+[cyc1] t=  32.912 frame=  50053 IN  TRANS port3 isn=65 len=54 crc=5fc42f34
+[cyc1] t=  32.913 frame=  50057 OUT ACK port3 ackIsn=62
+[cyc1] t=  32.914 frame=  50061 IN  TRANS port3 isn=66 len=54 crc=4186edd9
+[cyc1] t=  32.915 frame=  50065 OUT ACK port3 ackIsn=63
+[cyc1] t=  32.917 frame=  50071 IN  TRANS port3 isn=67 len=54 crc=80b936fc
+[cyc1] t=  32.919 frame=  50077 OUT ACK port3 ackIsn=64
+[cyc1] t=  32.921 frame=  50083 IN  TRANS port3 isn=68 len=54 crc=6f76de42
+[cyc1] t=  32.921 frame=  50083 IN  TRANS port3 isn=69 len=54 crc=14ad12ee
+[cyc1] t=  32.921 frame=  50085 OUT ACK port3 ackIsn=65
+[cyc1] t=  32.922 frame=  50089 OUT ACK port3 ackIsn=66
+[cyc1] t=  32.924 frame=  50095 OUT ACK port3 ackIsn=67
+[cyc1] t=  32.925 frame=  50099 IN  TRANS port3 isn=70 len=54 crc=d9a451eb
+[cyc1] t=  32.925 frame=  50099 IN  TRANS port3 isn=71 len=54 crc=482d181f
+[cyc1] t=  32.925 frame=  50099 IN  TRANS port3 isn=72 len=54 crc=4febac08
+[cyc1] t=  32.927 frame=  50105 IN  TRANS port3 isn=73 len=54 crc=be4bf355
+[cyc1] t=  32.927 frame=  50106 OUT ACK port3 ackIsn=68
+[cyc1] t=  32.929 frame=  50113 OUT ACK port3 ackIsn=69
+[cyc1] t=  32.930 frame=  50117 IN  TRANS port3 isn=74 len=54 crc=e50d867d
+[cyc1] t=  32.931 frame=  50121 OUT ACK port3 ackIsn=70
+[cyc1] t=  32.933 frame=  50127 OUT ACK port3 ackIsn=71
+[cyc1] t=  32.934 frame=  50131 IN  TRANS port3 isn=75 len=54 crc=37ffd9cf
+[cyc1] t=  32.934 frame=  50131 IN  TRANS port3 isn=76 len=54 crc=25cea88d
+[cyc1] t=  32.935 frame=  50135 OUT ACK port3 ackIsn=72
+[cyc1] t=  32.936 frame=  50139 IN  TRANS port3 isn=77 len=54 crc=35e39982
+[cyc1] t=  32.936 frame=  50141 OUT ACK port3 ackIsn=73
+[cyc1] t=  32.938 frame=  50147 OUT ACK port3 ackIsn=74
+[cyc1] t=  32.940 frame=  50153 OUT ACK port3 ackIsn=75
+[cyc1] t=  32.940 frame=  50155 IN  TRANS port3 isn=78 len=54 crc=3345ae5e
+[cyc1] t=  32.940 frame=  50155 IN  TRANS port3 isn=79 len=54 crc=1bad3e4c
+[cyc1] t=  32.942 frame=  50159 OUT ACK port3 ackIsn=76
+[cyc1] t=  32.942 frame=  50163 IN  TRANS port3 isn=80 len=54 crc=2f5b8800
+[cyc1] t=  32.943 frame=  50167 OUT ACK port3 ackIsn=77
+[cyc1] t=  32.945 frame=  50173 IN  TRANS port3 isn=81 len=54 crc=0ff7acf5
+[cyc1] t=  32.946 frame=  50177 OUT ACK port3 ackIsn=78
+[cyc1] t=  32.948 frame=  50183 OUT ACK port3 ackIsn=79
+[cyc1] t=  32.949 frame=  50187 IN  TRANS port3 isn=82 len=54 crc=80dc3478
+[cyc1] t=  32.949 frame=  50187 IN  TRANS port3 isn=83 len=54 crc=888f05b1
+[cyc1] t=  32.949 frame=  50189 OUT ACK port3 ackIsn=80
+[cyc1] t=  32.952 frame=  50195 OUT ACK port3 ackIsn=81
+[cyc1] t=  32.952 frame=  50199 IN  TRANS port3 isn=84 len=54 crc=e46ad757
+[cyc1] t=  32.952 frame=  50199 IN  TRANS port3 isn=85 len=54 crc=6d4f0314
+[cyc1] t=  32.953 frame=  50203 IN  TRANS port3 isn=86 len=42 crc=8dbf1d93
+[cyc1] t=  32.956 frame=  50211 OUT ACK port3 ackIsn=82
+[cyc1] t=  32.957 frame=  50215 OUT ACK port3 ackIsn=83
+[cyc1] t=  32.958 frame=  50219 OUT ACK port3 ackIsn=84
+[cyc1] t=  32.960 frame=  50225 OUT ACK port3 ackIsn=85
+[cyc1] t=  32.962 frame=  50231 OUT ACK port3 ackIsn=86
+[cyc1] t=  32.973 frame=  50255 OUT TRANS port3 isn=13 len=17 crc=87c6cd2a
+[cyc1] t=  32.982 frame=  50275 IN  ACK port3 ackIsn=13
+[cyc1] t=  33.030 frame=  50373 IN  TRANS port3 isn=87 len=29 crc=a192abc1
+[cyc1] t=  33.037 frame=  50395 OUT ACK port3 ackIsn=87
+[cyc1] t=  33.082 frame=  50489 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  33.637 frame=  51647 IN  TRANS port1 isn=69 len=0 crc=00000000
+[cyc1] t=  33.643 frame=  51661 OUT ACK port1 ackIsn=69
+[cyc1] t=  34.083 frame=  52575 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  35.083 frame=  54655 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  35.994 frame=  56553 OUT TRANS port2 isn=16 len=0 crc=00000000
+[cyc1] t=  36.002 frame=  56571 IN  ACK port2 ackIsn=16
+[cyc1] t=  36.084 frame=  56745 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  36.521 frame=  57649 IN  TRANS port3 isn=88 len=0 crc=00000000
+[cyc1] t=  36.527 frame=  57669 OUT ACK port3 ackIsn=88
+[cyc1] t=  36.995 frame=  58639 OUT TRANS port1 isn=43 len=0 crc=00000000
+[cyc1] t=  37.003 frame=  58657 IN  ACK port1 ackIsn=43
+[cyc1] t=  37.084 frame=  58829 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  37.824 frame=  60367 OUT TRANS port3 isn=14 len=17 crc=5ffd0083
+[cyc1] t=  37.832 frame=  60389 IN  ACK port3 ackIsn=14
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=89 len=54 crc=f8616cf4
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=90 len=54 crc=88dc6842
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=91 len=54 crc=40348417
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=92 len=54 crc=55f2593d
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=93 len=54 crc=bf9666ca
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=94 len=54 crc=355be68e
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=95 len=54 crc=e519984a
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=96 len=54 crc=9b993157
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=97 len=54 crc=7c773f26
+[cyc1] t=  37.887 frame=  60501 IN  TRANS port3 isn=98 len=54 crc=5fadecbc
+[cyc1] t=  37.895 frame=  60519 OUT ACK port3 ackIsn=89
+[cyc1] t=  37.897 frame=  60525 OUT ACK port3 ackIsn=90
+[cyc1] t=  37.899 frame=  60531 OUT ACK port3 ackIsn=91
+[cyc1] t=  37.900 frame=  60535 OUT ACK port3 ackIsn=92
+[cyc1] t=  37.902 frame=  60541 OUT ACK port3 ackIsn=93
+[cyc1] t=  37.903 frame=  60545 OUT ACK port3 ackIsn=94
+[cyc1] t=  37.905 frame=  60549 OUT ACK port3 ackIsn=95
+[cyc1] t=  37.906 frame=  60555 IN  TRANS port3 isn=99 len=54 crc=a333c62f
+[cyc1] t=  37.906 frame=  60557 OUT ACK port3 ackIsn=96
+[cyc1] t=  37.908 frame=  60563 OUT ACK port3 ackIsn=97
+[cyc1] t=  37.909 frame=  60567 OUT ACK port3 ackIsn=98
+[cyc1] t=  37.910 frame=  60571 IN  TRANS port3 isn=100 len=54 crc=3331903f
+[cyc1] t=  37.910 frame=  60571 IN  TRANS port3 isn=101 len=54 crc=2c76af90
+[cyc1] t=  37.913 frame=  60579 OUT ACK port3 ackIsn=99
+[cyc1] t=  37.913 frame=  60581 IN  TRANS port3 isn=102 len=54 crc=aa33fba7
+[cyc1] t=  37.913 frame=  60581 IN  TRANS port3 isn=103 len=54 crc=2ebc6841
+[cyc1] t=  37.916 frame=  60589 IN  TRANS port3 isn=104 len=54 crc=93898517
+[cyc1] t=  37.916 frame=  60589 IN  TRANS port3 isn=105 len=54 crc=10ff8a30
+[cyc1] t=  37.917 frame=  60593 OUT ACK port3 ackIsn=100
+[cyc1] t=  37.918 frame=  60597 OUT ACK port3 ackIsn=101
+[cyc1] t=  37.919 frame=  60601 IN  TRANS port3 isn=106 len=54 crc=a0138dd0
+[cyc1] t=  37.919 frame=  60601 IN  TRANS port3 isn=107 len=54 crc=86311979
+[cyc1] t=  37.920 frame=  60605 OUT ACK port3 ackIsn=102
+[cyc1] t=  37.921 frame=  60609 IN  TRANS port3 isn=108 len=54 crc=73b2dba9
+[cyc1] t=  37.921 frame=  60611 OUT ACK port3 ackIsn=103
+[cyc1] t=  37.923 frame=  60617 OUT ACK port3 ackIsn=104
+[cyc1] t=  37.924 frame=  60621 IN  TRANS port3 isn=109 len=54 crc=e6d72491
+[cyc1] t=  37.925 frame=  60625 OUT ACK port3 ackIsn=105
+[cyc1] t=  37.926 frame=  60629 OUT ACK port3 ackIsn=106
+[cyc1] t=  37.927 frame=  60633 IN  TRANS port3 isn=110 len=54 crc=f6c97538
+[cyc1] t=  37.928 frame=  60637 OUT ACK port3 ackIsn=107
+[cyc1] t=  37.929 frame=  60641 OUT ACK port3 ackIsn=108
+[cyc1] t=  37.931 frame=  60649 IN  TRANS port3 isn=111 len=54 crc=032e3031
+[cyc1] t=  37.931 frame=  60649 IN  TRANS port3 isn=112 len=54 crc=d7147c10
+[cyc1] t=  37.932 frame=  60653 OUT ACK port3 ackIsn=109
+[cyc1] t=  37.934 frame=  60659 IN  TRANS port3 isn=113 len=54 crc=5fdee971
+[cyc1] t=  37.934 frame=  60659 IN  TRANS port3 isn=114 len=54 crc=5742de40
+[cyc1] t=  37.934 frame=  60661 OUT ACK port3 ackIsn=110
+[cyc1] t=  37.936 frame=  60667 IN  TRANS port3 isn=115 len=54 crc=37fddb2c
+[cyc1] t=  37.937 frame=  60671 OUT ACK port3 ackIsn=111
+[cyc1] t=  37.939 frame=  60677 IN  TRANS port3 isn=116 len=54 crc=96cdafca
+[cyc1] t=  37.939 frame=  60677 IN  TRANS port3 isn=117 len=54 crc=2eb7bf8e
+[cyc1] t=  37.939 frame=  60679 OUT ACK port3 ackIsn=112
+[cyc1] t=  37.941 frame=  60683 OUT ACK port3 ackIsn=113
+[cyc1] t=  37.942 frame=  60689 IN  TRANS port3 isn=118 len=54 crc=27911daa
+[cyc1] t=  37.942 frame=  60691 OUT ACK port3 ackIsn=114
+[cyc1] t=  37.944 frame=  60697 OUT ACK port3 ackIsn=115
+[cyc1] t=  37.946 frame=  60703 OUT ACK port3 ackIsn=116
+[cyc1] t=  37.946 frame=  60705 IN  TRANS port3 isn=119 len=54 crc=61166bec
+[cyc1] t=  37.946 frame=  60705 IN  TRANS port3 isn=120 len=54 crc=6b2c9d69
+[cyc1] t=  37.947 frame=  60709 OUT ACK port3 ackIsn=117
+[cyc1] t=  37.948 frame=  60713 IN  TRANS port3 isn=121 len=54 crc=b7ef5c8e
+[cyc1] t=  37.948 frame=  60715 OUT ACK port3 ackIsn=118
+[cyc1] t=  37.952 frame=  60725 IN  TRANS port3 isn=122 len=54 crc=b89606e7
+[cyc1] t=  37.952 frame=  60725 IN  TRANS port3 isn=123 len=54 crc=9b54e4e0
+[cyc1] t=  37.952 frame=  60727 OUT ACK port3 ackIsn=119
+[cyc1] t=  37.954 frame=  60733 OUT ACK port3 ackIsn=120
+[cyc1] t=  37.954 frame=  60735 IN  TRANS port3 isn=124 len=54 crc=b0c8a5be
+[cyc1] t=  37.955 frame=  60739 OUT ACK port3 ackIsn=121
+[cyc1] t=  37.958 frame=  60747 IN  TRANS port3 isn=125 len=54 crc=3b1c31b7
+[cyc1] t=  37.958 frame=  60747 IN  TRANS port3 isn=126 len=54 crc=434fd626
+[cyc1] t=  37.958 frame=  60749 OUT ACK port3 ackIsn=122
+[cyc1] t=  37.960 frame=  60755 OUT ACK port3 ackIsn=123
+[cyc1] t=  37.960 frame=  60756 IN  TRANS port3 isn=127 len=54 crc=29605816
+[cyc1] t=  37.961 frame=  60761 OUT ACK port3 ackIsn=124
+[cyc1] t=  37.964 frame=  60769 IN  TRANS port3 isn=128 len=54 crc=3f7b0889
+[cyc1] t=  37.964 frame=  60769 IN  TRANS port3 isn=129 len=54 crc=66c23920
+[cyc1] t=  37.965 frame=  60773 OUT ACK port3 ackIsn=125
+[cyc1] t=  37.966 frame=  60777 OUT ACK port3 ackIsn=126
+[cyc1] t=  37.967 frame=  60781 IN  TRANS port3 isn=130 len=54 crc=4f39286b
+[cyc1] t=  37.967 frame=  60781 IN  TRANS port3 isn=131 len=54 crc=3e550d03
+[cyc1] t=  37.968 frame=  60785 OUT ACK port3 ackIsn=127
+[cyc1] t=  37.969 frame=  60789 IN  TRANS port3 isn=132 len=54 crc=f3926c04
+[cyc1] t=  37.969 frame=  60791 OUT ACK port3 ackIsn=128
+[cyc1] t=  37.971 frame=  60797 OUT ACK port3 ackIsn=129
+[cyc1] t=  37.972 frame=  60801 OUT ACK port3 ackIsn=130
+[cyc1] t=  37.973 frame=  60805 IN  TRANS port3 isn=133 len=54 crc=218b0204
+[cyc1] t=  37.973 frame=  60805 IN  TRANS port3 isn=134 len=54 crc=abe11568
+[cyc1] t=  37.975 frame=  60811 IN  TRANS port3 isn=135 len=54 crc=843ac27d
+[cyc1] t=  37.975 frame=  60813 OUT ACK port3 ackIsn=131
+[cyc1] t=  37.977 frame=  60819 OUT ACK port3 ackIsn=132
+[cyc1] t=  37.978 frame=  60823 IN  TRANS port3 isn=136 len=54 crc=d09082bd
+[cyc1] t=  37.979 frame=  60827 OUT ACK port3 ackIsn=133
+[cyc1] t=  37.980 frame=  60831 IN  TRANS port3 isn=137 len=14 crc=376c22e0
+[cyc1] t=  37.980 frame=  60833 OUT ACK port3 ackIsn=134
+[cyc1] t=  37.982 frame=  60839 OUT ACK port3 ackIsn=135
+[cyc1] t=  37.985 frame=  60847 OUT ACK port3 ackIsn=136
+[cyc1] t=  37.986 frame=  60851 OUT ACK port3 ackIsn=137
+[cyc1] t=  37.994 frame=  60869 OUT TRANS port3 isn=15 len=17 crc=87c6cd2a
+[cyc1] t=  38.002 frame=  60887 IN  ACK port3 ackIsn=15
+[cyc1] t=  39.084 frame=  63143 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  39.996 frame=  64995 OUT TRANS port2 isn=17 len=0 crc=00000000
+[cyc1] t=  40.003 frame=  65011 IN  TRANS port2 isn=7 len=0 crc=00000000
+[cyc1] t=  40.004 frame=  65015 IN  ACK port2 ackIsn=17
+[cyc1] t=  40.008 frame=  65025 OUT ACK port2 ackIsn=7
+[cyc1] t=  40.083 frame=  65177 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  40.557 frame=  66133 IN  TRANS port1 isn=70 len=0 crc=00000000
+[cyc1] t=  40.564 frame=  66149 OUT ACK port1 ackIsn=70
+[cyc1] t=  41.084 frame=  67199 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc1] t=  41.357 frame=  67753 IN  TRANS port3 isn=138 len=0 crc=00000000
+[cyc1] t=  41.362 frame=  67765 OUT ACK port3 ackIsn=138
+[cyc1] t=  42.084 frame=  69219 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  54.957 frame=  95002 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port2 isn=8 len=0 crc=00000000
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port1 isn=71 len=0 crc=00000000
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port1 isn=71 len=0 crc=00000000
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  TRANS port3 isn=139 len=29 crc=84558ac5
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  54.974 frame=  95054 IN  FIN port9040 isn=8
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  54.974 frame=  95054 IN  FIN port9040 isn=8
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  54.974 frame=  95054 IN  FIN port9040 isn=8
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  54.974 frame=  95054 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  55.015 frame=  95175 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  55.086 frame=  95319 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  55.086 frame=  95319 IN  FIN port9040 isn=8
+[cyc2] t=  55.382 frame=  95913 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  55.759 frame=  96495 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  56.015 frame=  97009 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  56.383 frame=  97693 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  56.759 frame=  98451 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  57.016 frame=  98967 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  57.383 frame=  99707 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  57.759 frame= 100465 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  58.015 frame= 100979 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  58.383 frame= 101721 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  58.759 frame= 102479 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  59.016 frame= 102995 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  59.383 frame= 103819 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  59.759 frame= 104573 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  60.017 frame= 105095 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  60.385 frame= 105849 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  60.761 frame= 106619 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  61.017 frame= 107157 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  61.385 frame= 107919 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  61.761 frame= 108689 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  62.385 frame= 109975 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  63.385 frame= 112041 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  63.761 frame= 112819 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc2] t=  63.769 frame= 112837 OUT SYN2 port1 isn=1 announced=1 ver=2 body=0100fd02
+[cyc2] t=  63.778 frame= 112855 IN  ACK port1 ackIsn=1
+[cyc2] t=  63.778 frame= 112855 IN  TRANS port1 isn=5 len=1 crc=000000ff
+[cyc2] t=  63.778 frame= 112855 IN  TRANS port1 isn=6 len=9 crc=f44172e3
+[cyc2] t=  63.782 frame= 112863 IN  TRANS port1 isn=7 len=28 crc=fed0eafb
+[cyc2] t=  63.782 frame= 112863 IN  TRANS port1 isn=8 len=47 crc=8392c3ee
+[cyc2] t=  63.782 frame= 112863 IN  TRANS port1 isn=9 len=47 crc=fb26fd38
+[cyc2] t=  63.782 frame= 112863 IN  TRANS port1 isn=10 len=48 crc=56c4ffb9
+[cyc2] t=  63.783 frame= 112865 IN  TRANS port1 isn=11 len=48 crc=3b02eb89
+[cyc2] t=  63.784 frame= 112869 IN  TRANS port1 isn=12 len=48 crc=8c48d6d9
+[cyc2] t=  63.786 frame= 112873 IN  TRANS port1 isn=13 len=48 crc=e18ec2e9
+[cyc2] t=  63.786 frame= 112873 IN  TRANS port1 isn=14 len=48 crc=f960a02c
+[cyc2] t=  63.789 frame= 112881 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.792 frame= 112889 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.796 frame= 112901 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.796 frame= 112901 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.797 frame= 112903 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.799 frame= 112907 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.799 frame= 112907 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.800 frame= 112911 OUT ACK port1 ackIsn=4
+[cyc2] t=  63.806 frame= 112923 IN  TRANS port1 isn=5 len=1 crc=000000ff
+[cyc2] t=  63.815 frame= 112943 OUT ACK port1 ackIsn=5
+[cyc2] t=  63.824 frame= 112961 IN  TRANS port1 isn=15 len=54 crc=04a92b82
+[cyc2] t=  63.830 frame= 112977 OUT TRANS port1 isn=2 len=9 crc=16bf2bac
+[cyc2] t=  63.833 frame= 112987 OUT TRANS port1 isn=3 len=5 crc=cd8d8281
+[cyc2] t=  63.835 frame= 112993 OUT ACK port1 ackIsn=5
+[cyc2] t=  63.840 frame= 113005 IN  ACK port1 ackIsn=2
+[cyc2] t=  63.843 frame= 113013 IN  ACK port1 ackIsn=3
+[cyc2] t=  64.019 frame= 113373 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc2] t=  64.026 frame= 113389 OUT SYN2 port3 isn=3 announced=3 ver=2 body=0300fd02
+[cyc2] t=  64.034 frame= 113405 IN  ACK port3 ackIsn=3
+[cyc2] t=  64.034 frame= 113405 IN  TRANS port3 isn=7 len=10 crc=3796e536
+[cyc2] t=  64.060 frame= 113463 OUT TRANS port3 isn=4 len=17 crc=08bb5d88
+[cyc2] t=  64.060 frame= 113465 OUT TRANS port3 isn=5 len=54 crc=8e61d7c7
+[cyc2] t=  64.062 frame= 113469 OUT TRANS port3 isn=6 len=54 crc=bb1c546e
+[cyc2] t=  64.064 frame= 113475 OUT TRANS port3 isn=7 len=54 crc=08855d40
+[cyc2] t=  64.064 frame= 113475 OUT TRANS port3 isn=8 len=14 crc=363ccd6d
+[cyc2] t=  64.069 frame= 113483 IN  ACK port3 ackIsn=4
+[cyc2] t=  64.072 frame= 113491 IN  ACK port3 ackIsn=5
+[cyc2] t=  64.074 frame= 113497 IN  ACK port3 ackIsn=7
+[cyc2] t=  64.075 frame= 113499 IN  ACK port3 ackIsn=8
+[cyc2] t=  64.384 frame= 114135 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc2] t=  64.392 frame= 114151 OUT SYN2 port2 isn=2 announced=2 ver=2 body=0200fd02
+[cyc2] t=  64.400 frame= 114169 IN  ACK port2 ackIsn=2
+[cyc2] t=  64.401 frame= 114171 IN  TRANS port2 isn=6 len=24 crc=1a6c8cef
+[cyc2] t=  64.401 frame= 114171 IN  TRANS port2 isn=7 len=5 crc=f9be064f
+[cyc2] t=  64.402 frame= 114175 IN  TRANS port2 isn=8 len=2 crc=bae6ae3c
+[cyc2] t=  64.402 frame= 114175 IN  TRANS port2 isn=9 len=9 crc=a245e5bb
+[cyc2] t=  64.402 frame= 114175 IN  TRANS port2 isn=10 len=2 crc=79b58317
+[cyc2] t=  64.413 frame= 114199 OUT ACK port2 ackIsn=5
+[cyc2] t=  64.413 frame= 114199 OUT ACK port2 ackIsn=5
+[cyc2] t=  64.413 frame= 114199 OUT ACK port2 ackIsn=5
+[cyc2] t=  64.414 frame= 114203 OUT ACK port2 ackIsn=5
+[cyc2] t=  64.423 frame= 114221 IN  TRANS port2 isn=6 len=24 crc=1a6c8cef
+[cyc2] t=  64.430 frame= 114237 OUT ACK port2 ackIsn=6
+[cyc2] t=  64.436 frame= 114251 OUT TRANS port2 isn=3 len=25 crc=ba30c63f
+[cyc2] t=  64.438 frame= 114257 OUT TRANS port2 isn=4 len=21 crc=8318920e
+[cyc2] t=  64.439 frame= 114259 OUT TRANS port2 isn=5 len=17 crc=59c87898
+[cyc2] t=  64.441 frame= 114265 OUT TRANS port2 isn=6 len=17 crc=70825eb9
+[cyc2] t=  64.442 frame= 114269 OUT TRANS port3 isn=9 len=54 crc=abe5d360
+[cyc2] t=  64.445 frame= 114275 OUT TRANS port3 isn=10 len=54 crc=118a1be1
+[cyc2] t=  64.446 frame= 114277 IN  ACK port2 ackIsn=3
+[cyc2] t=  64.448 frame= 114283 OUT TRANS port3 isn=11 len=22 crc=1e27f206
+[cyc2] t=  64.448 frame= 114283 OUT TRANS port2 isn=7 len=17 crc=62d5aee4
+[cyc2] t=  64.450 frame= 114287 IN  ACK port2 ackIsn=5
+[cyc2] t=  64.450 frame= 114287 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  64.450 frame= 114287 IN  TRANS port2 isn=11 len=21 crc=50a13a47
+[cyc2] t=  64.450 frame= 114287 IN  TRANS port2 isn=12 len=29 crc=84558ac5
+[cyc2] t=  64.455 frame= 114297 IN  TRANS port2 isn=13 len=14 crc=09bb3df9
+[cyc2] t=  64.455 frame= 114297 IN  TRANS port2 isn=14 len=17 crc=243403db
+[cyc2] t=  64.457 frame= 114303 IN  TRANS port2 isn=15 len=21 crc=ca490593
+[cyc2] t=  64.457 frame= 114303 IN  ACK port3 ackIsn=11
+[cyc2] t=  64.458 frame= 114305 IN  TRANS port2 isn=16 len=21 crc=33940a23
+[cyc2] t=  64.458 frame= 114305 IN  ACK port2 ackIsn=7
+[cyc2] t=  64.459 frame= 114309 OUT ACK port2 ackIsn=6
+[cyc2] t=  64.459 frame= 114311 OUT ACK port2 ackIsn=6
+[cyc2] t=  64.463 frame= 114321 OUT ACK port2 ackIsn=6
+[cyc2] t=  64.465 frame= 114325 OUT ACK port2 ackIsn=6
+[cyc2] t=  64.466 frame= 114329 OUT ACK port2 ackIsn=6
+[cyc2] t=  64.467 frame= 114333 OUT ACK port2 ackIsn=6
+[cyc2] t=  64.487 frame= 114379 OUT TRANS port3 isn=12 len=54 crc=fed21031
+[cyc2] t=  64.489 frame= 114383 OUT TRANS port3 isn=13 len=54 crc=bb1c546e
+[cyc2] t=  64.492 frame= 114389 OUT TRANS port3 isn=14 len=54 crc=08855d40
+[cyc2] t=  64.492 frame= 114391 OUT TRANS port3 isn=15 len=14 crc=363ccd6d
+[cyc2] t=  64.498 frame= 114403 IN  ACK port3 ackIsn=12
+[cyc2] t=  64.501 frame= 114411 IN  ACK port3 ackIsn=13
+[cyc2] t=  64.503 frame= 114415 IN  ACK port3 ackIsn=15
+[cyc2] t=  65.448 frame= 116355 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  65.762 frame= 116995 IN  TRANS port1 isn=6 len=9 crc=f44172e3
+[cyc2] t=  65.762 frame= 116995 IN  TRANS port1 isn=7 len=28 crc=fed0eafb
+[cyc2] t=  65.769 frame= 117005 OUT ACK port1 ackIsn=6
+[cyc2] t=  65.771 frame= 117011 OUT ACK port1 ackIsn=7
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=8 len=47 crc=8392c3ee
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=9 len=47 crc=fb26fd38
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=10 len=48 crc=56c4ffb9
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=11 len=48 crc=3b02eb89
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=12 len=48 crc=8c48d6d9
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=13 len=48 crc=e18ec2e9
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=14 len=48 crc=f960a02c
+[cyc2] t=  65.771 frame= 117013 IN  TRANS port1 isn=15 len=54 crc=04a92b82
+[cyc2] t=  65.777 frame= 117025 OUT ACK port1 ackIsn=8
+[cyc2] t=  65.779 frame= 117029 OUT ACK port1 ackIsn=9
+[cyc2] t=  65.780 frame= 117033 OUT ACK port1 ackIsn=10
+[cyc2] t=  65.780 frame= 117034 IN  TRANS port1 isn=16 len=54 crc=84b8a355
+[cyc2] t=  65.782 frame= 117039 OUT ACK port1 ackIsn=11
+[cyc2] t=  65.782 frame= 117041 IN  TRANS port1 isn=17 len=54 crc=fb4bd5c8
+[cyc2] t=  65.785 frame= 117049 OUT ACK port1 ackIsn=12
+[cyc2] t=  65.786 frame= 117053 OUT ACK port1 ackIsn=13
+[cyc2] t=  65.788 frame= 117057 OUT ACK port1 ackIsn=14
+[cyc2] t=  65.788 frame= 117059 IN  TRANS port1 isn=18 len=54 crc=1577f948
+[cyc2] t=  65.790 frame= 117063 OUT ACK port1 ackIsn=15
+[cyc2] t=  65.791 frame= 117067 OUT TRANS port1 isn=4 len=54 crc=5ca806e8
+[cyc2] t=  65.792 frame= 117071 IN  TRANS port1 isn=19 len=54 crc=bca09185
+[cyc2] t=  65.792 frame= 117071 IN  TRANS port1 isn=20 len=54 crc=ad5aa83d
+[cyc2] t=  65.793 frame= 117073 OUT TRANS port1 isn=5 len=16 crc=4c0720f4
+[cyc2] t=  65.794 frame= 117077 IN  TRANS port1 isn=21 len=54 crc=ee9108a7
+[cyc2] t=  65.795 frame= 117081 OUT TRANS port1 isn=6 len=9 crc=de635911
+[cyc2] t=  65.795 frame= 117083 OUT ACK port1 ackIsn=16
+[cyc2] t=  65.797 frame= 117087 OUT ACK port1 ackIsn=17
+[cyc2] t=  65.797 frame= 117089 IN  TRANS port1 isn=22 len=54 crc=d0687cde
+[cyc2] t=  65.798 frame= 117093 OUT ACK port1 ackIsn=18
+[cyc2] t=  65.800 frame= 117097 OUT ACK port1 ackIsn=19
+[cyc2] t=  65.800 frame= 117099 IN  TRANS port1 isn=25 len=54 crc=8398f447
+[cyc2] t=  65.802 frame= 117105 OUT ACK port1 ackIsn=20
+[cyc2] t=  65.802 frame= 117107 IN  ACK port1 ackIsn=4
+[cyc2] t=  65.803 frame= 117111 OUT ACK port1 ackIsn=21
+[cyc2] t=  65.805 frame= 117115 IN  ACK port1 ackIsn=6
+[cyc2] t=  65.806 frame= 117119 OUT ACK port1 ackIsn=22
+[cyc2] t=  65.807 frame= 117123 OUT ACK port1 ackIsn=22
+[cyc2] t=  65.812 frame= 117131 IN  TRANS port1 isn=26 len=54 crc=b1819115
+[cyc2] t=  65.812 frame= 117131 IN  TRANS port1 isn=27 len=54 crc=71d3d6e6
+[cyc2] t=  65.812 frame= 117131 IN  TRANS port1 isn=28 len=54 crc=fca2b15f
+[cyc2] t=  65.812 frame= 117131 IN  TRANS port1 isn=29 len=54 crc=47efc09c
+[cyc2] t=  65.819 frame= 117147 OUT ACK port1 ackIsn=22
+[cyc2] t=  65.821 frame= 117151 OUT ACK port1 ackIsn=22
+[cyc2] t=  65.822 frame= 117155 OUT ACK port1 ackIsn=22
+[cyc2] t=  65.824 frame= 117161 OUT ACK port1 ackIsn=22
+[cyc2] t=  65.832 frame= 117177 IN  TRANS port1 isn=23 len=54 crc=7fa63aad
+[cyc2] t=  65.839 frame= 117193 OUT ACK port1 ackIsn=23
+[cyc2] t=  66.011 frame= 117547 OUT TRANS port2 isn=8 len=17 crc=5ffd0083
+[cyc2] t=  66.018 frame= 117563 IN  ACK port2 ackIsn=8
+[cyc2] t=  66.033 frame= 117593 IN  TRANS port3 isn=7 len=10 crc=3796e536
+[cyc2] t=  66.040 frame= 117609 OUT ACK port3 ackIsn=7
+[cyc2] t=  66.071 frame= 117671 IN  TRANS port2 isn=7 len=5 crc=f9be064f
+[cyc2] t=  66.071 frame= 117671 IN  TRANS port2 isn=8 len=2 crc=bae6ae3c
+[cyc2] t=  66.071 frame= 117671 IN  TRANS port2 isn=9 len=9 crc=a245e5bb
+[cyc2] t=  66.073 frame= 117677 IN  TRANS port2 isn=10 len=2 crc=79b58317
+[cyc2] t=  66.073 frame= 117677 IN  TRANS port2 isn=11 len=21 crc=50a13a47
+[cyc2] t=  66.074 frame= 117679 IN  TRANS port2 isn=12 len=29 crc=84558ac5
+[cyc2] t=  66.075 frame= 117683 IN  TRANS port2 isn=13 len=14 crc=09bb3df9
+[cyc2] t=  66.075 frame= 117683 IN  TRANS port2 isn=14 len=17 crc=243403db
+[cyc2] t=  66.076 frame= 117685 IN  TRANS port2 isn=15 len=21 crc=ca490593
+[cyc2] t=  66.077 frame= 117689 OUT ACK port2 ackIsn=7
+[cyc2] t=  66.077 frame= 117691 IN  TRANS port2 isn=16 len=21 crc=33940a23
+[cyc2] t=  66.079 frame= 117695 OUT ACK port2 ackIsn=8
+[cyc2] t=  66.080 frame= 117699 OUT ACK port2 ackIsn=9
+[cyc2] t=  66.081 frame= 117703 OUT ACK port2 ackIsn=10
+[cyc2] t=  66.083 frame= 117707 OUT ACK port2 ackIsn=11
+[cyc2] t=  66.085 frame= 117713 OUT ACK port2 ackIsn=12
+[cyc2] t=  66.086 frame= 117715 OUT ACK port2 ackIsn=13
+[cyc2] t=  66.087 frame= 117719 IN  TRANS port2 isn=17 len=54 crc=6e1c3ac6
+[cyc2] t=  66.088 frame= 117723 OUT ACK port2 ackIsn=14
+[cyc2] t=  66.089 frame= 117725 OUT ACK port2 ackIsn=15
+[cyc2] t=  66.091 frame= 117731 OUT ACK port2 ackIsn=16
+[cyc2] t=  66.091 frame= 117733 IN  TRANS port2 isn=18 len=54 crc=5f95ecef
+[cyc2] t=  66.091 frame= 117733 IN  TRANS port2 isn=19 len=54 crc=1fec82c4
+[cyc2] t=  66.092 frame= 117735 OUT TRANS port2 isn=9 len=21 crc=ced930f2
+[cyc2] t=  66.094 frame= 117741 OUT ACK port2 ackIsn=17
+[cyc2] t=  66.094 frame= 117743 IN  TRANS port2 isn=20 len=54 crc=394cf12d
+[cyc2] t=  66.094 frame= 117743 IN  TRANS port2 isn=21 len=54 crc=a4a82a1c
+[cyc2] t=  66.095 frame= 117745 OUT TRANS port3 isn=16 len=54 crc=fed21031
+[cyc2] t=  66.097 frame= 117751 OUT TRANS port3 isn=17 len=54 crc=bb1c546e
+[cyc2] t=  66.097 frame= 117752 IN  TRANS port2 isn=22 len=54 crc=afa5b42b
+[cyc2] t=  66.097 frame= 117752 IN  TRANS port2 isn=23 len=54 crc=960efdc2
+[cyc2] t=  66.098 frame= 117755 OUT TRANS port3 isn=18 len=54 crc=08855d40
+[cyc2] t=  66.099 frame= 117758 IN  TRANS port2 isn=24 len=54 crc=5e87627c
+[cyc2] t=  66.100 frame= 117763 OUT TRANS port3 isn=19 len=14 crc=363ccd6d
+[cyc2] t=  66.101 frame= 117766 OUT ACK port2 ackIsn=18
+[cyc2] t=  66.103 frame= 117771 OUT ACK port2 ackIsn=19
+[cyc2] t=  66.103 frame= 117773 IN  TRANS port2 isn=25 len=54 crc=23662ab2
+[cyc2] t=  66.103 frame= 117773 IN  TRANS port2 isn=26 len=54 crc=2a361852
+[cyc2] t=  66.105 frame= 117777 OUT ACK port2 ackIsn=20
+[cyc2] t=  66.105 frame= 117779 IN  ACK port2 ackIsn=9
+[cyc2] t=  66.105 frame= 117779 IN  TRANS port2 isn=27 len=54 crc=e7f0ea67
+[cyc2] t=  66.106 frame= 117783 OUT ACK port2 ackIsn=21
+[cyc2] t=  66.107 frame= 117787 IN  ACK port3 ackIsn=16
+[cyc2] t=  66.108 frame= 117789 OUT ACK port2 ackIsn=22
+[cyc2] t=  66.110 frame= 117795 OUT ACK port2 ackIsn=23
+[cyc2] t=  66.110 frame= 117797 IN  ACK port3 ackIsn=18
+[cyc2] t=  66.111 frame= 117799 OUT ACK port2 ackIsn=24
+[cyc2] t=  66.113 frame= 117805 OUT ACK port2 ackIsn=25
+[cyc2] t=  66.113 frame= 117807 IN  ACK port3 ackIsn=19
+[cyc2] t=  66.115 frame= 117811 OUT ACK port2 ackIsn=26
+[cyc2] t=  66.117 frame= 117815 OUT ACK port2 ackIsn=27
+[cyc2] t=  66.119 frame= 117821 IN  TRANS port2 isn=28 len=54 crc=6de2078d
+[cyc2] t=  66.119 frame= 117821 IN  TRANS port2 isn=29 len=54 crc=b228067e
+[cyc2] t=  66.119 frame= 117821 IN  TRANS port2 isn=30 len=54 crc=68e9a73d
+[cyc2] t=  66.125 frame= 117831 OUT ACK port2 ackIsn=28
+[cyc2] t=  66.126 frame= 117835 OUT ACK port2 ackIsn=29
+[cyc2] t=  66.127 frame= 117837 IN  TRANS port2 isn=31 len=54 crc=b9ef4c6a
+[cyc2] t=  66.127 frame= 117837 IN  TRANS port2 isn=32 len=54 crc=2d6debff
+[cyc2] t=  66.128 frame= 117841 OUT ACK port2 ackIsn=30
+[cyc2] t=  66.133 frame= 117853 OUT ACK port2 ackIsn=31
+[cyc2] t=  66.135 frame= 117857 OUT ACK port2 ackIsn=32
+[cyc2] t=  66.135 frame= 117859 IN  TRANS port2 isn=33 len=54 crc=30cf1c8d
+[cyc2] t=  66.138 frame= 117865 IN  TRANS port2 isn=34 len=54 crc=dd273efc
+[cyc2] t=  66.138 frame= 117865 IN  TRANS port2 isn=35 len=54 crc=62ca979d
+[cyc2] t=  66.140 frame= 117869 OUT ACK port2 ackIsn=33
+[cyc2] t=  66.143 frame= 117875 IN  TRANS port2 isn=36 len=54 crc=8c117b91
+[cyc2] t=  66.144 frame= 117880 OUT ACK port2 ackIsn=34
+[cyc2] t=  66.146 frame= 117883 OUT ACK port2 ackIsn=35
+[cyc2] t=  66.147 frame= 117887 IN  TRANS port2 isn=37 len=54 crc=c1d54d11
+[cyc2] t=  66.148 frame= 117891 OUT ACK port2 ackIsn=36
+[cyc2] t=  66.148 frame= 117893 IN  TRANS port2 isn=38 len=54 crc=aa636fc9
+[cyc2] t=  66.153 frame= 117903 OUT ACK port2 ackIsn=37
+[cyc2] t=  66.155 frame= 117907 OUT ACK port2 ackIsn=38
+[cyc2] t=  66.155 frame= 117909 IN  TRANS port2 isn=39 len=54 crc=b7049649
+[cyc2] t=  66.158 frame= 117915 IN  TRANS port2 isn=40 len=54 crc=d6ffce95
+[cyc2] t=  66.158 frame= 117915 IN  TRANS port2 isn=41 len=54 crc=ad41e27e
+[cyc2] t=  66.161 frame= 117921 OUT ACK port2 ackIsn=39
+[cyc2] t=  66.164 frame= 117927 OUT ACK port2 ackIsn=40
+[cyc2] t=  66.165 frame= 117931 OUT ACK port2 ackIsn=41
+[cyc2] t=  66.165 frame= 117932 IN  TRANS port2 isn=42 len=54 crc=9782744e
+[cyc2] t=  66.165 frame= 117932 IN  TRANS port2 isn=43 len=54 crc=e5cd8c79
+[cyc2] t=  66.169 frame= 117941 IN  TRANS port2 isn=44 len=54 crc=5ac46e8f
+[cyc2] t=  66.169 frame= 117941 IN  TRANS port2 isn=45 len=54 crc=2abfafe3
+[cyc2] t=  66.171 frame= 117945 OUT ACK port2 ackIsn=42
+[cyc2] t=  66.172 frame= 117949 IN  TRANS port2 isn=46 len=54 crc=84a2f000
+[cyc2] t=  66.173 frame= 117953 OUT ACK port2 ackIsn=43
+[cyc2] t=  66.175 frame= 117957 IN  TRANS port2 isn=47 len=54 crc=b525c65c
+[cyc2] t=  66.176 frame= 117961 OUT ACK port2 ackIsn=44
+[cyc2] t=  66.177 frame= 117965 IN  TRANS port2 isn=48 len=54 crc=eebd8863
+[cyc2] t=  66.178 frame= 117967 OUT ACK port2 ackIsn=45
+[cyc2] t=  66.180 frame= 117973 OUT ACK port2 ackIsn=46
+[cyc2] t=  66.181 frame= 117975 OUT ACK port2 ackIsn=47
+[cyc2] t=  66.181 frame= 117977 IN  TRANS port2 isn=49 len=54 crc=3b18ed78
+[cyc2] t=  66.183 frame= 117981 IN  TRANS port2 isn=50 len=54 crc=d7da8345
+[cyc2] t=  66.184 frame= 117985 OUT ACK port2 ackIsn=48
+[cyc2] t=  66.186 frame= 117989 IN  TRANS port2 isn=51 len=54 crc=a5d67f19
+[cyc2] t=  66.187 frame= 117993 OUT ACK port2 ackIsn=49
+[cyc2] t=  66.190 frame= 117999 OUT ACK port2 ackIsn=50
+[cyc2] t=  66.191 frame= 118003 IN  TRANS port2 isn=52 len=54 crc=0064fdd6
+[cyc2] t=  66.191 frame= 118003 IN  TRANS port2 isn=53 len=54 crc=0a4766e7
+[cyc2] t=  66.193 frame= 118007 OUT ACK port2 ackIsn=51
+[cyc2] t=  66.193 frame= 118009 IN  TRANS port2 isn=54 len=54 crc=2c3a57d4
+[cyc2] t=  66.195 frame= 118013 IN  TRANS port2 isn=55 len=54 crc=58349dd5
+[cyc2] t=  66.198 frame= 118021 OUT ACK port2 ackIsn=52
+[cyc2] t=  66.199 frame= 118025 OUT ACK port2 ackIsn=53
+[cyc2] t=  66.199 frame= 118027 IN  TRANS port2 isn=56 len=54 crc=e57d4509
+[cyc2] t=  66.201 frame= 118031 OUT ACK port2 ackIsn=54
+[cyc2] t=  66.202 frame= 118035 OUT ACK port2 ackIsn=55
+[cyc2] t=  66.202 frame= 118036 IN  TRANS port2 isn=57 len=54 crc=cddc2206
+[cyc2] t=  66.205 frame= 118043 OUT ACK port2 ackIsn=56
+[cyc2] t=  66.205 frame= 118044 IN  TRANS port2 isn=58 len=54 crc=0b11773c
+[cyc2] t=  66.208 frame= 118051 IN  TRANS port2 isn=59 len=54 crc=42731927
+[cyc2] t=  66.208 frame= 118052 OUT ACK port2 ackIsn=57
+[cyc2] t=  66.212 frame= 118061 OUT ACK port2 ackIsn=58
+[cyc2] t=  66.212 frame= 118063 IN  TRANS port2 isn=60 len=54 crc=6cbff7b7
+[cyc2] t=  66.212 frame= 118063 IN  TRANS port2 isn=61 len=54 crc=ccbcf767
+[cyc2] t=  66.215 frame= 118069 OUT ACK port2 ackIsn=59
+[cyc2] t=  66.217 frame= 118073 IN  TRANS port2 isn=62 len=54 crc=d504677b
+[cyc2] t=  66.217 frame= 118073 IN  TRANS port2 isn=63 len=54 crc=aa6ceb54
+[cyc2] t=  66.217 frame= 118073 IN  TRANS port2 isn=64 len=54 crc=4a20dce9
+[cyc2] t=  66.217 frame= 118073 IN  TRANS port2 isn=65 len=54 crc=53166dd0
+[cyc2] t=  66.219 frame= 118077 OUT ACK port2 ackIsn=60
+[cyc2] t=  66.219 frame= 118079 IN  TRANS port2 isn=66 len=24 crc=a1d4b85d
+[cyc2] t=  66.221 frame= 118085 OUT ACK port2 ackIsn=61
+[cyc2] t=  66.224 frame= 118091 OUT ACK port2 ackIsn=62
+[cyc2] t=  66.226 frame= 118097 OUT ACK port2 ackIsn=63
+[cyc2] t=  66.227 frame= 118099 OUT ACK port2 ackIsn=64
+[cyc2] t=  66.230 frame= 118107 OUT ACK port2 ackIsn=65
+[cyc2] t=  66.231 frame= 118111 OUT ACK port2 ackIsn=66
+[cyc2] t=  66.233 frame= 118119 OUT TRANS port2 isn=10 len=17 crc=87c6cd2a
+[cyc2] t=  66.242 frame= 118137 IN  ACK port2 ackIsn=10
+[cyc2] t=  66.448 frame= 118555 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  66.795 frame= 119267 OUT TRANS port1 isn=7 len=6 crc=1388a28c
+[cyc2] t=  66.796 frame= 119269 OUT TRANS port1 isn=8 len=54 crc=b839d2b9
+[cyc2] t=  66.798 frame= 119275 OUT TRANS port1 isn=9 len=54 crc=59385f54
+[cyc2] t=  66.800 frame= 119279 OUT TRANS port1 isn=10 len=54 crc=8321d978
+[cyc2] t=  66.802 frame= 119285 OUT TRANS port1 isn=11 len=54 crc=aafb8b31
+[cyc2] t=  66.804 frame= 119289 OUT TRANS port1 isn=12 len=54 crc=3a299418
+[cyc2] t=  66.804 frame= 119289 OUT TRANS port1 isn=13 len=24 crc=64b4c98f
+[cyc2] t=  66.804 frame= 119290 IN  ACK port1 ackIsn=7
+[cyc2] t=  66.805 frame= 119295 OUT TRANS port1 isn=14 len=9 crc=de635911
+[cyc2] t=  66.807 frame= 119299 IN  ACK port1 ackIsn=8
+[cyc2] t=  66.810 frame= 119305 IN  ACK port1 ackIsn=9
+[cyc2] t=  66.813 frame= 119311 IN  ACK port1 ackIsn=11
+[cyc2] t=  66.815 frame= 119317 IN  ACK port1 ackIsn=14
+[cyc2] t=  67.448 frame= 120603 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  67.762 frame= 121243 IN  TRANS port1 isn=24 len=54 crc=3f767e97
+[cyc2] t=  67.767 frame= 121251 IN  TRANS port1 isn=25 len=54 crc=8398f447
+[cyc2] t=  67.767 frame= 121251 IN  TRANS port1 isn=26 len=54 crc=b1819115
+[cyc2] t=  67.767 frame= 121251 IN  TRANS port1 isn=27 len=54 crc=71d3d6e6
+[cyc2] t=  67.767 frame= 121251 IN  TRANS port1 isn=28 len=54 crc=fca2b15f
+[cyc2] t=  67.771 frame= 121265 OUT ACK port1 ackIsn=24
+[cyc2] t=  67.774 frame= 121273 OUT ACK port1 ackIsn=25
+[cyc2] t=  67.776 frame= 121279 OUT ACK port1 ackIsn=26
+[cyc2] t=  67.777 frame= 121281 OUT ACK port1 ackIsn=27
+[cyc2] t=  67.780 frame= 121287 OUT ACK port1 ackIsn=28
+[cyc2] t=  67.781 frame= 121291 IN  TRANS port1 isn=29 len=54 crc=47efc09c
+[cyc2] t=  67.783 frame= 121295 IN  TRANS port1 isn=30 len=54 crc=8a2d768c
+[cyc2] t=  67.787 frame= 121303 IN  TRANS port1 isn=31 len=54 crc=4f22ac3a
+[cyc2] t=  67.788 frame= 121307 OUT ACK port1 ackIsn=29
+[cyc2] t=  67.789 frame= 121309 OUT ACK port1 ackIsn=30
+[cyc2] t=  67.790 frame= 121313 IN  TRANS port1 isn=32 len=54 crc=b8a86afb
+[cyc2] t=  67.790 frame= 121313 IN  TRANS port1 isn=33 len=54 crc=66ab1c14
+[cyc2] t=  67.794 frame= 121321 OUT ACK port1 ackIsn=31
+[cyc2] t=  67.797 frame= 121327 OUT ACK port1 ackIsn=32
+[cyc2] t=  67.798 frame= 121331 IN  TRANS port1 isn=34 len=54 crc=8a803f8b
+[cyc2] t=  67.798 frame= 121335 OUT ACK port1 ackIsn=33
+[cyc2] t=  67.801 frame= 121339 IN  TRANS port1 isn=35 len=54 crc=42ebdb40
+[cyc2] t=  67.803 frame= 121345 OUT TRANS port1 isn=15 len=6 crc=85b8a5fb
+[cyc2] t=  67.804 frame= 121347 IN  TRANS port1 isn=36 len=54 crc=316b80a4
+[cyc2] t=  67.805 frame= 121351 OUT TRANS port1 isn=16 len=54 crc=eab3152a
+[cyc2] t=  67.806 frame= 121353 OUT TRANS port1 isn=17 len=54 crc=59385f54
+[cyc2] t=  67.807 frame= 121356 IN  TRANS port1 isn=37 len=54 crc=dc09bd74
+[cyc2] t=  67.808 frame= 121361 OUT TRANS port1 isn=18 len=54 crc=8321d978
+[cyc2] t=  67.810 frame= 121365 OUT TRANS port1 isn=19 len=54 crc=aafb8b31
+[cyc2] t=  67.810 frame= 121366 IN  TRANS port1 isn=38 len=54 crc=ed899ade
+[cyc2] t=  67.812 frame= 121371 IN  ACK port1 ackIsn=15
+[cyc2] t=  67.815 frame= 121377 OUT TRANS port1 isn=20 len=54 crc=3a299418
+[cyc2] t=  67.815 frame= 121378 IN  ACK port1 ackIsn=16
+[cyc2] t=  67.815 frame= 121381 OUT TRANS port1 isn=21 len=54 crc=b3b36740
+[cyc2] t=  67.818 frame= 121387 OUT TRANS port1 isn=22 len=54 crc=66d6c106
+[cyc2] t=  67.818 frame= 121388 IN  ACK port1 ackIsn=17
+[cyc2] t=  67.819 frame= 121393 OUT TRANS port1 isn=23 len=44 crc=474aec7c
+[cyc2] t=  67.819 frame= 121393 OUT TRANS port1 isn=24 len=9 crc=de635911
+[cyc2] t=  67.819 frame= 121393 OUT ACK port1 ackIsn=34
+[cyc2] t=  67.821 frame= 121397 OUT ACK port1 ackIsn=35
+[cyc2] t=  67.821 frame= 121397 OUT ACK port1 ackIsn=36
+[cyc2] t=  67.822 frame= 121401 IN  ACK port1 ackIsn=19
+[cyc2] t=  67.823 frame= 121403 OUT ACK port1 ackIsn=37
+[cyc2] t=  67.824 frame= 121407 OUT ACK port1 ackIsn=38
+[cyc2] t=  67.825 frame= 121409 IN  ACK port1 ackIsn=20
+[cyc2] t=  67.828 frame= 121415 IN  ACK port1 ackIsn=21
+[cyc2] t=  67.831 frame= 121421 IN  ACK port1 ackIsn=23
+[cyc2] t=  67.831 frame= 121421 IN  ACK port1 ackIsn=24
+[cyc2] t=  67.837 frame= 121431 IN  TRANS port1 isn=39 len=54 crc=df2b7b0e
+[cyc2] t=  67.837 frame= 121431 IN  TRANS port1 isn=40 len=54 crc=3f0d680f
+[cyc2] t=  67.837 frame= 121431 IN  TRANS port1 isn=41 len=54 crc=bc26449e
+[cyc2] t=  67.837 frame= 121431 IN  TRANS port1 isn=42 len=54 crc=d6547003
+[cyc2] t=  67.845 frame= 121447 OUT ACK port1 ackIsn=39
+[cyc2] t=  67.847 frame= 121453 OUT ACK port1 ackIsn=40
+[cyc2] t=  67.848 frame= 121455 OUT ACK port1 ackIsn=41
+[cyc2] t=  67.850 frame= 121461 OUT ACK port1 ackIsn=42
+[cyc2] t=  67.856 frame= 121473 IN  TRANS port1 isn=43 len=54 crc=3a871d86
+[cyc2] t=  67.856 frame= 121473 IN  TRANS port1 isn=44 len=54 crc=93f03d9f
+[cyc2] t=  67.860 frame= 121479 IN  TRANS port1 isn=45 len=54 crc=4bcd0d82
+[cyc2] t=  67.860 frame= 121479 IN  TRANS port1 isn=46 len=54 crc=d495780a
+[cyc2] t=  67.860 frame= 121479 IN  TRANS port1 isn=47 len=54 crc=83484bfe
+[cyc2] t=  67.863 frame= 121485 OUT ACK port1 ackIsn=43
+[cyc2] t=  67.865 frame= 121491 OUT ACK port1 ackIsn=44
+[cyc2] t=  67.866 frame= 121493 OUT ACK port1 ackIsn=45
+[cyc2] t=  67.867 frame= 121497 OUT ACK port1 ackIsn=46
+[cyc2] t=  67.869 frame= 121501 OUT ACK port1 ackIsn=47
+[cyc2] t=  67.872 frame= 121507 IN  TRANS port1 isn=48 len=54 crc=5dc909b3
+[cyc2] t=  67.879 frame= 121523 IN  TRANS port1 isn=49 len=54 crc=eb44495b
+[cyc2] t=  67.879 frame= 121523 IN  TRANS port1 isn=50 len=54 crc=3b742e22
+[cyc2] t=  67.879 frame= 121523 IN  TRANS port1 isn=51 len=54 crc=4daead6d
+[cyc2] t=  67.879 frame= 121523 IN  TRANS port1 isn=52 len=54 crc=fd8dc79e
+[cyc2] t=  67.881 frame= 121529 OUT ACK port1 ackIsn=48
+[cyc2] t=  67.886 frame= 121541 OUT ACK port1 ackIsn=49
+[cyc2] t=  67.888 frame= 121547 OUT ACK port1 ackIsn=50
+[cyc2] t=  67.889 frame= 121549 OUT ACK port1 ackIsn=51
+[cyc2] t=  67.890 frame= 121553 IN  TRANS port1 isn=53 len=54 crc=259ceb9d
+[cyc2] t=  67.891 frame= 121557 OUT ACK port1 ackIsn=52
+[cyc2] t=  67.896 frame= 121567 IN  TRANS port1 isn=54 len=54 crc=7562e631
+[cyc2] t=  67.897 frame= 121571 OUT ACK port1 ackIsn=53
+[cyc2] t=  67.899 frame= 121575 IN  TRANS port1 isn=55 len=54 crc=ea59425f
+[cyc2] t=  67.901 frame= 121581 IN  TRANS port1 isn=56 len=54 crc=e430e08c
+[cyc2] t=  67.903 frame= 121585 OUT ACK port1 ackIsn=54
+[cyc2] t=  67.906 frame= 121591 OUT ACK port1 ackIsn=55
+[cyc2] t=  67.907 frame= 121593 IN  TRANS port1 isn=57 len=54 crc=93b6aa29
+[cyc2] t=  67.907 frame= 121593 IN  TRANS port1 isn=58 len=54 crc=e70925f7
+[cyc2] t=  67.907 frame= 121593 IN  TRANS port1 isn=59 len=54 crc=6d7236ff
+[cyc2] t=  67.907 frame= 121593 IN  TRANS port1 isn=60 len=54 crc=2375a17e
+[cyc2] t=  67.908 frame= 121597 OUT ACK port1 ackIsn=56
+[cyc2] t=  67.913 frame= 121607 IN  TRANS port1 isn=61 len=54 crc=be2ec57a
+[cyc2] t=  67.914 frame= 121611 OUT ACK port1 ackIsn=57
+[cyc2] t=  67.915 frame= 121613 OUT ACK port1 ackIsn=58
+[cyc2] t=  67.915 frame= 121613 OUT ACK port1 ackIsn=59
+[cyc2] t=  67.916 frame= 121617 IN  TRANS port1 isn=62 len=54 crc=04497138
+[cyc2] t=  67.917 frame= 121619 OUT ACK port1 ackIsn=60
+[cyc2] t=  67.918 frame= 121623 OUT ACK port1 ackIsn=61
+[cyc2] t=  67.918 frame= 121625 IN  TRANS port1 isn=63 len=54 crc=791f9556
+[cyc2] t=  67.922 frame= 121633 OUT ACK port1 ackIsn=62
+[cyc2] t=  67.924 frame= 121639 OUT ACK port1 ackIsn=63
+[cyc2] t=  67.924 frame= 121641 IN  TRANS port1 isn=64 len=54 crc=f5b5209c
+[cyc2] t=  67.928 frame= 121649 IN  TRANS port1 isn=65 len=54 crc=a58c11a5
+[cyc2] t=  67.928 frame= 121649 IN  TRANS port1 isn=66 len=54 crc=13f93127
+[cyc2] t=  67.930 frame= 121653 OUT ACK port1 ackIsn=64
+[cyc2] t=  67.931 frame= 121657 IN  TRANS port1 isn=67 len=54 crc=89767821
+[cyc2] t=  67.931 frame= 121657 IN  TRANS port1 isn=68 len=54 crc=d117c257
+[cyc2] t=  67.933 frame= 121661 IN  TRANS port1 isn=69 len=54 crc=426bea58
+[cyc2] t=  67.935 frame= 121665 OUT ACK port1 ackIsn=65
+[cyc2] t=  67.936 frame= 121669 OUT ACK port1 ackIsn=66
+[cyc2] t=  67.937 frame= 121671 IN  TRANS port1 isn=70 len=54 crc=ed5c6013
+[cyc2] t=  67.938 frame= 121675 OUT ACK port1 ackIsn=67
+[cyc2] t=  67.939 frame= 121677 OUT ACK port1 ackIsn=68
+[cyc2] t=  67.939 frame= 121678 IN  TRANS port1 isn=71 len=54 crc=f4fd4cbe
+[cyc2] t=  67.941 frame= 121685 OUT ACK port1 ackIsn=69
+[cyc2] t=  67.944 frame= 121691 OUT ACK port1 ackIsn=70
+[cyc2] t=  67.945 frame= 121695 IN  TRANS port1 isn=72 len=54 crc=ba95f6b8
+[cyc2] t=  67.946 frame= 121699 OUT ACK port1 ackIsn=71
+[cyc2] t=  67.949 frame= 121705 IN  TRANS port1 isn=73 len=54 crc=d3944570
+[cyc2] t=  67.949 frame= 121705 IN  TRANS port1 isn=74 len=54 crc=cf3632c8
+[cyc2] t=  67.951 frame= 121709 IN  TRANS port1 isn=75 len=54 crc=39d51dbc
+[cyc2] t=  67.951 frame= 121712 OUT ACK port1 ackIsn=72
+[cyc2] t=  67.956 frame= 121721 IN  TRANS port1 isn=76 len=54 crc=478310d4
+[cyc2] t=  67.956 frame= 121721 IN  TRANS port1 isn=77 len=54 crc=9f1705eb
+[cyc2] t=  67.956 frame= 121721 IN  TRANS port1 isn=78 len=54 crc=d7785964
+[cyc2] t=  67.956 frame= 121723 OUT ACK port1 ackIsn=73
+[cyc2] t=  67.958 frame= 121727 OUT ACK port1 ackIsn=74
+[cyc2] t=  67.960 frame= 121731 OUT ACK port1 ackIsn=75
+[cyc2] t=  67.961 frame= 121735 IN  TRANS port1 isn=81 len=54 crc=fd21a9df
+[cyc2] t=  67.962 frame= 121739 OUT ACK port1 ackIsn=76
+[cyc2] t=  67.964 frame= 121743 OUT ACK port1 ackIsn=77
+[cyc2] t=  67.965 frame= 121747 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.967 frame= 121751 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.967 frame= 121753 IN  TRANS port1 isn=82 len=54 crc=2845cc47
+[cyc2] t=  67.970 frame= 121759 IN  TRANS port1 isn=83 len=54 crc=377d97e8
+[cyc2] t=  67.973 frame= 121765 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.974 frame= 121769 IN  TRANS port1 isn=84 len=54 crc=21753b08
+[cyc2] t=  67.974 frame= 121769 IN  TRANS port1 isn=85 len=54 crc=91f81f06
+[cyc2] t=  67.976 frame= 121773 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.977 frame= 121777 IN  TRANS port1 isn=86 len=54 crc=d3fbfb51
+[cyc2] t=  67.977 frame= 121777 IN  TRANS port1 isn=87 len=54 crc=5ce7932c
+[cyc2] t=  67.981 frame= 121789 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.982 frame= 121793 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.984 frame= 121799 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.985 frame= 121803 OUT ACK port1 ackIsn=78
+[cyc2] t=  67.985 frame= 121805 IN  TRANS port1 isn=79 len=54 crc=584f2f06
+[cyc2] t=  67.993 frame= 121821 OUT ACK port1 ackIsn=79
+[cyc2] t=  68.002 frame= 121839 IN  TRANS port1 isn=88 len=54 crc=dc9ae961
+[cyc2] t=  68.008 frame= 121851 OUT ACK port1 ackIsn=79
+[cyc2] t=  68.448 frame= 122747 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  68.766 frame= 123393 IN  TRANS port1 isn=80 len=54 crc=96c75471
+[cyc2] t=  68.766 frame= 123393 IN  TRANS port1 isn=81 len=54 crc=fd21a9df
+[cyc2] t=  68.766 frame= 123393 IN  TRANS port1 isn=82 len=54 crc=2845cc47
+[cyc2] t=  68.766 frame= 123393 IN  TRANS port1 isn=83 len=54 crc=377d97e8
+[cyc2] t=  68.772 frame= 123401 IN  TRANS port1 isn=84 len=54 crc=21753b08
+[cyc2] t=  68.772 frame= 123401 IN  TRANS port1 isn=85 len=54 crc=91f81f06
+[cyc2] t=  68.772 frame= 123401 IN  TRANS port1 isn=86 len=54 crc=d3fbfb51
+[cyc2] t=  68.772 frame= 123401 IN  TRANS port1 isn=87 len=54 crc=5ce7932c
+[cyc2] t=  68.772 frame= 123401 IN  TRANS port1 isn=88 len=54 crc=dc9ae961
+[cyc2] t=  68.772 frame= 123403 OUT ACK port1 ackIsn=80
+[cyc2] t=  68.774 frame= 123407 OUT ACK port1 ackIsn=81
+[cyc2] t=  68.776 frame= 123413 OUT ACK port1 ackIsn=82
+[cyc2] t=  68.777 frame= 123415 OUT ACK port1 ackIsn=83
+[cyc2] t=  68.778 frame= 123419 OUT ACK port1 ackIsn=84
+[cyc2] t=  68.780 frame= 123423 OUT ACK port1 ackIsn=85
+[cyc2] t=  68.781 frame= 123427 OUT ACK port1 ackIsn=86
+[cyc2] t=  68.783 frame= 123431 OUT ACK port1 ackIsn=87
+[cyc2] t=  68.783 frame= 123433 IN  TRANS port1 isn=89 len=54 crc=91b59ff4
+[cyc2] t=  68.785 frame= 123437 OUT ACK port1 ackIsn=88
+[cyc2] t=  68.787 frame= 123443 IN  TRANS port1 isn=90 len=54 crc=b4589313
+[cyc2] t=  68.787 frame= 123443 IN  TRANS port1 isn=91 len=54 crc=ca037600
+[cyc2] t=  68.789 frame= 123447 IN  TRANS port1 isn=92 len=54 crc=19ee8373
+[cyc2] t=  68.789 frame= 123449 OUT ACK port1 ackIsn=89
+[cyc2] t=  68.794 frame= 123459 OUT ACK port1 ackIsn=90
+[cyc2] t=  68.794 frame= 123461 IN  TRANS port1 isn=93 len=54 crc=e7858202
+[cyc2] t=  68.796 frame= 123467 OUT ACK port1 ackIsn=91
+[cyc2] t=  68.797 frame= 123469 OUT ACK port1 ackIsn=92
+[cyc2] t=  68.800 frame= 123475 OUT ACK port1 ackIsn=93
+[cyc2] t=  68.801 frame= 123479 IN  TRANS port1 isn=94 len=52 crc=83d29f78
+[cyc2] t=  68.807 frame= 123491 OUT ACK port1 ackIsn=94
+[cyc2] t=  68.813 frame= 123503 OUT TRANS port1 isn=25 len=6 crc=3fe9ac62
+[cyc2] t=  68.814 frame= 123507 OUT TRANS port1 isn=26 len=54 crc=c0b2a4e1
+[cyc2] t=  68.815 frame= 123511 OUT TRANS port1 isn=27 len=54 crc=59385f54
+[cyc2] t=  68.816 frame= 123515 OUT TRANS port1 isn=28 len=54 crc=8321d978
+[cyc2] t=  68.818 frame= 123519 OUT TRANS port1 isn=29 len=54 crc=aafb8b31
+[cyc2] t=  68.820 frame= 123523 OUT TRANS port1 isn=30 len=54 crc=3a299418
+[cyc2] t=  68.822 frame= 123526 IN  ACK port1 ackIsn=25
+[cyc2] t=  68.823 frame= 123531 OUT TRANS port1 isn=31 len=54 crc=b3b36740
+[cyc2] t=  68.825 frame= 123535 OUT TRANS port1 isn=32 len=54 crc=66d6c106
+[cyc2] t=  68.825 frame= 123536 IN  ACK port1 ackIsn=26
+[cyc2] t=  68.828 frame= 123541 IN  ACK port1 ackIsn=28
+[cyc2] t=  68.829 frame= 123545 OUT TRANS port1 isn=33 len=54 crc=193cb2ed
+[cyc2] t=  68.829 frame= 123547 OUT TRANS port1 isn=34 len=54 crc=980515c2
+[cyc2] t=  68.831 frame= 123550 IN  ACK port1 ackIsn=29
+[cyc2] t=  68.831 frame= 123553 OUT TRANS port1 isn=35 len=54 crc=67cccd9d
+[cyc2] t=  68.833 frame= 123557 OUT TRANS port1 isn=36 len=54 crc=5bb5169f
+[cyc2] t=  68.834 frame= 123560 IN  ACK port1 ackIsn=31
+[cyc2] t=  68.835 frame= 123563 OUT TRANS port1 isn=37 len=54 crc=b715ead4
+[cyc2] t=  68.837 frame= 123567 OUT TRANS port1 isn=38 len=54 crc=62ab8840
+[cyc2] t=  68.837 frame= 123568 IN  ACK port1 ackIsn=32
+[cyc2] t=  68.839 frame= 123573 OUT TRANS port1 isn=39 len=54 crc=7a0b1c44
+[cyc2] t=  68.840 frame= 123576 IN  ACK port1 ackIsn=33
+[cyc2] t=  68.841 frame= 123579 OUT TRANS port1 isn=40 len=54 crc=8f2abc44
+[cyc2] t=  68.843 frame= 123582 IN  ACK port1 ackIsn=35
+[cyc2] t=  68.843 frame= 123587 OUT TRANS port1 isn=41 len=54 crc=ac299532
+[cyc2] t=  68.845 frame= 123589 OUT TRANS port1 isn=42 len=54 crc=8393e439
+[cyc2] t=  68.846 frame= 123592 IN  ACK port1 ackIsn=36
+[cyc2] t=  68.847 frame= 123595 OUT TRANS port1 isn=43 len=54 crc=9ad7cd48
+[cyc2] t=  68.849 frame= 123598 IN  ACK port1 ackIsn=38
+[cyc2] t=  68.849 frame= 123601 OUT TRANS port1 isn=44 len=54 crc=040061fc
+[cyc2] t=  68.851 frame= 123607 OUT TRANS port1 isn=45 len=54 crc=dc1704bb
+[cyc2] t=  68.852 frame= 123608 IN  ACK port1 ackIsn=39
+[cyc2] t=  68.853 frame= 123613 OUT TRANS port1 isn=46 len=54 crc=e9a4a2f8
+[cyc2] t=  68.855 frame= 123616 IN  ACK port1 ackIsn=41
+[cyc2] t=  68.856 frame= 123621 OUT TRANS port1 isn=47 len=54 crc=eff2e88a
+[cyc2] t=  68.857 frame= 123625 OUT TRANS port1 isn=48 len=54 crc=ba97d5ed
+[cyc2] t=  68.858 frame= 123626 IN  ACK port1 ackIsn=42
+[cyc2] t=  68.859 frame= 123631 OUT TRANS port1 isn=49 len=54 crc=b0700bcf
+[cyc2] t=  68.861 frame= 123634 IN  ACK port1 ackIsn=44
+[cyc2] t=  68.861 frame= 123637 OUT TRANS port1 isn=50 len=54 crc=a1d83e10
+[cyc2] t=  68.863 frame= 123641 OUT TRANS port1 isn=51 len=54 crc=16e481ec
+[cyc2] t=  68.864 frame= 123644 IN  ACK port1 ackIsn=45
+[cyc2] t=  68.865 frame= 123647 OUT TRANS port1 isn=52 len=54 crc=d82d61c4
+[cyc2] t=  68.867 frame= 123650 IN  ACK port1 ackIsn=47
+[cyc2] t=  68.867 frame= 123653 OUT TRANS port1 isn=53 len=54 crc=c07284c7
+[cyc2] t=  68.869 frame= 123659 OUT TRANS port1 isn=54 len=46 crc=75854a39
+[cyc2] t=  68.869 frame= 123659 OUT TRANS port1 isn=55 len=9 crc=b8f3c392
+[cyc2] t=  68.870 frame= 123660 IN  ACK port1 ackIsn=48
+[cyc2] t=  68.873 frame= 123669 IN  ACK port1 ackIsn=50
+[cyc2] t=  68.876 frame= 123675 IN  ACK port1 ackIsn=51
+[cyc2] t=  68.879 frame= 123681 IN  ACK port1 ackIsn=53
+[cyc2] t=  68.881 frame= 123687 IN  ACK port1 ackIsn=55
+[cyc2] t=  69.448 frame= 124839 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  69.893 frame= 125747 IN  TRANS port2 isn=67 len=0 crc=00000000
+[cyc2] t=  69.900 frame= 125763 OUT ACK port2 ackIsn=67
+[cyc2] t=  70.030 frame= 126027 OUT TRANS port3 isn=20 len=0 crc=00000000
+[cyc2] t=  70.036 frame= 126039 IN  TRANS port3 isn=8 len=0 crc=00000000
+[cyc2] t=  70.037 frame= 126043 IN  ACK port3 ackIsn=20
+[cyc2] t=  70.042 frame= 126055 OUT ACK port3 ackIsn=8
+[cyc2] t=  70.447 frame= 126881 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  71.013 frame= 128037 OUT TRANS port2 isn=11 len=17 crc=5ffd0083
+[cyc2] t=  71.021 frame= 128053 IN  ACK port2 ackIsn=11
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=68 len=54 crc=97366c2a
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=69 len=54 crc=254e9039
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=70 len=54 crc=955275cc
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=71 len=54 crc=d41817a6
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=72 len=54 crc=d4d8dee4
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=73 len=54 crc=c7bb80ac
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=74 len=54 crc=ee6bd1a4
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=75 len=54 crc=fcac531c
+[cyc2] t=  71.075 frame= 128159 IN  TRANS port2 isn=76 len=54 crc=62d0a0d0
+[cyc2] t=  71.083 frame= 128175 OUT ACK port2 ackIsn=68
+[cyc2] t=  71.085 frame= 128181 OUT ACK port2 ackIsn=69
+[cyc2] t=  71.086 frame= 128183 OUT ACK port2 ackIsn=70
+[cyc2] t=  71.088 frame= 128189 OUT ACK port2 ackIsn=71
+[cyc2] t=  71.090 frame= 128193 OUT ACK port2 ackIsn=72
+[cyc2] t=  71.091 frame= 128197 OUT ACK port2 ackIsn=73
+[cyc2] t=  71.093 frame= 128201 OUT ACK port2 ackIsn=74
+[cyc2] t=  71.093 frame= 128203 IN  TRANS port2 isn=77 len=54 crc=779f0e72
+[cyc2] t=  71.095 frame= 128207 OUT ACK port2 ackIsn=75
+[cyc2] t=  71.096 frame= 128209 OUT ACK port2 ackIsn=76
+[cyc2] t=  71.097 frame= 128213 IN  TRANS port2 isn=78 len=54 crc=44985124
+[cyc2] t=  71.097 frame= 128213 IN  TRANS port2 isn=79 len=54 crc=1022ea57
+[cyc2] t=  71.099 frame= 128217 OUT ACK port2 ackIsn=77
+[cyc2] t=  71.100 frame= 128221 IN  TRANS port2 isn=80 len=54 crc=d7f6ed4c
+[cyc2] t=  71.100 frame= 128221 IN  TRANS port2 isn=81 len=54 crc=d19fd385
+[cyc2] t=  71.103 frame= 128227 OUT ACK port2 ackIsn=78
+[cyc2] t=  71.103 frame= 128228 IN  TRANS port2 isn=82 len=54 crc=014f130d
+[cyc2] t=  71.103 frame= 128228 IN  TRANS port2 isn=83 len=54 crc=c7f7b5da
+[cyc2] t=  71.105 frame= 128233 OUT ACK port2 ackIsn=79
+[cyc2] t=  71.106 frame= 128237 OUT ACK port2 ackIsn=80
+[cyc2] t=  71.106 frame= 128239 IN  TRANS port2 isn=84 len=54 crc=14093b53
+[cyc2] t=  71.106 frame= 128239 IN  TRANS port2 isn=85 len=54 crc=770c0759
+[cyc2] t=  71.108 frame= 128243 OUT ACK port2 ackIsn=81
+[cyc2] t=  71.108 frame= 128245 IN  TRANS port2 isn=86 len=54 crc=a58f254e
+[cyc2] t=  71.109 frame= 128249 OUT ACK port2 ackIsn=82
+[cyc2] t=  71.111 frame= 128253 OUT ACK port2 ackIsn=83
+[cyc2] t=  71.111 frame= 128255 IN  TRANS port2 isn=87 len=54 crc=7854c8fd
+[cyc2] t=  71.113 frame= 128259 OUT ACK port2 ackIsn=84
+[cyc2] t=  71.114 frame= 128261 IN  TRANS port2 isn=88 len=54 crc=388dd1e9
+[cyc2] t=  71.115 frame= 128265 OUT ACK port2 ackIsn=85
+[cyc2] t=  71.115 frame= 128267 OUT ACK port2 ackIsn=86
+[cyc2] t=  71.117 frame= 128271 OUT ACK port2 ackIsn=87
+[cyc2] t=  71.118 frame= 128275 IN  TRANS port2 isn=89 len=54 crc=326f554a
+[cyc2] t=  71.118 frame= 128275 IN  TRANS port2 isn=90 len=54 crc=5b3b2a2d
+[cyc2] t=  71.119 frame= 128278 OUT ACK port2 ackIsn=88
+[cyc2] t=  71.121 frame= 128283 IN  TRANS port2 isn=91 len=54 crc=46fa4de8
+[cyc2] t=  71.121 frame= 128283 IN  TRANS port2 isn=92 len=54 crc=baef41dc
+[cyc2] t=  71.123 frame= 128287 IN  TRANS port2 isn=93 len=54 crc=ea22ba60
+[cyc2] t=  71.124 frame= 128291 OUT ACK port2 ackIsn=89
+[cyc2] t=  71.125 frame= 128293 OUT ACK port2 ackIsn=90
+[cyc2] t=  71.126 frame= 128297 IN  TRANS port2 isn=94 len=54 crc=0d72b95a
+[cyc2] t=  71.127 frame= 128301 OUT ACK port2 ackIsn=91
+[cyc2] t=  71.128 frame= 128303 OUT ACK port2 ackIsn=92
+[cyc2] t=  71.130 frame= 128309 OUT ACK port2 ackIsn=93
+[cyc2] t=  71.132 frame= 128313 IN  TRANS port2 isn=95 len=54 crc=5f7395a8
+[cyc2] t=  71.132 frame= 128313 IN  TRANS port2 isn=96 len=54 crc=2278f50d
+[cyc2] t=  71.132 frame= 128313 IN  TRANS port2 isn=97 len=54 crc=4b054375
+[cyc2] t=  71.132 frame= 128313 IN  TRANS port2 isn=98 len=54 crc=cdfb2a99
+[cyc2] t=  71.133 frame= 128317 OUT ACK port2 ackIsn=94
+[cyc2] t=  71.135 frame= 128321 IN  TRANS port2 isn=99 len=54 crc=045b1653
+[cyc2] t=  71.138 frame= 128327 IN  TRANS port2 isn=100 len=54 crc=2cf903e5
+[cyc2] t=  71.139 frame= 128331 OUT ACK port2 ackIsn=95
+[cyc2] t=  71.141 frame= 128335 OUT ACK port2 ackIsn=96
+[cyc2] t=  71.142 frame= 128341 OUT ACK port2 ackIsn=97
+[cyc2] t=  71.144 frame= 128343 OUT ACK port2 ackIsn=98
+[cyc2] t=  71.146 frame= 128347 OUT ACK port2 ackIsn=99
+[cyc2] t=  71.147 frame= 128351 OUT ACK port2 ackIsn=100
+[cyc2] t=  71.149 frame= 128355 IN  TRANS port2 isn=101 len=54 crc=cc557295
+[cyc2] t=  71.149 frame= 128355 IN  TRANS port2 isn=102 len=54 crc=256c668c
+[cyc2] t=  71.149 frame= 128355 IN  TRANS port2 isn=103 len=54 crc=916f28b3
+[cyc2] t=  71.154 frame= 128365 IN  TRANS port2 isn=104 len=54 crc=e87cbf87
+[cyc2] t=  71.154 frame= 128365 IN  TRANS port2 isn=105 len=54 crc=2db636de
+[cyc2] t=  71.155 frame= 128367 OUT ACK port2 ackIsn=101
+[cyc2] t=  71.156 frame= 128371 IN  TRANS port2 isn=106 len=54 crc=935393b9
+[cyc2] t=  71.156 frame= 128371 IN  TRANS port2 isn=107 len=13 crc=cb7b615f
+[cyc2] t=  71.158 frame= 128375 OUT ACK port2 ackIsn=102
+[cyc2] t=  71.160 frame= 128381 OUT ACK port2 ackIsn=103
+[cyc2] t=  71.161 frame= 128385 OUT ACK port2 ackIsn=104
+[cyc2] t=  71.163 frame= 128389 OUT ACK port2 ackIsn=105
+[cyc2] t=  71.165 frame= 128393 OUT ACK port2 ackIsn=106
+[cyc2] t=  71.165 frame= 128393 OUT ACK port2 ackIsn=107
+[cyc2] t=  71.167 frame= 128397 OUT TRANS port2 isn=12 len=17 crc=87c6cd2a
+[cyc2] t=  71.176 frame= 128417 IN  ACK port2 ackIsn=12
+[cyc2] t=  71.448 frame= 128969 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  72.449 frame= 131011 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  72.769 frame= 131665 OUT TRANS port1 isn=56 len=0 crc=00000000
+[cyc2] t=  72.775 frame= 131677 IN  ACK port1 ackIsn=56
+[cyc2] t=  73.000 frame= 132137 IN  TRANS port2 isn=108 len=29 crc=cedbc9cd
+[cyc2] t=  73.006 frame= 132150 OUT ACK port2 ackIsn=108
+[cyc2] t=  74.030 frame= 134246 OUT TRANS port3 isn=21 len=0 crc=00000000
+[cyc2] t=  74.037 frame= 134259 IN  TRANS port3 isn=9 len=0 crc=00000000
+[cyc2] t=  74.037 frame= 134259 IN  ACK port3 ackIsn=21
+[cyc2] t=  74.045 frame= 134275 OUT ACK port3 ackIsn=9
+[cyc2] t=  74.450 frame= 135109 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  75.450 frame= 137159 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  76.022 frame= 138331 OUT TRANS port2 isn=13 len=17 crc=5ffd0083
+[cyc2] t=  76.031 frame= 138349 IN  ACK port2 ackIsn=13
+[cyc2] t=  76.080 frame= 138455 IN  TRANS port2 isn=109 len=54 crc=c687a2ec
+[cyc2] t=  76.080 frame= 138455 IN  TRANS port2 isn=110 len=54 crc=c2d660b8
+[cyc2] t=  76.086 frame= 138467 IN  TRANS port2 isn=111 len=54 crc=c1bba533
+[cyc2] t=  76.086 frame= 138467 IN  TRANS port2 isn=112 len=54 crc=b97eab34
+[cyc2] t=  76.086 frame= 138467 IN  TRANS port2 isn=113 len=54 crc=2dea817c
+[cyc2] t=  76.086 frame= 138467 IN  TRANS port2 isn=114 len=54 crc=4dffcf88
+[cyc2] t=  76.086 frame= 138467 IN  TRANS port2 isn=115 len=54 crc=32841909
+[cyc2] t=  76.087 frame= 138471 OUT ACK port2 ackIsn=109
+[cyc2] t=  76.088 frame= 138473 OUT ACK port2 ackIsn=110
+[cyc2] t=  76.090 frame= 138479 IN  TRANS port2 isn=116 len=54 crc=2038c46b
+[cyc2] t=  76.090 frame= 138479 IN  TRANS port2 isn=117 len=54 crc=47df2033
+[cyc2] t=  76.090 frame= 138479 IN  TRANS port2 isn=118 len=54 crc=a3e6bbb5
+[cyc2] t=  76.093 frame= 138485 OUT ACK port2 ackIsn=111
+[cyc2] t=  76.096 frame= 138491 OUT ACK port2 ackIsn=112
+[cyc2] t=  76.097 frame= 138495 IN  TRANS port2 isn=119 len=54 crc=39baf8b7
+[cyc2] t=  76.098 frame= 138499 OUT ACK port2 ackIsn=113
+[cyc2] t=  76.099 frame= 138501 OUT ACK port2 ackIsn=114
+[cyc2] t=  76.101 frame= 138507 OUT ACK port2 ackIsn=115
+[cyc2] t=  76.101 frame= 138509 IN  TRANS port2 isn=120 len=54 crc=563d9789
+[cyc2] t=  76.102 frame= 138513 OUT ACK port2 ackIsn=116
+[cyc2] t=  76.104 frame= 138517 OUT ACK port2 ackIsn=117
+[cyc2] t=  76.104 frame= 138519 IN  TRANS port2 isn=121 len=54 crc=51da06bc
+[cyc2] t=  76.105 frame= 138523 OUT ACK port2 ackIsn=118
+[cyc2] t=  76.107 frame= 138527 OUT ACK port2 ackIsn=119
+[cyc2] t=  76.107 frame= 138529 IN  TRANS port2 isn=122 len=54 crc=11586d9f
+[cyc2] t=  76.108 frame= 138533 OUT ACK port2 ackIsn=120
+[cyc2] t=  76.110 frame= 138537 OUT ACK port2 ackIsn=121
+[cyc2] t=  76.111 frame= 138541 IN  TRANS port2 isn=123 len=54 crc=d649e103
+[cyc2] t=  76.111 frame= 138541 IN  TRANS port2 isn=124 len=54 crc=e8437139
+[cyc2] t=  76.114 frame= 138547 OUT ACK port2 ackIsn=122
+[cyc2] t=  76.114 frame= 138549 IN  TRANS port2 isn=125 len=54 crc=3d7849c6
+[cyc2] t=  76.114 frame= 138549 IN  TRANS port2 isn=126 len=54 crc=bd49e9f2
+[cyc2] t=  76.117 frame= 138555 IN  TRANS port2 isn=127 len=54 crc=4fc9fbeb
+[cyc2] t=  76.117 frame= 138555 IN  TRANS port2 isn=128 len=54 crc=9d1f8f45
+[cyc2] t=  76.119 frame= 138559 OUT ACK port2 ackIsn=123
+[cyc2] t=  76.119 frame= 138560 IN  TRANS port2 isn=129 len=54 crc=a4c0ddd9
+[cyc2] t=  76.121 frame= 138565 OUT ACK port2 ackIsn=124
+[cyc2] t=  76.122 frame= 138569 OUT ACK port2 ackIsn=125
+[cyc2] t=  76.124 frame= 138573 OUT ACK port2 ackIsn=126
+[cyc2] t=  76.124 frame= 138575 IN  TRANS port2 isn=130 len=54 crc=ddfadcbe
+[cyc2] t=  76.124 frame= 138575 IN  TRANS port2 isn=131 len=54 crc=24c0ff56
+[cyc2] t=  76.124 frame= 138575 IN  TRANS port2 isn=132 len=54 crc=dd99d154
+[cyc2] t=  76.125 frame= 138579 OUT ACK port2 ackIsn=127
+[cyc2] t=  76.127 frame= 138583 OUT ACK port2 ackIsn=128
+[cyc2] t=  76.128 frame= 138585 OUT ACK port2 ackIsn=129
+[cyc2] t=  76.130 frame= 138589 OUT ACK port2 ackIsn=130
+[cyc2] t=  76.130 frame= 138591 IN  TRANS port2 isn=133 len=54 crc=31cff321
+[cyc2] t=  76.132 frame= 138595 OUT ACK port2 ackIsn=131
+[cyc2] t=  76.133 frame= 138599 OUT ACK port2 ackIsn=132
+[cyc2] t=  76.134 frame= 138603 IN  TRANS port2 isn=134 len=54 crc=97b3393a
+[cyc2] t=  76.134 frame= 138603 IN  TRANS port2 isn=135 len=54 crc=4b99a1b0
+[cyc2] t=  76.136 frame= 138607 OUT ACK port2 ackIsn=133
+[cyc2] t=  76.137 frame= 138611 IN  TRANS port2 isn=136 len=54 crc=5b98a862
+[cyc2] t=  76.137 frame= 138611 IN  TRANS port2 isn=137 len=54 crc=0afb0703
+[cyc2] t=  76.140 frame= 138617 IN  TRANS port2 isn=138 len=54 crc=21358dc4
+[cyc2] t=  76.140 frame= 138617 IN  TRANS port2 isn=139 len=54 crc=a904a87e
+[cyc2] t=  76.141 frame= 138619 OUT ACK port2 ackIsn=134
+[cyc2] t=  76.142 frame= 138623 OUT ACK port2 ackIsn=135
+[cyc2] t=  76.143 frame= 138627 IN  TRANS port2 isn=140 len=54 crc=9574f91e
+[cyc2] t=  76.143 frame= 138627 IN  TRANS port2 isn=141 len=54 crc=51d3f54c
+[cyc2] t=  76.144 frame= 138629 OUT ACK port2 ackIsn=136
+[cyc2] t=  76.145 frame= 138633 IN  TRANS port2 isn=142 len=54 crc=89c81060
+[cyc2] t=  76.146 frame= 138637 OUT ACK port2 ackIsn=137
+[cyc2] t=  76.147 frame= 138639 OUT ACK port2 ackIsn=138
+[cyc2] t=  76.148 frame= 138643 OUT ACK port2 ackIsn=139
+[cyc2] t=  76.148 frame= 138644 IN  TRANS port2 isn=143 len=54 crc=b2fc1569
+[cyc2] t=  76.150 frame= 138649 OUT ACK port2 ackIsn=140
+[cyc2] t=  76.151 frame= 138653 IN  TRANS port2 isn=144 len=54 crc=a1a4f1f0
+[cyc2] t=  76.152 frame= 138657 OUT ACK port2 ackIsn=141
+[cyc2] t=  76.153 frame= 138659 OUT ACK port2 ackIsn=142
+[cyc2] t=  76.154 frame= 138663 IN  TRANS port2 isn=145 len=54 crc=b69e2e10
+[cyc2] t=  76.155 frame= 138667 OUT ACK port2 ackIsn=143
+[cyc2] t=  76.158 frame= 138673 OUT ACK port2 ackIsn=144
+[cyc2] t=  76.160 frame= 138678 OUT ACK port2 ackIsn=145
+[cyc2] t=  76.161 frame= 138681 IN  TRANS port2 isn=146 len=54 crc=181e8a18
+[cyc2] t=  76.161 frame= 138681 IN  TRANS port2 isn=147 len=54 crc=ad621b28
+[cyc2] t=  76.161 frame= 138681 IN  TRANS port2 isn=148 len=54 crc=1bd00f84
+[cyc2] t=  76.161 frame= 138681 IN  TRANS port2 isn=149 len=54 crc=b8ca996d
+[cyc2] t=  76.161 frame= 138681 IN  TRANS port2 isn=150 len=54 crc=d6cfafb0
+[cyc2] t=  76.164 frame= 138687 IN  TRANS port2 isn=151 len=54 crc=32a69065
+[cyc2] t=  76.164 frame= 138687 IN  TRANS port2 isn=152 len=54 crc=0df0640a
+[cyc2] t=  76.166 frame= 138691 IN  TRANS port2 isn=153 len=54 crc=3fcd88b2
+[cyc2] t=  76.169 frame= 138697 IN  TRANS port2 isn=154 len=54 crc=9587c84e
+[cyc2] t=  76.169 frame= 138699 OUT ACK port2 ackIsn=146
+[cyc2] t=  76.171 frame= 138703 OUT ACK port2 ackIsn=147
+[cyc2] t=  76.171 frame= 138705 IN  TRANS port2 isn=155 len=54 crc=b9e1c3d7
+[cyc2] t=  76.172 frame= 138709 OUT ACK port2 ackIsn=148
+[cyc2] t=  76.175 frame= 138715 OUT ACK port2 ackIsn=149
+[cyc2] t=  76.176 frame= 138719 OUT ACK port2 ackIsn=150
+[cyc2] t=  76.177 frame= 138721 OUT ACK port2 ackIsn=151
+[cyc2] t=  76.180 frame= 138727 OUT ACK port2 ackIsn=152
+[cyc2] t=  76.180 frame= 138729 OUT ACK port2 ackIsn=153
+[cyc2] t=  76.182 frame= 138733 OUT ACK port2 ackIsn=154
+[cyc2] t=  76.182 frame= 138733 OUT ACK port2 ackIsn=155
+[cyc2] t=  76.185 frame= 138741 IN  TRANS port2 isn=156 len=54 crc=eb9fabc5
+[cyc2] t=  76.185 frame= 138741 IN  TRANS port2 isn=157 len=54 crc=029c4327
+[cyc2] t=  76.185 frame= 138741 IN  TRANS port2 isn=158 len=54 crc=353aa474
+[cyc2] t=  76.191 frame= 138751 OUT ACK port2 ackIsn=156
+[cyc2] t=  76.192 frame= 138755 OUT ACK port2 ackIsn=157
+[cyc2] t=  76.194 frame= 138759 IN  TRANS port2 isn=159 len=54 crc=64e3d92c
+[cyc2] t=  76.194 frame= 138759 IN  TRANS port2 isn=160 len=54 crc=98bbd960
+[cyc2] t=  76.194 frame= 138759 IN  TRANS port2 isn=161 len=54 crc=ce695533
+[cyc2] t=  76.194 frame= 138759 IN  TRANS port2 isn=162 len=54 crc=9f225f5f
+[cyc2] t=  76.194 frame= 138759 IN  TRANS port2 isn=163 len=54 crc=e4866614
+[cyc2] t=  76.194 frame= 138759 IN  TRANS port2 isn=164 len=54 crc=41d877e6
+[cyc2] t=  76.195 frame= 138763 OUT ACK port2 ackIsn=158
+[cyc2] t=  76.201 frame= 138775 OUT ACK port2 ackIsn=159
+[cyc2] t=  76.202 frame= 138779 IN  TRANS port2 isn=165 len=54 crc=1d29ce13
+[cyc2] t=  76.202 frame= 138779 IN  TRANS port2 isn=166 len=54 crc=2b72bc9a
+[cyc2] t=  76.204 frame= 138783 OUT ACK port2 ackIsn=160
+[cyc2] t=  76.204 frame= 138785 IN  TRANS port2 isn=167 len=54 crc=9b8949ef
+[cyc2] t=  76.205 frame= 138789 OUT ACK port2 ackIsn=161
+[cyc2] t=  76.206 frame= 138791 OUT ACK port2 ackIsn=162
+[cyc2] t=  76.208 frame= 138797 OUT ACK port2 ackIsn=163
+[cyc2] t=  76.208 frame= 138799 IN  TRANS port2 isn=168 len=54 crc=32cfa416
+[cyc2] t=  76.209 frame= 138803 OUT ACK port2 ackIsn=164
+[cyc2] t=  76.211 frame= 138807 IN  TRANS port2 isn=169 len=54 crc=be984a17
+[cyc2] t=  76.213 frame= 138811 OUT ACK port2 ackIsn=165
+[cyc2] t=  76.213 frame= 138811 OUT ACK port2 ackIsn=166
+[cyc2] t=  76.213 frame= 138813 OUT ACK port2 ackIsn=167
+[cyc2] t=  76.213 frame= 138817 IN  TRANS port2 isn=170 len=54 crc=29eb3ac6
+[cyc2] t=  76.215 frame= 138821 OUT ACK port2 ackIsn=168
+[cyc2] t=  76.217 frame= 138825 IN  TRANS port2 isn=171 len=54 crc=b5211c32
+[cyc2] t=  76.217 frame= 138825 IN  TRANS port2 isn=172 len=35 crc=38835506
+[cyc2] t=  76.218 frame= 138829 OUT ACK port2 ackIsn=169
+[cyc2] t=  76.219 frame= 138831 OUT ACK port2 ackIsn=170
+[cyc2] t=  76.224 frame= 138841 OUT ACK port2 ackIsn=171
+[cyc2] t=  76.226 frame= 138845 OUT ACK port2 ackIsn=172
+[cyc2] t=  76.242 frame= 138877 OUT TRANS port2 isn=14 len=17 crc=87c6cd2a
+[cyc2] t=  76.251 frame= 138895 IN  ACK port2 ackIsn=14
+[cyc2] t=  76.451 frame= 139309 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  76.771 frame= 139969 OUT TRANS port1 isn=57 len=0 crc=00000000
+[cyc2] t=  76.778 frame= 139985 IN  ACK port1 ackIsn=57
+[cyc2] t=  77.450 frame= 141351 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  78.030 frame= 142517 OUT TRANS port3 isn=22 len=0 crc=00000000
+[cyc2] t=  78.037 frame= 142531 IN  TRANS port3 isn=10 len=0 crc=00000000
+[cyc2] t=  78.037 frame= 142531 IN  ACK port3 ackIsn=22
+[cyc2] t=  78.042 frame= 142541 OUT ACK port3 ackIsn=10
+[cyc2] t=  78.451 frame= 143361 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  79.450 frame= 145367 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc2] t=  79.632 frame= 145731 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc2] t=  79.707 frame= 145881 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc2] t=  79.780 frame= 146029 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc2] t=  79.855 frame= 146179 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc2] t=  79.928 frame= 146325 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc2] t=  80.002 frame= 146473 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.076 frame= 172632 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port3 isn=11 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=173 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port2 isn=174 len=29 crc=4dc53eb2
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.092 frame= 172682 IN  FIN port9040 isn=8
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port3 isn=11 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.092 frame= 172682 IN  FIN port9040 isn=8
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  93.092 frame= 172682 IN  TRANS port3 isn=11 len=0 crc=00000000
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.092 frame= 172682 IN  FIN port9040 isn=8
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.092 frame= 172682 IN  FIN port9040 isn=8
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.092 frame= 172682 IN  FIN port9040 isn=8
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.092 frame= 172682 IN  FIN port9040 isn=8
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.092 frame= 172682 IN  FIN port9040 isn=8
+[cyc3] t=  93.092 frame= 172682 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  93.230 frame= 172999 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  93.308 frame= 173157 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  93.453 frame= 173449 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t=  93.453 frame= 173449 IN  FIN port9040 isn=8
+[cyc3] t=  93.796 frame= 173981 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  94.263 frame= 174857 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  94.308 frame= 174949 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  94.796 frame= 175937 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  95.231 frame= 176809 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  95.308 frame= 176969 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  95.795 frame= 177949 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  96.231 frame= 178823 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  96.309 frame= 178985 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  96.796 frame= 179965 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  97.232 frame= 180927 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  97.310 frame= 181085 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  97.797 frame= 182065 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  98.232 frame= 182949 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  98.310 frame= 183107 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  98.798 frame= 184123 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t=  99.232 frame= 185027 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t=  99.310 frame= 185185 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t=  99.797 frame= 186181 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t= 100.311 frame= 187245 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t= 100.798 frame= 188249 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t= 101.311 frame= 189329 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t= 101.799 frame= 190345 IN  SYN1 telemetry(9010) isn=4 announced=1 ver=3 body=0100fc03
+[cyc3] t= 101.805 frame= 190359 OUT SYN2 port1 isn=1 announced=1 ver=2 body=0100fd02
+[cyc3] t= 101.817 frame= 190385 IN  ACK port1 ackIsn=1
+[cyc3] t= 101.817 frame= 190385 IN  TRANS port1 isn=5 len=1 crc=000000ff
+[cyc3] t= 101.817 frame= 190385 IN  TRANS port1 isn=6 len=9 crc=f44172e3
+[cyc3] t= 101.817 frame= 190385 IN  TRANS port1 isn=7 len=28 crc=fed0eafb
+[cyc3] t= 101.817 frame= 190385 IN  TRANS port1 isn=8 len=47 crc=8392c3ee
+[cyc3] t= 101.817 frame= 190385 IN  TRANS port1 isn=9 len=47 crc=fb26fd38
+[cyc3] t= 101.818 frame= 190389 IN  TRANS port1 isn=10 len=48 crc=56c4ffb9
+[cyc3] t= 101.819 frame= 190393 IN  TRANS port1 isn=11 len=48 crc=3b02eb89
+[cyc3] t= 101.820 frame= 190397 IN  TRANS port1 isn=12 len=48 crc=8c48d6d9
+[cyc3] t= 101.821 frame= 190401 IN  TRANS port1 isn=13 len=48 crc=e18ec2e9
+[cyc3] t= 101.822 frame= 190405 IN  TRANS port1 isn=14 len=48 crc=f960a02c
+[cyc3] t= 101.824 frame= 190411 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.825 frame= 190415 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.826 frame= 190421 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.828 frame= 190425 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.829 frame= 190431 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.831 frame= 190435 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.832 frame= 190441 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.834 frame= 190445 IN  TRANS port1 isn=5 len=1 crc=000000ff
+[cyc3] t= 101.835 frame= 190449 OUT ACK port1 ackIsn=4
+[cyc3] t= 101.841 frame= 190469 OUT ACK port1 ackIsn=5
+[cyc3] t= 101.851 frame= 190493 IN  TRANS port1 isn=15 len=54 crc=04a92b82
+[cyc3] t= 101.857 frame= 190507 OUT TRANS port1 isn=2 len=9 crc=16bf2bac
+[cyc3] t= 101.858 frame= 190511 OUT TRANS port1 isn=3 len=5 crc=cd8d8281
+[cyc3] t= 101.860 frame= 190517 OUT ACK port1 ackIsn=5
+[cyc3] t= 101.867 frame= 190533 IN  ACK port1 ackIsn=2
+[cyc3] t= 101.869 frame= 190539 IN  ACK port1 ackIsn=3
+[cyc3] t= 102.235 frame= 191297 IN  SYN1 mcdu(9050) isn=6 announced=3 ver=3 body=0300fc03
+[cyc3] t= 102.243 frame= 191315 OUT SYN2 port3 isn=3 announced=3 ver=2 body=0300fd02
+[cyc3] t= 102.252 frame= 191335 IN  ACK port3 ackIsn=3
+[cyc3] t= 102.252 frame= 191335 IN  TRANS port3 isn=7 len=10 crc=3796e536
+[cyc3] t= 102.266 frame= 191365 OUT TRANS port3 isn=4 len=17 crc=08bb5d88
+[cyc3] t= 102.267 frame= 191371 OUT TRANS port3 isn=5 len=54 crc=8e61d7c7
+[cyc3] t= 102.269 frame= 191377 OUT TRANS port3 isn=6 len=54 crc=bb1c546e
+[cyc3] t= 102.271 frame= 191383 OUT TRANS port3 isn=7 len=54 crc=08855d40
+[cyc3] t= 102.273 frame= 191387 OUT TRANS port3 isn=8 len=14 crc=363ccd6d
+[cyc3] t= 102.276 frame= 191395 IN  ACK port3 ackIsn=4
+[cyc3] t= 102.279 frame= 191403 IN  ACK port3 ackIsn=5
+[cyc3] t= 102.282 frame= 191411 IN  ACK port3 ackIsn=6
+[cyc3] t= 102.284 frame= 191417 IN  ACK port3 ackIsn=8
+[cyc3] t= 102.310 frame= 191479 IN  SYN1 settings(9020) isn=5 announced=2 ver=3 body=0200fc03
+[cyc3] t= 102.315 frame= 191491 OUT SYN2 port2 isn=2 announced=2 ver=2 body=0200fd02
+[cyc3] t= 102.324 frame= 191511 IN  ACK port2 ackIsn=2
+[cyc3] t= 102.327 frame= 191519 IN  TRANS port2 isn=6 len=24 crc=1a6c8cef
+[cyc3] t= 102.327 frame= 191519 IN  TRANS port2 isn=7 len=5 crc=f9be064f
+[cyc3] t= 102.327 frame= 191519 IN  TRANS port2 isn=8 len=2 crc=bae6ae3c
+[cyc3] t= 102.327 frame= 191519 IN  TRANS port2 isn=9 len=9 crc=a245e5bb
+[cyc3] t= 102.327 frame= 191519 IN  TRANS port2 isn=10 len=2 crc=79b58317
+[cyc3] t= 102.331 frame= 191529 OUT ACK port2 ackIsn=6
+[cyc3] t= 102.333 frame= 191537 OUT ACK port2 ackIsn=7
+[cyc3] t= 102.335 frame= 191541 OUT ACK port2 ackIsn=8
+[cyc3] t= 102.337 frame= 191547 OUT ACK port2 ackIsn=9
+[cyc3] t= 102.338 frame= 191551 OUT ACK port2 ackIsn=10
+[cyc3] t= 102.340 frame= 191557 OUT TRANS port2 isn=3 len=25 crc=aa1caee0
+[cyc3] t= 102.342 frame= 191563 OUT TRANS port2 isn=4 len=21 crc=8318920e
+[cyc3] t= 102.343 frame= 191569 OUT TRANS port2 isn=5 len=17 crc=59c87898
+[cyc3] t= 102.345 frame= 191573 OUT TRANS port2 isn=6 len=17 crc=70825eb9
+[cyc3] t= 102.346 frame= 191577 OUT TRANS port2 isn=7 len=17 crc=62d5aee4
+[cyc3] t= 102.348 frame= 191583 OUT TRANS port3 isn=9 len=54 crc=abe5d360
+[cyc3] t= 102.350 frame= 191589 IN  ACK port2 ackIsn=3
+[cyc3] t= 102.350 frame= 191591 OUT TRANS port3 isn=10 len=54 crc=118a1be1
+[cyc3] t= 102.351 frame= 191595 OUT TRANS port3 isn=11 len=22 crc=1e27f206
+[cyc3] t= 102.353 frame= 191601 IN  ACK port2 ackIsn=5
+[cyc3] t= 102.353 frame= 191601 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 102.353 frame= 191601 IN  TRANS port2 isn=11 len=21 crc=50a13a47
+[cyc3] t= 102.357 frame= 191611 IN  TRANS port2 isn=12 len=29 crc=4dc53eb2
+[cyc3] t= 102.357 frame= 191611 IN  TRANS port2 isn=13 len=14 crc=09bb3df9
+[cyc3] t= 102.357 frame= 191611 IN  TRANS port2 isn=14 len=17 crc=243403db
+[cyc3] t= 102.359 frame= 191617 OUT ACK port2 ackIsn=11
+[cyc3] t= 102.362 frame= 191625 IN  TRANS port2 isn=15 len=21 crc=ca490593
+[cyc3] t= 102.362 frame= 191625 IN  TRANS port2 isn=16 len=21 crc=33940a23
+[cyc3] t= 102.362 frame= 191625 IN  ACK port3 ackIsn=9
+[cyc3] t= 102.362 frame= 191625 IN  TRANS port2 isn=17 len=21 crc=a931d302
+[cyc3] t= 102.362 frame= 191625 IN  TRANS port2 isn=18 len=21 crc=add699dd
+[cyc3] t= 102.362 frame= 191625 IN  TRANS port2 isn=19 len=21 crc=8375c10e
+[cyc3] t= 102.362 frame= 191625 IN  ACK port3 ackIsn=11
+[cyc3] t= 102.363 frame= 191629 IN  TRANS port2 isn=20 len=21 crc=49eb168e
+[cyc3] t= 102.363 frame= 191629 IN  ACK port2 ackIsn=7
+[cyc3] t= 102.364 frame= 191633 OUT ACK port2 ackIsn=12
+[cyc3] t= 102.366 frame= 191639 OUT ACK port2 ackIsn=13
+[cyc3] t= 102.366 frame= 191643 OUT ACK port2 ackIsn=14
+[cyc3] t= 102.368 frame= 191647 OUT ACK port2 ackIsn=15
+[cyc3] t= 102.369 frame= 191651 IN  TRANS port2 isn=21 len=54 crc=a8696b38
+[cyc3] t= 102.369 frame= 191653 OUT ACK port2 ackIsn=16
+[cyc3] t= 102.371 frame= 191659 OUT ACK port2 ackIsn=17
+[cyc3] t= 102.373 frame= 191665 OUT ACK port2 ackIsn=18
+[cyc3] t= 102.374 frame= 191671 OUT ACK port2 ackIsn=19
+[cyc3] t= 102.375 frame= 191673 IN  TRANS port2 isn=22 len=54 crc=d5f9493e
+[cyc3] t= 102.376 frame= 191677 OUT ACK port2 ackIsn=20
+[cyc3] t= 102.377 frame= 191683 OUT ACK port2 ackIsn=21
+[cyc3] t= 102.379 frame= 191687 IN  TRANS port2 isn=23 len=54 crc=310e5a15
+[cyc3] t= 102.379 frame= 191687 IN  TRANS port2 isn=24 len=54 crc=d7a60b6b
+[cyc3] t= 102.379 frame= 191689 OUT TRANS port2 isn=8 len=21 crc=ced930f2
+[cyc3] t= 102.380 frame= 191693 IN  TRANS port2 isn=25 len=36 crc=ec684930
+[cyc3] t= 102.380 frame= 191697 OUT ACK port2 ackIsn=22
+[cyc3] t= 102.383 frame= 191705 OUT TRANS port3 isn=12 len=54 crc=fed21031
+[cyc3] t= 102.385 frame= 191711 OUT TRANS port3 isn=13 len=54 crc=bb1c546e
+[cyc3] t= 102.387 frame= 191717 OUT TRANS port3 isn=14 len=54 crc=08855d40
+[cyc3] t= 102.389 frame= 191720 IN  ACK port2 ackIsn=8
+[cyc3] t= 102.389 frame= 191723 OUT TRANS port3 isn=15 len=14 crc=363ccd6d
+[cyc3] t= 102.390 frame= 191727 OUT ACK port2 ackIsn=23
+[cyc3] t= 102.391 frame= 191731 OUT ACK port2 ackIsn=24
+[cyc3] t= 102.392 frame= 191737 OUT ACK port2 ackIsn=25
+[cyc3] t= 102.395 frame= 191743 IN  ACK port3 ackIsn=12
+[cyc3] t= 102.398 frame= 191751 IN  ACK port3 ackIsn=13
+[cyc3] t= 102.401 frame= 191763 IN  ACK port3 ackIsn=15
+[cyc3] t= 102.462 frame= 191891 IN  TRANS port2 isn=26 len=17 crc=62d5aee4
+[cyc3] t= 102.467 frame= 191903 OUT ACK port2 ackIsn=26
+[cyc3] t= 102.537 frame= 192049 IN  TRANS port2 isn=27 len=21 crc=ced930f2
+[cyc3] t= 102.545 frame= 192067 OUT ACK port2 ackIsn=27
+[cyc3] t= 102.814 frame= 192619 IN  TRANS port1 isn=6 len=9 crc=f44172e3
+[cyc3] t= 102.820 frame= 192633 OUT ACK port1 ackIsn=6
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=7 len=28 crc=fed0eafb
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=8 len=47 crc=8392c3ee
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=9 len=47 crc=fb26fd38
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=10 len=48 crc=56c4ffb9
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=11 len=48 crc=3b02eb89
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=12 len=48 crc=8c48d6d9
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=13 len=48 crc=e18ec2e9
+[cyc3] t= 102.823 frame= 192641 IN  TRANS port1 isn=14 len=48 crc=f960a02c
+[cyc3] t= 102.828 frame= 192653 OUT ACK port1 ackIsn=7
+[cyc3] t= 102.830 frame= 192659 IN  TRANS port1 isn=16 len=54 crc=84b8a355
+[cyc3] t= 102.830 frame= 192661 OUT ACK port1 ackIsn=8
+[cyc3] t= 102.831 frame= 192667 OUT ACK port1 ackIsn=9
+[cyc3] t= 102.833 frame= 192671 OUT ACK port1 ackIsn=10
+[cyc3] t= 102.835 frame= 192677 OUT ACK port1 ackIsn=11
+[cyc3] t= 102.837 frame= 192687 OUT ACK port1 ackIsn=12
+[cyc3] t= 102.838 frame= 192689 OUT ACK port1 ackIsn=13
+[cyc3] t= 102.838 frame= 192691 IN  TRANS port1 isn=17 len=54 crc=fb4bd5c8
+[cyc3] t= 102.840 frame= 192703 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.841 frame= 192705 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.843 frame= 192711 IN  TRANS port1 isn=18 len=54 crc=1577f948
+[cyc3] t= 102.843 frame= 192711 IN  TRANS port1 isn=19 len=54 crc=bca09185
+[cyc3] t= 102.843 frame= 192713 OUT TRANS port1 isn=4 len=54 crc=e92bf75d
+[cyc3] t= 102.844 frame= 192719 OUT TRANS port1 isn=5 len=54 crc=59385f54
+[cyc3] t= 102.845 frame= 192720 IN  TRANS port1 isn=20 len=54 crc=ad5aa83d
+[cyc3] t= 102.846 frame= 192725 OUT TRANS port1 isn=6 len=26 crc=c4447091
+[cyc3] t= 102.847 frame= 192729 OUT TRANS port1 isn=7 len=9 crc=de635911
+[cyc3] t= 102.849 frame= 192735 IN  TRANS port1 isn=21 len=54 crc=ee9108a7
+[cyc3] t= 102.849 frame= 192735 IN  TRANS port1 isn=22 len=54 crc=d0687cde
+[cyc3] t= 102.849 frame= 192737 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.850 frame= 192741 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.852 frame= 192747 IN  TRANS port1 isn=23 len=54 crc=7fa63aad
+[cyc3] t= 102.852 frame= 192747 IN  TRANS port1 isn=24 len=54 crc=3f767e97
+[cyc3] t= 102.852 frame= 192748 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.853 frame= 192753 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.856 frame= 192761 IN  ACK port1 ackIsn=6
+[cyc3] t= 102.856 frame= 192763 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.858 frame= 192769 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.859 frame= 192773 IN  ACK port1 ackIsn=7
+[cyc3] t= 102.859 frame= 192775 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.861 frame= 192781 OUT ACK port1 ackIsn=14
+[cyc3] t= 102.863 frame= 192787 IN  TRANS port1 isn=15 len=54 crc=04a92b82
+[cyc3] t= 102.869 frame= 192803 OUT ACK port1 ackIsn=15
+[cyc3] t= 102.880 frame= 192825 IN  TRANS port1 isn=25 len=54 crc=8398f447
+[cyc3] t= 102.885 frame= 192837 OUT ACK port1 ackIsn=15
+[cyc3] t= 103.003 frame= 193083 IN  TRANS port2 isn=28 len=29 crc=258bb555
+[cyc3] t= 103.008 frame= 193097 OUT ACK port2 ackIsn=28
+[cyc3] t= 103.252 frame= 193603 IN  TRANS port3 isn=7 len=10 crc=3796e536
+[cyc3] t= 103.259 frame= 193619 OUT ACK port3 ackIsn=7
+[cyc3] t= 103.288 frame= 193687 OUT TRANS port3 isn=16 len=54 crc=fed21031
+[cyc3] t= 103.289 frame= 193693 OUT TRANS port3 isn=17 len=54 crc=bb1c546e
+[cyc3] t= 103.291 frame= 193698 OUT TRANS port3 isn=18 len=54 crc=08855d40
+[cyc3] t= 103.292 frame= 193701 OUT TRANS port3 isn=19 len=14 crc=363ccd6d
+[cyc3] t= 103.298 frame= 193715 IN  ACK port3 ackIsn=16
+[cyc3] t= 103.301 frame= 193723 IN  ACK port3 ackIsn=17
+[cyc3] t= 103.303 frame= 193729 IN  ACK port3 ackIsn=19
+[cyc3] t= 103.353 frame= 193831 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 103.842 frame= 194851 OUT TRANS port2 isn=9 len=17 crc=5ffd0083
+[cyc3] t= 103.850 frame= 194869 IN  ACK port2 ackIsn=9
+[cyc3] t= 103.850 frame= 194871 OUT TRANS port1 isn=8 len=6 crc=1388a28c
+[cyc3] t= 103.851 frame= 194875 OUT TRANS port1 isn=9 len=54 crc=ee19e052
+[cyc3] t= 103.852 frame= 194879 OUT TRANS port1 isn=10 len=54 crc=59385f54
+[cyc3] t= 103.855 frame= 194887 OUT TRANS port1 isn=11 len=42 crc=8fe5cb38
+[cyc3] t= 103.856 frame= 194891 OUT TRANS port1 isn=12 len=9 crc=de635911
+[cyc3] t= 103.860 frame= 194901 IN  ACK port1 ackIsn=8
+[cyc3] t= 103.863 frame= 194909 IN  ACK port1 ackIsn=9
+[cyc3] t= 103.865 frame= 194915 IN  ACK port1 ackIsn=12
+[cyc3] t= 103.901 frame= 194989 IN  TRANS port2 isn=29 len=54 crc=332752d1
+[cyc3] t= 103.901 frame= 194989 IN  TRANS port2 isn=30 len=54 crc=5bd8894b
+[cyc3] t= 103.901 frame= 194989 IN  TRANS port2 isn=31 len=54 crc=40676d50
+[cyc3] t= 103.908 frame= 195005 OUT ACK port2 ackIsn=29
+[cyc3] t= 103.908 frame= 195009 OUT ACK port2 ackIsn=30
+[cyc3] t= 103.909 frame= 195011 IN  TRANS port2 isn=32 len=54 crc=820be4c7
+[cyc3] t= 103.909 frame= 195011 IN  TRANS port2 isn=33 len=54 crc=148bfbb1
+[cyc3] t= 103.909 frame= 195011 IN  TRANS port2 isn=34 len=54 crc=5f48bf99
+[cyc3] t= 103.909 frame= 195011 IN  TRANS port2 isn=35 len=54 crc=e784a3d5
+[cyc3] t= 103.909 frame= 195011 IN  TRANS port2 isn=36 len=54 crc=06015150
+[cyc3] t= 103.909 frame= 195011 IN  TRANS port2 isn=37 len=54 crc=4a413763
+[cyc3] t= 103.909 frame= 195011 IN  TRANS port2 isn=38 len=54 crc=7b140399
+[cyc3] t= 103.911 frame= 195018 OUT ACK port2 ackIsn=31
+[cyc3] t= 103.916 frame= 195031 OUT ACK port2 ackIsn=32
+[cyc3] t= 103.918 frame= 195037 OUT ACK port2 ackIsn=33
+[cyc3] t= 103.920 frame= 195043 OUT ACK port2 ackIsn=34
+[cyc3] t= 103.921 frame= 195047 IN  TRANS port2 isn=39 len=54 crc=755cc388
+[cyc3] t= 103.921 frame= 195047 IN  TRANS port2 isn=40 len=54 crc=42e2b060
+[cyc3] t= 103.921 frame= 195047 IN  TRANS port2 isn=41 len=54 crc=e85515d4
+[cyc3] t= 103.921 frame= 195049 OUT ACK port2 ackIsn=35
+[cyc3] t= 103.922 frame= 195055 OUT ACK port2 ackIsn=36
+[cyc3] t= 103.922 frame= 195055 OUT ACK port2 ackIsn=37
+[cyc3] t= 103.925 frame= 195061 OUT ACK port2 ackIsn=38
+[cyc3] t= 103.927 frame= 195067 IN  TRANS port2 isn=42 len=54 crc=f2c409c1
+[cyc3] t= 103.928 frame= 195071 OUT ACK port2 ackIsn=39
+[cyc3] t= 103.929 frame= 195075 OUT ACK port2 ackIsn=40
+[cyc3] t= 103.930 frame= 195079 IN  TRANS port2 isn=43 len=54 crc=fbd737e4
+[cyc3] t= 103.931 frame= 195083 OUT ACK port2 ackIsn=41
+[cyc3] t= 103.932 frame= 195089 OUT ACK port2 ackIsn=42
+[cyc3] t= 103.934 frame= 195093 IN  TRANS port2 isn=44 len=54 crc=5d88737e
+[cyc3] t= 103.934 frame= 195093 IN  TRANS port2 isn=45 len=54 crc=cb3652f2
+[cyc3] t= 103.935 frame= 195097 OUT ACK port2 ackIsn=43
+[cyc3] t= 103.937 frame= 195103 IN  TRANS port2 isn=46 len=54 crc=6544c429
+[cyc3] t= 103.937 frame= 195103 IN  TRANS port2 isn=47 len=54 crc=4607566f
+[cyc3] t= 103.940 frame= 195111 IN  TRANS port2 isn=48 len=54 crc=b465d854
+[cyc3] t= 103.940 frame= 195111 IN  TRANS port2 isn=49 len=54 crc=28a06a1e
+[cyc3] t= 103.940 frame= 195115 OUT ACK port2 ackIsn=44
+[cyc3] t= 103.941 frame= 195117 OUT ACK port2 ackIsn=45
+[cyc3] t= 103.943 frame= 195123 IN  TRANS port2 isn=50 len=54 crc=2b33d89b
+[cyc3] t= 103.943 frame= 195123 IN  TRANS port2 isn=51 len=54 crc=6cd18281
+[cyc3] t= 103.943 frame= 195125 OUT ACK port2 ackIsn=46
+[cyc3] t= 103.944 frame= 195129 OUT ACK port2 ackIsn=47
+[cyc3] t= 103.945 frame= 195133 IN  TRANS port2 isn=52 len=54 crc=b5ef19b6
+[cyc3] t= 103.947 frame= 195139 OUT ACK port2 ackIsn=48
+[cyc3] t= 103.948 frame= 195143 IN  TRANS port2 isn=53 len=54 crc=9bd3d1ab
+[cyc3] t= 103.949 frame= 195147 OUT ACK port2 ackIsn=49
+[cyc3] t= 103.950 frame= 195151 OUT ACK port2 ackIsn=50
+[cyc3] t= 103.951 frame= 195155 IN  TRANS port2 isn=54 len=54 crc=bf912077
+[cyc3] t= 103.952 frame= 195159 OUT ACK port2 ackIsn=51
+[cyc3] t= 103.953 frame= 195163 OUT ACK port2 ackIsn=52
+[cyc3] t= 103.954 frame= 195167 IN  TRANS port2 isn=55 len=54 crc=53a31dda
+[cyc3] t= 103.955 frame= 195171 OUT ACK port2 ackIsn=53
+[cyc3] t= 103.956 frame= 195175 OUT ACK port2 ackIsn=54
+[cyc3] t= 103.958 frame= 195181 IN  TRANS port2 isn=56 len=54 crc=d2222fb2
+[cyc3] t= 103.958 frame= 195181 IN  TRANS port2 isn=57 len=54 crc=2e53c2cc
+[cyc3] t= 103.959 frame= 195187 OUT ACK port2 ackIsn=55
+[cyc3] t= 103.961 frame= 195191 IN  TRANS port2 isn=58 len=54 crc=b27fb9f8
+[cyc3] t= 103.961 frame= 195191 IN  TRANS port2 isn=59 len=54 crc=bcccadef
+[cyc3] t= 103.964 frame= 195199 IN  TRANS port2 isn=60 len=54 crc=442f8664
+[cyc3] t= 103.964 frame= 195199 IN  TRANS port2 isn=61 len=51 crc=359308de
+[cyc3] t= 103.964 frame= 195201 OUT ACK port2 ackIsn=56
+[cyc3] t= 103.965 frame= 195205 OUT ACK port2 ackIsn=57
+[cyc3] t= 103.967 frame= 195211 OUT ACK port2 ackIsn=58
+[cyc3] t= 103.968 frame= 195215 OUT ACK port2 ackIsn=59
+[cyc3] t= 103.970 frame= 195221 OUT ACK port2 ackIsn=60
+[cyc3] t= 103.971 frame= 195225 OUT ACK port2 ackIsn=61
+[cyc3] t= 103.980 frame= 195245 OUT TRANS port2 isn=10 len=17 crc=8ca889ff
+[cyc3] t= 103.988 frame= 195263 IN  ACK port2 ackIsn=10
+[cyc3] t= 104.353 frame= 196021 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 104.802 frame= 196961 IN  TRANS port1 isn=16 len=54 crc=84b8a355
+[cyc3] t= 104.802 frame= 196961 IN  TRANS port1 isn=17 len=54 crc=fb4bd5c8
+[cyc3] t= 104.802 frame= 196961 IN  TRANS port1 isn=18 len=54 crc=1577f948
+[cyc3] t= 104.809 frame= 196977 OUT ACK port1 ackIsn=16
+[cyc3] t= 104.810 frame= 196981 IN  TRANS port1 isn=19 len=54 crc=bca09185
+[cyc3] t= 104.810 frame= 196981 IN  TRANS port1 isn=20 len=54 crc=ad5aa83d
+[cyc3] t= 104.810 frame= 196981 IN  TRANS port1 isn=21 len=54 crc=ee9108a7
+[cyc3] t= 104.810 frame= 196981 IN  TRANS port1 isn=22 len=54 crc=d0687cde
+[cyc3] t= 104.810 frame= 196981 IN  TRANS port1 isn=23 len=54 crc=7fa63aad
+[cyc3] t= 104.810 frame= 196981 IN  TRANS port1 isn=24 len=54 crc=3f767e97
+[cyc3] t= 104.810 frame= 196981 IN  TRANS port1 isn=25 len=54 crc=8398f447
+[cyc3] t= 104.810 frame= 196983 OUT ACK port1 ackIsn=17
+[cyc3] t= 104.812 frame= 196989 OUT ACK port1 ackIsn=18
+[cyc3] t= 104.816 frame= 196999 OUT ACK port1 ackIsn=19
+[cyc3] t= 104.818 frame= 197005 OUT ACK port1 ackIsn=20
+[cyc3] t= 104.819 frame= 197009 OUT ACK port1 ackIsn=21
+[cyc3] t= 104.820 frame= 197013 IN  TRANS port1 isn=26 len=54 crc=b1819115
+[cyc3] t= 104.820 frame= 197017 OUT ACK port1 ackIsn=22
+[cyc3] t= 104.822 frame= 197021 OUT ACK port1 ackIsn=23
+[cyc3] t= 104.823 frame= 197027 OUT ACK port1 ackIsn=24
+[cyc3] t= 104.825 frame= 197031 IN  TRANS port1 isn=27 len=54 crc=71d3d6e6
+[cyc3] t= 104.825 frame= 197031 IN  TRANS port1 isn=28 len=54 crc=fca2b15f
+[cyc3] t= 104.825 frame= 197033 OUT ACK port1 ackIsn=25
+[cyc3] t= 104.827 frame= 197039 OUT ACK port1 ackIsn=26
+[cyc3] t= 104.827 frame= 197040 IN  TRANS port1 isn=29 len=54 crc=47efc09c
+[cyc3] t= 104.831 frame= 197051 OUT ACK port1 ackIsn=27
+[cyc3] t= 104.835 frame= 197061 OUT ACK port1 ackIsn=28
+[cyc3] t= 104.836 frame= 197065 IN  TRANS port1 isn=30 len=54 crc=8a2d768c
+[cyc3] t= 104.836 frame= 197067 OUT ACK port1 ackIsn=29
+[cyc3] t= 104.839 frame= 197075 IN  TRANS port1 isn=31 len=54 crc=4f22ac3a
+[cyc3] t= 104.843 frame= 197085 IN  TRANS port1 isn=32 len=54 crc=b8a86afb
+[cyc3] t= 104.843 frame= 197087 OUT ACK port1 ackIsn=30
+[cyc3] t= 104.844 frame= 197091 OUT ACK port1 ackIsn=31
+[cyc3] t= 104.846 frame= 197097 IN  TRANS port1 isn=33 len=54 crc=66ab1c14
+[cyc3] t= 104.848 frame= 197103 IN  TRANS port1 isn=34 len=54 crc=8a803f8b
+[cyc3] t= 104.849 frame= 197107 OUT ACK port1 ackIsn=32
+[cyc3] t= 104.852 frame= 197115 OUT ACK port1 ackIsn=33
+[cyc3] t= 104.853 frame= 197119 OUT ACK port1 ackIsn=34
+[cyc3] t= 104.854 frame= 197123 IN  TRANS port1 isn=35 len=54 crc=42ebdb40
+[cyc3] t= 104.857 frame= 197131 IN  TRANS port1 isn=36 len=54 crc=316b80a4
+[cyc3] t= 104.859 frame= 197137 OUT TRANS port1 isn=13 len=6 crc=85b8a5fb
+[cyc3] t= 104.860 frame= 197141 IN  TRANS port1 isn=37 len=54 crc=dc09bd74
+[cyc3] t= 104.861 frame= 197145 OUT TRANS port1 isn=14 len=54 crc=79cdba46
+[cyc3] t= 104.862 frame= 197151 OUT TRANS port1 isn=15 len=54 crc=59385f54
+[cyc3] t= 104.863 frame= 197152 IN  TRANS port1 isn=38 len=54 crc=ed899ade
+[cyc3] t= 104.865 frame= 197159 OUT TRANS port1 isn=16 len=54 crc=8321d978
+[cyc3] t= 104.866 frame= 197163 IN  TRANS port1 isn=39 len=54 crc=df2b7b0e
+[cyc3] t= 104.866 frame= 197166 OUT TRANS port1 isn=17 len=54 crc=aafb8b31
+[cyc3] t= 104.868 frame= 197173 OUT TRANS port1 isn=18 len=54 crc=3a299418
+[cyc3] t= 104.869 frame= 197174 IN  ACK port1 ackIsn=13
+[cyc3] t= 104.870 frame= 197181 OUT TRANS port1 isn=19 len=54 crc=b3b36740
+[cyc3] t= 104.872 frame= 197185 IN  ACK port1 ackIsn=14
+[cyc3] t= 104.872 frame= 197187 OUT TRANS port1 isn=20 len=54 crc=66d6c106
+[cyc3] t= 104.875 frame= 197195 IN  ACK port1 ackIsn=16
+[cyc3] t= 104.875 frame= 197197 OUT TRANS port1 isn=21 len=54 crc=193cb2ed
+[cyc3] t= 104.876 frame= 197203 OUT TRANS port1 isn=22 len=54 crc=980515c2
+[cyc3] t= 104.876 frame= 197203 OUT TRANS port1 isn=23 len=9 crc=de635911
+[cyc3] t= 104.876 frame= 197203 OUT ACK port1 ackIsn=35
+[cyc3] t= 104.878 frame= 197206 IN  ACK port1 ackIsn=17
+[cyc3] t= 104.878 frame= 197209 OUT ACK port1 ackIsn=36
+[cyc3] t= 104.879 frame= 197213 OUT ACK port1 ackIsn=37
+[cyc3] t= 104.881 frame= 197219 IN  ACK port1 ackIsn=19
+[cyc3] t= 104.881 frame= 197222 OUT ACK port1 ackIsn=38
+[cyc3] t= 104.882 frame= 197227 OUT ACK port1 ackIsn=39
+[cyc3] t= 104.884 frame= 197231 IN  ACK port1 ackIsn=20
+[cyc3] t= 104.887 frame= 197239 IN  ACK port1 ackIsn=21
+[cyc3] t= 104.890 frame= 197247 IN  ACK port1 ackIsn=23
+[cyc3] t= 104.896 frame= 197261 IN  TRANS port1 isn=40 len=54 crc=3f0d680f
+[cyc3] t= 104.896 frame= 197261 IN  TRANS port1 isn=41 len=54 crc=bc26449e
+[cyc3] t= 104.896 frame= 197261 IN  TRANS port1 isn=42 len=54 crc=d6547003
+[cyc3] t= 104.896 frame= 197261 IN  TRANS port1 isn=43 len=54 crc=3a871d86
+[cyc3] t= 104.896 frame= 197261 IN  TRANS port1 isn=44 len=54 crc=93f03d9f
+[cyc3] t= 104.902 frame= 197281 OUT ACK port1 ackIsn=40
+[cyc3] t= 104.903 frame= 197287 OUT ACK port1 ackIsn=41
+[cyc3] t= 104.905 frame= 197293 OUT ACK port1 ackIsn=42
+[cyc3] t= 104.906 frame= 197297 OUT ACK port1 ackIsn=43
+[cyc3] t= 104.908 frame= 197303 OUT ACK port1 ackIsn=44
+[cyc3] t= 104.913 frame= 197315 IN  TRANS port1 isn=45 len=54 crc=4bcd0d82
+[cyc3] t= 104.918 frame= 197329 OUT ACK port1 ackIsn=45
+[cyc3] t= 104.919 frame= 197331 IN  TRANS port1 isn=46 len=54 crc=d495780a
+[cyc3] t= 104.919 frame= 197331 IN  TRANS port1 isn=47 len=54 crc=83484bfe
+[cyc3] t= 104.919 frame= 197331 IN  TRANS port1 isn=48 len=54 crc=5dc909b3
+[cyc3] t= 104.919 frame= 197331 IN  TRANS port1 isn=49 len=54 crc=eb44495b
+[cyc3] t= 104.927 frame= 197349 OUT ACK port1 ackIsn=46
+[cyc3] t= 104.928 frame= 197353 IN  TRANS port1 isn=50 len=54 crc=3b742e22
+[cyc3] t= 104.928 frame= 197355 OUT ACK port1 ackIsn=47
+[cyc3] t= 104.928 frame= 197355 OUT ACK port1 ackIsn=48
+[cyc3] t= 104.929 frame= 197359 OUT ACK port1 ackIsn=49
+[cyc3] t= 104.934 frame= 197371 OUT ACK port1 ackIsn=50
+[cyc3] t= 104.937 frame= 197379 IN  TRANS port1 isn=51 len=54 crc=4daead6d
+[cyc3] t= 104.939 frame= 197385 IN  TRANS port1 isn=52 len=54 crc=fd8dc79e
+[cyc3] t= 104.943 frame= 197395 OUT ACK port1 ackIsn=51
+[cyc3] t= 104.944 frame= 197399 IN  TRANS port1 isn=53 len=54 crc=259ceb9d
+[cyc3] t= 104.944 frame= 197399 IN  TRANS port1 isn=54 len=54 crc=7562e631
+[cyc3] t= 104.944 frame= 197399 IN  TRANS port1 isn=55 len=54 crc=ea59425f
+[cyc3] t= 104.945 frame= 197403 OUT ACK port1 ackIsn=52
+[cyc3] t= 104.950 frame= 197415 OUT ACK port1 ackIsn=53
+[cyc3] t= 104.951 frame= 197421 OUT ACK port1 ackIsn=54
+[cyc3] t= 104.953 frame= 197425 OUT ACK port1 ackIsn=55
+[cyc3] t= 104.954 frame= 197429 IN  TRANS port1 isn=56 len=54 crc=e430e08c
+[cyc3] t= 104.959 frame= 197441 IN  TRANS port1 isn=57 len=54 crc=93b6aa29
+[cyc3] t= 104.959 frame= 197441 IN  TRANS port1 isn=58 len=54 crc=e70925f7
+[cyc3] t= 104.959 frame= 197443 OUT ACK port1 ackIsn=56
+[cyc3] t= 104.964 frame= 197455 IN  TRANS port1 isn=59 len=54 crc=6d7236ff
+[cyc3] t= 104.964 frame= 197455 IN  TRANS port1 isn=60 len=54 crc=2375a17e
+[cyc3] t= 104.964 frame= 197455 IN  TRANS port1 isn=61 len=54 crc=be2ec57a
+[cyc3] t= 104.964 frame= 197455 IN  TRANS port1 isn=62 len=54 crc=04497138
+[cyc3] t= 104.966 frame= 197461 OUT ACK port1 ackIsn=57
+[cyc3] t= 104.967 frame= 197467 OUT ACK port1 ackIsn=58
+[cyc3] t= 104.968 frame= 197469 IN  TRANS port1 isn=63 len=54 crc=791f9556
+[cyc3] t= 104.970 frame= 197475 OUT ACK port1 ackIsn=59
+[cyc3] t= 104.972 frame= 197481 OUT ACK port1 ackIsn=60
+[cyc3] t= 104.973 frame= 197485 OUT ACK port1 ackIsn=61
+[cyc3] t= 104.976 frame= 197493 OUT ACK port1 ackIsn=62
+[cyc3] t= 104.977 frame= 197497 IN  TRANS port1 isn=64 len=54 crc=f5b5209c
+[cyc3] t= 104.977 frame= 197499 OUT ACK port1 ackIsn=63
+[cyc3] t= 104.980 frame= 197507 IN  TRANS port1 isn=65 len=54 crc=a58c11a5
+[cyc3] t= 104.984 frame= 197517 IN  TRANS port1 isn=66 len=54 crc=13f93127
+[cyc3] t= 104.984 frame= 197517 IN  TRANS port1 isn=67 len=54 crc=89767821
+[cyc3] t= 104.985 frame= 197521 OUT ACK port1 ackIsn=64
+[cyc3] t= 104.986 frame= 197525 IN  TRANS port1 isn=68 len=54 crc=d117c257
+[cyc3] t= 104.987 frame= 197529 OUT ACK port1 ackIsn=65
+[cyc3] t= 104.989 frame= 197535 IN  TRANS port1 isn=69 len=54 crc=426bea58
+[cyc3] t= 104.989 frame= 197535 IN  TRANS port1 isn=70 len=54 crc=ed5c6013
+[cyc3] t= 104.992 frame= 197543 OUT ACK port1 ackIsn=66
+[cyc3] t= 104.993 frame= 197547 OUT ACK port1 ackIsn=67
+[cyc3] t= 104.995 frame= 197553 OUT ACK port1 ackIsn=68
+[cyc3] t= 104.996 frame= 197557 IN  TRANS port1 isn=71 len=54 crc=f4fd4cbe
+[cyc3] t= 104.996 frame= 197559 OUT ACK port1 ackIsn=69
+[cyc3] t= 104.998 frame= 197565 OUT ACK port1 ackIsn=70
+[cyc3] t= 105.000 frame= 197571 IN  TRANS port1 isn=72 len=54 crc=ba95f6b8
+[cyc3] t= 105.002 frame= 197577 OUT ACK port1 ackIsn=71
+[cyc3] t= 105.003 frame= 197581 IN  TRANS port1 isn=73 len=54 crc=d3944570
+[cyc3] t= 105.005 frame= 197587 OUT ACK port1 ackIsn=72
+[cyc3] t= 105.008 frame= 197595 OUT ACK port1 ackIsn=73
+[cyc3] t= 105.011 frame= 197603 IN  TRANS port1 isn=74 len=54 crc=cf3632c8
+[cyc3] t= 105.011 frame= 197603 IN  TRANS port1 isn=75 len=54 crc=39d51dbc
+[cyc3] t= 105.011 frame= 197603 IN  TRANS port1 isn=76 len=54 crc=478310d4
+[cyc3] t= 105.011 frame= 197603 IN  TRANS port1 isn=77 len=54 crc=9f1705eb
+[cyc3] t= 105.011 frame= 197603 IN  TRANS port1 isn=78 len=54 crc=d7785964
+[cyc3] t= 105.011 frame= 197603 IN  TRANS port1 isn=79 len=54 crc=584f2f06
+[cyc3] t= 105.013 frame= 197609 IN  TRANS port1 isn=80 len=54 crc=96c75471
+[cyc3] t= 105.016 frame= 197617 IN  TRANS port1 isn=81 len=54 crc=fd21a9df
+[cyc3] t= 105.018 frame= 197623 IN  TRANS port1 isn=82 len=54 crc=2845cc47
+[cyc3] t= 105.018 frame= 197625 OUT ACK port1 ackIsn=74
+[cyc3] t= 105.019 frame= 197629 OUT ACK port1 ackIsn=75
+[cyc3] t= 105.022 frame= 197641 OUT ACK port1 ackIsn=76
+[cyc3] t= 105.022 frame= 197641 OUT ACK port1 ackIsn=77
+[cyc3] t= 105.024 frame= 197647 OUT ACK port1 ackIsn=78
+[cyc3] t= 105.025 frame= 197653 OUT ACK port1 ackIsn=79
+[cyc3] t= 105.027 frame= 197659 OUT ACK port1 ackIsn=80
+[cyc3] t= 105.028 frame= 197663 OUT ACK port1 ackIsn=81
+[cyc3] t= 105.029 frame= 197667 IN  TRANS port1 isn=83 len=54 crc=377d97e8
+[cyc3] t= 105.030 frame= 197671 OUT ACK port1 ackIsn=82
+[cyc3] t= 105.032 frame= 197677 IN  TRANS port1 isn=84 len=54 crc=21753b08
+[cyc3] t= 105.035 frame= 197685 OUT ACK port1 ackIsn=83
+[cyc3] t= 105.036 frame= 197689 IN  TRANS port1 isn=85 len=54 crc=91f81f06
+[cyc3] t= 105.036 frame= 197689 IN  TRANS port1 isn=86 len=54 crc=d3fbfb51
+[cyc3] t= 105.038 frame= 197695 OUT ACK port1 ackIsn=84
+[cyc3] t= 105.041 frame= 197703 IN  TRANS port1 isn=87 len=54 crc=5ce7932c
+[cyc3] t= 105.041 frame= 197703 IN  TRANS port1 isn=88 len=54 crc=dc9ae961
+[cyc3] t= 105.041 frame= 197703 IN  TRANS port1 isn=89 len=54 crc=91b59ff4
+[cyc3] t= 105.041 frame= 197703 IN  TRANS port1 isn=90 len=54 crc=b4589313
+[cyc3] t= 105.041 frame= 197707 OUT ACK port1 ackIsn=85
+[cyc3] t= 105.043 frame= 197711 IN  TRANS port1 isn=91 len=54 crc=ca037600
+[cyc3] t= 105.043 frame= 197713 OUT ACK port1 ackIsn=86
+[cyc3] t= 105.046 frame= 197721 IN  TRANS port1 isn=92 len=54 crc=19ee8373
+[cyc3] t= 105.049 frame= 197731 IN  TRANS port1 isn=93 len=54 crc=e7858202
+[cyc3] t= 105.049 frame= 197731 IN  TRANS port1 isn=94 len=34 crc=d2dc5145
+[cyc3] t= 105.049 frame= 197733 OUT ACK port1 ackIsn=87
+[cyc3] t= 105.050 frame= 197737 OUT ACK port1 ackIsn=88
+[cyc3] t= 105.052 frame= 197743 OUT ACK port1 ackIsn=89
+[cyc3] t= 105.053 frame= 197747 OUT ACK port1 ackIsn=90
+[cyc3] t= 105.055 frame= 197753 OUT ACK port1 ackIsn=91
+[cyc3] t= 105.056 frame= 197757 OUT ACK port1 ackIsn=92
+[cyc3] t= 105.058 frame= 197763 OUT ACK port1 ackIsn=93
+[cyc3] t= 105.059 frame= 197767 OUT ACK port1 ackIsn=94
+[cyc3] t= 105.353 frame= 198381 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 105.799 frame= 199307 IN  TRANS port1 isn=95 len=9 crc=b8f3c392
+[cyc3] t= 105.805 frame= 199321 OUT ACK port1 ackIsn=95
+[cyc3] t= 105.864 frame= 199441 OUT TRANS port1 isn=24 len=6 crc=3fe9ac62
+[cyc3] t= 105.865 frame= 199447 OUT TRANS port1 isn=25 len=54 crc=c0b2a4e1
+[cyc3] t= 105.867 frame= 199451 OUT TRANS port1 isn=26 len=54 crc=59385f54
+[cyc3] t= 105.869 frame= 199457 OUT TRANS port1 isn=27 len=54 crc=8321d978
+[cyc3] t= 105.871 frame= 199463 OUT TRANS port1 isn=28 len=54 crc=aafb8b31
+[cyc3] t= 105.873 frame= 199469 OUT TRANS port1 isn=29 len=54 crc=3a299418
+[cyc3] t= 105.874 frame= 199472 IN  ACK port1 ackIsn=24
+[cyc3] t= 105.875 frame= 199477 OUT TRANS port1 isn=30 len=54 crc=b3b36740
+[cyc3] t= 105.877 frame= 199482 IN  ACK port1 ackIsn=25
+[cyc3] t= 105.877 frame= 199485 OUT TRANS port1 isn=31 len=54 crc=66d6c106
+[cyc3] t= 105.879 frame= 199491 OUT TRANS port1 isn=32 len=54 crc=193cb2ed
+[cyc3] t= 105.880 frame= 199494 IN  ACK port1 ackIsn=26
+[cyc3] t= 105.881 frame= 199499 OUT TRANS port1 isn=33 len=54 crc=980515c2
+[cyc3] t= 105.883 frame= 199504 IN  ACK port1 ackIsn=28
+[cyc3] t= 105.883 frame= 199507 OUT TRANS port1 isn=34 len=54 crc=67cccd9d
+[cyc3] t= 105.885 frame= 199513 OUT TRANS port1 isn=35 len=54 crc=5bb5169f
+[cyc3] t= 105.886 frame= 199516 IN  ACK port1 ackIsn=29
+[cyc3] t= 105.887 frame= 199521 OUT TRANS port1 isn=36 len=54 crc=b715ead4
+[cyc3] t= 105.888 frame= 199527 OUT TRANS port1 isn=37 len=54 crc=62ab8840
+[cyc3] t= 105.889 frame= 199528 IN  ACK port1 ackIsn=31
+[cyc3] t= 105.891 frame= 199535 OUT TRANS port1 isn=38 len=54 crc=7a0b1c44
+[cyc3] t= 105.892 frame= 199538 IN  ACK port1 ackIsn=32
+[cyc3] t= 105.892 frame= 199543 OUT TRANS port1 isn=39 len=54 crc=8f2abc44
+[cyc3] t= 105.895 frame= 199549 IN  ACK port1 ackIsn=34
+[cyc3] t= 105.895 frame= 199551 OUT TRANS port1 isn=40 len=54 crc=ac299532
+[cyc3] t= 105.897 frame= 199557 OUT TRANS port1 isn=41 len=54 crc=8393e439
+[cyc3] t= 105.898 frame= 199560 IN  ACK port1 ackIsn=36
+[cyc3] t= 105.899 frame= 199565 OUT TRANS port1 isn=42 len=54 crc=9ad7cd48
+[cyc3] t= 105.900 frame= 199571 OUT TRANS port1 isn=43 len=54 crc=040061fc
+[cyc3] t= 105.901 frame= 199572 IN  ACK port1 ackIsn=37
+[cyc3] t= 105.902 frame= 199579 OUT TRANS port1 isn=44 len=54 crc=dc1704bb
+[cyc3] t= 105.904 frame= 199584 IN  ACK port1 ackIsn=39
+[cyc3] t= 105.904 frame= 199589 OUT TRANS port1 isn=45 len=54 crc=e9a4a2f8
+[cyc3] t= 105.907 frame= 199595 IN  ACK port1 ackIsn=40
+[cyc3] t= 105.907 frame= 199599 OUT TRANS port1 isn=46 len=54 crc=eff2e88a
+[cyc3] t= 105.908 frame= 199603 OUT TRANS port1 isn=47 len=54 crc=ba97d5ed
+[cyc3] t= 105.910 frame= 199606 IN  ACK port1 ackIsn=42
+[cyc3] t= 105.911 frame= 199611 OUT TRANS port1 isn=48 len=54 crc=b0700bcf
+[cyc3] t= 105.913 frame= 199617 IN  ACK port1 ackIsn=43
+[cyc3] t= 105.913 frame= 199619 OUT TRANS port1 isn=49 len=54 crc=a1d83e10
+[cyc3] t= 105.915 frame= 199625 OUT TRANS port1 isn=50 len=54 crc=16e481ec
+[cyc3] t= 105.916 frame= 199628 IN  ACK port1 ackIsn=45
+[cyc3] t= 105.916 frame= 199633 OUT TRANS port1 isn=51 len=54 crc=d82d61c4
+[cyc3] t= 105.918 frame= 199639 OUT TRANS port1 isn=52 len=54 crc=c07284c7
+[cyc3] t= 105.919 frame= 199640 IN  ACK port1 ackIsn=46
+[cyc3] t= 105.921 frame= 199647 OUT TRANS port1 isn=53 len=46 crc=75854a39
+[cyc3] t= 105.921 frame= 199647 OUT TRANS port1 isn=54 len=9 crc=b8f3c392
+[cyc3] t= 105.922 frame= 199650 IN  ACK port1 ackIsn=48
+[cyc3] t= 105.925 frame= 199659 IN  ACK port1 ackIsn=49
+[cyc3] t= 105.928 frame= 199667 IN  ACK port1 ackIsn=51
+[cyc3] t= 105.931 frame= 199675 IN  ACK port1 ackIsn=53
+[cyc3] t= 105.932 frame= 199679 IN  ACK port1 ackIsn=54
+[cyc3] t= 106.353 frame= 200557 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 107.243 frame= 202411 OUT TRANS port3 isn=20 len=0 crc=00000000
+[cyc3] t= 107.251 frame= 202427 IN  ACK port3 ackIsn=20
+[cyc3] t= 107.354 frame= 202643 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 107.574 frame= 203101 IN  TRANS port2 isn=62 len=0 crc=00000000
+[cyc3] t= 107.581 frame= 203117 OUT ACK port2 ackIsn=62
+[cyc3] t= 108.352 frame= 204723 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 108.841 frame= 205737 OUT TRANS port2 isn=11 len=17 crc=5ffd0083
+[cyc3] t= 108.849 frame= 205759 IN  ACK port2 ackIsn=11
+[cyc3] t= 108.893 frame= 205849 IN  TRANS port2 isn=63 len=54 crc=646620da
+[cyc3] t= 108.893 frame= 205849 IN  TRANS port2 isn=64 len=54 crc=9ce167b1
+[cyc3] t= 108.899 frame= 205863 OUT ACK port2 ackIsn=63
+[cyc3] t= 108.900 frame= 205867 IN  TRANS port2 isn=65 len=54 crc=4ee31eb1
+[cyc3] t= 108.900 frame= 205867 IN  TRANS port2 isn=66 len=54 crc=018532e9
+[cyc3] t= 108.900 frame= 205867 IN  TRANS port2 isn=67 len=54 crc=501feb99
+[cyc3] t= 108.900 frame= 205867 IN  TRANS port2 isn=68 len=54 crc=f66a3c55
+[cyc3] t= 108.900 frame= 205867 IN  TRANS port2 isn=69 len=54 crc=61300967
+[cyc3] t= 108.900 frame= 205867 IN  TRANS port2 isn=70 len=49 crc=67c3b636
+[cyc3] t= 108.900 frame= 205871 OUT ACK port2 ackIsn=64
+[cyc3] t= 108.905 frame= 205883 OUT ACK port2 ackIsn=65
+[cyc3] t= 108.907 frame= 205889 OUT ACK port2 ackIsn=66
+[cyc3] t= 108.909 frame= 205893 OUT ACK port2 ackIsn=67
+[cyc3] t= 108.910 frame= 205897 OUT ACK port2 ackIsn=68
+[cyc3] t= 108.912 frame= 205903 OUT ACK port2 ackIsn=69
+[cyc3] t= 108.913 frame= 205907 OUT ACK port2 ackIsn=70
+[cyc3] t= 108.915 frame= 205913 OUT TRANS port2 isn=12 len=17 crc=1fa7d713
+[cyc3] t= 108.924 frame= 205933 IN  ACK port2 ackIsn=12
+[cyc3] t= 109.354 frame= 206825 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 109.605 frame= 207345 IN  TRANS port1 isn=96 len=0 crc=00000000
+[cyc3] t= 109.611 frame= 207367 OUT ACK port1 ackIsn=96
+[cyc3] t= 110.354 frame= 208909 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 111.245 frame= 210763 OUT TRANS port3 isn=21 len=0 crc=00000000
+[cyc3] t= 111.252 frame= 210781 IN  TRANS port3 isn=8 len=0 crc=00000000
+[cyc3] t= 111.253 frame= 210787 IN  ACK port3 ackIsn=21
+[cyc3] t= 111.258 frame= 210803 OUT ACK port3 ackIsn=8
+[cyc3] t= 111.354 frame= 210997 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 112.322 frame= 212971 OUT TRANS port2 isn=13 len=0 crc=00000000
+[cyc3] t= 112.330 frame= 212987 IN  ACK port2 ackIsn=13
+[cyc3] t= 112.358 frame= 213045 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 113.002 frame= 214343 IN  TRANS port2 isn=71 len=29 crc=4dc53eb2
+[cyc3] t= 113.008 frame= 214357 OUT ACK port2 ackIsn=71
+[cyc3] t= 113.026 frame= 214395 IN  TRANS port1 isn=97 len=0 crc=00000000
+[cyc3] t= 113.032 frame= 214409 OUT ACK port1 ackIsn=97
+[cyc3] t= 113.357 frame= 215067 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 114.357 frame= 217083 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03
+[cyc3] t= 115.247 frame= 218881 OUT TRANS port3 isn=22 len=0 crc=00000000
+[cyc3] t= 115.254 frame= 218895 IN  TRANS port3 isn=9 len=0 crc=00000000
+[cyc3] t= 115.255 frame= 218899 IN  ACK port3 ackIsn=22
+[cyc3] t= 115.259 frame= 218909 OUT ACK port3 ackIsn=9
+[cyc3] t= 115.357 frame= 219107 IN  SYN1 port9040 isn=7 announced=4 ver=3 body=0400fc03

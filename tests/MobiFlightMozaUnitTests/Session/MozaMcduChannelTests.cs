@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MobiFlightMoza.Cdu;
 using MobiFlightMoza.Protocol;
 using MobiFlightMoza.Tests.Mocks;
@@ -73,6 +74,46 @@ namespace MobiFlightMoza.Session.Tests
             multiplexer.Tick(Now);
             // Assert
             Assert.HasCount(1, sink.SentWires);
+        }
+        [TestMethod]
+        public void SubmitPage_NonBlankPage_SendsBlankPlaceholderKeyframeBeforeRealContent()
+        {
+            // Arrange
+            var (channel, multiplexer, sink) = Create();
+            channel.OnApplicationData(ClientCapabilityPackage());
+            var page = CduPage.CreateBlank();
+            page[6, 0] = new CduCell('X', 'w', false, false);
+            // Act
+            channel.SubmitPage(page);
+            DrainQueue(multiplexer, sink); // both frames may each span several TRANS chunks
+            // Assert - reassemble the application byte stream exactly as the device would,
+            // and expect a blank Keyframe followed by a genuine (non-empty) Delta - never
+            // the same static content resent unchanged.
+            var extractor = new NetworkPackageExtractor();
+            List<NetworkPackage> packages = [];
+            foreach (byte[] wire in sink.SentWires)
+            {
+                ReliableStreamFrame.TryParseRequest(wire, out var request, out _);
+                packages.AddRange(extractor.Feed(request.ApplicationData));
+            }
+            Assert.HasCount(2, packages);
+            Assert.AreEqual((byte)0x30, packages[0].PackageId); // Keyframe (blank placeholder)
+            Assert.AreEqual((byte)0x31, packages[1].PackageId); // Delta (real content)
+        }
+        // Only one TRANS may be outstanding per connection at a time, so a multi-chunk
+        // frame - or a second frame queued right behind it - needs repeated Tick+ACK cycles
+        // to fully drain, the same pattern MozaScreenSessionTests.DrainSettingsQueue uses.
+        private static void DrainQueue(ReliableStreamMultiplexer multiplexer, RecordingFrameSink sink)
+        {
+            multiplexer.TryGetConnection(MozaConstants.ServicePortMcduTcp, out var connection);
+            for (int i = 0; i < 20; i++)
+            {
+                int before = sink.SentWires.Count;
+                multiplexer.Tick(Now);
+                if (sink.SentWires.Count == before) return;
+                ReliableStreamFrame.TryParseRequest(sink.SentWires[^1], out var request, out _);
+                multiplexer.HandleStreamMessage(ReliableStreamFrame.PackAck(connection.LocalPort, request.Isn), isReply: true, Now);
+            }
         }
         [TestMethod]
         public void OnApplicationData_NonCapabilityPackage_IsIgnored()

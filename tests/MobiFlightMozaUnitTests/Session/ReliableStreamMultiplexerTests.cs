@@ -91,6 +91,33 @@ namespace MobiFlightMoza.Session.Tests
 
         #endregion
 
+        #region Acknowledgement
+
+        [TestMethod]
+        public void HandleStreamMessage_Trans_SendsAckFlaggedAsReply()
+        {
+            // Arrange - the guide requires an ACK to use the tunnel's inner reply command
+            // (0xFC), distinct from every request type (SYN1/SYN2/TRANS/FIN all share the
+            // request command and carry their own Magic byte instead). A sink that forgets
+            // to flag its ACK sends produces a wire the device can't recognize as an ACK at
+            // all, so it never stops retransmitting.
+            var (multiplexer, sink) = Create(9050);
+            multiplexer.HandleStreamMessage(ReliableStreamFrame.PackSyn(9050, StreamMessageType.Syn1, 1, 0x2000, 3), false, Now);
+            multiplexer.HandleStreamMessage(ReliableStreamFrame.PackAck(0x2000, 0x2000), true, Now);
+            sink.SentWires.Clear();
+            sink.SentIsReply.Clear();
+
+            // Act - destination is the connection's local port (0x2000); ISN 2 is the next
+            // one expected after the SYN1's ISN of 1.
+            multiplexer.HandleStreamMessage(ReliableStreamFrame.PackTrans(0x2000, 2, [1, 2, 3]), isReply: false, Now);
+
+            // Assert
+            Assert.HasCount(1, sink.SentWires);
+            Assert.IsTrue(sink.SentIsReply[0]);
+        }
+
+        #endregion
+
         #region Outgoing data
 
         [TestMethod]

@@ -7,7 +7,13 @@ namespace MobiFlightMoza.Tests.Mocks
     internal sealed class RecordingFrameSink : IMozaFrameSink
     {
         public List<byte[]> SentWires { get; } = [];
+        // Parallel to SentWires, by index - which sends were flagged as an ACK reply.
+        public List<bool> SentIsReply { get; } = [];
 
-        public void Send(byte[] wire) => SentWires.Add(wire);
+        public void Send(byte[] wire, bool isReply = false)
+        {
+            SentWires.Add(wire);
+            SentIsReply.Add(isReply);
+        }
     }
 }
