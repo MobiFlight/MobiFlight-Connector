@@ -1,0 +1,3 @@
+
+OUT frames correctly parsed as ACK (inner reply bit set): 0
+OUT frames that were too short to parse as SYN/TRANS/FIN (len<5, likely a 4-byte ACK payload sent WITHOUT the inner reply bit): 680

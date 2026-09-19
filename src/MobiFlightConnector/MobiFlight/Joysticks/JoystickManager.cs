@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
+using MobiFlight.Joysticks.Cdu;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -44,8 +45,13 @@ namespace MobiFlight
         // Websocket Server on port 8320, not yet started
         WebSocketServer WSServer = new WebSocketServer(System.Net.IPAddress.Loopback, 8320);
 
+        // Fans the CDU websocket paths this server hosts out to every device registered
+        // on each one (e.g. a Winwing CDU and a MOZA MCDU sharing the same seat path).
+        readonly ICduWebsocketHub CduHub;
+
         public JoystickManager()
         {
+            CduHub = new CduWebsocketHub(WSServer);
             PollTimer.Interval = 20;
             PollTimer.Elapsed += PollTimer_Tick;
             MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateJoysticks();
@@ -225,7 +231,7 @@ namespace MobiFlight
                 JoystickDefinition definition = GetJoystickDefinition(d.InstanceName, productName, vendorId, productId);
 
                 // Use factory to create appropriate controller instance
-                var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, WSServer);
+                var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, CduHub);
 
                 // If factory returns null, create a standard Joystick
                 if (js == null)
@@ -254,7 +260,8 @@ namespace MobiFlight
                     continue;
                 }
 
-                Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
+                Log.Instance.log($"Adding attached controller: {d.InstanceName}", LogSeverity.Info);
+                Log.Instance.log($"Controller info: {d.InstanceName} / {js.Serial} (VID: {vendorId:X4} PID: {productId:X4}) - #Buttons: {js.Capabilities.ButtonCount} #Axis: {js.Capabilities.AxeCount}", LogSeverity.Debug);
                 js.Connect(Handle);
                 js.OnButtonPressed += Js_OnButtonPressed;
                 js.OnDisconnected += Js_OnDisconnected;
@@ -309,7 +316,9 @@ namespace MobiFlight
                 {
                     try
                     {
-                        var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
+                        var vendorId = hidDevice.VendorID;
+                        var productId = hidDevice.ProductID;
+                        var definition = GetDefinitionByProductId(vendorId, productId);
                         if (definition == null) return;
 
                         if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
@@ -318,7 +327,7 @@ namespace MobiFlight
                             return;
                         }
 
-                        var joystick = HidControllerFactory.Create(definition);
+                        var joystick = HidControllerFactory.Create(definition, CduHub);
 
                         if (joystick == null) return;
 
@@ -337,6 +346,8 @@ namespace MobiFlight
                         }
 
                         Log.Instance.log($"Adding attached HID controller: {definition.InstanceName}", LogSeverity.Info);
+                        Log.Instance.log($"Controller info: {definition.InstanceName} / {joystick.Serial} (VID: {vendorId:X4} PID: {productId:X4})", LogSeverity.Debug);
+
                         joystick.Connect(new IntPtr());
                         joystick.OnButtonPressed += Js_OnButtonPressed;
                         joystick.OnDisconnected += Js_OnDisconnected;
