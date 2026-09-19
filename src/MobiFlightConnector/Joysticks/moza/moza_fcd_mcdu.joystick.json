@@ -7,372 +7,372 @@
     {
       "Id": 1,
       "Type": "Button",
-      "Label": "Line-Select-Key 1L"
+      "Label": "1 Button"
     },
     {
       "Id": 2,
       "Type": "Button",
-      "Label": "Line-Select-Key 2L"
+      "Label": "2 Button"
     },
     {
       "Id": 3,
       "Type": "Button",
-      "Label": "Line-Select-Key 3L"
+      "Label": "3 Button"
     },
     {
       "Id": 4,
       "Type": "Button",
-      "Label": "Line-Select-Key 4L"
+      "Label": "4 Button"
     },
     {
       "Id": 5,
       "Type": "Button",
-      "Label": "Line-Select-Key 5L"
+      "Label": "5 Button"
     },
     {
       "Id": 6,
       "Type": "Button",
-      "Label": "Line-Select-Key 6L"
+      "Label": "6 Button"
     },
     {
       "Id": 7,
       "Type": "Button",
-      "Label": "Line-Select-Key 1R"
+      "Label": "7 Button"
     },
     {
       "Id": 8,
       "Type": "Button",
-      "Label": "Line-Select-Key 2R"
+      "Label": "8 Button"
     },
     {
       "Id": 9,
       "Type": "Button",
-      "Label": "Line-Select-Key 3R"
+      "Label": "9 Button"
     },
     {
       "Id": 10,
       "Type": "Button",
-      "Label": "Line-Select-Key 4R"
+      "Label": ". Button"
     },
     {
       "Id": 11,
       "Type": "Button",
-      "Label": "Line-Select-Key 5R"
+      "Label": "0 Button"
     },
     {
       "Id": 12,
       "Type": "Button",
-      "Label": "Line-Select-Key 6R"
+      "Label": "+/- Button"
     },
     {
       "Id": 13,
       "Type": "Button",
-      "Label": "DIR Button"
+      "Label": "A Button"
     },
     {
       "Id": 14,
       "Type": "Button",
-      "Label": "PROG Button"
+      "Label": "B Button"
     },
     {
       "Id": 15,
       "Type": "Button",
-      "Label": "PERF Button"
+      "Label": "C Button"
     },
     {
       "Id": 16,
       "Type": "Button",
-      "Label": "INIT Button"
+      "Label": "D Button"
     },
     {
       "Id": 17,
       "Type": "Button",
-      "Label": "DATA Button"
+      "Label": "E Button"
     },
     {
       "Id": 18,
       "Type": "Button",
-      "Label": "Blank Button R"
+      "Label": "F Button"
     },
     {
       "Id": 19,
       "Type": "Button",
-      "Label": "BRT Button"
+      "Label": "G Button"
     },
     {
       "Id": 20,
       "Type": "Button",
-      "Label": "F-PLN Button"
+      "Label": "H Button"
     },
     {
       "Id": 21,
       "Type": "Button",
-      "Label": "RAD NAV Button"
+      "Label": "I Button"
     },
     {
       "Id": 22,
       "Type": "Button",
-      "Label": "FUEL PRED Button"
+      "Label": "J Button"
     },
     {
       "Id": 23,
       "Type": "Button",
-      "Label": "SEC F-PLN Button"
+      "Label": "K Button"
     },
     {
       "Id": 24,
       "Type": "Button",
-      "Label": "ATC COMM Button"
+      "Label": "L Button"
     },
     {
       "Id": 25,
       "Type": "Button",
-      "Label": "MCDU MENU Button"
+      "Label": "M Button"
     },
     {
       "Id": 26,
       "Type": "Button",
-      "Label": "DIM Button"
+      "Label": "N Button"
     },
     {
       "Id": 27,
       "Type": "Button",
-      "Label": "AIRPORT Button"
+      "Label": "O Button"
     },
     {
       "Id": 28,
       "Type": "Button",
-      "Label": "Blank Button L"
+      "Label": "P Button"
     },
     {
       "Id": 29,
       "Type": "Button",
-      "Label": "Left-Arrow Button"
+      "Label": "Q Button"
     },
     {
       "Id": 30,
       "Type": "Button",
-      "Label": "Up-Arrow Button"
+      "Label": "R Button"
     },
     {
       "Id": 31,
       "Type": "Button",
-      "Label": "Right-Arrow Button"
+      "Label": "S Button"
     },
     {
       "Id": 32,
       "Type": "Button",
-      "Label": "Down-Arrow Button"
+      "Label": "T Button"
     },
     {
       "Id": 33,
       "Type": "Button",
-      "Label": "1 Button"
+      "Label": "U Button"
     },
     {
       "Id": 34,
       "Type": "Button",
-      "Label": "2 Button"
+      "Label": "V Button"
     },
     {
       "Id": 35,
       "Type": "Button",
-      "Label": "3 Button"
+      "Label": "W Button"
     },
     {
       "Id": 36,
       "Type": "Button",
-      "Label": "4 Button"
+      "Label": "X Button"
     },
     {
       "Id": 37,
       "Type": "Button",
-      "Label": "5 Button"
+      "Label": "Y Button"
     },
     {
       "Id": 38,
       "Type": "Button",
-      "Label": "6 Button"
+      "Label": "Z Button"
     },
     {
       "Id": 39,
       "Type": "Button",
-      "Label": "7 Button"
+      "Label": "/ Button"
     },
     {
       "Id": 40,
       "Type": "Button",
-      "Label": "8 Button"
+      "Label": "SP Button"
     },
     {
       "Id": 41,
       "Type": "Button",
-      "Label": "9 Button"
+      "Label": "OVFY Button"
     },
     {
       "Id": 42,
       "Type": "Button",
-      "Label": ". Button"
+      "Label": "CLR Button"
     },
     {
       "Id": 43,
       "Type": "Button",
-      "Label": "0 Button"
+      "Label": "Line-Select-Key 1L"
     },
     {
       "Id": 44,
       "Type": "Button",
-      "Label": "+/- Button"
+      "Label": "Line-Select-Key 2L"
     },
     {
       "Id": 45,
       "Type": "Button",
-      "Label": "A Button"
+      "Label": "Line-Select-Key 3L"
     },
     {
       "Id": 46,
       "Type": "Button",
-      "Label": "B Button"
+      "Label": "Line-Select-Key 4L"
     },
     {
       "Id": 47,
       "Type": "Button",
-      "Label": "C Button"
+      "Label": "Line-Select-Key 5L"
     },
     {
       "Id": 48,
       "Type": "Button",
-      "Label": "D Button"
+      "Label": "Line-Select-Key 6L"
     },
     {
       "Id": 49,
       "Type": "Button",
-      "Label": "E Button"
+      "Label": "Line-Select-Key 1R"
     },
     {
       "Id": 50,
       "Type": "Button",
-      "Label": "F Button"
+      "Label": "Line-Select-Key 2R"
     },
     {
       "Id": 51,
       "Type": "Button",
-      "Label": "G Button"
+      "Label": "Line-Select-Key 3R"
     },
     {
       "Id": 52,
       "Type": "Button",
-      "Label": "H Button"
+      "Label": "Line-Select-Key 4R"
     },
     {
       "Id": 53,
       "Type": "Button",
-      "Label": "I Button"
+      "Label": "Line-Select-Key 5R"
     },
     {
       "Id": 54,
       "Type": "Button",
-      "Label": "J Button"
+      "Label": "Line-Select-Key 6R"
     },
     {
       "Id": 55,
       "Type": "Button",
-      "Label": "K Button"
+      "Label": "BRT Button"
     },
     {
       "Id": 56,
       "Type": "Button",
-      "Label": "L Button"
+      "Label": "DIM Button"
     },
     {
       "Id": 57,
       "Type": "Button",
-      "Label": "M Button"
+      "Label": "DIR Button"
     },
     {
       "Id": 58,
       "Type": "Button",
-      "Label": "N Button"
+      "Label": "PROG Button"
     },
     {
       "Id": 59,
       "Type": "Button",
-      "Label": "O Button"
+      "Label": "PERF Button"
     },
     {
       "Id": 60,
       "Type": "Button",
-      "Label": "P Button"
+      "Label": "INIT Button"
     },
     {
       "Id": 61,
       "Type": "Button",
-      "Label": "Q Button"
+      "Label": "DATA Button"
     },
     {
       "Id": 62,
       "Type": "Button",
-      "Label": "R Button"
+      "Label": "F-PLN Button"
     },
     {
       "Id": 63,
       "Type": "Button",
-      "Label": "S Button"
+      "Label": "RAD NAV Button"
     },
     {
       "Id": 64,
       "Type": "Button",
-      "Label": "T Button"
+      "Label": "FUEL PRED Button"
     },
     {
       "Id": 65,
       "Type": "Button",
-      "Label": "U Button"
+      "Label": "SEC F-PLN Button"
     },
     {
       "Id": 66,
       "Type": "Button",
-      "Label": "V Button"
+      "Label": "ATC COMM Button"
     },
     {
       "Id": 67,
       "Type": "Button",
-      "Label": "W Button"
+      "Label": "MCDU MENU Button"
     },
     {
       "Id": 68,
       "Type": "Button",
-      "Label": "X Button"
+      "Label": "AIRPORT Button"
     },
     {
       "Id": 69,
       "Type": "Button",
-      "Label": "Y Button"
+      "Label": "Left-Arrow Button"
     },
     {
       "Id": 70,
       "Type": "Button",
-      "Label": "Z Button"
+      "Label": "Up-Arrow Button"
     },
     {
       "Id": 71,
       "Type": "Button",
-      "Label": "/ Button"
+      "Label": "Right-Arrow Button"
     },
     {
       "Id": 72,
       "Type": "Button",
-      "Label": "SP Button"
+      "Label": "Down-Arrow Button"
     },
     {
       "Id": 73,
       "Type": "Button",
-      "Label": "OVFY Button"
+      "Label": "Blank Button R"
     },
     {
       "Id": 74,
       "Type": "Button",
-      "Label": "CLR Button"
+      "Label": "Blank Button L"
     }
   ],
   "Outputs": [

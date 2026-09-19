@@ -1,3 +1,4 @@
+using MobiFlight.Joysticks.WingFlex;
 using System;
 
 namespace MobiFlight.Joysticks.Moza
@@ -12,21 +13,49 @@ namespace MobiFlight.Joysticks.Moza
     internal sealed class MozaButtonReport
     {
         // TODO: replace with the real HID input report length once MOZA documents it.
-        public const int PayloadLength = 8;
+        public const int PayloadLength = 18;
+        private byte[] LastInputBufferState = new byte[18];
 
         private MozaButtonReport() { }
 
-        public static MozaButtonReport Parse(ReadOnlySpan<byte> payload)
+        public void CopyFromInputBuffer(byte[] inputBuffer)
         {
-            if (payload.Length < PayloadLength)
+            if (inputBuffer == null || inputBuffer.Length < LastInputBufferState.Length)
             {
-                throw new ArgumentException($"Invalid MOZA button payload length. Expected at least {PayloadLength}, got {payload.Length}.", nameof(payload));
+                throw new ArgumentException($"Invalid input buffer length. Expected {LastInputBufferState.Length}, got {inputBuffer?.Length ?? 0}");
             }
+            LastInputBufferState = (byte[])inputBuffer?.Clone();
+        }
 
-            return new MozaButtonReport();
+        public static MozaButtonReport Parse(byte[] inputBuffer)
+        {
+            var result = new MozaButtonReport();
+            result.CopyFromInputBuffer(inputBuffer);
+
+            return result;
         }
 
         // TODO: populate button bits once MOZA's HID report layout is documented.
-        public JoystickState ToJoystickState() => new JoystickState();
+        public JoystickState ToJoystickState()
+        {
+            JoystickState state = new();
+
+            // Buttons
+            // copy the button states from the buffer to the Buttons bit by bit starting from byte 6 to byte 8
+            var startingByte = 6;
+            for (int i = 0; i < 74; i++)
+            {
+                int byteIndex = startingByte + (i / 8);
+                int bitIndex = i % 8;
+                bool isPressed = (LastInputBufferState[byteIndex] & (1 << bitIndex)) != 0;
+                state.Buttons[i] = isPressed;
+            }
+
+            // Axes
+            // Brightness value
+            // state.X = (int)(LastInputBufferState[4] << 8 | LastInputBufferState[5]);
+
+            return state;
+        }
     }
 }
