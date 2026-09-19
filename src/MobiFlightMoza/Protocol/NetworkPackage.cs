@@ -18,8 +18,8 @@ namespace MobiFlightMoza.Protocol
         public static byte[] Pack(byte packageId, byte[] payload)
         {
             payload ??= [];
-            uint size = (uint)payload.Length;
-            return [packageId, (byte)size, (byte)(size >> 8), (byte)(size >> 16), (byte)(size >> 24), .. payload];
+            // PackageId:u8 | PayloadSize:u32 LE | Payload
+            return [packageId, .. Bytes.U32Le((uint)payload.Length), .. payload];
         }
     }
 
@@ -41,7 +41,7 @@ namespace MobiFlightMoza.Protocol
             List<NetworkPackage> packages = [];
             while (Buffer.Count >= 5)
             {
-                uint size = (uint)(Buffer[1] | (Buffer[2] << 8) | (Buffer[3] << 16) | (Buffer[4] << 24));
+                uint size = Bytes.ReadU32Le(Buffer, 1);
                 if (size > MaxPayloadSize)
                 {
                     throw new InvalidOperationException($"NetworkPackage payload size {size} exceeds the sanity limit.");

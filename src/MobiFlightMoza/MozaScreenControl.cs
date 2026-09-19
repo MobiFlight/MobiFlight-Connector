@@ -41,15 +41,10 @@ namespace MobiFlightMoza
             if (candidates.Count == 0) return false;
 
             string portName = candidates[0].PortName;
-            // A CDC-ACM device's line-state notification is how it knows a real host is
-            // present, not just electrically attached - every other serial board in this
-            // codebase (see MobiFlightModule.cs/board.json DtrEnable) already asserts this;
-            // MOZA's port never did, so it always opened with DTR left low. RTS matters too:
-            // a USB capture of MOZA's own Cockpit app showed SET_CONTROL_LINE_STATE ending
-            // with BOTH DTR and RTS held (value 3) on every single connect, cold or warm - a
-            // capture of our own app never held RTS at all on either of two failed
-            // reconnects, and even the one working connect only pulsed it transiently before
-            // dropping back to DTR-only. RtsEnable defaults to false and was never set here.
+            // DTR must be asserted - a CDC-ACM device uses it to know a real host is present,
+            // not just electrically attached (see implementation-state doc for the USB
+            // capture that found this; MOZA's own app also holds RTS, but DTR alone connects
+            // reliably in testing).
             SerialPort port = new(portName, MozaConstants.BaudRate) { DtrEnable = true };
             try
             {
@@ -94,9 +89,9 @@ namespace MobiFlightMoza
         public void Stop() { }
 
         /// <summary>
-        /// Signals the session to close every open Reliable Stream connection with FIN (the
-        /// guide's documented graceful close), waits (bounded) for that to finish, then
-        /// closes the port. Safe to call even if <see cref="Connect"/> never succeeded.
+        /// Signals the session to close every open Reliable Stream connection with FIN,
+        /// waits (bounded) for that to finish, then closes the port. Safe to call even if
+        /// <see cref="Connect"/> never succeeded.
         /// </summary>
         public void Shutdown()
         {

@@ -1,7 +1,7 @@
 namespace MobiFlightMoza.Protocol
 {
     /// <summary>
-    /// CRC-32/ISO-HDLC, as used by the Reliable Stream TRANS trailer (guide §4.2).
+    /// CRC-32/ISO-HDLC, as used by the Reliable Stream TRANS trailer.
     /// </summary>
     internal static class Crc32
     {

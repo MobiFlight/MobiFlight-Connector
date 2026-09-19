@@ -16,10 +16,8 @@ namespace MobiFlightMoza.Protocol
         public ushort ServerUdpPort { get; }
         public ushort TcpKeyframeIntervalMs { get; }
 
-        // `serverCapabilities` has no default value on purpose: `new McduInitConfig()` with
-        // no arguments always binds to the compiler-synthesized zero-init struct
-        // constructor, never to this one, so a defaultable parameter here would silently
-        // produce an all-zero config. Use Default instead of `new McduInitConfig()`.
+        // No default for serverCapabilities: `new McduInitConfig()` always binds to the
+        // compiler's zero-init struct constructor, never this one - use Default instead.
         public McduInitConfig(byte serverCapabilities)
         {
             Version = 2;
@@ -106,15 +104,17 @@ namespace MobiFlightMoza.Protocol
     {
         public static byte[] PackInitConfig(McduInitConfig config)
         {
+            // Version:u8 | Rows:u16 LE | Cols:u16 LE | CellBytes:u16 LE | ServerCapabilities:u8
+            // | ServerUdpPort:u16 LE | TcpKeyframeIntervalMs:u16 LE
             byte[] payload =
             [
                 config.Version,
-                (byte)config.Rows, (byte)(config.Rows >> 8),
-                (byte)config.Columns, (byte)(config.Columns >> 8),
-                (byte)config.CellBytes, (byte)(config.CellBytes >> 8),
+                .. Bytes.U16Le(config.Rows),
+                .. Bytes.U16Le(config.Columns),
+                .. Bytes.U16Le(config.CellBytes),
                 config.ServerCapabilities,
-                (byte)config.ServerUdpPort, (byte)(config.ServerUdpPort >> 8),
-                (byte)config.TcpKeyframeIntervalMs, (byte)(config.TcpKeyframeIntervalMs >> 8),
+                .. Bytes.U16Le(config.ServerUdpPort),
+                .. Bytes.U16Le(config.TcpKeyframeIntervalMs),
             ];
             return NetworkPackage.Pack(0x32, payload);
         }
@@ -126,7 +126,7 @@ namespace MobiFlightMoza.Protocol
 
             byte version = payload[0];
             byte capabilities = payload[1];
-            ushort udpPort = (ushort)(payload[2] | (payload[3] << 8));
+            ushort udpPort = Bytes.ReadU16Le(payload, 2);
             byte pageIndex = payload[4];
             if (version != 2) return false;
             if (pageIndex != 0 && pageIndex != 1) return false;
@@ -164,35 +164,24 @@ namespace MobiFlightMoza.Protocol
             if (styleRows.Count > 0) flags |= 0x02;
             if (baseSequence.HasValue) flags |= 0x04;
 
-            // Zlib-compressed only when it actually shrinks the body - a big, repetitive
-            // full keyframe compresses well (matches MOZA's own client on the wire, flag
-            // 0x08 + a big-endian uncompressed length ahead of the deflate stream), but a
-            // tiny single-character delta would only grow from zlib's own overhead, and the
-            // guide's own worked example for that case is uncompressed.
+            // Zlib-compressed only when it actually shrinks the body: a big, repetitive
+            // full keyframe compresses well, but a tiny delta would only grow from zlib's
+            // own overhead.
             byte[] compressed = ZlibCompress([.. rowsBody]);
             bool useCompression = compressed.Length < rowsBody.Count;
             if (useCompression) flags |= 0x08;
 
-            List<byte> payload =
-            [
-                2, // patch format version
-                (byte)sequence, (byte)(sequence >> 8), (byte)(sequence >> 16), (byte)(sequence >> 24),
-                flags,
-            ];
+            // Version:u8=2 | Sequence:u32 LE | Flags:u8 | [BaseSequence:u32 LE] | Body
+            List<byte> payload = [2, .. Bytes.U32Le(sequence), flags];
             if (baseSequence.HasValue)
             {
-                uint b = baseSequence.Value;
-                payload.AddRange((byte[])[(byte)b, (byte)(b >> 8), (byte)(b >> 16), (byte)(b >> 24)]);
+                payload.AddRange(Bytes.U32Le(baseSequence.Value));
             }
 
             if (useCompression)
             {
-                uint uncompressedLength = (uint)rowsBody.Count;
-                payload.AddRange((byte[])
-                [
-                    (byte)(uncompressedLength >> 24), (byte)(uncompressedLength >> 16),
-                    (byte)(uncompressedLength >> 8), (byte)uncompressedLength,
-                ]);
+                // Compressed body: UncompressedSize:u32 BE | zlib stream
+                payload.AddRange(Bytes.U32Be((uint)rowsBody.Count));
                 payload.AddRange(compressed);
             }
             else
@@ -224,10 +213,10 @@ namespace MobiFlightMoza.Protocol
                 byte[] utf8 = Encoding.UTF8.GetBytes(segment.Text);
                 if (utf8.Length > ushort.MaxValue) throw new ArgumentException("Text segment's UTF-8 encoding is too long.");
 
+                // StartColumn:u8 | ColumnLength:u8 (UTF-16 code units, not UTF-8 bytes) | Utf8ByteLength:u16 LE | Utf8Bytes
                 payload.Add(segment.StartColumn);
-                payload.Add((byte)segment.Text.Length); // ColumnLength: UTF-16 code units, not UTF-8 bytes
-                payload.Add((byte)utf8.Length);
-                payload.Add((byte)(utf8.Length >> 8));
+                payload.Add((byte)segment.Text.Length);
+                payload.AddRange(Bytes.U16Le((ushort)utf8.Length));
                 payload.AddRange(utf8);
             }
         }

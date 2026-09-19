@@ -3,9 +3,8 @@ using System;
 namespace MobiFlightMoza.Protocol
 {
     /// <summary>
-    /// Wraps/unwraps the FCD Display 0x43 tunnel (guide §3.3). The inner command and
-    /// reply flag live in the tunnel payload's first byte, never in the outer command's
-    /// reply bit.
+    /// Wraps/unwraps the FCD Display 0x43 tunnel. The inner command and reply flag live
+    /// in the tunnel payload's first byte, never in the outer command's reply bit.
     /// </summary>
     internal static class MozaTunnel
     {

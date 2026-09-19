@@ -60,17 +60,13 @@ namespace MobiFlightMoza.Session
 
         public void Tick(DateTime now) => CheckCollectionDeadline(now);
 
-        public void RequestSetting(int settingId, byte[] data, DateTime now)
+        public void RequestSetting(int settingId, byte[] data)
             => Multiplexer.TrySend(MozaConstants.ServicePortSettings, MozaSettingsFrame.PackSettingFrame(settingId, data));
 
         private void SendTimeSyncAndVersion(DateTime now)
         {
-            // Purely informational for the device's own clock display - doesn't affect
-            // MCDU rendering - so the UTC offset is left at 0 rather than plumbing the
-            // real local timezone through a pure, clock-free class. Uses the caller's
-            // `now`, never reads the clock itself. The implicit DateTime->DateTimeOffset
-            // conversion resolves Local/Unspecified Kind via the system's real UTC offset,
-            // and Utc Kind (as tests use) via offset zero - never throws either way.
+            // UTC offset left at 0 - only affects the device's own clock display, not MCDU
+            // rendering, so it's not worth plumbing the real local timezone through here.
             long unixSeconds = ((DateTimeOffset)now).ToUnixTimeSeconds();
             Multiplexer.TrySend(MozaConstants.ServicePortSettings, MozaSettingsFrame.PackTimeSync(unixSeconds, 0));
             Multiplexer.TrySend(MozaConstants.ServicePortSettings, MozaSettingsFrame.PackProtocolVersion(3, 0));

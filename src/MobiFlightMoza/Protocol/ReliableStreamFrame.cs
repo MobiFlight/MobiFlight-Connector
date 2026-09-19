@@ -18,23 +18,21 @@ namespace MobiFlightMoza.Protocol
                 throw new ArgumentException("Message type must be Syn1 or Syn2.", nameof(messageType));
             }
 
+            // DestinationPort:u16 BE | Magic:u8 | ISN:u16 LE | AnnouncedPort:u16 LE | ~Version:u8 | Version:u8
             return
             [
-                (byte)(destinationPort >> 8), (byte)destinationPort,
+                .. Bytes.U16Be(destinationPort),
                 (byte)messageType,
-                (byte)isn, (byte)(isn >> 8),
-                (byte)announcedPort, (byte)(announcedPort >> 8),
+                .. Bytes.U16Le(isn),
+                .. Bytes.U16Le(announcedPort),
                 (byte)(~version & 0xFF), version,
             ];
         }
 
         public static byte[] PackAck(ushort destinationPort, ushort acknowledgedIsn)
         {
-            return
-            [
-                (byte)(destinationPort >> 8), (byte)destinationPort,
-                (byte)acknowledgedIsn, (byte)(acknowledgedIsn >> 8),
-            ];
+            // DestinationPort:u16 BE | AcknowledgedISN:u16 LE
+            return [.. Bytes.U16Be(destinationPort), .. Bytes.U16Le(acknowledgedIsn)];
         }
 
         public static byte[] PackTrans(ushort destinationPort, ushort isn, byte[] applicationData)
@@ -48,24 +46,14 @@ namespace MobiFlightMoza.Protocol
             }
 
             uint crc = Crc32.Compute(applicationData);
-            return
-            [
-                (byte)(destinationPort >> 8), (byte)destinationPort,
-                (byte)StreamMessageType.Trans,
-                (byte)isn, (byte)(isn >> 8),
-                .. applicationData,
-                (byte)crc, (byte)(crc >> 8), (byte)(crc >> 16), (byte)(crc >> 24),
-            ];
+            // DestinationPort:u16 BE | Magic:u8 | ISN:u16 LE | ApplicationChunk | CRC32:u32 LE
+            return [.. Bytes.U16Be(destinationPort), (byte)StreamMessageType.Trans, .. Bytes.U16Le(isn), .. applicationData, .. Bytes.U32Le(crc)];
         }
 
         public static byte[] PackFin(ushort destinationPort, ushort isn)
         {
-            return
-            [
-                (byte)(destinationPort >> 8), (byte)destinationPort,
-                (byte)StreamMessageType.Fin,
-                (byte)isn, (byte)(isn >> 8),
-            ];
+            // DestinationPort:u16 BE | Magic:u8 | ISN:u16 LE
+            return [.. Bytes.U16Be(destinationPort), (byte)StreamMessageType.Fin, .. Bytes.U16Le(isn)];
         }
 
         public static bool TryParseRequest(byte[] payload, out StreamRequest request, out string error)
@@ -79,9 +67,9 @@ namespace MobiFlightMoza.Protocol
                 return false;
             }
 
-            ushort destinationPort = (ushort)((payload[0] << 8) | payload[1]);
+            ushort destinationPort = Bytes.ReadU16Be(payload, 0);
             byte messageType = payload[2];
-            ushort isn = (ushort)(payload[3] | (payload[4] << 8));
+            ushort isn = Bytes.ReadU16Le(payload, 3);
 
             if (messageType == (byte)StreamMessageType.Syn1 || messageType == (byte)StreamMessageType.Syn2)
             {
@@ -90,7 +78,7 @@ namespace MobiFlightMoza.Protocol
                     error = "Stream SYN payload has the wrong length.";
                     return false;
                 }
-                ushort announcedPort = (ushort)(payload[5] | (payload[6] << 8));
+                ushort announcedPort = Bytes.ReadU16Le(payload, 5);
                 byte inverseVersion = payload[7];
                 byte version = payload[8];
                 if (inverseVersion != (byte)(~version & 0xFF))
@@ -141,7 +129,7 @@ namespace MobiFlightMoza.Protocol
             }
 
             byte[] data = body[..^checksumSize];
-            uint received = (uint)(body[^4] | (body[^3] << 8) | (body[^2] << 16) | (body[^1] << 24));
+            uint received = Bytes.ReadU32Le(body, body.Length - 4);
             uint expected = Crc32.Compute(data);
             if (received != expected)
             {
@@ -161,8 +149,8 @@ namespace MobiFlightMoza.Protocol
                 return false;
             }
 
-            ushort destinationPort = (ushort)((payload[0] << 8) | payload[1]);
-            ushort acknowledgedIsn = (ushort)(payload[2] | (payload[3] << 8));
+            ushort destinationPort = Bytes.ReadU16Be(payload, 0);
+            ushort acknowledgedIsn = Bytes.ReadU16Le(payload, 2);
             ack = new StreamAck(destinationPort, acknowledgedIsn);
             return true;
         }

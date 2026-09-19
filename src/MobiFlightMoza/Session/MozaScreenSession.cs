@@ -45,16 +45,12 @@ namespace MobiFlightMoza.Session
         private bool CloseBegun;
         private DateTime? ShutdownDeadline;
 
-        // Written last by BeginShutdown, which may run on a different thread than the one
-        // driving Tick/OnBytesReceived (the pump owns that one exclusively otherwise).
-        // volatile write/read is what makes ShutdownDeadline - an ordinary field, written
-        // just before this one - reliably visible once Tick observes ShuttingDown == true.
+        // volatile: BeginShutdown may run on a different thread than Tick/OnBytesReceived
+        // (the pump thread), and this write publishes ShutdownDeadline (set just before it).
         private volatile bool ShuttingDown;
 
-        // The `now` from the call currently in progress - set at the top of every public
-        // entry point that receives one, so event handlers triggered synchronously during
-        // that call (which carry no `now` of their own) can still act without reading the
-        // clock themselves.
+        // The `now` of the call in progress, for event handlers triggered synchronously
+        // during that call that need a clock but receive no `now` of their own.
         private DateTime CurrentNow;
 
         public MozaSessionState State { get; private set; } = MozaSessionState.Closed;
@@ -68,10 +64,8 @@ namespace MobiFlightMoza.Session
         public MozaScreenSession(IMozaFrameSink sink)
         {
             Sink = sink;
-            // The multiplexer/connections only ever produce Reliable Stream payloads, not
-            // full wire frames - TunnelFrameSink wraps each one in the 0x43 tunnel (which
-            // itself does the SerialLink framing) before it reaches the real sink. The two
-            // fixed handshake frames below are already complete wire frames and bypass this.
+            // Multiplexer/connections only produce Reliable Stream payloads; TunnelFrameSink
+            // wraps each in the 0x43 tunnel before it reaches the real sink.
             Multiplexer = new ReliableStreamMultiplexer(new TunnelFrameSink(sink), AcceptedServicePorts);
             Multiplexer.Error += message => ErrorMessageCreated?.Invoke(message);
 
@@ -133,8 +127,7 @@ namespace MobiFlightMoza.Session
 
         public void ForceResend() => McduChannel.ForceResend();
 
-        // Callable from any thread: only sets these two fields, never mutates the
-        // session/multiplexer directly - Tick (always on the pump thread) does the actual
+        // Callable from any thread: only sets fields. Tick (pump thread) does the actual
         // work once it observes ShuttingDown, keeping every real mutation single-threaded.
         public void BeginShutdown(DateTime now)
         {
@@ -198,27 +191,22 @@ namespace MobiFlightMoza.Session
                 TraceCreated?.Invoke("MCDU (9050) connection established, InitConfig sent.");
             }
 
-            if (Multiplexer.TryGetConnection(MozaConstants.ServicePortSettings, out var settingsConnection))
+            DrainChannel(MozaConstants.ServicePortSettings, bytes =>
             {
-                byte[] settingsBytes = settingsConnection.ReadApplicationBytes();
-                if (settingsBytes.Length > 0)
-                {
-                    SettingsChannel.OnApplicationData(settingsBytes, now);
-                    TryResolveCabinPosition();
-                }
-            }
+                SettingsChannel.OnApplicationData(bytes, now);
+                TryResolveCabinPosition();
+            });
+            DrainChannel(MozaConstants.ServicePortTelemetry, TelemetryChannel.OnApplicationData);
+            if (McduStarted) DrainChannel(MozaConstants.ServicePortMcduTcp, McduChannel.OnApplicationData);
+        }
 
-            if (Multiplexer.TryGetConnection(MozaConstants.ServicePortTelemetry, out var telemetryConnection))
-            {
-                byte[] telemetryBytes = telemetryConnection.ReadApplicationBytes();
-                if (telemetryBytes.Length > 0) TelemetryChannel.OnApplicationData(telemetryBytes);
-            }
-
-            if (McduStarted && Multiplexer.TryGetConnection(MozaConstants.ServicePortMcduTcp, out var mcduData))
-            {
-                byte[] mcduBytes = mcduData.ReadApplicationBytes();
-                if (mcduBytes.Length > 0) McduChannel.OnApplicationData(mcduBytes);
-            }
+        // Forwards a connection's newly-received application bytes to onData, skipping the
+        // call entirely if the connection doesn't exist yet or has nothing new.
+        private void DrainChannel(ushort servicePort, Action<byte[]> onData)
+        {
+            if (!Multiplexer.TryGetConnection(servicePort, out var connection)) return;
+            byte[] bytes = connection.ReadApplicationBytes();
+            if (bytes.Length > 0) onData(bytes);
         }
 
         private void TryResolveCabinPosition()
@@ -236,11 +224,9 @@ namespace MobiFlightMoza.Session
             TryEnterMcduMode();
         }
 
-        // The guide's own order is InitConfig -> ClientCapability -> Keyframe -> displayMode=1,
-        // only after the page has already gone out - not gated on the Keyframe send directly
-        // (SubmitPage already forwards a pending page as soon as Capability arrives), but
-        // SettingsReady only fires ~4s later, well after that first Keyframe has had time to
-        // go out, so this ordering still holds in practice.
+        // Entered once both settings collection and MCDU capability negotiation are done -
+        // by then the first Keyframe has already gone out (SubmitPage sends it as soon as
+        // Capability arrives), so displayMode is only flipped after the page is ready.
         private void TryEnterMcduMode()
         {
             if (DisplayModeWritten) return;
@@ -250,16 +236,13 @@ namespace MobiFlightMoza.Session
                 return;
             }
             DisplayModeWritten = true;
-            // Forces a genuine transition on every connect instead of depending on a clean
-            // shutdown from the previous session to have left displayMode reset: a same-value
-            // write gets no device echo (guide, confirmed for brightness) and no repaint
-            // either, so if a prior session's exit was ever skipped (crash, force-quit, not
-            // enough time before the port closed), displayMode could already be sitting at 1
-            // and this write alone would be a silent no-op. Writing 0 first guarantees the
-            // change is real every time, without relying on shutdown logic ever having run.
+            // Deliberate: forces displayMode through 0 then 1 on every connect, since a
+            // same-value write gets no device echo/repaint and a prior session that exited
+            // uncleanly could leave it already at 1. Intentional, load-bearing - see the
+            // implementation-state doc before changing this.
             TraceCreated?.Invoke("Forcing displayMode 0 then 1 (MCDU) to guarantee a genuine transition.");
-            SettingsChannel.RequestSetting(0x18, [0x00], CurrentNow);
-            SettingsChannel.RequestSetting(0x18, [0x01], CurrentNow);
+            SettingsChannel.RequestSetting(0x18, [0x00]);
+            SettingsChannel.RequestSetting(0x18, [0x01]);
         }
 
         private void Fault(string message)

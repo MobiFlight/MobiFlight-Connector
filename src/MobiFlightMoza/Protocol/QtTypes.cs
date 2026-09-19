@@ -12,15 +12,13 @@ namespace MobiFlightMoza.Protocol
         public static byte[] PackQString(string value)
         {
             byte[] encoded = Encoding.BigEndianUnicode.GetBytes(value ?? "");
-            uint length = (uint)encoded.Length;
-            return [(byte)(length >> 24), (byte)(length >> 16), (byte)(length >> 8), (byte)length, .. encoded];
+            return [.. Bytes.U32Be((uint)encoded.Length), .. encoded];
         }
 
         public static byte[] PackQStringList(IEnumerable<string> values)
         {
             List<string> list = [.. values];
-            uint count = (uint)list.Count;
-            List<byte> result = [(byte)(count >> 24), (byte)(count >> 16), (byte)(count >> 8), (byte)count];
+            List<byte> result = [.. Bytes.U32Be((uint)list.Count)];
             foreach (string value in list)
             {
                 result.AddRange(PackQString(value));
@@ -35,7 +33,7 @@ namespace MobiFlightMoza.Protocol
             consumed = 0;
             if (data == null || offset < 0 || offset + 4 > data.Length) return false;
 
-            uint length = (uint)((data[offset] << 24) | (data[offset + 1] << 16) | (data[offset + 2] << 8) | data[offset + 3]);
+            uint length = Bytes.ReadU32Be(data, offset);
             if (offset + 4 + length > data.Length) return false;
 
             value = Encoding.BigEndianUnicode.GetString(data, offset + 4, (int)length);
@@ -46,8 +44,7 @@ namespace MobiFlightMoza.Protocol
         public static byte[] PackQByteArray(byte[] data)
         {
             data ??= [];
-            uint length = (uint)data.Length;
-            return [(byte)(length >> 24), (byte)(length >> 16), (byte)(length >> 8), (byte)length, .. data];
+            return [.. Bytes.U32Be((uint)data.Length), .. data];
         }
 
         // Qt's null-QByteArray marker (FF FF FF FF) is read as zero-length data, consuming
@@ -58,7 +55,7 @@ namespace MobiFlightMoza.Protocol
             consumed = 0;
             if (data == null || offset < 0 || offset + 4 > data.Length) return false;
 
-            uint length = (uint)((data[offset] << 24) | (data[offset + 1] << 16) | (data[offset + 2] << 8) | data[offset + 3]);
+            uint length = Bytes.ReadU32Be(data, offset);
             if (length == 0xFFFFFFFF)
             {
                 value = [];

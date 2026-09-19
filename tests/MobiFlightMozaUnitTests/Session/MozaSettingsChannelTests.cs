@@ -117,7 +117,7 @@ namespace MobiFlightMoza.Session.Tests
             channel.OnApplicationData(MinimalPreamble, Now);
             multiplexer.Tick(Now); // drain the time-sync send queued by the preamble
             // Act
-            channel.RequestSetting(0x18, [1], Now);
+            channel.RequestSetting(0x18, [1]);
             // Assert - queued, not yet sent (one outstanding TRANS at a time on this connection)
             Assert.HasCount(1, sink.SentWires);
         }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 namespace MobiFlightMoza.Protocol
 {
     /// <summary>
-    /// Decodes a byte stream into SerialLink frames (guide §3.1/3.2). Keeps a persistent
-    /// buffer across calls, since one read can contain a partial frame, several frames,
-    /// or an arbitrary byte slice. Length-driven, not delimiter-driven: an escaped 0x7E
-    /// inside a frame is never mistaken for the next frame's SOF.
+    /// Decodes a byte stream into SerialLink frames. Keeps a persistent buffer across
+    /// calls, since one read can contain a partial frame, several frames, or an arbitrary
+    /// byte slice. Length-driven, not delimiter-driven: an escaped 0x7E inside a frame is
+    /// never mistaken for the next frame's SOF.
     /// </summary>
     internal sealed class SerialLinkDecoder
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlightMoza.Protocol
 {
@@ -25,13 +26,9 @@ namespace MobiFlightMoza.Protocol
             (0x01, 4), (0x05, 1), (0x04, 8), (0x06, 1),
         ];
 
-        private static readonly Dictionary<int, int> LegacySettingFieldSizes = new()
-        {
-            [0x01] = 4,
-            [0x05] = 1,
-            [0x04] = 8,
-            [0x06] = 1,
-        };
+        // Same four settings, keyed for the ongoing-echo lookup below.
+        private static readonly Dictionary<int, int> LegacySettingFieldSizes =
+            LegacyCurrentValueFields.ToDictionary(field => field.Id, field => field.Size);
 
         private readonly List<byte> Buffer = [];
         private bool LegacyCurrentValuesPending;
@@ -114,8 +111,8 @@ namespace MobiFlightMoza.Protocol
                 }
                 if (Buffer.Count < 9) return;
 
-                uint size = (uint)(Buffer[1] | (Buffer[2] << 8) | (Buffer[3] << 16) | (Buffer[4] << 24));
-                uint receivedCrc = (uint)(Buffer[5] | (Buffer[6] << 8) | (Buffer[7] << 16) | (Buffer[8] << 24));
+                uint size = Bytes.ReadU32Le(Buffer, 1);
+                uint receivedCrc = Bytes.ReadU32Le(Buffer, 5);
                 if (size < 4 || size > MaxPayloadSize)
                 {
                     Buffer.RemoveAt(0); // not a real frame start - drop one byte and resync
@@ -135,7 +132,7 @@ namespace MobiFlightMoza.Protocol
                         $"Settings frame CRC mismatch: received 0x{receivedCrc:X8}, expected 0x{expectedCrc:X8}.");
                 }
 
-                int settingId = body[0] | (body[1] << 8) | (body[2] << 16) | (body[3] << 24);
+                int settingId = (int)Bytes.ReadU32Le(body, 0);
                 frames.Add(new SettingFrame(settingId, body[4..]));
             }
         }

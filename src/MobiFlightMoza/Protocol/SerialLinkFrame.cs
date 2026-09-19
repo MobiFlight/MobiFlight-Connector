@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace MobiFlightMoza.Protocol
 {
     /// <summary>
-    /// Encodes a SerialLink frame (guide §3.1/3.2): SOF, Length, Command, DevicePair,
-    /// Payload, Checksum, with 0x7E escaped to 7E 7E from Length through Checksum.
+    /// Encodes a SerialLink frame: SOF, Length, Command, DevicePair, Payload, Checksum,
+    /// with 0x7E escaped to 7E 7E from Length through Checksum.
     /// </summary>
     internal static class SerialLinkFrame
     {

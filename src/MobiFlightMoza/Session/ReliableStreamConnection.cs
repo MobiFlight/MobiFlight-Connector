@@ -72,11 +72,7 @@ namespace MobiFlightMoza.Session
         public byte[] BeginSyn2Handshake(DateTime now)
         {
             byte[] wire = ReliableStreamFrame.PackSyn(PeerPort, StreamMessageType.Syn2, LocalPort, LocalPort, Version);
-            PendingIsn = LocalPort;
-            PendingIsFin = false;
-            PendingWire = wire;
-            PendingSentAt = now;
-            PendingRetries = 0;
+            ArmPending(LocalPort, isFin: false, wire, now);
             return wire;
         }
 
@@ -149,15 +145,9 @@ namespace MobiFlightMoza.Session
             wire = null;
             if (!Established || PeerClosed || IsFullyClosed || PendingIsn.HasValue) return false;
 
-            ushort isn = SendIsn;
-            SendIsn = (ushort)((SendIsn + 1) & 0xFFFF);
+            ushort isn = NextSendIsn();
             wire = ReliableStreamFrame.PackTrans(PeerPort, isn, applicationData);
-
-            PendingIsn = isn;
-            PendingIsFin = false;
-            PendingWire = wire;
-            PendingSentAt = now;
-            PendingRetries = 0;
+            ArmPending(isn, isFin: false, wire, now);
             return true;
         }
 
@@ -166,16 +156,27 @@ namespace MobiFlightMoza.Session
             wire = null;
             if (!Established || LocalFinAcked || IsFullyClosed || PendingIsn.HasValue) return false;
 
+            ushort isn = NextSendIsn();
+            wire = ReliableStreamFrame.PackFin(PeerPort, isn);
+            ArmPending(isn, isFin: true, wire, now);
+            return true;
+        }
+
+        private ushort NextSendIsn()
+        {
             ushort isn = SendIsn;
             SendIsn = (ushort)((SendIsn + 1) & 0xFFFF);
-            wire = ReliableStreamFrame.PackFin(PeerPort, isn);
+            return isn;
+        }
 
+        // Both TRANS and FIN wait for the same single "pending" ACK slot (see class remarks).
+        private void ArmPending(ushort isn, bool isFin, byte[] wire, DateTime now)
+        {
             PendingIsn = isn;
-            PendingIsFin = true;
+            PendingIsFin = isFin;
             PendingWire = wire;
             PendingSentAt = now;
             PendingRetries = 0;
-            return true;
         }
 
         public bool HasPending => PendingIsn.HasValue;

@@ -55,8 +55,8 @@ namespace MobiFlightMoza.Session
         // Forces a fresh full keyframe even if PendingPage is unchanged - BuildNext()
         // normally suppresses a resend of identical content, which would otherwise silently
         // swallow a periodic keep-alive resend of the same page. Uses ForceKeyframe, not
-        // Reset+BuildNext: Reset would restart Sequence back at 1, and the guide only
-        // accepts a strictly increasing Sequence, so every resend after the first would be
+        // Reset+BuildNext: Reset would restart Sequence back at 1, and only a strictly
+        // increasing Sequence is accepted, so every resend after the first would be
         // silently rejected as stale.
         public void ForceResend()
         {
