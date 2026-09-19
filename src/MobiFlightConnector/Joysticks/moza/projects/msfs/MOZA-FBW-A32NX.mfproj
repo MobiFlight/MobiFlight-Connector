@@ -1,0 +1,2339 @@
+{
+  "Name": "MOZA FBW A32X",
+  "ConfigFiles": [
+    {
+      "Label": "MCDU - Captain",
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_L1) (>H:A320_Neo_CDU_1_BTN_L1)",
+              "PresetId": "9f3ffb64-147d-423b-a4d5-31c5968aade7",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 43"
+          },
+          "GUID": "163f3d52-9e0c-4e94-85aa-186c9322a7ab",
+          "Active": true,
+          "Name": "MCDU L1",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_L2) (>H:A320_Neo_CDU_1_BTN_L2)",
+              "PresetId": "54bf68e3-3e1f-4165-90cd-1900a5c6700f",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 44"
+          },
+          "GUID": "cad22e29-3810-4721-b8d1-0e50f3fd5779",
+          "Active": true,
+          "Name": "MCDU L2",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_L3) (>H:A320_Neo_CDU_1_BTN_L3)",
+              "PresetId": "62e43faa-49cf-451c-b0cc-c6e8cd4a79c0",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 45"
+          },
+          "GUID": "31de0416-e49f-414e-b904-9af8f42a7e6b",
+          "Active": true,
+          "Name": "MCDU L3",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_L4) (>H:A320_Neo_CDU_1_BTN_L4)",
+              "PresetId": "2eca017c-f37d-4562-93dc-3cd7e784158b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 46"
+          },
+          "GUID": "b26518f3-3d08-404d-8aa4-c5173cdf135b",
+          "Active": true,
+          "Name": "MCDU L4",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_L5) (>H:A320_Neo_CDU_1_BTN_L5)",
+              "PresetId": "3ad6a06d-95d9-47c0-913d-5349ac293b53",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 47"
+          },
+          "GUID": "2d38d26c-a2ed-4a6c-8be1-d7f60bbf1030",
+          "Active": true,
+          "Name": "MCDU L5",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_L6) (>H:A320_Neo_CDU_1_BTN_L6)",
+              "PresetId": "2c09d626-be68-47c8-8e72-a2bdc1a74440",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 48"
+          },
+          "GUID": "8fba6502-3800-46c6-956c-2b0b2c67acb6",
+          "Active": true,
+          "Name": "MCDU L6",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_R1) (>H:A320_Neo_CDU_1_BTN_R1)",
+              "PresetId": "f5683436-5d05-46d7-a4d5-f02d349376ae",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 49"
+          },
+          "GUID": "b1bb79da-a014-48f8-b92c-77beab285dfc",
+          "Active": true,
+          "Name": "MCDU R1",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_R2) (>H:A320_Neo_CDU_1_BTN_R2)",
+              "PresetId": "3ce86d6b-e1df-450e-a027-4261cdd3b9f9",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 50"
+          },
+          "GUID": "9242d614-c198-4ac6-ba74-2ead9c4b8481",
+          "Active": true,
+          "Name": "MCDU R2",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_R3) (>H:A320_Neo_CDU_1_BTN_R3)",
+              "PresetId": "a933480c-9dc8-42ab-8f3b-140666d5af3b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 51"
+          },
+          "GUID": "4496e536-4def-4251-a3b5-3f5c3ab54d11",
+          "Active": true,
+          "Name": "MCDU R3",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_R4) (>H:A320_Neo_CDU_1_BTN_R4)",
+              "PresetId": "ef0f6f18-a51f-463c-8fcf-74f01832b87f",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 52"
+          },
+          "GUID": "4dc24d58-c244-467c-acc7-33dca22fc6d2",
+          "Active": true,
+          "Name": "MCDU R4",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_R5) (>H:A320_Neo_CDU_1_BTN_R5)",
+              "PresetId": "02b996a1-e3e5-4bb3-8a0d-bb6444bfc06f",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 53"
+          },
+          "GUID": "b795d17d-915c-4d89-ad65-53dceb066922",
+          "Active": true,
+          "Name": "MCDU R5",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_R6) (>H:A320_Neo_CDU_1_BTN_R6)",
+              "PresetId": "76769889-8e00-43e7-a6b3-e295738ccf3c",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 54"
+          },
+          "GUID": "6f40e738-1d6d-48d5-a325-dfea50d5bcfe",
+          "Active": true,
+          "Name": "MCDU R6",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_DIR) (>H:A320_Neo_CDU_1_BTN_DIR)",
+              "PresetId": "1417d22a-8875-4ddd-a393-8d6d91a868e3",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 57"
+          },
+          "GUID": "1a4f8cb1-9fdb-409b-9e85-278d1fb39ccd",
+          "Active": true,
+          "Name": "MCDU DIR",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_PROG) (>H:A320_Neo_CDU_1_BTN_PROG)",
+              "PresetId": "4355c57f-22c8-4809-9f21-76e4901900a5",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 58"
+          },
+          "GUID": "fe7abc09-db1b-4a15-98ca-71fb362cdee6",
+          "Active": true,
+          "Name": "MCDU PROG",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_PERF) (>H:A320_Neo_CDU_1_BTN_PERF)",
+              "PresetId": "83494f24-6898-4933-bdb2-8afbb7f6880e",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 59"
+          },
+          "GUID": "7987942f-302a-4468-ac80-9f75b22a3f99",
+          "Active": true,
+          "Name": "MCDU PERF",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_INIT) (>H:A320_Neo_CDU_1_BTN_INIT)",
+              "PresetId": "1aaba8aa-9df3-4ac4-834d-1cd66ba1cbc1",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 60"
+          },
+          "GUID": "0ff48cad-e517-4271-9d0a-c8bdf48e8123",
+          "Active": true,
+          "Name": "MCDU INIT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_DATA) (>H:A320_Neo_CDU_1_BTN_DATA)",
+              "PresetId": "5730524c-3360-4f2f-a02b-3d20a71625de",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 61"
+          },
+          "GUID": "ac3689ca-4dcd-4b8a-a035-f50dfffcbb9c",
+          "Active": true,
+          "Name": "MCDU DATA",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_FPLN) (>H:A320_Neo_CDU_1_BTN_FPLN)",
+              "PresetId": "3087ac3a-34b4-4e3e-9300-ec6745525232",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 62"
+          },
+          "GUID": "ab26e079-24f7-4347-903b-30ae664de165",
+          "Active": true,
+          "Name": "MCDU F-PLN",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_RAD) (>H:A320_Neo_CDU_1_BTN_RAD)",
+              "PresetId": "c2f5fbc0-a669-4085-9509-bda8325dd176",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 63"
+          },
+          "GUID": "8d61cee2-dd0c-49ac-8cae-586180803ea5",
+          "Active": true,
+          "Name": "MCDU RAD NAV",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_FUEL) (>H:A320_Neo_CDU_1_BTN_FUEL)",
+              "PresetId": "c563f40f-975d-425e-a759-e47f90f84bd0",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 64"
+          },
+          "GUID": "d5fb13e6-7cde-41ac-87bf-984cdecd0888",
+          "Active": true,
+          "Name": "MCDU FUEL PRED",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_SEC) (>H:A320_Neo_CDU_1_BTN_SEC)",
+              "PresetId": "1a044164-cd57-4c2f-a8e8-6ea72cd674f6",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 65"
+          },
+          "GUID": "f5e3727d-03f3-4ba7-9a00-770ad562fd90",
+          "Active": true,
+          "Name": "MCDU SEC F-PLN",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_ATC) (>H:A320_Neo_CDU_1_BTN_ATC)",
+              "PresetId": "e6f30674-4f12-4958-8895-71b1f5446c49",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 66"
+          },
+          "GUID": "86325da2-234c-4741-b7e0-ca44ca93a789",
+          "Active": true,
+          "Name": "MCDU ATC COMM",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_MENU) (>H:A320_Neo_CDU_1_BTN_MENU)",
+              "PresetId": "b523e810-df4e-4ae9-b806-918088077be8",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 67"
+          },
+          "GUID": "6936dd3b-0f21-4cc9-be7f-db3f83ac1e44",
+          "Active": true,
+          "Name": "MCDU MENU",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_AIRPORT) (>H:A320_Neo_CDU_1_BTN_AIRPORT)",
+              "PresetId": "65a7dcf0-17bf-4ab7-b3cb-0815f834f575",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 68"
+          },
+          "GUID": "9d7c289b-fbdc-4e34-a7c7-7a2424b69ecd",
+          "Active": true,
+          "Name": "MCDU AIRPORT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_PREVPAGE) (>H:A320_Neo_CDU_1_BTN_PREVPAGE)",
+              "PresetId": "03673574-b1ca-4e83-bd14-04322e4d89b4",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 69"
+          },
+          "GUID": "63d3d372-a41a-4463-91cd-c7bd0d7a92f6",
+          "Active": true,
+          "Name": "MCDU LARROW",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_UP) (>H:A320_Neo_CDU_1_BTN_UP)",
+              "PresetId": "7ad348e2-4a91-4256-902f-201682e4f0f6",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 70"
+          },
+          "GUID": "298c9a62-d3c4-4a5e-b363-8a91f2527cb0",
+          "Active": true,
+          "Name": "MCDU UPARROW",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_NEXTPAGE) (>H:A320_Neo_CDU_1_BTN_NEXTPAGE)",
+              "PresetId": "c38e116e-c963-420c-9f9b-0fcabcafa616",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 71"
+          },
+          "GUID": "af311fc8-c26f-4168-a410-1f5f168e3b78",
+          "Active": true,
+          "Name": "MCDU RARROW",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_DOWN) (>H:A320_Neo_CDU_1_BTN_DOWN)",
+              "PresetId": "694b27d2-8c75-4419-b310-ce1e5763a9be",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 72"
+          },
+          "GUID": "4d9725dd-9c37-4912-a6d9-78360df44e40",
+          "Active": true,
+          "Name": "MCDU DNARROW",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_1) (>H:A320_Neo_CDU_1_BTN_1)",
+              "PresetId": "952dbf9d-0ada-4375-8acd-52bb0224ee8a",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 1"
+          },
+          "GUID": "5f467611-f083-4e50-b67b-ab743a847b1e",
+          "Active": true,
+          "Name": "MCDU 1",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_2) (>H:A320_Neo_CDU_1_BTN_2)",
+              "PresetId": "a270fda4-0ed1-47b7-8a0b-e92ff97ef594",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 2"
+          },
+          "GUID": "59f6dae5-0c3b-481e-ad0f-78efe5fb2bf0",
+          "Active": true,
+          "Name": "MCDU 2",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_3) (>H:A320_Neo_CDU_1_BTN_3)",
+              "PresetId": "f313236d-b332-47a8-bae1-c46af3e75810",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 3"
+          },
+          "GUID": "a7d5c450-5e68-42af-bb80-f1496787d9c0",
+          "Active": true,
+          "Name": "MCDU 3",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_4) (>H:A320_Neo_CDU_1_BTN_4)",
+              "PresetId": "b20fec46-c4a1-4d32-8de5-cec287eeb1ed",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 4"
+          },
+          "GUID": "98a5a873-09b3-46ac-92b5-cb3cc8c70327",
+          "Active": true,
+          "Name": "MCDU 4",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_5) (>H:A320_Neo_CDU_1_BTN_5)",
+              "PresetId": "0f71e937-c4da-45ac-b1d9-26d231378e27",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 5"
+          },
+          "GUID": "f59dd521-e256-4977-9848-92226f063713",
+          "Active": true,
+          "Name": "MCDU 5",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_6) (>H:A320_Neo_CDU_1_BTN_6)",
+              "PresetId": "906d222f-2a5a-4f98-8aa0-02893cc2dc7d",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 6"
+          },
+          "GUID": "bb1fcc20-6232-4102-8bb9-06a47a906ea2",
+          "Active": true,
+          "Name": "MCDU 6",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_7) (>H:A320_Neo_CDU_1_BTN_7)",
+              "PresetId": "42d699bb-98c9-48a0-b63e-afdb90f0bb0b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 7"
+          },
+          "GUID": "bc93aecb-e57d-4cd5-bad9-dc63da787215",
+          "Active": true,
+          "Name": "MCDU 7",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_8) (>H:A320_Neo_CDU_1_BTN_8)",
+              "PresetId": "24ed8a6f-6890-433f-ad3c-66b346757df6",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 8"
+          },
+          "GUID": "30e349ed-6d63-4f16-a1c3-04ccaeea0a1a",
+          "Active": true,
+          "Name": "MCDU 8",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_9) (>H:A320_Neo_CDU_1_BTN_9)",
+              "PresetId": "c238fd4c-f0e3-453d-9920-0011a8af3802",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 9"
+          },
+          "GUID": "c6348fd2-ec00-4f93-b18c-d306392e83cb",
+          "Active": true,
+          "Name": "MCDU 9",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_DOT) (>H:A320_Neo_CDU_1_BTN_DOT)",
+              "PresetId": "8c111f6f-b82c-4910-9a0b-e52006c79648",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 10"
+          },
+          "GUID": "d826db70-19ec-430a-a570-6a88ba39f50f",
+          "Active": true,
+          "Name": "MCDU .",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_0) (>H:A320_Neo_CDU_1_BTN_0)",
+              "PresetId": "5be8eb16-1396-41db-8698-e393f8c2f01b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 11"
+          },
+          "GUID": "acf1fcc1-d426-4869-af37-59efee104828",
+          "Active": true,
+          "Name": "MCDU 0",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_PLUSMINUS) (>H:A320_Neo_CDU_1_BTN_PLUSMINUS)",
+              "PresetId": "e7afb954-661b-4a0b-9458-9e1d02cd890c",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 12"
+          },
+          "GUID": "d3f512ce-c460-40bf-a896-0392b21c2958",
+          "Active": true,
+          "Name": "MCDU +/-",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_A) (>H:A320_Neo_CDU_1_BTN_A)",
+              "PresetId": "e727ab0b-c773-4cb2-a198-ad3914912928",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 13"
+          },
+          "GUID": "d18dead6-1dd1-41f2-a265-0d5762e65189",
+          "Active": true,
+          "Name": "MCDU A",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_B) (>H:A320_Neo_CDU_1_BTN_B)",
+              "PresetId": "8e8bc12d-3832-4adb-9b85-105e2db7c6b3",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 14"
+          },
+          "GUID": "81f7f100-7268-4513-b977-f1184481e94d",
+          "Active": true,
+          "Name": "MCDU B",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_C) (>H:A320_Neo_CDU_1_BTN_C)",
+              "PresetId": "abff36d2-7cea-45a6-9080-3782043f1d94",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 15"
+          },
+          "GUID": "42c9f097-0da5-40cc-86d7-a5cc44f76907",
+          "Active": true,
+          "Name": "MCDU C",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_D) (>H:A320_Neo_CDU_1_BTN_D)",
+              "PresetId": "e6d426f4-e864-4c5a-a3ec-0c019f71b13c",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 16"
+          },
+          "GUID": "851eb771-f4f4-4dbb-b567-658b110c6753",
+          "Active": true,
+          "Name": "MCDU D",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_E) (>H:A320_Neo_CDU_1_BTN_E)",
+              "PresetId": "40a8fa07-5d85-4d71-ab00-bfb48ae90404",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 17"
+          },
+          "GUID": "f57f307c-d14d-4bc9-8f98-6e0398d913d8",
+          "Active": true,
+          "Name": "MCDU E",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_F) (>H:A320_Neo_CDU_1_BTN_F)",
+              "PresetId": "f5f3239e-5dc0-447c-bd24-4c1021bb83bc",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 18"
+          },
+          "GUID": "04ea2834-c606-4a43-a43a-f1f688905b53",
+          "Active": true,
+          "Name": "MCDU F",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_G) (>H:A320_Neo_CDU_1_BTN_G)",
+              "PresetId": "e4bf3442-73f7-4824-b5ef-6281544c4e53",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 19"
+          },
+          "GUID": "88fc2395-e4bd-42da-b298-dd64e2887786",
+          "Active": true,
+          "Name": "MCDU G",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_H) (>H:A320_Neo_CDU_1_BTN_H)",
+              "PresetId": "70379914-2af6-42b0-8485-5292c63764cf",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 20"
+          },
+          "GUID": "3267d016-e879-4232-b9e4-1892a87518cb",
+          "Active": true,
+          "Name": "MCDU H",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_I) (>H:A320_Neo_CDU_1_BTN_I)",
+              "PresetId": "39ca955e-64de-4535-bc15-fa1c708ec9c4",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 21"
+          },
+          "GUID": "faddf3e2-7c19-4bc1-a1e9-ed3f8a6343a6",
+          "Active": true,
+          "Name": "MCDU I",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_J) (>H:A320_Neo_CDU_1_BTN_J)",
+              "PresetId": "e9bca156-d040-49c7-a5f3-c62e1ed9012a",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 22"
+          },
+          "GUID": "e2fc1138-dbe6-400d-87fb-649cb95ff9fa",
+          "Active": true,
+          "Name": "MCDU J",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_K) (>H:A320_Neo_CDU_1_BTN_K)",
+              "PresetId": "f2e5efcb-ec27-4df7-9692-447854ab866c",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 23"
+          },
+          "GUID": "c7b00595-68e6-45be-aed3-b6b87951bb24",
+          "Active": true,
+          "Name": "MCDU K",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_L) (>H:A320_Neo_CDU_1_BTN_L)",
+              "PresetId": "41e55b8c-9078-4661-9ebb-ad2531042735",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 24"
+          },
+          "GUID": "1f6dede9-0c6d-4d01-8add-094917d943e4",
+          "Active": true,
+          "Name": "MCDU L",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_M) (>H:A320_Neo_CDU_1_BTN_M)",
+              "PresetId": "7918d558-a43a-4dd4-a2d9-842f65b20910",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 25"
+          },
+          "GUID": "f694934e-7c2e-45b4-b2ef-066059858d77",
+          "Active": true,
+          "Name": "MCDU M",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_N) (>H:A320_Neo_CDU_1_BTN_N)",
+              "PresetId": "1e4a15a4-b156-4934-b2bd-72a50327bbc5",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 26"
+          },
+          "GUID": "f8c7c144-6346-4efa-8faa-d078beb33e86",
+          "Active": true,
+          "Name": "MCDU N",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_O) (>H:A320_Neo_CDU_1_BTN_O)",
+              "PresetId": "70f29c9d-c4c3-4589-bd8d-e4e1271f4a13",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 27"
+          },
+          "GUID": "19271187-51cb-4196-b64e-102b88358a3e",
+          "Active": true,
+          "Name": "MCDU O",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_P) (>H:A320_Neo_CDU_1_BTN_P)",
+              "PresetId": "94cad96b-a487-4408-85ac-00d88120601e",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 28"
+          },
+          "GUID": "e20329d4-e4e2-455a-bfda-a21ad4265f94",
+          "Active": true,
+          "Name": "MCDU P",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_Q) (>H:A320_Neo_CDU_1_BTN_Q)",
+              "PresetId": "b99cfd27-9c11-4203-bc15-af60f6d0cc7f",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 29"
+          },
+          "GUID": "c7fc97e7-b8bb-4bd8-be92-32294434babb",
+          "Active": true,
+          "Name": "MCDU Q",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_R) (>H:A320_Neo_CDU_1_BTN_R)",
+              "PresetId": "1630cce8-9a2a-4ee5-bc73-b20b435a0c4b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 30"
+          },
+          "GUID": "63e3203c-eb67-4d25-9f7d-1679c74f7d9f",
+          "Active": true,
+          "Name": "MCDU R",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_S) (>H:A320_Neo_CDU_1_BTN_S)",
+              "PresetId": "8a16df17-6d1a-46b0-924d-33e973b00060",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 31"
+          },
+          "GUID": "ede6156d-a63a-4c46-827d-4eb7728b6e3e",
+          "Active": true,
+          "Name": "MCDU S",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_T) (>H:A320_Neo_CDU_1_BTN_T)",
+              "PresetId": "12514e5f-942e-43f8-b1c8-a065d476a1b7",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 32"
+          },
+          "GUID": "b3315379-e468-4152-ab23-7ba043e77ec2",
+          "Active": true,
+          "Name": "MCDU T",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_U) (>H:A320_Neo_CDU_1_BTN_U)",
+              "PresetId": "fbce10e0-643a-4bc3-8ab3-508863fbdce3",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 33"
+          },
+          "GUID": "c80ca406-6816-4e17-984d-363b144c1d6c",
+          "Active": true,
+          "Name": "MCDU U",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_V) (>H:A320_Neo_CDU_1_BTN_V)",
+              "PresetId": "ba302924-1bde-4236-b47c-d8b56b654e7a",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 34"
+          },
+          "GUID": "03131a86-34e6-4108-94b9-33846dfc74ca",
+          "Active": true,
+          "Name": "MCDU V",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_W) (>H:A320_Neo_CDU_1_BTN_W)",
+              "PresetId": "57d890e9-b82d-4305-bf0a-08247a5bdfdf",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 35"
+          },
+          "GUID": "9aa5502d-4088-4eda-b997-1a0327af9f98",
+          "Active": true,
+          "Name": "MCDU W",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_X) (>H:A320_Neo_CDU_1_BTN_X)",
+              "PresetId": "86e2631b-72db-4621-92ee-f683ee587768",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 36"
+          },
+          "GUID": "08deb8e3-1478-490d-9737-e859fef3a422",
+          "Active": true,
+          "Name": "MCDU X",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_Y) (>H:A320_Neo_CDU_1_BTN_Y)",
+              "PresetId": "f8d6ab41-6456-43b8-bf27-45e678affa92",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 37"
+          },
+          "GUID": "df9a0708-0e3f-473e-ad60-b0c708e6de89",
+          "Active": true,
+          "Name": "MCDU Y",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_Z) (>H:A320_Neo_CDU_1_BTN_Z)",
+              "PresetId": "14eb423a-a7a6-4b8e-8ab9-f2a0e1002af2",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 38"
+          },
+          "GUID": "38b46fc3-b5b1-44a6-a876-76da88119b35",
+          "Active": true,
+          "Name": "MCDU Z",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_DIV) (>H:A320_Neo_CDU_1_BTN_DIV)",
+              "PresetId": "21ccf702-a30c-421c-bbcb-82c9672c8bfc",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 39"
+          },
+          "GUID": "b3cb9eb5-cd97-4935-ae4b-559c61bd6e9a",
+          "Active": true,
+          "Name": "MCDU /",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_SP) (>H:A320_Neo_CDU_1_BTN_SP)",
+              "PresetId": "a2c79655-771f-499b-a7fb-4327a410412d",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 40"
+          },
+          "GUID": "197220a0-e7e8-4182-aa49-38c73cea0187",
+          "Active": true,
+          "Name": "MCDU SP",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_OVFY) (>H:A320_Neo_CDU_1_BTN_OVFY)",
+              "PresetId": "20e7f3e7-49db-451f-b539-f6dfa43adced",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 41"
+          },
+          "GUID": "33b0d9d1-691c-4525-bd09-e63a6757a457",
+          "Active": true,
+          "Name": "MCDU OVFY",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "1 (>L:A32NX_MCDU_PUSH_ANIM_1_CLR)\n(E:SIMULATION TIME, second) 1 + (>L:A32NX_MCDU_CLR_MinReleaseTime)\n1 (>L:A32NX_MCDU_CLR_Pressed)\n(>H:A320_Neo_CDU_1_BTN_CLR)\n",
+              "PresetId": "8d1a6b2e-e6c1-4493-a6c2-d1fee2aef6ca",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": {
+              "Command": "0 (>L:A32NX_MCDU_CLR_Pressed)",
+              "PresetId": "efa0770f-a4b1-4ef9-89fc-bf927dfef9f1",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 42"
+          },
+          "GUID": "0d2ecb54-e17c-4442-934c-a2812c4077e3",
+          "Active": true,
+          "Name": "MCDU CLR",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onRelease": {
+              "Command": "0 (>L:A32NX_MCDU_CLR_Pressed)",
+              "PresetId": "efa0770f-a4b1-4ef9-89fc-bf927dfef9f1",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 55"
+          },
+          "GUID": "6778ab9f-c687-4a9c-b604-a28e3a3c5db7",
+          "Active": true,
+          "Name": "MCDU BRT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onRelease": {
+              "Command": "0 (>L:A32NX_MCDU_CLR_Pressed)",
+              "PresetId": "efa0770f-a4b1-4ef9-89fc-bf927dfef9f1",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 56"
+          },
+          "GUID": "ed645034-331e-430e-89bd-d9e1ba9c5952",
+          "Active": true,
+          "Name": "MCDU DIM",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "60f34f8b-d256-49c7-a49c-6b9e1d0e7b2a",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_FAIL)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "FAIL",
+            "Pin": "FAIL",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "FAIL",
+          "GUID": "0af8dec2-de52-4ca6-b6fb-4475a22bbe92",
+          "Active": true,
+          "Name": "FAIL ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "d38837af-e993-4576-b110-ea9ba528017f",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_FMGC)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "FM",
+            "Pin": "FM",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "FM",
+          "GUID": "fc5afb32-69d7-4d74-98bb-ee09a021d62a",
+          "Active": true,
+          "Name": "FM ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "0d2207db-c4ec-4928-a05b-0a1e42f955d9",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_MCDU_MENU)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "MCDU",
+            "Pin": "MCDU",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "MCDU",
+          "GUID": "f9aed90d-c77e-41f7-8c2e-f5bc7e82a046",
+          "Active": true,
+          "Name": "MCDU ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "0d2207db-c4ec-4928-a05b-0a1e42f955d9",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_MCDU_MENU)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "MENU",
+            "Pin": "MENU",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "MENU",
+          "GUID": "f0177386-26fa-429a-b3c3-cc6977b66ade",
+          "Active": true,
+          "Name": "MENU ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "b7239acd-7598-44cb-a888-616977df1e8b",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_FM1)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "FM1",
+            "Pin": "FM1",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "FM1",
+          "GUID": "c8989054-cfef-4deb-8d49-03a5cba1ee37",
+          "Active": true,
+          "Name": "FM1 ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "245b8635-a34c-4991-8120-bf08a2549061",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_IND)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "IND",
+            "Pin": "IND",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "IND",
+          "GUID": "b68310e7-0521-496c-95c1-53144666eb21",
+          "Active": true,
+          "Name": "IND ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "4e059ae4-cdad-41b7-ae34-bc102fc07884",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_RDY)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "RDY",
+            "Pin": "RDY",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "RDY",
+          "GUID": "5e10c857-5e2c-4a69-8859-fa10b4c14583",
+          "Active": true,
+          "Name": "RDY ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "-",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_BLANK)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "STATUS",
+            "Pin": "STATUS",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "STATUS",
+          "GUID": "aa84dc7f-231c-4a9c-9c92-6fcd13ce3250",
+          "Active": true,
+          "Name": "STATUS ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "SimConnectValue": {
+              "UUID": "4b588c7a-ab03-4e0b-ba55-9aee67fbb899",
+              "Value": "(L:A32NX_MCDU_L_ANNUNC_FM2)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "FM2",
+            "Pin": "FM2",
+            "Brightness": 255,
+            "PwmMode": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "DeviceName": "FM2",
+          "GUID": "f86855d7-d6f9-4443-9a7b-47ab04d73022",
+          "Active": true,
+          "Name": "FM2 ANNUNCIATOR",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "Brightness",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "LCD Percentage",
+            "Address": "LCD Percentage",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "LCD Percentage",
+          "GUID": "44cfeb88-b873-4277-b1ed-2f4df4ceac99",
+          "Active": true,
+          "Name": "LCD Brightness Output",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "$+100",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "Source": {
+            "MobiFlightVariable": {
+              "TYPE": "number",
+              "Name": "Backlight",
+              "Expression": "$"
+            },
+            "Type": "VariableSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0
+          },
+          "Device": {
+            "Name": "Backlight Percentage",
+            "Address": "Backlight Percentage",
+            "Lines": [],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "DeviceName": "Backlight Percentage",
+          "GUID": "383070c9-19cb-4bf0-8cb5-85ad9e69b28b",
+          "Active": true,
+          "Name": "Backlight Output",
+          "Type": "OutputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Transformation",
+                "Expression": "$+100",
+                "Active": true
+              }
+            ]
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Brightness",
+                "Expression": "if($<=-100,-100,$-5)"
+              },
+              "Type": "VariableInputAction"
+            },
+            "onHold": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Brightness",
+                "Expression": "if($<=-100,-100,$-5)"
+              },
+              "Type": "VariableInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 1
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 56"
+          },
+          "GUID": "abe0bf30-799e-426b-aa09-73d0c080f7a0",
+          "Active": true,
+          "Name": "BRT DEC",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Brightness",
+                "Expression": "if($>=0,0,$+5)"
+              },
+              "Type": "VariableInputAction"
+            },
+            "onHold": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Brightness",
+                "Expression": "if($>=0,0,$+5)"
+              },
+              "Type": "VariableInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 1
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 55"
+          },
+          "GUID": "bc8cee52-8ae3-4161-b89b-5ad1efb225bb",
+          "Active": true,
+          "Name": "BRT INC",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(L:A32NX_MCDU_L_BRIGHTNESS) 7.7 min 0.300 + (>L:A32NX_MCDU_L_BRIGHTNESS)",
+              "PresetId": "17f015a8-776e-4f51-8423-58b9f26e4c0b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onHold": {
+              "Command": "(L:A32NX_MCDU_L_BRIGHTNESS) 7.7 min 0.300 + (>L:A32NX_MCDU_L_BRIGHTNESS)",
+              "PresetId": "17f015a8-776e-4f51-8423-58b9f26e4c0b",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 1
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 55"
+          },
+          "GUID": "7bdd1029-11e2-46b7-83e7-ab097e43f165",
+          "Active": true,
+          "Name": "BRT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(L:A32NX_MCDU_L_BRIGHTNESS) 0.8 max 0.300 - (>L:A32NX_MCDU_L_BRIGHTNESS)",
+              "PresetId": "f162a395-e304-4b5c-acd1-c19432fec132",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onHold": {
+              "Command": "(L:A32NX_MCDU_L_BRIGHTNESS) 0.8 max 0.300 - (>L:A32NX_MCDU_L_BRIGHTNESS)",
+              "PresetId": "f162a395-e304-4b5c-acd1-c19432fec132",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 1
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 56"
+          },
+          "GUID": "e4ef7b35-fa8b-4181-b1f7-5a55428fd122",
+          "Active": true,
+          "Name": "DIM",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Backlight",
+                "Expression": "if($>=0,0,$+10)"
+              },
+              "Type": "VariableInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 73"
+          },
+          "GUID": "2738850e-f727-4e41-b516-9c697d87594f",
+          "Active": true,
+          "Name": "Backlight BRT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Variable": {
+                "TYPE": "number",
+                "Name": "Backlight",
+                "Expression": "if($<=-100,-100,$-10)"
+              },
+              "Type": "VariableInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 74"
+          },
+          "GUID": "fdfbbd5c-b1f2-40c9-9887-2690872793c4",
+          "Active": true,
+          "Name": "Backlight DIM",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(A:LIGHT POTENTIOMETER:85,percent) 5 + 100 min 85 (>K:2:LIGHT_POTENTIOMETER_SET)",
+              "PresetId": "065eee96-1172-4eba-ab15-352bad02e4e9",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 73"
+          },
+          "GUID": "0ba63bc7-3ea2-405b-9636-7cf48c63b5d7",
+          "Active": true,
+          "Name": "Backlight Poti higher",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(A:LIGHT POTENTIOMETER:85,percent) 5 - 0 max 85 (>K:2:LIGHT_POTENTIOMETER_SET)",
+              "PresetId": "52516955-7d71-41e8-8715-e52038021dd1",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 74"
+          },
+          "GUID": "6e008a02-d201-404d-a0cf-2d5bba63c3fe",
+          "Active": true,
+          "Name": "Backlight Poti lower",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "MOZA MA3F MFCD Display",
+            "Serial": "JS-421830208423B30547343434"
+          }
+        }
+      ]
+    }
+  ],
+  "Sim": "msfs",
+  "Aircraft": [],
+  "Features": {
+    "FSUIPC": false,
+    "ProSim": false
+  },
+  "_version": "0.10"
+}
