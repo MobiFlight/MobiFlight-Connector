@@ -74,17 +74,6 @@ namespace MobiFlightMoza.Session
             long unixSeconds = ((DateTimeOffset)now).ToUnixTimeSeconds();
             Multiplexer.TrySend(MozaConstants.ServicePortSettings, MozaSettingsFrame.PackTimeSync(unixSeconds, 0));
             Multiplexer.TrySend(MozaConstants.ServicePortSettings, MozaSettingsFrame.PackProtocolVersion(3, 0));
-
-            // Empty dynamic property table (0x08) and action table (0x0B) writes - a USB
-            // capture of MOZA's own Cockpit app showed it always sends these two (with no real
-            // content, just four zero bytes each) right alongside time sync/protocol version,
-            // even though it has no dynamic pages/actions configured. An integration that only
-            // ever renders the fixed MCDU page doesn't need real content in them either way, but
-            // sending them at all - matching what the one client proven to reconnect cleanly
-            // does - is the experiment: maybe the device treats seeing both as "client setup is
-            // complete" before it will hand off rendering to a new session.
-            Multiplexer.TrySend(MozaConstants.ServicePortSettings, MozaSettingsFrame.PackSettingFrame(0x08, [0, 0, 0, 0]));
-            Multiplexer.TrySend(MozaConstants.ServicePortSettings, MozaSettingsFrame.PackSettingFrame(0x0B, [0, 0, 0, 0]));
         }
 
         private void ProcessSettingsBytes(byte[] data)

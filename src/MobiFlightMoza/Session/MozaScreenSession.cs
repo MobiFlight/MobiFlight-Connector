@@ -174,7 +174,6 @@ namespace MobiFlightMoza.Session
                     // without) a separate reply to the init command.
                     if (message.DevicePair != MozaConstants.DevicePairFromDevice) return;
                     State = MozaSessionState.Running;
-                    SendDeviceInfoQueryBurst();
                     DispatchRunning(message, now);
                     return;
 
@@ -219,15 +218,6 @@ namespace MobiFlightMoza.Session
             {
                 byte[] mcduBytes = mcduData.ReadApplicationBytes();
                 if (mcduBytes.Length > 0) McduChannel.OnApplicationData(mcduBytes);
-            }
-        }
-
-        // See MozaConstants.DeviceInfoQueryBurst - experimental, not in the guide.
-        private void SendDeviceInfoQueryBurst()
-        {
-            foreach (byte[] frame in MozaConstants.DeviceInfoQueryBurst)
-            {
-                Sink.Send(frame);
             }
         }
 

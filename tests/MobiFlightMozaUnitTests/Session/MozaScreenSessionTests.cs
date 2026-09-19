@@ -104,24 +104,6 @@ namespace MobiFlightMoza.Session.Tests
             Assert.AreEqual(MozaSessionState.Running, session.State);
         }
         [TestMethod]
-        public void OnBytesReceived_DeviceInitResponse_SendsDeviceInfoQueryBurst()
-        {
-            // Arrange
-            var sink = new RecordingFrameSink();
-            var session = new MozaScreenSession(sink);
-            session.Start();
-            Feed(session, MozaConstants.RootHandshakeResponse);
-            // Act
-            Feed(session, MozaConstants.DeviceInitResponse);
-            // Assert - root handshake request + device init request + the burst, in order.
-            int expected = 2 + MozaConstants.DeviceInfoQueryBurst.Length;
-            Assert.HasCount(expected, sink.SentWires);
-            for (int i = 0; i < MozaConstants.DeviceInfoQueryBurst.Length; i++)
-            {
-                CollectionAssert.AreEqual(MozaConstants.DeviceInfoQueryBurst[i], sink.SentWires[2 + i]);
-            }
-        }
-        [TestMethod]
         public void OnBytesReceived_DeviceSyn1InsteadOfInitReply_AlsoReachesRunning()
         {
             // Arrange - the guide allows the device to skip a separate init reply and go
