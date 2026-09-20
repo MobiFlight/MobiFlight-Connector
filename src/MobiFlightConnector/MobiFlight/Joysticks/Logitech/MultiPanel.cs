@@ -127,12 +127,21 @@ namespace MobiFlight.Joysticks.Logitech
         /// the `this.Definition` <see cref="JoystickDefinition"/> property to retrieve device information.</remarks>
         protected override void EnumerateOutputDevices()
         {
+            // Base class only adds Outputs
             base.EnumerateOutputDevices();
 
-            // LcdDisplays
+            // Let's also add our LcdDisplays
             Definition?.Outputs?.FindAll(d => d.Type == DeviceType.LcdDisplay.ToString()).ForEach(device =>
             {
-                Lights.Add(new JoystickOutputDisplay() { Name = device.Id, Label = device.Label, Type = DeviceType.LcdDisplay, Cols = device.Cols, Lines = device.Lines, Byte = device.Byte });
+                Lights.Add(new JoystickOutputDisplay()
+                {
+                    Name = device.Id,
+                    Label = device.Label,
+                    Type = DeviceType.LcdDisplay,
+                    Cols = device.Cols,
+                    Lines = device.Lines,
+                    Byte = device.Byte
+                });
             });
         }
 

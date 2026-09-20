@@ -133,22 +133,27 @@ namespace MobiFlight.Joysticks.Logitech
         public static byte ConvertCharToByte(char c)
         {
             // Implement character to byte conversion logic here
-            // For example, if the display uses ASCII encoding:
+            // Character encoding for the display is as follows:
+            // 0000xxxx Binary encoded decimal (0x00 shows 0, 0x01 shows 1, etc.)
+            // 00001111 Turns the number off
+            // 11011110 Shows a dash on the bottom row(0xde)
             if (c == ' ')
             {
-                return 0x0F; // Assuming 0x0F turns the number off
+                return 0x0F;
             }
             else if (c == '-')
             {
-                return 0xDE; // Assuming 0xDE shows a dash
+                return 0xDE;
             }
             else if (char.IsDigit(c))
             {
-                return (byte)(c - '0'); // Convert digit character to its byte representation
+                // Convert digit character to its byte representation
+                return (byte)(c - '0'); 
             }
             else
             {
-                throw new ArgumentException($"Unsupported character for LCD display: {c}");
+                // Show blank for unsupported characters
+                return 0x0F; 
             }
         }
     }

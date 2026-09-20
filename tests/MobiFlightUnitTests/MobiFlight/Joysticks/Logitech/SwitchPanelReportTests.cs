@@ -1,6 +1,3 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-
 namespace MobiFlight.Joysticks.Logitech.Tests
 {
     [TestClass]
