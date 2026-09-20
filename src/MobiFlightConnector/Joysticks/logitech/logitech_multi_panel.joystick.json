@@ -32,12 +32,12 @@
     {
       "Id": 5,
       "Type": "Button",
-      "Label": "Encoder Left"
+      "Label": "Encoder Right"
     },
     {
       "Id": 6,
       "Type": "Button",
-      "Label": "Encoder Right"
+      "Label": "Encoder Left"
     },
     {
       "Id": 7,
