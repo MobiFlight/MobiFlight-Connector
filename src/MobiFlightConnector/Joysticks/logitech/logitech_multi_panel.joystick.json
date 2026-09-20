@@ -1,0 +1,174 @@
+{
+  "$schema": "../mfjoystick.schema.json",
+  "InstanceName": "Logitech Multi Panel",
+  "VendorId": "0x06A3",
+  "ProductId": "0x0D06",
+  "Inputs": [
+    {
+      "Id": 0,
+      "Type": "Button",
+      "Label": "Position - ALT"
+    },
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Position - VS"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Position - IAS"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Position - HDG"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Position - CRS"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Encoder Left"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Encoder Right"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "AP - Master"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "HDG"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "NAV"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "IAS"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "ALT"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "VS"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "APR"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "REV"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "Throttle ARM"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Flaps Up"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "Flaps Down"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "Pitch Down"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "Pitch Up"
+    }
+  ],
+  "Outputs": [
+    {
+      "Id": "led.AP",
+      "Label": "AP",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Id": "led.HDG",
+      "Label": "HDG",
+      "Byte": 11,
+      "Bit": 1
+    },
+    {
+      "Id": "led.NAV",
+      "Label": "NAV",
+      "Byte": 11,
+      "Bit": 2
+    },
+    {
+      "Id": "led.IAS",
+      "Label": "IAS",
+      "Byte": 11,
+      "Bit": 3
+    },
+    {
+      "Id": "led.ALT",
+      "Label": "ALT",
+      "Byte": 11,
+      "Bit": 4
+    },
+    {
+      "Id": "led.VS",
+      "Label": "VS",
+      "Byte": 11,
+      "Bit": 5
+    },
+    {
+      "Id": "led.APR",
+      "Label": "APR",
+      "Byte": 11,
+      "Bit": 6
+    },
+    {
+      "Id": "led.REV",
+      "Label": "REV",
+      "Byte": 11,
+      "Bit": 7
+    },
+    {
+      "Label": "LCD - Row 1",
+      "Id": "lcd.row1",
+      "Type": "LcdDisplay",
+      "Byte": 1,
+      "Cols": 5,
+      "Lines": 1
+    },
+    {
+      "Label": "LCD - Row 2",
+      "Id": "lcd.row2",
+      "Type": "LcdDisplay",
+      "Byte": 6,
+      "Cols": 5,
+      "Lines": 1
+    }
+  ]
+}
