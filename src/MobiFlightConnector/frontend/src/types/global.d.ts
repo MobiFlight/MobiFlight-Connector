@@ -21,6 +21,8 @@ declare global {
             // docs/architecture/frontend-backend-messaging.md. Absent in a plain browser tab
             // (falls back to VITE_MF_WS_URL) and on the auth WebView, which stays on postMessage.
             wsUrl?: string;
+            version?: string;
+            build?: string;
         };
     }
 }

@@ -25,7 +25,8 @@
     },
     "Copy": "コピー",
     "Paste": "ペースト",
-    "NewFeature": "新規"
+    "NewFeature": "新規",
+    "Close": "閉じる"
   },
   "MainMenu": {
     "File": {
@@ -61,6 +62,7 @@
       "MSFS.ReinstallWASMModule": "WASM モジュールを再インストール",
       "CopyLogs": "ログをクリップボードにコピー",
       "ControllerBindings": "コントローラーバインド",
+      "ManageControllers": "コントローラーを管理",
       "Settings": "設定"
     },
     "Help": {
@@ -866,5 +868,111 @@
     "Resume": "スクロールを再開",
     "Pause": "スクロールを一時停止",
     "Close": "ログパネルを閉じる"
+  },
+  "About": {
+    "Tabs": {
+      "About": "情報",
+      "Licenses": "ライセンス"
+    },
+    "Contact": {
+      "Title": "お問い合わせ",
+      "Discord": {
+        "Title": "Discord",
+        "Description": "コミュニティサーバーに参加"
+      },
+      "Email": {
+        "Title": "メール",
+        "Description": "info@mobiflight.com"
+      }
+    },
+    "Ecosystem": {
+      "Title": "MobiFlight エコシステム"
+    },
+    "Licenses": {
+      "Title": "ライブラリと依存関係",
+      "Description": "MobiFlight Connector で使用されているライブラリ - 作成者に感謝いたします！"
+    },
+    "Credits": {
+      "Font": "\"BoeingCDULarge font\" by Gijs de Rooij",
+      "ThankYou": "ありがとう！"
+    }
+  },
+  "Settings": {
+    "General": {
+      "Title": "一般",
+      "Application": {
+        "Title": "アプリケーション"
+      },
+      "Logging": {
+        "Title": "ロギング",
+        "Enabled": "有効",
+        "ShowLogPanel": "ログパネルを表示",
+        "LogLevel": "ログレベル",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "ジョイスティック軸をログに記録"
+      },
+      "StartupAndRunOptions": {
+        "Title": "起動および実行オプション"
+      },
+      "RecentFiles": {
+        "Title": "最近使用したファイル",
+        "Description": "リストに表示するファイル数を設定"
+      },
+      "BetaVersions": {
+        "Title": "ベータ版",
+        "Description": "ベータ版のアップデートを受け取る"
+      },
+      "CommunityFeedback": {
+        "Title": "コミュニティフィードバックプログラム",
+        "Description": "コミュニティフィードバックプログラムに参加して MobiFlight の改善に協力する"
+      },
+      "RunOptions": {
+        "Title": "起動および実行オプション",
+        "AutoRetrigger": "\"実行\" モードで自動的にリトリガーアクションを実行する",
+        "MinimizeOnAutoRun": "自動実行時に最小化"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "アプリケーション起動時に HubHop プリセットを確認する"
+      },
+      "Language": {
+        "Title": "言語",
+        "Description": "UIの言語を変更:",
+        "RestartRequired": "言語を変更した場合は MobiFlight の再起動が必要です"
+      },
+      "ExecutionSpeed": {
+        "Title": "設定の実行速度",
+        "Description": "入力に遅延が発生する場合などに実行速度を調整できます。速すぎる設定はパフォーマンスに影響を与える可能性があります",
+        "Slow": "遅い",
+        "Fast": "非常に速い"
+      },
+      "TestModeSpeed": {
+        "Title": "テストモードの速度",
+        "Slow": "遅い",
+        "Fast": "非常に速い"
+      }
+    },
+    "Simulator": {
+      "Title": "シミュレーター",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "接続設定",
+        "Host": "ホスト",
+        "Port": "ポート",
+        "AutoConnect": "ProSim 自動接続",
+        "MaxRetryAttempts": "最大再試行回数"
+      }
+    },
+    "Discard": {
+      "Title": "変更を破棄しますか？",
+      "Description": "未保存の変更があります。本当に破棄しますか？",
+      "KeepEditing": "編集を続ける",
+      "DiscardChanges": "変更を破棄"
+    }
   }
 }

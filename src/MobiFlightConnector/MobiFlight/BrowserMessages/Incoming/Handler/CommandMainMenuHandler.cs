@@ -1,4 +1,4 @@
-﻿using MobiFlight.UI;
+using MobiFlight.UI;
 
 namespace MobiFlight.BrowserMessages.Incoming.Handler
 {
@@ -53,6 +53,10 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     _mainForm.copyLogsToClipboardToolStripMenuItem_Click(null, null);
                     break;
 
+                case CommandMainMenuAction.extras_serials:
+                    _mainForm.ShowControllersSettingsDialog();
+                    break;
+
                 case CommandMainMenuAction.extras_settings:
                     _mainForm.settingsToolStripMenuItem_Click(null, null);
                     break;
@@ -95,7 +99,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     break;
 
                 case CommandMainMenuAction.help_about:
-                    _mainForm.AboutToolStripMenuItem_Click(null, null);
+                    // Handled natively in frontend /about modal route
                     break;
 
                 case CommandMainMenuAction.help_releasenotes:

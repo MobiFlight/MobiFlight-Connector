@@ -22,20 +22,41 @@ namespace MobiFlight.Joysticks.WinCtrl
             ProductId = productId;
             Log.Instance.log($"WinCtrlBaseController - New WinCtrlBaseController ProductId={productId.ToString("X")}", LogSeverity.Debug);
             DisplayControl = new WinCtrlDisplayControl(productId, server);
-            Log.Instance.log($"WinCtrlBaseController - Controller Name={DisplayControl.GetControllerName()}", LogSeverity.Debug);
+            DisplayControl.ErrorMessageCreated += DisplayControl_ErrorMessageCreated;
+        }
+
+        private void InitializeOutputDevices()
+        {
+            Log.Instance.log(
+                $"WinCtrlBaseController - Controller Name={DisplayControl.GetControllerName()}",
+                LogSeverity.Debug
+            );
+
             var displayNames = DisplayControl.GetDisplayNames();
             var ledNames = DisplayControl.GetLedNames();
 
-            DisplayControl.ErrorMessageCreated += DisplayControl_ErrorMessageCreated;
+            LcdDevices.Clear();
+            LedDevices.Clear();
 
-            // Initialize LCD and LED device lists and current value cache
             foreach (string displayName in displayNames)
             {
-                LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Col and Lines values don't matter   
+                LcdDevices.Add(
+                    new LcdDisplay()
+                    {
+                        Name = displayName
+                    }
+                );
             }
+
             foreach (string ledName in ledNames)
             {
-                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }); // Byte and Bit values don't matter           
+                LedDevices.Add(
+                    new JoystickOutputDevice()
+                    {
+                        Label = ledName,
+                        Name = ledName
+                    }
+                );
             }
         }
 
@@ -51,6 +72,7 @@ namespace MobiFlight.Joysticks.WinCtrl
         {
             base.Connect(handle);
             DisplayControl.Connect();
+            InitializeOutputDevices();
         }
 
         public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()

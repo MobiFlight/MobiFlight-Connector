@@ -78,7 +78,8 @@ test("Confirm `Extras` menu items are displayed and trigger correct command", as
     { name: "Copy logs to clipboard", action: "extras.copylogs" },
     // covered by special test, so we just check for their presence and skip the command check
     { name: "Controller Bindings", action: null },
-    { name: "Settings", action: "extras.settings" },
+    { name: "Manage controllers", action: "extras.serials" },
+    { name: "Settings", action: null },
   ]
 
   await configListPage.gotoPage()
@@ -156,7 +157,8 @@ test("Confirm `Help` menu items are displayed and trigger correct command", asyn
     { name: "Visit Discord server", action: "help.discord" },
     { name: "Visit HubHop website", action: "help.hubhop" },
     { name: "Visit YouTube channel", action: "help.youtube" },
-    { name: "About", action: "help.about" },
+    // covered by AboutDialog.spec.ts, so we just check for presence and skip command check
+    { name: "About", action: null },
     { name: "Release notes", action: "help.releasenotes" },
   ]
 
@@ -277,7 +279,10 @@ test("Confirm zoom menu items are present in View menu", async ({
   await expect(ZoomOutItem).toBeVisible()
 })
 
-test("Confirm View menu contains opens and closes Log Panel item", async ({ configListPage, page }) => {
+test("Confirm View menu contains opens and closes Log Panel item", async ({
+  configListPage,
+  page,
+}) => {
   await configListPage.gotoPage()
   await configListPage.mobiFlightPage.openLogPanel()
 
