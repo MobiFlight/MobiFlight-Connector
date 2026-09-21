@@ -192,5 +192,9 @@ namespace MobiFlight.UpdateChecker
                 return (output, error);
             }
         }
+        public static bool IsPrBuild(Version version)
+        {
+            return version.Major == 0;
+        }
     }
 }
