@@ -1,4 +1,5 @@
-﻿using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.Base;
+using MobiFlight.UI.Dialogs;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -80,7 +81,7 @@ namespace MobiFlight.UpdateChecker
 
             // Issue 1365: Don't check for updates if the build came from a pull request. These builds are
             // identified by the major version being 0.
-            if (CurVersion.Major == 0)
+            if (CurVersion.IsDevOrPullRequestBuild())
             {
                 Log.Instance.log("Skipping update check since this is an unreleased build.", LogSeverity.Info);
                 return;
@@ -191,10 +192,6 @@ namespace MobiFlight.UpdateChecker
                 process.WaitForExit(UpdateCheckTimeoutInMs);
                 return (output, error);
             }
-        }
-        public static bool IsPrBuild(Version version)
-        {
-            return version.Major == 0;
         }
     }
 }

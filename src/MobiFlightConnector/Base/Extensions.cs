@@ -94,5 +94,10 @@ namespace MobiFlight.Base
             var pattern = @"^mailto:(.+@.+\..+)$";
             return System.Text.RegularExpressions.Regex.IsMatch(emailLink, pattern);
         }
+
+        public static bool IsDevOrPullRequestBuild(this Version version)
+        {
+            return version.Major == 0 && version.Minor==0 ;
+        }
     }
 }

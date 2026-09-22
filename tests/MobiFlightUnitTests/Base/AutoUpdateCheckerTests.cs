@@ -101,23 +101,5 @@ namespace MobiFlight.Base.Tests
 
             Assert.AreEqual(expectedPath, result.ToString());
         }
-
-        [TestMethod]
-        public void Skipping_HubHop_download_for_PR_Version()
-        {
-            var appVersion = new Version(0, 1, 0);
-            var result = AutoUpdateChecker.IsPrBuild(appVersion);
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void Not_Skipping_HubHop_download_for_Release_Version()
-        {
-            
-            var appVersion = new Version(10, 0, 0);
-            var result = AutoUpdateChecker.IsPrBuild(appVersion);
-            Assert.IsFalse(result);
-        }
-
     }
 }

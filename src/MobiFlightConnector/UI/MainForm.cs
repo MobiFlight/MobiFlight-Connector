@@ -1097,7 +1097,7 @@ namespace MobiFlight.UI
 
             //Skipping HubHop download for PR Version
             var CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            if (CurVersion.Major == 0)
+            if (CurVersion.IsDevOrPullRequestBuild())
             {
                 Log.Instance.log("Skipping HubHop download since this is an unreleased build.", LogSeverity.Info);
                 return;
