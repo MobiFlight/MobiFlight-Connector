@@ -73,8 +73,6 @@ namespace MobiFlight.UI
         // we need this property to control global logging during unit tests
         protected virtual bool LogIsEnabled { get => true; }
 
-
-
         public ExecutionManager ExecutionManager
         {
             get { return execManager; }
@@ -84,7 +82,9 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Language != "")
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                var cultureInfo = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
             }
         }
 
@@ -2436,7 +2436,6 @@ namespace MobiFlight.UI
             }
         }
 
-
         /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
         /// </summary>
@@ -2623,6 +2622,10 @@ namespace MobiFlight.UI
 
         public void ShowControllersSettingsDialog()
         {
+            if (InvokeRequired)
+            {
+                Invoke((Action)(() => ShowControllersSettingsDialog()));
+            }
             ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
