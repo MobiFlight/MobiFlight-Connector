@@ -2622,10 +2622,6 @@ namespace MobiFlight.UI
 
         public void ShowControllersSettingsDialog()
         {
-            if (InvokeRequired)
-            {
-                Invoke((Action)(() => ShowControllersSettingsDialog()));
-            }
             ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
