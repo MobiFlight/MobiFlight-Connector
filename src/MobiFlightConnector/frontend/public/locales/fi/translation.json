@@ -973,7 +973,7 @@
       "Description": "Sinulla on tallentamattomia muutoksia. Haluatko varmasti hylätä ne?",
       "KeepEditing": "Jatka muokkausta",
       "DiscardChanges": "Hylkää muutokset"
-    }
+    },
+    "ManageControllerNote": "Löydä <strong>MobiFlight Boards</strong> ja <strong>Peripherals</strong> kohdasta <strong>{{menuPath}}</strong>"
   }
 }
-

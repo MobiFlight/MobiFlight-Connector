@@ -973,6 +973,7 @@
       "Description": "未保存の変更があります。本当に破棄しますか？",
       "KeepEditing": "編集を続ける",
       "DiscardChanges": "変更を破棄"
-    }
+    },
+    "ManageControllerNote": "<strong>MobiFlight Boards</strong> と <strong>Peripherals</strong> は <strong>{{menuPath}}</strong> で管理できます"
   }
 }

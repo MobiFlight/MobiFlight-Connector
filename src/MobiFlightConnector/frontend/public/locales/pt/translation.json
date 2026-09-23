@@ -973,7 +973,7 @@
       "Description": "Você tem alterações não salvas. Tem certeza de que deseja descartá-las?",
       "KeepEditing": "Continuar editando",
       "DiscardChanges": "Descartar alterações"
-    }
+    },
+    "ManageControllerNote": "Encontre <strong>MobiFlight Boards</strong> e <strong>Peripherals</strong> em <strong>{{menuPath}}</strong>"
   }
 }
-

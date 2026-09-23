@@ -62,7 +62,7 @@
       "MSFS.ReinstallWASMModule": "WASM-Modul neu installieren",
       "CopyLogs": "Logs in die Zwischenablage kopieren",
       "ControllerBindings": "Controller-Zuordnungen",
-      "ManageControllers": "Controller verwalten",
+      "ManageControllers": "Controller Verwaltung",
       "Settings": "Einstellungen"
     },
     "Help": {
@@ -979,7 +979,7 @@
       "Description": "Sie haben nicht gespeicherte Änderungen. Möchten Sie diese wirklich verwerfen?",
       "KeepEditing": "Weiter bearbeiten",
       "DiscardChanges": "Änderungen verwerfen"
-    }
+    },
+    "ManageControllerNote": "Finde <strong>MobiFlight Boards</strong> und <strong>Peripherals</strong> in <strong>{{menuPath}}</strong>"
   }
 }
-

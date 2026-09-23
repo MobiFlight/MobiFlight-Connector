@@ -20,6 +20,16 @@ import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { useTranslation } from "react-i18next"
 import { useModal } from "@/lib/hooks/useModal"
 import UserMenuItem from "@/components/user/UserMenuItem"
+import {
+  IconAdjustments,
+  IconClipboardCopy,
+  IconDeviceGamepad2,
+  IconDownload,
+  IconPlaneTilt,
+  IconRestore,
+  IconSettings,
+} from "@tabler/icons-react"
+import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
@@ -85,7 +95,7 @@ export const MainMenu = () => {
                 {t("MainMenu.File.RecentProjects")}
               </MenubarSubTrigger>
               <MenubarSubContent>
-                {settings && settings.RecentFiles.length > 0 ? (
+                {settings && settings.RecentFiles?.length > 0 ? (
                   settings.RecentFiles.map((file, index) => (
                     <MenubarItem
                       key={index}
@@ -158,52 +168,63 @@ export const MainMenu = () => {
           <MenubarTrigger>{t("MainMenu.Extras.Label")}</MenubarTrigger>
           <MenubarContent>
             <MenubarSub>
-              <MenubarSubTrigger>HubHop</MenubarSubTrigger>
+              <MenubarSubTrigger>
+                <IconBrandHubHopLogo className="h-5 w-7 stroke-none" /> HubHop
+              </MenubarSubTrigger>
               <MenubarSubContent>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.hubhop.download" })
                   }
                 >
+                  <IconDownload className="h-5" />
                   {t("MainMenu.Extras.HubHop.DownloadLatestPresets")}
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
             <MenubarSub>
-              <MenubarSubTrigger>Microsoft Flight Simulator</MenubarSubTrigger>
+              <MenubarSubTrigger>
+                <IconPlaneTilt className="h-5" />
+                Microsoft Flight Simulator
+              </MenubarSubTrigger>
               <MenubarSubContent>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.msfs.reinstall" })
                   }
                 >
+                  <IconRestore className="h-5" />
                   {t("MainMenu.Extras.MSFS.ReinstallWASMModule")}
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
+            <MenubarSeparator />
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "extras.copylogs" })
               }
             >
+              <IconClipboardCopy className="h-5" />
               {t("MainMenu.Extras.CopyLogs")}
-            </MenubarItem>
-            <MenubarItem
-              onSelect={() => showModalOverlay({ route: "/bindings" })}
-            >
-              {t("MainMenu.Extras.ControllerBindings")}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
-              onSelect={() =>
-                handleMenuItemClick({ action: "extras.serials" })
-              }
+              onSelect={() => showModalOverlay({ route: "/bindings" })}
             >
+              <IconDeviceGamepad2 className="h-5" />
+              {t("MainMenu.Extras.ControllerBindings")}
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() => handleMenuItemClick({ action: "extras.serials" })}
+            >
+              <IconAdjustments className="h-5" />
               {t("MainMenu.Extras.ManageControllers")}
             </MenubarItem>
+            <MenubarSeparator />
             <MenubarItem
               onSelect={() => showModalOverlay({ route: "/settings" })}
             >
+              <IconSettings className="h-5" />
               {t("MainMenu.Extras.Settings")}
             </MenubarItem>
           </MenubarContent>
@@ -241,9 +262,7 @@ export const MainMenu = () => {
               {t("MainMenu.Help.VisitYouTube")}
             </MenubarItem>
             <MenubarSeparator />
-            <MenubarItem
-               onSelect={() => showModalOverlay({ route: "/about" })}
-            >
+            <MenubarItem onSelect={() => showModalOverlay({ route: "/about" })}>
               {t("MainMenu.Help.About")}
             </MenubarItem>
             <MenubarItem

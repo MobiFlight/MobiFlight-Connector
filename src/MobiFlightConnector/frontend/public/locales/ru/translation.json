@@ -973,7 +973,7 @@
       "Description": "У вас есть несохраненные изменения. Вы уверены, что хотите отменить их?",
       "KeepEditing": "Продолжить редактирование",
       "DiscardChanges": "Отменить изменения"
-    }
+    },
+    "ManageControllerNote": "Найдите <strong>MobiFlight Boards</strong> и <strong>Peripherals</strong> в <strong>{{menuPath}}</strong>"
   }
 }
-

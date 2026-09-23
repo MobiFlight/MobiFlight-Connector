@@ -12,10 +12,11 @@ import GeneralSettingsCard from "./components/GeneralSettingsCard"
 import { Button } from "@/components/ui/button"
 import { useSettingsStore } from "@/stores/settingsStore"
 import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import messageExchange from "@/lib/messageExchange"
 import Settings from "@/types/settings"
 import { ScrollArea } from "../ui/scroll-area"
+import { Badge } from "@/components/ui/badge"
 
 export type SettingsDialogProps = {
   isOpen: boolean
@@ -89,7 +90,7 @@ export default function SettingsDialog({
         }}
       >
         <DialogContent
-          className="flex h-[90vh] max-h-[860px] w-full max-w-3xl flex-col overflow-x-hidden"
+          className="flex h-[90vh] max-h-255 w-full max-w-3xl flex-col overflow-x-hidden"
           onPointerDownOutside={(e) => {
             if (hasUnsavedChanges()) {
               e.preventDefault()
@@ -106,6 +107,7 @@ export default function SettingsDialog({
           <DialogHeader>
             <DialogTitle>{t("MainMenu.Extras.Settings")}</DialogTitle>
           </DialogHeader>
+
           <Tabs defaultValue="general" className="flex min-h-0 flex-1 flex-col">
             <TabsList className="w-full shrink-0">
               <TabsTrigger value="general" className="w-1/2">
@@ -116,11 +118,27 @@ export default function SettingsDialog({
               </TabsTrigger>
             </TabsList>
 
+            <div className="text-muted-foreground mt-4 flex flex-row items-center gap-1 px-1 text-sm font-normal">
+              <Badge variant="default" className="border-primary border">
+                {t("General.NewFeature")}
+              </Badge>
+              <Trans
+                i18nKey="Settings.ManageControllerNote"
+                shouldUnescape={true}
+                values={{
+                  menuPath: `${t("MainMenu.Extras.Label")} > ${t("MainMenu.Extras.ManageControllers")}`,
+                }}
+                components={{
+                  strong: <strong className="text-sm font-semibold" />,
+                }}
+              />
+            </div>
+
             <TabsContent
               value="general"
               className="mt-4 flex min-h-0 flex-1 flex-col"
             >
-              <div className="flex flex-row grow">
+              <div className="flex grow flex-row">
                 <ScrollArea className="grow">
                   <div className="pr-3">
                     <GeneralSettingsCard
@@ -136,7 +154,7 @@ export default function SettingsDialog({
               value="simulator"
               className="mt-4 flex min-h-0 flex-1 flex-col"
             >
-              <div className="flex flex-row grow">
+              <div className="flex grow flex-row">
                 <ScrollArea className="grow">
                   <div className="pr-3">
                     <SimulatorSettingsCard
@@ -191,4 +209,3 @@ export default function SettingsDialog({
     </>
   )
 }
-
