@@ -62,7 +62,7 @@
       "MSFS.ReinstallWASMModule": "Re-install WASM Module",
       "CopyLogs": "Copy logs to clipboard",
       "ControllerBindings": "Controller Bindings",
-      "ManageControllers": "Manage controllers",
+      "ManageControllers": "Controller Management",
       "Settings": "Settings"
     },
     "Help": {
@@ -973,7 +973,7 @@
       "Description": "You have unsaved changes. Are you sure you want to discard them?",
       "KeepEditing": "Keep editing",
       "DiscardChanges": "Discard changes"
-    }
+    },
+    "ManageControllerNote": "Manage <strong>MobiFlight Boards</strong> and <strong>Peripherals</strong> in <strong>{{menuPath}}</strong>"
   }
 }
-
