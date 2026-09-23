@@ -78,7 +78,7 @@ test("Confirm `Extras` menu items are displayed and trigger correct command", as
     { name: "Copy logs to clipboard", action: "extras.copylogs" },
     // covered by special test, so we just check for their presence and skip the command check
     { name: "Controller Bindings", action: null },
-    { name: "Manage controllers", action: "extras.serials" },
+    { name: "Controller Management", action: "extras.serials" },
     { name: "Settings", action: null },
   ]
 
