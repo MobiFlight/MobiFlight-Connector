@@ -26,7 +26,11 @@
     "Copy": "Copiar",
     "Paste": "Pegar",
     "NewFeature": "Nuevo",
-    "Close": "Cerrar"
+    "Close": "Cerrar",
+    "FacetedFilter": {
+      "Clear": "Borrar filtros",
+      "NoResultsFound": "No se encontraron resultados."
+    }
   },
   "MainMenu": {
     "File": {
@@ -232,10 +236,7 @@
         "ConfigType": "Tipo de configuración",
         "Device": "Controlador",
         "Type": "Dispositivo",
-        "Name": "Nombre",
-        "Selected": "{{items}} seleccionados",
-        "Clear": "Borrar filtros",
-        "NoResultsFound": "No se encontraron resultados."
+        "Name": "Nombre"
       },
       "NotSet": "not set",
       "Reset": "Restablecer filtros",

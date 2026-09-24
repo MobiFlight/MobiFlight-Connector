@@ -26,7 +26,11 @@
     "Copy": "복사",
     "Paste": "붙여넣기",
     "NewFeature": "신규",
-    "Close": "닫기"
+    "Close": "닫기",
+    "FacetedFilter": {
+      "Clear": "필터 지우기",
+      "NoResultsFound": "결과를 찾지 못했습니다."
+    }
   },
   "MainMenu": {
     "File": {
@@ -226,10 +230,7 @@
         "ConfigType": "설정 유형",
         "Device": "컨트롤러",
         "Type": "장치",
-        "Name": "이름",
-        "Selected": "{{items}}개 선택됨",
-        "Clear": "필터 지우기",
-        "NoResultsFound": "결과를 찾지 못했습니다."
+        "Name": "이름"
       },
       "NotSet": "설정 안 됨",
       "Reset": "필터 초기화",
