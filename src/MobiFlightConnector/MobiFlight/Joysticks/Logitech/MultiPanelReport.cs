@@ -145,7 +145,7 @@ namespace MobiFlight.Joysticks.Logitech
             {
                 return 0xDE;
             }
-            else if (char.IsDigit(c))
+            else if (c >= '0' && c <= '9')
             {
                 // Convert digit character to its byte representation
                 return (byte)(c - '0'); 
