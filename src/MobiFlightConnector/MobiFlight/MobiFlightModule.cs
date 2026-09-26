@@ -763,7 +763,7 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value, bool reverse)
         {
-            ledModules[name].Display(module, value, points, mask, reverse);
+            ledModules[name].Display(module, value, points, mask, reverse, $"{Name} ({Serial}, {_comPort})");
             return true;
         }
 

@@ -257,11 +257,14 @@ namespace MobiFlight.ProSim
             {
                 if (_subscribedDataRefs.TryGetValue(datarefPath, out var cachedRef))
                 {
+                    if (!Equals(cachedRef.Value, value))
+                        LogDataRefValue(datarefPath, value);
                     // Update existing cache entry
                     cachedRef.Value = value;
                 }
                 else
                 {
+                    LogDataRefValue(datarefPath, value);
                     // Create new cache entry
                     var newCachedRef = new CachedDataRef
                     {
@@ -272,6 +275,12 @@ namespace MobiFlight.ProSim
                     _subscribedDataRefs[datarefPath] = newCachedRef;
                 }
             }
+        }
+
+        private static void LogDataRefValue(string path, object value)
+        {
+            if (Log.Instance.Severity == LogSeverity.Debug)
+                Log.Instance.log($"ProSim received: path={path}, value={Newtonsoft.Json.JsonConvert.SerializeObject(value)}, type={value?.GetType().FullName ?? "null"}", LogSeverity.Debug);
         }
 
         private readonly Dictionary<string, (string method, string graphqlType)> mutationLookup = new Dictionary<string, (string, string)>
