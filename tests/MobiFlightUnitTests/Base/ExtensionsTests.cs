@@ -101,5 +101,22 @@ namespace MobiFlight.Base.Tests
             var link4 = @"mailto:user@";
             Assert.IsFalse(link4.IsValidEmailLink(), "The email link should be invalid.");
         }
+
+        [TestMethod]
+        public void IsDevOrPullRequestBuild_IsValid()
+        {
+            var appVersion = new Version(0, 1, 0);
+            var result = appVersion.IsDevOrPullRequestBuild();
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void IsDevOrPullRequestBuild_NotValid()
+        {
+
+            var appVersion = new Version(10, 0, 0);
+            var result = appVersion.IsDevOrPullRequestBuild();
+            Assert.IsFalse(result);
+        }
     }
 }
