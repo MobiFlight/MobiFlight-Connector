@@ -35,7 +35,6 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         [DataRow(0x00, 0x00, 0x02, 17)]
         [DataRow(0x00, 0x00, 0x04, 18)]
         [DataRow(0x00, 0x00, 0x08, 19)]
-        [DataRow(0x00, 0x00, 0x10, 20)]
         public void Parse_MapsReportBitsToStableButtonIds(int byte0, int byte1, int byte2, int expectedButton)
         {
             var state = MultiPanelReport.Parse(new[] { (byte)byte0, (byte)byte1, (byte)byte2 }).ToJoystickState();
@@ -47,20 +46,20 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         [TestMethod]
         public void Parse_PreservesSimultaneousActiveButtonStates()
         {
-            var state = MultiPanelReport.Parse(new byte[] { 0x81, 0x01, 0x10 }).ToJoystickState();
+            var state = MultiPanelReport.Parse(new byte[] { 0x81, 0x01, 0x08 }).ToJoystickState();
             Assert.IsTrue(state.Buttons[0]);
             Assert.IsTrue(state.Buttons[7]);
             Assert.IsTrue(state.Buttons[8]);
-            Assert.IsTrue(state.Buttons[20]);
+            Assert.IsTrue(state.Buttons[19]);
             Assert.IsFalse(state.Buttons[1]);
             Assert.IsFalse(state.Buttons[9]);
-            Assert.IsFalse(state.Buttons[19]);
+            Assert.IsFalse(state.Buttons[18]);
         }
         [TestMethod]
         public void Parse_UnmappedBitsInThirdByte_AreIgnored()
         {
-            // Bits 5-7 of the third byte fall outside the 21 defined buttons.
-            var state = MultiPanelReport.Parse(new byte[] { 0x00, 0x00, 0xE0 }).ToJoystickState();
+            // Bits 4-7 of the third byte fall outside the 20 defined buttons.
+            var state = MultiPanelReport.Parse(new byte[] { 0x00, 0x00, 0xF0 }).ToJoystickState();
             for (var index = 0; index < MultiPanelReport.ButtonCount; index++)
             {
                 Assert.IsFalse(state.Buttons[index], $"Button {index} should be inactive.");
@@ -76,7 +75,7 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         {
             var state = MultiPanelReport.Parse(new byte[] { 0x01, 0x00, 0x00, 0xFF }).ToJoystickState();
             Assert.IsTrue(state.Buttons[0]);
-            Assert.IsFalse(state.Buttons[20]);
+            Assert.IsFalse(state.Buttons[19]);
         }
         [TestMethod]
         public void Parse_CopiesPayload_SubsequentMutationDoesNotAffectParsedReport()
