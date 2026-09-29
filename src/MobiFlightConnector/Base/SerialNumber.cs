@@ -47,12 +47,6 @@ namespace MobiFlight.Base
             return null;
         }
 
-        public static bool IsArcazeSerial(string serial)
-        {
-            if (serial == null || serial == "") return false;
-            return !IsMidiBoardSerial(serial) && !IsMobiFlightSerial(serial) && !IsJoystickSerial(serial);
-        }
-
         public static bool IsMobiFlightSerial(string serial)
         {
             if (serial == null || serial == "") return false;
@@ -84,8 +78,8 @@ namespace MobiFlight.Base
             // In this case we want to return NOT_SET instead of " / -"
             if (string.IsNullOrEmpty(controller.Name) && !string.IsNullOrEmpty(controller.Serial)) return controller.Serial;
             
-            var isArcazeOrMobiFlightSerial = controller != null && (SerialNumber.IsArcazeSerial(controller.Serial) || SerialNumber.IsMobiFlightSerial(controller.Serial));
-            var serialSeparator = isArcazeOrMobiFlightSerial ? SerialNumber.SerialSeparator : " " + SerialNumber.SerialSeparator;
+            var isMobiFlightSerial = SerialNumber.IsMobiFlightSerial(controller.Serial);
+            var serialSeparator = isMobiFlightSerial ? SerialNumber.SerialSeparator : " " + SerialNumber.SerialSeparator;
             
             return $"{controller.Name}{serialSeparator}{controller.Serial}";
         }

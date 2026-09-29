@@ -4,8 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
-#if ARCAZE
-#endif
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;
 using System.Reflection;
@@ -419,13 +417,8 @@ namespace MobiFlight.UI
 
         private void EditConfigWithWizard(OutputConfigItem cfg, bool create)
         {
-            // refactor!!! dependency to arcaze cache etc not nice
             ConfigWizard wizard = new ConfigWizard(execManager,
                                             cfg,
-#if ARCAZE
-                                            execManager.getModuleCache(),
-                                            execManager.getModuleCache().GetArcazeModuleSettings(),
-#endif
                                             execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList(),
                                             execManager.GetAvailableVariables(),
                                             execManager.Project.ToProjectInfo()
@@ -563,9 +556,6 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
-#if ARCAZE
-            _initializeArcazeModuleSettings();
-#endif
             Update();
             Refresh();
 
@@ -988,7 +978,7 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// properly disconnects all connections to FSUIPC and Arcaze
+        /// properly disconnects all connections to FSUIPC
         /// </summary>
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -1241,9 +1231,6 @@ namespace MobiFlight.UI
                 case "mobiFlightTabPage":
                     dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
                     break;
-                case "ArcazeTabPage":
-                    dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
-                    break;
                 case "peripheralsTabPage":
                     dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
                     break;
@@ -1402,43 +1389,6 @@ namespace MobiFlight.UI
             LoadConfig(recentFile);
         }
 
-#if ARCAZE
-        private void _initializeArcazeModuleSettings()
-        {
-            if (!Properties.Settings.Default.ArcazeSupportEnabled) return;
-
-            Dictionary<string, ArcazeModuleSettings> settings = execManager.getModuleCache().GetArcazeModuleSettings();
-            List<string> serials = new List<string>();
-
-            // get all currently connected devices
-            // add 'em to the list
-            foreach (IModuleInfo arcaze in execManager.getModuleCache().getModuleInfo())
-            {
-                serials.Add(arcaze.Serial);
-            }
-
-            // and now verify that all modules that are connected
-            // really are configured
-            // show message box if not
-            if (settings.Keys.Intersect(serials).ToArray().Count() != serials.Count)
-            {
-                if (MessageBox.Show(
-                                i18n._tr("uiMessageModulesNotConfiguredYet"),
-                                i18n._tr("Hint"),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation,
-                                MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (ShowSettingsDialog("ArcazeTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
-                    {
-                    }
-                }
-            }
-
-            execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
-        }
-#endif
-
         private void Module_Connected(object sender, EventArgs e)
         {
             if (InvokeRequired)
@@ -1493,7 +1443,6 @@ namespace MobiFlight.UI
                 this.Invoke(new EventHandler(Module_Removed), new object[] { sender, e });
                 return;
             }
-            // _disconnectArcaze();
             UpdateStatusBarModuleInformation();
 
             // Todo: Show this error outside of the context of firmware update
@@ -1853,15 +1802,6 @@ namespace MobiFlight.UI
         {
             modulesToolStripMenuItem.DropDownItems.Clear();
 
-#if ARCAZE
-            var modules = execManager.getModuleCache().getModuleInfo();
-
-            foreach (IModuleInfo module in modules)
-            {
-                modulesToolStripMenuItem.DropDownItems.Add(module.Name + "/ " + module.Serial);
-            }
-#endif
-
 #if MOBIFLIGHT
             var mfModules = execManager.getMobiFlightModuleCache().GetModuleInfo();
 
@@ -1876,7 +1816,7 @@ namespace MobiFlight.UI
             }
 #endif
 
-            if ((modules.Count() + mfModules.Count()) == 0)
+            if (mfModules.Count() == 0)
             {
                 var item = new ToolStripMenuItem(i18n._tr("uiNone"));
                 modulesToolStripMenuItem.DropDownItems.Add(item);
@@ -2612,12 +2552,7 @@ namespace MobiFlight.UI
 
         public void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
-            {
-#if ARCAZE
-                execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
-#endif
-            }
+            ShowSettingsDialog("GeneralTabPage", null, null, null);
         }
 
         public void ShowControllersSettingsDialog()

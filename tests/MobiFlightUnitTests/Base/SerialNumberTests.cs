@@ -109,23 +109,6 @@ namespace MobiFlight.Base.Tests
             result = SerialNumber.IsJoystickSerial(SerialNumber.ExtractSerial(serial));
             Assert.IsFalse(result);
         }
-
-        [TestMethod()]
-        public void IsArcazeSerialTest()
-        {
-            var serial = "GMA345/ SN-b44-4c5";
-            var result = SerialNumber.IsArcazeSerial(SerialNumber.ExtractSerial(serial));
-            Assert.IsFalse(result);
-
-            serial = "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000";
-            result = SerialNumber.IsArcazeSerial(SerialNumber.ExtractSerial(serial));
-            Assert.IsFalse(result);
-
-            serial = "Arcaze v5.36/ 000393600000";
-            result = SerialNumber.IsArcazeSerial(SerialNumber.ExtractSerial(serial));
-            Assert.IsTrue(result);
-        }
-
         [TestMethod()]
         public void IsMidiBoardSerialTest()
         {

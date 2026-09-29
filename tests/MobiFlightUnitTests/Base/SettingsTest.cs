@@ -27,7 +27,6 @@ namespace MobiFlight.Base.Tests
             // Arrange
             var properties = new Properties.Settings
             {
-                ArcazeSupportEnabled = true,
                 AutoRetrigger = true,
                 AutoRun = true,
                 AutoLoadLinkedConfig = true,
@@ -59,7 +58,6 @@ namespace MobiFlight.Base.Tests
             var settings = new Settings(properties);
 
             // Assert
-            Assert.IsTrue(settings.ArcazeSupportEnabled);
             Assert.IsTrue(settings.AutoRetrigger);
 
             Assert.IsTrue(settings.AutoRun);
@@ -95,7 +93,6 @@ namespace MobiFlight.Base.Tests
             var properties = new Properties.Settings();
             var settings = new Settings
             {
-                ArcazeSupportEnabled = true,
                 AutoRetrigger = true,
                 AutoRun = true,
                 AutoLoadLinkedConfig = true,
@@ -127,7 +124,6 @@ namespace MobiFlight.Base.Tests
             settings.ApplyTo(properties);
 
             // Assert
-            Assert.IsTrue(properties.ArcazeSupportEnabled);
             Assert.IsTrue(properties.AutoRetrigger);
             Assert.IsTrue(properties.AutoRun);
             Assert.IsTrue(properties.AutoLoadLinkedConfig);

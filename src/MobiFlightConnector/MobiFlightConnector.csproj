@@ -22,7 +22,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug'">
-		<DefineConstants>TRACE;MOBIFLIGHT;DEBUG;SIMCONNECT;ARCAZE</DefineConstants>
+		<DefineConstants>TRACE;MOBIFLIGHT;DEBUG;SIMCONNECT</DefineConstants>
 		<DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
 		<WarningLevel>2</WarningLevel>
 		<CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
@@ -30,7 +30,7 @@
 		<NoWarn>$(NoWarn);WFO1000</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release'">
-		<DefineConstants>TRACE;CODE_ANALYSIS;MOBIFLIGHT;RELEASE;SIMCONNECT;ARCAZE</DefineConstants>
+		<DefineConstants>TRACE;CODE_ANALYSIS;MOBIFLIGHT;RELEASE;SIMCONNECT</DefineConstants>
 		<WarningLevel>2</WarningLevel>
 		<UseVSHostingProcess>false</UseVSHostingProcess>
 		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -75,9 +75,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="ArcazeHid, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-			<HintPath>..\..\lib\ArcazeHid.dll</HintPath>
-		</Reference>
 		<Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
 			<HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
 		</Reference>
