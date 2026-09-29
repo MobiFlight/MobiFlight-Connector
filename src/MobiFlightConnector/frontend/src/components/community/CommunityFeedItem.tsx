@@ -34,18 +34,17 @@ const CommunityFeedItem = (props: CommunityFeedItemProps) => {
       className={cn(
         "border-muted 4xl:flex-row flex flex-row justify-between gap-8 border-b xl:flex-col",
       )}
-
       data-testid="community-feed-item"
     >
       {post.media && post.media.type === "image" && (
         <div
           className={cn(
-            "bg-background flex max-h-48 min-h-48 w-full items-center justify-center overflow-hidden rounded-lg border shadow-md sm:w-1/2 md:w-1/3 xl:w-full",
+            "bg-background flex w-full items-center justify-center overflow-hidden rounded-lg border shadow-md sm:w-1/2 md:w-1/3 xl:w-full",
             post.media.className || "",
           )}
         >
           <img
-            className={`max-h-60 w-full object-cover`}
+            className={`h-auto w-full object-contain`}
             src={post.media.src}
             alt={post.media.alt}
           />

@@ -287,7 +287,7 @@ test.describe("Confirm content and basic functions are working", () => {
     await contextMenu.getByRole("menuitem", { name: "Duplicate" }).click()
 
     // Simulate the backend response after duplicating the item.
-    
+
     await configListPage.duplicateConfigItem(0, "inputaction")
     await page.mouse.move(0, 0)
     const duplicatedRow = await configListPage.getConfigItemRow(2)
@@ -644,6 +644,60 @@ test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await expect(page.locator("html")).toHaveAttribute("class", "dark")
   await page.getByRole("button", { name: "Toggle light mode" }).click()
   await expect(page.locator("html")).toHaveAttribute("class", "light")
+})
+
+test("Discarding project changes reloads the current project", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData()
+
+  const mobiFlightPage = configListPage.mobiFlightPage
+
+  await mobiFlightPage.trackCommand("CommandMainMenu")
+
+  await mobiFlightPage.updateProjectState({
+    HasChanged: true,
+    SaveStatus: "idle",
+  })
+
+  await mobiFlightPage.clearTrackedCommands()
+
+  const projectPanel = page.getByTestId("project-panel")
+  const backButton = projectPanel.locator('svg[role="button"]').first()
+
+  await backButton.click()
+
+  const confirmDialog = page.getByRole("dialog", {
+    name: "Discard changes?",
+  })
+
+  await expect(confirmDialog).toBeVisible()
+
+  await confirmDialog
+    .getByRole("button", {
+      name: "Discard changes",
+    })
+    .click()
+
+  await expect(confirmDialog).not.toBeVisible()
+  await expect(page).toHaveURL(/.*\/home((\/|\?).*)?/)
+
+  const postedCommands = await mobiFlightPage.getTrackedCommands()
+
+  expect(postedCommands).toHaveLength(1)
+
+  const lastCommand = postedCommands!.pop()
+
+  expect(lastCommand.key).toEqual("CommandMainMenu")
+  expect(lastCommand.payload.action).toEqual("file.recent")
+
+  const originalProject = await mobiFlightPage.getTestProjectData()
+
+  expect(lastCommand.payload.options.project.FilePath).toEqual(
+    originalProject.FilePath,
+  )
 })
 
 test.describe("Filter toolbar tests", () => {

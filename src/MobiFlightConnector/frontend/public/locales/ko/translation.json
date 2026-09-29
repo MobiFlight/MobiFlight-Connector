@@ -213,12 +213,6 @@
         "Create": "프로젝트 만들기",
         "Update": "프로젝트 갱신"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "저장되지 않은 변경 사항",
-      "Description": "프로젝트에 저장되지 않은 변경 사항이 있습니다. 어떻게 하시겠습니까?",
-      "Save": "변경 사항 저장",
-      "Discard": "변경 취소"
     }
   },
   "ConfigList": {
@@ -384,6 +378,7 @@
       "Save": "저장",
       "SaveChanges": "변경 사항 저장",
       "ApplyChanges": "변경 사항 적용",
+      "DiscardChanges": "변경 사항 취소",
       "ResetFilters": "필터 초기화",
       "PendingChangesMessage": "보류 중인 변경 사항이 있습니다. 먼저 적용하거나, 저장하지 않고 이 대화상자를 닫으려면 취소를 클릭하세요."
     },
@@ -822,6 +817,11 @@
           "SelectPresetPlaceholder": "프리셋 선택..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "변경 사항을 취소하시겠습니까?",
+      "Description": "저장되지 않은 변경 사항이 있습니다. 정말로 취소하시겠습니까?",
+      "KeepEditing": "계속 편집"
     }
   },
   "Auth": {
