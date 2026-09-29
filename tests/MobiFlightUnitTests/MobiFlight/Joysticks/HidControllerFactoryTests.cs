@@ -40,6 +40,8 @@ namespace MobiFlight.Joysticks.Tests
             var controller = HidControllerFactory.Create(definition);
 
             Assert.IsInstanceOfType(controller, typeof(Logitech.SwitchPanel));
+            Assert.AreEqual("Logitech Switch Panel", controller.Name);
+            Assert.AreEqual("JS-LOGITECH-SWITCH-PANEL-1234-ABCD-12345678", controller.Serial);
         }
     }
 }

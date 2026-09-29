@@ -811,7 +811,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Controller Management</value>
   </data>
   <data name="&gt;&gt;mfTreeViewImageList.Name" xml:space="preserve">
     <value>mfTreeViewImageList</value>

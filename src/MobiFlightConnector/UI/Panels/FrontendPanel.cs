@@ -99,7 +99,7 @@ namespace MobiFlight.UI.Panels
             if (injectWsUrl && MessageServer.Current != null)
             {
                 await webView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(
-                    $"window.__MOBIFLIGHT__ = {{ wsUrl: '{MessageServer.Current.Url}' }};");
+        $"window.__MOBIFLIGHT__ = {{ wsUrl: '{MessageServer.Current.Url}', version: '{MainForm.DisplayVersion()}', build: '{MainForm.Build}' }};");
             }
 
             // Navigate to start the app

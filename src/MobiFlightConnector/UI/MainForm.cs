@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -82,7 +82,9 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Language != "")
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                var cultureInfo = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
             }
         }
 
@@ -331,6 +333,12 @@ namespace MobiFlight.UI
                 commandProjectToolbarHandler.Handle(message);
             });
 
+            var commandUpdateSettingsHandler = new CommandUpdateSettingsHandler(() => execManager);
+            MessageExchange.Instance.Subscribe<CommandUpdateSettings>((message) =>
+            {
+                commandUpdateSettingsHandler.Handle(message);
+            });
+
             // OnUiThread: SetTitle touches Form.Text.
             MessageExchange.Instance.SubscribeOnUiThread<CommandDiscardChanges>((message) =>
             {
@@ -341,7 +349,7 @@ namespace MobiFlight.UI
             // Not OnUiThread: no WinForms/shared state, just URL validation + Process.Start.
             MessageExchange.Instance.Subscribe<CommandOpenLinkInBrowser>((message) =>
             {
-                if (!message.Url.IsValidUrl())
+                if (!message.Url.IsValidUrl() && !message.Url.IsValidEmailLink())
                 {
                     Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
                     return;
@@ -1221,7 +1229,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
+        public DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
@@ -2429,16 +2437,6 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// shows the about form
-        /// </summary>
-        public void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutForm ab = new AboutForm();
-            ab.StartPosition = FormStartPosition.CenterParent;
-            ab.ShowDialog();
-        } //aboutToolStripMenuItem_Click()
-
-        /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
         /// </summary>
         public void newFileToolStripMenuItem_Click(CommandMainMenuOptions options)
@@ -2620,6 +2618,11 @@ namespace MobiFlight.UI
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
             }
+        }
+
+        public void ShowControllersSettingsDialog()
+        {
+            ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -67,6 +67,9 @@ namespace MobiFlight.UI.Dialogs
 #if !MOBIFLIGHT
             tabControl1.TabPages.Remove(mobiFlightTabPage);
 #endif
+            tabControl1.TabPages.Remove(generalTabPage);
+            tabControl1.TabPages.Remove(ProSimTab);
+
             peripheralsPanel.Init(execManager.GetJoystickManager(), execManager.GetMidiBoardManager());
             loadSettings();
         }
@@ -76,9 +79,6 @@ namespace MobiFlight.UI.Dialogs
         /// </summary>
         private void loadSettings ()
         {            
-            // TAB General            
-            generalPanel.loadSettings();
-            
             // TAB Arcaze           
 #if ARCAZE
             arcazePanel.LoadSettings();
@@ -89,8 +89,6 @@ namespace MobiFlight.UI.Dialogs
 
             // TAB Joystick & Midi
             peripheralsPanel.LoadSettings();
-
-            proSimPanel.LoadSettings();
         }
 
         /// <summary>
@@ -99,8 +97,6 @@ namespace MobiFlight.UI.Dialogs
         /// </summary>
         private void saveSettings()
         {
-            // General Tab
-            generalPanel.saveSettings();
 #if ARCAZE
             // Arcaze Tab
             arcazePanel.SaveSettings();
@@ -110,15 +106,6 @@ namespace MobiFlight.UI.Dialogs
 
             // TAB Joystick & Midi
             peripheralsPanel.SaveSettings();
-
-            // ProSim Tab
-            proSimPanel.SaveSettings();
-            
-            // Reset ProSim connection state when settings change
-            if (execManager != null)
-            {
-                execManager.ResetProSimConnectionState();
-            }
 
             // Save all Settings
             Properties.Settings.Default.Save();

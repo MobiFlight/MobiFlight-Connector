@@ -28,7 +28,7 @@ namespace MobiFlight.Joysticks.Logitech
 
                 return !string.IsNullOrEmpty(CachedSerialNumber)
                     ? $"{SerialPrefix}{CachedSerialNumber}"
-                    : $"{Name.ToUpper().Replace(" ", "-")}-1234-ABCD-12345678";
+                    : $"{SerialPrefix}{Name.ToUpper().Replace(" ", "-")}-1234-ABCD-12345678";
             }
         }
 
