@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace MobiFlightMoza.Protocol
 {
@@ -111,8 +112,9 @@ namespace MobiFlightMoza.Protocol
                 }
                 if (Buffer.Count < 9) return;
 
-                uint size = Bytes.ReadU32Le(Buffer, 1);
-                uint receivedCrc = Bytes.ReadU32Le(Buffer, 5);
+                ReadOnlySpan<byte> bufferSpan = CollectionsMarshal.AsSpan(Buffer);
+                uint size = Bytes.ReadU32Le(bufferSpan, 1);
+                uint receivedCrc = Bytes.ReadU32Le(bufferSpan, 5);
                 if (size < 4 || size > MaxPayloadSize)
                 {
                     Buffer.RemoveAt(0); // not a real frame start - drop one byte and resync

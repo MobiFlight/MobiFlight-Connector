@@ -1,35 +1,57 @@
-using System.Collections.Generic;
+using System;
+using System.Buffers.Binary;
 
 namespace MobiFlightMoza.Protocol
 {
     /// <summary>
     /// Little/big-endian integer pack and read helpers, so wire-format code reads as
-    /// "field:type LE/BE" instead of hand-rolled shift-and-mask sequences. Reads take
-    /// <see cref="IReadOnlyList{T}"/> so callers can read directly out of a growable
-    /// <see cref="List{T}"/> receive buffer without copying it to an array first.
+    /// "field:type LE/BE" instead of calling <see cref="BinaryPrimitives"/> directly at
+    /// every call site. Reads take <see cref="ReadOnlySpan{T}"/> so callers can read
+    /// directly out of a growable <see cref="System.Collections.Generic.List{T}"/> receive
+    /// buffer (via <see cref="System.Runtime.InteropServices.CollectionsMarshal.AsSpan"/>)
+    /// without copying it to an array first.
     /// </summary>
     internal static class Bytes
     {
-        public static byte[] U16Le(ushort value) => [(byte)value, (byte)(value >> 8)];
-        public static byte[] U16Be(ushort value) => [(byte)(value >> 8), (byte)value];
+        public static byte[] U16Le(ushort value)
+        {
+            byte[] buf = new byte[2];
+            BinaryPrimitives.WriteUInt16LittleEndian(buf, value);
+            return buf;
+        }
 
-        public static byte[] U32Le(uint value) =>
-            [(byte)value, (byte)(value >> 8), (byte)(value >> 16), (byte)(value >> 24)];
-        public static byte[] U32Be(uint value) =>
-            [(byte)(value >> 24), (byte)(value >> 16), (byte)(value >> 8), (byte)value];
+        public static byte[] U16Be(ushort value)
+        {
+            byte[] buf = new byte[2];
+            BinaryPrimitives.WriteUInt16BigEndian(buf, value);
+            return buf;
+        }
 
-        public static byte[] U64Le(ulong value) =>
-        [
-            (byte)value, (byte)(value >> 8), (byte)(value >> 16), (byte)(value >> 24),
-            (byte)(value >> 32), (byte)(value >> 40), (byte)(value >> 48), (byte)(value >> 56),
-        ];
+        public static byte[] U32Le(uint value)
+        {
+            byte[] buf = new byte[4];
+            BinaryPrimitives.WriteUInt32LittleEndian(buf, value);
+            return buf;
+        }
 
-        public static ushort ReadU16Le(IReadOnlyList<byte> data, int offset) => (ushort)(data[offset] | (data[offset + 1] << 8));
-        public static ushort ReadU16Be(IReadOnlyList<byte> data, int offset) => (ushort)((data[offset] << 8) | data[offset + 1]);
+        public static byte[] U32Be(uint value)
+        {
+            byte[] buf = new byte[4];
+            BinaryPrimitives.WriteUInt32BigEndian(buf, value);
+            return buf;
+        }
 
-        public static uint ReadU32Le(IReadOnlyList<byte> data, int offset) =>
-            (uint)(data[offset] | (data[offset + 1] << 8) | (data[offset + 2] << 16) | (data[offset + 3] << 24));
-        public static uint ReadU32Be(IReadOnlyList<byte> data, int offset) =>
-            (uint)((data[offset] << 24) | (data[offset + 1] << 16) | (data[offset + 2] << 8) | data[offset + 3]);
+        public static byte[] U64Le(ulong value)
+        {
+            byte[] buf = new byte[8];
+            BinaryPrimitives.WriteUInt64LittleEndian(buf, value);
+            return buf;
+        }
+
+        public static ushort ReadU16Le(ReadOnlySpan<byte> data, int offset) => BinaryPrimitives.ReadUInt16LittleEndian(data[offset..]);
+        public static ushort ReadU16Be(ReadOnlySpan<byte> data, int offset) => BinaryPrimitives.ReadUInt16BigEndian(data[offset..]);
+
+        public static uint ReadU32Le(ReadOnlySpan<byte> data, int offset) => BinaryPrimitives.ReadUInt32LittleEndian(data[offset..]);
+        public static uint ReadU32Be(ReadOnlySpan<byte> data, int offset) => BinaryPrimitives.ReadUInt32BigEndian(data[offset..]);
     }
 }

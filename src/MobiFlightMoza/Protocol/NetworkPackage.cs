@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace MobiFlightMoza.Protocol
 {
@@ -41,7 +42,7 @@ namespace MobiFlightMoza.Protocol
             List<NetworkPackage> packages = [];
             while (Buffer.Count >= 5)
             {
-                uint size = Bytes.ReadU32Le(Buffer, 1);
+                uint size = Bytes.ReadU32Le(CollectionsMarshal.AsSpan(Buffer), 1);
                 if (size > MaxPayloadSize)
                 {
                     throw new InvalidOperationException($"NetworkPackage payload size {size} exceeds the sanity limit.");
