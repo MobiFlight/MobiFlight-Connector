@@ -18,7 +18,6 @@ namespace MobiFlight.Tests
     [TestClass]
     public class ConfigItemExecutorTests
     {
-        private Mock<ArcazeCache> mockArcazeCache;
         private Mock<FSUIPCCacheInterface> mockFsuipcCache;
         private Mock<SimConnectCacheInterface> mockSimConnectCache;
         private Mock<XplaneCacheInterface> mockXplaneCache;
@@ -34,7 +33,6 @@ namespace MobiFlight.Tests
         [TestInitialize]
         public void Setup()
         {
-            mockArcazeCache = new Mock<ArcazeCache>();
             mockFsuipcCache = new Mock<FSUIPCCacheInterface>();
             mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             mockXplaneCache = new Mock<XplaneCacheInterface>();
@@ -48,9 +46,6 @@ namespace MobiFlight.Tests
 
             executor = new ConfigItemExecutor(
                 configItems,
-#if ARCAZE
-                mockArcazeCache.Object,
-#endif
                 mockFsuipcCache.Object,
                 mockSimConnectCache.Object,
                 mockXplaneCache.Object,

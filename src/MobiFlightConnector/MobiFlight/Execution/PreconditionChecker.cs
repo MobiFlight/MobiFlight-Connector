@@ -7,10 +7,9 @@ namespace MobiFlight.Execution
     public static class PreconditionChecker
     {
         public static bool CheckPrecondition(
-            IConfigItem cfg, 
-            ConnectorValue currentValue, 
-            List<IConfigItem> configItems, 
-            ArcazeCache arcazeCache, 
+            IConfigItem cfg,
+            ConnectorValue currentValue,
+            List<IConfigItem> configItems,
             MobiFlightCacheInterface mobiFlightCache
         )
         {
@@ -27,14 +26,6 @@ namespace MobiFlight.Execution
                 
                 switch (p.Type)
                 {
-#if ARCAZE
-                    case "pin":
-                        string serial = SerialNumber.ExtractSerial(p.Serial);
-                        string val = arcazeCache.getValue(serial, p.Pin, "repeat");
-
-                        result = p.Evaluate(val, currentValue);
-                        break;
-#endif
                     case "variable":
                         var variableValue = mobiFlightCache.GetMobiFlightVariable(p.Ref);
                         if (variableValue == null) break;

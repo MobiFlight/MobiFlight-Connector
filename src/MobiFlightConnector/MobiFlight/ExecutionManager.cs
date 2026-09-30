@@ -22,7 +22,6 @@ namespace MobiFlight
     public interface IExecutionManager
     {
         Dictionary<String, MobiFlightVariable> GetAvailableVariables();
-        ArcazeCache getModuleCache();
         JoystickManager GetJoystickManager();
         MobiFlightCache getMobiFlightModuleCache();
         ProSim.ProSimCacheInterface GetProSimCache();
@@ -69,7 +68,7 @@ namespace MobiFlight
         private readonly EventTimer timer = new EventTimer();
 
         /// <summary>
-        /// the timer used for auto connect of FSUIPC and Arcaze
+        /// the timer used for auto connect of FSUIPC
         /// </summary>
         private readonly Timer autoConnectTimer = new Timer();
 
@@ -89,10 +88,6 @@ namespace MobiFlight
         readonly ProSim.ProSimCacheInterface proSimCache;
 
         readonly XplaneCacheInterface xplaneCache;
-
-#if ARCAZE
-        readonly ArcazeCache arcazeCache = new ArcazeCache();
-#endif
 
 #if MOBIFLIGHT
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
@@ -185,14 +180,6 @@ namespace MobiFlight
             this.proSimCache.Closed += new EventHandler(proSim_Closed);
             this.proSimCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
 
-#if ARCAZE
-            arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
-            arcazeCache.Closed += new EventHandler(ModuleCache_Closed);
-            arcazeCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
-            arcazeCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
-            arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
-#endif
-
             mobiFlightCache.OnAvailable += new EventHandler(ModuleCache_Available);
             mobiFlightCache.Closed += new EventHandler(ModuleCache_Closed);
             mobiFlightCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
@@ -267,17 +254,6 @@ namespace MobiFlight
         public void PublishConnectedDevices()
         {
             var connectedControllers = new List<Controller>();
-
-#if ARCAZE
-            arcazeCache.getModuleInfo().ToList().ForEach(controller =>
-            {
-                connectedControllers.Add(new Controller()
-                {
-                    Name = controller.Name,
-                    Serial = controller.Serial
-                });
-            });
-#endif
 
             mobiFlightCache.GetModules().ToList().ForEach(controller =>
             {
@@ -836,11 +812,7 @@ namespace MobiFlight
         public bool ModulesAvailable()
         {
 #if MOBIFLIGHT
-            return
-#if ARCAZE
-                arcazeCache.Available() ||
-#endif
-                mobiFlightCache.Available();
+            return mobiFlightCache.Available();
 #endif
         }
 
@@ -882,8 +854,7 @@ namespace MobiFlight
                     xplaneCache,
                     mobiFlightCache,
                     proSimCache,
-                    joystickManager,
-                    arcazeCache
+                    joystickManager
                 );
             }
         }
@@ -895,9 +866,6 @@ namespace MobiFlight
             mobiFlightCache.StopKeepAwake();
 
             isExecuting = false;
-#if ARCAZE
-            arcazeCache.Clear();
-#endif
             scriptRunner.Stop();
             mobiFlightCache.Stop();
             simConnectCache.Stop();
@@ -975,24 +943,10 @@ namespace MobiFlight
             return testModeTimer.Enabled;
         }
 
-#if ARCAZE
-        public ArcazeCache getModuleCache()
-        {
-            return arcazeCache;
-        }
-#endif
-
 #if MOBIFLIGHT
         public MobiFlightCache getMobiFlightModuleCache()
         {
             return mobiFlightCache;
-        }
-#endif
-
-#if ARCAZE
-        public ArcazeCache getModules()
-        {
-            return arcazeCache;
         }
 #endif
 
@@ -1009,9 +963,6 @@ namespace MobiFlight
         public List<IModuleInfo> GetAllConnectedModulesInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
-#if ARCAZE
-            result.AddRange(arcazeCache.getModuleInfo());
-#endif
             result.AddRange(mobiFlightCache.GetModuleInfo());
             return result;
         }
@@ -1023,9 +974,6 @@ namespace MobiFlight
         {
             scriptRunner.Shutdown();
             autoConnectTimer.Stop();
-#if ARCAZE
-            arcazeCache.Shutdown();
-#endif
 
 #if MOBIFLIGHT
             mobiFlightCache.Shutdown();
@@ -1049,15 +997,6 @@ namespace MobiFlight
             this.OnShutdown?.Invoke(this, new EventArgs());
         }
 
-#if ARCAZE
-        public void updateModuleSettings(Dictionary<string, ArcazeModuleSettings> arcazeSettings)
-        {
-
-            arcazeCache.updateModuleSettings(arcazeSettings);
-            arcazeCache.Shutdown();
-        }
-#endif
-
         /// <summary>
         /// the main method where the configuration is parsed and executed
         /// </summary>
@@ -1075,14 +1014,10 @@ namespace MobiFlight
             isExecuting = true;
             fsuipcCache.Clear();
 
-#if ARCAZE
-            arcazeCache.clearGetValues();
-#endif
             foreach (var configFile in _project.ConfigFiles)
             {
                 var executor = new ConfigItemExecutor(
                                                   configFile.ConfigItems,
-                                                  arcazeCache,
                                                   fsuipcCache,
                                                   simConnectCache,
                                                   xplaneCache,
@@ -1169,7 +1104,6 @@ namespace MobiFlight
 
         void ModuleCache_ModuleRemoved(object sender, EventArgs e)
         {
-            //_disconnectArcaze();
             this.OnModuleRemoved(sender, e);
             Stop();
             PublishConnectedDevices();
@@ -1239,7 +1173,7 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// auto connect timer handler which tries to automagically connect to FSUIPC and Arcaze Modules        
+        /// auto connect timer handler which tries to automagically connect to FSUIPC
         /// </summary>
         /// <remarks>
         /// auto connect is only done if current timer is not running since we suppose that an established
@@ -1249,13 +1183,6 @@ namespace MobiFlight
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
-
-#if ARCAZE
-            if (arcazeCache.Enabled && !arcazeCache.Available())
-            {
-                arcazeCache.connect();
-            }
-#endif
 
             // Try to connect to ProSim with retry limits and user settings
             TryConnectToProSim();
@@ -1409,7 +1336,6 @@ namespace MobiFlight
                 ConfigItemInTestMode = null;
 
             var executor = new ConfigItemExecutor(ConfigItems,
-                                                  arcazeCache,
                                                   fsuipcCache,
                                                   simConnectCache,
                                                   xplaneCache,
@@ -1430,7 +1356,6 @@ namespace MobiFlight
             mobiFlightCache.StartKeepAwake();
 
             var executor = new ConfigItemExecutor(ConfigItems,
-                                                  arcazeCache,
                                                   fsuipcCache,
                                                   simConnectCache,
                                                   xplaneCache,
@@ -1501,7 +1426,7 @@ namespace MobiFlight
 
                     ConnectorValue currentValue = new ConnectorValue();
 
-                    if (!PreconditionChecker.CheckPrecondition(cfg, currentValue, ConfigItems, arcazeCache, mobiFlightCache))
+                    if (!PreconditionChecker.CheckPrecondition(cfg, currentValue, ConfigItems, mobiFlightCache))
                     {
                         cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
                     }
@@ -1538,15 +1463,6 @@ namespace MobiFlight
             {
                 result[key] = resultMidiBoards[key];
             }
-
-            result["arcazeCache.Enabled"] = 0;
-#if ARCAZE
-            if (arcazeCache.Enabled)
-            {
-                result["arcazeCache.Enabled"] = 1;
-                result["arcazeCache.Count"] = arcazeCache.getModuleInfo().Count();
-            }
-#endif
 
             return result;
         }

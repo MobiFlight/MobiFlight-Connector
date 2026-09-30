@@ -39,14 +39,6 @@ namespace MobiFlight.UI.Dialogs
         private void Init()
         {
             InitializeComponent();
-            // init Arcaze Tab Panel
-#if ARCAZE
-            arcazePanel.Init(execManager.getModuleCache());
-#endif
-
-#if !ARCAZE
-            tabControl1.TabPages.Remove(ArcazeTabPage);
-#endif
 
 #if MOBIFLIGHT
             mobiFlightPanel.Init(execManager.getMobiFlightModuleCache());
@@ -78,13 +70,8 @@ namespace MobiFlight.UI.Dialogs
         /// Load all settings for each tab
         /// </summary>
         private void loadSettings ()
-        {            
-            // TAB Arcaze           
-#if ARCAZE
-            arcazePanel.LoadSettings();
-#endif
-           
-            // TAB MobiFlight           
+        {
+            // TAB MobiFlight
             mobiFlightPanel.LoadSettings();
 
             // TAB Joystick & Midi
@@ -97,10 +84,6 @@ namespace MobiFlight.UI.Dialogs
         /// </summary>
         private void saveSettings()
         {
-#if ARCAZE
-            // Arcaze Tab
-            arcazePanel.SaveSettings();
-#endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
 
@@ -137,18 +120,6 @@ namespace MobiFlight.UI.Dialogs
             DialogResult = DialogResult.OK;
 
             saveSettings();
-        }
-
-        
-
-        /// <summary>
-        /// Validate settings, e.g. ensure that every Arcaze has been configured.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ledDisplaysTabPage_Validating(object sender, CancelEventArgs e)
-        {
-            // check that for all available arcaze serials there is an entry in module settings
         }
 
         /// <summary>
