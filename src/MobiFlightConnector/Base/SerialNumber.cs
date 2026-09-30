@@ -78,8 +78,10 @@ namespace MobiFlight.Base
             // In this case we want to return NOT_SET instead of " / -"
             if (string.IsNullOrEmpty(controller.Name) && !string.IsNullOrEmpty(controller.Serial)) return controller.Serial;
             
-            var isMobiFlightSerial = SerialNumber.IsMobiFlightSerial(controller.Serial);
-            var serialSeparator = isMobiFlightSerial ? SerialNumber.SerialSeparator : " " + SerialNumber.SerialSeparator;
+            // Joystick and MIDI board serials get a leading space before the separator,
+            // MobiFlight serials and any other (e.g. legacy/generic) serials do not.
+            var isJoystickOrMidiBoardSerial = SerialNumber.IsJoystickSerial(controller.Serial) || SerialNumber.IsMidiBoardSerial(controller.Serial);
+            var serialSeparator = isJoystickOrMidiBoardSerial ? " " + SerialNumber.SerialSeparator : SerialNumber.SerialSeparator;
             
             return $"{controller.Name}{serialSeparator}{controller.Serial}";
         }
