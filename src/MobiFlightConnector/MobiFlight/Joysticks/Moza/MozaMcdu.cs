@@ -16,6 +16,8 @@ namespace MobiFlight.Joysticks.Moza
         /// <summary>The address a MobiFlight config "LCD Display" binding uses to target the MCDU screen.</summary>
         private const string ScreenAddress = "Mcdu Screen";
 
+        public override string Name => Definition?.InstanceName ?? "MOZA MA3F MFCD Display";
+
         private static readonly TimeSpan ScreenConnectRetryInterval = TimeSpan.FromSeconds(2);
         // Matches McduInitConfig's TcpKeyframeIntervalMs (750) - that field is what we tell
         // the device our own resync cadence will be, so the actual resend interval has to
