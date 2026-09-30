@@ -13,14 +13,14 @@ namespace MobiFlight.Joysticks.Logitech
 
     internal sealed class MultiPanelDisplayState
     {
-        private const int DigitSlots = 5;
-        private const byte DigitOff = 0x0F;
-        private const byte DigitDash = 0xDE;
+        private const int DIGIT_SLOTS = 5;
+        private const byte DIGIT_OFF = 0x0F;
+        private const byte DIGIT_DASH = 0xDE;
 
         private readonly byte[] TopRow = NewBlankRow();
         private readonly byte[] BottomRow = NewBlankRow();
 
-        private static byte[] NewBlankRow() => new[] { DigitOff, DigitOff, DigitOff, DigitOff, DigitOff };
+        private static byte[] NewBlankRow() => new[] { DIGIT_OFF, DIGIT_OFF, DIGIT_OFF, DIGIT_OFF, DIGIT_OFF };
 
         /// <summary>
         /// Recomputes both display rows for the currently active selector position.
@@ -39,17 +39,17 @@ namespace MobiFlight.Joysticks.Logitech
 
                 case MultiPanelSelector.Ias:
                     EncodeInto(TopRow, iasValue, digits: 3, allowSign: false);
-                    Array.Copy(NewBlankRow(), BottomRow, DigitSlots);
+                    Array.Copy(NewBlankRow(), BottomRow, DIGIT_SLOTS);
                     break;
 
                 case MultiPanelSelector.Hdg:
                     EncodeInto(TopRow, hdgValue, digits: 3, allowSign: false);
-                    Array.Copy(NewBlankRow(), BottomRow, DigitSlots);
+                    Array.Copy(NewBlankRow(), BottomRow, DIGIT_SLOTS);
                     break;
 
                 case MultiPanelSelector.Crs:
                     EncodeInto(TopRow, crsValue, digits: 3, allowSign: false);
-                    Array.Copy(NewBlankRow(), BottomRow, DigitSlots);
+                    Array.Copy(NewBlankRow(), BottomRow, DIGIT_SLOTS);
                     break;
 
                 default:
@@ -64,7 +64,7 @@ namespace MobiFlight.Joysticks.Logitech
         /// </summary>
         private static void EncodeInto(byte[] row, int value, int digits, bool allowSign)
         {
-            Array.Copy(NewBlankRow(), row, DigitSlots);
+            Array.Copy(NewBlankRow(), row, DIGIT_SLOTS);
 
             bool negative = allowSign && value < 0;
             string digitsText = Math.Abs(value).ToString();
@@ -74,7 +74,7 @@ namespace MobiFlight.Joysticks.Logitech
                 digitsText = digitsText.Substring(digitsText.Length - digits);
             }
 
-            int start = DigitSlots - digitsText.Length;
+            int start = DIGIT_SLOTS - digitsText.Length;
             for (int i = 0; i < digitsText.Length; i++)
             {
                 row[start + i] = (byte)(digitsText[i] - '0');
@@ -82,7 +82,7 @@ namespace MobiFlight.Joysticks.Logitech
 
             if (negative && start > 0)
             {
-                row[start - 1] = DigitDash;
+                row[start - 1] = DIGIT_DASH;
             }
         }
 
@@ -93,8 +93,8 @@ namespace MobiFlight.Joysticks.Logitech
         /// </summary>
         public void WriteInto(byte[] report)
         {
-            Array.Copy(TopRow, 0, report, 1, DigitSlots);
-            Array.Copy(BottomRow, 0, report, 6, DigitSlots);
+            Array.Copy(TopRow, 0, report, 1, DIGIT_SLOTS);
+            Array.Copy(BottomRow, 0, report, 6, DIGIT_SLOTS);
         }
     }
 }

@@ -17,16 +17,9 @@ namespace MobiFlight.Joysticks.Logitech
         private bool Disconnected;
         private bool OpenFailureLogged;
 
-        private const int FeatureReportLength = 13;
+        private const int FEATURE_REPORT_LENGTH = 13;
         private readonly MultiPanelLedState LedState = new MultiPanelLedState();
         private readonly MultiPanelDisplayState DisplayState = new MultiPanelDisplayState();
-
-        // Indices into JoystickState.Buttons matching the JSON's SEL ALT..SEL CRS inputs (Ids 0-4).
-        private const int SelectorButtonAlt = 0;
-        private const int SelectorButtonVs = 1;
-        private const int SelectorButtonIas = 2;
-        private const int SelectorButtonHdg = 3;
-        private const int SelectorButtonCrs = 4;
 
         // Guarded by OutputLock: both the selector and the cached values must be
         // read together and consistently by UpdateOutputDeviceStates().
@@ -187,11 +180,11 @@ namespace MobiFlight.Joysticks.Logitech
         private void UpdateSelectorFromState(JoystickState newState)
         {
             MultiPanelSelector? selector = null;
-            if (newState.Buttons[SelectorButtonAlt]) selector = MultiPanelSelector.Alt;
-            else if (newState.Buttons[SelectorButtonVs]) selector = MultiPanelSelector.Vs;
-            else if (newState.Buttons[SelectorButtonIas]) selector = MultiPanelSelector.Ias;
-            else if (newState.Buttons[SelectorButtonHdg]) selector = MultiPanelSelector.Hdg;
-            else if (newState.Buttons[SelectorButtonCrs]) selector = MultiPanelSelector.Crs;
+            if (newState.Buttons[0]) selector = MultiPanelSelector.Alt;
+            else if (newState.Buttons[1]) selector = MultiPanelSelector.Vs;
+            else if (newState.Buttons[2]) selector = MultiPanelSelector.Ias;
+            else if (newState.Buttons[3]) selector = MultiPanelSelector.Hdg;
+            else if (newState.Buttons[4]) selector = MultiPanelSelector.Crs;
 
             // No bit set is treated as "no change" rather than "no selector" -
             // the device always has exactly one position active, so an all-zero
@@ -278,7 +271,7 @@ namespace MobiFlight.Joysticks.Logitech
 
                 DisplayState.SetDisplay(CurrentSelector, AltValue, VsValue, IasValue, HdgValue, CrsValue);
 
-                var featureReport = new byte[FeatureReportLength];
+                var featureReport = new byte[FEATURE_REPORT_LENGTH];
                 featureReport[0] = 0; // report ID
                 DisplayState.WriteInto(featureReport);
                 LedState.WriteInto(featureReport);
@@ -287,7 +280,6 @@ namespace MobiFlight.Joysticks.Logitech
                 {
                     Stream.SetFeature(featureReport, 0, featureReport.Length);
                     RequiresOutputUpdate = false;
-                    Log.Instance.log($"{Name} output: {BitConverter.ToString(featureReport)} LED=0x{LedState.Value:X2}", LogSeverity.Info);
                 }
                 catch (Exception ex)
                 {

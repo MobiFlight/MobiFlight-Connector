@@ -5,7 +5,7 @@ namespace MobiFlight.Joysticks.Logitech
     internal sealed class MultiPanelLedState
     {
         public const byte ReportId = 0;
-        public const int FeatureReportLength = 13;
+        public const int FEATURE_REPORT_LENGTH = 13;
         public const int ChannelCount = 8;
 
         public byte Value { get; private set; }
