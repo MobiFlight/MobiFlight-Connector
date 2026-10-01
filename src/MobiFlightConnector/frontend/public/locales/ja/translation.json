@@ -26,7 +26,11 @@
     "Copy": "コピー",
     "Paste": "ペースト",
     "NewFeature": "新規",
-    "Close": "閉じる"
+    "Close": "閉じる",
+    "FacetedFilter": {
+      "Clear": "フィルターを解除",
+      "NoResultsFound": "結果が見つかりません。"
+    }
   },
   "MainMenu": {
     "File": {
@@ -226,10 +230,7 @@
         "ConfigType": "設定タイプ",
         "Device": "コントローラー",
         "Type": "デバイス",
-        "Name": "名前",
-        "Selected": "{{items}} 件選択中",
-        "Clear": "フィルターを解除",
-        "NoResultsFound": "結果が見つかりません。"
+        "Name": "名前"
       },
       "NotSet": "未設定",
       "Reset": "フィルターをリセット",
