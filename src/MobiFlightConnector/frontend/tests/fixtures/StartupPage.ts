@@ -1,4 +1,8 @@
 import { StatusBarUpdate } from "@/types";
+import {
+    GoldSponsor,
+    GoldSponsorsUpdate,
+} from "@/types/messages"
 import { MobiFlightPage } from "./MobiFlightPage";
 import * as Types from "@/types";
 
@@ -18,5 +22,16 @@ export class StartupPage {
       } as StatusBarUpdate,
     };
     await this.mobiFlightPage.publishMessage(message);
-  }
+    }
+
+    async setGoldSponsors(sponsors: GoldSponsor[]) {
+        const message: Types.AppMessage = {
+            key: "GoldSponsorsUpdate",
+            payload: {
+                Sponsors: sponsors,
+            } as GoldSponsorsUpdate,
+        }
+
+        await this.mobiFlightPage.publishMessage(message)
+    }
 }
