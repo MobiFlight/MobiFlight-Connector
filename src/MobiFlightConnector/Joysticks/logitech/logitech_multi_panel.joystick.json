@@ -1,0 +1,49 @@
+{
+  "$schema": "../mfjoystick.schema.json",
+  "InstanceName": "Logitech Multi Panel",
+  "VendorId": "0x06A3",
+  "ProductId": "0x0D06",
+  "Inputs": [
+    { "Id": 0, "Type": "Button", "Label": "ALT Sel" },
+    { "Id": 1, "Type": "Button", "Label": "VS Sel" },
+    { "Id": 2, "Type": "Button", "Label": "IAS Sel" },
+    { "Id": 3, "Type": "Button", "Label": "HDG Sel" },
+    { "Id": 4, "Type": "Button", "Label": "CRS Sel" },
+
+    { "Id": 5, "Type": "Button", "Label": "Encoder +" },
+    { "Id": 6, "Type": "Button", "Label": "Encoder -" },
+
+    { "Id": 7, "Type": "Button", "Label": "AP" },
+    { "Id": 8, "Type": "Button", "Label": "HDG" },
+    { "Id": 9, "Type": "Button", "Label": "NAV" },
+    { "Id": 10, "Type": "Button", "Label": "IAS" },
+    { "Id": 11, "Type": "Button", "Label": "ALT" },
+    { "Id": 12, "Type": "Button", "Label": "VS" },
+    { "Id": 13, "Type": "Button", "Label": "APR" },
+    { "Id": 14, "Type": "Button", "Label": "REV" },
+
+    { "Id": 15, "Type": "Button", "Label": "A/T ARM" },
+
+    { "Id": 16, "Type": "Button", "Label": "FLAPS UP" },
+    { "Id": 17, "Type": "Button", "Label": "FLAPS DOWN" },
+
+    { "Id": 18, "Type": "Button", "Label": "PITCH DOWN" },
+    { "Id": 19, "Type": "Button", "Label": "PITCH UP" }
+  ],
+  "Outputs": [
+    { "Id": "AP",  "Label": "AP",  "Byte": 11, "Bit": 0 },
+    { "Id": "HDG", "Label": "HDG", "Byte": 11, "Bit": 1 },
+    { "Id": "NAV", "Label": "NAV", "Byte": 11, "Bit": 2 },
+    { "Id": "IAS", "Label": "IAS", "Byte": 11, "Bit": 3 },
+    { "Id": "ALT", "Label": "ALT", "Byte": 11, "Bit": 4 },
+    { "Id": "VS",  "Label": "VS",  "Byte": 11, "Bit": 5 },
+    { "Id": "APR", "Label": "APR", "Byte": 11, "Bit": 6 },
+    { "Id": "REV", "Label": "REV", "Byte": 11, "Bit": 7 },
+
+    { "Id": "LCD ALT", "Type": "LcdDisplay", "Label": "LCD Alt", "Byte": 1, "Cols": 5, "Lines": 1 },
+    { "Id": "LCD VS", "Type": "LcdDisplay", "Label": "LCD VS", "Byte": 1, "Cols": 5, "Lines": 1 },
+    { "Id": "LCD IAS", "Type": "LcdDisplay", "Label": "LCD IAS", "Byte": 1, "Cols": 3, "Lines": 1 },
+    { "Id": "LCD HDG", "Type": "LcdDisplay", "Label": "LCD HDG", "Byte": 1, "Cols": 3, "Lines": 1 },
+    { "Id": "LCD CRS", "Type": "LcdDisplay", "Label": "LCD CRS", "Byte": 1, "Cols": 3, "Lines": 1 }
+  ]
+}
