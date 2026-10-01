@@ -35,6 +35,7 @@ using MobiFlight.Base.Legacy;
 using MobiFlight.BrowserMessages.Incoming.Handler;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages.Outgoing;
+using MobiFlight.Sponsors;
 
 namespace MobiFlight.UI
 {
@@ -56,6 +57,12 @@ namespace MobiFlight.UI
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
         private MessageServer messageServer;
+
+        private readonly GoldSponsorService goldSponsorService =
+            new GoldSponsorService();
+
+        private List<GoldSponsor> currentGoldSponsors =
+            new List<GoldSponsor>();
 
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
@@ -539,8 +546,69 @@ namespace MobiFlight.UI
             }
         }
 
+        private void InitializeGoldSponsors()
+        {
+            var cachedSponsors =
+                goldSponsorService.GetCachedSponsors();
+
+            if (cachedSponsors.Count > 0)
+            {
+                currentGoldSponsors =
+                    cachedSponsors.ToList();
+
+                PublishCurrentGoldSponsors();
+            }
+
+            // Do not delay application startup while
+            // sponsor data is refreshed from the website.
+            _ = RefreshGoldSponsorsAsync();
+        }
+
+        private async Task RefreshGoldSponsorsAsync()
+        {
+            try
+            {
+                var sponsors =
+                    await goldSponsorService.RefreshAsync();
+
+                if (sponsors.Count == 0)
+                {
+                    return;
+                }
+
+                currentGoldSponsors =
+                    sponsors.ToList();
+
+                PublishCurrentGoldSponsors();
+            }
+            catch (Exception ex)
+            {
+                // Sponsor refresh must never prevent
+                // MobiFlight from starting.
+                Log.Instance.log(
+                    $"Could not refresh Gold sponsors: {ex.Message}",
+                    LogSeverity.Warn);
+            }
+        }
+
+        private void PublishCurrentGoldSponsors()
+        {
+            if (currentGoldSponsors.Count == 0)
+            {
+                return;
+            }
+
+            MessageExchange.Instance.Publish(
+                new GoldSponsorsUpdate
+                {
+                    Sponsors =
+                        currentGoldSponsors.ToList()
+                });
+        }
         private async void OnFrontendReady(object sender, EventArgs e)
         {
+            InitializeGoldSponsors();
+
             // Initialize the board configurations
             BoardDefinitions.LoadDefinitions();
 
@@ -620,6 +688,7 @@ namespace MobiFlight.UI
         {
             PublishSettings();
             PublishProjectList();
+            PublishCurrentGoldSponsors();
 
             // Following messages all depend on an existing execManager instance.
             if (execManager == null) return;

@@ -35,6 +35,7 @@ export type AppMessageKey =
   | "VJoyDefinitionsUpdate"
   | "LogEntry"
   | "ShutdownConfirmationRequested"
+  | "GoldSponsorsUpdate"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -179,6 +180,16 @@ export type ProSimDataRefDefinitionUpdate = {
 
 export type VJoyDefinitionsUpdate = {
   Definitions: vJoyDefinition[]
+}
+
+export interface GoldSponsor {
+  Name: string
+  LogoDataUri: string
+  Url: string | null
+}
+
+export interface GoldSponsorsUpdate {
+  Sponsors: GoldSponsor[]
 }
 
 // Not sure what this is for
