@@ -105,7 +105,7 @@ namespace MobiFlight.Base.Tests
         [TestMethod]
         public void IsDevOrPullRequestBuild_IsValid()
         {
-            var appVersion = new Version(0, 1, 0);
+            var appVersion = new Version(0, 0, 1);
             var result = appVersion.IsDevOrPullRequestBuild();
             Assert.IsTrue(result);
         }
