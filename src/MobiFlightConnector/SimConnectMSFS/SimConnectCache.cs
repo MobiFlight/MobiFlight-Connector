@@ -1,5 +1,5 @@
-﻿using Microsoft.FlightSimulator.SimConnect;
-using MobiFlight.Base;
+﻿using MobiFlight.Base;
+using MobiFlight.SimConnectMSFS.Native;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -197,7 +197,7 @@ namespace MobiFlight.SimConnectMSFS
                 if (m_oSimConnect == null)
                 {
                     // The constructor is similar to SimConnect_Open in the native API
-                    m_oSimConnect = new SimConnect("Simconnect - MobiFlight", _handle, WM_USER_SIMCONNECT, null, 0);
+                    m_oSimConnect = new SimConnect("Simconnect - MobiFlight", _handle, WM_USER_SIMCONNECT, IntPtr.Zero, 0);
 
                     // Listen to connect and quit msgs
                     m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
