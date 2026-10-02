@@ -18,6 +18,7 @@ namespace MobiFlight.Joysticks
                 case "FCU Cube":
                 case "OVHD Cube":
                 case "Logitech Switch Panel":
+                case "Logitech Multi Panel":
                     return true;
             }
 
@@ -42,6 +43,9 @@ namespace MobiFlight.Joysticks
                     break;
                 case "Logitech Switch Panel":
                     result = new Logitech.SwitchPanel(definition);
+                    break;
+                case "Logitech Multi Panel":
+                    result = new Logitech.MultiPanel(definition);
                     break;
             }
 

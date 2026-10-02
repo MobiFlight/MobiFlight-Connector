@@ -472,7 +472,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 {
                     case DeviceType.Output:
                         foreach (var device in joystick.GetAvailableOutputDevices())
+                        {
+                            // GetAvailableOutputDevices returns both: Outputs and LcdDisplay 
+                            if (device.Type != DeviceType.Output) continue;
                             outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
+                        }
                         break;
                     case DeviceType.LcdDisplay:
                         foreach (var device in joystick.GetAvailableLcdDevices())
