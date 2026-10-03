@@ -25,7 +25,8 @@
     },
     "Copy": "Copiar",
     "Paste": "Colar",
-    "NewFeature": "Novo"
+    "NewFeature": "Novo",
+    "Close": "Fechar"
   },
   "MainMenu": {
     "File": {
@@ -61,6 +62,7 @@
       "MSFS.ReinstallWASMModule": "Reinstalar módulo WASM",
       "CopyLogs": "Copiar logs para a área de transferência",
       "ControllerBindings": "Vinculação de controladores",
+      "ManageControllers": "Gerenciar controladores",
       "Settings": "Configurações"
     },
     "Help": {
@@ -213,12 +215,6 @@
         "Create": "Criar projeto",
         "Update": "Atualizar projeto"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Alterações não salvas",
-      "Description": "Você possui alterações não salvas no projeto. O que deseja fazer?",
-      "Save": "Salvar alterações",
-      "Discard": "Descartar alterações"
     }
   },
   "ConfigList": {
@@ -358,6 +354,11 @@
     "Finished": "Concluído.",
     "Test": {
       "Loading": "Carregando..."
+    },
+    "GoldSponsors": {
+      "Description": "Obrigado aos nossos <gold>patrocinadores Gold</gold> por impulsionarem o desenvolvimento do MobiFlight.",
+      "LogoAlt": "Logotipo de {{sponsorName}}",
+      "OpenSponsorLink": "Abrir site de {{sponsorName}}"
     }
   },
   "Feed": {
@@ -379,6 +380,7 @@
       "Save": "Salvar",
       "SaveChanges": "Salvar alterações",
       "ApplyChanges": "Aplicar alterações",
+      "DiscardChanges": "Descartar alterações",
       "ResetFilters": "Redefinir filtros",
       "PendingChangesMessage": "Você tem alterações pendentes. Aplique-as primeiro ou clique em Cancelar para fechar este diálogo sem salvar."
     },
@@ -817,6 +819,11 @@
           "SelectPresetPlaceholder": "Selecionar predefinição..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "Descartar alterações?",
+      "Description": "Tem alterações não guardadas. Tem a certeza de que pretende descartá-las?",
+      "KeepEditing": "Continuar a editar"
     }
   },
   "Auth": {
@@ -861,5 +868,112 @@
     "Resume": "Retomar deslocamento",
     "Pause": "Pausar deslocamento",
     "Close": "Fechar painel de log"
+  },
+  "About": {
+    "Tabs": {
+      "About": "Sobre",
+      "Licenses": "Licenças"
+    },
+    "Contact": {
+      "Title": "Como entrar em contato",
+      "Discord": {
+        "Title": "Discord",
+        "Description": "Participe do nosso servidor da comunidade"
+      },
+      "Email": {
+        "Title": "E-mail",
+        "Description": "info@mobiflight.com"
+      }
+    },
+    "Ecosystem": {
+      "Title": "Ecossistema MobiFlight"
+    },
+    "Licenses": {
+      "Title": "Bibliotecas e Dependências",
+      "Description": "Bibliotecas usadas pelo MobiFlight Connector - Obrigado aos autores por disponibilizá-las!"
+    },
+    "Credits": {
+      "Font": "\"BoeingCDULarge font\" por Gijs de Rooij",
+      "ThankYou": "Obrigado!"
+    }
+  },
+  "Settings": {
+    "General": {
+      "Title": "Geral",
+      "Application": {
+        "Title": "Aplicação"
+      },
+      "Logging": {
+        "Title": "Registro de logs",
+        "Enabled": "habilitado",
+        "ShowLogPanel": "Mostrar painel de logs",
+        "LogLevel": "Nível de log",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Registrar eixos do joystick"
+      },
+      "StartupAndRunOptions": {
+        "Title": "Opções de inicialização e execução"
+      },
+      "RecentFiles": {
+        "Title": "Arquivos recentes",
+        "Description": "Definir o número de arquivos mostrados na lista para"
+      },
+      "BetaVersions": {
+        "Title": "Versões Beta",
+        "Description": "Receber atualizações de versões beta."
+      },
+      "CommunityFeedback": {
+        "Title": "Programa de feedback da comunidade",
+        "Description": "Participar do programa de feedback da comunidade e ajudar a melhorar o MobiFlight."
+      },
+      "RunOptions": {
+        "Title": "Opções de inicialização e execução",
+        "AutoRetrigger": "Executar automaticamente a ação de reativação no modo \"run\"",
+        "MinimizeOnAutoRun": "Minimizar ao executar automaticamente"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Verificar presets do HubHop ao iniciar o aplicativo."
+      },
+      "Language": {
+        "Title": "Idioma",
+        "Description": "Alterar o idioma da interface:",
+        "RestartRequired": "É necessário reiniciar o MobiFlight ao alterar o idioma."
+      },
+      "ExecutionSpeed": {
+        "Title": "Velocidade de execução da configuração",
+        "Description": "Você pode controlar a velocidade de execução, por exemplo, se notar atraso na entrada. Configurações muito rápidas podem afetar o desempenho.",
+        "Slow": "lento",
+        "Fast": "muito rápido"
+      },
+      "TestModeSpeed": {
+        "Title": "Velocidade do modo de teste",
+        "Slow": "lento",
+        "Fast": "muito rápido"
+      }
+    },
+    "Simulator": {
+      "Title": "Simuladores",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Configurações de conexão",
+        "Host": "Host",
+        "Port": "Porta",
+        "AutoConnect": "Conexão automática ao ProSim",
+        "MaxRetryAttempts": "Máx. tentativas"
+      }
+    },
+    "Discard": {
+      "Title": "Descartar alterações?",
+      "Description": "Você tem alterações não salvas. Tem certeza de que deseja descartá-las?",
+      "KeepEditing": "Continuar editando",
+      "DiscardChanges": "Descartar alterações"
+    },
+    "ManageControllerNote": "Encontre <strong>MobiFlight Boards</strong> e <strong>Peripherals</strong> em <strong>{{menuPath}}</strong>"
   }
 }

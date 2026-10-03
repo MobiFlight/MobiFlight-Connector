@@ -1238,7 +1238,7 @@ namespace MobiFlight.Tests
             _executionManager.Stop();
         }
         [TestMethod]
-        public void Execute_WhenActionIsNotConfigured_DoesNotLogExecution()
+       public void Execute_WhenActionIsNotConfigured_DoesNotLogExecution()
         {
             // Arrange
             var controller = new Controller

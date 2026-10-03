@@ -22,7 +22,7 @@ namespace MobiFlightUnitTests.mock.MobiFlight
 
                     return list;
                 }
-            );
+            ).ConfigureAwait(false);
             
         }
 

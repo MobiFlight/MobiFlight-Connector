@@ -5,21 +5,24 @@ using System.Linq;
 
 namespace MobiFlight.BrowserMessages
 {
-    // Implement as singleton   
+    // Implement as singleton
     public class MessageExchange : IMessageExchange
     {
-        private readonly Dictionary<Type, List<object>> _subscribers = new Dictionary<Type, List<object>>();
+        /// <summary>A callback plus whether it must run on the captured UI thread.</summary>
+        private class Subscription
+        {
+            public object Callback;
+            public bool OnUiThread;
+        }
+
+        private readonly Dictionary<Type, List<Subscription>> _subscribers = new Dictionary<Type, List<Subscription>>();
         private readonly Dictionary<String, Type> _subscribedTypes = new Dictionary<string, Type>();
         private static readonly object _lock = new object();
         private static MessageExchange _instance;
         private IMessagePublisher _messagePublisher;
 
-        /// <summary>
-        /// Setting a contextProvider is only required for integration tests
-        /// Provide a () => null provider so that the synchronization context is not used during unit tests,
-        /// Outside of unit tests, a working synchronization context will automatically be available
-        /// </summary>
-        private Func<System.Threading.SynchronizationContext> _syncContextProvider;
+        /// <summary>UI thread context, set via SetSynchronizationContext; used only by SubscribeOnUiThread. Null forces inline dispatch (e.g. in tests).</summary>
+        private System.Threading.SynchronizationContext _uiSynchronizationContext;
 
         public static MessageExchange Instance
         {
@@ -73,10 +76,8 @@ namespace MobiFlight.BrowserMessages
             _messagePublisher?.Publish(eventToPublish);
         }
 
-        /// <summary>
-        /// Publishes a received message to all subscribers
-        /// </summary>
-        private void PublishReceivedMessage(string jsonMessage)
+        /// <summary>Public so non-IMessagePublisher transports (e.g. WebViewMessageReceiver) can wire to it directly.</summary>
+        public void PublishReceivedMessage(string jsonMessage)
         {
             var eventToPublish = JsonConvert.DeserializeObject<Message<object>>(jsonMessage);
             if (!_subscribedTypes.ContainsKey(eventToPublish.key))
@@ -87,12 +88,12 @@ namespace MobiFlight.BrowserMessages
 
             Type eventType = _subscribedTypes[eventToPublish.key];
 
-            List<object> subscribers;
+            List<Subscription> subscriptions;
 
             lock (_lock)
             {
                 if (!_subscribers.ContainsKey(eventType)) return;
-                subscribers = _subscribers[eventType].ToList();
+                subscriptions = _subscribers[eventType].ToList();
             }
 
             try
@@ -102,30 +103,22 @@ namespace MobiFlight.BrowserMessages
                 if (rawPayload != null)
                     deserializedPayload =
                         JsonConvert.DeserializeObject(eventToPublish.payload?.ToString(), eventType);
-                var synchronizationContext = _syncContextProvider != null
-                    ? _syncContextProvider.Invoke()
-                    : System.Threading.SynchronizationContext.Current;
 
-                foreach (var subscriber in subscribers)
+                foreach (var subscription in subscriptions)
                 {
                     Action invokeSubscriber = () =>
                     {
-                        subscriber.GetType().GetMethod("Invoke")?.Invoke(subscriber, new[] { deserializedPayload });
+                        subscription.Callback.GetType().GetMethod("Invoke")?.Invoke(subscription.Callback, new[] { deserializedPayload });
                     };
 
-                    if (synchronizationContext == null)
+                    var isInvokedOnUiThread = subscription.OnUiThread && _uiSynchronizationContext != null;
+
+                    if (isInvokedOnUiThread)
                     {
-                        // If no synchronization context is available, invoke the subscriber directly.
-                        invokeSubscriber();
+                        _uiSynchronizationContext.Post((_) => invokeSubscriber(), null);
                         continue;
                     }
-
-                    // if synchronization context is available
-                    // post the deserialized payload to the subscriber on the synchronization context thread
-                    synchronizationContext.Post((_) =>
-                    {
-                        invokeSubscriber();
-                    }, null);
+                    invokeSubscriber();
                 }
             }
             catch (Exception e)
@@ -134,7 +127,19 @@ namespace MobiFlight.BrowserMessages
             }
         }
 
+        /// <summary>Runs the callback on whatever thread delivered the message - never marshaled.</summary>
         public void Subscribe<TMessagePayloadType>(Action<TMessagePayloadType> callback)
+        {
+            AddSubscription(callback, onUiThread: false);
+        }
+
+        /// <summary>Marshals the callback onto the captured UI thread. Use only for handlers touching WinForms state.</summary>
+        public void SubscribeOnUiThread<TMessagePayloadType>(Action<TMessagePayloadType> callback)
+        {
+            AddSubscription(callback, onUiThread: true);
+        }
+
+        private void AddSubscription<TMessagePayloadType>(Action<TMessagePayloadType> callback, bool onUiThread)
         {
             var eventType = typeof(TMessagePayloadType);
 
@@ -143,10 +148,10 @@ namespace MobiFlight.BrowserMessages
                 if (!_subscribers.ContainsKey(eventType))
                 {
                     _subscribedTypes.Add(eventType.Name, eventType);
-                    _subscribers[eventType] = new List<object>();
+                    _subscribers[eventType] = new List<Subscription>();
                 }
 
-                _subscribers[eventType].Add(callback);
+                _subscribers[eventType].Add(new Subscription { Callback = callback, OnUiThread = onUiThread });
             }
         }
 
@@ -158,7 +163,7 @@ namespace MobiFlight.BrowserMessages
             {
                 if (_subscribers.ContainsKey(eventType))
                 {
-                    _subscribers[eventType].Remove(callback);
+                    _subscribers[eventType].RemoveAll(s => Equals(s.Callback, callback));
                     if (_subscribers[eventType].Count == 0)
                     {
                         _subscribers.Remove(eventType);
@@ -167,9 +172,10 @@ namespace MobiFlight.BrowserMessages
                 }
             }
         }
-        public void SetSynchronizationContextProvider(Func<System.Threading.SynchronizationContext> provider)
+        /// <summary>Call once from the UI thread during startup, before any publisher is set. Pass null to force inline dispatch (tests).</summary>
+        public void SetSynchronizationContext(System.Threading.SynchronizationContext context)
         {
-            _syncContextProvider = provider;
+            _uiSynchronizationContext = context;
         }
     }
 }

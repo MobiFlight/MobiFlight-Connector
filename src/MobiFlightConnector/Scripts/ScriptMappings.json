@@ -171,6 +171,12 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
+      "AircraftMatchPattern": "x-crafts legacy 650",
+      "ScriptName": "xplane_default_fmc.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
       "AircraftMatchPattern": "ixeg b-737",
       "ScriptName": "ixeg_737.py"
     },
@@ -179,6 +185,24 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftMatchPattern": "boeing 747-400",
       "ScriptName": "laminar_747_400.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftMatchPattern": "microsoft_atr",
+      "ScriptName": "ms_atr_42_72_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftMatchPattern": "fjs 732",
+      "ScriptName": "xplane_uns_1.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftMatchPattern": "flyjsim q4xp",
+      "ScriptName": "xplane_uns_1.py"
     }
   ]
 }

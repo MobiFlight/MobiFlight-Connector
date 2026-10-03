@@ -46,6 +46,9 @@ namespace MobiFlight
 
         private readonly Timer KeepAwakeTimer = new Timer();
         const int KeepAwakeIntervalInMinutes = 5; // 5 Minutes
+
+        /// <summary>Produces HOLD/REPEAT/LONG_RELEASE from modules' raw PRESS/RELEASE events.</summary>
+        private readonly SyntheticButtonEventGenerator VirtualButtonEvents = new SyntheticButtonEventGenerator();
         
         /// <summary>
         /// list of known modules.
@@ -63,6 +66,8 @@ namespace MobiFlight
             // ticks every KeepAwakeIntervalInMinutes
             KeepAwakeTimer.Interval = KeepAwakeIntervalInMinutes * 60 * 1000;
             KeepAwakeTimer.Tick += (s, e) => DeactivateConnectedModulePowerSave();
+
+            VirtualButtonEvents.OnSyntheticEvent += (s, e) => OnButtonPressed?.Invoke(s, e);
         }
 
         public void Start()
@@ -142,7 +147,7 @@ namespace MobiFlight
                 return;
             }
 
-            Task<MobiFlightModule> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board);
                 module.Connect();
@@ -156,7 +161,7 @@ namespace MobiFlight
                     module.Disconnect();
 
                 return module;
-            });
+            }).ConfigureAwait(false);
 
             var result = await task;
 
@@ -175,7 +180,8 @@ namespace MobiFlight
         {
             var currentModuleCount = AvailableComModules.Count;
             var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(3000))
-                      .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; });
+                      .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; })
+                      .ConfigureAwait(false);
 
             if (!allModulesDetected || !isFirstTimeLookup) return false;
             
@@ -414,7 +420,16 @@ namespace MobiFlight
 
         public void Module_OnButtonPressed(object sender, InputEventArgs e)
         {
-            OnButtonPressed?.Invoke(sender, e);
+            foreach (var classified in VirtualButtonEvents.Observe(e))
+            {
+                OnButtonPressed?.Invoke(sender, classified);
+            }
+        }
+
+        /// <summary>See SyntheticButtonEventGenerator.ResolveTimings.</summary>
+        public void SetButtonTimingsResolver(Func<InputEventArgs, List<ButtonTimings>> resolver)
+        {
+            VirtualButtonEvents.ResolveTimings = resolver;
         }
 
         /// <summary>
@@ -424,6 +439,7 @@ namespace MobiFlight
         public bool Shutdown()
         {
             Log.Instance.log("Disconnecting all modules.", LogSeverity.Debug);
+            VirtualButtonEvents.Stop();
             if (Available())
             {
                 foreach (MobiFlightModule module in Modules.Values)
@@ -704,11 +720,12 @@ namespace MobiFlight
 
         public void Stop()
         {
+            VirtualButtonEvents.Stop();
             foreach (MobiFlightModule module in Modules.Values)
             {
                 module.Stop();
             }
-            
+
             variables.Clear();
             StopKeepAwake();
         }

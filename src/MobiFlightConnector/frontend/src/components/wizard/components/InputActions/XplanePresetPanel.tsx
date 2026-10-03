@@ -3,16 +3,15 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Switch } from "@/components/ui/switch"
-import { PresetListItem } from "@/components/wizard/components/PresetListItem"
+import { VirtualPresetList } from "@/components/wizard/components/VirtualPresetList"
 import { fetchHubHopPresets, filterPresetByText } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
 import { Preset, XplanePreset } from "@/types/preset"
 import { AircraftInfo } from "@/types/project"
 import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import LoadingSpinner from "../LoadingSpinner"
 
@@ -31,30 +30,6 @@ const XplanePresetPanel = ({
   const { t } = useTranslation()
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
-
-  const SCROLL_INTO_VIEW_TIMEOUT = 800
-  const refActiveElement = useRef<HTMLDivElement | null>(null)
-  const scrollTimeoutRef = useRef<number | null>(null)
-
-  const cancelScrollIntoView = () => {
-    if (scrollTimeoutRef.current !== null) {
-      window.clearTimeout(scrollTimeoutRef.current)
-      scrollTimeoutRef.current = null
-    }
-  }
-
-  const scrollActiveProjectIntoView = useCallback(() => {
-    if (refActiveElement.current) {
-      cancelScrollIntoView()
-      scrollTimeoutRef.current = window.setTimeout(() => {
-        refActiveElement.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-        })
-        scrollTimeoutRef.current = null
-      }, SCROLL_INTO_VIEW_TIMEOUT)
-    }
-  }, [refActiveElement, scrollTimeoutRef])
 
   const validPresetTypes =
     variant === "input"
@@ -136,11 +111,6 @@ const XplanePresetPanel = ({
       ...(filter.vendor ? [filter.vendor] : []),
     ]),
   ].sort()
-
-  useEffect(() => {
-    if (!refActiveElement.current) return
-    scrollActiveProjectIntoView()
-  }, [refActiveElement, scrollActiveProjectIntoView])
 
   return (
     <Card className="grow">
@@ -266,25 +236,16 @@ const XplanePresetPanel = ({
           </div>
         </div>
         <div className="-mt-3 flex flex-col gap-2">
-          {isLoading ? <LoadingSpinner /> : (
-          <ScrollArea
-            className="h-56"
-            onMouseEnter={cancelScrollIntoView}
-            onMouseLeave={scrollActiveProjectIntoView}
-          >
-            <div className="flex flex-col gap-1" role="list">
-              {filteredPresets.map((preset) => (
-                <PresetListItem
-                  ref={preset.code === selectedPath ? refActiveElement : null}
-                  key={preset.code}
-                  preset={preset}
-                  isSelected={preset.code === selectedPath}
-                  setSelectedPreset={setSelectedPreset}
-                />
-              ))}
-            </div>
-          </ScrollArea>
-        )}
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <VirtualPresetList
+              presets={filteredPresets}
+              selectedId={selectedPath}
+              getPresetId={(preset) => preset.code}
+              setSelectedPreset={setSelectedPreset}
+            />
+          )}
         </div>
       </CardContent>
     </Card>

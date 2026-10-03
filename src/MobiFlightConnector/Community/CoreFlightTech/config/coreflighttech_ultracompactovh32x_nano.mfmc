@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>CoreFlightTech Ultra Compact OVH 32X</ModuleType>
+  <ModuleName>CFT_Ultra_C_OVH</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <InputShiftRegister Name="InputShifter" LatchPin="3" ClockPin="2" DataPin="4" NumModules="4" />
+  <ShiftRegister Name="ShiftRegister" LatchPin="8" ClockPin="7" DataPin="9" NumModules="3" />
+  <Output Name="Output" Pin="6" />
+</Config>

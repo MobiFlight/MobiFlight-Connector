@@ -33,7 +33,10 @@ namespace MobiFlight
         public readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
-        private readonly Timer PollTimer = new Timer(); 
+        private readonly Timer PollTimer = new Timer();
+
+        /// <summary>Produces HOLD/REPEAT/LONG_RELEASE from joysticks' raw PRESS/RELEASE events.</summary>
+        private readonly SyntheticButtonEventGenerator VirtualButtonEvents = new SyntheticButtonEventGenerator();
         private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
         private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
         private IntPtr Handle;
@@ -47,6 +50,8 @@ namespace MobiFlight
             PollTimer.Elapsed += PollTimer_Tick;
             MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateJoysticks();
             LoadDefinitions();
+
+            VirtualButtonEvents.OnSyntheticEvent += (s, e) => OnButtonPressed?.Invoke(s, e);
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace MobiFlight
             var schemaFilePath = "Joysticks/mfjoystick.schema.json";
 
             var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(
-                jsonFiles, 
+                jsonFiles,
                 schemaFilePath,
                 onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Debug),
                 onError: () => LoadingError = true
@@ -141,6 +146,7 @@ namespace MobiFlight
         public void Shutdown()
         {
             PollTimer.Stop();
+            VirtualButtonEvents.Stop();
             foreach (var js in Joysticks.Values)
             {
                 js.Shutdown();
@@ -155,6 +161,7 @@ namespace MobiFlight
 
         public void Stop()
         {
+            VirtualButtonEvents.Stop();
             foreach (var j in Joysticks.Values)
             {
                 j.Stop();
@@ -188,7 +195,8 @@ namespace MobiFlight
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
             // make this next call async so that it doesn't block the UI
-            var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
+            var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList())
+                .ConfigureAwait(false);
 
             foreach (var d in devices)
             {
@@ -203,7 +211,7 @@ namespace MobiFlight
                 var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
                 var productId = diJoystick.Properties.ProductId;
                 var vendorId = diJoystick.Properties.VendorId;
-                
+
                 // Check if this device should be handled later as an HID controller
                 if (HidControllerFactory.CanCreate(d.InstanceName))
                 {
@@ -218,7 +226,7 @@ namespace MobiFlight
 
                 // Use factory to create appropriate controller instance
                 var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, WSServer);
-                
+
                 // If factory returns null, create a standard Joystick
                 if (js == null)
                 {
@@ -232,19 +240,24 @@ namespace MobiFlight
                 }
 
                 // Check against exclusion list
-                if (settingsExcludedJoysticks.Contains(js.Name))
+                if (TryExcludeJoystick(js, settingsExcludedJoysticks))
                 {
-                    Log.Instance.log($"Ignore attached joystick device: {js.Name}.", LogSeverity.Info);
-                    ExcludedJoysticks.Add(js);
+                    continue;
                 }
-                else
+
+                if (!Joysticks.TryAdd(js.Serial, js))
                 {
-                    Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
-                    js.Connect(Handle);
-                    Joysticks.TryAdd(js.Serial, js);
-                    js.OnButtonPressed += Js_OnButtonPressed;
-                    js.OnDisconnected += Js_OnDisconnected;
+                    Log.Instance.log(
+                        $"Error adding DirectInput controller: {d.InstanceName} / {js.Serial}. Likely Joystick Serial conflict.",
+                        LogSeverity.Error
+                    );
+                    continue;
                 }
+
+                Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
+                js.Connect(Handle);
+                js.OnButtonPressed += Js_OnButtonPressed;
+                js.OnDisconnected += Js_OnDisconnected;
             }
 
             ConnectHidController();
@@ -269,6 +282,20 @@ namespace MobiFlight
             // Try to get definition by product name first, then by product ID
             return GetDefinitionByInstanceName(productName) ?? GetDefinitionByProductId(vendorId, productId);
         }
+        internal static bool IsExcludedJoystick(string joystickName, List<string> excludedJoysticks)
+        {
+            return excludedJoysticks.Contains(joystickName);
+        }
+
+        /// <summary>Adds the joystick to the exclusion list if the user excluded it. Returns true when excluded.</summary>
+        internal bool TryExcludeJoystick(Joystick joystick, List<string> settingsExcludedJoysticks)
+        {
+            if (!IsExcludedJoystick(joystick.Name, settingsExcludedJoysticks)) return false;
+
+            Log.Instance.log($"Ignore attached joystick device: {joystick.Name}.", LogSeverity.Info);
+            ExcludedJoysticks.Add(joystick);
+            return true;
+        }
 
         private void ConnectHidController()
         {
@@ -276,6 +303,7 @@ namespace MobiFlight
             {
                 var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
                 Log.Instance.log($"Found {allHidDevices.Count} HID devices, checking for supported devices", LogSeverity.Debug);
+                List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
                 allHidDevices.ForEach(hidDevice =>
                 {
@@ -294,15 +322,25 @@ namespace MobiFlight
 
                         if (joystick == null) return;
 
+                        if (TryExcludeJoystick(joystick, settingsExcludedJoysticks))
+                        {
+                            return;
+                        }
+
+                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                        {
+                            Log.Instance.log(
+                                $"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.",
+                                LogSeverity.Error
+                            );
+                            return;
+                        }
+
+                        Log.Instance.log($"Adding attached HID controller: {definition.InstanceName}", LogSeverity.Info);
                         joystick.Connect(new IntPtr());
                         joystick.OnButtonPressed += Js_OnButtonPressed;
                         joystick.OnDisconnected += Js_OnDisconnected;
-                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
-                        {
-                            Log.Instance.log($"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.", LogSeverity.Error);
-                            return;
-                        }
-                        Log.Instance.log($"Connected HID device: {definition.InstanceName} / {joystick.Serial}", LogSeverity.Info);
+
                     }
                     catch (Exception ex)
                     {
@@ -332,7 +370,16 @@ namespace MobiFlight
 
         private void Js_OnButtonPressed(object sender, InputEventArgs e)
         {
-            OnButtonPressed?.Invoke(sender, e);
+            foreach (var classified in VirtualButtonEvents.Observe(e))
+            {
+                OnButtonPressed?.Invoke(sender, classified);
+            }
+        }
+
+        /// <summary>See SyntheticButtonEventGenerator.ResolveTimings.</summary>
+        public void SetButtonTimingsResolver(Func<InputEventArgs, List<ButtonTimings>> resolver)
+        {
+            VirtualButtonEvents.ResolveTimings = resolver;
         }
 
         internal Joystick GetJoystickBySerial(string serial)

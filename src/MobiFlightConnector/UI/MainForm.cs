@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -23,13 +23,18 @@ using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
+using MobiFlight.BrowserMessages.Publisher;
+using MobiFlight.BrowserMessages.Transport;
 using System.Drawing;
 using MobiFlight.BrowserMessages.Incoming.Handler;
 using System.ComponentModel;
 using MobiFlight.Controllers;
 using MobiFlight.UI.StateBadge;
 using MobiFlight.Base.LogAppender;
-using System.Threading;
+using MobiFlight.Base.Legacy;
+using MobiFlight.BrowserMessages.Incoming.Handler;
+using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 
 namespace MobiFlight.UI
 {
@@ -50,6 +55,7 @@ namespace MobiFlight.UI
 
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
+        private MessageServer messageServer;
 
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
@@ -76,7 +82,9 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Language != "")
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                var cultureInfo = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
             }
         }
 
@@ -104,6 +112,8 @@ namespace MobiFlight.UI
                 );
             }
         }
+
+        private CommandShutdownHandler commandShutdownHandler;
 
         private HubHopState hubHopState = new HubHopState();
         public HubHopState HubHopState
@@ -194,6 +204,9 @@ namespace MobiFlight.UI
             // this shall happen before anything else
             InitializeFrontendSubscriptions();
 
+            // Start messaging before InitializeComponent() creates FrontendPanel/WebViews below.
+            InitializeMessaging();
+
             // set up the old winforms UI
             InitializeUILanguage();
 
@@ -216,17 +229,65 @@ namespace MobiFlight.UI
             InitializeTracking();
         }
 
+        /// <summary>Captures the UI SynchronizationContext and starts the message server. Overridden as a no-op in tests - see MainFormTests.TestableMainForm.</summary>
+        protected virtual void InitializeMessaging()
+        {
+            if (System.Threading.SynchronizationContext.Current == null)
+                System.Threading.SynchronizationContext.SetSynchronizationContext(new System.Windows.Forms.WindowsFormsSynchronizationContext());
+            MessageExchange.Instance.SetSynchronizationContext(System.Threading.SynchronizationContext.Current);
+
+            InitializeMessageServer();
+        }
+
+        private void InitializeMessageServer()
+        {
+            var port = Properties.Settings.Default.FrontendWebSocketPort;
+
+#if DEBUG
+            var allowedOrigin = "http://localhost:5173";
+#else
+            var allowedOrigin = "https://mobiflight.app";
+#endif
+
+            messageServer = new MessageServer(port, allowedOrigin);
+
+            try
+            {
+                messageServer.Start();
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Failed to start frontend WebSocket server on port {port}: {ex.Message}", LogSeverity.Error);
+                _showError("MobiFlight won't work correctly because the frontend WebSocket server failed to start. Please check that port " + port + " is not blocked by a firewall or already in use by another application.");
+
+                return;
+            }
+
+            MessageExchange.Instance.SetPublisher(new WebSocketServerPublisher(messageServer));
+        }
+
         private void InitializeFrontendSubscriptions()
         {
-            MessageExchange.Instance.Subscribe<CommandFrontendState>((message) =>
+            // OnUiThread: drives the whole OnFrontendReady boot sequence, which touches WinForms
+            // controls throughout. Remove as that boot sequence moves to React.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandFrontendState>((message) =>
             {
-                if (message.Route == "/start" && message.State == CommandFrontendState.RouteState.Ready && !frontendReady)
+                if (message.Route != "/start" || message.State != CommandFrontendState.RouteState.Ready) return;
+
+                if (!frontendReady)
                 {
                     frontendReady = true;
                     OnFrontendReady(null, EventArgs.Empty);
                 }
+                else
+                {
+                    // Reconnect: re-push state without repeating the one-time boot.
+                    PublishFullState();
+                }
             });
 
+            // Not marked OnUiThread: OpenOutputConfigWizardForId marshals onto the UI thread
+            // itself (InvokeRequired/Invoke) before touching WinForms controls.
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
             {
                 var msg = message;
@@ -237,7 +298,8 @@ namespace MobiFlight.UI
                 }
             });
 
-            MessageExchange.Instance.Subscribe<CommandAddConfigFile>((message) =>
+            // OnUiThread: AddNewFileToProject / mergeToolStripMenuItem_Click touch WinForms state.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigFile>((message) =>
             {
                 if (message.Type == CommandAddConfigFileType.create)
                 {
@@ -251,41 +313,60 @@ namespace MobiFlight.UI
 
             var commandMainMenuHandler = new CommandMainMenuHandler(this);
 
-            MessageExchange.Instance.Subscribe<CommandMainMenu>((message) =>
+            // OnUiThread: opens dialogs / menu actions.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandMainMenu>((message) =>
             {
                 commandMainMenuHandler.Handle(message);
             });
 
+            commandShutdownHandler = new CommandShutdownHandler(this);
+
+            MessageExchange.Instance.SubscribeOnUiThread<CommandShutdown>((message) =>
+            {
+                commandShutdownHandler.Handle(message);
+            });
+
             var commandProjectToolbarHandler = new CommandProjectToolbarHandler(this);
-            MessageExchange.Instance.Subscribe<CommandProjectToolbar>((message) =>
+            // OnUiThread: toolbar actions touch WinForms state.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandProjectToolbar>((message) =>
             {
                 commandProjectToolbarHandler.Handle(message);
             });
 
-            MessageExchange.Instance.Subscribe<CommandDiscardChanges>((message) =>
+            var commandUpdateSettingsHandler = new CommandUpdateSettingsHandler(() => execManager);
+            MessageExchange.Instance.Subscribe<CommandUpdateSettings>((message) =>
+            {
+                commandUpdateSettingsHandler.Handle(message);
+            });
+
+            // OnUiThread: SetTitle touches Form.Text.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandDiscardChanges>((message) =>
             {
                 ProjectHasUnsavedChanges = false;
                 SetTitle("");
             });
 
+            // Not OnUiThread: no WinForms/shared state, just URL validation + Process.Start.
             MessageExchange.Instance.Subscribe<CommandOpenLinkInBrowser>((message) =>
             {
-                if (!message.Url.IsValidUrl())
+                if (!message.Url.IsValidUrl() && !message.Url.IsValidEmailLink())
                 {
                     Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
                     return;
                 }
-                Process.Start(message.Url);
+                ProcessHelpers.OpenUrl(message.Url);
             });
 
-            MessageExchange.Instance.Subscribe<CommandControllerBindingsUpdate>((message) =>
+            // OnUiThread: ProjectOrConfigFileHasChanged touches WinForms state.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandControllerBindingsUpdate>((message) =>
             {
                 ControllerBindingService.UpdateControllerBindings(execManager.Project, message.Bindings);
                 MessageExchange.Instance.Publish(execManager.Project);
                 ProjectOrConfigFileHasChanged();
             });
 
-            MessageExchange.Instance.Subscribe<CommandUserAuthentication>((message) =>
+            // OnUiThread: BeginAuthProcess/EndAuthProcess navigate and toggle Visible on the auth WebView.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUserAuthentication>((message) =>
             {
 
                 if (message.State == CommandUserAuthenticationState.started)
@@ -450,40 +531,21 @@ namespace MobiFlight.UI
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
-#if (!DEBUG)
             try
             {
                 await AutoUpdateChecker.CheckForUpdate(true);
             } catch (Exception ex) {
                 Log.Instance.log($"Error checking for updates: {ex.Message}", LogSeverity.Error);
             }
-#endif
         }
 
         private async void OnFrontendReady(object sender, EventArgs e)
         {
-            // Let the frontend appender know that frontend is ready
-            // so that we can dequeue available log messages
-            frontendAppender.FrontendAvailable = true;
-
             // Initialize the board configurations
             BoardDefinitions.LoadDefinitions();
 
             // Initialize the custom device configurations
             CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
-
-            if (Properties.Settings.Default.Started == 0)
-            {
-                OnFirstStart();
-            }
-
-            if (Properties.Settings.Default.Started > 0 && (Properties.Settings.Default.Started % 30 == 0))
-            {
-                OnRepeatedStart();
-            }
-
-            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
-
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
             InitializeExecutionManager();
 
@@ -501,6 +563,38 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
+#if ARCAZE
+            _initializeArcazeModuleSettings();
+#endif
+            Update();
+            Refresh();
+
+            await PublishStartupState();
+            OnStartupCompleted();
+        }
+
+        private void OnStartupCompleted()
+        {
+            if (Properties.Settings.Default.Started == 0)
+            {
+                OnFirstStart();
+            }
+
+            if (Properties.Settings.Default.Started > 0 && (Properties.Settings.Default.Started % 30 == 0))
+            {
+                OnRepeatedStart();
+            }
+
+            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
+        }
+
+        /// <summary>One-time boot tail - only ever called once, from OnFrontendReady.</summary>
+        private async Task PublishStartupState()
+        {
+            // Let the frontend appender know that frontend is ready
+            // so that we can dequeue available log messages
+            frontendAppender.FrontendAvailable = true;
+
             updateNotifyContextMenu(false);
 
             // Reset the Title of the Main Window so that it displays the Version too.
@@ -509,14 +603,35 @@ namespace MobiFlight.UI
             StartupProgressValue = 0;
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Startup.Starting" });
 
-#if ARCAZE
-            _initializeArcazeModuleSettings();
-#endif
-            Update();
-            Refresh();
-
             PublishSettings();
             await InitializeRecentProjectsListAsync();
+
+            if (execManager == null) return;
+            MessageExchange.Instance.Publish(execManager.Project);
+        }
+
+        /// <summary>
+        /// Re-sends a snapshot of the app's current live state on a reconnect (backend restart,
+        /// dev HMR, sleep/wake, network blip) - NOT the startup sequence. Excludes transient
+        /// one-off events (Notification, OverlayState, AuthenticationStatus) and anything the
+        /// 200ms tick already keeps current (ConfigValueRawAndFinalUpdate).
+        /// </summary>
+        private void PublishFullState()
+        {
+            PublishSettings();
+            PublishProjectList();
+
+            // Following messages all depend on an existing execManager instance.
+            if (execManager == null) return;
+
+            MessageExchange.Instance.Publish(execManager.Project);
+            MessageExchange.Instance.Publish(new ProjectStatus { HasChanged = ProjectHasUnsavedChanges });
+            UpdateExecutionState();
+            execManager.PublishConnectedDevices();
+            MessageExchange.Instance.Publish(new MobiFlightVariablesUpdate
+            {
+                Variables = execManager.GetAvailableVariables().Values.ToList()
+            });
         }
 
         private async Task InitializeRecentProjectsListAsync()
@@ -654,6 +769,14 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnJoystickConnectedFinished(object sender, EventArgs e)
         {
+            // Joystick discovery continues on a background thread so that DirectInput
+            // enumeration and initialization do not block the UI.
+            if (InvokeRequired)
+            {
+                BeginInvoke(new EventHandler(ExecManager_OnJoystickConnectedFinished), sender, e);
+                return;
+            }
+
             joysticksToolStripMenuItem.DropDownItems.Clear();
 
             var joysticks = execManager.GetJoystickManager().GetJoysticks();
@@ -791,7 +914,7 @@ namespace MobiFlight.UI
             wd.WebsiteUrl = $"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}";
             wd.ReleaseNotesClicked += (sender, e) =>
             {
-                Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
+                ProcessHelpers.OpenUrl($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
             };
 
             wd.StartPosition = FormStartPosition.CenterParent;
@@ -870,10 +993,11 @@ namespace MobiFlight.UI
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             AppTelemetry.Instance.TrackShutdown();
-            execManager.Shutdown();
+            execManager?.Shutdown();
             SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             runningStateBadge?.Dispose();
+            messageServer?.Dispose();
         } //Form1_FormClosed
 
         private void SaveWindowPositionAndZoomLevel()
@@ -1105,7 +1229,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
+        public DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
@@ -1150,20 +1274,26 @@ namespace MobiFlight.UI
         // when updating to a new MobiFlight Version
         private void UpgradeSettingsFromPreviousInstallation()
         {
+            // Perform upgrade step after version update
             if (Properties.Settings.Default.UpgradeRequired)
             {
                 try
                 {
                     Properties.Settings.Default.Upgrade();
+
+                    // Perform optional one-time migration step coming from NET4.8 to NET10
+                    UserSettingsMigration.MigrateLegacySettingsIfNeeded();
                 }
                 catch
                 {
                     // If the properties file is corrupted for some reason catch the exception and
                     // reset back to a default version.
-
                     Properties.Settings.Default.Reset();
                 }
+
+                // mark the upgrade as complete so that we don't do this again next time
                 Properties.Settings.Default.UpgradeRequired = false;
+
                 Properties.Settings.Default.StartedTotal += Properties.Settings.Default.Started;
                 Properties.Settings.Default.Started = 0;
                 Properties.Settings.Default.Save();
@@ -1920,6 +2050,27 @@ namespace MobiFlight.UI
         } //exitToolStripMenuItem_Click()
 
         /// <summary>
+        /// shuts down the application when user selects save changes
+        /// </summary>
+        public void confirmShutdownSavingChanges()
+        {
+            saveToolStripButton_Click(this, EventArgs.Empty);
+
+            if (!ProjectHasUnsavedChanges) 
+            { 
+                Close();
+            }
+        }
+
+        /// <summary>
+        /// shuts down the application when user selects discard changes
+        /// </summary>
+        public void confirmShutdownDiscardingChanges()
+        {
+            Close();
+        }
+
+        /// <summary>
         /// opens file dialog when clicking on according button
         /// </summary>
         public void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2286,16 +2437,6 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// shows the about form
-        /// </summary>
-        public void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutForm ab = new AboutForm();
-            ab.StartPosition = FormStartPosition.CenterParent;
-            ab.ShowDialog();
-        } //aboutToolStripMenuItem_Click()
-
-        /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
         /// </summary>
         public void newFileToolStripMenuItem_Click(CommandMainMenuOptions options)
@@ -2479,29 +2620,40 @@ namespace MobiFlight.UI
             }
         }
 
+        public void ShowControllersSettingsDialog()
+        {
+            ShowSettingsDialog("mobiFlightTabPage", null, null, null);
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            execManager.Stop();
-            if (ProjectHasUnsavedChanges && MessageBox.Show(
-                       i18n._tr("uiMessageConfirmDiscardUnsaved"),
-                       i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
-                       MessageBoxButtons.YesNo) == DialogResult.Yes)
+            // Closing the form before the execManager
+            // means there is nothing we could ever save, so we just return here.
+            if (execManager == null) return;
+            
+            var shouldConfirmShutdown =
+                e.CloseReason == CloseReason.UserClosing &&
+                ProjectHasUnsavedChanges &&
+                !commandShutdownHandler.IsShutdownConfirmed;
+
+            if (shouldConfirmShutdown)
             {
-                // only cancel closing if not saved before
-                // which is indicated by empty CurrentFilename
-                e.Cancel = (execManager.Project.FilePath == null);
-                saveToolStripButton_Click(this, new EventArgs());
+                e.Cancel = true;
+                MessageExchange.Instance.Publish(new ShutdownConfirmationRequested());
+                return;
             }
+
+            execManager.Stop();
         }
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(i18n._tr("WebsiteUrlHelp"));
+            ProcessHelpers.OpenUrl(i18n._tr("WebsiteUrlHelp"));
         }
 
         public void donateToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
+            ProcessHelpers.OpenUrl("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
         }
 
         /// <summary>
@@ -2771,7 +2923,7 @@ namespace MobiFlight.UI
 
         public void openDiscordServer_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.gg/U28QeEJpBV");
+            ProcessHelpers.OpenUrl("https://discord.gg/U28QeEJpBV");
         }
 
         private void StatusBarToolStripButton_Click(object sender, EventArgs e)
@@ -2781,17 +2933,17 @@ namespace MobiFlight.UI
 
         public void YouTubeToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
+            ProcessHelpers.OpenUrl("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
         }
 
         public void HubHopToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://hubhop.mobiflight.com/");
+            ProcessHelpers.OpenUrl("https://hubhop.mobiflight.com/");
         }
 
         public void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
+            ProcessHelpers.OpenUrl($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
         }
 
         public static bool ContainsConfigOfSourceType(List<IConfigItem> configItems, Source type)

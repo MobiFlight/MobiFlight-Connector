@@ -19,23 +19,37 @@ export class DashboardPage {
     )
   }
 
-  async disableDynamicFeed(remoteFeedBaseUrl: string) {
-    await this.mobiFlightPage.page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
-      await route.fulfill({
-        status: 404,
-        contentType: "application/json",
-        body: JSON.stringify({}),
-      })
-    })
+  async disableDynamicFeed(remoteFeedBaseUrl: string, language = "en") {
+    const feedLanguage = language.split("-")[0]
+
+    await this.mobiFlightPage.page.route(
+      `${remoteFeedBaseUrl}/${feedLanguage}/feed.json`,
+      async (route) => {
+        await route.fulfill({
+          status: 404,
+          contentType: "application/json",
+          body: JSON.stringify({}),
+        })
+      },
+    )
   }
 
-  async mockDynamicFeed(remoteFeedBaseUrl: string, data: CommunityPost[]) {
-    await this.mobiFlightPage.page.route(`${remoteFeedBaseUrl}/en/feed.json`, async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({ community: data }),
-      })
-    })
+  async mockDynamicFeed(
+    remoteFeedBaseUrl: string,
+    data: CommunityPost[],
+    language = "en",
+  ) {
+    const feedLanguage = language.split("-")[0]
+
+    await this.mobiFlightPage.page.route(
+      `${remoteFeedBaseUrl}/${feedLanguage}/feed.json`,
+      async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({ community: data }),
+        })
+      },
+    )
   }
 }

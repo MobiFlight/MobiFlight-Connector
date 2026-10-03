@@ -318,6 +318,99 @@ test.describe("General Input Config Wizard Tests", () => {
     )
     await expect(hint).toBeVisible()
   })
+  test("Controller search does not do fuzzy search", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+      Name: "Device Search Test",
+      Controller: {
+        Name: "Bravo Throttle Quadrant",
+        Serial: "JS-87654321",
+      },
+    })
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
+    await deviceComboBox.click()
+
+    const searchInput = page.getByPlaceholder("Search device...")
+    await searchInput.fill("Button 2")
+
+    // The previous fuzzy search matching method would also match "Button 12"
+    // when searching for "Button 2". The search should now only return
+    // devices matching the complete search term.
+    await expect(
+      page.getByRole("option", {
+        name: "Button 2",
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      page.getByRole("option", {
+        name: "Button 12",
+        exact: true,
+      }),
+    ).not.toBeVisible()
+  })
+
+  test("Controller search does not match partial device names", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const addInputConfigButton = page.getByRole("button", {
+      name: "Add Input Config",
+    })
+    await addInputConfigButton.click()
+
+    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
+      Name: "Device Search Test",
+      Controller: {
+        Name: "Bravo Throttle Quadrant",
+        Serial: "JS-87654321",
+      },
+    })
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const deviceComboBox = triggerPanel.getByRole("combobox").nth(1)
+    await deviceComboBox.click()
+
+    const searchInput = page.getByPlaceholder("Search device...")
+    await searchInput.fill("Button 11")
+
+    // The previous fuzzy search matching method would also match "Button 1"
+    // when searching for "Button 11". This test ensures that partial matches
+    // are no longer returned when the complete search term is different.
+    await expect(
+      page.getByRole("option", {
+        name: "Button 11",
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      page.getByRole("option", {
+        name: "Button 1",
+        exact: true,
+      }),
+    ).not.toBeVisible()
+  })
 })
 
 test.describe("Input Config Wizard - Edit name", () => {
@@ -566,6 +659,34 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
         .filter({ hasText: "Select device..." }),
     ).toBeDisabled()
   })
+  test("Trigger panel interactions work correctly - Search for controller", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    const triggerPanel = page.getByTestId("trigger-panel")
+    await expect(triggerPanel).toBeVisible()
+
+    const controllerComboBox = triggerPanel.getByRole("combobox").first()
+
+    await expect(controllerComboBox).toBeVisible()
+    await controllerComboBox.click()
+
+    const searchInput = page.getByPlaceholder("Search controller...")
+    await expect(searchInput).toBeVisible()
+
+    await searchInput.fill("Bravo")
+
+    await expect(
+      page.getByRole("option", {
+        name: "Bravo Throttle Quadrant",
+      }),
+    ).toBeVisible()
+  })
 
   test("Only save active trigger on closing config dialog", async ({
     configListPage,
@@ -779,7 +900,10 @@ test.describe("Input Config Wizard - Trigger Panel", () => {
 
     for (const inputDeviceName of inputDeviceNames) {
       await expect(
-        optionsPopup.getByRole("option", { name: inputDeviceName }),
+        optionsPopup.getByRole("option", {
+          name: inputDeviceName,
+          exact: true,
+        }),
       ).toBeVisible()
     }
   })

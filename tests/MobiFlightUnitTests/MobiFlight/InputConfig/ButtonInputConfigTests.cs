@@ -197,31 +197,183 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(typeof(VariableInputAction), result[2].GetType());
         }
 
-        [TestMethod()]
-        public void StopTimers_WithNoOnHold_DoesNotThrow()
+        // execute() is now pure dispatch to the matching InputAction - see SyntheticButtonEventGeneratorTests for detection.
+
+        private class RecordingInputAction : InputAction
         {
-            ButtonInputConfig o = new ButtonInputConfig();
-            o.onPress = new EventIdInputAction() { EventId = 12345 };
-            o.StopTimers();
+            public int ExecuteCount = 0;
+            public InputEventArgs LastArgs;
+
+            public override void execute(CacheCollection cacheCollection, InputEventArgs args, List<ConfigRefValue> configRefs)
+            {
+                ExecuteCount++;
+                LastArgs = args;
+            }
+
+            public override object Clone() => new RecordingInputAction();
+            public override void ReadXml(XmlReader reader) { }
+            public override void WriteXml(XmlWriter writer) { }
         }
 
         [TestMethod()]
-        public void StopTimers_WithRunningHoldTimer_StopsTimer()
+        public void Execute_DispatchesToMatchingActionOnly()
         {
-            ButtonInputConfig o = new ButtonInputConfig();
-            o.onHold = new XplaneInputAction() { Expression = "", InputType = "Command", Path = "sim/test" };
+            var press = new RecordingInputAction();
+            var release = new RecordingInputAction();
+            var longRelease = new RecordingInputAction();
+            var hold = new RecordingInputAction();
 
-            var holdTimer = typeof(ButtonInputConfig)
-                .GetField("HoldTimer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .GetValue(o) as System.Timers.Timer;
+            ButtonInputConfig cfg = new ButtonInputConfig
+            {
+                onPress = press,
+                onRelease = release,
+                onLongRelease = longRelease,
+                onHold = hold
+            };
 
-            holdTimer.Interval = 10000;
-            holdTimer.Start();
-            Assert.IsTrue(holdTimer.Enabled, "HoldTimer should be running before StopTimers()");
+            void ExecuteWith(MobiFlightButton.InputEvent value)
+            {
+                cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)value }, new List<ConfigRefValue>());
+            }
 
-            o.StopTimers();
+            ExecuteWith(MobiFlightButton.InputEvent.PRESS);
+            Assert.AreEqual(1, press.ExecuteCount);
+            Assert.AreEqual(0, release.ExecuteCount + longRelease.ExecuteCount + hold.ExecuteCount);
 
-            Assert.IsFalse(holdTimer.Enabled, "HoldTimer should be stopped after StopTimers()");
+            ExecuteWith(MobiFlightButton.InputEvent.RELEASE);
+            Assert.AreEqual(1, release.ExecuteCount);
+
+            ExecuteWith(MobiFlightButton.InputEvent.LONG_RELEASE);
+            Assert.AreEqual(1, longRelease.ExecuteCount);
+
+            ExecuteWith(MobiFlightButton.InputEvent.HOLD);
+            Assert.AreEqual(1, hold.ExecuteCount);
+
+            // REPEAT has no binding of its own - it dispatches to onHold, same as HOLD.
+            ExecuteWith(MobiFlightButton.InputEvent.REPEAT);
+            Assert.AreEqual(2, hold.ExecuteCount);
+        }
+
+        [TestMethod()]
+        [DataRow((int)MobiFlightButton.InputEvent.PRESS)]
+        [DataRow((int)MobiFlightButton.InputEvent.RELEASE)]
+        public void MatchesSyntheticDelay_NoDelayOnEvent_AlwaysMatches(int rawEvent)
+        {
+            var cfg = new ButtonInputConfig { HoldDelay = 300, RepeatDelay = 100, LongReleaseDelay = 300 };
+
+            var result = cfg.MatchesSyntheticDelay(new InputEventArgs { Value = rawEvent, SyntheticDelayMs = null });
+
+            Assert.IsTrue(result, "PRESS/RELEASE carry no delay to match - always applies.");
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_Hold_ComparesAgainstOwnHoldDelay()
+        {
+            var cfg = new ButtonInputConfig { onHold = new RecordingInputAction(), HoldDelay = 300 };
+
+            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 300 }));
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 900 }),
+                "A different config's HoldDelay must not match this one.");
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_Repeat_ComparesAgainstOwnHoldAndRepeatDelay()
+        {
+            var cfg = new ButtonInputConfig { onHold = new RecordingInputAction(), HoldDelay = 300, RepeatDelay = 10 }; // RepeatDelay below the traditional floor - honored as-is, no clamping
+
+            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 10, SyntheticHoldDelayMs = 300 }));
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 100, SyntheticHoldDelayMs = 300 }),
+                "A different config's RepeatDelay must not match this one.");
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 10, SyntheticHoldDelayMs = 900 }),
+                "Same RepeatDelay but a different HoldDelay tier must not match - it's a different config's binding.");
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_NoOnHold_NeverMatchesEvenWithCoincidingDelay()
+        {
+            // A config with no onHold at all must never match HOLD/REPEAT, even if its leftover
+            // (unused) HoldDelay/RepeatDelay field values happen to coincide with another config's
+            // real delay - those fields are meaningless without onHold to dispatch to.
+            var cfg = new ButtonInputConfig { HoldDelay = 300, RepeatDelay = 10 };
+
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD, SyntheticDelayMs = 300 }));
+            Assert.IsFalse(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.REPEAT, SyntheticDelayMs = 10, SyntheticHoldDelayMs = 300 }));
+        }
+
+        [TestMethod()]
+        public void MatchesSyntheticDelay_NonHoldRepeatEvent_AlwaysMatches()
+        {
+            // MatchesSyntheticDelay only gates HOLD/REPEAT - RELEASE's LONG_RELEASE decision is made
+            // in ResolveDispatchedEvent instead, from HeldDurationMs, not SyntheticDelayMs.
+            var cfg = new ButtonInputConfig { LongReleaseDelay = 200 };
+
+            Assert.IsTrue(cfg.MatchesSyntheticDelay(new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, SyntheticDelayMs = 999 }));
+        }
+
+        [TestMethod()]
+        public void Execute_ConfigWithoutOnLongRelease_AlwaysDispatchesReleaseRegardlessOfHeldDuration()
+        {
+            // A latching switch held a long time still arrives as plain RELEASE (see
+            // SyntheticButtonEventGenerator.Observe) - without onLongRelease, it never upgrades to
+            // LONG_RELEASE, however long HeldDurationMs says it was held. A config that only defines
+            // onRelease (the common case before onLongRelease existed) must still fire it.
+            var release = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, LongReleaseDelay = 300 };
+
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 5000 }, new List<ConfigRefValue>());
+
+            Assert.AreEqual(1, release.ExecuteCount);
+        }
+
+        [TestMethod()]
+        public void Execute_ConfigWithOnLongRelease_FiresLongReleaseNotReleaseWhenDurationExceedsDelay()
+        {
+            var release = new RecordingInputAction();
+            var longRelease = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, onLongRelease = longRelease, LongReleaseDelay = 300 };
+
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 500 }, new List<ConfigRefValue>());
+
+            Assert.AreEqual(1, longRelease.ExecuteCount);
+            Assert.AreEqual(0, release.ExecuteCount, "Held past its own LongReleaseDelay with onLongRelease defined - it, not onRelease, must handle this.");
+        }
+
+        [TestMethod()]
+        public void Execute_ConfigWithOnLongRelease_DoesNotFireWhenDurationIsUnderDelay()
+        {
+            var release = new RecordingInputAction();
+            var longRelease = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onRelease = release, onLongRelease = longRelease, LongReleaseDelay = 300 };
+
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 100 }, new List<ConfigRefValue>());
+
+            Assert.AreEqual(1, release.ExecuteCount, "Under its own LongReleaseDelay - a plain release, handled by onRelease.");
+            Assert.AreEqual(0, longRelease.ExecuteCount);
+        }
+
+        [TestMethod()]
+        public void Execute_ConfigWithOnLongRelease_NormalizesDispatchedValueToLongReleaseWithoutMutatingCallerArgs()
+        {
+            // Several InputAction implementations substitute args.Value into their command (the "@"
+            // placeholder) - onLongRelease must see LONG_RELEASE, not the raw RELEASE it upgraded from.
+            var longRelease = new RecordingInputAction();
+            ButtonInputConfig cfg = new ButtonInputConfig { onLongRelease = longRelease, LongReleaseDelay = 300 };
+            var originalArgs = new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.RELEASE, HeldDurationMs = 500 };
+
+            cfg.execute(new CacheCollection(), originalArgs, new List<ConfigRefValue>());
+
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, longRelease.LastArgs.Value,
+                "onLongRelease must see the normalized LONG_RELEASE value.");
+            Assert.AreEqual((double)MobiFlightButton.InputEvent.RELEASE, originalArgs.Value,
+                "The caller's own args instance must not be mutated - normalization must happen on a clone.");
+            Assert.AreNotSame(originalArgs, longRelease.LastArgs, "onLongRelease must receive a clone, not the caller's own args instance.");
+        }
+
+        [TestMethod()]
+        public void Execute_WithNoMatchingAction_DoesNotThrow()
+        {
+            ButtonInputConfig cfg = new ButtonInputConfig();
+            cfg.execute(new CacheCollection(), new InputEventArgs { Value = (int)MobiFlightButton.InputEvent.HOLD }, new List<ConfigRefValue>());
         }
 
         [TestMethod()]

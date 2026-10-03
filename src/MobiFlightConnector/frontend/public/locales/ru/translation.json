@@ -25,7 +25,8 @@
     },
     "Copy": "Копировать",
     "Paste": "Вставить",
-    "NewFeature": "Новый"
+    "NewFeature": "Новый",
+    "Close": "Закрыть"
   },
   "MainMenu": {
     "File": {
@@ -61,6 +62,7 @@
       "MSFS.ReinstallWASMModule": "Переустановить модуль WASM",
       "CopyLogs": "Копировать журнал в буфер обмена",
       "ControllerBindings": "Привязка контроллера",
+      "ManageControllers": "Управление контроллерами",
       "Settings": "Настройки"
     },
     "Help": {
@@ -213,12 +215,6 @@
         "Create": "Создать проект",
         "Update": "Обновить проект"
       }
-    },
-    "UnsavedChanges": {
-      "Title": "Несохраненные изменения",
-      "Description": "В вашем проекте есть несохраненные изменения. Что бы вы хотели сделать?",
-      "Save": "Сохранить изменения",
-      "Discard": "Отменить изменения"
     }
   },
   "ConfigList": {
@@ -358,6 +354,11 @@
     "Finished": "Завершение загрузки.",
     "Test": {
       "Loading": "Загрузка..."
+    },
+    "GoldSponsors": {
+      "Description": "Спасибо нашим <gold>золотым спонсорам</gold> за поддержку разработки MobiFlight.",
+      "LogoAlt": "Логотип {{sponsorName}}",
+      "OpenSponsorLink": "Открыть сайт {{sponsorName}}"
     }
   },
   "Feed": {
@@ -379,6 +380,7 @@
       "Save": "Сохранить",
       "SaveChanges": "Сохранить изменения",
       "ApplyChanges": "Применить изменения",
+      "DiscardChanges": "Отменить изменения",
       "ResetFilters": "Сбросить фильтры",
       "PendingChangesMessage": "У вас есть ожидающие изменения. Примените их или нажмите кнопку Отмена, чтобы закрыть это диалоговое окно без сохранения."
     },
@@ -402,7 +404,7 @@
     "Modifiers": {
       "Title": "Модификаторы",
       "Label": "Модификаторы",
-     "Description": "Изменить исходное значение, применив последовательность модификаторов.",
+      "Description": "Изменить исходное значение, применив последовательность модификаторов.",
       "EditButton": "Редактировать модификаторы",
       "AddButton": "Добавить модификатор",
       "Type": {
@@ -817,6 +819,11 @@
           "SelectPresetPlaceholder": "Выбрать предустановку..."
         }
       }
+    },
+    "UnsavedChanges": {
+      "Title": "Отменить изменения?",
+      "Description": "У вас есть несохранённые изменения. Вы уверены, что хотите отменить их?",
+      "KeepEditing": "Продолжить редактирование"
     }
   },
   "Auth": {
@@ -861,5 +868,112 @@
     "Resume": "Возобновить прокрутку",
     "Pause": "Приостановить прокрутку",
     "Close": "Закрыть панель журнала"
+  },
+  "About": {
+    "Tabs": {
+      "About": "О программе",
+      "Licenses": "Лицензии"
+    },
+    "Contact": {
+      "Title": "Как с нами связаться",
+      "Discord": {
+        "Title": "Discord",
+        "Description": "Присоединяйтесь к серверу нашего сообщества"
+      },
+      "Email": {
+        "Title": "Электронная почта",
+        "Description": "info@mobiflight.com"
+      }
+    },
+    "Ecosystem": {
+      "Title": "Экосистема MobiFlight"
+    },
+    "Licenses": {
+      "Title": "Библиотеки и зависимости",
+      "Description": "Библиотеки, используемые MobiFlight Connector. Спасибо авторам за их создание!"
+    },
+    "Credits": {
+      "Font": "\"BoeingCDULarge font\" от Gijs de Rooij",
+      "ThankYou": "Спасибо!"
+    }
+  },
+  "Settings": {
+    "General": {
+      "Title": "Общие",
+      "Application": {
+        "Title": "Приложение"
+      },
+      "Logging": {
+        "Title": "Ведение журнала",
+        "Enabled": "включено",
+        "ShowLogPanel": "Показать панель журнала",
+        "LogLevel": "Уровень журнала",
+        "Levels": {
+          "Debug": "Debug",
+          "Info": "Info",
+          "Warn": "Warn",
+          "Error": "Error"
+        },
+        "LogJoystickAxis": "Записывать оси джойстика в журнал"
+      },
+      "StartupAndRunOptions": {
+        "Title": "Параметры запуска и выполнения"
+      },
+      "RecentFiles": {
+        "Title": "Недавние файлы",
+        "Description": "Установить количество файлов, отображаемых в списке, на"
+      },
+      "BetaVersions": {
+        "Title": "Бета-версии",
+        "Description": "Получать обновления бета-версий."
+      },
+      "CommunityFeedback": {
+        "Title": "Программа отзывов сообщества",
+        "Description": "Участвовать в программе отзывов сообщества и помогать улучшать MobiFlight."
+      },
+      "RunOptions": {
+        "Title": "Параметры запуска и выполнения",
+        "AutoRetrigger": "Автоматически выполнять действие повторного запуска в режиме \"run\"",
+        "MinimizeOnAutoRun": "Сворачивать при автозапуске"
+      },
+      "HubHop": {
+        "Title": "HubHop",
+        "AutoCheck": "Проверять предустановки HubHop при запуске приложения."
+      },
+      "Language": {
+        "Title": "Язык",
+        "Description": "Изменить язык интерфейса:",
+        "RestartRequired": "При изменении языка требуется перезапуск MobiFlight."
+      },
+      "ExecutionSpeed": {
+        "Title": "Скорость выполнения конфигурации",
+        "Description": "Вы можете управлять скоростью выполнения, например, если наблюдается задержка ввода. Очень быстрые настройки могут повлиять на производительность.",
+        "Slow": "медленно",
+        "Fast": "очень быстро"
+      },
+      "TestModeSpeed": {
+        "Title": "Скорость тестового режима",
+        "Slow": "медленно",
+        "Fast": "очень быстро"
+      }
+    },
+    "Simulator": {
+      "Title": "Симуляторы",
+      "ProSim": {
+        "Title": "ProSim / HomeSim",
+        "ConnectionSettings": "Параметры подключения",
+        "Host": "Хост",
+        "Port": "Порт",
+        "AutoConnect": "Автоматическое подключение к ProSim",
+        "MaxRetryAttempts": "Макс. попыток"
+      }
+    },
+    "Discard": {
+      "Title": "Отменить изменения?",
+      "Description": "У вас есть несохраненные изменения. Вы уверены, что хотите отменить их?",
+      "KeepEditing": "Продолжить редактирование",
+      "DiscardChanges": "Отменить изменения"
+    },
+    "ManageControllerNote": "Найдите <strong>MobiFlight Boards</strong> и <strong>Peripherals</strong> в <strong>{{menuPath}}</strong>"
   }
 }

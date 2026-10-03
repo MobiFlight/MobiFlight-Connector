@@ -368,7 +368,7 @@ namespace MobiFlight.Scripts
             // Delay because establishing MsfsCache connection state does need some time.           
             Task.Run(async () =>
             {
-                await Task.Delay(STARTUP_DELAY_MS);
+                await Task.Delay(STARTUP_DELAY_MS).ConfigureAwait(false);
                 Start();
             });
         }
@@ -455,7 +455,7 @@ namespace MobiFlight.Scripts
                     CheckAndExecuteScripts(aircraftString);
                 }
 
-                await Task.Delay(PROCESS_POLLING_DELAY_MS);
+                await Task.Delay(PROCESS_POLLING_DELAY_MS).ConfigureAwait(false);
             }
             Log.Instance.log($"ScriptRunner - Stop processing thread.", LogSeverity.Debug);
         }

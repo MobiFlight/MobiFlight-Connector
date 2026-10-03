@@ -235,6 +235,21 @@ namespace MobiFlight
                 OnMidiBoardConnectedFinished?.Invoke(sender, e);
             };
 
+            // Hold/Repeat/LongRelease delays are per config, not per physical button - collect
+            // every distinct setting across all loaded config files.
+            Func<InputEventArgs, List<ButtonTimings>> resolveButtonTimings = e =>
+            {
+                var timings = new List<ButtonTimings>();
+                foreach (var executor in _inputEventExecutors.Values)
+                {
+                    timings.AddRange(executor.ResolveButtonTimingsPerConfig(e));
+                }
+                return timings.Distinct().ToList();
+            };
+            mobiFlightCache.SetButtonTimingsResolver(resolveButtonTimings);
+            joystickManager.SetButtonTimingsResolver(resolveButtonTimings);
+            midiBoardManager.SetButtonTimingsResolver(resolveButtonTimings);
+
             OnProjectChanged += (s, p) =>
             {
                 ActiveConfigIndex = 0;
@@ -339,12 +354,14 @@ namespace MobiFlight
 
         private void InitializeFrontendSubscriptions()
         {
-            MessageExchange.Instance.Subscribe<CommandUpdateConfigItem>((message) =>
+            // All OnUiThread below: they mutate ConfigItems, which UpdateInputPreconditions() (UI
+            // thread, every 200ms) enumerates bare. Don't unmark without synchronizing ConfigItems first.
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUpdateConfigItem>((message) =>
             {
                 HandleCommandUpdateConfigItem(message.Item);
             });
 
-            MessageExchange.Instance.Subscribe<CommandAddConfigItem>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
             {
                 IConfigItem item = new OutputConfigItem()
                 {
@@ -364,7 +381,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandConfigBulkAction>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandConfigBulkAction>((message) =>
             {
                 if (message.Action == "delete")
                 {
@@ -373,6 +390,7 @@ namespace MobiFlight
                         var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
                         ConfigItems.Remove(cfg);
                     });
+                    OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                 }
                 else if (message.Action == "toggle")
                 {
@@ -388,13 +406,14 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandConfigContextMenu>((message) =>
             {
                 IConfigItem cfg;
                 switch (message.Action)
                 {
                     case "delete":
                         ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
+                        OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
                         break;
 
                     case "toggle":
@@ -474,7 +493,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandResortConfigItem>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandResortConfigItem>((message) =>
             {
                 // find all items
                 var resortedItems = new List<IConfigItem>();
@@ -504,13 +523,13 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandActiveConfigFile>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandActiveConfigFile>((message) =>
             {
                 ActiveConfigIndex = message.index;
                 ClearConfigItemStatus();
             });
 
-            MessageExchange.Instance.Subscribe<CommandFileContextMenu>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandFileContextMenu>((message) =>
             {
                 if (message.Index >= Project.ConfigFiles.Count)
                 {
@@ -546,7 +565,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(this, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandScanForInput>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandScanForInput>((message) =>
             {
                 if (message.IsScanning)
                 {
@@ -558,7 +577,7 @@ namespace MobiFlight
                 }
             });
 
-            MessageExchange.Instance.Subscribe<CommandRefreshPresets>((message) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandRefreshPresets>((message) =>
             {
                 if (message.type == PresetType.PROSIM)
                 {
@@ -636,9 +655,6 @@ namespace MobiFlight
         {
             var configItemIndex = ConfigItems.FindIndex(i => i.GUID == item.GUID);
             if (configItemIndex == -1) return;
-
-            if (ConfigItems[configItemIndex] is InputConfigItem oldInputConfig)
-                oldInputConfig.button?.StopTimers();
 
             ConfigItems[configItemIndex] = item;
             MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
@@ -879,8 +895,6 @@ namespace MobiFlight
             mobiFlightCache.StopKeepAwake();
 
             isExecuting = false;
-            foreach (var executor in _inputEventExecutors.Values)
-                executor.StopAllHoldTimers();
 #if ARCAZE
             arcazeCache.Clear();
 #endif
@@ -1448,7 +1462,9 @@ namespace MobiFlight
             var msgEventLabel = e.GetMsgEventLabel();
             var serial = e.Controller.Serial;
 
-            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
+            // Synthetic (HOLD/REPEAT) events don't belong in this "an event was raised" log - see Execute() for those.
+            var isSyntheticEvent = e.SyntheticDelayMs.HasValue;
+            if (!isSyntheticEvent && LogIfNotJoystickAxisOrJoystickAxisEnabled(serial, e.Device.Type))
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }

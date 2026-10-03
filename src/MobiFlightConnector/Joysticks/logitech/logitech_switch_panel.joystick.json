@@ -1,0 +1,36 @@
+{
+  "$schema": "../mfjoystick.schema.json",
+  "InstanceName": "Logitech Switch Panel",
+  "VendorId": "0x06A3",
+  "ProductId": "0x0D67",
+  "Inputs": [
+    { "Id": 0, "Type": "Button", "Label": "Master Battery" },
+    { "Id": 1, "Type": "Button", "Label": "Master Alternator" },
+    { "Id": 2, "Type": "Button", "Label": "Avionics Master" },
+    { "Id": 3, "Type": "Button", "Label": "Fuel Pump" },
+    { "Id": 4, "Type": "Button", "Label": "De-Ice" },
+    { "Id": 5, "Type": "Button", "Label": "Pitot Heat" },
+    { "Id": 6, "Type": "Button", "Label": "Cowl" },
+    { "Id": 7, "Type": "Button", "Label": "Panel Light" },
+    { "Id": 8, "Type": "Button", "Label": "Beacon Light" },
+    { "Id": 9, "Type": "Button", "Label": "Navigation Light" },
+    { "Id": 10, "Type": "Button", "Label": "Strobe Light" },
+    { "Id": 11, "Type": "Button", "Label": "Taxi Light" },
+    { "Id": 12, "Type": "Button", "Label": "Landing Light" },
+    { "Id": 13, "Type": "Button", "Label": "Magneto Off" },
+    { "Id": 14, "Type": "Button", "Label": "Magneto Right" },
+    { "Id": 15, "Type": "Button", "Label": "Magneto Left" },
+    { "Id": 16, "Type": "Button", "Label": "Magneto Both" },
+    { "Id": 17, "Type": "Button", "Label": "Magneto Start" },
+    { "Id": 18, "Type": "Button", "Label": "Gear Up" },
+    { "Id": 19, "Type": "Button", "Label": "Gear Down" }
+  ],
+  "Outputs": [
+    { "Id": "GEAR_NOSE_GREEN", "Label": "Gear Nose Green", "Byte": 1, "Bit": 0 },
+    { "Id": "GEAR_NOSE_RED", "Label": "Gear Nose Red", "Byte": 1, "Bit": 3 },
+    { "Id": "GEAR_LEFT_GREEN", "Label": "Gear Left Green", "Byte": 1, "Bit": 1 },
+    { "Id": "GEAR_LEFT_RED", "Label": "Gear Left Red", "Byte": 1, "Bit": 4 },
+    { "Id": "GEAR_RIGHT_GREEN", "Label": "Gear Right Green", "Byte": 1, "Bit": 2 },
+    { "Id": "GEAR_RIGHT_RED", "Label": "Gear Right Red", "Byte": 1, "Bit": 5 }
+  ]
+}

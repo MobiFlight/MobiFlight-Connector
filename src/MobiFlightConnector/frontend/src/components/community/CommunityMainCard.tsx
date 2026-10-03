@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { fetchRemoteCommunityFeed } from "@/lib/feed"
+import { fetchRemoteCommunityFeedWithFallback } from "@/lib/feed"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
 import { CommunityPost } from "@/types/feed"
 import { useQuery } from "@tanstack/react-query"
@@ -31,25 +31,26 @@ const CommunityMainCard = () => {
     returnObjects: true,
   }) as CommunityPost[]
 
-  
-  // For local development, we are able to point the feed to a custom url 
+  // For local development, we are able to point the feed to a custom url
   // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
   // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
   const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
-  const remoteFeedBaseUrl = (import.meta.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl).trim()
+  const remoteFeedBaseUrl = (
+    import.meta.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
+  ).trim()
 
-  const language = i18n.resolvedLanguage || i18n.language || "en"
+  const language = i18n.language || i18n.resolvedLanguage || "en"
 
   const remoteFeedQuery = useQuery({
     queryKey: ["community-feed", language, remoteFeedBaseUrl],
     queryFn: () =>
-      fetchRemoteCommunityFeed({
+      fetchRemoteCommunityFeedWithFallback({
         baseUrl: remoteFeedBaseUrl,
-        language
+        language,
       }),
   })
 
-  const displayedFeed = [ ...remoteFeedQuery.data ?? [], ...communityFeed ]
+  const displayedFeed = [...(remoteFeedQuery.data ?? []), ...communityFeed]
 
   const filteredFeed = displayedFeed.filter(
     (post) => post.tags.includes(activeFilter) || activeFilter === "all",

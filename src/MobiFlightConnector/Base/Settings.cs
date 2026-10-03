@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 namespace MobiFlight.Base
@@ -27,8 +27,13 @@ namespace MobiFlight.Base
         public string[] RecentFiles { get; set; }
         public int RecentFilesMaxCount { get; set; }
         public int TestTimerInterval { get; set; }
+        public int PollInterval { get; set; }
+        public string ProSimHost { get; set; }
+        public int ProSimPort { get; set; }
+        public bool ProSimAutoConnectEnabled { get; set; }
+        public int ProSimMaxRetryAttempts { get; set; }
 
-        internal Settings()
+        public Settings()
         {
         }
 
@@ -62,35 +67,72 @@ namespace MobiFlight.Base
 
             MinimizeOnAutoRun = settings.MinimizeOnAutoRun;
             ModuleSettings = settings.ModuleSettings;
-            // Skip: OfflineMode = settings.OfflineMode;
-            // Skip: PollInterval = settings.PollInterval;
-            RecentFiles = settings.RecentFiles.Cast<string>().ToArray();
+            PollInterval = settings.PollInterval;
+            RecentFiles = settings.RecentFiles?.Cast<string>().ToArray() ?? new string[0];
             RecentFilesMaxCount = settings.RecentFilesMaxCount;
             TestTimerInterval = settings.TestTimerInterval;
-            // Properties.Settings.Default.AutoRetrigger = true;
-            // Properties.Settings.Default.AutoRun = true;
-            // Properties.Settings.Default.AutoLoadLinkedConfig = true;
-            // Properties.Settings.Default.BetaUpdates = true;
-            // Properties.Settings.Default.CommunityFeedback = true;
-            // Properties.Settings.Default.EnableJoystickSupport = true;
-            // Properties.Settings.Default.EnableMidiSupport = true;
-            // Properties.Settings.Default.ExcludedJoysticks
-            // Properties.Settings.Default.ExcludedMidiBoards
-            // Properties.Settings.Default.FwAutoUpdateCheck = true;
-            // Properties.Settings.Default.HubHopAutoCheck = true;
-            // Properties.Settings.Default.IgnoredComPortsList
-            // Properties.Settings.Default.Language = "en";
-            // Properties.Settings.Default.LogEnabled = true;
-            // Properties.Settings.Default.LogJoystickAxis = false;
-            // Properties.Settings.Default.LogLevel = "Debug";
-            // Properties.Settings.Default.MinimizeOnAutoRun = true;
-            // Properties.Settings.Default.ModuleSettings = true;
-            // Skip: Properties.Settings.Default.OfflineMode = false;
-            // Skip: Properties.Settings.Default.PollInterval = 100;
-            // Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
-            // Properties.Settings.Default.RecentFilesMaxCount = 10;
-            // Skip: Properties.Settings.Default.TestTimerInterval = 1000;
+
+            ProSimHost = settings.ProSimHost;
+            ProSimPort = settings.ProSimPort;
+            ProSimAutoConnectEnabled = settings.ProSimAutoConnectEnabled;
+            ProSimMaxRetryAttempts = settings.ProSimMaxRetryAttempts;
         }
 
+        internal void ApplyTo(Properties.Settings settings)
+        {
+            if (settings == null) return;
+
+            settings.ArcazeSupportEnabled = ArcazeSupportEnabled;
+            settings.AutoRetrigger = AutoRetrigger;
+            settings.AutoRun = AutoRun;
+            settings.AutoLoadLinkedConfig = AutoLoadLinkedConfig;
+            settings.BetaUpdates = BetaUpdates;
+            settings.CommunityFeedback = CommunityFeedback;
+            settings.EnableJoystickSupport = EnableJoystickSupport;
+            settings.EnableMidiSupport = EnableMidiSupport;
+            settings.ExcludedJoysticks = ExcludedJoysticks;
+            settings.ExcludedMidiBoards = ExcludedMidiBoards;
+            settings.FwAutoUpdateCheck = FwAutoUpdateCheck;
+            settings.HubHopAutoCheck = HubHopAutoCheck;
+            settings.IgnoredComPortsList = IgnoredComPortsList;
+            settings.Language = Language ?? "";
+            settings.LogEnabled = LogEnabled;
+            settings.LogJoystickAxis = LogJoystickAxis;
+            settings.LogLevel = LogLevel.ToString();
+            settings.MinimizeOnAutoRun = MinimizeOnAutoRun;
+            settings.ModuleSettings = ModuleSettings;
+
+            if (PollInterval > 0)
+            {
+                settings.PollInterval = Math.Max(25, PollInterval);
+            }
+
+            if (RecentFilesMaxCount > 0)
+            {
+                settings.RecentFilesMaxCount = RecentFilesMaxCount;
+            }
+
+            if (TestTimerInterval > 0)
+            {
+                settings.TestTimerInterval = Math.Max(50, TestTimerInterval);
+            }
+
+            if (ProSimHost != null)
+            {
+                settings.ProSimHost = ProSimHost;
+            }
+
+            if (ProSimPort > 0)
+            {
+                settings.ProSimPort = ProSimPort;
+            }
+
+            settings.ProSimAutoConnectEnabled = ProSimAutoConnectEnabled;
+
+            if (ProSimMaxRetryAttempts > 0)
+            {
+                settings.ProSimMaxRetryAttempts = ProSimMaxRetryAttempts;
+            }
+        }
     }
 }

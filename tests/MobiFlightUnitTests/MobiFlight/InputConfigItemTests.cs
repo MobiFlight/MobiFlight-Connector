@@ -353,6 +353,8 @@ namespace MobiFlight.Tests
         [DataRow((int)MobiFlightButton.InputEvent.PRESS, "onPress")]
         [DataRow((int)MobiFlightButton.InputEvent.RELEASE, "onRelease")]
         [DataRow((int)MobiFlightButton.InputEvent.LONG_RELEASE, "onLongRelease")]
+        [DataRow((int)MobiFlightButton.InputEvent.HOLD, "onHold")]
+        [DataRow((int)MobiFlightButton.InputEvent.REPEAT, "onHold")]
         public void GetInputAction_Button_ReturnsCorrectAction(
      int inputEvent,
      string actionName)
@@ -375,6 +377,50 @@ namespace MobiFlight.Tests
             var result = config.GetInputAction(args);
 
             Assert.AreSame(action, result);
+        }
+
+        [TestMethod()]
+        public void GetInputAction_Button_ReleaseHeldPastDelayResolvesToReleaseWhenNoOnLongRelease()
+        {
+            var releaseAction = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                button = new ButtonInputConfig { onRelease = releaseAction, LongReleaseDelay = 300 }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 5000
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.AreSame(releaseAction, result, "No onLongRelease is configured, so this never upgrades past RELEASE - same as execute() does.");
+        }
+
+        [TestMethod()]
+        public void GetInputAction_Button_ReleaseHeldPastDelayResolvesToLongReleaseWhenConfigured()
+        {
+            var longReleaseAction = new VariableInputAction();
+
+            var config = new InputConfigItem
+            {
+                button = new ButtonInputConfig { onLongRelease = longReleaseAction, LongReleaseDelay = 300 }
+            };
+
+            var args = new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)MobiFlightButton.InputEvent.RELEASE,
+                HeldDurationMs = 500
+            };
+
+            var result = config.GetInputAction(args);
+
+            Assert.AreSame(longReleaseAction, result, "Held past its own LongReleaseDelay with onLongRelease defined - same as execute() does.");
         }
 
         [TestMethod()]

@@ -12,9 +12,6 @@
 		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" />
 		<PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge" />
 		<PackageReference Include="Microsoft.Testing.Platform.MSBuild" />
-		<PackageReference Include="System.Collections.Immutable" />
-		<PackageReference Include="System.Diagnostics.DiagnosticSource" />
-		<PackageReference Include="System.Reflection.Metadata" />
 	</ItemGroup>
 
 	<ItemGroup>

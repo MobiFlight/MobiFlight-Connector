@@ -1,3 +1,5 @@
+import Settings from "./settings"
+
 // FrontendMessages are messages
 // that are sent from the frontend to the backend
 export type CommandMessageKey =
@@ -18,6 +20,8 @@ export type CommandMessageKey =
   | "CommandFrontendState"
   | "CommandScanForInput"
   | "CommandRefreshPresets"
+  | "CommandShutdown"
+  | "CommandUpdateSettings"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -37,7 +41,8 @@ export type CommandMessage =
   | CommandFrontendState
   | CommandScanForInput
   | CommandRefreshPresets
-  
+  | CommandShutdown
+  | CommandUpdateSettings
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -125,6 +130,13 @@ export interface CommandFileContextMenu extends CommandMessageBase {
   }
 }
 
+export interface CommandShutdown extends CommandMessageBase {
+  key: "CommandShutdown"
+  payload: {
+    action: "discardChanges" | "saveChanges"
+  }
+}
+
 export type CommandMainMenuPayload = {
   action:
     | "file.new"
@@ -166,12 +178,7 @@ export interface CommandMainMenu extends CommandMessageBase {
 }
 
 export type CommandProjectToolbarPayload = {
-  action:
-    | "run"
-    | "test"
-    | "stop"
-    | "toggleAutoRun"
-    | "rename"
+  action: "run" | "test" | "stop" | "toggleAutoRun" | "rename"
   value?: string
 }
 
@@ -205,7 +212,7 @@ export interface CommandUserAuthentication extends CommandMessageBase {
   key: "CommandUserAuthentication"
   payload: {
     flow: "login" | "logout"
-    state: "started" | "success" | "cancelled" | "error",
+    state: "started" | "success" | "cancelled" | "error"
     url?: string
   }
 }
@@ -230,5 +237,12 @@ export interface CommandRefreshPresets extends CommandMessageBase {
   key: "CommandRefreshPresets"
   payload: {
     type: "prosim" | "vjoy"
+  }
+}
+
+export interface CommandUpdateSettings extends CommandMessageBase {
+  key: "CommandUpdateSettings"
+  payload: {
+    Settings: Partial<Settings>
   }
 }

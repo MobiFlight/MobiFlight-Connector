@@ -26,7 +26,7 @@ namespace MobiFlight.Monitors
                 return drive.IsReady;
             });
 
-            if (await Task.WhenAny(task, Task.Delay(100)) != task)
+            if (await Task.WhenAny(task, Task.Delay(100)).ConfigureAwait(false) != task)
             {
                 return false;
             }

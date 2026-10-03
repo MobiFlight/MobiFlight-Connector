@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<UseWindowsForms>true</UseWindowsForms>
@@ -9,6 +9,7 @@
 		<AssemblyName>MFConnector</AssemblyName>
 		<OutputType>WinExe</OutputType>
 		<SelfContained>true</SelfContained>
+        <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -16,6 +17,7 @@
 		<Description>Open Source Flight Simulator Solution</Description>
 		<Product>MobiFlight Connector</Product>
 		<Copyright>Copyright Sebastian Moebius 2014 - 2026</Copyright>
+        <Company>MobiFlight</Company>
 		<ApplicationIcon>mobiflight.ico</ApplicationIcon>
 	</PropertyGroup>
 
@@ -35,6 +37,8 @@
 		<CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
 		<CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
 		<NoWarn>$(NoWarn);WFO1000</NoWarn>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>portable</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="mobiflight.ico" />
@@ -53,13 +57,14 @@
 		<PackageReference Include="Microsoft.Web.WebView2" />
 		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="Newtonsoft.Json.Schema" />
+		<PackageReference Include="Serilog" />
+		<PackageReference Include="Serilog.Sinks.File" />
 		<PackageReference Include="SharpDX" />
 		<PackageReference Include="SharpDX.DirectInput" />
 		<PackageReference Include="System.Management" />
-		<PackageReference Include="WebSocketSharp-netstandard" />
+		<PackageReference Include="websocket-sharp.net" />
 		<PackageReference Include="XPlaneConnector" />
 		<PackageReference Include="System.IO.Ports" />
-		<PackageReference Include="System.Net.WebSockets.Client.Managed" />
 		<PackageReference Include="System.Reactive" />
 	</ItemGroup>
 

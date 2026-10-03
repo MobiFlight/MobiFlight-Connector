@@ -68,6 +68,10 @@ namespace MobiFlight.UpdateChecker
 
         public static async Task CheckForUpdate(bool silent = false)
         {
+#if DEBUG
+            return;
+#endif
+
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
             var trackingParams = $"{hash}-{Properties.Settings.Default.CacheId}-{Properties.Settings.Default.Started}";
@@ -132,7 +136,7 @@ namespace MobiFlight.UpdateChecker
                     dialog.ShowDisableBetaButton = updatePath == UpdatePath.StableToBeta //Show "DisableBetaButton" if update from stable to beta
                         && Properties.Settings.Default.BetaUpdates;
                     dialog.Text = $"{i18n._tr("uiMessageNewUpdateAvailable")} - MobiFlight {releaseVersion}{releaseLabel} - Release Notes";
-                    dialog.ReleaseNotesClicked += (sender, e) => Process.Start(releaseUrl);
+                    dialog.ReleaseNotesClicked += (sender, e) => ProcessHelpers.OpenUrl(releaseUrl);
                     dialog.DisableBetaClicked += (sender, e) =>
                     {
                         Properties.Settings.Default.BetaUpdates = false;
@@ -143,7 +147,12 @@ namespace MobiFlight.UpdateChecker
                     {
                         try
                         {
-                            Process.Start(mobiFlightInstaller, "/install " + newVersion);
+                            var argumentToSend = $"/install {newVersion}";
+                            if (Properties.Settings.Default.BetaUpdates)
+                            {
+                                argumentToSend += " /beta";
+                            }
+                            Process.Start(mobiFlightInstaller, argumentToSend);
                             Environment.Exit(0);
                         }
                         catch (Exception ex)

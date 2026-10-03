@@ -1,0 +1,1972 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="0e12b1de-5c39-49ff-9f51-fc7f5557fc2c">
+      <active>true</active>
+      <description>ADIRS_ON_BAT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[12]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2f251466-4f31-4544-9ac8-dc83f92c9646">
+      <active>true</active>
+      <description>IR1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[7]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8ff14946-08df-4620-9f2e-d19e219b9a68">
+      <active>true</active>
+      <description>IR1_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(c == 1 &amp; b &gt; 0, 1, 0)" />
+          <transformation active="True" expression="if(a == 2 &amp; v &gt; 110, 1, $)" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="30ca4e64-dd05-4b51-bfe9-c3bbe3f8a039" placeholder="b" testvalue="1" />
+          <configref active="True" ref="0bcb488e-acc0-48dc-befd-54539e950fbf" placeholder="c" testvalue="1" />
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+          <configref active="True" ref="cbdbba90-406b-4cdf-a906-5ace96bb82cd" placeholder="v" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="f66a72a2-886b-42ea-8468-69662314772c">
+      <active>true</active>
+      <description>IR3_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[11]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="162ae09f-370e-49a3-be1d-c64ae09392cc">
+      <active>true</active>
+      <description>IR3_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(c == 1 &amp; b &gt; 0, 1, 0)" />
+          <transformation active="True" expression="if(a == 2 &amp; v &gt; 110, 1, $)" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="30ca4e64-dd05-4b51-bfe9-c3bbe3f8a039" placeholder="b" testvalue="1" />
+          <configref active="True" ref="7dca31f1-d517-4c41-8003-2f33f744f96c" placeholder="c" testvalue="1" />
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+          <configref active="True" ref="cbdbba90-406b-4cdf-a906-5ace96bb82cd" placeholder="v" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="fc5ac50f-a120-4bf0-8132-7b0d1958483b">
+      <active>true</active>
+      <description>IR2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ce8a479f-aad2-4a28-a8ba-770ac37f4006">
+      <active>true</active>
+      <description>IR2_ALIGN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(c == 1 &amp; b &gt; 0, 1, 0)" />
+          <transformation active="True" expression="if(a == 2 &amp; v &gt; 110, 1, $)" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="30ca4e64-dd05-4b51-bfe9-c3bbe3f8a039" placeholder="b" testvalue="1" />
+          <configref active="True" ref="4a3aeb74-e9ca-4e0f-a8a6-ef167901e01b" placeholder="c" testvalue="1" />
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+          <configref active="True" ref="cbdbba90-406b-4cdf-a906-5ace96bb82cd" placeholder="v" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="49ac26cb-ff69-4cfb-9bdb-a01872605832">
+      <active>true</active>
+      <description>FIRE_ENG2_FIRE_PUSH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/FireAgentSwitchAnim[11]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(a == 2 &amp; v &gt; 110, 1, $)" />
+        </modifiers>
+        <display type="Output" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="ENG2_FIRE" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+          <configref active="True" ref="cbdbba90-406b-4cdf-a906-5ace96bb82cd" placeholder="v" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="b72c39e4-4851-431f-9300-47f3bc666091">
+      <active>true</active>
+      <description>FIRE_APU_FIRE_PUSH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/FireAgentSwitchAnim[14]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(a == 2 &amp; v &gt; 110, 1, $)" />
+        </modifiers>
+        <display type="Output" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="APU_FIRE" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+          <configref active="True" ref="cbdbba90-406b-4cdf-a906-5ace96bb82cd" placeholder="v" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="afcc42f2-0893-4576-9cf6-be8e60bafee3">
+      <active>true</active>
+      <description>FIRE_ENG1_FIRE_PUSH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/FireAgentSwitchAnim[10]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(a == 2 &amp; v &gt; 110, 1, $)" />
+        </modifiers>
+        <display type="Output" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="ENG1_FIRE" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+          <configref active="True" ref="cbdbba90-406b-4cdf-a906-5ace96bb82cd" placeholder="v" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="68a835ac-0918-4815-9306-fa88fac9fe77">
+      <active>true</active>
+      <description>HYD_GREEN_ENG1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3cc1816a-1f1f-4074-89f9-e359f1b6fe14">
+      <active>true</active>
+      <description>HYD_GREEN_ENG1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03cd9533-bfb0-4a7f-9e9d-7d014c503659">
+      <active>true</active>
+      <description>HYD_BLUE_ELEC_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[5]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e298809a-1d12-48ac-a497-a740e36f71b4">
+      <active>true</active>
+      <description>HYD_BLUE_ELEC_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[4]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="30b250ec-a836-4f1c-b78e-1d73f2462fde">
+      <active>true</active>
+      <description>HYD_PTU_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5bd7b887-f0b8-4190-85a0-7513eccc996c">
+      <active>true</active>
+      <description>HYD_PTU_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[8]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b4d993ac-9a2e-4133-b70b-86590c76322d">
+      <active>true</active>
+      <description>HYD_YELLOW_ENG2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c80c81ad-0fbc-46a2-8438-cb6211d1b394">
+      <active>true</active>
+      <description>HYD_YELLOW_ENG2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1016498a-6770-4ee1-b89d-0a74b1f1c33e">
+      <active>true</active>
+      <description>HYD_YELLOW_ELEC_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[7]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4b6818a3-c916-43d4-93b1-7f188634c7b0">
+      <active>true</active>
+      <description>HYD_YELLOW_ELEC_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA29[6]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="80b73d30-4467-487c-bacf-dbfdec480714">
+      <active>false</active>
+      <description>DEFAULT1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b1aa4c09-6e82-4806-9e61-dcbb88328b0e">
+      <active>false</active>
+      <description>DEFAULT1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6ca8d219-982b-4759-a0dc-e4db7cfebb1b">
+      <active>false</active>
+      <description>DEFAULT2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="794fb033-0671-4195-8a32-fbe8d80183f1">
+      <active>false</active>
+      <description>DEFAULT2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="22d03394-c7fc-4789-b4d5-002bafd667a0">
+      <active>false</active>
+      <description>DEFAULT3_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2b05a255-8bff-43bc-b2fb-80fbcd4d3a31">
+      <active>false</active>
+      <description>DEFAULT3_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="80ebdace-95b2-4891-a425-129fc1f83398">
+      <active>false</active>
+      <description>DEFAULT4_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b18bcb4b-e372-45d1-b764-103a6553fbd2">
+      <active>false</active>
+      <description>DEFAULT4_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d1bba4b6-1708-4d8a-bc56-73c2a0b30215">
+      <active>true</active>
+      <description>FUEL_L1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c1b742bd-871f-4f95-85ba-84b7a8e1be95">
+      <active>true</active>
+      <description>FUEL_L1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="de4be1c1-1aac-439e-8b63-b56ebdd2a036">
+      <active>true</active>
+      <description>FUEL_L2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f83f3f4d-2ba2-4841-968b-7168d1ff4f5f">
+      <active>true</active>
+      <description>FUEL_L2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="486b0d8e-4f1d-49ca-93dd-13fec6d24930">
+      <active>true</active>
+      <description>FUEL_CTR1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[5]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="71947093-a1a1-4ce4-99ab-142921c55b4d">
+      <active>true</active>
+      <description>FUEL_CTR1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[4]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="71650f0c-50f2-4537-8702-2e7d9f94ebf4">
+      <active>true</active>
+      <description>FUEL_XFEED_OPEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[15]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="95a0d0b0-88f6-4909-9b47-d2856c589230">
+      <active>true</active>
+      <description>FUEL_XFEED_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[14]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="79e21150-75c9-4860-aeb8-07c286d83fdf">
+      <active>true</active>
+      <description>FUEL_CTR2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[7]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9427ba1b-4310-438e-8704-5785422c5b9d">
+      <active>true</active>
+      <description>FUEL_CTR2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[6]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2ad29f67-5406-4433-a3e9-288911610c0c">
+      <active>true</active>
+      <description>FUEL_R1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="174f5630-4dbc-4974-8a97-067d1663822a">
+      <active>true</active>
+      <description>FUEL_R1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[8]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 23" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="163af461-5f50-4c30-a297-640a550f707a">
+      <active>true</active>
+      <description>FUEL_R2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[11]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="da0f343d-85a9-4b99-9534-9825266ee73e">
+      <active>true</active>
+      <description>FUEL_R2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA28[10]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b69c2cc0-3515-4322-998c-d83ec248bd1f">
+      <active>true</active>
+      <description>TERR_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[27]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cf1e5473-0565-4454-9f20-a36c2a19c9c6">
+      <active>true</active>
+      <description>TERR_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[26]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 23" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1dc334cd-5bde-4b8c-80e2-be2530caf7bf">
+      <active>true</active>
+      <description>SYS_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[14]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 16" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a6494ee2-394f-492b-9582-02b92ec5c179">
+      <active>true</active>
+      <description>SYS_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[13]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 17" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="21a627c5-4888-45d5-8e2f-5afffff53e36">
+      <active>true</active>
+      <description>GS_MODE_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[15]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 31" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="efa2c66f-80b9-4c2c-aa9f-ddc57e30ecda">
+      <active>true</active>
+      <description>FLAP3_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA34[17]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 25" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a50d4dca-7702-4ca4-aea0-eec78da45386">
+      <active>true</active>
+      <description>BAT1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[10]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="27080809-1b97-484f-920d-4d0baa9832fd">
+      <active>true</active>
+      <description>BAT1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7844966f-083e-4af9-8f43-594410d856cb">
+      <active>true</active>
+      <description>BAT2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[12]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0daf9fe7-0e61-454c-8245-a723494b0760">
+      <active>true</active>
+      <description>BAT2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[11]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1284a70a-0bdd-432f-b43e-7520aef15141">
+      <active>true</active>
+      <description>EXT_PWR_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[7]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 19" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c0c4e69f-2b9c-439d-831d-80d502be769e">
+      <active>true</active>
+      <description>EXT_PWR_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA24[6]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_5" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="169424a3-48fc-447c-ab39-0a43682f9b30">
+      <active>true</active>
+      <description>ANTI_ICE_WING_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03186ebf-e330-4bb3-bf06-0839ccfd7aa1">
+      <active>true</active>
+      <description>ANTI_ICE_WING_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a3cb2861-6676-45f1-ad95-a98b32bcf6c2">
+      <active>true</active>
+      <description>ANTI_ICE_ENG1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="295e5209-5461-40ab-a09e-7342388ac9d3">
+      <active>true</active>
+      <description>ANTI_ICE_ENG1_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 19" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1d4b5951-a3cc-449e-a70e-aba213efd3f2">
+      <active>true</active>
+      <description>ANTI_ICE_ENG2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[5]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 29" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1368e4cc-e081-412f-901f-9f6313f10776">
+      <active>true</active>
+      <description>ANTI_ICE_ENG2_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA30[4]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 28" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4e55b925-f54a-4f46-aa4e-10213641d2a3">
+      <active>false</active>
+      <description>OXYGEN_UPPER</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 27" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5ba2d8a0-212c-451f-b65b-7cb8c214efc8">
+      <active>true</active>
+      <description>OXYGEN_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA35[1]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if($&gt;0.6,1,0)" />
+        </modifiers>
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_1" registerOutputPin="Output 26" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ba38e058-0057-4acc-99fd-485546e66c24">
+      <active>true</active>
+      <description>PACK1_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[7]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="39afc1ea-e3b0-41d5-8719-95837fe5e983">
+      <active>true</active>
+      <description>PACK1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[6]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="55ec0d42-1778-45b7-88ba-7dc90ed151ba">
+      <active>true</active>
+      <description>APUBLEED_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[5]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 14" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="159defef-0df8-4dd4-9bc5-00901ee5fb6e">
+      <active>true</active>
+      <description>APU_BLEED_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[4]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 15" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3f14d216-65ff-43a9-aa9d-7df850a1eddf">
+      <active>true</active>
+      <description>PACK2_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[9]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="adf336e2-45d1-49bd-90d5-3e2e05a78aa0">
+      <active>true</active>
+      <description>PACK2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA21[8]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="18475f7a-e58d-4ff2-aa0c-838c4c946f9e">
+      <active>true</active>
+      <description>APU_MASTER_FAULT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 23" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7a65cb30-2266-4a0e-bfc1-24ad57c4d640">
+      <active>true</active>
+      <description>APU_MASTER_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 22" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3352cf8a-0b33-491e-8a12-c08ff29c33f7">
+      <active>true</active>
+      <description>APU_START_AVAIL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 21" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bdf558d8-68bd-4621-a4d0-2351b4535b29">
+      <active>true</active>
+      <description>APU_START_ON</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA49[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 20" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="097b6149-f4a4-414c-8838-6e021b0a6603">
+      <active>true</active>
+      <description>EMER_EXIT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/OHPLightsATA31[12]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" shiftRegister="OSR_8" registerOutputPin="Output 18" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b8d02d07-de46-4853-84ce-aeee40523998">
+      <active>true</active>
+      <description>BAT2_DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/BatVolts[1]" />
+        <test type="Float" value="888" />
+        <modifiers>
+          <transformation active="True" expression="Round($,1)" />
+          <transformation active="True" expression="if(a == 2, 888, $)" />
+        </modifiers>
+        <display type="Display Module" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" ledAddress="BAT1_BAT2" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="bc4bbddc-ffbe-4cce-bb5c-ae21f7fc4060">
+      <active>true</active>
+      <description>BAT1_DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/BatVolts[0]" />
+        <test type="Float" value="888" />
+        <modifiers>
+          <transformation active="True" expression="Round($,1)" />
+          <transformation active="True" expression="if(a == 2, 888, $)" />
+        </modifiers>
+        <display type="Display Module" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" ledAddress="BAT1_BAT2" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="3,4,5" ledDecimalPoints="4" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="17c7cede-321c-45cb-9b29-66efe9be4051" placeholder="a" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="30ca4e64-dd05-4b51-bfe9-c3bbe3f8a039">
+      <active>true</active>
+      <description>TimeToAlign</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/TimeToAlign" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0bcb488e-acc0-48dc-befd-54539e950fbf">
+      <active>true</active>
+      <description>IR1knobReference</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/ADIRUSwitchArray[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7dca31f1-d517-4c41-8003-2f33f744f96c">
+      <active>true</active>
+      <description>IR3knobReference</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/ADIRUSwitchArray[2]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4a3aeb74-e9ca-4e0f-a8a6-ef167901e01b">
+      <active>true</active>
+      <description>IR2knobReference</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/ADIRUSwitchArray[1]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="17c7cede-321c-45cb-9b29-66efe9be4051">
+      <active>true</active>
+      <description>Ann_Lt_State</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/AnnunMode" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cbdbba90-406b-4cdf-a906-5ace96bb82cd">
+      <active>true</active>
+      <description>AC_ESS_SHED_BUS_State</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/ACBusVoltages[3]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="CFT_A32X_CST_OVH/ SN-833-513" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="3a28cb8c-356c-4433-859e-04f2f9c0c1ea">
+      <active>false</active>
+      <description>DEFAULT1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c8017e3c-55ac-4143-a36e-c438885c9d79">
+      <active>false</active>
+      <description>DEFAULT2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a0f4816a-dbe8-444f-8e0a-42a5309bdc06">
+      <active>false</active>
+      <description>DEFAULT3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9c0bc7f6-0291-4ee1-a28c-4a18c2678725">
+      <active>false</active>
+      <description>DEFAULT4</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="DEFAULT_BT_4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2967605a-92bd-4474-8fe9-f0cdc041fa1e">
+      <active>true</active>
+      <description>IR1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_KS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/IRSwitchArray[0]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/IRSwitchArray[0]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4f4b4a16-43d0-4135-afe2-1facff473a7c">
+      <active>true</active>
+      <description>IR3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_KS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/IRSwitchArray[2]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/IRSwitchArray[2]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e170ad8b-347e-45bc-a535-f61af6fe8749">
+      <active>true</active>
+      <description>IR2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_KS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/IRSwitchArray[1]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/IRSwitchArray[1]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="803e3718-0567-4b80-8997-c3f75adcef1e">
+      <active>true</active>
+      <description>IR1_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_RTS_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f5d3c4c9-628c-400b-8a03-c8cce667ed7a">
+      <active>true</active>
+      <description>IR1_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_RTS_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0e8a4b07-f1fd-4d2e-a406-8f85500184cf">
+      <active>true</active>
+      <description>IR1_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR1_RTS_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[0]" expression="2" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f95540ac-f890-4886-9b31-129afaf5028e">
+      <active>true</active>
+      <description>IR3_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_RTS_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9ba231da-fb67-4706-88fc-d20c68c6f83f">
+      <active>true</active>
+      <description>IR3_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_RTS_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="418ba679-48c1-4c26-8f18-000d0ef985f0">
+      <active>true</active>
+      <description>IR3_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR3_RTS_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[2]" expression="2" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="487a339f-1970-49b2-8c2f-248d7987ab72">
+      <active>true</active>
+      <description>IR2_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_RTS_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3d2d2ef3-2be7-4dfb-b8e5-86c1ac4d0be8">
+      <active>true</active>
+      <description>IR2_NAV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_RTS_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="179859ee-24f1-45b8-a7aa-39ff92a94708">
+      <active>true</active>
+      <description>IR2_ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="IR2_RTS_3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ADIRUSwitchArray[1]" expression="2" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="30f5aa1b-1cc2-46a5-933e-4ec01e7153a9">
+      <active>true</active>
+      <description>GPWS_TERR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_TERR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[4]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[4]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="727a44e9-7ef1-407d-8ac1-21c8db6ef690">
+      <active>true</active>
+      <description>GPWS_SYS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_SYS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[0]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[0]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4251bd01-e951-43d7-87a7-6be0aec45e32">
+      <active>true</active>
+      <description>GPWS_GS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_GS_MODE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[1]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[1]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="563717c1-1ad7-46db-bc55-3cc9ebd2662f">
+      <active>true</active>
+      <description>GPWS_FLAP3</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GPWS_LDG_FLAPS3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[3]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/GPWSSwitchArray[3]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5061f8b7-84f1-4de6-9a18-54f8f84dc905">
+      <active>true</active>
+      <description>ANTI_ICE_WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ANTI ICE_WING" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/WAISwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/WAISwitch" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b57cce0c-e990-4f29-abda-195097d1e11f">
+      <active>true</active>
+      <description>ANTI_ICE_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ANTI ICE_ENG1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG1AISwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG1AISwitch" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4b204e4b-0333-46ae-9ca8-c94e103edb91">
+      <active>true</active>
+      <description>ANTI_ICE_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ANTI ICE_ENG2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG2AISwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENG2AISwitch" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7e31c764-b8a8-488c-9610-01aae6c405d1">
+      <active>true</active>
+      <description>OXYGEN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="OXYGEN_CREW_SPLY" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/CrewOxySwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/CrewOxySwitch" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4a1ac0cd-349e-46c9-9aeb-bd7c6dd8dc89">
+      <active>false</active>
+      <description>CALLS_ALL_INOP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="CALLS_ALL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_CALLS_ALL) 2 % 1 == if{ (L:S_OH_CALLS_ALL) ++ (&gt;L:S_OH_CALLS_ALL) }" presetId="bc141468-8218-4ef5-978a-6fd42eec8f65" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="199aa027-eb54-4de1-b3f5-85170ae64911">
+      <active>true</active>
+      <description>STROBE_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="STROBE_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="613c8fb3-2f98-4eb9-9248-80120f16844f">
+      <active>true</active>
+      <description>STROBE_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="STROBE_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[7]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="62aff4d5-5bd5-48da-b7aa-fd9c87fd4ff6">
+      <active>true</active>
+      <description>BEACON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="BEACON_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[0]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[0]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c9cc8c0a-0be9-48bb-9ca5-8d5955310e23">
+      <active>true</active>
+      <description>WING</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="WING_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[1]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[1]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ddb3e3b6-f453-4df3-ba8c-387fd8726c8f">
+      <active>true</active>
+      <description>NAVLOGO2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d480578e-779b-4b29-a5e8-e483d6770e2d">
+      <active>true</active>
+      <description>NAVLOGO_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="2">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[2]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1eb971ea-efe1-4f3e-830c-0fdbcdf33d16">
+      <active>true</active>
+      <description>RWYTURN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="RWY_TURN_OFF_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[6]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[6]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="04801c22-d455-4881-9e12-e4ff940574ab">
+      <active>true</active>
+      <description>LAND_L_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_L_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dcc6b8c5-939b-4bc2-a5c3-c72da4bc90e6">
+      <active>true</active>
+      <description>LAND_L_RETRACT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_L_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[4]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f86bf1fc-3cc6-4979-8cfd-6475aaeafba6">
+      <active>true</active>
+      <description>LAND_R_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_R_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f666e43b-53c8-48f9-bf6e-fbeedbbaf4eb">
+      <active>true</active>
+      <description>LAND_R_RETRACT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="LAND_R_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[5]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d4b617ad-4eeb-46db-b682-186e0d92b9d2">
+      <active>true</active>
+      <description>NOSE_T.O</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="NOSE_OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5606ac47-8c61-4d21-aae5-741ca57faca9">
+      <active>true</active>
+      <description>NOSE_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="NOSE_ON" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[3]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a4e8e94b-e86b-4067-9d7c-af30f6d40be7">
+      <active>true</active>
+      <description>APU_MASTER_SW</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/apucommands/MasterOn" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/apucommands/MasterOff" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="69e9a973-0f74-489c-8f1f-82886cfe6a27">
+      <active>true</active>
+      <description>APU_START</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/apucommands/StarterOn" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="848f342e-a316-4ec4-89b5-5c44974fe455">
+      <active>true</active>
+      <description>FIRE_ENG1_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="FIRE_ENG1_TEST" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="AirbusFBW/FireTestENG1" expression="1" />
+          <onHold holdDelay="20" repeatDelay="50" type="XplaneInputAction" inputType="Command" path="AirbusFBW/FireTestENG1" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="aa9503fe-e6d3-4630-a5c3-8caa5d04dc50">
+      <active>true</active>
+      <description>FIRE_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="FIRE_ENG1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENGFireSwitchArray[0]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENGFireSwitchArray[0]" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d61a4f6f-a046-449f-a8e0-78c000bcc777">
+      <active>true</active>
+      <description>FIRE_APU_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="16">
+          <onPress type="XplaneInputAction" inputType="Command" path="AirbusFBW/FireTestAPU" expression="$" />
+          <onHold holdDelay="20" repeatDelay="50" type="XplaneInputAction" inputType="Command" path="AirbusFBW/FireTestAPU" expression="$" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ff3ddc15-fa1b-4cf0-af88-454a5b2f2dd5">
+      <active>true</active>
+      <description>FIRE_APU</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="17">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FireExOHPArray[0]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FireExOHPArray[0]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9b651767-7013-4216-abc8-e71ae3d1c3f8">
+      <active>true</active>
+      <description>FIRE_ENG2_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="18">
+          <onPress type="XplaneInputAction" inputType="Command" path="AirbusFBW/FireTestENG2" expression="$" />
+          <onHold holdDelay="20" repeatDelay="50" type="XplaneInputAction" inputType="Command" path="AirbusFBW/FireTestENG2" expression="$" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="807b5733-2827-4d0d-8ca1-9ad36ecff3c0">
+      <active>true</active>
+      <description>FIRE_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="19">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENGFireSwitchArray[1]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/ENGFireSwitchArray[1]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="73554e78-40b8-460b-bd1f-f98886b06492">
+      <active>true</active>
+      <description>HYD_GREEN_ENG1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="GREEN_ENG1_PUMP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[0]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[0]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="99c6814c-0c30-40e1-8bff-c7ac139ef4f2">
+      <active>true</active>
+      <description>HYD_BLUE_ELEC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="BLUE_ELEC_PUMP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[2]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[2]" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0a6e343e-a636-49fa-a11d-716d198c1811">
+      <active>true</active>
+      <description>HYD_PTU</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="23">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[4]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[4]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="437c4598-d5a4-46a5-bca5-6056531369ae">
+      <active>true</active>
+      <description>HYD_YELLOW_ENG2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="22">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[1]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[1]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8aac986e-b88e-44ce-b403-08ce7e61084a">
+      <active>true</active>
+      <description>HYD_YELLOW_ELEC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="20">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[3]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/HydOHPArray[3]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6e387d8f-d0f3-4d72-8a29-6f73b94fa5c3">
+      <active>true</active>
+      <description>FUEL_L_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[0]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[0]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="08e1b358-2798-49a2-bd35-c7f679d15ca0">
+      <active>true</active>
+      <description>FUEL_L_2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[1]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[1]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0d8cf6a1-55d6-4ab4-9b42-531e90a9d582">
+      <active>true</active>
+      <description>FUEL_CTR_R_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[2]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[2]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ff6713ed-3f4a-42e8-b53c-e8978e11a8a4">
+      <active>true</active>
+      <description>FUEL_XFEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="8">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[7]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[7]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="915cd8a9-8fce-4baf-a18a-5a413e373bec">
+      <active>true</active>
+      <description>FUEL_CTR_L_2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[3]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[3]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="30be10c1-0268-474b-8d1d-48f9e2d1625c">
+      <active>true</active>
+      <description>FUEL_R_1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="10">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[4]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[4]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="81a38c63-4f1c-4504-8394-22defc31f9c8">
+      <active>true</active>
+      <description>FUEL_R_2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="21">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[5]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/FuelOHPArray[5]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3516d785-6c90-445f-af36-4bcea2d9a238">
+      <active>true</active>
+      <description>ELEC_BAT1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="3">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat1On" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat1Off" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3cb6b80e-45e2-4cc4-9fbf-6d8f94a3574b">
+      <active>true</active>
+      <description>ELEC_BAT2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat2On" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/Bat2Off" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="15ea043b-5451-4f1c-869b-1be6afa06df6">
+      <active>true</active>
+      <description>ELEC_EXTPWR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/ExtPowOn" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/eleccommands/ExtPowOff" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e146db5e-3243-4fa2-a4b3-58f03a521fe3">
+      <active>true</active>
+      <description>AIRCOND_PACK1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="1">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack1Switch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack1Switch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="85510917-4944-4068-990b-0824a5819476">
+      <active>true</active>
+      <description>AIRCOND_APUBLEED</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="0">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/APUBleedSwitch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/APUBleedSwitch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7da01736-f6ea-4a8b-93c2-0836626dacb1">
+      <active>true</active>
+      <description>AIRCOND_PACK2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="7">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack2Switch" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/Pack2Switch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8e4c4bb0-28be-4d71-b21b-003f3f0537bb">
+      <active>true</active>
+      <description>WIPER_Captain_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/LeftWiperSwitch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="86165e47-5c38-40f0-9996-be0a74097d72">
+      <active>true</active>
+      <description>WIPER_FirstOfficer_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/RightWiperSwitch" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a7e567a7-baec-482e-b1cd-552b9fca5b42">
+      <active>true</active>
+      <description>WIPER_Captain_SLOW</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/LeftWiperSwitch" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a302f594-1b5c-4a2a-a4b3-154fc7abedd3">
+      <active>true</active>
+      <description>WIPER_FirstOfficer_SLOW</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/RightWiperSwitch" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3ad25eb7-d65c-4e82-bb03-1f0d0c88f1e0">
+      <active>true</active>
+      <description>WIPER_Captain_FAST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/LeftWiperSwitch" expression="2" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7ee27995-a318-4be6-a03d-fb7c7d3779d3">
+      <active>true</active>
+      <description>WIPER_FirstOfficer_FAST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_1" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/RightWiperSwitch" expression="2" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7d20f77b-a657-426a-8a0b-dbb1e87e99b5">
+      <active>true</active>
+      <description>COMPASS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="9">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[9]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[9]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="29a98189-2db4-4590-9565-58796f9bc7c1">
+      <active>true</active>
+      <description>DOME_BRT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="11">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[8]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[8]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2eb3d73f-c84e-4efe-b962-c455c9d10709">
+      <active>true</active>
+      <description>DOME_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="10">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[8]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[8]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f7257041-8bc8-40e1-b463-e864ff17d80c">
+      <active>true</active>
+      <description>ANN_TEST</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="12">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/lightcommands/AnnunUp" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/lightcommands/AnnunDown" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2c3f9eab-0c8e-4209-b0f8-a1f76a575e2e">
+      <active>true</active>
+      <description>ANN_DIM</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="13">
+          <onPress type="XplaneInputAction" inputType="Command" path="toliss_airbus/lightcommands/AnnunDown" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="toliss_airbus/lightcommands/AnnunUp" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a0c0b4b8-2279-4cb4-a9e2-daf267f33ef3">
+      <active>true</active>
+      <description>SEAT_BELTS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="6">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[11]" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[11]" expression="0" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f529a48f-4a09-46dd-a9cc-5aac56c6324a">
+      <active>true</active>
+      <description>NO_SMOKING_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="5">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[12]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[12]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="496ddc9d-1207-43e5-81f4-4fc26c579de5">
+      <active>true</active>
+      <description>NO_SMOKING_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="4">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[12]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[12]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dbbe08e3-6c30-4985-bed2-7f6354b7b1f0">
+      <active>true</active>
+      <description>EMER_EXIT_ON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="14">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[10]" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[10]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6232af10-27b2-496e-b0c5-e8950f2b1e96">
+      <active>true</active>
+      <description>EMER_EXIT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="ISR_4" type="InputShiftRegister" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputShiftRegister ExtPin="15">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[10]" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPLightSwitches[10]" expression="1" />
+        </inputShiftRegister>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="05636a28-c30c-444d-aea7-7adb06ab2ca3">
+      <active>true</active>
+      <description>OVHD_INTEG_LT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.5.3.0, Culture=neutral, PublicKeyToken=null" serial="CFT_A32X_CST_OVH/ SN-833-513" name="Int_Lt_Knob" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="XplaneInputAction" inputType="DataRef" path="AirbusFBW/OHPBrightnessLevel" expression="if(@&lt;140, 0, if(@&lt;167, (@-140)*0.01852, if(@&lt;195, (@-167)*0.0089+0.5, if(@&lt;350, (@-195)*0.00161+0.75, 1))))" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

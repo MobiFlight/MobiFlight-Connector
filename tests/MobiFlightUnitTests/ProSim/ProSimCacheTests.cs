@@ -3,6 +3,7 @@ using GraphQL.Client.Abstractions.Websocket;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.ProSim;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -574,6 +575,44 @@ namespace MobiFlight.Tests.ProSim
 
             // Assert
             Assert.AreEqual(0.0, result);
+        }
+
+        [TestMethod()]
+        public void ReadDataref_WhenValueArrivesBeforeDefinitions_ShouldReturnNumericValue()
+        {
+            // Arrange
+            const string datarefPath = "system.numerical.test";
+            SetupConnectedCache(_cache, new Mock<IGraphQLWebSocketClient>().Object, new Dictionary<string, DataRefDescription>());
+            SetSubscribedDataRefValue(_cache, datarefPath, 123);
+
+            // Act
+            var result = _cache.readDataref(datarefPath);
+
+            // Assert
+            Assert.AreEqual(123.0, result);
+        }
+
+        [TestMethod()]
+        public void ReadDataref_WhenStringValueArrivesBeforeDefinitions_ShouldReturnStringValue()
+        {
+            const string datarefPath = "system.string.test";
+            SetupConnectedCache(_cache, new Mock<IGraphQLWebSocketClient>().Object, new Dictionary<string, DataRefDescription>());
+            SetSubscribedDataRefValue(_cache, datarefPath, "MCP SPEED");
+
+            var result = _cache.readDataref(datarefPath);
+
+            Assert.AreEqual("MCP SPEED", result);
+        }
+
+        private void SetSubscribedDataRefValue(ProSimCache cache, string datarefPath, object value)
+        {
+            var type = typeof(ProSimCache);
+            var subscriptionsField = type.GetField("_subscriptions", BindingFlags.NonPublic | BindingFlags.Instance);
+            var subscriptions = (Dictionary<string, IDisposable>)subscriptionsField.GetValue(cache);
+            subscriptions[datarefPath] = new Mock<IDisposable>().Object;
+
+            var updateCachedValue = type.GetMethod("UpdateCachedValue", BindingFlags.NonPublic | BindingFlags.Instance);
+            updateCachedValue.Invoke(cache, new[] { datarefPath, value });
         }
 
         #endregion

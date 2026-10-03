@@ -41,8 +41,6 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // Setup project
-    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
       name: "chromium",
       use: {
@@ -51,6 +49,8 @@ export default defineConfig({
       },
       dependencies: ["setup"],
     },
+    // Setup project
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
   ],
 
   /* Run your local dev server before starting the tests */
@@ -58,6 +58,6 @@ export default defineConfig({
     command: "npm run dev",
     url: "http://localhost:5173/",
     reuseExistingServer: !process.env.CI,
-    timeout: 20 * 1000
+    timeout: 20 * 1000,
   },
 })

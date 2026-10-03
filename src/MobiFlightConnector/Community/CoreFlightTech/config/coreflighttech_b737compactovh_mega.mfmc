@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>CoreFlightTech B737 Compact OVH</ModuleType>
+  <ModuleName>CFT_B737_C_OVH</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="Backlight_PWM" Pin="3" />
+  <LedModule Name="FLT_A_Display" ModelType="0" DinPin="6" ClsPin="4" ClkPin="5" Brightness="11" NumModules="1" />
+  <LedModule Name="LAND_A_Display" ModelType="0" DinPin="15" ClsPin="14" ClkPin="13" Brightness="11" NumModules="1" />
+  <Encoder Name="FLT_ALT" PinLeft="20" PinRight="19" EncoderType="1" />
+  <Encoder Name="LAND_ALT" PinLeft="18" PinRight="2" EncoderType="1" />
+  <ShiftRegister Name="OUT_SR_1" LatchPin="12" ClockPin="11" DataPin="10" NumModules="3" />
+  <ShiftRegister Name="OUT_SR_2" LatchPin="8" ClockPin="7" DataPin="9" NumModules="3" />
+  <Button Name="FLAT_ALT_S1" Pin="23" />
+  <Button Name="LAND_ALT_S1" Pin="22" />
+  <InputShiftRegister Name="INPUT_SR_1" LatchPin="32" ClockPin="33" DataPin="34" NumModules="4" />
+  <InputShiftRegister Name="INPUT_SR_2" LatchPin="37" ClockPin="38" DataPin="39" NumModules="3" />
+  <InputShiftRegister Name="INPUT_SR_3" LatchPin="43" ClockPin="44" DataPin="49" NumModules="3" />
+  <Stepper Name="EGT_Gauge" Pin1="48" Pin2="47" Pin3="42" Pin4="40" BtnPin="45" Mode="1" Backlash="6" Deactivate="true" Profile="1" />
+  <Button Name="Pos-&gt;Steady" Pin="31" />
+</Config>

@@ -20,6 +20,16 @@ import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { useTranslation } from "react-i18next"
 import { useModal } from "@/lib/hooks/useModal"
 import UserMenuItem from "@/components/user/UserMenuItem"
+import {
+  IconAdjustments,
+  IconClipboardCopy,
+  IconDeviceGamepad2,
+  IconDownload,
+  IconPlaneTilt,
+  IconRestore,
+  IconSettings,
+} from "@tabler/icons-react"
+import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
@@ -35,13 +45,13 @@ export const MainMenu = () => {
 
   const { showOverlay: showProjectOverlay } = useProjectModal()
   const { showOverlay: showModalOverlay } = useModal()
-  const { logEnabled : logVisible } = useLogSettings()
+  const { logEnabled: logVisible } = useLogSettings()
   const toggleLog = () => {
     publish({
       key: "CommandMainMenu",
       payload: {
-        action: "view.log.toggle"
-      }
+        action: "view.log.toggle",
+      },
     })
   }
 
@@ -56,30 +66,36 @@ export const MainMenu = () => {
                 showProjectOverlay({ mode: "create" })
               }}
             >
-              {t("MainMenu.File.New")}<MenubarShortcut>Ctrl+N</MenubarShortcut>
+              {t("MainMenu.File.New")}
+              <MenubarShortcut>Ctrl+N</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.open" })}
             >
-              {t("MainMenu.File.Open")}<MenubarShortcut>Ctrl+O</MenubarShortcut>
+              {t("MainMenu.File.Open")}
+              <MenubarShortcut>Ctrl+O</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.save" })}
               disabled={!hasChanged}
             >
-              {t("MainMenu.File.Save")}<MenubarShortcut>Ctrl+S</MenubarShortcut>
+              {t("MainMenu.File.Save")}
+              <MenubarShortcut>Ctrl+S</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.saveas" })}
             >
-              {t("MainMenu.File.SaveAs")}<MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>
+              {t("MainMenu.File.SaveAs")}
+              <MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarSub>
-              <MenubarSubTrigger>{t("MainMenu.File.RecentProjects")}</MenubarSubTrigger>
+              <MenubarSubTrigger>
+                {t("MainMenu.File.RecentProjects")}
+              </MenubarSubTrigger>
               <MenubarSubContent>
-                {settings && settings.RecentFiles.length > 0 ? (
+                {settings && settings.RecentFiles?.length > 0 ? (
                   settings.RecentFiles.map((file, index) => (
                     <MenubarItem
                       key={index}
@@ -96,7 +112,9 @@ export const MainMenu = () => {
                     </MenubarItem>
                   ))
                 ) : (
-                  <MenubarItem disabled>{t("MainMenu.File.RecentProjects.None")}</MenubarItem>
+                  <MenubarItem disabled>
+                    {t("MainMenu.File.RecentProjects.None")}
+                  </MenubarItem>
                 )}
               </MenubarSubContent>
             </MenubarSub>
@@ -104,7 +122,8 @@ export const MainMenu = () => {
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.exit" })}
             >
-              {t("MainMenu.File.Exit")}<MenubarShortcut>Ctrl+Q</MenubarShortcut>
+              {t("MainMenu.File.Exit")}
+              <MenubarShortcut>Ctrl+Q</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
@@ -139,102 +158,119 @@ export const MainMenu = () => {
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem onSelect={toggleLog}>
-              {logVisible ? t("MainMenu.View.Log.Hide") : t("MainMenu.View.Log.Show")}
+              {logVisible
+                ? t("MainMenu.View.Log.Hide")
+                : t("MainMenu.View.Log.Show")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>{ t("MainMenu.Extras.Label") }</MenubarTrigger>
+          <MenubarTrigger>{t("MainMenu.Extras.Label")}</MenubarTrigger>
           <MenubarContent>
             <MenubarSub>
-              <MenubarSubTrigger>HubHop</MenubarSubTrigger>
+              <MenubarSubTrigger>
+                <IconBrandHubHopLogo className="h-5 w-7 stroke-none" /> HubHop
+              </MenubarSubTrigger>
               <MenubarSubContent>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.hubhop.download" })
                   }
                 >
-                  { t("MainMenu.Extras.HubHop.DownloadLatestPresets")}
+                  <IconDownload className="h-5" />
+                  {t("MainMenu.Extras.HubHop.DownloadLatestPresets")}
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
             <MenubarSub>
-              <MenubarSubTrigger>Microsoft Flight Simulator</MenubarSubTrigger>
+              <MenubarSubTrigger>
+                <IconPlaneTilt className="h-5" />
+                Microsoft Flight Simulator
+              </MenubarSubTrigger>
               <MenubarSubContent>
                 <MenubarItem
                   onSelect={() =>
                     handleMenuItemClick({ action: "extras.msfs.reinstall" })
                   }
                 >
-                  { t("MainMenu.Extras.MSFS.ReinstallWASMModule") }
+                  <IconRestore className="h-5" />
+                  {t("MainMenu.Extras.MSFS.ReinstallWASMModule")}
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
+            <MenubarSeparator />
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "extras.copylogs" })
               }
             >
-              { t("MainMenu.Extras.CopyLogs") }
-            </MenubarItem>
-            <MenubarItem
-              onSelect={() => showModalOverlay({ route: "/bindings" })}
-            >
-              {t("MainMenu.Extras.ControllerBindings")}
+              <IconClipboardCopy className="h-5" />
+              {t("MainMenu.Extras.CopyLogs")}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
-              onSelect={() =>
-                handleMenuItemClick({ action: "extras.settings" })
-              }
+              onSelect={() => showModalOverlay({ route: "/bindings" })}
             >
-              { t("MainMenu.Extras.Settings") }
+              <IconDeviceGamepad2 className="h-5" />
+              {t("MainMenu.Extras.ControllerBindings")}
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() => handleMenuItemClick({ action: "extras.serials" })}
+            >
+              <IconAdjustments className="h-5" />
+              {t("MainMenu.Extras.ManageControllers")}
+            </MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem
+              onSelect={() => showModalOverlay({ route: "/settings" })}
+            >
+              <IconSettings className="h-5" />
+              {t("MainMenu.Extras.Settings")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenubarTrigger>{ t("MainMenu.Help.Label") }</MenubarTrigger>
+          <MenubarTrigger>{t("MainMenu.Help.Label")}</MenubarTrigger>
           <MenubarContent>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.docs" })}
             >
-              { t("MainMenu.Help.Documentation") }<MenubarShortcut>F1</MenubarShortcut>
+              {t("MainMenu.Help.Documentation")}
+              <MenubarShortcut>F1</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "help.checkforupdate" })
               }
             >
-              { t("MainMenu.Help.CheckForUpdates") }
+              {t("MainMenu.Help.CheckForUpdates")}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.discord" })}
             >
-              { t("MainMenu.Help.VisitDiscord") }
+              {t("MainMenu.Help.VisitDiscord")}
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.hubhop" })}
             >
-              { t("MainMenu.Help.VisitHubHop") }
+              {t("MainMenu.Help.VisitHubHop")}
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.youtube" })}
             >
-              { t("MainMenu.Help.VisitYouTube") }
+              {t("MainMenu.Help.VisitYouTube")}
             </MenubarItem>
             <MenubarSeparator />
-            <MenubarItem
-              onSelect={() => handleMenuItemClick({ action: "help.about" })}
-            >
-              { t("MainMenu.Help.About") }
+            <MenubarItem onSelect={() => showModalOverlay({ route: "/about" })}>
+              {t("MainMenu.Help.About")}
             </MenubarItem>
             <MenubarItem
               onSelect={() =>
                 handleMenuItemClick({ action: "help.releasenotes" })
               }
             >
-              { t("MainMenu.Help.ReleaseNotes") }
+              {t("MainMenu.Help.ReleaseNotes")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

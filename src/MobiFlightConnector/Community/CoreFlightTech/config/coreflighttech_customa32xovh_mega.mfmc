@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>CoreFlightTech Custom A32X OVH</ModuleType>
+  <ModuleName>CFT_A32X_CST_OVH</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <LedModule Name="BAT1_BAT2" ModelType="0" DinPin="6" ClsPin="4" ClkPin="5" Brightness="15" NumModules="1" />
+  <ShiftRegister Name="OSR_5" LatchPin="12" ClockPin="11" DataPin="10" NumModules="3" />
+  <ShiftRegister Name="OSR_1" LatchPin="8" ClockPin="7" DataPin="9" NumModules="4" />
+  <ShiftRegister Name="OSR_8" LatchPin="24" ClockPin="26" DataPin="25" NumModules="3" />
+  <Output Name="ENG2_FIRE" Pin="21" />
+  <Output Name="APU_FIRE" Pin="22" />
+  <Output Name="ENG1_FIRE" Pin="23" />
+  <Output Name="Backlight_PWM" Pin="3" />
+  <AnalogInput Name="Int_Lt_Knob" Pin="62" Sensitivity="5" />
+  <InputShiftRegister Name="ISR_1" LatchPin="32" ClockPin="33" DataPin="34" NumModules="3" />
+  <InputShiftRegister Name="ISR_4" LatchPin="14" ClockPin="15" DataPin="16" NumModules="2" />
+  <Button Name="IR1_KS" Pin="38" />
+  <Button Name="IR3_KS" Pin="40" />
+  <Button Name="IR2_KS" Pin="39" />
+  <Button Name="IR1_RTS_1" Pin="67" />
+  <Button Name="IR1_RTS_2" Pin="68" />
+  <Button Name="IR1_RTS_3" Pin="69" />
+  <Button Name="IR3_RTS_1" Pin="35" />
+  <Button Name="IR3_RTS_2" Pin="36" />
+  <Button Name="IR3_RTS_3" Pin="37" />
+  <Button Name="IR2_RTS_1" Pin="41" />
+  <Button Name="IR2_RTS_2" Pin="42" />
+  <Button Name="IR2_RTS_3" Pin="43" />
+  <Button Name="FIRE_ENG1" Pin="18" />
+  <Button Name="FIRE_ENG1_TEST" Pin="17" />
+  <Button Name="GREEN_ENG1_PUMP" Pin="27" />
+  <Button Name="BLUE_ELEC_PUMP" Pin="19" />
+  <Button Name="DEFAULT_BT_1" Pin="66" />
+  <Button Name="DEFAULT_BT_2" Pin="64" />
+  <Button Name="DEFAULT_BT_3" Pin="63" />
+  <Button Name="DEFAULT_BT_4" Pin="65" />
+  <Button Name="GPWS_TERR" Pin="60" />
+  <Button Name="GPWS_SYS" Pin="58" />
+  <Button Name="GPWS_GS_MODE" Pin="59" />
+  <Button Name="GPWS_LDG_FLAPS3" Pin="61" />
+  <Button Name="ANTI ICE_WING" Pin="56" />
+  <Button Name="ANTI ICE_ENG1" Pin="54" />
+  <Button Name="ANTI ICE_ENG2" Pin="55" />
+  <Button Name="OXYGEN_CREW_SPLY" Pin="57" />
+  <Button Name="CALLS_ALL" Pin="2" />
+  <Button Name="STROBE_ON" Pin="45" />
+  <Button Name="STROBE_OFF" Pin="46" />
+  <Button Name="BEACON_ON" Pin="44" />
+  <Button Name="WING_ON" Pin="20" />
+  <Button Name="RWY_TURN_OFF_ON" Pin="47" />
+  <Button Name="LAND_L_ON" Pin="49" />
+  <Button Name="LAND_L_OFF" Pin="48" />
+  <Button Name="LAND_R_ON" Pin="28" />
+  <Button Name="LAND_R_OFF" Pin="30" />
+  <Button Name="NOSE_ON" Pin="29" />
+  <Button Name="NOSE_OFF" Pin="31" />
+</Config>
