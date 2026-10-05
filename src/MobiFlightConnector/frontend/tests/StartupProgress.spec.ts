@@ -1,36 +1,45 @@
+import type { Page } from "@playwright/test"
 import { test, expect } from "./fixtures"
-import type { GoldSponsor } from "../src/types/messages"
 
-const testLogo =
-  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iNjAiPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNjAiIGZpbGw9ImJsYWNrIi8+PC9zdmc+"
-
-const goldSponsors: GoldSponsor[] = [
+const mockGoldSponsors = [
   {
-    Name: "FliteSim",
-    LogoDataUri: testLogo,
-    Url: "https://flitesim.com/?ref=mobiflight",
+    name: "Test Sponsor A",
+    logo: "/sponsors/test-a.png",
+    href: "https://example.com/a",
   },
   {
-    Name: "Honeycomb Aeronautical",
-    LogoDataUri: testLogo,
-    Url: "https://flyhoneycomb.com/?ref=MOBIFLIGHT",
+    name: "Test Sponsor B",
+    logo: "/sponsors/test-b.png",
+    href: "https://example.com/b",
   },
   {
-    Name: "MOZA",
-    LogoDataUri: testLogo,
-    Url: "https://mozaracing.com/mobiflight",
-  },
-  {
-    Name: "VKB Sim",
-    LogoDataUri: testLogo,
-    Url: "https://vkb-sim.pro/?utm_source=mobiflight",
-  },
-  {
-    Name: "WingFlex",
-    LogoDataUri: testLogo,
-    Url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
+    name: "Test Sponsor C",
+    logo: "/sponsors/test-c.png",
+    href: "https://example.com/c",
   },
 ]
+
+const mockGoldSponsorsEndpoint = async (page: Page) => {
+  await page.route("**/sponsors.json", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        sponsors: mockGoldSponsors,
+      }),
+    })
+  })
+}
+
+const mockGoldSponsorsFailure = async (page: Page) => {
+  await page.route("**/sponsors.json", async (route) => {
+    await route.fulfill({
+      status: 500,
+      contentType: "application/json",
+      body: "{}",
+    })
+  })
+}
 
 test("Go beyond progress bar", async ({ startupPage, page }) => {
   await startupPage.gotoStartupPage()
@@ -81,18 +90,9 @@ test("Test that gold sponsors are shown on startup page", async ({
   startupPage,
   page,
 }) => {
+  await mockGoldSponsorsEndpoint(page)
+
   await startupPage.gotoStartupPage()
-
-  for (const sponsor of goldSponsors) {
-    await expect(
-      page.getByRole("img", {
-        name: `${sponsor.Name} logo`,
-      }),
-    ).toHaveCount(0)
-  }
-
-  // Simulate the sponsor data sent by the backend.
-  await startupPage.setGoldSponsors(goldSponsors)
 
   await expect(
     page.getByText(
@@ -100,13 +100,12 @@ test("Test that gold sponsors are shown on startup page", async ({
     ),
   ).toBeVisible()
 
-  for (const sponsor of goldSponsors) {
-    const logo = page.getByRole("img", {
-      name: `${sponsor.Name} logo`,
-    })
-
-    await expect(logo).toBeVisible()
-    await expect(logo).toHaveAttribute("src", sponsor.LogoDataUri)
+  for (const sponsor of mockGoldSponsors) {
+    await expect(
+      page.getByRole("img", {
+        name: `${sponsor.name} logo`,
+      }),
+    ).toBeVisible()
   }
 })
 
@@ -114,17 +113,18 @@ test("Test that gold sponsor links open in external browser", async ({
   startupPage,
   page,
 }) => {
+  await mockGoldSponsorsEndpoint(page)
+
   await startupPage.mobiFlightPage.trackCommand("CommandOpenLinkInBrowser")
 
   await startupPage.gotoStartupPage()
-  await startupPage.setGoldSponsors(goldSponsors)
 
-  for (const sponsor of goldSponsors) {
+  for (const sponsor of mockGoldSponsors) {
     await startupPage.mobiFlightPage.clearTrackedCommands()
 
     await page
       .getByRole("button", {
-        name: `Open ${sponsor.Name} website`,
+        name: `Open ${sponsor.name} website`,
       })
       .dispatchEvent("click")
 
@@ -137,8 +137,27 @@ test("Test that gold sponsor links open in external browser", async ({
     expect(trackedCommands![0]).toEqual({
       key: "CommandOpenLinkInBrowser",
       payload: {
-        url: sponsor.Url,
+        url: sponsor.href,
       },
     })
   }
+})
+
+test("Gold sponsor request failure does not block startup", async ({
+  startupPage,
+  page,
+}) => {
+  await mockGoldSponsorsFailure(page)
+
+  await startupPage.gotoStartupPage()
+
+  await expect(
+    page.getByText(
+      "Thanks to our Gold Sponsors for fueling the development of MobiFlight.",
+    ),
+  ).toHaveCount(0)
+
+  await startupPage.setStatusBarUpdate(100, "Finished!")
+
+  await expect(page).toHaveURL("http://localhost:5173/home")
 })

@@ -11,13 +11,13 @@ const GoldSponsorLogos = () => {
   const { t } = useTranslation()
   const openUrl = useOpenUrl()
 
-  const golsSponsorsUrl = (
+  const goldSponsorsUrl = (
     import.meta.env.VITE_GOLD_SPONSORS_URL ?? defaultGoldSponsorsUrl
   ).trim()
 
   const goldSponsorsQuery = useQuery({
-    queryKey: ["goldSponsors", golsSponsorsUrl],
-    queryFn: () => fetchRemoteGoldSponsors({ url: golsSponsorsUrl }),
+    queryKey: ["goldSponsors", goldSponsorsUrl],
+    queryFn: () => fetchRemoteGoldSponsors({ url: goldSponsorsUrl }),
     retry: false,
     refetchOnWindowFocus: false,
   })
