@@ -43,3 +43,6 @@ tests/.auth/*
 
 # Ignore copilot & co temp folder
 .claude
+
+# Ignore archive files
+*.zip
