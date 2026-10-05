@@ -1,9 +1,5 @@
-﻿using Microsoft.FlightSimulator.SimConnect;
+﻿using MobiFlight.SimConnectMSFS.Native;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.SimConnectMSFS
 {
