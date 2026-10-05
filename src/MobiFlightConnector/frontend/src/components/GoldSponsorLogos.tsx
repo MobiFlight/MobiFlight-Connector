@@ -30,7 +30,7 @@ const goldSponsors = [
     url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
   },
   {
-    name: "Honeycomb",
+    name: "Honeycomb Aeronautical",
     logo: honeycomb,
     url: "https://flyhoneycomb.com/?ref=MOBIFLIGHT",
   },
@@ -51,7 +51,7 @@ const GoldSponsorLogos = () => {
             aria-label={t("Startup.GoldSponsors.OpenSponsorLink", {
               sponsorName: sponsor.name,
             })}
-            className="animate-sponsor-fade-in group/logo relative h-16 min-w-0 flex-1 basis-0 border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
+            className="animate-sponsor-fade-in group/logo relative h-16 min-w-0 flex-1 border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
             style={{ animationDelay: `${index * 180}ms` }}
             onClick={() => openUrl(sponsor.url)}
           >
@@ -60,7 +60,7 @@ const GoldSponsorLogos = () => {
               alt={t("Startup.GoldSponsors.LogoAlt", {
                 sponsorName: sponsor.name,
               })}
-              className="max-h-16 w-full max-w-40 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0"
+              className="max-h-16 w-full max-w-40 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0 lg:max-w-56"
             />
             <span
               aria-hidden="true"

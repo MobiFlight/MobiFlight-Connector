@@ -97,7 +97,7 @@ test("Test that gold sponsor links open in external browser", async ({
       url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
     },
     {
-      buttonName: "Open Honeycomb website",
+      buttonName: "Open Honeycomb Aeronautical website",
       url: "https://flyhoneycomb.com/?ref=MOBIFLIGHT",
     },
   ]
