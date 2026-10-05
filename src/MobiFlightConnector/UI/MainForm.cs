@@ -1164,7 +1164,7 @@ namespace MobiFlight.UI
                 }
             }
 
-            if (modulesForUpdate.Count > 0)
+            if (Properties.Settings.Default.FwAutoUpdateCheck && modulesForUpdate.Count > 0)
             {
                 PerformFirmwareUpdateProcess(modulesForUpdate);
             }
