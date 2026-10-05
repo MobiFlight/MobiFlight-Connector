@@ -62,6 +62,7 @@ test("Test that gold sponsors are shown on startup page", async ({
     "Moza logo",
     "VKB logo",
     "WingFlex logo",
+    "Honeycomb logo",
   ]
 
   for (const logoName of sponsorLogos) {
@@ -94,6 +95,10 @@ test("Test that gold sponsor links open in external browser", async ({
     {
       buttonName: "Open WingFlex website",
       url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
+    },
+    {
+      buttonName: "Open Honeycomb website",
+      url: "https://flyhoneycomb.com/?ref=MOBIFLIGHT",
     },
   ]
 
