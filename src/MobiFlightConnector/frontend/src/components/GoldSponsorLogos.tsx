@@ -1,22 +1,28 @@
 import useOpenUrl from "@/lib/hooks/useOpenUrl"
-import { useAppMessage } from "@/lib/hooks/appMessage"
-import { AppMessage, GoldSponsorsUpdate, GoldSponsor } from "@/types/messages"
+import { fetchRemoteGoldSponsors } from "@/lib/sponsors"
 import { Trans, useTranslation } from "react-i18next"
-import { Button } from "./ui/button"
-import { CSSProperties, useCallback, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { CSSProperties } from "react"
+import { Button } from "@/components/ui/button"
+
+const defaultGoldSponsorsUrl = "https://mobiflight.com/sponsors.json"
 
 const GoldSponsorLogos = () => {
   const { t } = useTranslation()
   const openUrl = useOpenUrl()
 
-  const [goldSponsors, setGoldSponsors] = useState<GoldSponsor[]>([])
+  const golsSponsorsUrl = (
+    import.meta.env.VITE_GOLD_SPONSORS_URL ?? defaultGoldSponsorsUrl
+  ).trim()
 
-  const handleGoldSponsorsUpdate = useCallback((message: AppMessage) => {
-    const payload = message.payload as GoldSponsorsUpdate
-    setGoldSponsors(payload.Sponsors ?? [])
-  }, [])
+  const goldSponsorsQuery = useQuery({
+    queryKey: ["goldSponsors", golsSponsorsUrl],
+    queryFn: () => fetchRemoteGoldSponsors({ url: golsSponsorsUrl }),
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
 
-  useAppMessage("GoldSponsorsUpdate", handleGoldSponsorsUpdate)
+  const goldSponsors = goldSponsorsQuery.data ?? []
 
   if (goldSponsors.length === 0) {
     return null
@@ -24,28 +30,28 @@ const GoldSponsorLogos = () => {
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center select-none">
-      <div className="grid w-full grid-cols-4 items-center gap-8 md:gap-12">
+      <div className="flex w-full flex-row items-center justify-center gap-6 md:gap-8">
         {goldSponsors.map((sponsor, index) => (
           <Button
-            key={sponsor.Name}
+            key={sponsor.name}
             type="button"
             variant="ghost"
-            disabled={!sponsor.Url}
+            disabled={!sponsor.href}
             aria-label={t("Startup.GoldSponsors.OpenSponsorLink", {
-              sponsorName: sponsor.Name,
+              sponsorName: sponsor.name,
             })}
-            className="animate-sponsor-fade-in group/logo relative h-16 w-full min-w-0 border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
+            className="animate-sponsor-fade-in group/logo relative h-16 min-w-0 flex-1 border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
             style={{ animationDelay: `${index * 180}ms` }}
             onClick={() => {
-              if (sponsor.Url) {
-                openUrl(sponsor.Url)
+              if (sponsor.href) {
+                openUrl(sponsor.href)
               }
             }}
           >
             <img
-              src={sponsor.LogoDataUri}
+              src={sponsor.logo}
               alt={t("Startup.GoldSponsors.LogoAlt", {
-                sponsorName: sponsor.Name,
+                sponsorName: sponsor.name,
               })}
               className="max-h-16 w-full max-w-56 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0"
             />
@@ -54,7 +60,7 @@ const GoldSponsorLogos = () => {
               className="gold-shimmer pointer-events-none absolute inset-0 m-auto h-16 w-full max-w-56 mask-(--sponsor-logo) mask-contain mask-center mask-no-repeat opacity-0 transition-[background-position,opacity,filter] duration-1000 ease-out [-webkit-mask-image:var(--sponsor-logo)] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] group-hover/logo:bg-position-[200%_0] group-hover/logo:opacity-100 group-hover/logo:drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"
               style={
                 {
-                  "--sponsor-logo": `url(${sponsor.LogoDataUri})`,
+                  "--sponsor-logo": `url(${sponsor.logo})`,
                 } as CSSProperties
               }
             />
