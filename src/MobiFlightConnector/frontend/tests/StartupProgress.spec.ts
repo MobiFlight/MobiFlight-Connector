@@ -62,7 +62,7 @@ test("Test that gold sponsors are shown on startup page", async ({
     "Moza logo",
     "VKB logo",
     "WingFlex logo",
-    "Honeycomb logo",
+    "Honeycomb Aeronautical logo",
   ]
 
   for (const logoName of sponsorLogos) {
