@@ -53,7 +53,7 @@ const GoldSponsorLogos = () => {
               alt={t("Startup.GoldSponsors.LogoAlt", {
                 sponsorName: sponsor.name,
               })}
-              className="max-h-16 w-full max-w-56 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0"
+              className="max-h-16 w-full max-w-40 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0 lg:max-w-56"
             />
             <span
               aria-hidden="true"
