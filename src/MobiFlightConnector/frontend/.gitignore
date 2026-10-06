@@ -46,3 +46,5 @@ tests/.auth/*
 
 # Ignore archive files
 *.zip
+*.7z
+*.rar
