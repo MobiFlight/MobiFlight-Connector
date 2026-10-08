@@ -28,6 +28,7 @@
     "NewFeature": "新規",
     "Close": "閉じる",
     "FacetedFilter": {
+      "Selected": "{{items}} 件選択中",
       "Clear": "フィルターを解除",
       "NoResultsFound": "結果が見つかりません。"
     }

@@ -28,6 +28,7 @@
     "NewFeature": "신규",
     "Close": "닫기",
     "FacetedFilter": {
+      "Selected": "{{items}}개 선택됨",
       "Clear": "필터 지우기",
       "NoResultsFound": "결과를 찾지 못했습니다."
     }

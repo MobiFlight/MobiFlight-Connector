@@ -28,6 +28,7 @@
     "NewFeature": "Новый",
     "Close": "Закрыть",
     "FacetedFilter": {
+      "Selected": "{{items}} выбраны",
       "Clear": "Очистить фильтры",
       "NoResultsFound": "Результатов не найдено."
     }

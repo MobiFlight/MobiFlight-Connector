@@ -28,6 +28,7 @@
     "NewFeature": "Novo",
     "Close": "Fechar",
     "FacetedFilter": {
+      "Selected": "{{items}} selecionados",
       "Clear": "Limpar filtros",
       "NoResultsFound": "Nenhum resultado encontrado."
     }

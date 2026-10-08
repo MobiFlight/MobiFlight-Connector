@@ -2,8 +2,8 @@ import * as React from "react"
 import { IconCheck, IconCirclePlus } from "@tabler/icons-react"
 
 import { cn } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import ToolTip from "@/components/ToolTip"
 import {
   Command,
   CommandEmpty,
@@ -18,10 +18,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Separator } from "@/components/ui/separator"
 import { useTranslation } from "react-i18next"
-
-/** How many picked values the trigger names before it falls back to "+N". */
-const SHOWN_VALUES = 2
 
 export type FacetedFilterOption = {
   /** Shown in the menu and on the trigger; a node allows coloured text. */
@@ -41,8 +39,6 @@ export type FacetedFilterOptionsProps = {
   disabled?: boolean
   /** Keep the clear row in place, disabled, while nothing is selected. */
   keepClearVisible?: boolean
-  /** The trigger has a fixed width so picking values never shifts the layout; override it here. */
-  className?: string
 }
 
 /**
@@ -58,7 +54,6 @@ const FacetedFilterOptions = ({
   title,
   disabled = false,
   keepClearVisible = false,
-  className,
 }: FacetedFilterOptionsProps) => {
   const { t } = useTranslation()
 
@@ -73,64 +68,54 @@ const FacetedFilterOptions = ({
     onValuesChange(Array.from(selectedValues))
   }
 
-  const selectedOptions = options.filter((option) =>
-    selectedValues.has(option.value),
-  )
-  // the first few picked values stand in for the title, the rest become "+N";
-  // the width is fixed so the neighbours never move
-  const shownOptions = selectedOptions.slice(0, SHOWN_VALUES)
-  const hiddenCount = selectedOptions.length - shownOptions.length
-
-  const trigger = (
-    <PopoverTrigger asChild>
-      <Button
-        disabled={disabled}
-        variant="outline"
-        size="sm"
-        className={cn("h-8 w-40 justify-start border-dashed", className)}
-      >
-        <IconCirclePlus className="h-4 w-4 shrink-0" />
-        {/* keeps the accessible name stable while the values replace the title */}
-        {selectedOptions.length > 0 && (
-          <span className="sr-only">{title}: </span>
-        )}
-        <span className="min-w-0 flex-1 truncate text-left">
-          {selectedOptions.length === 0
-            ? title
-            : shownOptions.map((option, index) => (
-                <React.Fragment key={option.value}>
-                  {index > 0 && ", "}
-                  {option.label}
-                </React.Fragment>
-              ))}
-        </span>
-        {hiddenCount > 0 && (
-          <span className="text-muted-foreground shrink-0 text-xs">
-            +{hiddenCount}
-          </span>
-        )}
-      </Button>
-    </PopoverTrigger>
-  )
-
   return (
     <Popover>
-      {selectedOptions.length > 0 ? (
-        <ToolTip
-          content={
-            <div className="flex flex-col gap-0.5 text-sm">
-              <div className="text-muted-foreground">{title}</div>
-              {selectedOptions.map((option) => (
-                <div key={option.value}>{option.label}</div>
-              ))}
-            </div>
-          }
+      <PopoverTrigger asChild>
+        <Button
+          disabled={disabled}
+          variant="outline"
+          size="sm"
+          className="h-8 border-dashed"
         >
-          {trigger}
-        </ToolTip>
-      ) : (
-        trigger
-      )}
+          <IconCirclePlus className="h-4 w-4" />
+          {title}
+          {selectedValues.size > 0 && (
+            <>
+              <Separator orientation="vertical" className="h-4" />
+              <Badge
+                variant="secondary"
+                className="rounded-sm px-1 font-normal 2xl:hidden"
+              >
+                {selectedValues.size}
+              </Badge>
+              <div className="hidden space-x-1 2xl:flex">
+                {selectedValues.size > 2 ? (
+                  <Badge
+                    variant="secondary"
+                    className="rounded-sm px-1 font-normal"
+                  >
+                    {t("General.FacetedFilter.Selected", {
+                      items: selectedValues.size,
+                    })}
+                  </Badge>
+                ) : (
+                  options
+                    .filter((option) => selectedValues.has(option.value))
+                    .map((option) => (
+                      <Badge
+                        variant="secondary"
+                        key={option.value}
+                        className="rounded-sm px-1 font-normal"
+                      >
+                        {option.label}
+                      </Badge>
+                    ))
+                )}
+              </div>
+            </>
+          )}
+        </Button>
+      </PopoverTrigger>
       <PopoverContent className="w-[240px] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />

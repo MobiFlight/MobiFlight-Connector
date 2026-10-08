@@ -28,6 +28,7 @@
     "NewFeature": "Uusi",
     "Close": "Sulje",
     "FacetedFilter": {
+      "Selected": "{{items}} valittu",
       "Clear": "Tyhjennä suodattimet",
       "NoResultsFound": "Tuloksia ei löytynyt."
     }

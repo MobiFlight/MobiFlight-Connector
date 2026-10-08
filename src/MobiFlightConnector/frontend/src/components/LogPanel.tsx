@@ -198,6 +198,11 @@ const LogPanel = () => {
             onKeyDown={handleKeyDown}
           >
             <IconFilter className="shrink-0" />
+            <Input
+              placeholder={t("LogPanel.Filter.Placeholder")}
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+            />
             <FacetedFilterOptions
               title={t("Settings.General.Logging.LogLevel")}
               options={levelOptions}
@@ -205,11 +210,6 @@ const LogPanel = () => {
               onValuesChange={setLevelFilter}
               facets={levelFacets}
               keepClearVisible
-            />
-            <Input
-              placeholder={t("LogPanel.Filter.Placeholder")}
-              value={filterText}
-              onChange={(e) => setFilterText(e.target.value)}
             />
             {isFiltering && (
               <Button
