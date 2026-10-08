@@ -64,7 +64,7 @@ namespace MobiFlight.Modifier
             // clone the get/set properties
             Clone.Active = Active;
 
-            // clone the Vlaues
+            // clone the Values
             foreach (double Key in Values.Keys)
             {
                 Clone.Add(Key, Values[Key]);

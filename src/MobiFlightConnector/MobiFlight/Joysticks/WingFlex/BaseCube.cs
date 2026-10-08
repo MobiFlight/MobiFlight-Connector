@@ -14,7 +14,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         /// <summary>
         /// The FCU Cube needs to store the output state of those devices
-        /// that are explicityly set.
+        /// that are explicitly set.
         /// </summary>
         private List<JoystickOutputDevice> OutputState = new List<JoystickOutputDevice>();
 
@@ -25,7 +25,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         /// <summary>
         /// Provide same instance name as defined in the definition file.
-        /// Also works if Defintion file is not set yet.
+        /// Also works if Definition file is not set yet.
         /// </summary>
         public override string Name
         {
@@ -316,7 +316,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// Retrieves a collection of distinct output device types that are currently connected.
         /// </summary>
         /// <remarks>
-        /// The method examines the outputs defined in the Defintiion property (<see cref="JoystickDefinition"/>) and
+        /// The method examines the outputs defined in the Definition property (<see cref="JoystickDefinition"/>) and
         /// determines the corresponding device types. If an output does not specify a type, it is categorized as <see
         /// cref="DeviceType.Output"/>. Duplicate device types are excluded from the result.
         /// </remarks>
