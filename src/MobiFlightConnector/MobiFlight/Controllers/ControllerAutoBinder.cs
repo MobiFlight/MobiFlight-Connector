@@ -162,7 +162,7 @@ namespace MobiFlight.Controllers
                 return new ControllerBinding() { Status = ControllerBindingStatus.RequiresManualBind, BoundController = null, OriginalController = controller };
             }
 
-            // Senario 6: Multiple configs exist in same profile for same type:name, need user selection
+            // Scenario 6: Multiple configs exist in same profile for same type:name, need user selection
             var configsWithTypeNameMatch = uniqueControllers
                 .Where(s => GetDeviceIdentifier(s) == controllerTypeName);
             if (configsWithTypeNameMatch.Count() > 1)

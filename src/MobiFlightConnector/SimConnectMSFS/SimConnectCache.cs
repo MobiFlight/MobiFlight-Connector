@@ -40,7 +40,7 @@ namespace MobiFlight.SimConnectMSFS
         private const int SIMVAR_DATA_DEFINITION_OFFSET = 4;
 
         /// The message size for commands and responses
-        /// This has to be changed also in SimConnectDefintions
+        /// This has to be changed also in SimConnectDefinitions
         private const int MOBIFLIGHT_MESSAGE_SIZE = 1024;
 
         /// Constants regarding the handling of string SimVars
@@ -366,7 +366,7 @@ namespace MobiFlight.SimConnectMSFS
 
 #if DEBUG
                     // this only for debug compilation
-                    // it slows down the client immensly.
+                    // it slows down the client immensely.
                     Log.Instance.log($"Received {simData.Data}.", LogSeverity.Debug);
 #endif
 
