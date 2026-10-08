@@ -212,16 +212,19 @@ namespace MobiFlight
 
         public void CopyToClipboard()
         {
-            if (File.Exists(FileName))
-            {
-                string fileContents = File.ReadAllText(FileName);
-                System.Windows.Forms.Clipboard.SetText(fileContents);
-            }
-            else
-            {
-                // File doesn't exist so throw an exception.
+            if (!File.Exists(FileName))
                 throw new FileLoadException(FileName);
-            }
+
+            using var fileStream = new FileStream(
+                FileName,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.ReadWrite);
+
+            using var reader = new StreamReader(fileStream);
+            var contents = reader.ReadToEnd();
+
+            System.Windows.Forms.Clipboard.SetText(contents);
         }
 
         public void log(string message, LogSeverity severity)

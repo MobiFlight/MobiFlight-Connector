@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<SignAssembly>False</SignAssembly>
+		<Copyright>MobiFlight 2024 - CC BY-NC 4.0 License</Copyright>
+		<Company>MobiFlight</Company>
+		<Description>MOZA FCD Display protocol library for MobiFlight</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>MobiFlightMozaUnitTests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" />
+		<PackageReference Include="System.IO.Ports" />
+		<PackageReference Include="System.Management" />
+	</ItemGroup>
+
+</Project>

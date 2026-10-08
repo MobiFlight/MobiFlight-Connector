@@ -1,0 +1,21 @@
+<Project Sdk="MSTest.Sdk/4.0.2">
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<UseVSTest>true</UseVSTest>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Testing.Extensions.Telemetry" />
+		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" />
+		<PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge" />
+		<PackageReference Include="Microsoft.Testing.Platform.MSBuild" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\MobiFlightMoza\MobiFlightMoza.csproj" />
+	</ItemGroup>
+
+</Project>

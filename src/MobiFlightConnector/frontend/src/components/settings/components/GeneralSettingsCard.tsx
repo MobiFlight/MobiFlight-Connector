@@ -63,9 +63,11 @@ export default function GeneralSettingsCard({
     { value: "de-DE", label: "Deutsch" },
     { value: "es-ES", label: "Español" },
     { value: "fi-FI", label: "Suomi" },
+    { value: "ko-KR", label: "한국어" },
+    { value: "ja-JP", label: "日本語" },
     { value: "pt-PT", label: "Português" },
     { value: "ru-RU", label: "Русский" },
-  ]
+  ].sort((a, b) => a.value.localeCompare(b.value))
 
   return (
     <Card className="w-full">

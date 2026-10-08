@@ -26,7 +26,12 @@
     "Copy": "Kopioi",
     "Paste": "Liitä",
     "NewFeature": "Uusi",
-    "Close": "Sulje"
+    "Close": "Sulje",
+    "FacetedFilter": {
+      "Selected": "{{items}} valittu",
+      "Clear": "Tyhjennä suodattimet",
+      "NoResultsFound": "Tuloksia ei löytynyt."
+    }
   },
   "MainMenu": {
     "File": {
@@ -226,10 +231,7 @@
         "ConfigType": "Määritystyyppi",
         "Device": "Ohjain",
         "Type": "Laitteet",
-        "Name": "Nimet",
-        "Selected": "{{items}} valittu",
-        "Clear": "Tyhjennä suodattimet",
-        "NoResultsFound": "Tuloksia ei löytynyt."
+        "Name": "Nimet"
       },
       "NotSet": "ei asetettu",
       "Reset": "Nollaa suodattimet",

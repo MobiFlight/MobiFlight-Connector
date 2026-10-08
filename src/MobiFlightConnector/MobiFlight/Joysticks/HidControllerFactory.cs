@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Joysticks.Cdu;
+using System;
 
 namespace MobiFlight.Joysticks
 {
@@ -19,12 +20,13 @@ namespace MobiFlight.Joysticks
                 case "OVHD Cube":
                 case "Logitech Switch Panel":
                 case "Logitech Multi Panel":
+                case "MOZA MA3F MFCD Display":
                     return true;
             }
 
             return false;
         }
-        internal static Joystick Create(JoystickDefinition definition)
+        internal static Joystick Create(JoystickDefinition definition, ICduWebsocketHub hub)
         {
             Joystick result = null;
             switch (definition.InstanceName)
@@ -46,6 +48,9 @@ namespace MobiFlight.Joysticks
                     break;
                 case "Logitech Multi Panel":
                     result = new Logitech.MultiPanel(definition);
+                    break;
+                case "MOZA MA3F MFCD Display":
+                    result = new Moza.MozaMcdu(definition, hub);
                     break;
             }
 
