@@ -46,7 +46,7 @@ const GoldSponsorLogos = () => {
 
   const goldSponsorsQuery = useQuery({
     queryKey: ["goldSponsors", goldSponsorsUrl],
-    queryFn: () => fetchRemoteGoldSponsors({ url: goldSponsorsUrl }),
+    queryFn: () => fetchRemoteGoldSponsors(goldSponsorsUrl),
     retry: false,
     refetchOnWindowFocus: false,
   })
