@@ -96,7 +96,7 @@ namespace MobiFlight.Joysticks.Logitech
 
                 if (!Receiver.IsRunning)
                 {
-                    Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "SwitchPanel-HID-Reader");
+                    Receiver.Start(Stream, Device.GetMaxInputReportLength(), OnReportReceived, OnReadError, "MultiPanel-HID-Reader");
                 }
             }
 

@@ -67,7 +67,7 @@ namespace MobiFlight.Joysticks.Logitech
             Array.Copy(NewBlankRow(), row, DIGIT_SLOTS);
 
             bool negative = allowSign && value < 0;
-            string digitsText = Math.Abs(value).ToString();
+            string digitsText = Math.Abs((long)value).ToString();
 
             if (digitsText.Length > digits)
             {
