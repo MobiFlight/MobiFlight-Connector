@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using WebSocketSharp.Server;
 
 namespace MobiFlightWwFcu
 {
@@ -11,7 +10,7 @@ namespace MobiFlightWwFcu
     {
         private int ProductId = 0xBB10;
 
-        private IWinCtrlMessageSender MessageSender = null;
+        private WinCtrlMessageSender MessageSender = null;
         private List<IWinCtrlController> CoupledControllers = new List<IWinCtrlController>();
 
         private Dictionary<string, IWinCtrlController> LedNameToControllerMapping;
@@ -22,24 +21,24 @@ namespace MobiFlightWwFcu
 
         public event EventHandler<string> ErrorMessageCreated;
 
-        private WebSocketServer Server;
-        private string WebSocketPath = string.Empty;
+        // The single CDU controller for this product, if this is a CDU-type product -
+        // there's never more than one, since only one switch case below ever calls
+        // AddCduController. Kept as its own field (rather than searched for in
+        // CoupledControllers) so HandleCduData/HandleCduFont don't need to know that.
+        private WinCtrlCduController CduController;
+        private FontLoader Loader;
 
+        /// <summary>
+        /// The CDU websocket path this product resolves to (e.g. "/winwing/cdu-captain"),
+        /// or empty if this isn't a CDU-type product. The caller registers this path (and
+        /// itself as a consumer) with the shared <c>ICduWebsocketHub</c> - this class no
+        /// longer touches websockets at all.
+        /// </summary>
+        public string CduWebsocketPath { get; private set; } = string.Empty;
 
-        public WinCtrlDisplayControl(int productId, WebSocketServer server)
+        public WinCtrlDisplayControl(int productId)
         {
-            ProductId = productId;
-            Server = server;
-        }
-
-        internal WinCtrlDisplayControl(
-            int productId,
-            WebSocketServer server,
-            IWinCtrlMessageSender messageSender)
-        {
-            ProductId = productId;
-            Server = server;
-            MessageSender = messageSender;
+            Init(productId);
         }
 
         private void AddToCoupledControllers(IWinCtrlController controller)
@@ -73,37 +72,29 @@ namespace MobiFlightWwFcu
             }
         }
 
-        private void ErrorMessageHandler(string message)
-        {
-            ErrorMessageCreated?.Invoke(this, message);
-        }
         // Der WebSocket-Pfad bleibt bewusst auf /winwing/..., obwohl die Firma
         // inzwischen WinCtrl heisst: er ist ein Contract mit externen Clients,
         // die sonst ins Leere verbinden wuerden.
         private void AddCduController(string path, WinCtrlCduType type)
         {
-            var controller = new WinCtrlCduController(MessageSender, type);
-
-            if (!Server.WebSocketServices.TryGetServiceHost(path, out _))
-            {
-                Server.AddWebSocketService<WinCtrlCduWebsocketBehavior>(path, s =>
-                {
-                    s.Controller = controller;
-                    s.ErrorMessageHandler = ErrorMessageHandler;
-                    s.Loader = new FontLoader();
-                });
-
-                WebSocketPath = path;
-            }
-
-            AddToCoupledControllers(controller);
+            CduController = new WinCtrlCduController(MessageSender, type);
+            Loader = new FontLoader();
+            CduWebsocketPath = path;
+            AddToCoupledControllers(CduController);
         }
 
-        private void Init()
+        /// <summary>Forwards a "Display" message from the CDU websocket hub to this product's CDU controller, if it has one.</summary>
+        public void HandleCduData(string json) => CduController?.SetDisplay(WinCtrlConstants.CDU_DATA, json);
+
+        /// <summary>Forwards a "Font" message from the CDU websocket hub to this product's CDU controller, if it has one.</summary>
+        public void HandleCduFont(string json) => Loader?.LoadFont(CduController, json);
+
+        private void Init(int productId)
         {
+            ProductId = productId;
             LedNameToControllerMapping = new Dictionary<string, IWinCtrlController>();
             DisplayNameToControllerMapping = new Dictionary<string, List<IWinCtrlController>>();
-            MessageSender ??= new WinCtrlMessageSender(ProductId);
+            MessageSender = new WinCtrlMessageSender(ProductId);
 
             switch (ProductId)
             {
@@ -221,22 +212,12 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {
-            Init();
-
             MessageSender.Connect();
             foreach (var controller in CoupledControllers)
             {
                 controller.Connect();
             }
-
-
             StartHeartbeat();
-
-            // Start websocket server if necessary and not already running
-            if (!Server.IsListening && Server.WebSocketServices.Count > 0)
-            {
-                Server.Start();
-            }
         }
 
         public void Stop()
@@ -251,10 +232,6 @@ namespace MobiFlightWwFcu
         {
             try
             {
-                if (!string.IsNullOrEmpty(WebSocketPath))
-                {
-                    Server.RemoveWebSocketService(WebSocketPath);
-                }
                 if (MessageSender.IsConnected())
                 {
                     StopHeartbeat();
