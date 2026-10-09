@@ -24,9 +24,7 @@ const mockGoldSponsorsEndpoint = async (page: Page) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify({
-        sponsors: mockGoldSponsors,
-      }),
+      body: JSON.stringify(mockGoldSponsors),
     })
   })
 }
