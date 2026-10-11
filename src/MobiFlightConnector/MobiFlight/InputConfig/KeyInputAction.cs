@@ -56,9 +56,12 @@ namespace MobiFlight.InputConfig
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {
+            var hasModifier = Control || Alt || Shift;
+            var isNoneOrEmpty = string.IsNullOrWhiteSpace(Code) || Code == "None";
+
             var convertedKey = MapCodeToKeys(Code);
 
-            if (convertedKey == Keys.None)
+            if (convertedKey == Keys.None && !(hasModifier && isNoneOrEmpty))
             {
                 Log.Instance.log("KeyInputAction: Invalid key code: " + Code, LogSeverity.Error);
                 return;
