@@ -24,11 +24,26 @@ export interface CloudSettingsOptions {
   timeoutMs?: number
 }
 
-const buildSettingsUrl = (): string => {
+const buildSettingsUrl = (path: string = ""): string => {
   const settingsEndpointBaseUrlDefault = "https://api.mobiflight.com/"
   const settingsEndpointBaseUrl =
     import.meta.env.VITE_SETTINGS_API_BASE_URL || settingsEndpointBaseUrlDefault
-  return `${settingsEndpointBaseUrl.replace(/\/+$/, "")}/api/settings`
+  const cleanBase = settingsEndpointBaseUrl.replace(/\/+$/, "")
+  const cleanPath = path ? `/${path.replace(/^\/+/, "")}` : ""
+  return `${cleanBase}/api/settings${cleanPath}`
+}
+
+/**
+ * Resolves the Authorization header from localStorage.
+ */
+export const resolveAuthHeader = (auth?: AuthContextProps): string => {
+  const localAuth =
+    localStorage.getItem("authorization") ||
+    (localStorage as unknown as Record<string, string>).authorization
+  if (localAuth) {
+    return localAuth.startsWith("Bearer ") ? localAuth : `Bearer ${localAuth}`
+  }
+  return auth?.user?.id_token ? `Bearer ${auth.user.id_token}` : ""
 }
 
 /**
@@ -53,14 +68,15 @@ export const computeSettingsHash = async (
 
 /**
  * Fetches user settings from the cloud server.
- * Returns null if no settings exist (404).
+ * Returns null if no settings exist (404 or empty list).
  */
 export const fetchCloudSettings = async (
-  auth: AuthContextProps,
+  auth?: AuthContextProps,
   options: CloudSettingsOptions = {},
 ): Promise<CloudSettingsPayload | null> => {
   const timeoutMs = options.timeoutMs ?? 5000
   const settingsUrl = buildSettingsUrl()
+  const authHeader = resolveAuthHeader(auth)
 
   const timeoutController = new AbortController()
   const timeoutId = setTimeout(() => timeoutController.abort("timeout"), timeoutMs)
@@ -74,7 +90,7 @@ export const fetchCloudSettings = async (
       signal,
       cache: "no-store",
       headers: {
-        Authorization: `Bearer ${auth.user?.id_token ?? ""}`,
+        Authorization: authHeader,
       },
     })
 
@@ -83,14 +99,30 @@ export const fetchCloudSettings = async (
     }
 
     if (response.status === 401) {
-      throw new Error("Unauthorized: Invalid or expired token")
+      let serverError = ""
+      try {
+        const errJson = await response.json()
+        serverError = JSON.stringify(errJson)
+      } catch {
+        // ignore
+      }
+      throw new Error(`Unauthorized (401): ${serverError || "Invalid or expired token"}`)
     }
 
     if (!response.ok) {
       throw new Error(`Fetch settings request failed with status ${response.status}`)
     }
 
-    return (await response.json()) as CloudSettingsPayload
+    const data = await response.json()
+    if (Array.isArray(data)) {
+      if (data.length === 0) {
+        return null
+      }
+      const sorted = [...data].sort((a, b) => (b.revision ?? 1) - (a.revision ?? 1))
+      return sorted[0] as CloudSettingsPayload
+    }
+
+    return data as CloudSettingsPayload
   } catch (error) {
     if (timeoutController.signal.aborted && !options.signal?.aborted) {
       throw new Error("Fetch settings request timed out")
@@ -102,15 +134,21 @@ export const fetchCloudSettings = async (
 }
 
 /**
- * Uploads user settings to the cloud server
+ * Uploads user settings to the cloud server (POST to create, PUT to update if _id provided)
  */
 export const uploadCloudSettings = async (
-  auth: AuthContextProps,
+  auth: AuthContextProps | undefined,
   payload: UploadCloudSettingsPayload,
   options: CloudSettingsOptions = {},
 ): Promise<CloudSettingsPayload> => {
   const timeoutMs = options.timeoutMs ?? 5000
-  const settingsUrl = buildSettingsUrl()
+  const isUpdate = Boolean(payload._id)
+  const settingsUrl = isUpdate
+    ? buildSettingsUrl(encodeURIComponent(payload._id!))
+    : buildSettingsUrl()
+
+  const method = isUpdate ? "PUT" : "POST"
+  const authHeader = resolveAuthHeader(auth)
 
   const timeoutController = new AbortController()
   const timeoutId = setTimeout(() => timeoutController.abort("timeout"), timeoutMs)
@@ -119,7 +157,6 @@ export const uploadCloudSettings = async (
     : timeoutController.signal
 
   const requestBody = {
-    _id: payload._id,
     schemaVersion: payload.schemaVersion ?? 1,
     revision: payload.revision ?? 1,
     contentHash: payload.contentHash,
@@ -128,17 +165,24 @@ export const uploadCloudSettings = async (
 
   try {
     const response = await fetch(settingsUrl, {
-      method: "POST",
+      method,
       signal,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.user?.id_token ?? ""}`,
+        Authorization: authHeader,
       },
       body: JSON.stringify(requestBody),
     })
 
     if (response.status === 401) {
-      throw new Error("Unauthorized: Invalid or expired token")
+      let serverError = ""
+      try {
+        const errJson = await response.json()
+        serverError = JSON.stringify(errJson)
+      } catch {
+        // ignore
+      }
+      throw new Error(`Unauthorized (401): ${serverError || "Invalid or expired token"}`)
     }
 
     if (!response.ok) {
@@ -160,11 +204,12 @@ export const uploadCloudSettings = async (
  * Deletes user settings from the cloud server.
  */
 export const deleteCloudSettings = async (
-  auth: AuthContextProps,
+  auth?: AuthContextProps,
   options: CloudSettingsOptions = {},
 ): Promise<boolean> => {
   const timeoutMs = options.timeoutMs ?? 5000
   const settingsUrl = buildSettingsUrl()
+  const authHeader = resolveAuthHeader(auth)
 
   const timeoutController = new AbortController()
   const timeoutId = setTimeout(() => timeoutController.abort("timeout"), timeoutMs)
@@ -177,7 +222,7 @@ export const deleteCloudSettings = async (
       method: "DELETE",
       signal,
       headers: {
-        Authorization: `Bearer ${auth.user?.id_token ?? ""}`,
+        Authorization: authHeader,
       },
     })
 
