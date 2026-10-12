@@ -249,3 +249,41 @@ test("Confirm note about manage controllers is displayed", async ({
   )
   await expect(manageControllersNote).toBeVisible()
 })
+
+test("Confirm Cancel button uses localized label when non-English language is set", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData()
+
+  // Publish settings with German language
+  await configListPage.mobiFlightPage.sendSettings({
+    Language: "de-DE",
+  })
+
+  const menuItemExtras = page
+    .getByRole("menubar")
+    .getByRole("menuitem", { name: "Extras" })
+  const menuItemSettings = page.getByRole("menuitem", {
+    name: "Einstellungen",
+  })
+  const dialog = page.getByRole("dialog", { name: "Einstellungen" })
+
+  // Open Settings dialog
+  await menuItemExtras.click()
+  await menuItemSettings.click()
+  await expect(dialog).toBeVisible()
+
+  // Verify localized Cancel button is displayed (Abbrechen)
+  const cancelButton = dialog.getByRole("button", { name: "Abbrechen" })
+  await expect(cancelButton).toBeVisible()
+
+  // Verify English "Cancel" is not displayed
+  await expect(dialog.getByRole("button", { name: "Cancel" })).not.toBeVisible()
+
+  // Verify clicking the localized Cancel button closes the dialog
+  await cancelButton.click()
+  await expect(dialog).not.toBeVisible()
+})
+

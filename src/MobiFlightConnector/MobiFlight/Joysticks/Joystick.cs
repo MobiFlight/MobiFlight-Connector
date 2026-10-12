@@ -441,16 +441,20 @@ namespace MobiFlight
 
             for (int i = 0; i < newState.Buttons.Length; i++)
             {
-                if (!StateExists() || State.Buttons.Length < i || State.Buttons[i] != newState.Buttons[i])
+                var valueDoesntExistInState = !StateExists() || State.Buttons.Length <= i;
+                var valueChanged = valueDoesntExistInState || State.Buttons[i] != newState.Buttons[i];
+
+                if (!valueChanged) continue;
+
+                if (newState.Buttons[i] || StateExists())
                 {
-                    if (newState.Buttons[i] || (State != null))
-                        OnButtonPressed?.Invoke(this, new InputEventArgs()
-                        {
-                            Controller = new Controller() { Name = this.Name, Serial = this.Serial },
-                            Device = new DeviceReference() { Type = Buttons[i].Type, Name = Buttons[i].Name, Label = Buttons[i].Label },
-                            InputType = DeviceType.Button,
-                            Value = newState.Buttons[i] ? 0 : 1
-                        });
+                    OnButtonPressed?.Invoke(this, new InputEventArgs()
+                    {
+                        Controller = new Controller() { Name = this.Name, Serial = this.Serial },
+                        Device = new DeviceReference() { Type = Buttons[i].Type, Name = Buttons[i].Name, Label = Buttons[i].Label },
+                        InputType = DeviceType.Button,
+                        Value = newState.Buttons[i] ? 0 : 1
+                    });
                 }
             }
         }

@@ -281,6 +281,152 @@ test.describe("Log panel - Toolbar tests", () => {
     await expect(hiddenEntry).toBeVisible()
   })
 
+  test("Filtering by log level is working correctly", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    // open the panel first: openLogPanel() sends its own settings, which
+    // would reset the log level to the fixture default
+    await configListPage.mobiFlightPage.openLogPanel()
+    await configListPage.mobiFlightPage.sendSettings({
+      LogEnabled: true,
+      LogLevel: "debug",
+    } as Partial<Settings>)
+
+    const logPanel = page.getByTestId("log-panel")
+    const logContent = logPanel.getByTestId("log-panel-content")
+
+    await configListPage.mobiFlightPage.sendLogEntry("debug", "debug entry")
+    await configListPage.mobiFlightPage.sendLogEntry("info", "info entry")
+    await configListPage.mobiFlightPage.sendLogEntry("warn", "warn entry")
+    await configListPage.mobiFlightPage.sendLogEntry("error", "error entry")
+    await configListPage.mobiFlightPage.sendLogEntry("error", "second error")
+
+    const debugEntry = logContent.getByText("debug entry")
+    const infoEntry = logContent.getByText("info entry")
+    const warnEntry = logContent.getByText("warn entry")
+    const errorEntry = logContent.getByText("error entry")
+
+    await expect(debugEntry).toBeVisible()
+    await expect(errorEntry).toBeVisible()
+
+    const levelFilter = logPanel.getByRole("button", { name: "Log Level" })
+    await levelFilter.click()
+
+    // every level that arrived is offered, with the number of entries
+    const errorOption = page.getByRole("option", { name: "Error" })
+    await expect(errorOption).toContainText("2")
+    await expect(page.getByRole("option", { name: "Debug" })).toContainText("1")
+
+    // picking levels keeps only those entries, and the menu stays open
+    await page.getByRole("option", { name: "Warn" }).click()
+    await errorOption.click()
+    await page.keyboard.press("Escape")
+
+    await expect(debugEntry).not.toBeVisible()
+    await expect(infoEntry).not.toBeVisible()
+    await expect(warnEntry).toBeVisible()
+    await expect(errorEntry).toBeVisible()
+
+    // the picked levels are named on the filter button
+    await expect(levelFilter).toContainText("Warn")
+    await expect(levelFilter).toContainText("Error")
+
+    // the level filter combines with the text filter
+    const filterInput = logPanel.getByPlaceholder("Filter log entries...")
+    await filterInput.fill("debug entry")
+    await expect(
+      logContent.getByText("No entries matching filter."),
+    ).toBeVisible()
+
+    // the clear button resets both filters
+    await logPanel.getByRole("button", { name: "Clear filters" }).click()
+    await expect(filterInput).toHaveValue("")
+    await expect(debugEntry).toBeVisible()
+    await expect(warnEntry).toBeVisible()
+  })
+
+  test("Level filter only offers levels that arrived", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+
+    const logPanel = page.getByTestId("log-panel")
+    await configListPage.mobiFlightPage.sendLogEntry("info", "info entry")
+    await expect(logPanel.getByText("info entry")).toBeVisible()
+
+    await logPanel.getByRole("button", { name: "Log Level" }).click()
+    await expect(page.getByRole("option", { name: "Info" })).toBeVisible()
+    await expect(page.getByRole("option", { name: "Error" })).toHaveCount(0)
+    // the default log level is "info", so debug entries never arrive
+    await expect(page.getByRole("option", { name: "Debug" })).toHaveCount(0)
+  })
+
+  test("A picked level that stops arriving is ignored", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+    await configListPage.mobiFlightPage.sendSettings({
+      LogEnabled: true,
+      LogLevel: "debug",
+    } as Partial<Settings>)
+
+    const logPanel = page.getByTestId("log-panel")
+    const logContent = logPanel.getByTestId("log-panel-content")
+
+    await configListPage.mobiFlightPage.sendLogEntry("debug", "debug entry")
+    await configListPage.mobiFlightPage.sendLogEntry("warn", "warn entry")
+
+    await logPanel.getByRole("button", { name: "Log Level" }).click()
+    await page.getByRole("option", { name: "Debug" }).click()
+    await page.keyboard.press("Escape")
+    await expect(logContent.getByText("warn entry")).not.toBeVisible()
+
+    // raising the log level in the settings stops debug entries from arriving,
+    // so the filter would otherwise leave the panel empty with no way back
+    await configListPage.mobiFlightPage.sendSettings({
+      LogEnabled: true,
+      LogLevel: "warn",
+    } as Partial<Settings>)
+
+    await expect(logContent.getByText("warn entry")).toBeVisible()
+    await expect(
+      logContent.getByText("No entries matching filter."),
+    ).not.toBeVisible()
+  })
+
+  test("Clearing the level filter from the menu shows every level again", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.openLogPanel()
+
+    const logPanel = page.getByTestId("log-panel")
+    const logContent = logPanel.getByTestId("log-panel-content")
+    await configListPage.mobiFlightPage.sendLogEntry("info", "info entry")
+    await configListPage.mobiFlightPage.sendLogEntry("error", "error entry")
+
+    const levelFilter = logPanel.getByRole("button", { name: "Log Level" })
+    await levelFilter.click()
+    await page.getByRole("option", { name: "Error" }).click()
+    await page.keyboard.press("Escape")
+
+    await expect(logContent.getByText("info entry")).not.toBeVisible()
+
+    await levelFilter.click()
+    await page.getByRole("option", { name: "Clear filters" }).click()
+    await page.keyboard.press("Escape")
+
+    await expect(logContent.getByText("info entry")).toBeVisible()
+    await expect(logContent.getByText("error entry")).toBeVisible()
+  })
+
   test("Log panel preserves consecutive spaces in log messages", async ({
     configListPage,
     page,

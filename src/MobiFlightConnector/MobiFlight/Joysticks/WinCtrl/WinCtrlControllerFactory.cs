@@ -1,7 +1,7 @@
+using MobiFlight.Joysticks.Cdu;
 using MobiFlightWwFcu;
 using SharpDX.DirectInput;
 using System.Linq;
-using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.WinCtrl
 {
@@ -44,28 +44,28 @@ namespace MobiFlight.Joysticks.WinCtrl
             JoystickDefinition definition,
             int vendorId,
             int productId,
-            WebSocketServer wsServer)
+            ICduWebsocketHub hub)
         {
             if (vendorId != WINCTRL_VENDOR_ID)
             {
                 return null;
             }
-            
+
             if (WinCtrlConstants.FCU_PRODUCTIDS.Contains(productId))
             {
-                return new WinCtrlFcu(diJoystick, definition, productId, wsServer);
+                return new WinCtrlFcu(diJoystick, definition, productId, hub);
             }
             else if (WinCtrlConstants.CDU_PRODUCTIDS.Contains(productId))
             {
-                return new WinCtrlCdu(diJoystick, definition, productId, wsServer);
+                return new WinCtrlCdu(diJoystick, definition, productId, hub);
             }
             else if (WinCtrlConstants.PAP3_PRODUCTIDS.Contains(productId))
             {
-                return new WinCtrlPap3(diJoystick, definition, productId, wsServer);
+                return new WinCtrlPap3(diJoystick, definition, productId, hub);
             }
             else if (WinCtrlConstants.RMP_PRODUCTIDS.Contains(productId))
             {
-                return new WinCtrlRmp(diJoystick, definition, productId, wsServer);
+                return new WinCtrlRmp(diJoystick, definition, productId, hub);
             }
             else if (WinCtrlConstants.AIRBUS_THROTTLE_PRODUCTIDS.Contains(productId) ||
                      WinCtrlConstants.AIRBUS_STICK_PRODUCTIDS.Contains(productId) ||
@@ -76,8 +76,8 @@ namespace MobiFlight.Joysticks.WinCtrl
                      productId == WinCtrlConstants.PRODUCT_ID_TCAS ||
                      productId == WinCtrlConstants.PRODUCT_ID_PTO2)
             {
-                return new WinCtrlBaseController(diJoystick, definition, productId, wsServer);
-            }           
+                return new WinCtrlBaseController(diJoystick, definition, productId, hub);
+            }
 
             return null;
         }

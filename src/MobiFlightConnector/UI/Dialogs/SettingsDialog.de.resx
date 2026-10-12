@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -249,15 +249,6 @@
     <value>170, 220</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="generalPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="generalTabPage.Text" xml:space="preserve">
-    <value>Allgemein</value>
-  </data>
-  <data name="generalTabPage.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="mobiFlightPanel.ToolTip" xml:space="preserve">

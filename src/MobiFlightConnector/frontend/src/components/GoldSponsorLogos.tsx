@@ -4,6 +4,7 @@ import flitesim from "../assets/sponsors/flitesim-logo.png"
 import moza from "../assets/sponsors/moza-logo.png"
 import vkb from "../assets/sponsors/vkb-logo.png"
 import wingflex from "../assets/sponsors/wingflex-logo.png"
+import honeycomb from "../assets/sponsors/honeycomb-logo.png"
 import { Button } from "./ui/button"
 import { CSSProperties } from "react"
 
@@ -28,6 +29,11 @@ const goldSponsors = [
     logo: wingflex,
     url: "https://www.wingflex.com?sca_ref=11453765.OPCgaGgkUj",
   },
+  {
+    name: "Honeycomb Aeronautical",
+    logo: honeycomb,
+    url: "https://flyhoneycomb.com/?ref=MOBIFLIGHT",
+  },
 ]
 
 const GoldSponsorLogos = () => {
@@ -36,7 +42,7 @@ const GoldSponsorLogos = () => {
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center select-none">
-      <div className="grid w-full grid-cols-4 items-center gap-8 md:gap-12">
+      <div className="flex w-full flex-row items-center justify-center gap-6 md:gap-8">
         {goldSponsors.map((sponsor, index) => (
           <Button
             key={sponsor.name}
@@ -45,7 +51,7 @@ const GoldSponsorLogos = () => {
             aria-label={t("Startup.GoldSponsors.OpenSponsorLink", {
               sponsorName: sponsor.name,
             })}
-            className="animate-sponsor-fade-in group/logo relative h-16 w-full min-w-0 border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
+            className="animate-sponsor-fade-in group/logo relative h-16 flex-1 border-0 bg-transparent! p-0 opacity-0 shadow-none hover:bg-transparent! hover:text-inherit! focus-visible:ring-amber-300 focus-visible:ring-offset-0 active:bg-transparent!"
             style={{ animationDelay: `${index * 180}ms` }}
             onClick={() => openUrl(sponsor.url)}
           >
@@ -54,7 +60,7 @@ const GoldSponsorLogos = () => {
               alt={t("Startup.GoldSponsors.LogoAlt", {
                 sponsorName: sponsor.name,
               })}
-              className="max-h-16 w-full max-w-56 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0"
+              className="max-h-16 w-full max-w-40 object-contain opacity-90 brightness-0 invert transition-opacity duration-700 ease-out group-hover/logo:opacity-0 lg:max-w-56"
             />
             <span
               aria-hidden="true"
