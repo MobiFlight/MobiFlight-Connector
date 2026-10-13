@@ -1,9 +1,9 @@
+using MobiFlight.Joysticks.Cdu;
 using MobiFlight.Joysticks.FreeJoy;
 using MobiFlight.Joysticks.VKB;
 using MobiFlight.Joysticks.WinCtrl;
 using MobiFlight.Joysticks.IIDB;
 using SharpDX.DirectInput;
-using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks
 {
@@ -105,7 +105,7 @@ namespace MobiFlight.Joysticks
             int vendorId,
             int productId,
             JoystickDefinition definition,
-            WebSocketServer wsServer)
+            ICduWebsocketHub hub)
         {
             var instanceName = deviceInstance.InstanceName;
 
@@ -118,7 +118,7 @@ namespace MobiFlight.Joysticks
             // Handle WinCtrl devices by vendor/product ID
             if (WinCtrlControllerFactory.CanCreate(vendorId, productId))
             {
-                return WinCtrlControllerFactory.Create(diJoystick, definition, vendorId, productId, wsServer);
+                return WinCtrlControllerFactory.Create(diJoystick, definition, vendorId, productId, hub);
             }
 
             // Handle VKB devices by vendor ID

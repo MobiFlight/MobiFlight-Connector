@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FSUIPC;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.UpdateChecker;
 using System;
 

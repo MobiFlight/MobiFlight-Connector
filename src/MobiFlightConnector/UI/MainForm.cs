@@ -1084,6 +1084,15 @@ namespace MobiFlight.UI
 
         private void CheckForHubhopUpdate()
         {
+
+            //Skipping HubHop download for PR Version
+            var CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            if (CurVersion.IsDevOrPullRequestBuild())
+            {
+                Log.Instance.log("Skipping HubHop download since this is an unreleased build.", LogSeverity.Info);
+                return;
+            }
+
             if (!WasmModuleUpdater.HubHopPresetsPresent())
             {
                 DownloadHubHopPresets();

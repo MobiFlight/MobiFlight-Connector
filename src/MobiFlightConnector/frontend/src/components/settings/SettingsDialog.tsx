@@ -169,7 +169,7 @@ export default function SettingsDialog({
 
           <DialogFooter className="shrink-0 gap-2 sm:gap-0">
             <Button variant="secondary" onClick={handleRequestClose}>
-              {t("General.Action.Cancel", "Cancel")}
+              {t("Dialog.General.Cancel")}
             </Button>
             <Button onClick={handleSave}>
               {t("MainMenu.File.Save", "Save")}

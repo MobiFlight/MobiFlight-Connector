@@ -1,4 +1,4 @@
-﻿namespace MobiFlight.UI.Dialogs
+namespace MobiFlight.UI.Dialogs
 {
     partial class SettingsDialog
     {
@@ -56,15 +56,11 @@
             this.updateFirmwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generalTabPage = new System.Windows.Forms.TabPage();
-            this.generalPanel = new MobiFlight.UI.Panels.Settings.GeneralPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
             this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
             this.peripheralsTabPage = new System.Windows.Forms.TabPage();
             this.peripheralsPanel = new MobiFlight.UI.Panels.Settings.PeripheralsPanel();
-            this.ProSimTab = new System.Windows.Forms.TabPage();
-            this.proSimPanel = new MobiFlight.UI.Panels.Settings.ProSimPanel();
             this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,11 +68,9 @@
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
-            this.generalTabPage.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
             this.peripheralsTabPage.SuspendLayout();
-            this.ProSimTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -242,24 +236,10 @@
             this.reloadConfigToolStripMenuItem.Name = "reloadConfigToolStripMenuItem";
             resources.ApplyResources(this.reloadConfigToolStripMenuItem, "reloadConfigToolStripMenuItem");
             // 
-            // generalTabPage
-            // 
-            this.generalTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.generalTabPage.Controls.Add(this.generalPanel);
-            resources.ApplyResources(this.generalTabPage, "generalTabPage");
-            this.generalTabPage.Name = "generalTabPage";
-            // 
-            // generalPanel
-            // 
-            resources.ApplyResources(this.generalPanel, "generalPanel");
-            this.generalPanel.Name = "generalPanel";
-            // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.peripheralsTabPage);
-            this.tabControl1.Controls.Add(this.ProSimTab);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -287,18 +267,6 @@
             // 
             resources.ApplyResources(this.peripheralsPanel, "peripheralsPanel");
             this.peripheralsPanel.Name = "peripheralsPanel";
-            // 
-            // ProSimTab
-            // 
-            this.ProSimTab.Controls.Add(this.proSimPanel);
-            resources.ApplyResources(this.ProSimTab, "ProSimTab");
-            this.ProSimTab.Name = "ProSimTab";
-            this.ProSimTab.UseVisualStyleBackColor = true;
-            // 
-            // proSimPanel
-            // 
-            resources.ApplyResources(this.proSimPanel, "proSimPanel");
-            this.proSimPanel.Name = "proSimPanel";
             // 
             // firmwareSettingsToolStripMenuItem
             // 
@@ -333,12 +301,9 @@
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.panel1.ResumeLayout(false);
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
-            this.generalTabPage.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
             this.peripheralsTabPage.ResumeLayout(false);
-            this.ProSimTab.ResumeLayout(false);
-            this.ProSimTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -348,7 +313,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TabPage generalTabPage;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ContextMenuStrip mfModuleSettingsContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
@@ -379,12 +343,9 @@
         private System.Windows.Forms.ToolStripMenuItem regenerateSerialToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LcdDisplayToolStripMenuItem;
-        private Panels.Settings.GeneralPanel generalPanel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
         public System.Windows.Forms.TabPage peripheralsTabPage;
         private Panels.Settings.PeripheralsPanel peripheralsPanel;
-        private System.Windows.Forms.TabPage ProSimTab;
-        private Panels.Settings.ProSimPanel proSimPanel;
     }
 }

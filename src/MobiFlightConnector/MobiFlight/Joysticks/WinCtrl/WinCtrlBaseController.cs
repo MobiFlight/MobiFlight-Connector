@@ -1,11 +1,11 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.Firmware;
+using MobiFlight.Joysticks.Cdu;
 using MobiFlightWwFcu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.WinCtrl
 {
@@ -14,49 +14,33 @@ namespace MobiFlight.Joysticks.WinCtrl
         protected int ProductId = 0;
         protected readonly int VendorId = 0x4098;
         protected WinCtrlDisplayControl DisplayControl;
+        // Only meaningful to the WinCtrlCdu subclass, which registers itself as a CDU
+        // websocket consumer - threaded through here so every WinCtrl product's
+        // constructor takes the same parameters.
+        protected ICduWebsocketHub Hub;
         protected List<IBaseDevice> LcdDevices = new List<IBaseDevice>();
         protected List<DeviceReference> LedDevices = new List<DeviceReference>();
 
-        public WinCtrlBaseController(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
+        public WinCtrlBaseController(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, ICduWebsocketHub hub) : base(joystick, def)
         {
             ProductId = productId;
+            Hub = hub;
             Log.Instance.log($"WinCtrlBaseController - New WinCtrlBaseController ProductId={productId.ToString("X")}", LogSeverity.Debug);
-            DisplayControl = new WinCtrlDisplayControl(productId, server);
-            DisplayControl.ErrorMessageCreated += DisplayControl_ErrorMessageCreated;
-        }
-
-        private void InitializeOutputDevices()
-        {
-            Log.Instance.log(
-                $"WinCtrlBaseController - Controller Name={DisplayControl.GetControllerName()}",
-                LogSeverity.Debug
-            );
-
+            DisplayControl = new WinCtrlDisplayControl(productId);
+            Log.Instance.log($"WinCtrlBaseController - Controller Name={DisplayControl.GetControllerName()}", LogSeverity.Debug);
             var displayNames = DisplayControl.GetDisplayNames();
             var ledNames = DisplayControl.GetLedNames();
 
-            LcdDevices.Clear();
-            LedDevices.Clear();
+            DisplayControl.ErrorMessageCreated += DisplayControl_ErrorMessageCreated;
 
+            // Initialize LCD and LED device lists and current value cache
             foreach (string displayName in displayNames)
             {
-                LcdDevices.Add(
-                    new LcdDisplay()
-                    {
-                        Name = displayName
-                    }
-                );
+                LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Col and Lines values don't matter   
             }
-
             foreach (string ledName in ledNames)
             {
-                LedDevices.Add(
-                    new JoystickOutputDevice()
-                    {
-                        Label = ledName,
-                        Name = ledName
-                    }
-                );
+                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }); // Byte and Bit values don't matter           
             }
         }
 
@@ -72,7 +56,6 @@ namespace MobiFlight.Joysticks.WinCtrl
         {
             base.Connect(handle);
             DisplayControl.Connect();
-            InitializeOutputDevices();
         }
 
         public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()

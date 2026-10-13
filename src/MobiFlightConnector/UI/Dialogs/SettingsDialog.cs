@@ -59,8 +59,7 @@ namespace MobiFlight.UI.Dialogs
 #if !MOBIFLIGHT
             tabControl1.TabPages.Remove(mobiFlightTabPage);
 #endif
-            tabControl1.TabPages.Remove(generalTabPage);
-            tabControl1.TabPages.Remove(ProSimTab);
+
 
             peripheralsPanel.Init(execManager.GetJoystickManager(), execManager.GetMidiBoardManager());
             loadSettings();
