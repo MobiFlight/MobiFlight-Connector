@@ -210,7 +210,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
 
                     case MobiFlightStepper.TYPE:
-                        // it is not nice but we haev to check what kind of stepper the stepper is
+                        // it is not nice but we have to check what kind of stepper the stepper is
                         // to show or not show the manual calibration piece.
                         stepperPanel.syncToConfig(config);
                         break;
@@ -814,7 +814,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
         {
             // TODO: remove this sync to config
-            // to prevent overriding accidentaly something
+            // to prevent overriding accidentally something
             syncToConfig();
 
             string serial = config.Controller.Serial;
