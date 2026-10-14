@@ -40,7 +40,7 @@ namespace MobiFlight.Monitors
 
         /// <summary>
         /// Many Arduinos (mostly Nanos, but also some Megas) have a bad CH340 chip that
-        /// doesn't work properly with Windows 11 drivers after Feburary, 2023. This method
+        /// doesn't work properly with Windows 11 drivers after February, 2023. This method
         /// checks the name returned from the chip to see if it is the garbled name
         /// from the bad chip and returns true if it is.
         /// </summary>
@@ -139,7 +139,7 @@ namespace MobiFlight.Monitors
                         continue;
                     }
 
-                    // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
+                    // Safety check to ensure duplicate entries in the registry don't result in duplicate entries in the list.
                     if (result.Any(p => p.Name == portName))
                     {
                         //Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}.", LogSeverity.Error);
