@@ -3,7 +3,6 @@ using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -22,6 +21,7 @@ namespace MobiFlight.UI.Panels
             MultiPinSelectPanel.SelectionChanged += MultiPinSelectPanel_SelectionChanged;
 
             MultiPinSelectPanel.Visible = false;
+            selectMultiplePinsCheckBox.Visible = false;
             singlePinSelectFlowLayoutPanel.Visible = true;
             displayPinBrightnessPanel.Visible = displayPinBrightnessPanel.Enabled = displayPortComboBox.Visible = displayPortComboBox.Enabled = false;
             PinSelectContainer.Height = singlePinSelectFlowLayoutPanel.Height;
@@ -36,7 +36,6 @@ namespace MobiFlight.UI.Panels
         {
             displayPinComboBox.SelectedValue = value;
         }
-
 
         internal void EnablePWMSelect(bool enable)
         {
@@ -68,9 +67,9 @@ namespace MobiFlight.UI.Panels
             displayPinComboBox.Enabled = pins.Count > 0;
             displayPinComboBox.Width = WideStyle ? displayPinComboBox.MaximumSize.Width : displayPinComboBox.MinimumSize.Width;
 
-            if (Module != null && pins.Count > 1)
+            if (pins.Count > 1)
             {
-                // this is MobiFlight Outputs
+                // allow for multi select
                 _MultiSelectOptions(true);
             }
             MultiPinSelectPanel?.SetPins(pins);
@@ -102,12 +101,24 @@ namespace MobiFlight.UI.Panels
             var cfg = config.Device as Output;
             string pin = cfg.Pin;
 
-            if (SerialNumber.IsJoystickSerial(serial) ||
-                SerialNumber.IsMidiBoardSerial(serial))                                   
+            if (SerialNumber.IsJoystickSerial(serial))
             {
                 // disable multi-select option
                 _MultiSelectOptions(false);
                 pin = cfg.Pin;
+            }
+            else if (SerialNumber.IsJoystickSerial(serial))                                   
+            {
+                // enable multi-select option
+                _MultiSelectOptions(true);
+
+                // initialize multi-select panel
+                MultiPinSelectPanel?.SetSelectedPinsFromString(cfg.Pin);
+
+                // get the first from the multi select
+                pin = cfg.Pin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
+
+                selectMultiplePinsCheckBox.Checked = cfg.Pin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
             }
             else if (SerialNumber.IsArcazeSerial(serial))
             {
