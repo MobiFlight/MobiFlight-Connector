@@ -30,9 +30,25 @@ export type InputConfigDialogProps = {
 
 const MAX_UNDO_STEPS = 50
 
+const isTextEditingTarget = (target: EventTarget | null): boolean => {
+  if (!(target instanceof HTMLElement)) return false
+
+  if (target.closest('[contenteditable="true"]')) return true
+
+  if (target instanceof HTMLTextAreaElement) return true
+
+  return (
+    target instanceof HTMLInputElement &&
+    ["text", "search", "number", "email", "password", "tel", "url"].includes(
+      target.type,
+    )
+  )
+}
+
 type EditorState = {
   draftConfigItem: IConfigItem | undefined
   undoHistory: IConfigItem[]
+  lastTextEditId: number | null
 }
 
 const resetTriggersBasedOnDeviceType = (
@@ -65,9 +81,13 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
+  const nextTextEditIdRef = useRef(0)
+  const activeTextEditIdRef = useRef<number | null>(null)
+
   const [editorState, setEditorState] = useState<EditorState>(() => ({
     draftConfigItem: configItem ? structuredClone(configItem) : undefined,
     undoHistory: [],
+    lastTextEditId: null,
   }))
 
   const draftConfigItem = editorState.draftConfigItem
@@ -87,6 +107,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   }
 
   const updateDraftConfigItem = (nextConfigItem: IConfigItem) => {
+    const textEditId = activeTextEditIdRef.current
+
     setEditorState((previous) => {
       const current = previous.draftConfigItem
 
@@ -94,11 +116,17 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         return previous
       }
 
+      const sameTextEdit =
+        textEditId !== null && previous.lastTextEditId === textEditId
+
       return {
         draftConfigItem: structuredClone(nextConfigItem),
-        undoHistory: [...previous.undoHistory, structuredClone(current)].slice(
-          -MAX_UNDO_STEPS,
-        ),
+        undoHistory: sameTextEdit
+          ? previous.undoHistory
+          : [...previous.undoHistory, structuredClone(current)].slice(
+              -MAX_UNDO_STEPS,
+            ),
+        lastTextEditId: textEditId,
       }
     })
   }
@@ -115,6 +143,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
       return {
         draftConfigItem: structuredClone(previousConfigItem),
         undoHistory: previous.undoHistory.slice(0, -1),
+        lastTextEditId: null,
       }
     })
   }
@@ -129,14 +158,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
       return
     }
 
-    const target = event.target as HTMLElement
-
     // Preserve native Undo while editing text.
-    if (
-      target.closest(
-        'input, textarea, [contenteditable="true"], [role="textbox"]',
-      )
-    ) {
+    if (isTextEditingTarget(event.target)) {
       return
     }
 
@@ -203,6 +226,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         data-testid="inputconfigwizard-dialog"
         onKeyDownCapture={handleUndoKeyDown}
         // prevents focusing on the inactive inline edit label
+        onFocusCapture={(e) => {
+          if (isTextEditingTarget(e.target)) {
+            nextTextEditIdRef.current += 1
+            activeTextEditIdRef.current = nextTextEditIdRef.current
+          }
+        }}
         onInteractOutside={(e) => {
           if (!hasChanged()) return
           wiggleIt()

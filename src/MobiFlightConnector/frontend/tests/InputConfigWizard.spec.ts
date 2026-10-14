@@ -35,6 +35,7 @@ import {
 import { Preset } from "../src/types/preset"
 import { IConfigItem } from "../src/types/config"
 import { PRECONDITION_TYPES } from "../src/types/typesOptions"
+import inputActionTestProject from "./data/inputaction.testdata.json" with { type: "json" }
 
 const jeehellPresetsContent = `FCU_KNOBS:GROUP
 FCU_HDGKNOB_PRESS:6:FCU Heading Knob Press
@@ -1136,6 +1137,149 @@ test.describe("Input Config Wizard - Preconditions panel", () => {
       )
       await expect(preconditionItems).toHaveCount(2)
     }
+  })
+
+  test("Undo restores nested precondition changes", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    // Use the existing real-world Input ConfigItem test fixture.
+    const originalPreconditions =
+      inputActionTestProject.ConfigFiles[0].ConfigItems[0].Preconditions
+
+    await configListPage.clickEditButtonForRow(1)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const preconditionsPanel = page.getByTestId("precondition-panel")
+    await preconditionsPanel
+      .getByRole("button", { name: "Preconditions" })
+      .click()
+
+    const editor = page.getByTestId("precondition-editor")
+    const items = editor.getByTestId("precondition-item-row")
+
+    await expect(items).toHaveCount(2)
+
+    const firstSwitch = items.first().getByRole("switch")
+
+    await expect(firstSwitch).toBeChecked()
+    await firstSwitch.click()
+    await expect(firstSwitch).not.toBeChecked()
+
+    await items
+      .last()
+      .getByRole("button", { name: "Remove precondition" })
+      .click()
+
+    await expect(items).toHaveCount(1)
+
+    // Focus a non-text control inside the drawer so
+    // Ctrl+Z invokes the ConfigItem Undo handler.
+    const goBackButton = page.getByRole("button", {
+      name: "Go back",
+    })
+    await goBackButton.focus()
+
+    // First Undo: restore the deleted precondition.
+    await page.keyboard.press("Control+z")
+
+    await expect(items).toHaveCount(2)
+    await expect(items.first().getByRole("switch")).not.toBeChecked()
+
+    // Second Undo: restore the original Active state.
+    await page.keyboard.press("Control+z")
+
+    await expect(items.first().getByRole("switch")).toBeChecked()
+
+    // Nothing was committed to the backend during editing.
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+
+    // Close the nested editor and apply the restored draft.
+    await goBackButton.click()
+    await expect(editor).not.toBeVisible()
+    await expect(page).not.toHaveURL(/detail=precondition/)
+
+    await page
+      .getByRole("button", {
+        name: "Apply changes",
+      })
+      .click()
+
+    const appliedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(appliedCommands).toHaveLength(1)
+
+    if (!appliedCommands) {
+      throw new Error("No tracked commands found")
+    }
+
+    const payload = appliedCommands[0].payload
+
+    expect(payload.item.Preconditions).toEqual(originalPreconditions)
+  })
+
+  test("Typing in a precondition value creates one Undo step", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    const preconditionsPanel = page.getByTestId("precondition-panel")
+
+    await preconditionsPanel
+      .getByRole("button", { name: "Preconditions" })
+      .click()
+
+    const editor = page.getByTestId("precondition-editor")
+    const firstItem = editor.getByTestId("precondition-item-row").first()
+
+    const activeSwitch = firstItem.getByRole("switch")
+    const valueInput = firstItem.getByRole("textbox", {
+      name: "Value",
+    })
+
+    await expect(activeSwitch).toBeChecked()
+    await expect(valueInput).toHaveValue("1")
+
+    // Action 1: Toggle the precondition.
+    await activeSwitch.click()
+    await expect(activeSwitch).not.toBeChecked()
+
+    // Action 2: Type several characters in one editing session.
+    await valueInput.focus()
+    await valueInput.press("End")
+    await valueInput.pressSequentially("234")
+
+    await expect(valueInput).toHaveValue("1234")
+
+    // Leave the text field so Ctrl+Z targets ConfigItem Undo.
+    const goBackButton = page.getByRole("button", {
+      name: "Go back",
+    })
+
+    await goBackButton.focus()
+
+    // Undo 1: Restore the whole text edit in one step.
+    await page.keyboard.press("Control+z")
+
+    await expect(valueInput).toHaveValue("1")
+    await expect(activeSwitch).not.toBeChecked()
+
+    // Undo 2: Restore the separate toggle action.
+    await page.keyboard.press("Control+z")
+
+    await expect(activeSwitch).toBeChecked()
+    await expect(valueInput).toHaveValue("1")
   })
 
   test("Preconditions can be moved up and down", async ({
