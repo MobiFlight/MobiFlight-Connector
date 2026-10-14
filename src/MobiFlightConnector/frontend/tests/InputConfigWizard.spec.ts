@@ -456,6 +456,42 @@ test.describe("Input Config Wizard - Edit name", () => {
     expect(payload.item.Name).toEqual(testLabel)
   })
 
+  test("Undo restores the previous Input Config name", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    await configListPage.clickEditButtonForRow(1)
+
+    const nameContainer = page.getByTestId("dialog-config-name")
+    const originalName = "MSFS Input Action"
+
+    await nameContainer.getByRole("button").dblclick()
+
+    const nameInput = nameContainer.getByRole("textbox")
+    await nameInput.fill("Modified Input Config")
+    await nameInput.press("Enter")
+
+    await expect(nameContainer.getByText("Modified Input Config")).toBeVisible()
+
+    // Move focus away from the text field so Ctrl+Z
+    // targets editor Undo rather than native text Undo.
+    await page.getByRole("button", { name: "Apply changes" }).focus()
+
+    await page.keyboard.press("Control+z")
+
+    await expect(nameContainer.getByText(originalName)).toBeVisible()
+
+    // Undo must not publish the draft to the backend.
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+  })
+
   test("Config name is automatically in edit mode for new configs", async ({
     configListPage,
     page,

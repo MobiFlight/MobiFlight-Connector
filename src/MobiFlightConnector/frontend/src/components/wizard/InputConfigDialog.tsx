@@ -28,6 +28,13 @@ export type InputConfigDialogProps = {
   configId: string
 }
 
+const MAX_UNDO_STEPS = 50
+
+type EditorState = {
+  draftConfigItem: IConfigItem | undefined
+  undoHistory: IConfigItem[]
+}
+
 const resetTriggersBasedOnDeviceType = (
   configItem: IConfigItem | undefined,
 ) => {
@@ -55,8 +62,92 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   )
   const runtimeState = useConfigItemStateValue(configId)
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
+
+  const [editorState, setEditorState] = useState<EditorState>(() => ({
+    draftConfigItem: configItem ? structuredClone(configItem) : undefined,
+    undoHistory: [],
+  }))
+
+  const draftConfigItem = editorState.draftConfigItem
+  const canUndo = editorState.undoHistory.length > 0
+
+  const [committedConfigItem, setCommittedConfigItem] = useState(() =>
+    configItem ? structuredClone(configItem) : undefined,
+  )
+
+  const [isWiggling, setIsWiggling] = useState(false)
+  const [showPendingChangesMessage, setShowPendingChangesMessage] =
+    useState(false)
+  const [preventDialogAnimation, setPreventDialogAnimation] = useState(false)
+
   const closeDialog = () => {
     navigate(-1)
+  }
+
+  const updateDraftConfigItem = (nextConfigItem: IConfigItem) => {
+    setEditorState((previous) => {
+      const current = previous.draftConfigItem
+
+      if (!current || _.isEqual(current, nextConfigItem)) {
+        return previous
+      }
+
+      return {
+        draftConfigItem: structuredClone(nextConfigItem),
+        undoHistory: [...previous.undoHistory, structuredClone(current)].slice(
+          -MAX_UNDO_STEPS,
+        ),
+      }
+    })
+  }
+
+  const undoConfigItemChange = () => {
+    setEditorState((previous) => {
+      if (previous.undoHistory.length === 0) {
+        return previous
+      }
+
+      const previousConfigItem =
+        previous.undoHistory[previous.undoHistory.length - 1]
+
+      return {
+        draftConfigItem: structuredClone(previousConfigItem),
+        undoHistory: previous.undoHistory.slice(0, -1),
+      }
+    })
+  }
+
+  const handleUndoKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (
+      !(event.ctrlKey || event.metaKey) ||
+      event.altKey ||
+      event.shiftKey ||
+      event.key.toLowerCase() !== "z"
+    ) {
+      return
+    }
+
+    const target = event.target as HTMLElement
+
+    // Preserve native Undo while editing text.
+    if (
+      target.closest(
+        'input, textarea, [contenteditable="true"], [role="textbox"]',
+      )
+    ) {
+      return
+    }
+
+    if (!canUndo) {
+      return
+    }
+
+    event.preventDefault()
+    event.stopPropagation()
+
+    undoConfigItemChange()
   }
 
   const saveChanges = () => {
@@ -64,7 +155,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
     const finalConfigItem = resetTriggersBasedOnDeviceType(draftConfigItem)
     setCommittedConfigItem(finalConfigItem)
-    setCurrentConfigItem(finalConfigItem)
     setShowPendingChangesMessage(false)
 
     publish({
@@ -76,20 +166,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
     closeDialog()
   }
-
-  const containerRef = useRef<HTMLDivElement>(null)
-  const inlineEditRef = useRef<InlineEditLabelRef>(null)
-
-  // keep track of draft and committed config
-  // so that we can determine if draftConfigItem is dirty
-  const [draftConfigItem, setCurrentConfigItem] = useState(configItem)
-  const [committedConfigItem, setCommittedConfigItem] = useState(configItem)
-
-  // state related to UI feedback for unsaved changes
-  const [isWiggling, setIsWiggling] = useState(false)
-  const [showPendingChangesMessage, setShowPendingChangesMessage] =
-    useState(false)
-  const [preventDialogAnimation, setPreventDialogAnimation] = useState(false)
 
   // Automatically start editing the config item name if it is the default name
   const configItemName = configItem?.Name
@@ -125,6 +201,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
         data-testid="inputconfigwizard-dialog"
+        onKeyDownCapture={handleUndoKeyDown}
         // prevents focusing on the inactive inline edit label
         onInteractOutside={(e) => {
           if (!hasChanged()) return
@@ -163,7 +240,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               value={draftConfigItem?.Name || ""}
               onSave={(newName) => {
                 if (draftConfigItem) {
-                  setCurrentConfigItem({ ...draftConfigItem, Name: newName })
+                  updateDraftConfigItem({ ...draftConfigItem, Name: newName })
                 }
               }}
               ref={inlineEditRef}
@@ -180,7 +257,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                 <ConfigWizard
                   configItem={draftConfigItem}
                   onConfigChange={(item) => {
-                    setCurrentConfigItem(item)
+                    updateDraftConfigItem(item)
                   }}
                   drawerContainer={containerRef}
                   liveData={{
