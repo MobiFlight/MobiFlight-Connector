@@ -1,6 +1,8 @@
 import Settings from "@/types/settings"
 import { AuthContextProps } from "react-oidc-context"
 
+export const DEFAULT_SCHEMA_VERSION = 1
+
 export interface CloudSettingsPayload {
   _id?: string
   userId?: string
@@ -12,16 +14,14 @@ export interface CloudSettingsPayload {
 }
 
 export interface UploadCloudSettingsPayload {
-  _id?: string
   schemaVersion?: number
-  revision?: number
-  contentHash: string
   content: Partial<Settings>
 }
 
 export interface CloudSettingsOptions {
   signal?: AbortSignal
   timeoutMs?: number
+  schemaVersion?: number
 }
 
 const buildSettingsUrl = (path: string = ""): string => {
@@ -47,35 +47,16 @@ export const resolveAuthHeader = (auth?: AuthContextProps): string => {
 }
 
 /**
- * Computes a SHA-256 hash string for settings content to match contentHash.
- */
-export const computeSettingsHash = async (
-  content: Partial<Settings>,
-): Promise<string> => {
-  const sortedKeys = Object.keys(content).sort()
-  const normalized: Record<string, unknown> = {}
-  for (const key of sortedKeys) {
-    normalized[key] = content[key as keyof Settings]
-  }
-
-  const jsonString = JSON.stringify(normalized)
-  const encoder = new TextEncoder()
-  const data = encoder.encode(jsonString)
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("")
-}
-
-/**
- * Fetches user settings from the cloud server.
- * Returns null if no settings exist (404 or empty list).
+ * Fetches user settings for a given schemaVersion from the cloud server.
+ * Returns null if no settings exist (404).
  */
 export const fetchCloudSettings = async (
   auth?: AuthContextProps,
   options: CloudSettingsOptions = {},
 ): Promise<CloudSettingsPayload | null> => {
   const timeoutMs = options.timeoutMs ?? 5000
-  const settingsUrl = buildSettingsUrl()
+  const schemaVersion = options.schemaVersion ?? DEFAULT_SCHEMA_VERSION
+  const settingsUrl = buildSettingsUrl(schemaVersion.toString())
   const authHeader = resolveAuthHeader(auth)
 
   const timeoutController = new AbortController()
@@ -114,14 +95,6 @@ export const fetchCloudSettings = async (
     }
 
     const data = await response.json()
-    if (Array.isArray(data)) {
-      if (data.length === 0) {
-        return null
-      }
-      const sorted = [...data].sort((a, b) => (b.revision ?? 1) - (a.revision ?? 1))
-      return sorted[0] as CloudSettingsPayload
-    }
-
     return data as CloudSettingsPayload
   } catch (error) {
     if (timeoutController.signal.aborted && !options.signal?.aborted) {
@@ -134,7 +107,7 @@ export const fetchCloudSettings = async (
 }
 
 /**
- * Uploads user settings to the cloud server (POST to create, PUT to update if _id provided)
+ * Uploads/upserts user settings for a schemaVersion to the cloud server.
  */
 export const uploadCloudSettings = async (
   auth: AuthContextProps | undefined,
@@ -142,12 +115,8 @@ export const uploadCloudSettings = async (
   options: CloudSettingsOptions = {},
 ): Promise<CloudSettingsPayload> => {
   const timeoutMs = options.timeoutMs ?? 5000
-  const isUpdate = Boolean(payload._id)
-  const settingsUrl = isUpdate
-    ? buildSettingsUrl(encodeURIComponent(payload._id!))
-    : buildSettingsUrl()
-
-  const method = isUpdate ? "PUT" : "POST"
+  const schemaVersion = payload.schemaVersion ?? DEFAULT_SCHEMA_VERSION
+  const settingsUrl = buildSettingsUrl(schemaVersion.toString())
   const authHeader = resolveAuthHeader(auth)
 
   const timeoutController = new AbortController()
@@ -157,15 +126,13 @@ export const uploadCloudSettings = async (
     : timeoutController.signal
 
   const requestBody = {
-    schemaVersion: payload.schemaVersion ?? 1,
-    revision: payload.revision ?? 1,
-    contentHash: payload.contentHash,
+    schemaVersion,
     content: payload.content,
   }
 
   try {
     const response = await fetch(settingsUrl, {
-      method,
+      method: "PUT",
       signal,
       headers: {
         "Content-Type": "application/json",
@@ -201,14 +168,15 @@ export const uploadCloudSettings = async (
 }
 
 /**
- * Deletes user settings from the cloud server.
+ * Deletes user settings for a given schemaVersion from the cloud server.
  */
 export const deleteCloudSettings = async (
   auth?: AuthContextProps,
+  schemaVersion: number = DEFAULT_SCHEMA_VERSION,
   options: CloudSettingsOptions = {},
 ): Promise<boolean> => {
   const timeoutMs = options.timeoutMs ?? 5000
-  const settingsUrl = buildSettingsUrl()
+  const settingsUrl = buildSettingsUrl(schemaVersion.toString())
   const authHeader = resolveAuthHeader(auth)
 
   const timeoutController = new AbortController()

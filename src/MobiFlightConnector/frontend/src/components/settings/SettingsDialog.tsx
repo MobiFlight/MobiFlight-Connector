@@ -21,8 +21,8 @@ import { useAuth } from "react-oidc-context"
 import {
   fetchCloudSettings,
   uploadCloudSettings,
-  computeSettingsHash,
 } from "@/lib/cloudSettings"
+import isEqual from "lodash-es/isEqual"
 
 export type SettingsDialogProps = {
   isOpen: boolean
@@ -40,18 +40,29 @@ export default function SettingsDialog({
   const auth = useAuth()
   const [isFetchingCloud, setIsFetchingCloud] = useState(false)
   const [isUploadingCloud, setIsUploadingCloud] = useState(false)
-  const [cloudSettingId, setCloudSettingId] = useState<string | undefined>()
-
   const handleGetCloudSettings = async () => {
     try {
       setIsFetchingCloud(true)
       console.log("[SettingsDialog] Fetching cloud settings...")
       const cloudData = await fetchCloudSettings(auth)
-      if (cloudData) {
-        if (cloudData._id) {
-          setCloudSettingId(cloudData._id)
-        }
+      if (cloudData && cloudData.content) {
         console.log("[SettingsDialog] Cloud settings received:", cloudData)
+        if (isEqual(draftSettings, cloudData.content)) {
+          console.log("[SettingsDialog] Local settings are already up to date with cloud.")
+        } else {
+          console.log("[SettingsDialog] Difference detected. Applying cloud settings immediately...")
+          const newSettings = cloudData.content as Settings
+          setDraftSettings(newSettings)
+          setPrevOriginalSettings(newSettings)
+          setSettings(newSettings)
+          messageExchange.publish({
+            key: "CommandUpdateSettings",
+            payload: {
+              Settings: newSettings,
+            },
+          })
+          console.log("[SettingsDialog] Cloud settings applied successfully.")
+        }
       } else {
         console.log("[SettingsDialog] No cloud settings found.")
       }
@@ -66,18 +77,11 @@ export default function SettingsDialog({
     try {
       setIsUploadingCloud(true)
       console.log("[SettingsDialog] Uploading cloud settings...")
-      const contentHash = await computeSettingsHash(draftSettings)
       const uploadPayload = {
-        _id: cloudSettingId,
         schemaVersion: 1,
-        revision: 1,
-        contentHash,
         content: draftSettings,
       }
       const saved = await uploadCloudSettings(auth, uploadPayload)
-      if (saved?._id) {
-        setCloudSettingId(saved._id)
-      }
       console.log("[SettingsDialog] Cloud settings uploaded successfully:", saved)
     } catch (err: unknown) {
       console.error("[SettingsDialog] Failed to upload cloud settings:", err)
