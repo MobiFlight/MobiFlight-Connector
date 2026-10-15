@@ -99,7 +99,7 @@ namespace MobiFlight
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
-        private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
+        private volatile Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
         readonly Dictionary<string, double> ScanForInputThreshold = new Dictionary<string, double>();
@@ -868,24 +868,26 @@ namespace MobiFlight
 
         private void InitInputEventExecutor()
         {
-            _inputEventExecutors.Clear();
-
-            if (Project == null || Project.ConfigFiles == null) return;
-
-            foreach (var configFile in Project.ConfigFiles)
+            var newExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
+            if (Project != null && Project.ConfigFiles != null)
             {
-                _inputEventExecutors[configFile] = new InputEventExecutor(
-                    configFile.ConfigItems,
-                    inputActionExecutionCache,
-                    fsuipcCache,
-                    simConnectCache,
-                    xplaneCache,
-                    mobiFlightCache,
-                    proSimCache,
-                    joystickManager,
-                    arcazeCache
-                );
+                foreach (var configFile in Project.ConfigFiles)
+                {
+                    newExecutors[configFile] = new InputEventExecutor(
+                        configFile.ConfigItems,
+                        inputActionExecutionCache,
+                        fsuipcCache,
+                        simConnectCache,
+                        xplaneCache,
+                        mobiFlightCache,
+                        proSimCache,
+                        joystickManager,
+                        arcazeCache
+                    );
+                }
             }
+            // (Atomic Swap) 
+            _inputEventExecutors = newExecutors;
         }
 
         public void Stop()
