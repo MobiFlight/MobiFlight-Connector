@@ -2943,6 +2943,80 @@ test.describe("Input Config Wizard - MSFS Input Action Panel", () => {
     ).toHaveValue("(>K:AP_PANEL_HEADING_HOLD)")
   })
 
+  test("Undo restores the MSFS action while the editor is open", async ({
+    configListPage,
+    page,
+  }) => {
+    const actionPanel = await openWizardAndReturnActionPanel(
+      configListPage,
+      page,
+      1,
+    )
+
+    await actionPanel
+      .getByRole("button", { name: "Edit On Press Action" })
+      .click()
+
+    const actionEditor = page.getByTestId("action-editor")
+    const codeInput = actionEditor.getByRole("textbox", {
+      name: "Enter RPN code",
+    })
+
+    const originalCommand = "(>K:AP_PANEL_HEADING_HOLD)"
+    const modifiedCommand = "(>K:LIGHTS_TOGGLE)"
+
+    await expect(codeInput).toHaveValue(originalCommand)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    // Modify a nested Input Action.
+    await codeInput.fill(modifiedCommand)
+    await expect(codeInput).toHaveValue(modifiedCommand)
+
+    // Leave the text field to invoke ConfigItem Undo.
+    const goBackButton = page.getByRole("button", {
+      name: "Go back",
+    })
+    await goBackButton.focus()
+
+    await page.keyboard.press("Control+z")
+
+    // The open Action Editor must reflect the restored draft.
+    await expect(codeInput).toHaveValue(originalCommand)
+
+    // No changes should reach the backend before Apply.
+    let commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+
+    await goBackButton.click()
+    await expect(actionEditor).not.toBeVisible()
+
+    await page
+      .getByRole("button", {
+        name: "Apply changes",
+      })
+      .click()
+
+    commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(1)
+
+    // Undo must restore the complete nested action,
+    // including the original preset association.
+    expect(commands?.[0]?.payload).toMatchObject({
+      item: {
+        button: {
+          onPress: {
+            Type: "MSFS2020CustomInputAction",
+            Command: originalCommand,
+            PresetId: "cf0526c0-da69-404f-a570-9f9d54d2803c",
+          },
+        },
+      },
+    })
+  })
+
   test("Summary information is displayed correctly", async ({
     configListPage,
     page,
