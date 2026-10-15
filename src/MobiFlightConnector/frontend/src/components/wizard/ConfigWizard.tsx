@@ -3,7 +3,7 @@ import ConfigReferencePanel from "@/components/wizard/ConfigReferences/ConfigRef
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import PreconditionsPanel from "@/components/wizard/Precondition/PreconditionsPanel"
 import { IConfigItem } from "@/types"
-import { RefObject, useState } from "react"
+import { type ReactNode, RefObject, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import {
   Action,
@@ -34,6 +34,7 @@ export type ConfigWizardProps = {
     rawValue: string | null | undefined
     finalValue: string | null | undefined
   }
+  historyControls?: ReactNode
 }
 
 const determineInputDeviceType = (
@@ -65,6 +66,7 @@ const ConfigWizard = ({
   onConfigChange,
   drawerContainer,
   liveData,
+  historyControls,
 }: ConfigWizardProps) => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
@@ -307,13 +309,16 @@ const ConfigWizard = ({
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
               </DrawerTitle>
-              <DrawerClose
-                onClick={() => closeDetailView(false)}
-                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
-              >
-                <IconArrowBack size={16} />
-                {t("Dialog.General.GoBack")}
-              </DrawerClose>
+              <div className="flex flex-row items-center justify-between gap-2">
+                <DrawerClose
+                  onClick={() => closeDetailView(false)}
+                  className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
+                >
+                  <IconArrowBack size={16} />
+                  {t("Dialog.General.GoBack")}
+                </DrawerClose>
+                {historyControls}
+              </div>
             </DrawerHeader>
             <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
