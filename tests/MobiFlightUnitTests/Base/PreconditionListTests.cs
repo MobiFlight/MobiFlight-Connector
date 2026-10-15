@@ -194,7 +194,7 @@ namespace MobiFlight.Base.Tests
                 Assert.AreEqual(originalArray[i].Type, deserializedArray[i].Type);
                 // labels are not serialized
                 Assert.AreNotEqual(originalArray[i].Label, deserializedArray[i].Label);
-                // labels are using specifc format
+                // labels are using specific format
                 var Ref = originalArray[i].Ref;
                 var Operand = originalArray[i].Operand;
                 var Value = originalArray[i].Value;

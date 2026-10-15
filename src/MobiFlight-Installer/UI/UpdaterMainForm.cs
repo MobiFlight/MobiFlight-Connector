@@ -71,7 +71,7 @@ namespace MobiFlightInstaller.UI
                 _downloadChecksum = MobiFlightUpdaterModel.resultList[Version]["checksum"];
                 CurrentFileName = Directory.GetCurrentDirectory() + "\\" + MobiFlightUpdaterModel.GetFileName(_downloadURL);
 
-                if (!MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download the file is needeed
+                if (!MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download the file is needed
                 {
 
                     UpdaterProgressBar.Value = 0;

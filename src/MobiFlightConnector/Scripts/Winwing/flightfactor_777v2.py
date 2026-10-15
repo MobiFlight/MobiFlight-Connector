@@ -9,7 +9,7 @@ Each enum member is assigned a value that represents the X-Plane dataref identif
 
 Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
 
-Two tasks are started independently for each avialable CDU device.
+Two tasks are started independently for each available CDU device.
 1. handle_dataref_updates -> Listens to X-Plane's WebSocket server for dataref updates for that specific CDU and pushes an event to a queue
 2. handle_device_update   -> Listens to the queue and dispatches updates to MobiFlight to update that CDU
 
