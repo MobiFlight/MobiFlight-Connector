@@ -40,9 +40,8 @@ const GoldSponsorLogos = () => {
 
   const [cycleIndex, setCycleIndex] = useState(0)
 
-  const goldSponsorsUrl = (
-    import.meta.env.VITE_GOLD_SPONSORS_URL ?? defaultGoldSponsorsUrl
-  ).trim()
+  const goldSponsorsUrl =
+    import.meta.env.VITE_GOLD_SPONSORS_URL?.trim() || defaultGoldSponsorsUrl
 
   const goldSponsorsQuery = useQuery({
     queryKey: ["goldSponsors", goldSponsorsUrl],
@@ -70,8 +69,12 @@ const GoldSponsorLogos = () => {
       <div className="flex h-16 w-full items-center justify-center">
         <div
           key={cycleIndex}
-          className="animate-sponsor-row-cycle flex items-center justify-center gap-6 md:gap-8"
-          onAnimationEnd={showNextRow}
+          className={
+            sponsorRows.length > 1
+              ? "animate-sponsor-row-cycle flex items-center justify-center gap-6 md:gap-8"
+              : "animate-sponsor-tagline-fade-in flex items-center justify-center gap-6 md:gap-8"
+          }
+          onAnimationEnd={sponsorRows.length > 1 ? showNextRow : undefined}
         >
           {currentRow.map((sponsor) => (
             <Button

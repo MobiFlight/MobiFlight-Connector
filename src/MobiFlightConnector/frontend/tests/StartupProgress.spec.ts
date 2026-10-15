@@ -19,12 +19,15 @@ const mockGoldSponsors = [
   },
 ]
 
-const mockGoldSponsorsEndpoint = async (page: Page) => {
+const mockGoldSponsorsEndpoint = async (
+  page: Page,
+  sponsors = mockGoldSponsors,
+) => {
   await page.route("**/sponsors.json", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify(mockGoldSponsors),
+      body: JSON.stringify(sponsors),
     })
   })
 }
@@ -105,6 +108,7 @@ test("Test that gold sponsors are shown on startup page", async ({
       }),
     ).toBeVisible()
   }
+  await expect(page.locator(".animate-sponsor-row-cycle")).toHaveCount(0)
 })
 
 test("Test that gold sponsor links open in external browser", async ({
@@ -158,4 +162,50 @@ test("Gold sponsor request failure does not block startup", async ({
   await startupPage.setStatusBarUpdate(100, "Finished!")
 
   await expect(page).toHaveURL("http://localhost:5173/home")
+})
+
+test("Test that multiple gold sponsor rows cycle automatically", async ({
+  startupPage,
+  page,
+}) => {
+  const multipleRowSponsors = Array.from({ length: 6 }, (_, index) => ({
+    name: `Test Sponsor ${index + 1}`,
+    logo: `/sponsors/test-${index + 1}.png`,
+    href: `https://example.com/${index + 1}`,
+  }))
+
+  await mockGoldSponsorsEndpoint(page, multipleRowSponsors)
+
+  await startupPage.gotoStartupPage()
+
+  const sponsorRow = page.locator(".animate-sponsor-row-cycle")
+
+  await expect(sponsorRow).toHaveCount(1)
+
+  await expect(sponsorRow.getByRole("img")).toHaveCount(3)
+
+  const observedSponsors = new Set<string>()
+
+  await expect
+    .poll(
+      async () => {
+        const names = await sponsorRow
+          .getByRole("img")
+          .evaluateAll((images) =>
+            images.map((image) => image.getAttribute("alt") ?? ""),
+          )
+
+        names.forEach((name) => observedSponsors.add(name))
+
+        return observedSponsors.size
+      },
+      {
+        timeout: 7000,
+      },
+    )
+    .toBe(6)
+
+  for (const sponsor of multipleRowSponsors) {
+    expect(observedSponsors.has(`${sponsor.name} logo`)).toBe(true)
+  }
 })
