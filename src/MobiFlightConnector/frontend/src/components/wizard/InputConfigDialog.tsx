@@ -232,6 +232,11 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             activeTextEditIdRef.current = nextTextEditIdRef.current
           }
         }}
+        onBlurCapture={(e) => {
+          if (isTextEditingTarget(e.target)) {
+            activeTextEditIdRef.current = null
+          }
+        }}
         onInteractOutside={(e) => {
           if (!hasChanged()) return
           wiggleIt()

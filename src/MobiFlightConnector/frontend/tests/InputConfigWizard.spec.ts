@@ -2700,6 +2700,159 @@ test.describe("Input Config Wizard - Modifier Panel", () => {
     await firstRemoveButton.click()
     await expect(firstRemoveButton).toBeDisabled()
   })
+
+  test("Undo restores modifier additions, changes, and deletion", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    // Action 1: Add a Transformation modifier.
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    const modifierItems = modifierEditor.getByTestId("modifier-item")
+    await expect(modifierItems).toHaveCount(1)
+
+    const modifier = modifierItems.first()
+    const expressionInput = modifier.getByRole("textbox", {
+      name: "Expression",
+    })
+    const activeSwitch = modifier.getByRole("switch")
+
+    await expect(expressionInput).toHaveValue("$")
+    await expect(activeSwitch).toBeChecked()
+
+    // Action 2: Change the modifier expression.
+    await expressionInput.fill("$*2")
+    await expect(expressionInput).toHaveValue("$*2")
+
+    // Action 3: Disable the modifier.
+    await activeSwitch.click()
+    await expect(activeSwitch).not.toBeChecked()
+
+    // Action 4: Delete the modifier.
+    await modifier.getByRole("button", { name: "Remove Modifier" }).click()
+
+    await expect(modifierItems).toHaveCount(0)
+
+    const goBackButton = page.getByRole("button", {
+      name: "Go back",
+    })
+    await goBackButton.focus()
+
+    // Undo 1: Restore the deleted modifier.
+    await page.keyboard.press("Control+z")
+
+    await expect(modifierItems).toHaveCount(1)
+    await expect(activeSwitch).not.toBeChecked()
+
+    const modifierHeader = getModifierHeader(modifierEditor, "Transformation")
+    await expandModifierIfCollapsed(modifierHeader)
+
+    await expect(expressionInput).toHaveValue("$*2")
+
+    await goBackButton.focus()
+
+    // Undo 2: Restore the modifier's Active state.
+    await page.keyboard.press("Control+z")
+
+    await expect(activeSwitch).toBeChecked()
+    await expect(expressionInput).toHaveValue("$*2")
+
+    // Undo 3: Restore the original expression.
+    await page.keyboard.press("Control+z")
+
+    await expect(expressionInput).toHaveValue("$")
+    await expect(activeSwitch).toBeChecked()
+
+    // Undo 4: Remove the originally added modifier.
+    await goBackButton.focus()
+    await page.keyboard.press("Control+z")
+
+    await expect(modifierItems).toHaveCount(0)
+
+    // Undo must not send changes to the backend.
+    const commandsBeforeApply =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commandsBeforeApply).toHaveLength(0)
+
+    // Apply the restored configuration.
+    await goBackButton.click()
+
+    await page
+      .getByRole("button", {
+        name: "Apply changes",
+      })
+      .click()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(1)
+
+    if (!commands || commands.length !== 1) {
+      throw new Error("Expected one configuration update")
+    }
+
+    // All modifier changes were undone.
+    expect(commands[0].payload.item.Modifiers?.Items ?? []).toEqual([])
+  })
+
+  test("Modifier Undo history is limited to 50 steps", async ({
+    configListPage,
+    page,
+  }) => {
+    await CreateNewInputConfigItemAndWaitForDialog(configListPage, page)
+
+    const modifierEditor = await addModifierItemAndReturnEditor(
+      "Transformation",
+      page,
+    )
+
+    const activeSwitch = modifierEditor
+      .getByTestId("modifier-item")
+      .first()
+      .getByRole("switch")
+
+    await expect(activeSwitch).toBeChecked()
+
+    for (let i = 0; i < 54; i++) {
+      await activeSwitch.click()
+
+      if (i % 2 === 0) {
+        await expect(activeSwitch).not.toBeChecked()
+      } else {
+        await expect(activeSwitch).toBeChecked()
+      }
+    }
+
+    await expect(activeSwitch).toBeChecked()
+
+    const goBackButton = page.getByRole("button", {
+      name: "Go back",
+    })
+    await goBackButton.focus()
+
+    for (let i = 0; i < 50; i++) {
+      await page.keyboard.press("Control+z")
+
+      if (i % 2 === 0) {
+        await expect(activeSwitch).not.toBeChecked()
+      } else {
+        await expect(activeSwitch).toBeChecked()
+      }
+    }
+
+    await expect(activeSwitch).toBeChecked()
+
+    await page.keyboard.press("Control+z")
+    await expect(activeSwitch).toBeChecked()
+  })
 })
 
 test.describe("Input Config Wizard - Action Type Panel", () => {
