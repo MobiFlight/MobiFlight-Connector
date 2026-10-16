@@ -61,5 +61,15 @@ namespace MobiFlight.Tests
 
             Assert.IsFalse(manager.LoadingError);
         }
+
+        [TestMethod()]
+        [DataRow("VID_2341&PID_0001", "^VID_2341&PID_0001", true)]
+        [DataRow("VID_2341&PID_0002", "^VID_2341&PID_0001", false)]
+        [DataRow("VID_1A86&PID_7523", "^VID_1A86&PID_7523", true)]
+        [DataRow("VID_0403+PID_6001+TEST", "^VID_0403\\+PID_6001\\+.+", true)]
+        public void ByHardwareIdMatcher_IsMatchingCorrectly(string hardwareId, string hardwareIdPattern, bool expectedResult)
+        {
+            Assert.AreEqual(expectedResult, BoardDefinitions.ByHardwareIdMatcher(hardwareId, hardwareIdPattern));
+        }
     }
 }
