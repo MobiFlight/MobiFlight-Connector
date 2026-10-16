@@ -1626,6 +1626,116 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
     await expect(panel).toBeVisible()
   })
+
+  test("Drawer changes are grouped into one Wizard Undo step", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const panel = page.getByTestId("config-reference-panel")
+
+    await panel
+      .getByRole("button", {
+        name: "Edit references",
+      })
+      .click()
+
+    const editor = page.getByTestId("config-reference-editor")
+    const rows = editor.getByTestId("config-reference-item-row")
+
+    await expect(rows).toHaveCount(3)
+
+    const firstSwitch = rows.nth(0).getByRole("switch")
+    const secondSwitch = rows.nth(1).getByRole("switch")
+
+    await expect(firstSwitch).toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // Two independent changes inside the Drawer.
+    await firstSwitch.click()
+    await secondSwitch.click()
+
+    await expect(firstSwitch).not.toBeChecked()
+    await expect(secondSwitch).not.toBeChecked()
+
+    const drawer = page.locator('[data-slot="drawer-content"]')
+    const drawerControls = drawer.getByTestId("config-history-controls")
+
+    await drawerControls
+      .getByRole("button", {
+        name: "History",
+      })
+      .click()
+
+    // Original state + 2 individual Drawer changes.
+    await expect(
+      drawerControls.getByTestId("config-history-entry"),
+    ).toHaveCount(3)
+
+    // Undo inside Drawer affects only the latest change.
+    await drawerControls
+      .getByRole("button", {
+        name: "Undo",
+      })
+      .click()
+
+    await expect(firstSwitch).not.toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // Change it again before closing.
+    await secondSwitch.click()
+    await expect(secondSwitch).not.toBeChecked()
+
+    await page
+      .getByRole("button", {
+        name: "Go back",
+      })
+      .click()
+
+    await expect(editor).not.toBeVisible()
+
+    const footer = page.getByTestId("inputconfigwizard-dialog-footer")
+
+    const wizardControls = footer.getByTestId("config-history-controls")
+
+    await wizardControls
+      .getByRole("button", {
+        name: "History",
+      })
+      .click()
+
+    // Original state + ONE grouped Drawer session.
+    await expect(
+      wizardControls.getByTestId("config-history-entry"),
+    ).toHaveCount(2)
+
+    // Undo the entire Drawer session.
+    await wizardControls
+      .getByRole("button", {
+        name: "Undo",
+      })
+      .click()
+
+    // Reopen to verify both references were restored.
+    await panel
+      .getByRole("button", {
+        name: "Edit references",
+      })
+      .click()
+
+    await expect(firstSwitch).toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // Undo must not publish changes to the backend.
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+
+    expect(commands).toHaveLength(0)
+  })
 })
 
 test.describe("Input Config Wizard - Modifier Panel", () => {

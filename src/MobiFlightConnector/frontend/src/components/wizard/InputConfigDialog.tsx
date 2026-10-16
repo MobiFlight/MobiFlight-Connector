@@ -41,12 +41,21 @@ type HistoryEntry = {
   action: string
 }
 
+type DrawerSession = {
+  view: string
+  originalSnapshot: IConfigItem
+  history: HistoryEntry[]
+  cursor: number
+  historyStart: number
+}
+
 type EditorState = {
   draftConfigItem: IConfigItem | undefined
   history: HistoryEntry[]
   cursor: number
   historyStart: number
   lastTextEditId: number | null
+  drawerSession: DrawerSession | null
 }
 
 type HistoryControlsProps = {
@@ -102,12 +111,34 @@ const HistoryControls = ({
   const [open, setOpen] = useState(false)
   const panelId = useId()
 
+  const historyControlsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+
+    const handleOutsideClick = (event: PointerEvent) => {
+      if (
+        historyControlsRef.current &&
+        !historyControlsRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener("pointerdown", handleOutsideClick)
+
+    return () => {
+      document.removeEventListener("pointerdown", handleOutsideClick)
+    }
+  }, [open])
+
   const canUndo = cursor > 0
   const latestStep = historyStart + history.length - 1
   const currentStep = historyStart + cursor
 
   return (
     <div
+      ref={historyControlsRef}
       className="relative flex shrink-0 items-center gap-2"
       data-testid="config-history-controls"
     >
@@ -146,8 +177,10 @@ const HistoryControls = ({
           id={panelId}
           data-testid="config-history-panel"
           className={cn(
-            "bg-popover text-popover-foreground absolute right-0 z-60 w-80 max-w-[85vw] rounded-md border shadow-lg",
-            placement === "up" ? "bottom-full mb-2" : "top-full mt-2",
+            "bg-popover text-popover-foreground absolute z-60 w-80 max-w-[85vw] rounded-md border shadow-lg",
+            placement === "up"
+              ? "bottom-full left-0 mb-2"
+              : "top-full right-0 mt-2",
           )}
         >
           <div className="border-b px-3 py-2 text-sm font-semibold">
@@ -230,10 +263,13 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     cursor: configItem ? 0 : -1,
     historyStart: 0,
     lastTextEditId: null,
+    drawerSession: null,
   }))
 
   const draftConfigItem = editorState.draftConfigItem
-  const canUndo = editorState.cursor > 0
+  const canUndo = editorState.drawerSession
+    ? editorState.drawerSession.cursor > 0
+    : editorState.cursor > 0
 
   const [committedConfigItem, setCommittedConfigItem] = useState(() =>
     configItem ? structuredClone(configItem) : undefined,
@@ -410,6 +446,50 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     return t(`${base}.ConfigurationChanged`)
   }
 
+  const recordHistoryChange = (
+    history: HistoryEntry[],
+    cursor: number,
+    historyStart: number,
+    current: IConfigItem,
+    next: IConfigItem,
+    textEditId: number | null,
+    lastTextEditId: number | null,
+  ) => {
+    const updatedHistory = history.slice(0, cursor + 1)
+    const snapshot = structuredClone(next)
+
+    const sameTextEdit =
+      textEditId !== null &&
+      lastTextEditId === textEditId &&
+      cursor > 0 &&
+      updatedHistory.length > 1
+
+    if (sameTextEdit) {
+      const original = updatedHistory[updatedHistory.length - 2].snapshot
+
+      updatedHistory[updatedHistory.length - 1] = {
+        snapshot,
+        action: describeConfigChange(original, snapshot),
+      }
+    } else {
+      updatedHistory.push({
+        snapshot,
+        action: describeConfigChange(current, snapshot),
+      })
+    }
+
+    const overflow = Math.max(0, updatedHistory.length - (MAX_UNDO_STEPS + 1))
+
+    const boundedHistory =
+      overflow > 0 ? updatedHistory.slice(overflow) : updatedHistory
+
+    return {
+      history: boundedHistory,
+      cursor: boundedHistory.length - 1,
+      historyStart: historyStart + overflow,
+    }
+  }
+
   const updateDraftConfigItem = (nextConfigItem: IConfigItem) => {
     const textEditId = activeTextEditIdRef.current
 
@@ -420,46 +500,164 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         return previous
       }
 
-      const sameTextEdit =
-        textEditId !== null &&
-        previous.lastTextEditId === textEditId &&
-        previous.cursor > 0
-
-      const history = previous.history.slice(0, previous.cursor + 1)
       const snapshot = structuredClone(nextConfigItem)
+      const session = previous.drawerSession
 
-      if (sameTextEdit) {
-        const original = history[history.length - 2].snapshot
-
-        history[history.length - 1] = {
+      if (session) {
+        const recorded = recordHistoryChange(
+          session.history,
+          session.cursor,
+          session.historyStart,
+          current,
           snapshot,
-          action: describeConfigChange(original, snapshot),
+          textEditId,
+          previous.lastTextEditId,
+        )
+
+        return {
+          ...previous,
+          draftConfigItem: snapshot,
+          drawerSession: {
+            ...session,
+            ...recorded,
+          },
+          lastTextEditId: textEditId,
         }
-      } else {
-        history.push({
-          snapshot,
-          action: describeConfigChange(current, snapshot),
-        })
       }
 
-      const overflow = Math.max(0, history.length - (MAX_UNDO_STEPS + 1))
-
-      const boundedHistory = overflow > 0 ? history.slice(overflow) : history
+      // Outside a Drawer, record changes in Wizard history.
+      const recorded = recordHistoryChange(
+        previous.history,
+        previous.cursor,
+        previous.historyStart,
+        current,
+        snapshot,
+        textEditId,
+        previous.lastTextEditId,
+      )
 
       return {
+        ...previous,
         draftConfigItem: snapshot,
-        history: boundedHistory,
-        cursor: boundedHistory.length - 1,
-        historyStart: previous.historyStart + overflow,
+        ...recorded,
         lastTextEditId: textEditId,
       }
     })
   }
 
-  const jumpToHistory = (index: number) => {
+  const beginDrawerSession = (view: string) => {
     activeTextEditIdRef.current = null
+
     setEditorState((previous) => {
-      if (index < 0 || index >= previous.history.length) {
+      if (!previous.draftConfigItem || previous.drawerSession) {
+        return previous
+      }
+
+      const snapshot = structuredClone(previous.draftConfigItem)
+
+      return {
+        ...previous,
+        drawerSession: {
+          view,
+          originalSnapshot: structuredClone(snapshot),
+          history: [{ snapshot, action: "" }],
+          cursor: 0,
+          historyStart: 0,
+        },
+        lastTextEditId: null,
+      }
+    })
+  }
+
+  const finishDrawerSession = () => {
+    activeTextEditIdRef.current = null
+
+    setEditorState((previous) => {
+      const session = previous.drawerSession
+      const current = previous.draftConfigItem
+
+      if (!session) {
+        return previous
+      }
+
+      if (!current || _.isEqual(session.originalSnapshot, current)) {
+        return {
+          ...previous,
+          drawerSession: null,
+          lastTextEditId: null,
+        }
+      }
+
+      const base = "Dialog.InputConfigWizard"
+
+      const drawerLabels: Record<string, string> = {
+        precondition: t(`${base}.Preconditions.Title`),
+        configReference: t(`${base}.ConfigReferences.Title`),
+        modifier: t("Dialog.Modifiers.Title"),
+        action: t(`${base}.Action.Title`),
+      }
+
+      const label =
+        drawerLabels[session.view] ?? t(`${base}.History.ConfigurationChanged`)
+
+      // Commit the whole Drawer editing session as one step.
+      const updatedHistory = [
+        ...previous.history.slice(0, previous.cursor + 1),
+        {
+          snapshot: structuredClone(current),
+          action: `${label} — ${t(`${base}.History.ConfigurationChanged`)}`,
+        },
+      ]
+
+      const overflow = Math.max(0, updatedHistory.length - (MAX_UNDO_STEPS + 1))
+
+      const history =
+        overflow > 0 ? updatedHistory.slice(overflow) : updatedHistory
+
+      return {
+        ...previous,
+        history,
+        cursor: history.length - 1,
+        historyStart: previous.historyStart + overflow,
+        drawerSession: null,
+        lastTextEditId: null,
+      }
+    })
+  }
+
+  const jumpToHistory = (
+    index: number,
+    scope: "wizard" | "drawer" = "wizard",
+  ) => {
+    activeTextEditIdRef.current = null
+
+    setEditorState((previous) => {
+      if (scope === "drawer") {
+        const session = previous.drawerSession
+
+        if (!session || index < 0 || index >= session.cursor) {
+          return previous
+        }
+
+        const history = session.history.slice(0, index + 1)
+
+        return {
+          ...previous,
+          draftConfigItem: structuredClone(history[index].snapshot),
+          drawerSession: {
+            ...session,
+            history,
+            cursor: index,
+          },
+          lastTextEditId: null,
+        }
+      }
+
+      if (previous.drawerSession) {
+        return previous
+      }
+
+      if (index < 0 || index >= previous.cursor) {
         return previous
       }
 
@@ -467,7 +665,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
       return {
         ...previous,
-        draftConfigItem: structuredClone(previous.history[index].snapshot),
+        draftConfigItem: structuredClone(history[index].snapshot),
         history,
         cursor: index,
         lastTextEditId: null,
@@ -477,7 +675,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
   const undoConfigItemChange = () => {
     if (!canUndo) return
-    jumpToHistory(editorState.cursor - 1)
+
+    if (editorState.drawerSession) {
+      jumpToHistory(editorState.drawerSession.cursor - 1, "drawer")
+    } else {
+      jumpToHistory(editorState.cursor - 1, "wizard")
+    }
   }
 
   const handleUndoKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -625,13 +828,17 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                   historyControls={
                     <HistoryControls
                       placement="down"
-                      history={editorState.history}
-                      cursor={editorState.cursor}
-                      historyStart={editorState.historyStart}
+                      history={editorState.drawerSession?.history ?? []}
+                      cursor={editorState.drawerSession?.cursor ?? -1}
+                      historyStart={
+                        editorState.drawerSession?.historyStart ?? 0
+                      }
                       onUndo={undoConfigItemChange}
-                      onJump={jumpToHistory}
+                      onJump={(index) => jumpToHistory(index, "drawer")}
                     />
                   }
+                  onDrawerOpen={beginDrawerSession}
+                  onDrawerClose={finishDrawerSession}
                   liveData={{
                     rawValue: runtimeState?.RawValue ?? configItem?.RawValue,
                     finalValue: runtimeState?.Value ?? configItem?.Value,
@@ -652,7 +859,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               cursor={editorState.cursor}
               historyStart={editorState.historyStart}
               onUndo={undoConfigItemChange}
-              onJump={jumpToHistory}
+              onJump={(index) => jumpToHistory(index, "wizard")}
             />
 
             {showPendingChangesMessage && (

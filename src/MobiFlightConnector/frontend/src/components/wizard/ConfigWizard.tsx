@@ -3,7 +3,7 @@ import ConfigReferencePanel from "@/components/wizard/ConfigReferences/ConfigRef
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import PreconditionsPanel from "@/components/wizard/Precondition/PreconditionsPanel"
 import { IConfigItem } from "@/types"
-import { type ReactNode, RefObject, useState } from "react"
+import { type ReactNode, RefObject, useState, useRef } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import {
   Action,
@@ -35,6 +35,8 @@ export type ConfigWizardProps = {
     finalValue: string | null | undefined
   }
   historyControls?: ReactNode
+  onDrawerOpen?: (view: string) => void
+  onDrawerClose?: () => void
 }
 
 const determineInputDeviceType = (
@@ -67,6 +69,8 @@ const ConfigWizard = ({
   drawerContainer,
   liveData,
   historyControls,
+  onDrawerOpen,
+  onDrawerClose,
 }: ConfigWizardProps) => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
@@ -135,17 +139,22 @@ const ConfigWizard = ({
   }
 
   const detailView = searchParams.get("detail")
+  const drawerClosingRef = useRef(false)
   const navigateToDetailView = (
     view: string,
     size: "small" | "large" = "large",
   ) => {
+    drawerClosingRef.current = false
+    onDrawerOpen?.(view)
     setDrawerOpen(true)
     setDrawerSize(size)
     navigate(`?detail=${view}`)
   }
 
   const closeDetailView = (open: boolean) => {
-    if (open) return
+    if (open || drawerClosingRef.current) return
+    drawerClosingRef.current = true
+    onDrawerClose?.()
     setDrawerOpen(false)
     setTimeout(() => navigate(-1), 500)
   }

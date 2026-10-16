@@ -820,6 +820,11 @@
           "SelectPresetLabel": "Select Preset",
           "SelectPresetPlaceholder": "Select preset..."
         }
+      },
+      "History": {
+        "Undo": "Undo",
+        "Title": "History",
+        "Original": "Original configuration"
       }
     },
     "UnsavedChanges": {
