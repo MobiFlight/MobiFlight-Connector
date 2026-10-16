@@ -89,14 +89,6 @@ namespace MobiFlight.UI.Panels.Config
                     preconditionRefValueTextBox.Text = config.Value;
                     break;
 
-                case "pin":
-                    ArcazeIoBasic io = new ArcazeIoBasic(config.Pin);
-                    var controller = new MobiFlight.Base.Controller() { Name = SerialNumber.ExtractControllerName(config.Serial), Serial = SerialNumber.ExtractSerial(config.Serial) };
-                    ComboBoxHelper.SetSelectedListItemByValue(preconditionPinSerialComboBox, controller);
-                    preconditionPinValueComboBox.SelectedValue = config.Value;
-                    preconditionPortComboBox.SelectedIndex = io.Port;
-                    preconditionPinComboBox.SelectedIndex = io.Pin;
-                    break;
             }
 
             aNDToolStripMenuItem.Checked = config.Logic == "and";
@@ -135,10 +127,6 @@ namespace MobiFlight.UI.Panels.Config
                     new ListItem() { Value = "variable",Label = i18n._tr("Label_Precondition_Variable") },
             };
 
-            if (Properties.Settings.Default.ArcazeSupportEnabled)
-            {
-                result.Add(new ListItem() { Value = "pin", Label = i18n._tr("Label_Precondition_ArcazePin") });
-            }
             return result;
         }
 
@@ -220,7 +208,7 @@ namespace MobiFlight.UI.Panels.Config
 
             preconditionSettingsGroupBox.Visible = selected != "none";
             preconditionRuleConfigPanel.Visible = selected == "config" || selected == "variable";
-            preconditionPinPanel.Visible = selected == "pin";
+            preconditionPinPanel.Visible = false;
 
             if (selected == "config" || selected == "variable")
             {
@@ -240,11 +228,6 @@ namespace MobiFlight.UI.Panels.Config
 
                 preconditionConfigComboBox.ValueMember = "Value";
                 preconditionConfigComboBox.DisplayMember = "Label";
-            }
-
-            else if (preconditionPinPanel.Visible)
-            {
-                preconditionSettingsGroupBox.Height = preconditionPinPanel.Height;
             }
         }
 
@@ -267,13 +250,6 @@ namespace MobiFlight.UI.Panels.Config
                         c.Operand = preconditionRefOperandComboBox.Text;
                     if (sender == preconditionRefValueTextBox)
                         c.Value = preconditionRefValueTextBox.Text;
-                    c.Active = selectedNode.Checked;
-                    break;
-
-                case "pin":
-                    c.Serial = SerialNumber.BuildFullSerial((preconditionPinSerialComboBox.SelectedItem as ListItem<Controller>).Value);
-                    c.Value = preconditionPinValueComboBox.SelectedValue.ToString();
-                    c.Pin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
                     c.Active = selectedNode.Checked;
                     break;
             }
@@ -302,10 +278,6 @@ namespace MobiFlight.UI.Panels.Config
 
                 case "variable":
                     node.ImageKey = "variable";
-                    break;
-
-                case "pin":
-                    node.ImageKey = "pin";
                     break;
 
                 default:
@@ -347,10 +319,6 @@ namespace MobiFlight.UI.Panels.Config
                 else if (p.Type == "variable")
                 {
                     label = label.Replace($"<Variable:{p.Ref}>", p.Ref != null ? p.Ref : "");
-                }
-                else if (p.Type == "pin")
-                {
-                    label = label.Replace("<Serial:" + p.Serial + ">", SerialNumber.ExtractControllerName(p.Serial));
                 }
                 else
                 {
@@ -415,42 +383,6 @@ namespace MobiFlight.UI.Panels.Config
 
         private void preconditionPinSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // get the deviceinfo for the current arcaze
-            ComboBox cb = preconditionPinSerialComboBox;
-            var controllerListItem = cb.SelectedItem as ListItem<Controller>;
-
-            if (controllerListItem == null) return;
-
-            string serial = controllerListItem.Value?.Serial;
-            
-            if (SerialNumber.IsArcazeSerial(serial))
-            {
-                preconditionPortComboBox.Items.Clear();
-                preconditionPinComboBox.Items.Clear();
-
-                List<ListItem> ports = new List<ListItem>();
-
-                foreach (String v in ArcazeModule.getPorts())
-                {
-                    ports.Add(new ListItem() { Label = v, Value = v });
-                    if (v == "B" || v == "E" || v == "H" || v == "K")
-                    {
-                        ports.Add(new ListItem() { Label = "-----", Value = "-----" });
-                    }
-
-                    if (v == "A" || v == "B")
-                    {
-                        preconditionPortComboBox.Items.Add(v);
-                    }
-                }
-
-                List<ListItem> pins = new List<ListItem>();
-                foreach (String v in ArcazeModule.getPins())
-                {
-                    pins.Add(new ListItem() { Label = v, Value = v });
-                    preconditionPinComboBox.Items.Add(v);
-                }
-            }
         }
 
         private void displayError(Control control, String message)

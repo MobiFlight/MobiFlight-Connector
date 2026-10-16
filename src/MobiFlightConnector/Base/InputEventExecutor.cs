@@ -20,7 +20,6 @@ namespace MobiFlight.Execution
         private readonly MobiFlightCache _mobiFlightCache;
         private readonly ProSim.ProSimCacheInterface _proSimCache;
         private readonly JoystickManager _joystickManager;
-        private readonly ArcazeCache _arcazeCache;
         private readonly Dictionary<string, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
 
         public InputEventExecutor(
@@ -31,8 +30,7 @@ namespace MobiFlight.Execution
             XplaneCacheInterface xplaneCache,
             MobiFlightCache mobiFlightCache,
             ProSim.ProSimCacheInterface proSimCache,
-            JoystickManager joystickManager,
-            ArcazeCache arcazeCache)
+            JoystickManager joystickManager)
         {
             _configItems = configItems;
             _inputActionExecutionCache = inputActionExecutionCache;
@@ -41,7 +39,6 @@ namespace MobiFlight.Execution
             _xplaneCache = xplaneCache;
             _mobiFlightCache = mobiFlightCache;
             _joystickManager = joystickManager;
-            _arcazeCache = arcazeCache;
             _proSimCache = proSimCache;
         }
 
@@ -277,7 +274,7 @@ namespace MobiFlight.Execution
         private bool CheckPreconditions(InputConfigItem cfg)
         {
             var currentValue = new ConnectorValue();
-            return PreconditionChecker.CheckPrecondition(cfg, currentValue, _configItems, _arcazeCache, _mobiFlightCache);
+            return PreconditionChecker.CheckPrecondition(cfg, currentValue, _configItems, _mobiFlightCache);
         }
 
         private List<ConfigRefValue> ResolveReferences(ConfigRefList configRefs)

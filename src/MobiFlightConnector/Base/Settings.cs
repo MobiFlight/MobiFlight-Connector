@@ -5,7 +5,6 @@ namespace MobiFlight.Base
 {
     public class Settings
     {
-        public bool ArcazeSupportEnabled { get; set; }
         public bool AutoRetrigger { get; set; }
         public bool AutoRun { get; set; }
         public bool AutoLoadLinkedConfig { get; set; }
@@ -39,7 +38,6 @@ namespace MobiFlight.Base
 
         internal Settings(Properties.Settings settings)
         {
-            ArcazeSupportEnabled = settings.ArcazeSupportEnabled;
             AutoRetrigger = settings.AutoRetrigger;
             AutoRun = settings.AutoRun;
             AutoLoadLinkedConfig = settings.AutoLoadLinkedConfig;
@@ -82,7 +80,6 @@ namespace MobiFlight.Base
         {
             if (settings == null) return;
 
-            settings.ArcazeSupportEnabled = ArcazeSupportEnabled;
             settings.AutoRetrigger = AutoRetrigger;
             settings.AutoRun = AutoRun;
             settings.AutoLoadLinkedConfig = AutoLoadLinkedConfig;

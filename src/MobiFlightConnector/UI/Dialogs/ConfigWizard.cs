@@ -22,31 +22,18 @@ namespace MobiFlight.UI.Dialogs
         Timer TestTimer = new Timer();
         public OutputConfigItem Config { get { return config; } }
 
-#if ARCAZE
-        Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
-        Dictionary<string, ArcazeModuleSettings> moduleSettings;
-#endif
         ProjectInfo ProjectInfo { get; set; }
 
         public ConfigWizard(ExecutionManager executionManager,
                              OutputConfigItem cfg,
-#if ARCAZE
-                             ArcazeCache arcazeCache,
-                             Dictionary<string, ArcazeModuleSettings> moduleSettings,
-#endif
                              List<OutputConfigItem> outputConfigs,
                              Dictionary<string, MobiFlightVariable> scopedVariables,
                              ProjectInfo projectInfo
             )
         {
             Init(executionManager, cfg, projectInfo);
-#if ARCAZE
-            this.moduleSettings = moduleSettings;
-            initWithArcazeCache(arcazeCache);
-#else
             initWithoutArcazeCache();
-#endif
-            // copy this so that no filtering will 
+            // copy this so that no filtering will
             // impact the list of displayed items
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
             this.outputConfigs = outputConfigs.ToArray().ToList();
@@ -246,44 +233,9 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.HubHopPresetPanel.LVars = (sender as List<String>);
         }
 
-#if ARCAZE
-        /// <summary>
-        /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
-        /// </summary>
-        /// <param name="arcazeCache"></param>
-        public void initWithArcazeCache(ArcazeCache arcazeCache)
-        {
-            var PreconditionModuleList = new List<ListItem<Controller>>();
-            var DisplayModuleList = new List<ListItem<Controller>>();
-
-            foreach (IModuleInfo module in arcazeCache.getModuleInfo())
-            {
-                arcazeFirmware[module.Serial] = module.Version;
-                DisplayModuleList.Add(new ListItem<Controller>()
-                {
-                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
-                    Label = $"{module.Name} ({module.Serial})"
-                });
-
-                PreconditionModuleList.Add(new ListItem<Controller>()
-                {
-                    Value = new Controller() { Name = module.Name, Serial = module.Serial },
-                    Label = $"{module.Name} ({module.Serial})"
-                });
-            }
-
-            _AddMobiFlightModules(DisplayModuleList);
-            _AddJoysticks(DisplayModuleList);
-            _AddMidiBoards(DisplayModuleList);
-
-            displayPanel1.SetArcazeSettings(arcazeFirmware, moduleSettings);
-            displayPanel1.SetModules(DisplayModuleList);
-            preconditionPanel.SetModules(PreconditionModuleList);
-        }
-#endif
 #if MOBIFLIGHT
         /// <summary>
-        /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
+        /// sync the config wizard with the currently available modules (MobiFlight, joysticks, MIDI boards).
         /// </summary>
         public void initWithoutArcazeCache()
         {

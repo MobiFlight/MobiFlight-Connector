@@ -16,9 +16,6 @@ namespace MobiFlight.Execution
 {
     public class ConfigItemExecutor
     {
-#if ARCAZE
-        private readonly ArcazeCache arcazeCache;
-#endif
         private readonly FSUIPCCacheInterface fsuipcCache;
         private readonly SimConnectCacheInterface simConnectCache;
         private readonly XplaneCacheInterface xplaneCache;
@@ -32,9 +29,6 @@ namespace MobiFlight.Execution
 
         public ConfigItemExecutor(
             List<IConfigItem> configItems,
-#if ARCAZE
-            ArcazeCache arcazeCache,
-#endif
             FSUIPCCacheInterface fsuipcCache,
             SimConnectCacheInterface simConnectCache,
             XplaneCacheInterface xplaneCache,
@@ -45,9 +39,6 @@ namespace MobiFlight.Execution
             InputActionExecutionCache inputActionExecutionCache,
             OutputConfigItem configItemInTestMode)
         {
-#if ARCAZE
-            this.arcazeCache = arcazeCache;
-#endif
             this.ConfigItems = configItems;
             this.fsuipcCache = fsuipcCache;
             this.simConnectCache = simConnectCache;
@@ -154,7 +145,7 @@ namespace MobiFlight.Execution
             try
             {
                 var precondition = true;
-                if (!PreconditionChecker.CheckPrecondition(cfg, processedValue, ConfigItems, arcazeCache, mobiFlightCache))
+                if (!PreconditionChecker.CheckPrecondition(cfg, processedValue, ConfigItems, mobiFlightCache))
                 {
                     if (!cfg.Preconditions.ExecuteOnFalse)
                     {
@@ -243,7 +234,7 @@ namespace MobiFlight.Execution
                     ExecuteDisplay(value?.ToString() ?? servo.Max, cfg);
                     break;
 
-                case ArcazeLedDigit.TYPE:
+                case MobiFlightLedModule.TYPE:
                 case OutputConfig.LcdDisplay.DeprecatedType:
                     ExecuteDisplay(value?.ToString() ?? "1234567890", cfg);
                     break;
@@ -425,37 +416,11 @@ namespace MobiFlight.Execution
                     // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
             }
-            else if (SerialNumber.IsArcazeSerial(serial) && cfg.DeviceType != "InputAction")
-            {
-#if ARCAZE
-                switch (cfg.DeviceType)
-                {
-                    case ArcazeLedDigit.TYPE:
-                        var device = cfg.Device as LedModule;
-                        var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
-                        if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
-                        arcazeCache.setDisplay(
-                            serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
-                            device.DisplayLedDigits,
-                            device.DisplayLedDecimalPoints,
-                            val);
-                        break;
-
-                    default:
-                        arcazeCache.setValue(serial,
-                            (cfg.Device as Output).Pin,
-                            (value != "0" ? (cfg.Device as Output).Brightness.ToString() : "0"));
-                        break;
-                }
-#endif
-            }
             else
             {
                 switch (cfg.DeviceType)
                 {
-                    case ArcazeLedDigit.TYPE:
+                    case MobiFlightLedModule.TYPE:
                         var device = cfg.Device as LedModule;
 
                         var decimalCount = value.Count(c => c == '.');

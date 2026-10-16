@@ -155,7 +155,6 @@ namespace MobiFlight
 
                 // preserve backward compatibility
                 if (DeviceType == "Pin") DeviceType = MobiFlightOutput.TYPE;
-                if (DeviceType == ArcazeLedDigit.OLDTYPE) DeviceType = ArcazeLedDigit.TYPE;
 
                 Controller = SerialNumber.CreateController(reader["serial"]);
 
@@ -406,7 +405,6 @@ namespace MobiFlight
             switch (DeviceType)
             {
                 case MobiFlightOutput.TYPE:
-                case ArcazeLedDigit.TYPE:
                 case MobiFlightServo.TYPE:
                 case MobiFlightStepper.TYPE:
                 case MobiFlightShiftRegister.TYPE:
