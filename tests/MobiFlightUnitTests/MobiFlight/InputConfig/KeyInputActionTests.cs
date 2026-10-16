@@ -199,5 +199,44 @@ namespace MobiFlight.InputConfig.Tests
         {
             Assert.AreEqual(Keys.NumPad7, KeyInputAction.MapCodeToKeys("Numpad7"));
         }
+
+        [TestMethod]
+        public void execute_WithControlModifierOnly_SendsControl()
+        {
+            var action = new KeyInputAction()
+            {
+                Control = true,
+                Code = ""
+            };
+
+            var keybMock = new MobiFlightUnitTests.mock.Base.KeyboardInputMock();
+            action.Keyboard = keybMock;
+
+            action.execute(null, null, null);
+
+            var result = keybMock.Writes.Count;
+
+            Assert.AreEqual(1, result);
+            Assert.AreEqual("Ctrl+None", keybMock.Writes[0]);
+        }
+
+        [TestMethod]
+        public void execute_WithInvalidKeyCodeAndModifier_DoesNotSend()
+        {
+            var action = new KeyInputAction()
+            {
+                Control = true,
+                Code = "InvalidKeyXYZ"
+            };
+
+            var keybMock = new MobiFlightUnitTests.mock.Base.KeyboardInputMock();
+            action.Keyboard = keybMock;
+
+            action.execute(null, null, null);
+
+            var result = keybMock.Writes.Count;
+
+            Assert.AreEqual(0, result);
+        }
     }
 }
