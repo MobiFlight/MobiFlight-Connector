@@ -1,0 +1,341 @@
+{
+  "$schema": "../../../Boards/mfboard.schema.json",
+  "HardwareIds": [
+    "^VID_1A86&PID_7523"
+  ],
+  "Info": {
+    "MobiFlightType": "Rowsfire A113",
+    "FriendlyName": "Rowsfire A113 (TCAS/ATC)",
+    "CanInstallFirmware": true,
+    "CanResetBoard": false,
+    "FirmwareBaseName": "Rowsfire_A113_V2",
+    "FirmwareExtension": "hex",
+    "LatestFirmwareVersion": "1.0.0",
+    "Community": {
+      "Project": "Rowsfire",
+      "Website": "https://rowsfire.com/",
+      "Docs": "https://rowsfire.com/",
+      "Support": "https://rowsfire.com/"
+    }
+  },
+  "Connection": {
+    "ConnectionDelay": 1750,
+    "DelayAfterFirmwareUpdate": 0,
+    "DtrEnable": true,
+    "EEPROMSize": 286,
+    "ExtraConnectionRetry": true,
+    "ForceResetOnFirmwareUpdate": false,
+    "MessageSize": 90,
+    "TimeoutForFirmwareUpdate": 60000
+  },
+  "ModuleLimits": {
+    "MaxAnalogInputs": 8,
+    "MaxButtons": 40,
+    "MaxEncoders": 9,
+    "MaxInputShifters": 6,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 6,
+    "MaxOutputs": 24,
+    "MaxServos": 8,
+    "MaxSteppers": 4,
+    "MaxInputMultiplexer": 6,
+    "MaxCustomDevices": 0
+  },
+  "Pins": [
+    {
+      "Pin": 2,
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 3,
+      "isAnalog": false,
+      "isPWM": true,
+      "isI2C": false
+    },
+    {
+      "Pin": 4,
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 5,
+      "isAnalog": false,
+      "isPWM": true,
+      "isI2C": false
+    },
+    {
+      "Pin": 6,
+      "isAnalog": false,
+      "isPWM": true,
+      "isI2C": false
+    },
+    {
+      "Pin": 7,
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 8,
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 9,
+      "isAnalog": false,
+      "isPWM": true,
+      "isI2C": false
+    },
+    {
+      "Pin": 10,
+      "isAnalog": false,
+      "isPWM": true,
+      "isI2C": false
+    },
+    {
+      "Pin": 11,
+      "isAnalog": false,
+      "isPWM": true,
+      "isI2C": false
+    },
+    {
+      "Pin": 12,
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 13,
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 14,
+      "Name": "A0",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 15,
+      "Name": "A1",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 16,
+      "Name": "A2",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 17,
+      "Name": "A3",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 18,
+      "Name": "A4",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": true
+    },
+    {
+      "Pin": 19,
+      "Name": "A5",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": true
+    },
+    {
+      "Pin": 20,
+      "Name": "A6",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 21,
+      "Name": "A7",
+      "isAnalog": true,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 30,
+      "Name": "MUX0",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 31,
+      "Name": "MUX1",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 32,
+      "Name": "MUX2",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 33,
+      "Name": "MUX3",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 34,
+      "Name": "MUX4",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 35,
+      "Name": "MUX5",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 36,
+      "Name": "MUX6",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 37,
+      "Name": "MUX7",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 38,
+      "Name": "MUX8",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 40,
+      "Name": "SW_ALTRPTG_UP",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 41,
+      "Name": "SW_ALTRPTG_DN",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 42,
+      "Name": "SW_ATC12_UP",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 43,
+      "Name": "SW_ATC12_DN",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 44,
+      "Name": "SW_STBYTA_UP",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 45,
+      "Name": "SW_STBYTA_MID",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 46,
+      "Name": "SW_STBYTA_DN",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 47,
+      "Name": "SW_AUTOSTBY_UP",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 48,
+      "Name": "SW_AUTOSTBY_MID",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 49,
+      "Name": "SW_AUTOSTBY_DN",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 50,
+      "Name": "SW_ALL_0",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 51,
+      "Name": "SW_ALL_1",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 52,
+      "Name": "SW_ALL_2",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    },
+    {
+      "Pin": 53,
+      "Name": "SW_ALL_3",
+      "isAnalog": false,
+      "isPWM": false,
+      "isI2C": false
+    }
+  ],
+  "AvrDudeSettings": {
+    "Device": "atmega328p",
+    "Programmer": "arduino",
+    "BaudRate": "115200",
+    "Timeout": 15000
+  }
+}
