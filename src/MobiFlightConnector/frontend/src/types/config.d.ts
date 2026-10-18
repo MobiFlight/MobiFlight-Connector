@@ -1,5 +1,7 @@
 import { Controller } from "./controller"
 import { ModifierList, Modifier } from "./modifier"
+import { InputDeviceType, OutputDeviceType } from "./controller"
+
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
@@ -101,6 +103,10 @@ export interface InputConfigItem extends IConfigItem {
 export interface IDeviceConfig {
   Type: InputDeviceType | OutputDeviceType
   Name: string
+}
+
+export interface OutputDeviceConfig extends IDeviceConfig {
+  Type: OutputDeviceType
 }
 
 export interface ExtendedDeviceConfig extends IDeviceConfig {
@@ -254,4 +260,12 @@ export type ConfigReference = {
   Placeholder: string
   Ref: string
   TestValue: string
+}
+
+/* Output devices */
+export interface OutputConfig extends OutputDeviceConfig {
+  Type: "Output"
+  Pin: string
+  Brightness: number
+  PwmMode: boolean
 }
