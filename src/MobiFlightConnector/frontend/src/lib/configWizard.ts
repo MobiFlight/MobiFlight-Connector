@@ -52,23 +52,23 @@ export const ActionTypeOptions: ActionTypeOption[] = [
 
 export const SourceTypeOptions: SourceTypeOption[] = [
   {
-    value: "SimConnect",
+    value: "SimConnectSource",
     isAvailable: (settings) => settings.Sim === "msfs",
   },
   {
-    value: "Fsuipc",
+    value: "FsuipcSource",
     isAvailable: (settings) => settings.Features?.FSUIPC ?? false,
   },
   {
-    value: "ProSim",
+    value: "ProSimSource",
     isAvailable: (settings) => settings.Features?.ProSim ?? false,
   },
   {
-    value: "Xplane",
+    value: "XplaneSource",
     isAvailable: (settings) => settings.Sim === "xplane",
   },
   {
-    value: "Variable",
+    value: "VariableSource",
     isAvailable: () => true,
   },
 ]
