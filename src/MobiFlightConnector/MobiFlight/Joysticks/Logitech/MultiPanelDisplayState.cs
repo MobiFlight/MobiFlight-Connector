@@ -27,7 +27,7 @@ namespace MobiFlight.Joysticks.Logitech
         /// ALT and VS always occupy both rows together; IAS/HDG/CRS occupy the top
         /// row only (3 of its 5 slots), with the bottom row blanked.
         /// </summary>
-        public void SetDisplay(MultiPanelSelector selector, int altValue, int vsValue, int iasValue, int hdgValue, int crsValue)
+        public void SetDisplay(MultiPanelSelector selector, int? altValue, int? vsValue, int? iasValue, int? hdgValue, int? crsValue)
         {
             switch (selector)
             {
@@ -62,23 +62,33 @@ namespace MobiFlight.Joysticks.Logitech
         /// slots stay 0x0F (off) — never zero-padded — so 23 renders as
         /// blank/blank/blank/2/3, not 2/3/0/0/0.
         /// </summary>
-        private static void EncodeInto(byte[] row, int value, int digits, bool allowSign)
+        private static void EncodeInto(byte[] row, int? value, int digits, bool allowSign)
         {
             Array.Copy(NewBlankRow(), row, DIGIT_SLOTS);
 
-            bool negative = allowSign && value < 0;
-            string digitsText = Math.Abs((long)value).ToString();
+            // null means that this logical LCD output must be blank.
+            if (!value.HasValue)
+            {
+                return;
+            }
+
+            int numericValue = value.Value;
+            bool negative = allowSign && numericValue < 0;
+            string digitsText = Math.Abs((long)numericValue).ToString();
 
             if (digitsText.Length > digits)
             {
                 digitsText = digitsText.Substring(digitsText.Length - digits);
             }
 
-            int start = DIGIT_SLOTS - digitsText.Length;
+            int start = digits == 3
+                ? DIGIT_SLOTS - 3
+                : DIGIT_SLOTS - digitsText.Length;
+
+            if (digits == 3) digitsText = digitsText.PadLeft(3, '0');
+
             for (int i = 0; i < digitsText.Length; i++)
-            {
                 row[start + i] = (byte)(digitsText[i] - '0');
-            }
 
             if (negative && start > 0)
             {

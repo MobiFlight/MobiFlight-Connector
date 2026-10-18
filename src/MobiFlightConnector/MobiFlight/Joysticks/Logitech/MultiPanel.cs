@@ -217,14 +217,24 @@ namespace MobiFlight.Joysticks.Logitech
             {
                 switch (address)
                 {
-                    case "LCD ALT": AltValue = intValue; break;
-                    case "LCD VS": VsValue = intValue; break;
-                    case "LCD IAS": IasValue = intValue; break;
-                    case "LCD HDG": HdgValue = intValue; break;
-                    case "LCD CRS": CrsValue = intValue; break;
+                    case "LCD ALT": 
+                      if (AltValue == intValue) return;
+                      AltValue = intValue; break;
+                    case "LCD VS":
+                      if (VsValue == intValue) return;
+                      VsValue = intValue; break;
+                    case "LCD IAS": 
+                      if (IasValue == intValue) return;
+                      IasValue = intValue; break;
+                    case "LCD HDG":
+                      if (HdgValue == intValue) return;
+                      HdgValue = intValue; break;
+                    case "LCD CRS":
+                      if (CrsValue == intValue) return;
+                      CrsValue = intValue; break;
                     default:
-                        Log.Instance.log($"{Name} received LCD value for unknown address '{address}'", LogSeverity.Warn);
-                        return;
+                      Log.Instance.log($"{Name} received LCD value for unknown address '{address}'", LogSeverity.Warn);
+                      return;
                 }
 
                 RequiresOutputUpdate = true;
