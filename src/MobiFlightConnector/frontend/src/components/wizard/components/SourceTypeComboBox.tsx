@@ -2,10 +2,11 @@ import ComboBox from "@/components/ComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
 import { useProjectStore } from "@/stores/projectStore"
 import { Project } from "@/types"
+import type { SourceType } from "@/types/config"
 import { useTranslation } from "react-i18next"
 
 export type SourceTypeOption = {
-  value: string
+  value: SourceType
   isAvailable: (settings: Partial<Project>) => boolean
 }
 

@@ -36,12 +36,13 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   Modifiers?: ModifierList
 }
 
+export type Source = SimConnectSource | XplaneSource | VariableSource | FsuipcSource | ProSimSource
+export type SourceType = Source["Type"]
+
 export interface OutputConfigItem extends IConfigItem {
   Type: "OutputConfigItem"
-  Source: SimConnectSource | XplaneSource | VariableSource | FsuipcSource | ProSimSource
+  Source: Source
 }
-
-export type Source = SimConnectSource | XplaneSource | VariableSource | FsuipcSource | ProSimSource
 
 export interface SimConnectSource {
   Type: "SimConnectSource"
