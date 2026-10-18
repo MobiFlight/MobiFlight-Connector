@@ -35,16 +35,13 @@ const SourceTypeComboBox = ({
           {t("Dialog.ConfigWizard.SourceType.Description")}
         </div>
       </div>
-      <div>{filteredOptions.map(option => option.value).join(", ")}</div>
-      <div>{selectedSourceType?.value}</div>
       <ComboBox
         data-testid="source-type-combobox"
         selected={selectedSourceType}
         items={filteredOptions}
         getLabel={(item) =>
           t(
-            `Dialog.ConfigWizard.SourceType.Options.${item.value}.label`,
-            item.value,
+            `Dialog.ConfigWizard.SourceType.Options.${item.value}.label`
           )
         }
         getValue={(item) => item.value}
@@ -52,7 +49,8 @@ const SourceTypeComboBox = ({
         setSelected={(item) => {
           setSelectedSourceType?.(item || null)
         }}
-        widthClass="w-50"
+        align="start"
+        widthClass="w-70"
       />
     </div>
   )
