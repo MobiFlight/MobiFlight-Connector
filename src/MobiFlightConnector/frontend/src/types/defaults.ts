@@ -1,7 +1,14 @@
-import { FsuipcOffset, FsuipcSource, ProSimSource, SimConnectSource, VariableSource, XplaneSource } from "@/types/config";
+import {
+  FsuipcOffset,
+  FsuipcSource,
+  ProSimSource,
+  SimConnectSource,
+  VariableSource,
+  XplaneSource,
+} from "@/types/config"
 
 export const FsuipcDefaults = {
-  createOffset: () : FsuipcOffset => ({
+  createOffset: (): FsuipcOffset => ({
     OffsetType: 0,
     Offset: 0x66c0,
     Size: 1,
@@ -11,37 +18,37 @@ export const FsuipcDefaults = {
 }
 
 export const SourceDefaults = {
-  createSimConnectSource: () : SimConnectSource => ({
+  createSimConnectSource: (): SimConnectSource => ({
     Type: "SimConnectSource",
     SimConnectValue: {
       UUID: "",
-      Value: ""
-    }
+      Value: "",
+    },
   }),
-  createXplaneSource: () : XplaneSource => ({
+  createXplaneSource: (): XplaneSource => ({
     Type: "XplaneSource",
     XplaneDataRef: {
-      Path: ""
-    }
+      Path: "",
+    },
   }),
-  createProSimSource: () : ProSimSource => ({
+  createProSimSource: (): ProSimSource => ({
     Type: "ProSimSource",
     ProSimDataRef: {
-      Path: ""
-    }
+      Path: "",
+    },
   }),
-  createVariableSource: () : VariableSource => ({
+  createVariableSource: (): VariableSource => ({
     Type: "VariableSource",
     MobiFlightVariable: {
       Name: "",
       TYPE: "number",
       Expression: "",
       Number: 0,
-      Text: ""
-    }
+      Text: "",
+    },
   }),
-  createFsuipcSource: () : FsuipcSource => ({
+  createFsuipcSource: (): FsuipcSource => ({
     Type: "FsuipcSource",
-    FSUIPC: FsuipcDefaults.createOffset()
-  })
+    FSUIPC: FsuipcDefaults.createOffset(),
+  }),
 }

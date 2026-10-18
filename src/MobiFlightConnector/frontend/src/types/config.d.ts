@@ -262,3 +262,57 @@ export interface OutputConfig extends OutputDeviceConfig {
   Brightness: number
   PwmMode: boolean
 }
+
+export interface LedModuleConfig extends OutputDeviceConfig {
+  Type: "LedModule"
+  DisplayLedAddress: string
+  DisplayLedConnector: number
+  DisplayLedModuleSize: number
+  DisplayLedPadding: boolean
+  DisplayLedPaddingChar: string
+  DisplayLedDigits: string[]
+  DisplayLedDecimalPoints: string[]
+  DisplayLedReverseDigits: boolean
+  DisplayLedBrightnessReference: string
+}
+
+export interface LcdDisplayConfig extends OutputDeviceConfig {
+  Type: "LcdDisplay"
+  Address: string
+  Lines: string[]
+}
+
+export interface ServoConfig extends OutputDeviceConfig {
+  Type: "Servo"
+  Address: string
+  Min: string
+  Max: string
+  MaxRotationPercent: string
+}
+
+export interface StepperConfig extends OutputDeviceConfig {
+  Type: "Stepper"
+  Address: string
+  InputRev: number
+  OutputRev: number
+  TestValue: number
+  CompassMode: boolean
+  Acceleration: number
+  Speed: number
+}
+
+export interface ShiftRegisterConfig extends OutputDeviceConfig {
+  Type: "ShiftRegister"
+  Address: string
+  Pin: string
+  Brightness: number
+  PWM: boolean
+}
+
+export interface CustomDeviceConfig extends OutputDeviceConfig {
+  Type: "CustomDevice"
+  CustomType: string
+  CustomName: string
+  MessageType: number
+  Value: string
+}
