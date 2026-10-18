@@ -1,6 +1,7 @@
 import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
 import ConfigReferencePanel from "@/components/wizard/ConfigReferences/ConfigReferencePanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
+import OutputConfigTrigger from "@/components/wizard/components/OutputConfigTrigger"
 import PreconditionsPanel from "@/components/wizard/Precondition/PreconditionsPanel"
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
@@ -12,6 +13,7 @@ import {
   ButtonHoldOptions,
   ButtonLongReleaseOptions,
   EncoderTrigger,
+  ConfigItemType,
 } from "@/types/config"
 import {
   Drawer,
@@ -27,6 +29,7 @@ import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
 
 export type ConfigWizardProps = {
+  variant: ConfigItemType
   configItem: IConfigItem
   onConfigChange: (configItem: IConfigItem) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
@@ -61,6 +64,7 @@ const drawerVariant = {
 }
 
 const ConfigWizard = ({
+  variant,
   configItem,
   onConfigChange,
   drawerContainer,
@@ -124,6 +128,8 @@ const ConfigWizard = ({
 
   return (
     <div className="flex flex-col gap-4">
+      
+      { variant === "InputConfigItem" && (  
       <ConfigTrigger
         configItem={configItem}
         setConfigItem={(item: IConfigItem) => {
@@ -131,6 +137,19 @@ const ConfigWizard = ({
           onConfigChange(item)
         }}
       />
+      )}
+
+      { variant === "OutputConfigItem" && (
+        <OutputConfigTrigger
+          configItem={configItem}
+          setConfigItem={(item: IConfigItem) => {
+            // Update the configItem state here
+            onConfigChange(item)
+          }}
+        />
+      )}
+
+
       <div className="flex flex-row items-center justify-center gap-2 px-6">
         <Button
           variant="outline"
@@ -194,7 +213,7 @@ const ConfigWizard = ({
         />
       )}
 
-      {currentDeviceType === "Button" && (
+      {variant == "InputConfigItem" && currentDeviceType === "Button" && (
         <ActionBindingPanel
           variant="button"
           onActionEdit={(
@@ -226,7 +245,7 @@ const ConfigWizard = ({
           }}
         />
       )}
-      {currentDeviceType === "Encoder" && (
+      {variant == "InputConfigItem" && currentDeviceType === "Encoder" && (
         <ActionBindingPanel
           variant="encoder"
           onActionEdit={(
@@ -248,7 +267,7 @@ const ConfigWizard = ({
           }}
         />
       )}
-      {currentDeviceType === "AnalogInput" && (
+      {variant == "InputConfigItem" && currentDeviceType === "AnalogInput" && (
         <ActionBindingPanel
           variant="analog"
           onActionEdit={(
@@ -270,7 +289,7 @@ const ConfigWizard = ({
           }}
         />
       )}
-      {currentDeviceType === null && (
+      {variant == "InputConfigItem" && currentDeviceType === null && (
         <ActionBindingPanel
           variant="none"
           onActionEdit={() => {}}

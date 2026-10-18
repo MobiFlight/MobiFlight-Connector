@@ -3,8 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import messageExchange from "@/lib/messageExchange"
-import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { IconDots, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
@@ -15,36 +13,29 @@ interface ConfigItemTableActionsCellProps {
   row: Row<IConfigItem>
 }
 
-function ConfigItemTableActionsCell({
-  row,
-}: ConfigItemTableActionsCellProps) {
+function ConfigItemTableActionsCell({ row }: ConfigItemTableActionsCellProps) {
   const item = row.original
-  const { publish } = messageExchange
   const navigate = useNavigate()
 
-  const isInputConfig = item.Type === "InputConfigItem"
-  
   return (
     <div className="flex justify-center">
       <Button
         variant="outline"
         className="h-8 w-8 rounded-r-none border-r-0 p-0"
         onClick={() => {
-          if (isInputConfig) {
-            navigate("/config/" + item.GUID)
-            return
-          }
-          publish({
-            key: "CommandConfigContextMenu",
-            payload: { action: "edit", item: item },
-          } as CommandConfigContextMenu)
+          navigate("/config/" + item.GUID)
+          return
         }}
       >
         <span className="sr-only">Edit</span>
-        <IconEdit
-        />
+        <IconEdit />
       </Button>
-      <div className="relative" onContextMenu={(e) => { e.preventDefault() }}>
+      <div
+        className="relative"
+        onContextMenu={(e) => {
+          e.preventDefault()
+        }}
+      >
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="h-8 w-8 rounded-l-none p-0">
