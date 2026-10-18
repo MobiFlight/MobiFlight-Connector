@@ -403,7 +403,9 @@ const ConfigWizard = ({
               {detailView === "display" && (
                 <OutputDeviceEditor
                   configItem={configItem as OutputConfigItem}
-                  onConfigChange={() => {}}
+                  onConfigChange={(config) => {
+                    onConfigChange(config)
+                  }}
                 />
               )}
             </div>
