@@ -7,9 +7,10 @@ import { useTranslation } from "react-i18next"
 
 export interface DisplayBindingPanelProps {
   config: OutputConfigItem
+  onEdit: () => void
 }
 
-const DisplayBindingPanel = ({ config }: DisplayBindingPanelProps) => {
+const DisplayBindingPanel = ({ config, onEdit }: DisplayBindingPanelProps) => {
   const { t } = useTranslation()
 
   const hasOutputDevice = config.Device !== undefined
@@ -33,7 +34,7 @@ const DisplayBindingPanel = ({ config }: DisplayBindingPanelProps) => {
         { hasOutputDevice && (
           <div className="flex flex-row gap-2">
             {/* Display the output device here */}
-            <OutputDeviceSummary config={config.Device as OutputConfig} controller={config.Controller} />
+            <OutputDeviceSummary config={config.Device as OutputConfig} controller={config.Controller} onEdit={onEdit} />
           </div>
         )}
 
