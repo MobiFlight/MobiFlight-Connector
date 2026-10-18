@@ -1,7 +1,5 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import { OutputConfig } from "@/types/config"
-import { Button } from "@/components/ui/button"
-import { IconEdit } from "@tabler/icons-react"
 import { Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
@@ -38,9 +36,6 @@ const OutputPanel = ({ config, variant, controller }: OutputPanelProps) => {
             <Badge variant="secondary">PWM Mode On</Badge>
           </div>
         )}
-        <Button size={"sm"} variant="ghost" onClick={() => {}}>
-          <IconEdit size={16} />
-        </Button>
       </div>
     )
   )

@@ -30,6 +30,7 @@ import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
 import SourceEditor from "@/components/wizard/components/SourceEditor"
 import DisplayBindingPanel from "@/components/wizard/components/DisplayBindingPanel"
+import OutputDeviceEditor from "@/components/wizard/components/OutputDevices/OutputDeviceEditor"
 
 export type ConfigWizardProps = {
   variant: ConfigItemType
@@ -299,7 +300,9 @@ const ConfigWizard = ({
         />
       )}
       {variant == "OutputConfigItem" && (
-        <DisplayBindingPanel config={configItem as OutputConfigItem}/>
+        <DisplayBindingPanel config={configItem as OutputConfigItem} onEdit={() => {
+          navigateToDetailView("display")
+        }}/>
       )}
 
       {detailView && (
@@ -385,6 +388,14 @@ const ConfigWizard = ({
                   source={(configItem as OutputConfigItem).Source}
                   onSourceChange={() => {
                     // Handle source change here
+                  }}
+                />
+              )}
+
+              {detailView === "display" && (
+                <OutputDeviceEditor
+                  configItem={(configItem as OutputConfigItem)}
+                  onConfigChange={() => {
                   }}
                 />
               )}
