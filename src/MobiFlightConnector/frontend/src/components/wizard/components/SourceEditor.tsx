@@ -4,6 +4,7 @@ import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
 import SourceTypeComboBox from "@/components/wizard/components/SourceTypeComboBox"
 import { fetchHubHopPresets, SourceTypeOptions } from "@/lib/configWizard"
 import { SimConnectSource, Source } from "@/types/config"
+import { SourceDefaults } from "@/types/defaults"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
@@ -46,7 +47,25 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
               <SourceTypeComboBox
                 selectedSourceType={selectedSourceType}
                 setSelectedSourceType={(option) => {
-                  onSourceChange(option ? { Type: option.value } as Source : null)
+                  switch (option?.value) {
+                    case "SimConnectSource":
+                      onSourceChange(SourceDefaults.createSimConnectSource())
+                      break
+                    case "FsuipcSource":
+                      onSourceChange(SourceDefaults.createFsuipcSource())
+                      break
+                    case "ProSimSource":
+                      onSourceChange(SourceDefaults.createProSimSource())
+                      break
+                    case "VariableSource":
+                      onSourceChange(SourceDefaults.createVariableSource())
+                      break
+                    case "XplaneSource":
+                      onSourceChange(SourceDefaults.createXplaneSource())
+                      break
+                    default:
+                      onSourceChange(null)
+                  }
                 }}
               />
             </div>
