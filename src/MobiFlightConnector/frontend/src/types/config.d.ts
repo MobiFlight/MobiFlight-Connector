@@ -34,6 +34,46 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   Modifiers?: ModifierList
 }
 
+export interface OutputConfigItem extends IConfigItem {
+  Type: "OutputConfigItem"
+  Source: SimConnectSource | XplaneSource | VariableSource | FsuipcSource | ProSimSource
+}
+
+export type Source = SimConnectSource | XplaneSource | VariableSource | FsuipcSource | ProSimSource
+
+export interface SimConnectSource {
+  Type: "SimConnectSource"
+  SimConnectValue: {
+    UUID: uuid
+    Value: string
+  }
+}
+
+
+export interface XplaneSource {
+  Type: "XplaneSource"
+  XplaneDataRef: {
+    Path: string
+  }
+}
+
+export interface VariableSource {
+  Type: "VariableSource"
+  MobiFlightVariable: MobiFlightVariable
+}
+
+export interface ProSimSource {
+  Type: "ProSimSource"
+  ProSimDataRef: {
+    Path: string
+  }
+}
+
+export interface FsuipcSource {
+  Type: "FsuipcSource"
+  FSUIPC: FsuipcOffset
+}
+
 export type ConfigItemStatusType =
   | "Precondition"
   | "Source"

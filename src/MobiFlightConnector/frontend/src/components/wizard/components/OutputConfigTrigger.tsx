@@ -1,38 +1,23 @@
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { IConfigItem } from "@/types/config"
-import { BaseDevice, Controller } from "@/types/controller"
+import { IConfigItem, OutputConfigItem } from "@/types/config"
 import { useTranslation } from "react-i18next"
+import SourceSummary from "./SourceSummary"
 
 export type OutputConfigTriggerProps = {
   configItem: IConfigItem
-  setConfigItem: (item: IConfigItem) => void
+  // setConfigItem: (item: IConfigItem) => void
+  navigateToDetailView: (view: string, size?: "small" | "large") => void
 }
 
-const OutputConfigTrigger = ({ configItem, setConfigItem }: OutputConfigTriggerProps) => {
+const OutputConfigTrigger = ({
+  configItem,
+  // setConfigItem,
+  navigateToDetailView,
+}: OutputConfigTriggerProps) => {
   const { t } = useTranslation()
 
-  const updateConfigItem = (
-    controller: Partial<Controller> | undefined,
-    device: BaseDevice | undefined,
-  ) => {
-    setConfigItem({
-      ...configItem,
-      Controller: controller
-        ? {
-            ...controller,
-            // unset Devices
-            // before sending it back to backend.
-            Devices: undefined,
-          }
-        : undefined,
-      Device: device
-        ? {
-            Name: device.Name,
-            Type: device.Type,
-          }
-        : null,
-    })
-  }
+  const outputConfigItem = configItem as OutputConfigItem
 
   return (
     <Card
@@ -48,9 +33,19 @@ const OutputConfigTrigger = ({ configItem, setConfigItem }: OutputConfigTriggerP
             {t("Dialog.InputConfigWizard.ConfigTrigger.Description")}
           </div>
         </div>
-        <div className="flex flex-row items-center gap-2">
-          {/* This will provide the options for the source values */}
-        </div>
+        {outputConfigItem.Source == null ? (
+          <div className="flex flex-row items-center gap-2">
+            <Button
+              onClick={() => navigateToDetailView("source")}
+              className="px-5"
+              size="sm"
+            >
+              Select value
+            </Button>
+          </div>
+        ) : (
+          <SourceSummary source={outputConfigItem.Source} onEdit={() => navigateToDetailView("source")} />
+        )}
       </CardContent>
     </Card>
   )

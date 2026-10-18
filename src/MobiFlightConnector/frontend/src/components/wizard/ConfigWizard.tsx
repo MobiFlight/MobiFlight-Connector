@@ -14,6 +14,7 @@ import {
   ButtonLongReleaseOptions,
   EncoderTrigger,
   ConfigItemType,
+  OutputConfigItem,
 } from "@/types/config"
 import {
   Drawer,
@@ -27,6 +28,7 @@ import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
+import SourceEditor from "@/components/wizard/components/SourceEditor"
 
 export type ConfigWizardProps = {
   variant: ConfigItemType
@@ -128,19 +130,8 @@ const ConfigWizard = ({
 
   return (
     <div className="flex flex-col gap-4">
-      
-      { variant === "InputConfigItem" && (  
-      <ConfigTrigger
-        configItem={configItem}
-        setConfigItem={(item: IConfigItem) => {
-          // Update the configItem state here
-          onConfigChange(item)
-        }}
-      />
-      )}
-
-      { variant === "OutputConfigItem" && (
-        <OutputConfigTrigger
+      {variant === "InputConfigItem" && (
+        <ConfigTrigger
           configItem={configItem}
           setConfigItem={(item: IConfigItem) => {
             // Update the configItem state here
@@ -149,6 +140,16 @@ const ConfigWizard = ({
         />
       )}
 
+      {variant === "OutputConfigItem" && (
+        <OutputConfigTrigger
+          configItem={configItem}
+          // setConfigItem={(item: IConfigItem) => {
+          //   // Update the configItem state here
+          //   onConfigChange(item)
+          // }}
+          navigateToDetailView={navigateToDetailView}
+        />
+      )}
 
       <div className="flex flex-row items-center justify-center gap-2 px-6">
         <Button
@@ -181,7 +182,7 @@ const ConfigWizard = ({
       </div>
 
       {(hasReferences || hasPreconditions) && (
-        <div className="flex flex-col lg:flex-row gap-2">
+        <div className="flex flex-col gap-2 lg:flex-row">
           {hasReferences && (
             <div className="lg:w-1/2">
               <ConfigReferencePanel
@@ -371,6 +372,15 @@ const ConfigWizard = ({
                         ...buttonOptions,
                       }))
                     }
+                  }}
+                />
+              )}
+
+              {detailView === "source" && (
+                <SourceEditor
+                  source={(configItem as OutputConfigItem).Source}
+                  onSourceChange={() => {
+                    // Handle source change here
                   }}
                 />
               )}

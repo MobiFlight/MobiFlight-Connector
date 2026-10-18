@@ -1,4 +1,5 @@
 import { ActionTypeOption } from "@/components/wizard/components/ActionTypeComboBox"
+import { SourceTypeOption } from "@/components/wizard/components/SourceTypeComboBox"
 import { Preset } from "@/types/preset"
 
 export const ActionTypeOptions: ActionTypeOption[] = [
@@ -46,6 +47,29 @@ export const ActionTypeOptions: ActionTypeOption[] = [
   {
     value: "EventIdInputAction",
     isAvailable: (settings) => settings.Features?.FSUIPC ?? false,
+  },
+]
+
+export const SourceTypeOptions: SourceTypeOption[] = [
+  {
+    value: "SimConnect",
+    isAvailable: (settings) => settings.Sim === "msfs",
+  },
+  {
+    value: "Fsuipc",
+    isAvailable: (settings) => settings.Features?.FSUIPC ?? false,
+  },
+  {
+    value: "ProSim",
+    isAvailable: (settings) => settings.Features?.ProSim ?? false,
+  },
+  {
+    value: "Xplane",
+    isAvailable: (settings) => settings.Sim === "xplane",
+  },
+  {
+    value: "Variable",
+    isAvailable: () => true,
   },
 ]
 
