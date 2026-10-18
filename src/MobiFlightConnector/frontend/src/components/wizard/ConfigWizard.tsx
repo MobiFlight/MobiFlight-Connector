@@ -300,9 +300,12 @@ const ConfigWizard = ({
         />
       )}
       {variant == "OutputConfigItem" && (
-        <DisplayBindingPanel config={configItem as OutputConfigItem} onEdit={() => {
-          navigateToDetailView("display")
-        }}/>
+        <DisplayBindingPanel
+          config={configItem as OutputConfigItem}
+          onEdit={() => {
+            navigateToDetailView("display")
+          }}
+        />
       )}
 
       {detailView && (
@@ -386,17 +389,21 @@ const ConfigWizard = ({
               {detailView === "source" && (
                 <SourceEditor
                   source={(configItem as OutputConfigItem).Source}
-                  onSourceChange={() => {
+                  onSourceChange={(source) => {
                     // Handle source change here
+                    console.log("Source changed", source)
+                    onConfigChange({
+                      ...configItem,
+                      Source: source,
+                    } as OutputConfigItem)
                   }}
                 />
               )}
 
               {detailView === "display" && (
                 <OutputDeviceEditor
-                  configItem={(configItem as OutputConfigItem)}
-                  onConfigChange={() => {
-                  }}
+                  configItem={configItem as OutputConfigItem}
+                  onConfigChange={() => {}}
                 />
               )}
             </div>

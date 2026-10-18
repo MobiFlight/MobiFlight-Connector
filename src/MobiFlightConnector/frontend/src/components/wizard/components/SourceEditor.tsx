@@ -1,9 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
-import SourceTypeComboBox, {
-  SourceTypeOption,
-} from "@/components/wizard/components/SourceTypeComboBox"
+import SourceTypeComboBox from "@/components/wizard/components/SourceTypeComboBox"
 import { fetchHubHopPresets, SourceTypeOptions } from "@/lib/configWizard"
 import { SimConnectSource, Source } from "@/types/config"
 import { useQuery } from "@tanstack/react-query"
@@ -11,7 +9,7 @@ import { useTranslation } from "react-i18next"
 
 export interface SourceEditorProps {
   source: Source | null
-  onSourceChange: (selectedSourceType: SourceTypeOption | null) => void
+  onSourceChange: (source: Source | null) => void
 }
 const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
   const { t } = useTranslation()
@@ -48,24 +46,48 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
               <SourceTypeComboBox
                 selectedSourceType={selectedSourceType}
                 setSelectedSourceType={(option) => {
-                  onSourceChange(option)
+                  onSourceChange(option ? { Type: option.value } as Source : null)
                 }}
               />
             </div>
           </div>
         </CardContent>
       </Card>
-      <MsfsPresetPanel
-        variant="output"
-        isLoading={isLoading}
-        selectedPresetId={preset?.id ?? null}
-        setSelectedPreset={() => {}}
-      />
-      <MsfsPresetDetails
-        command={(source as SimConnectSource)?.SimConnectValue.Value ?? ""}
-        preset={preset}
-        onCommandChange={() => {}}
-      />
+      {selectedSourceType?.value === "SimConnectSource" && (
+        <>
+          <MsfsPresetPanel
+            variant="output"
+            isLoading={isLoading}
+            selectedPresetId={preset?.id ?? null}
+            setSelectedPreset={() => {}}
+          />
+          <MsfsPresetDetails
+            command={(source as SimConnectSource)?.SimConnectValue?.Value ?? ""}
+            preset={preset}
+            onCommandChange={(command) => {
+              onSourceChange({
+                ...source,
+                SimConnectValue: {
+                  ...((source as SimConnectSource)?.SimConnectValue ?? {}),
+                  Value: command,
+                },
+              } as SimConnectSource)  
+            }}
+          />
+        </>
+      )}
+      {selectedSourceType?.value === "VariableSource" && (
+        <div>Variable options</div>
+      )}
+      {selectedSourceType?.value === "FsuipcSource" && (
+        <div>Fsuipc options</div>
+      )}
+      {selectedSourceType?.value === "ProSimSource" && (
+        <div>ProSim options</div>
+      )}
+      {selectedSourceType?.value === "XplaneSource" && (
+        <div>Xplane options</div>
+      )}
     </div>
   )
 }
