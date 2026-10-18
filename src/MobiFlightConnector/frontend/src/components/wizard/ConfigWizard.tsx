@@ -29,6 +29,7 @@ import ActionEditor from "@/components/wizard/components/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
 import SourceEditor from "@/components/wizard/components/SourceEditor"
+import DisplayBindingPanel from "@/components/wizard/components/DisplayBindingPanel"
 
 export type ConfigWizardProps = {
   variant: ConfigItemType
@@ -296,6 +297,9 @@ const ConfigWizard = ({
           onActionEdit={() => {}}
           onTriggerChange={() => {}}
         />
+      )}
+      {variant == "OutputConfigItem" && (
+        <DisplayBindingPanel config={configItem as OutputConfigItem}/>
       )}
 
       {detailView && (
