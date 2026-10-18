@@ -14,6 +14,7 @@ const DisplayBindingPanel = ({ config }: DisplayBindingPanelProps) => {
 
   const hasOutputDevice = config.Device !== undefined
   const hasInputAction = config.DeviceType === "InputAction"
+
   return (
     <Card
       data-testid="action-panel"
@@ -32,7 +33,7 @@ const DisplayBindingPanel = ({ config }: DisplayBindingPanelProps) => {
         { hasOutputDevice && (
           <div className="flex flex-row gap-2">
             {/* Display the output device here */}
-            <OutputDeviceSummary config={config.Device as OutputConfig} />
+            <OutputDeviceSummary config={config.Device as OutputConfig} controller={config.Controller} />
           </div>
         )}
 
