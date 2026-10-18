@@ -179,6 +179,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             <div className="pr-3">
               {draftConfigItem && (
                 <ConfigWizard
+                  variant={draftConfigItem.Type}
                   configItem={draftConfigItem}
                   onConfigChange={(item) => {
                     setCurrentConfigItem(item)
