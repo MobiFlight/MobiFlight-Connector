@@ -1,8 +1,8 @@
 {
-  "Name": "Logitech Saitek Multi Panel_Generic",
+  "Name": "Logitech Saitek Multi Panel",
   "ConfigFiles": [
     {
-      "Label": "Multi Panel",
+      "Label": "MultiPanel",
       "ReferenceOnly": false,
       "EmbedContent": true,
       "ConfigItems": [
@@ -24,6 +24,174 @@
           "GUID": "9444da2e-beec-4eca-8e7a-951035459d6d",
           "Active": true,
           "Name": "AP",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_HDG_HOLD)",
+              "PresetId": "1e879ccb-96c9-401e-b447-940c7380a410",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 8"
+          },
+          "GUID": "bf25ac6f-e1d5-44c8-8909-139187b6ba3d",
+          "Active": true,
+          "Name": "HDG",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_NAV1_HOLD)",
+              "PresetId": "83a61eaf-5315-445b-bc1e-bc76135cca76",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 9"
+          },
+          "GUID": "1c6bde27-aa59-470d-ab4a-1fc23251360f",
+          "Active": true,
+          "Name": "NAV",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_AIRSPEED_HOLD)",
+              "PresetId": "0c7952a8-d6f3-427f-9a19-8e5242f4c67a",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 10"
+          },
+          "GUID": "929e1361-22d8-4039-a16e-df8964fcef7b",
+          "Active": true,
+          "Name": "IAS",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_ALT_HOLD)",
+              "PresetId": "a946ee03-bd6d-4ed4-b1c2-72d26df93848",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 11"
+          },
+          "GUID": "c00b8551-12da-4de0-979d-3d8fd5a2bded",
+          "Active": true,
+          "Name": "ALT",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_PANEL_VS_HOLD)",
+              "PresetId": "6a81e461-5a7b-4dbf-b0b2-7cacc179df42",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 12"
+          },
+          "GUID": "9c05f7d5-8e78-4d0d-a428-1f6b189a5f2c",
+          "Active": true,
+          "Name": "VS",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_APR_HOLD)",
+              "PresetId": "de7fab05-76c5-4fc1-a86a-e32a31c5aff3",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 13"
+          },
+          "GUID": "3f331706-41d7-4c4c-8427-aa29f0f46398",
+          "Active": true,
+          "Name": "APR",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          }
+        },
+        {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_BC_HOLD)",
+              "PresetId": "6e29a887-cb7e-423b-b17a-ea7d0c9004e4",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 14"
+          },
+          "GUID": "d9d2e59f-95ea-4a55-a856-af5f564efc37",
+          "Active": true,
+          "Name": "REV",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
@@ -62,30 +230,6 @@
           }
         },
         {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_HDG_HOLD)",
-              "PresetId": "1e879ccb-96c9-401e-b447-940c7380a410",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 8"
-          },
-          "GUID": "bf25ac6f-e1d5-44c8-8909-139187b6ba3d",
-          "Active": true,
-          "Name": "HDG",
-          "Type": "InputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
-        },
-        {
           "Source": {
             "SimConnectValue": {
               "UUID": "4eb2a124-0af9-45c5-a665-00b94bc0c207",
@@ -111,30 +255,6 @@
           "Active": true,
           "Name": "LED HDG",
           "Type": "OutputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
-        },
-        {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_NAV1_HOLD)",
-              "PresetId": "83a61eaf-5315-445b-bc1e-bc76135cca76",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 9"
-          },
-          "GUID": "1c6bde27-aa59-470d-ab4a-1fc23251360f",
-          "Active": true,
-          "Name": "NAV",
-          "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
@@ -172,30 +292,6 @@
           }
         },
         {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_AIRSPEED_HOLD)",
-              "PresetId": "0c7952a8-d6f3-427f-9a19-8e5242f4c67a",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 10"
-          },
-          "GUID": "929e1361-22d8-4039-a16e-df8964fcef7b",
-          "Active": true,
-          "Name": "IAS",
-          "Type": "InputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
-        },
-        {
           "Source": {
             "SimConnectValue": {
               "UUID": "a4bace5b-4a8b-4c56-9af7-e52e149d02d3",
@@ -221,30 +317,6 @@
           "Active": true,
           "Name": "LED IAS",
           "Type": "OutputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
-        },
-        {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_ALT_HOLD)",
-              "PresetId": "a946ee03-bd6d-4ed4-b1c2-72d26df93848",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 11"
-          },
-          "GUID": "c00b8551-12da-4de0-979d-3d8fd5a2bded",
-          "Active": true,
-          "Name": "ALT",
-          "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
@@ -282,30 +354,6 @@
           }
         },
         {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_PANEL_VS_HOLD)",
-              "PresetId": "6a81e461-5a7b-4dbf-b0b2-7cacc179df42",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 12"
-          },
-          "GUID": "9c05f7d5-8e78-4d0d-a428-1f6b189a5f2c",
-          "Active": true,
-          "Name": "VS",
-          "Type": "InputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
-        },
-        {
           "Source": {
             "SimConnectValue": {
               "UUID": "3c5c84e5-a499-4a07-8d0c-f812004f60fe",
@@ -331,30 +379,6 @@
           "Active": true,
           "Name": "LED VS",
           "Type": "OutputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
-        },
-        {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_APR_HOLD)",
-              "PresetId": "de7fab05-76c5-4fc1-a86a-e32a31c5aff3",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 13"
-          },
-          "GUID": "3f331706-41d7-4c4c-8427-aa29f0f46398",
-          "Active": true,
-          "Name": "APR",
-          "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
@@ -392,40 +416,13 @@
           }
         },
         {
-          "button": {
-            "onPress": {
-              "Variable": {
-                "TYPE": "number",
-                "Name": "LED REV",
-                "Expression": "($+1)%2"
-              },
-              "Type": "VariableInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 14"
-          },
-          "GUID": "d9d2e59f-95ea-4a55-a856-af5f564efc37",
-          "Active": false,
-          "Name": "REV",
-          "Type": "InputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
-        },
-        {
           "Source": {
-            "MobiFlightVariable": {
-              "TYPE": "number",
-              "Name": "LED REV",
-              "Expression": "$"
+            "SimConnectValue": {
+              "UUID": "3b51d4d9-6c42-4bd1-8158-5358178a9d83",
+              "Value": "(A:AUTOPILOT BACKCOURSE HOLD,Bool)",
+              "VarType": 2
             },
-            "Type": "VariableSource"
+            "Type": "SimConnectSource"
           },
           "TestValue": {
             "type": 1,
@@ -441,7 +438,7 @@
           "DeviceType": "Output",
           "DeviceName": "REV",
           "GUID": "d0443fde-8fe5-4d2e-9cc6-1350a99a190c",
-          "Active": false,
+          "Active": true,
           "Name": "LED REV",
           "Type": "OutputConfigItem",
           "Controller": {
@@ -452,17 +449,14 @@
         {
           "button": {
             "onPress": {
-              "Command": "(>K:AUTO_THROTTLE_ARM)",
-              "PresetId": "9e77f053-d0a8-44d4-a274-c12cd37a6076",
+              "Command": "(A:AUTOPILOT THROTTLE ARM,Bool) 0 == if{ (>K:AP_AUTO_THROTTLE_ARM) }",
+              "PresetId": "",
               "Type": "MSFS2020CustomInputAction"
             },
             "onRelease": {
-              "Variable": {
-                "TYPE": "number",
-                "Name": "A/T ARM",
-                "Expression": "0"
-              },
-              "Type": "VariableInputAction"
+              "Command": "(A:AUTOPILOT THROTTLE ARM,Bool) 1 == if{ (>K:AP_AUTO_THROTTLE_ARM) }",
+              "PresetId": "",
+              "Type": "MSFS2020CustomInputAction"
             },
             "LongReleaseDelay": 350,
             "HoldDelay": 350,
@@ -482,29 +476,10 @@
           }
         },
         {
-          "Source": {
-            "MobiFlightVariable": {
-              "TYPE": "number",
-              "Name": "A/T ARM",
-              "Expression": "$"
-            },
-            "Type": "VariableSource"
-          },
-          "TestValue": {
-            "type": 1,
-            "Float64": 1.0
-          },
-          "DeviceType": "-",
-          "GUID": "2702154b-5adb-4160-8964-dfdab9a27283",
-          "Active": false,
-          "Name": "A/T ARM",
-          "Type": "OutputConfigItem"
-        },
-        {
           "button": {
             "onPress": {
-              "Command": "(>K:FLAPS_UP)",
-              "PresetId": "1699149f-e8ee-462c-b4d5-7f502826501a",
+              "Command": "(>K:FLAPS_DECR)",
+              "PresetId": "9415a1f7-8a3c-40d2-8f05-6c49a24f57bd",
               "Type": "MSFS2020CustomInputAction"
             },
             "LongReleaseDelay": 350,
@@ -527,8 +502,8 @@
         {
           "button": {
             "onPress": {
-              "Command": "(>K:FLAPS_DOWN)",
-              "PresetId": "a97e9424-0edf-4907-bbc5-2b974bae3756",
+              "Command": "(>K:FLAPS_INCR)",
+              "PresetId": "e624c562-179c-4b0e-87f4-08ff26066251",
               "Type": "MSFS2020CustomInputAction"
             },
             "LongReleaseDelay": 350,
@@ -549,29 +524,10 @@
           }
         },
         {
-          "Source": {
-            "MobiFlightVariable": {
-              "TYPE": "number",
-              "Name": "FLAPS",
-              "Expression": "$"
-            },
-            "Type": "VariableSource"
-          },
-          "TestValue": {
-            "type": 1,
-            "Float64": 1.0
-          },
-          "DeviceType": "-",
-          "GUID": "a3321dd3-b4bc-4c2b-9e10-4ce9dc8033fa",
-          "Active": false,
-          "Name": "FLAPS",
-          "Type": "OutputConfigItem"
-        },
-        {
           "button": {
             "onPress": {
-              "Command": "(>K:AP_PITCH_REF_INC_UP)",
-              "PresetId": "f15a8c55-6f60-46ac-b7c3-abb427cefd7f",
+              "Command": "(>K:ELEV_TRIM_UP)",
+              "PresetId": "adc21a38-0671-481d-aa80-233c7ca33823",
               "Type": "MSFS2020CustomInputAction"
             },
             "LongReleaseDelay": 350,
@@ -594,8 +550,8 @@
         {
           "button": {
             "onPress": {
-              "Command": "(>K:AP_PITCH_REF_INC_DN)",
-              "PresetId": "d9761af6-927b-4401-a306-61d57921ed76",
+              "Command": "(>K:ELEV_TRIM_DN)",
+              "PresetId": "44cf55ab-06f6-4e7d-83e6-6144f713da5c",
               "Type": "MSFS2020CustomInputAction"
             },
             "LongReleaseDelay": 350,
@@ -614,25 +570,6 @@
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
           }
-        },
-        {
-          "Source": {
-            "MobiFlightVariable": {
-              "TYPE": "number",
-              "Name": "PITCH",
-              "Expression": "$"
-            },
-            "Type": "VariableSource"
-          },
-          "TestValue": {
-            "type": 1,
-            "Float64": 1.0
-          },
-          "DeviceType": "-",
-          "GUID": "90f1ccbb-b74e-401e-a6da-66d227a71dab",
-          "Active": false,
-          "Name": "PITCH",
-          "Type": "OutputConfigItem"
         },
         {
           "button": {
@@ -662,47 +599,12 @@
           },
           "GUID": "1450c0a0-d407-479d-844a-5fd951d3ed79",
           "Active": true,
-          "Name": "ALT SEL",
+          "Name": "[Selector] - ALT",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
           }
-        },
-        {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_ALT_VAR_INC)",
-              "PresetId": "6b70bc27-97bf-499e-ba49-3d63984aa593",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 5"
-          },
-          "GUID": "b7f7ff05-e730-4341-af3a-6b7da20eb6c1",
-          "Active": true,
-          "Name": "ALT+",
-          "Type": "InputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          },
-          "Preconditions": [
-            {
-              "Type": "variable",
-              "Ref": "ALT SEL",
-              "Pin": "",
-              "Operand": "=",
-              "Value": "1",
-              "Logic": "and",
-              "Active": true
-            }
-          ]
         },
         {
           "button": {
@@ -740,6 +642,41 @@
           ]
         },
         {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_ALT_VAR_INC)",
+              "PresetId": "6b70bc27-97bf-499e-ba49-3d63984aa593",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 5"
+          },
+          "GUID": "b7f7ff05-e730-4341-af3a-6b7da20eb6c1",
+          "Active": true,
+          "Name": "ALT+",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          },
+          "Preconditions": [
+            {
+              "Type": "variable",
+              "Ref": "ALT SEL",
+              "Pin": "",
+              "Operand": "=",
+              "Value": "1",
+              "Logic": "and",
+              "Active": true
+            }
+          ]
+        },
+        {
           "Source": {
             "SimConnectValue": {
               "UUID": "7ac4737f-b97d-4bbb-af35-7067a5f1c1aa",
@@ -750,24 +687,13 @@
           },
           "TestValue": {
             "type": 1,
-            "Float64": 0.0
-          },
-          "Device": {
-            "Name": "LCD ALT",
-            "Address": "LCD ALT",
-            "Lines": [],
-            "Type": "LcdDisplay"
+            "Float64": 12345.0
           },
           "DeviceType": "LcdDisplay",
-          "DeviceName": "LCD ALT",
           "GUID": "856268b6-a7db-4c08-8c05-ff8d62883be5",
           "Active": true,
           "Name": "ALT",
-          "Type": "OutputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          }
+          "Type": "OutputConfigItem"
         },
         {
           "button": {
@@ -797,7 +723,7 @@
           },
           "GUID": "1b547508-9e72-4803-b22b-622f5fe6b2ff",
           "Active": true,
-          "Name": "VS SEL",
+          "Name": "[Selector] - VS",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
@@ -807,8 +733,8 @@
         {
           "button": {
             "onPress": {
-              "Command": "(>K:AP_VS_VAR_INC)",
-              "PresetId": "49533c9c-bcb5-42f6-9c23-353a4a89e53b",
+              "Command": "(>K:AP_VS_VAR_DEC)",
+              "PresetId": "2fdf3342-238b-4055-9fd9-97aaa666e278",
               "Type": "MSFS2020CustomInputAction"
             },
             "LongReleaseDelay": 350,
@@ -817,11 +743,11 @@
           },
           "Device": {
             "Type": "Button",
-            "Name": "Button 5"
+            "Name": "Button 6"
           },
-          "GUID": "dbd70f67-681b-4638-a035-a9b510fd07c8",
+          "GUID": "76108766-c95e-4025-a1c9-5ff9e4bd3c33",
           "Active": true,
-          "Name": "VS+",
+          "Name": "VS-",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
@@ -842,8 +768,8 @@
         {
           "button": {
             "onPress": {
-              "Command": "(>K:AP_VS_VAR_DEC)",
-              "PresetId": "2fdf3342-238b-4055-9fd9-97aaa666e278",
+              "Command": "(>K:AP_VS_VAR_INC)",
+              "PresetId": "49533c9c-bcb5-42f6-9c23-353a4a89e53b",
               "Type": "MSFS2020CustomInputAction"
             },
             "LongReleaseDelay": 350,
@@ -852,11 +778,11 @@
           },
           "Device": {
             "Type": "Button",
-            "Name": "Button 6"
+            "Name": "Button 5"
           },
-          "GUID": "76108766-c95e-4025-a1c9-5ff9e4bd3c33",
+          "GUID": "dbd70f67-681b-4638-a035-a9b510fd07c8",
           "Active": true,
-          "Name": "VS-",
+          "Name": "VS+",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
@@ -932,47 +858,12 @@
           },
           "GUID": "e71a3a58-fd7b-4d4e-b3a7-e4eacbc60d0f",
           "Active": true,
-          "Name": "IAS SEL",
+          "Name": "[Selector] - IAS",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
           }
-        },
-        {
-          "button": {
-            "onPress": {
-              "Command": "(>K:AP_SPD_VAR_INC)",
-              "PresetId": "5a6e646f-6b5a-4ceb-9761-2250c9f0f237",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 5"
-          },
-          "GUID": "35699618-c1fa-41a2-b314-b7c6551b5586",
-          "Active": true,
-          "Name": "IAS+",
-          "Type": "InputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          },
-          "Preconditions": [
-            {
-              "Type": "variable",
-              "Ref": "IAS SEL",
-              "Pin": "",
-              "Operand": "=",
-              "Value": "1",
-              "Logic": "and",
-              "Active": true
-            }
-          ]
         },
         {
           "button": {
@@ -1010,6 +901,49 @@
           ]
         },
         {
+          "button": {
+            "onPress": {
+              "Command": "(>K:AP_SPD_VAR_INC)",
+              "PresetId": "5a6e646f-6b5a-4ceb-9761-2250c9f0f237",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 5"
+          },
+          "GUID": "35699618-c1fa-41a2-b314-b7c6551b5586",
+          "Active": true,
+          "Name": "IAS+",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          },
+          "Preconditions": [
+            {
+              "Type": "variable",
+              "Ref": "IAS SEL",
+              "Pin": "",
+              "Operand": "=",
+              "Value": "1",
+              "Logic": "and",
+              "Active": true
+            }
+          ],
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "de2ce709-76db-4e45-a0e2-838877d7d806",
+              "Placeholder": "#",
+              "TestValue": ""
+            }
+          ]
+        },
+        {
           "Source": {
             "SimConnectValue": {
               "UUID": "c6348d07-b8b3-4e31-a28d-8615cf8e837e",
@@ -1037,15 +971,6 @@
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          },
-          "Modifiers": {
-            "Items": [
-              {
-                "Type": "Transformation",
-                "Expression": "Round($,0)",
-                "Active": true
-              }
-            ]
           }
         },
         {
@@ -1076,7 +1001,7 @@
           },
           "GUID": "d82bbcbd-7d9c-47e9-9b85-a60fd263c801",
           "Active": true,
-          "Name": "HDG SEL",
+          "Name": "[Selector] - HDG",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
@@ -1119,10 +1044,45 @@
           ]
         },
         {
+          "button": {
+            "onPress": {
+              "Command": "(>K:HEADING_BUG_INC)",
+              "PresetId": "debca2cf-3a15-40f0-b839-3e1e153cd0f4",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 5"
+          },
+          "GUID": "f0751dea-7ce0-4718-a3da-04f803dbebca",
+          "Active": true,
+          "Name": "HDG+",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          },
+          "Preconditions": [
+            {
+              "Type": "variable",
+              "Ref": "HDG SEL",
+              "Pin": "",
+              "Operand": "=",
+              "Value": "1",
+              "Logic": "and",
+              "Active": true
+            }
+          ]
+        },
+        {
           "Source": {
             "SimConnectValue": {
-              "UUID": "e47210e8-7db4-4980-9f57-b3682fb3742d",
-              "Value": "(A:AUTOPILOT HEADING LOCK DIR,Degrees)",
+              "UUID": "1194e423-3e31-4d92-b9b2-744b3e250df0",
+              "Value": "(A:AUTOPILOT HEADING LOCK DIR, degrees)",
               "VarType": 2
             },
             "Type": "SimConnectSource"
@@ -1146,6 +1106,17 @@
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Padding",
+                "Character": "0",
+                "Length": 3,
+                "Direction": "Left",
+                "Active": true
+              }
+            ]
           }
         },
         {
@@ -1176,47 +1147,12 @@
           },
           "GUID": "06e0912f-266a-4609-85fc-00772112529a",
           "Active": true,
-          "Name": "CRS SEL",
+          "Name": "[Selector] - CRS",
           "Type": "InputConfigItem",
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
           }
-        },
-        {
-          "button": {
-            "onPress": {
-              "Command": "(>K:VOR1_OBI_INC)",
-              "PresetId": "5f8975d1-7a9d-4834-af07-946f36319453",
-              "Type": "MSFS2020CustomInputAction"
-            },
-            "LongReleaseDelay": 350,
-            "HoldDelay": 350,
-            "RepeatDelay": 0
-          },
-          "Device": {
-            "Type": "Button",
-            "Name": "Button 5"
-          },
-          "GUID": "d66d9dee-acf2-4fdf-807b-ee2bc1929885",
-          "Active": true,
-          "Name": "CRS+",
-          "Type": "InputConfigItem",
-          "Controller": {
-            "Name": "Logitech Multi Panel",
-            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
-          },
-          "Preconditions": [
-            {
-              "Type": "variable",
-              "Ref": "CRS SEL",
-              "Pin": "",
-              "Operand": "=",
-              "Value": "1",
-              "Logic": "and",
-              "Active": true
-            }
-          ]
         },
         {
           "button": {
@@ -1254,10 +1190,45 @@
           ]
         },
         {
+          "button": {
+            "onPress": {
+              "Command": "(>K:VOR1_OBI_INC)",
+              "PresetId": "5f8975d1-7a9d-4834-af07-946f36319453",
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "Device": {
+            "Type": "Button",
+            "Name": "Button 5"
+          },
+          "GUID": "d66d9dee-acf2-4fdf-807b-ee2bc1929885",
+          "Active": true,
+          "Name": "CRS+",
+          "Type": "InputConfigItem",
+          "Controller": {
+            "Name": "Logitech Multi Panel",
+            "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          },
+          "Preconditions": [
+            {
+              "Type": "variable",
+              "Ref": "CRS SEL",
+              "Pin": "",
+              "Operand": "=",
+              "Value": "1",
+              "Logic": "and",
+              "Active": true
+            }
+          ]
+        },
+        {
           "Source": {
             "SimConnectValue": {
-              "UUID": "438e0242-9398-4341-9abb-1c01eb30a546",
-              "Value": "(A:NAV OBS:1, Degrees)",
+              "UUID": "6bbf319a-5031-477e-ba46-8a24936f7d25",
+              "Value": "(A:NAV OBS:1,Degrees)",
               "VarType": 2
             },
             "Type": "SimConnectSource"
@@ -1281,6 +1252,17 @@
           "Controller": {
             "Name": "Logitech Multi Panel",
             "Serial": "JS-LOGITECH-MULTI-PANEL-1234-ABCD-12345678"
+          },
+          "Modifiers": {
+            "Items": [
+              {
+                "Type": "Padding",
+                "Character": "0",
+                "Length": 3,
+                "Direction": "Left",
+                "Active": true
+              }
+            ]
           }
         }
       ]
