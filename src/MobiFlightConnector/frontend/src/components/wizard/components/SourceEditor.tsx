@@ -1,11 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card"
-import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
-import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
+import MsfsSourcePanel from "@/components/wizard/components/Sources/MsfsSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/components/SourceTypeComboBox"
-import { fetchHubHopPresets, SourceTypeOptions } from "@/lib/configWizard"
+import { SourceTypeOptions } from "@/lib/configWizard"
 import { SimConnectSource, Source } from "@/types/config"
 import { SourceDefaults } from "@/types/defaults"
-import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 
 export interface SourceEditorProps {
@@ -17,18 +15,6 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
   const selectedSourceType = source
     ? SourceTypeOptions.find((option) => option.value === source.Type)
     : undefined
-
-  const { data: presets = [], isLoading } = useQuery({
-    queryKey: ["msfs-presets"],
-    queryFn: () => fetchHubHopPresets("msfs"),
-    // presets don't change at runtime; HubHopState drives invalidation
-    staleTime: Infinity,
-  })
-
-  const preset =
-    presets.find(
-      (p) => p.id === (source as SimConnectSource)?.SimConnectValue.UUID,
-    ) ?? null
 
   return (
     <div className="flex flex-col gap-4" data-testid="source-editor">
@@ -73,27 +59,7 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
         </CardContent>
       </Card>
       {selectedSourceType?.value === "SimConnectSource" && (
-        <>
-          <MsfsPresetPanel
-            variant="output"
-            isLoading={isLoading}
-            selectedPresetId={preset?.id ?? null}
-            setSelectedPreset={() => {}}
-          />
-          <MsfsPresetDetails
-            command={(source as SimConnectSource)?.SimConnectValue?.Value ?? ""}
-            preset={preset}
-            onCommandChange={(command) => {
-              onSourceChange({
-                ...source,
-                SimConnectValue: {
-                  ...((source as SimConnectSource)?.SimConnectValue ?? {}),
-                  Value: command,
-                },
-              } as SimConnectSource)  
-            }}
-          />
-        </>
+        <MsfsSourcePanel source={source as SimConnectSource} onSourceChange={onSourceChange} />
       )}
       {selectedSourceType?.value === "VariableSource" && (
         <div>Variable options</div>
