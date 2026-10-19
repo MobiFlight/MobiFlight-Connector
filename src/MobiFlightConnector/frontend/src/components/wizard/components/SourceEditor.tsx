@@ -2,10 +2,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import MsfsSourcePanel from "@/components/wizard/components/Sources/MsfsSourcePanel"
+import ProSimSourcePanel from "@/components/wizard/components/Sources/ProSimSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/components/SourceTypeComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
 import {
   FsuipcSource,
+  ProSimSource,
   SimConnectSource,
   Source,
   VariableSource,
@@ -109,7 +111,10 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
         </Card>
       )}
       {selectedSourceType?.value === "ProSimSource" && (
-        <div>ProSim options</div>
+        <ProSimSourcePanel
+          source={source as ProSimSource}
+          onSourceChange={onSourceChange}
+        />
       )}
       {selectedSourceType?.value === "XplaneSource" && (
         <div>Xplane options</div>
