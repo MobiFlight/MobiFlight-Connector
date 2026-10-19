@@ -149,14 +149,17 @@ namespace MobiFlight
 
             var task = Task.Run(() =>
             {
-                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board);
+                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board)
+                {
+                    // Initialize with the original HardwareId from the PortDetails
+                    // to ensure correct identification
+                    HardwareId = portDetails.HardwareId
+                };
+
                 module.Connect();
                 
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
-                // Store the hardware ID for later use
-                devInfo.HardwareId = portDetails.HardwareId;
-                module.HardwareId = devInfo.HardwareId;
-
+                
                 if (!module.HasMfFirmware())
                     module.Disconnect();
 
@@ -184,7 +187,7 @@ namespace MobiFlight
                       .ConfigureAwait(false);
 
             if (!allModulesDetected || !isFirstTimeLookup) return false;
-            
+
             isFirstTimeLookup = false;
 
             Log.Instance.log($"End looking up connected modules. {AvailableComModules.Count} found.", LogSeverity.Debug);
