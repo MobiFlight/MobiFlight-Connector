@@ -27,7 +27,15 @@ const MsfsSourcePanel = ({ source, onSourceChange }: MsfsSourcePanelProps) => {
         variant="output"
         isLoading={isLoading}
         selectedPresetId={preset?.id ?? null}
-        setSelectedPreset={() => {}}
+        setSelectedPreset={(preset) => {
+          onSourceChange({
+            ...source,
+            SimConnectValue: {
+              UUID: preset?.id ?? null,
+              Value: preset?.code ?? null,
+            },
+          } as SimConnectSource)
+        }}
       />
       <MsfsPresetDetails
         command={(source as SimConnectSource)?.SimConnectValue?.Value ?? ""}
