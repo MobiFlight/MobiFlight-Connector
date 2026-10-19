@@ -30,6 +30,10 @@ const OutputDeviceSummary = ({
   controller,
   onEdit,
 }: OutputDeviceSummaryProps) => {
+  if (config == null) {
+    return null
+  }
+  
   if (config.Type == "Output") {
     return (
       <div className="flex grow flex-row items-center gap-2">
