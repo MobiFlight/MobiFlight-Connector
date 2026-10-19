@@ -836,19 +836,6 @@ namespace MobiFlight
             return result;
         }
 
-        public Dictionary<String, List<BaseDevice>> FindAllConnectedSteppers()
-        {
-            var result = new Dictionary<String, List<BaseDevice>>();
-            foreach (var module in Modules.Values)
-            {
-                var stepperList = module.GetConnectedOutputDevices().Where(p => p.Type == DeviceType.Stepper).ToList();
-                if (stepperList.Count == 0) continue;
-                
-                result.Add(module.Name, stepperList);
-            }
-            return result;
-        }
-
         public void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
         {
             if (serial == null)
