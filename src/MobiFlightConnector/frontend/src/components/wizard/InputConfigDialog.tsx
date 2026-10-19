@@ -29,12 +29,22 @@ import _ from "lodash"
 import { useEffect, useId, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
+import { toast } from "@/components/ui/ToastWrapper"
 
 export type InputConfigDialogProps = {
   configId: string
 }
 
 const MAX_UNDO_STEPS = 50
+
+type UndoFeedbackMode = "toast" | "highlight" | "bounce"
+
+const requestedUndoMode = import.meta.env.VITE_UNDO_FEEDBACK_MODE
+
+const UNDO_FEEDBACK_MODE: UndoFeedbackMode =
+  requestedUndoMode === "toast" || requestedUndoMode === "bounce"
+    ? requestedUndoMode
+    : "highlight"
 
 type HistoryEntry = {
   snapshot: IConfigItem
@@ -49,6 +59,90 @@ type DrawerSession = {
   historyStart: number
 }
 
+type UndoSection =
+  | "name"
+  | "trigger"
+  | "action"
+  | "references"
+  | "preconditions"
+  | "modifiers"
+
+type UndoTarget = {
+  section: UndoSection
+  indices?: number[]
+}
+
+const changedIndices = <T,>(before: T[], after: T[]): number[] =>
+  Array.from(
+    { length: Math.max(before.length, after.length) },
+    (_, index) => index,
+  ).filter((index) => !_.isEqual(before[index], after[index]))
+
+const getUndoTargets = (
+  before: IConfigItem,
+  after: IConfigItem,
+): UndoTarget[] => {
+  const targets: UndoTarget[] = []
+
+  if (before.Name !== after.Name) {
+    targets.push({ section: "name" })
+  }
+
+  if (
+    !_.isEqual(before.Controller, after.Controller) ||
+    !_.isEqual(before.Device, after.Device)
+  ) {
+    targets.push({ section: "trigger" })
+  }
+
+  if (
+    !_.isEqual(before.button, after.button) ||
+    !_.isEqual(before.encoder, after.encoder) ||
+    !_.isEqual(before.analog, after.analog) ||
+    !_.isEqual(before.inputMultiplexer, after.inputMultiplexer) ||
+    !_.isEqual(before.inputShiftRegister, after.inputShiftRegister)
+  ) {
+    targets.push({ section: "action" })
+  }
+
+  if (!_.isEqual(before.ConfigRefs, after.ConfigRefs)) {
+    targets.push({
+      section: "references",
+      indices: changedIndices(before.ConfigRefs ?? [], after.ConfigRefs ?? []),
+    })
+  }
+
+  if (!_.isEqual(before.Preconditions, after.Preconditions)) {
+    targets.push({
+      section: "preconditions",
+      indices: changedIndices(
+        before.Preconditions ?? [],
+        after.Preconditions ?? [],
+      ),
+    })
+  }
+
+  if (!_.isEqual(before.Modifiers, after.Modifiers)) {
+    targets.push({
+      section: "modifiers",
+      indices: changedIndices(
+        before.Modifiers?.Items ?? [],
+        after.Modifiers?.Items ?? [],
+      ),
+    })
+  }
+
+  return targets
+}
+
+type UndoFeedback = {
+  sequence: number
+  action: string
+  count: number
+  scope: "wizard" | "drawer"
+  targets: UndoTarget[]
+}
+
 type EditorState = {
   draftConfigItem: IConfigItem | undefined
   history: HistoryEntry[]
@@ -56,6 +150,7 @@ type EditorState = {
   historyStart: number
   lastTextEditId: number | null
   drawerSession: DrawerSession | null
+  undoFeedback: UndoFeedback | null
 }
 
 type HistoryControlsProps = {
@@ -264,6 +359,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     historyStart: 0,
     lastTextEditId: null,
     drawerSession: null,
+    undoFeedback: null,
   }))
 
   const draftConfigItem = editorState.draftConfigItem
@@ -639,17 +735,27 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           return previous
         }
 
+        const restored = session.history[index].snapshot
         const history = session.history.slice(0, index + 1)
 
         return {
           ...previous,
-          draftConfigItem: structuredClone(history[index].snapshot),
+          draftConfigItem: structuredClone(restored),
           drawerSession: {
             ...session,
             history,
             cursor: index,
           },
           lastTextEditId: null,
+          undoFeedback: {
+            sequence: (previous.undoFeedback?.sequence ?? 0) + 1,
+            action: session.history[session.cursor].action,
+            count: session.cursor - index,
+            scope: "drawer",
+            targets: previous.draftConfigItem
+              ? getUndoTargets(previous.draftConfigItem, restored)
+              : [],
+          },
         }
       }
 
@@ -661,17 +767,251 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         return previous
       }
 
+      const restored = previous.history[index].snapshot
       const history = previous.history.slice(0, index + 1)
 
       return {
         ...previous,
-        draftConfigItem: structuredClone(history[index].snapshot),
+        draftConfigItem: structuredClone(restored),
         history,
         cursor: index,
         lastTextEditId: null,
+        undoFeedback: {
+          sequence: (previous.undoFeedback?.sequence ?? 0) + 1,
+          action: previous.history[previous.cursor].action,
+          count: previous.cursor - index,
+          scope: "wizard",
+          targets: previous.draftConfigItem
+            ? getUndoTargets(previous.draftConfigItem, restored)
+            : [],
+        },
       }
     })
   }
+
+  const lastUndoToastSequenceRef = useRef(0)
+
+  useEffect(() => {
+    if (UNDO_FEEDBACK_MODE !== "toast") return
+    const feedback = editorState.undoFeedback
+
+    if (!feedback) return
+
+    if (feedback.sequence === lastUndoToastSequenceRef.current) {
+      return
+    }
+
+    lastUndoToastSequenceRef.current = feedback.sequence
+
+    const description =
+      feedback.count === 1
+        ? t("Dialog.InputConfigWizard.History.UndoToastSingle", {
+            action: feedback.action,
+          })
+        : t("Dialog.InputConfigWizard.History.UndoToastMultiple", {
+            count: feedback.count,
+          })
+
+    toast({
+      id: "input-config-undo",
+      title: t("Dialog.InputConfigWizard.History.UndoToastTitle"),
+      description,
+      options: {
+        id: "input-config-undo",
+        duration: 2200,
+      },
+    })
+  }, [editorState.undoFeedback, t])
+
+  const lastVisualFeedbackRef = useRef(0)
+  const runningUndoAnimationsRef = useRef(new Map<HTMLElement, Animation>())
+
+  useEffect(() => {
+    if (UNDO_FEEDBACK_MODE === "toast") return
+
+    const feedback = editorState.undoFeedback
+
+    if (!feedback) return
+    if (feedback.sequence === lastVisualFeedbackRef.current) return
+
+    const dialogRoot = containerRef.current
+    if (!dialogRoot) return
+
+    // Drawer Undo targets elements inside the Drawer.
+    // Wizard Undo targets elements in the main dialog.
+    const root =
+      feedback.scope === "drawer"
+        ? dialogRoot.querySelector<HTMLElement>('[data-slot="drawer-content"]')
+        : dialogRoot
+
+    if (!root) return
+
+    const elements = new Set<HTMLElement>()
+
+    const find = (selector: string) => root.querySelector<HTMLElement>(selector)
+
+    const sectionSelectors = {
+      references: {
+        summary: "config-reference-panel",
+        editor: "config-reference-editor",
+        row: "config-reference-item-row",
+      },
+      preconditions: {
+        summary: "precondition-panel",
+        editor: "precondition-editor",
+        row: "precondition-item-row",
+      },
+      modifiers: {
+        summary: "modifier-panel",
+        editor: "modifier-editor",
+        row: "modifier-item",
+      },
+    }
+
+    for (const target of feedback.targets) {
+      if (target.section === "name") {
+        const name =
+          find('[data-testid="dialog-config-name"] [role="button"]') ??
+          find('[data-testid="dialog-config-name"]')
+
+        if (name) elements.add(name)
+        continue
+      }
+
+      if (target.section === "trigger") {
+        const trigger = find('[data-testid="trigger-panel"]')
+        if (trigger) elements.add(trigger)
+        continue
+      }
+
+      if (target.section === "action") {
+        const action = find(
+          feedback.scope === "drawer"
+            ? '[data-testid="action-editor"]'
+            : '[data-testid="action-panel"]',
+        )
+
+        if (action) elements.add(action)
+        continue
+      }
+
+      const selectors = sectionSelectors[target.section]
+      const indices = target.indices ?? []
+
+      if (feedback.scope === "drawer") {
+        const editor = find(`[data-testid="${selectors.editor}"]`)
+
+        if (!editor) continue
+
+        const rows = Array.from(
+          editor.querySelectorAll<HTMLElement>(
+            `[data-testid="${selectors.row}"]`,
+          ),
+        )
+
+        const changedRows = indices
+          .map((index) => rows[index])
+          .filter((element): element is HTMLElement => !!element)
+
+        if (changedRows.length > 0 && changedRows.length === indices.length) {
+          changedRows.forEach((element) => elements.add(element))
+        } else {
+          elements.add(editor)
+        }
+
+        continue
+      }
+
+      // Main Wizard: prefer individual Summary chips.
+      const summary = find(`[data-testid="${selectors.summary}"]`)
+
+      if (!summary) {
+        // The summary might disappear when the last item is undone.
+        const addButton = find(`[data-undo-section="${target.section}"]`)
+
+        if (addButton) elements.add(addButton)
+        continue
+      }
+
+      const changedChips = indices
+        .map((index) =>
+          summary.querySelector<HTMLElement>(`[data-undo-index="${index}"]`),
+        )
+        .filter((element): element is HTMLElement => !!element)
+
+      if (changedChips.length > 0 && changedChips.length === indices.length) {
+        changedChips.forEach((element) => elements.add(element))
+      } else {
+        elements.add(summary)
+      }
+    }
+
+    lastVisualFeedbackRef.current = feedback.sequence
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches
+
+    const useBounce = UNDO_FEEDBACK_MODE === "bounce" && !reducedMotion
+
+    const keyframes: Keyframe[] = useBounce
+      ? [
+          {
+            offset: 0,
+            transform: "translateY(0px) scale(1)",
+          },
+          {
+            offset: 0.35,
+            transform: "translateY(-12px) scale(1.04)",
+          },
+          {
+            offset: 0.68,
+            transform: "translateY(2px) scale(0.99)",
+          },
+          {
+            offset: 1,
+            transform: "translateY(0px) scale(1)",
+          },
+        ]
+      : [
+          {
+            offset: 0,
+            boxShadow: "0 0 0 0px rgba(245, 158, 11, 0)",
+          },
+          {
+            offset: 0.3,
+            boxShadow: "0 0 0 5px rgba(245, 158, 11, 0.85)",
+          },
+          {
+            offset: 0.65,
+            boxShadow: "0 0 0 4px rgba(245, 158, 11, 0.5)",
+          },
+          {
+            offset: 1,
+            boxShadow: "0 0 0 0px rgba(245, 158, 11, 0)",
+          },
+        ]
+
+    const duration = reducedMotion ? 180 : useBounce ? 650 : 1100
+
+    for (const element of elements) {
+      // Restart the animation when Undo is pressed repeatedly.
+      runningUndoAnimationsRef.current.get(element)?.cancel()
+
+      const animation = element.animate(keyframes, {
+        duration,
+        easing: useBounce ? "cubic-bezier(0.22, 1, 0.36, 1)" : "ease-out",
+      })
+
+      runningUndoAnimationsRef.current.set(element, animation)
+
+      animation.onfinish = () => {
+        if (runningUndoAnimationsRef.current.get(element) === animation) {
+          runningUndoAnimationsRef.current.delete(element)
+        }
+      }
+    }
+  }, [editorState.undoFeedback])
 
   const undoConfigItemChange = () => {
     if (!canUndo) return

@@ -824,7 +824,10 @@
       "History": {
         "Undo": "Undo",
         "Title": "History",
-        "Original": "Original configuration"
+        "Original": "Original configuration",
+        "UndoToastTitle": "Change undone",
+        "UndoToastSingle": "Reverted: {{action}}",
+        "UndoToastMultiple": "Reverted {{count}} changes"
       }
     },
     "UnsavedChanges": {

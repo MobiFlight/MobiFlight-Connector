@@ -178,6 +178,7 @@ const ConfigWizard = ({
           size={"sm"}
           onClick={() => navigateToDetailView("precondition")}
           aria-label={t("Dialog.InputConfigWizard.Preconditions.AddButton")}
+          data-undo-section="preconditions"
         >
           <IconPlus className="" />
           {t("Dialog.InputConfigWizard.Preconditions.Label")}
@@ -187,6 +188,7 @@ const ConfigWizard = ({
           size={"sm"}
           onClick={() => navigateToDetailView("configReference")}
           aria-label={t("Dialog.InputConfigWizard.ConfigReferences.AddButton")}
+          data-undo-section="references"
         >
           <IconPlus className="" />
           {t("Dialog.InputConfigWizard.ConfigReferences.Label")}
@@ -196,6 +198,7 @@ const ConfigWizard = ({
           size={"sm"}
           onClick={() => navigateToDetailView("modifier", "small")}
           aria-label={t("Dialog.Modifiers.AddButton")}
+          data-undo-section="modifiers"
         >
           <IconPlus className="" />
           {t("Dialog.Modifiers.Label")}

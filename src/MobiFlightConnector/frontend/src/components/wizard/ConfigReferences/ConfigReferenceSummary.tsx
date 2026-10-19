@@ -38,6 +38,7 @@ const ConfigReferenceSummary = ({
           return (
             <div className="flex flex-row items-center" key={index}>
               <Badge
+                data-undo-index={index}
                 variant="outline"
                 className={cn(
                   "flex flex-row px-3 py-1 pr-3",
