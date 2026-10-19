@@ -46,6 +46,21 @@ const UNDO_FEEDBACK_MODE: UndoFeedbackMode =
     ? requestedUndoMode
     : "highlight"
 
+type WizardHistoryPosition =
+  | "header-right"
+  | "below-title"
+  | "footer-left"
+  | "footer-actions"
+
+const requestedHistoryPosition = import.meta.env.VITE_WIZARD_HISTORY_POSITION
+
+const WIZARD_HISTORY_POSITION: WizardHistoryPosition =
+  requestedHistoryPosition === "below-title" ||
+  requestedHistoryPosition === "footer-left" ||
+  requestedHistoryPosition === "footer-actions"
+    ? requestedHistoryPosition
+    : "header-right"
+
 type HistoryEntry = {
   snapshot: IConfigItem
   action: string
@@ -160,6 +175,7 @@ type HistoryControlsProps = {
   onUndo: () => void
   onJump: (index: number) => void
   placement?: "up" | "down"
+  align?: "left" | "right"
 }
 
 const isTextEditingTarget = (target: EventTarget | null): boolean => {
@@ -201,6 +217,7 @@ const HistoryControls = ({
   onUndo,
   onJump,
   placement = "up",
+  align = "left",
 }: HistoryControlsProps) => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
@@ -275,9 +292,8 @@ const HistoryControls = ({
           data-testid="config-history-panel"
           className={cn(
             "bg-popover text-popover-foreground absolute z-60 w-64 max-w-[85vw] rounded-md border shadow-lg",
-            placement === "up"
-              ? "bottom-full left-0 mb-2"
-              : "top-full right-0 mt-2",
+            placement === "up" ? "bottom-full mb-2" : "top-full mt-2",
+            align === "left" ? "left-0" : "right-0",
           )}
         >
           <div className="flex items-center justify-between border-b px-3 py-2">
@@ -1103,6 +1119,18 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     }, 100)
   }
 
+  const wizardHistoryControls = (
+    <HistoryControls
+      placement="up"
+      align="left"
+      history={editorState.history}
+      cursor={editorState.cursor}
+      historyStart={editorState.historyStart}
+      onUndo={undoConfigItemChange}
+      onJump={(index) => jumpToHistory(index, "wizard")}
+    />
+  )
+
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
@@ -1142,29 +1170,40 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           preventDialogAnimation ? "data-[state=open]:animate-none!" : "",
         )}
       >
-        <DialogHeader>
-          <DialogTitle
-            tabIndex={undefined}
-            className="flex flex-row items-center gap-2 text-2xl"
-            data-testid="dialog-config-name"
-          >
-            {t("Dialog.InputConfigWizard.Title")}{" "}
-            <IconChevronRight className="mt-1" />
-            <InlineEditLabel
-              labelClassName="text-2xl px-4.5 -ml-5"
-              inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
-              value={draftConfigItem?.Name || ""}
-              onSave={(newName) => {
-                if (draftConfigItem) {
-                  updateDraftConfigItem({ ...draftConfigItem, Name: newName })
-                }
-              }}
-              ref={inlineEditRef}
-            />
-          </DialogTitle>
+        <DialogHeader
+          className={cn(WIZARD_HISTORY_POSITION === "header-right" && "pr-10")}
+        >
+          <div className="flex flex-row items-center justify-between gap-4">
+            <DialogTitle
+              tabIndex={undefined}
+              className="flex flex-row items-center gap-2 text-2xl"
+              data-testid="dialog-config-name"
+            >
+              {t("Dialog.InputConfigWizard.Title")}{" "}
+              <IconChevronRight className="mt-1" />
+              <InlineEditLabel
+                labelClassName="text-2xl px-4.5 -ml-5"
+                inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
+                value={draftConfigItem?.Name || ""}
+                onSave={(newName) => {
+                  if (draftConfigItem) {
+                    updateDraftConfigItem({ ...draftConfigItem, Name: newName })
+                  }
+                }}
+                ref={inlineEditRef}
+              />
+            </DialogTitle>
+            {WIZARD_HISTORY_POSITION === "header-right" &&
+              wizardHistoryControls}
+          </div>
           <DialogDescription className="vsm:block hidden">
             {t("Dialog.InputConfigWizard.Description")}
           </DialogDescription>
+          {WIZARD_HISTORY_POSITION === "below-title" && (
+            <div className="flex justify-start pt-2">
+              {wizardHistoryControls}
+            </div>
+          )}
         </DialogHeader>
         <div className="relative flex grow flex-col gap-2">
           <ScrollArea className="grow">
@@ -1178,7 +1217,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                   drawerContainer={containerRef}
                   historyControls={
                     <HistoryControls
-                      placement="down"
+                      placement="up"
+                      align="right"
                       history={editorState.drawerSession?.history ?? []}
                       cursor={editorState.drawerSession?.cursor ?? -1}
                       historyStart={
@@ -1204,15 +1244,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           data-testid="inputconfigwizard-dialog-footer"
         >
           <div className="flex grow flex-row items-center gap-2">
-            <HistoryControls
-              placement="up"
-              history={editorState.history}
-              cursor={editorState.cursor}
-              historyStart={editorState.historyStart}
-              onUndo={undoConfigItemChange}
-              onJump={(index) => jumpToHistory(index, "wizard")}
-            />
-
+            {WIZARD_HISTORY_POSITION === "footer-left" && wizardHistoryControls}
             {showPendingChangesMessage && (
               <>
                 <IconExclamationCircle className="text-primary ml-2 inline h-8 w-8" />
@@ -1222,10 +1254,14 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               </>
             )}
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row items-center gap-2">
+            {WIZARD_HISTORY_POSITION === "footer-actions" &&
+              wizardHistoryControls}
+
             <Button variant="outline" onClick={closeDialog}>
               {t("Dialog.General.Cancel")}
             </Button>
+
             <Button variant="default" onClick={saveChanges}>
               {t("Dialog.General.ApplyChanges")}
             </Button>

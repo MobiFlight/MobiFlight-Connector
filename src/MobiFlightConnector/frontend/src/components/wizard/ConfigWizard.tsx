@@ -19,6 +19,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerClose,
+  DrawerFooter,
 } from "@/components/ui/drawer"
 import { IconArrowBack, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
@@ -321,16 +322,13 @@ const ConfigWizard = ({
               <DrawerTitle className="sr-only">
                 {t("Dialog.InputConfigWizard.DrawerTitle")}
               </DrawerTitle>
-              <div className="flex flex-row items-center justify-between gap-2">
-                <DrawerClose
-                  onClick={() => closeDetailView(false)}
-                  className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
-                >
-                  <IconArrowBack size={16} />
-                  {t("Dialog.General.GoBack")}
-                </DrawerClose>
-                {historyControls}
-              </div>
+              <DrawerClose
+                onClick={() => closeDetailView(false)}
+                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
+              >
+                <IconArrowBack size={16} />
+                {t("Dialog.General.GoBack")}
+              </DrawerClose>
             </DrawerHeader>
             <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
@@ -384,6 +382,9 @@ const ConfigWizard = ({
                 />
               )}
             </div>
+            <DrawerFooter className="shrink-0 flex-row justify-end border-t">
+              {historyControls}
+            </DrawerFooter>
           </DrawerContent>
         </Drawer>
       )}
