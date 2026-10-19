@@ -825,9 +825,38 @@
         "Undo": "Undo",
         "Title": "History",
         "Original": "Original configuration",
+
         "UndoToastTitle": "Change undone",
         "UndoToastSingle": "Reverted: {{action}}",
-        "UndoToastMultiple": "Reverted {{count}} changes"
+        "UndoToastMultiple": "Reverted {{count}} changes",
+
+        "ConfigurationChanged": "Configuration changed",
+        "ConfigReferenceChanged": "Configuration changed",
+        "Oldest": "Oldest state",
+        "Current": "Current state",
+
+        "NameChanged": "Name changed",
+        "TriggerChanged": "Trigger changed",
+
+        "PreconditionAdded": "Precondition added",
+        "PreconditionRemoved": "Precondition removed",
+        "PreconditionChanged": "Precondition changed",
+
+        "ModifierAdded": "Modifier added",
+        "ModifierRemoved": "Modifier removed",
+        "ModifierEnabled": "Modifier enabled",
+        "ModifierDisabled": "Modifier disabled",
+        "ModifierExpressionChanged": "Expression changed",
+        "ModifierChanged": "Modifier changed",
+
+        "ActionTypeChanged": "Action type changed",
+        "ActionCodeChanged": "Code changed",
+        "ActionChanged": "Action changed",
+
+        "DrawerPreconditions": "Preconditions edited",
+        "DrawerReferences": "References edited",
+        "DrawerModifiers": "Modifiers edited",
+        "DrawerAction": "Action edited"
       }
     },
     "UnsavedChanges": {

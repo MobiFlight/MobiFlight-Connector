@@ -23,7 +23,7 @@ import {
   IconExclamationCircle,
   IconArrowBackUp,
   IconCheck,
-  IconHistory,
+  IconChevronDown,
 } from "@tabler/icons-react"
 import _ from "lodash"
 import { useEffect, useId, useRef, useState } from "react"
@@ -228,8 +228,8 @@ const HistoryControls = ({
   }, [open])
 
   const canUndo = cursor > 0
-  const latestStep = historyStart + history.length - 1
-  const currentStep = historyStart + cursor
+  const undoTitle = t("Dialog.InputConfigWizard.History.Undo")
+  const historyTitle = t("Dialog.InputConfigWizard.History.Title")
 
   return (
     <div
@@ -238,33 +238,35 @@ const HistoryControls = ({
       data-testid="config-history-controls"
     >
       <Button
+        data-testid="config-undo-button"
         type="button"
         variant="outline"
         size="sm"
-        aria-label={t("Dialog.InputConfigWizard.History.Undo")}
-        title={t("Dialog.InputConfigWizard.History.Undo")}
+        className="rounded-r-none"
+        aria-label={undoTitle}
+        title={`${undoTitle} (Ctrl+Z)`}
         disabled={!canUndo}
         onClick={onUndo}
       >
         <IconArrowBackUp size={16} />
-        {t("Dialog.InputConfigWizard.History.Undo")}
+        {undoTitle}
       </Button>
 
       <Button
+        data-testid="config-history-button"
         type="button"
         variant="outline"
         size="sm"
-        disabled={history.length === 0}
-        aria-label={t("Dialog.InputConfigWizard.History.Title")}
+        className="-ml-px rounded-l-none px-2"
+        aria-label={historyTitle}
+        title={historyTitle}
+        aria-haspopup="true"
         aria-expanded={open}
         aria-controls={panelId}
+        disabled={history.length <= 1}
         onClick={() => setOpen((previous) => !previous)}
       >
-        <IconHistory size={16} />
-        {t("Dialog.InputConfigWizard.History.Title")}
-        <span className="text-muted-foreground text-xs">
-          {Math.max(currentStep, 0)}/{Math.max(latestStep, 0)}
-        </span>
+        <IconChevronDown size={16} />
       </Button>
 
       {open && (
@@ -272,22 +274,27 @@ const HistoryControls = ({
           id={panelId}
           data-testid="config-history-panel"
           className={cn(
-            "bg-popover text-popover-foreground absolute z-60 w-80 max-w-[85vw] rounded-md border shadow-lg",
+            "bg-popover text-popover-foreground absolute z-60 w-64 max-w-[85vw] rounded-md border shadow-lg",
             placement === "up"
               ? "bottom-full left-0 mb-2"
               : "top-full right-0 mt-2",
           )}
         >
-          <div className="border-b px-3 py-2 text-sm font-semibold">
-            {t("Dialog.InputConfigWizard.History.Title")}
+          <div className="flex items-center justify-between border-b px-3 py-2">
+            <span className="text-xs font-semibold">{historyTitle}</span>
+
+            <span className="text-muted-foreground text-xs tabular-nums">
+              {historyStart + cursor}
+            </span>
           </div>
 
-          <div className="max-h-64 overflow-y-auto p-1">
+          <div className="max-h-56 overflow-y-auto p-1">
             {history
               .map((entry, index) => ({ entry, index }))
               .reverse()
               .map(({ entry, index }) => {
                 const isCurrent = index === cursor
+
                 const label =
                   index === 0
                     ? historyStart === 0
@@ -301,23 +308,27 @@ const HistoryControls = ({
                     type="button"
                     data-testid="config-history-entry"
                     aria-current={isCurrent ? "step" : undefined}
+                    title={label}
                     className={cn(
-                      "hover:bg-accent flex w-full items-center gap-2 rounded-sm px-3 py-2 text-left text-sm",
+                      "hover:bg-accent flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-left text-xs",
                       isCurrent && "bg-accent font-medium",
                     )}
-                    onClick={() => onJump(index)}
+                    onClick={() => {
+                      if (index < cursor) {
+                        onJump(index)
+                      }
+                      setOpen(false)
+                    }}
                   >
-                    <span className="text-muted-foreground w-6 shrink-0 text-xs">
+                    <span className="text-muted-foreground w-5 shrink-0 text-xs tabular-nums">
                       {historyStart + index}
                     </span>
 
-                    <span className="min-w-0 flex-1 wrap-break-word">
-                      {label}
-                    </span>
+                    <span className="min-w-0 flex-1 truncate">{label}</span>
 
                     {isCurrent && (
                       <IconCheck
-                        size={16}
+                        size={14}
                         className="text-primary shrink-0"
                         aria-label={t(
                           "Dialog.InputConfigWizard.History.Current",
@@ -952,60 +963,60 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
       "(prefers-reduced-motion: reduce)",
     ).matches
 
-    const useBounce = UNDO_FEEDBACK_MODE === "bounce" && !reducedMotion
-
-    const keyframes: Keyframe[] = useBounce
-      ? [
-          {
-            offset: 0,
-            transform: "translateY(0px) scale(1)",
-          },
-          {
-            offset: 0.35,
-            transform: "translateY(-12px) scale(1.04)",
-          },
-          {
-            offset: 0.68,
-            transform: "translateY(2px) scale(0.99)",
-          },
-          {
-            offset: 1,
-            transform: "translateY(0px) scale(1)",
-          },
-        ]
-      : [
-          {
-            offset: 0,
-            boxShadow: "0 0 0 0px rgba(245, 158, 11, 0)",
-          },
-          {
-            offset: 0.3,
-            boxShadow: "0 0 0 5px rgba(245, 158, 11, 0.85)",
-          },
-          {
-            offset: 0.65,
-            boxShadow: "0 0 0 4px rgba(245, 158, 11, 0.5)",
-          },
-          {
-            offset: 1,
-            boxShadow: "0 0 0 0px rgba(245, 158, 11, 0)",
-          },
-        ]
-
-    const duration = reducedMotion ? 180 : useBounce ? 650 : 1100
+    const useBounce = UNDO_FEEDBACK_MODE === "bounce"
 
     for (const element of elements) {
-      // Restart the animation when Undo is pressed repeatedly.
       runningUndoAnimationsRef.current.get(element)?.cancel()
 
+      const originalBackground =
+        window.getComputedStyle(element).backgroundColor
+
+      const keyframes: Keyframe[] = useBounce
+        ? [
+            {
+              offset: 0,
+              transform: "translateY(0px) scale(1)",
+            },
+            {
+              offset: 0.35,
+              transform: "translateY(-12px) scale(1.04)",
+            },
+            {
+              offset: 0.68,
+              transform: "translateY(2px) scale(0.99)",
+            },
+            {
+              offset: 1,
+              transform: "translateY(0px) scale(1)",
+            },
+          ]
+        : [
+            {
+              offset: 0,
+              backgroundColor: `color-mix(in srgb, ${originalBackground} 88%, #fbbf24 12%)`,
+            },
+            {
+              offset: 1,
+              backgroundColor: originalBackground,
+            },
+          ]
+
+      if (reducedMotion) continue
+
       const animation = element.animate(keyframes, {
-        duration,
+        duration: useBounce ? 650 : 650,
         easing: useBounce ? "cubic-bezier(0.22, 1, 0.36, 1)" : "ease-out",
       })
 
       runningUndoAnimationsRef.current.set(element, animation)
 
       animation.onfinish = () => {
+        if (runningUndoAnimationsRef.current.get(element) === animation) {
+          runningUndoAnimationsRef.current.delete(element)
+        }
+      }
+
+      animation.oncancel = () => {
         if (runningUndoAnimationsRef.current.get(element) === animation) {
           runningUndoAnimationsRef.current.delete(element)
         }
