@@ -1,9 +1,15 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import MsfsSourcePanel from "@/components/wizard/components/Sources/MsfsSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/components/SourceTypeComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
-import { SimConnectSource, Source, VariableSource } from "@/types/config"
+import {
+  FsuipcSource,
+  SimConnectSource,
+  Source,
+  VariableSource,
+} from "@/types/config"
 import { SourceDefaults } from "@/types/defaults"
 import { useTranslation } from "react-i18next"
 
@@ -78,7 +84,29 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
         />
       )}
       {selectedSourceType?.value === "FsuipcSource" && (
-        <div>Fsuipc options</div>
+        <Card>
+          <CardContent className="flex flex-col gap-4 pt-4">
+            <div className="flex flex-col">
+              <div className="text-lg font-semibold">
+                {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
+              </div>
+              <div className="text-muted-foreground text-sm">
+                {t(
+                  "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description",
+                )}
+              </div>
+            </div>
+            <FsuipcOffsetPanel
+              fsuipc={(source as FsuipcSource).FSUIPC}
+              onConfigChange={(fsuipc) => {
+                onSourceChange({
+                  ...(source as FsuipcSource),
+                  FSUIPC: fsuipc,
+                } as FsuipcSource)
+              }}
+            />
+          </CardContent>
+        </Card>
       )}
       {selectedSourceType?.value === "ProSimSource" && (
         <div>ProSim options</div>
