@@ -1,8 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import MsfsSourcePanel from "@/components/wizard/components/Sources/MsfsSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/components/SourceTypeComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
-import { SimConnectSource, Source } from "@/types/config"
+import { SimConnectSource, Source, VariableSource } from "@/types/config"
 import { SourceDefaults } from "@/types/defaults"
 import { useTranslation } from "react-i18next"
 
@@ -59,10 +60,22 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
         </CardContent>
       </Card>
       {selectedSourceType?.value === "SimConnectSource" && (
-        <MsfsSourcePanel source={source as SimConnectSource} onSourceChange={onSourceChange} />
+        <MsfsSourcePanel
+          source={source as SimConnectSource}
+          onSourceChange={onSourceChange}
+        />
       )}
       {selectedSourceType?.value === "VariableSource" && (
-        <div>Variable options</div>
+        <VariablePanel
+          variant="details"
+          currentVariable={(source as VariableSource).MobiFlightVariable}
+          onVariableChange={(variable) => {
+            onSourceChange({
+              ...source,
+              MobiFlightVariable: variable,
+            } as VariableSource)
+          }}
+        />
       )}
       {selectedSourceType?.value === "FsuipcSource" && (
         <div>Fsuipc options</div>
