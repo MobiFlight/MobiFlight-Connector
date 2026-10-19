@@ -6,7 +6,7 @@ import { CSSProperties, useState } from "react"
 import { Button } from "@/components/ui/button"
 import type { GoldSponsor } from "@/types/sponsors"
 
-const defaultGoldSponsorsUrl = "https://mobiflight.com/sponsors.json"
+const goldSponsorsUrl = "https://mobiflight.com/sponsors.json"
 
 const MAX_SPONSORS_PER_ROW = 5
 
@@ -39,9 +39,6 @@ const GoldSponsorLogos = () => {
   const openUrl = useOpenUrl()
 
   const [cycleIndex, setCycleIndex] = useState(0)
-
-  const goldSponsorsUrl =
-    import.meta.env.VITE_GOLD_SPONSORS_URL?.trim() || defaultGoldSponsorsUrl
 
   const goldSponsorsQuery = useQuery({
     queryKey: ["goldSponsors", goldSponsorsUrl],
