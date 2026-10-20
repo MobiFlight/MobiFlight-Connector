@@ -2,6 +2,17 @@ name: CI Pipeline
 
 on:
   workflow_dispatch:
+    inputs:
+      event_type_override:
+        type: string
+        description: 'Allows to override the event type that is used for the workflow'
+        required: false
+        default: 'NOT_SET'
+      version_override:
+        type: string
+        description: 'Allows to override the version that is used for the workflow'
+        required: false
+        default: ''
   pull_request:
     branches: [main, hotfix/*]
   release:
@@ -12,8 +23,11 @@ env:
   INSTALLER_SOLUTION_FILE_PATH: MobiFlightInstaller.sln
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x86
-  VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number) }}
   INSTALLER_OUTPUT: dist/MobiFlightInstaller
+  VERSION: ${{ github.event.inputs.version_override || (github.event_name == 'release' && github.event.release.tag_name || format('0.0.{0}.{1}', github.event.number, github.run_number)) }}
+
+  # Map the CLI input to a standard environment variable
+  EVENT_TYPE_OVERRIDE: ${{ github.event.inputs.event_type_override }}
 
 jobs:
   build:
@@ -66,27 +80,63 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: MobiFlightConnector
+          archive: false
           path: |
             dist/MobiFlightConnector-${{ env.VERSION }}.zip
 
       # Only run the following steps if this is a release event
+      # or, when a user manually triggers the workflow and uses EVENT_TYPE_OVERRIDE
       - uses: repolevedavaj/install-nsis@v1.2.1
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         with:
-          nsis-version: '3.10'
+          nsis-version: '3.04'
 
       - name: Create hash
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         shell: pwsh
         run: (Get-FileHash dist/MobiFlightConnector-${{ env.VERSION }}.zip -Algorithm SHA1).Hash | Out-File dist/MobiFlightConnector-${{ env.VERSION }}.sha1
 
       - name: Create setup exe
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         uses: joncloud/makensis-action@v4
         with:
           script-file: ./Build/setup.nsi
           arguments: "/V3"
 
+      - name: store latest NSIS setup file (unsigned)
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
+        uses: actions/upload-artifact@v7
+        id: upload-unsigned-artifact
+        with:
+          name: MobiFlight-Setup.exe (unsigned)
+          archive: false
+          path: |
+            Build/MobiFlight-Setup.exe
+
+      - name: submit signing request
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '${{ vars.SIGNPATH_ORGANIZATION_ID }}'
+          project-slug: '${{ vars.SIGNPATH_PROJECT_SLUG }}'
+          signing-policy-slug: '${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}'
+          github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: 'dist/'
+
+      - name: store latest NSIS setup file (signed)
+        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
+        uses: actions/upload-artifact@v7
+        id: upload-signed-artifact
+        with:
+          name: MobiFlight-Setup.exe (signed)
+          archive: false
+          path: |
+            dist/MobiFlight-Setup.exe
+
+      # This last step is only performed on an actual release event, 
+      # never on a workflow_dispatch event, even with the EVENT_TYPE_OVERRIDE
       - name: Upload release assets
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v3
@@ -96,4 +146,4 @@ jobs:
           files: |
             dist/MobiFlightConnector-${{ env.VERSION }}.zip
             dist/MobiFlightConnector-${{ env.VERSION }}.sha1
-            Build/MobiFlight-Setup.exe
+            dist/MobiFlight-Setup.exe

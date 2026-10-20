@@ -906,6 +906,7 @@ namespace MobiFlight
                 Name = Name,
                 Type = Type,
                 Port = _comPort,
+                HardwareId = HardwareId
             };
 
             var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
@@ -953,7 +954,10 @@ namespace MobiFlight
             //
             // This check and assignment is done outside of the above if statement to catch cases
             // where there was no firmware installed.
-            devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
+            var boardCandidate = BoardDefinitions
+                .GetBoardsByMobiFlightType(devInfo.Type)
+                .FirstOrDefault(b=>b.HardwareIds.Any(h=> BoardDefinitions.ByHardwareIdMatcher(devInfo.HardwareId, h)));
+            devInfo.Board = boardCandidate ?? Board;
             Board = devInfo.Board;
 
             // With the support of Custom Devices
