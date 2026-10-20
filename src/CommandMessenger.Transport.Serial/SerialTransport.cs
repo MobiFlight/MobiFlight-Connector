@@ -43,6 +43,9 @@ namespace CommandMessenger.Transport.Serial
         private SerialSettings _currentSerialSettings = new SerialSettings();   // The current serial settings
         public event EventHandler DataReceived;                                 // Event queue for all listeners interested in NewLinesReceived events.
 
+        /// <summary> Raised when opening the port throws, e.g. when another application holds it. </summary>
+        public event EventHandler<ConnectionFailedEventArgs> ConnectionFailed;
+
         private long _bytesWritten;
         private long _bytesReceived;
         private long _longestReadMs;
@@ -196,6 +199,7 @@ namespace CommandMessenger.Transport.Serial
                 catch (Exception ex)
                 {
                     _lastError = "Open: " + ex.GetType().Name + ": " + ex.Message;
+                    ConnectionFailed?.Invoke(this, new ConnectionFailedEventArgs(ex));
                 }
             }
             else

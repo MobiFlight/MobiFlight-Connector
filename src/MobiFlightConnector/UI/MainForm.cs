@@ -1153,6 +1153,7 @@ namespace MobiFlight.UI
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
                 if (moduleInfo.Type == "Ignored") continue;
+                if (moduleInfo.Type == MobiFlightModule.TYPE_PORT_UNAVAILABLE) continue;
 
                 if (moduleInfo.FirmwareInstallPossible())
                 {

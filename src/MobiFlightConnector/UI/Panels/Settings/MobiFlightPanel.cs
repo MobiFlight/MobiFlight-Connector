@@ -83,6 +83,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
             mfTreeViewImageList.Images.Add("module-ignored", MobiFlight.Properties.Resources.port_deactivated);
+            mfTreeViewImageList.Images.Add("module-unavailable", MobiFlight.Properties.Resources.port_deactivated);
             mfTreeViewImageList.Images.Add("module-pico", MobiFlight.Properties.Resources.module_pico);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
         }
@@ -174,6 +175,9 @@ namespace MobiFlight.UI.Panels.Settings
 
                     case "Ignored":
                         node.SelectedImageKey = node.ImageKey = "module-ignored";
+                        break;
+                    case MobiFlightModule.TYPE_PORT_UNAVAILABLE:
+                        node.SelectedImageKey = node.ImageKey = "module-unavailable";
                         break;
                 }
             }

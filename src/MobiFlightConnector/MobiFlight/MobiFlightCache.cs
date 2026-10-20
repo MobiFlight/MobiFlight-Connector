@@ -161,7 +161,10 @@ namespace MobiFlight
                 };
 
                 module.Connect();
-                
+
+                // Nothing to ask if the port did not open, e.g. because another application holds it.
+                if (!module.Connected) return module;
+
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
                 
                 if (!module.HasMfFirmware())
@@ -171,6 +174,13 @@ namespace MobiFlight
             }).ConfigureAwait(false);
 
             var result = await task;
+
+            if (!result.Connected)
+            {
+                OnPortUnavailableDetected(result, portDetails);
+                await CheckIfLookUpFinished();
+                return;
+            }
 
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
 
@@ -213,6 +223,19 @@ namespace MobiFlight
             };
 
             AvailableComModules.Add(ignoredPort);
+        }
+
+        private void OnPortUnavailableDetected(MobiFlightModule module, PortDetails portDetails)
+        {
+            var reason = module.IsPortBusy ? "is in use by another application" : "could not be opened";
+            AvailableComModules.Add(new MobiFlightModuleInfo()
+            {
+                Port = portDetails.Name,
+                Type = MobiFlightModule.TYPE_PORT_UNAVAILABLE,
+                Name = $"Port {portDetails.Name} {reason}",
+                Board = portDetails.Board,
+                HardwareId = portDetails.HardwareId
+            });
         }
 
         private void OnMobiFlightBoardDetected(MobiFlightModule module)
