@@ -99,7 +99,7 @@ namespace MobiFlight
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
-        private volatile Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
+        private readonly ConcurrentDictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new ConcurrentDictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
         readonly Dictionary<string, double> ScanForInputThreshold = new Dictionary<string, double>();
@@ -239,6 +239,7 @@ namespace MobiFlight
             // every distinct setting across all loaded config files.
             Func<InputEventArgs, List<ButtonTimings>> resolveButtonTimings = e =>
             {
+               
                 var timings = new List<ButtonTimings>();
                 foreach (var executor in _inputEventExecutors.Values)
                 {
@@ -620,7 +621,7 @@ namespace MobiFlight
 
             var controller = e.Controller;
 
-            MessageExchange.Instance.Publish(new ScanForInputResult() { Controller = controller, Device = e.Device});
+            MessageExchange.Instance.Publish(new ScanForInputResult() { Controller = controller, Device = e.Device });
             ScanForInputStop();
         }
 
@@ -868,12 +869,13 @@ namespace MobiFlight
 
         private void InitInputEventExecutor()
         {
-            var newExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
+            _inputEventExecutors.Clear();
+
             if (Project != null && Project.ConfigFiles != null)
             {
                 foreach (var configFile in Project.ConfigFiles)
                 {
-                    newExecutors[configFile] = new InputEventExecutor(
+                    _inputEventExecutors[configFile] = new InputEventExecutor(
                         configFile.ConfigItems,
                         inputActionExecutionCache,
                         fsuipcCache,
@@ -886,8 +888,6 @@ namespace MobiFlight
                     );
                 }
             }
-            // (Atomic Swap) 
-            _inputEventExecutors = newExecutors;
         }
 
         public void Stop()
@@ -936,7 +936,12 @@ namespace MobiFlight
 
         internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
-            _inputEventExecutors.ToList().ForEach(executor => executor.Value.ClearCache());
+           
+
+            foreach (var executor in _inputEventExecutors.Values)
+            {
+                executor.ClearCache();
+            }
         }
 
         public bool IsStarted()
@@ -1471,16 +1476,24 @@ namespace MobiFlight
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
 
+            
+
             foreach (var executor in _inputEventExecutors.Values)
             {
                 try
                 {
                     var updatedValues = executor.Execute(e, IsStarted());
-                    updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
+
+                    updatedValues.Keys.ToList().ForEach(
+                        k => updatedInputValues[k] = updatedValues[k]
+                    );
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.log($"Error during input event execution: {ex.Message} - {msgEventLabel}", LogSeverity.Error);
+                    Log.Instance.log(
+                        $"Error during input event execution: {ex.Message} - {msgEventLabel}",
+                        LogSeverity.Error
+                    );
                 }
             }
 
