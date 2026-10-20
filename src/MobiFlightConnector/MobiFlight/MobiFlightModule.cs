@@ -288,7 +288,9 @@ namespace MobiFlight
                 AttachCommandCallBacks();
 
                 // Start listening    
+                var openStopwatch = System.Diagnostics.Stopwatch.StartNew();
                 var status = _cmdMessenger.Connect();
+                Log.Instance.log($"Open {_comPort}: status={status}, connected={_transportLayer.IsConnected()}, {openStopwatch.ElapsedMilliseconds} ms, lastError='{_transportLayer.LastError}'.", LogSeverity.Debug);
                 Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
                 //this.Connected = status;
                 this.connected = true;
@@ -916,27 +918,29 @@ namespace MobiFlight
             ReceivedCommand InfoCommand = null;
             for (var attempt = 1; attempt <= GetInfoMaxAttempts; attempt++)
             {
-                InfoCommand = _cmdMessenger.SendCommand(command);
-                if (InfoCommand.Ok) break;
+                var writtenBefore = _transportLayer?.BytesWritten ?? 0;
+                var receivedBefore = _transportLayer?.BytesReceived ?? 0;
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                Log.Instance.log($"GetInfo timed out on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}.", LogSeverity.Debug);
+                InfoCommand = _cmdMessenger.SendCommand(command);
+
+                // Temporary diagnostics for the missing-boards-at-startup investigation.
+                var diagnostics = $"{stopwatch.ElapsedMilliseconds} ms, connected={_transportLayer?.IsConnected()}, " +
+                    $"written +{(_transportLayer?.BytesWritten ?? 0) - writtenBefore}, received +{(_transportLayer?.BytesReceived ?? 0) - receivedBefore}, " +
+                    $"longestRead={_transportLayer?.LongestReadMs} ms, lastError='{_transportLayer?.LastError}', " +
+                    $"pool threads={ThreadPool.ThreadCount}, pending={ThreadPool.PendingWorkItemCount}";
+
+                if (InfoCommand.Ok)
+                {
+                    Log.Instance.log($"GetInfo answered on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}: {diagnostics}", LogSeverity.Debug);
+                    break;
+                }
+
+                Log.Instance.log($"GetInfo timed out on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}: {diagnostics}", LogSeverity.Debug);
             }
 
             if (InfoCommand.Ok)
             {
-                // The first reply during startup can be incomplete, so read again (#546).
-                var confirmCommand = _cmdMessenger.SendCommand(
-                    new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout));
-
-                if (confirmCommand.Ok)
-                {
-                    if (confirmCommand.RawString != InfoCommand.RawString)
-                    {
-                        Log.Instance.log($"GetInfo replies differ on {_comPort}: '{InfoCommand.RawString}' vs '{confirmCommand.RawString}'.", LogSeverity.Debug);
-                    }
-                    InfoCommand = confirmCommand;
-                }
-
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
                 devInfo.Serial = InfoCommand.ReadStringArg();

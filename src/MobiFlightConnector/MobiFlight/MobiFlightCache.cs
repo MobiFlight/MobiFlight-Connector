@@ -148,8 +148,11 @@ namespace MobiFlight
                 return;
             }
 
+            var queuedAt = System.Diagnostics.Stopwatch.StartNew();
             var task = Task.Run(() =>
             {
+                Log.Instance.log($"Lookup of {portDetails.Name} started after {queuedAt.ElapsedMilliseconds} ms in the pool queue.", LogSeverity.Debug);
+
                 MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board)
                 {
                     // Initialize with the original HardwareId from the PortDetails

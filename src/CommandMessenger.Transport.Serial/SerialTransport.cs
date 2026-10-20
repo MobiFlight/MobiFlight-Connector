@@ -18,7 +18,9 @@
 #endregion
 
 using System;
+using System.Diagnostics;
 using System.IO.Ports;
+using System.Threading;
 
 namespace CommandMessenger.Transport.Serial
 {
@@ -40,6 +42,17 @@ namespace CommandMessenger.Transport.Serial
         private SerialPort _serialPort;                                         // The serial port
         private SerialSettings _currentSerialSettings = new SerialSettings();   // The current serial settings
         public event EventHandler DataReceived;                                 // Event queue for all listeners interested in NewLinesReceived events.
+
+        private long _bytesWritten;
+        private long _bytesReceived;
+        private long _longestReadMs;
+        private volatile string _lastError = string.Empty;
+
+        // Diagnostics counters, read by the owner for logging.
+        public long BytesWritten { get { return Interlocked.Read(ref _bytesWritten); } }
+        public long BytesReceived { get { return Interlocked.Read(ref _bytesReceived); } }
+        public long LongestReadMs { get { return Interlocked.Read(ref _longestReadMs); } }
+        public string LastError { get { return _lastError; } }
 
         /// <summary> Gets or sets the current serial port settings. </summary>
         /// <value> The current serial settings. </value>
@@ -123,16 +136,23 @@ namespace CommandMessenger.Transport.Serial
                     lock (_serialReadWriteLock)
                     {
                         _serialPort.Write(buffer, 0, buffer.Length);
+                        Interlocked.Add(ref _bytesWritten, buffer.Length);
                     }
                 }
-                catch (TimeoutException)
+                catch (TimeoutException ex)
                 {
                     // Timeout (expected)
+                    _lastError = "Write: " + ex.GetType().Name + ": " + ex.Message;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    _lastError = "Write: " + ex.GetType().Name + ": " + ex.Message;
                     Disconnect();
                 }
+            }
+            else
+            {
+                _lastError = "Write: port not connected";
             }
         }
 
@@ -173,10 +193,14 @@ namespace CommandMessenger.Transport.Serial
                     _serialPort.DiscardOutBuffer();
                     return _serialPort.IsOpen;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // Ignore.
+                    _lastError = "Open: " + ex.GetType().Name + ": " + ex.Message;
                 }
+            }
+            else
+            {
+                _lastError = "Open: skipped (connected=" + _connected + ", portExists=" + PortExists() + ", isOpen=" + _serialPort.IsOpen + ")";
             }
 
             return false;
@@ -210,12 +234,14 @@ namespace CommandMessenger.Transport.Serial
         {
             if (IsConnected())
             {
+                var start = Stopwatch.GetTimestamp();
                 try
                 {
                     lock (_readLock)
                     {
                         var nbrDataRead = _serialPort.Read(_readBuffer, _bufferFilled, (BufferSize - _bufferFilled));
                         _bufferFilled += nbrDataRead;
+                        Interlocked.Add(ref _bytesReceived, nbrDataRead);
                     }
                     return _bufferFilled;
                 }
@@ -223,9 +249,19 @@ namespace CommandMessenger.Transport.Serial
                 {
                     // Timeout (expected)
                 }
-                catch
+                catch (Exception ex)
                 {
+                    _lastError = "Read: " + ex.GetType().Name + ": " + ex.Message;
                     Disconnect();
+                }
+                finally
+                {
+                    var elapsedMs = (long)Stopwatch.GetElapsedTime(start).TotalMilliseconds;
+                    long previous;
+                    while (elapsedMs > (previous = Interlocked.Read(ref _longestReadMs)))
+                    {
+                        if (Interlocked.CompareExchange(ref _longestReadMs, elapsedMs, previous) == previous) break;
+                    }
                 }
             }
 

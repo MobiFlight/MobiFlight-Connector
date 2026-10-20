@@ -638,17 +638,17 @@ namespace MobiFlight.Tests
             $"{(int)MobiFlightModule.Command.Info},MobiFlight Mega,Nano,SN-G5E-45E,3.1.4,3.1.4;";
 
         [TestMethod()]
-        public void GetInfo_ShouldReadTwice_WhenBoardAnswersImmediately()
+        public void GetInfo_ShouldSendOneCommand_WhenBoardAnswersImmediately()
         {
             // Arrange
-            var transport = new ScriptedTransport(InfoReply, InfoReply);
+            var transport = new ScriptedTransport(InfoReply);
             var module = CreateModuleWithTransport(transport);
 
             // Act
             var info = module.GetInfo() as MobiFlightModuleInfo;
 
             // Assert
-            Assert.AreEqual(2, transport.WriteCount, "An answered command should be confirmed by a second read.");
+            Assert.AreEqual(1, transport.WriteCount, "An answered command should not be sent a second time.");
             Assert.AreEqual("3.1.4", info.Version, "Version should come from the reply.");
             Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the reply.");
             Assert.AreEqual("Nano", info.Name, "Name should come from the reply.");
@@ -660,52 +660,17 @@ namespace MobiFlight.Tests
         {
             // Arrange
             // The board stays silent on the first GetInfo and answers the retry.
-            var transport = new ScriptedTransport(null, InfoReply, InfoReply);
+            var transport = new ScriptedTransport(null, InfoReply);
             var module = CreateModuleWithTransport(transport);
 
             // Act
             var info = module.GetInfo() as MobiFlightModuleInfo;
 
             // Assert
-            Assert.AreEqual(3, transport.WriteCount, "The timed out command should be sent again and then confirmed.");
+            Assert.AreEqual(2, transport.WriteCount, "The timed out command should be sent again.");
             Assert.AreEqual("3.1.4", info.Version, "Version should come from the retried reply.");
             Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the retried reply.");
             Assert.AreEqual("Nano", info.Name, "Name should come from the retried reply.");
-            Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
-        }
-
-        [TestMethod()]
-        public void GetInfo_ShouldUseConfirmingReply_WhenFirstReplyIsIncomplete()
-        {
-            // Arrange
-            var incompleteReply = $"{(int)MobiFlightModule.Command.Info},MobiFlight Mega;";
-            var transport = new ScriptedTransport(incompleteReply, InfoReply);
-            var module = CreateModuleWithTransport(transport);
-
-            // Act
-            var info = module.GetInfo() as MobiFlightModuleInfo;
-
-            // Assert
-            Assert.AreEqual("3.1.4", info.Version, "Version should come from the confirming reply.");
-            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the confirming reply.");
-            Assert.AreEqual("Nano", info.Name, "Name should come from the confirming reply.");
-            Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
-        }
-
-        [TestMethod()]
-        public void GetInfo_ShouldKeepFirstReply_WhenConfirmingReadTimesOut()
-        {
-            // Arrange
-            var transport = new ScriptedTransport(InfoReply, null);
-            var module = CreateModuleWithTransport(transport);
-
-            // Act
-            var info = module.GetInfo() as MobiFlightModuleInfo;
-
-            // Assert
-            Assert.AreEqual(2, transport.WriteCount, "The answered command should be confirmed once.");
-            Assert.AreEqual("3.1.4", info.Version, "Version should come from the first reply.");
-            Assert.AreEqual("SN-G5E-45E", info.Serial, "Serial should come from the first reply.");
             Assert.IsTrue(module.HasMfFirmware(), "Module should be identified as running MobiFlight firmware.");
         }
 
