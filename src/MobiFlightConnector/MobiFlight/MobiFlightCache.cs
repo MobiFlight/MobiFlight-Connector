@@ -13,6 +13,7 @@ namespace MobiFlight
 
     public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
     {    
+        private const int INITIAL_LOOKUP_TIMEOUT = 8000;
         /// <summary>
         /// Gets raised whenever a button is pressed
         /// </summary>
@@ -83,7 +84,7 @@ namespace MobiFlight
             // This timeout ensures that the LookupFinished is event called
             // even if we have no modules connected 
             // the event is needed so that the startup can finish
-            Task.Delay(TimeSpan.FromMilliseconds(5000))
+            Task.Delay(TimeSpan.FromMilliseconds(INITIAL_LOOKUP_TIMEOUT))
                 .ContinueWith(_ => { 
                     if (0 == AvailableComModules.Count) {
                         isFirstTimeLookup = false;
@@ -182,7 +183,7 @@ namespace MobiFlight
         private async Task<bool> CheckIfLookUpFinished()
         {
             var currentModuleCount = AvailableComModules.Count;
-            var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(3000))
+            var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(INITIAL_LOOKUP_TIMEOUT))
                       .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; })
                       .ConfigureAwait(false);
 
