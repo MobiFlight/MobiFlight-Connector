@@ -110,6 +110,21 @@ const openWizardAndReturnActionPanel = async (
   return actionPanel
 }
 
+const openConfigHistory = async (page: Page, controls: Locator) => {
+  const undoButton = controls.getByTestId("config-undo-button")
+  const historyButton = controls.getByTestId("config-history-button")
+
+  // History is revealed when hovering over the Undo control.
+  await undoButton.hover()
+  await historyButton.click()
+
+  // Radix renders the dropdown inside a Portal.
+  const historyPanel = page.getByTestId("config-history-panel")
+  await expect(historyPanel).toBeVisible()
+
+  return historyPanel
+}
+
 test.describe("General Input Config Wizard Tests", () => {
   test("Dialog open for input config items - via Edit button", async ({
     configListPage,
@@ -491,6 +506,60 @@ test.describe("Input Config Wizard - Edit name", () => {
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
 
     expect(commands).toHaveLength(0)
+  })
+
+  test("History button appears on hover and hides after dismissing the menu", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    const nameContainer = page.getByTestId("dialog-config-name")
+
+    // Create one Undo history entry.
+    await nameContainer.getByRole("button").dblclick()
+
+    const nameInput = nameContainer.getByRole("textbox")
+    await nameInput.fill("Modified Input Config")
+    await nameInput.press("Enter")
+
+    await expect(nameContainer.getByText("Modified Input Config")).toBeVisible()
+
+    const footer = page.getByTestId("inputconfigwizard-dialog-footer")
+    const controls = footer.getByTestId("config-history-controls")
+
+    const undoButton = controls.getByTestId("config-undo-button")
+    const historyButton = controls.getByTestId("config-history-button")
+
+    await expect(undoButton).toBeEnabled()
+
+    // The button exists but is visually hidden by default.
+    await page.mouse.move(0, 0)
+    await expect(historyButton).toHaveCSS("opacity", "0")
+
+    // Hover over Undo to reveal History.
+    await undoButton.hover()
+    await expect(historyButton).toHaveCSS("opacity", "1")
+
+    await historyButton.click()
+
+    const historyPanel = page.getByTestId("config-history-panel")
+    await expect(historyPanel).toBeVisible()
+
+    // Move away from Undo and dismiss the modal dropdown.
+    await page.mouse.move(0, 0)
+    await page.mouse.click(0, 0)
+
+    await expect(historyPanel).not.toBeVisible()
+
+    // The History arrow must remain hidden after dismissal.
+    await expect(historyButton).toHaveCSS("opacity", "0")
+
+    // Hovering again should reveal it.
+    await undoButton.hover()
+    await expect(historyButton).toHaveCSS("opacity", "1")
   })
 
   test("Config name is automatically in edit mode for new configs", async ({
@@ -1639,11 +1708,7 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
     const panel = page.getByTestId("config-reference-panel")
 
-    await panel
-      .getByRole("button", {
-        name: "Edit references",
-      })
-      .click()
+    await panel.getByRole("button", { name: "Edit references" }).click()
 
     const editor = page.getByTestId("config-reference-editor")
     const rows = editor.getByTestId("config-reference-item-row")
@@ -1666,78 +1731,137 @@ test.describe("Input Config Wizard - Config References panel", () => {
     const drawer = page.locator('[data-slot="drawer-content"]')
     const drawerControls = drawer.getByTestId("config-history-controls")
 
-    await drawerControls
-      .getByRole("button", {
-        name: "History",
-      })
-      .click()
+    const drawerHistory = await openConfigHistory(page, drawerControls)
 
-    // Original state + 2 individual Drawer changes.
+    // Original state + 2 individual changes.
+    await expect(drawerHistory.getByTestId("config-history-entry")).toHaveCount(
+      3,
+    )
+
+    // Both reference changes were disabling actions.
     await expect(
-      page
-        .getByTestId("config-history-panel")
-        .getByTestId("config-history-entry"),
-    ).toHaveCount(3)
+      drawerHistory
+        .getByTestId("config-history-entry")
+        .filter({ hasText: "Disabled" }),
+    ).toHaveCount(2)
 
-    // Undo inside Drawer affects only the latest change.
-    await drawerControls
-      .getByRole("button", {
-        name: "Undo",
-      })
-      .click()
+    // Close the dropdown before clicking Undo.
+    await page.keyboard.press("Escape")
+    await expect(drawerHistory).not.toBeVisible()
+
+    // Undo only the latest change.
+    await drawerControls.getByTestId("config-undo-button").click()
 
     await expect(firstSwitch).not.toBeChecked()
     await expect(secondSwitch).toBeChecked()
 
-    // Change it again before closing.
+    // Restore the second change.
     await secondSwitch.click()
     await expect(secondSwitch).not.toBeChecked()
 
-    await page
-      .getByRole("button", {
-        name: "Go back",
-      })
-      .click()
+    // Finish the Drawer session.
+    await page.getByRole("button", { name: "Go back" }).click()
 
     await expect(editor).not.toBeVisible()
+    await expect(page).not.toHaveURL(/detail=configReference/)
 
     const footer = page.getByTestId("inputconfigwizard-dialog-footer")
-
     const wizardControls = footer.getByTestId("config-history-controls")
 
-    await wizardControls
-      .getByRole("button", {
-        name: "History",
-      })
-      .click()
+    const wizardHistory = await openConfigHistory(page, wizardControls)
 
-    // Original state + ONE grouped Drawer session.
+    // The entire Drawer session is one Wizard history step.
+    await expect(wizardHistory.getByTestId("config-history-entry")).toHaveCount(
+      2,
+    )
+
+    // The grouped history entry uses a compact label.
     await expect(
-      page
-        .getByTestId("config-history-panel")
-        .getByTestId("config-history-entry"),
-    ).toHaveCount(2)
+      wizardHistory
+        .getByTestId("config-history-entry")
+        .filter({ hasText: "References" }),
+    ).toHaveCount(1)
+
+    await page.keyboard.press("Escape")
+    await expect(wizardHistory).not.toBeVisible()
 
     // Undo the entire Drawer session.
-    await wizardControls
-      .getByRole("button", {
-        name: "Undo",
-      })
-      .click()
+    await wizardControls.getByTestId("config-undo-button").click()
 
-    // Reopen to verify both references were restored.
-    await panel
-      .getByRole("button", {
-        name: "Edit references",
-      })
-      .click()
+    // Reopen the Drawer and check the restored configuration.
+    await panel.getByRole("button", { name: "Edit references" }).click()
 
     await expect(firstSwitch).toBeChecked()
     await expect(secondSwitch).toBeChecked()
 
-    // Undo must not publish changes to the backend.
+    // Editing and Undo must not publish changes to the backend.
     const commands = await configListPage.mobiFlightPage.getTrackedCommands()
+    expect(commands).toHaveLength(0)
+  })
 
+  test("Selecting a History entry restores the previous reference state", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+    await configListPage.clickEditButtonForRow(1)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+    const panel = page.getByTestId("config-reference-panel")
+
+    await panel.getByRole("button", { name: "Edit references" }).click()
+
+    const editor = page.getByTestId("config-reference-editor")
+    const rows = editor.getByTestId("config-reference-item-row")
+
+    await expect(rows).toHaveCount(3)
+
+    const firstSwitch = rows.nth(0).getByRole("switch")
+    const secondSwitch = rows.nth(1).getByRole("switch")
+
+    // Create two history entries.
+    await firstSwitch.click()
+    await secondSwitch.click()
+
+    await expect(firstSwitch).not.toBeChecked()
+    await expect(secondSwitch).not.toBeChecked()
+
+    const drawer = page.locator('[data-slot="drawer-content"]')
+    const controls = drawer.getByTestId("config-history-controls")
+
+    const historyPanel = await openConfigHistory(page, controls)
+    const historyEntries = historyPanel.getByTestId("config-history-entry")
+
+    await expect(historyEntries).toHaveCount(3)
+
+    // Jump directly to the original configuration.
+    await historyEntries.filter({ hasText: "Original configuration" }).click()
+
+    await expect(historyPanel).not.toBeVisible()
+
+    // Both changes must be restored at once.
+    await expect(firstSwitch).toBeChecked()
+    await expect(secondSwitch).toBeChecked()
+
+    // No more Undo steps are available.
+    await expect(controls.getByTestId("config-undo-button")).toBeDisabled()
+
+    await expect(controls.getByTestId("config-history-button")).toHaveCount(0)
+
+    // Closing an unchanged Drawer must not add a Wizard history step.
+    await page.getByRole("button", { name: "Go back" }).click()
+    await expect(editor).not.toBeVisible()
+
+    const footer = page.getByTestId("inputconfigwizard-dialog-footer")
+    const wizardControls = footer.getByTestId("config-history-controls")
+
+    await expect(
+      wizardControls.getByTestId("config-undo-button"),
+    ).toBeDisabled()
+
+    const commands = await configListPage.mobiFlightPage.getTrackedCommands()
     expect(commands).toHaveLength(0)
   })
 })
