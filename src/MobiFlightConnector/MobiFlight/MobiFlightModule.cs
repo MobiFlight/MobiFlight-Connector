@@ -924,6 +924,19 @@ namespace MobiFlight
 
             if (InfoCommand.Ok)
             {
+                // The first reply during startup can be incomplete, so read again (#546).
+                var confirmCommand = _cmdMessenger.SendCommand(
+                    new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout));
+
+                if (confirmCommand.Ok)
+                {
+                    if (confirmCommand.RawString != InfoCommand.RawString)
+                    {
+                        Log.Instance.log($"GetInfo replies differ on {_comPort}: '{InfoCommand.RawString}' vs '{confirmCommand.RawString}'.", LogSeverity.Debug);
+                    }
+                    InfoCommand = confirmCommand;
+                }
+
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
                 devInfo.Serial = InfoCommand.ReadStringArg();
