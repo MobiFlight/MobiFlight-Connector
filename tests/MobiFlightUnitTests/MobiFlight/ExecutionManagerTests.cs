@@ -1329,7 +1329,7 @@ namespace MobiFlight.Tests
             _executionManager.Project = project1;
 
             var field = typeof(ExecutionManager).GetField("_inputEventExecutors", BindingFlags.NonPublic | BindingFlags.Instance);
-            var initialExecutors = (Dictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
+            var initialExecutors = (ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
 
             var result = initialExecutors.Count;
             Assert.AreEqual(1, result);
@@ -1349,12 +1349,13 @@ namespace MobiFlight.Tests
                 Assert.IsFalse(enumerator.MoveNext());
                 Assert.IsNotNull(firstExecutor);
 
-                var newExecutors = (Dictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
-                Assert.AreNotSame(initialExecutors, newExecutors);
+                var newExecutors = (ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
+                Assert.AreSame(initialExecutors, newExecutors);
 
                 var result2 = newExecutors.Count;
                 Assert.AreEqual(1, result2);
                 Assert.IsTrue(newExecutors.ContainsKey(configFile2));
+                Assert.IsFalse(newExecutors.ContainsKey(configFile1));
             }
         }
 
@@ -1366,13 +1367,13 @@ namespace MobiFlight.Tests
             _executionManager.Project = project;
 
             var field = typeof(ExecutionManager).GetField("_inputEventExecutors", BindingFlags.NonPublic | BindingFlags.Instance);
-            var result = ((Dictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager)).Count;
+            var result = ((ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager)).Count;
             Assert.AreEqual(1, result);
 
             var emptyProject = new Project();
             _executionManager.Project = emptyProject;
 
-            var executors = (Dictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
+            var executors = (ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
             Assert.IsNotNull(executors);
             var result2 = executors.Count;
             Assert.AreEqual(0, result2);
