@@ -5,6 +5,8 @@ using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.BrowserMessages.Outgoing;
 using MobiFlight.ProSim;
 using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
@@ -57,6 +59,30 @@ namespace MobiFlight
 
         public event EventHandler SettingsDialogRequested;
         public event EventHandler<Project> OnProjectChanged;
+
+        public event EventHandler OnSingleDeleteRecorded;
+        public event EventHandler OnSingleDeleteUndone;
+
+        private sealed class SingleDeleteUndo
+        {
+            public Project Project { get; set; }
+            public ConfigFile File { get; set; }
+            public int ConfigIndex { get; set; }
+            public int OriginalIndex { get; set; }
+            public IConfigItem Snapshot { get; set; }
+        }
+
+        private SingleDeleteUndo _pendingDeleteUndo;
+
+        private void SetPendingDeleteUndo(SingleDeleteUndo entry)
+        {
+            _pendingDeleteUndo = entry;
+
+            MessageExchange.Instance.Publish(new ConfigListUndoState
+            {
+                CanUndo = entry != null
+            });
+        }
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -412,8 +438,23 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case "delete":
-                        ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
-                        OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
+                        int cIndex = ConfigItems.FindIndex(
+                            i => i.GUID == message.Item.GUID);
+                        if (cIndex < 0) return;
+
+                        var deletedItem = ConfigItems[cIndex];
+                        var entry = new SingleDeleteUndo
+                        {
+                            Project = Project,
+                            File = Project.ConfigFiles[ActiveConfigIndex],
+                            ConfigIndex = ActiveConfigIndex,
+                            OriginalIndex = cIndex,
+                            Snapshot = (IConfigItem)deletedItem.Clone()
+                        };
+                        ConfigItems.RemoveAt(cIndex);
+                        SetPendingDeleteUndo(entry);
+                        OnSingleDeleteRecorded?.Invoke(this, EventArgs.Empty);
+                        OnInputConfigSettingsChanged(this, null);
                         break;
 
                     case "toggle":
@@ -591,6 +632,39 @@ namespace MobiFlight
                     PublishVJoyDefinitions();
                 }
             });
+
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUndoConfigListDelete>(
+                (_) =>
+                {
+                    var entry = _pendingDeleteUndo;
+                    if (entry == null) return;
+
+                    if (!ReferenceEquals(Project, entry.Project) ||
+                    entry.ConfigIndex < 0 ||
+                    entry.ConfigIndex >= Project.ConfigFiles.Count ||
+                    !ReferenceEquals(
+                        Project.ConfigFiles[entry.ConfigIndex],
+                        entry.File))
+                    {
+                        SetPendingDeleteUndo(null);
+                        return;
+                    }
+                    var items = entry.File.ConfigItems;
+                    if (items.Any(i => i.GUID == entry.Snapshot.GUID))
+                    {
+                        SetPendingDeleteUndo(null);
+                        return;
+                    }
+                    items.Insert(
+                        Math.Min(entry.OriginalIndex, items.Count),
+                        entry.Snapshot);
+                    SetPendingDeleteUndo(null);
+                    OnInputConfigSettingsChanged(this, null);
+                    MessageExchange.Instance.Publish(
+                        new ConfigValueFullUpdate(entry.ConfigIndex, items));
+                    OnConfigHasChanged?.Invoke(items, null);
+                    OnSingleDeleteUndone?.Invoke(this, EventArgs.Empty);
+                });
         }
 
         private void ScanForInputStop()

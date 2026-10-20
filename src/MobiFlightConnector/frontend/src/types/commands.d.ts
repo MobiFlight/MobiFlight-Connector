@@ -22,6 +22,7 @@ export type CommandMessageKey =
   | "CommandRefreshPresets"
   | "CommandShutdown"
   | "CommandUpdateSettings"
+  | "CommandUndoConfigListDelete"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -43,6 +44,7 @@ export type CommandMessage =
   | CommandRefreshPresets
   | CommandShutdown
   | CommandUpdateSettings
+  | CommandUndoConfigListDelete
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -245,4 +247,9 @@ export interface CommandUpdateSettings extends CommandMessageBase {
   payload: {
     Settings: Partial<Settings>
   }
+}
+
+export interface CommandUndoConfigListDelete extends CommandMessageBase {
+  key: "CommandUndoConfigListDelete"
+  payload: Record<string, never>
 }

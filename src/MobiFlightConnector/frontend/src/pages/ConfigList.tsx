@@ -1,6 +1,6 @@
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import {
   ConfigValueFullUpdate,
@@ -18,6 +18,7 @@ import {
   useConfigItemStateSet,
   useConfigItemStateUpdate,
 } from "@/stores/configItemStateStore"
+import type { ConfigListUndoState } from "@/types/messages"
 
 const ConfigListPage = () => {
   const {
@@ -74,8 +75,14 @@ const ConfigListPage = () => {
     [project],
   )
 
+  const [canUndoDelete, setCanUndoDelete] = useState(false)
+  useAppMessage("ConfigListUndoState", (message) => {
+    const state = message.payload as ConfigListUndoState
+    setCanUndoDelete(state.CanUndo)
+  })
+
   return (
-    <div className="flex flex-col gap-2  grow overflow-y-auto">
+    <div className="flex grow flex-col gap-2 overflow-y-auto">
       <ConfigItemDragProvider
         initialConfigIndex={activeConfigFileIndex}
         updateConfigItems={setConfigItems}
@@ -85,9 +92,13 @@ const ConfigListPage = () => {
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <ProjectPanel />
         </ErrorBoundary>
-        <div className="flex flex-col gap-4 overflow-y-auto grow">
+        <div className="flex grow flex-col gap-4 overflow-y-auto">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <ConfigItemTable columns={columns} data={configItems} />
+            <ConfigItemTable
+              columns={columns}
+              data={configItems}
+              canUndoDelete={canUndoDelete}
+            />
           </ErrorBoundary>
         </div>
       </ConfigItemDragProvider>

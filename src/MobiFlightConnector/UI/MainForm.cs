@@ -57,6 +57,10 @@ namespace MobiFlight.UI
         private ExecutionManager execManager;
         private MessageServer messageServer;
 
+        private long _projectChangeRevision = 0;
+        private long? _singleDeleteRevision = null;
+        private bool _wasDirtyBeforeSingleDelete;
+
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
         public event EventHandler<string> CurrentFilenameChanged;
@@ -665,6 +669,25 @@ namespace MobiFlight.UI
             execManager = new ExecutionManager(this.Handle);
             execManager.OnConfigHasChanged += OnConfigItemHasChanged;
             execManager.OnProjectChanged += ExecManager_OnProjectChanged;
+
+            execManager.OnSingleDeleteRecorded += (sender, args) =>
+            {
+                _wasDirtyBeforeSingleDelete = ProjectHasUnsavedChanges;
+                _singleDeleteRevision = _projectChangeRevision + 1;
+            };
+
+            execManager.OnSingleDeleteUndone += (sender, args) =>
+            {
+                // Delete and Undo must be the only two changes since the initial state was captured.
+                if (_singleDeleteRevision.HasValue &&
+                    _projectChangeRevision == _singleDeleteRevision.Value + 1)
+                {
+                    ProjectHasUnsavedChanges = _wasDirtyBeforeSingleDelete;
+                    SetProjectFilePathInTitle();
+                }
+                _singleDeleteRevision = null;
+            };
+
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
@@ -703,6 +726,7 @@ namespace MobiFlight.UI
 
         private void ProjectOrConfigFileHasChanged(bool updateControllerBindings = false)
         {
+            _projectChangeRevision++;
             if (updateControllerBindings)
             {
                 var currentControllerBindings = execManager.Project.ControllerBindings;
@@ -2271,6 +2295,8 @@ namespace MobiFlight.UI
 
         private void ResetProjectAndConfigChanges()
         {
+            _projectChangeRevision++;
+            _singleDeleteRevision = null;
             ProjectHasUnsavedChanges = false;
             SetProjectFilePathInTitle();
         }

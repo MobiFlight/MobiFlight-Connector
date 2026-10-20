@@ -35,6 +35,7 @@ export type AppMessageKey =
   | "VJoyDefinitionsUpdate"
   | "LogEntry"
   | "ShutdownConfirmationRequested"
+  | "ConfigListUndoState"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -59,6 +60,7 @@ export type AppMessagePayload =
   | VJoyDefinitionsUpdate
   | LogEntry
   | ShutdownConfirmationRequested
+  | ConfigListUndoState
 
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -156,6 +158,10 @@ export interface ConnectedControllers {
 
 export interface AuthenticationStatus {
   Authenticated: boolean
+}
+
+export interface ConfigListUndoState {
+  CanUndo: boolean
 }
 
 export type ShutdownConfirmationRequested = Record<string, never>

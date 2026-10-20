@@ -27,7 +27,7 @@ import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
-import { IconX } from "@tabler/icons-react"
+import { IconArrowBackUp, IconX } from "@tabler/icons-react"
 import { toast } from "@/components/ui/ToastWrapper"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
@@ -40,12 +40,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   dragItemId?: string // Add this prop to receive drag state from parent
+  canUndoDelete?: boolean
 }
 
 export function ConfigItemTable<TValue>({
   columns,
   data,
   dragItemId,
+  canUndoDelete = false,
 }: DataTableProps<IConfigItem, TValue>) {
   "use no memo"
 
@@ -261,20 +263,33 @@ export function ConfigItemTable<TValue>({
   }, [publish, t])
 
   const deleteSelected = useCallback(() => {
-    const action = "delete"
-    const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
-      return row.original as IConfigItem
-    })
+    const selectedConfigs = table
+      .getSelectedRowModel()
+      .rows.map((row) => row.original as IConfigItem)
+
     if (selectedConfigs.length === 0) return
 
-    publish({
-      key: "CommandConfigBulkAction",
-      payload: {
-        action: action,
-        items: selectedConfigs,
-      },
-    })
-    // Clear selection after deletion
+    if (selectedConfigs.length === 1) {
+      // Use the single-item delete path.
+      // The backend records an Undo snapshot here.
+      publish({
+        key: "CommandConfigContextMenu",
+        payload: {
+          action: "delete",
+          item: selectedConfigs[0],
+        },
+      } as CommandConfigContextMenu)
+    } else {
+      // Multi-delete Undo will be implemented later.
+      publish({
+        key: "CommandConfigBulkAction",
+        payload: {
+          action: "delete",
+          items: selectedConfigs,
+        },
+      })
+    }
+
     table.setRowSelection({})
   }, [table, publish])
 
@@ -384,6 +399,21 @@ export function ConfigItemTable<TValue>({
               onClick={handleAddInputConfig}
             >
               {t("ConfigList.Actions.InputConfigItem.Add")}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={!canUndoDelete}
+              data-testid="config-list-undo-button"
+              onClick={() => {
+                publish({
+                  key: "CommandUndoConfigListDelete",
+                  payload: {},
+                })
+              }}
+            >
+              <IconArrowBackUp size={16} />
+              {t("Dialog.InputConfigWizard.History.Undo")}
             </Button>
           </div>
         </div>
