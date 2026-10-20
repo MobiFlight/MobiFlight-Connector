@@ -820,6 +820,33 @@
           "SelectPresetLabel": "Выбрать предустановку",
           "SelectPresetPlaceholder": "Выбрать предустановку..."
         }
+      },
+      "History": {
+        "Undo": "Отменить",
+        "Title": "История",
+        "Original": "Исходная конфигурация",
+        "ConfigurationChanged": "Конфигурация изменена",
+        "Oldest": "Самое раннее состояние",
+        "Current": "Текущее состояние",
+        "NameChanged": "Имя изменено",
+        "TriggerChanged": "Триггер изменён",
+        "PreconditionAdded": "Добавлено",
+        "PreconditionRemoved": "Удалено",
+        "PreconditionChanged": "Изменено",
+        "ModifierAdded": "Добавлено",
+        "ModifierRemoved": "Удалено",
+        "ModifierEnabled": "Включено",
+        "ModifierDisabled": "Выключено",
+        "ModifierExpressionChanged": "Выражение изменено",
+        "ModifierChanged": "Изменено",
+        "ConfigReferenceAdded": "Добавлено",
+        "ConfigReferenceRemoved": "Удалено",
+        "ConfigReferenceEnabled": "Включено",
+        "ConfigReferenceDisabled": "Выключено",
+        "ConfigReferenceChanged": "Отредактировано",
+        "ActionTypeChanged": "Тип действия изменён",
+        "ActionCodeChanged": "Код изменён",
+        "ActionChanged": "Действие изменено"
       }
     },
     "UnsavedChanges": {

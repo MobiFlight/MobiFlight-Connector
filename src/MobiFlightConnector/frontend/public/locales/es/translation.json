@@ -826,6 +826,33 @@
           "SelectPresetLabel": "Seleccionar preset",
           "SelectPresetPlaceholder": "Seleccionar preset..."
         }
+      },
+      "History": {
+        "Undo": "Deshacer",
+        "Title": "Historial",
+        "Original": "Configuración original",
+        "ConfigurationChanged": "Configuración modificada",
+        "Oldest": "Estado más antiguo",
+        "Current": "Estado actual",
+        "NameChanged": "Nombre modificado",
+        "TriggerChanged": "Disparador modificado",
+        "PreconditionAdded": "Añadido",
+        "PreconditionRemoved": "Eliminado",
+        "PreconditionChanged": "Modificado",
+        "ModifierAdded": "Añadido",
+        "ModifierRemoved": "Eliminado",
+        "ModifierEnabled": "Activado",
+        "ModifierDisabled": "Desactivado",
+        "ModifierExpressionChanged": "Expresión modificada",
+        "ModifierChanged": "Modificado",
+        "ConfigReferenceAdded": "Añadido",
+        "ConfigReferenceRemoved": "Eliminado",
+        "ConfigReferenceEnabled": "Activado",
+        "ConfigReferenceDisabled": "Desactivado",
+        "ConfigReferenceChanged": "Editado",
+        "ActionTypeChanged": "Tipo de acción modificado",
+        "ActionCodeChanged": "Código modificado",
+        "ActionChanged": "Acción modificada"
       }
     },
     "UnsavedChanges": {

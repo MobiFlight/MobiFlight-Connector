@@ -820,6 +820,33 @@
           "SelectPresetLabel": "Valitse esiasetus",
           "SelectPresetPlaceholder": "Valitse esiasetus..."
         }
+      },
+      "History": {
+        "Undo": "Kumoa",
+        "Title": "Historia",
+        "Original": "Alkuperäinen määritys",
+        "ConfigurationChanged": "Määritystä muutettu",
+        "Oldest": "Vanhin tila",
+        "Current": "Nykyinen tila",
+        "NameChanged": "Nimi muutettu",
+        "TriggerChanged": "Laukaisin muutettu",
+        "PreconditionAdded": "Lisätty",
+        "PreconditionRemoved": "Poistettu",
+        "PreconditionChanged": "Muutettu",
+        "ModifierAdded": "Lisätty",
+        "ModifierRemoved": "Poistettu",
+        "ModifierEnabled": "Otettu käyttöön",
+        "ModifierDisabled": "Poistettu käytöstä",
+        "ModifierExpressionChanged": "Lauseke muutettu",
+        "ModifierChanged": "Muutettu",
+        "ConfigReferenceAdded": "Lisätty",
+        "ConfigReferenceRemoved": "Poistettu",
+        "ConfigReferenceEnabled": "Otettu käyttöön",
+        "ConfigReferenceDisabled": "Poistettu käytöstä",
+        "ConfigReferenceChanged": "Muokattu",
+        "ActionTypeChanged": "Toiminnon tyyppi muutettu",
+        "ActionCodeChanged": "Koodi muutettu",
+        "ActionChanged": "Toimintoa muutettu"
       }
     },
     "UnsavedChanges": {

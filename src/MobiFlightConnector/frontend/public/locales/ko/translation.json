@@ -820,6 +820,33 @@
           "SelectPresetLabel": "프리셋 선택",
           "SelectPresetPlaceholder": "프리셋 선택..."
         }
+      },
+      "History": {
+        "Undo": "실행 취소",
+        "Title": "변경 기록",
+        "Original": "원래 설정",
+        "ConfigurationChanged": "설정 변경",
+        "Oldest": "가장 오래된 상태",
+        "Current": "현재 상태",
+        "NameChanged": "이름 변경",
+        "TriggerChanged": "트리거 변경",
+        "PreconditionAdded": "추가",
+        "PreconditionRemoved": "삭제",
+        "PreconditionChanged": "변경",
+        "ModifierAdded": "추가",
+        "ModifierRemoved": "삭제",
+        "ModifierEnabled": "활성화",
+        "ModifierDisabled": "비활성화",
+        "ModifierExpressionChanged": "표현식 변경",
+        "ModifierChanged": "변경",
+        "ConfigReferenceAdded": "추가",
+        "ConfigReferenceRemoved": "삭제",
+        "ConfigReferenceEnabled": "활성화",
+        "ConfigReferenceDisabled": "비활성화",
+        "ConfigReferenceChanged": "편집",
+        "ActionTypeChanged": "동작 유형 변경",
+        "ActionCodeChanged": "코드 변경",
+        "ActionChanged": "동작 변경"
       }
     },
     "UnsavedChanges": {
