@@ -36,7 +36,7 @@ const ModifierSummary = ({
             index === modifiers.length - 1 || index === maxDisplayCount - 1
           return (
             <div className="flex flex-row items-center gap-2" key={index}>
-              <Badge variant="secondary" data-undo-index={index}>
+              <Badge variant="secondary">
                 {t(`Dialog.Modifiers.Type.${modifier.Type}.Label`)}
               </Badge>
               {!isLast && (

@@ -38,7 +38,6 @@ const PreconditionSummary = ({
         return (
           <div className="flex flex-row items-center gap-2" key={index}>
             <Badge
-              data-undo-index={index}
               variant="outline"
               className={`px-4 py-1 ${variantStyle} flex flex-row gap-1`}
             >

@@ -826,10 +826,6 @@
         "Title": "History",
         "Original": "Original configuration",
 
-        "UndoToastTitle": "Change undone",
-        "UndoToastSingle": "Reverted: {{action}}",
-        "UndoToastMultiple": "Reverted {{count}} changes",
-
         "ConfigurationChanged": "Configuration changed",
         "ConfigReferenceChanged": "Configuration changed",
         "Oldest": "Oldest state",
@@ -851,12 +847,7 @@
 
         "ActionTypeChanged": "Action type changed",
         "ActionCodeChanged": "Code changed",
-        "ActionChanged": "Action changed",
-
-        "DrawerPreconditions": "Preconditions edited",
-        "DrawerReferences": "References edited",
-        "DrawerModifiers": "Modifiers edited",
-        "DrawerAction": "Action edited"
+        "ActionChanged": "Action changed"
       }
     },
     "UnsavedChanges": {

@@ -1674,7 +1674,9 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
     // Original state + 2 individual Drawer changes.
     await expect(
-      drawerControls.getByTestId("config-history-entry"),
+      page
+        .getByTestId("config-history-panel")
+        .getByTestId("config-history-entry"),
     ).toHaveCount(3)
 
     // Undo inside Drawer affects only the latest change.
@@ -1711,7 +1713,9 @@ test.describe("Input Config Wizard - Config References panel", () => {
 
     // Original state + ONE grouped Drawer session.
     await expect(
-      wizardControls.getByTestId("config-history-entry"),
+      page
+        .getByTestId("config-history-panel")
+        .getByTestId("config-history-entry"),
     ).toHaveCount(2)
 
     // Undo the entire Drawer session.

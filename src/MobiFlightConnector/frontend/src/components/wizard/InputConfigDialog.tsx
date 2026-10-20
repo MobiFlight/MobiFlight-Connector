@@ -26,40 +26,23 @@ import {
   IconChevronDown,
 } from "@tabler/icons-react"
 import _ from "lodash"
-import { useEffect, useId, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
-import { toast } from "@/components/ui/ToastWrapper"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
 
 export type InputConfigDialogProps = {
   configId: string
 }
 
 const MAX_UNDO_STEPS = 50
-
-type UndoFeedbackMode = "toast" | "highlight" | "bounce"
-
-const requestedUndoMode = import.meta.env.VITE_UNDO_FEEDBACK_MODE
-
-const UNDO_FEEDBACK_MODE: UndoFeedbackMode =
-  requestedUndoMode === "toast" || requestedUndoMode === "bounce"
-    ? requestedUndoMode
-    : "highlight"
-
-type WizardHistoryPosition =
-  | "header-right"
-  | "below-title"
-  | "footer-left"
-  | "footer-actions"
-
-const requestedHistoryPosition = import.meta.env.VITE_WIZARD_HISTORY_POSITION
-
-const WIZARD_HISTORY_POSITION: WizardHistoryPosition =
-  requestedHistoryPosition === "below-title" ||
-  requestedHistoryPosition === "footer-left" ||
-  requestedHistoryPosition === "footer-actions"
-    ? requestedHistoryPosition
-    : "header-right"
 
 type HistoryEntry = {
   snapshot: IConfigItem
@@ -74,90 +57,6 @@ type DrawerSession = {
   historyStart: number
 }
 
-type UndoSection =
-  | "name"
-  | "trigger"
-  | "action"
-  | "references"
-  | "preconditions"
-  | "modifiers"
-
-type UndoTarget = {
-  section: UndoSection
-  indices?: number[]
-}
-
-const changedIndices = <T,>(before: T[], after: T[]): number[] =>
-  Array.from(
-    { length: Math.max(before.length, after.length) },
-    (_, index) => index,
-  ).filter((index) => !_.isEqual(before[index], after[index]))
-
-const getUndoTargets = (
-  before: IConfigItem,
-  after: IConfigItem,
-): UndoTarget[] => {
-  const targets: UndoTarget[] = []
-
-  if (before.Name !== after.Name) {
-    targets.push({ section: "name" })
-  }
-
-  if (
-    !_.isEqual(before.Controller, after.Controller) ||
-    !_.isEqual(before.Device, after.Device)
-  ) {
-    targets.push({ section: "trigger" })
-  }
-
-  if (
-    !_.isEqual(before.button, after.button) ||
-    !_.isEqual(before.encoder, after.encoder) ||
-    !_.isEqual(before.analog, after.analog) ||
-    !_.isEqual(before.inputMultiplexer, after.inputMultiplexer) ||
-    !_.isEqual(before.inputShiftRegister, after.inputShiftRegister)
-  ) {
-    targets.push({ section: "action" })
-  }
-
-  if (!_.isEqual(before.ConfigRefs, after.ConfigRefs)) {
-    targets.push({
-      section: "references",
-      indices: changedIndices(before.ConfigRefs ?? [], after.ConfigRefs ?? []),
-    })
-  }
-
-  if (!_.isEqual(before.Preconditions, after.Preconditions)) {
-    targets.push({
-      section: "preconditions",
-      indices: changedIndices(
-        before.Preconditions ?? [],
-        after.Preconditions ?? [],
-      ),
-    })
-  }
-
-  if (!_.isEqual(before.Modifiers, after.Modifiers)) {
-    targets.push({
-      section: "modifiers",
-      indices: changedIndices(
-        before.Modifiers?.Items ?? [],
-        after.Modifiers?.Items ?? [],
-      ),
-    })
-  }
-
-  return targets
-}
-
-type UndoFeedback = {
-  sequence: number
-  action: string
-  count: number
-  scope: "wizard" | "drawer"
-  targets: UndoTarget[]
-}
-
 type EditorState = {
   draftConfigItem: IConfigItem | undefined
   history: HistoryEntry[]
@@ -165,7 +64,6 @@ type EditorState = {
   historyStart: number
   lastTextEditId: number | null
   drawerSession: DrawerSession | null
-  undoFeedback: UndoFeedback | null
 }
 
 type HistoryControlsProps = {
@@ -174,8 +72,6 @@ type HistoryControlsProps = {
   historyStart: number
   onUndo: () => void
   onJump: (index: number) => void
-  placement?: "up" | "down"
-  align?: "left" | "right"
 }
 
 const isTextEditingTarget = (target: EventTarget | null): boolean => {
@@ -216,50 +112,25 @@ const HistoryControls = ({
   historyStart,
   onUndo,
   onJump,
-  placement = "up",
-  align = "left",
 }: HistoryControlsProps) => {
   const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
-  const panelId = useId()
-
-  const historyControlsRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-
-    const handleOutsideClick = (event: PointerEvent) => {
-      if (
-        historyControlsRef.current &&
-        !historyControlsRef.current.contains(event.target as Node)
-      ) {
-        setOpen(false)
-      }
-    }
-
-    document.addEventListener("pointerdown", handleOutsideClick)
-
-    return () => {
-      document.removeEventListener("pointerdown", handleOutsideClick)
-    }
-  }, [open])
-
   const canUndo = cursor > 0
+  const hasHistory = history.length > 1
+
   const undoTitle = t("Dialog.InputConfigWizard.History.Undo")
   const historyTitle = t("Dialog.InputConfigWizard.History.Title")
 
   return (
     <div
-      ref={historyControlsRef}
-      className="relative flex shrink-0 items-center gap-2"
       data-testid="config-history-controls"
+      className="group/undo border-input bg-background relative inline-flex h-9 shrink-0 items-stretch rounded-md border"
     >
       <Button
         data-testid="config-undo-button"
         type="button"
-        variant="outline"
+        variant="ghost"
         size="sm"
-        className="rounded-r-none"
+        className={cn("h-full rounded-md px-3", hasHistory && "pr-10")}
         aria-label={undoTitle}
         title={`${undoTitle} (Ctrl+Z)`}
         disabled={!canUndo}
@@ -269,93 +140,96 @@ const HistoryControls = ({
         {undoTitle}
       </Button>
 
-      <Button
-        data-testid="config-history-button"
-        type="button"
-        variant="outline"
-        size="sm"
-        className="-ml-px rounded-l-none px-2"
-        aria-label={historyTitle}
-        title={historyTitle}
-        aria-haspopup="true"
-        aria-expanded={open}
-        aria-controls={panelId}
-        disabled={history.length <= 1}
-        onClick={() => setOpen((previous) => !previous)}
-      >
-        <IconChevronDown size={16} />
-      </Button>
+      {hasHistory && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              data-testid="config-history-button"
+              type="button"
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "border-input bg-background pointer-events-none absolute inset-y-0 right-0 h-full w-8 rounded-l-none rounded-r-md border-l p-0 opacity-0 transition-opacity",
+                "group-hover/undo:pointer-events-auto group-hover/undo:opacity-100",
+                "group-focus-within/undo:pointer-events-auto group-focus-within/undo:opacity-100",
+                "data-[state=open]:pointer-events-auto data-[state=open]:opacity-100",
+                "[@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100",
+              )}
+              aria-label={historyTitle}
+              title={historyTitle}
+            >
+              <IconChevronDown size={16} />
+            </Button>
+          </DropdownMenuTrigger>
 
-      {open && (
-        <div
-          id={panelId}
-          data-testid="config-history-panel"
-          className={cn(
-            "bg-popover text-popover-foreground absolute z-60 w-64 max-w-[85vw] rounded-md border shadow-lg",
-            placement === "up" ? "bottom-full mb-2" : "top-full mt-2",
-            align === "left" ? "left-0" : "right-0",
-          )}
-        >
-          <div className="flex items-center justify-between border-b px-3 py-2">
-            <span className="text-xs font-semibold">{historyTitle}</span>
+          <DropdownMenuContent
+            data-testid="config-history-panel"
+            side="top"
+            align="start"
+            sideOffset={8}
+            className="z-60 w-64 max-w-[85vw]"
+          >
+            <DropdownMenuLabel className="flex items-center justify-between text-sm font-semibold">
+              {historyTitle}
 
-            <span className="text-muted-foreground text-xs tabular-nums">
-              {historyStart + cursor}
-            </span>
-          </div>
+              <span className="text-muted-foreground text-xs font-normal tabular-nums">
+                {historyStart + cursor}
+              </span>
+            </DropdownMenuLabel>
 
-          <div className="max-h-56 overflow-y-auto p-1">
-            {history
-              .map((entry, index) => ({ entry, index }))
-              .reverse()
-              .map(({ entry, index }) => {
-                const isCurrent = index === cursor
+            <DropdownMenuSeparator />
 
-                const label =
-                  index === 0
-                    ? historyStart === 0
-                      ? t("Dialog.InputConfigWizard.History.Original")
-                      : t("Dialog.InputConfigWizard.History.Oldest")
-                    : entry.action
+            <div className="max-h-56 overflow-y-auto">
+              {history
+                .map((entry, index) => ({ entry, index }))
+                .reverse()
+                .map(({ entry, index }) => {
+                  const isCurrent = index === cursor
 
-                return (
-                  <button
-                    key={historyStart + index}
-                    type="button"
-                    data-testid="config-history-entry"
-                    aria-current={isCurrent ? "step" : undefined}
-                    title={label}
-                    className={cn(
-                      "hover:bg-accent flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-left text-xs",
-                      isCurrent && "bg-accent font-medium",
-                    )}
-                    onClick={() => {
-                      if (index < cursor) {
-                        onJump(index)
-                      }
-                      setOpen(false)
-                    }}
-                  >
-                    <span className="text-muted-foreground w-5 shrink-0 text-xs tabular-nums">
-                      {historyStart + index}
-                    </span>
+                  const label =
+                    index === 0
+                      ? historyStart === 0
+                        ? t("Dialog.InputConfigWizard.History.Original")
+                        : t("Dialog.InputConfigWizard.History.Oldest")
+                      : entry.action
 
-                    <span className="min-w-0 flex-1 truncate">{label}</span>
+                  return (
+                    <DropdownMenuItem
+                      key={historyStart + index}
+                      data-testid="config-history-entry"
+                      aria-current={isCurrent ? "step" : undefined}
+                      title={label}
+                      className={cn(
+                        "text-xs font-normal",
+                        isCurrent && "bg-accent font-medium",
+                      )}
+                      onSelect={() => {
+                        if (index < cursor) {
+                          onJump(index)
+                        }
+                      }}
+                    >
+                      <span className="text-muted-foreground w-5 shrink-0 tabular-nums">
+                        {historyStart + index}
+                      </span>
 
-                    {isCurrent && (
-                      <IconCheck
-                        size={14}
-                        className="text-primary shrink-0"
-                        aria-label={t(
-                          "Dialog.InputConfigWizard.History.Current",
-                        )}
-                      />
-                    )}
-                  </button>
-                )
-              })}
-          </div>
-        </div>
+                      <span className="min-w-0 flex-1 truncate">{label}</span>
+
+                      {isCurrent && (
+                        <IconCheck
+                          size={14}
+                          className="text-primary shrink-0"
+                          aria-label={t(
+                            "Dialog.InputConfigWizard.History.Current",
+                          )}
+                        />
+                      )}
+                    </DropdownMenuItem>
+                  )
+                })}
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
     </div>
   )
@@ -386,7 +260,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     historyStart: 0,
     lastTextEditId: null,
     drawerSession: null,
-    undoFeedback: null,
   }))
 
   const draftConfigItem = editorState.draftConfigItem
@@ -723,12 +596,11 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
       const label =
         drawerLabels[session.view] ?? t(`${base}.History.ConfigurationChanged`)
 
-      // Commit the whole Drawer editing session as one step.
       const updatedHistory = [
         ...previous.history.slice(0, previous.cursor + 1),
         {
           snapshot: structuredClone(current),
-          action: `${label} — ${t(`${base}.History.ConfigurationChanged`)}`,
+          action: label,
         },
       ]
 
@@ -774,15 +646,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             cursor: index,
           },
           lastTextEditId: null,
-          undoFeedback: {
-            sequence: (previous.undoFeedback?.sequence ?? 0) + 1,
-            action: session.history[session.cursor].action,
-            count: session.cursor - index,
-            scope: "drawer",
-            targets: previous.draftConfigItem
-              ? getUndoTargets(previous.draftConfigItem, restored)
-              : [],
-          },
         }
       }
 
@@ -803,242 +666,9 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
         history,
         cursor: index,
         lastTextEditId: null,
-        undoFeedback: {
-          sequence: (previous.undoFeedback?.sequence ?? 0) + 1,
-          action: previous.history[previous.cursor].action,
-          count: previous.cursor - index,
-          scope: "wizard",
-          targets: previous.draftConfigItem
-            ? getUndoTargets(previous.draftConfigItem, restored)
-            : [],
-        },
       }
     })
   }
-
-  const lastUndoToastSequenceRef = useRef(0)
-
-  useEffect(() => {
-    if (UNDO_FEEDBACK_MODE !== "toast") return
-    const feedback = editorState.undoFeedback
-
-    if (!feedback) return
-
-    if (feedback.sequence === lastUndoToastSequenceRef.current) {
-      return
-    }
-
-    lastUndoToastSequenceRef.current = feedback.sequence
-
-    const description =
-      feedback.count === 1
-        ? t("Dialog.InputConfigWizard.History.UndoToastSingle", {
-            action: feedback.action,
-          })
-        : t("Dialog.InputConfigWizard.History.UndoToastMultiple", {
-            count: feedback.count,
-          })
-
-    toast({
-      id: "input-config-undo",
-      title: t("Dialog.InputConfigWizard.History.UndoToastTitle"),
-      description,
-      options: {
-        id: "input-config-undo",
-        duration: 2200,
-      },
-    })
-  }, [editorState.undoFeedback, t])
-
-  const lastVisualFeedbackRef = useRef(0)
-  const runningUndoAnimationsRef = useRef(new Map<HTMLElement, Animation>())
-
-  useEffect(() => {
-    if (UNDO_FEEDBACK_MODE === "toast") return
-
-    const feedback = editorState.undoFeedback
-
-    if (!feedback) return
-    if (feedback.sequence === lastVisualFeedbackRef.current) return
-
-    const dialogRoot = containerRef.current
-    if (!dialogRoot) return
-
-    // Drawer Undo targets elements inside the Drawer.
-    // Wizard Undo targets elements in the main dialog.
-    const root =
-      feedback.scope === "drawer"
-        ? dialogRoot.querySelector<HTMLElement>('[data-slot="drawer-content"]')
-        : dialogRoot
-
-    if (!root) return
-
-    const elements = new Set<HTMLElement>()
-
-    const find = (selector: string) => root.querySelector<HTMLElement>(selector)
-
-    const sectionSelectors = {
-      references: {
-        summary: "config-reference-panel",
-        editor: "config-reference-editor",
-        row: "config-reference-item-row",
-      },
-      preconditions: {
-        summary: "precondition-panel",
-        editor: "precondition-editor",
-        row: "precondition-item-row",
-      },
-      modifiers: {
-        summary: "modifier-panel",
-        editor: "modifier-editor",
-        row: "modifier-item",
-      },
-    }
-
-    for (const target of feedback.targets) {
-      if (target.section === "name") {
-        const name =
-          find('[data-testid="dialog-config-name"] [role="button"]') ??
-          find('[data-testid="dialog-config-name"]')
-
-        if (name) elements.add(name)
-        continue
-      }
-
-      if (target.section === "trigger") {
-        const trigger = find('[data-testid="trigger-panel"]')
-        if (trigger) elements.add(trigger)
-        continue
-      }
-
-      if (target.section === "action") {
-        const action = find(
-          feedback.scope === "drawer"
-            ? '[data-testid="action-editor"]'
-            : '[data-testid="action-panel"]',
-        )
-
-        if (action) elements.add(action)
-        continue
-      }
-
-      const selectors = sectionSelectors[target.section]
-      const indices = target.indices ?? []
-
-      if (feedback.scope === "drawer") {
-        const editor = find(`[data-testid="${selectors.editor}"]`)
-
-        if (!editor) continue
-
-        const rows = Array.from(
-          editor.querySelectorAll<HTMLElement>(
-            `[data-testid="${selectors.row}"]`,
-          ),
-        )
-
-        const changedRows = indices
-          .map((index) => rows[index])
-          .filter((element): element is HTMLElement => !!element)
-
-        if (changedRows.length > 0 && changedRows.length === indices.length) {
-          changedRows.forEach((element) => elements.add(element))
-        } else {
-          elements.add(editor)
-        }
-
-        continue
-      }
-
-      // Main Wizard: prefer individual Summary chips.
-      const summary = find(`[data-testid="${selectors.summary}"]`)
-
-      if (!summary) {
-        // The summary might disappear when the last item is undone.
-        const addButton = find(`[data-undo-section="${target.section}"]`)
-
-        if (addButton) elements.add(addButton)
-        continue
-      }
-
-      const changedChips = indices
-        .map((index) =>
-          summary.querySelector<HTMLElement>(`[data-undo-index="${index}"]`),
-        )
-        .filter((element): element is HTMLElement => !!element)
-
-      if (changedChips.length > 0 && changedChips.length === indices.length) {
-        changedChips.forEach((element) => elements.add(element))
-      } else {
-        elements.add(summary)
-      }
-    }
-
-    lastVisualFeedbackRef.current = feedback.sequence
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches
-
-    const useBounce = UNDO_FEEDBACK_MODE === "bounce"
-
-    for (const element of elements) {
-      runningUndoAnimationsRef.current.get(element)?.cancel()
-
-      const originalBackground =
-        window.getComputedStyle(element).backgroundColor
-
-      const keyframes: Keyframe[] = useBounce
-        ? [
-            {
-              offset: 0,
-              transform: "translateY(0px) scale(1)",
-            },
-            {
-              offset: 0.35,
-              transform: "translateY(-12px) scale(1.04)",
-            },
-            {
-              offset: 0.68,
-              transform: "translateY(2px) scale(0.99)",
-            },
-            {
-              offset: 1,
-              transform: "translateY(0px) scale(1)",
-            },
-          ]
-        : [
-            {
-              offset: 0,
-              backgroundColor: `color-mix(in srgb, ${originalBackground} 88%, #fbbf24 12%)`,
-            },
-            {
-              offset: 1,
-              backgroundColor: originalBackground,
-            },
-          ]
-
-      if (reducedMotion) continue
-
-      const animation = element.animate(keyframes, {
-        duration: useBounce ? 650 : 650,
-        easing: useBounce ? "cubic-bezier(0.22, 1, 0.36, 1)" : "ease-out",
-      })
-
-      runningUndoAnimationsRef.current.set(element, animation)
-
-      animation.onfinish = () => {
-        if (runningUndoAnimationsRef.current.get(element) === animation) {
-          runningUndoAnimationsRef.current.delete(element)
-        }
-      }
-
-      animation.oncancel = () => {
-        if (runningUndoAnimationsRef.current.get(element) === animation) {
-          runningUndoAnimationsRef.current.delete(element)
-        }
-      }
-    }
-  }, [editorState.undoFeedback])
 
   const undoConfigItemChange = () => {
     if (!canUndo) return
@@ -1119,18 +749,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     }, 100)
   }
 
-  const wizardHistoryControls = (
-    <HistoryControls
-      placement="up"
-      align="left"
-      history={editorState.history}
-      cursor={editorState.cursor}
-      historyStart={editorState.historyStart}
-      onUndo={undoConfigItemChange}
-      onJump={(index) => jumpToHistory(index, "wizard")}
-    />
-  )
-
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
@@ -1170,40 +788,33 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           preventDialogAnimation ? "data-[state=open]:animate-none!" : "",
         )}
       >
-        <DialogHeader
-          className={cn(WIZARD_HISTORY_POSITION === "header-right" && "pr-10")}
-        >
-          <div className="flex flex-row items-center justify-between gap-4">
-            <DialogTitle
-              tabIndex={undefined}
-              className="flex flex-row items-center gap-2 text-2xl"
-              data-testid="dialog-config-name"
-            >
-              {t("Dialog.InputConfigWizard.Title")}{" "}
-              <IconChevronRight className="mt-1" />
-              <InlineEditLabel
-                labelClassName="text-2xl px-4.5 -ml-5"
-                inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
-                value={draftConfigItem?.Name || ""}
-                onSave={(newName) => {
-                  if (draftConfigItem) {
-                    updateDraftConfigItem({ ...draftConfigItem, Name: newName })
-                  }
-                }}
-                ref={inlineEditRef}
-              />
-            </DialogTitle>
-            {WIZARD_HISTORY_POSITION === "header-right" &&
-              wizardHistoryControls}
-          </div>
+        <DialogHeader>
+          <DialogTitle
+            tabIndex={undefined}
+            className="flex flex-row items-center gap-2 text-2xl"
+            data-testid="dialog-config-name"
+          >
+            {t("Dialog.InputConfigWizard.Title")}{" "}
+            <IconChevronRight className="mt-1" />
+            <InlineEditLabel
+              labelClassName="text-2xl px-4.5 -ml-5"
+              inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
+              value={draftConfigItem?.Name || ""}
+              onSave={(newName) => {
+                if (draftConfigItem) {
+                  updateDraftConfigItem({
+                    ...draftConfigItem,
+                    Name: newName,
+                  })
+                }
+              }}
+              ref={inlineEditRef}
+            />
+          </DialogTitle>
+
           <DialogDescription className="vsm:block hidden">
             {t("Dialog.InputConfigWizard.Description")}
           </DialogDescription>
-          {WIZARD_HISTORY_POSITION === "below-title" && (
-            <div className="flex justify-start pt-2">
-              {wizardHistoryControls}
-            </div>
-          )}
         </DialogHeader>
         <div className="relative flex grow flex-col gap-2">
           <ScrollArea className="grow">
@@ -1217,8 +828,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                   drawerContainer={containerRef}
                   historyControls={
                     <HistoryControls
-                      placement="up"
-                      align="right"
                       history={editorState.drawerSession?.history ?? []}
                       cursor={editorState.drawerSession?.cursor ?? -1}
                       historyStart={
@@ -1244,7 +853,14 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           data-testid="inputconfigwizard-dialog-footer"
         >
           <div className="flex grow flex-row items-center gap-2">
-            {WIZARD_HISTORY_POSITION === "footer-left" && wizardHistoryControls}
+            <HistoryControls
+              history={editorState.history}
+              cursor={editorState.cursor}
+              historyStart={editorState.historyStart}
+              onUndo={undoConfigItemChange}
+              onJump={(index) => jumpToHistory(index, "wizard")}
+            />
+
             {showPendingChangesMessage && (
               <>
                 <IconExclamationCircle className="text-primary ml-2 inline h-8 w-8" />
@@ -1254,10 +870,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               </>
             )}
           </div>
-          <div className="flex flex-row items-center gap-2">
-            {WIZARD_HISTORY_POSITION === "footer-actions" &&
-              wizardHistoryControls}
 
+          <div className="flex flex-row gap-2">
             <Button variant="outline" onClick={closeDialog}>
               {t("Dialog.General.Cancel")}
             </Button>
