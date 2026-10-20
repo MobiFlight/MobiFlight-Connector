@@ -827,23 +827,28 @@
         "Original": "Original configuration",
 
         "ConfigurationChanged": "Configuration changed",
-        "ConfigReferenceChanged": "Configuration changed",
         "Oldest": "Oldest state",
         "Current": "Current state",
 
         "NameChanged": "Name changed",
         "TriggerChanged": "Trigger changed",
 
-        "PreconditionAdded": "Precondition added",
-        "PreconditionRemoved": "Precondition removed",
-        "PreconditionChanged": "Precondition changed",
+        "PreconditionAdded": "Added",
+        "PreconditionRemoved": "Removed",
+        "PreconditionChanged": "Changed",
 
-        "ModifierAdded": "Modifier added",
-        "ModifierRemoved": "Modifier removed",
-        "ModifierEnabled": "Modifier enabled",
-        "ModifierDisabled": "Modifier disabled",
+        "ModifierAdded": "Added",
+        "ModifierRemoved": "Removed",
+        "ModifierEnabled": "Enabled",
+        "ModifierDisabled": "Disabled",
         "ModifierExpressionChanged": "Expression changed",
         "ModifierChanged": "Modifier changed",
+
+        "ConfigReferenceAdded": "Added",
+        "ConfigReferenceRemoved": "Removed",
+        "ConfigReferenceEnabled": "Enabled",
+        "ConfigReferenceDisabled": "Disabled",
+        "ConfigReferenceChanged": "Edited",
 
         "ActionTypeChanged": "Action type changed",
         "ActionCodeChanged": "Code changed",
