@@ -69,7 +69,7 @@ const HistoryControls = ({
               className={cn(
                 "border-input bg-background pointer-events-none absolute inset-y-0 right-0 h-full w-8 rounded-l-none rounded-r-md border-l p-0 opacity-0 transition-opacity",
                 "group-hover/undo:pointer-events-auto group-hover/undo:opacity-100",
-                "group-focus-within/undo:pointer-events-auto group-focus-within/undo:opacity-100",
+                "focus-visible:pointer-events-auto focus-visible:opacity-100",
                 "data-[state=open]:pointer-events-auto data-[state=open]:opacity-100",
                 "[@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100",
               )}
