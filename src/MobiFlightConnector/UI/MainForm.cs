@@ -59,9 +59,9 @@ namespace MobiFlight.UI
 
         private long _projectChangeRevision = 0;
 
-        private long _deleteSeriesRevision = -1;
-        private int _deleteSeriesRemaining = 0;
-        private bool _wasDirtyBeforeDeleteSeries;
+        private long _listSeriesRevision = -1;
+        private int _listSeriesRemaining = 0;
+        private bool _wasDirtyBeforeListSeries;
 
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
@@ -672,43 +672,47 @@ namespace MobiFlight.UI
             execManager.OnConfigHasChanged += OnConfigItemHasChanged;
             execManager.OnProjectChanged += ExecManager_OnProjectChanged;
 
-            execManager.OnSingleDeleteRecorded += (sender, args) =>
+
+            execManager.OnConfigListActionRecorded += (sender, args) =>
             {
-                if (_deleteSeriesRemaining == 0 ||
-                    _projectChangeRevision != _deleteSeriesRevision)
+                if (_listSeriesRemaining == 0 ||
+                    _projectChangeRevision != _listSeriesRevision)
                 {
-                    // Start a new consecutive delete sequence.
-                    _wasDirtyBeforeDeleteSeries = ProjectHasUnsavedChanges;
-                    _deleteSeriesRemaining = 0;
+                    // Start a new consecutive list-action series.
+                    _wasDirtyBeforeListSeries =
+                        ProjectHasUnsavedChanges;
+
+                    _listSeriesRemaining = 0;
                 }
 
-                _deleteSeriesRemaining++;
+                _listSeriesRemaining++;
 
-                // The deletion will trigger OnConfigHasChanged next.
-                _deleteSeriesRevision = _projectChangeRevision + 1;
+                // OnConfigHasChanged will run after this event.
+                _listSeriesRevision = _projectChangeRevision + 1;
             };
 
-            execManager.OnSingleDeleteUndone += (sender, args) =>
+            execManager.OnConfigListActionUndone += (sender, args) =>
             {
-                if (_deleteSeriesRemaining == 0)
+                if (_listSeriesRemaining == 0)
                     return;
 
-                // OnConfigHasChanged has already run for this Undo.
-                if (_projectChangeRevision != _deleteSeriesRevision + 1)
+                // OnConfigHasChanged already ran for this Undo.
+                if (_projectChangeRevision != _listSeriesRevision + 1)
                 {
-                    // An unrelated change occurred.
-                    // Do not clear the dirty flag.
-                    _deleteSeriesRemaining = 0;
+                    // Another change occurred. Keep the project dirty.
+                    _listSeriesRemaining = 0;
                     return;
                 }
 
-                _deleteSeriesRemaining--;
-                _deleteSeriesRevision = _projectChangeRevision;
+                _listSeriesRemaining--;
+                _listSeriesRevision = _projectChangeRevision;
 
-                if (_deleteSeriesRemaining == 0)
+                if (_listSeriesRemaining == 0)
                 {
-                    // All consecutive deletions have been undone.
-                    ProjectHasUnsavedChanges = _wasDirtyBeforeDeleteSeries;
+                    // All recorded list actions have been undone.
+                    ProjectHasUnsavedChanges =
+                        _wasDirtyBeforeListSeries;
+
                     SetProjectFilePathInTitle();
                 }
             };
@@ -2321,6 +2325,12 @@ namespace MobiFlight.UI
         private void ResetProjectAndConfigChanges()
         {
             _projectChangeRevision++;
+
+            _listSeriesRevision = -1;
+            _listSeriesRemaining = 0;
+
+            execManager?.ClearConfigListUndoHistory();
+
             ProjectHasUnsavedChanges = false;
             SetProjectFilePathInTitle();
         }
