@@ -129,6 +129,44 @@ namespace MobiFlight
             PublishDeleteUndoState();
         }
 
+        public event EventHandler OnConfigListCreationApplied;
+
+        public void NotifyConfigItemCommitted(IConfigItem item)
+        {
+            if (_listUndoHistory.Count > 0)
+            {
+                var entry = _listUndoHistory[
+                    _listUndoHistory.Count - 1
+                ];
+
+                bool isLatestCreation =
+                    (entry.Action == ConfigListUndoAction.Add ||
+                     entry.Action == ConfigListUndoAction.Duplicate) &&
+                    entry.Guid == item.GUID &&
+                    ReferenceEquals(entry.Project, Project) &&
+                    entry.ConfigIndex == ActiveConfigIndex &&
+                    ReferenceEquals(
+                        entry.File,
+                        Project.ConfigFiles[ActiveConfigIndex]
+                    );
+
+                if (isLatestCreation)
+                {
+                    // This edit belongs to the last Add/Duplicate action.
+                    // Keep its Undo entry instead of clearing history.
+                    OnConfigListCreationApplied?.Invoke(
+                        this,
+                        EventArgs.Empty
+                    );
+                    return;
+                }
+            }
+
+            // Editing an existing item is not yet covered
+            // by the ConfigItem list Undo history.
+            ClearConfigListUndoHistory();
+        }
+
         private void PublishDeleteUndoState()
         {
             MessageExchange.Instance.Publish(new ConfigListUndoState
@@ -439,26 +477,6 @@ namespace MobiFlight
             MessageExchange.Instance.SubscribeOnUiThread<CommandUpdateConfigItem>((message) =>
             {
                 HandleCommandUpdateConfigItem(message.Item);
-            });
-
-            MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
-            {
-                IConfigItem item = new OutputConfigItem()
-                {
-                    Source = SourceFactory.Create(Project.ToProjectInfo().Sim)
-                };
-                if (message.Type == "InputConfig")
-                {
-                    item = new InputConfigItem();
-                }
-
-                item.GUID = Guid.NewGuid().ToString();
-                item.Name = message.Name;
-                item.Active = true;
-                ConfigItems.Add(item);
-
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
-                OnConfigHasChanged?.Invoke(item, null);
             });
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigBulkAction>((message) =>
@@ -890,9 +908,8 @@ namespace MobiFlight
 
             if (configItemIndex == -1) return;
 
-            ClearConfigListUndoHistory();
-
             ConfigItems[configItemIndex] = item;
+
             MessageExchange.Instance.Publish(
                 new ConfigValuePartialUpdate(item)
             );
@@ -903,6 +920,10 @@ namespace MobiFlight
                 new IConfigItem[] { item },
                 null
             );
+
+            // Preserve the Add/Duplicate history when applying
+            // changes to the newly created item.
+            NotifyConfigItemCommitted(item);
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)

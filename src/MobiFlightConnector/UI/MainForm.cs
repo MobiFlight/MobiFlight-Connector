@@ -454,6 +454,7 @@ namespace MobiFlight.UI
                     execManager.ConfigItems[index] = wizard.Config;
                     MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
                     OnConfigItemHasChanged(wizard.Config, null);
+                    execManager.NotifyConfigItemCommitted(wizard.Config);
                 }
             }
 
@@ -714,6 +715,17 @@ namespace MobiFlight.UI
                         _wasDirtyBeforeListSeries;
 
                     SetProjectFilePathInTitle();
+                }
+            };
+
+            execManager.OnConfigListCreationApplied += (sender, args) =>
+            {
+                if (_listSeriesRemaining > 0 &&
+                    _projectChangeRevision == _listSeriesRevision + 1)
+                {
+                    // Applying changes to the most recently created
+                    // item belongs to the same Add/Duplicate action.
+                    _listSeriesRevision = _projectChangeRevision;
                 }
             };
 
