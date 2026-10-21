@@ -72,15 +72,37 @@ namespace MobiFlight
             public IConfigItem Snapshot { get; set; }
         }
 
-        private SingleDeleteUndo _pendingDeleteUndo;
+        private const int MaxDeleteUndoSteps = 50;
+
+        private readonly List<SingleDeleteUndo> _deleteUndoHistory =
+            new List<SingleDeleteUndo>();
 
         private void SetPendingDeleteUndo(SingleDeleteUndo entry)
         {
-            _pendingDeleteUndo = entry;
+            if (entry == null)
+            {
+                // Clear history when another unsupported action occurs.
+                _deleteUndoHistory.Clear();
+            }
+            else
+            {
+                // Keep only the most recent 50 actions.
+                if (_deleteUndoHistory.Count >= MaxDeleteUndoSteps)
+                {
+                    _deleteUndoHistory.RemoveAt(0);
+                }
 
+                _deleteUndoHistory.Add(entry);
+            }
+
+            PublishDeleteUndoState();
+        }
+
+        private void PublishDeleteUndoState()
+        {
             MessageExchange.Instance.Publish(new ConfigListUndoState
             {
-                CanUndo = entry != null
+                CanUndo = _deleteUndoHistory.Count > 0
             });
         }
 
@@ -633,38 +655,67 @@ namespace MobiFlight
                 }
             });
 
-            MessageExchange.Instance.SubscribeOnUiThread<CommandUndoConfigListDelete>(
-                (_) =>
-                {
-                    var entry = _pendingDeleteUndo;
-                    if (entry == null) return;
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUndoConfigListDelete>((_) =>
+            {
+                if (_deleteUndoHistory.Count == 0)
+                    return;
 
-                    if (!ReferenceEquals(Project, entry.Project) ||
+                // Get the most recent deletion.
+                int lastIndex = _deleteUndoHistory.Count - 1;
+                var entry = _deleteUndoHistory[lastIndex];
+
+                // Ensure the original project and profile still exist.
+                if (!ReferenceEquals(Project, entry.Project) ||
                     entry.ConfigIndex < 0 ||
                     entry.ConfigIndex >= Project.ConfigFiles.Count ||
                     !ReferenceEquals(
                         Project.ConfigFiles[entry.ConfigIndex],
                         entry.File))
-                    {
-                        SetPendingDeleteUndo(null);
-                        return;
-                    }
-                    var items = entry.File.ConfigItems;
-                    if (items.Any(i => i.GUID == entry.Snapshot.GUID))
-                    {
-                        SetPendingDeleteUndo(null);
-                        return;
-                    }
-                    items.Insert(
-                        Math.Min(entry.OriginalIndex, items.Count),
-                        entry.Snapshot);
+                {
                     SetPendingDeleteUndo(null);
-                    OnInputConfigSettingsChanged(this, null);
-                    MessageExchange.Instance.Publish(
-                        new ConfigValueFullUpdate(entry.ConfigIndex, items));
-                    OnConfigHasChanged?.Invoke(items, null);
-                    OnSingleDeleteUndone?.Invoke(this, EventArgs.Empty);
-                });
+                    return;
+                }
+
+                var items = entry.File.ConfigItems;
+
+                // Prevent duplicate GUIDs.
+                if (items.Any(i => i.GUID == entry.Snapshot.GUID))
+                {
+                    SetPendingDeleteUndo(null);
+                    return;
+                }
+
+                // Restore the ConfigItem with its original GUID
+                // and configuration values.
+                var restoredItem = (IConfigItem)entry.Snapshot.Clone();
+
+                int restoreIndex = Math.Min(
+                    entry.OriginalIndex,
+                    items.Count
+                );
+
+                items.Insert(restoreIndex, restoredItem);
+
+                // Remove ONLY the latest history entry.
+                _deleteUndoHistory.RemoveAt(lastIndex);
+
+                // Update execution caches.
+                OnInputConfigSettingsChanged(this, null);
+
+                // Synchronize the frontend list.
+                MessageExchange.Instance.Publish(
+                    new ConfigValueFullUpdate(entry.ConfigIndex, items)
+                );
+
+                // Notify the application that configurations changed.
+                OnConfigHasChanged?.Invoke(items, null);
+
+                OnSingleDeleteUndone?.Invoke(this, EventArgs.Empty);
+
+                // Keep Undo enabled while history remains.
+                PublishDeleteUndoState();
+            }
+            );
         }
 
         private void ScanForInputStop()

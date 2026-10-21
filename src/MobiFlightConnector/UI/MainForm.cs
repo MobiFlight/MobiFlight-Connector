@@ -58,8 +58,10 @@ namespace MobiFlight.UI
         private MessageServer messageServer;
 
         private long _projectChangeRevision = 0;
-        private long? _singleDeleteRevision = null;
-        private bool _wasDirtyBeforeSingleDelete;
+
+        private long _deleteSeriesRevision = -1;
+        private int _deleteSeriesRemaining = 0;
+        private bool _wasDirtyBeforeDeleteSeries;
 
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
@@ -672,20 +674,43 @@ namespace MobiFlight.UI
 
             execManager.OnSingleDeleteRecorded += (sender, args) =>
             {
-                _wasDirtyBeforeSingleDelete = ProjectHasUnsavedChanges;
-                _singleDeleteRevision = _projectChangeRevision + 1;
+                if (_deleteSeriesRemaining == 0 ||
+                    _projectChangeRevision != _deleteSeriesRevision)
+                {
+                    // Start a new consecutive delete sequence.
+                    _wasDirtyBeforeDeleteSeries = ProjectHasUnsavedChanges;
+                    _deleteSeriesRemaining = 0;
+                }
+
+                _deleteSeriesRemaining++;
+
+                // The deletion will trigger OnConfigHasChanged next.
+                _deleteSeriesRevision = _projectChangeRevision + 1;
             };
 
             execManager.OnSingleDeleteUndone += (sender, args) =>
             {
-                // Delete and Undo must be the only two changes since the initial state was captured.
-                if (_singleDeleteRevision.HasValue &&
-                    _projectChangeRevision == _singleDeleteRevision.Value + 1)
+                if (_deleteSeriesRemaining == 0)
+                    return;
+
+                // OnConfigHasChanged has already run for this Undo.
+                if (_projectChangeRevision != _deleteSeriesRevision + 1)
                 {
-                    ProjectHasUnsavedChanges = _wasDirtyBeforeSingleDelete;
+                    // An unrelated change occurred.
+                    // Do not clear the dirty flag.
+                    _deleteSeriesRemaining = 0;
+                    return;
+                }
+
+                _deleteSeriesRemaining--;
+                _deleteSeriesRevision = _projectChangeRevision;
+
+                if (_deleteSeriesRemaining == 0)
+                {
+                    // All consecutive deletions have been undone.
+                    ProjectHasUnsavedChanges = _wasDirtyBeforeDeleteSeries;
                     SetProjectFilePathInTitle();
                 }
-                _singleDeleteRevision = null;
             };
 
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
@@ -2296,7 +2321,6 @@ namespace MobiFlight.UI
         private void ResetProjectAndConfigChanges()
         {
             _projectChangeRevision++;
-            _singleDeleteRevision = null;
             ProjectHasUnsavedChanges = false;
             SetProjectFilePathInTitle();
         }
