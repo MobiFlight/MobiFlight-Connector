@@ -213,6 +213,8 @@ const OutputDeviceEditor = ({
           variant="details"
           config={configItem.Device as LcdDisplayConfig}
           controller={configItem.Controller}
+          devices={devices.filter((device) => device.Type === "LcdDisplay")}
+          onChange={(device) => updateConfigItem(configItem.Controller, device)}
         />
       )}
       {configItem.Device && configItem.Device.Type === "Servo" && (
