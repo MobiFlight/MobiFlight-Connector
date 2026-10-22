@@ -4690,6 +4690,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       Variable: {
         TYPE: "number",
         Name: "TestVariable",
+        Number: 0,
         Text: "",
         Expression: "123",
       },
@@ -4762,6 +4763,7 @@ test.describe("Input Config Wizard - Variable Input Action Panel", () => {
       Variable: {
         TYPE: "string",
         Name: "TestVariable",
+        Number: 0,
         Text: "",
         Expression: "123",
       },
