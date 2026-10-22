@@ -23,15 +23,17 @@ export const ControllerComboBox = ({
   completeControllers,
   selectedController,
   onChange,
+  variant = "default"
 }: {
   completeControllers: Partial<Controller>[]
   selectedController: Partial<Controller> | undefined
   onChange: (controller: Partial<Controller> | undefined) => void
+  variant?: "full-width" | "default"
 }) => {
   const { t } = useTranslation()
   return (
     <ComboBox
-      widthClass="w-56"
+      widthClass={variant === "full-width" ? "w-full" : "w-56"}
       align="start"
       getLabel={(controller) => (controller as Controller).Name}
       getValue={(controller) =>
@@ -61,16 +63,18 @@ export const DeviceComboBox = ({
   selectedDevice,
   selectedController,
   onChange,
+  variant = "default"
 }: {
   devices: BaseDevice[]
   selectedDevice: BaseDevice | undefined
   selectedController: Partial<Controller> | undefined
   onChange: (device: BaseDevice | undefined) => void
+  variant?: "full-width" | "default"
 }) => {
   const { t } = useTranslation()
   return (
     <ComboBox
-      widthClass="w-56"
+      widthClass={variant === "full-width" ? "w-full" : "w-56"}
       align="start"
       getLabel={(device) =>
         (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
