@@ -1,5 +1,5 @@
 import { ActionTypeOption } from "@/components/wizard/components/ActionTypeComboBox"
-import { SourceTypeOption } from "@/components/wizard/components/SourceTypeComboBox"
+import { SourceTypeOption } from "@/components/wizard/OutputConfig/SourceTypeComboBox"
 import { Preset } from "@/types/preset"
 
 export const ActionTypeOptions: ActionTypeOption[] = [

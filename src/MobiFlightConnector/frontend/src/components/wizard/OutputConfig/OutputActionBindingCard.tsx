@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import OutputDeviceSummary from "@/components/wizard/components/OutputDevices/OutputDeviceSummary"
+import OutputDeviceSummary from "@/components/wizard/OutputConfig/OutputDeviceSummary"
 import { OutputConfig, OutputConfigItem } from "@/types/config"
 import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
-export interface DisplayBindingPanelProps {
+export interface OutputActionBindingCardProps {
   config: OutputConfigItem
   onEdit: () => void
 }
 
-const DisplayBindingPanel = ({ config, onEdit }: DisplayBindingPanelProps) => {
+const OutputActionBindingCard = ({ config, onEdit }: OutputActionBindingCardProps) => {
   const { t } = useTranslation()
 
   const hasOutputDevice = config.Device !== undefined
@@ -62,4 +62,4 @@ const DisplayBindingPanel = ({ config, onEdit }: DisplayBindingPanelProps) => {
     </Card>
   )
 }
-export default DisplayBindingPanel
+export default OutputActionBindingCard

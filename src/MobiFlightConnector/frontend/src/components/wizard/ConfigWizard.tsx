@@ -1,7 +1,7 @@
 import ActionBindingPanel from "@/components/wizard/components/ActionBindingPanel"
 import ConfigReferencePanel from "@/components/wizard/ConfigReferences/ConfigReferencePanel"
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
-import OutputConfigTrigger from "@/components/wizard/components/OutputConfigTrigger"
+import OutputTriggerCard from "@/components/wizard/OutputConfig/OutputTriggerCard"
 import PreconditionsPanel from "@/components/wizard/Precondition/PreconditionsPanel"
 import { IConfigItem } from "@/types"
 import { RefObject, useState } from "react"
@@ -28,9 +28,9 @@ import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
-import SourceEditor from "@/components/wizard/components/SourceEditor"
-import DisplayBindingPanel from "@/components/wizard/components/DisplayBindingPanel"
-import OutputDeviceEditor from "@/components/wizard/components/OutputDevices/OutputDeviceEditor"
+import SourceEditor from "@/components/wizard/OutputConfig/SourceEditor"
+import OutputActionBindingCard from "@/components/wizard/OutputConfig/OutputActionBindingCard"
+import OutputDeviceEditor from "@/components/wizard/OutputConfig/OutputDeviceEditor"
 
 export type ConfigWizardProps = {
   variant: ConfigItemType
@@ -143,7 +143,7 @@ const ConfigWizard = ({
       )}
 
       {variant === "OutputConfigItem" && (
-        <OutputConfigTrigger
+        <OutputTriggerCard
           configItem={configItem}
           // setConfigItem={(item: IConfigItem) => {
           //   // Update the configItem state here
@@ -300,7 +300,7 @@ const ConfigWizard = ({
         />
       )}
       {variant == "OutputConfigItem" && (
-        <DisplayBindingPanel
+        <OutputActionBindingCard
           config={configItem as OutputConfigItem}
           onEdit={() => {
             navigateToDetailView("display")
