@@ -167,6 +167,12 @@ const OutputDeviceEditor = ({
                   selected ? item.value === selected.value : false
                 }
                 setSelected={(item) => {
+                  // deselecting the current device type clears the device
+                  if (!item) {
+                    updateConfigItem(configItem.Controller, undefined)
+                    return
+                  }
+
                   const first = completeDevices.find(
                     (device) => device.Type === item?.value,
                   )
