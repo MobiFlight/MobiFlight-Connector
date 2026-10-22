@@ -16,10 +16,7 @@ import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 import { IConfigItem } from "@/types"
 import { Table } from "@tanstack/react-table"
 import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
-import {
-  ConfigItemDragContext,
-  ConfigItemDragVisualContext,
-} from "./ConfigItemContext"
+import { ConfigItemDragContext } from "./ConfigItemContext"
 import { useProjectStoreActions } from "@/stores/projectStore"
 import { restrictToBottomOfParentElement } from "../dnd/modifiers/restrictToBottomOfParentElement"
 import {
@@ -140,11 +137,11 @@ export function ConfigItemDragProvider({
       }
 
       const dragItem = draggedRow ? draggedRow.original : null
-      const draggedItemsIds = new Set(draggedItems.map((item) => item.GUID))
+      const draggedItemsIds = draggedItems.map((item) => item.GUID)
 
       const originalPositions = new Map<string, number>()
       table.getRowModel().rows.forEach((row, index) => {
-        if (!draggedItemsIds.has(row.original.GUID)) return
+        if (!draggedItemsIds.includes(row.original.GUID)) return
         originalPositions.set(row.original.GUID, index)
       })
 
@@ -182,33 +179,30 @@ export function ConfigItemDragProvider({
     [table, initialConfigIndex],
   )
 
-  const moveItemsToHoveredTab = useCallback(
-    (hoveredTabIndex: number) => {
-      if (!dragState) return
-      moveItemsBetweenConfigs(
-        dragState.items.draggedItems,
-        dragState.configs.current,
-        hoveredTabIndex,
-        0,
-      )
-      setDragState((prev) =>
-        prev
-          ? {
-              ...prev,
-              configs: {
-                ...prev.configs,
-                current: hoveredTabIndex,
-              },
-              ui: {
-                ...prev.ui,
-                hoveredTabIndex,
-              },
-            }
-          : null,
-      )
-    },
-    [dragState, moveItemsBetweenConfigs],
-  )
+  const moveItemsToHoveredTab = useCallback((hoveredTabIndex: number) => {
+    if (!dragState) return;
+    moveItemsBetweenConfigs(
+      dragState.items.draggedItems,
+      dragState.configs.current,
+      hoveredTabIndex,
+      0
+    );
+    setDragState((prev) =>
+      prev
+        ? {
+            ...prev,
+            configs: {
+              ...prev.configs,
+              current: hoveredTabIndex,
+            },
+            ui: {
+              ...prev.ui,
+              hoveredTabIndex,
+            },
+          }
+        : null
+    );
+  }, [dragState, moveItemsBetweenConfigs]);
 
   /**
    * Simplified drag cancellation - restore items to initial config
@@ -378,16 +372,6 @@ export function ConfigItemDragProvider({
     setTableContainerRef, // Function for table to register its container element
   }
 
-  const dragVisualContextValue = useMemo(
-    () => ({
-      draggedItemIds: new Set(
-        dragState?.items.draggedItems.map((item) => item.GUID) ?? [],
-      ),
-      isInsideTable: dragState?.ui.isInsideTable ?? true,
-    }),
-    [dragState?.items.draggedItems, dragState?.ui.isInsideTable],
-  )
-
   const createDynamicModifier = useCallback(
     (dragState: DragState | null): Modifier => {
       return (args) => {
@@ -422,22 +406,20 @@ export function ConfigItemDragProvider({
   return (
     // Provide context to child components
     <ConfigItemDragContext.Provider value={contextValue}>
-      <ConfigItemDragVisualContext.Provider value={dragVisualContextValue}>
-        {/* The actual DnD functionality wrapper */}
-        <DndContext
-          sensors={sensors}
-          // pointer within is needed for tab hover detection
-          collisionDetection={collisionDetection}
-          modifiers={modifiers}
-          onDragStart={handleDragStart}
-          onDragMove={handleDragMove}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
-        >
-          {children}
-          <ConfigItemDragOverlay />
-        </DndContext>
-      </ConfigItemDragVisualContext.Provider>
+      {/* The actual DnD functionality wrapper */}
+      <DndContext
+        sensors={sensors}
+        // pointer within is needed for tab hover detection
+        collisionDetection={collisionDetection}
+        modifiers={modifiers}
+        onDragStart={handleDragStart}
+        onDragMove={handleDragMove}
+        onDragEnd={handleDragEnd}
+        onDragCancel={handleDragCancel}
+      >
+        {children}
+        <ConfigItemDragOverlay />
+      </DndContext>
     </ConfigItemDragContext.Provider>
   )
 }
