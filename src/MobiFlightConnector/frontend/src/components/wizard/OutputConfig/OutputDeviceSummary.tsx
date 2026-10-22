@@ -9,15 +9,15 @@ import {
   StepperConfig,
 } from "@/types/config"
 import { Controller } from "@/types/controller"
-import OutputPanel from "./OutputPanel"
+import OutputPanel from "@/components/wizard/OutputConfig/OutputDevices/OutputPanel"
 import { Button } from "@/components/ui/button"
 import { IconEdit } from "@tabler/icons-react"
-import CustomDevicePanel from "@/components/wizard/components/OutputDevices/CustomDevicePanel"
-import LedModulePanel from "@/components/wizard/components/OutputDevices/LedModulePanel"
-import LcdDisplayPanel from "@/components/wizard/components/OutputDevices/LcdDisplayPanel"
-import ServoPanel from "@/components/wizard/components/OutputDevices/ServoPanel"
-import StepperPanel from "@/components/wizard/components/OutputDevices/StepperPanel"
-import ShiftRegisterPanel from "@/components/wizard/components/OutputDevices/ShiftRegisterPanel"
+import CustomDevicePanel from "@/components/wizard/OutputConfig/OutputDevices/CustomDevicePanel"
+import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedModulePanel"
+import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdDisplayPanel"
+import ServoPanel from "@/components/wizard/OutputConfig/OutputDevices/ServoPanel"
+import StepperPanel from "@/components/wizard/OutputConfig/OutputDevices/StepperPanel"
+import ShiftRegisterPanel from "@/components/wizard/OutputConfig/OutputDevices/ShiftRegisterPanel"
 
 export interface OutputDeviceSummaryProps {
   config: OutputDeviceConfig

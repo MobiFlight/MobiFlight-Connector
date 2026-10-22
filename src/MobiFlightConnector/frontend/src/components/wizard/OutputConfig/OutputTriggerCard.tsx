@@ -4,17 +4,17 @@ import { IConfigItem, OutputConfigItem } from "@/types/config"
 import { useTranslation } from "react-i18next"
 import SourceSummary from "./SourceSummary"
 
-export type OutputConfigTriggerProps = {
+export type OutputTriggerCardProps = {
   configItem: IConfigItem
   // setConfigItem: (item: IConfigItem) => void
   navigateToDetailView: (view: string, size?: "small" | "large") => void
 }
 
-const OutputConfigTrigger = ({
+const OutputTriggerCard = ({
   configItem,
   // setConfigItem,
   navigateToDetailView,
-}: OutputConfigTriggerProps) => {
+}: OutputTriggerCardProps) => {
   const { t } = useTranslation()
 
   const outputConfigItem = configItem as OutputConfigItem
@@ -50,4 +50,4 @@ const OutputConfigTrigger = ({
     </Card>
   )
 }
-export default OutputConfigTrigger
+export default OutputTriggerCard

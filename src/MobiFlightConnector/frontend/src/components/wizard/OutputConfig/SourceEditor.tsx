@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
-import MsfsSourcePanel from "@/components/wizard/components/Sources/MsfsSourcePanel"
-import ProSimSourcePanel from "@/components/wizard/components/Sources/ProSimSourcePanel"
-import SourceTypeComboBox from "@/components/wizard/components/SourceTypeComboBox"
+import MsfsSourcePanel from "@/components/wizard/OutputConfig/Sources/MsfsSourcePanel"
+import ProSimSourcePanel from "@/components/wizard/OutputConfig/Sources/ProSimSourcePanel"
+import SourceTypeComboBox from "@/components/wizard/OutputConfig/SourceTypeComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
 import {
   FsuipcSource,
