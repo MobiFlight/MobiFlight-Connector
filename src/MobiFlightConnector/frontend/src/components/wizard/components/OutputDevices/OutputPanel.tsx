@@ -11,8 +11,8 @@ export interface OutputPanelProps {
 }
 
 const OutputPanel = ({ config, variant, controller }: OutputPanelProps) => {
-  return (
-    variant == "summary" && (
+  if (variant == "summary")
+    return (
       <div className="flex grow flex-row items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
           <Label>Controller</Label>
@@ -38,6 +38,32 @@ const OutputPanel = ({ config, variant, controller }: OutputPanelProps) => {
         )}
       </div>
     )
+
+  return (
+    <div className="flex grow flex-row items-center justify-between gap-2">
+      <div className="flex flex-col gap-1">
+        <Label>Controller</Label>
+        {controller?.Name}
+      </div>
+      <div className="flex flex-col gap-1">
+        <Label>Display type</Label>
+        <span className="flex flex-row gap-2">
+          <DeviceIcon variant="Output" /> Output
+        </span>
+      </div>
+      <div className="flex flex-col gap-1">
+        <Label>Device</Label>
+        <Badge variant="secondary">
+          {config.Name} ({config.Pin})
+        </Badge>
+      </div>
+      {config.PwmMode && (
+        <div className="flex flex-col gap-1">
+          <Label>Options</Label>
+          <Badge variant="secondary">PWM Mode On</Badge>
+        </div>
+      )}
+    </div>
   )
 }
 
