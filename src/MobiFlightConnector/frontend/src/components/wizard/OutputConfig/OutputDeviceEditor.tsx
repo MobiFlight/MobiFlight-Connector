@@ -229,6 +229,8 @@ const OutputDeviceEditor = ({
           variant="details"
           config={configItem.Device as StepperConfig}
           controller={configItem.Controller}
+          devices={devices.filter((device) => device.Type === "Stepper")}
+          onChange={(device) => updateConfigItem(configItem.Controller, device)}
         />
       )}
       {configItem.Device && configItem.Device.Type === "ShiftRegister" && (
