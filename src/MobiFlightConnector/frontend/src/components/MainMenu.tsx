@@ -31,6 +31,7 @@ import {
 } from "@tabler/icons-react"
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 import { useLocation } from "react-router"
+import { useEffect } from "react"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
@@ -58,6 +59,52 @@ export const MainMenu = () => {
   }
 
   const canUndo = canUndoConfigList && location.pathname == "/config"
+
+  useEffect(() => {
+    if (!canUndo) return
+
+    const handleUndoShortcut = (event: KeyboardEvent) => {
+      if (
+        !(event.ctrlKey || event.metaKey) ||
+        event.altKey ||
+        event.shiftKey ||
+        event.key.toLowerCase() !== "z" ||
+        event.defaultPrevented ||
+        event.isComposing
+      ) {
+        return
+      }
+
+      const target = event.target
+
+      if (
+        target instanceof HTMLElement &&
+        target.closest(
+          'input, textarea, select, [contenteditable], [role="textbox"]',
+        )
+      ) {
+        return
+      }
+
+      if (document.querySelector('[role="dialog"]')) {
+        return
+      }
+
+      event.preventDefault()
+      event.stopPropagation()
+
+      publish({
+        key: "CommandUndoConfigList",
+        payload: {},
+      })
+    }
+
+    window.addEventListener("keydown", handleUndoShortcut, true)
+
+    return () => {
+      window.removeEventListener("keydown", handleUndoShortcut, true)
+    }
+  }, [canUndo, publish])
 
   return (
     <Menubar className="bg-muted/20 justify-between">

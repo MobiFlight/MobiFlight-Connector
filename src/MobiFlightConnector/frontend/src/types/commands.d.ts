@@ -22,7 +22,7 @@ export type CommandMessageKey =
   | "CommandRefreshPresets"
   | "CommandShutdown"
   | "CommandUpdateSettings"
-  | "CommandUndoConfigListDelete"
+  | "CommandUndoConfigList"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -44,7 +44,7 @@ export type CommandMessage =
   | CommandRefreshPresets
   | CommandShutdown
   | CommandUpdateSettings
-  | CommandUndoConfigListDelete
+  | CommandUndoConfigList
 
 export interface CommandMessageBase {
   key: CommandMessageKey
