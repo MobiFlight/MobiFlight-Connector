@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/switch"
 import messageExchange from "@/lib/messageExchange"
-import { CommandUpdateConfigItem } from "@/types/commands"
+import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { useSortable } from "@dnd-kit/sortable"
 import { IconGripVertical } from "@tabler/icons-react"
@@ -16,6 +16,16 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
   const item = row.original as IConfigItem
   const { attributes, listeners } = useSortable({ id: item.GUID })
 
+  const handleToggle = () => {
+    publish({
+      key: "CommandConfigContextMenu",
+      payload: {
+        action: "toggle",
+        item,
+      },
+    } as CommandConfigContextMenu)
+  }
+
   return (
     <div className="flex flex-row py-2">
       <div
@@ -28,12 +38,9 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
       <div className="flex flex-row items-center">
         <Switch
           checked={row.getValue("Active") as boolean}
-          onClick={() => {
-            const updatedItem = { ...item, Active: !item.Active }
-            publish({
-              key: "CommandUpdateConfigItem",
-              payload: { item: updatedItem },
-            } as CommandUpdateConfigItem)
+          onCheckedChange={handleToggle}
+          onClick={(event) => {
+            event.stopPropagation()
           }}
         />
       </div>

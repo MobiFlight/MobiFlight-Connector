@@ -68,7 +68,17 @@ namespace MobiFlight
         {
             Delete,
             Add,
-            Duplicate
+            Duplicate,
+            BulkDelete,
+            Toggle
+        }
+
+        private sealed class ConfigListUndoItemState
+        {
+            public string Guid { get; set; }
+            public int OriginalIndex { get; set; }
+            public bool OriginalActive { get; set; }
+            public IConfigItem Snapshot { get; set; }
         }
 
         private sealed class ConfigListUndoEntry
@@ -80,6 +90,7 @@ namespace MobiFlight
             public int OriginalIndex { get; set; }
             public string Guid { get; set; }
             public IConfigItem Snapshot { get; set; }
+            public List<ConfigListUndoItemState> Items { get; set; }
         }
 
         private const int MaxListUndoSteps = 50;
@@ -108,17 +119,51 @@ namespace MobiFlight
                     : null
             };
 
+            PushConfigListUndo(entry);
+        }
+
+        private void PushConfigListUndo(ConfigListUndoEntry entry)
+        {
             if (_listUndoHistory.Count >= MaxListUndoSteps)
             {
                 _listUndoHistory.RemoveAt(0);
             }
-
             _listUndoHistory.Add(entry);
-
             PublishDeleteUndoState();
+            OnConfigListActionRecorded?.Invoke(
+                this,
+                EventArgs.Empty
+                );
+        }
 
-            // Called before OnConfigHasChanged.
-            OnConfigListActionRecorded?.Invoke(this, EventArgs.Empty);
+        private void RecordConfigListBulkUndo(
+            ConfigListUndoAction action,
+            List<IConfigItem> affectedItems)
+        {
+            if (affectedItems.Count == 0) return;
+            var states = affectedItems.Select(item => new ConfigListUndoItemState
+            {
+                Guid = item.GUID,
+                OriginalIndex = ConfigItems.FindIndex(
+                    cfg => cfg.GUID == item.GUID),
+                OriginalActive = item.Active,
+                Snapshot = action == ConfigListUndoAction.BulkDelete
+                    ? (IConfigItem)item.Clone()
+                    : null
+            })
+            .OrderBy(item => item.OriginalIndex)
+            .ToList();
+
+            var entry = new ConfigListUndoEntry
+            {
+                Action = action,
+                Project = Project,
+                File = Project.ConfigFiles[ActiveConfigIndex],
+                ConfigIndex = ActiveConfigIndex,
+                Items = states
+            };
+
+            PushConfigListUndo(entry);
         }
 
         public void ClearConfigListUndoHistory()
@@ -481,25 +526,41 @@ namespace MobiFlight
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigBulkAction>((message) =>
             {
-                if (message.Action == "delete")
+                if (message.Items == null || message.Items.Count == 0) return;
+
+                var selectedGuids = new HashSet<string>(
+                    message.Items.Select(item => item.GUID)
+                );
+
+                var affectedItems = ConfigItems
+                    .Where(item => selectedGuids.Contains(item.GUID))
+                    .ToList();
+                if (affectedItems.Count == 0) return;
+
+                switch (message.Action)
                 {
-                    message.Items.ForEach(item =>
-                    {
-                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
-                        ConfigItems.Remove(cfg);
-                    });
-                    OnInputConfigSettingsChanged(this, null); // else InputEventExecutor's cache keeps the deleted item bound
+                    case "delete":
+                        RecordConfigListBulkUndo(ConfigListUndoAction.BulkDelete, affectedItems);
+                        foreach (var item in affectedItems)
+                        {
+                            ConfigItems.Remove(item);
+                        }
+                        OnInputConfigSettingsChanged(this, null);
+                        break;
+
+                    case "toggle":
+                        bool newActive = !affectedItems[0].Active;
+                        RecordConfigListBulkUndo(ConfigListUndoAction.Toggle, affectedItems);
+                        foreach (var item in affectedItems)
+                        {
+                            item.Active = newActive;
+                        }
+                        break;
+
+                    default:
+                        return;
                 }
-                else if (message.Action == "toggle")
-                {
-                    var toggleValue = !message.Items.First().Active;
-                    message.Items.ForEach(item =>
-                    {
-                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
-                        if (cfg == null) return;
-                        cfg.Active = toggleValue;
-                    });
-                }
+
                 MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
@@ -532,7 +593,8 @@ namespace MobiFlight
 
                     case "toggle":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        if (cfg == null) break;
+                        if (cfg == null) return;
+                        RecordConfigListBulkUndo(ConfigListUndoAction.Toggle, new List<IConfigItem> { cfg });
                         cfg.Active = !cfg.Active;
                         break;
 
@@ -622,6 +684,20 @@ namespace MobiFlight
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandResortConfigItem>((message) =>
             {
+                if (
+                    message.Items == null ||
+                    message.Items.Length == 0 ||
+                    message.SourceFileIndex < 0 ||
+                    message.SourceFileIndex >= Project.ConfigFiles.Count ||
+                    message.TargetFileIndex < 0 ||
+                    message.TargetFileIndex >= Project.ConfigFiles.Count
+                )
+                {
+                    return;
+                }
+
+                ClearConfigListUndoHistory();
+
                 // find all items
                 var resortedItems = new List<IConfigItem>();
                 var ConfigItems = Project.ConfigFiles[message.SourceFileIndex].ConfigItems;
@@ -814,6 +890,53 @@ namespace MobiFlight
                     }
 
                     items.RemoveAt(itemIndex);
+                }
+
+                else if (entry.Action == ConfigListUndoAction.BulkDelete)
+                {
+                    bool hasConflict = entry.Items.Any(
+                        state => items.Any(
+                            item => item.GUID == state.Guid
+                        )
+                    );
+                    if (hasConflict)
+                    {
+                        ClearConfigListUndoHistory();
+                        return;
+                    }
+                    foreach (var state in entry.Items.OrderBy(
+                        state => state.OriginalIndex))
+                    {
+                        int restoreIndex = Math.Min(
+                            Math.Max(state.OriginalIndex, 0),
+                            items.Count
+                        );
+                        items.Insert(
+                            restoreIndex,
+                            (IConfigItem)state.Snapshot.Clone()
+                        );
+                    }
+                }
+
+                else if (entry.Action == ConfigListUndoAction.Toggle)
+                {
+                    bool hasMissingItem = entry.Items.Any(
+                        state => !items.Any(
+                            item => item.GUID == state.Guid
+                        )
+                    );
+                    if (hasMissingItem)
+                    {
+                        ClearConfigListUndoHistory();
+                        return;
+                    }
+                    foreach (var state in entry.Items)
+                    {
+                        var item = items.Find(
+                            item => item.GUID == state.Guid
+                        );
+                        item.Active = state.OriginalActive;
+                    }
                 }
 
                 // Remove only the last history entry.
