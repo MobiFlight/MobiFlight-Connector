@@ -491,3 +491,8 @@ Python/*
 
 # ignore devcontainer lock file
 devcontainer-lock.json
+
+# local AI agent state
+.claude/
+.mcp.json
+CLAUDE.local.md
