@@ -30,11 +30,13 @@ import {
   IconSettings,
 } from "@tabler/icons-react"
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
+import { useLocation } from "react-router"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
-  const { hasChanged } = useProjectStore()
+  const { hasChanged, canUndoConfigList } = useProjectStore()
+  const location = useLocation()
   const { publish } = messageExchange
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
@@ -54,6 +56,8 @@ export const MainMenu = () => {
       },
     })
   }
+
+  const canUndo = canUndoConfigList && location.pathname == "/config"
 
   return (
     <Menubar className="bg-muted/20 justify-between">
@@ -127,6 +131,25 @@ export const MainMenu = () => {
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>{t("MainMenu.Edit.Label")}</MenubarTrigger>
+
+          <MenubarContent>
+            <MenubarItem
+              disabled={!canUndo}
+              onSelect={() => {
+                publish({
+                  key: "CommandUndoConfigList",
+                  payload: {},
+                })
+              }}
+            >
+              {t("MainMenu.Edit.Undo")}
+              <MenubarShortcut>Ctrl+Z</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+
         <MenubarMenu>
           <MenubarTrigger>{t("MainMenu.View.Label")}</MenubarTrigger>
           <MenubarContent>

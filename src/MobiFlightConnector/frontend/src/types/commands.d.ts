@@ -249,7 +249,7 @@ export interface CommandUpdateSettings extends CommandMessageBase {
   }
 }
 
-export interface CommandUndoConfigListDelete extends CommandMessageBase {
-  key: "CommandUndoConfigListDelete"
+export interface CommandUndoConfigList extends CommandMessageBase {
+  key: "CommandUndoConfigList"
   payload: Record<string, never>
 }

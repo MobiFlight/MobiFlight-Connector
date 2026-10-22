@@ -756,7 +756,7 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
-            MessageExchange.Instance.SubscribeOnUiThread<CommandUndoConfigListDelete>((_) =>
+            MessageExchange.Instance.SubscribeOnUiThread<CommandUndoConfigList>((_) =>
             {
                 if (_listUndoHistory.Count == 0)
                     return;

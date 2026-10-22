@@ -1,5 +1,11 @@
 import { useProjectStore } from "@/stores/projectStore"
-import { IconDeviceGamepad2, IconDotsVertical, IconPencil, IconSettings } from "@tabler/icons-react"
+import {
+  IconDeviceGamepad2,
+  IconDotsVertical,
+  IconPencil,
+  IconSettings,
+  IconArrowBackUp,
+} from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
@@ -17,6 +23,7 @@ import { Project } from "@/types"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { ProjectInfo } from "@/types/project"
 import { useModal } from "@/lib/hooks/useModal"
+import ToolTip from "@/components/ToolTip"
 
 export type ProjectNameLabelProps = {
   project: Project | null
@@ -24,11 +31,11 @@ export type ProjectNameLabelProps = {
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
-  const { project, hasChanged } = useProjectStore()
+  const { project, hasChanged, canUndoConfigList } = useProjectStore()
   const { publish } = messageExchange
   const label = project?.Name ?? "Untitled Project"
   const [optimisticLabel, setOptimisticLabel] = useState(label)
-  const { showOverlay : showModalOverlay } = useModal()
+  const { showOverlay: showModalOverlay } = useModal()
 
   // Sync optimisticLabel when label changes from backend
   useEffect(() => {
@@ -80,6 +87,33 @@ const ProjectNameLabel = () => {
         successTooltip={t("Project.Toolbar.Save.Success")}
         noChangesTooltip={t("Project.Toolbar.Save.NoChanges")}
       />
+
+      <ToolTip content={t("Dialog.InputConfigWizard.History.Undo")}>
+        <span className="inline-flex">
+          <Button
+            type="button"
+            variant="ghost"
+            className="h-8 p-1 [&_svg]:size-6"
+            disabled={!canUndoConfigList}
+            data-testid="config-list-undo-button"
+            aria-label={t("Dialog.InputConfigWizard.History.Undo")}
+            onClick={() => {
+              publish({
+                key: "CommandUndoConfigList",
+                payload: {},
+              })
+            }}
+          >
+            <IconArrowBackUp
+              className={
+                canUndoConfigList
+                  ? "stroke-foreground"
+                  : "stroke-muted-foreground"
+              }
+            />
+          </Button>
+        </span>
+      </ToolTip>
 
       <div className="relative">
         <DropdownMenu>

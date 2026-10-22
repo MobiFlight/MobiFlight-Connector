@@ -44,6 +44,10 @@
       "RecentProjects.None": "No projects",
       "Exit": "Exit"
     },
+    "Edit": {
+      "Label": "Edit",
+      "Undo": "Undo"
+    },
     "View": {
       "Label": "View",
       "Zoom": {

@@ -1,6 +1,6 @@
 ﻿namespace MobiFlight.BrowserMessages.Incoming
 {
-    internal class CommandUndoConfigListDelete
+    internal class CommandUndoConfigList
     {
     }
 }

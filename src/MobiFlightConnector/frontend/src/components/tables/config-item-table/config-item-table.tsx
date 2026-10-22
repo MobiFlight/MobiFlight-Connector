@@ -27,7 +27,7 @@ import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
-import { IconArrowBackUp, IconX } from "@tabler/icons-react"
+import { IconX } from "@tabler/icons-react"
 import { toast } from "@/components/ui/ToastWrapper"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
@@ -40,14 +40,12 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   dragItemId?: string // Add this prop to receive drag state from parent
-  canUndoDelete?: boolean
 }
 
 export function ConfigItemTable<TValue>({
   columns,
   data,
   dragItemId,
-  canUndoDelete = false,
 }: DataTableProps<IConfigItem, TValue>) {
   "use no memo"
 
@@ -399,21 +397,6 @@ export function ConfigItemTable<TValue>({
               onClick={handleAddInputConfig}
             >
               {t("ConfigList.Actions.InputConfigItem.Add")}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              disabled={!canUndoDelete}
-              data-testid="config-list-undo-button"
-              onClick={() => {
-                publish({
-                  key: "CommandUndoConfigListDelete",
-                  payload: {},
-                })
-              }}
-            >
-              <IconArrowBackUp size={16} />
-              {t("Dialog.InputConfigWizard.History.Undo")}
             </Button>
           </div>
         </div>

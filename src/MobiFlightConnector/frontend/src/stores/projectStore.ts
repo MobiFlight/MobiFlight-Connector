@@ -20,6 +20,8 @@ interface ProjectState {
   updateConfigItem: (index: number, item: IConfigItem, upsert: boolean) => void // Add this
   clearProject: () => void
   setControllerBindings: (bindings: ControllerBinding[]) => void
+  canUndoConfigList: boolean
+  setCanUndoConfigList: (canUndo: boolean) => void
   actions: {
     // Add the drag-and-drop functions
     moveItemsBetweenConfigs: (
@@ -43,6 +45,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
   hasChanged: false,
   saveStatus: "idle",
   activeConfigFileIndex: 0,
+  canUndoConfigList: false,
 
   setProject: (project) => set({ project: project }),
 
@@ -69,6 +72,8 @@ export const useProjectStore = create<ProjectState>((set) => ({
       }
       return { project: newProject }
     }),
+
+  setCanUndoConfigList: (canUndo) => set({ canUndoConfigList: canUndo }),
 
   updateConfigItems: (index: number, items: IConfigItem[]) =>
     set((state) => {
