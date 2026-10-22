@@ -833,6 +833,8 @@
         "PreconditionAdded": "Lisätty",
         "PreconditionRemoved": "Poistettu",
         "PreconditionChanged": "Muutettu",
+        "PreconditionEnabled": "Otettu käyttöön",
+        "PreconditionDisabled": "Poistettu käytöstä",
         "ModifierAdded": "Lisätty",
         "ModifierRemoved": "Poistettu",
         "ModifierEnabled": "Otettu käyttöön",
@@ -846,7 +848,8 @@
         "ConfigReferenceChanged": "Muokattu",
         "ActionTypeChanged": "Toiminnon tyyppi muutettu",
         "ActionCodeChanged": "Koodi muutettu",
-        "ActionChanged": "Toimintoa muutettu"
+        "ActionChanged": "Toimintoa muutettu",
+        "ActionPresetChanged": "Esiasetus muutettu"
       }
     },
     "UnsavedChanges": {

@@ -833,6 +833,8 @@
         "PreconditionAdded": "추가",
         "PreconditionRemoved": "삭제",
         "PreconditionChanged": "변경",
+        "PreconditionEnabled": "활성화",
+        "PreconditionDisabled": "비활성화",
         "ModifierAdded": "추가",
         "ModifierRemoved": "삭제",
         "ModifierEnabled": "활성화",
@@ -846,7 +848,8 @@
         "ConfigReferenceChanged": "편집",
         "ActionTypeChanged": "동작 유형 변경",
         "ActionCodeChanged": "코드 변경",
-        "ActionChanged": "동작 변경"
+        "ActionChanged": "동작 변경",
+        "ActionPresetChanged": "프리셋 변경"
       }
     },
     "UnsavedChanges": {
