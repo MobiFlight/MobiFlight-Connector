@@ -249,6 +249,8 @@ const OutputDeviceEditor = ({
           variant="details"
           config={configItem.Device as CustomDeviceConfig}
           controller={configItem.Controller}
+          devices={devices.filter((device) => device.Type === "CustomDevice")}
+          onChange={(device) => updateConfigItem(configItem.Controller, device)}
         />
       )}
     </div>
