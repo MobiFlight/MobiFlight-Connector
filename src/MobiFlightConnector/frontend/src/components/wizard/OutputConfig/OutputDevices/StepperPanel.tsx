@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
-import ComboBox from "@/components/ComboBox"
+import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
 
 export interface StepperPanelProps {
   variant: "summary" | "details"
@@ -40,21 +40,6 @@ const StepperPanel = ({
   onChange,
 }: StepperPanelProps) => {
   if (variant == "details") {
-    // Keep the configured stepper visible
-    // even if it is currently not available on the controller
-    const deviceOptions: BaseDevice[] =
-      config.Address &&
-      !devices.some((device) => device.Name === config.Address)
-        ? [
-            ...devices,
-            { Name: config.Address, Label: config.Address, Type: "Stepper" },
-          ]
-        : devices
-
-    const selectedDevice = deviceOptions.find(
-      (device) => device.Name === config.Address,
-    )
-
     return (
       <Card>
         <CardContent className="flex flex-col gap-4 pt-4">
@@ -68,18 +53,13 @@ const StepperPanel = ({
           </div>
           <div className="flex flex-col gap-2">
             <Label>Stepper</Label>
-            <ComboBox
-              widthClass="w-56"
-              align="start"
-              items={deviceOptions}
-              getLabel={(device) => device.Label ?? device.Name}
-              getValue={(device) => device.Name}
-              isSelected={(device, selected) => device.Name === selected?.Name}
-              selected={selectedDevice}
-              setSelected={(device) => {
-                const address = device?.Name ?? ""
+            <OutputDeviceComboBox
+              devices={devices}
+              deviceType="Stepper"
+              selectedName={config.Address}
+              onChange={(address) =>
                 onChange?.({ ...config, Address: address, Name: address })
-              }}
+              }
             />
           </div>
           <div className="grid grid-cols-3 gap-4">
