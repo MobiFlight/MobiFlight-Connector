@@ -833,6 +833,8 @@
         "PreconditionAdded": "追加",
         "PreconditionRemoved": "削除",
         "PreconditionChanged": "変更",
+        "PreconditionEnabled": "有効化",
+        "PreconditionDisabled": "無効化",
         "ModifierAdded": "追加",
         "ModifierRemoved": "削除",
         "ModifierEnabled": "有効化",
@@ -846,7 +848,8 @@
         "ConfigReferenceChanged": "編集",
         "ActionTypeChanged": "アクション種類変更",
         "ActionCodeChanged": "コード変更",
-        "ActionChanged": "アクション変更"
+        "ActionChanged": "アクション変更",
+        "ActionPresetChanged": "プリセット変更"
       }
     },
     "UnsavedChanges": {

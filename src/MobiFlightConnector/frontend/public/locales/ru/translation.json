@@ -833,6 +833,8 @@
         "PreconditionAdded": "Добавлено",
         "PreconditionRemoved": "Удалено",
         "PreconditionChanged": "Изменено",
+        "PreconditionEnabled": "Включено",
+        "PreconditionDisabled": "Выключено",
         "ModifierAdded": "Добавлено",
         "ModifierRemoved": "Удалено",
         "ModifierEnabled": "Включено",
@@ -846,7 +848,8 @@
         "ConfigReferenceChanged": "Отредактировано",
         "ActionTypeChanged": "Тип действия изменён",
         "ActionCodeChanged": "Код изменён",
-        "ActionChanged": "Действие изменено"
+        "ActionChanged": "Действие изменено",
+        "ActionPresetChanged": "Пресет изменён"
       }
     },
     "UnsavedChanges": {

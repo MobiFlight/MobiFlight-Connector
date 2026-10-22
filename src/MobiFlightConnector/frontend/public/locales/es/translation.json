@@ -839,6 +839,8 @@
         "PreconditionAdded": "Añadido",
         "PreconditionRemoved": "Eliminado",
         "PreconditionChanged": "Modificado",
+        "PreconditionEnabled": "Activado",
+        "PreconditionDisabled": "Desactivado",
         "ModifierAdded": "Añadido",
         "ModifierRemoved": "Eliminado",
         "ModifierEnabled": "Activado",
@@ -852,7 +854,8 @@
         "ConfigReferenceChanged": "Editado",
         "ActionTypeChanged": "Tipo de acción modificado",
         "ActionCodeChanged": "Código modificado",
-        "ActionChanged": "Acción modificada"
+        "ActionChanged": "Acción modificada",
+        "ActionPresetChanged": "Preset modificado"
       }
     },
     "UnsavedChanges": {

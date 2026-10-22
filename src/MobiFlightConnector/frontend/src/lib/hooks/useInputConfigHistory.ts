@@ -87,6 +87,30 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
         return t(`${base}.PreconditionRemoved`)
       }
 
+      const changedIndex = after.findIndex(
+        (item, index) => !_.isEqual(item, before[index]),
+      )
+
+      if (changedIndex !== -1) {
+        const oldPrecondition = before[changedIndex]
+        const newPrecondition = after[changedIndex]
+
+        if (
+          oldPrecondition &&
+          oldPrecondition.Active !== newPrecondition.Active &&
+          _.isEqual(
+            { ...oldPrecondition, Active: newPrecondition.Active },
+            newPrecondition,
+          )
+        ) {
+          return t(
+            newPrecondition.Active
+              ? `${base}.PreconditionEnabled`
+              : `${base}.PreconditionDisabled`,
+          )
+        }
+      }
+
       return t(`${base}.PreconditionChanged`)
     }
 
@@ -227,21 +251,25 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     for (const change of actionChanges) {
       if (_.isEqual(change.before, change.after)) continue
 
+      const actionLabel = (key: string) => t(`${base}.${key}`)
+
       if (change.before?.Type !== change.after?.Type) {
-        return t(`${base}.ActionTypeChanged`, {
-          event: change.event,
-        })
+        return actionLabel("ActionTypeChanged")
+      }
+
+      if (
+        change.before?.Type === "MSFS2020CustomInputAction" &&
+        change.after?.Type === "MSFS2020CustomInputAction" &&
+        _.get(change.before, "PresetId") !== _.get(change.after, "PresetId")
+      ) {
+        return actionLabel("ActionPresetChanged")
       }
 
       if (_.get(change.before, "Command") !== _.get(change.after, "Command")) {
-        return t(`${base}.ActionCodeChanged`, {
-          event: change.event,
-        })
+        return actionLabel("ActionCodeChanged")
       }
 
-      return t(`${base}.ActionChanged`, {
-        event: change.event,
-      })
+      return actionLabel("ActionChanged")
     }
 
     if (
