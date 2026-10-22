@@ -3,6 +3,7 @@ import { StepperConfig } from "@/types/config"
 import { Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
 
 export interface StepperPanelProps {
   variant: "summary" | "details"
@@ -11,6 +12,19 @@ export interface StepperPanelProps {
 }
 
 const StepperPanel = ({ config, variant, controller }: StepperPanelProps) => {
+  // TODO: replace placeholder with the actual Stepper settings
+  if (variant == "details")
+    return (
+      <Card>
+        <CardContent className="flex flex-col gap-1 pt-4">
+          <div className="text-lg font-semibold">Step 2 - Stepper settings</div>
+          <div className="text-muted-foreground text-sm">
+            Address: {config.Address || "-"} (details not implemented yet)
+          </div>
+        </CardContent>
+      </Card>
+    )
+
   return (
     variant == "summary" && (
       <div className="flex grow flex-row items-center justify-between gap-2">
