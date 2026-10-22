@@ -3,6 +3,7 @@ import { LedModuleConfig } from "@/types/config"
 import { Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
 
 export interface LedModulePanelProps {
   variant: "summary" | "details"
@@ -10,7 +11,27 @@ export interface LedModulePanelProps {
   controller?: Partial<Controller>
 }
 
-const LedModulePanel = ({ config, variant, controller }: LedModulePanelProps) => {
+const LedModulePanel = ({
+  config,
+  variant,
+  controller,
+}: LedModulePanelProps) => {
+  // TODO: replace placeholder with the actual 7-Segment settings
+  if (variant == "details")
+    return (
+      <Card>
+        <CardContent className="flex flex-col gap-1 pt-4">
+          <div className="text-lg font-semibold">
+            Step 2 - 7-Segment settings
+          </div>
+          <div className="text-muted-foreground text-sm">
+            Address: {config.DisplayLedAddress || "-"} (details not implemented
+            yet)
+          </div>
+        </CardContent>
+      </Card>
+    )
+
   return (
     variant == "summary" && (
       <div className="flex grow flex-row items-center justify-between gap-2">
