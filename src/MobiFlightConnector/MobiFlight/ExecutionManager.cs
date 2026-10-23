@@ -70,7 +70,8 @@ namespace MobiFlight
             Add,
             Duplicate,
             BulkDelete,
-            Toggle
+            Toggle,
+            Resort
         }
 
         private sealed class ConfigListUndoItemState
@@ -91,6 +92,10 @@ namespace MobiFlight
             public string Guid { get; set; }
             public IConfigItem Snapshot { get; set; }
             public List<ConfigListUndoItemState> Items { get; set; }
+            public ConfigFile TargetFile { get; set; }
+            public int TargetConfigIndex { get; set; }
+            public List<string> SourceOrderBefore { get; set; }
+            public List<string> TargetOrderBefore { get; set; }
         }
 
         private const int MaxListUndoSteps = 50;
@@ -136,9 +141,7 @@ namespace MobiFlight
                 );
         }
 
-        private void RecordConfigListBulkUndo(
-            ConfigListUndoAction action,
-            List<IConfigItem> affectedItems)
+        private void RecordConfigListBulkUndo(ConfigListUndoAction action, List<IConfigItem> affectedItems)
         {
             if (affectedItems.Count == 0) return;
             var states = affectedItems.Select(item => new ConfigListUndoItemState
@@ -163,6 +166,32 @@ namespace MobiFlight
                 Items = states
             };
 
+            PushConfigListUndo(entry);
+        }
+
+        private void RecordConfigListResortUndo(
+            int sourceIndex,
+            int targetIndex,
+            List<IConfigItem> sourceBefore,
+            List<IConfigItem> targetBefore)
+        {
+            var entry = new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.Resort,
+                Project = Project,
+                File = Project.ConfigFiles[sourceIndex],
+                ConfigIndex = sourceIndex,
+                TargetFile = Project.ConfigFiles[targetIndex],
+                TargetConfigIndex = targetIndex,
+                SourceOrderBefore = sourceBefore
+                    .Select(item => item.GUID)
+                    .ToList(),
+                TargetOrderBefore = sourceIndex == targetIndex
+                    ? null
+                    : targetBefore
+                        .Select(item => item.GUID)
+                        .ToList()
+            };
             PushConfigListUndo(entry);
         }
 
@@ -696,34 +725,96 @@ namespace MobiFlight
                     return;
                 }
 
-                ClearConfigListUndoHistory();
+                int sourceIndex = message.SourceFileIndex;
+                int targetIndex = message.TargetFileIndex;
 
-                // find all items
-                var resortedItems = new List<IConfigItem>();
-                var ConfigItems = Project.ConfigFiles[message.SourceFileIndex].ConfigItems;
+                var sourceFile = Project.ConfigFiles[sourceIndex];
+                var targetFile = Project.ConfigFiles[targetIndex];
 
-                message.Items.ToList().ForEach(item =>
+                bool sameProfile = sourceIndex == targetIndex;
+
+                var sourceBefore = sourceFile.ConfigItems.ToList();
+
+                var targetBefore = sameProfile
+                    ? sourceBefore
+                    : targetFile.ConfigItems.ToList();
+
+                var movedIds = new HashSet<string>(
+                    message.Items.Select(item => item.GUID));
+
+                var movedItems = sourceBefore
+                    .Where(item => movedIds.Contains(item.GUID))
+                    .ToList();
+
+                if (movedItems.Count != movedIds.Count || movedIds.Count == 0)
                 {
-                    IConfigItem cfg = ConfigItems.Find(i => i.GUID == item.GUID);
-                    if (cfg == null) return;
-                    resortedItems.Add(cfg);
-                    ConfigItems.Remove(cfg);
-                });
+                    return;
+                }
 
-                var targetFile = Project.ConfigFiles[message.TargetFileIndex];
-
-                var currentIndex = message.NewIndex;
-
-                resortedItems.ForEach(item =>
+                if (!sameProfile && targetBefore.Any(item => movedIds.Contains(item.GUID)))
                 {
-                    targetFile.ConfigItems.Insert(currentIndex, item);
-                    currentIndex++;
-                });
+                    return;
+                }
 
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(message.SourceFileIndex, ConfigItems));
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(message.TargetFileIndex, targetFile.ConfigItems));
+                var sourceAfter = sourceBefore
+                    .Where(item => !movedIds.Contains(item.GUID))
+                    .ToList();
 
-                OnConfigHasChanged?.Invoke(ConfigItems, null);
+                var targetAfter = sameProfile
+                    ? sourceAfter.ToList()
+                    : targetBefore.ToList();
+
+                int insertionIndex = Math.Max(
+                    0,
+                    Math.Min(message.NewIndex, targetAfter.Count));
+                targetAfter.InsertRange(insertionIndex, movedItems);
+
+                if (sameProfile)
+                {
+                    sourceAfter = targetAfter;
+                }
+
+                bool sourceChanged = !sourceBefore
+                    .Select(item => item.GUID)
+                    .SequenceEqual(
+                        sourceAfter.Select(item => item.GUID));
+                bool targetChanged = !sameProfile &&
+                    !targetBefore
+                        .Select(item => item.GUID)
+                        .SequenceEqual(targetAfter.Select(item => item.GUID));
+                if (!sourceChanged && !targetChanged)
+                {
+                    MessageExchange.Instance.Publish(
+                        new ConfigValueFullUpdate(sourceIndex, sourceFile.ConfigItems));
+                    return;
+                }
+
+                RecordConfigListResortUndo(
+                    sourceIndex,
+                    targetIndex,
+                    sourceBefore,
+                    targetBefore);
+                sourceFile.ConfigItems.Clear();
+                sourceFile.ConfigItems.AddRange(sourceAfter);
+
+                if (!sameProfile)
+                {
+                    targetFile.ConfigItems.Clear();
+                    targetFile.ConfigItems.AddRange(targetAfter);
+                }
+
+                MessageExchange.Instance.Publish(
+                    new ConfigValueFullUpdate(sourceIndex, sourceFile.ConfigItems));
+
+                if (!sameProfile)
+                {
+                    MessageExchange.Instance.Publish(
+                        new ConfigValueFullUpdate(targetIndex, targetFile.ConfigItems));
+                }
+
+                OnInputConfigSettingsChanged(this, null);
+
+                OnConfigHasChanged?.Invoke(sourceFile.ConfigItems, null);
             });
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandActiveConfigFile>((message) =>
@@ -939,6 +1030,59 @@ namespace MobiFlight
                     }
                 }
 
+                else if (entry.Action == ConfigListUndoAction.Resort)
+                {
+                    if (
+                        entry.TargetConfigIndex < 0 ||
+                        entry.TargetConfigIndex >= Project.ConfigFiles.Count ||
+                        !ReferenceEquals(
+                            Project.ConfigFiles[entry.TargetConfigIndex],
+                            entry.TargetFile)
+                        )
+                    {
+                        ClearConfigListUndoHistory();
+                        return;
+                    }
+
+                    bool sameProfile = ReferenceEquals(entry.File, entry.TargetFile);
+                    var targetItems = entry.TargetFile.ConfigItems;
+                    var currentItems = sameProfile
+                        ? items.ToList()
+                        : items.Concat(targetItems).ToList();
+                    var expectedGuids = entry.SourceOrderBefore
+                        .Concat(
+                            sameProfile
+                                ? Enumerable.Empty<string>()
+                                : entry.TargetOrderBefore).ToList();
+                    var currentGuids = currentItems.Select(item => item.GUID).ToList();
+
+                    if (
+                        currentGuids.Count != expectedGuids.Count ||
+                        currentGuids.Distinct().Count() != currentGuids.Count ||
+                        expectedGuids.Distinct().Count() != expectedGuids.Count ||
+                        !new HashSet<string>(currentGuids)
+                            .SetEquals(expectedGuids))
+                    {
+                        ClearConfigListUndoHistory();
+                        return;
+                    }
+                    var itemsByGuid = currentItems.ToDictionary(item => item.GUID);
+                    items.Clear();
+                    
+                    foreach(string guid in entry.SourceOrderBefore)
+                    {
+                        items.Add(itemsByGuid[guid]);
+                    }
+                    if (!sameProfile)
+                    {
+                        targetItems.Clear();
+                        foreach(string guid in entry.TargetOrderBefore)
+                        {
+                            targetItems.Add(itemsByGuid[guid]);
+                        }
+                    }
+                }
+
                 // Remove only the last history entry.
                 _listUndoHistory.RemoveAt(lastIndex);
 
@@ -952,6 +1096,18 @@ namespace MobiFlight
                         items
                     )
                 );
+
+                if (
+                    entry.Action == ConfigListUndoAction.Resort &&
+                    entry.TargetConfigIndex != entry.ConfigIndex)
+                {
+                    MessageExchange.Instance.Publish(
+                    new ConfigValueFullUpdate(
+                        entry.TargetConfigIndex,
+                        entry.TargetFile.ConfigItems
+                    )
+                );
+                }
 
                 OnConfigHasChanged?.Invoke(items, null);
 
