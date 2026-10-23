@@ -89,7 +89,7 @@ const ProjectNameLabel = () => {
     BulkDelete: "Deleted",
     Toggle: "Toggled",
     Resort: "Moved",
-    ProfileAdd: "Profile added",
+    ProfileAdded: "Profile added",
     ProfileRename: "Profile renamed",
   }
 

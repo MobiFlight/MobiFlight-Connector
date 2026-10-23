@@ -2549,14 +2549,20 @@ namespace MobiFlight.UI
             execManager.Stop();
 
             ConfigFile newConfigFile = CreateDefaultConfigFile();
+
             if (!string.IsNullOrEmpty(label))
             {
                 newConfigFile.Label = label;
             }
 
+            int newIndex = execManager.Project.ConfigFiles.Count;
+
+            execManager.RecordProfileAdded(
+                newConfigFile,
+                newIndex
+            );
+
             execManager.Project.ConfigFiles.Add(newConfigFile);
-            execManager.RecordProfileAdded(newConfigFile);
-            ProjectOrConfigFileHasChanged();
 
             ProjectLoaded?.Invoke(this, execManager.Project);
         }

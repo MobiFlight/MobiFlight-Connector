@@ -201,11 +201,11 @@ namespace MobiFlight
             PushConfigListUndo(entry);
         }
 
-        public void RecordProfileAdded(ConfigFile file)
+        public void RecordProfileAdded(ConfigFile file, int index)
         {
-            if (file == null || Project == null) return;
-            int index = Project.ConfigFiles.IndexOf(file);
-            if (index < 0) return;
+            if (file == null || Project == null)
+                return;
+
             PushConfigListUndo(new ConfigListUndoEntry
             {
                 Action = ConfigListUndoAction.ProfileAdded,
@@ -1166,7 +1166,10 @@ namespace MobiFlight
                         }
                     }
 
-                    OnConfigHasChanged?.Invoke(items, null);
+                    if (entry.Action != ConfigListUndoAction.ProfileAdded)
+                    {
+                        OnConfigHasChanged?.Invoke(items, null);
+                    }
 
                     OnConfigListActionUndone?.Invoke(
                         this,
