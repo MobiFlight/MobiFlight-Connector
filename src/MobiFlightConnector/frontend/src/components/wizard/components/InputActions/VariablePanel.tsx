@@ -5,7 +5,6 @@ import { MobiFlightVariable } from "@/types/config"
 import { Label } from "@/components/ui/label"
 import { Trans, useTranslation } from "react-i18next"
 import { Separator } from "@/components/ui/separator"
-import { useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { Card, CardContent } from "@/components/ui/card"
@@ -15,12 +14,13 @@ export type VariablePanelProps = {
   onVariableChange: (variable: MobiFlightVariable) => void
 }
 
-const defaultVariable = {
+const defaultVariable: MobiFlightVariable = {
   TYPE: "number",
   Name: "New Variable",
+  Number: 0,
   Text: "",
   Expression: "$",
-} as MobiFlightVariable
+}
 
 export const VariablePanel = ({
   variant,
@@ -33,17 +33,7 @@ export const VariablePanel = ({
     { value: "string", label: "String" },
   ]
   const { variables } = useVariableStore()
-  useEffect(() => {
-    if (!currentVariable) {
-      onVariableChange(defaultVariable)
-    }
-  }, [onVariableChange, currentVariable])
-
-  if (!currentVariable) {
-    return null
-  }
-
-  const variable = currentVariable
+  const variable = currentVariable ?? defaultVariable
   const availableVariables = variables ?? []
 
   if (variant === "summary") {
