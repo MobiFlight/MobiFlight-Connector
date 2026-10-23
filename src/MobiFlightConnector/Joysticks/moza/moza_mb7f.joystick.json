@@ -70,11 +70,11 @@
     { "Id": 64, "Type": "Button", "Label": "DEP ARR Button" },
     { "Id": 65, "Type": "Button", "Label": "HOLD Button" },
     { "Id": 66, "Type": "Button", "Label": "PROG Button" },
-    { "Id": 67, "Type": "Button", "Label": "EXEC Button" },
-    { "Id": 68, "Type": "Button", "Label": "N1 LIMIT Button" },
-    { "Id": 69, "Type": "Button", "Label": "FIX Button" },
-    { "Id": 70, "Type": "Button", "Label": "PREV PAGE Button" },
-    { "Id": 71, "Type": "Button", "Label": "NEXT PAGE Button" }
+    { "Id": 67, "Type": "Button", "Label": "N1 LIMIT Button" },
+    { "Id": 68, "Type": "Button", "Label": "FIX Button" },
+    { "Id": 69, "Type": "Button", "Label": "PREV PAGE Button" },
+    { "Id": 70, "Type": "Button", "Label": "NEXT PAGE Button" },
+    { "Id": 71, "Type": "Button", "Label": "EXEC Button" }
   ],
   "Outputs": [
     { "Label": "CALL", "Id": "CALL.led", "Byte": 0, "Bit": 0 },
