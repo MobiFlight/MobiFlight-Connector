@@ -527,7 +527,7 @@ namespace MobiFlight
             {
                 if (!Modules.ContainsKey(serial)) return;
 
-                ArcazeLedDigit ledDigit = new ArcazeLedDigit();
+                LedDigitEncoder ledDigit = new LedDigitEncoder();
                 foreach (string digit in digits)
                 {
                     ledDigit.setActive(ushort.Parse(digit));
@@ -543,7 +543,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
             }
         }
 
@@ -561,10 +561,7 @@ namespace MobiFlight
 
             try
             {
-                if (!Modules.ContainsKey(serial)) return;
-
-                ArcazeLedDigit ledDigit = new ArcazeLedDigit();
-                MobiFlightModule module = Modules[serial];
+                if (!Modules.TryGetValue(serial, out var module)) return;
 
                 if (value != null)
                 {
@@ -574,7 +571,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplayBrightness"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplayBrightness"), e);
             }
         }
 
@@ -594,7 +591,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingServo"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_SettingServo"), e);
             }
         }
 
@@ -627,7 +624,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingStepper"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_SettingStepper"), e);
             }
         }
 
@@ -640,7 +637,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingServo"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_SettingServo"), e);
             }
         }
 
@@ -684,7 +681,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
             }
         }
 
@@ -712,7 +709,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WriteShiftRegisterOutput"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_WriteShiftRegisterOutput"), e);
             }
         }
 
@@ -865,7 +862,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SetCustomDevice"), e);
+                throw new MobiFlightCommandExecutionException(i18n._tr("ConfigErrorException_SetCustomDevice"), e);
             }
         }
 

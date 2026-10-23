@@ -19,7 +19,6 @@ namespace MobiFlight.Execution.Tests
         private Mock<MobiFlightCache> _mockMobiFlightCache;
         private Mock<ProSimCache> _mockProSimCache;
         private Mock<JoystickManager> _mockJoystickManager;
-        private Mock<ArcazeCache> _mockArcazeCache;
         private List<IConfigItem> _configItems;
         private InputEventExecutor _executor;
         private Mock<ILogAppender> _mockLogAppender;
@@ -35,7 +34,6 @@ namespace MobiFlight.Execution.Tests
             _mockMobiFlightCache = new Mock<MobiFlightCache>();
             _mockProSimCache = new Mock<ProSimCache>();
             _mockJoystickManager = new Mock<JoystickManager>();
-            _mockArcazeCache = new Mock<ArcazeCache>();
 
             _configItems = new List<IConfigItem>()
             {
@@ -62,8 +60,7 @@ namespace MobiFlight.Execution.Tests
                 _mockXplaneCache.Object,
                 _mockMobiFlightCache.Object,
                 _mockProSimCache.Object,
-                _mockJoystickManager.Object,
-                _mockArcazeCache.Object
+                _mockJoystickManager.Object
             );
 
             // Create a mock log appender

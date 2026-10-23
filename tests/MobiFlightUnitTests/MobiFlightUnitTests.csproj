@@ -6,11 +6,11 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-		<DefineConstants>TRACE;DEBUG;ARCAZE</DefineConstants>
+		<DefineConstants>TRACE;DEBUG</DefineConstants>
 		<NoWarn>$(NoWarn);WFO1000</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-		<DefineConstants>TRACE;ARCAZE</DefineConstants>
+		<DefineConstants>TRACE</DefineConstants>
 		<NoWarn>$(NoWarn);WFO1000</NoWarn>
 	</PropertyGroup>
 

@@ -109,16 +109,7 @@ namespace MobiFlight.UI.Panels
                 _MultiSelectOptions(false);
                 pin = cfg.Pin;
             }
-            else if (SerialNumber.IsArcazeSerial(serial))
-            {
-                // these are Arcaze Boards.
-                // Arcaze Boards only have "single output"
-                port = cfg.Pin.Substring(0, 1);
-                pin = cfg.Pin.Substring(1);
-
-                // disable multi-select option
-                _MultiSelectOptions(false);
-            } else if (SerialNumber.IsMobiFlightSerial(serial)) {
+            else if (SerialNumber.IsMobiFlightSerial(serial)) {
 
                 // this is MobiFlight Outputs
                 _MultiSelectOptions(true);

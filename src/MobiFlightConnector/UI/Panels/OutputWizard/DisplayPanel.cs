@@ -12,11 +12,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
     {
         public event EventHandler<EventArgs> DisplayPanelValidatingError;
 
-#if ARCAZE
-        Dictionary<String, string> arcazeFirmware = new Dictionary<String, String>();
-        Dictionary<string, ArcazeModuleSettings> moduleSettings;
-#endif
-
         public event EventHandler SettingsDialogRequested;
 
         ErrorProvider errorProvider = new ErrorProvider();
@@ -187,11 +182,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             return OutputTypeComboBox.SelectedIndex == 1;
         }
 
-        internal void SetArcazeSettings(Dictionary<string, string> arcazeFirmware, Dictionary<string, ArcazeModuleSettings> moduleSettings)
-        {
-            this.arcazeFirmware = arcazeFirmware;
-            this.moduleSettings = moduleSettings;
-        }
         internal void syncToConfig()
         {
             if (OutputTypeIsDisplay())
@@ -280,7 +270,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (controller == null)
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLedModule.TYPE, Label = MobiFlightLedModule.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
@@ -309,15 +299,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                 }
-                // update the available types depending on the 
-                // type of module
-                else if (SerialNumber.IsArcazeSerial(controller.Serial))
-                {
-                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
-                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
-                }
-                // update the available types depending on the 
+                // update the available types depending on the
                 // type of module
                 else
                 {
@@ -331,12 +313,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                             switch (devType)
                             {
                                 case DeviceType.LedModule:
-                                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLedModule.TYPE, Label = MobiFlightLedModule.TYPE });
                                     break;
 
                                 case DeviceType.Output:
                                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                                    //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
                                     break;
 
                                 case DeviceType.Servo:
@@ -423,13 +404,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 var cb = displayModuleNameComboBox;
                 var controller = (cb.SelectedItem as ListItem<Controller>)?.Value;
                 var serial = controller?.Serial;
-#if ARCAZE
-                if (serial != null && arcazeFirmware.ContainsKey(serial))
-                {
-                    panelEnabled = InitializeArcazeDisplays(cb, serial);
-                }
-                else
-#endif
                 if (SerialNumber.IsMobiFlightSerial(serial))
                 {
                     panelEnabled = InitializeMobiFlightDisplays(cb, serial);
@@ -529,7 +503,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 displayPinPanel.Height = displayPanelHeight;
             }
 
-            else if (SelectedItemValue == ArcazeLedDigit.TYPE)
+            else if (SelectedItemValue == MobiFlightLedModule.TYPE)
             {
                 displayLedDisplayPanel.Enabled = panelEnabled;
                 displayLedDisplayPanel.Height = displayPanelHeight;
@@ -653,70 +627,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             displayLcdDisplayPanel.SetAddresses(lcdDisplays);
 
             customDevicePanel.SetCustomDeviceNames(customDevices);
-
-            return panelEnabled;
-        }
-
-        private bool InitializeArcazeDisplays(ComboBox cb, string serial)
-        {
-            bool panelEnabled = true;
-
-            switch (cb.SelectedItem.ToString())
-            {
-                case "DisplayDriver":
-                    panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x529;
-                    break;
-
-                case "LedDriver2":
-                    panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x554;
-                    break;
-
-                case "LedDriver3":
-                    panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x550;
-                    break;
-            }
-
-            displayPinPanel.displayPinBrightnessPanel.Visible = (moduleSettings[serial].type == SimpleSolutions.Usb.ArcazeCommand.ExtModuleType.LedDriver3);
-            displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
-
-            //preconditionPortComboBox.Items.Clear();
-            //preconditionPinComboBox.Items.Clear();
-
-            List<ListItem> ports = new List<ListItem>();
-
-            foreach (String v in ArcazeModule.getPorts())
-            {
-                ports.Add(new ListItem() { Label = v, Value = v });
-                if (v == "B" || v == "E" || v == "H" || v == "K")
-                {
-                    ports.Add(new ListItem() { Label = "-----", Value = "-----" });
-                }
-
-                if (v == "A" || v == "B")
-                {
-                    //preconditionPortComboBox.Items.Add(v);
-                }
-            }
-
-            displayPinPanel.SetPorts(ports);
-            
-            List<ListItem> pins = new List<ListItem>();
-            foreach (String v in ArcazeModule.getPins())
-            {
-                pins.Add(new ListItem() { Label = v, Value = v });
-                //preconditionPinComboBox.Items.Add(v);
-            }
-
-            displayPinPanel.SetPins(pins);
-            displayPinPanel.WideStyle = false;
-
-            List<ListItem> addr = new List<ListItem>();
-            List<ListItem> connectors = new List<ListItem>();
-            foreach (string v in ArcazeModule.getDisplayAddresses()) addr.Add(new ListItem() { Label = v, Value = v });
-            foreach (string v in ArcazeModule.getDisplayConnectors()) connectors.Add(new ListItem() { Label = v, Value = v });
-            displayLedDisplayPanel.WideStyle = false;
-            displayLedDisplayPanel.SetAddresses(addr);
-            displayLedDisplayPanel.SetConnectors(connectors);
 
             return panelEnabled;
         }
@@ -885,7 +795,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void displayLedDisplayComboBox_Validating(object sender, CancelEventArgs e)
         {
-            if (displayTypeComboBox.Text == ArcazeLedDigit.TYPE)
+            if (displayTypeComboBox.Text == MobiFlightLedModule.TYPE)
             {
                 try
                 {

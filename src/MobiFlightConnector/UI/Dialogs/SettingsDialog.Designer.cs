@@ -33,8 +33,6 @@ namespace MobiFlight.UI.Dialogs
             this.panel1 = new System.Windows.Forms.Panel();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.ArcazeTabPage = new System.Windows.Forms.TabPage();
-            this.arcazePanel = new MobiFlight.UI.Panels.Settings.ArcazePanel();
             this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mfModuleSettingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +67,6 @@ namespace MobiFlight.UI.Dialogs
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
-            this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
@@ -98,21 +95,7 @@ namespace MobiFlight.UI.Dialogs
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
-            // ArcazeTabPage
-            // 
-            this.ArcazeTabPage.Controls.Add(this.arcazePanel);
-            resources.ApplyResources(this.ArcazeTabPage, "ArcazeTabPage");
-            this.ArcazeTabPage.Name = "ArcazeTabPage";
-            this.ArcazeTabPage.UseVisualStyleBackColor = true;
-            this.ArcazeTabPage.Validating += new System.ComponentModel.CancelEventHandler(this.ledDisplaysTabPage_Validating);
-            // 
-            // arcazePanel
-            // 
-            resources.ApplyResources(this.arcazePanel, "arcazePanel");
-            this.arcazePanel.ModuleConfigChanged = false;
-            this.arcazePanel.Name = "arcazePanel";
-            // 
+            //
             // mfTreeViewImageList
             // 
             this.mfTreeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
@@ -257,7 +240,6 @@ namespace MobiFlight.UI.Dialogs
             // 
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.peripheralsTabPage);
-            this.tabControl1.Controls.Add(this.ArcazeTabPage);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -318,7 +300,6 @@ namespace MobiFlight.UI.Dialogs
             this.Load += new System.EventHandler(this.SettingsDialog_Load);
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.panel1.ResumeLayout(false);
-            this.ArcazeTabPage.ResumeLayout(false);
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
@@ -332,7 +313,6 @@ namespace MobiFlight.UI.Dialogs
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        public System.Windows.Forms.TabPage ArcazeTabPage;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ContextMenuStrip mfModuleSettingsContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
@@ -363,7 +343,6 @@ namespace MobiFlight.UI.Dialogs
         private System.Windows.Forms.ToolStripMenuItem regenerateSerialToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LcdDisplayToolStripMenuItem;
-        private Panels.Settings.ArcazePanel arcazePanel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
         public System.Windows.Forms.TabPage peripheralsTabPage;
