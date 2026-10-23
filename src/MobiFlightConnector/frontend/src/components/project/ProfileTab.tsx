@@ -7,7 +7,7 @@ import { buttonVariants } from "@/components/ui/variants"
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
-import { useDroppable } from "@dnd-kit/core"
+import { useDroppable } from "@dnd-kit/react"
 import ProfileTabContextMenu from "@/components/project/ProfileTab/ProfileTabContextMenu"
 
 export interface ProfileTabProps extends VariantProps<typeof buttonVariants> {
@@ -66,12 +66,9 @@ export const ProfileTab = forwardRef<HTMLDivElement, ProfileTabProps>(
     // but hover outside of the input field, e.g. the menu button
     const groupHoverInputStyle = "group-hover:text-foreground"
 
-    const { setNodeRef } = useDroppable({
+    const { ref: droppableRef } = useDroppable({
       id: `file-button-${index}`,
-      data: {
-        type: `tab`,
-        index: index,
-      },
+      data: { type: `tab`, index: index },
     })
 
     const maxInputWidth = "max-w-60 xl:max-w-70 3xl:max-w-80"
@@ -79,11 +76,11 @@ export const ProfileTab = forwardRef<HTMLDivElement, ProfileTabProps>(
 
     const combinedRef = useCallback(
       (node: HTMLDivElement | null) => {
-        setNodeRef(node)
+        droppableRef(node)
         if (typeof ref === "function") ref(node)
         else if (ref) ref.current = node
       },
-      [ref, setNodeRef],
+      [ref, droppableRef],
     )
 
     useEffect(() => {
