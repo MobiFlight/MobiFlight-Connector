@@ -19,7 +19,7 @@ import { useOverflowDetector } from "@/lib/hooks/useOverflowDetector"
 import { cn } from "@/lib/utils"
 import ConfirmationDialog from "@/components/ConfirmationDialog"
 import { useErrorFallbackTest } from "@/lib/hooks/useErrorFallbackTest"
-import InputConfigDialog from "@/components/wizard/InputConfigDialog"
+import ConfigWizardDialog from "@/components/wizard/ConfigWizardDialog"
 
 const ProjectPanel = () => {
   const SCROLL_TAB_INTO_VIEW_DELAY_MS = 1500
@@ -384,7 +384,7 @@ const ProjectPanel = () => {
         discardChanges={discardChanges}
         keepEditing={handleCancel}
       />
-      {configId && <InputConfigDialog configId={configId} />}
+      {configId && <ConfigWizardDialog configId={configId} />}
     </div>
   )
 }

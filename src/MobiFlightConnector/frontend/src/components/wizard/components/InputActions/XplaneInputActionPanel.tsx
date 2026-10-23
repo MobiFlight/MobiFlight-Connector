@@ -1,13 +1,11 @@
 import ComboBox from "@/components/ComboBox"
-import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
+import { HubHopPresetDetails } from "@/components/wizard/components/HubHopPresetDetails"
 import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
-import useOpenUrl from "@/lib/hooks/useOpenUrl"
 import { XplaneInputAction } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
 import { IconExclamationCircle } from "@tabler/icons-react"
@@ -28,11 +26,10 @@ const XplaneInputActionPanel = ({
   onConfigChange,
 }: XplaneInputActionPanelProps) => {
   const { t } = useTranslation()
-  const openUrl = useOpenUrl()
 
   const { data: presets = [], isLoading } = useQuery({
     queryKey: ["xplane-presets"],
-    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>, 
+    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>,
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
@@ -56,25 +53,13 @@ const XplaneInputActionPanel = ({
           </Label>
           <CodeValueLabel id="code" className="max-w-100">
             {config?.Path ??
-              t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.None")}
+              t(
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.None",
+              )}
           </CodeValueLabel>
         </div>
       </div>
     )
-  
-  }
-
-  const labels = {
-    vendor: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Vendor"),
-    aircraft: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Aircraft"),
-    system: t("Dialog.InputConfigWizard.InputActions.Common.Preset.System"),
-    author: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Author"),
-    date: t("Dialog.InputConfigWizard.InputActions.Common.Preset.Date"),
-  }
-
-  const openHubHopDetails = () => {
-    const hubHopUrl = `https://hubhop.mobiflight.com/preset/?simType=xplane&id=${preset?.id}`
-    openUrl(hubHopUrl)
   }
 
   return (
@@ -92,11 +77,15 @@ const XplaneInputActionPanel = ({
         }
       />
       <Card>
-
-        <CardContent className="flex flex-col gap-4 pt-4" data-testid="preset-code-panel">
+        <CardContent
+          className="flex flex-col gap-4 pt-4"
+          data-testid="preset-code-panel"
+        >
           <div className="flex flex-col">
             <div className="text-lg font-semibold">
-              {t("Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title")}
+              {t(
+                "Dialog.InputConfigWizard.InputActions.Common.Preset.Code.Title",
+              )}
             </div>
             <div className="text-muted-foreground text-sm">
               {t(
@@ -106,64 +95,7 @@ const XplaneInputActionPanel = ({
           </div>
           <div className="flex flex-col gap-4">
             {preset ? (
-              <>
-                <div className="flex flex-row gap-4">
-                  <div className="flex flex-1 flex-col gap-1">
-                    <Label htmlFor="code">
-                      {t(
-                        "Dialog.InputConfigWizard.InputActions.Common.NameLabel",
-                      )}
-                    </Label>
-                    <div className="text-sm font-semibold">{preset?.label}</div>
-                  </div>
-
-                  <div className="flex flex-1 flex-col gap-1">
-                    <Label htmlFor="code">
-                      {labels.vendor} / {labels.aircraft} / {labels.system}
-                    </Label>
-                    <div className="text-sm">
-                      {preset?.vendor} / {preset?.aircraft} / {preset?.system}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-row gap-4">
-                  <div className="flex flex-1 flex-col gap-1">
-                    <Label htmlFor="code">
-                      {t(
-                        "Dialog.InputConfigWizard.InputActions.Common.DescriptionLabel",
-                      )}
-                    </Label>
-                    <div className="text-sm">{preset?.description ?? "-"}</div>
-                  </div>
-                  {preset?.author && (
-                    <div className="flex flex-1 flex-row items-center gap-1">
-                      <div className="flex flex-1 flex-col gap-1">
-                        <Label htmlFor="code">Author / Date</Label>
-                        <div className="text-sm">
-                          {preset?.author}
-                          {preset?.createdDate && (
-                            <>
-                              {" "}
-                              /{" "}
-                              {new Date(
-                                preset.createdDate,
-                              ).toLocaleDateString()}{" "}
-                            </>
-                          )}
-                        </div>
-                      </div>
-                      <Button
-                        className="h-8 gap-1 rounded-full px-4 py-1 [&_svg]:size-6"
-                        variant={"ghost"}
-                        onClick={openHubHopDetails}
-                      >
-                        <IconBrandHubHopLogo className="fill-orange-400 stroke-orange-400" />
-                        HubHop
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </>
+              <HubHopPresetDetails preset={preset} variant="xplane" />
             ) : (
               (config?.Path ?? "") !== "" && (
                 <div className="flex flex-row items-center gap-2 rounded-md">
