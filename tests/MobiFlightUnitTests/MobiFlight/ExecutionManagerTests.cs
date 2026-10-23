@@ -3,6 +3,7 @@ using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages.Outgoing;
+using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.ProSim;
@@ -1149,15 +1150,16 @@ namespace MobiFlight.Tests
                 Type = DeviceType.Button,
             };
 
-            var configItem = new InputConfigItem { 
-                GUID = Guid.NewGuid().ToString(), 
-                Active = true, 
+            var configItem = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
                 Name = "Test item version #1",
                 Controller = Controller,
                 Device = new Button() { Name = Device.Name },
                 button = new InputConfig.ButtonInputConfig()
                 {
-                    
+
                     onPress = new VariableInputAction()
                     {
                         Variable = new MobiFlightVariable() { Name = "Var1", Number = 100 },
@@ -1211,7 +1213,7 @@ namespace MobiFlight.Tests
             );
 
             // Update config item as real copy and updated values
-            var newConfig =  configItem.Clone() as InputConfigItem;
+            var newConfig = configItem.Clone() as InputConfigItem;
             newConfig.Name = "Test item version 2";
 
             // update expected log message for version #2
@@ -1238,7 +1240,7 @@ namespace MobiFlight.Tests
             _executionManager.Stop();
         }
         [TestMethod]
-       public void Execute_WhenActionIsNotConfigured_DoesNotLogExecution()
+        public void Execute_WhenActionIsNotConfigured_DoesNotLogExecution()
         {
             // Arrange
             var controller = new Controller
@@ -1315,6 +1317,66 @@ namespace MobiFlight.Tests
             );
 
             _executionManager.Stop();
+        }
+
+        [TestMethod]
+        public void ProjectChange_DuringInputEventExecutorsEnumeration_ShouldCompleteWithoutThrowing()
+        {
+            var configItem1 = new InputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true, Name = "Config1" };
+            var configFile1 = new ConfigFile() { ConfigItems = { configItem1 } };
+            var project1 = new Project();
+            project1.ConfigFiles.Add(configFile1);
+            _executionManager.Project = project1;
+
+            var field = typeof(ExecutionManager).GetField("_inputEventExecutors", BindingFlags.NonPublic | BindingFlags.Instance);
+            var initialExecutors = (ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
+
+            var result = initialExecutors.Count;
+            Assert.AreEqual(1, result);
+
+            using (var enumerator = initialExecutors.Values.GetEnumerator())
+            {
+                Assert.IsTrue(enumerator.MoveNext());
+                var firstExecutor = enumerator.Current;
+
+                var configItem2 = new InputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true, Name = "Config2" };
+                var configFile2 = new ConfigFile() { ConfigItems = { configItem2 } };
+                var project2 = new Project();
+                project2.ConfigFiles.Add(configFile2);
+
+                _executionManager.Project = project2;
+
+                Assert.IsFalse(enumerator.MoveNext());
+                Assert.IsNotNull(firstExecutor);
+
+                var newExecutors = (ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
+                Assert.AreSame(initialExecutors, newExecutors);
+
+                var result2 = newExecutors.Count;
+                Assert.AreEqual(1, result2);
+                Assert.IsTrue(newExecutors.ContainsKey(configFile2));
+                Assert.IsFalse(newExecutors.ContainsKey(configFile1));
+            }
+        }
+
+        [TestMethod]
+        public void InitInputEventExecutor_WithNoConfigFiles_ShouldReplaceWithEmptyDictionary()
+        {
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile());
+            _executionManager.Project = project;
+
+            var field = typeof(ExecutionManager).GetField("_inputEventExecutors", BindingFlags.NonPublic | BindingFlags.Instance);
+            var result = ((ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager)).Count;
+            Assert.AreEqual(1, result);
+
+            var emptyProject = new Project();
+            _executionManager.Project = emptyProject;
+
+            var executors = (ConcurrentDictionary<ConfigFile, InputEventExecutor>)field.GetValue(_executionManager);
+            Assert.IsNotNull(executors);
+            var result2 = executors.Count;
+            Assert.AreEqual(0, result2);
         }
     }
 }
