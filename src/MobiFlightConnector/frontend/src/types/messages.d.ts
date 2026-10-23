@@ -162,6 +162,8 @@ export interface AuthenticationStatus {
 
 export interface ConfigListUndoState {
   CanUndo: boolean
+  History: string[]
+  HistoryStart: number
 }
 
 export type ShutdownConfirmationRequested = Record<string, never>

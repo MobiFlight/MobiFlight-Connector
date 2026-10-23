@@ -38,6 +38,9 @@ interface ProjectState {
       originalPositions: Map<string, number>,
     ) => void
   }
+  configListUndoHistory: string[]
+  configListUndoHistoryStart: number
+  setConfigListUndoHistory: (history: string[], historyStarg: number) => void
 }
 
 export const useProjectStore = create<ProjectState>((set) => ({
@@ -143,7 +146,6 @@ export const useProjectStore = create<ProjectState>((set) => ({
       return { project: { ...state.project, ControllerBindings: bindings } }
     })
   },
-
   actions: {
     moveItemsBetweenConfigs: (
       draggedItems: IConfigItem[],
@@ -273,6 +275,13 @@ export const useProjectStore = create<ProjectState>((set) => ({
         }
       }),
   },
+  configListUndoHistory: [],
+  configListUndoHistoryStart: 0,
+  setConfigListUndoHistory: (history, historyStart) =>
+    set({
+      configListUndoHistory: history,
+      configListUndoHistoryStart: historyStart,
+    }),
 }))
 
 export const useProjectStoreActions = () =>

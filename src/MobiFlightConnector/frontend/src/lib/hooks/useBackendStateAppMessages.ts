@@ -65,9 +65,15 @@ export const useBackendStateAppMessages = () => {
     (state) => state.setCanUndoConfigList,
   )
 
+  const setConfigListUndoHistory = useProjectStore(
+    (state) => state.setConfigListUndoHistory,
+  )
+
   useAppMessage("ConfigListUndoState", (message) => {
     const state = message.payload as ConfigListUndoState
     setCanUndoConfigList(state.CanUndo)
+
+    setConfigListUndoHistory(state.History ?? [], state.HistoryStart ?? 0)
   })
 
   useAppMessage("Project", (message) => {

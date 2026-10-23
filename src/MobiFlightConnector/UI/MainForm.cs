@@ -2555,6 +2555,7 @@ namespace MobiFlight.UI
             }
 
             execManager.Project.ConfigFiles.Add(newConfigFile);
+            execManager.RecordProfileAdded(newConfigFile);
             ProjectOrConfigFileHasChanged();
 
             ProjectLoaded?.Invoke(this, execManager.Project);

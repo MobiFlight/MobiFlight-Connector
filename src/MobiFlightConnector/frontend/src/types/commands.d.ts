@@ -251,5 +251,7 @@ export interface CommandUpdateSettings extends CommandMessageBase {
 
 export interface CommandUndoConfigList extends CommandMessageBase {
   key: "CommandUndoConfigList"
-  payload: Record<string, never>
+  payload: {
+    steps?: number
+  }
 }
