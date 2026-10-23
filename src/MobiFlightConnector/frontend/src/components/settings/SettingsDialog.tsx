@@ -17,6 +17,12 @@ import messageExchange from "@/lib/messageExchange"
 import Settings from "@/types/settings"
 import { ScrollArea } from "../ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
+import { useAuth } from "react-oidc-context"
+import {
+  fetchCloudSettings,
+  uploadCloudSettings,
+} from "@/lib/cloudSettings"
+import isEqual from "lodash-es/isEqual"
 
 export type SettingsDialogProps = {
   isOpen: boolean
@@ -30,6 +36,59 @@ export default function SettingsDialog({
   const { t } = useTranslation()
   const originalSettings = useSettingsStore((state) => state.settings)
   const setSettings = useSettingsStore((state) => state.setSettings)
+
+  const auth = useAuth()
+  const [isFetchingCloud, setIsFetchingCloud] = useState(false)
+  const [isUploadingCloud, setIsUploadingCloud] = useState(false)
+  const handleGetCloudSettings = async () => {
+    try {
+      setIsFetchingCloud(true)
+      console.log("[SettingsDialog] Fetching cloud settings...")
+      const cloudData = await fetchCloudSettings(auth)
+      if (cloudData && cloudData.content) {
+        console.log("[SettingsDialog] Cloud settings received:", cloudData)
+        if (isEqual(draftSettings, cloudData.content)) {
+          console.log("[SettingsDialog] Local settings are already up to date with cloud.")
+        } else {
+          console.log("[SettingsDialog] Difference detected. Applying cloud settings immediately...")
+          const newSettings = cloudData.content as Settings
+          setDraftSettings(newSettings)
+          setPrevOriginalSettings(newSettings)
+          setSettings(newSettings)
+          messageExchange.publish({
+            key: "CommandUpdateSettings",
+            payload: {
+              Settings: newSettings,
+            },
+          })
+          console.log("[SettingsDialog] Cloud settings applied successfully.")
+        }
+      } else {
+        console.log("[SettingsDialog] No cloud settings found.")
+      }
+    } catch (err: unknown) {
+      console.error("[SettingsDialog] Failed to fetch cloud settings:", err)
+    } finally {
+      setIsFetchingCloud(false)
+    }
+  }
+
+  const handleUploadCloudSettings = async () => {
+    try {
+      setIsUploadingCloud(true)
+      console.log("[SettingsDialog] Uploading cloud settings...")
+      const uploadPayload = {
+        schemaVersion: 1,
+        content: draftSettings,
+      }
+      const saved = await uploadCloudSettings(auth, uploadPayload)
+      console.log("[SettingsDialog] Cloud settings uploaded successfully:", saved)
+    } catch (err: unknown) {
+      console.error("[SettingsDialog] Failed to upload cloud settings:", err)
+    } finally {
+      setIsUploadingCloud(false)
+    }
+  }
 
   const [prevOriginalSettings, setPrevOriginalSettings] =
     useState(originalSettings)
@@ -167,13 +226,33 @@ export default function SettingsDialog({
             </TabsContent>
           </Tabs>
 
-          <DialogFooter className="shrink-0 gap-2 sm:gap-0">
-            <Button variant="secondary" onClick={handleRequestClose}>
-              {t("Dialog.General.Cancel")}
-            </Button>
-            <Button onClick={handleSave}>
-              {t("MainMenu.File.Save", "Save")}
-            </Button>
+          <DialogFooter className="shrink-0 gap-2 sm:gap-0 sm:justify-between">
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isFetchingCloud}
+                onClick={handleGetCloudSettings}
+              >
+                {isFetchingCloud ? "Downloading..." : "Get Cloud Settings"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isUploadingCloud}
+                onClick={handleUploadCloudSettings}
+              >
+                {isUploadingCloud ? "Uploading..." : "Upload Cloud Settings"}
+              </Button>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="secondary" onClick={handleRequestClose}>
+                {t("Dialog.General.Cancel")}
+              </Button>
+              <Button onClick={handleSave}>
+                {t("MainMenu.File.Save", "Save")}
+              </Button>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
