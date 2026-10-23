@@ -968,15 +968,30 @@ namespace MobiFlight
                     int lastIndex = _listUndoHistory.Count - 1;
                     var entry = _listUndoHistory[lastIndex];
 
-                    // Validate the original project and profile.
-                    if (!ReferenceEquals(Project, entry.Project) ||
-                        entry.ConfigIndex < 0 ||
-                        entry.ConfigIndex >= Project.ConfigFiles.Count ||
-                        !ReferenceEquals(
-                            Project.ConfigFiles[entry.ConfigIndex],
-                            entry.File))
+                    int actualProfileIndex = Project.ConfigFiles
+                        .ToList()
+                        .FindIndex(file => ReferenceEquals(file, entry.File));
+
+                    bool validProject = ReferenceEquals(Project, entry.Project);
+
+                    bool validProfile = actualProfileIndex >= 0;
+
+                    bool validIndex =
+                        entry.Action == ConfigListUndoAction.ProfileAdded ||
+                        actualProfileIndex == entry.ConfigIndex;
+
+                    if (!validProject || !validProfile || !validIndex)
                     {
-                        ClearConfigListUndoHistory();
+                        Log.Instance.log(
+                            $"ConfigList Undo validation failed: " +
+                            $"Action={entry.Action}, " +
+                            $"RecordedIndex={entry.ConfigIndex}, " +
+                            $"ActualIndex={actualProfileIndex}, " +
+                            $"ProfileCount={Project.ConfigFiles.Count}, " +
+                            $"SameProject={validProject}",
+                            LogSeverity.Warn
+                        );
+
                         return;
                     }
 
@@ -1121,13 +1136,26 @@ namespace MobiFlight
                     }
                     else if (entry.Action == ConfigListUndoAction.ProfileAdded)
                     {
-                        if (Project.ConfigFiles.Count <= 1 || entry.File.ConfigItems.Count > 0)
+                        if (
+                            Project.ConfigFiles.Count <= 1 ||
+                            entry.File.ConfigItems.Count > 0
+                        )
                         {
-                            ClearConfigListUndoHistory();
+                            Log.Instance.log(
+                                $"Cannot undo ProfileAdded: " +
+                                $"ProfileCount={Project.ConfigFiles.Count}, " +
+                                $"ItemCount={entry.File.ConfigItems.Count}",
+                                LogSeverity.Warn
+                            );
                             return;
                         }
-                        Project.ConfigFiles.RemoveAt(entry.ConfigIndex);
-                        ActiveConfigIndex = Math.Min(ActiveConfigIndex, Project.ConfigFiles.Count - 1);
+
+                        Project.ConfigFiles.RemoveAt(actualProfileIndex);
+
+                        ActiveConfigIndex = Math.Min(
+                            ActiveConfigIndex,
+                            Project.ConfigFiles.Count - 1
+                        );
                     }
                     else if (entry.Action == ConfigListUndoAction.ProfileRename)
                     {
