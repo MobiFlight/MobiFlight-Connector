@@ -146,13 +146,19 @@ namespace MobiFlight.VJoy
         public static bool sendButton(uint vJoyID, uint buttonNr, bool state)
         {
             var joy = joystick.Value;
-            var status = joy.GetVJDStatus(vJoyID);
-            bool isReady = (status == VjdStat.VJD_STAT_OWN) || (status == VjdStat.VJD_STAT_FREE && joy.AcquireVJD(vJoyID));
-            if (!joy.vJoyEnabled() && !isReady)
+            if (!joy.vJoyEnabled())
             {
                 throw new VJoyNotEnabledException();
             }
 
+            var status = joy.GetVJDStatus(vJoyID);
+            bool isReady = (status == VjdStat.VJD_STAT_OWN) || (status == VjdStat.VJD_STAT_FREE && joy.AcquireVJD(vJoyID));
+
+            if (!isReady)
+            {
+
+                throw new VJoyNotEnabledException();
+            }
             try
             {
                 return joy.SetBtn(state, vJoyID, buttonNr);
@@ -169,12 +175,20 @@ namespace MobiFlight.VJoy
         public static bool setAxisVal(uint vJoyID, string axisString, int value)
         {
             var joy = joystick.Value;
-            var status = joy.GetVJDStatus(vJoyID);
-            bool isReady = (status == VjdStat.VJD_STAT_OWN) || (status == VjdStat.VJD_STAT_FREE && joy.AcquireVJD(vJoyID));
-            if (!joy.vJoyEnabled() && !isReady)
+
+            if (!joy.vJoyEnabled())
             {
                 throw new VJoyNotEnabledException();
             }
+
+            var status = joy.GetVJDStatus(vJoyID);
+            bool isReady = (status == VjdStat.VJD_STAT_OWN) || (status == VjdStat.VJD_STAT_FREE && joy.AcquireVJD(vJoyID));
+
+            if (!isReady)
+            {
+                throw new VJoyNotEnabledException();
+            }
+
             try
             {
                 long maxVal = 0;

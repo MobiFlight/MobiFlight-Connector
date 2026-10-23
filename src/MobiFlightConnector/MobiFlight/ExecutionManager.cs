@@ -239,7 +239,7 @@ namespace MobiFlight
             // every distinct setting across all loaded config files.
             Func<InputEventArgs, List<ButtonTimings>> resolveButtonTimings = e =>
             {
-               
+
                 var timings = new List<ButtonTimings>();
                 foreach (var executor in _inputEventExecutors.Values)
                 {
@@ -871,22 +871,24 @@ namespace MobiFlight
         {
             _inputEventExecutors.Clear();
 
-            if (Project != null && Project.ConfigFiles != null)
+            if (Project == null || Project.ConfigFiles == null)
             {
-                foreach (var configFile in Project.ConfigFiles)
-                {
-                    _inputEventExecutors[configFile] = new InputEventExecutor(
-                        configFile.ConfigItems,
-                        inputActionExecutionCache,
-                        fsuipcCache,
-                        simConnectCache,
-                        xplaneCache,
-                        mobiFlightCache,
-                        proSimCache,
-                        joystickManager,
-                        arcazeCache
-                    );
-                }
+                return;
+            }
+
+            foreach (var configFile in Project.ConfigFiles)
+            {
+                _inputEventExecutors[configFile] = new InputEventExecutor(
+                    configFile.ConfigItems,
+                    inputActionExecutionCache,
+                    fsuipcCache,
+                    simConnectCache,
+                    xplaneCache,
+                    mobiFlightCache,
+                    proSimCache,
+                    joystickManager,
+                    arcazeCache
+                );
             }
         }
 
@@ -936,12 +938,7 @@ namespace MobiFlight
 
         internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
-           
-
-            foreach (var executor in _inputEventExecutors.Values)
-            {
-                executor.ClearCache();
-            }
+                _inputEventExecutors.Values.ToList().ForEach(executor => executor.ClearCache());
         }
 
         public bool IsStarted()
@@ -1476,7 +1473,7 @@ namespace MobiFlight
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
 
-            
+
 
             foreach (var executor in _inputEventExecutors.Values)
             {
