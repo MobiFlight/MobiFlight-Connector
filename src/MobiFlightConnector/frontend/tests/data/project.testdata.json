@@ -729,7 +729,7 @@
     }
   ],
   "Features": {
-    "FSUIPC": false,
-    "ProSim": false
+    "FSUIPC": true,
+    "ProSim": true
   }
 }

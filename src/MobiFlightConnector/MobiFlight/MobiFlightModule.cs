@@ -56,6 +56,7 @@ namespace MobiFlight
 
         public const string TYPE_COMPATIBLE = "Compatible";
         public const string TYPE_UNKNOWN = "Unknown";
+        public const string TYPE_PORT_UNAVAILABLE = "Unavailable";
         public static string SerialPrefix = "SN-";
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
@@ -227,6 +228,12 @@ namespace MobiFlight
             get { return connected; }
         }
 
+        /// <summary> The exception that stopped the port from opening, if any. </summary>
+        public Exception ConnectionError { get; private set; }
+
+        /// <summary> Windows reports a port held by another application as access denied. </summary>
+        public bool IsPortBusy => ConnectionError is UnauthorizedAccessException;
+
         /// <summary>
         /// the look up table with the last set values
         /// </summary>
@@ -280,6 +287,9 @@ namespace MobiFlight
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
                 };
 
+                ConnectionError = null;
+                _transportLayer.ConnectionFailed += (s, e) => ConnectionError = e.Exception;
+
                 Log.Instance.log($"Connecting to {_comPort} - Baud rate: {baudRate}, DtrEnable: {Board.Connection.DtrEnable}", LogSeverity.Debug);
 
                 _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16, ',', ';', '\\', Board.Connection.MessageSize);
@@ -288,7 +298,19 @@ namespace MobiFlight
                 AttachCommandCallBacks();
 
                 // Start listening    
+                var openStopwatch = System.Diagnostics.Stopwatch.StartNew();
                 var status = _cmdMessenger.Connect();
+                Log.Instance.log($"Open {_comPort}: status={status}, connected={_transportLayer.IsConnected()}, {openStopwatch.ElapsedMilliseconds} ms, lastError='{_transportLayer.LastError}'.", LogSeverity.Debug);
+
+                if (!status)
+                {
+                    var reason = IsPortBusy ? "port is in use by another application" : ConnectionError?.Message ?? "port not available";
+                    Log.Instance.log($"Could not open {_comPort}: {reason}", LogSeverity.Error);
+                    _cmdMessenger.Dispose();
+                    _transportLayer.Dispose();
+                    return;
+                }
+
                 Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
                 //this.Connected = status;
                 this.connected = true;
@@ -916,10 +938,25 @@ namespace MobiFlight
             ReceivedCommand InfoCommand = null;
             for (var attempt = 1; attempt <= GetInfoMaxAttempts; attempt++)
             {
-                InfoCommand = _cmdMessenger.SendCommand(command);
-                if (InfoCommand.Ok) break;
+                var writtenBefore = _transportLayer?.BytesWritten ?? 0;
+                var receivedBefore = _transportLayer?.BytesReceived ?? 0;
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                Log.Instance.log($"GetInfo timed out on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}.", LogSeverity.Debug);
+                InfoCommand = _cmdMessenger.SendCommand(command);
+
+                // Temporary diagnostics for the missing-boards-at-startup investigation.
+                var diagnostics = $"{stopwatch.ElapsedMilliseconds} ms, connected={_transportLayer?.IsConnected()}, " +
+                    $"written +{(_transportLayer?.BytesWritten ?? 0) - writtenBefore}, received +{(_transportLayer?.BytesReceived ?? 0) - receivedBefore}, " +
+                    $"longestRead={_transportLayer?.LongestReadMs} ms, lastError='{_transportLayer?.LastError}', " +
+                    $"pool threads={ThreadPool.ThreadCount}, pending={ThreadPool.PendingWorkItemCount}";
+
+                if (InfoCommand.Ok)
+                {
+                    Log.Instance.log($"GetInfo answered on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}: {diagnostics}", LogSeverity.Debug);
+                    break;
+                }
+
+                Log.Instance.log($"GetInfo timed out on {_comPort}, attempt {attempt} of {GetInfoMaxAttempts}: {diagnostics}", LogSeverity.Debug);
             }
 
             if (InfoCommand.Ok)

@@ -13,6 +13,7 @@ namespace MobiFlight
 
     public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
     {    
+        private const int INITIAL_LOOKUP_TIMEOUT = 8000;
         /// <summary>
         /// Gets raised whenever a button is pressed
         /// </summary>
@@ -83,7 +84,7 @@ namespace MobiFlight
             // This timeout ensures that the LookupFinished is event called
             // even if we have no modules connected 
             // the event is needed so that the startup can finish
-            Task.Delay(TimeSpan.FromMilliseconds(5000))
+            Task.Delay(TimeSpan.FromMilliseconds(INITIAL_LOOKUP_TIMEOUT))
                 .ContinueWith(_ => { 
                     if (0 == AvailableComModules.Count) {
                         isFirstTimeLookup = false;
@@ -147,8 +148,11 @@ namespace MobiFlight
                 return;
             }
 
+            var queuedAt = System.Diagnostics.Stopwatch.StartNew();
             var task = Task.Run(() =>
             {
+                Log.Instance.log($"Lookup of {portDetails.Name} started after {queuedAt.ElapsedMilliseconds} ms in the pool queue.", LogSeverity.Debug);
+
                 MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board)
                 {
                     // Initialize with the original HardwareId from the PortDetails
@@ -157,7 +161,10 @@ namespace MobiFlight
                 };
 
                 module.Connect();
-                
+
+                // Nothing to ask if the port did not open, e.g. because another application holds it.
+                if (!module.Connected) return module;
+
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
                 
                 if (!module.HasMfFirmware())
@@ -167,6 +174,13 @@ namespace MobiFlight
             }).ConfigureAwait(false);
 
             var result = await task;
+
+            if (!result.Connected)
+            {
+                OnPortUnavailableDetected(result, portDetails);
+                await CheckIfLookUpFinished();
+                return;
+            }
 
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
 
@@ -182,7 +196,7 @@ namespace MobiFlight
         private async Task<bool> CheckIfLookUpFinished()
         {
             var currentModuleCount = AvailableComModules.Count;
-            var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(3000))
+            var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(INITIAL_LOOKUP_TIMEOUT))
                       .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; })
                       .ConfigureAwait(false);
 
@@ -209,6 +223,19 @@ namespace MobiFlight
             };
 
             AvailableComModules.Add(ignoredPort);
+        }
+
+        private void OnPortUnavailableDetected(MobiFlightModule module, PortDetails portDetails)
+        {
+            var reason = module.IsPortBusy ? "is in use by another application" : "could not be opened";
+            AvailableComModules.Add(new MobiFlightModuleInfo()
+            {
+                Port = portDetails.Name,
+                Type = MobiFlightModule.TYPE_PORT_UNAVAILABLE,
+                Name = $"Port {portDetails.Name} {reason}",
+                Board = portDetails.Board,
+                HardwareId = portDetails.HardwareId
+            });
         }
 
         private void OnMobiFlightBoardDetected(MobiFlightModule module)
