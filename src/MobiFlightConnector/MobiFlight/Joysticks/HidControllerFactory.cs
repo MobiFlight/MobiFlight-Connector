@@ -21,6 +21,7 @@ namespace MobiFlight.Joysticks
                 case "Logitech Switch Panel":
                 case "Logitech Multi Panel":
                 case "MOZA MA3F MFCD Display":
+                case "MOZA MB7F MFCD Display":
                     return true;
             }
 
@@ -50,6 +51,7 @@ namespace MobiFlight.Joysticks
                     result = new Logitech.MultiPanel(definition);
                     break;
                 case "MOZA MA3F MFCD Display":
+                case "MOZA MB7F MFCD Display":
                     result = new Moza.MozaMcdu(definition, hub);
                     break;
             }
