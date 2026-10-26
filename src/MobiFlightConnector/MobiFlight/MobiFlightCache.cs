@@ -157,7 +157,11 @@ namespace MobiFlight
                 };
 
                 module.Connect();
-                
+                if (!module.Connected)
+                {
+                    return module;
+                }
+
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
                 
                 if (!module.HasMfFirmware())
@@ -167,6 +171,13 @@ namespace MobiFlight
             }).ConfigureAwait(false);
 
             var result = await task;
+
+            if (!result.Connected)
+            {
+                OnBusyPortDetected(result, portDetails);
+                await CheckIfLookUpFinished();
+                return;
+            }
 
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
 
@@ -209,6 +220,22 @@ namespace MobiFlight
             };
 
             AvailableComModules.Add(ignoredPort);
+        }
+
+        private void OnBusyPortDetected(MobiFlightModule controller, PortDetails portDetails)
+        {
+            var label = controller.PortStatus == Transport.Status.PortBusy ? $"Controller in use by other app" : $"Controller not responding";
+
+            AvailableComModules.Add(
+                new MobiFlightModuleInfo()
+                {
+                    Port = portDetails.Name,
+                    Type = MobiFlightModule.TYPE_BUSYPORT,
+                    Name = label,
+                    Board = portDetails.Board,
+                    HardwareId = portDetails.HardwareId
+                }
+            );
         }
 
         private void OnMobiFlightBoardDetected(MobiFlightModule module)

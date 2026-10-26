@@ -83,6 +83,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
             mfTreeViewImageList.Images.Add("module-ignored", MobiFlight.Properties.Resources.port_deactivated);
+            mfTreeViewImageList.Images.Add("port-busy", MobiFlight.Properties.Resources.port_deactivated);
             mfTreeViewImageList.Images.Add("module-pico", MobiFlight.Properties.Resources.module_pico);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
         }
@@ -174,6 +175,9 @@ namespace MobiFlight.UI.Panels.Settings
 
                     case "Ignored":
                         node.SelectedImageKey = node.ImageKey = "module-ignored";
+                        break;
+                    case MobiFlightModule.TYPE_BUSYPORT:
+                        node.SelectedImageKey = node.ImageKey = "port-busy";
                         break;
                 }
             }
@@ -279,7 +283,7 @@ namespace MobiFlight.UI.Panels.Settings
             MobiFlightModule module = (moduleNode.Tag as MobiFlightModule);
             bool isMobiFlightBoard = module.HasMfFirmware();
 
-            mobiflightSettingsToolStrip.Enabled = moduleNode.ImageKey != "module-ignored";
+            mobiflightSettingsToolStrip.Enabled = moduleNode.ImageKey != "module-ignored" && moduleNode.ImageKey != "port-busy";
 
             // this is the module node
             // set the add device icon enabled
@@ -311,8 +315,8 @@ namespace MobiFlight.UI.Panels.Settings
 
             // if the module is ignored, we don't want
             // to display the firmware upload options, etc.
-            updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored";
-            UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored";
+            updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored" && moduleNode.ImageKey != "port-busy";
+            UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored" && moduleNode.ImageKey != "port-busy";
 
             // Reset the update firmware menu items
             updateFirmwareToolStripMenuItem.DropDownItems.Clear();

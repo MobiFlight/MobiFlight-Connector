@@ -1,7 +1,7 @@
 ﻿using CommandMessenger;
-using CommandMessenger.Transport.Serial;
 using MobiFlight.Base;
 using MobiFlight.Firmware;
+using MobiFlight.Transport;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MobiFlight
 {
@@ -55,6 +56,7 @@ namespace MobiFlight
         };
 
         public const string TYPE_COMPATIBLE = "Compatible";
+        public const string TYPE_BUSYPORT = "Busy";
         public const string TYPE_UNKNOWN = "Unknown";
         public static string SerialPrefix = "SN-";
 
@@ -130,6 +132,8 @@ namespace MobiFlight
         public virtual String Serial { get; set; }
         public String Version { get; set; }
         public string CoreVersion { get; set; }
+
+        public Status PortStatus => _transportLayer.Status;
 
         public bool HasMfFirmware()
         {
@@ -272,12 +276,19 @@ namespace MobiFlight
             {
                 // Create Serial Port object
                 int baudRate = 115200;
-                //baudRate = 57600;
                 _transportLayer = new SerialTransport()
-                //_transportLayer = new SerialPortManager
                 {
-                    //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
+                };
+
+                _transportLayer.ConnectionFailed += (sender, args) =>
+                {
+                    var transport = sender as SerialTransport;
+                    var message = args.Item1;
+                    var exception = args.Item2;
+
+                    Log.Instance.log($"{_comPort}: Connection failed. Status: {transport.Status} -> {message}", LogSeverity.Error);
+                    Log.Instance.log($"{_comPort}: Exception message: {exception?.Message}", LogSeverity.Debug);
                 };
 
                 Log.Instance.log($"Connecting to {_comPort} - Baud rate: {baudRate}, DtrEnable: {Board.Connection.DtrEnable}", LogSeverity.Debug);
@@ -287,26 +298,31 @@ namespace MobiFlight
                 // Attach the callbacks to the Command Messenger
                 AttachCommandCallBacks();
 
-                // Start listening    
-                var status = _cmdMessenger.Connect();
-                Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
-                //this.Connected = status;
-                this.connected = true;
+                // Start listening
+                var success = _cmdMessenger.Connect();
+
+                if (!success)
+                {
+                    // Error message is already logged in SerialTransport.Connect() and ConnectionFailed event handler.
+                    connected = false;
+                    return;
+                }
+
+                Log.Instance.log($"Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
+                connected = true;
 
                 // this sleep helps during initialization
                 // without this line modules did not connect properly
                 if (Board.Connection.ConnectionDelay > 0)
                 {
-                    System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
+                    Thread.Sleep(Board.Connection.ConnectionDelay);
                 }
             }
             catch (Exception ex)
             {
+                connected = false;
                 Log.Instance.log($"Error connecting to device: {ex.Message}", LogSeverity.Error);
             }
-            // if (!this.Connected) return;
-            // ResetBoard();
-            // LoadConfig();
         }
 
         public void ResetBoard()
