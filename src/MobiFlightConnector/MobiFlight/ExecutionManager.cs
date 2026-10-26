@@ -896,7 +896,7 @@ namespace MobiFlight
                             Math.Max(0, Project.ConfigFiles.Count - 1));
                         OnInputConfigSettingsChanged(this, null);
                         MessageExchange.Instance.Publish(Project);
-                        break;
+                        return;
                     case CommandFileContextMenuAction.rename:
                         string newLabel = message.File?.Label;
                         if (newLabel == null || file.Label == newLabel) return;
