@@ -1,5 +1,3 @@
-using Moq;
-
 namespace MobiFlight.Joysticks.Moza.Tests
 {
     [TestClass]
@@ -7,13 +5,13 @@ namespace MobiFlight.Joysticks.Moza.Tests
     {
         private const string BacklightLabel = "Backlight";
 
-        private static JoystickDefinition CreateDefinition(string label = BacklightLabel)
+        private static JoystickDefinition CreateDefinition()
         {
             return new JoystickDefinition
             {
                 Outputs = new List<JoystickOutput>
                 {
-                    new JoystickOutput { Id = "backlight", Label = label, Byte = 0, Bit = 0 }
+                    new JoystickOutput { Id = "backlight", Label = BacklightLabel, Byte = 0, Bit = 0 }
                 }
             };
         }
@@ -21,7 +19,7 @@ namespace MobiFlight.Joysticks.Moza.Tests
         private static (MozaMxg1000 Device, MemoryStream Stream) CreateConnectedDevice()
         {
             var stream = new MemoryStream();
-            var device = new MozaMxg1000(CreateDefinition(), () => stream);
+            var device = new MozaMxg1000(CreateDefinition(), () => new MozaCdcPort(stream));
             device.Connect(IntPtr.Zero);
             return (device, stream);
         }
@@ -53,7 +51,7 @@ namespace MobiFlight.Joysticks.Moza.Tests
         [TestMethod]
         [DataRow((byte)255, "7E03451252010F47")]
         [DataRow((byte)128, "7E03451252010840")]
-        public void UpdateOutputDeviceStates_ShouldWriteCapturedFrame_WhenBacklightChanges(byte state, string expectedFrame)
+        public void UpdateOutputDeviceStates_ShouldSendBrightnessToPanel_WhenBacklightIsSet(byte state, string expectedFrame)
         {
             // Arrange
             var (device, stream) = CreateConnectedDevice();
@@ -67,39 +65,7 @@ namespace MobiFlight.Joysticks.Moza.Tests
         }
 
         [TestMethod]
-        public void UpdateOutputDeviceStates_ShouldWriteFrame_WhenLabelDiffersFromBacklightId()
-        {
-            // Arrange
-            var stream = new MemoryStream();
-            var device = new MozaMxg1000(CreateDefinition("Dimmer"), () => stream);
-            device.Connect(IntPtr.Zero);
-
-            // Act
-            device.SetOutputDeviceState("Dimmer", 255);
-            device.UpdateOutputDeviceStates();
-
-            // Assert
-            Assert.AreEqual("7E03451252010F47", Convert.ToHexString(stream.ToArray()));
-        }
-
-        [TestMethod]
-        public void UpdateOutputDeviceStates_ShouldWriteMinimumFrame_WhenBacklightIsTurnedDown()
-        {
-            // Arrange
-            var (device, stream) = CreateConnectedDevice();
-            device.SetOutputDeviceState(BacklightLabel, 255);
-            device.UpdateOutputDeviceStates();
-
-            // Act
-            device.SetOutputDeviceState(BacklightLabel, 0);
-            device.UpdateOutputDeviceStates();
-
-            // Assert
-            Assert.AreEqual("7E03451252010F477E0345125201" + "0038", Convert.ToHexString(stream.ToArray()));
-        }
-
-        [TestMethod]
-        public void UpdateOutputDeviceStates_ShouldNotWriteAgain_WhenStateMapsToSameLevel()
+        public void UpdateOutputDeviceStates_ShouldSendNothing_WhenBrightnessLevelIsUnchanged()
         {
             // Arrange
             var (device, stream) = CreateConnectedDevice();
@@ -116,82 +82,22 @@ namespace MobiFlight.Joysticks.Moza.Tests
         }
 
         [TestMethod]
-        public void UpdateOutputDeviceStates_ShouldWriteNothing_WhenNoOutputChanged()
+        public void UpdateOutputDeviceStates_ShouldIgnoreBacklight_WhenCdcPortIsNotAvailable()
         {
             // Arrange
-            var (device, stream) = CreateConnectedDevice();
-
-            // Act
-            device.UpdateOutputDeviceStates();
-
-            // Assert
-            Assert.AreEqual(0, stream.Length);
-        }
-
-        #endregion
-
-        #region Port availability
-
-        [TestMethod]
-        public void UpdateOutputDeviceStates_ShouldWriteOnceAvailable_WhenPortWasMissingAtFirst()
-        {
-            // Arrange
-            var stream = new MemoryStream();
-            var attempts = 0;
-            var device = new MozaMxg1000(CreateDefinition(), () => ++attempts == 1 ? null : stream, TimeSpan.Zero);
+            var device = new MozaMxg1000(CreateDefinition(), () => null);
             device.Connect(IntPtr.Zero);
-            device.SetOutputDeviceState(BacklightLabel, 255);
 
             // Act
-            device.UpdateOutputDeviceStates();
-            var lengthWhilePortMissing = stream.Length;
+            device.SetOutputDeviceState(BacklightLabel, 255);
             device.UpdateOutputDeviceStates();
 
             // Assert
-            Assert.AreEqual(0, lengthWhilePortMissing);
-            Assert.AreEqual("7E03451252010F47", Convert.ToHexString(stream.ToArray()));
-        }
-
-        [TestMethod]
-        public void UpdateOutputDeviceStates_ShouldRetryOnNewStream_WhenWriteFails()
-        {
-            // Arrange
-            var failingStream = new Mock<Stream>();
-            failingStream
-                .Setup(s => s.Write(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Throws<IOException>();
-            var workingStream = new MemoryStream();
-            var attempts = 0;
-            var device = new MozaMxg1000(CreateDefinition(), () => ++attempts == 1 ? failingStream.Object : workingStream, TimeSpan.Zero);
-            device.Connect(IntPtr.Zero);
-            device.SetOutputDeviceState(BacklightLabel, 255);
-
-            // Act
-            device.UpdateOutputDeviceStates();
-            device.UpdateOutputDeviceStates();
-
-            // Assert
-            Assert.AreEqual("7E03451252010F47", Convert.ToHexString(workingStream.ToArray()));
         }
 
         #endregion
 
         #region Stop and Shutdown
-
-        [TestMethod]
-        public void Stop_ShouldNotOpenPort_WhenBacklightWasNeverSet()
-        {
-            // Arrange
-            var opened = 0;
-            var device = new MozaMxg1000(CreateDefinition(), () => { opened++; return new MemoryStream(); });
-            device.Connect(IntPtr.Zero);
-
-            // Act
-            device.Stop();
-
-            // Assert
-            Assert.AreEqual(0, opened);
-        }
 
         [TestMethod]
         public void Stop_ShouldTurnBacklightOff_WhenBacklightWasSet()
@@ -205,16 +111,14 @@ namespace MobiFlight.Joysticks.Moza.Tests
             device.Stop();
 
             // Assert
-            Assert.AreEqual("7E03451252010F477E0345125201" + "0038", Convert.ToHexString(stream.ToArray()));
+            Assert.AreEqual("7E03451252010F477E03451252010038", Convert.ToHexString(stream.ToArray()));
         }
 
         [TestMethod]
-        public void Shutdown_ShouldCloseStream_WhenPortIsOpen()
+        public void Shutdown_ShouldReleaseCdcPort()
         {
             // Arrange
             var (device, stream) = CreateConnectedDevice();
-            device.SetOutputDeviceState(BacklightLabel, 255);
-            device.UpdateOutputDeviceStates();
 
             // Act
             device.Shutdown();

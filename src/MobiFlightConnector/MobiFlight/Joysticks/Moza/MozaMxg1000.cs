@@ -1,6 +1,5 @@
 ﻿using MobiFlightMoza.Protocol;
 using System;
-using System.IO;
 
 namespace MobiFlight.Joysticks.Moza
 {
@@ -14,19 +13,20 @@ namespace MobiFlight.Joysticks.Moza
 
         public override string Name => Definition?.InstanceName ?? "MOZA MGX1000 Instrument Panel";
 
-        private readonly MozaCdcPort CdcPort;
+        private readonly Func<MozaCdcPort> OpenCdcPort;
+        private MozaCdcPort CdcPort;
 
         public MozaMxg1000(JoystickDefinition definition)
             : base(definition)
         {
-            CdcPort = new MozaCdcPort(Name, definition.VendorId, definition.ProductId);
+            OpenCdcPort = () => MozaCdcPort.Open(Name, definition.VendorId, definition.ProductId);
         }
 
-        // Testing seam: lets tests substitute the serial stream and the retry throttle.
-        internal MozaMxg1000(JoystickDefinition definition, Func<Stream> openCdcStream, TimeSpan? connectRetryInterval = null)
+        // Testing seam: lets tests substitute the CDC port.
+        internal MozaMxg1000(JoystickDefinition definition, Func<MozaCdcPort> openCdcPort)
             : base(definition)
         {
-            CdcPort = new MozaCdcPort(Name, openCdcStream, connectRetryInterval ?? TimeSpan.FromSeconds(2));
+            OpenCdcPort = openCdcPort;
         }
 
         /// <summary>Maps an output state (0..255) onto the panel's 0..15 brightness range.</summary>
@@ -35,32 +35,29 @@ namespace MobiFlight.Joysticks.Moza
             return (byte)((state * MozaPanelCommand.MaxBrightness + 127) / 255);
         }
 
+        public override void Connect(IntPtr handle)
+        {
+            base.Connect(handle);
+            CdcPort ??= OpenCdcPort();
+        }
+
         public override void UpdateOutputDeviceStates()
         {
             if (!RequiresOutputUpdate) return;
             RequiresOutputUpdate = false;
 
+            var port = CdcPort;
             var backlight = Lights.Find(light => light.Name == BacklightId);
-            if (backlight is null) return;
+            if (port is null || backlight is null) return;
 
             var level = ToBrightnessLevel(backlight.State);
-            var frame = MozaPanelCommand.Encode(MozaPanelCommand.Brightness(MozaLightGroup.KeyBacklight, level));
-
-            // Stays pending until the CDC port accepts the frame.
-            RequiresOutputUpdate = !CdcPort.TryWrite(frame);
-        }
-
-        public override void Stop()
-        {
-            // Don't open the port (and darken the panel) for an output that was never used.
-            if (!CdcPort.IsOpen) return;
-
-            base.Stop();
+            port.Write(MozaPanelCommand.Encode(MozaPanelCommand.Brightness(MozaLightGroup.KeyBacklight, level)));
         }
 
         public override void Shutdown()
         {
-            CdcPort.Dispose();
+            CdcPort?.Dispose();
+            CdcPort = null;
             base.Shutdown();
         }
     }
