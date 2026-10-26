@@ -548,20 +548,6 @@ test.describe("Drag and drop tests", () => {
     configListPage,
     page,
   }) => {
-    const dragEvents: string[] = []
-
-    page.on("console", (message) => {
-      const text = message.text()
-
-      if (
-        text.includes("Drag start") ||
-        text.includes("Drag cancelled") ||
-        text.includes("Drag end")
-      ) {
-        dragEvents.push(text)
-      }
-    })
-
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
@@ -585,14 +571,6 @@ test.describe("Drag and drop tests", () => {
     // move the mouse to start the drag
     await page.mouse.move(10, 10)
 
-    console.log("DND DEBUG:", {
-      dragEvents,
-      rowClass: await firstRow.getAttribute("class"),
-      placeholderVisible: await placeholder.isVisible(),
-      overlayCount: await page
-        .getByTestId("config-item-drag-overlay-inside-table")
-        .count(),
-    })
     // with active drag, the UI updates
     await expect(firstRow).not.toBeVisible()
     await expect(placeholder).toBeVisible()
