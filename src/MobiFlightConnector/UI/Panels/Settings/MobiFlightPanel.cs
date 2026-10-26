@@ -282,8 +282,9 @@ namespace MobiFlight.UI.Panels.Settings
             var moduleNode = getModuleNode(node);
             MobiFlightModule module = (moduleNode.Tag as MobiFlightModule);
             bool isMobiFlightBoard = module.HasMfFirmware();
+            bool isUsable = moduleNode.ImageKey != "module-ignored" && moduleNode.ImageKey != "port-busy";
 
-            mobiflightSettingsToolStrip.Enabled = moduleNode.ImageKey != "module-ignored" && moduleNode.ImageKey != "port-busy";
+            mobiflightSettingsToolStrip.Enabled = isUsable;
 
             // this is the module node
             // set the add device icon enabled
@@ -315,8 +316,8 @@ namespace MobiFlight.UI.Panels.Settings
 
             // if the module is ignored, we don't want
             // to display the firmware upload options, etc.
-            updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored" && moduleNode.ImageKey != "port-busy";
-            UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored" && moduleNode.ImageKey != "port-busy";
+            updateFirmwareToolStripMenuItem.Enabled = isUsable;
+            UpdateFirmwareToolStripButton.Enabled = isUsable;
 
             // Reset the update firmware menu items
             updateFirmwareToolStripMenuItem.DropDownItems.Clear();

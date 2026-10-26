@@ -133,7 +133,7 @@ namespace MobiFlight
         public String Version { get; set; }
         public string CoreVersion { get; set; }
 
-        public Status PortStatus => _transportLayer.Status;
+        public Status PortStatus => _transportLayer?.Status ?? Status.New;
 
         public bool HasMfFirmware()
         {
