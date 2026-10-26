@@ -31,6 +31,7 @@ namespace MobiFlight.Joysticks.Moza
         public MozaBaseController(JoystickDefinition definition) : base(null, definition)
         {
         }
+
         public override void Connect(IntPtr handle)
         {
             if (Buttons.Count == 0)

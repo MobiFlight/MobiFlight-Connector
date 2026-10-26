@@ -36,6 +36,9 @@ const ControllerIcons = {
       "Alpha Flight Controls": "/controller/honeycomb/alpha-yoke.jpg",
       "Bravo Throttle Quadrant": "/controller/honeycomb/bravo-throttle.jpg",
     },
+    moza: {
+      "MOZA MGX1000 Instrument Panel": "/controller/moza/moza-mgx1000.jpg",
+    },
     octavi: {
       Octavi: "/controller/octavi/octavi-logo-small.png",
     },
