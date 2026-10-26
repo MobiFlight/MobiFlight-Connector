@@ -9,11 +9,10 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class MobiFlightModule : IModule, IOutputModule
+    public class MobiFlightModule : IOutputModule
     {
         // This is the list of recognized commands. These can be commands that can either be sent or received. 
         // In order to receive, attach a callback function to these events
@@ -132,8 +131,6 @@ namespace MobiFlight
         public virtual String Serial { get; set; }
         public String Version { get; set; }
         public string CoreVersion { get; set; }
-
-        public Status PortStatus => _transportLayer?.Status ?? Status.New;
 
         public bool HasMfFirmware()
         {
@@ -264,12 +261,12 @@ namespace MobiFlight
             return clone;
         }
 
-        public void Connect()
+        public ConnectResult Connect()
         {
             if (this.Connected)
             {
                 Log.Instance.log($"Already connected to {Name} at {_comPort} of type {Board}.", LogSeverity.Debug);
-                return;
+                return ConnectResult.Connected;
             }
 
             try
@@ -305,7 +302,7 @@ namespace MobiFlight
                 {
                     // Error message is already logged in SerialTransport.Connect() and ConnectionFailed event handler.
                     connected = false;
-                    return;
+                    return _transportLayer.Status == Status.PortBusy ? ConnectResult.PortBusy : ConnectResult.NotResponding;
                 }
 
                 Log.Instance.log($"Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
@@ -317,11 +314,14 @@ namespace MobiFlight
                 {
                     Thread.Sleep(Board.Connection.ConnectionDelay);
                 }
+
+                return ConnectResult.Connected;
             }
             catch (Exception ex)
             {
                 connected = false;
                 Log.Instance.log($"Error connecting to device: {ex.Message}", LogSeverity.Error);
+                return ConnectResult.NotResponding;
             }
         }
 
