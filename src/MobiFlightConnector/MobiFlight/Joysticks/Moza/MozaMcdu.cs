@@ -84,6 +84,10 @@ namespace MobiFlight.Joysticks.Moza
             {
                 ScreenConnected = true;
                 SubmitScreenData(WinCtrlConstants.InitialDisplayJson);
+                // Resync whatever LED state was already set (e.g. via SetOutputDeviceState
+                // before the screen connected) - SetLed() before this point is silently
+                // dropped since the panel-command session isn't up yet.
+                PushLedStates();
             }
             else
             {
@@ -109,6 +113,24 @@ namespace MobiFlight.Joysticks.Moza
         {
             if (address != ScreenAddress) return;
             SubmitScreenData(value);
+        }
+
+        // Annunciator LEDs go over the same panel-command channel as the screen, addressed by
+        // a flat LED index (MozaMcduLed/MozaBoeingCduLed) rather than a byte+bit packed report -
+        // joystick.json Outputs reuse "Bit" to carry that index (Byte is always 0).
+        public override void UpdateOutputDeviceStates()
+        {
+            if (!RequiresOutputUpdate) return;
+            RequiresOutputUpdate = false;
+            PushLedStates();
+        }
+
+        private void PushLedStates()
+        {
+            foreach (var light in Lights)
+            {
+                ScreenControl.SetLed(light.Bit, light.State != 0);
+            }
         }
 
         public override void ShowUserMessage(int messageCode, params string[] parameters)

@@ -35,6 +35,7 @@ export type AppMessageKey =
   | "VJoyDefinitionsUpdate"
   | "LogEntry"
   | "ShutdownConfirmationRequested"
+  | "GoldSponsorsUpdate"
   | "ConfigListUndoState"
 
 export type AppMessagePayload =
@@ -60,6 +61,7 @@ export type AppMessagePayload =
   | VJoyDefinitionsUpdate
   | LogEntry
   | ShutdownConfirmationRequested
+  | GoldSponsorsUpdate
   | ConfigListUndoState
 
 // AppMessage is the message format

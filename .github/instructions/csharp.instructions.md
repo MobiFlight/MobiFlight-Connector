@@ -24,7 +24,7 @@ applyTo: '**/*.cs'
 
 ## Code Structure
 - Return early to reduce nesting; use private helper methods to break down complex logic.
-- Use speaking variable names for test expressions instead of complex inline expressions.
+- Extract complex conditions in if statements (and loops) into variables with descriptive names.
 - Use regions sparingly in production code, only for very large classes (tests group with `#region`).
 - Use `EventHandler` or `EventHandler<T>` with `OnEvent?.Invoke(this, args)`, and unsubscribe in disposal methods.
 
@@ -39,6 +39,10 @@ applyTo: '**/*.cs'
 - Use `ConfigureAwait(false)` for async operations that don't need UI context.
 - Avoid `async void` except for event handlers.
 - `MessageExchange.Subscribe<T>` runs the callback on the delivering thread. Use `SubscribeOnUiThread<T>` when the handler touches WinForms or shared state such as `ExecutionManager.ConfigItems` (see `docs/architecture/frontend-backend-messaging.md`).
+- Use a dedicated `Lock` field for synchronous mutual exclusion:
+  `private readonly Lock _gate = new();` then `lock (_gate) { ... }`.
+- Never lock on `this`, `typeof(...)`, strings, or any publicly reachable object.
+- Use Concurrent collections (`System.Collections.Concurrent`) instead of locked `Dictionary`/`List`
 
 ## Serial Communication and Device Management
 - Always dispose of communication resources properly (serial ports, connections).
