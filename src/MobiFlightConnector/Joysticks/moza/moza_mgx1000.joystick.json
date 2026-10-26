@@ -369,5 +369,13 @@
       "Type": "Button",
       "Label": "PAN Push"
     }
+  ],
+  "Outputs": [
+    {
+      "Label": "Backlight",
+      "Id": "backlight",
+      "Byte": 0,
+      "Bit": 0
+    }
   ]
 }

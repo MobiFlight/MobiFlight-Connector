@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace MobiFlightMoza.Session
 {
-    internal readonly struct MozaPortInfo
+    public readonly struct MozaPortInfo
     {
         public string PortName { get; }
         public int VendorId { get; }
@@ -26,7 +26,7 @@ namespace MobiFlightMoza.Session
     /// find boards. Parsing one entity's fields is split out as a pure function so it's
     /// testable without WMI.
     /// </summary>
-    internal static class MozaPortLocator
+    public static class MozaPortLocator
     {
         private static readonly Regex HardwareIdPattern = new(@"VID_(?<vid>[0-9A-Fa-f]{4})&PID_(?<pid>[0-9A-Fa-f]{4})");
         private static readonly Regex PortNamePattern = new(@"\((?<port>COM\d+)\)");

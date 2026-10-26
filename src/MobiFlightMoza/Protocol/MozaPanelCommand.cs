@@ -67,7 +67,7 @@ namespace MobiFlightMoza.Protocol
     /// <c>[51 group mode]</c> light mode, <c>[52 group 0..15]</c> brightness,
     /// <c>[62 index on]</c> one LED.
     /// </summary>
-    internal static class MozaPanelCommand
+    public static class MozaPanelCommand
     {
         public const byte WriteCommand = 0x45;
         public const int MaxBrightness = 15;
