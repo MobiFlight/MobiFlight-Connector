@@ -18,6 +18,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
+using MobiFlight.Controllers;
 
 namespace MobiFlight
 {
@@ -75,7 +77,8 @@ namespace MobiFlight
             ProfileAdded,
             ProfileRename,
             ProfileDeleted,
-            ItemRename
+            ItemRename,
+            ProfileMerged
         }
 
         private sealed class ConfigListUndoItemState
@@ -84,6 +87,12 @@ namespace MobiFlight
             public int OriginalIndex { get; set; }
             public bool OriginalActive { get; set; }
             public IConfigItem Snapshot { get; set; }
+        }
+
+        private sealed class ConfigListProfileSnapshot
+        {
+            public ConfigFile File { get; set; }
+            public List<IConfigItem> Items { get; set; }
         }
 
         private sealed class ConfigListUndoEntry
@@ -102,6 +111,17 @@ namespace MobiFlight
             public List<string> TargetOrderBefore { get; set; }
             public string OriginalLabel { get; set; }
             public string OriginalName { get; set; }
+            public List<ConfigFile> MergedFiles { get; set; }
+            public List<ConfigListProfileSnapshot> OriginalProfiles
+            {
+                get;
+                set;
+            }
+            public List<ControllerBinding> OriginalControllerBindings
+            {
+                get;
+                set;
+            }
         }
 
         private const int MaxListUndoSteps = 50;
@@ -217,6 +237,88 @@ namespace MobiFlight
                 ConfigIndex = index,
                 OriginalIndex = index
             });
+        }
+
+        public void RecordProfileMerged(List<ConfigFile> mergedFiles)
+        {
+            if (
+                Project == null ||
+                mergedFiles == null ||
+                mergedFiles.Count == 0
+            )
+            {
+                return;
+            }
+
+            var originalProfiles = Project.ConfigFiles
+                .Select(file => new ConfigListProfileSnapshot
+                {
+                    File = file,
+                    Items = file.ConfigItems.Select(item => (IConfigItem)item.Clone()).ToList()
+                }).ToList();
+
+            PushConfigListUndo(new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.ProfileMerged,
+                Project = Project,
+
+                File = Project.ConfigFiles.FirstOrDefault(),
+                ConfigIndex = 0,
+
+                OriginalIndex = Project.ConfigFiles.Count,
+
+                MergedFiles = mergedFiles.ToList(),
+                OriginalProfiles = originalProfiles,
+
+                OriginalControllerBindings = Project.ControllerBindings?.ToList()
+            });
+        }
+
+        private void RestoreProfileMerge(ConfigListUndoEntry entry)
+        {
+            foreach (var snapshot in entry.OriginalProfiles)
+            {
+                snapshot.File.ConfigItems = snapshot.Items
+                    .Select(item => (IConfigItem)item.Clone())
+                    .ToList();
+            }
+
+            Project.ControllerBindings = entry.OriginalControllerBindings?.ToList();
+
+            Project.ConfigFiles = new ObservableCollection<ConfigFile>(
+                Project.ConfigFiles.Take(entry.OriginalIndex)
+            );
+        }
+
+        public void CancelLastProfileMerge()
+        {
+            if (_listUndoHistory.Count == 0)
+                return;
+
+            int lastIndex = _listUndoHistory.Count - 1;
+            var entry = _listUndoHistory[lastIndex];
+
+            if (
+                entry.Action != ConfigListUndoAction.ProfileMerged ||
+                !ReferenceEquals(entry.Project, Project)
+            )
+            {
+                return;
+            }
+
+            RestoreProfileMerge(entry);
+
+            _listUndoHistory.RemoveAt(lastIndex);
+
+            OnInputConfigSettingsChanged(this, null);
+            MessageExchange.Instance.Publish(Project);
+
+            OnConfigListActionUndone?.Invoke(
+                this,
+                EventArgs.Empty
+            );
+
+            PublishDeleteUndoState();
         }
 
         public void ClearConfigListUndoHistory()
@@ -1007,14 +1109,19 @@ namespace MobiFlight
                     bool validProject = ReferenceEquals(Project, entry.Project);
 
                     bool isProfileDeleted = entry.Action == ConfigListUndoAction.ProfileDeleted;
-
+                    bool isProfileMerged = entry.Action == ConfigListUndoAction.ProfileMerged;
                     bool validProfile = isProfileDeleted
                         ? actualProfileIndex == - 1
-                        : actualProfileIndex >= 0;
+                        : isProfileMerged
+                            ? entry.OriginalIndex == 0 || actualProfileIndex == 0
+                            : actualProfileIndex >= 0;
 
                     bool validIndex = isProfileDeleted
                         ? entry.ConfigIndex >= 0 && entry.ConfigIndex <= Project.ConfigFiles.Count
-                        : entry.Action == ConfigListUndoAction.ProfileAdded || actualProfileIndex == entry.ConfigIndex;
+                        : isProfileMerged
+                            ? true
+                            : entry.Action == ConfigListUndoAction.ProfileAdded ||
+                              actualProfileIndex == entry.ConfigIndex;
 
                     if (!validProject || !validProfile || !validIndex)
                     {
@@ -1202,6 +1309,39 @@ namespace MobiFlight
                         Project.ConfigFiles.Insert(entry.OriginalIndex, entry.File);
                         ActiveConfigIndex = Math.Min(ActiveConfigIndex, Project.ConfigFiles.Count - 1);
                     }
+                    else if (entry.Action == ConfigListUndoAction.ProfileMerged)
+                    {
+                        int originalCount = entry.OriginalIndex;
+                        var mergedFiles = entry.MergedFiles;
+
+                        bool validMerge =
+                            mergedFiles != null &&
+                            mergedFiles.Count > 0 &&
+                            Project.ConfigFiles.Count ==
+                                originalCount + mergedFiles.Count &&
+                            Enumerable.Range(0, mergedFiles.Count)
+                                .All(i => ReferenceEquals(
+                                    Project.ConfigFiles[originalCount + i],
+                                    mergedFiles[i]
+                                ));
+
+                        if (!validMerge)
+                        {
+                            Log.Instance.log(
+                                "Cannot undo ProfileMerged: " +
+                                "merged profile list has changed.",
+                                LogSeverity.Warn
+                            );
+                            return;
+                        }
+
+                        RestoreProfileMerge(entry);
+
+                        ActiveConfigIndex = Math.Min(
+                            ActiveConfigIndex,
+                            Math.Max(0, Project.ConfigFiles.Count - 1)
+                        );
+                    }
                     else if (entry.Action == ConfigListUndoAction.ItemRename)
                     {
                         var item = items.Find(i => i.GUID == entry.Guid);
@@ -1224,7 +1364,8 @@ namespace MobiFlight
                     if (
                         entry.Action == ConfigListUndoAction.ProfileAdded ||
                         entry.Action == ConfigListUndoAction.ProfileRename ||
-                        entry.Action == ConfigListUndoAction.ProfileDeleted)
+                        entry.Action == ConfigListUndoAction.ProfileDeleted ||
+                        entry.Action == ConfigListUndoAction.ProfileMerged)
                     {
                         MessageExchange.Instance.Publish(Project);
                     }
@@ -1249,7 +1390,8 @@ namespace MobiFlight
 
                     if (
                         entry.Action != ConfigListUndoAction.ProfileAdded &&
-                        entry.Action != ConfigListUndoAction.ProfileDeleted)
+                        entry.Action != ConfigListUndoAction.ProfileDeleted &&
+                        entry.Action != ConfigListUndoAction.ProfileMerged)
                     {
                         OnConfigHasChanged?.Invoke(items, null);
                     }

@@ -35,6 +35,7 @@ using MobiFlight.Base.Legacy;
 using MobiFlight.BrowserMessages.Incoming.Handler;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages.Outgoing;
+using System.Collections.ObjectModel;
 
 namespace MobiFlight.UI
 {
@@ -2264,6 +2265,8 @@ namespace MobiFlight.UI
 
             execManager.Stop();
 
+            bool mergeRecorded = false;
+
             try
             {
                 if (!merge)
@@ -2275,7 +2278,26 @@ namespace MobiFlight.UI
                 }
                 else
                 {
-                    execManager.Project.MergeFromProjectFile(fileName);
+                    var additionalProject = new Project
+                    {
+                        FilePath = fileName
+                    };
+
+                    additionalProject.OpenFile();
+
+                    var mergedFiles = additionalProject.ConfigFiles.ToList();
+
+                    if (mergedFiles.Count == 0)
+                    {
+                        return;
+                    }
+
+                    execManager.RecordProfileMerged(mergedFiles);
+                    mergeRecorded = true;
+                    execManager.Project.ConfigFiles =
+                        new ObservableCollection<ConfigFile>(
+                            execManager.Project.ConfigFiles.Concat(mergedFiles)
+                        );
                 }
 
                 ControllerBindingService.PerformAutoBinding(execManager.Project);
@@ -2285,15 +2307,24 @@ namespace MobiFlight.UI
                     if (!configFile.HasDuplicateGuids()) return;
                     Log.Instance.log($"{configFile.FileName} has duplicate GUIDs and will be fixed.", LogSeverity.Warn);
                     configFile.RemoveDuplicateGuids();
-                    ProjectOrConfigFileHasChanged();
+                    if (!merge) ProjectOrConfigFileHasChanged();
                 });
+                mergeRecorded = false;
             }
             catch (InvalidExpressionException)
             {
+                if (mergeRecorded)
+                {
+                    execManager.CancelLastProfileMerge();
+                }
                 // no inputs configured... old format... just ignore
             }
             catch (Exception ex)
             {
+                if (mergeRecorded)
+                {
+                    execManager.CancelLastProfileMerge();
+                }
                 // show that something went wrong opening the file.
                 MessageExchange.Instance.Publish(new Notification()
                 {
@@ -2318,12 +2349,6 @@ namespace MobiFlight.UI
                 // since due to initiliazing the dataSet
                 // it will automatically gets enabled
                 ResetProjectAndConfigChanges();
-            }
-            else
-            {
-                // indicate that the merge changed
-                // the current config and that the user
-                ProjectOrConfigFileHasChanged();
             }
 
             // Track config loaded event
