@@ -29,22 +29,22 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
     }
   }, [registerNameEdit])
 
-  const saveChanges = (label: string) => {
-    const updatedItem = { ...item, Name: label }
+  const saveChanges = (newName: string) => {
+    if (newName === item.Name) return
     publish({
       key: "CommandUpdateConfigItem",
-      payload: { item: updatedItem },
+      payload: { action: "rename", item: { ...item, Name: newName } },
     } as CommandUpdateConfigItem)
   }
 
   return (
     <InlineEditLabel
-          ref={inlineEditRef}
-          labelClassName="max-w-full inline-block truncate group-[.is-first-drag-item]/row:hidden py-1"
-          inputClassName="py-0"
-          value={label}
-          onSave={saveChanges}
-        />
+      ref={inlineEditRef}
+      labelClassName="max-w-full inline-block truncate group-[.is-first-drag-item]/row:hidden py-1"
+      inputClassName="py-0"
+      value={label}
+      onSave={saveChanges}
+    />
   )
 }
 

@@ -73,7 +73,9 @@ namespace MobiFlight
             Toggle,
             Resort,
             ProfileAdded,
-            ProfileRename
+            ProfileRename,
+            ProfileDeleted,
+            ItemRename
         }
 
         private sealed class ConfigListUndoItemState
@@ -99,6 +101,7 @@ namespace MobiFlight
             public List<string> SourceOrderBefore { get; set; }
             public List<string> TargetOrderBefore { get; set; }
             public string OriginalLabel { get; set; }
+            public string OriginalName { get; set; }
         }
 
         private const int MaxListUndoSteps = 50;
@@ -646,6 +649,22 @@ namespace MobiFlight
                         OnInputConfigSettingsChanged(this, null);
                         break;
 
+                    case "rename":
+                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
+                        string newName = message.Item.Name;
+                        if (cfg == null || newName == null || cfg.Name == newName) return;
+                        PushConfigListUndo(new ConfigListUndoEntry
+                        {
+                            Action = ConfigListUndoAction.ItemRename,
+                            Project = Project,
+                            File = Project.ConfigFiles[ActiveConfigIndex],
+                            ConfigIndex = ActiveConfigIndex,
+                            Guid = cfg.GUID,
+                            OriginalName = cfg.Name
+                        });
+                        cfg.Name = newName;
+                        break;
+
                     case "toggle":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
@@ -863,8 +882,20 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case CommandFileContextMenuAction.remove:
-                        ClearConfigListUndoHistory();
+                        PushConfigListUndo(new ConfigListUndoEntry
+                        {
+                            Action = ConfigListUndoAction.ProfileDeleted,
+                            Project = Project,
+                            File = file,
+                            ConfigIndex = message.Index,
+                            OriginalIndex = message.Index
+                        });
                         Project.ConfigFiles.RemoveAt(message.Index);
+                        ActiveConfigIndex = Math.Min(
+                            ActiveConfigIndex,
+                            Math.Max(0, Project.ConfigFiles.Count - 1));
+                        OnInputConfigSettingsChanged(this, null);
+                        MessageExchange.Instance.Publish(Project);
                         break;
                     case CommandFileContextMenuAction.rename:
                         string newLabel = message.File?.Label;
@@ -974,11 +1005,15 @@ namespace MobiFlight
 
                     bool validProject = ReferenceEquals(Project, entry.Project);
 
-                    bool validProfile = actualProfileIndex >= 0;
+                    bool isProfileDeleted = entry.Action == ConfigListUndoAction.ProfileDeleted;
 
-                    bool validIndex =
-                        entry.Action == ConfigListUndoAction.ProfileAdded ||
-                        actualProfileIndex == entry.ConfigIndex;
+                    bool validProfile = isProfileDeleted
+                        ? actualProfileIndex == - 1
+                        : actualProfileIndex >= 0;
+
+                    bool validIndex = isProfileDeleted
+                        ? entry.ConfigIndex >= 0 && entry.ConfigIndex <= Project.ConfigFiles.Count
+                        : entry.Action == ConfigListUndoAction.ProfileAdded || actualProfileIndex == entry.ConfigIndex;
 
                     if (!validProject || !validProfile || !validIndex)
                     {
@@ -1161,6 +1196,22 @@ namespace MobiFlight
                     {
                         entry.File.Label = entry.OriginalLabel;
                     }
+                    else if (entry.Action == ConfigListUndoAction.ProfileDeleted)
+                    {
+                        Project.ConfigFiles.Insert(entry.OriginalIndex, entry.File);
+                        ActiveConfigIndex = Math.Min(ActiveConfigIndex, Project.ConfigFiles.Count - 1);
+                    }
+                    else if (entry.Action == ConfigListUndoAction.ItemRename)
+                    {
+                        var item = items.Find(i => i.GUID == entry.Guid);
+                        if (item == null)
+                        {
+                            Log.Instance.log($"Cannot undo ItemRename: {entry.Guid} not found.", LogSeverity.Warn);
+                            return;
+                        }
+                        item.Name = entry.OriginalName;
+                    }
+
                     // Remove only the last history entry.
                     _listUndoHistory.RemoveAt(lastIndex);
 
@@ -1171,7 +1222,8 @@ namespace MobiFlight
 
                     if (
                         entry.Action == ConfigListUndoAction.ProfileAdded ||
-                        entry.Action == ConfigListUndoAction.ProfileRename)
+                        entry.Action == ConfigListUndoAction.ProfileRename ||
+                        entry.Action == ConfigListUndoAction.ProfileDeleted)
                     {
                         MessageExchange.Instance.Publish(Project);
                     }
@@ -1194,7 +1246,9 @@ namespace MobiFlight
                         }
                     }
 
-                    if (entry.Action != ConfigListUndoAction.ProfileAdded)
+                    if (
+                        entry.Action != ConfigListUndoAction.ProfileAdded &&
+                        entry.Action != ConfigListUndoAction.ProfileDeleted)
                     {
                         OnConfigHasChanged?.Invoke(items, null);
                     }
