@@ -11,6 +11,7 @@ namespace MobiFlight
     public class MobiFlightLedModule : IConnectedDevice
     {
         public const string TYPE = "Display Module";
+        public const string OLDTYPE = "LedDigits";
 
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }

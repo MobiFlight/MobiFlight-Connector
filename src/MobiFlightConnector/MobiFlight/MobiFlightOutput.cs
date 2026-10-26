@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CommandMessenger;
 
 namespace MobiFlight
@@ -9,6 +6,7 @@ namespace MobiFlight
     public class MobiFlightOutput : IConnectedDevice
     {
         public const string TYPE = "Output";
+        public const string OLDTYPE = "Pin";
 
         private String _name = "Output";
         public String Name

@@ -9,11 +9,7 @@ namespace MobiFlight
         byte activeDigits = 0;
         byte decimalPoints = 0;
         byte connector = 1;
-
-        public void setConnector(byte value)
-        {
-            connector = value;
-        }
+        
 
         public void setActive(ushort digit)
         {
@@ -28,26 +24,13 @@ namespace MobiFlight
         public int getMask()
         {
             byte result = activeDigits;
-            if (connector == 2)
-            {
-                result = _reverse(result);
-            }
+            
             return result;
         }
 
         public byte getDecimalPoints()
         {
             return decimalPoints;
-        }
-
-        // Reverses bits in a byte
-        static protected byte _reverse(byte b)
-        {
-            int rev = (b >> 4) | ((b & 0xf) << 4);
-            rev = ((rev & 0xcc) >> 2) | ((rev & 0x33) << 2);
-            rev = ((rev & 0xaa) >> 1) | ((rev & 0x55) << 1);
-
-            return (byte)rev;
         }
     }
 }

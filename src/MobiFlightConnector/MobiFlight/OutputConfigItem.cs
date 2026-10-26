@@ -4,7 +4,6 @@ using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
 using Newtonsoft.Json;
 using System;
-using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -151,10 +150,13 @@ namespace MobiFlight
 
             if (reader.LocalName == "display")
             {
-                DeviceType = reader["type"];
-
                 // preserve backward compatibility
-                if (DeviceType == "Pin") DeviceType = MobiFlightOutput.TYPE;
+                DeviceType = reader["type"] switch
+                {
+                    MobiFlightOutput.OLDTYPE => MobiFlightOutput.TYPE,
+                    MobiFlightLedModule.OLDTYPE => MobiFlightLedModule.TYPE,
+                    var type => type
+                };
 
                 Controller = SerialNumber.CreateController(reader["serial"]);
 
