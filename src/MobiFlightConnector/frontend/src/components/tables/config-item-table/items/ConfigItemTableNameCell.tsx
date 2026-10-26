@@ -3,7 +3,7 @@ import {
   InlineEditLabelRef,
 } from "@/components/InlineEditLabel"
 import messageExchange from "@/lib/messageExchange"
-import { CommandUpdateConfigItem } from "@/types/commands"
+import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { Row } from "@tanstack/react-table"
 import { useRef, useEffect } from "react"
@@ -32,9 +32,9 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
   const saveChanges = (newName: string) => {
     if (newName === item.Name) return
     publish({
-      key: "CommandUpdateConfigItem",
+      key: "CommandConfigContextMenu",
       payload: { action: "rename", item: { ...item, Name: newName } },
-    } as CommandUpdateConfigItem)
+    } as CommandConfigContextMenu)
   }
 
   return (
