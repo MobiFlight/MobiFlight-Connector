@@ -233,6 +233,10 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
 
+        // true while the board may show values that Stop() has to clear;
+        // starts true because a fresh board may still show stale data
+        private bool _outputsDirty = true;
+
         public Board Board { get; set; }
 
         public MobiFlightModule(String port, Board board)
@@ -307,6 +311,8 @@ namespace MobiFlight
 
                 Log.Instance.log($"Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
                 connected = true;
+
+                _outputsDirty = true;
 
                 // this sleep helps during initialization
                 // without this line modules did not connect properly
@@ -772,6 +778,7 @@ namespace MobiFlight
 
             if (!outputs.ContainsKey(pin)) return false;
 
+            _outputsDirty = true;
             outputs[pin].Set(value);
 
             return true;
@@ -779,12 +786,14 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value, bool reverse)
         {
+            _outputsDirty = true;
             ledModules[name].Display(module, value, points, mask, reverse);
             return true;
         }
 
         public bool SetDisplayBrightness(string name, int module, string value)
         {
+            _outputsDirty = true;
             ledModules[name].SetBrightness(module, value);
             return true;
         }
@@ -804,6 +813,7 @@ namespace MobiFlight
                 iLastValue = value;
             }
 
+            _outputsDirty = true;
             servoModules[servoAddress].Min = min;
             servoModules[servoAddress].Max = max;
             servoModules[servoAddress].MaxRotationPercent = maxRotationPercent;
@@ -827,6 +837,7 @@ namespace MobiFlight
                 iLastValue = value;
             }
 
+            _outputsDirty = true;
             if (inputRevolutionSteps > -1)
             {
                 stepperModules[stepper].InputRevolutionSteps = inputRevolutionSteps;
@@ -840,6 +851,7 @@ namespace MobiFlight
         public bool ResetStepper(string stepper)
         {
             String key = "STEPPER_" + stepper;
+            _outputsDirty = true;
             stepperModules[stepper].Reset();
             lastValue[key] = stepperModules[stepper].Position().ToString();
             return true;
@@ -855,6 +867,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
+            _outputsDirty = true;
             lcdDisplays[address].Display(value);
             return true;
         }
@@ -885,6 +898,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
+            _outputsDirty = true;
             shiftRegisters[moduleID].Display(outputPin, value);
 
             return true;
@@ -900,6 +914,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
+            _outputsDirty = true;
             customDevices[deviceName].Display(messageType, value);
             return true;
         }
@@ -1354,6 +1369,10 @@ namespace MobiFlight
             // we have to make sure to not send messages
             // when we are not connected
             if (!this.connected) return;
+
+            // avoid flooding the board with stop commands when nothing was sent since the last stop
+            if (!_outputsDirty) return;
+            _outputsDirty = false;
 
             GetConnectedDevices().ForEach(device =>
             {
