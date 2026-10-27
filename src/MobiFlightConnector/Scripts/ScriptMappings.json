@@ -529,12 +529,6 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftMatchPattern": "citation 525",
       "ScriptName": "xplane_uns_1.py"
-    },
-    {
-      "VendorId": "0x346E",
-      "ProductIds": [ "MozaCDUs" ],
-      "AircraftMatchPattern": "citation 525",
-      "ScriptName": "xplane_uns_1.py"
     }
   ]
 }
