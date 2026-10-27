@@ -251,7 +251,7 @@ namespace MobiFlight
                     continue;
                 }
 
-                if (!Joysticks.TryAdd(js.Serial, js))
+                if (Joysticks.ContainsKey(js.Serial))
                 {
                     Log.Instance.log(
                         $"Error adding DirectInput controller: {d.InstanceName} / {js.Serial}. Likely Joystick Serial conflict.",
@@ -265,6 +265,15 @@ namespace MobiFlight
                 js.Connect(Handle);
                 js.OnButtonPressed += Js_OnButtonPressed;
                 js.OnDisconnected += Js_OnDisconnected;
+
+                if (!Joysticks.TryAdd(js.Serial, js))
+                {
+                    Log.Instance.log(
+                        $"Error adding DirectInput controller: {d.InstanceName} / {js.Serial}. Likely Joystick Serial conflict.",
+                        LogSeverity.Error
+                    );
+                    continue;
+                }
             }
 
             ConnectHidController();
@@ -336,10 +345,10 @@ namespace MobiFlight
                             return;
                         }
 
-                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                        if (Joysticks.ContainsKey(joystick.Serial))
                         {
                             Log.Instance.log(
-                                $"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.",
+                                $"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. A Joystick Serial conflict.",
                                 LogSeverity.Error
                             );
                             return;
@@ -352,6 +361,14 @@ namespace MobiFlight
                         joystick.OnButtonPressed += Js_OnButtonPressed;
                         joystick.OnDisconnected += Js_OnDisconnected;
 
+                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                        {
+                            Log.Instance.log(
+                                $"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. A Joystick Serial conflict.",
+                                LogSeverity.Error
+                            );
+                            return;
+                        }
                     }
                     catch (Exception ex)
                     {
