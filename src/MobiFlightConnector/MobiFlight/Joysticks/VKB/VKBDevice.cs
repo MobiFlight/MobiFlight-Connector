@@ -114,7 +114,7 @@ namespace MobiFlight.Joysticks.VKB
             base.EnumerateOutputDevices();
         }
 
-        public override void SetOutputDeviceState(string name, byte state)
+        protected override void OnSetOutputDeviceState(string name, byte state)
         {
             Lights.UpdateState(name, state);
         }
