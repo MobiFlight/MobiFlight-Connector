@@ -448,14 +448,7 @@ namespace MobiFlight.UI
             {
                 if (wizard.ConfigHasChanged())
                 {
-                    // we have to update the config
-                    // using the duplicated config 
-                    // that the user edited with the wizard
-                    var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
-                    execManager.ConfigItems[index] = wizard.Config;
-                    MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    OnConfigItemHasChanged(wizard.Config, null);
-                    execManager.NotifyConfigItemCommitted(wizard.Config);
+                    execManager.HandleCommandUpdateConfigItem(wizard.Config);
                 }
             }
 

@@ -78,7 +78,8 @@ namespace MobiFlight
             ProfileRename,
             ProfileDeleted,
             ItemRename,
-            ProfileMerged
+            ProfileMerged,
+            ItemEdited
         }
 
         private sealed class ConfigListUndoItemState
@@ -331,42 +332,6 @@ namespace MobiFlight
         }
 
         public event EventHandler OnConfigListCreationApplied;
-
-        public void NotifyConfigItemCommitted(IConfigItem item)
-        {
-            if (_listUndoHistory.Count > 0)
-            {
-                var entry = _listUndoHistory[
-                    _listUndoHistory.Count - 1
-                ];
-
-                bool isLatestCreation =
-                    (entry.Action == ConfigListUndoAction.Add ||
-                     entry.Action == ConfigListUndoAction.Duplicate) &&
-                    entry.Guid == item.GUID &&
-                    ReferenceEquals(entry.Project, Project) &&
-                    entry.ConfigIndex == ActiveConfigIndex &&
-                    ReferenceEquals(
-                        entry.File,
-                        Project.ConfigFiles[ActiveConfigIndex]
-                    );
-
-                if (isLatestCreation)
-                {
-                    // This edit belongs to the last Add/Duplicate action.
-                    // Keep its Undo entry instead of clearing history.
-                    OnConfigListCreationApplied?.Invoke(
-                        this,
-                        EventArgs.Empty
-                    );
-                    return;
-                }
-            }
-
-            // Editing an existing item is not yet covered
-            // by the ConfigItem list Undo history.
-            ClearConfigListUndoHistory();
-        }
 
         private void PublishDeleteUndoState()
         {
@@ -1277,6 +1242,7 @@ namespace MobiFlight
                             }
                         }
                     }
+
                     else if (entry.Action == ConfigListUndoAction.ProfileAdded)
                     {
                         if (
@@ -1300,15 +1266,18 @@ namespace MobiFlight
                             Project.ConfigFiles.Count - 1
                         );
                     }
+
                     else if (entry.Action == ConfigListUndoAction.ProfileRename)
                     {
                         entry.File.Label = entry.OriginalLabel;
                     }
+
                     else if (entry.Action == ConfigListUndoAction.ProfileDeleted)
                     {
                         Project.ConfigFiles.Insert(entry.OriginalIndex, entry.File);
                         ActiveConfigIndex = Math.Min(ActiveConfigIndex, Project.ConfigFiles.Count - 1);
                     }
+
                     else if (entry.Action == ConfigListUndoAction.ProfileMerged)
                     {
                         int originalCount = entry.OriginalIndex;
@@ -1342,6 +1311,7 @@ namespace MobiFlight
                             Math.Max(0, Project.ConfigFiles.Count - 1)
                         );
                     }
+
                     else if (entry.Action == ConfigListUndoAction.ItemRename)
                     {
                         var item = items.Find(i => i.GUID == entry.Guid);
@@ -1353,6 +1323,21 @@ namespace MobiFlight
                         item.Name = entry.OriginalName;
                     }
 
+                    else if (entry.Action == ConfigListUndoAction.ItemEdited)
+                    {
+                        int itemIndex = items.FindIndex(i => i.GUID == entry.Guid);
+
+                        if (itemIndex < 0 || entry.Snapshot == null)
+                        {
+                            Log.Instance.log(
+                                $"Cannot undo ItemEdited: {entry.Guid} not found or snapshot is missing.",
+                                LogSeverity.Warn
+                                );
+                            return;
+                        }
+
+                        items[itemIndex] = (IConfigItem)entry.Snapshot.Clone();
+                    }
                     // Remove only the last history entry.
                     _listUndoHistory.RemoveAt(lastIndex);
 
@@ -1464,30 +1449,67 @@ namespace MobiFlight
             return true;
         }
 
-        private void HandleCommandUpdateConfigItem(ConfigItem item)
+        public void HandleCommandUpdateConfigItem(ConfigItem item)
         {
-            var configItemIndex = ConfigItems.FindIndex(
-                i => i.GUID == item.GUID
-            );
+            if (
+                item == null ||
+                Project == null ||
+                ActiveConfigIndex < 0 ||
+                ActiveConfigIndex >= Project.ConfigFiles.Count) return;
 
-            if (configItemIndex == -1) return;
+            var file = Project.ConfigFiles[ActiveConfigIndex];
 
-            ConfigItems[configItemIndex] = item;
+            var items = file.ConfigItems;
 
-            MessageExchange.Instance.Publish(
-                new ConfigValuePartialUpdate(item)
-            );
+            int itemIndex = items.FindIndex(i => i.GUID == item.GUID);
+
+            if (itemIndex < 0) return;
+
+            var originalItem = items[itemIndex];
+
+            if (originalItem.Equals(item)) return;
+
+            bool isLatestCreation = false;
+
+            if (_listUndoHistory.Count > 0)
+            {
+                var lastEntry = _listUndoHistory[_listUndoHistory.Count - 1];
+
+                isLatestCreation = (
+                    lastEntry.Action == ConfigListUndoAction.Add ||
+                    lastEntry.Action == ConfigListUndoAction.Duplicate) &&
+                    lastEntry.Guid == item.GUID &&
+                    ReferenceEquals(lastEntry.Project, Project) &&
+                    ReferenceEquals(lastEntry.File, file) &&
+                    lastEntry.ConfigIndex == ActiveConfigIndex;
+            }
+
+            if (!isLatestCreation)
+            {
+                PushConfigListUndo(new ConfigListUndoEntry
+                {
+                    Action = ConfigListUndoAction.ItemEdited,
+                    Project = Project,
+                    File = file,
+                    ConfigIndex = ActiveConfigIndex,
+                    OriginalIndex = itemIndex,
+                    Guid = originalItem.GUID,
+                    Snapshot = (IConfigItem)originalItem.Clone()
+                });
+            }
+
+            items[itemIndex] = item;
+
+            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
 
             OnInputConfigSettingsChanged(item, null);
 
-            OnConfigHasChanged?.Invoke(
-                new IConfigItem[] { item },
-                null
-            );
+            OnConfigHasChanged?.Invoke(new IConfigItem[] { item }, null);
 
-            // Preserve the Add/Duplicate history when applying
-            // changes to the newly created item.
-            NotifyConfigItemCommitted(item);
+            if (isLatestCreation)
+            {
+                OnConfigListCreationApplied?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)

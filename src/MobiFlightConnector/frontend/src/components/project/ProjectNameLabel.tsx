@@ -87,6 +87,7 @@ const ProjectNameLabel = () => {
     ProfileDeleted: "Profile deleted",
     ItemRename: "Item renamed",
     ProfileMerged: "Profiles merged",
+    ItemEdited: "Config edited",
   }
 
   const getHistoryLabel = (action: string) =>
