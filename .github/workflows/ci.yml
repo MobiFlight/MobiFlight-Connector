@@ -116,6 +116,8 @@ jobs:
       - name: submit signing request
         if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
         uses: signpath/github-action-submit-signing-request@v3
+        id: signing
+        continue-on-error: true
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: '${{ vars.SIGNPATH_ORGANIZATION_ID }}'
@@ -126,7 +128,7 @@ jobs:
           output-artifact-directory: 'dist/'
 
       - name: store latest NSIS setup file (signed)
-        if: github.event_name == 'release' || env.EVENT_TYPE_OVERRIDE == 'release'
+        if: steps.signing.outcome == 'success'
         uses: actions/upload-artifact@v7
         id: upload-signed-artifact
         with:

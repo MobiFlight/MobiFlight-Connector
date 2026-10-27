@@ -218,6 +218,113 @@ namespace MobiFlightMoza.Session.Tests
             Assert.AreEqual((byte)1, DisplayModeValue(settingsWrites[1]));
         }
         #endregion
+        #region Panel commands and screen ready
+        private const ushort McduLocalPortForReady = 0x3001;
+        // Runs the bring-up until the displayMode 0/1 writes have gone out (settings ready and
+        // capability received) and returns the time used, so a test can feed the device's echo.
+        private static DateTime BringUpUntilDisplayModeWritten(MozaScreenSession session, RecordingFrameSink sink)
+        {
+            DateTime now = Now.AddSeconds(4.0);
+            EstablishSettingsConnection(session);
+            Feed(session, ScriptedMozaDevice.Trans(SettingsLocalPort, 2, MinimalPreamble));
+            DrainSettingsQueue(session, sink, Now);
+            DrainSettingsQueue(session, sink, now);
+            Feed(session, ScriptedMozaDevice.Syn1(MozaConstants.ServicePortMcduTcp, 1, McduLocalPortForReady, 3), now);
+            Feed(session, ScriptedMozaDevice.Ack(McduLocalPortForReady, McduLocalPortForReady), now);
+            Feed(session, ScriptedMozaDevice.Trans(McduLocalPortForReady, 2, NetworkPackage.Pack(0x33, [2, 0, 0, 0, 0])), now);
+            return now;
+        }
+        private static int CountPanelFrames(RecordingFrameSink sink, byte[] payload)
+        {
+            byte[] expected = MozaPanelCommand.Encode(payload);
+            int count = 0;
+            foreach (byte[] wire in sink.SentWires)
+            {
+                if (wire.AsSpan().SequenceEqual(expected)) count++;
+            }
+            return count;
+        }
+        [TestMethod]
+        public void SendPanelCommand_BeforeDeviceInit_IsSentOnceRunning()
+        {
+            // Arrange
+            var sink = new RecordingFrameSink();
+            var session = new MozaScreenSession(sink);
+            session.Start();
+            byte[] ledOn = MozaPanelCommand.Led((byte)MozaBoeingCduLed.Exec, true);
+            // Act
+            session.SendPanelCommand(ledOn);
+            int sentBeforeInit = CountPanelFrames(sink, ledOn);
+            Feed(session, MozaConstants.RootHandshakeResponse);
+            Feed(session, MozaConstants.DeviceInitResponse);
+            // Assert
+            Assert.AreEqual(0, sentBeforeInit);
+            Assert.AreEqual(1, CountPanelFrames(sink, ledOn));
+        }
+        [TestMethod]
+        public void SendPanelCommand_SameTargetBeforeDeviceInit_OnlyLatestValueIsSent()
+        {
+            // Arrange
+            var sink = new RecordingFrameSink();
+            var session = new MozaScreenSession(sink);
+            session.Start();
+            byte[] first = MozaPanelCommand.Brightness(MozaLightGroup.KeyBacklight, (int)MozaBrightness.Off);
+            byte[] latest = MozaPanelCommand.Brightness(MozaLightGroup.KeyBacklight, (int)MozaBrightness.Full);
+            // Act
+            session.SendPanelCommand(first);
+            session.SendPanelCommand(latest);
+            Feed(session, MozaConstants.RootHandshakeResponse);
+            Feed(session, MozaConstants.DeviceInitResponse);
+            // Assert
+            Assert.AreEqual(0, CountPanelFrames(sink, first));
+            Assert.AreEqual(1, CountPanelFrames(sink, latest));
+        }
+        [TestMethod]
+        public void SendPanelCommand_WhileRunning_IsSentImmediately()
+        {
+            // Arrange
+            var (session, sink) = StartAndInit();
+            byte[] ledOn = MozaPanelCommand.Led((byte)MozaMcduLed.Fail, true);
+            // Act
+            session.SendPanelCommand(ledOn);
+            // Assert
+            Assert.AreEqual(1, CountPanelFrames(sink, ledOn));
+        }
+        [TestMethod]
+        public void DisplayModeEcho_RaisesScreenReadyExactlyOnce()
+        {
+            // Arrange
+            var (session, sink) = StartAndInit();
+            int readyCount = 0;
+            session.ScreenReady += () => readyCount++;
+            DateTime now = BringUpUntilDisplayModeWritten(session, sink);
+            bool readyBeforeEcho = session.IsScreenReady;
+            // Act - the device echoes the forced transition 0 then 1.
+            Feed(session, ScriptedMozaDevice.Trans(SettingsLocalPort, 3, MozaSettingsFrame.PackSettingFrame(0x18, [0])), now);
+            Feed(session, ScriptedMozaDevice.Trans(SettingsLocalPort, 4, MozaSettingsFrame.PackSettingFrame(0x18, [1])), now);
+            session.Tick(now.AddSeconds(5.0));
+            // Assert
+            Assert.IsFalse(readyBeforeEcho);
+            Assert.IsTrue(session.IsScreenReady);
+            Assert.AreEqual(1, readyCount);
+        }
+        [TestMethod]
+        public void NoDisplayModeEcho_RaisesScreenReadyAfterTimeout()
+        {
+            // Arrange
+            var (session, sink) = StartAndInit();
+            int readyCount = 0;
+            session.ScreenReady += () => readyCount++;
+            DateTime now = BringUpUntilDisplayModeWritten(session, sink);
+            // Act
+            session.Tick(now.AddSeconds(1.0));
+            int readyAfterOneSecond = readyCount;
+            session.Tick(now.AddSeconds(2.5));
+            // Assert
+            Assert.AreEqual(0, readyAfterOneSecond);
+            Assert.AreEqual(1, readyCount);
+        }
+        #endregion
         #region Shutdown
         [TestMethod]
         public void BeginShutdown_SendsFinImmediatelyWithoutAnySettingsWrite()

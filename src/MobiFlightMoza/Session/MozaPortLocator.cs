@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace MobiFlightMoza.Session
 {
-    internal readonly struct MozaPortInfo
+    public readonly struct MozaPortInfo
     {
         public string PortName { get; }
         public int VendorId { get; }
@@ -21,12 +21,12 @@ namespace MobiFlightMoza.Session
     }
 
     /// <summary>
-    /// Finds the CDC serial port for MOZA's display module by VID/PID - the same
+    /// Finds the CDC serial port of a MOZA device by VID/PID - the same
     /// Win32_PnPEntity approach <c>MobiFlight.Monitors.SerialPortMonitor</c> already uses to
     /// find boards. Parsing one entity's fields is split out as a pure function so it's
     /// testable without WMI.
     /// </summary>
-    internal static class MozaPortLocator
+    public static class MozaPortLocator
     {
         private static readonly Regex HardwareIdPattern = new(@"VID_(?<vid>[0-9A-Fa-f]{4})&PID_(?<pid>[0-9A-Fa-f]{4})");
         private static readonly Regex PortNamePattern = new(@"\((?<port>COM\d+)\)");

@@ -377,58 +377,52 @@
   ],
   "Outputs": [
     {
-      "Label": "FAIL",
-      "Id": "FAIL.led",
-      "Byte": 0,
-      "Bit": 0
-    },
-    {
-      "Label": "FM",
-      "Id": "FM.led",
-      "Byte": 0,
-      "Bit": 1
-    },
-    {
-      "Label": "MCDU",
-      "Id": "MCDU.led",
-      "Byte": 0,
-      "Bit": 2
-    },
-    {
-      "Label": "MENU",
-      "Id": "MENU.led",
-      "Byte": 0,
-      "Bit": 3
-    },
-    {
       "Label": "FM1",
       "Id": "FM1.led",
       "Byte": 0,
-      "Bit": 4
+      "Bit": 0
     },
     {
       "Label": "IND",
       "Id": "IND.led",
       "Byte": 0,
-      "Bit": 5
+      "Bit": 1
     },
     {
       "Label": "RDY",
       "Id": "RDY.led",
       "Byte": 0,
-      "Bit": 6
+      "Bit": 2
     },
     {
-      "Label": "STATUS",
-      "Id": "STATUS.led",
+      "Label": "DASH",
+      "Id": "DASH.led",
       "Byte": 0,
-      "Bit": 7
+      "Bit": 3
     },
     {
       "Label": "FM2",
       "Id": "FM2.led",
-      "Byte": 1,
-      "Bit": 0
+      "Byte": 0,
+      "Bit": 4
+    },
+    {
+      "Label": "FAIL",
+      "Id": "FAIL.led",
+      "Byte": 0,
+      "Bit": 5
+    },
+    {
+      "Label": "FM",
+      "Id": "FM.led",
+      "Byte": 0,
+      "Bit": 6
+    },
+    {
+      "Label": "MCDU MENU",
+      "Id": "MCDU-MENU.led",
+      "Byte": 0,
+      "Bit": 7
     }
   ]
 }

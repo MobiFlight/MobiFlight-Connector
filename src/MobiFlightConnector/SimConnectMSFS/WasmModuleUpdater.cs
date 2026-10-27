@@ -42,60 +42,68 @@ namespace MobiFlight.SimConnectMSFS
         {
             Log.Instance.log($"Attempting to extract community folder path from {UserCfg}", LogSeverity.Debug);
 
-            string CommunityFolder = null;
-            string line;
-            string InstalledPackagesPath = "";
-            StreamReader file;
+            string installedPackagesPath;
 
             try
             {
-                file = new StreamReader(UserCfg);
+                installedPackagesPath = ReadInstalledPackagesPath(UserCfg);
             }
-            catch (Exception ex) {
-                Log.Instance.log($"Unable to open UserCfg.opt at {UserCfg}: {ex.Message}", LogSeverity.Error);
-                return CommunityFolder;
-            }
-
-            while ((line = file.ReadLine()) != null)
+            catch (Exception ex)
             {
-                // Issue #2061: The space at the end is intentional, to ensure it only matches the whole string InstalledPackagesPath
-                // and not the InstalledPackagesPathNextBoot property added in MSFS2024 SU2.
-                if (line.Contains("InstalledPackagesPath "))
-                {
-                    InstalledPackagesPath = line;
-                    break;
-                }
+                Log.Instance.log($"Unable to read UserCfg.opt at {UserCfg}: {ex.Message}", LogSeverity.Error);
+                return null;
             }
 
-            if (InstalledPackagesPath == "")
-                return CommunityFolder;
-
-            InstalledPackagesPath = InstalledPackagesPath.Substring(23);
-            char[] charsToTrim = { '"' };
-
-            InstalledPackagesPath = InstalledPackagesPath.TrimEnd(charsToTrim);
+            if (string.IsNullOrEmpty(installedPackagesPath))
+                return null;
 
             try
             {
-                string targetPath = Path.Combine(Path.Combine(InstalledPackagesPath, @"Community"));
+                string targetPath = Path.Combine(installedPackagesPath, "Community");
 
                 Log.Instance.log($"Detected community folder path from UserCfg.opt: {targetPath}", LogSeverity.Debug);
 
                 if (Directory.Exists(targetPath))
                 {
-                    CommunityFolder = targetPath;
+                    return targetPath;
                 }
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error while trying to build community folder path using \"{InstalledPackagesPath}\": {ex.Message}", LogSeverity.Error);
-            }
-            finally
-            {
-                file.Close();
+                Log.Instance.log($"Error while trying to build community folder path using \"{installedPackagesPath}\": {ex.Message}", LogSeverity.Error);
             }
 
-            return CommunityFolder;
+            return null;
+        }
+
+        /// <summary>
+        /// Reads the value of the InstalledPackagesPath entry from a UserCfg.opt file.
+        /// </summary>
+        /// <returns>The path without surrounding quotes, or null if the entry is missing or empty.</returns>
+        internal static string ReadInstalledPackagesPath(string userCfgPath)
+        {
+            const string key = "InstalledPackagesPath";
+
+            using (var reader = new StreamReader(userCfgPath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var trimmedLine = line.TrimStart();
+
+                    // Issue #2061: The key must be followed by whitespace, to ensure it only matches the whole key
+                    // and not the InstalledPackagesPathNextBoot property added in MSFS2024 SU2.
+                    if (!trimmedLine.StartsWith(key, StringComparison.Ordinal)
+                        || trimmedLine.Length == key.Length
+                        || !char.IsWhiteSpace(trimmedLine[key.Length]))
+                        continue;
+
+                    var value = trimmedLine.Substring(key.Length).Trim().Trim('"');
+                    return value == "" ? null : value;
+                }
+            }
+
+            return null;
         }
 
         public bool AutoDetectCommunityFolder()
