@@ -209,7 +209,6 @@ namespace MobiFlightWwFcu
             }
         }
 
-
         public void Connect()
         {
             MessageSender.Connect();
@@ -250,22 +249,22 @@ namespace MobiFlightWwFcu
 
         private void StartHeartbeat()
         {
-            if (HeartbeatThread == null)
-            {
-                Thread thread = new Thread(ExecuteHeartbeat)
-                {
-                    IsBackground = true
-                };
-                thread.Start();
-            }
+            StartHeartbeatThread();
             DoExecuteHeartbeat = true;
+        }
+
+        private void StartHeartbeatThread()
+        {
+            if (HeartbeatThread is { IsAlive: true }) return;
+
+            HeartbeatThread = new Thread(ExecuteHeartbeat) { IsBackground = true };
+            HeartbeatThread.Start();
         }
 
         private void StopHeartbeat()
         {
             DoExecuteHeartbeat = false;
         }
-
 
         private void ExecuteHeartbeat()
         {
