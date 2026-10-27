@@ -152,8 +152,11 @@ namespace MobiFlight
         public void Shutdown()
         {
             PollTimer.Stop();
-
-            Stop();
+            VirtualButtonEvents.Stop();
+            foreach (var js in Joysticks.Values)
+            {
+                js.Shutdown();
+            }
             Joysticks.Clear();
             ExcludedJoysticks.Clear();
             if (WSServer.IsListening)
