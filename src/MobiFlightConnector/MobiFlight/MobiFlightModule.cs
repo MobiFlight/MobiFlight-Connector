@@ -237,6 +237,9 @@ namespace MobiFlight
         // starts true because a fresh board may still show stale data
         private bool _outputsDirty = true;
 
+        // last power save mode sent to the board, false means unknown or off
+        private bool _powerSaveActive = false;
+
         public Board Board { get; set; }
 
         public MobiFlightModule(String port, Board board)
@@ -313,6 +316,7 @@ namespace MobiFlight
                 connected = true;
 
                 _outputsDirty = true;
+                _powerSaveActive = false;
 
                 // this sleep helps during initialization
                 // without this line modules did not connect properly
@@ -1321,14 +1325,20 @@ namespace MobiFlight
         // false turns power save off.
         public virtual void SetPowerSaveMode(bool mode)
         {
-            Log.Instance.log($"Setting power save for {this.Name} ({this.Port}) to {mode}", LogSeverity.Debug);
-
             // Guard against null CmdMessenger (e.g., before Connect() is called)
             if (_cmdMessenger == null)
             {
                 Log.Instance.log("CmdMessenger not initialized, skipping SetPowerSaveMode command.", LogSeverity.Debug);
                 return;
             }
+
+            // Turning it off is also the keep-awake heartbeat, so only a repeated "on" is skipped
+            var isRepeatedPowerSaveOn = mode && _powerSaveActive;
+            if (isRepeatedPowerSaveOn) return;
+
+            _powerSaveActive = mode;
+
+            Log.Instance.log($"Setting power save for {this.Name} ({this.Port}) to {mode}", LogSeverity.Debug);
 
             // Send the power save wakeup command. No timeout is used so this will still work with older firmware
             // that doesn't respond to the SetPowerSavingMode command.
