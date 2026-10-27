@@ -4,9 +4,6 @@ import {
   IconDotsVertical,
   IconPencil,
   IconSettings,
-  IconArrowBackUp,
-  IconChevronDown,
-  IconCheck,
 } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
@@ -18,8 +15,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
 } from "../ui/dropdown-menu"
 import { AnimatedSaveButton } from "../ui/AnimatedSaveButton"
 import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
@@ -27,9 +22,8 @@ import { Project } from "@/types"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { ProjectInfo } from "@/types/project"
 import { useModal } from "@/lib/hooks/useModal"
-import ToolTip from "@/components/ToolTip"
-import { cn } from "@/lib/utils"
 import { CommandUndoConfigList } from "@/types/commands"
+import HistoryControls from "@/components/wizard/components/HistoryControls"
 
 export type ProjectNameLabelProps = {
   project: Project | null
@@ -80,7 +74,6 @@ const ProjectNameLabel = () => {
   }
 
   const historyCount = configListUndoHistory.length
-  const hasHistory = historyCount > 0
 
   const historyLabels: Record<string, string> = {
     Add: "Added",
@@ -100,6 +93,13 @@ const ProjectNameLabel = () => {
     t(`ConfigList.History.${action}`, {
       defaultValue: historyLabels[action] ?? action,
     })
+
+  const listHistory = [
+    { action: "" },
+    ...configListUndoHistory.map((action) => ({
+      action: getHistoryLabel(action),
+    })),
+  ]
 
   const undoSteps = (steps: number) => {
     if (steps <= 0 || !canUndoConfigList) return
@@ -131,128 +131,18 @@ const ProjectNameLabel = () => {
         noChangesTooltip={t("Project.Toolbar.Save.NoChanges")}
       />
 
-      <ToolTip content={t("Dialog.InputConfigWizard.History.Undo")}>
-        <div
-          className="group/list-undo relative inline-flex h-8 items-center"
-          data-testid="config-list-history-controls"
-        >
-          <ToolTip content={t("Dialog.InputConfigWizard.History.Undo")}>
-            <span className="inline-flex">
-              <Button
-                type="button"
-                variant="ghost"
-                className={cn("h-8 p-1 [&_svg]:size-6", hasHistory && "pr-8")}
-                disabled={!canUndoConfigList}
-                data-testid="config-list-undo-button"
-                aria-label={t("Dialog.InputConfigWizard.History.Undo")}
-                onClick={() => undoSteps(1)}
-              >
-                <IconArrowBackUp
-                  className={
-                    canUndoConfigList
-                      ? "stroke-foreground"
-                      : "stroke-muted-foreground"
-                  }
-                />
-              </Button>
-            </span>
-          </ToolTip>
-
-          {hasHistory && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  data-testid="config-list-history-button"
-                  aria-label={t("Dialog.InputConfigWizard.History.Title")}
-                  className={cn(
-                    "pointer-events-none absolute inset-y-0 right-0 h-8 w-7 rounded-l-none p-0 opacity-0 transition-opacity",
-                    "group-hover/list-undo:pointer-events-auto group-hover/list-undo:opacity-100",
-                    "focus-visible:pointer-events-auto focus-visible:opacity-100",
-                    "data-[state=open]:pointer-events-auto data-[state=open]:opacity-100",
-                    "[@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100",
-                  )}
-                >
-                  <IconChevronDown size={16} />
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent
-                align="start"
-                side="bottom"
-                sideOffset={8}
-                className="z-60 w-64 max-w-[85vw]"
-                data-testid="config-list-history-panel"
-              >
-                <DropdownMenuLabel className="flex items-center justify-between text-sm font-semibold">
-                  {t("Dialog.InputConfigWizard.History.Title")}
-
-                  <span className="text-muted-foreground text-xs font-normal tabular-nums">
-                    {configListUndoHistoryStart + historyCount}
-                  </span>
-                </DropdownMenuLabel>
-
-                <DropdownMenuSeparator />
-
-                <div className="max-h-56 overflow-y-auto">
-                  {configListUndoHistory
-                    .map((action, index) => ({ action, index }))
-                    .reverse()
-                    .map(({ action, index }) => {
-                      const isCurrent = index === historyCount - 1
-                      const label = getHistoryLabel(action)
-                      const steps = historyCount - index - 1
-
-                      return (
-                        <DropdownMenuItem
-                          key={configListUndoHistoryStart + index + 1}
-                          data-testid="config-list-history-entry"
-                          disabled={isCurrent}
-                          aria-current={isCurrent ? "step" : undefined}
-                          title={label}
-                          onSelect={() => undoSteps(steps)}
-                          className={cn(
-                            "text-xs font-normal",
-                            isCurrent && "bg-accent font-medium",
-                          )}
-                        >
-                          <span className="text-muted-foreground w-6 shrink-0 tabular-nums">
-                            {configListUndoHistoryStart + index + 1}
-                          </span>
-
-                          <span className="min-w-0 flex-1 truncate">
-                            {label}
-                          </span>
-
-                          {isCurrent && (
-                            <IconCheck
-                              size={14}
-                              className="text-primary shrink-0"
-                            />
-                          )}
-                        </DropdownMenuItem>
-                      )
-                    })}
-
-                  <DropdownMenuSeparator />
-
-                  <DropdownMenuItem
-                    data-testid="config-list-history-oldest"
-                    onSelect={() => undoSteps(historyCount)}
-                    className="text-xs"
-                  >
-                    {configListUndoHistoryStart === 0
-                      ? t("Dialog.InputConfigWizard.History.Original")
-                      : t("Dialog.InputConfigWizard.History.Oldest")}
-                  </DropdownMenuItem>
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </div>
-      </ToolTip>
+      <HistoryControls
+        history={listHistory}
+        cursor={historyCount}
+        historyStart={configListUndoHistoryStart}
+        onUndo={() => undoSteps(1)}
+        onJump={(index) => undoSteps(historyCount - index)}
+        testIdPrefix="config-list"
+        side="bottom"
+        undoShortcut={null}
+        showUndoLabel={false}
+        showFrame={false}
+      />
 
       <div className="relative">
         <DropdownMenu>

@@ -21,6 +21,12 @@ type HistoryControlsProps = {
   historyStart: number
   onUndo: () => void
   onJump: (index: number) => void
+
+  testIdPrefix?: "config" | "config-list"
+  side?: "top" | "bottom"
+  undoShortcut?: string | null
+  showUndoLabel?: boolean
+  showFrame?: boolean
 }
 
 const HistoryControls = ({
@@ -29,6 +35,11 @@ const HistoryControls = ({
   historyStart,
   onUndo,
   onJump,
+  testIdPrefix = "config",
+  side = "top",
+  undoShortcut = "Ctrl+Z",
+  showUndoLabel = true,
+  showFrame = true,
 }: HistoryControlsProps) => {
   const { t } = useTranslation()
 
@@ -40,34 +51,46 @@ const HistoryControls = ({
 
   return (
     <div
-      data-testid="config-history-controls"
-      className="group/undo border-input bg-background relative inline-flex h-9 shrink-0 items-stretch rounded-md border"
+      data-testid={`${testIdPrefix}-history-controls`}
+      className={cn(
+        "group/undo relative inline-flex h-9 shrink-0 items-stretch",
+        showFrame
+          ? "border-input bg-background rounded-md border"
+          : "border-0 bg-transparent shadow-none",
+      )}
     >
       <Button
-        data-testid="config-undo-button"
+        data-testid={`${testIdPrefix}-undo-button`}
         type="button"
         variant="ghost"
         size="sm"
-        className={cn("h-full rounded-md px-3", hasHistory && "pr-10")}
+        className={cn(
+          "h-full rounded-md",
+          showUndoLabel ? "px-3" : "px-2",
+          hasHistory && (showUndoLabel ? "pr-10" : "pr-9"),
+        )}
         aria-label={undoTitle}
-        title={`${undoTitle} (Ctrl+Z)`}
+        title={undoShortcut ? `${undoTitle} (${undoShortcut})` : undoTitle}
         disabled={!canUndo}
         onClick={onUndo}
       >
         <IconArrowBackUp size={16} />
-        {undoTitle}
+        {showUndoLabel && undoTitle}
       </Button>
 
       {hasHistory && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              data-testid="config-history-button"
+              data-testid={`${testIdPrefix}-history-button`}
               type="button"
               variant="ghost"
               size="sm"
               className={cn(
-                "border-input bg-background pointer-events-none absolute inset-y-0 right-0 h-full w-8 rounded-l-none rounded-r-md border-l p-0 opacity-0 transition-opacity",
+                "pointer-events-none absolute inset-y-0 right-0 h-full w-8 rounded-l-none rounded-r-md p-0 opacity-0 transition-opacity",
+                showFrame
+                  ? "border-input bg-background border-l"
+                  : "border-0 bg-transparent shadow-none",
                 "group-hover/undo:pointer-events-auto group-hover/undo:opacity-100",
                 "focus-visible:pointer-events-auto focus-visible:opacity-100",
                 "data-[state=open]:pointer-events-auto data-[state=open]:opacity-100",
@@ -81,8 +104,8 @@ const HistoryControls = ({
           </DropdownMenuTrigger>
 
           <DropdownMenuContent
-            data-testid="config-history-panel"
-            side="top"
+            data-testid={`${testIdPrefix}-history-panel`}
+            side={side}
             align="start"
             sideOffset={8}
             className="z-60 w-64 max-w-[85vw]"
@@ -114,7 +137,11 @@ const HistoryControls = ({
                   return (
                     <DropdownMenuItem
                       key={historyStart + index}
-                      data-testid="config-history-entry"
+                      data-testid={
+                        testIdPrefix === "config-list" && index === 0
+                          ? "config-list-history-oldest"
+                          : `${testIdPrefix}-history-entry`
+                      }
                       aria-current={isCurrent ? "step" : undefined}
                       title={label}
                       className={cn(
