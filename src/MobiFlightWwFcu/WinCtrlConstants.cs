@@ -4,6 +4,8 @@ namespace MobiFlightWwFcu
 {
     public class WinCtrlConstants
     {
+        public const int VendorId = 0x4098;
+
         internal static readonly byte[] DEST_FCU = new byte[] { 0x10, 0xbb };
         internal static readonly byte[] DEST_EFISL = new byte[] { 0x0d, 0xbf };
         internal static readonly byte[] DEST_EFISR = new byte[] { 0x0e, 0xbf };
