@@ -139,6 +139,7 @@ export interface Notification {
     | "SimStopped"
     | "TestModeException"
     | "ProjectFileLoadError"
+    | "ConfigListUndoFailed"
   Guid?: string
   Context: Record<string, string> | null
 }

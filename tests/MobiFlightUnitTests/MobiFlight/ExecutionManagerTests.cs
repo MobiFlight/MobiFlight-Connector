@@ -1378,5 +1378,70 @@ namespace MobiFlight.Tests
             var result2 = executors.Count;
             Assert.AreEqual(0, result2);
         }
+
+        [TestMethod]
+        public void UndoToggle_MissingItem_PreservesHistory()
+        {
+            // Arrange
+            var item = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Test Item",
+                Active = true
+            };
+
+            var project = new Project();
+
+            project.ConfigFiles.Add(new ConfigFile
+            {
+                ConfigItems = { item }
+            });
+
+            _executionManager.Project = project;
+
+            // Record a Toggle action.
+            MessageExchange.Instance.Publish(
+                new CommandConfigContextMenu
+                {
+                    Action = "toggle",
+                    Item = item
+                }
+            );
+
+            Assert.IsFalse(item.Active);
+
+            // Simulate an unexpected external modification.
+            project.ConfigFiles[0].ConfigItems.Remove(item);
+
+            // Act
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 1
+                }
+            );
+
+            // Assert
+            // The failed Undo must not alter the project.
+            Assert.HasCount(
+                0,
+                project.ConfigFiles[0].ConfigItems
+            );
+
+            // The previous History must still exist.
+            var lastUndoState = _mockMessagePublisher.Invocations
+                .Where(invocation =>
+                    invocation.Method.Name == "Publish")
+                .Select(invocation => invocation.Arguments[0])
+                .OfType<ConfigListUndoState>()
+                .Last();
+
+            Assert.IsTrue(lastUndoState.CanUndo);
+            Assert.HasCount(1, lastUndoState.History);
+            Assert.AreEqual(
+                "Toggle",
+                lastUndoState.History[0]
+            );
+        }
     }
 }

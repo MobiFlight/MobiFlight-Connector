@@ -350,6 +350,10 @@
     "ProjectFileLoadError": {
       "Title": "Project could not be loaded",
       "Description": "An error occurred on loading {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Undo failed",
+      "Description": "Could not undo {{action}}. The history has been preserved. See the logs for details."
     }
   },
   "Startup": {
