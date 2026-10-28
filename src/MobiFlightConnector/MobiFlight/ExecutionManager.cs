@@ -853,7 +853,7 @@ namespace MobiFlight
             simConnectCache.Start();
             xplaneCache.Start();
 
-            scriptRunner.StartUp();
+            scriptRunner.Start();
 
             // the timer has to be enabled before the 
             // on start actions are executed
@@ -1472,8 +1472,6 @@ namespace MobiFlight
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
-
-
 
             foreach (var executor in _inputEventExecutors.Values)
             {

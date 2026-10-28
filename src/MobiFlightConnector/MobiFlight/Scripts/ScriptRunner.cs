@@ -74,7 +74,6 @@ namespace MobiFlight.Scripts
             return expand().Select(p => p.ToString("X")).ToArray();
         }
 
-
         private string GetHardwareId(string vendorId, string productId)
         {
             try
@@ -152,7 +151,6 @@ namespace MobiFlight.Scripts
                 NewAircraftRequestQueue.Enqueue(AircraftPath);
             }
         }
-
 
         private void SendUserMessage(int messageCode, params string[] parameters)
         {
@@ -372,21 +370,26 @@ namespace MobiFlight.Scripts
             }
         }
 
-        public void StartUp()
+        public void Start()
         {
-            Log.Instance.log($"ScriptRunner - StartUp().", LogSeverity.Debug);
+            if (IsInPlayMode) return;
+
+            Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
             // Delay because establishing MsfsCache connection state does need some time.           
             Task.Run(async () =>
             {
                 await Task.Delay(STARTUP_DELAY_MS).ConfigureAwait(false);
-                Start();
+                Play();
             });
         }
 
-        public void Start()
+        private void Play()
         {
-            Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
+            if (IsInPlayMode) return;
+
+            Log.Instance.log($"ScriptRunner - Play().", LogSeverity.Debug);
             IsInPlayMode = true;
+            
             string currentAircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
             NewAircraftRequestQueue.Enqueue(currentAircraftDescription);
             Task myTask = Task.Run(async () => { await ProcessAircraftRequests(CancellationTokenSource.Token); });
@@ -425,6 +428,8 @@ namespace MobiFlight.Scripts
 
         public void Stop()
         {
+            if (!IsInPlayMode) return;
+
             Log.Instance.log("ScriptRunner - Stop().", LogSeverity.Debug);
             IsInPlayMode = false;
 
