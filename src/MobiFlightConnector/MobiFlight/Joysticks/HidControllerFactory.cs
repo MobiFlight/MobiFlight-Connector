@@ -19,6 +19,7 @@ namespace MobiFlight.Joysticks
                 case "FCU Cube":
                 case "OVHD Cube":
                 case "Logitech Switch Panel":
+                case "Logitech Radio Panel":
                 case "Logitech Multi Panel":
                 case "MOZA MA3F MFCD Display":
                 case "MOZA MB7F MFCD Display":
@@ -47,6 +48,9 @@ namespace MobiFlight.Joysticks
                     break;
                 case "Logitech Switch Panel":
                     result = new Logitech.SwitchPanel(definition);
+                    break;
+                case "Logitech Radio Panel":
+                    result = new Logitech.RadioPanel(definition);
                     break;
                 case "Logitech Multi Panel":
                     result = new Logitech.MultiPanel(definition);
