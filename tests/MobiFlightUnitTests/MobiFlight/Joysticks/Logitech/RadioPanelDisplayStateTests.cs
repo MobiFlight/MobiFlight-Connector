@@ -29,12 +29,34 @@ namespace MobiFlight.Joysticks.Logitech.Tests
         }
 
         [TestMethod]
+        [DataRow("18.025")]
+        [DataRow("18025")]
+        public void EncodeFrequency_BelowHundredMhz_ShowsAllDigitsWithoutLeadingOne(string input)
+        {
+            // Act
+            var encoded = RadioPanelDisplayState.EncodeFrequency(input);
+
+            // Assert
+            CollectionAssert.AreEqual(new byte[] { 1, 0xD8, 0, 2, 5 }, encoded);
+        }
+
+        [TestMethod]
+        public void EncodeFrequency_BelowHundredMhzWithExtraDecimals_IsTruncated()
+        {
+            // Act
+            var encoded = RadioPanelDisplayState.EncodeFrequency("18.9999");
+
+            // Assert
+            CollectionAssert.AreEqual(new byte[] { 1, 0xD8, 9, 9, 9 }, encoded);
+        }
+
+        [TestMethod]
         [DataRow(null)]
         [DataRow("")]
         [DataRow("  ")]
         [DataRow("abc")]
         [DataRow("0")]
-        [DataRow("99.99")]
+        [DataRow("-18.025")]
         [DataRow("200.00")]
         public void EncodeFrequency_EmptyInvalidOrOutOfBand_BlanksDisplay(string input)
         {

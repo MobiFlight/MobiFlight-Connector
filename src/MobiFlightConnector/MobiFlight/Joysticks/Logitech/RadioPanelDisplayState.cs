@@ -37,7 +37,9 @@ namespace MobiFlight.Joysticks.Logitech
 
         /// <summary>
         /// Accepts kHz (123450) or MHz (123.45 / 123.450). The fraction is truncated, not rounded,
-        /// to fit five digits. Empty, unparsable or out-of-band (not 100-200 MHz) input blanks the display.
+        /// to fit five digits. Values of 100-200 MHz are shown as 123.45; values below 100 MHz are
+        /// shown as 18.025 so that a profile can drop the leading 1 and keep the 1 kHz digit.
+        /// Empty, unparsable, zero or out-of-band input blanks the display.
         /// </summary>
         public static byte[] EncodeFrequency(string input)
         {
@@ -45,10 +47,11 @@ namespace MobiFlight.Joysticks.Logitech
             if (!decimal.TryParse(input.Trim(), NumberStyles.Number, CultureInfo.InvariantCulture, out var value)) return NewBlank();
 
             if (value >= 1000m) value /= 1000m;
-            if (value < 100m || value >= 200m) return NewBlank();
+            if (value <= 0m || value >= 200m) return NewBlank();
 
-            var hundredths = (int)decimal.Truncate(value * 100m);
-            var digits = hundredths.ToString("D5", CultureInfo.InvariantCulture);
+            var withoutLeadingOne = value < 100m;
+            var scaled = withoutLeadingOne ? value * 1000m : value * 100m;
+            var digits = ((int)decimal.Truncate(scaled)).ToString("D5", CultureInfo.InvariantCulture);
 
             var result = new byte[DigitsPerDisplay];
             for (var i = 0; i < DigitsPerDisplay; i++)
@@ -56,7 +59,7 @@ namespace MobiFlight.Joysticks.Logitech
                 result[i] = (byte)(digits[i] - '0');
             }
 
-            result[2] |= DecimalPoint;
+            result[withoutLeadingOne ? 1 : 2] |= DecimalPoint;
             return result;
         }
 
