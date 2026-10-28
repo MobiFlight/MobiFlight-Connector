@@ -1,28 +1,8 @@
 """
-Adds support for the default X-Plane FMS dataref family
-(sim/cockpit2/radios/indicators/fms_cduN_text/style_lineX), used by the stock FMS
-and by aircraft that reuse it, such as the X-Crafts ERJ family.
-
 Many X-Plane aircraft have similar formats for datarefs and the means of retrieving, translating and sending updates is mostly the same.
 
 In order to support multiple CDU devices seamlessly, a dynamic approach is taken whereby an enum class is defined that contains the supported devices.
 A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
-Each enum member is assigned a value that is used to construct the X-Plane dataref identifier. Example: "fms_cdu1" in "sim/cockpit2/radios/indicators/fms_cdu1_text_line0".
-
-DYNAMIC LINE COUNT / SCRATCHPAD HANDLING:
-Not every aircraft on this dataref family publishes the same number of lines. The stock/default
-FMS publishes a full 14 lines (0-13), one per WinWing grid row, mapped 1:1. The X-Crafts ERJ only
-publishes 9 lines (0-8): lines 0-7 are page content, and line 8 is the scratchpad / text entry
-line, which on the real ERJ MCDU is shown on the bottom-most row of the screen rather than
-directly beneath line 7.
-
-Rather than hardcoding a line count and hardcoding this exception for the ERJ specifically, the
-number of lines an aircraft actually publishes is discovered per-device from the datarefs
-fetch_dataref_mapping() returns (build_line_row_map()). If an aircraft publishes a full 14 lines,
-each one maps directly to the matching grid row, same as before. If it publishes fewer, every line
-except the last maps directly to its matching grid row, and the last (the scratchpad) is mirrored
-to the bottom-most grid row (CDU_ROWS - 1). This lets one script serve both the default FMS and
-reduced implementations like the ERJ's without any aircraft-specific branching.
 
 Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
 
