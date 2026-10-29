@@ -957,7 +957,8 @@
         "Title": "Testitilan nopeus",
         "Slow": "hidas",
         "Fast": "erittäin nopea"
-      }
+      },
+      "CloudSettingsSync": "Pilviasetusten synkronointi"
     },
     "Simulator": {
       "Title": "Simulaattorit",
@@ -976,6 +977,49 @@
       "KeepEditing": "Jatka muokkausta",
       "DiscardChanges": "Hylkää muutokset"
     },
-    "ManageControllerNote": "Löydä <strong>MobiFlight Boards</strong> ja <strong>Peripherals</strong> kohdasta <strong>{{menuPath}}</strong>"
+    "ManageControllerNote": "Löydä <strong>MobiFlight Boards</strong> ja <strong>Peripherals</strong> kohdasta <strong>{{menuPath}}</strong>",
+    "Conflict": {
+      "Title": "Asetusristiriita",
+      "Description": "Löysimme eri versiot asetuksistasi tältä laitteelta ja pilvestä. Valitse kumman version haluat säilyttää.",
+      "KeepLocal": "Säilytä paikalliset asetukset",
+      "KeepLocalDesc": "Säilytä tämän laitteen asetukset synkronoimatta pilveen.",
+      "UseCloud": "Käytä pilviasetuksia",
+      "UseCloudDesc": "Korvaa paikalliset asetukset pilveen tallennetulla versiolla.",
+      "UploadLocal": "Lataa paikallinen pilveen",
+      "UploadLocalDesc": "Korvaa pilviasetukset tämän laitteen nykyisellä versiolla."
+    },
+    "Sync": {
+      "Notifications": {
+        "restored": {
+          "Title": "Asetukset palautettu",
+          "Description": "Uusimmat asetuksesi palautettiin pilvestä."
+        },
+        "synced": {
+          "Title": "Asetukset synkronoitu",
+          "Description": "Uusimmat paikalliset muutoksesi on synkronoitu pilveen."
+        },
+        "saved": {
+          "Title": "Asetukset tallennettu",
+          "Description": "Paikalliset asetuksesi on tallennettu pilveen."
+        },
+        "updated": {
+          "Title": "Asetusten päivitys",
+          "Description": "Uusimmat asetuksesi palautettiin pilvestä."
+        },
+        "failed_upload": {
+          "Title": "Synkronointi epäonnistui",
+          "Description": "Asetuksiasi ei voitu tallentaa pilveen. Tarkista verkkoyhteytesi."
+        },
+        "failed_fetch": {
+          "Title": "Pilvi ei ole käytettävissä",
+          "Description": "Yhteyttä pilveen ei saatu asetusten noutamiseksi."
+        }
+      },
+      "Status": {
+        "SignInToSync": "Kirjaudu sisään synkronoidaksesi asetukset",
+        "SyncPaused": "Pilvisynkronointi keskeytetty",
+        "Synced": "Asetukset synkronoitu"
+      }
+    }
   }
 }

@@ -223,6 +223,19 @@ export default function GeneralSettingsCard({
               />
             </SettingsRow>
 
+              <SettingsRow
+              label={t("Settings.General.CloudSettingsSync", "Cloud Settings Sync")}
+              
+            >
+              <Switch
+                
+                checked={values.CloudSettingsSyncEnabled ?? false}
+                onCheckedChange={(checked) =>
+                  onChange("CloudSettingsSyncEnabled", !!checked)
+                }
+              />
+            </SettingsRow>
+
             <Separator className="my-2" />
 
             <div className="hover:bg-muted/70 -mx-2 flex items-center justify-between gap-6 rounded-md p-2 transition-colors">

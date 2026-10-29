@@ -957,7 +957,8 @@
         "Title": "Velocidade do modo de teste",
         "Slow": "lento",
         "Fast": "muito rápido"
-      }
+      },
+      "CloudSettingsSync": "Sincronização de configurações na nuvem"
     },
     "Simulator": {
       "Title": "Simuladores",
@@ -976,6 +977,49 @@
       "KeepEditing": "Continuar editando",
       "DiscardChanges": "Descartar alterações"
     },
-    "ManageControllerNote": "Encontre <strong>MobiFlight Boards</strong> e <strong>Peripherals</strong> em <strong>{{menuPath}}</strong>"
+    "ManageControllerNote": "Encontre <strong>MobiFlight Boards</strong> e <strong>Peripherals</strong> em <strong>{{menuPath}}</strong>",
+    "Conflict": {
+      "Title": "Conflito de configurações",
+      "Description": "Encontramos versões diferentes das suas configurações neste dispositivo e na nuvem. Escolha qual versão deseja manter.",
+      "KeepLocal": "Manter configurações locais",
+      "KeepLocalDesc": "Manter as configurações neste dispositivo sem sincronizar com a nuvem.",
+      "UseCloud": "Usar configurações da nuvem",
+      "UseCloudDesc": "Substituir as configurações locais pela versão salva na nuvem.",
+      "UploadLocal": "Enviar local para a nuvem",
+      "UploadLocalDesc": "Substituir as configurações da nuvem pela versão atual deste dispositivo."
+    },
+    "Sync": {
+      "Notifications": {
+        "restored": {
+          "Title": "Configurações restauradas",
+          "Description": "Suas configurações mais recentes foram restauradas da nuvem."
+        },
+        "synced": {
+          "Title": "Configurações sincronizadas",
+          "Description": "Suas alterações locais mais recentes foram sincronizadas com a nuvem."
+        },
+        "saved": {
+          "Title": "Configurações salvas",
+          "Description": "Suas configurações locais foram salvas na nuvem."
+        },
+        "updated": {
+          "Title": "Atualização de configurações",
+          "Description": "Suas configurações mais recentes foram restauradas da nuvem."
+        },
+        "failed_upload": {
+          "Title": "Falha na sincronização",
+          "Description": "Não foi possível salvar suas configurações na nuvem. Verifique sua conexão."
+        },
+        "failed_fetch": {
+          "Title": "Nuvem indisponível",
+          "Description": "Não foi possível conectar à nuvem para recuperar suas configurações."
+        }
+      },
+      "Status": {
+        "SignInToSync": "Entre para sincronizar as configurações",
+        "SyncPaused": "Sincronização na nuvem pausada",
+        "Synced": "Configurações sincronizadas"
+      }
+    }
   }
 }
