@@ -1820,5 +1820,237 @@ namespace MobiFlight.Tests
                 }
             );
         }
+
+        [TestMethod]
+        public void UndoToggleAndItemEdited_RestoresItemsInReverseOrder()
+        {
+            // Arrange
+            var original = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Original Input",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { original }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+
+            _executionManager.Project = project;
+
+            int recordedActions = 0;
+            int undoneActions = 0;
+
+            _executionManager.OnConfigListActionRecorded += (sender, args) =>
+            {
+                recordedActions++;
+            };
+
+            _executionManager.OnConfigListActionUndone += (sender, args) =>
+            {
+                undoneActions++;
+            };
+
+            // Helper to verify the latest published Global History.
+            void AssertHistory(params string[] expectedActions)
+            {
+                var states = GetPublishedMessages<ConfigListUndoState>();
+
+                Assert.IsNotEmpty(states);
+
+                var latestState = states.Last();
+
+                CollectionAssert.AreEqual(expectedActions, latestState.History);
+
+                Assert.AreEqual(expectedActions.Length > 0, latestState.CanUndo);
+
+                Assert.AreEqual(0L, latestState.HistoryStart);
+            }
+
+            // Toggle the original ConfigItem.
+            MessageExchange.Instance.Publish(
+                new CommandConfigContextMenu
+                {
+                    Action = "toggle",
+                    Item = original
+                }
+            );
+
+            Assert.IsFalse(file.ConfigItems[0].Active);
+            Assert.AreEqual("Original Input", file.ConfigItems[0].Name);
+
+            AssertHistory("Toggle");
+            Assert.AreEqual(1, recordedActions);
+
+            // Edit and Apply the ConfigItem.
+            // The editor creates a modified copy instead of
+            // mutating the committed ConfigItem directly.
+            var editedItem = (InputConfigItem)file.ConfigItems[0].Clone();
+
+            editedItem.Name = "Edited Input";
+
+            // This is the real backend handler used by
+            // CommandUpdateConfigItem when the user clicks Apply.
+            _executionManager.HandleCommandUpdateConfigItem(editedItem);
+
+            Assert.AreEqual("Edited Input", file.ConfigItems[0].Name);
+            Assert.IsFalse(file.ConfigItems[0].Active);
+
+            AssertHistory("Toggle", "ItemEdited");
+            Assert.AreEqual(2, recordedActions);
+
+            // Undo ItemEdited.
+            int fullUpdatesBeforeUndo =
+                GetPublishedMessages<ConfigValueFullUpdate>().Count;
+
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 1
+                }
+            );
+
+            // The original name must be restored.
+            Assert.AreEqual("Original Input", file.ConfigItems[0].Name);
+
+            // The earlier Toggle must remain applied.
+            Assert.IsFalse(file.ConfigItems[0].Active);
+
+            // Only ItemEdited should be removed from history.
+            AssertHistory("Toggle");
+
+            Assert.AreEqual(2, recordedActions);
+            Assert.AreEqual(1, undoneActions);
+
+            Assert.HasCount(
+                fullUpdatesBeforeUndo + 1,
+                GetPublishedMessages<ConfigValueFullUpdate>());
+
+            // Undo Toggle.
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 1
+                }
+            );
+
+            // The original configuration must be fully restored.
+            Assert.AreEqual("Original Input", file.ConfigItems[0].Name);
+            Assert.IsTrue(file.ConfigItems[0].Active);
+
+            Assert.AreEqual(original.GUID, file.ConfigItems[0].GUID);
+
+            // Both actions have now been undone.
+            AssertHistory();
+
+            Assert.AreEqual(2, recordedActions);
+            Assert.AreEqual(2, undoneActions);
+
+            Assert.HasCount(
+                fullUpdatesBeforeUndo + 2,
+                GetPublishedMessages<ConfigValueFullUpdate>());
+
+            // No undo failure should have occurred.
+            var failureNotifications = GetPublishedMessages<Notification>()
+                .Where(notification =>
+                    notification.Event == "ConfigListUndoFailed")
+                .ToList();
+
+            Assert.HasCount(0, failureNotifications);
+        }
+
+        [TestMethod]
+        public void UndoMultipleSteps_RestoresOriginalConfigItem()
+        {
+            // Arrange
+            var original = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Original Input",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { original }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+
+            _executionManager.Project = project;
+
+            // Toggle
+            MessageExchange.Instance.Publish(
+                new CommandConfigContextMenu
+                {
+                    Action = "toggle",
+                    Item = original
+                }
+            );
+
+            Assert.IsFalse(file.ConfigItems[0].Active);
+
+            // Edit
+            var editedItem = (InputConfigItem)file.ConfigItems[0].Clone();
+
+            editedItem.Name = "Edited Input";
+
+            _executionManager.HandleCommandUpdateConfigItem(editedItem);
+
+            Assert.AreEqual("Edited Input", file.ConfigItems[0].Name);
+            Assert.IsFalse(file.ConfigItems[0].Active);
+
+            // Verify that both actions were recorded.
+            var historyBeforeUndo = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(new[] { "Toggle", "ItemEdited" }, historyBeforeUndo.History);
+
+            // Undo both actions in one command.
+            int fullUpdatesBeforeUndo = GetPublishedMessages<ConfigValueFullUpdate>().Count;
+
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 2
+                }
+            );
+
+            // Verify complete restoration.
+            Assert.HasCount(1, file.ConfigItems);
+
+            Assert.AreEqual("Original Input", file.ConfigItems[0].Name);
+
+            Assert.IsTrue(file.ConfigItems[0].Active);
+
+            Assert.AreEqual(original.GUID, file.ConfigItems[0].GUID);
+
+            // Global History must now be empty.
+            var historyAfterUndo =
+                GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(historyAfterUndo.CanUndo);
+
+            Assert.HasCount(0, historyAfterUndo.History);
+
+            Assert.AreEqual(0L, historyAfterUndo.HistoryStart);
+
+            // Each restored step must synchronize the frontend.
+            Assert.HasCount(
+                fullUpdatesBeforeUndo + 2,
+                GetPublishedMessages<ConfigValueFullUpdate>());
+
+            // No validation failure should have occurred.
+            var failureNotifications = GetPublishedMessages<Notification>()
+                .Where(notification =>
+                    notification.Event == "ConfigListUndoFailed")
+                .ToList();
+
+            Assert.HasCount(0, failureNotifications);
+        }
     }
 }
