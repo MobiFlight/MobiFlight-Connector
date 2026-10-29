@@ -2052,5 +2052,89 @@ namespace MobiFlight.Tests
 
             Assert.HasCount(0, failureNotifications);
         }
+
+        [TestMethod]
+        public void UndoDelete_RestoresOriginalItemAtOriginalIndex()
+        {
+            var first = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "First",
+                Active = true
+            };
+
+            var deleted = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Deleted Item",
+                Active = false
+            };
+
+            var last = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Last",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { first, deleted, last }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+            _executionManager.Project = project;
+
+            // Delete the middle item.
+            MessageExchange.Instance.Publish(
+                new CommandConfigContextMenu
+                {
+                    Action = "delete",
+                    Item = deleted
+                }
+            );
+
+            Assert.HasCount(2, file.ConfigItems);
+            Assert.AreEqual(first.GUID, file.ConfigItems[0].GUID);
+            Assert.AreEqual(last.GUID, file.ConfigItems[1].GUID);
+
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "Delete" },
+                history.History
+            );
+
+            // Undo deletion.
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList { Steps = 1 }
+            );
+
+            // Verify original order and item properties.
+            Assert.HasCount(3, file.ConfigItems);
+
+            CollectionAssert.AreEqual(
+                new[] { first.GUID, deleted.GUID, last.GUID },
+                file.ConfigItems.Select(item => item.GUID).ToArray()
+            );
+
+            var restored = file.ConfigItems[1];
+
+            Assert.AreEqual("Deleted Item", restored.Name);
+            Assert.IsFalse(restored.Active);
+
+            // Verify that Undo consumed the history entry.
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(history.CanUndo);
+            Assert.HasCount(0, history.History);
+
+            Assert.IsFalse(
+                GetPublishedMessages<Notification>()
+                    .Any(n => n.Event == "ConfigListUndoFailed")
+            );
+        }
+
     }
 }
