@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.Modifier;
 using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -687,6 +688,67 @@ namespace MobiFlight.Execution.Tests
                 appender => appender.log(It.Is<string>(msg => msg.Contains($@"Skipping ""{longReleaseConfig.Name}"", MobiFlight not running.") && msg.Contains("LONG_RELEASE:300ms")), LogSeverity.Warn),
                 Times.Once
             );
+        }
+
+        [TestMethod]
+        public void Execute_ConfigsWithInputModifiers_FinalValuesDontAffectNextConfig()
+        {
+            var inputEventArgs = new InputEventArgs
+            {
+                Controller = new Controller() { Serial = "123" },
+                InputType = DeviceType.AnalogInput,
+                Device = new DeviceReference() { Name = "Axis 1" },
+                Value = (int)123
+            };
+
+            // Transformation will change our rawValue statically
+            var transformationModifier = new Transformation()
+            {
+                Active = true,
+                Expression = "$*2"
+            };
+
+            var firstConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_ANALOG, "Axis 1"),
+                Name = "TestConfig -> with Modifier",
+                analog = new AnalogInputConfig
+                {
+                    onChange = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable", Expression = "@" }
+                    }
+                }
+            };
+            firstConfigItem.Modifiers.Items.Add(transformationModifier);
+
+            var secondConfigItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_ANALOG, "Axis 1"),
+                Name = "TestConfig -> without Modifier",
+                analog = new AnalogInputConfig
+                {
+                    onChange = new VariableInputAction()
+                    {
+                        Variable = new MobiFlightVariable() { Name = "TestVariable",Expression = "@" }
+                    }
+                }
+            };
+
+            _configItems.Add(firstConfigItem);
+            _configItems.Add(secondConfigItem);
+
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            Assert.HasCount(2, result);
+            Assert.AreEqual("CHANGE => 123", (result.Values.ElementAt(0) as InputConfigItem).RawValue, "Raw value should should hold original raw value.");
+            Assert.AreEqual("246", (result.Values.ElementAt(0) as InputConfigItem).Value, "Modifier should be applied to final value.");
+            Assert.AreEqual("CHANGE => 123", (result.Values.ElementAt(1) as InputConfigItem).RawValue, "Raw value should should hold original raw value.");
+            Assert.AreEqual("123", (result.Values.ElementAt(1) as InputConfigItem).Value, "No modifier should be applied to final value.");
         }
 
         #region Default Device Type Tests - Happy Path Scenarios
