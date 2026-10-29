@@ -208,7 +208,7 @@ namespace MobiFlight.Joysticks.Logitech
         /// Receives a frequency from a MobiFlight output config (address matches
         /// the JSON output Id, e.g. "LCD COM1 ACTIVE") and caches it for the next refresh.
         /// </summary>
-        public override void SetLcdDisplay(string address, string value)
+        protected override void OnSetLcdDisplay(string address, string value)
         {
             lock (OutputLock)
             {
