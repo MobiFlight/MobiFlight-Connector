@@ -3,6 +3,8 @@ import { useUserProfileStore } from "@/stores/userProfileStore"
 import { useQuery } from "@tanstack/react-query"
 import { ReactNode, useEffect } from "react"
 import { useAuth } from "react-oidc-context"
+import { useCloudSettingsSync } from "@/lib/hooks/useCloudSettingsSync"
+import { SettingsConflictDialog } from "@/components/settings/SettingsConflictDialog"
 
 type UserProfileLoaderProps = {
   children: ReactNode
@@ -11,6 +13,15 @@ type UserProfileLoaderProps = {
 export function UserProfileLoader({ children }: UserProfileLoaderProps) {
   const auth = useAuth()
   const { setUserProfile } = useUserProfileStore()
+
+  const {
+    isConflictOpen,
+    setIsConflictOpen,
+    handleKeepLocal,
+    handleUseCloud,
+    handleUploadLocal,
+    isProcessing,
+  } = useCloudSettingsSync()
 
   const queryEnabled = !auth.isLoading && auth.isAuthenticated && Boolean(auth.user?.id_token)
 
@@ -34,5 +45,17 @@ export function UserProfileLoader({ children }: UserProfileLoaderProps) {
     }
   }, [auth.isAuthenticated, setUserProfile])
 
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      <SettingsConflictDialog
+        isOpen={isConflictOpen}
+        onOpenChange={setIsConflictOpen}
+        onKeepLocal={handleKeepLocal}
+        onUseCloud={handleUseCloud}
+        onUploadLocal={handleUploadLocal}
+        isProcessing={isProcessing}
+      />
+    </>
+  )
 }

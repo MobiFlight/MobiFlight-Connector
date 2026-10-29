@@ -955,7 +955,8 @@
         "Title": "Test mode speed",
         "Slow": "slow",
         "Fast": "very fast"
-      }
+      },
+      "CloudSettingsSync": "Cloud Settings Sync"
     },
     "Simulator": {
       "Title": "Simulators",
@@ -974,6 +975,49 @@
       "KeepEditing": "Keep editing",
       "DiscardChanges": "Discard changes"
     },
-    "ManageControllerNote": "Manage <strong>MobiFlight Boards</strong> and <strong>Peripherals</strong> in <strong>{{menuPath}}</strong>"
+    "ManageControllerNote": "Manage <strong>MobiFlight Boards</strong> and <strong>Peripherals</strong> in <strong>{{menuPath}}</strong>",
+    "Conflict": {
+      "Title": "Settings conflict",
+      "Description": "We found different versions of your settings on this device and in the cloud. Choose which version you want to keep.",
+      "KeepLocal": "Keep local settings",
+      "KeepLocalDesc": "Keep settings on this device without syncing with the cloud.",
+      "UseCloud": "Use cloud settings",
+      "UseCloudDesc": "Replace local settings with the version saved in the cloud.",
+      "UploadLocal": "Upload local to cloud",
+      "UploadLocalDesc": "Overwrite the cloud settings with this device's current version."
+    },
+    "Sync": {
+      "Notifications": {
+        "restored": {
+          "Title": "Settings restored",
+          "Description": "Your latest settings were restored from the cloud."
+        },
+        "synced": {
+          "Title": "Settings synced",
+          "Description": "Your latest local changes have been synced to the cloud."
+        },
+        "saved": {
+          "Title": "Settings saved",
+          "Description": "Your local settings have been saved to the cloud."
+        },
+        "updated": {
+          "Title": "Settings update",
+          "Description": "Your latest settings were restored from the cloud."
+        },
+        "failed_upload": {
+          "Title": "Sync failed",
+          "Description": "Could not save your settings to the cloud. Please check your connection."
+        },
+        "failed_fetch": {
+          "Title": "Cloud unavailable",
+          "Description": "Could not connect to the cloud to retrieve your settings."
+        }
+      },
+      "Status": {
+        "SignInToSync": "Sign in to sync settings",
+        "SyncPaused": "Cloud sync paused",
+        "Synced": "Settings synced"
+      }
+    }
   }
 }

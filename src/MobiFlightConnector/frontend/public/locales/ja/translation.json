@@ -955,7 +955,8 @@
         "Title": "テストモードの速度",
         "Slow": "遅い",
         "Fast": "非常に速い"
-      }
+      },
+      "CloudSettingsSync": "クラウド設定同期"
     },
     "Simulator": {
       "Title": "シミュレーター",
@@ -974,6 +975,49 @@
       "KeepEditing": "編集を続ける",
       "DiscardChanges": "変更を破棄"
     },
-    "ManageControllerNote": "<strong>MobiFlight Boards</strong> と <strong>Peripherals</strong> は <strong>{{menuPath}}</strong> で管理できます"
+    "ManageControllerNote": "<strong>MobiFlight Boards</strong> と <strong>Peripherals</strong> は <strong>{{menuPath}}</strong> で管理できます",
+    "Conflict": {
+      "Title": "設定の競合",
+      "Description": "このデバイスとクラウドで異なるバージョンの設定が見つかりました。保持するバージョンを選択してください。",
+      "KeepLocal": "ローカル設定を保持",
+      "KeepLocalDesc": "クラウドと同期せずにこのデバイスの設定を保持します。",
+      "UseCloud": "クラウド設定を使用",
+      "UseCloudDesc": "ローカル設定をクラウドに保存されているバージョンに置き換えます。",
+      "UploadLocal": "ローカル設定をクラウドにアップロード",
+      "UploadLocalDesc": "クラウド設定をこのデバイスの現在のバージョンで上書きします。"
+    },
+    "Sync": {
+      "Notifications": {
+        "restored": {
+          "Title": "設定が復元されました",
+          "Description": "最新の設定がクラウドから復元されました。"
+        },
+        "synced": {
+          "Title": "設定が同期されました",
+          "Description": "最新のローカルの変更がクラウドに同期されました。"
+        },
+        "saved": {
+          "Title": "設定が保存されました",
+          "Description": "ローカル設定がクラウドに保存されました。"
+        },
+        "updated": {
+          "Title": "設定の更新",
+          "Description": "最新の設定がクラウドから復元されました。"
+        },
+        "failed_upload": {
+          "Title": "同期に失敗しました",
+          "Description": "設定をクラウドに保存できませんでした。接続を確認してください。"
+        },
+        "failed_fetch": {
+          "Title": "クラウドを利用できません",
+          "Description": "設定を取得するためのクラウドへの接続に失敗しました。"
+        }
+      },
+      "Status": {
+        "SignInToSync": "設定を同期するにはサインインしてください",
+        "SyncPaused": "クラウド同期が一時停止中",
+        "Synced": "設定が同期されました"
+      }
+    }
   }
 }

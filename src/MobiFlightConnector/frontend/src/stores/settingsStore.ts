@@ -7,6 +7,10 @@ interface SettingsState {
   settings: Settings | null
   setSettings: (Settings: Settings) => void
   setRecentProjects: (recentProjects: ProjectInfo[]) => void
+  isConflictOpen: boolean
+  setIsConflictOpen: (open: boolean) => void
+  cloudSettings: Partial<Settings> | null
+  setCloudSettings: (cloudSettings: Partial<Settings> | null) => void
 }
 
 export const useSettingsStore = create<SettingsState>((set) => ({
@@ -15,6 +19,10 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setRecentProjects: (recentProjects) =>
     set({ recentProjects: recentProjects }),
   recentProjects: [],
+  isConflictOpen: false,
+  setIsConflictOpen: (open) => set({ isConflictOpen: open }),
+  cloudSettings: null,
+  setCloudSettings: (cloudSettings) => set({ cloudSettings }),
 }))
 
 export const useRecentProjects = () => {
@@ -26,6 +34,8 @@ export const useRecentProjects = () => {
 
 export const useLogSettings = () => {
   return {
-    logEnabled: useSettingsStore((state) => state.settings?.LogEnabled ?? false)
+    logEnabled: useSettingsStore(
+      (state) => state.settings?.LogEnabled ?? false,
+    ),
   }
 }

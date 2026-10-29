@@ -224,7 +224,7 @@ export default function GeneralSettingsCard({
             </SettingsRow>
 
               <SettingsRow
-              label={"Cloud Settings Sync Enabled"}
+              label={t("Settings.General.CloudSettingsSync", "Cloud Settings Sync")}
               
             >
               <Switch
