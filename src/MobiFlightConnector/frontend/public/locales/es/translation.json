@@ -352,6 +352,10 @@
     "ProjectFileLoadError": {
       "Title": "No se pudo cargar el proyecto",
       "Description": "Ocurrió un error al cargar {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "No se pudo deshacer la acción",
+      "Description": "No se pudo deshacer la acción {{action}}. Se ha conservado el historial. Consulta los registros para obtener más información."
     }
   },
   "Startup": {

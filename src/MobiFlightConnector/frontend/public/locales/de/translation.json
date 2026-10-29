@@ -352,6 +352,10 @@
     "ProjectFileLoadError": {
       "Title": "Projekt konnte nicht geladen werden",
       "Description": "Beim Laden ist ein Fehler aufgetreten: {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Rückgängig machen fehlgeschlagen",
+      "Description": "Die Aktion {{action}} konnte nicht rückgängig gemacht werden. Der Verlauf wurde beibehalten. Weitere Informationen findest du im Protokoll."
     }
   },
   "Startup": {

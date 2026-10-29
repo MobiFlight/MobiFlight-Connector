@@ -346,6 +346,10 @@
     "ProjectFileLoadError": {
       "Title": "O projeto não pôde ser caregado",
       "Description": "Um erro ocorreu ao carregar {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Falha ao desfazer",
+      "Description": "Não foi possível desfazer a ação {{action}}. O histórico foi preservado. Consulte os registos para mais informações."
     }
   },
   "Startup": {

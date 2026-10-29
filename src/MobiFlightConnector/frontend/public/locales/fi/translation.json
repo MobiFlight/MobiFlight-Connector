@@ -346,6 +346,10 @@
     "ProjectFileLoadError": {
       "Title": "Projektin lataaminen epäonnistui",
       "Description": "Virhe avattaessa tiedostoa {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Kumoaminen epäonnistui",
+      "Description": "Toiminnon {{action}} kumoaminen epäonnistui. Historia säilytettiin. Katso lisätietoja lokista."
     }
   },
   "Startup": {

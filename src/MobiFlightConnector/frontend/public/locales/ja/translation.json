@@ -346,6 +346,10 @@
     "ProjectFileLoadError": {
       "Title": "プロジェクトを読み込めませんでした",
       "Description": "{{fileName}} の読み込み中にエラーが発生しました - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "復元失敗",
+      "Description": "操作「{{action}}」を元に戻せませんでした。履歴は保持されています。詳しくはログを確認してください。"
     }
   },
   "Startup": {

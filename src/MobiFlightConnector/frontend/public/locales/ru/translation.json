@@ -346,6 +346,10 @@
     "ProjectFileLoadError": {
       "Title": "Не удалось загрузить проект",
       "Description": "Произошла ошибка при загрузке {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Не удалось отменить действие",
+      "Description": "Не удалось отменить действие {{action}}. История сохранена. Подробности см. в журнале."
     }
   },
   "Startup": {
