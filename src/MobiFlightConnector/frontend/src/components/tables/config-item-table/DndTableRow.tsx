@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { useSortable } from "@dnd-kit/sortable"
 import React, { CSSProperties } from "react"
 import { CSS } from "@dnd-kit/utilities"
-import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
+import { useConfigItemDragVisualContext } from "@/lib/hooks/useConfigItemDragContext"
 
 interface DndTableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   "dnd-itemid": string
@@ -12,7 +12,7 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
   className,
   ...props
 }) => {
-  const { dragState } = useConfigItemDragContext()
+  const { draggedItemIds, isInsideTable } = useConfigItemDragVisualContext()
 
   const { setNodeRef, transform, transition, active, listeners } = useSortable({
     id: props["dnd-itemid"],
@@ -25,18 +25,15 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
     zIndex: 1000,
   }
 
-  const isDragging =
-    dragState?.items?.draggedItems
-      ?.map((item) => item.GUID)
-      .includes(props["dnd-itemid"]) ?? false
+  const isDragging = draggedItemIds.has(props["dnd-itemid"])
   const isActive = active?.id === props["dnd-itemid"]
-  const isInTable = dragState?.ui.isInsideTable ?? true
   const dragStyle = isDragging
     ? isActive
       ? "opacity-0"
       : "opacity-0 collapse"
     : ""
-  const outsideTableStyle = !isInTable && isDragging ? "opacity-0 collapse" : ""
+  const outsideTableStyle =
+    !isInsideTable && isDragging ? "opacity-0 collapse" : ""
 
   return (
     <tr

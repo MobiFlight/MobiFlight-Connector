@@ -111,10 +111,28 @@ export function ConfigItemTable<TValue>({
   const previousData = useRef(data)
   const lastAction = useRef<"add" | "duplicate" | null>(null)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
+  const nameEditActions = useRef(new Map<string, () => void>())
 
-  const handleDuplicate = () => {
+  const handleDuplicate = useCallback(() => {
     lastAction.current = "duplicate"
-  }
+  }, [])
+  const registerNameEdit = useCallback(
+    (itemId: string, editFn: (() => void) | null) => {
+      if (editFn) {
+        nameEditActions.current.set(itemId, editFn)
+      } else {
+        nameEditActions.current.delete(itemId)
+      }
+    },
+    [],
+  )
+  const startNameEdit = useCallback((itemId: string) => {
+    nameEditActions.current.get(itemId)?.()
+  }, [])
+  const contextValue = useMemo(
+    () => ({ onDuplicate: handleDuplicate, registerNameEdit, startNameEdit }),
+    [handleDuplicate, registerNameEdit, startNameEdit],
+  )
   const { setTable, setTableContainerRef, dragState } =
     useConfigItemDragContext()
   // Register this table with the drag context
@@ -312,7 +330,7 @@ export function ConfigItemTable<TValue>({
   ])
 
   return (
-    <ConfigItemTableContext.Provider value={{ onDuplicate: handleDuplicate }}>
+    <ConfigItemTableContext.Provider value={contextValue}>
       <div
         className="flex grow flex-col gap-2 overflow-y-auto px-2"
         data-testid="config-item-table"
