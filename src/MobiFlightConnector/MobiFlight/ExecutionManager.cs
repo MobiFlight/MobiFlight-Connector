@@ -427,19 +427,30 @@ namespace MobiFlight
         }
 
         private Project _project = new Project();
+
+        private void Project_ProjectChanged(object sender, EventArgs e)
+        {
+            OnProjectChanged?.Invoke(this, Project);
+        }
+
         public Project Project
         {
             get { return _project; }
+
             set
             {
-                if (_project == value) return;
+                if (ReferenceEquals(_project, value))
+                    return;
+
                 ClearConfigListUndoHistory();
+
+                // Unsubscribe from the previous project.
+                _project.ProjectChanged -= Project_ProjectChanged;
+
                 _project = value;
 
-                _project.ProjectChanged += (s, e) =>
-                {
-                    OnProjectChanged?.Invoke(this, Project);
-                };
+                // Subscribe to the new project.
+                _project.ProjectChanged += Project_ProjectChanged;
 
                 OnProjectChanged?.Invoke(this, Project);
             }
@@ -471,6 +482,9 @@ namespace MobiFlight
             FSUIPCCacheInterface fsuipcCache,
             ProSimCacheInterface proSimCache)
         {
+            // Register the initial project's change notifications.
+            _project.ProjectChanged += Project_ProjectChanged;
+
             this.xplaneCache = xplaneCache;
             this.simConnectCache = simConnectCache;
             this.fsuipcCache = fsuipcCache;

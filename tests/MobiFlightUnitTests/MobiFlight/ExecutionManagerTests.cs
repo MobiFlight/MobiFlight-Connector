@@ -32,6 +32,61 @@ namespace MobiFlight.Tests
         private Mock<IMessagePublisher> _mockMessagePublisher;
         private Action<string> _OnMessageReceivedCallback;
 
+        private List<T> GetPublishedMessages<T>()
+            where T : class
+        {
+            return _mockMessagePublisher.Invocations
+                .Where(invocation => invocation.Method.Name == "Publish")
+                .Select(invocation => invocation.Arguments[0])
+                .OfType<T>()
+                .ToList();
+        }
+
+        private void AssertRejectedUndoPreservesHistory(string expectedAction, Action assertProjectUnchanged)
+        {
+            var statesBefore = GetPublishedMessages<ConfigListUndoState>();
+
+            Assert.IsNotEmpty(statesBefore);
+
+            var historyBefore = statesBefore.Last();
+
+            Assert.IsTrue(historyBefore.CanUndo);
+            Assert.IsNotEmpty(historyBefore.History);
+            Assert.AreEqual(expectedAction, historyBefore.History.Last());
+
+            var notificationsBefore = GetPublishedMessages<Notification>()
+                .Count(notification => notification.Event == "ConfigListUndoFailed");
+
+            MessageExchange.Instance.Publish(new CommandUndoConfigList {Steps = 1});
+            assertProjectUnchanged();
+
+            var statesAfter = GetPublishedMessages<ConfigListUndoState>();
+
+            Assert.HasCount(statesBefore.Count, statesAfter, "A rejected Undo must not publish a changed history state.");
+
+            var historyAfter = statesAfter.Last();
+
+            Assert.IsTrue(historyAfter.CanUndo);
+
+            CollectionAssert.AreEqual(historyBefore.History, historyAfter.History);
+
+            Assert.AreEqual(historyBefore.HistoryStart, historyAfter.HistoryStart);
+
+            var notificationsAfter = GetPublishedMessages<Notification>()
+                .Where(notification => notification.Event == "ConfigListUndoFailed")
+                .ToList();
+
+            Assert.HasCount(notificationsBefore + 1, notificationsAfter);
+
+            var lastNotification = notificationsAfter.Last();
+
+            Assert.AreEqual(expectedAction, lastNotification.Context["Action"]);
+
+            Assert.IsTrue(lastNotification.Context.ContainsKey("Reason"));
+
+            Assert.IsFalse(string.IsNullOrWhiteSpace(lastNotification.Context["Reason"]));
+        }
+
         [TestInitialize]
         public void Setup()
         {
@@ -1219,12 +1274,8 @@ namespace MobiFlight.Tests
             // update expected log message for version #2
             expectedLogMessage = $"{Controller.Name} => Executing \"{newConfig.Name}\". ({inputEventArgs.GetEventActionLabel()})";
 
-            // Use reflection to get the private method
-            var handleUpdateMethodInfo = typeof(ExecutionManager).GetMethod("HandleCommandUpdateConfigItem",
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-
-            // Act
-            handleUpdateMethodInfo.Invoke(_executionManager, new object[] { newConfig });
+            // Apply the updated configuration
+            _executionManager.HandleCommandUpdateConfigItem(newConfig);
 
             // Trigger the input event again to see if the updated config item is effective
             methodInfo.Invoke(_executionManager, new object[] { _mockXplaneCache.Object, inputEventArgs });
@@ -1423,10 +1474,7 @@ namespace MobiFlight.Tests
 
             // Assert
             // The failed Undo must not alter the project.
-            Assert.HasCount(
-                0,
-                project.ConfigFiles[0].ConfigItems
-            );
+            Assert.HasCount(0, project.ConfigFiles[0].ConfigItems);
 
             // The previous History must still exist.
             var lastUndoState = _mockMessagePublisher.Invocations
@@ -1438,9 +1486,338 @@ namespace MobiFlight.Tests
 
             Assert.IsTrue(lastUndoState.CanUndo);
             Assert.HasCount(1, lastUndoState.History);
-            Assert.AreEqual(
-                "Toggle",
-                lastUndoState.History[0]
+            Assert.AreEqual("Toggle", lastUndoState.History[0]);
+        }
+
+        [TestMethod]
+        public void UndoDelete_ConflictingGuid_PreservesHistory()
+        {
+            var original = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Original",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { original }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+            _executionManager.Project = project;
+
+            // Record a Delete operation.
+            MessageExchange.Instance.Publish(
+                new CommandConfigContextMenu
+                {
+                    Action = "delete",
+                    Item = original
+                }
+            );
+
+            Assert.HasCount(0, file.ConfigItems);
+
+            // Simulate an external change that reuses the deleted GUID.
+            var conflictingItem = new OutputConfigItem
+            {
+                GUID = original.GUID,
+                Name = "Conflicting Item",
+                Active = false
+            };
+
+            file.ConfigItems.Add(conflictingItem);
+
+            AssertRejectedUndoPreservesHistory("Delete", () =>
+                {
+                    Assert.HasCount(1, file.ConfigItems);
+                    Assert.AreSame(conflictingItem, file.ConfigItems[0]);
+                    Assert.AreEqual("Conflicting Item", file.ConfigItems[0].Name);
+                }
+            );
+        }
+
+        [TestMethod]
+        public void UndoBulkDelete_ConflictingGuid_PreservesHistory()
+        {
+            var itemA = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item A",
+                Active = true
+            };
+
+            var itemB = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item B",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { itemA, itemB }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+            _executionManager.Project = project;
+
+            MessageExchange.Instance.Publish(
+                new CommandConfigBulkAction
+                {
+                    Action = "delete",
+                    Items = new List<ConfigItem>
+                    {
+                        itemA,
+                        itemB
+                    }
+                }
+            );
+
+            Assert.HasCount(0, file.ConfigItems);
+
+            // Create a conflict with only one deleted item.
+            var conflictingItem = new OutputConfigItem
+            {
+                GUID = itemB.GUID,
+                Name = "External Item",
+                Active = true
+            };
+
+            file.ConfigItems.Add(conflictingItem);
+
+            AssertRejectedUndoPreservesHistory("BulkDelete", () =>
+                {
+                    // Neither item should be restored.
+                    Assert.HasCount(1, file.ConfigItems);
+
+                    Assert.AreSame(conflictingItem, file.ConfigItems[0]);
+
+                    Assert.IsFalse(file.ConfigItems.Any(item => item.GUID == itemA.GUID));
+                }
+            );
+        }
+
+        [TestMethod]
+        public void UndoAdd_MissingItem_PreservesHistory()
+        {
+            var file = new ConfigFile();
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+            _executionManager.Project = project;
+
+            MessageExchange.Instance.Publish(
+                new CommandAddConfigItem
+                {
+                    Type = "InputConfig",
+                    Name = "New Input"
+                }
+            );
+
+            Assert.HasCount(1, file.ConfigItems);
+
+            // Simulate an external removal of the added item.
+            file.ConfigItems.Clear();
+
+            AssertRejectedUndoPreservesHistory("Add", () =>
+                {
+                    Assert.HasCount(0, file.ConfigItems);
+                }
+            );
+        }
+
+        [TestMethod]
+        public void UndoDuplicate_MissingItem_PreservesHistory()
+        {
+            var original = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Original",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { original }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+            _executionManager.Project = project;
+
+            MessageExchange.Instance.Publish(
+                new CommandConfigContextMenu
+                {
+                    Action = "duplicate",
+                    Item = original
+                }
+            );
+
+            Assert.HasCount(2, file.ConfigItems);
+
+            var duplicated = file.ConfigItems.Single(
+                item => item.GUID != original.GUID
+            );
+
+            // Simulate an external removal of the duplicated item.
+            file.ConfigItems.Remove(duplicated);
+
+            AssertRejectedUndoPreservesHistory("Duplicate", () =>
+                {
+                    Assert.HasCount(1, file.ConfigItems);
+
+                    // The original item must remain untouched.
+                    Assert.AreSame(original, file.ConfigItems[0]);
+                }
+            );
+        }
+
+        [TestMethod]
+        public void UndoResort_TargetProfileChanged_PreservesHistory()
+        {
+            var itemA = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item A"
+            };
+
+            var itemB = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item B"
+            };
+
+            var itemC = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item C"
+            };
+
+            var sourceFile = new ConfigFile
+            {
+                Label = "Source",
+                ConfigItems = { itemA, itemB }
+            };
+
+            var targetFile = new ConfigFile
+            {
+                Label = "Target",
+                ConfigItems = { itemC }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(sourceFile);
+            project.ConfigFiles.Add(targetFile);
+
+            _executionManager.Project = project;
+
+            // Move Item A to the target profile.
+            MessageExchange.Instance.Publish(
+                new CommandResortConfigItem
+                {
+                    Items = new[] {new OutputConfigItem {GUID = itemA.GUID}},
+                    SourceFileIndex = 0,
+                    TargetFileIndex = 1,
+                    NewIndex = 0
+                }
+            );
+
+            Assert.HasCount(1, sourceFile.ConfigItems);
+            Assert.HasCount(2, targetFile.ConfigItems);
+
+            // Simulate an unexpected replacement of the target profile.
+            var replacementFile = new ConfigFile
+            {
+                Label = "Replacement"
+            };
+
+            project.ConfigFiles[1] = replacementFile;
+
+            AssertRejectedUndoPreservesHistory("Resort", () =>
+                {
+                    Assert.AreSame(replacementFile, project.ConfigFiles[1]);
+
+                    Assert.HasCount(1, sourceFile.ConfigItems);
+                    Assert.HasCount(0, replacementFile.ConfigItems);
+
+                    // The failed Undo must not modify the original
+                    // target object either.
+                    Assert.HasCount(2, targetFile.ConfigItems);
+
+                    Assert.AreEqual(itemA.GUID, targetFile.ConfigItems[0].GUID);
+                }
+            );
+        }
+
+        [TestMethod]
+        public void UndoResort_GuidSetChanged_PreservesHistory()
+        {
+            var itemA = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item A"
+            };
+
+            var itemB = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item B"
+            };
+
+            var itemC = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Item C"
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { itemA, itemB, itemC }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+            _executionManager.Project = project;
+
+            // Move Item B before Item A.
+            MessageExchange.Instance.Publish(
+                new CommandResortConfigItem
+                {
+                    Items = new[] {new OutputConfigItem {GUID = itemB.GUID}},
+                    SourceFileIndex = 0,
+                    TargetFileIndex = 0,
+                    NewIndex = 0
+                }
+            );
+
+            CollectionAssert.AreEqual(
+                new[] { itemB.GUID, itemA.GUID, itemC.GUID },
+                file.ConfigItems.Select(item => item.GUID).ToArray()
+            );
+
+            // Simulate an unexpected external addition.
+            var unexpectedItem = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Unexpected"
+            };
+
+            file.ConfigItems.Add(unexpectedItem);
+
+            var orderBeforeUndo = file.ConfigItems.Select(item => item.GUID).ToArray();
+
+            AssertRejectedUndoPreservesHistory("Resort", () =>
+                {
+                    var orderAfterUndo = file.ConfigItems.Select(item => item.GUID).ToArray();
+
+                    // Failed Undo must not reorder any items.
+                    CollectionAssert.AreEqual(orderBeforeUndo, orderAfterUndo);
+
+                    Assert.HasCount(4, file.ConfigItems);
+                }
             );
         }
     }

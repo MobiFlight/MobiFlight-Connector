@@ -201,13 +201,37 @@ namespace MobiFlight.UI.Tests
         {
             // Arrange
             _mainForm.InitializeExecutionManager();
-            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
+
+            Assert.IsFalse(
+                _mainForm.ProjectHasUnsavedChanges
+            );
+
+            var revisionField = typeof(MainForm).GetField(
+                "_projectChangeRevision",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+
+            Assert.IsNotNull(revisionField);
+
+            long revisionBefore =
+                (long)revisionField.GetValue(_mainForm);
 
             // Act
             _mainForm.AddNewFileToProject("New profile");
 
             // Assert
-            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
+            Assert.IsTrue(
+                _mainForm.ProjectHasUnsavedChanges,
+                "Adding a profile should mark the project as dirty."
+            );
+
+            long revisionAfter = (long)revisionField.GetValue(_mainForm);
+
+            Assert.AreEqual(
+                revisionBefore + 1,
+                revisionAfter,
+                "Adding a profile should generate exactly one project change."
+            );
         }
 
         [TestMethod()]
