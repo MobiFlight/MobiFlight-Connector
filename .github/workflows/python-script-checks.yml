@@ -35,4 +35,6 @@ jobs:
           pip install pylint gql websockets simconnect
 
       - name: Run linter on the Scripts folder
-        run: pylint src/MobiFlightConnector/Scripts --disable=all --enable=F,E
+        run: >
+          pylint src/MobiFlightConnector/Scripts --disable=all --enable=F,E
+          --init-hook="import sys, glob; sys.path.extend(glob.glob('src/MobiFlightConnector/Scripts/*/'))"
