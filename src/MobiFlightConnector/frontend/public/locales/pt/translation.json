@@ -44,6 +44,10 @@
       "RecentProjects.None": "Nenhum projeto",
       "Exit": "Sair"
     },
+    "Edit": {
+      "Label": "Editar",
+      "Undo": "Desfazer"
+    },
     "View": {
       "Label": "Visualizar",
       "Zoom": {
@@ -319,6 +323,20 @@
         "Description": "Sua configuração não corresponde aos filtros atuais e por isso não aparece na lista.",
         "Action": "Redefinir filtros"
       }
+    },
+    "History": {
+      "Add": "Adicionado",
+      "Duplicate": "Duplicado",
+      "Delete": "Excluído",
+      "BulkDelete": "Excluído",
+      "Toggle": "Estado de ativação alterado",
+      "Resort": "Movido",
+      "ProfileAdded": "Perfil adicionado",
+      "ProfileRename": "Perfil renomeado",
+      "ProfileDeleted": "Perfil excluído",
+      "ItemRename": "Configuração renomeada",
+      "ProfileMerged": "Perfis mesclados",
+      "ItemEdited": "Configuração editada"
     }
   },
   "Notifications": {
@@ -349,7 +367,8 @@
     },
     "ConfigListUndoFailed": {
       "Title": "Falha ao desfazer",
-      "Description": "Não foi possível desfazer a ação {{action}}. O histórico foi preservado. Consulte os registos para mais informações."
+      "Description": "Não foi possível desfazer a ação {{action}}. O histórico foi preservado. Consulte os registos para mais informações.",
+      "UnknownAction": "Ação desconhecida"
     }
   },
   "Startup": {

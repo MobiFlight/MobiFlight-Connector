@@ -44,6 +44,10 @@
       "RecentProjects.None": "No hay proyectos",
       "Exit": "Salir"
     },
+    "Edit": {
+      "Label": "Editar",
+      "Undo": "Deshacer"
+    },
     "View": {
       "Label": "Ver",
       "Zoom": {
@@ -325,6 +329,20 @@
         "Description": "Tu configuración no coincide con los filtros actuales, por lo que no es visible en la lista.",
         "Action": "Restablecer filtros"
       }
+    },
+    "History": {
+      "Add": "Añadido",
+      "Duplicate": "Duplicado",
+      "Delete": "Eliminado",
+      "BulkDelete": "Eliminado",
+      "Toggle": "Estado de activación cambiado",
+      "Resort": "Movido",
+      "ProfileAdded": "Perfil añadido",
+      "ProfileRename": "Perfil renombrado",
+      "ProfileDeleted": "Perfil eliminado",
+      "ItemRename": "Configuración renombrada",
+      "ProfileMerged": "Perfiles fusionados",
+      "ItemEdited": "Configuración editada"
     }
   },
   "Notifications": {
@@ -355,7 +373,8 @@
     },
     "ConfigListUndoFailed": {
       "Title": "No se pudo deshacer la acción",
-      "Description": "No se pudo deshacer la acción {{action}}. Se ha conservado el historial. Consulta los registros para obtener más información."
+      "Description": "No se pudo deshacer la acción {{action}}. Se ha conservado el historial. Consulta los registros para obtener más información.",
+      "UnknownAction": "Acción desconocida"
     }
   },
   "Startup": {

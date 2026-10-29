@@ -109,17 +109,19 @@ export const ToastNotificationHandler = () => {
       }
 
       case "ConfigListUndoFailed": {
-        const action = notification.Context?.Action ?? "Unknown"
+        const actionType = notification.Context?.Action
+
+        const action = actionType
+          ? t(`ConfigList.History.${actionType}`, {
+              defaultValue: actionType,
+            })
+          : t("Notifications.ConfigListUndoFailed.UnknownAction")
 
         toast({
           id: "config-list-undo-failed",
-          title: t("Notifications.ConfigListUndoFailed.Title", {
-            defaultValue: "Undo failed",
-          }),
+          title: t("Notifications.ConfigListUndoFailed.Title"),
           description: t("Notifications.ConfigListUndoFailed.Description", {
             action,
-            defaultValue:
-              "Could not undo {{action}}. The history has been preserved. See the logs for details.",
           }),
         })
 

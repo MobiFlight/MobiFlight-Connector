@@ -44,6 +44,10 @@
       "RecentProjects.None": "プロジェクトがありません",
       "Exit": "終了"
     },
+    "Edit": {
+      "Label": "編集",
+      "Undo": "元に戻す"
+    },
     "View": {
       "Label": "表示",
       "Zoom": {
@@ -319,6 +323,20 @@
         "Description": "現在のフィルター設定に一致しないため、この設定は一覧に表示されていません。",
         "Action": "フィルターをリセット"
       }
+    },
+    "History": {
+      "Add": "追加",
+      "Duplicate": "複製",
+      "Delete": "削除",
+      "BulkDelete": "削除",
+      "Toggle": "有効・無効の切り替え",
+      "Resort": "移動",
+      "ProfileAdded": "プロファイル追加",
+      "ProfileRename": "プロファイル名変更",
+      "ProfileDeleted": "プロファイル削除",
+      "ItemRename": "設定名変更",
+      "ProfileMerged": "プロファイル統合",
+      "ItemEdited": "設定編集"
     }
   },
   "Notifications": {
@@ -349,7 +367,8 @@
     },
     "ConfigListUndoFailed": {
       "Title": "復元失敗",
-      "Description": "操作「{{action}}」を元に戻せませんでした。履歴は保持されています。詳しくはログを確認してください。"
+      "Description": "操作「{{action}}」を元に戻せませんでした。履歴は保持されています。詳しくはログを確認してください。",
+      "UnknownAction": "不明な操作"
     }
   },
   "Startup": {

@@ -44,6 +44,10 @@
       "RecentProjects.None": "Ei projekteja",
       "Exit": "Lopeta"
     },
+    "Edit": {
+      "Label": "Muokkaa",
+      "Undo": "Kumoa"
+    },
     "View": {
       "Label": "Näytä",
       "Zoom": {
@@ -319,6 +323,20 @@
         "Description": "Määrityksesi ei vastaa nykyisiä suodatinasetuksia, joten se ei näy luettelossa.",
         "Action": "Nollaa suodattimet"
       }
+    },
+    "History": {
+      "Add": "Lisätty",
+      "Duplicate": "Monistettu",
+      "Delete": "Poistettu",
+      "BulkDelete": "Poistettu",
+      "Toggle": "Aktiivisuustila vaihdettu",
+      "Resort": "Siirretty",
+      "ProfileAdded": "Profiili lisätty",
+      "ProfileRename": "Profiili nimetty uudelleen",
+      "ProfileDeleted": "Profiili poistettu",
+      "ItemRename": "Määritys nimetty uudelleen",
+      "ProfileMerged": "Profiilit yhdistetty",
+      "ItemEdited": "Määritystä muokattu"
     }
   },
   "Notifications": {
@@ -349,7 +367,8 @@
     },
     "ConfigListUndoFailed": {
       "Title": "Kumoaminen epäonnistui",
-      "Description": "Toiminnon {{action}} kumoaminen epäonnistui. Historia säilytettiin. Katso lisätietoja lokista."
+      "Description": "Toiminnon {{action}} kumoaminen epäonnistui. Historia säilytettiin. Katso lisätietoja lokista.",
+      "UnknownAction": "Tuntematon toiminto"
     }
   },
   "Startup": {

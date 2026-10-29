@@ -323,6 +323,20 @@
         "Description": "Your config doesn't match the current filter settings so it is not visible in the list.",
         "Action": "Reset filters"
       }
+    },
+    "History": {
+      "Add": "Added",
+      "Duplicate": "Duplicated",
+      "Delete": "Deleted",
+      "BulkDelete": "Deleted",
+      "Toggle": "Toggled",
+      "Resort": "Moved",
+      "ProfileAdded": "Profile added",
+      "ProfileRename": "Profile renamed",
+      "ProfileDeleted": "Profile deleted",
+      "ItemRename": "Item renamed",
+      "ProfileMerged": "Profiles merged",
+      "ItemEdited": "Config edited"
     }
   },
   "Notifications": {
@@ -353,7 +367,8 @@
     },
     "ConfigListUndoFailed": {
       "Title": "Undo failed",
-      "Description": "Could not undo {{action}}. The history has been preserved. See the logs for details."
+      "Description": "Could not undo {{action}}. The history has been preserved. See the logs for details.",
+      "UnknownAction": "Unknown action"
     }
   },
   "Startup": {
