@@ -50,14 +50,14 @@ namespace MobiFlight.Execution
             inputCache.Clear();
         }
 
-        public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
+        public Dictionary<string, IConfigItem> Execute(InputEventArgs inputEvent, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
-            string inputKey = CreateInputKey(e);
+            string inputKey = CreateInputKey(inputEvent);
 
             if (!inputCache.ContainsKey(inputKey))
             {
-                inputCache[inputKey] = GetMatchingInputConfigs(e);
+                inputCache[inputKey] = GetMatchingInputConfigs(inputEvent);
             }
 
             if (inputCache[inputKey].Count == 0)
@@ -69,6 +69,7 @@ namespace MobiFlight.Execution
 
             foreach (var cfg in inputCache[inputKey])
             {
+                var e = inputEvent.CloneWithLabel() as InputEventArgs;
                 // A HOLD/REPEAT/LONG_RELEASE only applies to a config whose own delay produced it.
                 if (cfg.button != null && !cfg.button.MatchesSyntheticDelay(e))
                 {
