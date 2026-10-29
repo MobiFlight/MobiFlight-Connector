@@ -22,6 +22,21 @@ test.describe("Config List Global Undo", () => {
     return historyPanel
   }
 
+  const renameInputConfigDraft = async (page: Page, newName: string) => {
+    const nameContainer = page.getByTestId("dialog-config-name")
+
+    await nameContainer.getByRole("button").dblclick()
+
+    const nameInput = nameContainer.getByRole("textbox")
+
+    await nameInput.fill(newName)
+    await nameInput.press("Enter")
+
+    await expect(
+      nameContainer.getByText(newName, { exact: true }),
+    ).toBeVisible()
+  }
+
   test("History state enables Undo and supports multi-step navigation", async ({
     configListPage,
     page,
@@ -234,5 +249,370 @@ test.describe("Config List Global Undo", () => {
         exact: true,
       }),
     ).toBeVisible()
+  })
+
+  test("Applying a local edit preserves previous Global Undo history", async ({
+    configListPage,
+    page,
+  }) => {
+    const backend = configListPage.mobiFlightPage
+
+    const originalName = "MSFS Input Action"
+    const editedName = "Edited Input Config"
+
+    // Initialize project and backend mocks.
+    await configListPage.gotoPage()
+    await backend.initWithTestData("inputaction")
+    await configListPage.setupConfigItemEditConfirmationResponse()
+
+    await backend.trackCommand("CommandConfigContextMenu")
+    await backend.trackCommand("CommandUpdateConfigItem")
+    await backend.trackCommand("CommandUndoConfigList")
+
+    const controls = page.getByTestId("config-list-history-controls")
+
+    const globalUndoButton = controls.getByTestId("config-list-undo-button")
+
+    const firstRow = await configListPage.getConfigItemRow(1)
+    const toggleSwitch = firstRow.getByRole("switch")
+
+    await expect(toggleSwitch).toBeChecked()
+    await expect(globalUndoButton).toBeDisabled()
+
+    // Toggle the ConfigItem.
+    await toggleSwitch.click()
+
+    await expect(toggleSwitch).not.toBeChecked()
+
+    await expect
+      .poll(async () => {
+        const commands = await backend.getTrackedCommands()
+
+        return (
+          commands?.filter(
+            (command) =>
+              command.key === "CommandConfigContextMenu" &&
+              command.payload.action === "toggle",
+          ).length ?? 0
+        )
+      })
+      .toBe(1)
+
+    // Simulate the backend recording the Toggle.
+    await backend.publishMessage({
+      key: "ConfigListUndoState",
+      payload: {
+        CanUndo: true,
+        History: ["Toggle"],
+        HistoryStart: 0,
+      },
+    })
+
+    await expect(globalUndoButton).toBeEnabled()
+
+    // Open the local editor and change the name.
+    await configListPage.clickEditButtonForRow(1)
+
+    await renameInputConfigDraft(page, editedName)
+
+    const localUndoButton = page.getByTestId("config-undo-button")
+
+    await expect(localUndoButton).toBeEnabled()
+
+    // Local editing must not commit anything yet.
+    const commandsBeforeApply = await backend.getTrackedCommands()
+
+    expect(
+      commandsBeforeApply?.filter(
+        (command) => command.key === "CommandUpdateConfigItem",
+      ),
+    ).toHaveLength(0)
+
+    // The previously recorded Global Undo remains available.
+    await expect(globalUndoButton).toBeEnabled()
+
+    // Apply the local changes.
+    await page.getByRole("button", { name: "Apply changes" }).click()
+
+    await expect(page.getByTestId("inputconfigwizard-dialog")).not.toBeVisible()
+
+    // Verify that Apply sends one committed ConfigItem.
+    await expect
+      .poll(async () => {
+        const commands = await backend.getTrackedCommands()
+
+        return (
+          commands?.filter(
+            (command) => command.key === "CommandUpdateConfigItem",
+          ).length ?? 0
+        )
+      })
+      .toBe(1)
+
+    const commandsAfterApply = await backend.getTrackedCommands()
+
+    const updateCommand = commandsAfterApply?.find(
+      (command) => command.key === "CommandUpdateConfigItem",
+    )
+
+    expect(updateCommand?.payload.item.Name).toBe(editedName)
+
+    // Existing Global History must not disappear on Apply.
+    await expect(globalUndoButton).toBeEnabled()
+
+    // Simulate the backend recording the committed edit
+    // as one ItemEdited action.
+    await backend.publishMessage({
+      key: "ConfigListUndoState",
+      payload: {
+        CanUndo: true,
+        History: ["Toggle", "ItemEdited"],
+        HistoryStart: 0,
+      },
+    })
+
+    // Verify Global History contains both actions.
+    const historyPanel = await openGlobalHistory(page, controls)
+
+    await expect(
+      historyPanel.getByText("Toggled", { exact: true }),
+    ).toBeVisible()
+
+    await expect(
+      historyPanel.getByText("Config edited", {
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      historyPanel.getByTestId("config-list-history-entry"),
+    ).toHaveCount(2)
+
+    // Close the dropdown before clicking Undo.
+    await page.keyboard.press("Escape")
+
+    await expect(historyPanel).not.toBeVisible()
+
+    // Undo the committed ItemEdited operation.
+    // Click the left side to avoid the History arrow.
+    await globalUndoButton.click({
+      position: { x: 8, y: 12 },
+    })
+
+    await expect
+      .poll(async () => {
+        const commands = await backend.getTrackedCommands()
+
+        return (
+          commands?.filter((command) => command.key === "CommandUndoConfigList")
+            .length ?? 0
+        )
+      })
+      .toBe(1)
+
+    const undoCommands = (await backend.getTrackedCommands())?.filter(
+      (command) => command.key === "CommandUndoConfigList",
+    )
+
+    expect(undoCommands?.[0]).toMatchObject({
+      key: "CommandUndoConfigList",
+      payload: {
+        steps: 1,
+      },
+    })
+
+    // Simulate the backend restoring the original item.
+    const testProject = await backend.getTestProjectData("inputaction")
+
+    const restoredItems = testProject.ConfigFiles[0].ConfigItems.map(
+      (item, index) =>
+        index === 0
+          ? {
+              ...item,
+              Active: false,
+            }
+          : item,
+    )
+
+    await configListPage.configValueFullUpdate(
+      restoredItems as import("../src/types").IConfigItem[],
+    )
+
+    await backend.publishMessage({
+      key: "ConfigListUndoState",
+      payload: {
+        CanUndo: true,
+        History: ["Toggle"],
+        HistoryStart: 0,
+      },
+    })
+
+    // The name is restored, but the earlier Toggle remains.
+    await expect(
+      page.getByRole("cell", {
+        name: originalName,
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      (await configListPage.getConfigItemRow(1)).getByRole("switch"),
+    ).not.toBeChecked()
+
+    await expect(globalUndoButton).toBeEnabled()
+
+    const remainingHistory = await openGlobalHistory(page, controls)
+
+    await expect(
+      remainingHistory.getByText("Toggled", {
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      remainingHistory.getByText("Config edited", {
+        exact: true,
+      }),
+    ).toHaveCount(0)
+  })
+
+  test("Canceling local edits keeps the existing Global Undo history", async ({
+    configListPage,
+    page,
+  }) => {
+    const backend = configListPage.mobiFlightPage
+
+    const originalName = "MSFS Input Action"
+    const editedName = "Unsaved Input Config"
+
+    // Initialize project and backend mocks.
+    await configListPage.gotoPage()
+    await backend.initWithTestData("inputaction")
+    await configListPage.setupConfigItemEditConfirmationResponse()
+
+    await backend.trackCommand("CommandConfigContextMenu")
+    await backend.trackCommand("CommandUpdateConfigItem")
+    await backend.trackCommand("CommandUndoConfigList")
+
+    const controls = page.getByTestId("config-list-history-controls")
+
+    const globalUndoButton = controls.getByTestId("config-list-undo-button")
+
+    const firstRow = await configListPage.getConfigItemRow(1)
+    const toggleSwitch = firstRow.getByRole("switch")
+
+    // Toggle an existing ConfigItem.
+    await expect(toggleSwitch).toBeChecked()
+
+    await toggleSwitch.click()
+
+    await expect(toggleSwitch).not.toBeChecked()
+
+    await backend.publishMessage({
+      key: "ConfigListUndoState",
+      payload: {
+        CanUndo: true,
+        History: ["Toggle"],
+        HistoryStart: 0,
+      },
+    })
+
+    await expect(globalUndoButton).toBeEnabled()
+
+    // Open editor and create a local change.
+    await configListPage.clickEditButtonForRow(1)
+
+    await renameInputConfigDraft(page, editedName)
+
+    const localUndoButton = page.getByTestId("config-undo-button")
+
+    await expect(localUndoButton).toBeEnabled()
+
+    // Cancel instead of Apply.
+    await page
+      .getByTestId("inputconfigwizard-dialog-footer")
+      .getByRole("button", { name: "Cancel", exact: true })
+      .click()
+
+    await expect(page.getByTestId("inputconfigwizard-dialog")).not.toBeVisible()
+
+    // No committed edit should have been sent to the backend.
+    const commands = await backend.getTrackedCommands()
+
+    expect(
+      commands?.filter((command) => command.key === "CommandUpdateConfigItem"),
+    ).toHaveLength(0)
+
+    // The original name must remain unchanged.
+    await expect(
+      page.getByRole("cell", {
+        name: originalName,
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      page.getByRole("cell", {
+        name: editedName,
+        exact: true,
+      }),
+    ).toHaveCount(0)
+
+    // The Toggle state must remain unchanged.
+    await expect(
+      (await configListPage.getConfigItemRow(1)).getByRole("switch"),
+    ).not.toBeChecked()
+
+    // Verify existing Global History is preserved.
+    await expect(globalUndoButton).toBeEnabled()
+
+    const historyPanel = await openGlobalHistory(page, controls)
+
+    await expect(
+      historyPanel.getByText("Toggled", {
+        exact: true,
+      }),
+    ).toBeVisible()
+
+    await expect(
+      historyPanel.getByTestId("config-list-history-entry"),
+    ).toHaveCount(1)
+
+    await expect(
+      historyPanel.getByText("Config edited", {
+        exact: true,
+      }),
+    ).toHaveCount(0)
+
+    // Global Undo must still be available.
+    await page.keyboard.press("Escape")
+
+    await expect(historyPanel).not.toBeVisible()
+
+    await globalUndoButton.click({
+      position: { x: 8, y: 12 },
+    })
+
+    await expect
+      .poll(async () => {
+        const commands = await backend.getTrackedCommands()
+
+        return (
+          commands?.filter((command) => command.key === "CommandUndoConfigList")
+            .length ?? 0
+        )
+      })
+      .toBe(1)
+
+    const undoCommands = (await backend.getTrackedCommands())?.filter(
+      (command) => command.key === "CommandUndoConfigList",
+    )
+
+    expect(undoCommands?.[0]).toMatchObject({
+      key: "CommandUndoConfigList",
+      payload: {
+        steps: 1,
+      },
+    })
   })
 })
