@@ -72,13 +72,13 @@ namespace MobiFlight.Joysticks.WinCtrl
             return deviceTypes;
         }
 
-        public override void SetLcdDisplay(string address, string value)
+        protected override void OnSetLcdDisplay(string address, string value)
         {
             // Check for value change is done in display control
             DisplayControl.SetDisplay(address, value);
         }
 
-        public override void SetOutputDeviceState(string name, byte state)
+        protected override void OnSetOutputDeviceState(string name, byte state)
         {
             // Check for value change is done in display control
             DisplayControl.SetLed(name, state);
@@ -104,7 +104,7 @@ namespace MobiFlight.Joysticks.WinCtrl
             // do nothing, data is directly send in SetOutputDeviceState
         }
 
-        public override void Stop()
+        protected override void OnStop()
         {
             DisplayControl.Stop();
         }
