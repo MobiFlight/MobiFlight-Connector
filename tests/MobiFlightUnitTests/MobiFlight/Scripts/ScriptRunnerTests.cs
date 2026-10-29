@@ -16,10 +16,10 @@ namespace MobiFlight.Scripts.Tests
         {
             var result = ScriptRunner.ResolveHardwareIds(new[] { WINCTRL_VENDOR_ID }).ToList();
 
-            Assert.AreEqual(WinCtrlConstants.CDU_PRODUCTIDS.Length, result.Count);
+            Assert.HasCount(WinCtrlConstants.CDU_PRODUCTIDS.Length, result);
             foreach (var productId in WinCtrlConstants.CDU_PRODUCTIDS)
             {
-                Assert.IsTrue(result.Any(id => id.VendorId == WINCTRL_VENDOR_ID && id.ProductId == productId.ToString("X")),
+                Assert.Contains(id => id.VendorId == WINCTRL_VENDOR_ID && id.ProductId == productId.ToString("X"), result,
                     $"Expected product ID {productId:X} for vendor {WINCTRL_VENDOR_ID} to be present.");
             }
         }
@@ -29,10 +29,10 @@ namespace MobiFlight.Scripts.Tests
         {
             var result = ScriptRunner.ResolveHardwareIds(new[] { MOZA_VENDOR_ID }).ToList();
 
-            Assert.AreEqual(MozaHardwareIds.McduProductIds.Length, result.Count);
+            Assert.HasCount(MozaHardwareIds.McduProductIds.Length, result);
             foreach (var productId in MozaHardwareIds.McduProductIds)
             {
-                Assert.IsTrue(result.Any(id => id.VendorId == MOZA_VENDOR_ID && id.ProductId == productId.ToString("X")),
+                Assert.Contains(id => id.VendorId == MOZA_VENDOR_ID && id.ProductId == productId.ToString("X"), result,
                     $"Expected product ID {productId:X} for vendor {MOZA_VENDOR_ID} to be present.");
             }
         }
@@ -42,9 +42,9 @@ namespace MobiFlight.Scripts.Tests
         {
             var result = ScriptRunner.ResolveHardwareIds(new[] { WINCTRL_VENDOR_ID, MOZA_VENDOR_ID }).ToList();
 
-            Assert.AreEqual(WinCtrlConstants.CDU_PRODUCTIDS.Length + MozaHardwareIds.McduProductIds.Length, result.Count);
-            Assert.IsTrue(result.Any(id => id.VendorId == WINCTRL_VENDOR_ID));
-            Assert.IsTrue(result.Any(id => id.VendorId == MOZA_VENDOR_ID));
+            Assert.HasCount(WinCtrlConstants.CDU_PRODUCTIDS.Length + MozaHardwareIds.McduProductIds.Length, result);
+            Assert.Contains(id => id.VendorId == WINCTRL_VENDOR_ID, result);
+            Assert.Contains(id => id.VendorId == MOZA_VENDOR_ID, result);
         }
 
         [TestMethod()]
@@ -52,7 +52,7 @@ namespace MobiFlight.Scripts.Tests
         {
             var result = ScriptRunner.ResolveHardwareIds(new[] { UNKNOWN_VENDOR_ID }).ToList();
 
-            Assert.AreEqual(0, result.Count);
+            Assert.IsEmpty(result);
         }
 
         [TestMethod()]
@@ -60,7 +60,7 @@ namespace MobiFlight.Scripts.Tests
         {
             var result = ScriptRunner.ResolveHardwareIds(new[] { "not-hex", WINCTRL_VENDOR_ID }).ToList();
 
-            Assert.AreEqual(WinCtrlConstants.CDU_PRODUCTIDS.Length, result.Count);
+            Assert.HasCount(WinCtrlConstants.CDU_PRODUCTIDS.Length, result);
             Assert.IsTrue(result.All(id => id.VendorId == WINCTRL_VENDOR_ID));
         }
 
@@ -69,7 +69,7 @@ namespace MobiFlight.Scripts.Tests
         {
             var result = ScriptRunner.ResolveHardwareIds(new string[0]).ToList();
 
-            Assert.AreEqual(0, result.Count);
+            Assert.IsEmpty(result);
         }
 
         [TestMethod()]
@@ -108,7 +108,7 @@ namespace MobiFlight.Scripts.Tests
                 .Select(id => ScriptRunner.GetHardwareId(id.VendorId, id.ProductId))
                 .ToList();
 
-            Assert.IsTrue(resolvedHardwareIds.Contains(expectedHardwareId));
+            Assert.Contains(expectedHardwareId, resolvedHardwareIds);
         }
 
         [TestMethod()]
@@ -125,7 +125,7 @@ namespace MobiFlight.Scripts.Tests
             var definitions = JsonConvert.DeserializeObject<ScriptMappings>(json);
 
             CollectionAssert.AreEqual(new[] { WINCTRL_VENDOR_ID, MOZA_VENDOR_ID }, definitions.VendorIds);
-            Assert.AreEqual(2, definitions.Mappings.Count);
+            Assert.HasCount(2, definitions.Mappings);
             Assert.AreEqual("pmdg_737_winwing_cdu.py", definitions.Mappings[0].ScriptName);
             Assert.AreEqual("pmdg 777", definitions.Mappings[1].AircraftMatchPattern);
         }
