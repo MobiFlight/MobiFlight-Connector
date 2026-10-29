@@ -69,7 +69,7 @@ namespace MobiFlight.Execution
 
             foreach (var cfg in inputCache[inputKey])
             {
-                var e = inputEvent.CloneWithLabel() as InputEventArgs;
+                var e = inputEvent.CloneWithLabel();
                 // A HOLD/REPEAT/LONG_RELEASE only applies to a config whose own delay produced it.
                 if (cfg.button != null && !cfg.button.MatchesSyntheticDelay(e))
                 {
