@@ -147,7 +147,7 @@ namespace MobiFlight
         bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
-            : this(handle, new XplaneCache(), new SimConnectCache(), new Fsuipc2Cache(), new ProSimCache())
+            : this(handle, new XplaneAggregateCache(), new SimConnectCache(), new Fsuipc2Cache(), new ProSimCache())
         {
         }
 
@@ -1588,7 +1588,7 @@ namespace MobiFlight
             return xplaneCache;
         }
 
-        public ProSim.ProSimCacheInterface GetProSimCache()
+        public ProSimCacheInterface GetProSimCache()
         {
             return proSimCache;
         }
@@ -1620,13 +1620,6 @@ namespace MobiFlight
             _proSimConnectionAttempts = 0;
             _proSimConnectionDisabled = false;
             Log.Instance.log("ProSim connection retry state reset.", LogSeverity.Debug);
-        }
-
-        public void ConnectToProSim()
-        {
-            ResetProSimConnectionState();
-            Log.Instance.log("Manual ProSim connection attempt.", LogSeverity.Info);
-            proSimCache.Connect();
         }
     }
 }

@@ -1555,7 +1555,7 @@ namespace MobiFlight.UI
             {
                 UpdateSimConnectStatusIcon();
             }
-            else if (sender.GetType() == typeof(XplaneCache))
+            else if (sender is XplaneCacheInterface)
             {
                 UpdateXplaneDirectConnectStatusIcon();
             }
@@ -1687,10 +1687,10 @@ namespace MobiFlight.UI
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.SIMCONNECT.ToString());
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod]}].", LogSeverity.Info);
             }
-            else if (sender.GetType() == typeof(XplaneCache) && FlightSim.FlightSimType == FlightSimType.XPLANE)
+            else if (sender is XplaneCacheInterface && FlightSim.FlightSimType == FlightSimType.XPLANE)
             {
                 SimProcessDetectedToolStripMenuItem.Text = "X-Plane Detected";
-                if ((sender as XplaneCache).IsConnected())
+                if ((sender as XplaneCacheInterface).IsConnected())
                 {
                     UpdateXplaneDirectConnectStatusIcon();
                     xPlaneDirectToolStripMenuItem.Text = FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString();
@@ -1776,7 +1776,7 @@ namespace MobiFlight.UI
                 ShowConnectionLost("SimConnect", i18n._tr("uiMessageSimConnectConnectionLost"));
                 UpdateSimConnectStatusIcon();
             }
-            else if (sender.GetType() == typeof(XplaneCache))
+            else if (sender is XplaneCacheInterface)
             {
                 ShowConnectionLost("X-Plane", i18n._tr("uiMessageXplaneConnectionLost"));
                 UpdateXplaneDirectConnectStatusIcon();
