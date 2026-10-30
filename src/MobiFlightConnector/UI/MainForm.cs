@@ -1212,6 +1212,7 @@ namespace MobiFlight.UI
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
                 if (moduleInfo.Type == "Ignored") continue;
+                if (moduleInfo.Type == MobiFlightModule.TYPE_BUSYPORT) continue;
 
                 if (moduleInfo.FirmwareInstallPossible())
                 {

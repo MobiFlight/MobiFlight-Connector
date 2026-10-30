@@ -8,12 +8,17 @@ When MobiFlight detects a WinCTRL CDU device, it reads the name of the currently
 
 ```json
 {
-  "VendorId": "0x4098",
-  "ProductIds": [ "WinwingCDUs" ],
-  "AircraftMatchPattern": "pmdg 737",
-  "ScriptName": "pmdg_737_winwing_cdu.py"
+  "VendorIds": [ "0x4098", "0x346E" ],
+  "Mappings": [
+    {
+      "AircraftMatchPattern": "pmdg 737",
+      "ScriptName": "pmdg_737_winwing_cdu.py"
+    }
+  ]
 }
 ```
+
+The top-level `VendorIds` lists which vendors' CDU hardware is supported, shared by every mapping. At runtime, each vendor ID expands to that vendor's known CDU product IDs (WinCTRL or MOZA), so individual mappings don't need to list vendor or product IDs themselves — just the aircraft match pattern and script name.
 
  The current aircraft string is checked against `AircraftMatchPattern`, and if a match is found, the corresponding script will be run. The matching pattern can contain plain substrings and regular expressions.
  - On MSFS, the `MatchPattern` is compared with the path component of the current aircraft's `aircraft.cfg`
