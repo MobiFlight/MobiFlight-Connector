@@ -55,6 +55,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
 
             PortValueLabel.Text = module.Port;
+            if (module.Type == MobiFlightModule.TYPE_BUSYPORT)
+            {
+                PortValueLabel.Text = $"{module.Port} (busy)";
+            }
 
             groupBoxDetails.Visible = false;
 

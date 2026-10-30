@@ -1,7 +1,7 @@
 ﻿using CommandMessenger;
-using CommandMessenger.Transport.Serial;
 using MobiFlight.Base;
 using MobiFlight.Firmware;
+using MobiFlight.Transport;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace MobiFlight
 {
-    public class MobiFlightModule : IModule, IOutputModule
+    public class MobiFlightModule : IOutputModule
     {
         // This is the list of recognized commands. These can be commands that can either be sent or received. 
         // In order to receive, attach a callback function to these events
@@ -55,6 +55,7 @@ namespace MobiFlight
         };
 
         public const string TYPE_COMPATIBLE = "Compatible";
+        public const string TYPE_BUSYPORT = "Busy";
         public const string TYPE_UNKNOWN = "Unknown";
         public static string SerialPrefix = "SN-";
 
@@ -232,6 +233,13 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
 
+        // true while the board may show values that Stop() has to clear;
+        // starts true because a fresh board may still show stale data
+        private bool _outputsDirty = true;
+
+        // last power save mode sent to the board, false means unknown or off
+        private bool _powerSaveActive = false;
+
         public Board Board { get; set; }
 
         public MobiFlightModule(String port, Board board)
@@ -260,24 +268,31 @@ namespace MobiFlight
             return clone;
         }
 
-        public void Connect()
+        public ConnectResult Connect()
         {
             if (this.Connected)
             {
                 Log.Instance.log($"Already connected to {Name} at {_comPort} of type {Board}.", LogSeverity.Debug);
-                return;
+                return ConnectResult.Connected;
             }
 
             try
             {
                 // Create Serial Port object
                 int baudRate = 115200;
-                //baudRate = 57600;
                 _transportLayer = new SerialTransport()
-                //_transportLayer = new SerialPortManager
                 {
-                    //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
+                };
+
+                _transportLayer.ConnectionFailed += (sender, args) =>
+                {
+                    var transport = sender as SerialTransport;
+                    var message = args.Item1;
+                    var exception = args.Item2;
+
+                    Log.Instance.log($"{_comPort}: Connection failed. Status: {transport.Status} -> {message}", LogSeverity.Error);
+                    Log.Instance.log($"{_comPort}: Exception message: {exception?.Message}", LogSeverity.Debug);
                 };
 
                 Log.Instance.log($"Connecting to {_comPort} - Baud rate: {baudRate}, DtrEnable: {Board.Connection.DtrEnable}", LogSeverity.Debug);
@@ -287,26 +302,37 @@ namespace MobiFlight
                 // Attach the callbacks to the Command Messenger
                 AttachCommandCallBacks();
 
-                // Start listening    
-                var status = _cmdMessenger.Connect();
-                Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
-                //this.Connected = status;
-                this.connected = true;
+                // Start listening
+                var success = _cmdMessenger.Connect();
+
+                if (!success)
+                {
+                    // Error message is already logged in SerialTransport.Connect() and ConnectionFailed event handler.
+                    connected = false;
+                    return _transportLayer.Status == Status.PortBusy ? ConnectResult.PortBusy : ConnectResult.NotResponding;
+                }
+
+                Log.Instance.log($"Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
+                connected = true;
+
+                _outputsDirty = true;
+                _powerSaveActive = false;
 
                 // this sleep helps during initialization
                 // without this line modules did not connect properly
                 if (Board.Connection.ConnectionDelay > 0)
                 {
-                    System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
+                    Thread.Sleep(Board.Connection.ConnectionDelay);
                 }
+
+                return ConnectResult.Connected;
             }
             catch (Exception ex)
             {
+                connected = false;
                 Log.Instance.log($"Error connecting to device: {ex.Message}", LogSeverity.Error);
+                return ConnectResult.NotResponding;
             }
-            // if (!this.Connected) return;
-            // ResetBoard();
-            // LoadConfig();
         }
 
         public void ResetBoard()
@@ -756,6 +782,7 @@ namespace MobiFlight
 
             if (!outputs.ContainsKey(pin)) return false;
 
+            _outputsDirty = true;
             outputs[pin].Set(value);
 
             return true;
@@ -763,12 +790,14 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value, bool reverse)
         {
+            _outputsDirty = true;
             ledModules[name].Display(module, value, points, mask, reverse);
             return true;
         }
 
         public bool SetDisplayBrightness(string name, int module, string value)
         {
+            _outputsDirty = true;
             ledModules[name].SetBrightness(module, value);
             return true;
         }
@@ -788,6 +817,7 @@ namespace MobiFlight
                 iLastValue = value;
             }
 
+            _outputsDirty = true;
             servoModules[servoAddress].Min = min;
             servoModules[servoAddress].Max = max;
             servoModules[servoAddress].MaxRotationPercent = maxRotationPercent;
@@ -811,6 +841,7 @@ namespace MobiFlight
                 iLastValue = value;
             }
 
+            _outputsDirty = true;
             if (inputRevolutionSteps > -1)
             {
                 stepperModules[stepper].InputRevolutionSteps = inputRevolutionSteps;
@@ -824,6 +855,7 @@ namespace MobiFlight
         public bool ResetStepper(string stepper)
         {
             String key = "STEPPER_" + stepper;
+            _outputsDirty = true;
             stepperModules[stepper].Reset();
             lastValue[key] = stepperModules[stepper].Position().ToString();
             return true;
@@ -839,6 +871,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
+            _outputsDirty = true;
             lcdDisplays[address].Display(value);
             return true;
         }
@@ -869,6 +902,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
+            _outputsDirty = true;
             shiftRegisters[moduleID].Display(outputPin, value);
 
             return true;
@@ -884,6 +918,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
+            _outputsDirty = true;
             customDevices[deviceName].Display(messageType, value);
             return true;
         }
@@ -1290,14 +1325,20 @@ namespace MobiFlight
         // false turns power save off.
         public virtual void SetPowerSaveMode(bool mode)
         {
-            Log.Instance.log($"Setting power save for {this.Name} ({this.Port}) to {mode}", LogSeverity.Debug);
-
             // Guard against null CmdMessenger (e.g., before Connect() is called)
             if (_cmdMessenger == null)
             {
                 Log.Instance.log("CmdMessenger not initialized, skipping SetPowerSaveMode command.", LogSeverity.Debug);
                 return;
             }
+
+            // Turning it off is also the keep-awake heartbeat, so only a repeated "on" is skipped
+            var isRepeatedPowerSaveOn = mode && _powerSaveActive;
+            if (isRepeatedPowerSaveOn) return;
+
+            _powerSaveActive = mode;
+
+            Log.Instance.log($"Setting power save for {this.Name} ({this.Port}) to {mode}", LogSeverity.Debug);
 
             // Send the power save wakeup command. No timeout is used so this will still work with older firmware
             // that doesn't respond to the SetPowerSavingMode command.
@@ -1338,6 +1379,10 @@ namespace MobiFlight
             // we have to make sure to not send messages
             // when we are not connected
             if (!this.connected) return;
+
+            // avoid flooding the board with stop commands when nothing was sent since the last stop
+            if (!_outputsDirty) return;
+            _outputsDirty = false;
 
             GetConnectedDevices().ForEach(device =>
             {
