@@ -845,11 +845,12 @@
         "ConfigReferenceRemoved": "Удалено",
         "ConfigReferenceEnabled": "Включено",
         "ConfigReferenceDisabled": "Выключено",
-        "ConfigReferenceChanged": "Отредактировано",
+        "ConfigReferenceChanged": "Изменено",
         "ActionTypeChanged": "Тип действия изменён",
         "ActionCodeChanged": "Код изменён",
         "ActionChanged": "Действие изменено",
-        "ActionPresetChanged": "Пресет изменён"
+        "ActionPresetChanged": "Пресет изменён",
+        "ActionExpressionChanged": "Выражение изменено"
       }
     },
     "UnsavedChanges": {

@@ -11,7 +11,7 @@ import { Card, CardContent } from "@/components/ui/card"
 export type VariablePanelProps = {
   variant: "summary" | "details"
   currentVariable?: MobiFlightVariable
-  onVariableChange: (variable: MobiFlightVariable) => void
+  onVariableChange: (variable: MobiFlightVariable, actionLabel?: string) => void
 }
 
 const defaultVariable: MobiFlightVariable = {
@@ -162,10 +162,15 @@ export const VariablePanel = ({
                     e.stopPropagation()
                   }}
                   onChange={(e) =>
-                    onVariableChange({
-                      ...variable,
-                      Expression: e.target.value,
-                    } as MobiFlightVariable)
+                    onVariableChange(
+                      {
+                        ...variable,
+                        Expression: e.target.value,
+                      } as MobiFlightVariable,
+                      t(
+                        "Dialog.InputConfigWizard.History.ActionExpressionChanged",
+                      ),
+                    )
                   }
                   placeholder={t(
                     "Dialog.InputConfigWizard.InputActions.Variable.ExpressionPlaceholder",

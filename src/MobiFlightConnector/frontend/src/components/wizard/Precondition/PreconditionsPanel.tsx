@@ -11,7 +11,10 @@ import { useTranslation } from "react-i18next"
 
 export type PreconditionsPanelProps = {
   preconditions: Precondition[] // Replace with actual type of preconditions
-  onPreconditionsChange?: (updatedPreconditions: Precondition[]) => void
+  onPreconditionsChange?: (
+    updatedPreconditions: Precondition[],
+    actionLabel?: string,
+  ) => void
   variant: "summary" | "details"
   openDetailsPanel: () => void
 }

@@ -845,11 +845,12 @@
         "ConfigReferenceRemoved": "Poistettu",
         "ConfigReferenceEnabled": "Otettu käyttöön",
         "ConfigReferenceDisabled": "Poistettu käytöstä",
-        "ConfigReferenceChanged": "Muokattu",
+        "ConfigReferenceChanged": "Muutettu",
         "ActionTypeChanged": "Toiminnon tyyppi muutettu",
         "ActionCodeChanged": "Koodi muutettu",
         "ActionChanged": "Toimintoa muutettu",
-        "ActionPresetChanged": "Esiasetus muutettu"
+        "ActionPresetChanged": "Esiasetus muutettu",
+        "ActionExpressionChanged": "Lauseke muutettu"
       }
     },
     "UnsavedChanges": {

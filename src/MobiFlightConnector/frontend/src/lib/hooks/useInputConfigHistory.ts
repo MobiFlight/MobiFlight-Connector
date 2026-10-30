@@ -1,6 +1,9 @@
-import { Action, IConfigItem } from "@/types/config"
+import { IConfigItem } from "@/types/config"
 import _ from "lodash"
-import { useRef, useState, type FocusEvent, type KeyboardEvent } from "react"
+import { useState, type KeyboardEvent } from "react"
+import useTextEditSession, {
+  isTextEditingTarget,
+} from "@/lib/hooks/useTextEditSession"
 import { useTranslation } from "react-i18next"
 
 const MAX_UNDO_STEPS = 50
@@ -27,26 +30,15 @@ type EditorState = {
   drawerSession: DrawerSession | null
 }
 
-const isTextEditingTarget = (target: EventTarget | null): boolean => {
-  if (!(target instanceof HTMLElement)) return false
-
-  if (target.closest('[contenteditable="true"]')) return true
-
-  if (target instanceof HTMLTextAreaElement) return true
-
-  return (
-    target instanceof HTMLInputElement &&
-    ["text", "search", "number", "email", "password", "tel", "url"].includes(
-      target.type,
-    )
-  )
-}
-
 const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
   const { t } = useTranslation()
 
-  const nextTextEditIdRef = useRef(0)
-  const activeTextEditIdRef = useRef<number | null>(null)
+  const {
+    getCurrentTextEditId,
+    resetTextEditSession,
+    handleFocusCapture,
+    handleBlurCapture,
+  } = useTextEditSession()
 
   const [editorState, setEditorState] = useState<EditorState>(() => ({
     draftConfigItem: configItem ? structuredClone(configItem) : undefined,
@@ -65,234 +57,14 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     ? editorState.drawerSession.cursor > 0
     : editorState.cursor > 0
 
-  const describeConfigChange = (
-    previous: IConfigItem,
-    next: IConfigItem,
-  ): string => {
-    const base = "Dialog.InputConfigWizard.History"
-
-    if (previous.Name !== next.Name) {
-      return t(`${base}.NameChanged`, { name: next.Name })
-    }
-
-    if (!_.isEqual(previous.Preconditions, next.Preconditions)) {
-      const before = previous.Preconditions ?? []
-      const after = next.Preconditions ?? []
-
-      if (after.length > before.length) {
-        return t(`${base}.PreconditionAdded`)
-      }
-
-      if (after.length < before.length) {
-        return t(`${base}.PreconditionRemoved`)
-      }
-
-      const changedIndex = after.findIndex(
-        (item, index) => !_.isEqual(item, before[index]),
-      )
-
-      if (changedIndex !== -1) {
-        const oldPrecondition = before[changedIndex]
-        const newPrecondition = after[changedIndex]
-
-        if (
-          oldPrecondition &&
-          oldPrecondition.Active !== newPrecondition.Active &&
-          _.isEqual(
-            { ...oldPrecondition, Active: newPrecondition.Active },
-            newPrecondition,
-          )
-        ) {
-          return t(
-            newPrecondition.Active
-              ? `${base}.PreconditionEnabled`
-              : `${base}.PreconditionDisabled`,
-          )
-        }
-      }
-
-      return t(`${base}.PreconditionChanged`)
-    }
-
-    if (!_.isEqual(previous.Modifiers, next.Modifiers)) {
-      const before = previous.Modifiers?.Items ?? []
-      const after = next.Modifiers?.Items ?? []
-
-      if (after.length > before.length) {
-        const added =
-          after.find(
-            (modifier) =>
-              modifier.Id && !before.some((item) => item.Id === modifier.Id),
-          ) ?? after[after.length - 1]
-
-        return t(`${base}.ModifierAdded`, {
-          type: added?.Type ?? "",
-        })
-      }
-
-      if (after.length < before.length) {
-        const removed =
-          before.find(
-            (modifier) =>
-              modifier.Id && !after.some((item) => item.Id === modifier.Id),
-          ) ?? before[before.length - 1]
-
-        return t(`${base}.ModifierRemoved`, {
-          type: removed?.Type ?? "",
-        })
-      }
-
-      const changedIndex = after.findIndex(
-        (item, index) => !_.isEqual(item, before[index]),
-      )
-
-      if (changedIndex !== -1) {
-        const oldModifier = before[changedIndex]
-        const modifier = after[changedIndex]
-        const type = modifier.Type
-
-        if (oldModifier.Active !== modifier.Active) {
-          return t(
-            modifier.Active
-              ? `${base}.ModifierEnabled`
-              : `${base}.ModifierDisabled`,
-            { type },
-          )
-        }
-
-        if (
-          oldModifier.Type === "Transformation" &&
-          modifier.Type === "Transformation" &&
-          oldModifier.Expression !== modifier.Expression
-        ) {
-          return t(`${base}.ModifierExpressionChanged`, { type })
-        }
-
-        return t(`${base}.ModifierChanged`, { type })
-      }
-
-      return t(`${base}.ConfigurationChanged`)
-    }
-
-    if (!_.isEqual(previous.ConfigRefs, next.ConfigRefs)) {
-      const before = previous.ConfigRefs ?? []
-      const after = next.ConfigRefs ?? []
-
-      if (after.length > before.length) {
-        return t(`${base}.ConfigReferenceAdded`)
-      }
-
-      if (after.length < before.length) {
-        return t(`${base}.ConfigReferenceRemoved`)
-      }
-
-      const changedIndex = after.findIndex(
-        (item, index) => !_.isEqual(item, before[index]),
-      )
-
-      if (changedIndex !== -1) {
-        const oldReference = before[changedIndex]
-        const newReference = after[changedIndex]
-
-        if (oldReference.Active !== newReference.Active) {
-          return t(
-            newReference.Active
-              ? `${base}.ConfigReferenceEnabled`
-              : `${base}.ConfigReferenceDisabled`,
-          )
-        }
-      }
-
-      return t(`${base}.ConfigReferenceChanged`)
-    }
-
-    const actionChanges: {
-      event: string
-      before: Action | null | undefined
-      after: Action | null | undefined
-    }[] = [
-      {
-        event: t("Dialog.InputConfigWizard.button.Event.onPress.label"),
-        before: previous.button?.onPress,
-        after: next.button?.onPress,
-      },
-      {
-        event: t("Dialog.InputConfigWizard.button.Event.onRelease.label"),
-        before: previous.button?.onRelease,
-        after: next.button?.onRelease,
-      },
-      {
-        event: t("Dialog.InputConfigWizard.button.Event.onHold.label"),
-        before: previous.button?.onHold,
-        after: next.button?.onHold,
-      },
-      {
-        event: t("Dialog.InputConfigWizard.button.Event.onLongRelease.label"),
-        before: previous.button?.onLongRelease,
-        after: next.button?.onLongRelease,
-      },
-      {
-        event: t("Dialog.InputConfigWizard.encoder.Event.onLeft.label"),
-        before: previous.encoder?.onLeft,
-        after: next.encoder?.onLeft,
-      },
-      {
-        event: t("Dialog.InputConfigWizard.encoder.Event.onRight.label"),
-        before: previous.encoder?.onRight,
-        after: next.encoder?.onRight,
-      },
-      {
-        event: t("Dialog.InputConfigWizard.analog.Event.onChange.label"),
-        before: previous.analog?.onChange,
-        after: next.analog?.onChange,
-      },
-    ]
-
-    for (const change of actionChanges) {
-      if (_.isEqual(change.before, change.after)) continue
-
-      const actionLabel = (key: string) => t(`${base}.${key}`)
-
-      if (change.before?.Type !== change.after?.Type) {
-        return actionLabel("ActionTypeChanged")
-      }
-
-      if (
-        change.before?.Type === "MSFS2020CustomInputAction" &&
-        change.after?.Type === "MSFS2020CustomInputAction" &&
-        _.get(change.before, "PresetId") !== _.get(change.after, "PresetId")
-      ) {
-        return actionLabel("ActionPresetChanged")
-      }
-
-      if (_.get(change.before, "Command") !== _.get(change.after, "Command")) {
-        return actionLabel("ActionCodeChanged")
-      }
-
-      return actionLabel("ActionChanged")
-    }
-
-    if (
-      !_.isEqual(previous.button, next.button) ||
-      !_.isEqual(previous.encoder, next.encoder) ||
-      !_.isEqual(previous.analog, next.analog) ||
-      !_.isEqual(previous.Device, next.Device) ||
-      !_.isEqual(previous.Controller, next.Controller)
-    ) {
-      return t(`${base}.TriggerChanged`)
-    }
-
-    return t(`${base}.ConfigurationChanged`)
-  }
-
   const recordHistoryChange = (
     history: HistoryEntry[],
     cursor: number,
     historyStart: number,
-    current: IConfigItem,
     next: IConfigItem,
     textEditId: number | null,
     lastTextEditId: number | null,
+    actionLabel?: string,
   ) => {
     const updatedHistory = history.slice(0, cursor + 1)
     const snapshot = structuredClone(next)
@@ -304,16 +76,18 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
       updatedHistory.length > 1
 
     if (sameTextEdit) {
-      const original = updatedHistory[updatedHistory.length - 2].snapshot
+      const lastEntry = updatedHistory[updatedHistory.length - 1]
 
       updatedHistory[updatedHistory.length - 1] = {
         snapshot,
-        action: describeConfigChange(original, snapshot),
+        action: actionLabel ?? lastEntry.action,
       }
     } else {
       updatedHistory.push({
         snapshot,
-        action: describeConfigChange(current, snapshot),
+        action:
+          actionLabel ??
+          t("Dialog.InputConfigWizard.History.ConfigurationChanged"),
       })
     }
 
@@ -329,8 +103,11 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     }
   }
 
-  const updateDraftConfigItem = (nextConfigItem: IConfigItem) => {
-    const textEditId = activeTextEditIdRef.current
+  const updateDraftConfigItem = (
+    nextConfigItem: IConfigItem,
+    actionLabel?: string,
+  ) => {
+    const textEditId = getCurrentTextEditId()
 
     setEditorState((previous) => {
       const current = previous.draftConfigItem
@@ -347,10 +124,10 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
           session.history,
           session.cursor,
           session.historyStart,
-          current,
           snapshot,
           textEditId,
           previous.lastTextEditId,
+          actionLabel,
         )
 
         return {
@@ -368,10 +145,10 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
         previous.history,
         previous.cursor,
         previous.historyStart,
-        current,
         snapshot,
         textEditId,
         previous.lastTextEditId,
+        actionLabel,
       )
 
       return {
@@ -384,7 +161,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
   }
 
   const beginDrawerSession = (view: string) => {
-    activeTextEditIdRef.current = null
+    resetTextEditSession()
 
     setEditorState((previous) => {
       if (!previous.draftConfigItem || previous.drawerSession) {
@@ -408,7 +185,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
   }
 
   const finishDrawerSession = () => {
-    activeTextEditIdRef.current = null
+    resetTextEditSession()
 
     setEditorState((previous) => {
       const session = previous.drawerSession
@@ -466,7 +243,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     index: number,
     scope: "wizard" | "drawer" = "wizard",
   ) => {
-    activeTextEditIdRef.current = null
+    resetTextEditSession()
 
     setEditorState((previous) => {
       if (scope === "drawer") {
@@ -544,19 +321,6 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     event.stopPropagation()
 
     undoConfigItemChange()
-  }
-
-  const handleFocusCapture = (event: FocusEvent<HTMLDivElement>) => {
-    if (isTextEditingTarget(event.target)) {
-      nextTextEditIdRef.current += 1
-      activeTextEditIdRef.current = nextTextEditIdRef.current
-    }
-  }
-
-  const handleBlurCapture = (event: FocusEvent<HTMLDivElement>) => {
-    if (isTextEditingTarget(event.target)) {
-      activeTextEditIdRef.current = null
-    }
   }
 
   return {

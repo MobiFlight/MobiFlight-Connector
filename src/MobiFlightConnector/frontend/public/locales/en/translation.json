@@ -844,7 +844,7 @@
         "ModifierEnabled": "Enabled",
         "ModifierDisabled": "Disabled",
         "ModifierExpressionChanged": "Expression changed",
-        "ModifierChanged": "Modifier changed",
+        "ModifierChanged": "Changed",
 
         "ConfigReferenceAdded": "Added",
         "ConfigReferenceRemoved": "Removed",
@@ -855,7 +855,8 @@
         "ActionTypeChanged": "Action type changed",
         "ActionCodeChanged": "Code changed",
         "ActionChanged": "Action changed",
-        "ActionPresetChanged": "Preset changed"
+        "ActionPresetChanged": "Preset changed",
+        "ActionExpressionChanged": "Expression changed"
       }
     },
     "UnsavedChanges": {

@@ -12,7 +12,12 @@ import {
   ButtonTrigger,
   EncoderTrigger,
 } from "@/types/config"
-import { IconEdit, IconInfoCircle, IconPlus, IconTrash } from "@tabler/icons-react"
+import {
+  IconEdit,
+  IconInfoCircle,
+  IconPlus,
+  IconTrash,
+} from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 export type ActionTrigger = ButtonTrigger | EncoderTrigger | AnalogTrigger
 export type ActionBindingPanelProps = {
@@ -27,7 +32,7 @@ export type ActionBindingPanelProps = {
         Partial<ButtonLongReleaseOptions>,
     ) => void,
   ) => void
-  onTriggerChange: (trigger: ActionTrigger) => void
+  onTriggerChange: (trigger: ActionTrigger, actionLabel?: string) => void
 }
 const eventActionMap = {
   button: ["onPress", "onRelease", "onHold", "onLongRelease"],
@@ -73,7 +78,10 @@ const ActionBindingPanel = ({
       ...current,
       [event]: null,
     }
-    onTriggerChange(updatedTrigger)
+    onTriggerChange(
+      updatedTrigger,
+      t("Dialog.InputConfigWizard.History.ActionTypeChanged"),
+    )
   }
 
   return (
@@ -91,7 +99,7 @@ const ActionBindingPanel = ({
           </div>
         </div>
         {variant === "none" && (
-          <div className="flex flex-row items-center gap-2 text-muted-foreground justify-center">
+          <div className="text-muted-foreground flex flex-row items-center justify-center gap-2">
             <IconInfoCircle className="text-primary" />
             <div className="text-muted-foreground text-sm">
               {t(`Dialog.InputConfigWizard.Action.NoTriggerDefined`)}

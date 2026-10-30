@@ -845,11 +845,12 @@
         "ConfigReferenceRemoved": "삭제",
         "ConfigReferenceEnabled": "활성화",
         "ConfigReferenceDisabled": "비활성화",
-        "ConfigReferenceChanged": "편집",
+        "ConfigReferenceChanged": "변경",
         "ActionTypeChanged": "동작 유형 변경",
         "ActionCodeChanged": "코드 변경",
         "ActionChanged": "동작 변경",
-        "ActionPresetChanged": "프리셋 변경"
+        "ActionPresetChanged": "프리셋 변경",
+        "ActionExpressionChanged": "표현식 변경"
       }
     },
     "UnsavedChanges": {

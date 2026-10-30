@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
-  onConfigChange: (configItem: IConfigItem) => void
+  onConfigChange: (configItem: IConfigItem, actionLabel?: string) => void
   drawerContainer?: RefObject<HTMLDivElement | null>
   liveData: {
     rawValue: string | null | undefined
@@ -106,37 +106,47 @@ const ConfigWizard = ({
   const handleActionChange = (
     action: Action | null,
     options?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>,
+    actionLabel?: string,
   ) => {
     if (event.variant === "button") {
-      onConfigChange({
-        ...configItem,
-        button: {
-          ...currentButtonTrigger,
-          [event.event]: action,
-          ...options,
-        } as ButtonTrigger,
-      })
+      onConfigChange(
+        {
+          ...configItem,
+          button: {
+            ...currentButtonTrigger,
+            [event.event]: action,
+            ...options,
+          } as ButtonTrigger,
+        },
+        actionLabel,
+      )
       return
     }
 
     if (event.variant === "encoder") {
-      onConfigChange({
-        ...configItem,
-        encoder: {
-          ...configItem.encoder,
-          [event.event]: action,
-        } as EncoderTrigger,
-      })
+      onConfigChange(
+        {
+          ...configItem,
+          encoder: {
+            ...configItem.encoder,
+            [event.event]: action,
+          } as EncoderTrigger,
+        },
+        actionLabel,
+      )
       return
     }
 
-    onConfigChange({
-      ...configItem,
-      analog: {
-        ...configItem.analog,
-        onChange: action ?? undefined,
-      } as AnalogTrigger,
-    })
+    onConfigChange(
+      {
+        ...configItem,
+        analog: {
+          ...configItem.analog,
+          onChange: action ?? undefined,
+        } as AnalogTrigger,
+      },
+      actionLabel,
+    )
   }
 
   const detailView = searchParams.get("detail")
@@ -168,9 +178,9 @@ const ConfigWizard = ({
     <div className="flex flex-col gap-4">
       <ConfigTrigger
         configItem={configItem}
-        setConfigItem={(item: IConfigItem) => {
+        setConfigItem={(item: IConfigItem, actionLabel?: string) => {
           // Update the configItem state here
-          onConfigChange(item)
+          onConfigChange(item, actionLabel)
         }}
       />
       <div className="flex flex-row items-center justify-center gap-2 px-6">
@@ -251,12 +261,16 @@ const ConfigWizard = ({
             configItem.inputMultiplexer ??
             configItem.inputShiftRegister
           }
-          onTriggerChange={(trigger) => {
+          onTriggerChange={(trigger, actionLabel) => {
             const updatedConfigItem = {
               ...configItem,
               button: trigger as ButtonTrigger,
             }
-            onConfigChange(updatedConfigItem)
+            onConfigChange(
+              updatedConfigItem,
+              actionLabel ??
+                t("Dialog.InputConfigWizard.History.TriggerChanged"),
+            )
           }}
         />
       )}
@@ -271,11 +285,15 @@ const ConfigWizard = ({
             navigateToDetailView("action")
           }}
           trigger={configItem.encoder}
-          onTriggerChange={(trigger) => {
-            onConfigChange({
-              ...configItem,
-              encoder: trigger as EncoderTrigger,
-            })
+          onTriggerChange={(trigger, actionLabel) => {
+            onConfigChange(
+              {
+                ...configItem,
+                encoder: trigger as EncoderTrigger,
+              },
+              actionLabel ??
+                t("Dialog.InputConfigWizard.History.TriggerChanged"),
+            )
           }}
         />
       )}
@@ -290,11 +308,15 @@ const ConfigWizard = ({
             navigateToDetailView("action")
           }}
           trigger={configItem.analog}
-          onTriggerChange={(trigger) => {
-            onConfigChange({
-              ...configItem,
-              analog: trigger as AnalogTrigger,
-            })
+          onTriggerChange={(trigger, actionLabel) => {
+            onConfigChange(
+              {
+                ...configItem,
+                analog: trigger as AnalogTrigger,
+              },
+              actionLabel ??
+                t("Dialog.InputConfigWizard.History.TriggerChanged"),
+            )
           }}
         />
       )}
@@ -330,11 +352,14 @@ const ConfigWizard = ({
             <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
                 <PreconditionsPanel
-                  onPreconditionsChange={(preconditions) => {
-                    onConfigChange({
-                      ...configItem,
-                      Preconditions: preconditions,
-                    })
+                  onPreconditionsChange={(preconditions, actionLabel) => {
+                    onConfigChange(
+                      {
+                        ...configItem,
+                        Preconditions: preconditions,
+                      },
+                      actionLabel,
+                    )
                   }}
                   preconditions={configItem.Preconditions ?? []}
                   variant="details"
@@ -343,11 +368,14 @@ const ConfigWizard = ({
               )}
               {detailView === "configReference" && (
                 <ConfigReferencePanel
-                  onConfigReferencesChange={(configReferences) => {
-                    onConfigChange({
-                      ...configItem,
-                      ConfigRefs: configReferences,
-                    })
+                  onConfigReferencesChange={(configReferences, actionLabel) => {
+                    onConfigChange(
+                      {
+                        ...configItem,
+                        ConfigRefs: configReferences,
+                      },
+                      actionLabel,
+                    )
                   }}
                   configReferences={configItem.ConfigRefs ?? []}
                   variant="details"

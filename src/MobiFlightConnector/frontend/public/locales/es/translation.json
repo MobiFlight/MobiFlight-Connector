@@ -851,11 +851,12 @@
         "ConfigReferenceRemoved": "Eliminado",
         "ConfigReferenceEnabled": "Activado",
         "ConfigReferenceDisabled": "Desactivado",
-        "ConfigReferenceChanged": "Editado",
+        "ConfigReferenceChanged": "Modificado",
         "ActionTypeChanged": "Tipo de acción modificado",
         "ActionCodeChanged": "Código modificado",
         "ActionChanged": "Acción modificada",
-        "ActionPresetChanged": "Preset modificado"
+        "ActionPresetChanged": "Preset modificado",
+        "ActionExpressionChanged": "Expresión modificada"
       }
     },
     "UnsavedChanges": {
