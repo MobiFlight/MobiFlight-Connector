@@ -44,6 +44,10 @@
       "RecentProjects.None": "프로젝트가 존재하지 않습니다",
       "Exit": "종료"
     },
+    "Edit": {
+      "Label": "편집",
+      "Undo": "실행 취소"
+    },
     "View": {
       "Label": "보기",
       "Zoom": {
@@ -319,6 +323,20 @@
         "Description": "현재 필터 설정과 일치하지 않아 설정이 목록에 표시되지 않습니다.",
         "Action": "필터 초기화"
       }
+    },
+    "History": {
+      "Add": "추가",
+      "Duplicate": "복제",
+      "Delete": "삭제",
+      "BulkDelete": "삭제",
+      "Toggle": "활성 상태 전환",
+      "Resort": "이동",
+      "ProfileAdded": "프로필 추가",
+      "ProfileRename": "프로필 이름 변경",
+      "ProfileDeleted": "프로필 삭제",
+      "ItemRename": "설정 이름 변경",
+      "ProfileMerged": "프로필 병합",
+      "ItemEdited": "설정 편집"
     }
   },
   "Notifications": {
@@ -346,6 +364,11 @@
     "ProjectFileLoadError": {
       "Title": "프로젝트를 불러올 수 없습니다",
       "Description": "{{fileName}}을(를) 불러오는 중 오류가 발생했습니다 - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "실행 취소 실패",
+      "Description": "{{action}} 작업을 실행 취소할 수 없습니다. 히스토리는 유지됩니다. 자세한 내용은 로그를 확인하세요.",
+      "UnknownAction": "알 수 없는 작업"
     }
   },
   "Startup": {
@@ -820,6 +843,36 @@
           "SelectPresetLabel": "프리셋 선택",
           "SelectPresetPlaceholder": "프리셋 선택..."
         }
+      },
+      "History": {
+        "Undo": "실행 취소",
+        "Title": "변경 기록",
+        "Original": "원래 설정",
+        "ConfigurationChanged": "설정 변경",
+        "Oldest": "가장 오래된 상태",
+        "Current": "현재 상태",
+        "NameChanged": "이름 변경",
+        "TriggerChanged": "트리거 변경",
+        "PreconditionAdded": "추가",
+        "PreconditionRemoved": "삭제",
+        "PreconditionChanged": "변경",
+        "PreconditionEnabled": "활성화",
+        "PreconditionDisabled": "비활성화",
+        "ModifierAdded": "추가",
+        "ModifierRemoved": "삭제",
+        "ModifierEnabled": "활성화",
+        "ModifierDisabled": "비활성화",
+        "ModifierExpressionChanged": "표현식 변경",
+        "ModifierChanged": "변경",
+        "ConfigReferenceAdded": "추가",
+        "ConfigReferenceRemoved": "삭제",
+        "ConfigReferenceEnabled": "활성화",
+        "ConfigReferenceDisabled": "비활성화",
+        "ConfigReferenceChanged": "편집",
+        "ActionTypeChanged": "동작 유형 변경",
+        "ActionCodeChanged": "코드 변경",
+        "ActionChanged": "동작 변경",
+        "ActionPresetChanged": "프리셋 변경"
       }
     },
     "UnsavedChanges": {

@@ -3,7 +3,7 @@ import {
   InlineEditLabelRef,
 } from "@/components/InlineEditLabel"
 import messageExchange from "@/lib/messageExchange"
-import { CommandUpdateConfigItem } from "@/types/commands"
+import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { Row } from "@tanstack/react-table"
 import { useRef, useEffect } from "react"
@@ -29,22 +29,22 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
     }
   }, [registerNameEdit])
 
-  const saveChanges = (label: string) => {
-    const updatedItem = { ...item, Name: label }
+  const saveChanges = (newName: string) => {
+    if (newName === item.Name) return
     publish({
-      key: "CommandUpdateConfigItem",
-      payload: { item: updatedItem },
-    } as CommandUpdateConfigItem)
+      key: "CommandConfigContextMenu",
+      payload: { action: "rename", item: { ...item, Name: newName } },
+    } as CommandConfigContextMenu)
   }
 
   return (
     <InlineEditLabel
-          ref={inlineEditRef}
-          labelClassName="max-w-full inline-block truncate group-[.is-first-drag-item]/row:hidden py-1"
-          inputClassName="py-0"
-          value={label}
-          onSave={saveChanges}
-        />
+      ref={inlineEditRef}
+      labelClassName="max-w-full inline-block truncate group-[.is-first-drag-item]/row:hidden py-1"
+      inputClassName="py-0"
+      value={label}
+      onSave={saveChanges}
+    />
   )
 }
 

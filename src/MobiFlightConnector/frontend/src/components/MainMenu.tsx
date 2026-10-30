@@ -30,11 +30,14 @@ import {
   IconSettings,
 } from "@tabler/icons-react"
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
+import { useLocation } from "react-router"
+import { useEffect } from "react"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
-  const { hasChanged } = useProjectStore()
+  const { hasChanged, canUndoConfigList } = useProjectStore()
+  const location = useLocation()
   const { publish } = messageExchange
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
@@ -54,6 +57,54 @@ export const MainMenu = () => {
       },
     })
   }
+
+  const canUndo = canUndoConfigList && location.pathname == "/config"
+
+  useEffect(() => {
+    if (!canUndo) return
+
+    const handleUndoShortcut = (event: KeyboardEvent) => {
+      if (
+        !(event.ctrlKey || event.metaKey) ||
+        event.altKey ||
+        event.shiftKey ||
+        event.key.toLowerCase() !== "z" ||
+        event.defaultPrevented ||
+        event.isComposing
+      ) {
+        return
+      }
+
+      const target = event.target
+
+      if (
+        target instanceof HTMLElement &&
+        target.closest(
+          'input, textarea, select, [contenteditable], [role="textbox"]',
+        )
+      ) {
+        return
+      }
+
+      if (document.querySelector('[role="dialog"]')) {
+        return
+      }
+
+      event.preventDefault()
+      event.stopPropagation()
+
+      publish({
+        key: "CommandUndoConfigList",
+        payload: {},
+      })
+    }
+
+    window.addEventListener("keydown", handleUndoShortcut, true)
+
+    return () => {
+      window.removeEventListener("keydown", handleUndoShortcut, true)
+    }
+  }, [canUndo, publish])
 
   return (
     <Menubar className="bg-muted/20 justify-between">
@@ -127,6 +178,25 @@ export const MainMenu = () => {
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>{t("MainMenu.Edit.Label")}</MenubarTrigger>
+
+          <MenubarContent>
+            <MenubarItem
+              disabled={!canUndo}
+              onSelect={() => {
+                publish({
+                  key: "CommandUndoConfigList",
+                  payload: {},
+                })
+              }}
+            >
+              {t("MainMenu.Edit.Undo")}
+              <MenubarShortcut>Ctrl+Z</MenubarShortcut>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+
         <MenubarMenu>
           <MenubarTrigger>{t("MainMenu.View.Label")}</MenubarTrigger>
           <MenubarContent>

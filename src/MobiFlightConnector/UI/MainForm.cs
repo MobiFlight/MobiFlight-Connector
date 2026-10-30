@@ -35,6 +35,7 @@ using MobiFlight.Base.Legacy;
 using MobiFlight.BrowserMessages.Incoming.Handler;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages.Outgoing;
+using System.Collections.ObjectModel;
 
 namespace MobiFlight.UI
 {
@@ -56,6 +57,12 @@ namespace MobiFlight.UI
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
         private MessageServer messageServer;
+
+        private long _projectChangeRevision = 0;
+
+        private long _listSeriesRevision = -1;
+        private int _listSeriesRemaining = 0;
+        private bool _wasDirtyBeforeListSeries;
 
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
@@ -441,13 +448,7 @@ namespace MobiFlight.UI
             {
                 if (wizard.ConfigHasChanged())
                 {
-                    // we have to update the config
-                    // using the duplicated config 
-                    // that the user edited with the wizard
-                    var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
-                    execManager.ConfigItems[index] = wizard.Config;
-                    MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
-                    OnConfigItemHasChanged(wizard.Config, null);
+                    execManager.HandleCommandUpdateConfigItem(wizard.Config);
                 }
             }
 
@@ -665,6 +666,63 @@ namespace MobiFlight.UI
             execManager = new ExecutionManager(this.Handle);
             execManager.OnConfigHasChanged += OnConfigItemHasChanged;
             execManager.OnProjectChanged += ExecManager_OnProjectChanged;
+
+
+            execManager.OnConfigListActionRecorded += (sender, args) =>
+            {
+                if (_listSeriesRemaining == 0 ||
+                    _projectChangeRevision != _listSeriesRevision)
+                {
+                    // Start a new consecutive list-action series.
+                    _wasDirtyBeforeListSeries =
+                        ProjectHasUnsavedChanges;
+
+                    _listSeriesRemaining = 0;
+                }
+
+                _listSeriesRemaining++;
+
+                // OnConfigHasChanged will run after this event.
+                _listSeriesRevision = _projectChangeRevision + 1;
+            };
+
+            execManager.OnConfigListActionUndone += (sender, args) =>
+            {
+                if (_listSeriesRemaining == 0)
+                    return;
+
+                // OnConfigHasChanged already ran for this Undo.
+                if (_projectChangeRevision != _listSeriesRevision + 1)
+                {
+                    // Another change occurred. Keep the project dirty.
+                    _listSeriesRemaining = 0;
+                    return;
+                }
+
+                _listSeriesRemaining--;
+                _listSeriesRevision = _projectChangeRevision;
+
+                if (_listSeriesRemaining == 0)
+                {
+                    // All recorded list actions have been undone.
+                    ProjectHasUnsavedChanges =
+                        _wasDirtyBeforeListSeries;
+
+                    SetProjectFilePathInTitle();
+                }
+            };
+
+            execManager.OnConfigListCreationApplied += (sender, args) =>
+            {
+                if (_listSeriesRemaining > 0 &&
+                    _projectChangeRevision == _listSeriesRevision + 1)
+                {
+                    // Applying changes to the most recently created
+                    // item belongs to the same Add/Duplicate action.
+                    _listSeriesRevision = _projectChangeRevision;
+                }
+            };
+
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
@@ -703,6 +761,7 @@ namespace MobiFlight.UI
 
         private void ProjectOrConfigFileHasChanged(bool updateControllerBindings = false)
         {
+            _projectChangeRevision++;
             if (updateControllerBindings)
             {
                 var currentControllerBindings = execManager.Project.ControllerBindings;
@@ -2200,6 +2259,8 @@ namespace MobiFlight.UI
 
             execManager.Stop();
 
+            bool mergeRecorded = false;
+
             try
             {
                 if (!merge)
@@ -2211,7 +2272,26 @@ namespace MobiFlight.UI
                 }
                 else
                 {
-                    execManager.Project.MergeFromProjectFile(fileName);
+                    var additionalProject = new Project
+                    {
+                        FilePath = fileName
+                    };
+
+                    additionalProject.OpenFile();
+
+                    var mergedFiles = additionalProject.ConfigFiles.ToList();
+
+                    if (mergedFiles.Count == 0)
+                    {
+                        return;
+                    }
+
+                    execManager.RecordProfileMerged(mergedFiles);
+                    mergeRecorded = true;
+                    execManager.Project.ConfigFiles =
+                        new ObservableCollection<ConfigFile>(
+                            execManager.Project.ConfigFiles.Concat(mergedFiles)
+                        );
                 }
 
                 ControllerBindingService.PerformAutoBinding(execManager.Project);
@@ -2221,15 +2301,24 @@ namespace MobiFlight.UI
                     if (!configFile.HasDuplicateGuids()) return;
                     Log.Instance.log($"{configFile.FileName} has duplicate GUIDs and will be fixed.", LogSeverity.Warn);
                     configFile.RemoveDuplicateGuids();
-                    ProjectOrConfigFileHasChanged();
+                    if (!merge) ProjectOrConfigFileHasChanged();
                 });
+                mergeRecorded = false;
             }
             catch (InvalidExpressionException)
             {
+                if (mergeRecorded)
+                {
+                    execManager.CancelLastProfileMerge();
+                }
                 // no inputs configured... old format... just ignore
             }
             catch (Exception ex)
             {
+                if (mergeRecorded)
+                {
+                    execManager.CancelLastProfileMerge();
+                }
                 // show that something went wrong opening the file.
                 MessageExchange.Instance.Publish(new Notification()
                 {
@@ -2255,12 +2344,6 @@ namespace MobiFlight.UI
                 // it will automatically gets enabled
                 ResetProjectAndConfigChanges();
             }
-            else
-            {
-                // indicate that the merge changed
-                // the current config and that the user
-                ProjectOrConfigFileHasChanged();
-            }
 
             // Track config loaded event
             AppTelemetry.Instance.ProjectLoaded(execManager.Project);
@@ -2272,6 +2355,13 @@ namespace MobiFlight.UI
 
         private void ResetProjectAndConfigChanges()
         {
+            _projectChangeRevision++;
+
+            _listSeriesRevision = -1;
+            _listSeriesRemaining = 0;
+
+            execManager?.ClearConfigListUndoHistory();
+
             ProjectHasUnsavedChanges = false;
             SetProjectFilePathInTitle();
         }
@@ -2478,13 +2568,20 @@ namespace MobiFlight.UI
             execManager.Stop();
 
             ConfigFile newConfigFile = CreateDefaultConfigFile();
+
             if (!string.IsNullOrEmpty(label))
             {
                 newConfigFile.Label = label;
             }
 
+            int newIndex = execManager.Project.ConfigFiles.Count;
+
+            execManager.RecordProfileAdded(
+                newConfigFile,
+                newIndex
+            );
+
             execManager.Project.ConfigFiles.Add(newConfigFile);
-            ProjectOrConfigFileHasChanged();
 
             ProjectLoaded?.Invoke(this, execManager.Project);
         }

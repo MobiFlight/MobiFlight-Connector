@@ -44,6 +44,10 @@
       "RecentProjects.None": "Nenhum projeto",
       "Exit": "Sair"
     },
+    "Edit": {
+      "Label": "Editar",
+      "Undo": "Desfazer"
+    },
     "View": {
       "Label": "Visualizar",
       "Zoom": {
@@ -319,6 +323,20 @@
         "Description": "Sua configuração não corresponde aos filtros atuais e por isso não aparece na lista.",
         "Action": "Redefinir filtros"
       }
+    },
+    "History": {
+      "Add": "Adicionado",
+      "Duplicate": "Duplicado",
+      "Delete": "Excluído",
+      "BulkDelete": "Excluído",
+      "Toggle": "Estado de ativação alterado",
+      "Resort": "Movido",
+      "ProfileAdded": "Perfil adicionado",
+      "ProfileRename": "Perfil renomeado",
+      "ProfileDeleted": "Perfil excluído",
+      "ItemRename": "Configuração renomeada",
+      "ProfileMerged": "Perfis mesclados",
+      "ItemEdited": "Configuração editada"
     }
   },
   "Notifications": {
@@ -346,6 +364,11 @@
     "ProjectFileLoadError": {
       "Title": "O projeto não pôde ser caregado",
       "Description": "Um erro ocorreu ao carregar {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Falha ao desfazer",
+      "Description": "Não foi possível desfazer a ação {{action}}. O histórico foi preservado. Consulte os registos para mais informações.",
+      "UnknownAction": "Ação desconhecida"
     }
   },
   "Startup": {
@@ -820,6 +843,36 @@
           "SelectPresetLabel": "Selecionar predefinição",
           "SelectPresetPlaceholder": "Selecionar predefinição..."
         }
+      },
+      "History": {
+        "Undo": "Desfazer",
+        "Title": "Histórico",
+        "Original": "Configuração original",
+        "ConfigurationChanged": "Configuração alterada",
+        "Oldest": "Estado mais antigo",
+        "Current": "Estado atual",
+        "NameChanged": "Nome alterado",
+        "TriggerChanged": "Acionador alterado",
+        "PreconditionAdded": "Adicionado",
+        "PreconditionRemoved": "Removido",
+        "PreconditionChanged": "Alterado",
+        "PreconditionEnabled": "Ativado",
+        "PreconditionDisabled": "Desativado",
+        "ModifierAdded": "Adicionado",
+        "ModifierRemoved": "Removido",
+        "ModifierEnabled": "Ativado",
+        "ModifierDisabled": "Desativado",
+        "ModifierExpressionChanged": "Expressão alterada",
+        "ModifierChanged": "Alterado",
+        "ConfigReferenceAdded": "Adicionado",
+        "ConfigReferenceRemoved": "Removido",
+        "ConfigReferenceEnabled": "Ativado",
+        "ConfigReferenceDisabled": "Desativado",
+        "ConfigReferenceChanged": "Editado",
+        "ActionTypeChanged": "Tipo de ação alterado",
+        "ActionCodeChanged": "Código alterado",
+        "ActionChanged": "Ação alterada",
+        "ActionPresetChanged": "Predefinição alterada"
       }
     },
     "UnsavedChanges": {

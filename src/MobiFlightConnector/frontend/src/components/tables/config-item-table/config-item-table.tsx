@@ -261,20 +261,33 @@ export function ConfigItemTable<TValue>({
   }, [publish, t])
 
   const deleteSelected = useCallback(() => {
-    const action = "delete"
-    const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
-      return row.original as IConfigItem
-    })
+    const selectedConfigs = table
+      .getSelectedRowModel()
+      .rows.map((row) => row.original as IConfigItem)
+
     if (selectedConfigs.length === 0) return
 
-    publish({
-      key: "CommandConfigBulkAction",
-      payload: {
-        action: action,
-        items: selectedConfigs,
-      },
-    })
-    // Clear selection after deletion
+    if (selectedConfigs.length === 1) {
+      // Use the single-item delete path.
+      // The backend records an Undo snapshot here.
+      publish({
+        key: "CommandConfigContextMenu",
+        payload: {
+          action: "delete",
+          item: selectedConfigs[0],
+        },
+      } as CommandConfigContextMenu)
+    } else {
+      // Multi-delete Undo will be implemented later.
+      publish({
+        key: "CommandConfigBulkAction",
+        payload: {
+          action: "delete",
+          items: selectedConfigs,
+        },
+      })
+    }
+
     table.setRowSelection({})
   }, [table, publish])
 

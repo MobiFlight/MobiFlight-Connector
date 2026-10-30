@@ -44,6 +44,10 @@
       "RecentProjects.None": "Keine Projekte vorhanden",
       "Exit": "Beenden"
     },
+    "Edit": {
+      "Label": "Bearbeitung",
+      "Undo": "Rückgängig"
+    },
     "View": {
       "Label": "Ansicht",
       "Zoom": {
@@ -325,6 +329,20 @@
         "Description": "Deine Konfiguration entspricht nicht den aktuellen Filtereinstellungen, daher ist sie in der Liste nicht sichtbar.",
         "Action": "Filter zurücksetzen"
       }
+    },
+    "History": {
+      "Add": "Hinzugefügt",
+      "Duplicate": "Dupliziert",
+      "Delete": "Gelöscht",
+      "BulkDelete": "Gelöscht",
+      "Toggle": "Aktivierung umgeschaltet",
+      "Resort": "Verschoben",
+      "ProfileAdded": "Profil hinzugefügt",
+      "ProfileRename": "Profil umbenannt",
+      "ProfileDeleted": "Profil gelöscht",
+      "ItemRename": "Konfiguration umbenannt",
+      "ProfileMerged": "Profile zusammengeführt",
+      "ItemEdited": "Konfiguration bearbeitet"
     }
   },
   "Notifications": {
@@ -352,6 +370,11 @@
     "ProjectFileLoadError": {
       "Title": "Projekt konnte nicht geladen werden",
       "Description": "Beim Laden ist ein Fehler aufgetreten: {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Rückgängig machen fehlgeschlagen",
+      "Description": "Die Aktion {{action}} konnte nicht rückgängig gemacht werden. Der Verlauf wurde beibehalten. Weitere Informationen findest du im Protokoll.",
+      "UnknownAction": "Unbekannte Aktion"
     }
   },
   "Startup": {
@@ -826,6 +849,36 @@
           "SelectPresetLabel": "Preset auswählen",
           "SelectPresetPlaceholder": "Preset auswählen..."
         }
+      },
+      "History": {
+        "Undo": "Rückgängig",
+        "Title": "Verlauf",
+        "Original": "Ursprung",
+        "ConfigurationChanged": "Konfiguration geändert",
+        "Oldest": "Ältester Zustand",
+        "Current": "Aktueller Zustand",
+        "NameChanged": "Name geändert",
+        "TriggerChanged": "Auslöser geändert",
+        "PreconditionAdded": "Hinzugefügt",
+        "PreconditionRemoved": "Entfernt",
+        "PreconditionChanged": "Geändert",
+        "PreconditionEnabled": "Aktiviert",
+        "PreconditionDisabled": "Deaktiviert",
+        "ModifierAdded": "Hinzugefügt",
+        "ModifierRemoved": "Entfernt",
+        "ModifierEnabled": "Aktiviert",
+        "ModifierDisabled": "Deaktiviert",
+        "ModifierExpressionChanged": "Ausdruck geändert",
+        "ModifierChanged": "Geändert",
+        "ConfigReferenceAdded": "Hinzugefügt",
+        "ConfigReferenceRemoved": "Entfernt",
+        "ConfigReferenceEnabled": "Aktiviert",
+        "ConfigReferenceDisabled": "Deaktiviert",
+        "ConfigReferenceChanged": "Bearbeitet",
+        "ActionTypeChanged": "Aktionstyp geändert",
+        "ActionCodeChanged": "Code geändert",
+        "ActionChanged": "Aktion geändert",
+        "ActionPresetChanged": "Preset geändert"
       }
     },
     "UnsavedChanges": {

@@ -44,6 +44,10 @@
       "RecentProjects.None": "Проекты отсутствуют",
       "Exit": "Выход"
     },
+    "Edit": {
+      "Label": "Правка",
+      "Undo": "Отменить"
+    },
     "View": {
       "Label": "Вид",
       "Zoom": {
@@ -319,6 +323,20 @@
         "Description": "Ваша конфигурация не соответствует текущим настройкам фильтра, поэтому она не отображается в списке.",
         "Action": "Сброс фильтров"
       }
+    },
+    "History": {
+      "Add": "Добавлено",
+      "Duplicate": "Дублировано",
+      "Delete": "Удалено",
+      "BulkDelete": "Удалено",
+      "Toggle": "Состояние активности изменено",
+      "Resort": "Перемещено",
+      "ProfileAdded": "Профиль добавлен",
+      "ProfileRename": "Профиль переименован",
+      "ProfileDeleted": "Профиль удалён",
+      "ItemRename": "Конфигурация переименована",
+      "ProfileMerged": "Профили объединены",
+      "ItemEdited": "Конфигурация изменена"
     }
   },
   "Notifications": {
@@ -346,6 +364,11 @@
     "ProjectFileLoadError": {
       "Title": "Не удалось загрузить проект",
       "Description": "Произошла ошибка при загрузке {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Не удалось отменить действие",
+      "Description": "Не удалось отменить действие {{action}}. История сохранена. Подробности см. в журнале.",
+      "UnknownAction": "Неизвестное действие"
     }
   },
   "Startup": {
@@ -820,6 +843,36 @@
           "SelectPresetLabel": "Выбрать предустановку",
           "SelectPresetPlaceholder": "Выбрать предустановку..."
         }
+      },
+      "History": {
+        "Undo": "Отменить",
+        "Title": "История",
+        "Original": "Исходная конфигурация",
+        "ConfigurationChanged": "Конфигурация изменена",
+        "Oldest": "Самое раннее состояние",
+        "Current": "Текущее состояние",
+        "NameChanged": "Имя изменено",
+        "TriggerChanged": "Триггер изменён",
+        "PreconditionAdded": "Добавлено",
+        "PreconditionRemoved": "Удалено",
+        "PreconditionChanged": "Изменено",
+        "PreconditionEnabled": "Включено",
+        "PreconditionDisabled": "Выключено",
+        "ModifierAdded": "Добавлено",
+        "ModifierRemoved": "Удалено",
+        "ModifierEnabled": "Включено",
+        "ModifierDisabled": "Выключено",
+        "ModifierExpressionChanged": "Выражение изменено",
+        "ModifierChanged": "Изменено",
+        "ConfigReferenceAdded": "Добавлено",
+        "ConfigReferenceRemoved": "Удалено",
+        "ConfigReferenceEnabled": "Включено",
+        "ConfigReferenceDisabled": "Выключено",
+        "ConfigReferenceChanged": "Отредактировано",
+        "ActionTypeChanged": "Тип действия изменён",
+        "ActionCodeChanged": "Код изменён",
+        "ActionChanged": "Действие изменено",
+        "ActionPresetChanged": "Пресет изменён"
       }
     },
     "UnsavedChanges": {

@@ -3,7 +3,7 @@ import ConfigReferencePanel from "@/components/wizard/ConfigReferences/ConfigRef
 import ConfigTrigger from "@/components/wizard/components/ConfigTrigger"
 import PreconditionsPanel from "@/components/wizard/Precondition/PreconditionsPanel"
 import { IConfigItem } from "@/types"
-import { RefObject, useState } from "react"
+import { type ReactNode, RefObject, useState, useRef } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import {
   Action,
@@ -19,6 +19,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerClose,
+  DrawerFooter,
 } from "@/components/ui/drawer"
 import { IconArrowBack, IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
@@ -34,6 +35,9 @@ export type ConfigWizardProps = {
     rawValue: string | null | undefined
     finalValue: string | null | undefined
   }
+  historyControls?: ReactNode
+  onDrawerOpen?: (view: string) => void
+  onDrawerClose?: () => void
 }
 
 const determineInputDeviceType = (
@@ -65,6 +69,9 @@ const ConfigWizard = ({
   onConfigChange,
   drawerContainer,
   liveData,
+  historyControls,
+  onDrawerOpen,
+  onDrawerClose,
 }: ConfigWizardProps) => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
@@ -74,46 +81,81 @@ const ConfigWizard = ({
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [drawerSize, setDrawerSize] = useState<"small" | "large">("large")
 
-  const [editAction, setEditAction] = useState<Action | null>(null)
   const [event, setEvent] = useState<{
     variant: "button" | "encoder" | "analog"
     event: string
   }>({ variant: "button", event: "" })
 
-  const initialButtonOptions = configItem.button
-    ? (configItem.button as Partial<ButtonHoldOptions> &
+  const currentButtonTrigger = (configItem.button ??
+    configItem.inputMultiplexer ??
+    configItem.inputShiftRegister) as
+    | (ButtonTrigger &
+        Partial<ButtonHoldOptions> &
         Partial<ButtonLongReleaseOptions>)
-    : {
-        HoldDelay: 350,
-        LongReleaseDelay: 350,
-        RepeatDelay: 0,
-      }
+    | undefined
 
-  const [buttonOptions, setButtonOptions] = useState<
-    Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
-  >(initialButtonOptions)
+  const currentAction: Action | null =
+    event.variant === "button"
+      ? (currentButtonTrigger?.[
+          event.event as "onPress" | "onRelease" | "onHold" | "onLongRelease"
+        ] ?? null)
+      : event.variant === "encoder"
+        ? (configItem.encoder?.[event.event as keyof EncoderTrigger] ?? null)
+        : (configItem.analog?.onChange ?? null)
 
-  const [onActionChange, setOnActionChange] = useState<
-    | ((
-        action: Action | null,
-        buttonOptions?: Partial<ButtonHoldOptions> &
-          Partial<ButtonLongReleaseOptions>,
-      ) => void)
-    | null
-  >(null)
+  const handleActionChange = (
+    action: Action | null,
+    options?: Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>,
+  ) => {
+    if (event.variant === "button") {
+      onConfigChange({
+        ...configItem,
+        button: {
+          ...currentButtonTrigger,
+          [event.event]: action,
+          ...options,
+        } as ButtonTrigger,
+      })
+      return
+    }
+
+    if (event.variant === "encoder") {
+      onConfigChange({
+        ...configItem,
+        encoder: {
+          ...configItem.encoder,
+          [event.event]: action,
+        } as EncoderTrigger,
+      })
+      return
+    }
+
+    onConfigChange({
+      ...configItem,
+      analog: {
+        ...configItem.analog,
+        onChange: action ?? undefined,
+      } as AnalogTrigger,
+    })
+  }
 
   const detailView = searchParams.get("detail")
+  const drawerClosingRef = useRef(false)
   const navigateToDetailView = (
     view: string,
     size: "small" | "large" = "large",
   ) => {
+    drawerClosingRef.current = false
+    onDrawerOpen?.(view)
     setDrawerOpen(true)
     setDrawerSize(size)
     navigate(`?detail=${view}`)
   }
 
   const closeDetailView = (open: boolean) => {
-    if (open) return
+    if (open || drawerClosingRef.current) return
+    drawerClosingRef.current = true
+    onDrawerClose?.()
     setDrawerOpen(false)
     setTimeout(() => navigate(-1), 500)
   }
@@ -162,7 +204,7 @@ const ConfigWizard = ({
       </div>
 
       {(hasReferences || hasPreconditions) && (
-        <div className="flex flex-col lg:flex-row gap-2">
+        <div className="flex flex-col gap-2 lg:flex-row">
           {hasReferences && (
             <div className="lg:w-1/2">
               <ConfigReferencePanel
@@ -197,19 +239,11 @@ const ConfigWizard = ({
       {currentDeviceType === "Button" && (
         <ActionBindingPanel
           variant="button"
-          onActionEdit={(
-            event: string,
-            action: Action | null,
-            onActionChange: (
-              config: Action,
-              buttonOptions?: Partial<ButtonHoldOptions> &
-                Partial<ButtonLongReleaseOptions>,
-            ) => void,
-          ) => {
-            setEvent({ variant: "button", event })
-            setEditAction(action)
-            setButtonOptions(buttonOptions)
-            setOnActionChange(() => onActionChange)
+          onActionEdit={(selectedEvent) => {
+            setEvent({
+              variant: "button",
+              event: selectedEvent,
+            })
             navigateToDetailView("action")
           }}
           trigger={
@@ -229,14 +263,11 @@ const ConfigWizard = ({
       {currentDeviceType === "Encoder" && (
         <ActionBindingPanel
           variant="encoder"
-          onActionEdit={(
-            event: string,
-            action: Action | null,
-            onConfigChange: (config: Action) => void,
-          ) => {
-            setEvent({ variant: "encoder", event })
-            setEditAction(action)
-            setOnActionChange(() => onConfigChange)
+          onActionEdit={(selectedEvent) => {
+            setEvent({
+              variant: "encoder",
+              event: selectedEvent,
+            })
             navigateToDetailView("action")
           }}
           trigger={configItem.encoder}
@@ -251,14 +282,11 @@ const ConfigWizard = ({
       {currentDeviceType === "AnalogInput" && (
         <ActionBindingPanel
           variant="analog"
-          onActionEdit={(
-            event: string,
-            action: Action | null,
-            onActionChange: (config: Action) => void,
-          ) => {
-            setEvent({ variant: "analog", event })
-            setEditAction(action)
-            setOnActionChange(() => onActionChange)
+          onActionEdit={(selectedEvent) => {
+            setEvent({
+              variant: "analog",
+              event: selectedEvent,
+            })
             navigateToDetailView("action")
           }}
           trigger={configItem.analog}
@@ -341,21 +369,19 @@ const ConfigWizard = ({
               {detailView === "action" && (
                 <ActionEditor
                   event={event}
-                  buttonOptions={buttonOptions}
-                  action={editAction}
-                  onActionChange={(action, buttonOptions) => {
-                    onActionChange?.(action, buttonOptions)
-                    setEditAction(action)
-                    if (buttonOptions) {
-                      setButtonOptions((prev) => ({
-                        ...prev,
-                        ...buttonOptions,
-                      }))
-                    }
-                  }}
+                  buttonOptions={
+                    event.variant === "button"
+                      ? currentButtonTrigger
+                      : undefined
+                  }
+                  action={currentAction}
+                  onActionChange={handleActionChange}
                 />
               )}
             </div>
+            <DrawerFooter className="shrink-0 flex-row justify-start border-t">
+              {historyControls}
+            </DrawerFooter>
           </DrawerContent>
         </Drawer>
       )}

@@ -44,6 +44,10 @@
       "RecentProjects.None": "Ei projekteja",
       "Exit": "Lopeta"
     },
+    "Edit": {
+      "Label": "Muokkaa",
+      "Undo": "Kumoa"
+    },
     "View": {
       "Label": "Näytä",
       "Zoom": {
@@ -319,6 +323,20 @@
         "Description": "Määrityksesi ei vastaa nykyisiä suodatinasetuksia, joten se ei näy luettelossa.",
         "Action": "Nollaa suodattimet"
       }
+    },
+    "History": {
+      "Add": "Lisätty",
+      "Duplicate": "Monistettu",
+      "Delete": "Poistettu",
+      "BulkDelete": "Poistettu",
+      "Toggle": "Aktiivisuustila vaihdettu",
+      "Resort": "Siirretty",
+      "ProfileAdded": "Profiili lisätty",
+      "ProfileRename": "Profiili nimetty uudelleen",
+      "ProfileDeleted": "Profiili poistettu",
+      "ItemRename": "Määritys nimetty uudelleen",
+      "ProfileMerged": "Profiilit yhdistetty",
+      "ItemEdited": "Määritystä muokattu"
     }
   },
   "Notifications": {
@@ -346,6 +364,11 @@
     "ProjectFileLoadError": {
       "Title": "Projektin lataaminen epäonnistui",
       "Description": "Virhe avattaessa tiedostoa {{fileName}} - {{errorMessage}}"
+    },
+    "ConfigListUndoFailed": {
+      "Title": "Kumoaminen epäonnistui",
+      "Description": "Toiminnon {{action}} kumoaminen epäonnistui. Historia säilytettiin. Katso lisätietoja lokista.",
+      "UnknownAction": "Tuntematon toiminto"
     }
   },
   "Startup": {
@@ -820,6 +843,36 @@
           "SelectPresetLabel": "Valitse esiasetus",
           "SelectPresetPlaceholder": "Valitse esiasetus..."
         }
+      },
+      "History": {
+        "Undo": "Kumoa",
+        "Title": "Historia",
+        "Original": "Alkuperäinen määritys",
+        "ConfigurationChanged": "Määritystä muutettu",
+        "Oldest": "Vanhin tila",
+        "Current": "Nykyinen tila",
+        "NameChanged": "Nimi muutettu",
+        "TriggerChanged": "Laukaisin muutettu",
+        "PreconditionAdded": "Lisätty",
+        "PreconditionRemoved": "Poistettu",
+        "PreconditionChanged": "Muutettu",
+        "PreconditionEnabled": "Otettu käyttöön",
+        "PreconditionDisabled": "Poistettu käytöstä",
+        "ModifierAdded": "Lisätty",
+        "ModifierRemoved": "Poistettu",
+        "ModifierEnabled": "Otettu käyttöön",
+        "ModifierDisabled": "Poistettu käytöstä",
+        "ModifierExpressionChanged": "Lauseke muutettu",
+        "ModifierChanged": "Muutettu",
+        "ConfigReferenceAdded": "Lisätty",
+        "ConfigReferenceRemoved": "Poistettu",
+        "ConfigReferenceEnabled": "Otettu käyttöön",
+        "ConfigReferenceDisabled": "Poistettu käytöstä",
+        "ConfigReferenceChanged": "Muokattu",
+        "ActionTypeChanged": "Toiminnon tyyppi muutettu",
+        "ActionCodeChanged": "Koodi muutettu",
+        "ActionChanged": "Toimintoa muutettu",
+        "ActionPresetChanged": "Esiasetus muutettu"
       }
     },
     "UnsavedChanges": {

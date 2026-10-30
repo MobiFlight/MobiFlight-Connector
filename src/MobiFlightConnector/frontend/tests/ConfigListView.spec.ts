@@ -53,7 +53,7 @@ test.describe("Confirm content and basic functions are working", () => {
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData()
     await configListPage.setupConfigItemEditConfirmationResponse()
-    await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
 
     const nameCell = page.getByRole("row", { name: "LED 1" }).first()
 
@@ -74,7 +74,8 @@ test.describe("Confirm content and basic functions are working", () => {
     let postedCommands =
       await configListPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
-    expect(lastCommand.key).toEqual("CommandUpdateConfigItem")
+    expect(lastCommand.key).toEqual("CommandConfigContextMenu")
+    expect(lastCommand.payload.action).toEqual("rename")
     expect((lastCommand.payload.item as IConfigItem).Name).toEqual("LED 1245")
 
     // Click on the text span to enter edit mode

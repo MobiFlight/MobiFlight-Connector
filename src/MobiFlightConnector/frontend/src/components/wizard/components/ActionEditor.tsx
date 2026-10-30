@@ -431,7 +431,7 @@ const ActionEditor = ({
   return (
     <div className="flex flex-col gap-4" data-testid="action-editor">
       <Card>
-        <CardContent className="pt-4 flex flex-col gap-4">
+        <CardContent className="flex flex-col gap-4 pt-4">
           <div className="flex flex-1 flex-col">
             <div className="text-lg font-semibold">
               {t(
@@ -469,9 +469,32 @@ const ActionEditor = ({
               <ActionTypeComboBox
                 selectedActionType={selectedActionType}
                 setSelectedActionType={(option) => {
-                  onActionChange(
-                    option ? { ...action, Type: option.value } : null,
-                  )
+                  if (!option) {
+                    onActionChange(null)
+                    return
+                  }
+
+                  if (action?.Type === option.value) {
+                    return
+                  }
+
+                  if (option.value === "VariableInputAction") {
+                    onActionChange({
+                      Type: "VariableInputAction",
+                      Variable: {
+                        TYPE: "number",
+                        Name: "New Variable",
+                        Number: 0,
+                        Text: "",
+                        Expression: "$",
+                      },
+                    } as MobiFlightVariableAction)
+
+                    return
+                  }
+                  onActionChange({
+                    Type: option.value,
+                  })
                 }}
               />
               <CopyPasteActionPanel

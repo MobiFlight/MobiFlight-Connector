@@ -16,6 +16,7 @@ import {
   ProjectStatus,
   ProSimDataRefDefinitionUpdate,
   RecentProjects,
+  ConfigListUndoState,
 } from "@/types/messages"
 import Settings from "@/types/settings"
 import { useRecentProjects, useSettingsStore } from "@/stores/settingsStore"
@@ -59,6 +60,21 @@ export const useBackendStateAppMessages = () => {
   const { addLog } = useLogsStore()
 
   const queryClient = useQueryClient()
+
+  const setCanUndoConfigList = useProjectStore(
+    (state) => state.setCanUndoConfigList,
+  )
+
+  const setConfigListUndoHistory = useProjectStore(
+    (state) => state.setConfigListUndoHistory,
+  )
+
+  useAppMessage("ConfigListUndoState", (message) => {
+    const state = message.payload as ConfigListUndoState
+    setCanUndoConfigList(state.CanUndo)
+
+    setConfigListUndoHistory(state.History ?? [], state.HistoryStart ?? 0)
+  })
 
   useAppMessage("Project", (message) => {
     const project = message.payload as Project
@@ -114,12 +130,12 @@ export const useBackendStateAppMessages = () => {
     console.log("ProjectStatus message received", projectStatus)
     setProjectStatus(projectStatus)
   })
-  
+
   useAppMessage("HubHopState", (message) => {
     const state = message.payload as HubHopState
     console.log("HubHopState message received", state)
     setHubHopState(state)
-    
+
     if (state.Result === "Success") {
       queryClient.invalidateQueries({
         queryKey: ["msfs-presets"],

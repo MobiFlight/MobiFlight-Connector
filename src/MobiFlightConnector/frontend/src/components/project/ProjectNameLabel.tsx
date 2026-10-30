@@ -1,5 +1,10 @@
 import { useProjectStore } from "@/stores/projectStore"
-import { IconDeviceGamepad2, IconDotsVertical, IconPencil, IconSettings } from "@tabler/icons-react"
+import {
+  IconDeviceGamepad2,
+  IconDotsVertical,
+  IconPencil,
+  IconSettings,
+} from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
@@ -17,6 +22,8 @@ import { Project } from "@/types"
 import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { ProjectInfo } from "@/types/project"
 import { useModal } from "@/lib/hooks/useModal"
+import { CommandUndoConfigList } from "@/types/commands"
+import HistoryControls from "@/components/wizard/components/HistoryControls"
 
 export type ProjectNameLabelProps = {
   project: Project | null
@@ -24,11 +31,17 @@ export type ProjectNameLabelProps = {
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
-  const { project, hasChanged } = useProjectStore()
+  const {
+    project,
+    hasChanged,
+    canUndoConfigList,
+    configListUndoHistory,
+    configListUndoHistoryStart,
+  } = useProjectStore()
   const { publish } = messageExchange
   const label = project?.Name ?? "Untitled Project"
   const [optimisticLabel, setOptimisticLabel] = useState(label)
-  const { showOverlay : showModalOverlay } = useModal()
+  const { showOverlay: showModalOverlay } = useModal()
 
   // Sync optimisticLabel when label changes from backend
   useEffect(() => {
@@ -60,6 +73,29 @@ const ProjectNameLabel = () => {
     showOverlay({ mode: "edit", project: project as ProjectInfo })
   }
 
+  const historyCount = configListUndoHistory.length
+
+  const getHistoryLabel = (action: string) =>
+    t(`ConfigList.History.${action}`, {
+      defaultValue: action,
+    })
+
+  const listHistory = [
+    { action: "" },
+    ...configListUndoHistory.map((action) => ({
+      action: getHistoryLabel(action),
+    })),
+  ]
+
+  const undoSteps = (steps: number) => {
+    if (steps <= 0 || !canUndoConfigList) return
+
+    publish({
+      key: "CommandUndoConfigList",
+      payload: { steps },
+    } as CommandUndoConfigList)
+  }
+
   return (
     <div
       className="flex flex-row items-center gap-1 pl-1"
@@ -79,6 +115,19 @@ const ProjectNameLabel = () => {
         saveTooltip={t("Project.Toolbar.Save.HasChanges")}
         successTooltip={t("Project.Toolbar.Save.Success")}
         noChangesTooltip={t("Project.Toolbar.Save.NoChanges")}
+      />
+
+      <HistoryControls
+        history={listHistory}
+        cursor={historyCount}
+        historyStart={configListUndoHistoryStart}
+        onUndo={() => undoSteps(1)}
+        onJump={(index) => undoSteps(historyCount - index)}
+        testIdPrefix="config-list"
+        side="bottom"
+        undoShortcut={null}
+        showUndoLabel={false}
+        showFrame={false}
       />
 
       <div className="relative">
