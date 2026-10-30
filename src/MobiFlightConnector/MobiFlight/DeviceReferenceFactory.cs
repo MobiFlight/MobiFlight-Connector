@@ -12,15 +12,15 @@ namespace MobiFlight
             switch (dev.Type)
             {
                 case DeviceType.Button:
-                    result.Add(new DeviceReference { Name = dev.Name, Label = dev.Name, Type = DeviceType.Button });
-                    break;
-
                 case DeviceType.Encoder:
-                    result.Add(new DeviceReference { Name = dev.Name, Label = dev.Name, Type = DeviceType.Encoder });
-                    break;
-
                 case DeviceType.AnalogInput:
-                    result.Add(new DeviceReference { Name = dev.Name, Label = dev.Name, Type = DeviceType.AnalogInput });
+                case DeviceType.Output:
+                case DeviceType.LedModule:
+                case DeviceType.Servo:
+                case DeviceType.Stepper:
+                case DeviceType.LcdDisplay:
+                case DeviceType.CustomDevice:
+                    result.Add(new DeviceReference { Name = dev.Name, Label = dev.Name, Type = dev.Type });
                     break;
 
                 case DeviceType.InputMultiplexer:
@@ -35,6 +35,13 @@ namespace MobiFlight
                     int isrPinCount = int.TryParse(isr?.NumModules, out int nm) ? nm * 8 : 8;
                     for (int i = 0; i < isrPinCount; i++)
                         result.Add(new DeviceReference { Name = $"{dev.Name}:{i}", Label = $"{dev.Name}:{i}", Type = DeviceType.Button });
+                    break;
+
+                case DeviceType.ShiftRegister:
+                    var sr = dev as ShiftRegister;
+                    int srPinCount = int.TryParse(sr?.NumModules, out int numModules) ? numModules * 8 : 8;
+                    for (int i = 0; i < srPinCount; i++)
+                        result.Add(new DeviceReference { Name = $"{dev.Name}:{i}", Label = $"{dev.Name}:{i}", Type = DeviceType.Output });
                     break;
             }
             return result;

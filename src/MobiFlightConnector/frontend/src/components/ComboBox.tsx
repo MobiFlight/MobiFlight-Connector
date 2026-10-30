@@ -112,8 +112,9 @@ const ComboBox = <T,>({
 
                 return (
                   <CommandItem
+                  className="gap-1"
                     key={itemValue}
-                    value={itemLabel}
+                    value={itemValue}
                     onSelect={() => {
                       if (itemValue === selectedValue) {
                         setSelected(undefined)
@@ -125,7 +126,6 @@ const ComboBox = <T,>({
                     }}
                   >
                     <span className="truncate text-sm">{itemLabel}</span>
-
                     <IconCheck
                       className={cn(
                         "ml-auto",

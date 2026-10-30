@@ -1,5 +1,7 @@
 import { Controller } from "./controller"
 import { ModifierList, Modifier } from "./modifier"
+import { InputDeviceType, OutputDeviceType } from "./controller"
+
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
@@ -34,6 +36,47 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   Modifiers?: ModifierList
 }
 
+export type Source = SimConnectSource | XplaneSource | VariableSource | FsuipcSource | ProSimSource
+export type SourceType = Source["Type"]
+
+export interface OutputConfigItem extends IConfigItem {
+  Type: "OutputConfigItem"
+  Source: Source
+}
+
+export interface SimConnectSource {
+  Type: "SimConnectSource"
+  SimConnectValue: {
+    UUID: uuid
+    Value: string
+  }
+}
+
+
+export interface XplaneSource {
+  Type: "XplaneSource"
+  XplaneDataRef: {
+    Path: string
+  }
+}
+
+export interface VariableSource {
+  Type: "VariableSource"
+  MobiFlightVariable: MobiFlightVariable
+}
+
+export interface ProSimSource {
+  Type: "ProSimSource"
+  ProSimDataRef: {
+    Path: string
+  }
+}
+
+export interface FsuipcSource {
+  Type: "FsuipcSource"
+  FSUIPC: FsuipcOffset
+}
+
 export type ConfigItemStatusType =
   | "Precondition"
   | "Source"
@@ -53,6 +96,10 @@ export type ConfigItemType = "InputConfigItem" | "OutputConfigItem"
 export interface IDeviceConfig {
   Type: InputDeviceType | OutputDeviceType
   Name: string
+}
+
+export interface OutputDeviceConfig extends IDeviceConfig {
+  Type: OutputDeviceType
 }
 
 export interface ExtendedDeviceConfig extends IDeviceConfig {
@@ -206,4 +253,66 @@ export type ConfigReference = {
   Placeholder: string
   Ref: string
   TestValue: string
+}
+
+/* Output devices */
+export interface OutputConfig extends OutputDeviceConfig {
+  Type: "Output"
+  Pin: string
+  Brightness: number
+  PwmMode: boolean
+}
+
+export interface LedModuleConfig extends OutputDeviceConfig {
+  Type: "LedModule"
+  DisplayLedAddress: string
+  DisplayLedConnector: number
+  DisplayLedModuleSize: number
+  DisplayLedPadding: boolean
+  DisplayLedPaddingChar: string
+  DisplayLedDigits: string[]
+  DisplayLedDecimalPoints: string[]
+  DisplayLedReverseDigits: boolean
+  DisplayLedBrightnessReference: string
+}
+
+export interface LcdDisplayConfig extends OutputDeviceConfig {
+  Type: "LcdDisplay"
+  Address: string
+  Lines: string[]
+}
+
+export interface ServoConfig extends OutputDeviceConfig {
+  Type: "Servo"
+  Address: string
+  Min: string
+  Max: string
+  MaxRotationPercent: string
+}
+
+export interface StepperConfig extends OutputDeviceConfig {
+  Type: "Stepper"
+  Address: string
+  InputRev: number
+  OutputRev: number
+  TestValue: number
+  CompassMode: boolean
+  Acceleration: number
+  Speed: number
+}
+
+export interface ShiftRegisterConfig extends OutputDeviceConfig {
+  Type: "ShiftRegister"
+  Address: string
+  Pin: string
+  Brightness: number
+  PWM: boolean
+}
+
+export interface CustomDeviceConfig extends OutputDeviceConfig {
+  Type: "CustomDevice"
+  CustomType: string
+  CustomName: string
+  MessageType: number
+  Value: string
 }
