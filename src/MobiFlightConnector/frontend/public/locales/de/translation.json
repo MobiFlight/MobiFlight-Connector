@@ -826,6 +826,37 @@
           "SelectPresetLabel": "Preset auswählen",
           "SelectPresetPlaceholder": "Preset auswählen..."
         }
+      },
+      "History": {
+        "Undo": "Rückgängig",
+        "Title": "Verlauf",
+        "Original": "Ursprung",
+        "ConfigurationChanged": "Konfiguration geändert",
+        "Oldest": "Ältester Zustand",
+        "Current": "Aktueller Zustand",
+        "NameChanged": "Name geändert",
+        "TriggerChanged": "Auslöser geändert",
+        "PreconditionAdded": "Hinzugefügt",
+        "PreconditionRemoved": "Entfernt",
+        "PreconditionChanged": "Geändert",
+        "PreconditionEnabled": "Aktiviert",
+        "PreconditionDisabled": "Deaktiviert",
+        "ModifierAdded": "Hinzugefügt",
+        "ModifierRemoved": "Entfernt",
+        "ModifierEnabled": "Aktiviert",
+        "ModifierDisabled": "Deaktiviert",
+        "ModifierExpressionChanged": "Ausdruck geändert",
+        "ModifierChanged": "Geändert",
+        "ConfigReferenceAdded": "Hinzugefügt",
+        "ConfigReferenceRemoved": "Entfernt",
+        "ConfigReferenceEnabled": "Aktiviert",
+        "ConfigReferenceDisabled": "Deaktiviert",
+        "ConfigReferenceChanged": "Geändert",
+        "ActionTypeChanged": "Aktionstyp geändert",
+        "ActionCodeChanged": "Code geändert",
+        "ActionChanged": "Aktion geändert",
+        "ActionPresetChanged": "Preset geändert",
+        "ActionExpressionChanged": "Ausdruck geändert"
       }
     },
     "UnsavedChanges": {

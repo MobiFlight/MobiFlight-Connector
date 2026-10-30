@@ -14,10 +14,12 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import ConfigWizard from "@/components/wizard/ConfigWizard"
 import messageExchange from "@/lib/messageExchange"
+import HistoryControls from "@/components/wizard/components/HistoryControls"
 import { cn } from "@/lib/utils"
 import { useProjectStore } from "@/stores/projectStore"
 import { useConfigItemStateValue } from "@/stores/configItemStateStore"
 import { IConfigItem } from "@/types/config"
+import useInputConfigHistory from "@/lib/hooks/useInputConfigHistory"
 import { IconChevronRight, IconExclamationCircle } from "@tabler/icons-react"
 import _ from "lodash"
 import { useEffect, useRef, useState } from "react"
@@ -55,6 +57,31 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   )
   const runtimeState = useConfigItemStateValue(configId)
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
+
+  const {
+    editorState,
+    draftConfigItem,
+    updateDraftConfigItem,
+    beginDrawerSession,
+    finishDrawerSession,
+    jumpToHistory,
+    undoConfigItemChange,
+    handleUndoKeyDown,
+    handleFocusCapture,
+    handleBlurCapture,
+  } = useInputConfigHistory(configItem)
+
+  const [committedConfigItem, setCommittedConfigItem] = useState(() =>
+    configItem ? structuredClone(configItem) : undefined,
+  )
+
+  const [isWiggling, setIsWiggling] = useState(false)
+  const [showPendingChangesMessage, setShowPendingChangesMessage] =
+    useState(false)
+  const [preventDialogAnimation, setPreventDialogAnimation] = useState(false)
+
   const closeDialog = () => {
     navigate(-1)
   }
@@ -64,7 +91,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
     const finalConfigItem = resetTriggersBasedOnDeviceType(draftConfigItem)
     setCommittedConfigItem(finalConfigItem)
-    setCurrentConfigItem(finalConfigItem)
     setShowPendingChangesMessage(false)
 
     publish({
@@ -77,20 +103,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     closeDialog()
   }
 
-  const containerRef = useRef<HTMLDivElement>(null)
-  const inlineEditRef = useRef<InlineEditLabelRef>(null)
-
-  // keep track of draft and committed config
-  // so that we can determine if draftConfigItem is dirty
-  const [draftConfigItem, setCurrentConfigItem] = useState(configItem)
-  const [committedConfigItem, setCommittedConfigItem] = useState(configItem)
-
-  // state related to UI feedback for unsaved changes
-  const [isWiggling, setIsWiggling] = useState(false)
-  const [showPendingChangesMessage, setShowPendingChangesMessage] =
-    useState(false)
-  const [preventDialogAnimation, setPreventDialogAnimation] = useState(false)
-
   // Automatically start editing the config item name if it is the default name
   const configItemName = configItem?.Name
   // this is a simple test to check if the config item is a newly created default config item
@@ -98,9 +110,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const configIsDefaultConfig =
     configItem?.Controller === null && configItemName === defaultLabel
 
-  const hasChanged = () => {
-    return !_.isEqual(committedConfigItem, draftConfigItem)
-  }
+  const hasChanged = () => !_.isEqual(committedConfigItem, draftConfigItem)
 
   useEffect(() => {
     setTimeout(() => {
@@ -125,7 +135,9 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
         data-testid="inputconfigwizard-dialog"
-        // prevents focusing on the inactive inline edit label
+        onKeyDownCapture={handleUndoKeyDown}
+        onFocusCapture={handleFocusCapture}
+        onBlurCapture={handleBlurCapture}
         onInteractOutside={(e) => {
           if (!hasChanged()) return
           wiggleIt()
@@ -163,12 +175,21 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               value={draftConfigItem?.Name || ""}
               onSave={(newName) => {
                 if (draftConfigItem) {
-                  setCurrentConfigItem({ ...draftConfigItem, Name: newName })
+                  updateDraftConfigItem(
+                    {
+                      ...draftConfigItem,
+                      Name: newName,
+                    },
+                    t("Dialog.InputConfigWizard.History.NameChanged", {
+                      name: newName,
+                    }),
+                  )
                 }
               }}
               ref={inlineEditRef}
             />
           </DialogTitle>
+
           <DialogDescription className="vsm:block hidden">
             {t("Dialog.InputConfigWizard.Description")}
           </DialogDescription>
@@ -179,10 +200,23 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               {draftConfigItem && (
                 <ConfigWizard
                   configItem={draftConfigItem}
-                  onConfigChange={(item) => {
-                    setCurrentConfigItem(item)
+                  onConfigChange={(item, actionLabel) => {
+                    updateDraftConfigItem(item, actionLabel)
                   }}
                   drawerContainer={containerRef}
+                  historyControls={
+                    <HistoryControls
+                      history={editorState.drawerSession?.history ?? []}
+                      cursor={editorState.drawerSession?.cursor ?? -1}
+                      historyStart={
+                        editorState.drawerSession?.historyStart ?? 0
+                      }
+                      onUndo={undoConfigItemChange}
+                      onJump={(index) => jumpToHistory(index, "drawer")}
+                    />
+                  }
+                  onDrawerOpen={beginDrawerSession}
+                  onDrawerClose={finishDrawerSession}
                   liveData={{
                     rawValue: runtimeState?.RawValue ?? configItem?.RawValue,
                     finalValue: runtimeState?.Value ?? configItem?.Value,
@@ -193,23 +227,33 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           </ScrollArea>
         </div>
         <DialogFooter
-          className="flex flex-row justify-between"
+          className="flex flex-row justify-between gap-2"
           data-testid="inputconfigwizard-dialog-footer"
         >
-          <div className="flex grow flex-row items-center gap-1">
+          <div className="flex grow flex-row items-center gap-2">
+            <HistoryControls
+              history={editorState.history}
+              cursor={editorState.cursor}
+              historyStart={editorState.historyStart}
+              onUndo={undoConfigItemChange}
+              onJump={(index) => jumpToHistory(index, "wizard")}
+            />
+
             {showPendingChangesMessage && (
               <>
-                <IconExclamationCircle className="text-primary mr-2 inline h-8 w-8" />
+                <IconExclamationCircle className="text-primary ml-2 inline h-8 w-8" />
                 <span className="text-primary">
                   {t("Dialog.General.PendingChangesMessage")}
                 </span>
               </>
             )}
           </div>
+
           <div className="flex flex-row gap-2">
             <Button variant="outline" onClick={closeDialog}>
               {t("Dialog.General.Cancel")}
             </Button>
+
             <Button variant="default" onClick={saveChanges}>
               {t("Dialog.General.ApplyChanges")}
             </Button>
