@@ -1,0 +1,38 @@
+{
+  "$schema": "../mfjoystick.schema.json",
+  "InstanceName": "Logitech Radio Panel",
+  "VendorId": "0x06A3",
+  "ProductId": "0x0D05",
+  "Inputs": [
+    { "Id": 0, "Type": "Button", "Label": "Upper COM1" },
+    { "Id": 1, "Type": "Button", "Label": "Upper COM2" },
+    { "Id": 2, "Type": "Button", "Label": "Upper NAV1" },
+    { "Id": 3, "Type": "Button", "Label": "Upper NAV2" },
+    { "Id": 4, "Type": "Button", "Label": "Upper ADF" },
+    { "Id": 5, "Type": "Button", "Label": "Upper DME" },
+    { "Id": 6, "Type": "Button", "Label": "Upper XPDR" },
+    { "Id": 7, "Type": "Button", "Label": "Lower COM1" },
+    { "Id": 8, "Type": "Button", "Label": "Lower COM2" },
+    { "Id": 9, "Type": "Button", "Label": "Lower NAV1" },
+    { "Id": 10, "Type": "Button", "Label": "Lower NAV2" },
+    { "Id": 11, "Type": "Button", "Label": "Lower ADF" },
+    { "Id": 12, "Type": "Button", "Label": "Lower DME" },
+    { "Id": 13, "Type": "Button", "Label": "Lower XPDR" },
+    { "Id": 14, "Type": "Button", "Label": "Upper ACT/STBY" },
+    { "Id": 15, "Type": "Button", "Label": "Lower ACT/STBY" },
+    { "Id": 16, "Type": "Button", "Label": "Upper inner CW" },
+    { "Id": 17, "Type": "Button", "Label": "Upper inner CCW" },
+    { "Id": 18, "Type": "Button", "Label": "Upper outer CW" },
+    { "Id": 19, "Type": "Button", "Label": "Upper outer CCW" },
+    { "Id": 20, "Type": "Button", "Label": "Lower inner CW" },
+    { "Id": 21, "Type": "Button", "Label": "Lower inner CCW" },
+    { "Id": 22, "Type": "Button", "Label": "Lower outer CW" },
+    { "Id": 23, "Type": "Button", "Label": "Lower outer CCW" }
+  ],
+  "Outputs": [
+    { "Id": "LCD COM1 ACTIVE", "Type": "LcdDisplay", "Label": "COM1 Active", "Byte": 1, "Cols": 5, "Lines": 1 },
+    { "Id": "LCD COM1 STBY", "Type": "LcdDisplay", "Label": "COM1 Standby", "Byte": 6, "Cols": 5, "Lines": 1 },
+    { "Id": "LCD COM2 ACTIVE", "Type": "LcdDisplay", "Label": "COM2 Active", "Byte": 11, "Cols": 5, "Lines": 1 },
+    { "Id": "LCD COM2 STBY", "Type": "LcdDisplay", "Label": "COM2 Standby", "Byte": 16, "Cols": 5, "Lines": 1 }
+  ]
+}

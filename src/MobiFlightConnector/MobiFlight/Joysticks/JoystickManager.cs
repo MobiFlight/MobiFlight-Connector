@@ -195,83 +195,106 @@ namespace MobiFlight
 
         public async void Connect()
         {
-            var di = new SharpDX.DirectInput.DirectInput();
             Joysticks?.Clear();
             ExcludedJoysticks?.Clear();
-            List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
-            // make this next call async so that it doesn't block the UI
-            var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList())
-                .ConfigureAwait(false);
-
-            foreach (var d in devices)
-            {
-                Log.Instance.log($"Found attached DirectInput device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
-
-                if (!SupportedDeviceTypes.Contains(d.Type))
-                {
-                    Log.Instance.log($"Skipping unsupported device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
-                    continue;
-                }
-
-                var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
-                var productId = diJoystick.Properties.ProductId;
-                var vendorId = diJoystick.Properties.VendorId;
-
-                // Check if this device should be handled later as an HID controller
-                if (HidControllerFactory.CanCreate(d.InstanceName))
-                {
-                    continue;
-                }
-
-                // Get the product name (handles special cases like VKB)
-                string productName = ControllerFactory.GetProductName(d, diJoystick, vendorId);
-
-                // Get the appropriate definition for this device
-                JoystickDefinition definition = GetJoystickDefinition(d.InstanceName, productName, vendorId, productId);
-
-                // Use factory to create appropriate controller instance
-                var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, CduHub);
-
-                // If factory returns null, create a standard Joystick
-                if (js == null)
-                {
-                    js = new Joystick(diJoystick, definition);
-                }
-
-                if (!HasAxisOrButtons(js))
-                {
-                    Log.Instance.log($"Skipping device with no buttons or axis: {d.InstanceName}.", LogSeverity.Debug);
-                    continue;
-                }
-
-                // Check against exclusion list
-                if (TryExcludeJoystick(js, settingsExcludedJoysticks))
-                {
-                    continue;
-                }
-
-                if (!Joysticks.TryAdd(js.Serial, js))
-                {
-                    Log.Instance.log(
-                        $"Error adding DirectInput controller: {d.InstanceName} / {js.Serial}. Likely Joystick Serial conflict.",
-                        LogSeverity.Error
-                    );
-                    continue;
-                }
-
-                Log.Instance.log($"Adding attached controller: {d.InstanceName}", LogSeverity.Info);
-                Log.Instance.log($"Controller info: {d.InstanceName} / {js.Serial} (VID: {vendorId:X4} PID: {productId:X4}) - #Buttons: {js.Capabilities.ButtonCount} #Axis: {js.Capabilities.AxeCount}", LogSeverity.Debug);
-                js.Connect(Handle);
-                js.OnButtonPressed += Js_OnButtonPressed;
-                js.OnDisconnected += Js_OnDisconnected;
-            }
-
-            ConnectHidController();
+            await ConnectDirectInputControllers().ConfigureAwait(false);
+            ConnectHidControllers();
 
             if (JoysticksConnected())
             {
                 Connected?.Invoke(this, null);
+            }
+        }
+
+        private async Task ConnectDirectInputControllers()
+        {
+            try
+            {
+                var di = new SharpDX.DirectInput.DirectInput();
+
+                List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
+
+                // make this next call async so that it doesn't block the UI
+                var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList())
+                    .ConfigureAwait(false);
+
+                devices.ForEach(d =>
+                {
+                    try
+                    {
+                        Log.Instance.log($"Found attached DirectInput controller: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
+
+                        if (!SupportedDeviceTypes.Contains(d.Type))
+                        {
+                            Log.Instance.log($"Skipping unsupported controller: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
+                            return;
+                        }
+
+                        // Check if this device should be handled later as an HID controller
+                        if (HidControllerFactory.CanCreate(d.InstanceName))
+                        {
+                            return;
+                        }
+
+                        var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
+                        var productId = diJoystick.Properties.ProductId;
+                        var vendorId = diJoystick.Properties.VendorId;
+
+                        // Get the product name (handles special cases like VKB)
+                        string productName = ControllerFactory.GetProductName(d, diJoystick, vendorId);
+
+                        // Get the appropriate definition for this device
+                        JoystickDefinition definition = GetJoystickDefinition(d.InstanceName, productName, vendorId, productId);
+
+                        // Use factory to create appropriate controller instance
+                        var js = ControllerFactory.Create(d, diJoystick, vendorId, productId, definition, CduHub);
+
+                        // If factory returns null, create a standard Joystick
+                        if (js == null)
+                        {
+                            js = new Joystick(diJoystick, definition);
+                        }
+
+                        if (!HasAxisOrButtons(js))
+                        {
+                            Log.Instance.log($"Skipping controller with no buttons or axis: {d.InstanceName}.", LogSeverity.Debug);
+                            return;
+                        }
+
+                        // Check against exclusion list
+                        if (TryExcludeJoystick(js, settingsExcludedJoysticks))
+                        {
+                            return;
+                        }
+
+                        if (Joysticks.ContainsKey(js.Serial))
+                        {
+                            Log.Instance.log(
+                                $"Error adding DirectInput controller: {d.InstanceName} / {js.Serial}. Likely Joystick Serial conflict.",
+                                LogSeverity.Error
+                            );
+                            return;
+                        }
+
+                        Log.Instance.log($"Adding attached controller: {d.InstanceName}", LogSeverity.Info);
+                        Log.Instance.log($"Controller info: {d.InstanceName} / {js.Serial} (VID: {vendorId:X4} PID: {productId:X4}) - #Buttons: {js.Capabilities.ButtonCount} #Axis: {js.Capabilities.AxeCount}", LogSeverity.Debug);
+
+                        js.Connect(Handle);
+                        js.OnButtonPressed += Js_OnButtonPressed;
+                        js.OnDisconnected += Js_OnDisconnected;
+
+                        Joysticks[js.Serial] = js;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Error connecting DirectInput controller {d.InstanceName}: {ex.Message}", LogSeverity.Error);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error enumerating DirectInput controllers: {ex.Message}", LogSeverity.Error);
             }
         }
 
@@ -299,17 +322,17 @@ namespace MobiFlight
         {
             if (!IsExcludedJoystick(joystick.Name, settingsExcludedJoysticks)) return false;
 
-            Log.Instance.log($"Ignore attached joystick device: {joystick.Name}.", LogSeverity.Info);
+            Log.Instance.log($"Ignore attached joystick controller: {joystick.Name}.", LogSeverity.Info);
             ExcludedJoysticks.Add(joystick);
             return true;
         }
 
-        private void ConnectHidController()
+        private void ConnectHidControllers()
         {
             try
             {
                 var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
-                Log.Instance.log($"Found {allHidDevices.Count} HID devices, checking for supported devices", LogSeverity.Debug);
+                Log.Instance.log($"Found {allHidDevices.Count} HID controllers", LogSeverity.Debug);
                 List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
                 allHidDevices.ForEach(hidDevice =>
@@ -323,7 +346,7 @@ namespace MobiFlight
 
                         if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
                         {
-                            // already loaded as regular DirectInput Joystick
+                            // already loaded as regular DirectInput controller
                             return;
                         }
 
@@ -336,10 +359,10 @@ namespace MobiFlight
                             return;
                         }
 
-                        if (!Joysticks.TryAdd(joystick.Serial, joystick))
+                        if (Joysticks.ContainsKey(joystick.Serial))
                         {
                             Log.Instance.log(
-                                $"Error adding HID device: {definition.InstanceName} / {joystick.Serial}. Likely Joystick Serial conflict.",
+                                $"Error adding HID controller: {definition.InstanceName} / {joystick.Serial}. A Joystick Serial conflict.",
                                 LogSeverity.Error
                             );
                             return;
@@ -352,16 +375,17 @@ namespace MobiFlight
                         joystick.OnButtonPressed += Js_OnButtonPressed;
                         joystick.OnDisconnected += Js_OnDisconnected;
 
+                        Joysticks[joystick.Serial] = joystick;
                     }
                     catch (Exception ex)
                     {
-                        Log.Instance.log($"Error connecting HID device {hidDevice.GetFriendlyName()}: {ex.Message}", LogSeverity.Error);
+                        Log.Instance.log($"Error connecting HID controller {hidDevice.GetFriendlyName()}: {ex.Message}", LogSeverity.Error);
                     }
                 });
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error enumerating HID devices: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"Error enumerating HID controllers: {ex.Message}", LogSeverity.Error);
             }
         }
 

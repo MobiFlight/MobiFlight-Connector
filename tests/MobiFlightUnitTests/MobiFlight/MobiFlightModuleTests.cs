@@ -629,6 +629,145 @@ namespace MobiFlight.Tests
                 interval.TotalMilliseconds, $"Expected interval below {TestDelayMs *2}ms, was {interval.TotalMilliseconds}ms.");
         }
 
+        [TestMethod()]
+        public void Stop_ShouldStopDevices_WhenModuleIsFresh()
+        {
+            // Arrange
+            var setValues = new List<int>();
+            var module = CreateConnectedModuleWithOutput(setValues);
+
+            // Act
+            module.Stop();
+
+            // Assert
+            Assert.HasCount(1, setValues, "A fresh board may show stale data, so the first Stop should run.");
+        }
+
+        [TestMethod()]
+        public void Stop_ShouldNotStopAgain_WhenNothingWasWrittenSinceLastStop()
+        {
+            // Arrange
+            var setValues = new List<int>();
+            var module = CreateConnectedModuleWithOutput(setValues);
+            module.Stop();
+
+            // Act
+            module.Stop();
+            module.Stop();
+
+            // Assert
+            Assert.HasCount(1, setValues, "Repeated Stop calls should not send to the board again.");
+        }
+
+        [TestMethod()]
+        public void Stop_ShouldStopAgain_WhenPinWasSetSinceLastStop()
+        {
+            // Arrange
+            var setValues = new List<int>();
+            var module = CreateConnectedModuleWithOutput(setValues);
+            module.Stop();
+            module.SetPin("", "Output1", 1);
+
+            // Act
+            module.Stop();
+
+            // Assert
+            CollectionAssert.AreEqual(new List<int> { 0, 1, 0 }, setValues, "Writing a pin should make the next Stop run.");
+        }
+
+        private static MobiFlightModule CreateConnectedModuleWithOutput(List<int> setValues)
+        {
+            BoardDefinitions.LoadDefinitions();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            Assert.IsNotNull(board, "Board not found.");
+
+            var module = new MobiFlightModule("COM1", board)
+            {
+                Version = "1.0.0"
+            };
+
+            var connectedField = typeof(MobiFlightModule).GetField(
+                "connected",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(connectedField, "connected field should exist.");
+            connectedField.SetValue(module, true);
+
+            var delayField = typeof(MobiFlightModule).GetField(
+                "StopDelayInMs",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(delayField, "StopDelayInMs field should exist.");
+            delayField.SetValue(module, 0);
+
+            var outputs = (Dictionary<string, MobiFlightOutput>)typeof(MobiFlightModule)
+                .GetField("outputs", BindingFlags.NonPublic | BindingFlags.Instance)
+                .GetValue(module);
+            outputs.Add("Output1", new TestOutput { OnSet = setValues.Add });
+
+            return module;
+        }
+
+        #endregion
+
+        #region Power Save Tests
+
+        // CmdMessenger sends queued commands on a worker thread and combines
+        // them into one write, so the tests assert on the written payload.
+        private const int CommandQueueWaitMs = 100;
+
+        private static string PowerSaveCommand(bool mode) =>
+            $"{(int)MobiFlightModule.Command.SetPowerSavingMode},{(mode ? 1 : 0)};";
+
+        [TestMethod()]
+        public async System.Threading.Tasks.Task SetPowerSaveMode_ShouldSendOnOnlyOnce_WhenCalledRepeatedly()
+        {
+            // Arrange
+            var transport = new ScriptedTransport();
+            var module = CreateModuleWithTransport(transport);
+
+            // Act
+            module.SetPowerSaveMode(true);
+            module.SetPowerSaveMode(true);
+            module.SetPowerSaveMode(true);
+            await System.Threading.Tasks.Task.Delay(CommandQueueWaitMs);
+
+            // Assert
+            Assert.AreEqual(PowerSaveCommand(true), transport.DataWritten, "Power save on is only sent when the mode changes.");
+        }
+
+        [TestMethod()]
+        public async System.Threading.Tasks.Task SetPowerSaveMode_ShouldAlwaysSendOff_BecauseItIsTheKeepAwakeHeartbeat()
+        {
+            // Arrange
+            var transport = new ScriptedTransport();
+            var module = CreateModuleWithTransport(transport);
+
+            // Act
+            module.SetPowerSaveMode(false);
+            module.SetPowerSaveMode(false);
+            await System.Threading.Tasks.Task.Delay(CommandQueueWaitMs);
+
+            // Assert
+            Assert.AreEqual(PowerSaveCommand(false) + PowerSaveCommand(false), transport.DataWritten, "Every power save off must reach the board to keep it awake.");
+        }
+
+        [TestMethod()]
+        public async System.Threading.Tasks.Task SetPowerSaveMode_ShouldSendOnAgain_AfterPowerSaveWasTurnedOff()
+        {
+            // Arrange
+            var transport = new ScriptedTransport();
+            var module = CreateModuleWithTransport(transport);
+
+            // Act
+            module.SetPowerSaveMode(true);
+            module.SetPowerSaveMode(false);
+            module.SetPowerSaveMode(true);
+            await System.Threading.Tasks.Task.Delay(CommandQueueWaitMs);
+
+            // Assert
+            Assert.AreEqual(PowerSaveCommand(true) + PowerSaveCommand(false) + PowerSaveCommand(true), transport.DataWritten, "Power save on after an off is a mode change and must be sent.");
+        }
+
         #endregion
 
         #region GetInfo Tests
@@ -743,6 +882,8 @@ namespace MobiFlight.Tests
 
             public int WriteCount { get; private set; }
 
+            public string DataWritten { get; private set; } = string.Empty;
+
             public event EventHandler DataReceived;
 
             public ScriptedTransport(params string[] replies)
@@ -779,6 +920,7 @@ namespace MobiFlight.Tests
             public void Write(byte[] buffer)
             {
                 WriteCount++;
+                DataWritten += Encoding.UTF8.GetString(buffer);
 
                 var reply = _replies.Count > 0 ? _replies.Dequeue() : null;
                 if (reply == null) return;
