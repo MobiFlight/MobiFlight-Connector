@@ -16,6 +16,18 @@ We use pull requests for code contributions. If you are new to this workflow, Gi
 
 For setting up the development environment and compiling MobiFlight, see the [frontend README](src/MobiFlightConnector/frontend/README.md), it covers the whole development setup.
 
+#### One-time setup: graphify hooks
+
+This repo ships a [graphify](https://docs.graphify.com/) knowledge graph (`graphify-out/graph.json`) that AI coding agents (Claude Code, Codex) query instead of grepping the codebase - see `AGENTS.md`. The hook scripts that keep it current after a commit, checkout, merge or rebase are committed under `.githooks/`, but git only runs hooks from `.githooks/` once you point it there. After installing [graphify](https://pypi.org/project/graphifyy/) (`pip install graphifyy`), run once per clone:
+
+```sh
+git config core.hooksPath .githooks
+git config merge.graphify.name "graphify graph.json union merge"
+git config merge.graphify.driver "graphify merge-driver %O %A %B"
+```
+
+Without this, the graph still works for querying but won't auto-update after you pull or commit — run `graphify update .` manually in that case.
+
 ### Translations
 
 Translation files live in [`src/MobiFlightConnector/frontend/public/locales/`](src/MobiFlightConnector/frontend/public/locales/). Each language has its own folder with a `translation.json` file. The three core languages (`en`, `de`, `es`) must be complete before a PR can be merged.
