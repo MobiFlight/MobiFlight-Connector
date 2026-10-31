@@ -85,6 +85,16 @@ namespace MobiFlightUnitTests.mock.xplane
             Commands.Add(new XPlaneCommand(command, null));
         }
 
+        public void beginCommand(string command)
+        {
+            Commands.Add(new XPlaneCommand(command, "begin"));
+        }
+
+        public void endCommand(string command)
+        {
+            Commands.Add(new XPlaneCommand(command, "end"));
+        }
+
         void CacheInterface.Clear()
         {
             throw new NotImplementedException();

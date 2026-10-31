@@ -576,12 +576,25 @@ namespace MobiFlight.Execution
                         };
 
                         if (cfg.ButtonInputConfig != null)
+                        {
+                            var onPress = cfg.ButtonInputConfig.onPress;
+                            var hasPairedReleaseAction = onPress != null &&
+                                (onPress.TargetsSameCommandAs(cfg.ButtonInputConfig.onRelease) ||
+                                 onPress.TargetsSameCommandAs(cfg.ButtonInputConfig.onLongRelease));
+
                             inputActionExecutionCache.Execute(
                                 cfg.ButtonInputConfig,
                                 cacheCollection,
-                                new InputEventArgs() { Value = dValue, StrValue = isNumericValue ? null : value },
+                                new InputEventArgs()
+                                {
+                                    InputType = DeviceType.Button,
+                                    Value = dValue,
+                                    StrValue = isNumericValue ? null : value,
+                                    HasPairedReleaseAction = hasPairedReleaseAction
+                                },
                                 cfgRefs
                             );
+                        }
                         else
                         {
                             inputActionExecutionCache.Execute(

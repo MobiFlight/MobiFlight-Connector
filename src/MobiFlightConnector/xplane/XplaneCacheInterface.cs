@@ -13,5 +13,9 @@
         void writeDataRef(string dataRefPath, float value);
 
         void sendCommand(string command);
+
+        void beginCommand(string command);
+
+        void endCommand(string command);
     }
 }

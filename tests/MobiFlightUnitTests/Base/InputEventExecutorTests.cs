@@ -1739,13 +1739,21 @@ namespace MobiFlight.Execution.Tests
         private class RecordingInputAction : InputAction
         {
             public InputEventArgs LastArgs;
+            private readonly bool _targetsSameCommand;
+
+            public RecordingInputAction(bool targetsSameCommand = false)
+            {
+                _targetsSameCommand = targetsSameCommand;
+            }
 
             public override void execute(CacheCollection cacheCollection, InputEventArgs args, List<ConfigRefValue> configRefs)
             {
                 LastArgs = args;
             }
 
-            public override object Clone() => new RecordingInputAction();
+            public override bool TargetsSameCommandAs(InputAction other) => _targetsSameCommand;
+
+            public override object Clone() => new RecordingInputAction(_targetsSameCommand);
             public override void ReadXml(XmlReader reader) { }
             public override void WriteXml(XmlWriter writer) { }
         }
@@ -1787,5 +1795,102 @@ namespace MobiFlight.Execution.Tests
             Assert.AreEqual((double)MobiFlightButton.InputEvent.LONG_RELEASE, longRelease.LastArgs.Value);
             Assert.AreEqual("2", configItem.Value, "cfg.Value must reflect the dispatched LONG_RELEASE, not the raw RELEASE.");
         }
+
+        #region HasPairedReleaseAction - whether onPress and its release-side sibling are a true begin/end pair
+
+        [TestMethod]
+        public void Execute_Press_HasPairedReleaseActionTrue_WhenOnPressTargetsSameCommandAsOnRelease()
+        {
+            var onPress = new RecordingInputAction(targetsSameCommand: true);
+            var onRelease = new RecordingInputAction();
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig { onPress = onPress, onRelease = onRelease }
+            };
+            _configItems.Add(configItem);
+
+            _executor.Execute(CreateButtonEventArgs("123", "Device1", isOnPress: true), isStarted: true);
+
+            Assert.IsNotNull(onPress.LastArgs, "onPress must have executed.");
+            Assert.IsTrue(onPress.LastArgs.HasPairedReleaseAction,
+                "onPress.TargetsSameCommandAs(onRelease) returning true means this is a true begin/end pair.");
+        }
+
+        [TestMethod]
+        public void Execute_Press_HasPairedReleaseActionFalse_WhenOnPressDoesNotTargetSameCommandAsOnRelease()
+        {
+            // The dominant real-world pattern (e.g. distinct Bat1On/Bat1Off commands) - onRelease is
+            // bound, but to something onPress doesn't consider the same command.
+            var onPress = new RecordingInputAction(targetsSameCommand: false);
+            var onRelease = new RecordingInputAction();
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig { onPress = onPress, onRelease = onRelease }
+            };
+            _configItems.Add(configItem);
+
+            _executor.Execute(CreateButtonEventArgs("123", "Device1", isOnPress: true), isStarted: true);
+
+            Assert.IsNotNull(onPress.LastArgs, "onPress must have executed.");
+            Assert.IsFalse(onPress.LastArgs.HasPairedReleaseAction);
+        }
+
+        [TestMethod]
+        public void Execute_Release_HasPairedReleaseActionReflectsOnPressPairing_NotJustOnPressDispatch()
+        {
+            // The pairing is a property of the binding, not of which side fired - onRelease must see
+            // the same flag onPress would have, even though onRelease's own TargetsSameCommandAs is
+            // never consulted.
+            var onPress = new RecordingInputAction(targetsSameCommand: true);
+            var onRelease = new RecordingInputAction(targetsSameCommand: false);
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig { onPress = onPress, onRelease = onRelease }
+            };
+            _configItems.Add(configItem);
+
+            _executor.Execute(CreateButtonEventArgs("123", "Device1", isOnPress: false), isStarted: true);
+
+            Assert.IsNotNull(onRelease.LastArgs, "onRelease must have executed.");
+            Assert.IsTrue(onRelease.LastArgs.HasPairedReleaseAction);
+        }
+
+        [TestMethod]
+        public void Execute_Press_HasPairedReleaseActionFalse_WhenNoOnPressBound()
+        {
+            var onRelease = new RecordingInputAction();
+
+            var configItem = new InputConfigItem
+            {
+                Active = true,
+                Controller = SerialNumber.CreateController("/ 123"),
+                Device = InputConfigItem.CreateInputDevice(InputConfigItem.TYPE_BUTTON, "Device1"),
+                Name = "TestConfig",
+                button = new ButtonInputConfig { onRelease = onRelease }
+            };
+            _configItems.Add(configItem);
+
+            _executor.Execute(CreateButtonEventArgs("123", "Device1", isOnPress: false), isStarted: true);
+
+            Assert.IsNotNull(onRelease.LastArgs, "onRelease must have executed.");
+            Assert.IsFalse(onRelease.LastArgs.HasPairedReleaseAction, "No onPress at all means there's nothing to pair with.");
+        }
+
+        #endregion
     }
 }

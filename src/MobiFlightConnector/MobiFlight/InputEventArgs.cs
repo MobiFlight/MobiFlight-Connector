@@ -35,6 +35,13 @@ namespace MobiFlight
         /// </summary>
         public int? HeldDurationMs { get; set; }
 
+        /// <summary>
+        /// Whether this button binding's onPress and release-side (onRelease/onLongRelease) actions
+        /// target the exact same stateful command/resource (see InputAction.TargetsSameCommandAs).
+        /// i.e. whether this is a true begin/end pair rather than two independent fire-and-forget actions
+        /// </summary>
+        public bool HasPairedReleaseAction { get; set; } = true;
+
         public readonly DateTime Time = DateTime.Now;
 
         public string GetEventActionLabel() => GetEventActionLabel(Value);
@@ -73,6 +80,7 @@ namespace MobiFlight
             clone.SyntheticDelayMs = SyntheticDelayMs;
             clone.SyntheticHoldDelayMs = SyntheticHoldDelayMs;
             clone.HeldDurationMs = HeldDurationMs;
+            clone.HasPairedReleaseAction = HasPairedReleaseAction;
 
             return clone;
         }
