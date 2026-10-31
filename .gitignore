@@ -493,6 +493,12 @@ Python/*
 devcontainer-lock.json
 
 # local AI agent state
-.claude/
+.claude/settings.local.json
 .mcp.json
 CLAUDE.local.md
+
+# graphify: only the queryable graph + report are committed; cache/html/manifest
+# are local derived artifacts (manifest.json churns on mtime per machine)
+graphify-out/*
+!graphify-out/graph.json
+!graphify-out/GRAPH_REPORT.md
