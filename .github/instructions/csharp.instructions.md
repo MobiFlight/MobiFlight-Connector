@@ -28,6 +28,12 @@ applyTo: '**/*.cs'
 - Use regions sparingly in production code, only for very large classes (tests group with `#region`).
 - Use `EventHandler` or `EventHandler<T>` with `OnEvent?.Invoke(this, args)`, and unsubscribe in disposal methods.
 
+## String Parsing
+- Prefer high-performance code — `Span<T>` / `ReadOnlySpan<T>` — when parsing strings, rather than `Regex`, `Split`, `Substring` chains, etc.
+- Default to manual span-based parsing (slicing, `IndexOf`, `TryParse` over a span) instead of `Regex` for string parsing.
+- Only reach for `Regex` when the span-based version would become too complicated to read/maintain (e.g. real alternation, lookaheads, or a grammar with many optional parts). In that case, use the `[GeneratedRegex]` source-generator attribute (compile-time generated matcher, no runtime regex compilation) rather than a `new Regex(...)` instance.
+- This applies to hot-path parsing in production code (e.g. per-message/per-call parsing such as `MobiFlight.xplane.WebApi.XplaneDataRefPathParser` and `XplaneWebApiMessageParser.DecodeBase64Text`). It is not worth retrofitting onto one-off or test-only string handling that isn't on a hot path.
+
 ## Null Handling
 - Follow the surrounding file for null checks; prefer `is null` / `is not null` in new code.
 - Use `ArgumentNullException.ThrowIfNull` for public method arguments.
