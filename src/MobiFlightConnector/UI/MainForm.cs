@@ -82,7 +82,8 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Language != "")
             {
-                var cultureInfo = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                // Issue 3484: use language only (de-DE -> de) so a stale de-DE satellite from old installs isn't loaded
+                var cultureInfo = new System.Globalization.CultureInfo(new System.Globalization.CultureInfo(Properties.Settings.Default.Language).TwoLetterISOLanguageName);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
                 System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
             }
