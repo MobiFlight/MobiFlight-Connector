@@ -66,7 +66,6 @@ namespace MobiFlight.UI.Panels.Config
             this.HubHopPresetPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.HubHopPresetPanel.FlightSimType = MobiFlight.FlightSimType.NONE;
             this.HubHopPresetPanel.Location = new System.Drawing.Point(3, 42);
-            this.HubHopPresetPanel.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("HubHopPresetPanel.LVars")));
             this.HubHopPresetPanel.Margin = new System.Windows.Forms.Padding(1);
             this.HubHopPresetPanel.MinimumSize = new System.Drawing.Size(603, 0);
             this.HubHopPresetPanel.Mode = MobiFlight.UI.Panels.Config.HubHopPanelMode.Output;

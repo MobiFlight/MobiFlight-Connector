@@ -86,10 +86,7 @@
             this.preconditionListTreeView.ContextMenuStrip = this.preconditionTreeContextMenuStrip;
             resources.ApplyResources(this.preconditionListTreeView, "preconditionListTreeView");
             this.preconditionListTreeView.Name = "preconditionListTreeView";
-            this.preconditionListTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes"))),
-            ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes1")))});
-            // 
+            //
             // preconditionTreeContextMenuStrip
             // 
             this.preconditionTreeContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);

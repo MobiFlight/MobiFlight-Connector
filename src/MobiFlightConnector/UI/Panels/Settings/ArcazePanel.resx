@@ -157,16 +157,6 @@ If you have Arcaze Modules, connect them to your computer and restart MobiFlight
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="ArcazeModuleTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8xBgQAAAAABgUAAAAITW9kdWxlXzAA
-        /////wkEAAAA/////wkEAAAAAAAAAAs=
-</value>
-  </data>
   <data name="&gt;&gt;numModulesNumericUpDown.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
@@ -413,16 +403,6 @@ If you have Arcaze Modules, connect them to your computer and restart MobiFlight
   </data>
   <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Parent" xml:space="preserve">
     <value>ArcazePanelSettingsPanel</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8yBgQAAAAABgUAAAANTUZfTUlDUk9f
-        Q09NNQD/////CQQAAAD/////CQQAAAAAAAAACw==
-</value>
   </data>
   <data name="&gt;&gt;ArcazeNoModulesFoundPanel.Name" xml:space="preserve">
     <value>ArcazeNoModulesFoundPanel</value>

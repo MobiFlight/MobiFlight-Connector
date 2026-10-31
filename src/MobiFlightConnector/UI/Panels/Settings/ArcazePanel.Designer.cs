@@ -131,9 +131,6 @@
             // 
             resources.ApplyResources(this.ArcazeModuleTreeView, "ArcazeModuleTreeView");
             this.ArcazeModuleTreeView.Name = "ArcazeModuleTreeView";
-            this.ArcazeModuleTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            ((System.Windows.Forms.TreeNode)(resources.GetObject("ArcazeModuleTreeView.Nodes"))),
-            ((System.Windows.Forms.TreeNode)(resources.GetObject("ArcazeModuleTreeView.Nodes1")))});
             this.ArcazeModuleTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ArcazeModuleTreeView_AfterSelect);
             // 
             // groupBox1
