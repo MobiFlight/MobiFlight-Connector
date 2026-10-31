@@ -459,6 +459,21 @@ namespace MobiFlight.xplane.WebApi
 
         public void sendCommand(string command)
         {
+            SetCommandActive(command, isActive: true, duration: 0, verb: "activate");
+        }
+
+        public void beginCommand(string command)
+        {
+            SetCommandActive(command, isActive: true, duration: null, verb: "begin");
+        }
+
+        public void endCommand(string command)
+        {
+            SetCommandActive(command, isActive: false, duration: null, verb: "end");
+        }
+
+        private void SetCommandActive(string command, bool isActive, double? duration, string verb)
+        {
             if (!TryResolveCommandId(command, out var id))
             {
                 Log.Instance.log($"X-Plane Web API: unknown command '{command}'.", LogSeverity.Debug);
@@ -466,8 +481,8 @@ namespace MobiFlight.xplane.WebApi
             }
 
             FireAndForget(
-                SetCommandActiveAsync(id, true, duration: 0),
-                $"Failed to activate X-Plane Web API command {command}");
+                SetCommandActiveAsync(id, isActive, duration),
+                $"Failed to {verb} X-Plane Web API command {command}");
         }
 
         private Task SetCommandActiveAsync(long id, bool isActive, double? duration = null)

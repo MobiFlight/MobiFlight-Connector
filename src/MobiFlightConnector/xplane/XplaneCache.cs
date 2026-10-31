@@ -216,5 +216,19 @@ namespace MobiFlight.xplane
             XPlaneCommand xPlaneCommand = new XPlaneCommand(command, command);
             Connector?.SendCommand(xPlaneCommand);
         }
+
+        /// <summary>
+        /// The UDP protocol has no "set command active" message, only fire-and-forget. So the begin
+        /// edge is when we actually send the command; the end edge is a no-op.
+        /// </summary>
+        public void beginCommand(string command)
+        {
+            sendCommand(command);
+        }
+
+        public void endCommand(string command)
+        {
+            // Ignored: the UDP interface already fired the command on begin and cannot be told to stop.
+        }
     }
 }

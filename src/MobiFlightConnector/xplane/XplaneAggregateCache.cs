@@ -124,5 +124,15 @@ namespace MobiFlight.xplane
         {
             _active?.sendCommand(command);
         }
+
+        public void beginCommand(string command)
+        {
+            _active?.beginCommand(command);
+        }
+
+        public void endCommand(string command)
+        {
+            _active?.endCommand(command);
+        }
     }
 }
