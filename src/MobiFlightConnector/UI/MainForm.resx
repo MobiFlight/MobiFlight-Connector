@@ -7091,33 +7091,6 @@
   <data name="&gt;&gt;frontendPanel1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="logPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="logPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 512</value>
-  </data>
-  <data name="logPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="logPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 156</value>
-  </data>
-  <data name="logPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;logPanel1.Name" xml:space="preserve">
-    <value>logPanel1</value>
-  </data>
-  <data name="&gt;&gt;logPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.LogPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;logPanel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;logPanel1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

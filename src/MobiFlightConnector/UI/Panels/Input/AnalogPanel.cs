@@ -217,10 +217,6 @@ namespace MobiFlight.UI.Panels.Input
                         config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.RetriggerInputPanel).ToConfig();
                         break;
 
-                    case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
-                        config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
-                        break;
-
                     case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
                         config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).ToConfig();
                         break;
