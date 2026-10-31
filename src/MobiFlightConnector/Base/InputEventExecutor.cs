@@ -85,6 +85,11 @@ namespace MobiFlight.Execution
                     dispatchedLabel = e.GetEventActionLabel((int)dispatchedValue);
                     logLabel = AppendSyntheticDelay(dispatchedLabel, dispatchedValue, e, cfg.button);
                     dispatchedNumericValue = (int)dispatchedValue;
+
+                    var onPress = cfg.button.onPress;
+                    e.HasPairedReleaseAction = onPress != null &&
+                        (onPress.TargetsSameCommandAs(cfg.button.onRelease) ||
+                         onPress.TargetsSameCommandAs(cfg.button.onLongRelease));
                 }
                 else
                 {

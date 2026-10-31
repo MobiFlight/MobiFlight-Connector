@@ -46,15 +46,15 @@ namespace MobiFlight.InputConfig
             List<ConfigRefValue> configRefs)
         {
             var xplaneCache = cacheCollection.xplaneCache;
-            var value = PrepareValue(args, configRefs, cacheCollection.xplaneCache);
 
             switch (InputType)
             {
                 case INPUT_TYPE_DATAREF:
+                    var value = PrepareValue(args, configRefs, cacheCollection.xplaneCache);
                     HandleDataref(value, xplaneCache);
                     break;
                 case INPUT_TYPE_COMMAND:
-                    HandleCommand(value, args, xplaneCache);
+                    HandleCommand(Path, args, xplaneCache);
                     break;
             }
         }
@@ -64,6 +64,25 @@ namespace MobiFlight.InputConfig
             return obj is XplaneInputAction action &&
                    Path == action.Path &&
                    Expression == action.Expression;
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>
+        /// The following commands would both be treated as fire-and-forget
+        /// onPress: laminar/B738/EFIS_control/capt/vor1_off_up
+        /// onRelease: laminar/B738/EFIS_control/capt/vor1_off_dn
+        /// <br/>
+        /// <br/>
+        /// While these would invoke the begin/end phases:
+        /// onPress: laminar/B738/EFIS_control/capt/do_something
+        /// onRelease: laminar/B738/EFIS_control/capt/do_something
+        /// </remarks>
+        public override bool TargetsSameCommandAs(InputAction other)
+        {
+            return InputType == INPUT_TYPE_COMMAND &&
+                   other is XplaneInputAction otherAction &&
+                   otherAction.InputType == INPUT_TYPE_COMMAND &&
+                   Path == otherAction.Path;
         }
 
         private void HandleDataref(
@@ -91,11 +110,17 @@ namespace MobiFlight.InputConfig
                 switch (args)
                 {
                     case { Value: (int)MobiFlightButton.InputEvent.PRESS }:
-                        xplaneCache.beginCommand(value);
+                        if (args.HasPairedReleaseAction)
+                            xplaneCache.beginCommand(value);
+                        else
+                            xplaneCache.sendCommand(value);
                         return;
                     case { Value: (int)MobiFlightButton.InputEvent.RELEASE }:
                     case { Value: (int)MobiFlightButton.InputEvent.LONG_RELEASE }:
-                        xplaneCache.endCommand(value);
+                        if (args.HasPairedReleaseAction)
+                            xplaneCache.endCommand(value);
+                        else
+                            xplaneCache.sendCommand(value);
                         return;
                 }
             }

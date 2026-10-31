@@ -36,9 +36,16 @@ namespace MobiFlight.InputConfig
         abstract public void WriteXml(System.Xml.XmlWriter writer);
 
         abstract public void execute(
-            CacheCollection cacheCollection, 
+            CacheCollection cacheCollection,
             InputEventArgs e,
             List<ConfigRefValue> configRefs);
+
+        /// <summary>
+        /// Whether this action and <paramref name="other"/> both target the same action,
+        /// such that a PRESS-side "begin" on this action is safe to pair with a
+        /// RELEASE-side "end" on <paramref name="other"/>.
+        /// </summary>
+        public virtual bool TargetsSameCommandAs(InputAction other) => false;
 
         public virtual string Replace(string expression, List<Tuple<string, string>> replacements) {
             if (replacements.Count == 0) return expression;

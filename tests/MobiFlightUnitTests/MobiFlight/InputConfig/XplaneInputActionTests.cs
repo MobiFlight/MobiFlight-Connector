@@ -115,5 +115,119 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        [TestMethod()]
+        public void TargetsSameCommandAsTest()
+        {
+            var a = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "sim/flight_controls/pitch_trim_up" };
+            var sameCommand = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "sim/flight_controls/pitch_trim_up" };
+            var differentCommand = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "sim/flight_controls/pitch_trim_down" };
+            var dataRefInstead = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_DATAREF, Path = "sim/flight_controls/pitch_trim_up" };
+
+            Assert.IsTrue(a.TargetsSameCommandAs(sameCommand), "Same InputType and Path must be considered the same command.");
+            Assert.IsFalse(a.TargetsSameCommandAs(differentCommand), "Distinct on/off style command paths must not be paired.");
+            Assert.IsFalse(a.TargetsSameCommandAs(dataRefInstead), "A DataRef action is never a command pair, even with a matching Path.");
+            Assert.IsFalse(a.TargetsSameCommandAs(null), "No sibling action means nothing to pair with.");
+        }
+
+        private static CacheCollection CreateCacheCollectionWith(MobiFlightUnitTests.mock.xplane.XplaneCacheMock xplaneCacheMock)
+        {
+            return new CacheCollection()
+            {
+                fsuipcCache = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock(),
+                simConnectCache = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock(),
+                moduleCache = null,
+                xplaneCache = xplaneCacheMock
+            };
+        }
+
+        private static InputEventArgs CreateButtonArgs(MobiFlightButton.InputEvent value, bool hasPairedReleaseAction)
+        {
+            return new InputEventArgs
+            {
+                InputType = DeviceType.Button,
+                Value = (int)value,
+                HasPairedReleaseAction = hasPairedReleaseAction
+            };
+        }
+
+        [TestMethod()]
+        public void HandleCommand_Press_Paired_BeginsCommand()
+        {
+            var o = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "sim/flight_controls/pitch_trim_up" };
+            var xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            o.execute(CreateCacheCollectionWith(xplaneCacheMock), CreateButtonArgs(MobiFlightButton.InputEvent.PRESS, hasPairedReleaseAction: true), new List<ConfigRefValue>());
+
+            Assert.HasCount(1, xplaneCacheMock.Commands);
+            Assert.AreEqual("begin", xplaneCacheMock.Commands[0].Description);
+            Assert.AreEqual(o.Path, xplaneCacheMock.Commands[0].Command);
+        }
+
+        [TestMethod()]
+        public void HandleCommand_Press_Unpaired_SendsOneShotPulse()
+        {
+            // No onRelease/onLongRelease targeting the same command - e.g. onPress-only, or a distinct
+            // on/off command pair - so this must pulse instead of beginning something that never ends.
+            var o = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "toliss_airbus/eleccommands/Bat1On" };
+            var xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            o.execute(CreateCacheCollectionWith(xplaneCacheMock), CreateButtonArgs(MobiFlightButton.InputEvent.PRESS, hasPairedReleaseAction: false), new List<ConfigRefValue>());
+
+            Assert.HasCount(1, xplaneCacheMock.Commands);
+            Assert.IsNull(xplaneCacheMock.Commands[0].Description);
+            Assert.AreEqual(o.Path, xplaneCacheMock.Commands[0].Command);
+        }
+
+        [TestMethod()]
+        public void HandleCommand_Release_Paired_EndsCommand()
+        {
+            var o = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "sim/flight_controls/pitch_trim_up" };
+            var xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            o.execute(CreateCacheCollectionWith(xplaneCacheMock), CreateButtonArgs(MobiFlightButton.InputEvent.RELEASE, hasPairedReleaseAction: true), new List<ConfigRefValue>());
+
+            Assert.HasCount(1, xplaneCacheMock.Commands);
+            Assert.AreEqual("end", xplaneCacheMock.Commands[0].Description);
+        }
+
+        [TestMethod()]
+        public void HandleCommand_Release_Unpaired_SendsOneShotPulse()
+        {
+            // The release side of a distinct on/off pair (e.g. Bat1Off) must pulse, not deactivate a
+            // command that was never begun.
+            var o = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "toliss_airbus/eleccommands/Bat1Off" };
+            var xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            o.execute(CreateCacheCollectionWith(xplaneCacheMock), CreateButtonArgs(MobiFlightButton.InputEvent.RELEASE, hasPairedReleaseAction: false), new List<ConfigRefValue>());
+
+            Assert.HasCount(1, xplaneCacheMock.Commands);
+            Assert.IsNull(xplaneCacheMock.Commands[0].Description);
+        }
+
+        [TestMethod()]
+        public void HandleCommand_LongRelease_Paired_EndsCommand()
+        {
+            var o = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "sim/flight_controls/pitch_trim_up" };
+            var xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            o.execute(CreateCacheCollectionWith(xplaneCacheMock), CreateButtonArgs(MobiFlightButton.InputEvent.LONG_RELEASE, hasPairedReleaseAction: true), new List<ConfigRefValue>());
+
+            Assert.HasCount(1, xplaneCacheMock.Commands);
+            Assert.AreEqual("end", xplaneCacheMock.Commands[0].Description);
+        }
+
+        [TestMethod()]
+        public void HandleCommand_NonButtonDevice_AlwaysSendsOneShotPulse()
+        {
+            var o = new XplaneInputAction { InputType = XplaneInputAction.INPUT_TYPE_COMMAND, Path = "sim/flight_controls/pitch_trim_up" };
+            var xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+            var args = new InputEventArgs { InputType = DeviceType.Encoder, Value = 1 };
+
+            o.execute(CreateCacheCollectionWith(xplaneCacheMock), args, new List<ConfigRefValue>());
+
+            Assert.HasCount(1, xplaneCacheMock.Commands);
+            Assert.IsNull(xplaneCacheMock.Commands[0].Description);
+        }
     }
 }
