@@ -1160,6 +1160,9 @@
   <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>1008, 494</value>
   </data>
+  <data name="logPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 549</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAMAICAAAAEAIAAoEAAANgAAABgYAAABACAAKAkAAF4QAAAQEAAAAQAgACgEAACGGQAAKAAAACAA

@@ -10,11 +10,6 @@
 		<OutputType>WinExe</OutputType>
 		<SelfContained>true</SelfContained>
         <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
-        <!-- .NET Core/5+ removed BinaryFormatter; this switches resx-embedded Bitmap/Icon/etc.
-             resources to the safe TypeConverter-based preserialized format instead
-             (see https://aka.ms/binaryformatter). Does not cover raw object-graph resources
-             (TreeNode[], ImageListStreamer, custom types) - those must not rely on resx at all. -->
-        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 	</PropertyGroup>
 
 	<PropertyGroup>

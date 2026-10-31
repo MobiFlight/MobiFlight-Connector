@@ -119,6 +119,9 @@
             this.mfModulesTreeView.ImageList = this.mfTreeViewImageList;
             this.mfModulesTreeView.ItemHeight = 26;
             this.mfModulesTreeView.Name = "mfModulesTreeView";
+            this.mfModulesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes1")))});
             this.mfModulesTreeView.ShowNodeToolTips = true;
             this.mfModulesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.mfModulesTreeView_AfterSelect);
             this.mfModulesTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.mfModulesTreeView_NodeMouseClick);

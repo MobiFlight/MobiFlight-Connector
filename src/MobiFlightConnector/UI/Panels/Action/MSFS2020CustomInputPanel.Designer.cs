@@ -42,6 +42,7 @@
             // 
             resources.ApplyResources(this.hubHopPresetPanel1, "hubHopPresetPanel1");
             this.hubHopPresetPanel1.FlightSimType = MobiFlight.FlightSimType.NONE;
+            this.hubHopPresetPanel1.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("hubHopPresetPanel1.LVars")));
             this.hubHopPresetPanel1.Mode = MobiFlight.UI.Panels.Config.HubHopPanelMode.Output;
             this.hubHopPresetPanel1.Name = "hubHopPresetPanel1";
             this.hubHopPresetPanel1.PresetFile = "Presets\\msfs2020_hubhop_presets.json";
