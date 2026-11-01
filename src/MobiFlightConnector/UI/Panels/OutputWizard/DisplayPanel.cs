@@ -10,6 +10,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
 {
     public partial class DisplayPanel : UserControl
     {
+        // TODO: Must match Device.Type of the LED display; the legacy name is "Display Module".
+        // Type naming needs a controller-independent cleanup; see the config dialog rewrite.
+        private const string LedModuleType = "LedModule";
+
         public event EventHandler<EventArgs> DisplayPanelValidatingError;
 
 #if ARCAZE
@@ -133,34 +137,33 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     Log.Instance.log($"Trying to show config but display type {config.Device.Type} not present.", LogSeverity.Error);
                 }
 
-                switch (config.Device?.Type)
+                switch (config.Device)
                 {
-                    case MobiFlightOutput.TYPE:
+                    case OutputConfig.Output:
                         displayPinPanel.syncFromConfig(config);
                         break;
 
-                    case MobiFlightStepper.TYPE:
+                    case OutputConfig.Stepper:
                         stepperPanel.syncFromConfig(config);
                         break;
 
-                    case "LedModule":
-                    case MobiFlightLedModule.TYPE:
+                    case OutputConfig.LedModule:
                         displayLedDisplayPanel.syncFromConfig(config);
                         break;
 
-                    case MobiFlightServo.TYPE:
+                    case OutputConfig.Servo:
                         servoPanel.syncFromConfig(config);
                         break;
 
-                    case MobiFlightLcdDisplay.TYPE:
+                    case OutputConfig.LcdDisplay:
                         displayLcdDisplayPanel.syncFromConfig(config);
                         break;
 
-                    case MobiFlightShiftRegister.TYPE:
+                    case OutputConfig.ShiftRegister:
                         displayShiftRegisterPanel.SyncFromConfig(config);
                         break;
 
-                    case MobiFlightCustomDevice.TYPE:
+                    case OutputConfig.CustomDevice:
                         customDevicePanel.syncFromConfig(config);
                         break;
                 }
@@ -208,6 +211,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 config.Controller = (displayModuleNameComboBox.SelectedItem as ListItem<Controller>).Value;
                 if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
                 
+                // TODO: MobiFlight*.TYPE belong to the runtime classes; the OutputConfig.* classes should own their type names.
                 switch (deviceType)
                 {
                     case MobiFlightOutput.TYPE:
@@ -220,8 +224,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         stepperPanel.syncToConfig(config);
                         break;
 
-                    case "LedModule":
-                    case MobiFlightLedModule.TYPE:
+                    case LedModuleType:
                         displayLedDisplayPanel.syncToConfig(config);
                         break;
 
@@ -286,8 +289,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // e.g., when a user shares a config with somebody else.
                 if (controller == null)
                 {
+                    // TODO: MobiFlight*.TYPE belong to the runtime classes; the OutputConfig.* classes should own their type names.
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                    deviceTypeOptions.Add(new ListItem() { Value = "LedModule", Label = ArcazeLedDigit.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = LedModuleType, Label = ArcazeLedDigit.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
@@ -321,7 +325,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 else if (SerialNumber.IsArcazeSerial(controller.Serial))
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                    deviceTypeOptions.Add(new ListItem() { Value = "LedModule", Label = ArcazeLedDigit.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = LedModuleType, Label = ArcazeLedDigit.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                 }
                 // update the available types depending on the 
@@ -338,7 +342,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                             switch (devType)
                             {
                                 case DeviceType.LedModule:
-                                    deviceTypeOptions.Add(new ListItem() { Value = "LedModule", Label = ArcazeLedDigit.TYPE });
+                                    deviceTypeOptions.Add(new ListItem() { Value = LedModuleType, Label = ArcazeLedDigit.TYPE });
                                     break;
 
                                 case DeviceType.Output:
@@ -536,7 +540,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 displayPinPanel.Height = displayPanelHeight;
             }
 
-            else if (SelectedItemValue == ArcazeLedDigit.TYPE || SelectedItemValue == "LedModule")
+            else if (SelectedItemValue == LedModuleType)
             {
                 displayLedDisplayPanel.Enabled = panelEnabled;
                 displayLedDisplayPanel.Height = displayPanelHeight;
@@ -892,7 +896,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void displayLedDisplayComboBox_Validating(object sender, CancelEventArgs e)
         {
-            if (displayTypeComboBox.Text == ArcazeLedDigit.TYPE || displayTypeComboBox.Text == "LedModule")
+            if (displayTypeComboBox.Text == ArcazeLedDigit.TYPE)
             {
                 try
                 {

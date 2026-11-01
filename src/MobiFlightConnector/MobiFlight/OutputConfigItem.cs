@@ -158,6 +158,7 @@ namespace MobiFlight
 
                 Controller = SerialNumber.CreateController(reader["serial"]);
 
+                // TODO: MobiFlight*.TYPE belong to the runtime classes; the OutputConfig.* classes should own their type names.
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
                     Device = new OutputConfig.Output();
@@ -312,7 +313,8 @@ namespace MobiFlight
 
             var DeviceType = HasInputAction ? "InputAction" : Device?.Type;
 
-            // This is only for backward compatibility.
+            // TODO: The legacy XML name "Display Module" differs from Device.Type "LedModule".
+            // The type naming needs a controller-independent cleanup; see the config dialog rewrite.
             // Xml file saving is disabled but unit tests are still using this code path.
             if (DeviceType == "LedModule") DeviceType = MobiFlightLedModule.TYPE;
 
@@ -405,22 +407,6 @@ namespace MobiFlight
             return new OutputConfigItem(this) { GUID = System.Guid.NewGuid().ToString() };
         }
 
-        protected override IDeviceConfig GetDeviceConfig()
-        {
-            switch (Device?.Type)
-            {
-                case MobiFlightOutput.TYPE:
-                case "LedModule":
-                case ArcazeLedDigit.TYPE:
-                case MobiFlightServo.TYPE:
-                case MobiFlightStepper.TYPE:
-                case MobiFlightShiftRegister.TYPE:
-                case MobiFlightLcdDisplay.TYPE:
-                case MobiFlightCustomDevice.TYPE:
-                    return Device;
-                default:
-                    return null;
-            }
-        }
+        protected override IDeviceConfig GetDeviceConfig() => Device;
     }
 }

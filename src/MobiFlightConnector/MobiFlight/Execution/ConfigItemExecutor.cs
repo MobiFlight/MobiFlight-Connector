@@ -231,29 +231,26 @@ namespace MobiFlight.Execution
         {
             if (cfg?.Device?.Type == null) return;
 
-            switch (cfg.Device.Type)
+            switch (cfg.Device)
             {
-                case MobiFlightStepper.TYPE:
-                    var stepper = cfg.Device as OutputConfig.Stepper;
+                case OutputConfig.Stepper stepper:
                     ExecuteDisplay(value?.ToString() ?? stepper.TestValue.ToString(), cfg);
                     break;
 
-                case MobiFlightServo.TYPE:
-                    var servo = cfg.Device as OutputConfig.Servo;
+                case OutputConfig.Servo servo:
                     ExecuteDisplay(value?.ToString() ?? servo.Max, cfg);
                     break;
 
-                case "LedModule":
-                case ArcazeLedDigit.TYPE:
-                case OutputConfig.LcdDisplay.DeprecatedType:
+                case LedModule:
+                case LcdDisplay:
                     ExecuteDisplay(value?.ToString() ?? "1234567890", cfg);
                     break;
 
-                case MobiFlightShiftRegister.TYPE:
+                case ShiftRegister:
                     ExecuteDisplay(value?.ToString() ?? "1", cfg);
                     break;
 
-                case MobiFlightCustomDevice.TYPE:
+                case OutputConfig.CustomDevice:
                     ExecuteDisplay(value?.ToString() ?? "1", cfg);
                     break;
 
@@ -272,27 +269,23 @@ namespace MobiFlight.Execution
 
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
 
-            switch (offCfg.Device.Type)
+            switch (offCfg.Device)
             {
-                case MobiFlightServo.TYPE:
-                    var servo = offCfg.Device as Servo;
+                case Servo servo:
                     ExecuteDisplay(servo.Min, offCfg);
                     break;
 
-                case OutputConfig.LcdDisplay.DeprecatedType:
-                    var lcdDisplay = offCfg.Device as LcdDisplay;
+                case LcdDisplay lcdDisplay:
                     lcdDisplay.Lines.Clear();
                     lcdDisplay.Lines.Add(new string(' ', 20 * 4));
                     ExecuteDisplay(new string(' ', 20 * 4), offCfg);
                     break;
 
-                case MobiFlightShiftRegister.TYPE:
+                case ShiftRegister:
                     ExecuteDisplay("0", offCfg);
                     break;
 
-                case "LedModule":
-                case MobiFlightLedModule.TYPE:
-                    var ledModule = offCfg.Device as LedModule;
+                case LedModule ledModule:
                     ledModule.DisplayLedDecimalPoints = new List<string>();
                     ExecuteDisplay("        ", offCfg);
                     break;
@@ -456,11 +449,9 @@ namespace MobiFlight.Execution
             else if (SerialNumber.IsArcazeSerial(serial))
             {
 #if ARCAZE
-                switch (cfg.Device.Type)
+                switch (cfg.Device)
                 {
-                    case "LedModule":
-                    case ArcazeLedDigit.TYPE:
-                        var device = cfg.Device as LedModule;
+                    case LedModule device:
                         var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
                         if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
                         arcazeCache.setDisplay(
@@ -482,11 +473,9 @@ namespace MobiFlight.Execution
             }
             else
             {
-                switch (cfg.Device.Type)
+                switch (cfg.Device)
                 {
-                    case "LedModule":
-                    case ArcazeLedDigit.TYPE:
-                        var device = cfg.Device as LedModule;
+                    case LedModule device:
 
                         var decimalCount = value.Count(c => c == '.');
 
@@ -525,8 +514,7 @@ namespace MobiFlight.Execution
 
                         break;
 
-                    case MobiFlightStepper.TYPE:
-                        var stepper = cfg.Device as OutputConfig.Stepper;
+                    case OutputConfig.Stepper stepper:
                         mobiFlightCache.SetStepper(
                             serial,
                             stepper.Address,
@@ -539,8 +527,7 @@ namespace MobiFlight.Execution
                         );
                         break;
 
-                    case MobiFlightServo.TYPE:
-                        var servo = cfg.Device as OutputConfig.Servo;
+                    case OutputConfig.Servo servo:
                         mobiFlightCache.SetServo(
                             serial,
                             servo.Address,
@@ -551,8 +538,7 @@ namespace MobiFlight.Execution
                         );
                         break;
 
-                    case OutputConfig.LcdDisplay.DeprecatedType:
-                        var lcdDisplay = cfg.Device as LcdDisplay;
+                    case LcdDisplay lcdDisplay:
                         mobiFlightCache.SetLcdDisplay(
                             serial,
                             lcdDisplay,
@@ -561,11 +547,10 @@ namespace MobiFlight.Execution
                             );
                         break;
 
-                    case MobiFlightShiftRegister.TYPE:
+                    case ShiftRegister shiftRegister:
                         if (serial != null)
                         {
                             string outputValueShiftRegister = value;
-                            var shiftRegister = cfg.Device as ShiftRegister;
 
                             if (outputValueShiftRegister != "0" && !shiftRegister.PWM)
                             {
@@ -580,19 +565,18 @@ namespace MobiFlight.Execution
                         }
                         break;
 
-                    case OutputConfig.CustomDevice.DeprecatedType:
-                        var customDevice = cfg.Device as OutputConfig.CustomDevice;
+                    case OutputConfig.CustomDevice customDevice:
                         mobiFlightCache.Set(serial, customDevice, value);
                         break;
 
-                    case MobiFlightOutput.TYPE:
+                    case Output output:
                         string outputValue = value;
 
-                        if (outputValue != "0" && !(cfg.Device as Output).PwmMode)
-                            outputValue = (cfg.Device as Output).Brightness.ToString();
+                        if (outputValue != "0" && !output.PwmMode)
+                            outputValue = output.Brightness.ToString();
 
                         mobiFlightCache.SetValue(serial,
-                            (cfg.Device as Output).Pin,
+                            output.Pin,
                             outputValue);
                         break;
                 }
