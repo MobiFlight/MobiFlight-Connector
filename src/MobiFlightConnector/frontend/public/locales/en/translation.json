@@ -480,6 +480,23 @@
         "MoveDown": "Move down modifier"
       }
     },
+    "ConfigWizard": {
+      "Source": {
+        "Title": "Specify source value",
+        "Description": "Configure the value for this output configuration."
+      },
+      "SourceType": {
+        "Title": "Step 1 - Source",
+        "Description": "Select where the value comes from.",
+        "Options": {
+          "SimConnectSource": {"label": "Microsoft Flight Simulator"},
+          "XplaneSource": {"label": "X-Plane"},
+          "ProSimSource": {"label": "ProSim"},
+          "VariableSource": {"label": "MobiFlight - Variable"},
+          "FsuipcSource": {"label": "FSUIPC"}
+        }
+      }
+    },
     "InputConfigWizard": {
       "Title": "Edit input configuration",
       "Description": "Edit all settings for this input configuration in this dialog.",

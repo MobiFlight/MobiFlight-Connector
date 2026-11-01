@@ -20,7 +20,7 @@ interface ConfigItemTableDeviceCellProps {
 }
 
 function DetermineDeviceName(item: IConfigItem): string[] {
-  const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
+  const deviceType = (item.Device as IDeviceConfig)?.Type as string ?? item.DeviceType
   const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
 
   if (!deviceName || isEmpty(deviceName)) {
@@ -81,7 +81,7 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
   const subIndices = DetermineSubIndices(item)
 
   const deviceType =
-    (item.Device as IDeviceConfig)?.Type ??
+    (item.Device as IDeviceConfig)?.Type as string ??
     (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
 
   const icon = (
