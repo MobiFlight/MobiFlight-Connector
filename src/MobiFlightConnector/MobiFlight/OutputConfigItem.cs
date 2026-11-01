@@ -30,8 +30,8 @@ namespace MobiFlight
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
-        public string DeviceType { get; set; }
-        public string DeviceName {  get { return Device?.Name;  } }
+        public bool HasInputAction => Controller == null && (ButtonInputConfig != null || AnalogInputConfig != null);
+
         public OutputConfigItem()
         {
             Source = new SimConnectSource();
@@ -50,8 +50,6 @@ namespace MobiFlight
             if (!base.Equals(obj)) return false;
 
             return (
-                DeviceName == item.DeviceName &&
-                DeviceType == item.DeviceType &&
                 (Source?.AreEqual(item.Source) ?? item.Source == null) &&
                 TestValue.AreEqual(item.TestValue) &&
                 Device.AreEqual(item.Device) &&
@@ -151,7 +149,7 @@ namespace MobiFlight
 
             if (reader.LocalName == "display")
             {
-                DeviceType = reader["type"];
+                var DeviceType = reader["type"];
 
                 // preserve backward compatibility
                 if (DeviceType == "Pin") DeviceType = MobiFlightOutput.TYPE;
@@ -311,6 +309,12 @@ namespace MobiFlight
 
             Modifiers.WriteXml(writer);
 
+            var DeviceType = HasInputAction ? "InputAction" : Device?.Type;
+
+            // This is only for backward compatibility.
+            // Xml file saving is disabled but unit tests are still using this code path.
+            if (DeviceType == "LedModule") DeviceType = MobiFlightLedModule.TYPE;
+
             writer.WriteStartElement("display");
                 writer.WriteAttributeString("type", DeviceType);
                 writer.WriteAttributeString("serial", SerialNumber.BuildFullSerial(Controller) ?? SerialNumber.NOT_SET);
@@ -375,7 +379,6 @@ namespace MobiFlight
         {
             this.Source = config.Source?.Clone() as Source;
             
-            this.DeviceType = config.DeviceType;
             this.Controller = config.Controller?.Clone() as Controller;
 
             this.Device = config.Device?.Clone() as IDeviceConfig;
@@ -403,7 +406,7 @@ namespace MobiFlight
 
         protected override IDeviceConfig GetDeviceConfig()
         {
-            switch (DeviceType)
+            switch (Device?.Type)
             {
                 case MobiFlightOutput.TYPE:
                 case ArcazeLedDigit.TYPE:

@@ -116,7 +116,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             originalConfig = cfg.Clone() as OutputConfigItem;
             config = cfg;
 
-            OutputTypeComboBox.SelectedIndex = (config.DeviceType == "InputAction") ? 1 : 0;
+            OutputTypeComboBox.SelectedIndex = (config.HasInputAction) ? 1 : 0;
 
             if (OutputTypeIsDisplay())
             {
@@ -128,12 +128,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                 }
 
-                if (config.DeviceType != null && !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DeviceType))
+                if (config.Device?.Type != null && !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.Device.Type))
                 {
-                    Log.Instance.log($"Trying to show config but display type {config.DeviceType} not present.", LogSeverity.Error);
+                    Log.Instance.log($"Trying to show config but display type {config.Device.Type} not present.", LogSeverity.Error);
                 }
 
-                switch (config.DeviceType)
+                switch (config.Device?.Type)
                 {
                     case MobiFlightOutput.TYPE:
                         displayPinPanel.syncFromConfig(config);
@@ -199,11 +199,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (displayTypeComboBox.SelectedItem == null) return;
 
                 config.Device = null;
-                config.DeviceType = (displayTypeComboBox.SelectedItem as ListItem).Value;
+                var deviceType = (displayTypeComboBox.SelectedItem as ListItem).Value;
                 config.Controller = (displayModuleNameComboBox.SelectedItem as ListItem<Controller>).Value;
                 if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
                 
-                switch (config.DeviceType)
+                switch (deviceType)
                 {
                     case MobiFlightOutput.TYPE:
                         displayPinPanel.syncToConfig(config);
@@ -238,7 +238,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
             else if (OutputTypeIsInputAction())
             {
-                config.DeviceType = "InputAction";
+                config.Device = null;
 
                 if (analogPanel1.Enabled)
                 {
@@ -396,10 +396,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 config.Controller = controller;
 
                 // third tab
-                if (config.DeviceType != null &&
-                    !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DeviceType))
+                if (config.Device?.Type != null &&
+                    !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.Device.Type))
                 {
-                    Log.Instance.log($"Trying to show config but display type {config.DeviceType} not present.", LogSeverity.Error);
+                    Log.Instance.log($"Trying to show config but display type {config.Device.Type} not present.", LogSeverity.Error);
                 }
             }
             catch (Exception ex)
