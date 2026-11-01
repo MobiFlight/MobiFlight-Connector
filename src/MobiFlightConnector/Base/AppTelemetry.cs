@@ -81,11 +81,11 @@ namespace MobiFlight.Base
 
             foreach (OutputConfigItem item in outputConfigs)
             {
-                String key = "output." + item.DeviceType;
+                String key = "output." + (item.Device?.Type ?? (item.HasInputAction ? "inputAction" : "none"));
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 
-                key = "output." + item.Source?.SourceType ?? "none";
+                key = "output." + (item.Source?.SourceType ?? "none");
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
             }
@@ -95,7 +95,7 @@ namespace MobiFlight.Base
                 if (item.Controller  == null) continue;
                 if (item.Device == null) continue;
 
-                String key = "input." + item.Device.Type;
+                String key = "input." + (item.Device?.Type ?? "none");
                 if (item.Controller.Serial.Contains(Joystick.SerialPrefix))
                 {
                     key += ".joystick";

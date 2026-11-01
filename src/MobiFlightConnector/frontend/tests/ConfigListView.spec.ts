@@ -1,5 +1,6 @@
 import { test, expect } from "./fixtures"
 import { ConfigFile, IConfigItem, Project } from "../src/types"
+import { OutputConfigItem, RetriggerInputAction } from "../src/types/config"
 
 test.describe("Confirm content and basic functions are working", () => {
   test("Confirm empty list view", async ({ configListPage, page }) => {
@@ -1048,12 +1049,13 @@ test.describe("Controller device labels are displayed correctly", () => {
                 Name: "MobiFlight Mega",
                 Serial: "SN-3F1-FDD",
               },
-              DeviceType: "InputAction",
-              DeviceName: null,
               GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
               Name: configName,
               Type: "OutputConfigItem",
-            } as Partial<IConfigItem>,
+              ButtonInputConfig: {
+                onPress: { Type: "RetriggerInputAction"} as RetriggerInputAction
+              }
+            } as Partial<OutputConfigItem>,
           ],
         } as Partial<ConfigFile>,
       ],
@@ -1088,8 +1090,6 @@ test.describe("Controller device labels are displayed correctly", () => {
                 Name: "MobiFlight Mega",
                 Serial: "SN-3F1-FDD",
               },
-              DeviceType: "-",
-              DeviceName: "",
               GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
               Name: configName,
               Type: "InputConfigItem",
@@ -1136,8 +1136,6 @@ test.describe("Controller device labels are displayed correctly", () => {
                 Pin: "Output 0|Output 1|Output 2|Output 3|Output 4|Output 5|Output 6",
                 Type: "ShiftRegister",
               },
-              DeviceName: "TestShifter",
-              DeviceType: "ShiftRegister",
               GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
               Name: configName,
               Type: "OutputConfigItem",
@@ -1187,8 +1185,6 @@ test.describe("Controller device labels are displayed correctly", () => {
                 PwmMode: false,
                 Type: "Output",
               },
-              DeviceName: "LED 1|Backlight |Output 2",
-              DeviceType: "Output",
               GUID: "71278826-2bab-4ed6-9745-96e737c3669a",
               Name: configName,
               Type: "OutputConfigItem",

@@ -15,7 +15,6 @@
       "Name": "7-Segment",
       "Type": "LedModule"
     },
-    "DeviceType": "Display Module",
     "GUID": "5b09dc42-d5cd-4284-9c03-355e579763f2",
     "Modifiers": {
       "Items": []
@@ -54,7 +53,6 @@
       "TestValue": 500,
       "Type": "Stepper"
     },
-    "DeviceType": "Stepper",
     "GUID": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
     "Modifiers": {
       "Items": []
@@ -90,7 +88,6 @@
       "Name": "Servo 1",
       "Type": "Servo"
     },
-    "DeviceType": "Servo",
     "GUID": "4eb61c0f-a3c1-4b86-b0ff-d06e6ddc0363",
     "Modifiers": {
       "Items": []
@@ -129,7 +126,6 @@
       "Name": "LCD 1",
       "Type": "LcdDisplay"
     },
-    "DeviceType": "LcdDisplay",
     "GUID": "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
     "Modifiers": {
       "Items": []
@@ -177,7 +173,6 @@
       "Name": "LED 2",
       "Type": "Output"
     },
-    "DeviceType": "Output",
     "GUID": "f79f75dd-0d45-4c91-870d-599cfc75ede1",
     "Modifiers": {
       "Items": []
@@ -223,7 +218,6 @@
       "Pin": "Output 0",
       "Type": "ShiftRegister"
     },
-    "DeviceType": "ShiftRegister",
     "GUID": "54e5ac64-e314-48de-8ebb-6d8ccc4689e4",
     "Modifiers": {
       "Items": []
@@ -251,7 +245,6 @@
   {
     "Active": true,
     "ConfigRefs": [],
-    "DeviceType": "",
     "GUID": "de57dc80-be81-4049-95d0-2349109d58c1",
     "Modifiers": {
       "Items": []
@@ -276,8 +269,10 @@
   {
     "Active": true,
     "ConfigRefs": [],
-    "DeviceName": "Button 4 With A Long Name To Test Truncation",
-    "DeviceType": "Button",
+    "Device":{
+      "Name": "Button 4 With A Long Name To Test Truncation",
+      "Type": "Button"
+    },
     "GUID": "49079f13-b7cc-442d-a64b-70edbf7a1334",
     "Modifiers": {
       "Items": []
@@ -305,8 +300,10 @@
   {
     "Active": true,
     "ConfigRefs": [],
-    "DeviceName": "Encoder 1",
-    "DeviceType": "Encoder",
+    "Device": {
+      "Name": "Encoder 1",
+      "Type": "Encoder"
+    },
     "GUID": "68285201-23d5-40ea-b81f-dbd3ffe7328d",
     "Modifiers": {
       "Items": []
@@ -330,8 +327,10 @@
   {
     "Active": true,
     "ConfigRefs": [],
-    "DeviceName": "POT 1",
-    "DeviceType": "AnalogInput",
+    "Device": {
+      "Name": "POT 1",
+      "Type": "AnalogInput"
+    },
     "GUID": "be1ffab3-4252-4001-a090-4b98c7cd126a",
     "Modifiers": {
       "Items": []

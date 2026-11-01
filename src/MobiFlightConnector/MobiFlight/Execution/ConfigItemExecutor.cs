@@ -229,35 +229,29 @@ namespace MobiFlight.Execution
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
-            if (cfg.DeviceType == null) return;
+            if (cfg?.Device?.Type == null) return;
 
-            switch (cfg.DeviceType)
+            switch (cfg.Device)
             {
-                case MobiFlightStepper.TYPE:
-                    var stepper = cfg.Device as OutputConfig.Stepper;
+                case OutputConfig.Stepper stepper:
                     ExecuteDisplay(value?.ToString() ?? stepper.TestValue.ToString(), cfg);
                     break;
 
-                case MobiFlightServo.TYPE:
-                    var servo = cfg.Device as OutputConfig.Servo;
+                case OutputConfig.Servo servo:
                     ExecuteDisplay(value?.ToString() ?? servo.Max, cfg);
                     break;
 
-                case ArcazeLedDigit.TYPE:
-                case OutputConfig.LcdDisplay.DeprecatedType:
+                case LedModule:
+                case LcdDisplay:
                     ExecuteDisplay(value?.ToString() ?? "1234567890", cfg);
                     break;
 
-                case MobiFlightShiftRegister.TYPE:
+                case ShiftRegister:
                     ExecuteDisplay(value?.ToString() ?? "1", cfg);
                     break;
 
-                case MobiFlightCustomDevice.TYPE:
+                case OutputConfig.CustomDevice:
                     ExecuteDisplay(value?.ToString() ?? "1", cfg);
-                    break;
-
-                case "InputAction":
-                    // Do nothing for the InputAction
                     break;
 
                 default:
@@ -271,34 +265,27 @@ namespace MobiFlight.Execution
 
         public void ExecuteTestOff(OutputConfigItem cfg)
         {
-            if (cfg == null || cfg.DeviceType == null) return;
+            if (cfg?.Device?.Type == null) return;
 
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
 
-            switch (offCfg.DeviceType)
+            switch (offCfg.Device)
             {
-                case MobiFlightServo.TYPE:
-                    var servo = offCfg.Device as Servo;
+                case Servo servo:
                     ExecuteDisplay(servo.Min, offCfg);
                     break;
 
-                case OutputConfig.LcdDisplay.DeprecatedType:
-                    var lcdDisplay = offCfg.Device as LcdDisplay;
+                case LcdDisplay lcdDisplay:
                     lcdDisplay.Lines.Clear();
                     lcdDisplay.Lines.Add(new string(' ', 20 * 4));
                     ExecuteDisplay(new string(' ', 20 * 4), offCfg);
                     break;
 
-                case MobiFlightShiftRegister.TYPE:
+                case ShiftRegister:
                     ExecuteDisplay("0", offCfg);
                     break;
 
-                case "InputAction":
-                    // Do nothing for the InputAction
-                    break;
-
-                case MobiFlightLedModule.TYPE:
-                    var ledModule = offCfg.Device as LedModule;
+                case LedModule ledModule:
                     ledModule.DisplayLedDecimalPoints = new List<string>();
                     ExecuteDisplay("        ", offCfg);
                     break;
@@ -371,67 +358,100 @@ namespace MobiFlight.Execution
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
         {
             string serial = cfg.Controller?.Serial;
+            var hasNoValidDeviceConfigured = (serial == null || cfg.Device == null);
 
-            if (serial == null && cfg.DeviceType != "InputAction")
-                return value.ToString();
-
-            if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")
+            if (hasNoValidDeviceConfigured && !cfg.HasInputAction)
             {
-                var joystick = joystickManager.GetJoystickBySerial(serial);
-                if (joystick != null)
+                return value.ToString();
+            }
+
+            if (cfg.HasInputAction)
+            {
+                double dValue = 0;
+                var isNumericValue = double.TryParse(
+                    value,
+                    NumberStyles.Number,
+                    CultureInfo.InvariantCulture,
+                    out dValue
+                );
+
+                List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
+                CacheCollection cacheCollection = new CacheCollection()
                 {
-                    switch (cfg.DeviceType)
-                    {
-                        case OutputConfig.LcdDisplay.DeprecatedType:
-                            var lcdDisplay = cfg.Device as LcdDisplay;
-                            joystick.SetLcdDisplay(lcdDisplay.Address, value);
-                            joystick.UpdateOutputDeviceStates();
-                            joystick.Update();
-                            break;
+                    fsuipcCache = fsuipcCache,
+                    simConnectCache = simConnectCache,
+                    moduleCache = mobiFlightCache,
+                    xplaneCache = xplaneCache,
+                    proSimCache = proSimCache,
+                    joystickManager = joystickManager,
+                };
 
-                        case "-":
-                            // do nothing
-                            break;
-
-                        default: // LED Output
-                            int intState = ParseValue(value);
-                            byte state = (byte)Math.Max(Math.Min(255, intState), 0);
-                            joystick.SetOutputDeviceState((cfg.Device as Output).Pin, state);
-                            joystick.UpdateOutputDeviceStates();
-                            joystick.Update();
-                            break;
-                    }
-                }
+                if (cfg.ButtonInputConfig != null)
+                    inputActionExecutionCache.Execute(
+                        cfg.ButtonInputConfig,
+                        cacheCollection,
+                        new InputEventArgs() { Value = dValue, StrValue = isNumericValue ? null : value },
+                        cfgRefs
+                    );
                 else
                 {
-                    var joystickName = cfg.Controller.Name;
-                    // throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
-                    return i18n._tr($"{joystickName} not connected");
+                    inputActionExecutionCache.Execute(
+                        cfg.AnalogInputConfig,
+                        cacheCollection,
+                        new InputEventArgs() { Value = dValue, StrValue = isNumericValue ? null : value },
+                        cfgRefs
+                    );
                 }
             }
-            else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.DeviceType != "InputAction")
+            else if (SerialNumber.IsJoystickSerial(serial))
+            {
+                var joystick = joystickManager.GetJoystickBySerial(serial);
+
+                if (joystick == null)
+                {
+                    var joystickName = cfg.Controller.Name;
+                    return i18n._tr($"{joystickName} not connected");
+                }
+
+                switch (cfg.Device.Type)
+                {
+                    case OutputConfig.LcdDisplay.DeprecatedType:
+                        var lcdDisplay = cfg.Device as LcdDisplay;
+                        joystick.SetLcdDisplay(lcdDisplay.Address, value);
+                        joystick.UpdateOutputDeviceStates();
+                        joystick.Update();
+                        break;
+
+                    default: // LED Output
+                        int intState = ParseValue(value);
+                        byte state = (byte)Math.Max(Math.Min(255, intState), 0);
+                        joystick.SetOutputDeviceState((cfg.Device as Output).Pin, state);
+                        joystick.UpdateOutputDeviceStates();
+                        joystick.Update();
+                        break;
+                }
+
+            }
+            else if (SerialNumber.IsMidiBoardSerial(serial))
             {
                 MidiBoard midiBoard = midiBoardManager.GetMidiBoardBySerial(serial);
-                if (midiBoard != null)
-                {
-                    byte state = 0;
-                    if (value != "0") state = 1;
-                    midiBoard.SetOutputDeviceState((cfg.Device as Output).Pin, state);
-                }
-                else
+                if (midiBoard == null)
                 {
                     var midiBoardName = cfg.Controller.Name;
                     return i18n._tr($"{midiBoardName} not connected");
                     // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
+
+                byte state = 0;
+                if (value != "0") state = 1;
+                midiBoard.SetOutputDeviceState((cfg.Device as Output).Pin, state);
             }
-            else if (SerialNumber.IsArcazeSerial(serial) && cfg.DeviceType != "InputAction")
+            else if (SerialNumber.IsArcazeSerial(serial))
             {
 #if ARCAZE
-                switch (cfg.DeviceType)
+                switch (cfg.Device)
                 {
-                    case ArcazeLedDigit.TYPE:
-                        var device = cfg.Device as LedModule;
+                    case LedModule device:
                         var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
                         if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
                         arcazeCache.setDisplay(
@@ -453,10 +473,9 @@ namespace MobiFlight.Execution
             }
             else
             {
-                switch (cfg.DeviceType)
+                switch (cfg.Device)
                 {
-                    case ArcazeLedDigit.TYPE:
-                        var device = cfg.Device as LedModule;
+                    case LedModule device:
 
                         var decimalCount = value.Count(c => c == '.');
 
@@ -495,8 +514,7 @@ namespace MobiFlight.Execution
 
                         break;
 
-                    case MobiFlightStepper.TYPE:
-                        var stepper = cfg.Device as OutputConfig.Stepper;
+                    case OutputConfig.Stepper stepper:
                         mobiFlightCache.SetStepper(
                             serial,
                             stepper.Address,
@@ -509,8 +527,7 @@ namespace MobiFlight.Execution
                         );
                         break;
 
-                    case MobiFlightServo.TYPE:
-                        var servo = cfg.Device as OutputConfig.Servo;
+                    case OutputConfig.Servo servo:
                         mobiFlightCache.SetServo(
                             serial,
                             servo.Address,
@@ -521,8 +538,7 @@ namespace MobiFlight.Execution
                         );
                         break;
 
-                    case OutputConfig.LcdDisplay.DeprecatedType:
-                        var lcdDisplay = cfg.Device as LcdDisplay;
+                    case LcdDisplay lcdDisplay:
                         mobiFlightCache.SetLcdDisplay(
                             serial,
                             lcdDisplay,
@@ -531,11 +547,10 @@ namespace MobiFlight.Execution
                             );
                         break;
 
-                    case MobiFlightShiftRegister.TYPE:
+                    case ShiftRegister shiftRegister:
                         if (serial != null)
                         {
                             string outputValueShiftRegister = value;
-                            var shiftRegister = cfg.Device as ShiftRegister;
 
                             if (outputValueShiftRegister != "0" && !shiftRegister.PWM)
                             {
@@ -550,57 +565,18 @@ namespace MobiFlight.Execution
                         }
                         break;
 
-                    case OutputConfig.CustomDevice.DeprecatedType:
-                        var customDevice = cfg.Device as OutputConfig.CustomDevice;
+                    case OutputConfig.CustomDevice customDevice:
                         mobiFlightCache.Set(serial, customDevice, value);
                         break;
 
-                    case "InputAction":
-                        double dValue = 0;
-                        var isNumericValue = double.TryParse(
-                            value,
-                            NumberStyles.Number,
-                            CultureInfo.InvariantCulture,
-                            out dValue
-                        );
-
-                        List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
-                        CacheCollection cacheCollection = new CacheCollection()
-                        {
-                            fsuipcCache = fsuipcCache,
-                            simConnectCache = simConnectCache,
-                            moduleCache = mobiFlightCache,
-                            xplaneCache = xplaneCache,
-                            proSimCache = proSimCache,
-                            joystickManager = joystickManager,
-                        };
-
-                        if (cfg.ButtonInputConfig != null)
-                            inputActionExecutionCache.Execute(
-                                cfg.ButtonInputConfig,
-                                cacheCollection,
-                                new InputEventArgs() { Value = dValue, StrValue = isNumericValue ? null : value },
-                                cfgRefs
-                            );
-                        else
-                        {
-                            inputActionExecutionCache.Execute(
-                                cfg.AnalogInputConfig,
-                                cacheCollection,
-                                new InputEventArgs() { Value = dValue, StrValue = isNumericValue ? null : value },
-                                cfgRefs
-                            );
-                        }
-                        break;
-
-                    case MobiFlightOutput.TYPE:
+                    case Output output:
                         string outputValue = value;
 
-                        if (outputValue != "0" && !(cfg.Device as Output).PwmMode)
-                            outputValue = (cfg.Device as Output).Brightness.ToString();
+                        if (outputValue != "0" && !output.PwmMode)
+                            outputValue = output.Brightness.ToString();
 
                         mobiFlightCache.SetValue(serial,
-                            (cfg.Device as Output).Pin,
+                            output.Pin,
                             outputValue);
                         break;
                 }

@@ -230,7 +230,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightStepper.TYPE,
                 Device = new OutputConfig.Stepper { TestValue = 100 }
             };
 
@@ -252,7 +251,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController(rawSerial),
-                DeviceType = MobiFlightStepper.TYPE,
                 Device = new OutputConfig.Stepper { Address = stepperAddress, Name = "Stepper", TestValue = 100 }
             };
 
@@ -270,7 +268,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightServo.TYPE,
                 Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" },
             };
 
@@ -289,7 +286,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightServo.TYPE,
                 Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" },
             };
 
@@ -304,7 +300,7 @@ namespace MobiFlight.Tests
         public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
         {
             // Arrange
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
 
             // Act
             executor.ExecuteTestOff(cfg);
@@ -321,7 +317,7 @@ namespace MobiFlight.Tests
             var serial = SerialNumber.ExtractSerial(rawSerial);
             var name = "TestCustomDevice";
             var msgType = 1;
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
             // Act
             executor.ExecuteTestOn(cfg);
             // Assert
@@ -337,7 +333,7 @@ namespace MobiFlight.Tests
             var serial = SerialNumber.ExtractSerial(rawSerial);
             var name = "TestCustomDevice";
             var msgType = 1;
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
             // Act
             executor.ExecuteTestOn(cfg, testValue);
             // Assert
@@ -352,7 +348,7 @@ namespace MobiFlight.Tests
             var serial = SerialNumber.ExtractSerial(rawSerial);
             var name = "TestCustomDevice";
             var msgType = 1;
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightCustomDevice.TYPE, Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), Device = new OutputConfig.CustomDevice { CustomName = name, MessageType = msgType } };
             // Act
             executor.ExecuteTestOff(cfg);
             // Assert
@@ -366,7 +362,7 @@ namespace MobiFlight.Tests
             var rawSerial = "Test / SN-123";
             var serial = SerialNumber.ExtractSerial(rawSerial);
             var name = "TestOutput";
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightOutput.TYPE, Device = new OutputConfig.Output { Pin = name, PwmMode = false } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), Device = new OutputConfig.Output { Pin = name, PwmMode = false } };
             // Act
             executor.ExecuteTestOff(cfg);
             // Assert
@@ -382,7 +378,7 @@ namespace MobiFlight.Tests
             var name = "TestOutput";
             var address = "0x27";
             var expectedTestLine = "1234567890";
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
             // Act
             executor.ExecuteTestOn(cfg);
             // Assert
@@ -397,7 +393,7 @@ namespace MobiFlight.Tests
             var serial = SerialNumber.ExtractSerial(rawSerial);
             var name = "TestOutput";
             var address = "0x27";
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
             var testValue = new ConnectorValue() { type = FSUIPCOffsetType.String, String = "Test" };
             // Act
             executor.ExecuteTestOn(cfg, testValue);
@@ -414,7 +410,7 @@ namespace MobiFlight.Tests
             var name = "TestOutput";
             var address = "0x27";
             var expectedEmptyLine = new string(' ', 20 * 4);
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), DeviceType = OutputConfig.LcdDisplay.DeprecatedType, Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController("Test / SN-123"), Device = new OutputConfig.LcdDisplay { Name = name, Address = address } };
             // Act
             executor.ExecuteTestOff(cfg);
             // Assert
@@ -428,11 +424,33 @@ namespace MobiFlight.Tests
             var rawSerial = "Test / SN-123";
             var serial = SerialNumber.ExtractSerial(rawSerial);
             var pin = "0|2";
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightShiftRegister.TYPE, Device = new OutputConfig.ShiftRegister { Address = "Shifter01", PWM = false, Pin = pin } };
+            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), Device = new OutputConfig.ShiftRegister { Address = "Shifter01", PWM = false, Pin = pin } };
             // Act
             executor.ExecuteTestOff(cfg);
             // Assert
             mockMobiFlightCache.Verify(m => m.SetShiftRegisterOutput(serial, "Shifter01", pin, "0"), Times.Once);
+        }
+
+        [TestMethod]
+        public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsLedModule()
+        {
+            // Arrange
+            var rawSerial = "Test / SN-123";
+            var serial = SerialNumber.ExtractSerial(rawSerial);
+            var address = "1";
+            var onValue = "1234567890";
+
+            var cfg = new OutputConfigItem
+            {
+                Controller = SerialNumber.CreateController(rawSerial),
+                Device = new OutputConfig.LedModule { DisplayLedAddress = address }
+            };
+
+            // Act
+            executor.ExecuteTestOn(cfg);
+
+            // Assert
+            mockMobiFlightCache.Verify(m => m.SetDisplay(serial, address, It.IsAny<byte>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), onValue, It.IsAny<bool>()), Times.Once);
         }
 
         [TestMethod]
@@ -444,9 +462,14 @@ namespace MobiFlight.Tests
             var address = "1";
             var stopValue = "        ";
 
-            var cfg = new OutputConfigItem { Controller = SerialNumber.CreateController(rawSerial), DeviceType = MobiFlightLedModule.TYPE, Device = new OutputConfig.LedModule { DisplayLedAddress = address } };
+            var cfg = new OutputConfigItem { 
+                Controller = SerialNumber.CreateController(rawSerial), 
+                Device = new OutputConfig.LedModule { DisplayLedAddress = address } 
+            };
+
             // Act
             executor.ExecuteTestOff(cfg);
+            
             // Assert
             mockMobiFlightCache.Verify(m => m.SetDisplay(serial, address, It.IsAny<byte>(), It.IsAny<List<string>>(), It.IsAny<List<string>>(), stopValue, It.IsAny<bool>()), Times.Once);
         }
@@ -458,7 +481,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightOutput.TYPE,
                 Device = new OutputConfig.Output
                 {
                     PwmMode = false,
@@ -480,7 +502,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightOutput.TYPE,
                 Device = new OutputConfig.Output
                 {
                     PwmMode = true,
@@ -502,7 +523,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightShiftRegister.TYPE,
                 Device = new OutputConfig.ShiftRegister
                 {
                     Address = "Shifter01",
@@ -525,7 +545,6 @@ namespace MobiFlight.Tests
             var cfg = new OutputConfigItem
             {
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightShiftRegister.TYPE,
                 Device = new OutputConfig.ShiftRegister
                 {
                     Address = "Shifter01",
@@ -634,7 +653,6 @@ namespace MobiFlight.Tests
                 Active = true,
                 Name = "Test Config with Error",
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightOutput.TYPE,
                 Device = new OutputConfig.Output { Pin = "1" },
                 Source = new VariableSource() { MobiFlightVariable = variable }
             };
@@ -672,7 +690,6 @@ namespace MobiFlight.Tests
                 Active = true,
                 Name = "Test Config without Controller",
                 Controller = null,
-                DeviceType = "InputAction",
                 Source = new VariableSource() { MobiFlightVariable = variable },
                 AnalogInputConfig = new AnalogInputConfig
                 {
@@ -710,7 +727,6 @@ namespace MobiFlight.Tests
                 GUID = Guid.NewGuid().ToString(),
                 Active = true,
                 Controller = null,
-                DeviceType = "InputAction",
                 Source = new VariableSource()
                 {
                     MobiFlightVariable = variable

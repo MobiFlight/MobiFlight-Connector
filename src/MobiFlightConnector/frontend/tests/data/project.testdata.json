@@ -18,7 +18,6 @@
             "Name": "7-Segment",
             "Type": "LedModule"
           },
-          "DeviceType": "Display Module",
           "GUID": "5b09dc42-d5cd-4284-9c03-355e579763f2",
           "Modifiers": {
             "Items": []
@@ -60,7 +59,6 @@
             "TestValue": 500,
             "Type": "Stepper"
           },
-          "DeviceType": "Stepper",
           "GUID": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
           "Modifiers": {
             "Items": []
@@ -99,7 +97,6 @@
             "Name": "Servo 1",
             "Type": "Servo"
           },
-          "DeviceType": "Servo",
           "GUID": "4eb61c0f-a3c1-4b86-b0ff-d06e6ddc0363",
           "Modifiers": {
             "Items": []
@@ -141,7 +138,6 @@
             "Name": "LCD 1",
             "Type": "LcdDisplay"
           },
-          "DeviceType": "LcdDisplay",
           "GUID": "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
           "Modifiers": {
             "Items": []
@@ -192,7 +188,6 @@
             "Name": "LED 2",
             "Type": "Output"
           },
-          "DeviceType": "Output",
           "GUID": "f79f75dd-0d45-4c91-870d-599cfc75ede1",
           "Modifiers": {
             "Items": []
@@ -241,7 +236,6 @@
             "Pin": "Output 0",
             "Type": "ShiftRegister"
           },
-          "DeviceType": "ShiftRegister",
           "GUID": "54e5ac64-e314-48de-8ebb-6d8ccc4689e4",
           "Modifiers": {
             "Items": []
@@ -272,7 +266,6 @@
         {
           "Active": true,
           "ConfigRefs": [],
-          "DeviceType": "",
           "GUID": "de57dc80-be81-4049-95d0-2349109d58c1",
           "Modifiers": {
             "Items": []
@@ -546,8 +539,6 @@
             "HoldDelay": 350,
             "RepeatDelay": 0
           },
-          "DeviceType": "InputAction",
-          "DeviceName": null,
           "GUID": "5f9b8498-c18a-439c-b861-a005d8e82482",
           "Active": true,
           "Name": "Output Config With Input Action",
@@ -572,8 +563,6 @@
             "Type": "Button",
             "Name": "Button 21"
           },
-          "DeviceType": "Button",
-          "DeviceName": "Button 21",
           "GUID": "91f6588d-5cf5-4306-a1a0-1cadca0951fd",
           "Active": true,
           "Name": "AP Knob - ALT",
