@@ -37,7 +37,7 @@ import MoveUpDownButtons from "@/components/wizard/components/MoveUpDownButtons"
 
 type ModifierItemProps = {
   modifier: Modifier
-  onChange: (updated: Modifier) => void
+  onChange: (updated: Modifier, actionLabel?: string) => void
   onDelete: () => void
   onMoveUp?: () => void
   onMoveDown?: () => void
@@ -106,7 +106,15 @@ export const ModifierItem = ({
             id="active"
             checked={modifier.Active}
             onCheckedChange={(checked) =>
-              onChange({ ...modifier, Active: checked })
+              onChange(
+                { ...modifier, Active: checked },
+                t(
+                  checked
+                    ? "Dialog.InputConfigWizard.History.ModifierEnabled"
+                    : "Dialog.InputConfigWizard.History.ModifierDisabled",
+                  { type: modifier.Type },
+                ),
+              )
             }
           />
           <CollapsibleTrigger className="flex grow flex-row items-center justify-between">
@@ -126,7 +134,7 @@ export const ModifierItem = ({
             </span>
           </Button>
         </div>
-        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden pt-2 pr-7 pb-2 pl-7 data-[state=open]:duration-500 border-t shadow-inner">
+        <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down flex flex-col gap-4 overflow-hidden border-t pt-2 pr-7 pb-2 pl-7 shadow-inner data-[state=open]:duration-500">
           {modifierContent}
         </CollapsibleContent>
       </Collapsible>

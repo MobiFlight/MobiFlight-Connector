@@ -10,7 +10,10 @@ import { useTranslation } from "react-i18next"
 
 type ConfigReferencePanelProps = {
   configReferences: ConfigReference[]
-  onConfigReferencesChange?: (configReferences: ConfigReference[]) => void
+  onConfigReferencesChange?: (
+    configReferences: ConfigReference[],
+    actionLabel?: string,
+  ) => void
   variant: "summary" | "details"
   openDetailsPanel: () => void
 }

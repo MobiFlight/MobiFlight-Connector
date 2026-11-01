@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next"
 
 type ModifiersPanelProps = {
   configItem: IConfigItem
-  onConfigChange: (configItem: IConfigItem) => void
+  onConfigChange: (configItem: IConfigItem, actionLabel?: string) => void
   openDetailsPanel: () => void
   variant: "summary" | "details"
   liveData: {
@@ -73,11 +73,14 @@ const ModifiersPanel = ({
   ) : (
     <ModifierEditor
       modifiers={modifiers}
-      onModifierChange={(updatedModifiers) =>
-        onConfigChange({
-          ...configItem,
-          Modifiers: { Items: updatedModifiers },
-        })
+      onModifierChange={(updatedModifiers, actionLabel) =>
+        onConfigChange(
+          {
+            ...configItem,
+            Modifiers: { Items: updatedModifiers },
+          },
+          actionLabel,
+        )
       }
     />
   )
