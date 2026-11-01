@@ -196,6 +196,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
         {
             if (OutputTypeIsDisplay())
             {
+                // reset any input actions
+                config.ButtonInputConfig = null;
+                config.AnalogInputConfig = null;
+
                 if (displayTypeComboBox.SelectedItem == null) return;
 
                 config.Device = null;
@@ -239,6 +243,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             else if (OutputTypeIsInputAction())
             {
                 config.Device = null;
+                config.Controller = null;
 
                 if (analogPanel1.Enabled)
                 {

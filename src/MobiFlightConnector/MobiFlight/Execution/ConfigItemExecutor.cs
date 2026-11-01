@@ -458,6 +458,7 @@ namespace MobiFlight.Execution
 #if ARCAZE
                 switch (cfg.Device.Type)
                 {
+                    case "LedModule":
                     case ArcazeLedDigit.TYPE:
                         var device = cfg.Device as LedModule;
                         var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
