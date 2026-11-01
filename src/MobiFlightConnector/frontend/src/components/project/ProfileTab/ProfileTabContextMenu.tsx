@@ -49,10 +49,10 @@ const ProfileTabContextMenu = ({
             <IconDotsVertical className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
           <DropdownMenuItem
             onClick={() => {
-              inlineEditRef.current?.startEditing()
+              setTimeout(() => inlineEditRef.current?.startEditing(), 0)
             }}
           >
             <IconPencil />

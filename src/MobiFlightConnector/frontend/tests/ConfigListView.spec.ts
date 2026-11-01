@@ -290,6 +290,7 @@ test.describe("Confirm content and basic functions are working", () => {
 
     await configListPage.duplicateConfigItem(0, "inputaction")
     await page.mouse.move(0, 0)
+    await page.getByRole("button", { name: "Close" }).click()
     const duplicatedRow = await configListPage.getConfigItemRow(2)
     await expect(duplicatedRow).toHaveAttribute("data-state", "selected")
   })
