@@ -143,6 +143,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         stepperPanel.syncFromConfig(config);
                         break;
 
+                    case "LedModule":
                     case MobiFlightLedModule.TYPE:
                         displayLedDisplayPanel.syncFromConfig(config);
                         break;
@@ -219,6 +220,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         stepperPanel.syncToConfig(config);
                         break;
 
+                    case "LedModule":
                     case MobiFlightLedModule.TYPE:
                         displayLedDisplayPanel.syncToConfig(config);
                         break;
@@ -285,7 +287,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (controller == null)
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = "LedModule", Label = ArcazeLedDigit.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
@@ -319,7 +321,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 else if (SerialNumber.IsArcazeSerial(controller.Serial))
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = "LedModule", Label = ArcazeLedDigit.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                 }
                 // update the available types depending on the 
@@ -336,7 +338,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                             switch (devType)
                             {
                                 case DeviceType.LedModule:
-                                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                                    deviceTypeOptions.Add(new ListItem() { Value = "LedModule", Label = ArcazeLedDigit.TYPE });
                                     break;
 
                                 case DeviceType.Output:
@@ -534,7 +536,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 displayPinPanel.Height = displayPanelHeight;
             }
 
-            else if (SelectedItemValue == ArcazeLedDigit.TYPE)
+            else if (SelectedItemValue == ArcazeLedDigit.TYPE || SelectedItemValue == "LedModule")
             {
                 displayLedDisplayPanel.Enabled = panelEnabled;
                 displayLedDisplayPanel.Height = displayPanelHeight;
@@ -890,7 +892,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void displayLedDisplayComboBox_Validating(object sender, CancelEventArgs e)
         {
-            if (displayTypeComboBox.Text == ArcazeLedDigit.TYPE)
+            if (displayTypeComboBox.Text == ArcazeLedDigit.TYPE || displayTypeComboBox.Text == "LedModule")
             {
                 try
                 {

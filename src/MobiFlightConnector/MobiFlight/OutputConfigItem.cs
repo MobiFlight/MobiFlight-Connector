@@ -410,6 +410,7 @@ namespace MobiFlight
             switch (Device?.Type)
             {
                 case MobiFlightOutput.TYPE:
+                case "LedModule":
                 case ArcazeLedDigit.TYPE:
                 case MobiFlightServo.TYPE:
                 case MobiFlightStepper.TYPE:
