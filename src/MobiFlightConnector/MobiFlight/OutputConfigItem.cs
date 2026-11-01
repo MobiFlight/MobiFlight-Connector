@@ -30,6 +30,7 @@ namespace MobiFlight
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
+        [JsonIgnore]
         public bool HasInputAction => Controller == null && (ButtonInputConfig != null || AnalogInputConfig != null);
 
         public OutputConfigItem()

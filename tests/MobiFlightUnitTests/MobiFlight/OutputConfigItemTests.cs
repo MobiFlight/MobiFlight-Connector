@@ -452,5 +452,47 @@ namespace MobiFlight.Tests
             o2.Status[ConfigItemStatusType.Source] = "Source not available";
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        #region JSON backward compatibility
+
+        [TestMethod]
+        public void Deserialize_ShouldDetectInputAction_WhenLegacyJsonHasInputActionDeviceType()
+        {
+            // Arrange
+            var json = """
+                {
+                  "Type": "OutputConfigItem",
+                  "GUID": "11111111-1111-1111-1111-111111111111",
+                  "DeviceType": "InputAction",
+                  "DeviceName": null,
+                  "ButtonInputConfig": {}
+                }
+                """;
+
+            // Act
+            var item = Newtonsoft.Json.JsonConvert.DeserializeObject<IConfigItem>(json) as OutputConfigItem;
+
+            // Assert
+            Assert.IsNotNull(item);
+            Assert.IsNull(item.Device);
+            Assert.IsNull(item.Controller);
+            Assert.IsNotNull(item.ButtonInputConfig);
+            Assert.IsTrue(item.HasInputAction);
+        }
+
+        [TestMethod]
+        public void Serialize_ShouldNotContainHasInputAction_WhenItemIsOutputConfigItem()
+        {
+            // Arrange
+            var item = new OutputConfigItem() { ButtonInputConfig = new InputConfig.ButtonInputConfig() };
+
+            // Act
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
+
+            // Assert
+            Assert.DoesNotContain("HasInputAction", json);
+        }
+
+        #endregion
     }
 }
