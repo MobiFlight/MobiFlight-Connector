@@ -527,8 +527,6 @@
                 {
                     "Active": true,
                     "Controller": null,
-                    "DeviceName": null,
-                    "DeviceType": null,
                     "GUID": "bd9e846b-deab-4219-bbdb-6f0a8e7634f9",
                     "Name": "Just an output config for references and preconditions",
                     "Source": {
@@ -547,8 +545,6 @@
                 {
                     "Active": true,
                     "Controller": null,
-                    "DeviceName": null,
-                    "DeviceType": null,
                     "GUID": "09a117bb-9734-45d2-b53c-82fa36baf102",
                     "Name": "config reference #2 ",
                     "Source": {
@@ -567,8 +563,6 @@
                 {
                     "Active": true,
                     "Controller": null,
-                    "DeviceName": null,
-                    "DeviceType": null,
                     "GUID": "2ff5eb95-d2ba-4fd1-b779-169083b695c1",
                     "Name": "config reference #3",
                     "Source": {
