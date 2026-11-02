@@ -537,6 +537,41 @@ test.describe("Input Config Wizard - Edit name", () => {
     await expect(nameInput).not.toBeVisible()
   })
 
+  test("Config name is shown in the detail drawer", async ({
+    configListPage,
+    page,
+  }) => {
+    await openWizardAndReturnActionPanel(configListPage, page, 1)
+
+    const drawerConfigName = page.getByTestId("drawer-config-name")
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+
+    await test.step("Action drawer shows the config name", async () => {
+      await page.getByRole("button", { name: "Edit On Press Action" }).click()
+      await expect(goBackButton).toBeVisible()
+      await expect(drawerConfigName).toHaveText("MSFS Input Action")
+      await goBackButton.click()
+      await expect(goBackButton).not.toBeVisible()
+    })
+
+    await test.step("Drawer shows the renamed config name", async () => {
+      await page
+        .getByTestId("dialog-config-name")
+        .getByRole("button")
+        .dblclick()
+      const nameInput = page
+        .getByTestId("dialog-config-name")
+        .getByRole("textbox")
+      await nameInput.fill("Renamed input config")
+      await nameInput.press("Enter")
+      await expect(nameInput).not.toBeVisible()
+
+      await page.getByRole("button", { name: "Add modifier" }).click()
+      await expect(goBackButton).toBeVisible()
+      await expect(drawerConfigName).toHaveText("Renamed input config")
+    })
+  })
+
   test("Config name is not in edit mode when opening an existing config", async ({
     configListPage,
     page,

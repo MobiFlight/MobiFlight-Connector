@@ -25,6 +25,7 @@ import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export type ConfigWizardProps = {
   configItem: IConfigItem
@@ -288,9 +289,6 @@ const ConfigWizard = ({
         >
           <DrawerContent className={drawerVariant[drawerSize]}>
             <DrawerHeader>
-              <DrawerTitle className="sr-only">
-                {t("Dialog.InputConfigWizard.DrawerTitle")}
-              </DrawerTitle>
               <DrawerClose
                 onClick={() => closeDetailView(false)}
                 className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
@@ -298,6 +296,16 @@ const ConfigWizard = ({
                 <IconArrowBack size={16} />
                 {t("Dialog.General.GoBack")}
               </DrawerClose>
+              {/* The drawer covers the config name in the dialog header */}
+              <DrawerTitle
+                className={cn(
+                  "truncate text-xl",
+                  !configItem.Name && "sr-only",
+                )}
+                data-testid="drawer-config-name"
+              >
+                {configItem.Name || t("Dialog.InputConfigWizard.DrawerTitle")}
+              </DrawerTitle>
             </DrawerHeader>
             <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
