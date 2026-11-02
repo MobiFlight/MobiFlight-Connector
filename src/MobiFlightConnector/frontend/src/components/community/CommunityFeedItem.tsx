@@ -18,6 +18,12 @@ const CommunityFeedItem = (props: CommunityFeedItemProps) => {
     openUrl(url)
   }
 
+  const handleActionClick = () => {
+    if (post.action) {
+      openUrl(post.action.url)
+    }
+  }
+
   const renderLink: Components["a"] = (props) => {
     return (
       <a
@@ -40,8 +46,12 @@ const CommunityFeedItem = (props: CommunityFeedItemProps) => {
         <div
           className={cn(
             "bg-background flex w-full items-center justify-center overflow-hidden rounded-lg border shadow-md sm:w-1/2 md:w-1/3 xl:w-full",
+            post.action && "cursor-pointer",
             post.media.className || "",
           )}
+          // The thumbnail is an additional mouse target for the action.
+          // Keyboard and screen reader users use the action button below.
+          onClick={post.action ? handleActionClick : undefined}
         >
           <img
             className={`h-auto w-full object-contain`}
@@ -63,7 +73,7 @@ const CommunityFeedItem = (props: CommunityFeedItemProps) => {
         </div>
         {post.action && (
           <div className="">
-            <Button size={"sm"} onClick={() => openUrl(post.action!.url)}>
+            <Button size={"sm"} onClick={handleActionClick}>
               {post.action!.title}
             </Button>
           </div>
