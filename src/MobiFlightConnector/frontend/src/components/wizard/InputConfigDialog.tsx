@@ -63,7 +63,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const {
     editorState,
     draftConfigItem,
-    updateDraftConfigItem,
+    applyConfigChange,
     beginDrawerSession,
     finishDrawerSession,
     jumpToHistory,
@@ -175,7 +175,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               value={draftConfigItem?.Name || ""}
               onSave={(newName) => {
                 if (draftConfigItem) {
-                  updateDraftConfigItem(
+                  applyConfigChange(
                     {
                       ...draftConfigItem,
                       Name: newName,
@@ -201,7 +201,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
                 <ConfigWizard
                   configItem={draftConfigItem}
                   onConfigChange={(item, actionLabel) => {
-                    updateDraftConfigItem(item, actionLabel)
+                    applyConfigChange(item, actionLabel)
                   }}
                   drawerContainer={containerRef}
                   historyControls={

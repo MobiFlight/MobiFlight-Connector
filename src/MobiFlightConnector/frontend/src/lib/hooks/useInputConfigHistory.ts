@@ -103,7 +103,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
     }
   }
 
-  const updateDraftConfigItem = (
+  const applyConfigChange = (
     nextConfigItem: IConfigItem,
     actionLabel?: string,
   ) => {
@@ -119,44 +119,34 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
       const snapshot = structuredClone(nextConfigItem)
       const session = previous.drawerSession
 
-      if (session) {
-        const recorded = recordHistoryChange(
-          session.history,
-          session.cursor,
-          session.historyStart,
-          snapshot,
-          textEditId,
-          previous.lastTextEditId,
-          actionLabel,
-        )
-
-        return {
-          ...previous,
-          draftConfigItem: snapshot,
-          drawerSession: {
-            ...session,
-            ...recorded,
-          },
-          lastTextEditId: textEditId,
-        }
-      }
+      // session exists if drawer is open
+      const activeHistory = session ?? previous
 
       const recorded = recordHistoryChange(
-        previous.history,
-        previous.cursor,
-        previous.historyStart,
+        activeHistory.history,
+        activeHistory.cursor,
+        activeHistory.historyStart,
         snapshot,
         textEditId,
         previous.lastTextEditId,
         actionLabel,
       )
 
-      return {
+      const nextState = {
         ...previous,
         draftConfigItem: snapshot,
-        ...recorded,
         lastTextEditId: textEditId,
       }
+
+      return session
+        ? {
+            ...nextState,
+            drawerSession: {
+              ...session,
+              ...recorded,
+            },
+          }
+        : { ...nextState, ...recorded }
     })
   }
 
@@ -326,7 +316,7 @@ const useInputConfigHistory = (configItem: IConfigItem | undefined) => {
   return {
     editorState,
     draftConfigItem,
-    updateDraftConfigItem,
+    applyConfigChange,
     beginDrawerSession,
     finishDrawerSession,
     jumpToHistory,
