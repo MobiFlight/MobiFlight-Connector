@@ -198,6 +198,7 @@ export function ConfigItemTable<TValue>({
       return
     }
 
+    const itemWasDuplicated = lastAction.current === "duplicate"
     lastAction.current = null
 
     const rowElement = tableRef.current?.querySelector(
@@ -225,7 +226,11 @@ export function ConfigItemTable<TValue>({
     }
 
     if (newItem.Type === "InputConfigItem") {
-      navigate(`/config/${newItem.GUID}`)
+      // A duplicated config still has the name of its original,
+      // so the dialog starts editing the name to rename it right away.
+      navigate(`/config/${newItem.GUID}`, {
+        state: { editName: itemWasDuplicated },
+      })
     } else {
       publish({
         key: "CommandConfigContextMenu",

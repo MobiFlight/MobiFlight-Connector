@@ -489,6 +489,49 @@ test.describe("Input Config Wizard - Edit name", () => {
     ).toBeFocused()
   })
 
+  test("Config name is automatically in edit mode for duplicated configs", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.mobiFlightPage.initWithTestData("inputaction")
+
+    const originalRow = await configListPage.getConfigItemRow(1)
+    await originalRow.getByRole("button", { name: "Open menu" }).first().click()
+
+    const contextMenu = page.getByTestId("config-item-context-menu")
+    await expect(contextMenu).toBeVisible()
+    await contextMenu.getByRole("menuitem", { name: "Duplicate" }).click()
+
+    // Simulate the backend response after duplicating the item.
+    await configListPage.duplicateConfigItem(0, "inputaction")
+
+    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
+    const nameInput = page
+      .getByTestId("dialog-config-name")
+      .getByRole("textbox")
+    await expect(nameInput).toBeVisible()
+    await expect(nameInput).toBeFocused()
+    await expect(nameInput).toHaveValue("MSFS Input Action")
+
+    // Finish editing the name
+    await nameInput.press("Enter")
+    await expect(nameInput).not.toBeVisible()
+
+    // Opening and closing a detail view should not start editing again
+    await page.getByRole("button", { name: "Edit On Press Action" }).click()
+    const goBackButton = page.getByRole("button", { name: "Go back" })
+    await expect(goBackButton).toBeVisible()
+    await expect(page).toHaveURL(/detail=/)
+    await goBackButton.click()
+    await expect(goBackButton).not.toBeVisible()
+    await expect(page).not.toHaveURL(/detail=/)
+
+    // Editing would start 500ms after the location changed
+    await page.waitForTimeout(1000)
+    await expect(nameInput).not.toBeVisible()
+  })
+
   test("Config name is not in edit mode for configs with non-default name", async ({
     configListPage,
     page,

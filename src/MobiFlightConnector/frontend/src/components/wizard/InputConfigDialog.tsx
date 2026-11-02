@@ -22,7 +22,7 @@ import { IconChevronRight, IconExclamationCircle } from "@tabler/icons-react"
 import _ from "lodash"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 
 export type InputConfigDialogProps = {
   configId: string
@@ -48,6 +48,7 @@ const resetTriggersBasedOnDeviceType = (
 const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
   const { project, activeConfigFileIndex } = useProjectStore()
   const configFile = project?.ConfigFiles[activeConfigFileIndex]
   const configItem = configFile?.ConfigItems?.find(
@@ -97,6 +98,11 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const defaultLabel = t("ConfigList.Actions.InputConfigItem.DefaultName")
   const configIsDefaultConfig =
     configItem?.Controller === null && configItemName === defaultLabel
+  // Duplicated configs are opened with a request to edit the name.
+  // It is only evaluated once, because opening and closing detail views
+  // changes the location and would otherwise start editing again.
+  const [editNameRequested] = useState(() => location.state?.editName === true)
+  const shouldStartEditingName = configIsDefaultConfig || editNameRequested
 
   const hasChanged = () => {
     return !_.isEqual(committedConfigItem, draftConfigItem)
@@ -104,11 +110,11 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (configIsDefaultConfig) {
+      if (shouldStartEditingName) {
         inlineEditRef.current?.startEditing()
       }
     }, 500)
-  }, [inlineEditRef, configIsDefaultConfig])
+  }, [inlineEditRef, shouldStartEditingName])
 
   const wiggleIt = () => {
     setTimeout(() => {
