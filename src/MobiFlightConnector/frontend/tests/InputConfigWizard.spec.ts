@@ -496,6 +496,8 @@ test.describe("Input Config Wizard - Edit name", () => {
     configListPage,
     page,
   }) => {
+    // Control the timers to check the delayed start of editing the name
+    await page.clock.install()
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
 
@@ -531,7 +533,7 @@ test.describe("Input Config Wizard - Edit name", () => {
     await expect(page).not.toHaveURL(/detail=/)
 
     // Editing would start 500ms after the location changed
-    await page.waitForTimeout(1000)
+    await page.clock.runFor(1000)
     await expect(nameInput).not.toBeVisible()
   })
 
