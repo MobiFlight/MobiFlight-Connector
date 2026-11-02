@@ -434,14 +434,18 @@ test.describe("Input Config Wizard - Edit name", () => {
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction")
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
 
-    // click on the Name label to enter edit mode
     const nameLabel = page.getByTestId("dialog-config-name").getByRole("button")
     const nameInput = page
       .getByTestId("dialog-config-name")
       .getByRole("textbox")
     const testLabel = "My new input config"
 
+    // Finish the automatic edit mode of the new config
+    await expect(nameInput).toBeVisible()
+    await nameInput.press("Enter")
     await expect(nameInput).not.toBeVisible()
+
+    // click on the Name label to enter edit mode
     await expect(nameLabel).toBeVisible()
     await nameLabel.dblclick()
 
@@ -469,16 +473,15 @@ test.describe("Input Config Wizard - Edit name", () => {
     configListPage,
     page,
   }) => {
-    // Add new config with default name
     const addInputConfigButton = page.getByRole("button", {
       name: "Add Input Config",
     })
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
     await addInputConfigButton.click()
+    // The name doesn't matter, every new config starts with editing the name
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
-      Name: "New Input Config",
-      Controller: null, // ensure it's a new config
+      Name: "New Input Config With Non-Default Name",
     })
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
     await expect(
@@ -532,64 +535,23 @@ test.describe("Input Config Wizard - Edit name", () => {
     await expect(nameInput).not.toBeVisible()
   })
 
-  test("Config name is not in edit mode for configs with non-default name", async ({
+  test("Config name is not in edit mode when opening an existing config", async ({
     configListPage,
     page,
   }) => {
-    // Add new config with default name
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    // Open a config with non-default name (we create a new one for the test and simplicity)
     await configListPage.gotoPage()
     await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await addInputConfigButton.click()
-    await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
-      Name: "New Input Config With Non-Default Name",
-      Controller: null, // ensure it looks like a new config
-    })
-
-    await expect(page.getByText("Edit Input Configuration")).toBeVisible()
-    // Label should be visible
-    await expect(
-      page
-        .getByTestId("dialog-config-name")
-        .getByText("New Input Config With Non-Default Name", { exact: true }),
-    ).toBeVisible()
-
-    // No input should be visible
-    await expect(
-      page.getByTestId("dialog-config-name").getByRole("textbox"),
-    ).not.toBeVisible()
-
-    //no button should be focused
-    await expect(
-      page.getByTestId("dialog-config-name").getByRole("button"),
-    ).not.toBeFocused()
-  })
-
-  test("Config name is not in edit mode for configs with default name but other settings made by user", async ({
-    configListPage,
-    page,
-  }) => {
-    // Add new config with default name
-    const addInputConfigButton = page.getByRole("button", {
-      name: "Add Input Config",
-    })
-    // Open a config with non-default name (we create a new one for the test and simplicity)
-    await configListPage.gotoPage()
-    await configListPage.mobiFlightPage.initWithTestData("inputaction")
-    await addInputConfigButton.click()
-
-    // We are setting the `controller` property which indicates that
-    // this is not a new default config anymore despite having the default name
+    // An existing config that still looks like a new default config
     await configListPage.addNewConfigItem("InputConfigItem", 0, "inputaction", {
       Name: "New Input Config",
-      Controller: {
-        Name: "Bravo Throttle Quadrant",
-        Serial: "JS-87654321",
-      },
+      Controller: null,
     })
+
+    await page
+      .getByRole("row")
+      .filter({ hasText: "New Input Config" })
+      .getByRole("button", { name: "Edit" })
+      .click()
 
     await expect(page.getByText("Edit Input Configuration")).toBeVisible()
     // Label should be visible

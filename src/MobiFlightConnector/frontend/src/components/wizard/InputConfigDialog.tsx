@@ -92,17 +92,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     useState(false)
   const [preventDialogAnimation, setPreventDialogAnimation] = useState(false)
 
-  // Automatically start editing the config item name if it is the default name
-  const configItemName = configItem?.Name
-  // this is a simple test to check if the config item is a newly created default config item
-  const defaultLabel = t("ConfigList.Actions.InputConfigItem.DefaultName")
-  const configIsDefaultConfig =
-    configItem?.Controller === null && configItemName === defaultLabel
-  // Duplicated configs are opened with a request to edit the name.
+  // New and duplicated configs are opened with a request to edit the name.
   // It is only evaluated once, because opening and closing detail views
   // changes the location and would otherwise start editing again.
-  const [editNameRequested] = useState(() => location.state?.editName === true)
-  const shouldStartEditingName = configIsDefaultConfig || editNameRequested
+  const [shouldStartEditingName] = useState(
+    () => location.state?.editName === true,
+  )
 
   const hasChanged = () => {
     return !_.isEqual(committedConfigItem, draftConfigItem)
