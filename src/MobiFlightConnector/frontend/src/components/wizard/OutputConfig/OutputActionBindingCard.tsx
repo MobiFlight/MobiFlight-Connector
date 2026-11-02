@@ -14,7 +14,7 @@ const OutputActionBindingCard = ({ config, onEdit }: OutputActionBindingCardProp
   const { t } = useTranslation()
 
   const hasOutputDevice = config.Device !== undefined
-  const hasInputAction = config.DeviceType === "InputAction"
+  const hasInputAction = config.ButtonInputConfig != null || config.AnalogInputConfig != null
 
   return (
     <Card
