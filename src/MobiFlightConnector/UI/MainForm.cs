@@ -89,7 +89,7 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Language != "")
             {
-                var cultureInfo = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+                var cultureInfo = Base.UiCultureResolver.FromSetting(Properties.Settings.Default.Language);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
                 System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
             }

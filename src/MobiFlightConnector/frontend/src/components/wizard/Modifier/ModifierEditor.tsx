@@ -14,7 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 type ModifierEditorProps = {
   modifiers: Modifier[]
-  onModifierChange: (modifiers: Modifier[]) => void
+  onModifierChange: (modifiers: Modifier[], actionLabel?: string) => void
 }
 
 const ModifierEditor = ({
@@ -43,20 +43,33 @@ const ModifierEditor = ({
   const handleAdd = (type: string) => {
     const newModifier = ModifierFactory.createModifier(type)
     setNewlyAddedId(newModifier.Id ?? null)
-    onModifierChange([...modifiers, newModifier])
+    onModifierChange(
+      [...modifiers, newModifier],
+      t("Dialog.InputConfigWizard.History.ModifierAdded", {
+        type: newModifier.Type,
+      }),
+    )
   }
   const handleDelete = (index: number) => {
-    onModifierChange([
-      ...modifiers.slice(0, index),
-      ...modifiers.slice(index + 1),
-    ])
+    onModifierChange(
+      [...modifiers.slice(0, index), ...modifiers.slice(index + 1)],
+      t("Dialog.InputConfigWizard.History.ModifierRemoved", {
+        type: modifiers[index].Type,
+      }),
+    )
   }
-  const handleChange = (index: number, updated: Modifier) => {
-    onModifierChange([
-      ...modifiers.slice(0, index),
-      updated,
-      ...modifiers.slice(index + 1),
-    ])
+  const handleChange = (
+    index: number,
+    updated: Modifier,
+    actionLabel?: string,
+  ) => {
+    onModifierChange(
+      [...modifiers.slice(0, index), updated, ...modifiers.slice(index + 1)],
+      actionLabel ??
+        t("Dialog.InputConfigWizard.History.ModifierChanged", {
+          type: updated.Type,
+        }),
+    )
   }
 
   const onMoveUp = (index: number) => {
@@ -66,7 +79,12 @@ const ModifierEditor = ({
     const temp = newModifiers[index - 1]
     newModifiers[index - 1] = newModifiers[index]
     newModifiers[index] = temp
-    onModifierChange(newModifiers)
+    onModifierChange(
+      newModifiers,
+      t("Dialog.InputConfigWizard.History.ModifierChanged", {
+        type: modifiers[index].Type,
+      }),
+    )
   }
 
   const onMoveDown = (index: number) => {
@@ -76,7 +94,12 @@ const ModifierEditor = ({
     const temp = newModifiers[index + 1]
     newModifiers[index + 1] = newModifiers[index]
     newModifiers[index] = temp
-    onModifierChange(newModifiers)
+    onModifierChange(
+      newModifiers,
+      t("Dialog.InputConfigWizard.History.ModifierChanged", {
+        type: modifiers[index].Type,
+      }),
+    )
   }
 
   return (
@@ -121,7 +144,9 @@ const ModifierEditor = ({
               <ModifierItem
                 key={modifier.Id}
                 modifier={modifier}
-                onChange={(updated) => handleChange(index, updated)}
+                onChange={(updated, actionLabel) =>
+                  handleChange(index, updated, actionLabel)
+                }
                 onDelete={() => handleDelete(index)}
                 onMoveUp={onMoveUp ? () => onMoveUp(index) : undefined}
                 onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}

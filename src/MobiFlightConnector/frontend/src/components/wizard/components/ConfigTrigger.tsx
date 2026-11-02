@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next"
 
 export type ConfigTriggerProps = {
   configItem: IConfigItem
-  setConfigItem: (item: IConfigItem) => void
+  setConfigItem: (item: IConfigItem, actionLabel?: string) => void
 }
 
 const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
@@ -90,23 +90,26 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
     controller: Partial<Controller> | undefined,
     device: BaseDevice | undefined,
   ) => {
-    setConfigItem({
-      ...configItem,
-      Controller: controller
-        ? {
-            ...controller,
-            // unset Devices
-            // before sending it back to backend.
-            Devices: undefined,
-          }
-        : undefined,
-      Device: device
-        ? {
-            Name: device.Name,
-            Type: device.Type,
-          }
-        : null,
-    })
+    setConfigItem(
+      {
+        ...configItem,
+        Controller: controller
+          ? {
+              ...controller,
+              // unset Devices
+              // before sending it back to backend.
+              Devices: undefined,
+            }
+          : undefined,
+        Device: device
+          ? {
+              Name: device.Name,
+              Type: device.Type,
+            }
+          : null,
+      },
+      t("Dialog.InputConfigWizard.History.TriggerChanged"),
+    )
   }
 
   const [scanning, setScanning] = useState(false)
@@ -161,7 +164,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
               align="start"
               getLabel={(controller) => (controller as Controller).Name}
               getValue={(controller) =>
-              (controller as Controller).Serial ??
+                (controller as Controller).Serial ??
                 (controller as Controller).Name
               }
               isSelected={(controller, selected) =>
@@ -228,7 +231,9 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
             }}
           >
             <IconTrash className="mr-2" />
-            <span className="sr-only lg:not-sr-only text-sm">{t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}</span>
+            <span className="sr-only text-sm lg:not-sr-only">
+              {t("Dialog.InputConfigWizard.ConfigTrigger.ClearInput")}
+            </span>
           </Button>
         </div>
       </CardContent>

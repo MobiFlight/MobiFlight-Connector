@@ -138,18 +138,12 @@
       "ScriptName": "xplane_uns_1.py"
     },
     {
-      "VendorId": "0x4098",
-      "ProductIds": [ "WinwingCDUs" ],
       "AircraftMatchPattern": "atr 72-600",
       "ScriptName": "deltawings_atr_72_600.py"
     },
     {
-      "VendorId": "0x346E",
-      "ProductIds": [
-        "MozaCDUs"
-      ],
-      "AircraftMatchPattern": "atr 72-600",
-      "ScriptName": "deltawings_atr_72_600.py"
+      "AircraftMatchPattern": "citation 525",
+      "ScriptName": "xplane_uns_1.py"
     }
   ]
 }
