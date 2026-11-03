@@ -274,7 +274,6 @@ export interface OutputConfig extends OutputDeviceConfig {
 export interface LedModuleConfig extends OutputDeviceConfig {
   Type: "LedModule"
   DisplayLedAddress: string
-  DisplayLedConnector: number
   DisplayLedModuleSize: number
   DisplayLedPadding: boolean
   DisplayLedPaddingChar: string
