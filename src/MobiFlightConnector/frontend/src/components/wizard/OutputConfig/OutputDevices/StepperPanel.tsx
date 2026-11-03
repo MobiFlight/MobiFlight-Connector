@@ -1,6 +1,6 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import { StepperConfig } from "@/types/config"
-import { BaseDevice, Controller } from "@/types/controller"
+import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
@@ -13,7 +13,7 @@ export interface StepperPanelProps {
   config: StepperConfig
   controller?: Partial<Controller>
   // only used by the details variant
-  devices?: BaseDevice[]
+  devices?: DeviceReference[]
   onChange?: (config: StepperConfig) => void
 }
 
