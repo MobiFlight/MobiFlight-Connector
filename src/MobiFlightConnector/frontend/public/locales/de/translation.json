@@ -963,7 +963,8 @@
         "Title": "Testmodus-Geschwindigkeit",
         "Slow": "langsam",
         "Fast": "sehr schnell"
-      }
+      },
+      "CloudSettingsSync": "Cloud-Einstellungssynchronisierung"
     },
     "Simulator": {
       "Title": "Simulatoren",
@@ -982,6 +983,49 @@
       "KeepEditing": "Weiter bearbeiten",
       "DiscardChanges": "Änderungen verwerfen"
     },
-    "ManageControllerNote": "Finde <strong>MobiFlight Boards</strong> und <strong>Peripherals</strong> in <strong>{{menuPath}}</strong>"
+    "ManageControllerNote": "Finde <strong>MobiFlight Boards</strong> und <strong>Peripherals</strong> in <strong>{{menuPath}}</strong>",
+    "Conflict": {
+      "Title": "Einstellungskonflikt",
+      "Description": "Wir haben unterschiedliche Versionen Ihrer Einstellungen auf diesem Gerät und in der Cloud gefunden. Wählen Sie, welche Version Sie behalten möchten.",
+      "KeepLocal": "Lokale Einstellungen behalten",
+      "KeepLocalDesc": "Einstellungen auf diesem Gerät behalten, ohne mit der Cloud zu synchronisieren.",
+      "UseCloud": "Cloud-Einstellungen verwenden",
+      "UseCloudDesc": "Lokale Einstellungen durch die in der Cloud gespeicherte Version ersetzen.",
+      "UploadLocal": "Lokale Einstellungen in die Cloud hochladen",
+      "UploadLocalDesc": "Cloud-Einstellungen mit der aktuellen Version dieses Geräts überschreiben."
+    },
+    "Sync": {
+      "Notifications": {
+        "restored": {
+          "Title": "Einstellungen wiederhergestellt",
+          "Description": "Ihre neuesten Einstellungen wurden aus der Cloud wiederhergestellt."
+        },
+        "synced": {
+          "Title": "Einstellungen synchronisiert",
+          "Description": "Ihre neuesten lokalen Änderungen wurden mit der Cloud synchronisiert."
+        },
+        "saved": {
+          "Title": "Einstellungen gespeichert",
+          "Description": "Ihre lokalen Einstellungen wurden in der Cloud gespeichert."
+        },
+        "updated": {
+          "Title": "Einstellungen aktualisiert",
+          "Description": "Ihre neuesten Einstellungen wurden aus der Cloud wiederhergestellt."
+        },
+        "failed_upload": {
+          "Title": "Synchronisierung fehlgeschlagen",
+          "Description": "Ihre Einstellungen konnten nicht in der Cloud gespeichert werden. Bitte überprüfen Sie Ihre Verbindung."
+        },
+        "failed_fetch": {
+          "Title": "Cloud nicht erreichbar",
+          "Description": "Verbindung zur Cloud zum Abrufen Ihrer Einstellungen fehlgeschlagen."
+        }
+      },
+      "Status": {
+        "SignInToSync": "Anmelden, um Einstellungen zu synchronisieren",
+        "SyncPaused": "Cloud-Synchronisierung angehalten",
+        "Synced": "Einstellungen synchronisiert"
+      }
+    }
   }
 }
