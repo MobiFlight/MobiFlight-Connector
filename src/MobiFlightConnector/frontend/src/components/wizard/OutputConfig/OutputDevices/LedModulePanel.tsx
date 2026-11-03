@@ -8,21 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import ComboBox from "@/components/ComboBox"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
 
-// TODO: use the number of chained modules and the max digits provided by the backend
-const MAX_CONNECTORS = 8
-const MAX_DIGITS = 8
-
 type Option = { label: string; value: string }
-
-const connectorOptions: Option[] = Array.from(
-  { length: MAX_CONNECTORS },
-  (_, index) => ({ label: `${index + 1}`, value: `${index + 1}` }),
-)
-
-const moduleSizeOptions: Option[] = Array.from(
-  { length: MAX_DIGITS },
-  (_, index) => ({ label: `${index + 1}`, value: `${index + 1}` }),
-)
 
 const paddingCharOptions: Option[] = [
   { label: "0", value: "0" },
@@ -67,12 +53,21 @@ const LedModulePanel = ({
   devices = [],
   onChange,
 }: LedModulePanelProps) => {
+  const selectedDevice = devices.find(
+    (device) => device.Name === config.DisplayLedAddress,
+  )
+
+  const currentModuleSize = Math.min(
+    config.DisplayLedModuleSize,
+    selectedDevice?.Capabilities?.Digits ?? 8,
+  )
+
   if (variant == "details") {
     // digit 0 is the rightmost digit on the display
     const digitIndexes = Array.from(
       { length: config.DisplayLedModuleSize },
       (_, index) => `${index}`,
-    ).reverse()
+    )
 
     const toggle = (list: string[], digit: string, checked: boolean) =>
       checked ? [...list, digit] : list.filter((item) => item !== digit)
@@ -89,6 +84,11 @@ const LedModulePanel = ({
           config.DisplayLedDecimalPoints.filter(isVisible),
       })
     }
+
+    const moduleSizeOptions: Option[] = Array.from(
+      { length: selectedDevice?.Capabilities?.Digits ?? 8 },
+      (_, index) => ({ label: `${index + 1}`, value: `${index + 1}` }),
+    )
 
     return (
       <Card>
@@ -118,20 +118,10 @@ const LedModulePanel = ({
               />
             </div>
             <div className="flex flex-col gap-2">
-              <Label>Connector</Label>
-              <OptionComboBox
-                options={connectorOptions}
-                value={`${config.DisplayLedConnector}`}
-                onChange={(value) =>
-                  onChange?.({ ...config, DisplayLedConnector: Number(value) })
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-2">
               <Label>Digits</Label>
               <OptionComboBox
                 options={moduleSizeOptions}
-                value={`${config.DisplayLedModuleSize}`}
+                value={`${currentModuleSize}`}
                 onChange={updateModuleSize}
               />
             </div>
