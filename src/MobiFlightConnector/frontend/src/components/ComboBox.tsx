@@ -63,8 +63,8 @@ const ComboBox = <T,>({
 
   // Use substring matching instead of the default fuzzy filtering,
   // so the complete search string must be present in the item value.
-  const filterByCaseInsensitiveSubstring = (value: string, search: string) => {
-    return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0
+  const filterByCaseInsensitiveSubstring = (_: string, search: string, keywords: string[] | undefined) => {
+    return keywords?.some((keyword) => keyword.toLowerCase().includes(search.toLowerCase())) ? 1 : 0
   }
 
   const popoverContentMinWidth = widthClass.startsWith("w-")
@@ -115,6 +115,7 @@ const ComboBox = <T,>({
                   className="gap-1"
                     key={itemValue}
                     value={itemValue}
+                    keywords={[itemLabel]}
                     onSelect={() => {
                       if (itemValue === selectedValue) {
                         setSelected(undefined)
