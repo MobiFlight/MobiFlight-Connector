@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace MobiFlight.Base
 {
-    public record CustomDeviceMessageTypes(string Id, string Label, string Description);
+    public record CustomDeviceMessageType(int Id, string Label, string Description);
+
+    /// <summary>Runtime facts the UI needs about a device; null members mean not applicable.</summary>
     public class DeviceCapability
     {
         public bool? Pwm { get; set; }
@@ -12,7 +14,13 @@ namespace MobiFlight.Base
         public int? Digits { get; set; }
         public StepperProfilePreset Profile { get; set; }
         public bool? AutoZero { get; set; }
-        public List<CustomDeviceMessageTypes> MessageTypes { get; set; }
+        public List<CustomDeviceMessageType> MessageTypes { get; set; }
+    }
+
+    /// <summary>A device of a connected controller, including what it is capable of.</summary>
+    public class ControllerDevice : DeviceReference
+    {
+        public DeviceCapability Capabilities { get; set; }
     }
 
     public class DeviceReference

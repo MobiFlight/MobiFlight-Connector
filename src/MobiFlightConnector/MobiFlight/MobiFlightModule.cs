@@ -1274,7 +1274,7 @@ namespace MobiFlight
 
             foreach (Firmware.BaseDevice dev in Config.Items)
             {
-                var range = DeviceReferenceFactory.Create(dev);
+                var range = DeviceReferenceFactory.Create(dev, Board);
                 result.AddRange(range);
             }
 
