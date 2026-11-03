@@ -1,47 +1,28 @@
 """
 Adds support for the X-Plane UNS-1.
 
-Many X-Plane aircraft have similar formats for datarefs and the means of retrieving, translating and sending updates is mostly the same.
-
-In order to support multiple CDU devices seamlessly, a dynamic approach is taken whereby an enum class is defined that contains the supported devices.
-A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
-Each enum member is assigned a value that is used to construct the X-Plane dataref identifier. Example: "cdu1" in "uns1/cdu1/text_line_0".
-
-Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
-
-Two tasks are started independently for each available CDU device.
-1. handle_dataref_updates -> Listens to X-Plane's WebSocket server for dataref updates for that specific CDU and pushes an event to a queue
-2. handle_device_update   -> Listens to the queue and dispatches updates to MobiFlight to update that CDU
-
-Tasks are started independently for each CDU device to ensure each device can update quickly, particularly when players might be performing shared cockpit flights.
-
-Upon a failed connection while dispatching updates to MobiFlight, the handle_device_update function uses `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
-The failed message is picked back up and dispatched to MobiFlight. This ensures a user's device eventually receives the updated display contents and doesn't hang which would require the user to cycle the page again.
+See xplane_cdu_common.py for the shared connection/orchestration logic this script relies on.
 """
 
 import asyncio
 import base64
 import json
-import logging
 import os
+import sys
 import urllib.request
 from dataclasses import dataclass, KW_ONLY
 from enum import StrEnum
 
-import websockets
+# MobiFlight's embedded Python does not add the script directory to sys.path.
+_here = os.path.dirname(os.path.abspath(__file__))
+if _here not in sys.path:
+    sys.path.insert(0, _here)
 
-CDU_COLUMNS = 24
+import xplane_cdu_common as cdu_common
+
+CDU_COLUMNS = cdu_common.CDU_COLUMNS
 CDU_ROWS = 11
 CDU_CELLS = CDU_COLUMNS * CDU_ROWS
-
-WEBSOCKET_HOST = "localhost"
-WEBSOCKET_PORT = 8320
-
-BASE_REST_URL = "http://localhost:8086/api/v2/datarefs"
-BASE_WEBSOCKET_URI = f"ws://{WEBSOCKET_HOST}:8086/api/v2"
-
-WS_CAPTAIN = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-captain"
-WS_CO_PILOT = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-co-pilot"
 
 # Q4XP
 COLOR_MAP_0 = {
@@ -112,27 +93,25 @@ COLOR_MAP_3 = {
 }
 
 COLOR_SETS = {
-  0: COLOR_MAP_0,
-  1: COLOR_MAP_1,
-  2: COLOR_MAP_2,
-  3: COLOR_MAP_3,
+    0: COLOR_MAP_0,
+    1: COLOR_MAP_1,
+    2: COLOR_MAP_2,
+    3: COLOR_MAP_3,
 }
 
 CHAR_MAP = {
-    "\u24c2": "m", # Circled Latin Capital Letter M
-    "─": "-",      # Box Drawings Light Horizontal
-    "│": "|",      # Box Drawings Light Vertical
-    "┌": "-",      # Box Drawings Light Down and Right
-    "┐": "-",      # Box Drawings Light Down and Left
-    "└": "-",      # Box Drawings Light Up and Right
-    "┘": "-",      # Box Drawings Light Up and Left
-    "├": "|",      # Box Drawings Light Vertical and Right
-    "┤": "|",      # Box Drawings Light Vertical and Left
-    "┬": "-",      # Box Drawings Light Down and Horizontal
-    "┴": "-",      # Box Drawings Light Up and Horizontal
+    "Ⓜ": "m",  # Circled Latin Capital Letter M
+    "─": "-",       # Box Drawings Light Horizontal
+    "│": "|",       # Box Drawings Light Vertical
+    "┌": "-",       # Box Drawings Light Down and Right
+    "┐": "-",       # Box Drawings Light Down and Left
+    "└": "-",       # Box Drawings Light Up and Right
+    "┘": "-",       # Box Drawings Light Up and Left
+    "├": "|",       # Box Drawings Light Vertical and Right
+    "┤": "|",       # Box Drawings Light Vertical and Left
+    "┬": "-",       # Box Drawings Light Down and Horizontal
+    "┴": "-",       # Box Drawings Light Up and Horizontal
 }
-
-FONT_REQUEST = json.dumps({"Target": "Font", "Data": "Boeing"})
 
 HOLD_DIR_RIGHT = 1
 HOLD_DIR_LEFT = -1
@@ -142,6 +121,7 @@ HOLD_GRAPHICS_DIRECTION = 1
 HOLD_GRAPHICS_TURN = 2
 HOLD_GRAPHICS_TIME = 3
 HOLD_GRAPHICS_ALL = 4
+
 
 @dataclass
 class Overlay:
@@ -180,31 +160,32 @@ class Overlay:
                 for (bg, fg) in zip(style[i + self.row_offset], self.text[i])
             ]
 
+
 HOLD_R_OVERLAY = Overlay([
     r"       ----------       ",
     r"      /          \      ",
     r"      |          |      ",
     r"      \          /      ",
     r"       -----------      ",
-], style = 3, row_offset = 3)
+], style=3, row_offset=3)
 
 HOLD_R_INBOUND_ARROW = Overlay([
     r"            ←-          ",
-], style = 1, row_offset = 8)
+], style=1, row_offset=8)
 
 HOLD_R_DIR_ARROW = Overlay([
     r"          -   →         ",
-], style = 1, row_offset = 4)
+], style=1, row_offset=4)
 
 HOLD_R_TURN_ARROW = Overlay([
     r"      ↑                 ",
     r"       \                ",
-], style = 1, row_offset = 5)
+], style=1, row_offset=5)
 
 HOLD_R_TIME_ARROWS = Overlay([
     r"        |←    →|        ",
     r"        .               ",
-], style = 1, row_offset = 6)
+], style=1, row_offset=6)
 
 HOLD_L_OVERLAY = Overlay([
     r"       ----------       ",
@@ -212,113 +193,110 @@ HOLD_L_OVERLAY = Overlay([
     r"      |          |      ",
     r"      \          /      ",
     r"      -----------       ",
-], style = 3, row_offset = 3)
+], style=3, row_offset=3)
 
 HOLD_L_INBOUND_ARROW = Overlay([
     r"          -→            ",
-], style = 1, row_offset = 8)
+], style=1, row_offset=8)
 
 HOLD_L_DIR_ARROW = Overlay([
     r"         ←   -          ",
-], style = 1, row_offset = 4)
+], style=1, row_offset=4)
 
 HOLD_L_TURN_ARROW = Overlay([
     r"                 ↑      ",
     r"                /       ",
-], style = 1, row_offset = 5)
+], style=1, row_offset=5)
 
 HOLD_L_TIME_ARROWS = Overlay([
     r"        |←    →|        ",
     r"               .        ",
-], style = 1, row_offset = 6)
+], style=1, row_offset=6)
 
 
-class CduDevice(StrEnum):
+class CduDevice(cdu_common.CduDeviceMixin, StrEnum):
     Captain = "cdu1"
     CoPilot = "cdu2"
 
-    def get_endpoint(self) -> str:
-        match self:
-            case CduDevice.Captain:
-                return WS_CAPTAIN
-            case CduDevice.CoPilot:
-                return WS_CO_PILOT
-            case _:
-                raise KeyError(f"Invalid device specified {self}")
+
+def get_prefix(q4xp: bool) -> str:
+    return "FJS/Q4XP" if q4xp else "uns1"
 
 
-class AircraftCduDevice:
-    def __init__(self, cdu: CduDevice, q4xp: bool):
-        self.cdu = cdu
-        self.prefix = "FJS/Q4XP" if q4xp else "uns1"
-
-    def get_color_set_dataref(self) -> str:
-        return f"{self.prefix}/{self.cdu}/color_set"
-
-    def get_hold_dir_dataref(self) -> str:
-        return f"{self.prefix}/{self.cdu}/hold_dir"
-
-    def get_hold_graphics_dataref(self) -> str:
-        return f"{self.prefix}/{self.cdu}/hold_graphics"
-
-    def get_text_dataref(self, line) -> str:
-        return f"{self.prefix}/{self.cdu}/text_line_{line}"
-
-    def get_style_dataref(self, line) -> str:
-        return f"{self.prefix}/{self.cdu}/style_line_{line}"
-
-    def get_dataref_prefixes(self) -> list[str]:
-        return [
-            f"{self.prefix}/{self.cdu}/text_line_",
-            f"{self.prefix}/{self.cdu}/style_line_",
-            self.get_color_set_dataref(),
-            self.get_hold_dir_dataref(),
-            self.get_hold_graphics_dataref(),
-        ]
+def get_color_set_dataref(device: CduDevice, q4xp: bool) -> str:
+    return f"{get_prefix(q4xp)}/{device}/color_set"
 
 
-def fetch_dataref_mapping(device: AircraftCduDevice):
-    with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
-        response_json = json.load(response)
+def get_hold_dir_dataref(device: CduDevice, q4xp: bool) -> str:
+    return f"{get_prefix(q4xp)}/{device}/hold_dir"
 
-        prefixes = device.get_dataref_prefixes()
 
-        return dict(
-            map(
-                lambda dataref: (int(dataref["id"]), str(dataref["name"])),
-                filter(
-                    lambda x: any(p in str(x["name"]) for p in prefixes),
-                    response_json["data"],
-                ),
-            )
-        )
+def get_hold_graphics_dataref(device: CduDevice, q4xp: bool) -> str:
+    return f"{get_prefix(q4xp)}/{device}/hold_graphics"
+
+
+def get_text_dataref(device: CduDevice, q4xp: bool, line) -> str:
+    return f"{get_prefix(q4xp)}/{device}/text_line_{line}"
+
+
+def get_style_dataref(device: CduDevice, q4xp: bool, line) -> str:
+    return f"{get_prefix(q4xp)}/{device}/style_line_{line}"
+
+
+def get_dataref_prefixes(device: CduDevice, q4xp: bool) -> list[str]:
+    return [
+        f"{get_prefix(q4xp)}/{device}/text_line_",
+        f"{get_prefix(q4xp)}/{device}/style_line_",
+        get_color_set_dataref(device, q4xp),
+        get_hold_dir_dataref(device, q4xp),
+        get_hold_graphics_dataref(device, q4xp),
+    ]
+
+
+def fetch_dataref_mapping(device: CduDevice, q4xp: bool) -> dict[int, str]:
+    prefixes = get_dataref_prefixes(device, q4xp)
+    return cdu_common.fetch_dataref_mapping(
+        lambda name: any(p in name for p in prefixes)
+    )
+
+
+def decode_value(dataref_name: str, value):
+    if "text_line" in dataref_name:
+        return base64.b64decode(value).decode(errors="replace").replace("\x00", " ")
+    if "style_line" in dataref_name:
+        return base64.b64decode(value)
+    return value
+
 
 def color_from_style(style, color_map):
     return color_map.get(style & 0xf, "w")
 
+
 def size_from_style(style):
     return 0 if style & (1 << 7) else 1
+
 
 def reverse_video_from_style(style):
     return 1 if style & (1 << 6) else 0
 
-def generate_display_json(device: AircraftCduDevice, values: dict[str, str | bytes]):
+
+def generate_display_json(device: CduDevice, q4xp: bool, values: dict[str, str | bytes]):
     display_data = [[] for _ in range(CDU_CELLS)]
 
     text = [
-        values.get(device.get_text_dataref(row), "").ljust(CDU_COLUMNS)
+        values.get(get_text_dataref(device, q4xp, row), "").ljust(CDU_COLUMNS)
         for row in range(CDU_ROWS)
     ]
     style = [
-        values.get(device.get_style_dataref(row), "").ljust(CDU_COLUMNS)
+        values.get(get_style_dataref(device, q4xp, row), "").ljust(CDU_COLUMNS)
         for row in range(CDU_ROWS)
     ]
 
-    color_set = values.get(device.get_color_set_dataref(), 0)
+    color_set = values.get(get_color_set_dataref(device, q4xp), 0)
     color_map = COLOR_SETS.get(color_set, COLOR_MAP_3)
 
-    hold_dir = values.get(device.get_hold_dir_dataref(), 0)
-    hold_graphics = values.get(device.get_hold_graphics_dataref(), 0)
+    hold_dir = values.get(get_hold_dir_dataref(device, q4xp), 0)
+    hold_graphics = values.get(get_hold_graphics_dataref(device, q4xp), 0)
 
     if hold_dir == HOLD_DIR_RIGHT:
         HOLD_R_OVERLAY.draw_onto(text, style)
@@ -363,151 +341,28 @@ def generate_display_json(device: AircraftCduDevice, values: dict[str, str | byt
 
 
 def is_q4xp() -> bool:
-    with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
+    with urllib.request.urlopen(cdu_common.BASE_REST_URL, timeout=5) as response:
         response_json = json.load(response)
         names = (x["name"] for x in response_json["data"])
         return "FJS/Q4XP/cdu1/cdu_model" in names
 
-async def handle_device_update(queue: asyncio.Queue, device: AircraftCduDevice):
-    """
-    Translates and sends dataref updates to MobiFlight.
-    """
-    last_run_time = 0
-    rate_limit_time = 0.1
-
-    endpoint = device.cdu.get_endpoint()
-    logging.info("Connecting to CDU device %s", device)
-    async for websocket in websockets.connect(endpoint):
-        logging.info("Connected successfully to CDU device %s", device)
-        while True:
-            values = await queue.get()
-
-            try:
-                elapsed = asyncio.get_running_loop().time() - last_run_time
-
-                # Weaker CPUs may experience performance issues when a websocket connection is saturated with requests, such as when pages are frequently changed.
-                # This rate limits the number of active websocket requests to MobiFlight.
-                # The delay should not be noticeable unless a user heavily spams page changes, but it should be enough that too many messages won't be pushed at once.
-                if elapsed < rate_limit_time:
-                    await asyncio.sleep(rate_limit_time - elapsed)
-
-                display_json = generate_display_json(device, values)
-                await websocket.send(display_json)
-                last_run_time = asyncio.get_running_loop().time()
-
-            except websockets.exceptions.ConnectionClosed:
-                logging.error(
-                    "MobiFlight websocket connection was closed... Attempting to reconnect"
-                )
-                await queue.put(values)
-                break
-
-
-async def handle_dataref_updates(queue: asyncio.Queue, device: AircraftCduDevice):
-    last_known_values = {}
-
-    dataref_map = fetch_dataref_mapping(device)
-    logging.info("Connecting to X-Plane websocket server")
-    async for websocket in websockets.connect(BASE_WEBSOCKET_URI):
-        logging.info("Connected successfully to X-Plane websocket server")
-        try:
-            await websocket.send(
-                json.dumps(
-                    {
-                        "type": "dataref_subscribe_values",
-                        "req_id": 1,
-                        "params": {
-                            "datarefs": [
-                                {"id": id_value} for id_value in dataref_map.keys()
-                            ]
-                        },
-                    }
-                )
-            )
-            while True:
-                message = await websocket.recv()
-                data = json.loads(message)
-
-                if "data" not in data:
-                    continue
-
-                new_values = dict(last_known_values)
-
-                for dataref_id, value in data["data"].items():
-                    dataref_id = int(dataref_id)
-                    if dataref_id not in dataref_map:
-                        continue
-
-                    dataref_name = dataref_map[dataref_id]
-
-                    if "text_line" in dataref_name:
-                        new_values[dataref_name] = base64.b64decode(value).decode(errors='replace').replace("\x00", " ")
-                    elif "style_line" in dataref_name:
-                        new_values[dataref_name] = base64.b64decode(value)
-                    else:
-                        new_values[dataref_name] = value
-
-
-                if new_values == last_known_values:
-                    continue
-
-                last_known_values = new_values
-                await queue.put(new_values)
-        except websockets.exceptions.ConnectionClosed:
-            logging.error(
-                "X-Plane websocket connection was closed... Attempting to reconnect"
-            )
-            continue
-
-
-async def get_available_devices() -> list[CduDevice]:
-    device_candidates = [device for device in CduDevice]
-
-    available_devices = []
-    q4xp = is_q4xp()
-
-    logging.info("Checking MobiFlight for available CDU devices")
-    for device in device_candidates:
-        device_endpoint = device.get_endpoint()
-        try:
-            async with websockets.connect(device_endpoint) as socket:
-                logging.info(
-                    "Discovered CDU device %s at endpoint %s", device, device_endpoint
-                )
-                available_devices.append(AircraftCduDevice(device, q4xp))
-                await socket.send(FONT_REQUEST)
-                await asyncio.sleep(1) # wait a second for font to be set
-        except websockets.WebSocketException:
-            logging.warning(
-                "Attempted to probe CDU device %s at endpoint %s but device wasn't available",
-                device,
-                device_endpoint,
-            )
-            continue
-
-    return available_devices
-
-
-async def main():
-    logging.basicConfig(
-        level=os.environ.get("LOGLEVEL", "WARNING").upper(),
-        format='%(levelname)s:%(message)s'
-    )
-
-    available_devices = await get_available_devices()
-
-    tasks = []
-
-    for device in available_devices:
-        queue = asyncio.Queue()
-
-        tasks.append(asyncio.create_task(handle_dataref_updates(queue, device)))
-        tasks.append(asyncio.create_task(handle_device_update(queue, device)))
-
-    logging.info("Started background tasks for %s", available_devices)
-
-    await asyncio.gather(*tasks)
-
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    # Determined once since every device on this aircraft shares the same answer.
+    _q4xp = is_q4xp()
+
+    def _fetch_dataref_mapping(device: CduDevice) -> dict[int, str]:
+        return fetch_dataref_mapping(device, _q4xp)
+
+    def _generate_display_json(device: CduDevice, values: dict[str, str | bytes]) -> str:
+        return generate_display_json(device, _q4xp, values)
+
+    asyncio.run(
+        cdu_common.run(
+            CduDevice,
+            _fetch_dataref_mapping,
+            _generate_display_json,
+            decode_value=decode_value,
+            font_name="Boeing",
+        )
+    )
