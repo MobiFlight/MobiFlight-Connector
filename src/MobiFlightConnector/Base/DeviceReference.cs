@@ -9,12 +9,19 @@ namespace MobiFlight.Base
     /// <summary>Runtime facts the UI needs about a device; null members mean not applicable.</summary>
     public class DeviceCapability
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool? Pwm { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? Rows { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? Columns { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? Digits { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public StepperProfilePreset Profile { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool? AutoZero { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<CustomDeviceMessageType> MessageTypes { get; set; }
     }
 
