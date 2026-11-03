@@ -315,6 +315,18 @@ namespace MobiFlight
             var result = new List<DeviceReference>();
             Lights.ForEach((item) =>
             {
+                
+                if (item.Type == DeviceType.LcdDisplay)
+                {
+                    var deviceCapability = new DeviceCapability();
+                    deviceCapability.Rows = (item as JoystickOutputDisplay)?.Lines;
+                    deviceCapability.Columns = (item as JoystickOutputDisplay)?.Cols;
+                    result.Add(new ControllerDevice() { Name = item.Name, Label = item.Label, Type = DeviceType.LcdDisplay, Capabilities = deviceCapability });
+                    return;
+                }
+
+                // No capabilities for other output devices needed
+                // default outputs are not PWM capable
                 result.Add(item);
             });
             return result;
