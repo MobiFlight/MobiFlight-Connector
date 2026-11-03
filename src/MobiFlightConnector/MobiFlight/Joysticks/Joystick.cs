@@ -318,9 +318,11 @@ namespace MobiFlight
                 
                 if (item.Type == DeviceType.LcdDisplay)
                 {
-                    var deviceCapability = new DeviceCapability();
-                    deviceCapability.Rows = (item as JoystickOutputDisplay)?.Lines;
-                    deviceCapability.Columns = (item as JoystickOutputDisplay)?.Cols;
+                    var deviceCapability = new DeviceCapability
+                    {
+                        Rows = (item as JoystickOutputDisplay)?.Lines,
+                        Columns = (item as JoystickOutputDisplay)?.Cols
+                    };
                     result.Add(new ControllerDevice() { Name = item.Name, Label = item.Label, Type = DeviceType.LcdDisplay, Capabilities = deviceCapability });
                     return;
                 }

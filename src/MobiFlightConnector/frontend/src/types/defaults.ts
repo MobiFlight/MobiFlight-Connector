@@ -94,7 +94,6 @@ export const OutputDeviceConfigDefaults = {
     Type: "LedModule",
     Name: name,
     DisplayLedAddress: name,
-    DisplayLedConnector: 1,
     DisplayLedModuleSize: 8,
     DisplayLedPadding: false,
     DisplayLedPaddingChar: "0",
