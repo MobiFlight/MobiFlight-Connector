@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Firmware;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace MobiFlight.Base
@@ -20,6 +21,7 @@ namespace MobiFlight.Base
     /// <summary>A device of a connected controller, including what it is capable of.</summary>
     public class ControllerDevice : DeviceReference
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public DeviceCapability Capabilities { get; set; }
     }
 
