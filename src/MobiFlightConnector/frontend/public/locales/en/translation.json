@@ -481,6 +481,13 @@
       }
     },
     "ConfigWizard": {
+      "Output": {
+        "InputAction": {
+          "Button": "Button action",
+          "Analog": "Analog action",
+          "Remove": "Remove input action"
+        }
+      },
       "Source": {
         "Title": "Specify source value",
         "Description": "Configure the value for this output configuration."

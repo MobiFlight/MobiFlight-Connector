@@ -2,7 +2,6 @@ import { Controller } from "./controller"
 import { ModifierList, Modifier } from "./modifier"
 import { InputDeviceType, OutputDeviceType } from "./controller"
 
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
   [Key in K]: T
@@ -34,13 +33,13 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   Modifiers?: ModifierList
 }
 
-export type Source = SimConnectSource | XplaneSource | VariableSource | FsuipcSource | ProSimSource
+export type Source =
+  | SimConnectSource
+  | XplaneSource
+  | VariableSource
+  | FsuipcSource
+  | ProSimSource
 export type SourceType = Source["Type"]
-
-export interface OutputConfigItem extends IConfigItem {
-  Type: "OutputConfigItem"
-  Source: Source
-}
 
 export interface SimConnectSource {
   Type: "SimConnectSource"
@@ -49,7 +48,6 @@ export interface SimConnectSource {
     Value: string
   }
 }
-
 
 export interface XplaneSource {
   Type: "XplaneSource"
@@ -93,6 +91,7 @@ export type ConfigItemType = "InputConfigItem" | "OutputConfigItem"
 
 export interface OutputConfigItem extends IConfigItem {
   Type: "OutputConfigItem"
+  Source: Source
   ButtonInputConfig?: ButtonTrigger
   AnalogInputConfig?: AnalogTrigger
 }
@@ -141,7 +140,9 @@ export type ButtonTrigger = {
   onLongRelease?: Action
 }
 
-export type ButtonTrigger = ButtonTrigger & Partial<ButtonHoldOptions> & Partial<ButtonLongReleaseOptions>
+export type ButtonTrigger = ButtonTrigger &
+  Partial<ButtonHoldOptions> &
+  Partial<ButtonLongReleaseOptions>
 
 export interface EncoderTrigger {
   onLeft?: Action
