@@ -7,15 +7,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
 
-// TODO: use the display size provided by the backend
-const LCD_ROWS = 2
-const LCD_COLS = 20
-
 export interface LcdDisplayPanelProps {
   variant: "summary" | "details"
   config: LcdDisplayConfig
   controller?: Partial<Controller>
-  // only used by the details variant
   devices?: DeviceReference[]
   onChange?: (config: LcdDisplayConfig) => void
 }
@@ -28,6 +23,10 @@ const LcdDisplayPanel = ({
   onChange,
 }: LcdDisplayPanelProps) => {
   if (variant == "details") {
+    const selectedDevice = devices.find((device) => device.Name === config.Address)
+    const LCD_ROWS = selectedDevice?.Capabilities?.Rows ?? 1
+    const LCD_COLS = selectedDevice?.Capabilities?.Columns ?? 8
+
     const lines = Array.from(
       { length: LCD_ROWS },
       (_, index) => config.Lines?.[index] ?? "",
@@ -67,7 +66,7 @@ const LcdDisplayPanel = ({
               <Input
                 key={index}
                 aria-label={`Line ${index + 1}`}
-                className="w-auto font-mono"
+                className={`w-auto font-mono`}
                 size={LCD_COLS}
                 maxLength={LCD_COLS}
                 value={line}
