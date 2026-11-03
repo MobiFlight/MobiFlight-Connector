@@ -1,5 +1,9 @@
 import { test, expect } from "./fixtures"
-
+import { Page } from "@playwright/test"
+import Settings from "../src/types/settings"
+import defaultSettings from "./data/settings.testdata.json" with { type: "json" }
+import dotenv from "dotenv"
+dotenv.config()
 test("Confirm `Extras > Settings` menu item opens the correct modal", async ({
   configListPage,
   page,
@@ -287,3 +291,354 @@ test("Confirm Cancel button uses localized label when non-English language is se
   await expect(dialog).not.toBeVisible()
 })
 
+const basicCredentialsAvailable =
+  !!process.env.TESTS_BASIC_EMAIL &&
+  !!process.env.TESTS_BASIC_PASSWORD &&
+  !!process.env.TESTS_BASIC_NAME
+
+type CloudMockOptions = {
+  getStatus?: number
+  getContent?: Partial<Settings>
+  putStatus?: number
+}
+
+// Mocks the cloud settings API and records every request it receives
+const mockCloudSettingsApi = async (
+  page: Page,
+  options: CloudMockOptions = {},
+) => {
+  const { getStatus = 404, getContent, putStatus = 200 } = options
+  const requests: { method: string; body: unknown }[] = []
+
+  await page.route("**/api/settings/1", async (route) => {
+    const request = route.request()
+    const method = request.method()
+    requests.push({ method, body: request.postDataJSON() })
+
+    if (method === "GET") {
+      if (getStatus !== 200) {
+        await route.fulfill({ status: getStatus })
+        return
+      }
+      await route.fulfill({
+        json: {
+          schemaVersion: 1,
+          revision: 1,
+          contentHash: "hash",
+          content: getContent,
+        },
+      })
+      return
+    }
+
+    if (method === "PUT") {
+      const body = request.postDataJSON()
+      await route.fulfill({
+        status: putStatus,
+        json: {
+          schemaVersion: 1,
+          revision: 2,
+          contentHash: "hash2",
+          content: body?.content,
+        },
+      })
+      return
+    }
+
+    await route.fulfill({ status: 200 })
+  })
+
+  return requests
+}
+
+const openSettingsDialog = async (page: Page) => {
+  await page
+    .getByRole("menubar")
+    .getByRole("menuitem", { name: "Extras" })
+    .click()
+  await page.getByRole("menuitem", { name: "Settings" }).click()
+  const dialog = page.getByRole("dialog", { name: "Settings" })
+  await expect(dialog).toBeVisible()
+  return dialog
+}
+
+test.describe("Cloud Settings Sync", () => {
+  test.describe("Anonymous user", () => {
+    test.use({ storageState: { cookies: [], origins: [] } })
+
+    test("Confirm sign in hint is shown and no cloud request is made", async ({
+      configListPage,
+      page,
+    }) => {
+      const requests = await mockCloudSettingsApi(page)
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+      })
+
+      const dialog = await openSettingsDialog(page)
+      await expect(dialog.getByText("Sign in to sync settings")).toBeVisible()
+      expect(requests).toHaveLength(0)
+    })
+  })
+
+  test.describe("Signed in user", () => {
+    test.skip(
+      !basicCredentialsAvailable,
+      "Skipping cloud sync tests: required secrets are missing",
+    )
+    test.use({ storageState: "./tests/.auth/basic.json" })
+
+    test("Confirm sync paused status when sync is disabled", async ({
+      configListPage,
+      page,
+    }) => {
+      const requests = await mockCloudSettingsApi(page)
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: false,
+      })
+
+      const dialog = await openSettingsDialog(page)
+      await expect(dialog.getByText("Cloud sync paused")).toBeVisible()
+      expect(requests).toHaveLength(0)
+    })
+
+    test("Confirm initial upload when cloud has no settings", async ({
+      configListPage,
+      page,
+    }) => {
+      const requests = await mockCloudSettingsApi(page, { getStatus: 404 })
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+      })
+
+      await expect
+        .poll(() => requests.find((r) => r.method === "PUT"))
+        .toBeDefined()
+      const put = requests.find((r) => r.method === "PUT")!
+      expect(put.body).toMatchObject({
+        schemaVersion: 1,
+        content: { CloudSettingsSyncEnabled: true },
+      })
+      await expect(
+        page.getByRole("heading", { name: "Settings saved" }),
+      ).toBeVisible()
+    })
+
+    test("Confirm nothing happens when cloud matches local", async ({
+      configListPage,
+      page,
+    }) => {
+      const local = {
+        ...(defaultSettings as Settings),
+        CloudSettingsSyncEnabled: true,
+      }
+      const requests = await mockCloudSettingsApi(page, {
+        getStatus: 200,
+        getContent: local,
+      })
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+      })
+
+      await expect
+        .poll(() => requests.some((r) => r.method === "GET"))
+        .toBe(true)
+      await expect(
+        page.getByRole("dialog", { name: "Settings conflict" }),
+      ).not.toBeVisible()
+      expect(requests.some((r) => r.method === "PUT")).toBe(false)
+    })
+
+    test.describe("Conflict", () => {
+      const cloudContent = {
+        ...(defaultSettings as Settings),
+        CloudSettingsSyncEnabled: true,
+        BetaUpdates: true,
+      }
+
+      test.beforeEach(async ({ configListPage }) => {
+        await configListPage.gotoPage()
+        await configListPage.mobiFlightPage.trackCommand(
+          "CommandUpdateSettings",
+        )
+      })
+
+      test("Confirm Keep local disables sync", async ({
+        configListPage,
+        page,
+      }) => {
+        const requests = await mockCloudSettingsApi(page, {
+          getStatus: 200,
+          getContent: cloudContent,
+        })
+        await configListPage.mobiFlightPage.sendSettings({
+          CloudSettingsSyncEnabled: true,
+          BetaUpdates: false,
+        })
+
+        const conflictDialog = page.getByRole("dialog", {
+          name: "Settings conflict",
+        })
+        await expect(conflictDialog).toBeVisible()
+        await conflictDialog
+          .getByRole("button", { name: /Keep local settings/ })
+          .click()
+        await expect(conflictDialog).not.toBeVisible()
+
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        expect(commands?.at(-1)?.payload).toMatchObject({
+          Settings: { CloudSettingsSyncEnabled: false, BetaUpdates: false },
+        })
+        expect(requests.some((r) => r.method === "PUT")).toBe(false)
+      })
+
+      test("Confirm Use cloud applies cloud settings", async ({
+        configListPage,
+        page,
+      }) => {
+        await mockCloudSettingsApi(page, {
+          getStatus: 200,
+          getContent: cloudContent,
+        })
+        await configListPage.mobiFlightPage.sendSettings({
+          CloudSettingsSyncEnabled: true,
+          BetaUpdates: false,
+        })
+
+        const conflictDialog = page.getByRole("dialog", {
+          name: "Settings conflict",
+        })
+        await conflictDialog
+          .getByRole("button", { name: /Use cloud settings/ })
+          .click()
+        await expect(conflictDialog).not.toBeVisible()
+
+        const commands =
+          await configListPage.mobiFlightPage.getTrackedCommands()
+        expect(commands?.at(-1)?.payload).toMatchObject({
+          Settings: { BetaUpdates: true },
+        })
+        await expect(
+          page.getByRole("heading", { name: "Settings restored" }),
+        ).toBeVisible()
+      })
+
+      test("Confirm Upload local overwrites cloud", async ({
+        configListPage,
+        page,
+      }) => {
+        const requests = await mockCloudSettingsApi(page, {
+          getStatus: 200,
+          getContent: cloudContent,
+        })
+        await configListPage.mobiFlightPage.sendSettings({
+          CloudSettingsSyncEnabled: true,
+          BetaUpdates: false,
+        })
+
+        const conflictDialog = page.getByRole("dialog", {
+          name: "Settings conflict",
+        })
+        await conflictDialog
+          .getByRole("button", { name: /Upload local to cloud/ })
+          .click()
+        await expect(conflictDialog).not.toBeVisible()
+
+        const put = requests.find((r) => r.method === "PUT")
+        expect(put?.body).toMatchObject({ content: { BetaUpdates: false } })
+        await expect(
+          page.getByRole("heading", { name: "Settings synced" }),
+        ).toBeVisible()
+      })
+    })
+
+    test("Confirm enabling sync in dialog triggers a sync check", async ({
+      configListPage,
+      page,
+    }) => {
+      const requests = await mockCloudSettingsApi(page, { getStatus: 404 })
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: false,
+      })
+
+      const dialog = await openSettingsDialog(page)
+      await dialog.locator("#cloud-settings-sync").click()
+      await dialog.getByRole("button", { name: "Save" }).click()
+
+      await expect
+        .poll(() => requests.some((r) => r.method === "GET"))
+        .toBe(true)
+      await expect
+        .poll(() => requests.some((r) => r.method === "PUT"))
+        .toBe(true)
+    })
+
+    test("Confirm save uploads changes when sync is enabled", async ({
+      configListPage,
+      page,
+    }) => {
+      const local = {
+        ...(defaultSettings as Settings),
+        CloudSettingsSyncEnabled: true,
+      }
+      const requests = await mockCloudSettingsApi(page, {
+        getStatus: 200,
+        getContent: local,
+      })
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+      })
+
+      const dialog = await openSettingsDialog(page)
+      await dialog.locator("#beta-updates").click()
+      await dialog.getByRole("button", { name: "Save" }).click()
+
+      await expect
+        .poll(() => requests.find((r) => r.method === "PUT"))
+        .toBeDefined()
+      expect(requests.find((r) => r.method === "PUT")?.body).toMatchObject({
+        content: { BetaUpdates: true },
+      })
+      await expect(
+        page.getByRole("heading", { name: "Settings saved" }),
+      ).toBeVisible()
+    })
+
+    test("Confirm fetch error shows notification", async ({
+      configListPage,
+      page,
+    }) => {
+      await mockCloudSettingsApi(page, { getStatus: 500 })
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+      })
+
+      await expect(
+        page.getByRole("heading", { name: "Cloud unavailable" }),
+      ).toBeVisible()
+    })
+
+    test("Confirm upload error shows notification", async ({
+      configListPage,
+      page,
+    }) => {
+      await mockCloudSettingsApi(page, { getStatus: 404, putStatus: 500 })
+      await configListPage.gotoPage()
+      await configListPage.mobiFlightPage.sendSettings({
+        CloudSettingsSyncEnabled: true,
+      })
+
+      await expect(
+        page.getByRole("heading", { name: "Sync failed" }),
+      ).toBeVisible()
+    })
+  })
+})

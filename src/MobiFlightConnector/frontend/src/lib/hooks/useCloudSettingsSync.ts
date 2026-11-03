@@ -62,14 +62,22 @@ export const useCloudSettingsSync = () => {
           console.log(
             "[useCloudSettingsSync] No cloud settings found. Performing initial upload...",
           )
-          await uploadCloudSettings(auth, {
-            schemaVersion: 1,
-            content: current,
-          })
-          console.log(
-            "[useCloudSettingsSync] Initial settings uploaded to cloud successfully.",
-          )
-          showSyncNotification("saved")
+          try {
+            await uploadCloudSettings(auth, {
+              schemaVersion: 1,
+              content: current,
+            })
+            console.log(
+              "[useCloudSettingsSync] Initial settings uploaded to cloud successfully.",
+            )
+            showSyncNotification("saved")
+          } catch (uploadErr) {
+            console.error(
+              "[useCloudSettingsSync] Failed to upload initial settings to cloud:",
+              uploadErr,
+            )
+            showSyncNotification("failed_upload")
+          }
           return
         }
 
