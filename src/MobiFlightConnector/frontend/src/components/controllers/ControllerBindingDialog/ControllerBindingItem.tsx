@@ -19,7 +19,6 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import ControllerBindingStatusIndicator from "@/components/controllers/ControllerBindingDialog/ControllerBindingStatusIndicator"
 import { cn } from "@/lib/utils"
-import { sortBy } from "lodash"
 
 export type ControllerIconWithLabelProps = {
   controller: Partial<Controller>
@@ -88,9 +87,10 @@ const ControllerBindingItem = ({
   const originalSerialPrefix = getSerialPrefix(
     controllerBinding.OriginalController?.Serial,
   )
-  const sortedControllers = sortBy(
-    controllers,
-    (controller) => getSerialPrefix(controller.Serial) !== originalSerialPrefix,
+  const hasOtherType = (controller: Controller) =>
+    getSerialPrefix(controller.Serial) !== originalSerialPrefix
+  const sortedControllers = [...controllers].sort(
+    (a, b) => Number(hasOtherType(a)) - Number(hasOtherType(b)),
   )
 
   return (
