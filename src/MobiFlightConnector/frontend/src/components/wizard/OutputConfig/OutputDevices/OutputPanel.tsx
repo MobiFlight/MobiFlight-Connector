@@ -1,6 +1,6 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import { OutputConfig } from "@/types/config"
-import { BaseDevice, Controller } from "@/types/controller"
+import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
@@ -13,7 +13,7 @@ export interface OutputPanelProps {
   config: OutputConfig
   controller?: Partial<Controller>
   // only used by the details variant
-  devices?: BaseDevice[]
+  devices?: DeviceReference[]
   onChange?: (config: OutputConfig) => void
 }
 
@@ -77,6 +77,9 @@ const OutputPanel = ({
     onChange?.({ ...config, Pin: newPin, Name: newPin })
   }
 
+  const isDimmable =
+    devices.filter((device) => device.Capabilities?.Pwm).length > 0
+
   return (
     <Card>
       <CardContent className="flex flex-col gap-4 pt-4">
@@ -103,21 +106,29 @@ const OutputPanel = ({
         </div>
         <div className="flex flex-row items-center gap-2">
           <Switch
+            disabled={!isDimmable}
             id="output-pwm-mode"
             checked={config.PwmMode}
             onCheckedChange={(checked) =>
               onChange?.({ ...config, PwmMode: !!checked })
             }
           />
-          <Label htmlFor="output-pwm-mode">PWM Mode</Label>
+          <Label htmlFor="output-pwm-mode">Dimmable</Label>
+          {
+            !isDimmable && (
+              <div className="text-muted-foreground text-sm">
+                No dimmable pins available.
+              </div>
+            )
+          }
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2" aria-disabled={!isDimmable}  >
           <Label>Brightness ({config.Brightness})</Label>
           <Slider
             min={0}
             max={255}
             step={1}
-            disabled={!config.PwmMode}
+            disabled={!isDimmable}
             value={[config.Brightness]}
             onValueChange={([brightness]) =>
               onChange?.({ ...config, Brightness: brightness })

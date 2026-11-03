@@ -21,7 +21,7 @@ import {
   ShiftRegisterConfig,
   CustomDeviceConfig,
 } from "@/types/config"
-import { BaseDevice, Controller, OutputDeviceType } from "@/types/controller"
+import { DeviceReference, Controller, OutputDeviceType } from "@/types/controller"
 import { OutputDeviceConfigDefaults } from "@/types/defaults"
 import { OutputDeviceTypes } from "@/types/typesOptions"
 import { useTranslation } from "react-i18next"
@@ -53,7 +53,7 @@ const withCurrentInList = <T,>(
   return list
 }
 
-const isOutputDevice = (device: BaseDevice) => {
+const isOutputDevice = (device: DeviceReference) => {
   return OutputDeviceTypes.includes(device.Type as OutputDeviceType)
 }
 
@@ -81,11 +81,11 @@ const OutputDeviceEditor = ({
     isSameController,
   )
 
-  const devices: BaseDevice[] = [
+  const devices: DeviceReference[] = [
     ...(connectedController?.Devices?.filter(isOutputDevice) ?? []),
   ]
 
-  const configuredDevice: BaseDevice | undefined =
+  const configuredDevice: DeviceReference | undefined =
     configItem.Device != null
       ? {
           Name: configItem.Device.Name,
@@ -94,7 +94,7 @@ const OutputDeviceEditor = ({
         }
       : undefined
 
-  const completeDevices: BaseDevice[] = withCurrentInList(
+  const completeDevices: DeviceReference[] = withCurrentInList(
     devices,
     configuredDevice,
     (a, b) => a.Name === b.Name,

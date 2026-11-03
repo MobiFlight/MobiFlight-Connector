@@ -7,7 +7,7 @@ import messageExchange from "@/lib/messageExchange"
 import { useControllerStore } from "@/stores/controllerStore"
 import { CommandScanForInput } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { BaseDevice, Controller, InputDeviceType } from "@/types/controller"
+import { DeviceReference, Controller, InputDeviceType } from "@/types/controller"
 import { ScanForInputResult } from "@/types/messages"
 import { InputDeviceTypes } from "@/types/typesOptions"
 import { IconLoader2, IconTrash } from "@tabler/icons-react"
@@ -65,10 +65,10 @@ export const DeviceComboBox = ({
   onChange,
   variant = "default"
 }: {
-  devices: BaseDevice[]
-  selectedDevice: BaseDevice | undefined
+  devices: DeviceReference[]
+  selectedDevice: DeviceReference | undefined
   selectedController: Partial<Controller> | undefined
-  onChange: (device: BaseDevice | undefined) => void
+  onChange: (device: DeviceReference | undefined) => void
   variant?: "full-width" | "default"
 }) => {
   const { t } = useTranslation()
@@ -77,11 +77,11 @@ export const DeviceComboBox = ({
       widthClass={variant === "full-width" ? "w-full" : "w-56"}
       align="start"
       getLabel={(device) =>
-        (device as BaseDevice)?.Label ?? (device as BaseDevice)?.Name
+        (device as DeviceReference)?.Label ?? (device as DeviceReference)?.Name
       }
-      getValue={(device) => (device as BaseDevice)?.Name}
+      getValue={(device) => (device as DeviceReference)?.Name}
       isSelected={(device, selected) =>
-        (device as BaseDevice).Name === selected?.Name
+        (device as DeviceReference).Name === selected?.Name
       }
       items={devices}
       selected={selectedDevice}
@@ -130,15 +130,15 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
       (!selectedController.Serial &&
         selectedController.Name === configItem.Controller.Name))
 
-  const inputDeviceFilter = (device: BaseDevice) => {
+  const inputDeviceFilter = (device: DeviceReference) => {
     return InputDeviceTypes.includes(device.Type as InputDeviceType)
   }
 
-  const devices: BaseDevice[] = [
+  const devices: DeviceReference[] = [
     ...(connectedController?.Devices?.filter(inputDeviceFilter) ?? []),
   ]
 
-  const configuredDevice: BaseDevice | undefined =
+  const configuredDevice: DeviceReference | undefined =
     configItem.Device != null
       ? {
           Name: configItem.Device.Name,
@@ -147,7 +147,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
         }
       : undefined
 
-  const [selectedDevice, setSelectedDevice] = useState<BaseDevice | undefined>(
+  const [selectedDevice, setSelectedDevice] = useState<DeviceReference | undefined>(
     configuredDevice,
   )
 
@@ -161,7 +161,7 @@ const ConfigTrigger = ({ configItem, setConfigItem }: ConfigTriggerProps) => {
 
   const updateConfigItem = (
     controller: Partial<Controller> | undefined,
-    device: BaseDevice | undefined,
+    device: DeviceReference | undefined,
   ) => {
     setConfigItem({
       ...configItem,

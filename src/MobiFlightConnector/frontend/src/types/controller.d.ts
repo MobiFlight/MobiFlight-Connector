@@ -2,11 +2,6 @@ import { ControllerType } from "./config"
 
 export type OutputDeviceType = "Output" | "LedModule" | "LcdDisplay" | "Servo" | "Stepper" | "ShiftRegister" | "CustomDevice"
 export type InputDeviceType = "Button" | "Encoder" | "AnalogInput"
-export type BaseDevice = {
-  Name: string
-  Label: string
-  Type: InputDeviceType | OutputDeviceType
-}
 
 export type Controller = {
   Name: string
@@ -19,7 +14,7 @@ export type Controller = {
   ImageUrl: string | null
   certified: boolean
   firmwareUpdate?: boolean
-  Devices: BaseDevice[]
+  Devices: DeviceReference[]
 }
 
 export type ControllerBinding = {

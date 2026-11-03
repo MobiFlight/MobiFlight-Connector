@@ -1,8 +1,8 @@
 import ComboBox from "@/components/ComboBox"
-import { BaseDevice, OutputDeviceType } from "@/types/controller"
+import { DeviceReference, OutputDeviceType } from "@/types/controller"
 
 export interface OutputDeviceComboBoxProps {
-  devices: BaseDevice[]
+  devices: DeviceReference[]
   deviceType: OutputDeviceType
   selectedName: string
   onChange: (name: string) => void
@@ -16,7 +16,7 @@ const OutputDeviceComboBox = ({
 }: OutputDeviceComboBoxProps) => {
   // Keep the configured device visible
   // even if it is currently not available on the controller
-  const deviceOptions: BaseDevice[] =
+  const deviceOptions: DeviceReference[] =
     selectedName && !devices.some((device) => device.Name === selectedName)
       ? [
           ...devices,
