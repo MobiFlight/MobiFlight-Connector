@@ -278,7 +278,6 @@ export function ConfigItemTable<TValue>({
         },
       } as CommandConfigContextMenu)
     } else {
-      // Multi-delete Undo will be implemented later.
       publish({
         key: "CommandConfigBulkAction",
         payload: {
