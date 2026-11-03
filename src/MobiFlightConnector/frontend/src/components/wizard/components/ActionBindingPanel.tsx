@@ -28,6 +28,8 @@ export type ActionBindingPanelProps = {
     ) => void,
   ) => void
   onTriggerChange: (trigger: ActionTrigger) => void
+  // shows a button to remove the whole trigger, e.g. to switch to another kind
+  onRemove?: () => void
 }
 const eventActionMap = {
   button: ["onPress", "onRelease", "onHold", "onLongRelease"],
@@ -40,6 +42,7 @@ const ActionBindingPanel = ({
   trigger,
   onActionEdit,
   onTriggerChange,
+  onRemove,
 }: ActionBindingPanelProps) => {
   const { t } = useTranslation()
   const events = eventActionMap[variant]
@@ -82,13 +85,23 @@ const ActionBindingPanel = ({
       className="border-primary shadow-md transition-shadow hover:shadow-lg"
     >
       <CardContent className="flex flex-col gap-2 py-4">
-        <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold">
-            {t(`Dialog.InputConfigWizard.Action.Title`)}
+        <div className="flex flex-row items-start justify-between gap-2">
+          <div className="flex flex-col gap-1">
+            <div className="text-lg font-semibold">
+              {t(`Dialog.InputConfigWizard.Action.Title`)}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t(`Dialog.InputConfigWizard.Action.Description`)}
+            </div>
           </div>
-          <div className="text-muted-foreground text-sm">
-            {t(`Dialog.InputConfigWizard.Action.Description`)}
-          </div>
+          {onRemove && (
+            <Button size={"sm"} variant="ghost" onClick={onRemove}>
+              <IconTrash />
+              <span className="sr-only">
+                {t(`Dialog.ConfigWizard.Output.InputAction.Remove`)}
+              </span>
+            </Button>
+          )}
         </div>
         {variant === "none" && (
           <div className="flex flex-row items-center gap-2 text-muted-foreground justify-center">

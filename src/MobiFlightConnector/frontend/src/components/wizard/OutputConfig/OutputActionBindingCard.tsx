@@ -9,14 +9,21 @@ export interface OutputActionBindingCardProps {
   config: OutputConfigItem
   onEdit: () => void
   onAddOutputDevice: () => void
-  onAddInputAction: () => void
+  onAddButtonAction: () => void
+  onAddAnalogAction: () => void
 }
 
-const OutputActionBindingCard = ({ config, onEdit, onAddOutputDevice, onAddInputAction }: OutputActionBindingCardProps) => {
+const OutputActionBindingCard = ({
+  config,
+  onEdit,
+  onAddOutputDevice,
+  onAddButtonAction,
+  onAddAnalogAction,
+}: OutputActionBindingCardProps) => {
   const { t } = useTranslation()
 
-  const hasOutputDevice = config.Device !== undefined
-  const hasInputAction = config.ButtonInputConfig != null || config.AnalogInputConfig != null
+  // an input action is shown by its own ActionBindingPanel instead of this card
+  const hasOutputDevice = config.Device != null
 
   return (
     <Card
@@ -40,23 +47,20 @@ const OutputActionBindingCard = ({ config, onEdit, onAddOutputDevice, onAddInput
           </div>
         )}
 
-        { hasInputAction && (
-          <div className="flex flex-row gap-2">
-            {/* Display the input action here */}
-            Input Action Editor
-          </div>
-        )}
-
-        { (!hasOutputDevice && !hasInputAction) && (
+        { !hasOutputDevice && (
         <div className="flex flex-row gap-2">
           {/* Add your display binding controls here */}
           <Button size={"sm"} variant="outline" onClick={onAddOutputDevice}>
             <IconPlus />
             Output device
           </Button>
-          <Button size={"sm"} variant="outline" onClick={onAddInputAction}>
+          <Button size={"sm"} variant="outline" onClick={onAddButtonAction}>
             <IconPlus />
-            Input action
+            {t("Dialog.ConfigWizard.Output.InputAction.Button")}
+          </Button>
+          <Button size={"sm"} variant="outline" onClick={onAddAnalogAction}>
+            <IconPlus />
+            {t("Dialog.ConfigWizard.Output.InputAction.Analog")}
           </Button>
         </div>
         )}
