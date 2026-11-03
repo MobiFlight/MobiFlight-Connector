@@ -275,10 +275,10 @@ const FsuipcOffsetInputActionPanel = ({
         </div>
         <div className="flex flex-col gap-4">
           <FsuipcOffsetPanel
-            fsuipc={currentConfig.FSUIPC ?? defaultConfig.FSUIPC}
+            fsuipc={currentConfig.FSUIPC}
             onConfigChange={(fsuipc) =>
               onConfigChange({
-                ...(config as FsuipcOffsetInputAction),
+                ...(currentConfig as FsuipcOffsetInputAction),
                 FSUIPC: fsuipc,
               })
             }
@@ -293,10 +293,10 @@ const FsuipcOffsetInputActionPanel = ({
             <Input
               className="font-mono text-sm whitespace-nowrap"
               id="value"
-              value={config?.Value ?? ""}
+              value={currentConfig?.Value ?? ""}
               onChange={(e) =>
                 onConfigChange({
-                  ...(config as FsuipcOffsetInputAction),
+                  ...(currentConfig as FsuipcOffsetInputAction),
                   Value: e.target.value,
                 })
               }
