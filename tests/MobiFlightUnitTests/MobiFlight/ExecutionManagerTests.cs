@@ -937,8 +937,7 @@ namespace MobiFlight.Tests
                 {
                     MobiFlightVariable = new MobiFlightVariable() { Name = "TestVar", Number = 123.45 }
                 },
-                Device = new OutputConfig.CustomDevice() { CustomName = "TestDevice" },
-                DeviceType = "InputAction" // Special type that doesn't require physical devices
+                Device = new OutputConfig.CustomDevice() { CustomName = "TestDevice" }
             };
 
             var project = new Project();
@@ -1111,8 +1110,7 @@ namespace MobiFlight.Tests
                 GUID = Guid.NewGuid().ToString(),
                 Active = true,
                 Name = "Config1",
-                Source = new VariableSource() { MobiFlightVariable = variable1 },
-                DeviceType = "InputAction"
+                Source = new VariableSource() { MobiFlightVariable = variable1 }
             };
 
             var configItem2 = new OutputConfigItem
@@ -1122,7 +1120,6 @@ namespace MobiFlight.Tests
                 Name = "Config2_WithError",
                 Source = new VariableSource() { MobiFlightVariable = variable2 },
                 Controller = SerialNumber.CreateController("Test / SN-123"),
-                DeviceType = MobiFlightOutput.TYPE,
                 Device = new OutputConfig.Output { Pin = "1" }
             };
 
@@ -1131,8 +1128,7 @@ namespace MobiFlight.Tests
                 GUID = Guid.NewGuid().ToString(),
                 Active = true,
                 Name = "Config3",
-                Source = new VariableSource() { MobiFlightVariable = variable3 },
-                DeviceType = "InputAction"
+                Source = new VariableSource() { MobiFlightVariable = variable3 }
             };
 
             var project = new Project();

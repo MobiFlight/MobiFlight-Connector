@@ -117,8 +117,7 @@ test("Confirm Controller Binding assignment works correctly", async ({
   await controllerDropDown.click()
   const options = page.getByRole("listbox").getByRole("option")
 
-  // click second option
-  await options.nth(1).click()
+  await options.filter({ hasText: "Alpha Flight Controls Lite" }).click()
   const applyChangesButton = dialog.getByRole("button", { name: "Apply Changes" })
   await applyChangesButton.click()
   await expect(dialog).not.toBeVisible()
@@ -203,7 +202,7 @@ test("Confirm Controller Binding Dialog filters correctly after updating status"
   const options = controllerDropDownList.getByRole("option")
   await expect(options).toHaveCount(7)
 
-  await options.nth(1).click()
+  await options.filter({ hasText: "Alpha Flight Controls Lite" }).click()
   await expect(controllerDropDown).toHaveText(/Alpha Flight Controls Lite/)
 
   // Click on any other filter to update the controller bindings list
@@ -220,6 +219,59 @@ test("Confirm Controller Binding Dialog filters correctly after updating status"
   await expect(
     dialog.getByTestId("controller-binding-item").filter({ visible: true }),
   ).toHaveCount(1)
+})
+
+test("Confirm Controller Binding Dialog lists controllers of the same type first", async ({
+  configListPage,
+  page,
+}) => {
+  const mobiFlightPage = configListPage.mobiFlightPage
+
+  await configListPage.gotoPage()
+  await mobiFlightPage.initWithTestData()
+  await mobiFlightPage.openControllerBindingsDialog()
+  const dialog = page.getByRole("dialog", { name: "Controller Bindings" })
+  const options = page.getByRole("listbox").getByRole("option")
+
+  await test.step("Joysticks are listed first for a joystick", async () => {
+    await dialog.getByRole("button", { name: "Manual bind" }).click()
+    const controllerBindingItem = dialog
+      .getByTestId("controller-binding-item")
+      .filter({ visible: true })
+    await expect(controllerBindingItem).toContainText("Alpha Flight Controls")
+    await controllerBindingItem.getByRole("combobox").click()
+
+    await expect(options).toHaveText([
+      /^Alpha Flight Controls Lite/,
+      /^Bravo Throttle Quadrant/,
+      /^MFG Crosswind V2\/3/,
+      /^Octavi/,
+      /^ProtoBoard-v2/,
+      /^Throttle B/,
+      /^miniCOCKPIT miniFCU/,
+    ])
+    await page.keyboard.press("Escape")
+    await expect(options).toHaveCount(0)
+  })
+
+  await test.step("MobiFlight boards are listed first for a MobiFlight board", async () => {
+    await dialog.getByRole("button", { name: "Auto-bind" }).click()
+    const controllerBindingItem = dialog
+      .getByTestId("controller-binding-item")
+      .filter({ visible: true })
+    await expect(controllerBindingItem).toContainText("ProtoBoard-v2")
+    await controllerBindingItem.getByRole("combobox").click()
+
+    await expect(options).toHaveText([
+      /^ProtoBoard-v2/,
+      /^miniCOCKPIT miniFCU/,
+      /^Alpha Flight Controls Lite/,
+      /^Bravo Throttle Quadrant/,
+      /^Throttle B/,
+      /^MFG Crosswind V2\/3/,
+      /^Octavi/,
+    ])
+  })
 })
 
 test.describe("Controller Bindings Update Message Tests", () => {
