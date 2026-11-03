@@ -305,6 +305,12 @@ const ConfigWizard = ({
           onEdit={() => {
             navigateToDetailView("display")
           }}
+          onAddOutputDevice={() => {
+            navigateToDetailView("display")
+          }}
+          onAddInputAction={() => {
+            navigateToDetailView("action")
+          }}
         />
       )}
 

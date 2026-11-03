@@ -184,6 +184,7 @@ const OutputDeviceEditor = ({
                     : OutputDeviceConfigDefaults.createByType(
                         first?.Type as OutputDeviceType,
                         first?.Name ?? "",
+                        first?.Capabilities ?? undefined
                       )
                   updateConfigItem(configItem.Controller, device)
                 }}
