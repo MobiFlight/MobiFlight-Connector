@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
+import { Button } from "@/components/ui/button"
 
 export interface StepperPanelProps {
   variant: "summary" | "details"
@@ -24,12 +25,17 @@ type StepperNumberField =
   | "Acceleration"
   | "Speed"
 
-const numberFields: { field: StepperNumberField; label: string }[] = [
+const numberFields: {
+  field: StepperNumberField
+  label: string
+  defaultProfile?: true
+  profileField?: string
+}[] = [
   { field: "InputRev", label: "Input revolution" },
-  { field: "OutputRev", label: "Output revolution" },
+  { field: "OutputRev", label: "Output revolution", defaultProfile: true, profileField: "StepsPerRevolution" },
   { field: "TestValue", label: "Test value" },
-  { field: "Acceleration", label: "Acceleration" },
-  { field: "Speed", label: "Speed" },
+  { field: "Acceleration", label: "Acceleration", defaultProfile: true },
+  { field: "Speed", label: "Speed", defaultProfile: true },
 ]
 
 const StepperPanel = ({
@@ -39,6 +45,8 @@ const StepperPanel = ({
   devices = [],
   onChange,
 }: StepperPanelProps) => {
+  const currentDevice = devices.find((device) => device.Name === config.Address)
+
   if (variant == "details") {
     return (
       <Card>
@@ -63,19 +71,43 @@ const StepperPanel = ({
             />
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {numberFields.map(({ field, label }) => (
-              <div key={field} className="flex flex-col gap-2">
-                <Label htmlFor={`stepper-${field}`}>{label}</Label>
-                <Input
-                  id={`stepper-${field}`}
-                  type="number"
-                  value={config[field]}
-                  onChange={(e) =>
-                    onChange?.({ ...config, [field]: Number(e.target.value) })
-                  }
-                />
-              </div>
-            ))}
+            {numberFields.map(({ field, label, defaultProfile, profileField }) => {
+              const profileKey = profileField ?? field.toString() as string
+              const profileValue = (
+                currentDevice?.Capabilities?.Profile as Record<
+                string,
+                number | boolean
+                >
+              )?.[profileKey]
+              const fieldValue = config[field]
+              const hasNonDefaultValue = defaultProfile
+                ? profileValue !== undefined && profileValue !== fieldValue
+                : false
+              return (
+                <div key={field} className="flex flex-col gap-2">
+                  <Label htmlFor={`stepper-${field}`}>{label}</Label>
+                  <Input
+                    id={`stepper-${field}`}
+                    type="number"
+                    value={config[field]}
+                    onChange={(e) =>
+                      onChange?.({ ...config, [field]: Number(e.target.value) })
+                    }
+                  />
+                  {hasNonDefaultValue && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        onChange?.({ ...config, [field]: profileValue })
+                      }
+                    >
+                      Reset
+                    </Button>
+                  )}
+                </div>
+              )
+            })}
           </div>
           <div className="flex flex-row items-center gap-2">
             <Switch

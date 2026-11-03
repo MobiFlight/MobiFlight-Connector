@@ -14,7 +14,7 @@ import {
   VariableSource,
   XplaneSource,
 } from "@/types/config"
-import { OutputDeviceType } from "@/types/controller"
+import { DeviceCapability, OutputDeviceType, StepperProfilePreset } from "@/types/controller"
 
 export const FsuipcDefaults = {
   createOffset: (): FsuipcOffset => ({
@@ -63,7 +63,7 @@ export const SourceDefaults = {
 }
 
 export const OutputDeviceConfigDefaults = {
-  createByType: (type: OutputDeviceType, name: string): OutputDeviceConfig => {
+  createByType: (type: OutputDeviceType, name: string, capability?: DeviceCapability): OutputDeviceConfig => {
     switch (type) {
       case "Output":
         return OutputDeviceConfigDefaults.createOutputConfig(name)
@@ -74,7 +74,7 @@ export const OutputDeviceConfigDefaults = {
       case "Servo":
         return OutputDeviceConfigDefaults.createServoConfig(name)
       case "Stepper":
-        return OutputDeviceConfigDefaults.createStepperConfig(name)
+        return OutputDeviceConfigDefaults.createStepperConfig(name, capability!)
       case "ShiftRegister":
         return OutputDeviceConfigDefaults.createShiftRegisterConfig(name)
       case "CustomDevice":
@@ -117,17 +117,19 @@ export const OutputDeviceConfigDefaults = {
     Max: "255",
     MaxRotationPercent: "100",
   }),
-  createStepperConfig: (name: string): StepperConfig => ({
+  createStepperConfig: (name: string, capability: DeviceCapability): StepperConfig => {
+    const stepperProfile = capability.Profile ?? {} as StepperProfilePreset
+    return {
     Type: "Stepper",
     Name: name,
     Address: name,
-    InputRev: 0,
-    OutputRev: 0,
+    InputRev: 1000,
+    OutputRev: stepperProfile.StepsPerRevolution,
     TestValue: 500,
     CompassMode: false,
-    Acceleration: 0,
-    Speed: 0,
-  }),
+    Acceleration: stepperProfile.Acceleration,
+    Speed: stepperProfile.Speed,
+  }},
   createShiftRegisterConfig: (name: string): ShiftRegisterConfig => ({
     Type: "ShiftRegister",
     Name: name,

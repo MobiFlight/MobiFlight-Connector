@@ -8,9 +8,11 @@ import { useTranslation } from "react-i18next"
 export interface OutputActionBindingCardProps {
   config: OutputConfigItem
   onEdit: () => void
+  onAddOutputDevice: () => void
+  onAddInputAction: () => void
 }
 
-const OutputActionBindingCard = ({ config, onEdit }: OutputActionBindingCardProps) => {
+const OutputActionBindingCard = ({ config, onEdit, onAddOutputDevice, onAddInputAction }: OutputActionBindingCardProps) => {
   const { t } = useTranslation()
 
   const hasOutputDevice = config.Device !== undefined
@@ -48,11 +50,11 @@ const OutputActionBindingCard = ({ config, onEdit }: OutputActionBindingCardProp
         { (!hasOutputDevice && !hasInputAction) && (
         <div className="flex flex-row gap-2">
           {/* Add your display binding controls here */}
-          <Button size={"sm"} variant="outline" onClick={() => {}}>
+          <Button size={"sm"} variant="outline" onClick={onAddOutputDevice}>
             <IconPlus />
             Output device
           </Button>
-          <Button size={"sm"} variant="outline" onClick={() => {}}>
+          <Button size={"sm"} variant="outline" onClick={onAddInputAction}>
             <IconPlus />
             Input action
           </Button>
