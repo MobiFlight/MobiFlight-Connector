@@ -1,5 +1,20 @@
-﻿namespace MobiFlight.Base
+﻿using MobiFlight.Firmware;
+using System.Collections.Generic;
+
+namespace MobiFlight.Base
 {
+    public record CustomDeviceMessageTypes(string Id, string Label, string Description);
+    public class DeviceCapability
+    {
+        public bool? Pwm { get; set; }
+        public int? Rows { get; set; }
+        public int? Columns { get; set; }
+        public int? Digits { get; set; }
+        public StepperProfilePreset Profile { get; set; }
+        public bool? AutoZero { get; set; }
+        public List<CustomDeviceMessageTypes> MessageTypes { get; set; }
+    }
+
     public class DeviceReference
     {
         public virtual string Name { get; set; }
