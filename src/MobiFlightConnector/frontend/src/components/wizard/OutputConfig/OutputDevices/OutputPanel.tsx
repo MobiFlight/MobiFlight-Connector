@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
+import { Separator } from "@/components/ui/separator"
 
 export interface OutputPanelProps {
   variant: "summary" | "details"
@@ -104,7 +105,20 @@ const OutputPanel = ({
             ))}
           </div>
         </div>
-        <div className="flex flex-row items-center gap-2">
+        <Separator />
+        <div className="flex flex-row items-center justify-between gap-2">
+          <div className="flex flex-col gap-1">
+            <Label htmlFor="output-pwm-mode">Dynamic brightness</Label>
+            {isDimmable ? (
+              <span className="text-muted-foreground text-sm">
+                output intensity is controlled by current value ($)
+              </span>
+            ) : (
+              <div className="text-muted-foreground text-sm">
+                No dimmable pins available.
+              </div>
+            )}
+          </div>
           <Switch
             disabled={!isDimmable}
             id="output-pwm-mode"
@@ -113,27 +127,29 @@ const OutputPanel = ({
               onChange?.({ ...config, PwmMode: !!checked })
             }
           />
-          <Label htmlFor="output-pwm-mode">Dimmable</Label>
-          {
-            !isDimmable && (
-              <div className="text-muted-foreground text-sm">
-                No dimmable pins available.
-              </div>
-            )
-          }
         </div>
-        <div className="flex flex-col gap-2" aria-disabled={!isDimmable}  >
-          <Label>Brightness ({config.Brightness})</Label>
-          <Slider
-            min={0}
-            max={255}
-            step={1}
-            disabled={!isDimmable}
-            value={[config.Brightness]}
-            onValueChange={([brightness]) =>
-              onChange?.({ ...config, Brightness: brightness })
-            }
-          />
+        <div
+          className={`flex flex-row items-center justify-between gap-2 ${config.PwmMode ? "opacity-50" : ""}`}
+          aria-disabled={config.PwmMode}
+        >
+          <div className="flex w-1/2 flex-col gap-1">
+            <Label>Static brightness ({config.Brightness})</Label>
+            <div className="text-muted-foreground text-sm">
+              Set the static brightness for all values other than 0.
+            </div>
+          </div>
+          <div className="flex w-1/2">
+            <Slider
+              min={0}
+              max={255}
+              step={1}
+              disabled={config.PwmMode}
+              value={[config.Brightness]}
+              onValueChange={([brightness]) =>
+                onChange?.({ ...config, Brightness: brightness })
+              }
+            />
+          </div>
         </div>
       </CardContent>
     </Card>
