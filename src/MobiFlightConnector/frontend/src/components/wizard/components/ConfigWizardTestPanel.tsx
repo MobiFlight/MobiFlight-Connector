@@ -1,6 +1,5 @@
 import TwoStateIcon from "@/components/icons/TwoStateIcon"
 import Input from "@/components/Input"
-import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import messageExchange from "@/lib/messageExchange"
@@ -91,41 +90,34 @@ const ConfigWizardTestPanel = ({ configItem }: ConfigWizardTestPanelProps) => {
 
   return (
     <div className="flex grow flex-row items-center gap-4">
-      <ToolTip
-        content={
-          isTesting
-            ? t("Project.Execution.Test.StopMode")
-            : t("Project.Execution.Test.Start")
-        }
-      >
-        <div className="inline-flex">
-          <Button
-            disabled={!configItem}
-            variant="outline"
-            className="text-md gap-1 [&_svg]:size-6"
-            onClick={() =>
-              handleMenuItemClick({ action: !isTesting ? "test" : "stop" })
+      <div className="inline-flex">
+        <Button
+          disabled={!configItem}
+          variant="outline"
+          size="sm"
+          className="text-md gap-1 [&_svg]:size-6"
+          onClick={() =>
+            handleMenuItemClick({ action: !isTesting ? "test" : "stop" })
+          }
+        >
+          <TwoStateIcon
+            state={isTesting}
+            primaryIcon={IconFlask}
+            secondaryIcon={IconPlayerStopFilled}
+            primaryClassName={
+              configItem
+                ? "stroke-sky-600"
+                : "fill-none stroke-2 stroke-muted-foreground"
             }
-          >
-            <TwoStateIcon
-              state={isTesting}
-              primaryIcon={IconFlask}
-              secondaryIcon={IconPlayerStopFilled}
-              primaryClassName={
-                configItem
-                  ? "stroke-sky-600"
-                  : "fill-none stroke-2 stroke-muted-foreground"
-              }
-              secondaryClassName="fill-red-700 stroke-red-700"
-            />
-            <div className="hidden pr-1 lg:inline-flex">
-              {!isTesting
-                ? t("Project.Execution.Test.Label")
-                : t("Project.Execution.Test.Stop")}
-            </div>
-          </Button>
-        </div>
-      </ToolTip>
+            secondaryClassName="fill-red-700 stroke-red-700"
+          />
+          <div className="hidden pr-1 lg:inline-flex">
+            {!isTesting
+              ? t("Project.Execution.Test.Label")
+              : t("Project.Execution.Test.Stop")}
+          </div>
+        </Button>
+      </div>
       <div className="text-sm font-medium">
         {t("ConfigList.Header.RawValue")}
       </div>
