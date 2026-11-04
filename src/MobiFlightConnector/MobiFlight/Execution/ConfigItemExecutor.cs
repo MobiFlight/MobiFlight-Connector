@@ -260,7 +260,8 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            // value-only update, cfg may be an unsaved draft of the listed item
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         public void ExecuteTestOff(OutputConfigItem cfg)
@@ -296,7 +297,7 @@ namespace MobiFlight.Execution
             }
 
             cfg.Status.Remove(ConfigItemStatusType.Test);
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(new ConfigValueOnlyItem(cfg)));
         }
 
         private ConnectorValue ExecuteRead(OutputConfigItem cfg)
