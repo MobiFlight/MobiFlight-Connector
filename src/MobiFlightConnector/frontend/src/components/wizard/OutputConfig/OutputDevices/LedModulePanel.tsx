@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import ComboBox from "@/components/ComboBox"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
+import { Separator } from "@/components/ui/separator"
 
 type Option = { label: string; value: string }
 
@@ -126,6 +127,7 @@ const LedModulePanel = ({
               />
             </div>
           </div>
+          <Separator />
           <div className="flex flex-col gap-2">
             <Label>Use digits</Label>
             <div className="text-muted-foreground flex flex-row gap-3 text-xs">
@@ -177,6 +179,13 @@ const LedModulePanel = ({
               ))}
             </div>
           </div>
+          <Separator />
+          <div className="flex flex-col gap-2">
+            <Label>Advanced options</Label>
+            <div className="text-muted-foreground text-sm">
+              Configure advanced display options for the 7-segment module.
+            </div>
+          </div>
           <div className="flex flex-row items-center gap-4">
             <div className="flex flex-row items-center gap-2">
               <Checkbox
@@ -195,6 +204,7 @@ const LedModulePanel = ({
                 onChange?.({ ...config, DisplayLedPaddingChar: value })
               }
             />
+            <Separator orientation="vertical" className="h-6" />
             <div className="flex flex-row items-center gap-2">
               <Checkbox
                 id="led-reverse-digits"
