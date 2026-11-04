@@ -28,7 +28,7 @@ export interface OutputDeviceSummaryProps {
 const OutputDeviceSummary = ({
   config,
   controller,
-  onEdit,
+  onEdit
 }: OutputDeviceSummaryProps) => {
   if (config == null) {
     return null
