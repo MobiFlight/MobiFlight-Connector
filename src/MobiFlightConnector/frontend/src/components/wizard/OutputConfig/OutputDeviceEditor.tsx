@@ -21,7 +21,11 @@ import {
   ShiftRegisterConfig,
   CustomDeviceConfig,
 } from "@/types/config"
-import { DeviceReference, Controller, OutputDeviceType } from "@/types/controller"
+import {
+  DeviceReference,
+  Controller,
+  OutputDeviceType,
+} from "@/types/controller"
 import { OutputDeviceConfigDefaults } from "@/types/defaults"
 import { OutputDeviceTypes } from "@/types/typesOptions"
 import { useTranslation } from "react-i18next"
@@ -130,15 +134,19 @@ const OutputDeviceEditor = ({
   }
 
   return (
-    <div className="flex flex-col gap-4" data-testid="source-editor">
-      <div className="flex flex-col gap-1">
-        <div className="text-lg font-semibold">
-          {t("Dialog.ConfigWizard.Output.Title")}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.ConfigWizard.Output.Description")}
-        </div>
-      </div>
+    <div className="flex flex-col gap-4" data-testid="output-device-editor">
+      <Card>
+        <CardContent className="flex flex-col gap-4 pt-4">
+          <div className="flex flex-1 flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.ConfigWizard.Device.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t("Dialog.ConfigWizard.Device.Description")}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
       <Card>
         <CardContent className="flex flex-col gap-4 pt-4">
           <div className="flex flex-col gap-1">
@@ -184,7 +192,7 @@ const OutputDeviceEditor = ({
                     : OutputDeviceConfigDefaults.createByType(
                         first?.Type as OutputDeviceType,
                         first?.Name ?? "",
-                        first?.Capabilities ?? undefined
+                        first?.Capabilities ?? undefined,
                       )
                   updateConfigItem(configItem.Controller, device)
                 }}

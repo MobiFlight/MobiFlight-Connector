@@ -19,11 +19,9 @@ import {
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerClose,
+  DrawerFooter,
 } from "@/components/ui/drawer"
-import { IconArrowBack, IconPlus } from "@tabler/icons-react"
+import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import ActionEditor from "@/components/wizard/components/ActionEditor"
 import ModifiersPanel from "@/components/wizard/Modifier/ModifiersPanel"
@@ -31,6 +29,7 @@ import { Button } from "@/components/ui/button"
 import SourceEditor from "@/components/wizard/OutputConfig/SourceEditor"
 import OutputActionBindingCard from "@/components/wizard/OutputConfig/OutputActionBindingCard"
 import OutputDeviceEditor from "@/components/wizard/OutputConfig/OutputDeviceEditor"
+import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 
 export type ConfigWizardProps = {
   variant: ConfigItemType
@@ -403,19 +402,7 @@ const ConfigWizard = ({
           open={drawerOpen}
           onClose={() => closeDetailView(false)}
         >
-          <DrawerContent className={drawerVariant[drawerSize]}>
-            <DrawerHeader>
-              <DrawerTitle className="sr-only">
-                {t("Dialog.InputConfigWizard.DrawerTitle")}
-              </DrawerTitle>
-              <DrawerClose
-                onClick={() => closeDetailView(false)}
-                className="text-primary flex flex-row items-center gap-2 underline-offset-4 hover:underline"
-              >
-                <IconArrowBack size={16} />
-                {t("Dialog.General.GoBack")}
-              </DrawerClose>
-            </DrawerHeader>
+          <DrawerContent className={`pt-4 ${drawerVariant[drawerSize]}`}>
             <div className="flex flex-1 flex-col overflow-y-auto px-4 pb-4">
               {detailView === "precondition" && (
                 <PreconditionsPanel
@@ -496,6 +483,18 @@ const ConfigWizard = ({
                 />
               )}
             </div>
+            <DrawerFooter className={`flex flex-row items-center ${detailView === "display" ? "justify-between" : "justify-end"}`}>
+              {detailView === "display" && (
+                <ConfigWizardTestPanel
+                  configItem={configItem}
+                />
+              )}
+              <Button
+                onClick={() => closeDetailView(false)}
+              >
+                {t("Dialog.General.ApplyChanges")}
+              </Button>
+            </DrawerFooter>
           </DrawerContent>
         </Drawer>
       )}
