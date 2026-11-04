@@ -465,19 +465,36 @@ namespace MobiFlight
                     case "testStart":
                         cfg = message.Item;
                         if (cfg == null || !(cfg is OutputConfigItem)) break;
-                        
-                        try
+
+                        // a value change on the same config keeps the device on
+                        if (ConfigItemInTestMode?.GUID != cfg.GUID)
                         {
-                            ExecuteTestOff(ConfigItemInTestMode, true);
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Instance.log(e.Message, LogSeverity.Error);
+                            try
+                            {
+                                ExecuteTestOff(ConfigItemInTestMode, true);
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Instance.log(e.Message, LogSeverity.Error);
+                            }
                         }
 
                         try
                         {
-                            ExecuteTestOn(cfg as OutputConfigItem);
+                            var outputConfig = cfg as OutputConfigItem;
+                            var configRefs = outputConfig.ConfigRefs
+                                .Where(r => r.Active)
+                                .Select(r => new ConfigRefValue(r, r.TestValue))
+                                .ToList();
+                            var value = outputConfig.TestValue;
+                            foreach (var modifier in outputConfig.Modifiers.Items.Where(m => m.Active))
+                            {
+                                value = modifier.Apply(value, configRefs);
+                            }
+
+                            outputConfig.RawValue = outputConfig.TestValue.ToString();
+                            outputConfig.Value = value.ToString();
+                            ExecuteTestOn(outputConfig, value);
                         }
                         catch (Exception e)
                         {

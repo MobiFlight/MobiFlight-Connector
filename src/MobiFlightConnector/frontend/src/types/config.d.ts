@@ -1,6 +1,7 @@
 import { Controller } from "./controller"
 import { ModifierList, Modifier } from "./modifier"
 import { InputDeviceType, OutputDeviceType } from "./controller"
+import type { ConnectorValueType } from "./connectorValue"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
@@ -12,6 +13,12 @@ export interface IConfigValueOnlyItem {
   RawValue?: string | null
   Value?: string | null
   Status: IDictionary<string, ConfigItemStatusType>
+}
+
+export interface ConnectorValue {
+  type: ConnectorValueType
+  Float64: number
+  String: string | null
 }
 
 export interface IConfigItem extends IConfigValueOnlyItem {
@@ -31,6 +38,8 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   analog?: AnalogTrigger
   ConfigRefs?: ConfigReference[]
   Modifiers?: ModifierList
+  // output configs only
+  TestValue?: ConnectorValue
 }
 
 export type Source =
