@@ -135,6 +135,14 @@ const ConfigWizard = ({
     } as OutputConfigItem)
   }
 
+  const removeOutputDevice = () => {
+    onConfigChange({
+      ...outputItem,
+      Controller: undefined,
+      Device: null,
+    } as OutputConfigItem)
+  }
+
   // opens the action editor for an event of the input action of an output config
   const handleActionEdit =
     (eventVariant: "button" | "analog") =>
@@ -353,6 +361,7 @@ const ConfigWizard = ({
           }}
           onAddButtonAction={() => startInputAction("button")}
           onAddAnalogAction={() => startInputAction("analog")}
+          onRemoveOutputDevice={removeOutputDevice}
         />
       )}
       {variant == "OutputConfigItem" &&

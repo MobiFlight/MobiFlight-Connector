@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import OutputDeviceSummary from "@/components/wizard/OutputConfig/OutputDeviceSummary"
 import { OutputConfig, OutputConfigItem } from "@/types/config"
-import { IconPlus } from "@tabler/icons-react"
+import { IconPlus, IconTrash } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export interface OutputActionBindingCardProps {
@@ -11,6 +11,7 @@ export interface OutputActionBindingCardProps {
   onAddOutputDevice: () => void
   onAddButtonAction: () => void
   onAddAnalogAction: () => void
+  onRemoveOutputDevice: () => void
 }
 
 const OutputActionBindingCard = ({
@@ -19,6 +20,7 @@ const OutputActionBindingCard = ({
   onAddOutputDevice,
   onAddButtonAction,
   onAddAnalogAction,
+  onRemoveOutputDevice,
 }: OutputActionBindingCardProps) => {
   const { t } = useTranslation()
 
@@ -31,38 +33,52 @@ const OutputActionBindingCard = ({
       className="border-primary shadow-md transition-shadow hover:shadow-lg"
     >
       <CardContent className="flex flex-col gap-2 py-4">
-        <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold">
-            {t(`Dialog.InputConfigWizard.Action.Title`)}
+        <div className="flex flex-row items-center justify-between gap-2">
+          <div className="flex flex-col gap-1">
+            <div className="text-lg font-semibold">
+              {t(`Dialog.InputConfigWizard.Action.Title`)}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t(`Dialog.InputConfigWizard.Action.Description`)}
+            </div>
           </div>
-          <div className="text-muted-foreground text-sm">
-            {t(`Dialog.InputConfigWizard.Action.Description`)}
-          </div>
+          {hasOutputDevice && (
+            <Button size={"sm"} variant="ghost" onClick={onRemoveOutputDevice}>
+              <IconTrash />
+              <span className="sr-only">
+                {t(`Dialog.ConfigWizard.Output.InputAction.Remove`)}
+              </span>
+            </Button>
+          )}
         </div>
 
-        { hasOutputDevice && (
+        {hasOutputDevice && (
           <div className="flex flex-row gap-2">
             {/* Display the output device here */}
-            <OutputDeviceSummary config={config.Device as OutputConfig} controller={config.Controller} onEdit={onEdit} />
+            <OutputDeviceSummary
+              config={config.Device as OutputConfig}
+              controller={config.Controller}
+              onEdit={onEdit}
+            />
           </div>
         )}
 
-        { !hasOutputDevice && (
-        <div className="flex flex-row gap-2">
-          {/* Add your display binding controls here */}
-          <Button size={"sm"} variant="outline" onClick={onAddOutputDevice}>
-            <IconPlus />
-            Output device
-          </Button>
-          <Button size={"sm"} variant="outline" onClick={onAddButtonAction}>
-            <IconPlus />
-            {t("Dialog.ConfigWizard.Output.InputAction.Button")}
-          </Button>
-          <Button size={"sm"} variant="outline" onClick={onAddAnalogAction}>
-            <IconPlus />
-            {t("Dialog.ConfigWizard.Output.InputAction.Analog")}
-          </Button>
-        </div>
+        {!hasOutputDevice && (
+          <div className="flex flex-row gap-2">
+            {/* Add your display binding controls here */}
+            <Button size={"sm"} variant="outline" onClick={onAddOutputDevice}>
+              <IconPlus />
+              Output device
+            </Button>
+            <Button size={"sm"} variant="outline" onClick={onAddButtonAction}>
+              <IconPlus />
+              {t("Dialog.ConfigWizard.Output.InputAction.Button")}
+            </Button>
+            <Button size={"sm"} variant="outline" onClick={onAddAnalogAction}>
+              <IconPlus />
+              {t("Dialog.ConfigWizard.Output.InputAction.Analog")}
+            </Button>
+          </div>
         )}
       </CardContent>
     </Card>
