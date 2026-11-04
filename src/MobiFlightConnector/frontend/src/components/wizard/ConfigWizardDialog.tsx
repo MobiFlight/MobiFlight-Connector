@@ -23,6 +23,7 @@ import _ from "lodash"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router"
+import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 
 export type InputConfigDialogProps = {
   configId: string
@@ -198,6 +199,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           className="flex flex-row justify-between"
           data-testid="inputconfigwizard-dialog-footer"
         >
+          <ConfigWizardTestPanel configItem={draftConfigItem ?? null} />
           <div className="flex grow flex-row items-center gap-1">
             {showPendingChangesMessage && (
               <>

@@ -462,6 +462,54 @@ namespace MobiFlight
 
                         return;
 
+                    case "testStart":
+                        cfg = message.Item;
+                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+                        
+                        try
+                        {
+                            ExecuteTestOff(ConfigItemInTestMode, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log(e.Message, LogSeverity.Error);
+                        }
+
+                        try
+                        {
+                            ExecuteTestOn(cfg as OutputConfigItem);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
+                        }
+
+                        return;
+
+                    case "testStop":
+                        cfg = message.Item;
+                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+
+                        try
+                        {
+                            ExecuteTestOff(ConfigItemInTestMode, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log(e.Message, LogSeverity.Error);
+                        }
+
+                        try
+                        {
+                            ExecuteTestOff(cfg as OutputConfigItem, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
+                        }
+
+                        return;
+
                     case "settings":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) return;
