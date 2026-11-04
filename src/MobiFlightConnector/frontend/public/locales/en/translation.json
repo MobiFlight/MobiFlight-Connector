@@ -482,6 +482,8 @@
     },
     "ConfigWizard": {
       "Output": {
+        "Title": "Edit output device configuration",
+        "Description": "Edit all settings for your output device in this dialog.",
         "InputAction": {
           "Button": "Button action",
           "Analog": "Analog action",
@@ -833,6 +835,7 @@
           "VariableNamePlaceholder": "Enter variable name...",
           "ExpressionLabel": "Expression",
           "ExpressionPlaceholder": "Enter expression...",
+          "ExpressionNone": "none",
           "ExpressionHelp": "Use <1>$</1> to represent the variable value in expressions, e.g. <3>$ * 2</3> to double a number variable."
         },
         "ProSimDataRef": {
