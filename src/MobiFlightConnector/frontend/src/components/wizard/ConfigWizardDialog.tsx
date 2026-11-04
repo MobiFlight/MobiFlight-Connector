@@ -123,6 +123,9 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     }, 100)
   }
 
+  const isOutputConfig = draftConfigItem?.Type === "OutputConfigItem"
+  const i18nPrefix = isOutputConfig ? "Dialog.ConfigWizard.Output" : "Dialog.InputConfigWizard"
+
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
       <DialogContent
@@ -157,7 +160,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             className="flex flex-row items-center gap-2 text-2xl"
             data-testid="dialog-config-name"
           >
-            {t("Dialog.InputConfigWizard.Title")}{" "}
+            {t(`${i18nPrefix}.Title`)}{" "}
             <IconChevronRight className="mt-1" />
             <InlineEditLabel
               labelClassName="text-2xl px-4.5 -ml-5"
@@ -172,7 +175,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             />
           </DialogTitle>
           <DialogDescription className="vsm:block hidden">
-            {t("Dialog.InputConfigWizard.Description")}
+            {t(`${i18nPrefix}.Description`)}
           </DialogDescription>
         </DialogHeader>
         <div className="relative flex grow flex-col gap-2">
@@ -196,10 +199,12 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           </ScrollArea>
         </div>
         <DialogFooter
-          className="flex flex-row justify-between"
+          className={`flex flex-row ${isOutputConfig ? "justify-between" : "justify-end"}`}
           data-testid="inputconfigwizard-dialog-footer"
         >
-          <ConfigWizardTestPanel configItem={draftConfigItem ?? null} />
+          {isOutputConfig && (
+            <ConfigWizardTestPanel configItem={draftConfigItem ?? null} />
+          )}
           <div className="flex grow flex-row items-center gap-1">
             {showPendingChangesMessage && (
               <>
