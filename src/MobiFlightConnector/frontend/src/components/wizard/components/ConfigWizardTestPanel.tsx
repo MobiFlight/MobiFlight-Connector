@@ -9,7 +9,7 @@ import { ConnectorValue, IConfigItem } from "@/types/config"
 import { ConnectorValueType } from "@/types/connectorValue"
 import { CommandConfigContextMenu } from "@/types/commands"
 import { IconFlask, IconPlayerStopFilled } from "@tabler/icons-react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export interface ConfigWizardTestPanelProps {
@@ -39,6 +39,25 @@ const ConfigWizardTestPanel = ({ configItem }: ConfigWizardTestPanelProps) => {
   const [isTesting, setIsTesting] = useState(false)
 
   const runtimeState = useConfigItemStateValue(configItem?.GUID)
+
+  // On closing the wizard, ensure the test is stopped if it was running
+  // We have to keep track of the latest state across renders
+  const latest = useRef({ isTesting, configItem })
+  useEffect(() => {
+    latest.current = { isTesting, configItem }
+  })
+
+  // This runs only on unmount
+  useEffect(
+    () => () => {
+      if (!latest.current.isTesting) return
+      publish({
+        key: "CommandConfigContextMenu",
+        payload: { action: "testStop", item: latest.current.configItem },
+      } as CommandConfigContextMenu)
+    },
+    [publish],
+  )
 
   const publishTestStart = (value: string) =>
     publish({
