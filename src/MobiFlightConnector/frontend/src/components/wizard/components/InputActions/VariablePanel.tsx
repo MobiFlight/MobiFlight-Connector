@@ -67,7 +67,7 @@ export const VariablePanel = ({
           <CodeValueLabel id="code" className="max-w-100">
             {variable.Expression ??
               t(
-                "Dialog.InputConfigWizard.InputActions.Variable.NoneExpression",
+                "Dialog.InputConfigWizard.InputActions.Variable.ExpressionNone",
               )}
           </CodeValueLabel>
         </div>
@@ -182,7 +182,7 @@ export const VariablePanel = ({
                   )}
                 />
                 <div className="text-muted-foreground text-sm">
-                  <Trans i18nKey="Wizard.InputActions.Variable.ExpressionHelp">
+                  <Trans i18nKey="Dialog.InputConfigWizard.InputActions.Variable.ExpressionHelp">
                     Use <code>$</code> to represent the variable value in
                     expressions, e.g. <code>$ * 2</code> to double a number
                     variable.
