@@ -23,11 +23,15 @@ const XplaneSourcePanel = ({
     // presets don't change at runtime; HubHopState drives invalidation
     staleTime: Infinity,
   })
-  const preset = presets.find((p) => p.code === source?.XplaneDataRef.Path) ?? null
+  const preset =
+    presets.find((p) => p.code === source?.XplaneDataRef.Path) ?? null
 
   if (variant === "summary") {
     return (
-      <XplanePresetSummary preset={preset} config={source?.XplaneDataRef ?? null} />
+      <XplanePresetSummary
+        preset={preset}
+        config={source?.XplaneDataRef ?? null}
+      />
     )
   }
 
@@ -40,7 +44,7 @@ const XplaneSourcePanel = ({
   return (
     <div className="flex flex-col gap-4">
       <XplanePresetPanel
-        variant="input"
+        variant="output"
         isLoading={isLoading}
         selectedPath={source?.XplaneDataRef?.Path ?? null}
         setSelectedPreset={(preset) =>
@@ -48,12 +52,13 @@ const XplaneSourcePanel = ({
             ...source,
             XplaneDataRef: {
               ...((source as XplaneSource)?.XplaneDataRef ?? {}),
-              Path: preset ? preset.code : ""
+              Path: preset ? preset.code : "",
             },
           })
         }
       />
       <XplanePresetDetails
+        variant="output"
         preset={preset}
         config={inputActionShape}
         onConfigChange={(config) =>

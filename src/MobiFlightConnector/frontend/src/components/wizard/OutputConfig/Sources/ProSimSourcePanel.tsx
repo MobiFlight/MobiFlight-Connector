@@ -15,7 +15,7 @@ const ProSimSourcePanel = ({
     <Card>
       <CardContent className="flex flex-col gap-4 pt-4">
         <ProSimDataRefPanel
-          variant={"input"}
+          variant={"output"}
           selectedPath={source.ProSimDataRef.Path}
           onPresetChange={(prosimDataRef) => {
             // Handle the change here, for example, update the source object
