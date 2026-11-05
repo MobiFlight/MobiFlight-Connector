@@ -41,11 +41,20 @@ namespace MobiFlight.Modifier
         [OnDeserialized]
         public void OnDeserialized(StreamingContext context)
         {
-            if (Values.Count > 0)
+            UpdateMinMax();
+        }
+
+        private void UpdateMinMax()
+        {
+            if (Values.Count == 0)
             {
-                max = Values.Values.Max();
-                min = Values.Values.Min();
+                max = double.MinValue;
+                min = double.MaxValue;
+                return;
             }
+
+            max = Values.Values.Max();
+            min = Values.Values.Min();
         }
 
         public SortedDictionary<double, double> GetValues()
@@ -56,6 +65,7 @@ namespace MobiFlight.Modifier
         public void Clear()
         {
             Values.Clear();
+            UpdateMinMax();
         }
 
         override public object Clone()
@@ -90,6 +100,7 @@ namespace MobiFlight.Modifier
                                double.Parse(reader["y"], serializationCulture));
                     reader.ReadToNextSibling("value");
                 } while (reader.LocalName == "value");
+                UpdateMinMax();
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight;
 using MobiFlight.Base;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace System.Tests
@@ -160,6 +162,119 @@ namespace System.Tests
             Assert.IsFalse(result, "Should return false when only partial match exists");
             Assert.AreEqual(-1, cb.SelectedIndex, "Should not select any item");
         }
+
+        #region Pin assignment
+
+        [TestMethod()]
+        [DataRow("")]
+        [DataRow(null)]
+        public void FreePin_WithUnassignedPin_ShouldNotThrowAndKeepPinsUsed(string unassignedPin)
+        {
+            // Arrange
+            var pinList = generatePinList(usedPins: 2);
+
+            // Act
+            ComboBoxHelper.freePin(pinList, unassignedPin);
+
+            // Assert
+            Assert.IsTrue(pinList[0].Used, "Pin 2 should still be used");
+            Assert.IsTrue(pinList[1].Used, "Pin 3 should still be used");
+        }
+
+        [TestMethod()]
+        public void FreePin_WithAssignedPin_ShouldMarkOnlyThatPinAsFree()
+        {
+            // Arrange
+            var pinList = generatePinList(usedPins: 2);
+
+            // Act
+            ComboBoxHelper.freePin(pinList, "2");
+
+            // Assert
+            Assert.IsFalse(pinList[0].Used, "Pin 2 should be free");
+            Assert.IsTrue(pinList[1].Used, "Pin 3 should still be used");
+        }
+
+        [TestMethod()]
+        [DataRow("")]
+        [DataRow(null)]
+        public void ReassignPin_FromUnassignedPin_ShouldAssignNewPin(string unassignedPin)
+        {
+            // Arrange
+            var pinList = generatePinList(usedPins: 0);
+            var currentPin = unassignedPin;
+
+            // Act
+            ComboBoxHelper.reassignPin("3", pinList, ref currentPin);
+
+            // Assert
+            Assert.AreEqual("3", currentPin, "The new pin should be stored in the config");
+            Assert.IsFalse(pinList[0].Used, "Pin 2 should be untouched");
+            Assert.IsTrue(pinList[1].Used, "Pin 3 should be marked as used");
+        }
+
+        [TestMethod()]
+        public void ReassignPin_FromAssignedPin_ShouldFreeOldAndUseNewPin()
+        {
+            // Arrange
+            var pinList = generatePinList(usedPins: 1);
+            var currentPin = "2";
+
+            // Act
+            ComboBoxHelper.reassignPin("3", pinList, ref currentPin);
+
+            // Assert
+            Assert.AreEqual("3", currentPin, "The new pin should be stored in the config");
+            Assert.IsFalse(pinList[0].Used, "The old pin should be free");
+            Assert.IsTrue(pinList[1].Used, "The new pin should be marked as used");
+        }
+
+        [TestMethod()]
+        public void BindMobiFlightFreePins_WithUnassignedCurrentPin_ShouldListOnlyFreePins()
+        {
+            // Arrange
+            var pinList = generatePinList(usedPins: 1);
+            var comboBox = new ComboBox();
+
+            // Act
+            ComboBoxHelper.BindMobiFlightFreePins(comboBox, pinList, "");
+
+            // Assert
+            var boundPins = (List<MobiFlightPin>)comboBox.DataSource;
+            Assert.AreEqual(1, boundPins.Count, "Only the free pin should be listed");
+            Assert.AreEqual(3u, boundPins[0].Pin);
+        }
+
+        [TestMethod()]
+        public void BindMobiFlightFreePins_WithAssignedCurrentPin_ShouldAlsoListCurrentPin()
+        {
+            // Arrange
+            var pinList = generatePinList(usedPins: 1);
+            var comboBox = new ComboBox();
+
+            // Act
+            ComboBoxHelper.BindMobiFlightFreePins(comboBox, pinList, "2");
+
+            // Assert
+            var boundPins = (List<MobiFlightPin>)comboBox.DataSource;
+            Assert.AreEqual(2, boundPins.Count, "The current pin should be selectable again");
+            Assert.IsTrue(pinList[0].Used, "The base pin list must not be modified");
+        }
+
+        private static List<MobiFlightPin> generatePinList(int usedPins)
+        {
+            var pins = new List<MobiFlightPin>
+            {
+                new MobiFlightPin { Pin = 2 },
+                new MobiFlightPin { Pin = 3 }
+            };
+
+            for (var i = 0; i < usedPins; i++) pins[i].Used = true;
+
+            return pins;
+        }
+
+        #endregion
 
         public ComboBox generateTestObject()
         {

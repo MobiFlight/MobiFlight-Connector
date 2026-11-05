@@ -92,9 +92,11 @@ namespace System
             // Deep-clone list as 'Used' list
             List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
             // Mark current pin (if any specified) as free
-            if (CurrentPin != "" && UsablePins.Exists(x => x.Pin == uint.Parse(CurrentPin)))
+            var hasCurrentPin = uint.TryParse(CurrentPin, out var currentPinNo);
+            if (hasCurrentPin)
             {
-                UsablePins.Find(x => x.Pin == uint.Parse(CurrentPin)).Used = false;
+                var currentPinEntry = UsablePins.Find(x => x.Pin == currentPinNo);
+                if (currentPinEntry != null) currentPinEntry.Used = false;
             }
 
             if (analogOnly == true)
@@ -108,12 +110,11 @@ namespace System
             comboBox.ValueMember = "Pin";
 
             // Restore the original item selection (if any)
-            if (CurrentPin != "")
+            if (hasCurrentPin)
             {
-                var pinNo = uint.Parse(CurrentPin);
                 try
                 {
-                    comboBox.SelectedValue = pinNo;
+                    comboBox.SelectedValue = currentPinNo;
                 }
                 catch { }
             }
@@ -143,7 +144,9 @@ namespace System
         }
         static public void freePin(List<MobiFlightPin> pinList, string currentPin)
         {
-            uint nBefore = uint.Parse(currentPin);
+            // An unassigned pin ("" or null) has nothing to free.
+            if (!uint.TryParse(currentPin, out var nBefore)) return;
+
             try
             {
                 MobiFlightPin p;
@@ -163,14 +166,14 @@ namespace System
             try
             {
                 MobiFlightPin p = null;
-                if (newPin != "")
+                if (!string.IsNullOrEmpty(newPin))
                 {
                     // A desired pin is specified: seek it
                     uint newPinNo = uint.Parse(newPin);
                     p = pinList.Find(x => x.Pin == newPinNo);
                     if (p == null) throw new Exception("Nonexistent pin number");
                 }
-                if (newPin == "" || p.Used)
+                if (string.IsNullOrEmpty(newPin) || p.Used)
                 {
                     // Either no desired pin is specified, or desired pin is not available:
                     // assign first free one

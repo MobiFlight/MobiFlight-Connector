@@ -119,6 +119,68 @@ namespace MobiFlight.Modifier.Tests
             Assert.AreSame(value, result);
         }
 
+        #region Min and Max tracking
+
+        [TestMethod]
+        public void Clear_ShouldResetMinAndMax()
+        {
+            // Arrange
+            var interpolation = new Interpolation();
+            interpolation.Add(0, -5);
+            interpolation.Add(10, 50);
+
+            // Act
+            interpolation.Clear();
+
+            // Assert
+            Assert.AreEqual(0, interpolation.Count);
+            Assert.AreEqual(double.MinValue, interpolation.Max);
+            Assert.AreEqual(double.MaxValue, interpolation.Min);
+        }
+
+        [TestMethod]
+        public void ClearThenAdd_ShouldNotKeepMinAndMaxOfRemovedValues()
+        {
+            // Arrange
+            var interpolation = new Interpolation();
+            interpolation.Add(0, -5);
+            interpolation.Add(10, 50);
+
+            // Act
+            interpolation.Clear();
+            interpolation.Add(0, 1);
+            interpolation.Add(10, 2);
+
+            // Assert
+            Assert.AreEqual(2, interpolation.Max);
+            Assert.AreEqual(1, interpolation.Min);
+        }
+
+        [TestMethod]
+        public void ReadXml_ShouldCalculateMinAndMax()
+        {
+            // Arrange
+            var xml = "<interpolation active=\"True\">" +
+                      "<value x=\"0\" y=\"-5\" />" +
+                      "<value x=\"10\" y=\"50\" />" +
+                      "</interpolation>";
+            var interpolation = new Interpolation();
+
+            // Act
+            using (var reader = XmlReader.Create(new StringReader(xml)))
+            {
+                reader.MoveToContent();
+                interpolation.ReadXml(reader);
+            }
+
+            // Assert
+            Assert.AreEqual(2, interpolation.Count);
+            Assert.AreEqual(50, interpolation.Max);
+            Assert.AreEqual(-5, interpolation.Min);
+        }
+
+        #endregion
+
         [TestMethod]
         public void InterpolationExceptionsAreThrownCorrectly()
         {
