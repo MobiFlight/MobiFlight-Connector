@@ -2,90 +2,93 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Source } from "@/types/config"
 import { FsuipcOffsetSummary } from "@/components/wizard/components/InputActions/FsuipcOffsetInputActionPanel"
+import MsfsSourcePanel from "@/components/wizard/OutputConfig/Sources/MsfsSourcePanel"
+import { Badge } from "@/components/ui/badge"
+import { IconEdit, IconTrash } from "@tabler/icons-react"
 
 export interface SourceSummaryProps {
   source: Source
   onEdit: () => void
+  onRemove: () => void
 }
 
-const SourceSummary = ({ source, onEdit }: SourceSummaryProps) => {
-  if (source.Type === "SimConnectSource") {
-    return (
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <div>Source</div>
-          <div>Microsoft Flight Simulator</div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div>Code</div>
-          <div>{source.SimConnectValue?.Value}</div>
-        </div>
-        <Button onClick={onEdit}>Edit</Button>
+const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
+  return (
+    <div
+      className="group hover:bg-accent/30 flex flex-row items-center justify-between gap-4 rounded-md p-2"
+      onDoubleClick={onEdit}
+    >
+      <div className="flex flex-col gap-1">
+        <Label>Source</Label>
+        <Badge variant={"outline"} className="w-fit">
+          {source.Type}
+        </Badge>
       </div>
-    )
-  }
+      {source.Type === "SimConnectSource" && (
+        <MsfsSourcePanel
+          variant="summary"
+          source={source}
+          onSourceChange={() => {}}
+        />
+      )}
 
-  if (source.Type === "XplaneSource") {
-    return (
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <Label>Source</Label>
-          <div>X-Plane</div>
+      {source.Type === "XplaneSource" && (
+        <div className="flex flex-row items-center justify-between grow">
+          <div className="flex flex-col gap-1">
+            <Label>Code</Label>
+            <div>{source.XplaneDataRef?.Path}</div>
+          </div>
         </div>
-        <div className="flex flex-col gap-1">
-          <Label>Code</Label>
-          <div>{source.XplaneDataRef?.Path}</div>
+      )}
+
+      {source.Type === "VariableSource" && (
+        <div className="flex flex-row items-center justify-between grow">
+          <div className="flex flex-col gap-1">
+            <Label>Name</Label>
+            <div>
+              {source.MobiFlightVariable?.Name ?? "N/A"}{" "}
+              {source.MobiFlightVariable?.TYPE}
+            </div>
+          </div>
         </div>
-        <Button onClick={onEdit}>Edit</Button>
+      )}
+
+      {source.Type === "FsuipcSource" && (
+        <div className="flex flex-row items-center justify-between grow">
+          <FsuipcOffsetSummary config={source.FSUIPC} />
+        </div>
+      )}
+
+      {source.Type === "ProSimSource" && (
+        <div className="flex flex-row items-center justify-between grow">
+          <div className="flex flex-col gap-1">
+            <Label>Code</Label>
+            <div>{source.ProSimDataRef?.Path}</div>
+          </div>
+        </div>
+      )}
+
+      <div className="flex w-20 flex-row justify-end pt-4">
+        <Button
+          size={"sm"}
+          className="invisible h-8 px-2 py-1 text-red-600 group-hover:visible hover:text-red-600"
+          variant="ghost"
+          onClick={onRemove}
+        >
+          <IconTrash />
+          <span className="sr-only">Remove</span>
+        </Button>
+        <Button
+          size={"sm"}
+          className="group-hover:text-foreground text-muted-foreground h-8 px-2 py-1"
+          variant="ghost"
+          onClick={onEdit}
+        >
+          <IconEdit />
+        </Button>
       </div>
-    )
-  }
-
-  if (source.Type === "VariableSource") {
-    return (
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <Label>Source</Label>
-          <div>Variable</div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <Label>Name</Label>
-          <div>{source.MobiFlightVariable?.Name ?? "N/A"} {source.MobiFlightVariable?.TYPE}</div>
-        </div>
-        <Button onClick={onEdit}>Edit</Button>
-      </div>
-    )
-  }
-
-  if (source.Type === "FsuipcSource") {
-    return (
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <Label>Source</Label>
-          <div>Fsuipc</div>
-        </div>
-        <FsuipcOffsetSummary config={source.FSUIPC} />
-        <Button onClick={onEdit}>Edit</Button>
-      </div>
-    )
-  }
-
-  if (source.Type === "ProSimSource") {
-    return (
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <Label>Source</Label>
-          <div>ProSim</div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <Label>Code</Label>
-          <div>{source.ProSimDataRef?.Path}</div>
-        </div>
-        <Button onClick={onEdit}>Edit</Button>
-      </div>
-    )
-  }
-
-  return null
+    </div>
+  )
 }
+
 export default SourceSummary
