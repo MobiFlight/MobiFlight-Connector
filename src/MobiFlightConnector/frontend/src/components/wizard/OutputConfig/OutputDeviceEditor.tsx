@@ -1,6 +1,7 @@
 import ComboBox from "@/components/ComboBox"
 import { Card, CardContent } from "@/components/ui/card"
 import { ControllerComboBox } from "@/components/wizard/components/ConfigTrigger"
+import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 import CustomDevicePanel from "@/components/wizard/OutputConfig/OutputDevices/CustomDevicePanel"
 import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdDisplayPanel"
 import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedModulePanel"
@@ -260,6 +261,13 @@ const OutputDeviceEditor = ({
           controller={configItem.Controller}
           devices={devices.filter((device) => device.Type === "CustomDevice")}
           onChange={(device) => updateConfigItem(configItem.Controller, device)}
+        />
+      )}
+      {configItem.Device && (
+        <ConfigWizardTestPanel
+          configItem={configItem}
+          title={t("Dialog.ConfigWizard.Device.TestPanel.Title")}
+          description={t("Dialog.ConfigWizard.Device.TestPanel.Description")}
         />
       )}
     </div>

@@ -29,7 +29,6 @@ import { Button } from "@/components/ui/button"
 import SourceEditor from "@/components/wizard/OutputConfig/SourceEditor"
 import OutputActionBindingCard from "@/components/wizard/OutputConfig/OutputActionBindingCard"
 import OutputDeviceEditor from "@/components/wizard/OutputConfig/OutputDeviceEditor"
-import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 
 export type ConfigWizardProps = {
   variant: ConfigItemType
@@ -195,10 +194,10 @@ const ConfigWizard = ({
       {variant === "OutputConfigItem" && (
         <OutputTriggerCard
           configItem={configItem}
-          // setConfigItem={(item: IConfigItem) => {
-          //   // Update the configItem state here
-          //   onConfigChange(item)
-          // }}
+          setConfigItem={(item) => {
+            // Update the configItem state here
+            onConfigChange(item)
+          }}
           navigateToDetailView={navigateToDetailView}
         />
       )}
@@ -261,7 +260,7 @@ const ConfigWizard = ({
           configItem={configItem}
           variant="summary"
           onConfigChange={onConfigChange}
-          openDetailsPanel={() => navigateToDetailView("modifier", "small")}
+          openDetailsPanel={() => navigateToDetailView("modifier")}
           liveData={liveData}
         />
       )}
@@ -464,8 +463,6 @@ const ConfigWizard = ({
                 <SourceEditor
                   source={(configItem as OutputConfigItem).Source}
                   onSourceChange={(source) => {
-                    // Handle source change here
-                    console.log("Source changed", source)
                     onConfigChange({
                       ...configItem,
                       Source: source,
@@ -483,12 +480,7 @@ const ConfigWizard = ({
                 />
               )}
             </div>
-            <DrawerFooter className={`flex flex-row items-center ${detailView === "display" ? "justify-between" : "justify-end"}`}>
-              {detailView === "display" && (
-                <ConfigWizardTestPanel
-                  configItem={configItem}
-                />
-              )}
+            <DrawerFooter className={`flex flex-row items-center justify-end`}>
               <Button
                 onClick={() => closeDetailView(false)}
               >

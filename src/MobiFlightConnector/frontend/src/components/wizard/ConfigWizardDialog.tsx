@@ -23,7 +23,6 @@ import _ from "lodash"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router"
-import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 
 export type InputConfigDialogProps = {
   configId: string
@@ -124,7 +123,9 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   }
 
   const isOutputConfig = draftConfigItem?.Type === "OutputConfigItem"
-  const i18nPrefix = isOutputConfig ? "Dialog.ConfigWizard.Output" : "Dialog.InputConfigWizard"
+  const i18nPrefix = isOutputConfig
+    ? "Dialog.ConfigWizard.Output"
+    : "Dialog.InputConfigWizard"
 
   return (
     <Dialog open={true} onOpenChange={closeDialog}>
@@ -160,8 +161,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
             className="flex flex-row items-center gap-2 text-2xl"
             data-testid="dialog-config-name"
           >
-            {t(`${i18nPrefix}.Title`)}{" "}
-            <IconChevronRight className="mt-1" />
+            {t(`${i18nPrefix}.Title`)} <IconChevronRight className="mt-1" />
             <InlineEditLabel
               labelClassName="text-2xl px-4.5 -ml-5"
               inputClassName="h-8 w-fit text-2xl! -ml-3 h-12 -my-2"
@@ -202,9 +202,6 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
           className={`flex flex-row ${isOutputConfig ? "justify-between" : "justify-end"}`}
           data-testid="inputconfigwizard-dialog-footer"
         >
-          {isOutputConfig && (
-            <ConfigWizardTestPanel configItem={draftConfigItem ?? null} />
-          )}
           <div className="flex grow flex-row items-center gap-1">
             {showPendingChangesMessage && (
               <>
