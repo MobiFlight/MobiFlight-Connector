@@ -205,7 +205,7 @@ namespace MobiFlight.Joysticks.Logitech
         /// matches the JSON output Id, e.g. "LCD ALT") and caches it for the next
         /// display refresh.
         /// </summary>
-        public override void SetLcdDisplay(string address, string value)
+        protected override void OnSetLcdDisplay(string address, string value)
         {
             if (!int.TryParse(value, out int intValue))
             {

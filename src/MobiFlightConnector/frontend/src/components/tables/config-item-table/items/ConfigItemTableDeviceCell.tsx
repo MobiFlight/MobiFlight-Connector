@@ -4,6 +4,7 @@ import {
   ExtendedDeviceConfig,
   IConfigItem,
   IDeviceConfig,
+  OutputConfigItem,
 } from "@/types/config"
 import { DeviceElementType } from "@/types/deviceElements"
 import { IconBan, IconX } from "@tabler/icons-react"
@@ -20,11 +21,11 @@ interface ConfigItemTableDeviceCellProps {
 }
 
 function DetermineDeviceName(item: IConfigItem): string[] {
-  const deviceType = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType
-  const deviceName = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName
+  const deviceName = (item.Device as IDeviceConfig)?.Name
+  const hasInputAction = (item as OutputConfigItem)?.ButtonInputConfig != null || (item as OutputConfigItem)?.AnalogInputConfig != null
 
   if (!deviceName || isEmpty(deviceName)) {
-    if (deviceType === "InputAction") {
+    if (hasInputAction) {
       return ["Input Action"]
     }
     return ["-"]
@@ -39,7 +40,7 @@ function DetermineSubIndices(item: IConfigItem): string[] {
   const subIndex =
     extendedDevice?.SubIndex != null ? `${extendedDevice.SubIndex}` : null
   const firstName =
-    ((item.Device as IDeviceConfig)?.Name ?? item.DeviceName)?.split("|")[0] ??
+    ((item.Device as IDeviceConfig)?.Name)?.split("|")[0] ??
     ""
 
   const pins = extendedDevice?.Pin?.split("|")
@@ -79,10 +80,10 @@ function ConfigItemTableDeviceCell({ row }: ConfigItemTableDeviceCellProps) {
   const deviceNames = DetermineDeviceName(item)
   const deviceName = deviceNames[0]
   const subIndices = DetermineSubIndices(item)
+  const hasInputAction = (item as OutputConfigItem)?.ButtonInputConfig != null || (item as OutputConfigItem)?.AnalogInputConfig != null
 
   const deviceType =
-    (item.Device as IDeviceConfig)?.Type ??
-    (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
+    (item.Device as IDeviceConfig)?.Type ?? (hasInputAction ? "InputAction" : "-")
 
   const icon = (
     <DeviceIcon

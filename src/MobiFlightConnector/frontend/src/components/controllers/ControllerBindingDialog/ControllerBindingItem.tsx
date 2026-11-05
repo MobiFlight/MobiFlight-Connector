@@ -54,6 +54,11 @@ const ControllerIconWithLabel = ({
   )
 }
 
+// Connected controllers don't provide their type,
+// but the prefix of their serial identifies it.
+const getSerialPrefix = (serial: string | undefined) =>
+  serial?.match(/^(SN|JS|MI)-/)?.[0] ?? ""
+
 export type ControllerBindingProps = {
   controllerBinding: ControllerBinding
   controllers: Controller[]
@@ -76,6 +81,16 @@ const ControllerBindingItem = ({
 
   const selectedBoundController = controllers.find(
     (controller) => controller.Serial === selectedSerial,
+  )
+
+  // List controllers of the same type as the original controller first
+  const originalSerialPrefix = getSerialPrefix(
+    controllerBinding.OriginalController?.Serial,
+  )
+  const hasOtherType = (controller: Controller) =>
+    getSerialPrefix(controller.Serial) !== originalSerialPrefix
+  const sortedControllers = [...controllers].sort(
+    (a, b) => Number(hasOtherType(a)) - Number(hasOtherType(b)),
   )
 
   return (
@@ -120,7 +135,7 @@ const ControllerBindingItem = ({
               <CommandList>
                 <CommandEmpty>{t("Dialog.ControllerBinding.NoControllerFound")}</CommandEmpty>
                 <CommandGroup>
-                  {controllers.map((controller) => (
+                  {sortedControllers.map((controller) => (
                     <CommandItem
                       key={controller.Serial}
                       value={controller.Serial}

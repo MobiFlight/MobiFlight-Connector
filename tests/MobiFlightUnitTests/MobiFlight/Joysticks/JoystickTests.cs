@@ -86,6 +86,32 @@ namespace MobiFlight.Joysticks.Tests
             }
         }
 
+        class RecordingJoystick : TestableJoystick
+        {
+            public int OnStopCount { get; private set; }
+            public int OnSetOutputDeviceStateCount { get; private set; }
+            public int OnSetLcdDisplayCount { get; private set; }
+
+            public RecordingJoystick(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
+            {
+            }
+
+            protected override void OnStop()
+            {
+                OnStopCount++;
+            }
+
+            protected override void OnSetOutputDeviceState(string name, byte state)
+            {
+                OnSetOutputDeviceStateCount++;
+            }
+
+            protected override void OnSetLcdDisplay(string address, string value)
+            {
+                OnSetLcdDisplayCount++;
+            }
+        }
+
         [TestMethod()]
         public void GetAxisNameForUsage_ShouldReturnNamesForValidIds()
         {
@@ -200,5 +226,102 @@ namespace MobiFlight.Joysticks.Tests
             Assert.IsInstanceOfType(devices[0], typeof(JoystickOutputDevice), "The available device should be of type JoystickOutputDevice.");
             Assert.IsInstanceOfType(devices[1], typeof(JoystickOutputDisplay), "The available device should be of type JoystickOutputDisplay.");
         }
+
+        #region Stop Tests
+
+        private static RecordingJoystick CreateRecordingJoystick()
+        {
+            return new RecordingJoystick(null, new JoystickDefinition { InstanceName = "Test Joystick" });
+        }
+
+        [TestMethod()]
+        public void Stop_ShouldStopDevice_WhenDeviceIsFresh()
+        {
+            // Arrange
+            var joystick = CreateRecordingJoystick();
+
+            // Act
+            joystick.Stop();
+
+            // Assert
+            Assert.AreEqual(1, joystick.OnStopCount, "A fresh device may show stale data, so the first Stop should run.");
+        }
+
+        [TestMethod()]
+        public void Stop_ShouldNotStopAgain_WhenNothingWasWrittenSinceLastStop()
+        {
+            // Arrange
+            var joystick = CreateRecordingJoystick();
+            joystick.Stop();
+
+            // Act
+            joystick.Stop();
+            joystick.Stop();
+
+            // Assert
+            Assert.AreEqual(1, joystick.OnStopCount, "Repeated Stop calls should not reach the device again.");
+        }
+
+        [TestMethod()]
+        public void Stop_ShouldStopAgain_WhenOutputStateWasSetSinceLastStop()
+        {
+            // Arrange
+            var joystick = CreateRecordingJoystick();
+            joystick.Stop();
+            joystick.SetOutputDeviceState("LED01", 1);
+
+            // Act
+            joystick.Stop();
+
+            // Assert
+            Assert.AreEqual(2, joystick.OnStopCount, "Writing an output state should make the next Stop run.");
+        }
+
+        [TestMethod()]
+        public void Stop_ShouldStopAgain_WhenLcdDisplayWasSetSinceLastStop()
+        {
+            // Arrange
+            var joystick = CreateRecordingJoystick();
+            joystick.Stop();
+            joystick.SetLcdDisplay("LCD01", "1234");
+
+            // Act
+            joystick.Stop();
+
+            // Assert
+            Assert.AreEqual(2, joystick.OnStopCount, "Writing an LCD value should make the next Stop run.");
+        }
+
+        #endregion
+
+        #region Output Hook Tests
+
+        [TestMethod()]
+        public void SetOutputDeviceState_ShouldInvokeHook()
+        {
+            // Arrange
+            var joystick = CreateRecordingJoystick();
+
+            // Act
+            joystick.SetOutputDeviceState("LED01", 1);
+
+            // Assert
+            Assert.AreEqual(1, joystick.OnSetOutputDeviceStateCount);
+        }
+
+        [TestMethod()]
+        public void SetLcdDisplay_ShouldInvokeHook()
+        {
+            // Arrange
+            var joystick = CreateRecordingJoystick();
+
+            // Act
+            joystick.SetLcdDisplay("LCD01", "1234");
+
+            // Assert
+            Assert.AreEqual(1, joystick.OnSetLcdDisplayCount);
+        }
+
+        #endregion
     }
 }

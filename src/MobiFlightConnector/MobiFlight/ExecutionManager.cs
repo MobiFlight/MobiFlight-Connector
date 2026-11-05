@@ -322,6 +322,31 @@ namespace MobiFlight
             PublishDeleteUndoState();
         }
 
+        private void RejectConfigListUndo(ConfigListUndoEntry entry, string reason)
+        {
+            string guid = entry.Guid ?? "(none)";
+            string profile = entry.File?.Label ?? "(unknown)";
+
+            Log.Instance.log(
+                $"ConfigList Undo rejected (history preserved): " +
+                $"Action={entry.Action}, " +
+                $"Guid={guid}, " +
+                $"RecordedIndex={entry.ConfigIndex}, " +
+                $"Profile={profile}, " +
+                $"Reason={reason}",
+                LogSeverity.Warn
+            );
+
+            MessageExchange.Instance.Publish(new Notification
+            {
+                Event = "ConfigListUndoFailed",
+                Context = new Dictionary<string, string>
+                {
+                    { "Action", entry.Action.ToString() },{ "Reason", reason }
+                }
+            });
+        }
+
         public void ClearConfigListUndoHistory()
         {
             if (_listUndoHistory.Count == 0 && _listHistoryStart == 0) return;
@@ -402,19 +427,30 @@ namespace MobiFlight
         }
 
         private Project _project = new Project();
+
+        private void Project_ProjectChanged(object sender, EventArgs e)
+        {
+            OnProjectChanged?.Invoke(this, Project);
+        }
+
         public Project Project
         {
             get { return _project; }
+
             set
             {
-                if (_project == value) return;
+                if (ReferenceEquals(_project, value))
+                    return;
+
                 ClearConfigListUndoHistory();
+
+                // Unsubscribe from the previous project.
+                _project.ProjectChanged -= Project_ProjectChanged;
+
                 _project = value;
 
-                _project.ProjectChanged += (s, e) =>
-                {
-                    OnProjectChanged?.Invoke(this, Project);
-                };
+                // Subscribe to the new project.
+                _project.ProjectChanged += Project_ProjectChanged;
 
                 OnProjectChanged?.Invoke(this, Project);
             }
@@ -446,6 +482,9 @@ namespace MobiFlight
             FSUIPCCacheInterface fsuipcCache,
             ProSimCacheInterface proSimCache)
         {
+            // Register the initial project's change notifications.
+            _project.ProjectChanged += Project_ProjectChanged;
+
             this.xplaneCache = xplaneCache;
             this.simConnectCache = simConnectCache;
             this.fsuipcCache = fsuipcCache;
@@ -1090,14 +1129,14 @@ namespace MobiFlight
 
                     if (!validProject || !validProfile || !validIndex)
                     {
-                        Log.Instance.log(
-                            $"ConfigList Undo validation failed: " +
-                            $"Action={entry.Action}, " +
-                            $"RecordedIndex={entry.ConfigIndex}, " +
+                        RejectConfigListUndo(
+                            entry,
+                            $"Project/profile mismatch. " +
                             $"ActualIndex={actualProfileIndex}, " +
                             $"ProfileCount={Project.ConfigFiles.Count}, " +
-                            $"SameProject={validProject}",
-                            LogSeverity.Warn
+                            $"SameProject={validProject}, " +
+                            $"ValidProfile={validProfile}, " +
+                            $"ValidIndex={validIndex}"
                         );
 
                         return;
@@ -1107,10 +1146,15 @@ namespace MobiFlight
 
                     if (entry.Action == ConfigListUndoAction.Delete)
                     {
-                        // The deleted GUID must not already exist.
-                        if (items.Any(i => i.GUID == entry.Guid))
+                        if (entry.Snapshot == null || items.Any(i => i.GUID == entry.Guid))
                         {
-                            ClearConfigListUndoHistory();
+                            RejectConfigListUndo(
+                                entry,
+                                entry.Snapshot == null
+                                    ? "Missing snapshot for deleted item."
+                                    : $"GUID already exists: {entry.Guid}"
+                            );
+
                             return;
                         }
 
@@ -1136,7 +1180,8 @@ namespace MobiFlight
 
                         if (itemIndex < 0)
                         {
-                            ClearConfigListUndoHistory();
+                            RejectConfigListUndo(entry, $"Created ConfigItem not found: {entry.Guid}");
+
                             return;
                         }
 
@@ -1145,14 +1190,22 @@ namespace MobiFlight
 
                     else if (entry.Action == ConfigListUndoAction.BulkDelete)
                     {
-                        bool hasConflict = entry.Items.Any(
-                            state => items.Any(
-                                item => item.GUID == state.Guid
-                            )
-                        );
+                        bool hasConflict =
+                            entry.Items == null ||
+                            entry.Items.Count == 0 ||
+                            entry.Items.Any(state =>
+                                state.Snapshot == null ||
+                                items.Any(item => item.GUID == state.Guid)
+                            );
+
                         if (hasConflict)
                         {
-                            ClearConfigListUndoHistory();
+                            RejectConfigListUndo(
+                                entry,
+                                "BulkDelete restore failed: missing snapshot " +
+                                "or conflicting ConfigItem GUID."
+                            );
+
                             return;
                         }
                         foreach (var state in entry.Items.OrderBy(
@@ -1171,16 +1224,24 @@ namespace MobiFlight
 
                     else if (entry.Action == ConfigListUndoAction.Toggle)
                     {
-                        bool hasMissingItem = entry.Items.Any(
-                            state => !items.Any(
-                                item => item.GUID == state.Guid
-                            )
-                        );
+                        bool hasMissingItem =
+                            entry.Items == null ||
+                            entry.Items.Count == 0 ||
+                            entry.Items.Any(state =>
+                                !items.Any(item => item.GUID == state.Guid)
+                            );
+
                         if (hasMissingItem)
                         {
-                            ClearConfigListUndoHistory();
+                            RejectConfigListUndo(
+                                entry,
+                                "Toggle restore failed: one or more " +
+                                "ConfigItems are missing."
+                            );
+
                             return;
                         }
+
                         foreach (var state in entry.Items)
                         {
                             var item = items.Find(
@@ -1195,12 +1256,19 @@ namespace MobiFlight
                         if (
                             entry.TargetConfigIndex < 0 ||
                             entry.TargetConfigIndex >= Project.ConfigFiles.Count ||
+                            entry.TargetFile == null ||
                             !ReferenceEquals(
                                 Project.ConfigFiles[entry.TargetConfigIndex],
                                 entry.TargetFile)
                             )
                         {
-                            ClearConfigListUndoHistory();
+                            RejectConfigListUndo(
+                                entry,
+                                $"Resort target profile mismatch. " +
+                                $"TargetIndex={entry.TargetConfigIndex}, " +
+                                $"ProfileCount={Project.ConfigFiles.Count}"
+                            );
+
                             return;
                         }
 
@@ -1220,10 +1288,16 @@ namespace MobiFlight
                             currentGuids.Count != expectedGuids.Count ||
                             currentGuids.Distinct().Count() != currentGuids.Count ||
                             expectedGuids.Distinct().Count() != expectedGuids.Count ||
-                            !new HashSet<string>(currentGuids)
-                                .SetEquals(expectedGuids))
+                            !new HashSet<string>(currentGuids).SetEquals(expectedGuids)
+                            )
                         {
-                            ClearConfigListUndoHistory();
+                            RejectConfigListUndo(
+                                entry,
+                                $"Resort GUID mismatch. " +
+                                $"CurrentCount={currentGuids.Count}, " +
+                                $"ExpectedCount={expectedGuids.Count}"
+                            );
+
                             return;
                         }
                         var itemsByGuid = currentItems.ToDictionary(item => item.GUID);
@@ -1250,12 +1324,11 @@ namespace MobiFlight
                             entry.File.ConfigItems.Count > 0
                         )
                         {
-                            Log.Instance.log(
-                                $"Cannot undo ProfileAdded: " +
-                                $"ProfileCount={Project.ConfigFiles.Count}, " +
-                                $"ItemCount={entry.File.ConfigItems.Count}",
-                                LogSeverity.Warn
+                            RejectConfigListUndo(
+                                entry,
+                                "Added profile list no longer matches the recorded state."
                             );
+
                             return;
                         }
 
@@ -1296,11 +1369,11 @@ namespace MobiFlight
 
                         if (!validMerge)
                         {
-                            Log.Instance.log(
-                                "Cannot undo ProfileMerged: " +
-                                "merged profile list has changed.",
-                                LogSeverity.Warn
+                            RejectConfigListUndo(
+                                entry,
+                                "Merged profile list no longer matches the recorded state."
                             );
+
                             return;
                         }
 
@@ -1317,7 +1390,11 @@ namespace MobiFlight
                         var item = items.Find(i => i.GUID == entry.Guid);
                         if (item == null)
                         {
-                            Log.Instance.log($"Cannot undo ItemRename: {entry.Guid} not found.", LogSeverity.Warn);
+                            RejectConfigListUndo(
+                                entry,
+                                $"ConfigItem not found for rename: {entry.Guid}"
+                            );
+
                             return;
                         }
                         item.Name = entry.OriginalName;
@@ -1329,10 +1406,11 @@ namespace MobiFlight
 
                         if (itemIndex < 0 || entry.Snapshot == null)
                         {
-                            Log.Instance.log(
-                                $"Cannot undo ItemEdited: {entry.Guid} not found or snapshot is missing.",
-                                LogSeverity.Warn
-                                );
+                            RejectConfigListUndo(
+                                entry,
+                                $"ConfigItem not found or snapshot missing: {entry.Guid}"
+                            );
+
                             return;
                         }
 
@@ -1702,7 +1780,7 @@ namespace MobiFlight
             simConnectCache.Start();
             xplaneCache.Start();
 
-            scriptRunner.StartUp();
+            scriptRunner.Start();
 
             // the timer has to be enabled before the 
             // on start actions are executed
@@ -1743,23 +1821,37 @@ namespace MobiFlight
 
         public void Stop()
         {
+            if (IsStarted()) StopExecution();
+
+            StopControllers();
+        }
+
+        // only exists while the config is being executed
+        private void StopExecution()
+        {
             timer.Stop();
             frontendUpdateTimer.Stop();
-            mobiFlightCache.StopKeepAwake();
 
             isExecuting = false;
-#if ARCAZE
-            arcazeCache.Clear();
-#endif
             scriptRunner.Stop();
-            mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
-            joystickManager.Stop();
-            midiBoardManager.Stop();
             inputActionExecutionCache.Clear();
             ClearConfigItemStatus();
             ClearErrorMessages();
+        }
+
+        // always runs, because a freshly connected controller and
+        // their display devices may show stale data;
+        // each controller decides on its own whether there is anything to stop
+        private void StopControllers()
+        {
+#if ARCAZE
+            arcazeCache.Clear();
+#endif
+            mobiFlightCache.Stop();
+            joystickManager.Stop();
+            midiBoardManager.Stop();
         }
 
         private void ClearConfigItemStatus()
@@ -1810,8 +1902,6 @@ namespace MobiFlight
         public void TestModeStop()
         {
             testModeTimer.Stop();
-
-            mobiFlightCache.StopKeepAwake();
 
             // make sure every device is turned off
             mobiFlightCache.Stop();
@@ -2321,8 +2411,6 @@ namespace MobiFlight
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
-
-
 
             foreach (var executor in _inputEventExecutors.Values)
             {

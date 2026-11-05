@@ -1,13 +1,11 @@
-﻿using System;
+﻿using SimpleSolutions.Usb;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using MobiFlight;
-using SimpleSolutions.Usb;
 
 namespace MobiFlight
 {
-    public class ArcazeModule : IModule /*, IOutputModule */
+    public class ArcazeModule
     {
         public enum CacheType
         {
@@ -37,12 +35,10 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, string> lastArcazeValue = new Dictionary<string, string>();
 
-
         /// <summary>
         /// the look up table with the last set arcaze values
         /// </summary>
         Dictionary<string, int> lastArcazeGetValue = new Dictionary<string, int>();
-
 
         public ArcazeModule(DeviceInfoAndCache info, ArcazeModuleSettings settings)
         {

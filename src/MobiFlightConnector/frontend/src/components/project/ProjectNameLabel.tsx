@@ -75,24 +75,9 @@ const ProjectNameLabel = () => {
 
   const historyCount = configListUndoHistory.length
 
-  const historyLabels: Record<string, string> = {
-    Add: "Added",
-    Duplicate: "Duplicated",
-    Delete: "Deleted",
-    BulkDelete: "Deleted",
-    Toggle: "Toggled",
-    Resort: "Moved",
-    ProfileAdded: "Profile added",
-    ProfileRename: "Profile renamed",
-    ProfileDeleted: "Profile deleted",
-    ItemRename: "Item renamed",
-    ProfileMerged: "Profiles merged",
-    ItemEdited: "Config edited",
-  }
-
   const getHistoryLabel = (action: string) =>
     t(`ConfigList.History.${action}`, {
-      defaultValue: historyLabels[action] ?? action,
+      defaultValue: action,
     })
 
   const listHistory = [

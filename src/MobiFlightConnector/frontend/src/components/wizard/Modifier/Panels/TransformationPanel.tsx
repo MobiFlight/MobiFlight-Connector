@@ -28,7 +28,7 @@ export const TransformationPanelContent = ({
   onChange,
 }: {
   modifier: Transformation
-  onChange: (updated: Transformation) => void
+  onChange: (updated: Transformation, actionLabel?: string) => void
 }) => {
   const { t } = useTranslation()
   return (
@@ -47,7 +47,13 @@ export const TransformationPanelContent = ({
               className="text-code pl-8"
               value={modifier.Expression}
               onChange={(e) =>
-                onChange({ ...modifier, Expression: e.target.value })
+                onChange(
+                  { ...modifier, Expression: e.target.value },
+                  t(
+                    "Dialog.InputConfigWizard.History.ModifierExpressionChanged",
+                    { type: modifier.Type },
+                  ),
+                )
               }
             />
             <IconMathFunction className="stroke-muted-foreground bg-accent absolute rounded-l-sm px-1" />

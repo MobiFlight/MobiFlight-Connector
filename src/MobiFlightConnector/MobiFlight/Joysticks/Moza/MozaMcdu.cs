@@ -109,7 +109,7 @@ namespace MobiFlight.Joysticks.Moza
         // MOZA v1 has no font upload (guide's 9030 channel, deferred).
         public void OnCduFont(string json) { }
 
-        public override void SetLcdDisplay(string address, string value)
+        protected override void OnSetLcdDisplay(string address, string value)
         {
             if (address != ScreenAddress) return;
             SubmitScreenData(value);
@@ -152,9 +152,9 @@ namespace MobiFlight.Joysticks.Moza
             NextScreenRefresh = DateTime.Now + ScreenRefreshInterval;
         }
 
-        public override void Stop()
+        protected override void OnStop()
         {
-            base.Stop();
+            base.OnStop();
             ScreenControl.Stop();
         }
 

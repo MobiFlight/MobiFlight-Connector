@@ -1434,6 +1434,64 @@ test.describe("Community Feed tests", () => {
     expect(lastCommand.payload.url).toEqual("https://mobiflight.com/newsletter")
   })
 
+  test("Confirm thumbnails trigger the post action", async ({
+    dashboardPage,
+    page,
+  }) => {
+    // For testing, we are able to point the feed to a custom url
+    // This url is optionally defined in the environment variable VITE_FEED_REMOTE_BASE_URL
+    // If not set, the frontend will default to "https://mobiflight.com/feed" as the base url for the feed
+    // We have to make sure to use the same base url in the test when we mock the feed response,
+    // otherwise the frontend will not use our mocked response and the test will fail
+    const remoteFeedDefaultBaseUrl = "https://mobiflight.com/feed"
+    const remoteFeedBaseUrl = (
+      process.env.VITE_FEED_REMOTE_BASE_URL ?? remoteFeedDefaultBaseUrl
+    ).trim()
+
+    const communityPosts = [
+      {
+        title: "Post with action",
+        date: "2026-04-28",
+        content: ["Hello"],
+        tags: ["community"],
+        media: { type: "image", src: "/feed/test-image.jpg", alt: "x" },
+        action: { title: "Read more", url: "https://mobiflight.com/action" },
+      },
+      {
+        title: "Post without action",
+        date: "2026-04-28",
+        content: ["Hello"],
+        tags: ["community"],
+        media: { type: "image", src: "/feed/test-image.jpg", alt: "x" },
+      },
+    ]
+    await dashboardPage.mockDynamicFeed(remoteFeedBaseUrl, communityPosts)
+    await dashboardPage.gotoPage()
+
+    const feedItems = page.getByTestId("community-feed-item")
+    // 2 from dynamic feed + 3 fallback items
+    await expect(feedItems).toHaveCount(5)
+
+    await dashboardPage.mobiFlightPage.trackCommand("CommandOpenLinkInBrowser")
+
+    // Clicking the thumbnail of a post with an action opens the action url
+    await feedItems.nth(0).getByRole("img").click()
+
+    let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    expect(postedCommands).toHaveLength(1)
+    expect(postedCommands![0].key).toEqual("CommandOpenLinkInBrowser")
+    expect(postedCommands![0].payload.url).toEqual(
+      "https://mobiflight.com/action",
+    )
+
+    // Clicking the thumbnail of a post without an action does nothing
+    await dashboardPage.mobiFlightPage.clearTrackedCommands()
+    await feedItems.nth(1).getByRole("img").click()
+
+    postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
+    expect(postedCommands).toHaveLength(0)
+  })
+
   test("Confirm responsiveness small window size", async ({
     dashboardPage,
     page,

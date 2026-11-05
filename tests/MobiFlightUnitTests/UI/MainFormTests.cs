@@ -201,13 +201,37 @@ namespace MobiFlight.UI.Tests
         {
             // Arrange
             _mainForm.InitializeExecutionManager();
-            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
+
+            Assert.IsFalse(
+                _mainForm.ProjectHasUnsavedChanges
+            );
+
+            var revisionField = typeof(MainForm).GetField(
+                "_projectChangeRevision",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+
+            Assert.IsNotNull(revisionField);
+
+            long revisionBefore =
+                (long)revisionField.GetValue(_mainForm);
 
             // Act
             _mainForm.AddNewFileToProject("New profile");
 
             // Assert
-            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
+            Assert.IsTrue(
+                _mainForm.ProjectHasUnsavedChanges,
+                "Adding a profile should mark the project as dirty."
+            );
+
+            long revisionAfter = (long)revisionField.GetValue(_mainForm);
+
+            Assert.AreEqual(
+                revisionBefore + 1,
+                revisionAfter,
+                "Adding a profile should generate exactly one project change."
+            );
         }
 
         [TestMethod()]
@@ -545,6 +569,69 @@ namespace MobiFlight.UI.Tests
                 "AutoRun should be toggled in published settings");
         }
         #endregion
+
+        [TestMethod]
+        public void UndoAddedProfile_RestoresCleanProjectState()
+        {
+            // Arrange
+            _mainForm.InitializeExecutionManager();
+
+            var project = new Project();
+            _mainForm.CreateNewProject(project);
+
+            var filePath = Path.Combine(_tempDirectory, "UndoCleanState.mfproj");
+
+            // Save the project to establish a clean baseline.
+            var saveMethod = typeof(MainForm).GetMethod(
+                "SaveConfig",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+
+            Assert.IsNotNull(saveMethod);
+
+            saveMethod.Invoke(_mainForm, new object[] { filePath });
+
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges);
+
+            int originalProfileCount =
+                _mainForm.ExecutionManager.Project.ConfigFiles.Count;
+
+            // Act: Add a new profile.
+            _mainForm.AddNewFileToProject("Test Profile");
+
+            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges);
+
+            Assert.HasCount(
+                originalProfileCount + 1,
+                _mainForm.ExecutionManager.Project.ConfigFiles);
+
+            // Simulate the frontend requesting Undo.
+            var undoMessage = JsonConvert.SerializeObject(
+                new Message<object>(
+                    "CommandUndoConfigList",
+                    new CommandUndoConfigList { Steps = 1 }
+                )
+            );
+
+            _mainForm.Publisher.SimulateIncomingMessage(undoMessage);
+
+            // Assert: The profile is removed.
+            Assert.HasCount(
+                originalProfileCount,
+                _mainForm.ExecutionManager.Project.ConfigFiles);
+
+            // The project must no longer be dirty.
+            Assert.IsFalse(
+                _mainForm.ProjectHasUnsavedChanges,
+                "Undoing all changes should restore the clean project state."
+            );
+
+            // The unsaved-changes asterisk must disappear.
+            Assert.DoesNotContain(
+                _mainForm.Text,
+                filePath + "*"
+            );
+        }
 
         public class TestMessagePublisher : IMessagePublisher
         {

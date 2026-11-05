@@ -70,5 +70,5 @@ applyTo: '**/*.cs'
 - Follow existing test naming conventions (e.g., `MethodName_ShouldBehavior_WhenCondition`).
 - Test both success and error paths, plus edge cases like null inputs, empty collections and boundary values.
 - Use `[DataRow]` attributes for parameterized tests.
-- Use the specific Assert methods (`Assert.IsGreaterThan`, `Assert.IsNull`, ...), never `IsTrue`/`IsFalse`/`AreEqual` wrapping a comparison (MSTEST0037).
+- Use the specific Assert methods (`Assert.IsGreaterThan`, `Assert.IsNull`, ...), never `IsTrue`/`IsFalse`/`AreEqual` wrapping a comparison (MSTEST0037). Common cases: `Assert.HasCount(n, collection)` instead of `Assert.AreEqual(n, collection.Count)`; `Assert.IsEmpty(collection)` instead of `Assert.AreEqual(0, collection.Count)`; `Assert.Contains(item, collection)` instead of `Assert.IsTrue(collection.Contains(item))`.
 - Test layout and structure rules are in `copilot-instructions.md`; how to run the tests is in `src/MobiFlightConnector/frontend/README.md`.

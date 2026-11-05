@@ -201,7 +201,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         /// <param name="name"></param>
         /// <param name="state"></param>
-        public override void SetOutputDeviceState(string name, byte state)
+        protected override void OnSetOutputDeviceState(string name, byte state)
         {
             var light = Lights.FirstOrDefault(l => l.Label == name);
             if (light == null) return;
@@ -227,7 +227,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// </summary>
         /// <param name="address"></param>
         /// <param name="value"></param>
-        public override void SetLcdDisplay(string address, string value)
+        protected override void OnSetLcdDisplay(string address, string value)
         {
             var display = Lights.Find(l => l.Name == address) as JoystickOutputDisplay;
             if (display == null) return;
@@ -358,7 +358,7 @@ namespace MobiFlight.Joysticks.WingFlex
         /// <summary>
         /// Resets all outputs to a "stop" state
         /// </summary>
-        public override void Stop()
+        protected override void OnStop()
         {
             // Reset all outputs to initial state
             var data = CubeReport?.FromOutputDeviceState(Lights);
@@ -367,7 +367,7 @@ namespace MobiFlight.Joysticks.WingFlex
             // then clear all output states
             OutputState.Clear();
 
-            base.Stop();
+            base.OnStop();
         }
     }
 }

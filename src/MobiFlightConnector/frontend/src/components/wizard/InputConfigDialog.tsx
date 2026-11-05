@@ -24,7 +24,7 @@ import { IconChevronRight, IconExclamationCircle } from "@tabler/icons-react"
 import _ from "lodash"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 
 export type InputConfigDialogProps = {
   configId: string
@@ -50,6 +50,7 @@ const resetTriggersBasedOnDeviceType = (
 const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
   const { project, activeConfigFileIndex } = useProjectStore()
   const configFile = project?.ConfigFiles[activeConfigFileIndex]
   const configItem = configFile?.ConfigItems?.find(
@@ -63,7 +64,7 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
   const {
     editorState,
     draftConfigItem,
-    updateDraftConfigItem,
+    applyConfigChange,
     beginDrawerSession,
     finishDrawerSession,
     jumpToHistory,
@@ -103,22 +104,22 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
     closeDialog()
   }
 
-  // Automatically start editing the config item name if it is the default name
-  const configItemName = configItem?.Name
-  // this is a simple test to check if the config item is a newly created default config item
-  const defaultLabel = t("ConfigList.Actions.InputConfigItem.DefaultName")
-  const configIsDefaultConfig =
-    configItem?.Controller === null && configItemName === defaultLabel
+  // New and duplicated configs are opened with a request to edit the name.
+  // It is only evaluated once, because opening and closing detail views
+  // changes the location and would otherwise start editing again.
+  const [shouldStartEditingName] = useState(
+    () => location.state?.editName === true,
+  )
 
   const hasChanged = () => !_.isEqual(committedConfigItem, draftConfigItem)
 
   useEffect(() => {
     setTimeout(() => {
-      if (configIsDefaultConfig) {
+      if (shouldStartEditingName) {
         inlineEditRef.current?.startEditing()
       }
     }, 500)
-  }, [inlineEditRef, configIsDefaultConfig])
+  }, [inlineEditRef, shouldStartEditingName])
 
   const wiggleIt = () => {
     setTimeout(() => {
@@ -175,10 +176,15 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               value={draftConfigItem?.Name || ""}
               onSave={(newName) => {
                 if (draftConfigItem) {
-                  updateDraftConfigItem({
-                    ...draftConfigItem,
-                    Name: newName,
-                  })
+                  applyConfigChange(
+                    {
+                      ...draftConfigItem,
+                      Name: newName,
+                    },
+                    t("Dialog.InputConfigWizard.History.NameChanged", {
+                      name: newName,
+                    }),
+                  )
                 }
               }}
               ref={inlineEditRef}
@@ -195,8 +201,8 @@ const InputConfigDialog = ({ configId }: InputConfigDialogProps) => {
               {draftConfigItem && (
                 <ConfigWizard
                   configItem={draftConfigItem}
-                  onConfigChange={(item) => {
-                    updateDraftConfigItem(item)
+                  onConfigChange={(item, actionLabel) => {
+                    applyConfigChange(item, actionLabel)
                   }}
                   drawerContainer={containerRef}
                   historyControls={

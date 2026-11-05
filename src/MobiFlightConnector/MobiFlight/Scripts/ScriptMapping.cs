@@ -2,8 +2,6 @@
 {
     public class ScriptMapping
     {
-        public string VendorId { get; set; }
-        public string[] ProductIds { get; set; }
         // Deprecated, use AircraftMatchPattern instead.
         public string AircraftIdSnippet { get; set; }
         // Regex to match against the aircraft ID. The script is run if the
