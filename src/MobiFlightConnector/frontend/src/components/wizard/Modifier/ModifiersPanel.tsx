@@ -84,8 +84,8 @@ const ModifiersPanel = ({
       />
       <ConfigWizardTestPanel 
         configItem={configItem} 
-        title={t("Dialog.Modifiers.TestPanel.Title")}
-        description={t("Dialog.Modifiers.TestPanel.Description")}
+        title={t("Dialog.Modifiers.Editor.TestPanel.Title")}
+        description={t("Dialog.Modifiers.Editor.TestPanel.Description")}
       />
     </div>
   )
