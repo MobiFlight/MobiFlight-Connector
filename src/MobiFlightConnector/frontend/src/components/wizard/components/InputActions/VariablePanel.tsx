@@ -11,6 +11,7 @@ import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
 import { Card, CardContent } from "@/components/ui/card"
 export type VariablePanelProps = {
   variant: "summary" | "details"
+  triggerType: "input" | "output"
   currentVariable?: MobiFlightVariable
   onVariableChange: (variable: MobiFlightVariable) => void
 }
@@ -25,6 +26,7 @@ const defaultVariable = {
 export const VariablePanel = ({
   variant,
   currentVariable,
+  triggerType,
   onVariableChange,
 }: VariablePanelProps) => {
   const { t } = useTranslation()
@@ -158,7 +160,7 @@ export const VariablePanel = ({
                 )}
               />
             </div>
-            {variable && (
+            {triggerType === "input" && variable && (
               <div className="flex flex-col gap-2">
                 <Label>
                   {t(

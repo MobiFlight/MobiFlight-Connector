@@ -9,15 +9,18 @@ import { IconExclamationCircle } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 
 export interface XplanePresetDetailsProps {
+  variant: "input" | "output"
   preset: XplanePreset | null
   config: XplaneInputAction | null
   onConfigChange: (config: XplaneInputAction) => void
 }
 
-const CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = ["DataRef", "Command"]
+const INPUT_CODE_TYPE_OPTIONS: ("DataRef" | "Command")[] = ["DataRef", "Command"]
+const OUTPUT_CODE_TYPE_OPTIONS: ("DataRef")[] = ["DataRef"]
 
 const XplanePresetDetails = ({
   preset,
+  variant,
   config,
   onConfigChange,
 }: XplanePresetDetailsProps) => {
@@ -63,7 +66,7 @@ const XplanePresetDetails = ({
                 )}
               </Label>
               <ComboBox
-                items={CODE_TYPE_OPTIONS}
+                items={variant === "input" ? INPUT_CODE_TYPE_OPTIONS : OUTPUT_CODE_TYPE_OPTIONS}
                 selected={
                   (config?.InputType as "DataRef" | "Command") ?? undefined
                 }
@@ -109,7 +112,7 @@ const XplanePresetDetails = ({
               </div>
             </div>
           </div>
-          {config?.InputType === "DataRef" && (
+          {(variant == "input" && config?.InputType === "DataRef") && (
             <div className="flex flex-col gap-1">
               <Label htmlFor="value">
                 {t("Dialog.InputConfigWizard.InputActions.Xplane.ValueLabel")}

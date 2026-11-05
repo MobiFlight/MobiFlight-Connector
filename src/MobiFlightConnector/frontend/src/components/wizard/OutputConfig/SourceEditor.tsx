@@ -29,14 +29,18 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
 
   return (
     <div className="flex flex-col gap-4" data-testid="source-editor">
-      <div className="flex flex-col gap-1">
-        <div className="text-lg font-semibold">
-          {t("Dialog.ConfigWizard.Source.Title")}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.ConfigWizard.Source.Description")}
-        </div>
-      </div>
+      <Card>
+        <CardContent className="pt-4">
+          <div className="flex flex-col">
+            <div className="text-lg font-semibold">
+              {t("Dialog.ConfigWizard.Source.Title")}
+            </div>
+            <div className="text-muted-foreground text-sm">
+              {t("Dialog.ConfigWizard.Source.Description")}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
       <Card>
         <CardContent className="pt-4">
           <div className="flex flex-col gap-4">
@@ -79,6 +83,7 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
       {selectedSourceType?.value === "VariableSource" && (
         <VariablePanel
           variant="details"
+          triggerType="output"
           currentVariable={(source as VariableSource).MobiFlightVariable}
           onVariableChange={(variable) => {
             onSourceChange({

@@ -46,6 +46,7 @@ const XplaneInputActionPanel = ({
         }
       />
       <XplanePresetDetails
+        variant="input"
         preset={preset}
         config={config}
         onConfigChange={onConfigChange}
