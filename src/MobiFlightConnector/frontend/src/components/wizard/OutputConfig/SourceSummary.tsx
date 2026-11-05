@@ -5,6 +5,7 @@ import { FsuipcOffsetSummary } from "@/components/wizard/components/InputActions
 import MsfsSourcePanel from "@/components/wizard/OutputConfig/Sources/MsfsSourcePanel"
 import { Badge } from "@/components/ui/badge"
 import { IconEdit, IconTrash } from "@tabler/icons-react"
+import XplaneSourcePanel from "@/components/wizard/OutputConfig/Sources/XplaneSourcePanel"
 
 export interface SourceSummaryProps {
   source: Source
@@ -24,6 +25,7 @@ const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
           {source.Type}
         </Badge>
       </div>
+      
       {source.Type === "SimConnectSource" && (
         <MsfsSourcePanel
           variant="summary"
@@ -33,12 +35,11 @@ const SourceSummary = ({ source, onEdit, onRemove }: SourceSummaryProps) => {
       )}
 
       {source.Type === "XplaneSource" && (
-        <div className="flex flex-row items-center justify-between grow">
-          <div className="flex flex-col gap-1">
-            <Label>Code</Label>
-            <div>{source.XplaneDataRef?.Path}</div>
-          </div>
-        </div>
+        <XplaneSourcePanel
+          variant="summary"
+          source={source}
+          onSourceChange={() => {}}
+        />
       )}
 
       {source.Type === "VariableSource" && (

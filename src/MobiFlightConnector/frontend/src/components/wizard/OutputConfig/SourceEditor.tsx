@@ -3,6 +3,7 @@ import { FsuipcOffsetPanel } from "@/components/wizard/components/InputActions/F
 import { VariablePanel } from "@/components/wizard/components/InputActions/VariablePanel"
 import MsfsSourcePanel from "@/components/wizard/OutputConfig/Sources/MsfsSourcePanel"
 import ProSimSourcePanel from "@/components/wizard/OutputConfig/Sources/ProSimSourcePanel"
+import XplaneSourcePanel from "@/components/wizard/OutputConfig/Sources/XplaneSourcePanel"
 import SourceTypeComboBox from "@/components/wizard/OutputConfig/SourceTypeComboBox"
 import { SourceTypeOptions } from "@/lib/configWizard"
 import {
@@ -11,6 +12,7 @@ import {
   SimConnectSource,
   Source,
   VariableSource,
+  XplaneSource,
 } from "@/types/config"
 import { SourceDefaults } from "@/types/defaults"
 import { useTranslation } from "react-i18next"
@@ -118,7 +120,11 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
         />
       )}
       {selectedSourceType?.value === "XplaneSource" && (
-        <div>Xplane options</div>
+        <XplaneSourcePanel
+          variant="details"
+          source={source as XplaneSource}
+          onSourceChange={onSourceChange}
+        />
       )}
     </div>
   )
