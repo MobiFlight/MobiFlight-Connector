@@ -1,15 +1,21 @@
 import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
+import MsfsPresetSummary from "@/components/wizard/components/MsfsPresetSummary"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { SimConnectSource } from "@/types/config"
 import { useQuery } from "@tanstack/react-query"
 
 export interface MsfsSourcePanelProps {
+  variant: "summary" | "details"
   source: SimConnectSource
   onSourceChange: (source: SimConnectSource) => void
 }
 
-const MsfsSourcePanel = ({ source, onSourceChange }: MsfsSourcePanelProps) => {
+const MsfsSourcePanel = ({
+  variant,
+  source,
+  onSourceChange,
+}: MsfsSourcePanelProps) => {
   const { data: presets = [], isLoading } = useQuery({
     queryKey: ["msfs-presets"],
     queryFn: () => fetchHubHopPresets("msfs"),
@@ -21,6 +27,20 @@ const MsfsSourcePanel = ({ source, onSourceChange }: MsfsSourcePanelProps) => {
     presets.find(
       (p) => p.id === (source as SimConnectSource)?.SimConnectValue.UUID,
     ) ?? null
+
+  if (variant === "summary") {
+    return (
+      <MsfsPresetSummary
+        preset={preset}
+        config={
+          source?.SimConnectValue
+            ? { Command: source.SimConnectValue.Value }
+            : null
+        }
+      />
+    )
+  }
+
   return (
     <>
       <MsfsPresetPanel

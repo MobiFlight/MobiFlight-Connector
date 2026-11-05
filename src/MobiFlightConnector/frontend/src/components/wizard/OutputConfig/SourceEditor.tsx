@@ -69,6 +69,7 @@ const SourceEditor = ({ source, onSourceChange }: SourceEditorProps) => {
       </Card>
       {selectedSourceType?.value === "SimConnectSource" && (
         <MsfsSourcePanel
+          variant="details"
           source={source as SimConnectSource}
           onSourceChange={onSourceChange}
         />
