@@ -492,7 +492,7 @@ const ConfigWizard = ({
               <Button
                 onClick={() => closeDetailView(false)}
               >
-                {t("Dialog.General.ApplyChanges")}
+                {t("Dialog.General.Done")}
               </Button>
             </DrawerFooter>
           </DrawerContent>
