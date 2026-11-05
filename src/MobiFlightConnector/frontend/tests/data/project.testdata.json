@@ -184,7 +184,7 @@
           "Device": {
             "Pin": "LED 2",
             "Brightness": 255,
-            "PWM": false,
+            "PwmMode": false,
             "Name": "LED 2",
             "Type": "Output"
           },
