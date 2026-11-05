@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import ConfigWizardTestPanel from "@/components/wizard/components/ConfigWizardTestPanel"
 import ModifierEditor from "@/components/wizard/Modifier/ModifierEditor"
 import ModifierSummary from "@/components/wizard/Modifier/ModifierSummary"
 import { cn } from "@/lib/utils"
@@ -71,15 +72,22 @@ const ModifiersPanel = ({
       </CardContent>
     </Card>
   ) : (
-    <ModifierEditor
-      modifiers={modifiers}
-      onModifierChange={(updatedModifiers) =>
-        onConfigChange({
-          ...configItem,
-          Modifiers: { Items: updatedModifiers },
-        })
-      }
-    />
+    <div className="flex flex-col gap-4 grow">
+      <ModifierEditor
+        modifiers={modifiers}
+        onModifierChange={(updatedModifiers) =>
+          onConfigChange({
+            ...configItem,
+            Modifiers: { Items: updatedModifiers },
+          })
+        }
+      />
+      <ConfigWizardTestPanel 
+        configItem={configItem} 
+        title={t("Dialog.Modifiers.TestPanel.Title")}
+        description={t("Dialog.Modifiers.TestPanel.Description")}
+      />
+    </div>
   )
 }
 export default ModifiersPanel

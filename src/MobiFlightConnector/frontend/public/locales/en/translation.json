@@ -481,7 +481,11 @@
         "NoModifiers": "No modifiers defined.",
         "DeleteModifier": "Remove modifier",
         "MoveUp": "Move up modifier",
-        "MoveDown": "Move down modifier"
+        "MoveDown": "Move down modifier",
+        "TestPanel": {
+          "Title": "Test modifiers",
+          "Description": "Test the functionality of the configured modifiers."
+        }
       }
     },
     "ConfigWizard": {
@@ -511,7 +515,11 @@
       },
       "Device": {
         "Title": "Specify output device settings",
-        "Description": "Configure the settings for this output device configuration."
+        "Description": "Configure the settings for this output device configuration.",
+        "TestPanel": {
+          "Title": "Step - Test output device",
+          "Description": "Test the functionality of this output device configuration."
+        }
       }
     },
     "InputConfigWizard": {

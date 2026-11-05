@@ -6,13 +6,13 @@ import SourceSummary from "./SourceSummary"
 
 export type OutputTriggerCardProps = {
   configItem: IConfigItem
-  // setConfigItem: (item: IConfigItem) => void
+  setConfigItem: (item: IConfigItem) => void
   navigateToDetailView: (view: string, size?: "small" | "large") => void
 }
 
 const OutputTriggerCard = ({
   configItem,
-  // setConfigItem,
+  setConfigItem,
   navigateToDetailView,
 }: OutputTriggerCardProps) => {
   const { t } = useTranslation()
@@ -44,7 +44,11 @@ const OutputTriggerCard = ({
             </Button>
           </div>
         ) : (
-          <SourceSummary source={outputConfigItem.Source} onEdit={() => navigateToDetailView("source")} />
+          <SourceSummary
+            source={outputConfigItem.Source}
+            onEdit={() => navigateToDetailView("source")}
+            onRemove={() => setConfigItem({ ...configItem as OutputConfigItem, Source: undefined } as IConfigItem)}
+          />
         )}
       </CardContent>
     </Card>
