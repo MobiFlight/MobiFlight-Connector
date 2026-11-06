@@ -8,7 +8,6 @@ import {
   OutputDeviceConfig,
   ProSimSource,
   ServoConfig,
-  ShiftRegisterConfig,
   SimConnectSource,
   StepperConfig,
   VariableSource,
@@ -75,8 +74,6 @@ export const OutputDeviceConfigDefaults = {
         return OutputDeviceConfigDefaults.createServoConfig(name)
       case "Stepper":
         return OutputDeviceConfigDefaults.createStepperConfig(name, capability!)
-      case "ShiftRegister":
-        return OutputDeviceConfigDefaults.createShiftRegisterConfig(name)
       case "CustomDevice":
         return OutputDeviceConfigDefaults.createCustomDeviceConfig(name)
       default:
@@ -130,14 +127,6 @@ export const OutputDeviceConfigDefaults = {
     Acceleration: stepperProfile.Acceleration,
     Speed: stepperProfile.Speed,
   }},
-  createShiftRegisterConfig: (name: string): ShiftRegisterConfig => ({
-    Type: "ShiftRegister",
-    Name: name,
-    Address: name,
-    Pin: "",
-    Brightness: 255,
-    PWM: false,
-  }),
   createCustomDeviceConfig: (name: string): CustomDeviceConfig => ({
     Type: "CustomDevice",
     Name: name,
