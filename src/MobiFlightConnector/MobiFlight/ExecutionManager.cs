@@ -750,6 +750,13 @@ namespace MobiFlight
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandAddConfigItem>((message) =>
             {
+                // A ConfigItem must belong to an existing profile.
+                if (Project?.ConfigFiles == null || ActiveConfigIndex < 0 || ActiveConfigIndex >= Project.ConfigFiles.Count)
+                {
+                    Log.Instance.log($"Cannot add ConfigItem: no active profile.", LogSeverity.Warn);
+                    return;
+                }
+
                 IConfigItem item = new OutputConfigItem()
                 {
                     Source = SourceFactory.Create(
