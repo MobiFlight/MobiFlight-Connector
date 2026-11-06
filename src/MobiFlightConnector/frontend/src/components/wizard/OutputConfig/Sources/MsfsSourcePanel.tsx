@@ -1,5 +1,5 @@
+import PresetPanel from "@/components/wizard/common/PresetPanel"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
-import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { SimConnectSource } from "@/types/config"
@@ -39,8 +39,9 @@ const MsfsSourcePanel = ({
 
   return (
     <>
-      <MsfsPresetPanel
-        variant="output"
+      <PresetPanel
+        sim="msfs"
+        mode="output"
         isLoading={isLoading}
         selectedPresetId={preset?.id ?? null}
         setSelectedPreset={(preset) => {

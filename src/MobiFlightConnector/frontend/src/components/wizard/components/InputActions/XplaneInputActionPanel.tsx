@@ -1,10 +1,10 @@
-import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
 import { useQuery } from "@tanstack/react-query"
 import XplanePresetDetails from "@/components/wizard/components/InputActions/XplanePresetDetails"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
+import PresetPanel from "@/components/wizard/common/PresetPanel"
 
 export type XplaneInputActionPanelProps = {
   variant: "summary" | "details"
@@ -31,10 +31,11 @@ const XplaneInputActionPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <XplanePresetPanel
-        variant="input"
+      <PresetPanel
+        sim="xplane"
+        mode="input"
         isLoading={isLoading}
-        selectedPath={config?.Path ?? null}
+        selectedPresetId={config?.Path ?? null}
         setSelectedPreset={(preset) =>
           onConfigChange({
             ...(config as XplaneInputAction),

@@ -13,58 +13,85 @@ import { IconX } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import LoadingSpinner from "../LoadingSpinner"
+import LoadingSpinner from "@/components/wizard/components/LoadingSpinner"
 import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 
-export type XplanePresetPanelProps = {
-  variant: "input" | "output"
-  isLoading: boolean
-  selectedPath: string | null
-  setSelectedPreset: (preset: XplanePreset | Preset | null) => void
+type PresetSim = "msfs" | "xplane"
+type PresetPanelMode = "input" | "output"
+type PresetType = "input" | "input (potentiometer)" | "output" | "inputoutput"
+
+type PresetSettings = {
+  presetTypes: Record<PresetPanelMode, PresetType[]>
+  getKey: (preset: Preset | XplanePreset) => string
 }
-const XplanePresetPanel = ({
-  variant,
+
+const presetPanelSettings: Record<"msfs" | "xplane", PresetSettings> = {
+  msfs: {
+    presetTypes: {
+      input: ["input", "input (potentiometer)"],
+      output: ["output"],
+    },
+    getKey: (preset) => preset.id,
+  },
+  xplane: {
+    presetTypes: {
+      input: ["input", "inputoutput", "input (potentiometer)"],
+      output: ["output"],
+    },
+    getKey: (preset) => preset.code,
+  },
+}
+
+export const useHubHopPresets = (sim: PresetSim) => {
+  return useQuery({
+    queryKey: [`${sim}-presets`],
+    queryFn: () => fetchHubHopPresets(sim),
+    staleTime: Infinity,
+  })
+}
+
+export type MsfsPresetPanelProps = {
+  sim: PresetSim
+  mode: "input" | "output"
+  isLoading: boolean
+  selectedPresetId: string | null
+  setSelectedPreset: (preset: Preset | XplanePreset | null) => void
+}
+const PresetPanel = ({
+  sim,
+  mode,
   isLoading,
-  selectedPath,
+  selectedPresetId,
   setSelectedPreset,
-}: XplanePresetPanelProps) => {
+}: MsfsPresetPanelProps) => {
   const { t } = useTranslation()
   const { project } = useProjectStore()
   const [favoritesOnly, setFavoritesOnly] = useState(true)
 
-  const validPresetTypes =
-    variant === "input"
-      ? ["input", "inputoutput", "input (potentiometer)"]
-      : ["output", "inputoutput"]
+  const { presetTypes, getKey } = presetPanelSettings[sim]
+  const validPresetTypes = presetTypes[mode]
 
-  const { data: presets = [] } = useQuery({
-    queryKey: ["xplane-presets"],
-    queryFn: () => fetchHubHopPresets("xplane") as Promise<XplanePreset[]>,
-    staleTime: Infinity,
-  })
+  const { data: presets = [] } = useHubHopPresets(sim)
 
-  const projectAircraftFilter = (p: XplanePreset) =>
+
+  const projectAircraftFilter = (p: Preset) =>
     (project?.Aircraft?.length ?? 0) > 0
       ? project!.Aircraft!.some(
           (a: AircraftInfo) => a.Name === p.aircraft && a.Vendor === p.vendor,
         )
       : true
-
   const validPresets = presets.filter(
-    (p: XplanePreset) =>
-      validPresetTypes.includes(p.presetType.toLowerCase()) &&
+    (p: Preset) =>
+      validPresetTypes.includes(p.presetType.toLowerCase() as PresetType) &&
       (favoritesOnly ? projectAircraftFilter(p) : true),
   )
-
-  const selectedPreset = validPresets.find((p) => p.code === selectedPath)
-
+  const selectedPreset = validPresets.find((p) => getKey(p) === selectedPresetId)
   const [filter, setFilter] = useState({
     vendor: selectedPreset?.vendor || "",
     aircraft: selectedPreset?.aircraft || "",
     system: selectedPreset?.system || "",
     search: "",
   })
-
   const filteredPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
@@ -72,28 +99,24 @@ const XplanePresetPanel = ({
       (filter.system ? p.system === filter.system : true) &&
       filterPresetByText(p, filter.search),
   )
-
   const filteredCategoryPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
       filterPresetByText(p, filter.search),
   )
-
   const filteredVendorPresets = validPresets.filter(
     (p) =>
       (filter.system ? p.system === filter.system : true) &&
       (filter.aircraft ? p.aircraft === filter.aircraft : true) &&
       filterPresetByText(p, filter.search),
   )
-
   const filteredAircraftPresets = validPresets.filter(
     (p) =>
       (filter.vendor ? p.vendor === filter.vendor : true) &&
       (filter.system ? p.system === filter.system : true) &&
       filterPresetByText(p, filter.search),
   )
-
   const categories = [
     ...new Set([
       ...filteredCategoryPresets.map((p) => p.system),
@@ -118,8 +141,12 @@ const XplanePresetPanel = ({
       <CardContent className="flex flex-col gap-4 pt-4">
         <div className="flex flex-row items-end justify-between">
           <SectionHeadline
-            title={t("Dialog.InputConfigWizard.InputActions.Common.Preset.Title")}
-            description={t("Dialog.InputConfigWizard.InputActions.Common.Preset.Description")}
+            title={t(
+              "Dialog.InputConfigWizard.InputActions.Common.Preset.Title",
+            )}
+            description={t(
+              "Dialog.InputConfigWizard.InputActions.Common.Preset.Description",
+            )}
           />
           <div className="flex flex-row items-center gap-2">
             <Switch
@@ -133,6 +160,7 @@ const XplanePresetPanel = ({
             </Label>
           </div>
         </div>
+
         <div className="flex flex-col gap-1">
           <div className="grid grid-cols-4 gap-2">
             <Input
@@ -236,8 +264,8 @@ const XplanePresetPanel = ({
           ) : (
             <VirtualPresetList
               presets={filteredPresets}
-              selectedId={selectedPath}
-              getPresetId={(preset) => preset.code}
+              selectedId={selectedPresetId}
+              getPresetId={(preset) => preset.id}
               setSelectedPreset={setSelectedPreset}
             />
           )}
@@ -246,5 +274,4 @@ const XplanePresetPanel = ({
     </Card>
   )
 }
-
-export default XplanePresetPanel
+export default PresetPanel
