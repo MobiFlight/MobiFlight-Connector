@@ -37,6 +37,7 @@ import { useVariableStore } from "@/stores/variableStore"
 import { useProSimDataRefStore } from "@/stores/prosimDataRefStore"
 import { useLogsStore } from "@/stores/logsStore"
 import { useQueryClient } from "@tanstack/react-query"
+import { useHistoryStore } from "@/stores/historyStore"
 
 export const useBackendStateAppMessages = () => {
   const [queryParameters] = useSearchParams()
@@ -61,11 +62,11 @@ export const useBackendStateAppMessages = () => {
 
   const queryClient = useQueryClient()
 
-  const setCanUndoConfigList = useProjectStore(
+  const setCanUndoConfigList = useHistoryStore(
     (state) => state.setCanUndoConfigList,
   )
 
-  const setConfigListUndoHistory = useProjectStore(
+  const setConfigListUndoHistory = useHistoryStore(
     (state) => state.setConfigListUndoHistory,
   )
 

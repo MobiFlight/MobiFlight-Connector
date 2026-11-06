@@ -20,8 +20,6 @@ interface ProjectState {
   updateConfigItem: (index: number, item: IConfigItem, upsert: boolean) => void // Add this
   clearProject: () => void
   setControllerBindings: (bindings: ControllerBinding[]) => void
-  canUndoConfigList: boolean
-  setCanUndoConfigList: (canUndo: boolean) => void
   actions: {
     // Add the drag-and-drop functions
     moveItemsBetweenConfigs: (
@@ -38,9 +36,6 @@ interface ProjectState {
       originalPositions: Map<string, number>,
     ) => void
   }
-  configListUndoHistory: string[]
-  configListUndoHistoryStart: number
-  setConfigListUndoHistory: (history: string[], historyStarg: number) => void
 }
 
 export const useProjectStore = create<ProjectState>((set) => ({
@@ -48,7 +43,6 @@ export const useProjectStore = create<ProjectState>((set) => ({
   hasChanged: false,
   saveStatus: "idle",
   activeConfigFileIndex: 0,
-  canUndoConfigList: false,
 
   setProject: (project) => set({ project: project }),
 
@@ -75,8 +69,6 @@ export const useProjectStore = create<ProjectState>((set) => ({
       }
       return { project: newProject }
     }),
-
-  setCanUndoConfigList: (canUndo) => set({ canUndoConfigList: canUndo }),
 
   updateConfigItems: (index: number, items: IConfigItem[]) =>
     set((state) => {
@@ -275,13 +267,6 @@ export const useProjectStore = create<ProjectState>((set) => ({
         }
       }),
   },
-  configListUndoHistory: [],
-  configListUndoHistoryStart: 0,
-  setConfigListUndoHistory: (history, historyStart) =>
-    set({
-      configListUndoHistory: history,
-      configListUndoHistoryStart: historyStart,
-    }),
 }))
 
 export const useProjectStoreActions = () =>

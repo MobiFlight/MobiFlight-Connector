@@ -23,6 +23,7 @@ import { useProjectModal } from "@/lib/hooks/useProjectModal"
 import { ProjectInfo } from "@/types/project"
 import { useModal } from "@/lib/hooks/useModal"
 import { CommandUndoConfigList } from "@/types/commands"
+import { useHistoryStore } from "@/stores/historyStore"
 import HistoryControls from "@/components/wizard/components/HistoryControls"
 
 export type ProjectNameLabelProps = {
@@ -31,13 +32,12 @@ export type ProjectNameLabelProps = {
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
+  const { project, hasChanged } = useProjectStore()
   const {
-    project,
-    hasChanged,
     canUndoConfigList,
     configListUndoHistory,
     configListUndoHistoryStart,
-  } = useProjectStore()
+  } = useHistoryStore()
   const { publish } = messageExchange
   const label = project?.Name ?? "Untitled Project"
   const [optimisticLabel, setOptimisticLabel] = useState(label)

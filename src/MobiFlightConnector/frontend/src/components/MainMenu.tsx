@@ -32,11 +32,13 @@ import {
 import IconBrandHubHopLogo from "@/components/icons/IconBrandHubHopLogo"
 import { useLocation } from "react-router"
 import { useEffect } from "react"
+import { useHistoryStore } from "@/stores/historyStore"
 
 export const MainMenu = () => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
-  const { hasChanged, canUndoConfigList } = useProjectStore()
+  const { hasChanged } = useProjectStore()
+  const { canUndoConfigList } = useHistoryStore()
   const location = useLocation()
   const { publish } = messageExchange
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
