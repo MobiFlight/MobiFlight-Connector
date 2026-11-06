@@ -318,14 +318,6 @@ export interface StepperConfig extends OutputDeviceConfig {
   Speed: number
 }
 
-export interface ShiftRegisterConfig extends OutputDeviceConfig {
-  Type: "ShiftRegister"
-  Address: string
-  Pin: string
-  Brightness: number
-  PWM: boolean
-}
-
 export interface CustomDeviceConfig extends OutputDeviceConfig {
   Type: "CustomDevice"
   CustomType: string
