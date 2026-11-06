@@ -11,6 +11,7 @@ import { IconPlus } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { ModifierItem } from "@/components/wizard/Modifier/ModifierItem"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 
 type ModifierEditorProps = {
   modifiers: Modifier[]
@@ -83,12 +84,10 @@ const ModifierEditor = ({
     <div className="flex grow flex-col gap-4" data-testid="modifier-editor">
       <div className="flex flex-row justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold">
-            {t("Dialog.Modifiers.Editor.Title")}
-          </div>
-          <div className="text-muted-foreground text-sm">
-            {t("Dialog.Modifiers.Editor.Description")}
-          </div>
+          <SectionHeadline
+            title={t("Dialog.Modifiers.Editor.Title")}
+            description={t("Dialog.Modifiers.Editor.Description")}
+          />
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild className="self-end">

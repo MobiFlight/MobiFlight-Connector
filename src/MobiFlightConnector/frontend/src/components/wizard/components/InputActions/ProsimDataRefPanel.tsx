@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
 import messageExchange from "@/lib/messageExchange"
 import { cn } from "@/lib/utils"
 import {
@@ -51,14 +52,10 @@ const ProSimDataRefPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">
-          {t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Title")}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Description")}
-        </div>
-      </div>
+      <SectionHeadline
+        title={t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Title")}
+        description={t("Dialog.InputConfigWizard.InputActions.ProSim.Preset.Description")}
+      />
       {filteredPresets.length > 0 ? (
         <div className="flex flex-col gap-4">
           <Input

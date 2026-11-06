@@ -5,7 +5,6 @@ import {
   OutputConfig,
   OutputDeviceConfig,
   ServoConfig,
-  ShiftRegisterConfig,
   StepperConfig,
 } from "@/types/config"
 import { Controller } from "@/types/controller"
@@ -17,7 +16,6 @@ import LedModulePanel from "@/components/wizard/OutputConfig/OutputDevices/LedMo
 import LcdDisplayPanel from "@/components/wizard/OutputConfig/OutputDevices/LcdDisplayPanel"
 import ServoPanel from "@/components/wizard/OutputConfig/OutputDevices/ServoPanel"
 import StepperPanel from "@/components/wizard/OutputConfig/OutputDevices/StepperPanel"
-import ShiftRegisterPanel from "@/components/wizard/OutputConfig/OutputDevices/ShiftRegisterPanel"
 
 export interface OutputDeviceSummaryProps {
   config: OutputDeviceConfig
@@ -100,21 +98,6 @@ const OutputDeviceSummary = ({
         <StepperPanel
           variant="summary"
           config={config as StepperConfig}
-          controller={controller}
-        />
-        <Button size={"sm"} variant="ghost" onClick={onEdit}>
-          <IconEdit size={16} />
-        </Button>
-      </div>
-    )
-  }
-
-  if (config.Type == "ShiftRegister") {
-    return (
-      <div className="flex grow flex-row items-center gap-2">
-        <ShiftRegisterPanel
-          variant="summary"
-          config={config as ShiftRegisterConfig}
           controller={controller}
         />
         <Button size={"sm"} variant="ghost" onClick={onEdit}>

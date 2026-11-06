@@ -3,11 +3,12 @@ import { OutputConfig } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 
 export interface OutputPanelProps {
   variant: "summary" | "details"
@@ -82,77 +83,73 @@ const OutputPanel = ({
     devices.filter((device) => device.Capabilities?.Pwm).length > 0
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4 pt-4">
+    <WizardSection>
+      <SectionHeadline
+        title="Step 2 - Output settings"
+        description="Select one or more pins and configure the brightness."
+      />
+      <div className="flex flex-col gap-2">
+        <Label>Pins</Label>
+        <div className="grid grid-cols-4 gap-2">
+          {pins.map((pin) => (
+            <div key={pin} className="flex flex-row items-center gap-2">
+              <Checkbox
+                id={`output-pin-${pin}`}
+                checked={selectedPins.includes(pin)}
+                onCheckedChange={(checked) => togglePin(pin, !!checked)}
+              />
+              <Label htmlFor={`output-pin-${pin}`}>{getPinLabel(pin)}</Label>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Separator />
+      <div className="flex flex-row items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold">Step 2 - Output settings</div>
+          <Label htmlFor="output-pwm-mode">Dynamic brightness</Label>
+          {isDimmable ? (
+            <span className="text-muted-foreground text-sm">
+              output intensity is controlled by current value ($)
+            </span>
+          ) : (
+            <div className="text-muted-foreground text-sm">
+              No dimmable pins available.
+            </div>
+          )}
+        </div>
+        <Switch
+          disabled={!isDimmable}
+          id="output-pwm-mode"
+          checked={config.PwmMode}
+          onCheckedChange={(checked) =>
+            onChange?.({ ...config, PwmMode: !!checked })
+          }
+        />
+      </div>
+      <div
+        className={`flex flex-row items-center justify-between gap-2 ${config.PwmMode ? "opacity-50" : ""}`}
+        aria-disabled={config.PwmMode}
+      >
+        <div className="flex w-1/2 flex-col gap-1">
+          <Label>Static brightness ({config.Brightness})</Label>
           <div className="text-muted-foreground text-sm">
-            Select one or more pins and configure the brightness.
+            Set the static brightness for all values other than 0.
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <Label>Pins</Label>
-          <div className="grid grid-cols-4 gap-2">
-            {pins.map((pin) => (
-              <div key={pin} className="flex flex-row items-center gap-2">
-                <Checkbox
-                  id={`output-pin-${pin}`}
-                  checked={selectedPins.includes(pin)}
-                  onCheckedChange={(checked) => togglePin(pin, !!checked)}
-                />
-                <Label htmlFor={`output-pin-${pin}`}>{getPinLabel(pin)}</Label>
-              </div>
-            ))}
-          </div>
-        </div>
-        <Separator />
-        <div className="flex flex-row items-center justify-between gap-2">
-          <div className="flex flex-col gap-1">
-            <Label htmlFor="output-pwm-mode">Dynamic brightness</Label>
-            {isDimmable ? (
-              <span className="text-muted-foreground text-sm">
-                output intensity is controlled by current value ($)
-              </span>
-            ) : (
-              <div className="text-muted-foreground text-sm">
-                No dimmable pins available.
-              </div>
-            )}
-          </div>
-          <Switch
-            disabled={!isDimmable}
-            id="output-pwm-mode"
-            checked={config.PwmMode}
-            onCheckedChange={(checked) =>
-              onChange?.({ ...config, PwmMode: !!checked })
+        <div className="flex w-1/2">
+          <Slider
+            min={0}
+            max={255}
+            step={1}
+            disabled={config.PwmMode}
+            value={[config.Brightness]}
+            onValueChange={([brightness]) =>
+              onChange?.({ ...config, Brightness: brightness })
             }
           />
         </div>
-        <div
-          className={`flex flex-row items-center justify-between gap-2 ${config.PwmMode ? "opacity-50" : ""}`}
-          aria-disabled={config.PwmMode}
-        >
-          <div className="flex w-1/2 flex-col gap-1">
-            <Label>Static brightness ({config.Brightness})</Label>
-            <div className="text-muted-foreground text-sm">
-              Set the static brightness for all values other than 0.
-            </div>
-          </div>
-          <div className="flex w-1/2">
-            <Slider
-              min={0}
-              max={255}
-              step={1}
-              disabled={config.PwmMode}
-              value={[config.Brightness]}
-              onValueChange={([brightness]) =>
-                onChange?.({ ...config, Brightness: brightness })
-              }
-            />
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </WizardSection>
   )
 }
 

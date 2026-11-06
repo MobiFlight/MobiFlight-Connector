@@ -3,11 +3,12 @@ import { LedModuleConfig } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import ComboBox from "@/components/ComboBox"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
 import { Separator } from "@/components/ui/separator"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 
 type Option = { label: string; value: string }
 
@@ -92,132 +93,126 @@ const LedModulePanel = ({
     )
 
     return (
-      <Card>
-        <CardContent className="flex flex-col gap-4 pt-4">
-          <div className="flex flex-col gap-1">
-            <div className="text-lg font-semibold">
-              Step 2 - 7-Segment settings
-            </div>
-            <div className="text-muted-foreground text-sm">
-              Select the module and configure which digits show the value.
-            </div>
+      <WizardSection>
+        <SectionHeadline
+          title="Step 2 - 7-Segment settings"
+          description="Select the module and configure which digits show the value."
+        />
+        <div className="flex flex-row gap-4">
+          <div className="flex flex-col gap-2">
+            <Label>Module</Label>
+            <OutputDeviceComboBox
+              devices={devices}
+              deviceType="LedModule"
+              selectedName={config.DisplayLedAddress}
+              onChange={(address) =>
+                onChange?.({
+                  ...config,
+                  DisplayLedAddress: address,
+                  Name: address,
+                })
+              }
+            />
           </div>
-          <div className="flex flex-row gap-4">
-            <div className="flex flex-col gap-2">
-              <Label>Module</Label>
-              <OutputDeviceComboBox
-                devices={devices}
-                deviceType="LedModule"
-                selectedName={config.DisplayLedAddress}
-                onChange={(address) =>
+          <div className="flex flex-col gap-2">
+            <Label>Digits</Label>
+            <OptionComboBox
+              options={moduleSizeOptions}
+              value={`${currentModuleSize}`}
+              onChange={updateModuleSize}
+            />
+          </div>
+        </div>
+        <Separator />
+        <div className="flex flex-col gap-2">
+          <Label>Use digits</Label>
+          <div className="text-muted-foreground flex flex-row gap-3 text-xs">
+            {digitIndexes.map((digit) => (
+              <span key={digit} className="w-4 text-center">
+                {Number(digit) + 1}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-row gap-3">
+            {digitIndexes.map((digit) => (
+              <Checkbox
+                key={digit}
+                aria-label={`Digit ${digit}`}
+                checked={config.DisplayLedDigits.includes(digit)}
+                onCheckedChange={(checked) =>
                   onChange?.({
                     ...config,
-                    DisplayLedAddress: address,
-                    Name: address,
+                    DisplayLedDigits: toggle(
+                      config.DisplayLedDigits,
+                      digit,
+                      !!checked,
+                    ),
                   })
                 }
               />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Digits</Label>
-              <OptionComboBox
-                options={moduleSizeOptions}
-                value={`${currentModuleSize}`}
-                onChange={updateModuleSize}
-              />
-            </div>
+            ))}
           </div>
-          <Separator />
-          <div className="flex flex-col gap-2">
-            <Label>Use digits</Label>
-            <div className="text-muted-foreground flex flex-row gap-3 text-xs">
-              {digitIndexes.map((digit) => (
-                <span key={digit} className="w-4 text-center">
-                  {Number(digit) + 1}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-row gap-3">
-              {digitIndexes.map((digit) => (
-                <Checkbox
-                  key={digit}
-                  aria-label={`Digit ${digit}`}
-                  checked={config.DisplayLedDigits.includes(digit)}
-                  onCheckedChange={(checked) =>
-                    onChange?.({
-                      ...config,
-                      DisplayLedDigits: toggle(
-                        config.DisplayLedDigits,
-                        digit,
-                        !!checked,
-                      ),
-                    })
-                  }
-                />
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Decimal points</Label>
-            <div className="flex flex-row gap-3">
-              {digitIndexes.map((digit) => (
-                <Checkbox
-                  key={digit}
-                  aria-label={`Decimal point ${digit}`}
-                  checked={config.DisplayLedDecimalPoints.includes(digit)}
-                  onCheckedChange={(checked) =>
-                    onChange?.({
-                      ...config,
-                      DisplayLedDecimalPoints: toggle(
-                        config.DisplayLedDecimalPoints,
-                        digit,
-                        !!checked,
-                      ),
-                    })
-                  }
-                />
-              ))}
-            </div>
-          </div>
-          <Separator />
-          <div className="flex flex-col gap-2">
-            <Label>Advanced options</Label>
-            <div className="text-muted-foreground text-sm">
-              Configure advanced display options for the 7-segment module.
-            </div>
-          </div>
-          <div className="flex flex-row items-center gap-4">
-            <div className="flex flex-row items-center gap-2">
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label>Decimal points</Label>
+          <div className="flex flex-row gap-3">
+            {digitIndexes.map((digit) => (
               <Checkbox
-                id="led-padding"
-                checked={config.DisplayLedPadding}
+                key={digit}
+                aria-label={`Decimal point ${digit}`}
+                checked={config.DisplayLedDecimalPoints.includes(digit)}
                 onCheckedChange={(checked) =>
-                  onChange?.({ ...config, DisplayLedPadding: !!checked })
+                  onChange?.({
+                    ...config,
+                    DisplayLedDecimalPoints: toggle(
+                      config.DisplayLedDecimalPoints,
+                      digit,
+                      !!checked,
+                    ),
+                  })
                 }
               />
-              <Label htmlFor="led-padding">Padding with</Label>
-            </div>
-            <OptionComboBox
-              options={paddingCharOptions}
-              value={config.DisplayLedPaddingChar}
-              onChange={(value) =>
-                onChange?.({ ...config, DisplayLedPaddingChar: value })
+            ))}
+          </div>
+        </div>
+        <Separator />
+        <div className="flex flex-col gap-2">
+          <Label>Advanced options</Label>
+          <div className="text-muted-foreground text-sm">
+            Configure advanced display options for the 7-segment module.
+          </div>
+        </div>
+        <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center gap-2">
+            <Checkbox
+              id="led-padding"
+              checked={config.DisplayLedPadding}
+              onCheckedChange={(checked) =>
+                onChange?.({ ...config, DisplayLedPadding: !!checked })
               }
             />
-            <Separator orientation="vertical" className="h-6" />
-            <div className="flex flex-row items-center gap-2">
-              <Checkbox
-                id="led-reverse-digits"
-                checked={config.DisplayLedReverseDigits}
-                onCheckedChange={(checked) =>
-                  onChange?.({ ...config, DisplayLedReverseDigits: !!checked })
-                }
-              />
-              <Label htmlFor="led-reverse-digits">Reverse digits</Label>
-            </div>
+            <Label htmlFor="led-padding">Padding with</Label>
           </div>
-        </CardContent>
-      </Card>
+          <OptionComboBox
+            options={paddingCharOptions}
+            value={config.DisplayLedPaddingChar}
+            onChange={(value) =>
+              onChange?.({ ...config, DisplayLedPaddingChar: value })
+            }
+          />
+          <Separator orientation="vertical" className="h-6" />
+          <div className="flex flex-row items-center gap-2">
+            <Checkbox
+              id="led-reverse-digits"
+              checked={config.DisplayLedReverseDigits}
+              onCheckedChange={(checked) =>
+                onChange?.({ ...config, DisplayLedReverseDigits: !!checked })
+              }
+            />
+            <Label htmlFor="led-reverse-digits">Reverse digits</Label>
+          </div>
+        </div>
+      </WizardSection>
     )
   }
 

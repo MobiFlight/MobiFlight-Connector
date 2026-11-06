@@ -3,11 +3,12 @@ import { StepperConfig } from "@/types/config"
 import { DeviceReference, Controller } from "@/types/controller"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import OutputDeviceComboBox from "@/components/wizard/OutputConfig/OutputDevices/OutputDeviceComboBox"
 import { Button } from "@/components/ui/button"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 
 export interface StepperPanelProps {
   variant: "summary" | "details"
@@ -32,7 +33,12 @@ const numberFields: {
   profileField?: string
 }[] = [
   { field: "InputRev", label: "Input revolution" },
-  { field: "OutputRev", label: "Output revolution", defaultProfile: true, profileField: "StepsPerRevolution" },
+  {
+    field: "OutputRev",
+    label: "Output revolution",
+    defaultProfile: true,
+    profileField: "StepsPerRevolution",
+  },
   { field: "TestValue", label: "Test value" },
   { field: "Acceleration", label: "Acceleration", defaultProfile: true },
   { field: "Speed", label: "Speed", defaultProfile: true },
@@ -49,34 +55,30 @@ const StepperPanel = ({
 
   if (variant == "details") {
     return (
-      <Card>
-        <CardContent className="flex flex-col gap-4 pt-4">
-          <div className="flex flex-col gap-1">
-            <div className="text-lg font-semibold">
-              Step 2 - Stepper settings
-            </div>
-            <div className="text-muted-foreground text-sm">
-              Select the stepper and configure how values map to its movement.
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Stepper</Label>
-            <OutputDeviceComboBox
-              devices={devices}
-              deviceType="Stepper"
-              selectedName={config.Address}
-              onChange={(address) =>
-                onChange?.({ ...config, Address: address, Name: address })
-              }
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-4">
-            {numberFields.map(({ field, label, defaultProfile, profileField }) => {
-              const profileKey = profileField ?? field.toString() as string
+      <WizardSection>
+        <SectionHeadline
+          title="Step 2 - Stepper settings"
+          description="Select the stepper and configure how values map to its movement."
+        />
+        <div className="flex flex-col gap-2">
+          <Label>Stepper</Label>
+          <OutputDeviceComboBox
+            devices={devices}
+            deviceType="Stepper"
+            selectedName={config.Address}
+            onChange={(address) =>
+              onChange?.({ ...config, Address: address, Name: address })
+            }
+          />
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          {numberFields.map(
+            ({ field, label, defaultProfile, profileField }) => {
+              const profileKey = profileField ?? (field.toString() as string)
               const profileValue = (
                 currentDevice?.Capabilities?.Profile as Record<
-                string,
-                number | boolean
+                  string,
+                  number | boolean
                 >
               )?.[profileKey]
               const fieldValue = config[field]
@@ -91,7 +93,10 @@ const StepperPanel = ({
                     type="number"
                     value={config[field]}
                     onChange={(e) =>
-                      onChange?.({ ...config, [field]: Number(e.target.value) })
+                      onChange?.({
+                        ...config,
+                        [field]: Number(e.target.value),
+                      })
                     }
                   />
                   {hasNonDefaultValue && (
@@ -107,20 +112,20 @@ const StepperPanel = ({
                   )}
                 </div>
               )
-            })}
-          </div>
-          <div className="flex flex-row items-center gap-2">
-            <Switch
-              id="stepper-compass-mode"
-              checked={config.CompassMode}
-              onCheckedChange={(checked) =>
-                onChange?.({ ...config, CompassMode: !!checked })
-              }
-            />
-            <Label htmlFor="stepper-compass-mode">Compass mode</Label>
-          </div>
-        </CardContent>
-      </Card>
+            },
+          )}
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <Switch
+            id="stepper-compass-mode"
+            checked={config.CompassMode}
+            onCheckedChange={(checked) =>
+              onChange?.({ ...config, CompassMode: !!checked })
+            }
+          />
+          <Label htmlFor="stepper-compass-mode">Compass mode</Label>
+        </div>
+      </WizardSection>
     )
   }
 

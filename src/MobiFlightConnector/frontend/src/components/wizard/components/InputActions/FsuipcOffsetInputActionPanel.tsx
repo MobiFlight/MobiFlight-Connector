@@ -6,7 +6,8 @@ import ComboBox from "@/components/ComboBox"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import CodeValueLabel from "@/components/wizard/components/CodeValueLabel"
-import { Card, CardContent } from "@/components/ui/card"
+import SectionHeadline from "@/components/wizard/common/SectionHeadline"
+import WizardSection from "@/components/wizard/common/WizardSection"
 
 export type FsuipcOffsetInputActionPanelProps = {
   variant: "summary" | "details"
@@ -261,58 +262,50 @@ const FsuipcOffsetInputActionPanel = ({
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col">
-          <div className="text-lg font-semibold">
-            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
-          </div>
+    <WizardSection>
+      <SectionHeadline
+        title={t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.Title")}
+        description={t(
+          "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description",
+        )}
+      />
+      <div className="flex flex-col gap-4">
+        <FsuipcOffsetPanel
+          fsuipc={currentConfig.FSUIPC}
+          onConfigChange={(fsuipc) =>
+            onConfigChange({
+              ...(currentConfig as FsuipcOffsetInputAction),
+              FSUIPC: fsuipc,
+            })
+          }
+        />
+
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="value">
+            {t("Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel")}
+          </Label>
+          <Input
+            className="font-mono text-sm whitespace-nowrap"
+            id="value"
+            value={currentConfig?.Value ?? ""}
+            onChange={(e) =>
+              onConfigChange({
+                ...(currentConfig as FsuipcOffsetInputAction),
+                Value: e.target.value,
+              })
+            }
+            placeholder={t(
+              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValuePlaceholder",
+            )}
+          />
           <div className="text-muted-foreground text-sm">
             {t(
-              "Dialog.InputConfigWizard.InputActions.FsuipcOffset.Description",
+              "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-4">
-          <FsuipcOffsetPanel
-            fsuipc={currentConfig.FSUIPC}
-            onConfigChange={(fsuipc) =>
-              onConfigChange({
-                ...(currentConfig as FsuipcOffsetInputAction),
-                FSUIPC: fsuipc,
-              })
-            }
-          />
-
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="value">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValueLabel",
-              )}
-            </Label>
-            <Input
-              className="font-mono text-sm whitespace-nowrap"
-              id="value"
-              value={currentConfig?.Value ?? ""}
-              onChange={(e) =>
-                onConfigChange({
-                  ...(currentConfig as FsuipcOffsetInputAction),
-                  Value: e.target.value,
-                })
-              }
-              placeholder={t(
-                "Dialog.InputConfigWizard.InputActions.FsuipcOffset.ValuePlaceholder",
-              )}
-            />
-            <div className="text-muted-foreground text-sm">
-              {t(
-                "Dialog.InputConfigWizard.InputActions.Common.SupportedPlaceholders",
-              )}
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </WizardSection>
   )
 }
 export default FsuipcOffsetInputActionPanel
