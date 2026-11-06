@@ -1,6 +1,6 @@
+import PresetPanel from "@/components/wizard/common/PresetPanel"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
 import XplanePresetDetails from "@/components/wizard/components/InputActions/XplanePresetDetails"
-import XplanePresetPanel from "@/components/wizard/components/InputActions/XplanePresetPanel"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { XplaneInputAction, XplaneSource } from "@/types/config"
 import { XplanePreset } from "@/types/preset"
@@ -43,10 +43,11 @@ const XplaneSourcePanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <XplanePresetPanel
-        variant="output"
+      <PresetPanel
+        sim="xplane"
+        mode="output"
         isLoading={isLoading}
-        selectedPath={source?.XplaneDataRef?.Path ?? null}
+        selectedPresetId={source?.XplaneDataRef?.Path ?? null}
         setSelectedPreset={(preset) =>
           onSourceChange({
             ...source,

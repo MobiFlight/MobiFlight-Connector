@@ -1,9 +1,9 @@
-import MsfsPresetPanel from "@/components/wizard/components/InputActions/MsfsPresetPanel"
 import { MsfsInputAction } from "@/types/config"
 import { fetchHubHopPresets } from "@/lib/configWizard"
 import { useQuery } from "@tanstack/react-query"
 import MsfsPresetDetails from "@/components/wizard/components/MsfsPresetDetails"
 import PresetSummary from "@/components/wizard/common/PresetSummary"
+import PresetPanel from "@/components/wizard/common/PresetPanel"
 
 export type MsfsInputActionPanelProps = {
   variant: "summary" | "details"
@@ -31,8 +31,9 @@ const MsfsInputActionPanel = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <MsfsPresetPanel
-        variant="input"
+      <PresetPanel
+        sim="msfs"
+        mode="input"
         isLoading={isLoading}
         selectedPresetId={config?.PresetId ?? null}
         setSelectedPreset={(preset) =>
