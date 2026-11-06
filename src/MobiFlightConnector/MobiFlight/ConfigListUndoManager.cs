@@ -246,8 +246,20 @@ namespace MobiFlight
             });
         }
 
-        internal bool RecordConfigListItemEditUndo(IConfigItem originalItem, ConfigFile file, int itemIndex)
+        internal bool RecordConfigListItemEditUndo(IConfigItem originalItem, ConfigFile file, int itemIndex, string change = null)
         {
+            if (change == "rename")
+            {
+                RecordItemRename(originalItem);
+                return false;
+            }
+            
+            if (change == "toggle")
+            {
+                RecordConfigListToggleUndo(new List<IConfigItem> { originalItem });
+                return false;
+            }
+
             bool isLatestCreation = false;
 
             if (_listUndoHistory.Count > 0)

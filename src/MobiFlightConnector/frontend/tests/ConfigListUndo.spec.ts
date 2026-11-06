@@ -291,8 +291,8 @@ test.describe("Config List Global Undo", () => {
         return (
           commands?.filter(
             (command) =>
-              command.key === "CommandConfigContextMenu" &&
-              command.payload.action === "toggle",
+              command.key === "CommandUpdateConfigItem" &&
+              command.payload.change === "toggle",
           ).length ?? 0
         )
       })
@@ -324,7 +324,9 @@ test.describe("Config List Global Undo", () => {
 
     expect(
       commandsBeforeApply?.filter(
-        (command) => command.key === "CommandUpdateConfigItem",
+        (command) =>
+          command.key === "CommandUpdateConfigItem" &&
+          command.payload.change == null,
       ),
     ).toHaveLength(0)
 
@@ -343,7 +345,9 @@ test.describe("Config List Global Undo", () => {
 
         return (
           commands?.filter(
-            (command) => command.key === "CommandUpdateConfigItem",
+            (command) =>
+              command.key === "CommandUpdateConfigItem" &&
+              command.payload.change == null,
           ).length ?? 0
         )
       })
@@ -352,7 +356,9 @@ test.describe("Config List Global Undo", () => {
     const commandsAfterApply = await backend.getTrackedCommands()
 
     const updateCommand = commandsAfterApply?.find(
-      (command) => command.key === "CommandUpdateConfigItem",
+      (command) =>
+        command.key === "CommandUpdateConfigItem" &&
+        command.payload.change == null,
     )
 
     expect(updateCommand?.payload.item.Name).toBe(editedName)
@@ -540,7 +546,11 @@ test.describe("Config List Global Undo", () => {
     const commands = await backend.getTrackedCommands()
 
     expect(
-      commands?.filter((command) => command.key === "CommandUpdateConfigItem"),
+      commands?.filter(
+        (command) =>
+          command.key === "CommandUpdateConfigItem" &&
+          command.payload.change == null,
+      ),
     ).toHaveLength(0)
 
     // The original name must remain unchanged.

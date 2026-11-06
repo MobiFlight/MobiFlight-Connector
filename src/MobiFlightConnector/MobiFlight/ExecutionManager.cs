@@ -407,7 +407,7 @@ namespace MobiFlight
             // thread, every 200ms) enumerates bare. Don't unmark without synchronizing ConfigItems first.
             MessageExchange.Instance.SubscribeOnUiThread<CommandUpdateConfigItem>((message) =>
             {
-                HandleCommandUpdateConfigItem(message.Item);
+                HandleCommandUpdateConfigItem(message.Item, message.Change);
             });
 
             MessageExchange.Instance.SubscribeOnUiThread<CommandConfigBulkAction>((message) =>
@@ -474,25 +474,6 @@ namespace MobiFlight
                         ConfigItems.RemoveAt(deleteIndex);
 
                         OnInputConfigSettingsChanged(this, null);
-                        break;
-
-                    case "rename":
-                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        string newName = message.Item.Name;
-
-                        if (cfg == null || newName == null || cfg.Name == newName)
-                            return;
-
-                        _configListUndoManager.RecordItemRename(cfg);
-
-                        cfg.Name = newName;
-                        break;
-
-                    case "toggle":
-                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        if (cfg == null) return;
-                        _configListUndoManager.RecordConfigListToggleUndo(new List<IConfigItem> { cfg });
-                        cfg.Active = !cfg.Active;
                         break;
 
                     case "duplicate":
@@ -867,7 +848,7 @@ namespace MobiFlight
             return true;
         }
 
-        public void HandleCommandUpdateConfigItem(ConfigItem item)
+        public void HandleCommandUpdateConfigItem(ConfigItem item, string change = null)
         {
             if (
                 item == null ||
@@ -891,7 +872,8 @@ namespace MobiFlight
                 _configListUndoManager.RecordConfigListItemEditUndo(
                     originalItem,
                     file,
-                    itemIndex
+                    itemIndex,
+                    change
                 );
 
             items[itemIndex] = item;

@@ -236,6 +236,126 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void CommandUpdateConfigItem_Rename_RecordsAndUndoes()
+        {
+            // Arrange
+            var original = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Original Input",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { original }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+
+            _executionManager.Project = project;
+
+            var renamedItem = (InputConfigItem)original.Clone();
+            renamedItem.Name = "Renamed Input";
+
+            // Act
+            MessageExchange.Instance.Publish(
+                new CommandUpdateConfigItem
+                {
+                    Item = renamedItem,
+                    Change = "rename"
+                }
+            );
+
+            // Verify the new state.
+            Assert.AreEqual("Renamed Input", file.ConfigItems[0].Name);
+
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "ItemRename" },
+                history.History
+            );
+
+            // Undo
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 1
+                }
+            );
+
+            // Verify restoration.
+            Assert.AreEqual("Original Input", file.ConfigItems[0].Name);
+
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(history.CanUndo);
+            Assert.HasCount(0, history.History);
+        }
+
+        [TestMethod]
+        public void CommandUpdateConfigItem_Toggle_RecordsAndUndoes()
+        {
+            // Arrange
+            var original = new InputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Name = "Test Input",
+                Active = true
+            };
+
+            var file = new ConfigFile
+            {
+                ConfigItems = { original }
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(file);
+
+            _executionManager.Project = project;
+
+            var toggledItem = (InputConfigItem)original.Clone();
+            toggledItem.Active = false;
+
+            // Act
+            MessageExchange.Instance.Publish(
+                new CommandUpdateConfigItem
+                {
+                    Item = toggledItem,
+                    Change = "toggle"
+                }
+            );
+
+            // Verify the new state.
+            Assert.IsFalse(file.ConfigItems[0].Active);
+
+            var history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            CollectionAssert.AreEqual(
+                new[] { "Toggle" },
+                history.History
+            );
+
+            // Undo
+            MessageExchange.Instance.Publish(
+                new CommandUndoConfigList
+                {
+                    Steps = 1
+                }
+            );
+
+            // Verify restoration.
+            Assert.IsTrue(file.ConfigItems[0].Active);
+
+            history = GetPublishedMessages<ConfigListUndoState>().Last();
+
+            Assert.IsFalse(history.CanUndo);
+            Assert.HasCount(0, history.History);
+        }
+
+        [TestMethod]
         public void CommandActiveConfigFile_Test()
         {
             // Arrange
@@ -1446,19 +1566,22 @@ namespace MobiFlight.Tests
 
             _executionManager.Project = project;
 
+            var toggledItem = (OutputConfigItem)item.Clone();
+            toggledItem.Active = false;
+
             // Record a Toggle action.
             MessageExchange.Instance.Publish(
-                new CommandConfigContextMenu
+                new CommandUpdateConfigItem
                 {
-                    Action = "toggle",
-                    Item = item
+                    Item = toggledItem,
+                    Change = "toggle"
                 }
             );
 
-            Assert.IsFalse(item.Active);
+            Assert.IsFalse(project.ConfigFiles[0].ConfigItems[0].Active);
 
             // Simulate an unexpected external modification.
-            project.ConfigFiles[0].ConfigItems.Remove(item);
+            project.ConfigFiles[0].ConfigItems.RemoveAt(0);
 
             // Act
             MessageExchange.Instance.Publish(
@@ -1867,12 +1990,15 @@ namespace MobiFlight.Tests
                 Assert.AreEqual(0L, latestState.HistoryStart);
             }
 
+            var toggledItem = (InputConfigItem)original.Clone();
+            toggledItem.Active = false;
+
             // Toggle the original ConfigItem.
             MessageExchange.Instance.Publish(
-                new CommandConfigContextMenu
+                new CommandUpdateConfigItem
                 {
-                    Action = "toggle",
-                    Item = original
+                    Item = toggledItem,
+                    Change = "toggle"
                 }
             );
 
@@ -1980,12 +2106,15 @@ namespace MobiFlight.Tests
 
             _executionManager.Project = project;
 
+            var toggledItem = (InputConfigItem)original.Clone();
+            toggledItem.Active = false;
+
             // Toggle
             MessageExchange.Instance.Publish(
-                new CommandConfigContextMenu
+                new CommandUpdateConfigItem
                 {
-                    Action = "toggle",
-                    Item = original
+                    Item = toggledItem,
+                    Change = "toggle"
                 }
             );
 

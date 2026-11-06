@@ -10,10 +10,7 @@ import {
   ConfigValuePartialUpdate,
   OverlayState,
 } from "@/types/messages"
-import {
-  CommandUpdateConfigItem,
-  CommandConfigContextMenu,
-} from "@/types/commands"
+import { CommandUpdateConfigItem } from "@/types/commands"
 import {
   ConfigItemStatusType,
   ConfigItemType,
@@ -73,29 +70,6 @@ export class ConfigListPage {
           key: "ConfigValuePartialUpdate",
           payload: {
             ConfigItems: [item],
-          } as ConfigValuePartialUpdate,
-        }
-
-        window.postMessage(response, "*")
-      },
-    )
-
-    await this.mobiFlightPage.subscribeToCommand(
-      "CommandConfigContextMenu",
-      async (message) => {
-        const { action, item } = (message as CommandConfigContextMenu).payload
-
-        if (action !== "rename" && action !== "toggle") {
-          return
-        }
-
-        const updatedItem: IConfigItem =
-          action === "toggle" ? { ...item, Active: !item.Active } : item
-
-        const response = {
-          key: "ConfigValuePartialUpdate",
-          payload: {
-            ConfigItems: [updatedItem],
           } as ConfigValuePartialUpdate,
         }
 

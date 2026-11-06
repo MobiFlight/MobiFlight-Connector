@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/switch"
 import messageExchange from "@/lib/messageExchange"
-import { CommandConfigContextMenu } from "@/types/commands"
+import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { useSortable } from "@dnd-kit/sortable"
 import { IconGripVertical } from "@tabler/icons-react"
@@ -16,14 +16,16 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
   const item = row.original as IConfigItem
   const { attributes, listeners } = useSortable({ id: item.GUID })
 
-  const handleToggle = () => {
+  const handleToggle = (checked: boolean) => {
+    if (checked === item.Active) return
+
     publish({
-      key: "CommandConfigContextMenu",
+      key: "CommandUpdateConfigItem",
       payload: {
-        action: "toggle",
-        item,
+        item: { ...item, Active: checked },
+        change: "toggle",
       },
-    } as CommandConfigContextMenu)
+    } as CommandUpdateConfigItem)
   }
 
   return (
