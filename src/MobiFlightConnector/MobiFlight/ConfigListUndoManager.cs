@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -27,7 +28,7 @@ namespace MobiFlight
         {
             _executionManager = executionManager;
         }
-        internal enum ConfigListUndoAction
+        private enum ConfigListUndoAction
         {
             Delete,
             Add,
@@ -43,7 +44,7 @@ namespace MobiFlight
             ItemEdited
         }
 
-        internal sealed class ConfigListUndoItemState
+        private sealed class ConfigListUndoItemState
         {
             public string Guid { get; set; }
             public int OriginalIndex { get; set; }
@@ -51,13 +52,13 @@ namespace MobiFlight
             public IConfigItem Snapshot { get; set; }
         }
 
-        internal sealed class ConfigListProfileSnapshot
+        private sealed class ConfigListProfileSnapshot
         {
             public ConfigFile File { get; set; }
             public List<IConfigItem> Items { get; set; }
         }
 
-        internal sealed class ConfigListUndoEntry
+        private sealed class ConfigListUndoEntry
         {
             public ConfigListUndoAction Action { get; set; }
             public Project Project { get; set; }
@@ -93,9 +94,7 @@ namespace MobiFlight
 
         private long _listHistoryStart = 0;
 
-        internal List<ConfigListUndoEntry> UndoHistory => _listUndoHistory;
-
-        internal void RecordConfigListUndo(
+        private void RecordConfigListUndo(
             ConfigListUndoAction action,
             IConfigItem item,
             int originalIndex)
@@ -119,7 +118,7 @@ namespace MobiFlight
             PushConfigListUndo(entry);
         }
 
-        internal void PushConfigListUndo(ConfigListUndoEntry entry)
+        private void PushConfigListUndo(ConfigListUndoEntry entry)
         {
             if (_listUndoHistory.Count >= MaxListUndoSteps)
             {
@@ -131,7 +130,7 @@ namespace MobiFlight
             _executionManager.NotifyConfigListActionRecorded();
         }
 
-        internal void RecordConfigListBulkUndo(ConfigListUndoAction action, List<IConfigItem> affectedItems)
+        private void RecordConfigListBulkUndo(ConfigListUndoAction action, List<IConfigItem> affectedItems)
         {
             if (affectedItems.Count == 0) return;
             var states = affectedItems.Select(item => new ConfigListUndoItemState
@@ -159,6 +158,31 @@ namespace MobiFlight
             PushConfigListUndo(entry);
         }
 
+        internal void RecordConfigListAddUndo(IConfigItem item, int index)
+        {
+            RecordConfigListUndo(ConfigListUndoAction.Add, item, index);
+        }
+
+        internal void RecordConfigListDeleteUndo(IConfigItem item, int index)
+        {
+            RecordConfigListUndo(ConfigListUndoAction.Delete, item, index);
+        }
+
+        internal void RecordConfigListDuplicateUndo(IConfigItem item, int index)
+        {
+            RecordConfigListUndo(ConfigListUndoAction.Duplicate, item, index);
+        }
+
+        internal void RecordConfigListBulkDeleteUndo(List<IConfigItem> affectedItems)
+        {
+            RecordConfigListBulkUndo(ConfigListUndoAction.BulkDelete, affectedItems);
+        }
+
+        internal void RecordConfigListToggleUndo(List<IConfigItem> affectedItems)
+        {
+            RecordConfigListBulkUndo(ConfigListUndoAction.Toggle, affectedItems);
+        }
+
         internal void RecordConfigListResortUndo(
             int sourceIndex,
             int targetIndex,
@@ -183,6 +207,77 @@ namespace MobiFlight
                         .ToList()
             };
             PushConfigListUndo(entry);
+        }
+
+        internal void RecordItemRename(IConfigItem item)
+        {
+            PushConfigListUndo(new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.ItemRename,
+                Project = Project,
+                File = Project.ConfigFiles[ActiveConfigIndex],
+                ConfigIndex = ActiveConfigIndex,
+                Guid = item.GUID,
+                OriginalName = item.Name
+            });
+        }
+
+        internal void RecordProfileDeleted(ConfigFile file, int index)
+        {
+            PushConfigListUndo(new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.ProfileDeleted,
+                Project = Project,
+                File = file,
+                ConfigIndex = index,
+                OriginalIndex = index
+            });
+        }
+
+        internal void RecordProfileRename(ConfigFile file, int index)
+        {
+            PushConfigListUndo(new ConfigListUndoEntry
+            {
+                Action = ConfigListUndoAction.ProfileRename,
+                Project = Project,
+                File = file,
+                ConfigIndex = index,
+                OriginalLabel = file.Label
+            });
+        }
+
+        internal bool RecordConfigListItemEditUndo(IConfigItem originalItem, ConfigFile file, int itemIndex)
+        {
+            bool isLatestCreation = false;
+
+            if (_listUndoHistory.Count > 0)
+            {
+                var lastEntry = _listUndoHistory[_listUndoHistory.Count - 1];
+
+                isLatestCreation = (
+                    lastEntry.Action == ConfigListUndoAction.Add ||
+                    lastEntry.Action == ConfigListUndoAction.Duplicate) &&
+                    lastEntry.Guid == originalItem.GUID &&
+                    ReferenceEquals(lastEntry.Project, Project) &&
+                    ReferenceEquals(lastEntry.File, file) &&
+                    lastEntry.ConfigIndex == ActiveConfigIndex;
+            }
+
+            if (!isLatestCreation)
+            {
+                PushConfigListUndo(new ConfigListUndoEntry
+                {
+                    Action = ConfigListUndoAction.ItemEdited,
+                    Project = Project,
+                    File = file,
+                    ConfigIndex = ActiveConfigIndex,
+                    OriginalIndex = itemIndex,
+                    Guid = originalItem.GUID,
+                    Snapshot = (IConfigItem)originalItem.Clone()
+                });
+            }
+
+            return isLatestCreation;
         }
 
         public void RecordProfileAdded(ConfigFile file, int index)
@@ -248,7 +343,7 @@ namespace MobiFlight
             PublishDeleteUndoState();
         }
 
-        internal void PublishDeleteUndoState()
+        private void PublishDeleteUndoState()
         {
             MessageExchange.Instance.Publish(new ConfigListUndoState
             {
@@ -263,9 +358,8 @@ namespace MobiFlight
         internal void UndoSteps(int requestedSteps)
         {
             int steps = Math.Min(
-                Math.Max(requestedSteps, 1),
-                _listUndoHistory.Count);
-
+                    Math.Max(requestedSteps, 1),
+                    _listUndoHistory.Count);
             for (int step = 0; step < steps; step++)
             {
                 if (_listUndoHistory.Count == 0)
@@ -297,14 +391,14 @@ namespace MobiFlight
 
                 if (!validProject || !validProfile || !validIndex)
                 {
-                    Log.Instance.log(
-                        $"ConfigList Undo validation failed: " +
-                        $"Action={entry.Action}, " +
-                        $"RecordedIndex={entry.ConfigIndex}, " +
+                    RejectConfigListUndo(
+                        entry,
+                        $"Project/profile mismatch. " +
                         $"ActualIndex={actualProfileIndex}, " +
                         $"ProfileCount={Project.ConfigFiles.Count}, " +
-                        $"SameProject={validProject}",
-                        LogSeverity.Warn
+                        $"SameProject={validProject}, " +
+                        $"ValidProfile={validProfile}, " +
+                        $"ValidIndex={validIndex}"
                     );
 
                     return;
@@ -314,10 +408,15 @@ namespace MobiFlight
 
                 if (entry.Action == ConfigListUndoAction.Delete)
                 {
-                    // The deleted GUID must not already exist.
-                    if (items.Any(i => i.GUID == entry.Guid))
+                    if (entry.Snapshot == null || items.Any(i => i.GUID == entry.Guid))
                     {
-                        ClearConfigListUndoHistory();
+                        RejectConfigListUndo(
+                            entry,
+                            entry.Snapshot == null
+                                ? "Missing snapshot for deleted item."
+                                : $"GUID already exists: {entry.Guid}"
+                        );
+
                         return;
                     }
 
@@ -343,7 +442,8 @@ namespace MobiFlight
 
                     if (itemIndex < 0)
                     {
-                        ClearConfigListUndoHistory();
+                        RejectConfigListUndo(entry, $"Created ConfigItem not found: {entry.Guid}");
+
                         return;
                     }
 
@@ -352,14 +452,22 @@ namespace MobiFlight
 
                 else if (entry.Action == ConfigListUndoAction.BulkDelete)
                 {
-                    bool hasConflict = entry.Items.Any(
-                        state => items.Any(
-                            item => item.GUID == state.Guid
-                        )
-                    );
+                    bool hasConflict =
+                        entry.Items == null ||
+                        entry.Items.Count == 0 ||
+                        entry.Items.Any(state =>
+                            state.Snapshot == null ||
+                            items.Any(item => item.GUID == state.Guid)
+                        );
+
                     if (hasConflict)
                     {
-                        ClearConfigListUndoHistory();
+                        RejectConfigListUndo(
+                            entry,
+                            "BulkDelete restore failed: missing snapshot " +
+                            "or conflicting ConfigItem GUID."
+                        );
+
                         return;
                     }
                     foreach (var state in entry.Items.OrderBy(
@@ -378,16 +486,24 @@ namespace MobiFlight
 
                 else if (entry.Action == ConfigListUndoAction.Toggle)
                 {
-                    bool hasMissingItem = entry.Items.Any(
-                        state => !items.Any(
-                            item => item.GUID == state.Guid
-                        )
-                    );
+                    bool hasMissingItem =
+                        entry.Items == null ||
+                        entry.Items.Count == 0 ||
+                        entry.Items.Any(state =>
+                            !items.Any(item => item.GUID == state.Guid)
+                        );
+
                     if (hasMissingItem)
                     {
-                        ClearConfigListUndoHistory();
+                        RejectConfigListUndo(
+                            entry,
+                            "Toggle restore failed: one or more " +
+                            "ConfigItems are missing."
+                        );
+
                         return;
                     }
+
                     foreach (var state in entry.Items)
                     {
                         var item = items.Find(
@@ -402,12 +518,19 @@ namespace MobiFlight
                     if (
                         entry.TargetConfigIndex < 0 ||
                         entry.TargetConfigIndex >= Project.ConfigFiles.Count ||
+                        entry.TargetFile == null ||
                         !ReferenceEquals(
                             Project.ConfigFiles[entry.TargetConfigIndex],
                             entry.TargetFile)
                         )
                     {
-                        ClearConfigListUndoHistory();
+                        RejectConfigListUndo(
+                            entry,
+                            $"Resort target profile mismatch. " +
+                            $"TargetIndex={entry.TargetConfigIndex}, " +
+                            $"ProfileCount={Project.ConfigFiles.Count}"
+                        );
+
                         return;
                     }
 
@@ -427,10 +550,16 @@ namespace MobiFlight
                         currentGuids.Count != expectedGuids.Count ||
                         currentGuids.Distinct().Count() != currentGuids.Count ||
                         expectedGuids.Distinct().Count() != expectedGuids.Count ||
-                        !new HashSet<string>(currentGuids)
-                            .SetEquals(expectedGuids))
+                        !new HashSet<string>(currentGuids).SetEquals(expectedGuids)
+                        )
                     {
-                        ClearConfigListUndoHistory();
+                        RejectConfigListUndo(
+                            entry,
+                            $"Resort GUID mismatch. " +
+                            $"CurrentCount={currentGuids.Count}, " +
+                            $"ExpectedCount={expectedGuids.Count}"
+                        );
+
                         return;
                     }
                     var itemsByGuid = currentItems.ToDictionary(item => item.GUID);
@@ -457,12 +586,11 @@ namespace MobiFlight
                         entry.File.ConfigItems.Count > 0
                     )
                     {
-                        Log.Instance.log(
-                            $"Cannot undo ProfileAdded: " +
-                            $"ProfileCount={Project.ConfigFiles.Count}, " +
-                            $"ItemCount={entry.File.ConfigItems.Count}",
-                            LogSeverity.Warn
+                        RejectConfigListUndo(
+                            entry,
+                            "Added profile list no longer matches the recorded state."
                         );
+
                         return;
                     }
 
@@ -503,11 +631,11 @@ namespace MobiFlight
 
                     if (!validMerge)
                     {
-                        Log.Instance.log(
-                            "Cannot undo ProfileMerged: " +
-                            "merged profile list has changed.",
-                            LogSeverity.Warn
+                        RejectConfigListUndo(
+                            entry,
+                            "Merged profile list no longer matches the recorded state."
                         );
+
                         return;
                     }
 
@@ -524,7 +652,11 @@ namespace MobiFlight
                     var item = items.Find(i => i.GUID == entry.Guid);
                     if (item == null)
                     {
-                        Log.Instance.log($"Cannot undo ItemRename: {entry.Guid} not found.", LogSeverity.Warn);
+                        RejectConfigListUndo(
+                            entry,
+                            $"ConfigItem not found for rename: {entry.Guid}"
+                        );
+
                         return;
                     }
                     item.Name = entry.OriginalName;
@@ -536,10 +668,11 @@ namespace MobiFlight
 
                     if (itemIndex < 0 || entry.Snapshot == null)
                     {
-                        Log.Instance.log(
-                            $"Cannot undo ItemEdited: {entry.Guid} not found or snapshot is missing.",
-                            LogSeverity.Warn
-                            );
+                        RejectConfigListUndo(
+                            entry,
+                            $"ConfigItem not found or snapshot missing: {entry.Guid}"
+                        );
+
                         return;
                     }
 
